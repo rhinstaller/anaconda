@@ -27,7 +27,6 @@ from pyanaconda import network
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
-from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -233,7 +232,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def _update_editable_configurations(self):
         device_configurations = self._network_module.proxy.GetDeviceConfigurations()
-        self.editable_configurations = [apply_structure(dc, NetworkDeviceConfiguration())
+        self.editable_configurations = [NetworkDeviceConfiguration.from_structure(dc)
                                         for dc in device_configurations
                                         if dc['device-type'] in self.configurable_device_types]
 

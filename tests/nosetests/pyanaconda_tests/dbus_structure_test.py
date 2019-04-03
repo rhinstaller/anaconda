@@ -20,8 +20,8 @@
 import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.structure import DBusData, get_structure, apply_structure, \
-    DBusStructureError, generate_string_from_data
+from pyanaconda.dbus.structure import DBusData, get_structure, DBusStructureError, \
+    generate_string_from_data
 
 
 class DBusStructureTestCase(unittest.TestCase):
@@ -107,39 +107,8 @@ class DBusStructureTestCase(unittest.TestCase):
         structure = get_structure(self.SkipData())
         self.assertEqual(structure, {'x': get_variant(Int, 0)})
 
-        data = apply_structure({'x': 10}, self.SkipData())
+        data = self.SkipData.from_structure({'x': 10})
         self.assertEqual(data.x, 10)
-
-    class InvalidData(object):
-
-        def __init__(self):
-            self._x = 0
-
-        @property
-        def x(self) -> Int:
-            return self._x
-
-        @x.setter
-        def x(self, x):
-            self._x = x
-
-    def apply_to_invalid_data_test(self):
-        data = self.InvalidData()
-        self.assertEqual(data.x, 0)
-
-        with self.assertRaises(DBusStructureError) as cm:
-            get_structure(data)
-
-        self.assertEqual(str(cm.exception), """Fields are not defined at '__dbus_fields__'.""")
-
-    def get_from_invalid_data_test(self):
-        data = self.InvalidData()
-        self.assertEqual(data.x, 0)
-
-        with self.assertRaises(DBusStructureError) as cm:
-            apply_structure({'y': 10}, self.InvalidData())
-
-        self.assertEqual(str(cm.exception), """Fields are not defined at '__dbus_fields__'.""")
 
     class SimpleData(DBusData):
 
@@ -259,13 +228,12 @@ class DBusStructureTestCase(unittest.TestCase):
         )
 
     def apply_complicated_structure_test(self):
-        data = apply_structure(
+        data = self.ComplicatedData.from_structure(
             {
                 'dictionary': {1: "1", 2: "2"},
                 'bool-list': [True, False, False],
                 'very-long-property-name': "My String Value"
-            },
-            self.ComplicatedData()
+            }
         )
 
         self.assertEqual(data.dictionary, {1: "1", 2: "2"})

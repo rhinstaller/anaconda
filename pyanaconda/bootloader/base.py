@@ -36,7 +36,6 @@ from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import FCOE
 from pyanaconda.modules.common.constants.services import STORAGE, NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
-from pyanaconda.dbus.structure import apply_structure
 
 log = get_module_logger(__name__)
 
@@ -906,8 +905,8 @@ class BootLoader(object):
 def get_interface_hw_address(iface):
     """Get hardware address of network interface."""
     network_proxy = NETWORK.get_proxy()
-    device_infos = [apply_structure(device, NetworkDeviceInfo())
-                    for device in network_proxy.GetSupportedDevices()]
+    device_infos = NetworkDeviceInfo.from_structure_list(network_proxy.GetSupportedDevices())
+
     for info in device_infos:
         if info.device_name == iface:
             return info.hw_address

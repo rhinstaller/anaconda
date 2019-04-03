@@ -48,7 +48,7 @@ class SecurityModule(KickstartModule):
         self._authconfig_args = []
 
         self.realm_changed = Signal()
-        self._realm = self.create_realm()
+        self._realm = RealmData()
 
     def publish(self):
         """Publish the module."""
@@ -74,8 +74,7 @@ class SecurityModule(KickstartModule):
             self.set_authconfig(shlex.split(data.authconfig.authconfig))
 
         if data.realm.join_realm:
-
-            realm = self.create_realm()
+            realm = RealmData()
             realm.name = data.realm.join_realm
             realm.discover_options = data.realm.discover_options
             realm.join_options = data.realm.join_args
@@ -174,10 +173,3 @@ class SecurityModule(KickstartModule):
         self._realm = realm
         self.realm_changed.emit()
         log.debug("Realm is set to %s.", realm)
-
-    def create_realm(self):
-        """Create a new instance of realm data.
-
-        :return: an instance of RealmData
-        """
-        return RealmData()

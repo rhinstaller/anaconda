@@ -17,12 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.structure import get_structure, apply_structure
+from pyanaconda.dbus.structure import get_structure
 from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.security.constants import SELinuxMode
 
 
@@ -117,6 +118,4 @@ class SecurityInterface(KickstartModuleInterface):
 
         :param realm: a dictionary with a specification
         """
-        realm_data = self.implementation.create_realm()
-        apply_structure(realm, realm_data)
-        self.implementation.set_realm(realm_data)
+        self.implementation.set_realm(RealmData.from_structure(realm))

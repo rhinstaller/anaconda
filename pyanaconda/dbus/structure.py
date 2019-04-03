@@ -22,8 +22,7 @@ from typing import get_type_hints
 
 from pyanaconda.dbus.typing import get_variant, Structure, Dict, List
 
-__all__ = ["get_structure", "apply_structure", "DBusStructureError", "generate_string_from_data",
-           "DBusData"]
+__all__ = ["get_structure", "DBusStructureError", "generate_string_from_data", "DBusData"]
 
 
 # Class attribute for DBus fields.
@@ -129,7 +128,16 @@ class DBusData(ABC):
         :return: a data object
         """
         data = cls()
-        apply_structure(structure, data, fields=get_fields(cls))
+        fields = get_fields(cls)
+
+        for name, value in structure.items():
+            field = fields.get(name, None)
+
+            if not field:
+                raise DBusStructureError("Field '{}' doesn't exist.".format(name))
+
+            field.set_data(data, value)
+
         return data
 
     @classmethod
@@ -195,30 +203,6 @@ def get_structure(obj, fields=None) -> Structure:
         structure[name] = field.get_data_variant(obj)
 
     return structure
-
-
-def apply_structure(structure, obj, fields=None):
-    """Set an object with data from a DBus structure.
-
-    The given structure is usually a value returned by DBus.
-
-    :param structure: an unpacked DBus structure
-    :param obj: a data object
-    :param fields: a map of DBus fields or None
-    :return: a data object
-    """
-    if fields is None:
-        fields = get_fields(obj)
-
-    for name, value in structure.items():
-        field = fields.get(name, None)
-
-        if not field:
-            raise DBusStructureError("Field '{}' doesn't exist.".format(name))
-
-        field.set_data(obj, value)
-
-    return obj
 
 
 def generate_fields(cls):

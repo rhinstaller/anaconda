@@ -39,7 +39,6 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.livepayload import LiveImagePayload
-from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -556,8 +555,7 @@ def get_supported_devices():
     :rtype: list(NetworkDeviceInfo)
     """
     network_proxy = NETWORK.get_proxy()
-    return [apply_structure(device, NetworkDeviceInfo())
-            for device in network_proxy.GetSupportedDevices()]
+    return NetworkDeviceInfo.from_structure_list(network_proxy.GetSupportedDevices())
 
 
 def get_team_devices():
