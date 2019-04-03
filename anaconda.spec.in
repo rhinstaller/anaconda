@@ -344,6 +344,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 3 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.41-1
+- Use new ssl certificate kickstart options (lueberni)
+  Resolves: rhbz#1693976
+
 * Thu Mar 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.40-1
 - Pull in new translations (rvykydal)
   Related: rhbz#1684056
