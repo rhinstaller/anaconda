@@ -56,7 +56,7 @@ class InstallTreeMetadata(object):
 
         return True
 
-    def load_url(self, url, proxies, sslverify, headers):
+    def load_url(self, url, proxies, sslverify, sslcert, headers):
         """Load URL link.
 
         This can be also to local file.
@@ -87,13 +87,13 @@ class InstallTreeMetadata(object):
             # Downloading .treeinfo
             log.info("Trying to download '.treeinfo'")
             (response, ret_code[0]) = self._download_treeinfo_file(session, url, ".treeinfo",
-                                                                   headers, proxies, sslverify)
+                                                                   headers, proxies, sslverify, sslcert)
             if response:
                 break
             # Downloading treeinfo
             log.info("Trying to download 'treeinfo'")
             (response, ret_code[1]) = self._download_treeinfo_file(session, url, "treeinfo",
-                                                                   headers, proxies, sslverify)
+                                                                   headers, proxies, sslverify, sslcert)
             if response:
                 break
 
@@ -130,10 +130,10 @@ class InstallTreeMetadata(object):
         return False
 
     @staticmethod
-    def _download_treeinfo_file(session, url, file_name, headers, proxies, verify):
+    def _download_treeinfo_file(session, url, file_name, headers, proxies, verify, cert):
         try:
             result = session.get("%s/%s" % (url, file_name), headers=headers,
-                                 proxies=proxies, verify=verify)
+                                 proxies=proxies, verify=verify, cert=cert)
             # Server returned HTTP 4XX or 5XX codes
             if 400 <= result.status_code < 600:
                 log.info("Server returned %i code", result.status_code)
