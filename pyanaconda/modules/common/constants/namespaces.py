@@ -66,6 +66,11 @@ PAYLOAD_NAMESPACE = (
     "Payload"
 )
 
+DNF_NAMESPACE = (
+    *PAYLOAD_NAMESPACE,
+    "DNF"
+)
+
 STORAGE_NAMESPACE = (
     *MODULES_NAMESPACE,
     "Storage"

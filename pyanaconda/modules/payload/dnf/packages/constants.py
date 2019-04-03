@@ -1,5 +1,5 @@
 #
-# Kickstart handler for packaging.
+# Private constants for the DNF/Packaging module.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -17,23 +17,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.sections import PackageSection
-from pykickstart.parser import Packages
-
-from pyanaconda.core.kickstart import VERSION, KickstartSpecification
+from enum import Enum, unique
 
 
-class PayloadKickstartSpecification(KickstartSpecification):
+# default value when Packages module property timeout is not set
+TIMEOUT_UNSET = -1
 
-    version = VERSION
+# default value when Packages module property retries is not set
+RETRIES_UNSET = -1
 
-    commands = {
-    }
+# special values for languages property of the Packages module
+# the RPM macro _install_langs will be set to 'nil'
+LANGUAGES_NONE = "none"
+# the RPM macro _install_langs will have default value which is 'all'
+LANGUAGES_DEFAULT = "all"
 
-    sections = {
-        "packages": PackageSection
-    }
 
-    sections_data = {
-        "packages": Packages
-    }
+@unique
+class MultilibPolicy(Enum):
+    """Multilib policy enum."""
+
+    ALL = "all"
+    BEST = "best"

@@ -1,7 +1,7 @@
 #
-# Kickstart handler for packaging.
+# DBus interface for DNF payload.
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,23 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.sections import PackageSection
-from pykickstart.parser import Packages
+from pyanaconda.dbus.interface import dbus_interface
 
-from pyanaconda.core.kickstart import VERSION, KickstartSpecification
+from pyanaconda.modules.common.constants.interfaces import DNF_HANDLER
+from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 
 
-class PayloadKickstartSpecification(KickstartSpecification):
-
-    version = VERSION
-
-    commands = {
-    }
-
-    sections = {
-        "packages": PackageSection
-    }
-
-    sections_data = {
-        "packages": Packages
-    }
+@dbus_interface(DNF_HANDLER.interface_name)
+class DNFHandlerInterface(KickstartModuleInterfaceTemplate):
+    """DBus interface for DNF payload module."""

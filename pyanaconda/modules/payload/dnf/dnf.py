@@ -1,7 +1,7 @@
 #
-# Kickstart module for packaging.
+# Kickstart module for DNF payload.
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -18,45 +18,32 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.modules.common.base import KickstartModule
-from pyanaconda.modules.common.constants.services import PAYLOAD
-from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
-from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
+from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
+from pyanaconda.modules.payload.dnf.dnf_interface import DNFHandlerInterface
+from pyanaconda.modules.payload.dnf.packages.packages import PackagesHandlerModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class PayloadModule(KickstartModule):
-    """The Payload module."""
+class DNFHandlerModule(KickstartBaseModule):
+    """The DNF payload module."""
 
     def __init__(self):
         super().__init__()
-        self._payload_handler = DNFHandlerModule()
+        self._packages_handler = PackagesHandlerModule()
 
     def publish(self):
         """Publish the module."""
-        self._payload_handler.publish()
+        self._packages_handler.publish()
 
-        DBus.publish_object(PAYLOAD.object_path, PayloadInterface(self))
-        DBus.register_service(PAYLOAD.service_name)
-
-    @property
-    def kickstart_specification(self):
-        """Return the kickstart specification."""
-        return PayloadKickstartSpecification
+        DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFHandlerInterface(self))
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("Processing kickstart data...")
-        self._payload_handler.process_kickstart(data)
+        self._packages_handler.process_kickstart(data)
 
-    def generate_kickstart(self):
-        """Return the kickstart string."""
-        log.debug("Generating kickstart data...")
-        data = self.get_kickstart_handler()
-
-        self._payload_handler.setup_kickstart(data)
-
-        return str(data)
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        self._packages_handler.setup_kickstart(data)
