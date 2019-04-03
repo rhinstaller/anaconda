@@ -22,8 +22,8 @@ from typing import get_type_hints
 
 from pyanaconda.dbus.typing import get_variant, Structure, Dict, List
 
-__all__ = ["get_structure", "apply_structure", "dbus_structure", "DBusStructureError",
-           "generate_string_from_data", "DBusData"]
+__all__ = ["get_structure", "apply_structure", "DBusStructureError", "generate_string_from_data",
+           "DBusData"]
 
 
 # Class attribute for DBus fields.
@@ -300,20 +300,3 @@ def generate_string_from_data(obj, skip=None, add=None):
         attributes.sort()
 
     return "{}({})".format(obj.__class__.__name__, ", ".join(attributes))
-
-
-def dbus_structure(cls):
-    """Decorator for DBus structures.
-
-    This decorator will use the class to generate DBus fields from the class
-    properties and set the class attribute __dbus_fields__ with the generated
-    fields.
-
-    Instances of the decorated class can be used to create and apply
-    DBus structures with method get_structure and apply_structure.
-
-    :param cls: a data class
-    :return: a data class with generated DBus fields
-    """
-    setattr(cls, DBUS_FIELDS_ATTRIBUTE, generate_fields(cls))
-    return cls

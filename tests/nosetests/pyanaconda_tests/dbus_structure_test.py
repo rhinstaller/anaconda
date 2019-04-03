@@ -20,68 +20,67 @@
 import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.structure import dbus_structure, get_structure, apply_structure, \
-    DBusStructureError, generate_string_from_data, DBusData
+from pyanaconda.dbus.structure import DBusData, get_structure, apply_structure, \
+    DBusStructureError, generate_string_from_data
 
 
 class DBusStructureTestCase(unittest.TestCase):
     """Test the DBus structure support."""
 
-    class NoData(object):
-        pass
-
     def empty_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            dbus_structure(self.NoData)
+            class NoData(DBusData):
+                pass
+
+            NoData()
 
         self.assertEqual(str(cm.exception), "No fields found.")
 
-    class ReadOnlyData(object):
-        @property
-        def x(self) -> Int:
-            return 1
-
     def readonly_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            dbus_structure(self.ReadOnlyData)
+            class ReadOnlyData(DBusData):
+                @property
+                def x(self) -> Int:
+                    return 1
+
+            ReadOnlyData()
 
         self.assertEqual(str(cm.exception), "Field 'x' cannot be set.")
 
-    class WriteOnlyData(object):
-        def __init__(self):
-            self._x = 0
-
-        def set_x(self, x):
-            self._x = x
-
-        x = property(None, set_x)
-
     def writeonly_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            dbus_structure(self.WriteOnlyData)
+            class WriteOnlyData(DBusData):
+                def __init__(self):
+                    self._x = 0
+
+                def set_x(self, x):
+                    self._x = x
+
+                x = property(None, set_x)
+
+            WriteOnlyData()
 
         self.assertEqual(str(cm.exception), "Field 'x' cannot be get.")
 
-    class NoTypeData(object):
-        def __init__(self):
-            self._x = 0
-
-        @property
-        def x(self):
-            return self._x
-
-        @x.setter
-        def x(self, x):
-            self._x = x
-
     def no_type_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            dbus_structure(self.NoTypeData)
+            class NoTypeData(DBusData):
+                def __init__(self):
+                    self._x = 0
+
+                @property
+                def x(self):
+                    return self._x
+
+                @x.setter
+                def x(self, x):
+                    self._x = x
+
+            NoTypeData()
 
         self.assertEqual(str(cm.exception), "Field 'x' has unknown type.")
 
-    @dbus_structure
-    class SkipData(object):
+    class SkipData(DBusData):
 
         class_attribute = 1
 
@@ -213,8 +212,7 @@ class DBusStructureTestCase(unittest.TestCase):
         self.assertEqual(data[1].x, 2)
         self.assertEqual(data[2].x, 3)
 
-    @dbus_structure
-    class ComplicatedData(object):
+    class ComplicatedData(DBusData):
 
         def __init__(self):
             self._very_long_property_name = ""
@@ -274,8 +272,7 @@ class DBusStructureTestCase(unittest.TestCase):
         self.assertEqual(data.bool_list, [True, False, False])
         self.assertEqual(data.very_long_property_name, "My String Value")
 
-    @dbus_structure
-    class StringData(object):
+    class StringData(DBusData):
 
         def __init__(self):
             self._a = 1
@@ -307,9 +304,6 @@ class DBusStructureTestCase(unittest.TestCase):
         def c(self, value):
             self._c = value
 
-        def __repr__(self):
-            return generate_string_from_data(self)
-
     def string_representation_test(self):
         data = self.StringData()
 
@@ -325,8 +319,7 @@ class DBusStructureTestCase(unittest.TestCase):
         self.assertEqual(expected, repr(data))
         self.assertEqual(expected, str(data))
 
-    @dbus_structure
-    class AdvancedStringData(object):
+    class AdvancedStringData(DBusData):
 
         def __init__(self):
             self._a = ""

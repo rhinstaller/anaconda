@@ -16,14 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure, generate_string_from_data
+from pyanaconda.dbus.structure import DBusData
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["DeviceData", "DeviceActionData"]
 
 
-@dbus_structure
-class DeviceData(object):
+class DeviceData(DBusData):
     """Device data."""
 
     SUPPORTED_ATTRIBUTES = [
@@ -153,12 +152,8 @@ class DeviceData(object):
     def description(self, text):
         self._description = text
 
-    def __repr__(self):
-        return generate_string_from_data(self)
 
-
-@dbus_structure
-class DeviceActionData(object):
+class DeviceActionData(DBusData):
     """Device action data."""
 
     def __init__(self):
@@ -223,6 +218,3 @@ class DeviceActionData(object):
     @description.setter
     def description(self, text):
         self._description = text
-
-    def __repr__(self):
-        return generate_string_from_data(self)
