@@ -207,15 +207,22 @@ def generate_fields(cls):
     return fields
 
 
-def generate_string_from_data(obj):
+def generate_string_from_data(obj, skip=None):
     """Generate a string representation of a data object.
 
+    Set the argument 'skip' to skip attributes with sensitive data.
+
     :param obj: a data object
+    :param skip: a list of names that should be skipped or None
     :return: a string representation of the data object
     """
     attributes = []
+    skipped_names = set(skip) if skip else set()
 
     for field in get_fields(obj).values():
+        if field.data_name in skipped_names:
+            continue
+
         attribute = "{}={}".format(field.data_name, repr(field.get_data(obj)))
         attributes.append(attribute)
 

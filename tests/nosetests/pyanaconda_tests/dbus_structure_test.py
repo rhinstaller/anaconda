@@ -252,6 +252,7 @@ class DBusStructureTestCase(unittest.TestCase):
             self._a = 1
             self._b = ""
             self._c = []
+            self._d = []
 
         @property
         def a(self) -> Int:
@@ -277,8 +278,16 @@ class DBusStructureTestCase(unittest.TestCase):
         def c(self, value):
             self._c = value
 
+        @property
+        def d(self) -> List[Str]:
+            return self._d
+
+        @d.setter
+        def d(self, value):
+            self._d = value
+
         def __repr__(self):
-            return generate_string_from_data(self)
+            return generate_string_from_data(self, skip=["d"])
 
     def init_string_representation_test(self):
         self.assertEqual(repr(self.StringData()), "StringData(a=1, b='', c=[])")
@@ -289,5 +298,6 @@ class DBusStructureTestCase(unittest.TestCase):
         data.a = 123
         data.b = "HELLO"
         data.c = [True, False]
+        data.d = ["SECRET"]
 
         self.assertEqual(repr(data), "StringData(a=123, b='HELLO', c=[True, False])")
