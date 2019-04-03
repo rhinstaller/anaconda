@@ -21,7 +21,7 @@ import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.structure import dbus_structure, get_structure, apply_structure, \
-    DBusStructureError
+    DBusStructureError, generate_string_from_data
 
 
 class DBusStructureTestCase(unittest.TestCase):
@@ -276,6 +276,9 @@ class DBusStructureTestCase(unittest.TestCase):
         @c.setter
         def c(self, value):
             self._c = value
+
+        def __repr__(self):
+            return generate_string_from_data(self)
 
     def init_string_representation_test(self):
         self.assertEqual(repr(self.StringData()), "StringData(a=1, b='', c=[])")
