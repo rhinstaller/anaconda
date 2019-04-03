@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure
+from pyanaconda.dbus.structure import dbus_structure, generate_string_from_data
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["UserData"]
@@ -241,6 +241,18 @@ class UserData(object):
         :return: if the other instance seems to be functionally the same as this one
         """
         return self.name == other_instance.name
+
+    def __repr__(self):
+        """Describe the user for easy debugging.
+
+        As there are many fields many of which might not be set,
+        we only try to list the values that are set.
+
+        :return: a string describing the UserData instance
+        :rtype: str
+        """
+        pw_string = "password_set={}".format(bool(self.password))
+        return generate_string_from_data(self, skip=["password"], add=[pw_string])
 
     def has_admin_priviledges(self):
         """Report if the user described by this structure is an admin.

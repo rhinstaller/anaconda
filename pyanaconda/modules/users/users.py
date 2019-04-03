@@ -220,7 +220,7 @@ class UsersModule(KickstartModule):
         """Set the list of UserData instances, one per user."""
         self._users = users
         self.users_changed.emit()
-        log.debug("A new user list has been set (%d users).", len(self._users))
+        log.debug("A new user list has been set: %s", self._users)
 
     def create_user_data(self):
         """Create an empty UserData instance."""

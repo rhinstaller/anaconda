@@ -1063,6 +1063,52 @@ class UsersDataTestCase(unittest.TestCase):
         self.assertIn("foo", user_data.groups)
         self.assertIn("bar", user_data.groups)
 
+    def string_method_test(self):
+        """Test the __str__() method of UserData."""
+
+        # empty user
+        user_data = UserData()
+        self.assertEqual(str(user_data), "UserData()")
+
+        # a generic user
+        user_data = UserData()
+        user_data.name = "foo"
+        user_data.password = "abc"
+        user_data.is_crypted = False
+        user_data.uid = 2
+        user_data.gid = 1
+        user_data.homedir = "/home/bar"
+        user_data.groups = ["mockuser", "wheel"]
+        user_data.gecos = "some stuff"
+        user_data.lock = False
+        user_data.shell = "zsh"
+        expected_string = """UserData(name="foo", password_set=True, uid=2, groups=['mockuser', 'wheel'], gid=1, homedir="/home/bar", shell="zsh", gecos="some stuff")"""
+        self.assertEqual(str(user_data), expected_string)
+
+        # password not set
+        user_data = UserData()
+        user_data.name = "foo"
+        self.assertEqual(str(user_data), 'UserData(name="foo")')
+
+        # password crypted
+        user_data = UserData()
+        user_data.name = "foo"
+        user_data.password = "abc"
+        user_data.is_crypted = True
+        self.assertEqual(str(user_data), 'UserData(name="foo", password_set=True, password_crypted=True)')
+
+        # account locked with password
+        user_data = UserData()
+        user_data.name = "foo"
+        user_data.password = "abc"
+        user_data.lock = True
+        self.assertEqual(str(user_data), 'UserData(name="foo", account_locked=True, password_set=True, password_crypted=True)')
+
+        # account locked without password
+        user_data = UserData()
+        user_data.name = "foo"
+        user_data.lock = True
+        self.assertEqual(str(user_data), 'UserData(name="foo", account_locked=True)')
 
 class SharedUICodeTestCase(unittest.TestCase):
     """Test shared UI code related to user handling.
