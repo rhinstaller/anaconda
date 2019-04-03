@@ -17,12 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 import inspect
+from abc import ABC
 from typing import get_type_hints
 
-from pyanaconda.dbus.typing import get_variant, Structure
+from pyanaconda.dbus.typing import get_variant, Structure, Dict, List
 
 __all__ = ["get_structure", "apply_structure", "dbus_structure", "DBusStructureError",
-           "generate_string_from_data"]
+           "generate_string_from_data", "DBusData"]
 
 
 # Class attribute for DBus fields.
@@ -105,6 +106,63 @@ class DBusField(object):
         return get_variant(self.type_hint, self.get_data(obj))
 
 
+class DBusData(ABC):
+    """Object representation of data in a DBus structure.
+
+    Classes derived from this class should represent specific types
+    of DBus structures. They will support a conversion from a DBus
+    structure of this type to a Python object and back.
+    """
+
+    def __init_subclass__(cls, *args, **kwargs):
+        """Create a new data class."""
+        super().__init_subclass__(*args, **kwargs)
+
+        # Generate the DBus fields from the members of the class cls.
+        setattr(cls, DBUS_FIELDS_ATTRIBUTE, generate_fields(cls))
+
+    @classmethod
+    def from_structure(cls, structure: Dict):
+        """Convert a DBus structure to a data object.
+
+        :param structure: a DBus structure
+        :return: a data object
+        """
+        data = cls()
+        apply_structure(structure, data, fields=get_fields(cls))
+        return data
+
+    @classmethod
+    def to_structure(cls, data) -> Structure:
+        """Convert this data object to a DBus structure.
+
+        :return: a DBus structure
+        """
+        return get_structure(data, fields=get_fields(cls))
+
+    @classmethod
+    def from_structure_list(cls, structures: List[Dict]):
+        """Convert DBus structures to data objects.
+
+        :param structures: a list of DBus structures
+        :return: a list of data objects
+        """
+        return list(map(cls.from_structure, structures))
+
+    @classmethod
+    def to_structure_list(cls, objects) -> List[Structure]:
+        """Convert data objects to DBus structures.
+
+        :param objects: a list of data objects
+        :return: a list of DBus structures
+        """
+        return list(map(cls.to_structure, objects))
+
+    def __repr__(self):
+        """Convert this data object to a string."""
+        return generate_string_from_data(self)
+
+
 def get_fields(obj):
     """Return DBus fields of a data object.
 
@@ -119,16 +177,19 @@ def get_fields(obj):
     return fields
 
 
-def get_structure(obj) -> Structure:
+def get_structure(obj, fields=None) -> Structure:
     """Return a DBus structure.
 
     The returned DBus structure is ready to be send on DBus.
 
     :param obj: a data object
+    :param fields: a map of DBus fields or None
     :return: a DBus structure
     """
     structure = {}
-    fields = get_fields(obj)
+
+    if fields is None:
+        fields = get_fields(obj)
 
     for name, field in fields.items():
         structure[name] = field.get_data_variant(obj)
@@ -136,16 +197,18 @@ def get_structure(obj) -> Structure:
     return structure
 
 
-def apply_structure(structure, obj):
+def apply_structure(structure, obj, fields=None):
     """Set an object with data from a DBus structure.
 
     The given structure is usually a value returned by DBus.
 
     :param structure: an unpacked DBus structure
     :param obj: a data object
+    :param fields: a map of DBus fields or None
     :return: a data object
     """
-    fields = get_fields(obj)
+    if fields is None:
+        fields = get_fields(obj)
 
     for name, value in structure.items():
         field = fields.get(name, None)

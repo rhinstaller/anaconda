@@ -21,7 +21,7 @@ import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.structure import dbus_structure, get_structure, apply_structure, \
-    DBusStructureError, generate_string_from_data
+    DBusStructureError, generate_string_from_data, DBusData
 
 
 class DBusStructureTestCase(unittest.TestCase):
@@ -142,8 +142,7 @@ class DBusStructureTestCase(unittest.TestCase):
 
         self.assertEqual(str(cm.exception), """Fields are not defined at '__dbus_fields__'.""")
 
-    @dbus_structure
-    class SimpleData(object):
+    class SimpleData(DBusData):
 
         def __init__(self):
             self._x = 0
@@ -160,29 +159,59 @@ class DBusStructureTestCase(unittest.TestCase):
         data = self.SimpleData()
         self.assertEqual(data.x, 0)
 
-        structure = get_structure(data)
+        structure = self.SimpleData.to_structure(data)
         self.assertEqual(structure, {'x': get_variant(Int, 0)})
 
         data.x = 10
         self.assertEqual(data.x, 10)
 
-        structure = get_structure(data)
+        structure = self.SimpleData.to_structure(data)
         self.assertEqual(structure, {'x': get_variant(Int, 10)})
+
+    def get_simple_structure_list_test(self):
+        d1 = self.SimpleData()
+        d1.x = 1
+
+        d2 = self.SimpleData()
+        d2.x = 2
+
+        d3 = self.SimpleData()
+        d3.x = 3
+
+        structures = self.SimpleData.to_structure_list([d1, d2, d3])
+
+        self.assertEqual(structures, [
+            {'x': get_variant(Int, 1)},
+            {'x': get_variant(Int, 2)},
+            {'x': get_variant(Int, 3)}
+        ])
 
     def apply_simple_structure_test(self):
         data = self.SimpleData()
         self.assertEqual(data.x, 0)
 
         structure = {'x': 10}
-        apply_structure(structure, data)
+        data = self.SimpleData.from_structure(structure)
 
         self.assertEqual(data.x, 10)
 
     def apply_simple_invalid_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            apply_structure({'y': 10}, self.SimpleData())
+            self.SimpleData.from_structure({'y': 10})
 
         self.assertEqual(str(cm.exception), "Field 'y' doesn't exist.")
+
+    def apply_simple_structure_list_test(self):
+        s1 = {'x': 1}
+        s2 = {'x': 2}
+        s3 = {'x': 3}
+
+        data = self.SimpleData.from_structure_list([s1, s2, s3])
+
+        self.assertEqual(len(data), 3)
+        self.assertEqual(data[0].x, 1)
+        self.assertEqual(data[1].x, 2)
+        self.assertEqual(data[2].x, 3)
 
     @dbus_structure
     class ComplicatedData(object):
