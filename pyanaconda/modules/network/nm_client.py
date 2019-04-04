@@ -717,7 +717,7 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
     if device:
         ac = device.get_active_connection()
         if ac or not only_replace:
-            active_uuid = ac.get_uuid()
+            active_uuid = ac.get_uuid() if ac else None
             if uuid != active_uuid:
                 ifcfg_con = nm_client.get_connection_by_uuid(uuid)
                 # TODO make the API calls synchronous ?
