@@ -279,6 +279,9 @@ def copy_resolv_conf_to_root(root=""):
     if os.path.isfile(dst):
         log.debug("%s already exists", dst)
         return
+    dst_dir = os.path.dirname(dst)
+    if not os.path.isdir(dst_dir):
+        util.mkdirChain(dst_dir)
     shutil.copyfile(src, dst)
 
 
