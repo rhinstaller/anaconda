@@ -52,7 +52,7 @@ from pyanaconda import isys
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_installtree
-from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
@@ -1073,7 +1073,7 @@ class PackagePayload(Payload):
         ts = rpm.TransactionSet(util.getSysroot())
         mi = ts.dbMatch('providename', 'kernel')
         for hdr in mi:
-            unicode_fnames = (f.decode("utf-8") for f in hdr.filenames)
+            unicode_fnames = (decode_bytes(f) for f in hdr.filenames)
             # Find all /boot/vmlinuz- files and strip off vmlinuz-
             files.extend((f.split("/")[-1][8:] for f in unicode_fnames
                 if fnmatch(f, "/boot/vmlinuz-*") or

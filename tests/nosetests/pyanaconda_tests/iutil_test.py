@@ -823,3 +823,10 @@ class MiscTests(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             test_function()
+
+    def decode_bytes_test(self):
+        self.assertEqual("STRING", util.decode_bytes("STRING"))
+        self.assertEqual("BYTES", util.decode_bytes(b"BYTES"))
+        self.assertRaises(ValueError, util.decode_bytes, None)
+        self.assertRaises(ValueError, util.decode_bytes, 0)
+        self.assertRaises(ValueError, util.decode_bytes, [])
