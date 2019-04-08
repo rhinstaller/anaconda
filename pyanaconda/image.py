@@ -98,7 +98,7 @@ def findFirstIsoImage(path):
         # If there's no repodata, there's no point in trying to
         # install from it.
         if not _check_repodata(mount_path):
-            log.warning("%s doesn't have repodata, skipping", what)
+            log.warning("%s doesn't have a valid repodata, skipping", what)
             blivet.util.umount(mount_path)
             continue
 
@@ -140,9 +140,26 @@ def _check_repodata(mount_path):
     repo_md = install_tree_meta.get_base_repo_metadata()
 
     if not repo_md:
+        repo_mds = install_tree_meta.get_metadata_repos()
+        repo_md = _search_for_install_root_repository(repo_mds)
+
+    if not repo_md:
+        log.debug("There is no usable repository available")
         return False
 
-    return repo_md.is_valid()
+    if repo_md.is_valid():
+        return True
+
+    log.debug("There is no valid repository available.")
+    return False
+
+
+def _search_for_install_root_repository(repos):
+    for repo in repos:
+        if repo.relative_path == ".":
+            return repo
+
+    return None
 
 
 def mountImage(isodir, tree):
