@@ -31,6 +31,7 @@ class DeviceData(DBusData):
         "model",
         "bus",
         "wwn",
+        "uuid",
 
         # DASD
         "busid",

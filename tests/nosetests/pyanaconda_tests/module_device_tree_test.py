@@ -109,6 +109,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             model="MODEL_ID",
             bus="BUS_ID",
             wwn="0x0000000000000000",
+            uuid="1234-56-7890"
         ))
 
         self.assertEqual(self.interface.GetDeviceData("dev1"), {
@@ -124,6 +125,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
                 "model": "MODEL_ID",
                 "bus": "BUS_ID",
                 "wwn": "0x0000000000000000",
+                "uuid": "1234-56-7890"
             }),
             'description': get_variant(
                 Str, "VENDOR_ID MODEL_ID 0x0000000000000000"
