@@ -21,7 +21,8 @@ from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_VIEWER
-from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData
+from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
+    DeviceFormatData
 
 __all__ = ["DeviceTreeViewerInterface"]
 
@@ -68,6 +69,14 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         :raise: UnknownDeviceError if the device is not found
         """
         return DeviceData.to_structure(self.implementation.get_device_data(name))
+
+    def GetFormatData(self, name: Str) -> Structure:
+        """Get the device format.
+
+        :param name: a name of the device
+        :return: an instance of DeviceFormatData
+        """
+        return DeviceFormatData.to_structure(self.implementation.get_format_data(name))
 
     def GetActions(self) -> List[Structure]:
         """Get the device actions.
