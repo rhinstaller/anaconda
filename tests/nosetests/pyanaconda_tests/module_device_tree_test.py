@@ -21,7 +21,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice
+from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
@@ -297,3 +297,17 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
     def find_install_media_test(self):
         """Test FindInstallMedia."""
         self.assertEqual(self.interface.FindOpticalMedia(), [])
+
+    @patch.object(FS, "update_size_info")
+    def find_mountable_partitions_test(self, update_size_info):
+        """Test FindMountablePartitions."""
+        self._add_device(StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"))
+        )
+        self._add_device(PartitionDevice(
+            "dev2",
+            fmt=get_format("ext4", exists=True)
+        ))
+
+        self.assertEqual(self.interface.FindMountablePartitions(), ["dev2"])

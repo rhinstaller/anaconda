@@ -65,3 +65,10 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         :return: a list of device names
         """
         return self.implementation.find_optical_media()
+
+    def FindMountablePartitions(self) -> List[Str]:
+        """Find all mountable partitions.
+
+        :return: a list of device names
+        """
+        return self.implementation.find_mountable_partitions()

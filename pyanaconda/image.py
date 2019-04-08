@@ -25,7 +25,7 @@ import tempfile
 from pyanaconda import isys
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
-from pyanaconda.storage.utils import find_optical_media
+from pyanaconda.storage.utils import find_optical_media, find_mountable_partitions
 
 import blivet.util
 import blivet.arch
@@ -223,8 +223,7 @@ def potentialHdisoSources(devicetree):
     """ Return a generator yielding Device instances that may have HDISO install
         media somewhere. Candidate devices are simply any that we can mount.
     """
-    return (d for d in devicetree.devices
-            if d.type == "partition" and d.format.exists and d.format.mountable)
+    return find_mountable_partitions(devicetree)
 
 
 def verifyMedia(tree, timestamp=None):

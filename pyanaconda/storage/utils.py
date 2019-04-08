@@ -718,3 +718,26 @@ def find_optical_media(devicetree):
         devices.append(device)
 
     return devices
+
+
+def find_mountable_partitions(devicetree):
+    """Find all mountable partitions.
+
+    :param devicetree: an instance of a device tree
+    :return: a list of devices
+    """
+    devices = []
+
+    for device in devicetree.devices:
+        if device.type != "partition":
+            continue
+
+        if not device.format.exists:
+            continue
+
+        if not device.format.mountable:
+            continue
+
+        devices.append(device)
+
+    return devices
