@@ -74,7 +74,7 @@ from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_che
 from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
     DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, bound_size, \
-    get_supported_filesystems, try_populate_devicetree, filter_unsupported_disklabel_devices
+    get_supported_filesystems, filter_unsupported_disklabel_devices, unlock_device
 from pyanaconda.storage.execution import configure_storage
 
 from pyanaconda.ui.communication import hubQ
@@ -2876,16 +2876,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         device = self._accordion.current_selector.device
         log.info("trying to unlock %s...", device.name)
         passphrase = self._passphraseEntry.get_text()
-        device.format.passphrase = passphrase
-        try:
-            device.setup()
-            device.format.setup()
-        except StorageError as e:
-            log.error("failed to unlock %s: %s", device.name, e)
-            device.teardown(recursive=True)
-            self._error = e
-            device.format.passphrase = None
+        unlocked = unlock_device(self._storage_playground, device, passphrase)
+
+        if not unlocked:
             self._passphraseEntry.set_text("")
+            self._error = "Failed to unlock {}.".format(device.name)
             self.set_warning(_("Failed to unlock encrypted block device. "
                                "<a href=\"\">Click for details.</a>"))
             return
@@ -2893,12 +2888,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # set the passphrase also to the original_format of the device (a
         # different object than '.format', but the same contents)
         device.original_format.passphrase = passphrase
-        log.info("unlocked %s, now going to populate devicetree...", device.name)
+
         with ui_storage_logger():
-            # save the passphrase for possible reset and to try for other devs
-            self._storage_playground.save_passphrase(device)
-            # XXX What if the user has changed things using the shell?
-            try_populate_devicetree(self._storage_playground.devicetree)
             # look for new roots
             self._storage_playground.roots = find_existing_installations(self._storage_playground.devicetree)
 

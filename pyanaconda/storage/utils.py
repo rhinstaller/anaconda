@@ -20,6 +20,7 @@
 import re
 import locale
 import os
+import time
 import requests
 
 from decimal import Decimal
@@ -741,3 +742,42 @@ def find_mountable_partitions(devicetree):
         devices.append(device)
 
     return devices
+
+
+def unlock_device(storage, device, passphrase):
+    """Unlock a LUKS device.
+
+    :param storage: an instance of the storage
+    :param device: a device to unlock
+    :param passphrase: a passphrase to use
+    :return: True if success, otherwise False
+    """
+    # Set the passphrase.
+    device.format.passphrase = passphrase
+
+    try:
+        # Unlock the device.
+        device.setup()
+        device.format.setup()
+    except StorageError as err:
+        log.error("Failed to unlock %s: %s", device.name, err)
+
+        # Teardown the device.
+        device.teardown(recursive=True)
+
+        # Forget the wrong passphrase.
+        device.format.passphrase = None
+
+        return False
+    else:
+        # Save the passphrase.
+        storage.save_passphrase(device)
+
+        # Wait for the device.
+        # Otherwise, we could get a message about no Linux partitions.
+        time.sleep(2)
+
+        # Update the device tree.
+        try_populate_devicetree(storage.devicetree)
+
+        return True

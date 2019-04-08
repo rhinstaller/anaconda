@@ -21,9 +21,12 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice
+from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
+    LUKSDevice
+from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.formats.fs import FS
+from blivet.formats.luks import LUKS
 from blivet.size import Size
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
@@ -311,3 +314,29 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         ))
 
         self.assertEqual(self.interface.FindMountablePartitions(), ["dev2"])
+
+    @patch("pyanaconda.storage.utils.try_populate_devicetree")
+    @patch.object(LUKS, "setup")
+    @patch.object(LUKSDevice, "teardown")
+    @patch.object(LUKSDevice, "setup")
+    def unlock_device_test(self, device_setup, device_teardown, format_setup, populate):
+        """Test UnlockDevice."""
+        dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
+        self._add_device(dev1)
+
+        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("luks"), size=Size("10 GiB"))
+        self._add_device(dev2)
+
+        self.assertEqual(self.interface.UnlockDevice("dev2", "passphrase"), True)
+
+        device_setup.assert_called_once()
+        format_setup.assert_called_once()
+        populate.assert_called_once()
+        device_teardown.assert_not_called()
+        self.assertTrue(dev2.format.has_key)
+
+        device_setup.side_effect = StorageError("Fake error")
+        self.assertEqual(self.interface.UnlockDevice("dev2", "passphrase"), False)
+
+        device_teardown.assert_called_once()
+        self.assertFalse(dev2.format.has_key)

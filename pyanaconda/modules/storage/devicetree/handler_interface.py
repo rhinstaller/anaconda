@@ -59,6 +59,15 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         """
         self.implementation.unmount_device(device_name, mount_point)
 
+    def UnlockDevice(self, device_name: Str, passphrase: Str) -> Bool:
+        """Unlock a device.
+
+        :param device_name: a name of the device
+        :param passphrase: a passphrase
+        :return: True if success, otherwise False
+        """
+        return self.implementation.unlock_device(device_name, passphrase)
+
     def FindOpticalMedia(self) -> List[Str]:
         """Find all devices with mountable optical media.
 
