@@ -74,7 +74,8 @@ from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_che
 from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
     DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, bound_size, \
-    get_supported_filesystems, filter_unsupported_disklabel_devices, unlock_device
+    get_supported_filesystems, filter_unsupported_disklabel_devices, unlock_device, \
+    setup_passphrase, find_unconfigured_luks
 from pyanaconda.storage.execution import configure_storage
 
 from pyanaconda.ui.communication import hubQ
@@ -232,12 +233,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._auto_part_observer.proxy.SetPassphrase(self.passphrase)
 
         # make sure any device/passphrase pairs we've obtained are remembered
-        for device in self.storage.devices:
-            if device.format.type == "luks" and not device.format.exists:
-                if not device.format.has_key:
-                    device.format.passphrase = self.passphrase
-
-                self.storage.save_passphrase(device)
+        setup_passphrase(self.storage, self.passphrase)
 
         hubQ.send_ready("StorageSpoke", True)
 
@@ -1763,9 +1759,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if self._error is not None:
                 return
 
-            new_luks = [d for d in self._storage_playground.devices
-                       if d.format.type == "luks" and not d.format.exists]
-            if new_luks:
+            if find_unconfigured_luks(self._storage_playground):
                 dialog = PassphraseDialog(self.data)
                 with self.main_window.enlightbox(dialog.window):
                     rc = dialog.run()
@@ -1776,9 +1770,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
                 self.passphrase = dialog.passphrase
 
-            for luks in new_luks:
-                if not luks.format.has_key:
-                    luks.format.passphrase = self.passphrase
+            setup_passphrase(self._storage_playground, self.passphrase)
 
             if not self._do_check():
                 return
