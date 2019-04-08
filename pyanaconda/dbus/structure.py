@@ -21,7 +21,8 @@ from typing import get_type_hints
 
 from pyanaconda.dbus.typing import get_variant, Structure
 
-__all__ = ["get_structure", "apply_structure", "dbus_structure", "DBusStructureError"]
+__all__ = ["get_structure", "apply_structure", "dbus_structure", "DBusStructureError",
+           "generate_string_from_data"]
 
 
 # Class attribute for DBus fields.
@@ -206,15 +207,22 @@ def generate_fields(cls):
     return fields
 
 
-def generate_string_from_data(obj):
+def generate_string_from_data(obj, skip=None):
     """Generate a string representation of a data object.
 
+    Set the argument 'skip' to skip attributes with sensitive data.
+
     :param obj: a data object
+    :param skip: a list of names that should be skipped or None
     :return: a string representation of the data object
     """
     attributes = []
+    skipped_names = set(skip) if skip else set()
 
     for field in get_fields(obj).values():
+        if field.data_name in skipped_names:
+            continue
+
         attribute = "{}={}".format(field.data_name, repr(field.get_data(obj)))
         attributes.append(attribute)
 
@@ -226,7 +234,7 @@ def dbus_structure(cls):
 
     This decorator will use the class to generate DBus fields from the class
     properties and set the class attribute __dbus_fields__ with the generated
-    fields. It also sets the __repr__ method.
+    fields.
 
     Instances of the decorated class can be used to create and apply
     DBus structures with method get_structure and apply_structure.
@@ -235,5 +243,4 @@ def dbus_structure(cls):
     :return: a data class with generated DBus fields
     """
     setattr(cls, DBUS_FIELDS_ATTRIBUTE, generate_fields(cls))
-    setattr(cls, '__repr__', generate_string_from_data)
     return cls
