@@ -354,6 +354,45 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 09 2019 Martin Kolman <mkolman@redhat.com> - 30.25.5-1
+- network: create systemd .link files for ifname= boot options (#1695894)
+  (rvykydal)
+- Bump Workstation root partition max size to 70 GiB (klember)
+- Add DBus support for finding optical media (vponcova)
+- Add DBus support for handling a device (vponcova)
+- Do not use ISO source as install tree root (#1691832) (jkonecny)
+- Fix bad assumption about base repo identification (#1691832) (jkonecny)
+- network tui: fix updating of a connection from UI (#1692677) (rvykydal)
+- network: fix copying of resolv.conf for cases where target /etc does not
+  exist (#1695990) (rvykydal)
+- network: fix crash ensuring single connections for unplugged devices
+  (#1695899) (rvykydal)
+- Add support for skipping attributes in the string representation (vponcova)
+- Raise the UnknownDeviceError exception (vponcova)
+- Add DBus support for resolving devices (vponcova)
+- Add DBus support for the available space (vponcova)
+- Move GetRequiredDeviceSize to the device tree module (vponcova)
+- Create the device tree module (vponcova)
+- Don't set the __repr__ methods of data classes (vponcova)
+- network: for vlan set DEVICE only if interfacename is specified in kickstart
+  (rvykydal)
+- Change fips package requirement reason (jkonecny)
+- payload: raise exception on invalid Languages (jkonecny)
+- payload: Mark DefaultEnvironment API as temporary (jkonecny)
+- payload: fix default values for packages section (jkonecny)
+- Remove unused import for DNF (jkonecny)
+- payload: add converter for kickstart groups (jkonecny)
+- payload: switch multilib policy to names (jkonecny)
+- payload: add rest of the DNF/Packages attributes (jkonecny)
+- payload: add packages controlling properties (jkonecny)
+- payload: add package groups interface to Packages (jkonecny)
+- payload: adjust packages section attributes (jkonecny)
+- payload: move %%packages parsing to DNF/Packages (jkonecny)
+- payload: add DBus packages dnf submodule (jkonecny)
+- payload: add the empty DNF handler (jkonecny)
+- payload: create internal Packages class (jkonecny)
+- payload: parse %%packages section in module (jkonecny)
+
 * Tue Apr 02 2019 Martin Kolman <mkolman@redhat.com> - 30.25.4-1
 - Create the initialization config in _get_initialization_config (vponcova)
 - Remove config from InstallerStorage (vponcova)
