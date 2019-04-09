@@ -18,7 +18,9 @@
 #
 from pyanaconda.dbus.identifier import DBusInterfaceIdentifier
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, BOSS_NAMESPACE, \
-    MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE, STORAGE_NAMESPACE, DNF_NAMESPACE
+    MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE, DNF_NAMESPACE, \
+    DEVICE_TREE_NAMESPACE
+
 
 KICKSTART_MODULE = DBusInterfaceIdentifier(
     namespace=MODULES_NAMESPACE
@@ -43,9 +45,14 @@ TASK = DBusInterfaceIdentifier(
     basename="Task"
 )
 
-DEVICE_TREE = DBusInterfaceIdentifier(
-    namespace=STORAGE_NAMESPACE,
-    basename="DeviceTree"
+DEVICE_TREE_VIEWER = DBusInterfaceIdentifier(
+    namespace=DEVICE_TREE_NAMESPACE,
+    basename="Viewer"
+)
+
+DEVICE_TREE_HANDLER = DBusInterfaceIdentifier(
+    namespace=DEVICE_TREE_NAMESPACE,
+    basename="Handler"
 )
 
 DNF_HANDLER = DBusInterfaceIdentifier(

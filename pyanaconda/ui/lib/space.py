@@ -20,6 +20,7 @@ import os
 from blivet.size import Size
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -62,13 +63,13 @@ class FileSystemSpaceChecker(object):
         :param needed: a needed space
         :return: a deficit size or None
         """
-        storage_proxy = STORAGE.get_proxy()
+        device_tree_proxy = STORAGE.get_proxy(DEVICE_TREE)
 
         if not self.storage.root_device:
             return None
 
         current = self.storage.root_device.size.get_bytes()
-        required = storage_proxy.GetRequiredDeviceSize(needed.get_bytes())
+        required = device_tree_proxy.GetRequiredDeviceSize(needed.get_bytes())
         return Size(required - current)
 
     def check(self):

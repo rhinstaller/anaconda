@@ -25,6 +25,7 @@ import tempfile
 from pyanaconda import isys
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
+from pyanaconda.storage.utils import find_optical_media
 
 import blivet.util
 import blivet.arch
@@ -34,7 +35,6 @@ from blivet.errors import FSError
 from productmd.discinfo import DiscInfo
 
 from pyanaconda.anaconda_loggers import get_module_logger
-
 log = get_module_logger(__name__)
 
 _arch = blivet.arch.get_arch()
@@ -189,31 +189,23 @@ def mountImage(isodir, tree):
             break
 
 
-# Return the first Device instance containing valid optical install media
-# for this product.
 def opticalInstallMedia(devicetree):
-    retval = None
+    """Find a device with a valid optical install media.
 
-    # Search for devices identified as cdrom along with any other
-    # device that has an iso9660 filesystem. This will catch USB media
-    # created from ISO images.
-    for dev in set([d for d in devicetree.devices if d.type == "cdrom"] +
-                   [d for d in devicetree.devices if d.format.type == "iso9660"]):
-        if not dev.controllable:
-            continue
+    Return the first device containing a valid optical install
+    media for this product.
 
-        devicetree.handle_format(None, dev)
-        if not hasattr(dev.format, "mount"):
-            # no mountable media
-            continue
-
+    :param devicetree: an instance of a device tree
+    :return: a device or None
+    """
+    for dev in find_optical_media(devicetree):
         mountpoint = tempfile.mkdtemp()
+
         try:
             try:
                 dev.format.mount(mountpoint=mountpoint)
             except FSError:
                 continue
-
             try:
                 if not verifyMedia(mountpoint):
                     continue
@@ -222,10 +214,9 @@ def opticalInstallMedia(devicetree):
         finally:
             os.rmdir(mountpoint)
 
-        retval = dev
-        break
+        return dev
 
-    return retval
+    return None
 
 
 def potentialHdisoSources(devicetree):

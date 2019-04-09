@@ -1,5 +1,5 @@
 #
-# DBus interface for the device tree.
+# DBus interface for the device tree module
 #
 # Copyright (C) 2019 Red Hat, Inc.
 #
@@ -17,61 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.template import InterfaceTemplate
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.structure import get_structure
-from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE
+from pyanaconda.dbus.interface import dbus_class
+from pyanaconda.modules.storage.devicetree.handler_interface import DeviceTreeHandlerInterface
+from pyanaconda.modules.storage.devicetree.viewer_interface import DeviceTreeViewerInterface
 
 __all__ = ["DeviceTreeInterface"]
 
 
-@dbus_interface(DEVICE_TREE.interface_name)
-class DeviceTreeInterface(InterfaceTemplate):
-    """DBus interface for the device tree."""
-
-    def GetRootDevice(self) -> Str:
-        """Get the root device.
-
-        :return: a name of the root device if any
-        """
-        return self.implementation.get_root_device()
-
-    def GetDevices(self) -> List[Str]:
-        """Get all devices in the device tree.
-
-        :return: a list of device names
-        """
-        return self.implementation.get_devices()
-
-    def GetDisks(self) -> List[Str]:
-        """Get all disks in the device tree.
-
-        Ignored disks are excluded, as are disks with no media present.
-
-        :return: a list of device names
-        """
-        return self.implementation.get_disks()
-
-    def GetMountPoints(self) -> Dict[Str, Str]:
-        """Get all mount points in the device tree.
-
-        :return: a dictionary of mount points and device names
-        """
-        return self.implementation.get_mount_points()
-
-    def GetDeviceData(self, name: Str) -> Structure:
-        """Get the device data.
-
-        :param name: a device name
-        :return: a structure with device data
-        :raise: UnknownDeviceError if the device is not found
-        """
-        return get_structure(self.implementation.get_device_data(name))
-
-    def GetActions(self) -> List[Structure]:
-        """Get the device actions.
-
-        :return: a list of structures with device action data
-        """
-        return list(map(get_structure, self.implementation.get_actions()))
+@dbus_class
+class DeviceTreeInterface(DeviceTreeViewerInterface, DeviceTreeHandlerInterface):
+    """DBus interface for the device tree module."""
+    pass
