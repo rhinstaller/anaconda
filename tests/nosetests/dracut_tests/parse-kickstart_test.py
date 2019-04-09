@@ -282,15 +282,37 @@ network --device=lo --vlanid=171
 
             ifcfg_lines = sorted(open(self.tmpdir+"/ifcfg/ifcfg-lo.171").readlines())
             self.assertEqual(ifcfg_lines[1], 'BOOTPROTO="dhcp"\n', ifcfg_lines)
-            self.assertEqual(ifcfg_lines[2], 'DEVICE="lo.171"\n', ifcfg_lines)
+            self.assertEqual(ifcfg_lines[2], 'IPV6INIT="yes"\n', ifcfg_lines)
+            self.assertEqual(ifcfg_lines[3], 'NAME="VLAN connection lo.171"\n', ifcfg_lines)
+            self.assertEqual(ifcfg_lines[4], 'ONBOOT="no"\n', ifcfg_lines)
+            self.assertEqual(ifcfg_lines[5], 'PHYSDEV="lo"\n', ifcfg_lines)
+            self.assertEqual(ifcfg_lines[6], 'TYPE="Vlan"\n', ifcfg_lines)
+            self.assertTrue(ifcfg_lines[7].startswith("UUID="), ifcfg_lines)
+            self.assertEqual(ifcfg_lines[8], 'VLAN="yes"\n', ifcfg_lines)
+            self.assertEqual(ifcfg_lines[9], 'VLAN_ID="171"\n', ifcfg_lines)
+
+    def network_vlan_interfacename_test(self):
+        with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
+            ks_file.write("""network --device=link --bootproto=dhcp --activate
+network --device=lo --vlanid=171 --interfacename=vlan171
+""")
+            ks_file.flush()
+            lines = self.execParseKickstart(ks_file.name)
+
+            self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
+
+            ifcfg_lines = sorted(open(self.tmpdir+"/ifcfg/ifcfg-vlan171").readlines())
+            self.assertEqual(ifcfg_lines[1], 'BOOTPROTO="dhcp"\n', ifcfg_lines)
+            self.assertEqual(ifcfg_lines[2], 'DEVICE="vlan171"\n', ifcfg_lines)
             self.assertEqual(ifcfg_lines[3], 'IPV6INIT="yes"\n', ifcfg_lines)
-            self.assertEqual(ifcfg_lines[4], 'NAME="VLAN connection lo.171"\n', ifcfg_lines)
+            self.assertEqual(ifcfg_lines[4], 'NAME="VLAN connection vlan171"\n', ifcfg_lines)
             self.assertEqual(ifcfg_lines[5], 'ONBOOT="no"\n', ifcfg_lines)
             self.assertEqual(ifcfg_lines[6], 'PHYSDEV="lo"\n', ifcfg_lines)
             self.assertEqual(ifcfg_lines[7], 'TYPE="Vlan"\n', ifcfg_lines)
             self.assertTrue(ifcfg_lines[8].startswith("UUID="), ifcfg_lines)
             self.assertEqual(ifcfg_lines[9], 'VLAN="yes"\n', ifcfg_lines)
             self.assertEqual(ifcfg_lines[10], 'VLAN_ID="171"\n', ifcfg_lines)
+
 
     def displaymode_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:

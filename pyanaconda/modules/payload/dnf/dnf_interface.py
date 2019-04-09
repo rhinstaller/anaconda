@@ -1,5 +1,5 @@
 #
-# DBus interface for the device tree module
+# DBus interface for DNF payload.
 #
 # Copyright (C) 2019 Red Hat, Inc.
 #
@@ -17,14 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_class
-from pyanaconda.modules.storage.devicetree.handler_interface import DeviceTreeHandlerInterface
-from pyanaconda.modules.storage.devicetree.viewer_interface import DeviceTreeViewerInterface
+from pyanaconda.dbus.interface import dbus_interface
 
-__all__ = ["DeviceTreeInterface"]
+from pyanaconda.modules.common.constants.interfaces import DNF_HANDLER
+from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 
 
-@dbus_class
-class DeviceTreeInterface(DeviceTreeViewerInterface, DeviceTreeHandlerInterface):
-    """DBus interface for the device tree module."""
-    pass
+@dbus_interface(DNF_HANDLER.interface_name)
+class DNFHandlerInterface(KickstartModuleInterfaceTemplate):
+    """DBus interface for DNF payload module."""

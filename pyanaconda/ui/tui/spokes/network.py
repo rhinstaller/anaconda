@@ -33,7 +33,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, report_if_failed
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import N_, _, C_
 
 from pyanaconda.core.regexes import IPV4_PATTERN_WITH_ANCHORS, IPV4_NETMASK_WITH_ANCHORS, IPV4_OR_DHCP_PATTERN_WITH_ANCHORS
 from pyanaconda.core.constants import ANACONDA_ENVIRON
@@ -353,7 +353,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                     persistent = False
                     data = (iface, connection_uuid)
                     self.nm_client.add_connection_async(connection, persistent, None,
-                                                   self._default_connection_added_cb, data)
+                                                        self._default_connection_added_cb, data)
                 return
         log.error("device configuration for %s not found", iface)
 
@@ -553,10 +553,17 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def input(self, args, key):
         if self._container.process_user_input(key):
-            self.apply()
             return InputState.PROCESSED_AND_REDRAW
         else:
-            return super().input(args, key)
+            # TRANSLATORS: 'c' to continue
+            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+                if self._data.ip != "dhcp" and not self._data.netmask:
+                    self.errors.append(_("Configuration not saved: netmask missing in static configuration"))
+                else:
+                    self.apply()
+                return InputState.PROCESSED_AND_CLOSE
+            else:
+                return super().input(args, key)
 
     @property
     def indirect(self):
@@ -564,10 +571,6 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def apply(self):
         """Apply changes to NM connection."""
-        if self._data.ip != "dhcp" and not self._data.netmask:
-            self.errors.append(_("Configuration not saved: netmask missing in static configuration"))
-            return
-
         log.debug("updating connection %s:\n%s", self._connection_uuid,
                   self._connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
         self._data.update_connection(self._connection)

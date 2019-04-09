@@ -1,7 +1,7 @@
 #
-# DBus interface for the device tree module
+# Private constants for the DNF/Packaging module.
 #
-# Copyright (C) 2019 Red Hat, Inc.
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,14 +17,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_class
-from pyanaconda.modules.storage.devicetree.handler_interface import DeviceTreeHandlerInterface
-from pyanaconda.modules.storage.devicetree.viewer_interface import DeviceTreeViewerInterface
-
-__all__ = ["DeviceTreeInterface"]
+from enum import Enum, unique
 
 
-@dbus_class
-class DeviceTreeInterface(DeviceTreeViewerInterface, DeviceTreeHandlerInterface):
-    """DBus interface for the device tree module."""
-    pass
+# default value when Packages module property timeout is not set
+TIMEOUT_UNSET = -1
+
+# default value when Packages module property retries is not set
+RETRIES_UNSET = -1
+
+# special values for languages property of the Packages module
+# the RPM macro _install_langs will be set to 'nil'
+LANGUAGES_NONE = "none"
+# the RPM macro _install_langs will have default value which is 'all'
+LANGUAGES_DEFAULT = "all"
+
+
+@unique
+class MultilibPolicy(Enum):
+    """Multilib policy enum."""
+
+    ALL = "all"
+    BEST = "best"

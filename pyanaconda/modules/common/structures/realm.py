@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure
+from pyanaconda.dbus.structure import dbus_structure, generate_string_from_data
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["RealmData"]
@@ -72,3 +72,6 @@ class RealmData(object):
     @join_options.setter
     def join_options(self, options: List[Str]):
         self._join_options = options
+
+    def __repr__(self):
+        return generate_string_from_data(self)

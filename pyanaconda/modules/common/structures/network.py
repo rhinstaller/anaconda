@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure
+from pyanaconda.dbus.structure import dbus_structure, generate_string_from_data
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["NetworkDeviceConfiguration"]
@@ -67,6 +67,9 @@ class NetworkDeviceConfiguration(object):
 
     def __eq__(self, other):
         return (self._device_name, self._connection_uuid) == (other.device_name, other.connection_uuid)
+
+    def __repr__(self):
+        return generate_string_from_data(self)
 
 
 @dbus_structure
@@ -120,3 +123,6 @@ class NetworkDeviceInfo(object):
         except AttributeError:
             hw_address = device.get_hw_address()
         self.hw_address = hw_address
+
+    def __repr__(self):
+        return generate_string_from_data(self)

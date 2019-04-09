@@ -300,7 +300,7 @@ class NetworkModule(KickstartModule):
                   onboot_ifaces, onboot_ifaces_by_policy)
 
         task = NetworkInstallationTask(sysroot, self.hostname, disable_ipv6, overwrite,
-                                       onboot_yes_uuids, network_ifaces)
+                                       onboot_yes_uuids, network_ifaces, self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, root_path=sysroot))
         path = self.publish_task(NETWORK.namespace, task)
         return path

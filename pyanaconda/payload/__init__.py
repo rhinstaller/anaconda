@@ -466,9 +466,11 @@ class Payload(metaclass=ABCMeta):
 
     @staticmethod
     def _setup_NFS(mountpoint, server, path, options):
-        """Prepare an NFS directory for use as a package source."""
+        """Prepare an NFS directory for use as an install source."""
         log.info("mounting %s:%s:%s on %s", server, path, options, mountpoint)
         dev = payload_utils.get_mount_device(mountpoint)
+
+        # test if the mountpoint is occupied already
         if dev:
             _server, colon, _path = dev.partition(":")
             if colon == ":" and server == _server and path == _path:
@@ -980,8 +982,8 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                     nfs_dir = os.path.dirname(method.dir)
                 else:
                     nfs_dir = method.dir
-                self._setup_NFS(INSTALL_TREE, method.server, nfs_dir,
-                                method.opts)
+
+                self._setup_NFS(INSTALL_TREE, method.server, nfs_dir, method.opts)
                 path = INSTALL_TREE
 
             # check for ISO images in the newly mounted dir
@@ -1012,9 +1014,12 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 mountImage(image, INSTALL_TREE)
 
                 url = "file://" + INSTALL_TREE
-            else:
+            elif os.path.isdir(path):
                 # Fall back to the mount path instead of a mounted iso
                 url = "file://" + path
+            else:
+                # Do not try to use iso as source if it is not valid source
+                raise PayloadSetupError("Not a valid ISO image!")
 
         return url
 
