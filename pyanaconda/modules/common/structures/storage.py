@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure
+from pyanaconda.dbus.structure import dbus_structure, generate_string_from_data
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["DeviceData", "DeviceActionData"]
@@ -153,6 +153,9 @@ class DeviceData(object):
     def description(self, text):
         self._description = text
 
+    def __repr__(self):
+        return generate_string_from_data(self)
+
 
 @dbus_structure
 class DeviceActionData(object):
@@ -220,3 +223,6 @@ class DeviceActionData(object):
     @description.setter
     def description(self, text):
         self._description = text
+
+    def __repr__(self):
+        return generate_string_from_data(self)

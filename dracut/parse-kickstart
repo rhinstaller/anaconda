@@ -633,7 +633,10 @@ def ksnet_to_ifcfg(net, filename=None):
         ifcfg['VLAN'] = "yes"
         ifcfg['VLAN_ID'] = net.vlanid
         ifcfg['NAME'] = "VLAN connection %s" % interface_name
-        ifcfg['DEVICE'] = interface_name
+        if net.interfacename:
+            ifcfg['DEVICE'] = interface_name
+        else:
+            ifcfg.pop('DEVICE', None)
         ifcfg['PHYSDEV'] = dev
         filename = TMPDIR+"/ifcfg/ifcfg-%s" % interface_name
         if net.bondslaves:

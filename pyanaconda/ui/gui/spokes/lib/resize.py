@@ -27,6 +27,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, Gtk
 
 from pyanaconda.core.i18n import _, C_, N_, P_
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup, timed_action
@@ -68,11 +69,11 @@ class ResizeDialog(GUIObject):
         self.storage = storage
         self.payload = payload
 
-        self._storage_proxy = STORAGE.get_proxy()
+        self._device_tree_proxy = STORAGE.get_proxy(DEVICE_TREE)
 
         # Get the required device size.
         required_space = self.payload.space_required.get_bytes()
-        required_size = self._storage_proxy.GetRequiredDeviceSize(required_space)
+        required_size = self._device_tree_proxy.GetRequiredDeviceSize(required_space)
         self._required_size = Size(required_size)
 
         self._initialFreeSpace = Size(0)

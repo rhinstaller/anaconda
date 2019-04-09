@@ -17,24 +17,31 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import tempfile
 import unittest
+from unittest.mock import patch
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice
 from blivet.formats import get_format
+from blivet.formats.fs import FS
 from blivet.size import Size
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
-from pyanaconda.modules.storage.devicetree import DeviceTreeInterface
-from pyanaconda.modules.storage.storage import StorageModule
+from pyanaconda.modules.storage.devicetree import DeviceTreeModule
+from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
+from pyanaconda.storage.initialization import create_storage
 
 
 class DeviceTreeInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the device tree handler."""
 
     def setUp(self):
-        self.module = StorageModule()
+        self.module = DeviceTreeModule()
         self.interface = DeviceTreeInterface(self.module)
+
+        # Set the storage.
+        self.module.on_storage_reset(create_storage())
 
     @property
     def storage(self):
@@ -175,3 +182,118 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'device-name': get_variant(Str, 'dev1'),
             'description': get_variant(Str, 'destroy device'),
         }])
+
+    def get_required_device_size_test(self):
+        """Test GetRequiredDeviceSize."""
+        required_size = self.interface.GetRequiredDeviceSize(Size("1 GiB").get_bytes())
+        self.assertEqual(Size("1280 MiB").get_bytes(), required_size, Size(required_size))
+
+    def get_file_system_free_space_test(self):
+        """Test GetFileSystemFreeSpace."""
+        self._add_device(StorageDevice(
+            "dev1",
+            fmt=get_format("ext4", mountpoint="/"),
+            size=Size("5 GiB"))
+        )
+
+        self._add_device(StorageDevice(
+            "dev2",
+            fmt=get_format("ext4", mountpoint="/usr"),
+            size=Size("5 GiB"))
+        )
+
+        total_size = self.interface.GetFileSystemFreeSpace([])
+        self.assertEqual(total_size, 0)
+
+        total_size = self.interface.GetFileSystemFreeSpace(["/", "/usr"])
+        self.assertLess(total_size, Size("10 GiB").get_bytes())
+        self.assertGreater(total_size, Size("8 GiB").get_bytes())
+
+    def get_disk_free_space_test(self):
+        """Test GetDiskFreeSpace."""
+        self._add_device(DiskDevice(
+            "dev1",
+            size=Size("5 GiB"))
+        )
+
+        self._add_device(DiskDevice(
+            "dev2",
+            size=Size("5 GiB"))
+        )
+
+        total_size = self.interface.GetDiskFreeSpace([])
+        self.assertEqual(total_size, 0)
+
+        total_size = self.interface.GetDiskFreeSpace(["dev1", "dev2"])
+        self.assertEqual(total_size, Size("10 GiB").get_bytes())
+
+        with self.assertRaises(UnknownDeviceError):
+            self.interface.GetDiskFreeSpace(["dev1", "dev2", "dev3"])
+
+    def get_disk_reclaimable_space_test(self):
+        """Test GetDiskReclaimableSpace."""
+        self._add_device(DiskDevice(
+            "dev1",
+            size=Size("5 GiB"))
+        )
+
+        self._add_device(DiskDevice(
+            "dev2",
+            size=Size("5 GiB"))
+        )
+
+        total_size = self.interface.GetDiskReclaimableSpace([])
+        self.assertEqual(total_size, 0)
+
+        # FIXME: Test on devices with a reclaimable space.
+        total_size = self.interface.GetDiskReclaimableSpace(["dev1", "dev2"])
+        self.assertEqual(total_size, 0)
+
+        with self.assertRaises(UnknownDeviceError):
+            self.interface.GetDiskReclaimableSpace(["dev1", "dev2", "dev3"])
+
+    def resolve_device_test(self):
+        """Test ResolveDevice."""
+        self._add_device(DiskDevice("dev1"))
+
+        self.assertEqual(self.interface.ResolveDevice("dev0"), "")
+        self.assertEqual(self.interface.ResolveDevice("dev1"), "dev1")
+        self.assertEqual(self.interface.ResolveDevice("/dev/dev1"), "dev1")
+
+    @patch.object(StorageDevice, "setup")
+    def setup_device_test(self, setup):
+        """Test SetupDevice."""
+        self._add_device(StorageDevice("dev1"))
+
+        self.interface.SetupDevice("dev1")
+        setup.assert_called_once()
+
+    @patch.object(StorageDevice, "teardown")
+    def teardown_device_test(self, teardown):
+        """Test TeardownDevice."""
+        self._add_device(StorageDevice("dev1"))
+
+        self.interface.TeardownDevice("dev1")
+        teardown.assert_called_once()
+
+    @patch.object(FS, "mount")
+    def mount_device_test(self, mount):
+        """Test MountDevice."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
+
+        with tempfile.TemporaryDirectory() as d:
+            self.interface.MountDevice("dev1", d)
+            mount.assert_called_once_with(mountpoint=d)
+
+    @patch.object(FS, "unmount")
+    def unmount_device_test(self, unmount):
+        """Test UnmountDevice."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
+
+        with tempfile.TemporaryDirectory() as d:
+            self.interface.UnmountDevice("dev1", d)
+            unmount.assert_called_once_with(mountpoint=d)
+
+    def find_install_media_test(self):
+        """Test FindInstallMedia."""
+        self.assertEqual(self.interface.FindOpticalMedia(), [])

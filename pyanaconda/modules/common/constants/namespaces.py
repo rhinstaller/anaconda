@@ -66,9 +66,19 @@ PAYLOAD_NAMESPACE = (
     "Payload"
 )
 
+DNF_NAMESPACE = (
+    *PAYLOAD_NAMESPACE,
+    "DNF"
+)
+
 STORAGE_NAMESPACE = (
     *MODULES_NAMESPACE,
     "Storage"
+)
+
+DEVICE_TREE_NAMESPACE = (
+    *STORAGE_NAMESPACE,
+    "DeviceTree"
 )
 
 PARTITIONING_NAMESPACE = (

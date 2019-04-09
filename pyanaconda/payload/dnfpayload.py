@@ -53,7 +53,6 @@ import dnf.repo
 import dnf.callback
 import dnf.transaction
 import libdnf.conf
-import dnf.conf.substitutions
 import rpm
 from dnf.const import GROUP_PACKAGE_TYPES
 

@@ -15,7 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.storage.devicetree.devicetree import DeviceTreeHandler
-from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
+from pyanaconda.modules.storage.devicetree.devicetree import DeviceTreeModule
 
-__all__ = ["DeviceTreeHandler", "DeviceTreeInterface"]
+__all__ = ["DeviceTreeModule"]

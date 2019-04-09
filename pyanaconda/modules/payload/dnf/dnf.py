@@ -1,5 +1,5 @@
 #
-# The device tree module
+# Kickstart module for DNF payload.
 #
 # Copyright (C) 2019 Red Hat, Inc.
 #
@@ -18,42 +18,32 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
+from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
+from pyanaconda.modules.payload.dnf.dnf_interface import DNFHandlerInterface
+from pyanaconda.modules.payload.dnf.packages.packages import PackagesHandlerModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError
-from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
-from pyanaconda.modules.storage.devicetree.handler import DeviceTreeHandler
-from pyanaconda.modules.storage.devicetree.viewer import DeviceTreeViewer
-
 log = get_module_logger(__name__)
 
-__all__ = ["DeviceTreeModule"]
 
-
-class DeviceTreeModule(KickstartBaseModule, DeviceTreeViewer, DeviceTreeHandler):
-    """The device tree module."""
+class DNFHandlerModule(KickstartBaseModule):
+    """The DNF payload module."""
 
     def __init__(self):
         super().__init__()
-        self._storage = None
-
-    @property
-    def storage(self):
-        """The storage model.
-
-        :return: an instance of Blivet
-        """
-        if self._storage is None:
-            raise UnavailableStorageError()
-
-        return self._storage
-
-    def on_storage_reset(self, storage):
-        """Keep the instance of the current storage."""
-        self._storage = storage
+        self._packages_handler = PackagesHandlerModule()
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(DEVICE_TREE.object_path, DeviceTreeInterface(self))
+        self._packages_handler.publish()
+
+        DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFHandlerInterface(self))
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        self._packages_handler.process_kickstart(data)
+
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        self._packages_handler.setup_kickstart(data)

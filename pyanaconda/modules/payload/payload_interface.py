@@ -17,9 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.dbus.interface import dbus_interface
+
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.dbus.interface import dbus_interface
 
 
 @dbus_interface(PAYLOAD.interface_name)

@@ -50,7 +50,7 @@ WORKSTATION_PARTITIONING = [
     PartSpec(
         mountpoint="/",
         size=Size("1GiB"),
-        max_size=Size("50GiB"),
+        max_size=Size("70GiB"),
         grow=True,
         btr=True,
         lv=True,

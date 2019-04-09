@@ -18,7 +18,7 @@
 #
 from pyanaconda.dbus.identifier import DBusObjectIdentifier
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
-    PARTITIONING_NAMESPACE
+    PARTITIONING_NAMESPACE, PAYLOAD_NAMESPACE, DNF_NAMESPACE, DEVICE_TREE_NAMESPACE
 
 
 BOOTLOADER = DBusObjectIdentifier(
@@ -29,6 +29,10 @@ BOOTLOADER = DBusObjectIdentifier(
 DASD = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="DASD"
+)
+
+DEVICE_TREE = DBusObjectIdentifier(
+    namespace=DEVICE_TREE_NAMESPACE
 )
 
 DISK_INITIALIZATION = DBusObjectIdentifier(
@@ -86,4 +90,14 @@ ZFCP = DBusObjectIdentifier(
 FIREWALL = DBusObjectIdentifier(
     namespace=NETWORK_NAMESPACE,
     basename="Firewall"
+)
+
+PAYLOAD_DEFAULT = DBusObjectIdentifier(
+    namespace=PAYLOAD_NAMESPACE,
+    basename="Default"
+)
+
+DNF_PACKAGES = DBusObjectIdentifier(
+    namespace=DNF_NAMESPACE,
+    basename="Packages"
 )

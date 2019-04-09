@@ -207,9 +207,8 @@ def _update_vlan_connection_from_ksdata(connection, network_data):
     if network_data.interfacename:
         s_con.props.id = network_data.interfacename
         s_con.props.interface_name = network_data.interfacename
-    # FIXME: fix also the test
-    # else:
-    #    s_con.props.interface_name = None
+    else:
+        s_con.props.interface_name = None
 
     s_vlan = NM.SettingVlan.new()
     s_vlan.props.id = int(network_data.vlanid)
@@ -717,7 +716,7 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
     if device:
         ac = device.get_active_connection()
         if ac or not only_replace:
-            active_uuid = ac.get_uuid()
+            active_uuid = ac.get_uuid() if ac else None
             if uuid != active_uuid:
                 ifcfg_con = nm_client.get_connection_by_uuid(uuid)
                 # TODO make the API calls synchronous ?

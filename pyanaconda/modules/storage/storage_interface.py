@@ -21,11 +21,10 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.storage.devicetree import DeviceTreeInterface
 
 
 @dbus_interface(STORAGE.interface_name)
-class StorageInterface(KickstartModuleInterface, DeviceTreeInterface):
+class StorageInterface(KickstartModuleInterface):
     """DBus interface for Storage module."""
 
     def ResetWithTask(self) -> ObjPath:
@@ -34,14 +33,6 @@ class StorageInterface(KickstartModuleInterface, DeviceTreeInterface):
         :return: a path to a task
         """
         return self.implementation.reset_with_task()
-
-    def GetRequiredDeviceSize(self, required_space: UInt64) -> UInt64:
-        """Get device size we need to get the required space on the device.
-
-        :param required_space: a required space in bytes
-        :return: a required device size in bytes
-        """
-        return self.implementation.get_required_device_size(required_space)
 
     def ApplyPartitioning(self, partitioning: ObjPath):
         """Apply the partitioning.

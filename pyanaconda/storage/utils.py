@@ -689,3 +689,32 @@ def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
         log.info("Swap attempt of %s", swap)
 
     return swap
+
+
+def find_optical_media(devicetree):
+    """Find all devices with mountable optical media.
+
+    Search for devices identified as cdrom along with any other
+    device that has an iso9660 filesystem. This will catch USB
+    media created from ISO images.
+
+    :param devicetree: an instance of a device tree
+    :return: a list of devices
+    """
+    devices = []
+
+    for device in devicetree.devices:
+        if device.type != "cdrom" and device.format.type != "iso9660":
+            continue
+
+        if not device.controllable:
+            continue
+
+        devicetree.handle_format(None, device)
+        if not hasattr(device.format, "mount"):
+            # no mountable media
+            continue
+
+        devices.append(device)
+
+    return devices
