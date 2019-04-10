@@ -207,17 +207,23 @@ def generate_fields(cls):
     return fields
 
 
-def generate_string_from_data(obj, skip=None):
+def generate_string_from_data(obj, skip=None, add=None):
     """Generate a string representation of a data object.
 
     Set the argument 'skip' to skip attributes with sensitive data.
 
+    Set the argument 'add' to add other values to the string
+    representation. The attributes in the string representation
+    will be sorted alphabetically.
+
     :param obj: a data object
     :param skip: a list of names that should be skipped or None
+    :param add: a list of strings to add or None
     :return: a string representation of the data object
     """
     attributes = []
     skipped_names = set(skip) if skip else set()
+    extra_attributes = list(add) if add else []
 
     for field in get_fields(obj).values():
         if field.data_name in skipped_names:
@@ -225,6 +231,10 @@ def generate_string_from_data(obj, skip=None):
 
         attribute = "{}={}".format(field.data_name, repr(field.get_data(obj)))
         attributes.append(attribute)
+
+    if extra_attributes:
+        attributes.extend(extra_attributes)
+        attributes.sort()
 
     return "{}({})".format(obj.__class__.__name__, ", ".join(attributes))
 
