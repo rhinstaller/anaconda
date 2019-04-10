@@ -424,6 +424,8 @@ class NetworkModule(KickstartModule):
                 continue
             dev_info = NetworkDeviceInfo()
             dev_info.set_from_nm_device(device)
+            if not all((dev_info.device_name, dev_info.device_type, dev_info.hw_address)):
+                log.warning("Missing value when setting NetworkDeviceInfo from NM device: %s", dev_info)
             supported_devices.append(dev_info)
 
         return supported_devices
