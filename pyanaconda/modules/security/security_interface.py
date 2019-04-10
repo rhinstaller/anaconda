@@ -17,7 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.structure import get_structure
 from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
@@ -108,7 +107,7 @@ class SecurityInterface(KickstartModuleInterface):
 
         :return: a dictionary with a specification
         """
-        return get_structure(self.implementation.realm)
+        return RealmData.to_structure(self.implementation.realm)
 
     @emits_properties_changed
     def SetRealm(self, realm: Structure):

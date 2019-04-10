@@ -22,7 +22,7 @@ from typing import get_type_hints
 
 from pyanaconda.dbus.typing import get_variant, Structure, Dict, List
 
-__all__ = ["get_structure", "DBusStructureError", "generate_string_from_data", "DBusData"]
+__all__ = ["DBusStructureError", "generate_string_from_data", "DBusData"]
 
 
 # Class attribute for DBus fields.
@@ -146,7 +146,13 @@ class DBusData(ABC):
 
         :return: a DBus structure
         """
-        return get_structure(data, fields=get_fields(cls))
+        structure = {}
+        fields = get_fields(cls)
+
+        for name, field in fields.items():
+            structure[name] = field.get_data_variant(data)
+
+        return structure
 
     @classmethod
     def from_structure_list(cls, structures: List[Dict]):
@@ -183,26 +189,6 @@ def get_fields(obj):
         raise DBusStructureError("Fields are not defined at '{}'.".format(DBUS_FIELDS_ATTRIBUTE))
 
     return fields
-
-
-def get_structure(obj, fields=None) -> Structure:
-    """Return a DBus structure.
-
-    The returned DBus structure is ready to be send on DBus.
-
-    :param obj: a data object
-    :param fields: a map of DBus fields or None
-    :return: a DBus structure
-    """
-    structure = {}
-
-    if fields is None:
-        fields = get_fields(obj)
-
-    for name, field in fields.items():
-        structure[name] = field.get_data_variant(obj)
-
-    return structure
 
 
 def generate_fields(cls):

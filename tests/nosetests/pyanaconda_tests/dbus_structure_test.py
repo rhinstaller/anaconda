@@ -20,8 +20,7 @@
 import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.structure import DBusData, get_structure, DBusStructureError, \
-    generate_string_from_data
+from pyanaconda.dbus.structure import DBusData, DBusStructureError, generate_string_from_data
 
 
 class DBusStructureTestCase(unittest.TestCase):
@@ -104,7 +103,8 @@ class DBusStructureTestCase(unittest.TestCase):
             pass
 
     def skip_members_test(self):
-        structure = get_structure(self.SkipData())
+        data = self.SkipData()
+        structure = self.SkipData.to_structure(data)
         self.assertEqual(structure, {'x': get_variant(Int, 0)})
 
         data = self.SkipData.from_structure({'x': 10})
@@ -224,7 +224,7 @@ class DBusStructureTestCase(unittest.TestCase):
                 'bool-list': get_variant(List[Bool], [True, False, False]),
                 'very-long-property-name': get_variant(Str, "My String Value")
             },
-            get_structure(data)
+            self.ComplicatedData.to_structure(data)
         )
 
     def apply_complicated_structure_test(self):

@@ -23,7 +23,8 @@ from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal, dbus_class
-from pyanaconda.dbus.structure import get_structure
+from pyanaconda.modules.common.structures.network import NetworkDeviceInfo, \
+    NetworkDeviceConfiguration
 from pyanaconda.modules.common.task import TaskInterface
 
 
@@ -111,7 +112,7 @@ class NetworkInterface(KickstartModuleInterface):
         :return: list of objects describing supported devices found on the system
         """
         dev_infos = self.implementation.get_supported_devices()
-        return [get_structure(dev_info) for dev_info in dev_infos]
+        return NetworkDeviceInfo.to_structure_list(dev_infos)
 
     def GetActivatedInterfaces(self) -> List[Str]:
         """Get activated network interfaces.
@@ -161,11 +162,16 @@ class NetworkInterface(KickstartModuleInterface):
         their uuid.
         """
         dev_cfgs = self.implementation.get_device_configurations()
-        return [get_structure(dev_cfg) for dev_cfg in dev_cfgs]
+        return NetworkDeviceConfiguration.to_structure_list(dev_cfgs)
 
     def _device_configurations_changed(self, changes):
-        self.DeviceConfigurationChanged([(get_structure(old), get_structure(new))
-                                         for old, new in changes])
+        self.DeviceConfigurationChanged([
+            (
+                NetworkDeviceConfiguration.to_structure(old),
+                NetworkDeviceConfiguration.to_structure(new)
+            )
+            for old, new in changes
+        ])
 
     @dbus_signal
     def DeviceConfigurationChanged(self, changes: List[Tuple[Structure, Structure]]):
