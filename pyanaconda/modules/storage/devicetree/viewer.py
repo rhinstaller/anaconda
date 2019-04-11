@@ -255,3 +255,12 @@ class DeviceTreeViewer(ABC):
         """
         disks = self._get_devices(disk_names)
         return self.storage.get_disk_reclaimable_space(disks).get_bytes()
+
+    def get_fstab_spec(self, name):
+        """Get the device specifier for use in /etc/fstab.
+
+        :param name: a name of the device
+        :return: a device specifier for /etc/fstab
+        """
+        device = self._get_device(name)
+        return device.fstab_spec

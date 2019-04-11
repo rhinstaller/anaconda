@@ -369,3 +369,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         device_teardown.assert_called_once()
         self.assertFalse(dev2.format.has_key)
+
+    def get_fstab_spec_test(self):
+        """Test GetFstabSpec."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4", uuid="123")))
+        self.assertEqual(self.interface.GetFstabSpec("dev1"), "UUID=123")

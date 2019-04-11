@@ -135,3 +135,11 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         :return: a total size in bytes
         """
         return self.implementation.get_disk_reclaimable_space(disk_names)
+
+    def GetFstabSpec(self, name: Str) -> Str:
+        """Get the device specifier for use in /etc/fstab.
+
+        :param name: a name of the device
+        :return: a device specifier for /etc/fstab
+        """
+        return self.implementation.get_fstab_spec(name)
