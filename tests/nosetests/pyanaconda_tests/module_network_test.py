@@ -30,6 +30,7 @@ from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.installation import NetworkInstallationTask
 from pyanaconda.modules.network.firewall.firewall import FirewallModule
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
+from pyanaconda.modules.network.kickstart import DEFAULT_DEVICE_SPECIFICATION
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
@@ -681,4 +682,171 @@ class FirewallInterfaceTestCase(unittest.TestCase):
         self._test_dbus_property(
             "DisabledServices",
             ["ldap", "ldaps", "ssh"],
+        )
+
+class NetworkModuleTestCase(unittest.TestCase):
+    """Test Network module."""
+
+    def setUp(self):
+        """Set up the network module."""
+        # Set up the network module.
+        self.network_module = NetworkModule()
+
+    def apply_boot_options_ksdevice_test(self):
+        """Test _apply_boot_options function for 'ksdevice'."""
+        self.assertEqual(
+            self.network_module.default_device_specification,
+            DEFAULT_DEVICE_SPECIFICATION
+        )
+        mocked_kernel_args = {"something": "else"}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.default_device_specification,
+            DEFAULT_DEVICE_SPECIFICATION
+        )
+        mocked_kernel_args = {'ksdevice': "ens3"}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.default_device_specification,
+            "ens3"
+        )
+        mocked_kernel_args = {}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.default_device_specification,
+            "ens3"
+        )
+
+    def apply_boot_options_noipv6_test(self):
+        """Test _apply_boot_options function for 'noipv6'."""
+        self.assertEqual(
+            self.network_module.disable_ipv6,
+            False
+        )
+        mocked_kernel_args = {"something": "else"}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.disable_ipv6,
+            False
+        )
+        mocked_kernel_args = {'noipv6': None}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.disable_ipv6,
+            True
+        )
+        mocked_kernel_args = {}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.disable_ipv6,
+            True
+        )
+
+    def apply_boot_options_bootif_test(self):
+        """Test _apply_boot_options function for 'BOOTIF'."""
+        self.assertEqual(
+            self.network_module.bootif,
+            None
+        )
+        mocked_kernel_args = {"something": "else"}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.bootif,
+            None
+        )
+        mocked_kernel_args = {'BOOTIF': "01-f4-ce-46-2c-44-7a"}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.bootif,
+            "F4:CE:46:2C:44:7A"
+        )
+        mocked_kernel_args = {}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.bootif,
+            "F4:CE:46:2C:44:7A"
+        )
+        # Do not crash on trash
+        mocked_kernel_args = {'BOOTIF': ""}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.bootif,
+            ""
+        )
+
+    def apply_boot_options_ifname_test(self):
+        """Test _apply_boot_options function for 'ifname'."""
+        self.assertEqual(
+            self.network_module.ifname_option_values,
+            []
+        )
+        mocked_kernel_args = {"something": "else"}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.ifname_option_values,
+            []
+        )
+        mocked_kernel_args = {'ifname': "ens3f0:00:15:17:96:75:0a"}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.ifname_option_values,
+            ["ens3f0:00:15:17:96:75:0a"]
+        )
+        mocked_kernel_args = {'ifname': "ens3f0:00:15:17:96:75:0a ens3f1:00:15:17:96:75:0b"}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.ifname_option_values,
+            ["ens3f0:00:15:17:96:75:0a", "ens3f1:00:15:17:96:75:0b"]
+        )
+        mocked_kernel_args = {}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.ifname_option_values,
+            ["ens3f0:00:15:17:96:75:0a", "ens3f1:00:15:17:96:75:0b"]
+        )
+        mocked_kernel_args = {'ifname': "bla bla"}
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertEqual(
+            self.network_module.ifname_option_values,
+            ["bla", "bla"]
+        )
+
+    def apply_boot_options_test(self):
+        """Test _apply_boot_options for multiple options."""
+        self.assertListEqual(
+            [
+                self.network_module.bootif,
+                self.network_module.ifname_option_values,
+                self.network_module.disable_ipv6,
+                self.network_module.default_device_specification,
+            ],
+            [
+                None,
+                [],
+                False,
+                DEFAULT_DEVICE_SPECIFICATION,
+            ]
+        )
+        mocked_kernel_args = {
+            'something_else': None,
+            'ifname': 'ens3f0:00:15:17:96:75:0a ens3f1:00:15:17:96:75:0b',
+            'something': 'completely_else',
+            'BOOTIF': '01-f4-ce-46-2c-44-7a',
+            'noipv6': None,
+            'ksdevice': 'ens11',
+        }
+        self.network_module._apply_boot_options(mocked_kernel_args)
+        self.assertListEqual(
+            [
+                self.network_module.bootif,
+                self.network_module.ifname_option_values,
+                self.network_module.disable_ipv6,
+                self.network_module.default_device_specification,
+            ],
+            [
+                "F4:CE:46:2C:44:7A",
+                ["ens3f0:00:15:17:96:75:0a", "ens3f1:00:15:17:96:75:0b"],
+                True,
+                "ens11",
+            ]
         )

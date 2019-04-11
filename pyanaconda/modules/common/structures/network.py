@@ -116,13 +116,13 @@ class NetworkDeviceInfo(object):
         :param device: NetworkManager device object
         :type device: NMDevice
         """
-        self._device_name = device.get_iface()
-        self._device_type = device.get_device_type()
+        self._device_name = device.get_iface() or ""
+        self._device_type = device.get_device_type() or self.DEVICE_TYPE_UNKNOWN
         try:
-            hw_address = device.get_permanent_hw_address()
+            perm_hw_address = device.get_permanent_hw_address()
         except AttributeError:
-            hw_address = device.get_hw_address()
-        self.hw_address = hw_address
+            perm_hw_address = None
+        self.hw_address = perm_hw_address or device.get_hw_address() or ""
 
     def __repr__(self):
         return generate_string_from_data(self)
