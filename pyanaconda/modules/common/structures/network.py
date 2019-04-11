@@ -16,14 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure, generate_string_from_data
+from pyanaconda.dbus.structure import DBusData
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["NetworkDeviceConfiguration"]
 
 
-@dbus_structure
-class NetworkDeviceConfiguration(object):
+class NetworkDeviceConfiguration(DBusData):
     """Holds reference to persistent configuration of a network device.
 
     Binds device name and NM connection (by its uuid).
@@ -68,12 +67,8 @@ class NetworkDeviceConfiguration(object):
     def __eq__(self, other):
         return (self._device_name, self._connection_uuid) == (other.device_name, other.connection_uuid)
 
-    def __repr__(self):
-        return generate_string_from_data(self)
 
-
-@dbus_structure
-class NetworkDeviceInfo(object):
+class NetworkDeviceInfo(DBusData):
     """Holds information about network device."""
 
     DEVICE_TYPE_UNKNOWN = 0
@@ -123,6 +118,3 @@ class NetworkDeviceInfo(object):
         except AttributeError:
             perm_hw_address = None
         self.hw_address = perm_hw_address or device.get_hw_address() or ""
-
-    def __repr__(self):
-        return generate_string_from_data(self)

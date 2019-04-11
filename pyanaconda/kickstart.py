@@ -42,7 +42,6 @@ from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_ad
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, SELINUX_DEFAULT, \
     SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, FIREWALL_ENABLED, FIREWALL_DISABLED, \
     FIREWALL_USE_SYSTEM_DEFAULTS
-from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
@@ -308,7 +307,7 @@ class Realm(RemovedCommand):
 
     def setup(self):
         security_proxy = SECURITY.get_proxy()
-        realm = apply_structure(security_proxy.Realm, RealmData())
+        realm = RealmData.from_structure(security_proxy.Realm)
 
         if not realm.name:
             return
@@ -345,7 +344,7 @@ class Realm(RemovedCommand):
             return
 
         security_proxy = SECURITY.get_proxy()
-        realm = apply_structure(security_proxy.Realm, RealmData())
+        realm = RealmData.from_structure(security_proxy.Realm)
 
         for arg in realm.join_options:
             if arg.startswith("--no-password") or arg.startswith("--one-time-password"):
