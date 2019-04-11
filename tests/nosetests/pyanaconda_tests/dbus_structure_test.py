@@ -278,26 +278,74 @@ class DBusStructureTestCase(unittest.TestCase):
         def c(self, value):
             self._c = value
 
-        @property
-        def d(self) -> List[Str]:
-            return self._d
-
-        @d.setter
-        def d(self, value):
-            self._d = value
-
         def __repr__(self):
-            return generate_string_from_data(self, skip=["d"])
-
-    def init_string_representation_test(self):
-        self.assertEqual(repr(self.StringData()), "StringData(a=1, b='', c=[])")
+            return generate_string_from_data(self)
 
     def string_representation_test(self):
         data = self.StringData()
 
+        expected = "StringData(a=1, b='', c=[])"
+        self.assertEqual(expected, repr(data))
+        self.assertEqual(expected, str(data))
+
         data.a = 123
         data.b = "HELLO"
         data.c = [True, False]
-        data.d = ["SECRET"]
 
-        self.assertEqual(repr(data), "StringData(a=123, b='HELLO', c=[True, False])")
+        expected = "StringData(a=123, b='HELLO', c=[True, False])"
+        self.assertEqual(expected, repr(data))
+        self.assertEqual(expected, str(data))
+
+    @dbus_structure
+    class AdvancedStringData(object):
+
+        def __init__(self):
+            self._a = ""
+            self._b = ""
+            self._c = ""
+
+        @property
+        def a(self) -> Str:
+            return self._a
+
+        @a.setter
+        def a(self, value):
+            self._a = value
+
+        @property
+        def b(self) -> Str:
+            return self._b
+
+        @b.setter
+        def b(self, value):
+            self._b = value
+
+        @property
+        def c(self) -> Str:
+            return self._c
+
+        @c.setter
+        def c(self, value):
+            self._c = value
+
+        def __repr__(self):
+            return generate_string_from_data(
+                obj=self,
+                skip=["b"],
+                add=["b_is_set={}".format(bool(self.b))]
+            )
+
+    def advanced_string_representation_test(self):
+        data = self.AdvancedStringData()
+
+        expected = "AdvancedStringData(a='', b_is_set=False, c='')"
+        self.assertEqual(expected, repr(data))
+        self.assertEqual(expected, str(data))
+
+        data.a = "A"
+        data.b = "B"
+        data.c = "C"
+
+        expected = "AdvancedStringData(a='A', b_is_set=True, c='C')"
+        self.assertEqual(expected, repr(data))
+        self.assertEqual(expected, str(data))

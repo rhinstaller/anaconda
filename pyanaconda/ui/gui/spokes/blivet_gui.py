@@ -30,12 +30,14 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
+from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE
 from pyanaconda.core.i18n import _, CN_, C_
 from pyanaconda.storage.initialization import reset_bootloader
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
 from pyanaconda.storage.execution import configure_storage
+from pyanaconda.threading import threadMgr
 
 from blivetgui import osinstall
 from blivetgui.config import config
@@ -139,6 +141,8 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         :see: pyanaconda.ui.common.UIObject.refresh
 
         """
+        for thread_name in [THREAD_EXECUTE_STORAGE, THREAD_STORAGE]:
+            threadMgr.wait(thread_name)
 
         self._back_already_clicked = False
 
