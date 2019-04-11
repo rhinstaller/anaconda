@@ -31,11 +31,19 @@ class InteractivePartitioningTask(PartitioningTask):
     def _run(self, storage):
         """Only set up the bootloader."""
         self._prepare_bootloader(storage)
+        self._set_fstab_swaps(storage)
         self._organize_actions(storage)
 
     def _prepare_bootloader(self, storage):
         """Prepare the bootloader."""
         setup_bootloader(storage)
+
+    def _set_fstab_swaps(self, storage):
+        """Set swap devices that should appear in the fstab."""
+        storage.set_fstab_swaps([
+            d for d in storage.devices
+            if d.direct and not d.format.exists and not d.partitioned and d.format.type == "swap"
+        ])
 
     def _organize_actions(self, storage):
         """Prune and sort the scheduled actions."""

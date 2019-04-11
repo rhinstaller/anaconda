@@ -223,11 +223,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def apply(self):
         self.clear_errors()
-
         self._unhide_unusable_disks()
-
-        new_swaps = (dev for dev in self.get_new_devices() if dev.format.type == "swap")
-        self.storage.set_fstab_swaps(new_swaps)
 
         # update the global passphrase
         self._auto_part_observer.proxy.SetPassphrase(self.passphrase)
