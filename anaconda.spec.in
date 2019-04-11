@@ -354,6 +354,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 11 2019 Martin Kolman <mkolman@redhat.com> - 30.25.6-1
+- Extend the function generate_string_from_data (vponcova)
+- Blivet-GUI should wait for the storage threads to finish (#1696478)
+  (vponcova)
+- network: do not pass None value from NM device object to data holder
+  (#1695967) (rvykydal)
+- network module: add network module unit tests (rvykydal)
+
 * Tue Apr 09 2019 Martin Kolman <mkolman@redhat.com> - 30.25.5-1
 - network: create systemd .link files for ifname= boot options (#1695894)
   (rvykydal)
