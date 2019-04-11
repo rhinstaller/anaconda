@@ -1479,3 +1479,20 @@ def synchronized(wrapped):
         with self._lock:
             return wrapped(self, *args, **kwargs)
     return _wrapper
+
+
+def decode_bytes(data):
+    """Decode the given bytes.
+
+    Return the given string or a string decoded from the given bytes.
+
+    :param data: bytes or a string
+    :return: a string
+    """
+    if isinstance(data, str):
+        return data
+
+    if isinstance(data, bytes):
+        return data.decode('utf-8')
+
+    raise ValueError("Unsupported type '{}'.".format(type(data).__name__))
