@@ -239,6 +239,16 @@ class Payload(metaclass=ABCMeta):
         ksrepo.enabled = True
         self.data.repo.dataList().append(ksrepo)
 
+    def add_disabled_repo(self, ksrepo):
+        """Add the repo given by the pykickstart Repo object ksrepo to the
+        list of known repos.  The repo will be automatically disabled.
+
+        Duplicate repos will not raise an error.  They should just silently
+        take the place of the previous value.
+        """
+        ksrepo.enabled = False
+        self.data.repo.dataList().append(ksrepo)
+
     def remove_repo(self, repo_id):
         repos = self.data.repo.dataList()
         try:
