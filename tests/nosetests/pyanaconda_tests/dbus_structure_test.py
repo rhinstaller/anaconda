@@ -368,3 +368,9 @@ class DBusStructureTestCase(unittest.TestCase):
         expected = "AdvancedStringData(a='A', b_is_set=True, c='C')"
         self.assertEqual(expected, repr(data))
         self.assertEqual(expected, str(data))
+
+    def generate_string_from_invalid_type_test(self):
+        with self.assertRaises(DBusStructureError) as cm:
+            generate_string_from_data({"x": 1})
+
+        self.assertEqual(str(cm.exception), "Fields are not defined at '__dbus_fields__'.")
