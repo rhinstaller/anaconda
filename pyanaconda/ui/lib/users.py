@@ -17,7 +17,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.common.structures.user import UserData
-from pyanaconda.dbus.structure import apply_structure, get_structure
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -34,7 +33,7 @@ def get_user_list(users_module, add_default=False, add_if_not_empty=False):
     :rtype: list
     """
 
-    user_data_list = [apply_structure(user_struct, UserData()) for user_struct in users_module.Users]
+    user_data_list = UserData.from_structure_list(users_module.Users)
 
     if add_default:
         # we only add default user to an empty list, to add default user to
@@ -67,4 +66,4 @@ def set_user_list(users_module, user_data_list, remove_unset=False):
     if remove_unset:
         user_data_list = [user for user in user_data_list if user.name]
 
-    users_module.SetUsers([get_structure(user_data) for user_data in user_data_list])
+    users_module.SetUsers(UserData.to_structure_list(user_data_list))

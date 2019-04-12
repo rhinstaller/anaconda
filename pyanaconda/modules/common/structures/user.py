@@ -16,7 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure, generate_string_from_data
+from pyanaconda.dbus.structure import DBusData
+
+from pyanaconda.dbus.structure import generate_string_from_data
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["UserData"]
@@ -24,8 +26,7 @@ __all__ = ["UserData"]
 USER_GID_NOT_SET = -1
 USER_UID_NOT_SET = -1
 
-@dbus_structure
-class UserData(object):
+class UserData(DBusData):
     """User data."""
 
     def __init__(self):

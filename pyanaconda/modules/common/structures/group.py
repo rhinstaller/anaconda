@@ -16,15 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure
+from pyanaconda.dbus.structure import DBusData
+
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["GroupData"]
 
 GROUP_GID_NOT_SET = -1
 
-@dbus_structure
-class GroupData(object):
+class GroupData(DBusData):
     """Group data."""
 
     def __init__(self):

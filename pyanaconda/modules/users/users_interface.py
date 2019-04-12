@@ -22,8 +22,10 @@ from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
+from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.modules.common.structures.group import GroupData
+from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.structure import get_structure, apply_structure
 
 
 @dbus_interface(USERS.interface_name)
@@ -133,8 +135,8 @@ class UsersInterface(KickstartModuleInterface):
         # over DBUS
         user_dicts = []
 
-        for user_struct in self.implementation.users:
-            user_dicts.append(get_structure(user_struct))
+        for user_data in self.implementation.users:
+            user_dicts.append(UserData.to_structure(user_data))
         return user_dicts
 
     @emits_properties_changed
@@ -143,12 +145,7 @@ class UsersInterface(KickstartModuleInterface):
 
         :param users: a list of user describing DBUS structures
         """
-        user_data_list = []
-        for user_struct in users:
-            user_data = self.implementation.create_user_data()
-            apply_structure(user_struct, user_data)
-            user_data_list.append(user_data)
-        self.implementation.set_users(user_data_list)
+        self.implementation.set_users(UserData.from_structure_list(users))
 
     @property
     def Groups(self) -> List[Structure]:
@@ -161,8 +158,8 @@ class UsersInterface(KickstartModuleInterface):
         # over DBUS
         group_dicts = []
 
-        for group_struct in self.implementation.groups:
-            group_dicts.append(get_structure(group_struct))
+        for group_data in self.implementation.groups:
+            group_dicts.append(GroupData.to_structure(group_data))
         return group_dicts
 
     @emits_properties_changed
@@ -171,12 +168,7 @@ class UsersInterface(KickstartModuleInterface):
 
         :param groups: a list of group describing DBUS structures
         """
-        group_data_list = []
-        for group_struct in groups:
-            group_data = self.implementation.create_group_data()
-            apply_structure(group_struct, group_data)
-            group_data_list.append(group_data)
-        self.implementation.set_groups(group_data_list)
+        self.implementation.set_groups(GroupData.from_structure_list(groups))
 
     @property
     def SshKeys(self) -> List[Structure]:
@@ -189,8 +181,8 @@ class UsersInterface(KickstartModuleInterface):
         # over DBUS
         ssh_key_dicts = []
 
-        for ssh_key_struct in self.implementation.ssh_keys:
-            ssh_key_dicts.append(get_structure(ssh_key_struct))
+        for ssh_key_data in self.implementation.ssh_keys:
+            ssh_key_dicts.append(SshKeyData.to_structure(ssh_key_data))
         return ssh_key_dicts
 
     @emits_properties_changed
@@ -199,12 +191,7 @@ class UsersInterface(KickstartModuleInterface):
 
         :param ssh_keys: a list of SSH key describing DBUS structures
         """
-        ssh_key_data_list = []
-        for ssh_key_struct in ssh_keys:
-            ssh_key_data = self.implementation.create_ssh_key_data()
-            apply_structure(ssh_key_struct, ssh_key_data)
-            ssh_key_data_list.append(ssh_key_data)
-        self.implementation.set_ssh_keys(ssh_key_data_list)
+        self.implementation.set_ssh_keys(SshKeyData.from_structure_list(ssh_keys))
 
     def CheckAdminUserExists(self) -> Bool:
         """Reports if at least one admin user exists.

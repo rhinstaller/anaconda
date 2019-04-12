@@ -16,14 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure
+from pyanaconda.dbus.structure import DBusData
+
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["SshKeyData"]
 
 
-@dbus_structure
-class SshKeyData(object):
+class SshKeyData(DBusData):
     """SSH key data."""
 
     def __init__(self):

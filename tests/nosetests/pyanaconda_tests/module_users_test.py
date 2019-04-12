@@ -26,7 +26,6 @@ from gi.repository import GLib
 
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
-from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.modules.users.users import UsersModule
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.dbus.typing import get_variant, List, Str, Int, Bool
@@ -1068,7 +1067,8 @@ class UsersDataTestCase(unittest.TestCase):
 
         # empty user
         user_data = UserData()
-        self.assertEqual(str(user_data), "UserData()")
+        expected_data = "UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=False, name='', password_set=False, shell='', uid=-1)"
+        self.assertEqual(str(user_data), expected_data)
 
         # a generic user
         user_data = UserData()
@@ -1082,33 +1082,37 @@ class UsersDataTestCase(unittest.TestCase):
         user_data.gecos = "some stuff"
         user_data.lock = False
         user_data.shell = "zsh"
-        expected_string = """UserData(name="foo", password_set=True, uid=2, groups=['mockuser', 'wheel'], gid=1, homedir="/home/bar", shell="zsh", gecos="some stuff")"""
+        expected_string = """UserData(gecos='some stuff', gid=1, groups=['mockuser', 'wheel'], homedir='/home/bar', is_crypted=False, lock=False, name='foo', password_set=True, shell='zsh', uid=2)"""
         self.assertEqual(str(user_data), expected_string)
 
         # password not set
         user_data = UserData()
         user_data.name = "foo"
-        self.assertEqual(str(user_data), 'UserData(name="foo")')
+        expected_string = """UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=False, name='foo', password_set=False, shell='', uid=-1)"""
+        self.assertEqual(str(user_data), expected_string)
 
         # password crypted
         user_data = UserData()
         user_data.name = "foo"
         user_data.password = "abc"
         user_data.is_crypted = True
-        self.assertEqual(str(user_data), 'UserData(name="foo", password_set=True, password_crypted=True)')
+        expected_string = """UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=False, name='foo', password_set=True, shell='', uid=-1)"""
+        self.assertEqual(str(user_data), expected_string)
 
         # account locked with password
         user_data = UserData()
         user_data.name = "foo"
         user_data.password = "abc"
         user_data.lock = True
-        self.assertEqual(str(user_data), 'UserData(name="foo", account_locked=True, password_set=True, password_crypted=True)')
+        expected_string = """UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=True, name='foo', password_set=True, shell='', uid=-1)"""
+        self.assertEqual(str(user_data), expected_string)
 
         # account locked without password
         user_data = UserData()
         user_data.name = "foo"
         user_data.lock = True
-        self.assertEqual(str(user_data), 'UserData(name="foo", account_locked=True)')
+        expected_string = """UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=True, name='foo', password_set=False, shell='', uid=-1)"""
+        self.assertEqual(str(user_data), expected_string)
 
 class SharedUICodeTestCase(unittest.TestCase):
     """Test shared UI code related to user handling.
@@ -1156,8 +1160,8 @@ class SharedUICodeTestCase(unittest.TestCase):
         # list length
         self.assertEqual(len(user_data_list), 2)
         # equality check of the resulting UserData instances
-        user1_data = apply_structure(user1, UserData())
-        user2_data = apply_structure(user2, UserData())
+        user1_data = UserData.from_structure(user1)
+        user2_data = UserData.from_structure(user2)
         self.assertEqual(user_data_list[0], user1_data)
         self.assertEqual(user_data_list[1], user2_data)
         # individual values
@@ -1248,8 +1252,8 @@ class SharedUICodeTestCase(unittest.TestCase):
         # list length
         self.assertEqual(len(user_data_list), 2)
         # equality check of the resulting UserData instances
-        user1_data = apply_structure(user1, UserData())
-        user2_data = apply_structure(user2, UserData())
+        user1_data = UserData.from_structure(user1)
+        user2_data = UserData.from_structure(user2)
         self.assertEqual(user_data_list[0], user1_data)
         self.assertEqual(user_data_list[1], user2_data)
         # individual values
@@ -1314,8 +1318,8 @@ class SharedUICodeTestCase(unittest.TestCase):
         # list length
         self.assertEqual(len(user_data_list), 3)
         # equality check of the resulting UserData instances
-        user1_data = apply_structure(user1, UserData())
-        user2_data = apply_structure(user2, UserData())
+        user1_data = UserData.from_structure(user1)
+        user2_data = UserData.from_structure(user2)
         self.assertEqual(user_data_list[1], user1_data)
         self.assertEqual(user_data_list[2], user2_data)
         # individual values
@@ -1383,7 +1387,7 @@ class SharedUICodeTestCase(unittest.TestCase):
 
         user_list_in = [user1, user2]
 
-        user_data_list_in = [apply_structure(user_struct, UserData()) for user_struct in user_list_in]
+        user_data_list_in = UserData.from_structure_list(user_list_in)
         # create the mock Users DBUS module
         users_module_mock = Mock()
 
@@ -1442,7 +1446,7 @@ class SharedUICodeTestCase(unittest.TestCase):
 
         user_list_in = [user1, user2]
 
-        user_data_list_in = [apply_structure(user_struct, UserData()) for user_struct in user_list_in]
+        user_data_list_in = UserData.from_structure_list(user_list_in)
         # create the mock Users DBUS module
         users_module_mock = Mock()
 

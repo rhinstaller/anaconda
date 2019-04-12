@@ -86,7 +86,7 @@ class UsersModule(KickstartModule):
 
         group_data_list = []
         for group_ksdata in data.group.groupList:
-            group_data = self.create_group_data()
+            group_data = GroupData()
             group_data.name = group_ksdata.name
             if group_ksdata.gid is not None:
                 group_data.gid = group_ksdata.gid
@@ -95,7 +95,7 @@ class UsersModule(KickstartModule):
 
         ssh_key_data_list = []
         for ssh_key_ksdata in data.sshkey.sshUserList:
-            ssh_key_data = self.create_ssh_key_data()
+            ssh_key_data = SshKeyData()
             ssh_key_data.key = ssh_key_ksdata.key
             ssh_key_data.username = ssh_key_ksdata.username
             ssh_key_data_list.append(ssh_key_data)
@@ -157,7 +157,7 @@ class UsersModule(KickstartModule):
         :param user_ksdata: data for the kickstart user command
         :return: UserData instance with kickstart data applied
         """
-        user_data = self.create_user_data()
+        user_data = UserData()
         user_data.name = user_ksdata.name
         user_data.groups = user_ksdata.groups
         # To denote that a value has not been set:
@@ -222,10 +222,6 @@ class UsersModule(KickstartModule):
         self.users_changed.emit()
         log.debug("A new user list has been set: %s", self._users)
 
-    def create_user_data(self):
-        """Create an empty UserData instance."""
-        return UserData()
-
     @property
     def groups(self):
         """List of GroupData instances, one per group."""
@@ -237,10 +233,6 @@ class UsersModule(KickstartModule):
         self.groups_changed.emit()
         log.debug("A new group list has been set: %s", self._groups)
 
-    def create_group_data(self):
-        """Create an empty GroupData instance."""
-        return GroupData()
-
     @property
     def ssh_keys(self):
         """List of SshKeyData instances, one per ssh key."""
@@ -251,10 +243,6 @@ class UsersModule(KickstartModule):
         self._ssh_keys = ssh_keys
         self.ssh_keys_changed.emit()
         log.debug("A new ssh key list has been set: %s", self._ssh_keys)
-
-    def create_ssh_key_data(self):
-        """Create an empty SshKeyData instance."""
-        return SshKeyData()
 
     @property
     def rootpw_seen(self):
