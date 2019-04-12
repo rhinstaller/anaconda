@@ -21,9 +21,12 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice
+from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
+    LUKSDevice
+from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.formats.fs import FS
+from blivet.formats.luks import LUKS
 from blivet.size import Size
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
@@ -106,6 +109,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             model="MODEL_ID",
             bus="BUS_ID",
             wwn="0x0000000000000000",
+            uuid="1234-56-7890"
         ))
 
         self.assertEqual(self.interface.GetDeviceData("dev1"), {
@@ -121,6 +125,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
                 "model": "MODEL_ID",
                 "bus": "BUS_ID",
                 "wwn": "0x0000000000000000",
+                "uuid": "1234-56-7890"
             }),
             'description': get_variant(
                 Str, "VENDOR_ID MODEL_ID 0x0000000000000000"
@@ -162,6 +167,33 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             "wwpn": "0x5005076300c18154",
             "hba_id": "0.0.010a"
         }))
+
+    def get_format_data_test(self):
+        """Test GetFormatData."""
+        fmt1 = get_format("ext4", uuid="1234-56-7890", label="LABEL")
+        dev1 = StorageDevice("dev1", fmt=fmt1, size=Size("10 GiB"))
+
+        self._add_device(dev1)
+
+        self.assertEqual(self.interface.GetFormatData("dev1"), {
+            'type': get_variant(Str, 'ext4'),
+            'attrs': get_variant(Dict[Str, Str], {
+                "uuid": "1234-56-7890",
+                "label": "LABEL",
+            }),
+            'description': get_variant(Str, 'ext4'),
+        })
+
+        fmt2 = get_format("luks")
+        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=fmt2, size=Size("10 GiB"))
+
+        self._add_device(dev2)
+
+        self.assertEqual(self.interface.GetFormatData("dev2"), {
+            'type': get_variant(Str, 'luks'),
+            'attrs': get_variant(Dict[Str, Str], {}),
+            'description': get_variant(Str, 'LUKS'),
+        })
 
     def get_actions_test(self):
         """Test GetActions."""
@@ -297,3 +329,43 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
     def find_install_media_test(self):
         """Test FindInstallMedia."""
         self.assertEqual(self.interface.FindOpticalMedia(), [])
+
+    @patch.object(FS, "update_size_info")
+    def find_mountable_partitions_test(self, update_size_info):
+        """Test FindMountablePartitions."""
+        self._add_device(StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"))
+        )
+        self._add_device(PartitionDevice(
+            "dev2",
+            fmt=get_format("ext4", exists=True)
+        ))
+
+        self.assertEqual(self.interface.FindMountablePartitions(), ["dev2"])
+
+    @patch("pyanaconda.storage.utils.try_populate_devicetree")
+    @patch.object(LUKS, "setup")
+    @patch.object(LUKSDevice, "teardown")
+    @patch.object(LUKSDevice, "setup")
+    def unlock_device_test(self, device_setup, device_teardown, format_setup, populate):
+        """Test UnlockDevice."""
+        dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
+        self._add_device(dev1)
+
+        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("luks"), size=Size("10 GiB"))
+        self._add_device(dev2)
+
+        self.assertEqual(self.interface.UnlockDevice("dev2", "passphrase"), True)
+
+        device_setup.assert_called_once()
+        format_setup.assert_called_once()
+        populate.assert_called_once()
+        device_teardown.assert_not_called()
+        self.assertTrue(dev2.format.has_key)
+
+        device_setup.side_effect = StorageError("Fake error")
+        self.assertEqual(self.interface.UnlockDevice("dev2", "passphrase"), False)
+
+        device_teardown.assert_called_once()
+        self.assertFalse(dev2.format.has_key)

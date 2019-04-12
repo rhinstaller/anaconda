@@ -45,7 +45,7 @@ from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.storage.utils import filter_disks_by_names, is_local_disk, apply_disk_selection, \
-    check_disk_selection, get_disks_summary, suggest_swap_size
+    check_disk_selection, get_disks_summary, suggest_swap_size, setup_passphrase
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -833,10 +833,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self._auto_part_passphrase = dialog.passphrase
 
-        for device in self.storage.devices:
-            if device.format.type == "luks" and not device.format.exists:
-                if not device.format.has_key:
-                    device.format.passphrase = self._auto_part_passphrase
+        setup_passphrase(self.storage, self._auto_part_passphrase)
 
         return True
 

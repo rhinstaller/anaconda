@@ -19,7 +19,7 @@
 from pyanaconda.dbus.structure import DBusData
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["DeviceData", "DeviceActionData"]
+__all__ = ["DeviceData", "DeviceFormatData", "DeviceActionData"]
 
 
 class DeviceData(DBusData):
@@ -31,6 +31,7 @@ class DeviceData(DBusData):
         "model",
         "bus",
         "wwn",
+        "uuid",
 
         # DASD
         "busid",
@@ -141,6 +142,61 @@ class DeviceData(DBusData):
     @property
     def description(self) -> Str:
         """Description of the device.
+
+        FIXME: This is a temporary property.
+
+        :return: a string with description
+        """
+        return self._description
+
+    @description.setter
+    def description(self, text):
+        self._description = text
+
+
+class DeviceFormatData(DBusData):
+    """Device format data."""
+
+    SUPPORTED_ATTRIBUTES = [
+        "uuid",
+        "label"
+    ]
+
+    def __init__(self):
+        self._type = ""
+        self._attrs = {}
+        self._description = ""
+
+    @property
+    def type(self) -> Str:
+        """A type of the format.
+
+        :return: a format type
+        """
+        return self._type
+
+    @type.setter
+    def type(self, value):
+        self._type = value
+
+    @property
+    def attrs(self) -> Dict[Str, Str]:
+        """Additional attributes.
+
+        The supported attributes are defined by
+        the list SUPPORTED_ATTRIBUTES.
+
+        :return: a dictionary of attributes
+        """
+        return self._attrs
+
+    @attrs.setter
+    def attrs(self, attrs: Dict[Str, Str]):
+        self._attrs = attrs
+
+    @property
+    def description(self) -> Str:
+        """Description of the format.
 
         FIXME: This is a temporary property.
 

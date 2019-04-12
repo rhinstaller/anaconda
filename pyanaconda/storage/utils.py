@@ -20,6 +20,7 @@
 import re
 import locale
 import os
+import time
 import requests
 
 from decimal import Decimal
@@ -718,3 +719,105 @@ def find_optical_media(devicetree):
         devices.append(device)
 
     return devices
+
+
+def find_mountable_partitions(devicetree):
+    """Find all mountable partitions.
+
+    :param devicetree: an instance of a device tree
+    :return: a list of devices
+    """
+    devices = []
+
+    for device in devicetree.devices:
+        if device.type != "partition":
+            continue
+
+        if not device.format.exists:
+            continue
+
+        if not device.format.mountable:
+            continue
+
+        devices.append(device)
+
+    return devices
+
+
+def unlock_device(storage, device, passphrase):
+    """Unlock a LUKS device.
+
+    :param storage: an instance of the storage
+    :param device: a device to unlock
+    :param passphrase: a passphrase to use
+    :return: True if success, otherwise False
+    """
+    # Set the passphrase.
+    device.format.passphrase = passphrase
+
+    try:
+        # Unlock the device.
+        device.setup()
+        device.format.setup()
+    except StorageError as err:
+        log.error("Failed to unlock %s: %s", device.name, err)
+
+        # Teardown the device.
+        device.teardown(recursive=True)
+
+        # Forget the wrong passphrase.
+        device.format.passphrase = None
+
+        return False
+    else:
+        # Save the passphrase.
+        storage.save_passphrase(device)
+
+        # Wait for the device.
+        # Otherwise, we could get a message about no Linux partitions.
+        time.sleep(2)
+
+        # Update the device tree.
+        try_populate_devicetree(storage.devicetree)
+
+        return True
+
+
+def find_unconfigured_luks(storage):
+    """Find all unconfigured LUKS devices.
+
+    Returns a list of devices that require a passphrase
+    for their configuration.
+
+    :param storage: an instance of Blivet
+    :return: a list of devices
+    """
+    devices = []
+
+    for device in storage.devices:
+        # Only LUKS devices.
+        if not device.format.type == "luks":
+            continue
+
+        # Skip existing formats.
+        if device.format.exists:
+            continue
+
+        # Skip formats with keys.
+        if device.format.has_key:
+            continue
+
+        devices.append(device)
+
+    return devices
+
+
+def setup_passphrase(storage, passphrase):
+    """Set up the given passphrase on unconfigured LUKS devices.
+
+    :param storage: an instance of Blivet
+    :param passphrase: a passphrase to use
+    """
+    for device in find_unconfigured_luks(storage):
+        device.format.passphrase = passphrase
+        storage.save_passphrase(device)

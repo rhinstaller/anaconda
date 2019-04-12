@@ -28,7 +28,7 @@ from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.storage.root import mount_existing_system, find_existing_installations
-from pyanaconda.storage.utils import try_populate_devicetree
+from pyanaconda.storage.utils import unlock_device
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
@@ -288,24 +288,12 @@ class Rescue(object):
             return False
 
         device = device_state.device
-        device.format.passphrase = passphrase
-        try:
-            device.setup()
-            device.format.setup()
+        unlocked = unlock_device(self._storage, device, passphrase)
 
-            # Wait for the device.
-            # Otherwise, we could get a message about no Linux partitions.
-            time.sleep(2)
-
-            try_populate_devicetree(self._storage.devicetree)
-        except StorageError as serr:
-            log.error("Failed to unlock %s: %s", device.name, serr)
-            device.teardown(recursive=True)
-            device.format.passphrase = None
-            return False
-        else:
+        if unlocked:
             device_state.set_unlocked(passphrase)
-            return True
+
+        return unlocked
 
     def run_shell(self):
         """Launch a shell."""
