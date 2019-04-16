@@ -80,7 +80,7 @@ def enable_installer_mode():
 
     # We don't want image installs writing backups of the *image* metadata
     # into the *host's* /etc/lvm. This can get real messy on build systems.
-    if blivet_flags.image_install:
+    if flags.imageInstall:
         blivet_flags.lvm_metadata_backup = False
 
     blivet_flags.auto_dev_updates = True
