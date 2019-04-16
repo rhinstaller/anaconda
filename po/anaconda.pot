@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
-# This file is distributed under the same license as the anaconda package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.149\n"
+"Project-Id-Version: anaconda 21.48.22.150\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2019-03-25 19:47+0100\n"
+"POT-Creation-Date: 2019-04-16 12:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1139,7 +1139,8 @@ msgstr ""
 msgid "Btrfs"
 msgstr ""
 
-#: pyanaconda/storage_utils.py:61 pyanaconda/ui/gui/spokes/lib/resize.glade.h:5
+#: pyanaconda/storage_utils.py:61
+#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:5
 msgid "Disk"
 msgstr ""
 
@@ -1589,7 +1590,8 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: 'q' to quit
-#: pyanaconda/ui/tui/hubs/summary.py:120 pyanaconda/ui/tui/hubs/__init__.py:147
+#: pyanaconda/ui/tui/hubs/summary.py:120
+#: pyanaconda/ui/tui/hubs/__init__.py:147
 #: pyanaconda/ui/tui/simpleline/base.py:468
 #: pyanaconda/ui/tui/simpleline/base.py:670
 msgctxt "TUI|Spoke Navigation"
@@ -1600,14 +1602,16 @@ msgstr ""
 #. TRANSLATORS:'r' to refresh
 #. TRANSLATORS: 'r' to refresh
 #. TRANSLATORS:'r' to refresh
-#: pyanaconda/ui/tui/hubs/summary.py:124 pyanaconda/ui/tui/hubs/__init__.py:151
+#: pyanaconda/ui/tui/hubs/summary.py:124
+#: pyanaconda/ui/tui/hubs/__init__.py:151
 #: pyanaconda/ui/tui/simpleline/base.py:456
 #: pyanaconda/ui/tui/simpleline/base.py:674
 msgctxt "TUI|Spoke Navigation"
 msgid "r"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:142 pyanaconda/ui/tui/hubs/__init__.py:126
+#: pyanaconda/ui/tui/hubs/summary.py:142
+#: pyanaconda/ui/tui/hubs/__init__.py:126
 msgid "Please complete all spokes before continuing"
 msgstr ""
 
@@ -2178,7 +2182,8 @@ msgstr ""
 msgid "Installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:57 pyanaconda/ui/tui/spokes/source.py:128
+#: pyanaconda/ui/tui/spokes/source.py:57
+#: pyanaconda/ui/tui/spokes/source.py:128
 #: pyanaconda/ui/gui/spokes/source.py:581
 #: pyanaconda/ui/gui/spokes/source.glade.h:25
 msgid "Closest mirror"
@@ -5931,7 +5936,7 @@ msgstr ""
 msgid "Install the live CD to your hard disk"
 msgstr ""
 
-#: /home/mkolman/anaconda/data/liveinst/console.apps/liveinst:5
+#: /home/rvykydal/build/git/rvykydal/anaconda/data/liveinst/console.apps/liveinst:5
 msgid "Starting Install to Hard Drive"
 msgstr ""
 
