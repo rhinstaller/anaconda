@@ -263,7 +263,7 @@ def _update_infiniband_connection_from_ksdata(connection, network_data):
 
     s_ib = NM.SettingInfiniband.new()
     s_ib.props.transport_mode = "datagram"
-    connection.add_settings(s_ib)
+    connection.add_setting(s_ib)
 
 
 def _update_ethernet_connection_from_ksdata(connection, network_data, bound_mac):
