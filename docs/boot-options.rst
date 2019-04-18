@@ -144,8 +144,10 @@ inst.noverifyssl
 ^^^^^^^^^^^^^^^^
 
 Prevents Anaconda from verifying the ssl certificate for all HTTPS connections
-with an exception of the additional kickstart repos (where --noverifyssl can be
-set per repo).
+with an exception of the additional repositories added by kickstart (where
+--noverifyssl can be set per repo). Newly created additional repositories will honor
+this option.
+
 
 .. inst.proxy:
 
