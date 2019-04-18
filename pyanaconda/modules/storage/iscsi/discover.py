@@ -21,23 +21,30 @@ from blivet.iscsi import iscsi, TargetInfo
 from blivet.safe_dbus import SafeDBusError
 
 from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.structures.iscsi import Target, Credentials, Node
 from pyanaconda.modules.common.task import Task
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 class ISCSIDiscoverTask(Task):
     """A task for discovering iSCSI nodes"""
 
-    def __init__(self, target: Target, credentials: Credentials):
+    def __init__(self, target: Target, credentials: Credentials, interfaces_mode: IscsiInterfacesMode):
         """Create a new task.
 
         :param target: the target information
         :param credentials: the iSCSI credentials
+        :param interfaces_mode: the mode of interfaces used for operation
         """
         super().__init__()
         self._target = target
         self._credentials = credentials
+        self._interfaces_mode = interfaces_mode
         self._nodes = []
 
     @property
@@ -46,30 +53,38 @@ class ISCSIDiscoverTask(Task):
 
     def run(self):
         """Run the discovery."""
-        self._set_initiator(self._target.initiator)
-        self._update_interfaces(self._target.bind)
-        self._nodes = self._discover_nodes(self._target, self._credentials)
+        self._update_interfaces(self._interfaces_mode)
+        node_infos = self._discover_nodes(self._target, self._credentials)
+        self._nodes = [self._get_node_from_node_info(node_info)
+                       for node_info in node_infos]
+        return self._nodes
 
-    def _set_initiator(self, initiator):
-        """Set up the initiator.
+    def _get_node_from_node_info(self, node_info):
+        node = Node()
+        node.name = node_info.name
+        node.address = node_info.address
+        node.port = str(node_info.port)
+        node.interface = node_info.iface
+        if self._interfaces_mode == IscsiInterfacesMode.IFACENAME:
+            node.net_ifacename = iscsi.ifaces[node_info.iface]
+        return node
 
-        :param initiator: a name of the initiator
+    def _update_interfaces(self, interfaces_mode):
+        """Update the interfaces according to requested mode.
+
+        :param interfaces_mode: required mode specified by IscsiInterfacesMode
         """
-        if not iscsi.initiator_set:
-            iscsi.initiator = initiator
-
-    def _update_interfaces(self, bind):
-        """Update the interfaces.
-
-        :param bind: bind targets to network interfaces?
-        """
-        if iscsi.mode == "none" and not bind:
-            iscsi.delete_interfaces()
-        elif iscsi.mode == "bind" or iscsi.mode == "none" and bind:
+        if interfaces_mode == IscsiInterfacesMode.DEFAULT and iscsi.mode in ("default", "none"):
+            if iscsi.ifaces:
+                iscsi.delete_interfaces()
+        elif interfaces_mode == IscsiInterfacesMode.IFACENAME and iscsi.mode in ("bind", "none"):
             network_proxy = NETWORK.get_proxy()
             activated = set(network_proxy.GetActivatedInterfaces())
             created = set(iscsi.ifaces.values())
             iscsi.create_interfaces(activated - created)
+        else:
+            raise StorageDiscoveryError('Requiring "{}" mode while "{}" is already set.'.format(
+                                        interfaces_mode, iscsi.mode))
 
     def _discover_nodes(self, target, credentials):
         """Discover iSCSI nodes.
@@ -115,22 +130,9 @@ class ISCSILoginTask(Task):
         return "Log into an iSCSI node"
 
     def run(self):
-        """Run the discovery."""
-        if self._skip_interface(self._node.interface):
-            return
-
+        """Run the login."""
         node_info = self._get_node_info(self._target, self._node)
         self._log_into_node(node_info, self._credentials)
-
-    def _skip_interface(self, interface):
-        """Should we skip logging for the given interface?
-
-        FIXME: Should we raise an error?
-
-        :param interface: a name of an interface
-        :return: True or False
-        """
-        return iscsi.ifaces and interface != iscsi.ifaces[interface]
 
     def _get_node_info(self, target, node):
         """Get the node info.

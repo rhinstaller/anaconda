@@ -212,6 +212,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "clearpart": ClearPart,
         "fcoe": Fcoe,
         "ignoredisk": IgnoreDisk,
+        "iscsi": COMMANDS.Iscsi,
         "iscsiname": COMMANDS.IscsiName,
         "logvol": COMMANDS.LogVol,
         "mount": COMMANDS.Mount,
@@ -229,6 +230,7 @@ class StorageKickstartSpecification(KickstartSpecification):
     commands_data = {
         "BTRFSData": COMMANDS.BTRFSData,
         "FcoeData": COMMANDS.FcoeData,
+        "IscsiData": COMMANDS.IscsiData,
         "LogVolData": COMMANDS.LogVolData,
         "MountData": COMMANDS.MountData,
         "NvdimmData": COMMANDS.NvdimmData,

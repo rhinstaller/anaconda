@@ -20,16 +20,17 @@
 from collections import namedtuple
 
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
-from pyanaconda.modules.common.structures.iscsi import Credentials, Target
-from pyanaconda.modules.storage.iscsi.discover import ISCSIDiscoverTask, ISCSILoginTask
+from pyanaconda.modules.common.task import async_run_task
+from pyanaconda.modules.common.structures.iscsi import Credentials, Target, Node
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.constants.objects import ISCSI
+from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.storage.utils import try_populate_devicetree
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
 from pyanaconda.network import check_ip_address
-
-from blivet.iscsi import iscsi
 
 __all__ = ["ISCSIDialog"]
 
@@ -80,15 +81,22 @@ class ISCSIDialog(GUIObject):
         self._loginSpinner = self.builder.get_object("loginSpinner")
         self._loginErrorLabel = self.builder.get_object("loginErrorLabel")
 
+        self._iscsi_module = STORAGE.get_proxy(ISCSI)
+
     def refresh(self):
-        self._bindCheckbox.set_active(bool(iscsi.ifaces))
-        self._bindCheckbox.set_sensitive(iscsi.mode == "none")
+        self._bindCheckbox.set_active(
+            self._iscsi_module.GetInterfaceMode() == IscsiInterfacesMode.IFACENAME.value
+        )
+        self._bindCheckbox.set_sensitive(self._mode_change_is_allowed())
         self._authTypeCombo.set_active(0)
         self._startButton.set_sensitive(True)
         self._loginAuthTypeCombo.set_active(0)
         self._storeFilter.set_visible_column(1)
-        self._initiatorEntry.set_text(iscsi.initiator)
-        self._initiatorEntry.set_sensitive(not iscsi.initiator_set)
+        self._initiatorEntry.set_text(self._iscsi_module.Initiator)
+        self._initiatorEntry.set_sensitive(self._iscsi_module.CanSetInitiator())
+
+    def _mode_change_is_allowed(self):
+        return self._iscsi_module.GetInterfaceMode() == IscsiInterfacesMode.UNSET.value
 
     def run(self):
         rc = self.window.run()
@@ -122,8 +130,10 @@ class ISCSIDialog(GUIObject):
         target = self._get_target()
         credentials = self._get_discover_credentials(style)
 
+        initiator = self._get_text("initiatorEntry")
         self._startButton.set_sensitive(
             self._is_target_valid(target)
+            and self._is_initiator_valid(initiator)
             and self._are_credentials_valid(style, credentials)
         )
 
@@ -141,6 +151,7 @@ class ISCSIDialog(GUIObject):
         style = self._authNotebook.get_current_page()
         target = self._get_target()
         credentials = self._get_discover_credentials(style)
+        initiator = self._get_text("initiatorEntry")
 
         self._discoveredLabel.set_markup(_(
             "The following nodes were discovered using the iSCSI initiator "
@@ -148,24 +159,35 @@ class ISCSIDialog(GUIObject):
             "<b>%(targetAddress)s</b>.  Please select which nodes you "
             "wish to log into:") %
             {
-                "initiatorName": escape_markup(target.initiator),
+                "initiatorName": escape_markup(initiator),
                 "targetAddress": escape_markup(target.ip_address)
             }
         )
 
         # Get the discovery task.
-        task = ISCSIDiscoverTask(target, credentials)
+        if self._bindCheckbox.get_active():
+            interfaces_mode = IscsiInterfacesMode.IFACENAME
+        else:
+            interfaces_mode = IscsiInterfacesMode.DEFAULT
+        task_path = self._iscsi_module.DiscoverWithTask(
+            Target.to_structure(target),
+            Credentials.to_structure(credentials),
+            interfaces_mode.value
+        )
+        task_proxy = STORAGE.get_proxy(task_path)
+
+        if self._iscsi_module.CanSetInitiator():
+            self._iscsi_module.SetInitiator(initiator)
 
         # Start the discovery.
-        task.stopped_signal.connect(lambda: self.process_discovery_result(task))
-        task.start()
+        async_run_task(task_proxy, self.process_discovery_result)
 
         self._discoverySpinner.start()
 
-    def process_discovery_result(self, task):
+    def process_discovery_result(self, task_proxy):
         """Process the result of the task.
 
-        :param task: a task
+        :param task_proxy: a task
         """
         # Stop the spinner.
         self._discoverySpinner.stop()
@@ -173,21 +195,21 @@ class ISCSIDialog(GUIObject):
 
         try:
             # Finish the task
-            nodes = task.finish()
+            task_proxy.Finish()
         except StorageDiscoveryError as e:
             # Discovery has failed, show the error.
             self._set_configure_sensitive(True)
             self._discoveryErrorLabel.set_text(str(e))
             self._conditionNotebook.set_current_page(2)
         else:
+            nodes = task_proxy.GetResult()
             # Discovery succeeded.
             # Populate the node store.
-            self._discovered_nodes = nodes
+            self._discovered_nodes = Node.from_structure_list(nodes)
 
-            for node in nodes:
-                interface = iscsi.ifaces.get(node.iface, node.iface)
+            for node in self._discovered_nodes:
                 portal = "%s:%s" % (node.address, node.port)
-                self._store.append([False, True, node.name, interface, portal])
+                self._store.append([False, True, node.name, node.net_ifacename, portal])
 
             # We should select the first node by default.
             self._store[0][0] = True
@@ -214,9 +236,7 @@ class ISCSIDialog(GUIObject):
         :return: an instance of Target
         """
         target = Target()
-        target.initiator = self._get_text("initiatorEntry")
         target.ip_address = self._get_text("targetEntry")
-        target.bind = self._bindCheckbox.get_active()
         return target
 
     def _is_target_valid(self, target):
@@ -228,12 +248,13 @@ class ISCSIDialog(GUIObject):
         :param target: an instance of Target
         :return: True if valid, otherwise False
         """
-        if not check_ip_address(target.ip_address):
-            return False
+        return check_ip_address(target.ip_address)
 
+    def _is_initiator_valid(self, initiator):
+        """Is the initiator name valid?"""
         return bool(
-            ISCSI_IQN_NAME_REGEX.match(target.initiator.strip())
-            or ISCSI_EUI_NAME_REGEX.match(target.initiator.strip())
+            ISCSI_IQN_NAME_REGEX.match(initiator.strip())
+            or ISCSI_EUI_NAME_REGEX.match(initiator.strip())
         )
 
     def _get_discover_credentials(self, style):
@@ -277,7 +298,7 @@ class ISCSIDialog(GUIObject):
             return credentials.username.strip() != "" \
                    and credentials.password != ""
 
-        elif style is STYLE_REVERSE_CHAP:
+        if style is STYLE_REVERSE_CHAP:
             return credentials.username.strip() != "" \
                    and credentials.password != "" \
                    and credentials.reverse_username.strip() != "" \
@@ -287,9 +308,9 @@ class ISCSIDialog(GUIObject):
         """Set the sensitivity of the configuration."""
         for child in self._configureGrid.get_children():
             if child == self._initiatorEntry:
-                self._initiatorEntry.set_sensitive(not iscsi.initiator_set)
+                self._initiatorEntry.set_sensitive(self._iscsi_module.CanSetInitiator())
             elif child == self._bindCheckbox:
-                self._bindCheckbox.set_sensitive(sensitivity and iscsi.mode == "none")
+                self._bindCheckbox.set_sensitive(sensitivity and self._mode_change_is_allowed())
             elif child != self._conditionNotebook:
                 child.set_sensitive(sensitivity)
 
@@ -364,22 +385,26 @@ class ISCSIDialog(GUIObject):
         # Get data.
         target = self._get_target()
         node = self._find_node_for_row(row)
-        style, credentials = self._get_login_style_and_credentials()
+        _style, credentials = self._get_login_style_and_credentials()
 
         # Get the login task.
-        task = ISCSILoginTask(target, credentials, node)
-        task.stopped_signal.connect(lambda: self.process_login_result(task, row))
+        task_path = self._iscsi_module.LoginWithTask(
+            Target.to_structure(target),
+            Credentials.to_structure(credentials),
+            Node.to_structure(node)
+        )
+        task_proxy = STORAGE.get_proxy(task_path)
 
         # Start the login.
-        task.run()
+        async_run_task(task_proxy, lambda task_proxy: self.process_login_result(task_proxy, row))
 
         self._loginSpinner.start()
         self._loginSpinner.show()
 
-    def process_login_result(self, task, row):
+    def process_login_result(self, task_proxy, row):
         """Process the result of the login task.
 
-        :param task: a task
+        :param task_proxy: a task proxy
         :param row: a row in UI
         """
         # Stop the spinner.
@@ -388,7 +413,7 @@ class ISCSIDialog(GUIObject):
 
         try:
             # Finish the task
-            task.finish()
+            task_proxy.Finish()
         except StorageDiscoveryError as e:
             # Login has failed, show the error.
             self._loginErrorLabel.set_text(str(e))
@@ -487,7 +512,8 @@ class ISCSIDialog(GUIObject):
         """
         obj = NodeStoreRow(*row)
         for node in self._discovered_nodes:
-            if node.name == obj.name and obj.portal == "%s:%s" % (node.address, node.port):
+            if (node.name == obj.name and obj.portal == "%s:%s" % (node.address, node.port)
+                and (not node.interface or node.net_ifacename == obj.iface)):
                 return node
 
         return None

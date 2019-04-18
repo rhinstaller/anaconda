@@ -19,29 +19,15 @@
 from pyanaconda.dbus.structure import DBusData
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["Target", "Credentials"]
+__all__ = ["Target", "Credentials", "Node"]
 
 
 class Target(DBusData):
     """Data for iSCSI target."""
 
     def __init__(self):
-        self._initiator = ""
         self._ip_address = ""
         self._port = "3260"
-        self._bind = False
-
-    @property
-    def initiator(self) -> Str:
-        """iSCSI initiator name.
-
-        :return: a string with a name
-        """
-        return self._initiator
-
-    @initiator.setter
-    def initiator(self, initiator: Str):
-        self._initiator = initiator
 
     @property
     def ip_address(self) -> Str:
@@ -66,18 +52,6 @@ class Target(DBusData):
     @port.setter
     def port(self, port: Str):
         self._port = port
-
-    @property
-    def bind(self) -> Bool:
-        """Bind targets to network interfaces?
-
-        :return: True or False
-        """
-        return self._bind
-
-    @bind.setter
-    def bind(self, value: Bool):
-        self._bind = value
 
 
 class Credentials(DBusData):
@@ -146,6 +120,7 @@ class Node(DBusData):
         self._address = ""
         self._port = ""
         self._interface = ""
+        self._net_ifacename = ""
 
     @property
     def name(self) -> Str:
@@ -185,12 +160,24 @@ class Node(DBusData):
 
     @property
     def interface(self) -> Str:
-        """Interface.
+        """ISCSI Interface.
 
-        :return: a string with an interface
+        :return: a string with an interface (eg "iface0")
         """
         return self._interface
 
     @interface.setter
     def interface(self, interface: Str):
         self._interface = interface
+
+    @property
+    def net_ifacename(self) -> Str:
+        """Network layer's interface name.
+
+        :return: a string with an interface name (eg "ens3")
+        """
+        return self._net_ifacename
+
+    @net_ifacename.setter
+    def net_ifacename(self, net_ifacename: Str):
+        self._net_ifacename = net_ifacename

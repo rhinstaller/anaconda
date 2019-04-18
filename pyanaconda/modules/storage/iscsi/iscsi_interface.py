@@ -17,16 +17,68 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.interface import dbus_interface, dbus_class
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import ISCSI
-from pyanaconda.modules.common.structures.iscsi import Target, Credentials
+from pyanaconda.modules.common.structures.iscsi import Target, Credentials, Node
+from pyanaconda.modules.common.task import TaskInterface
+
+
+@dbus_class
+class ISCSIDiscoverTaskInterface(TaskInterface):
+    """The interface for iSCSI discovery task.
+
+    Returns a list of Node structures representing discovered nodes.
+    """
+
+    @staticmethod
+    def convert_result(value):
+        return get_variant(List[Structure], Node.to_structure_list(value))
 
 
 @dbus_interface(ISCSI.interface_name)
 class ISCSIInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the iSCSI module."""
+
+    def connect_signals(self):
+        super().connect_signals()
+        self.watch_property("Initiator", self.implementation.initiator_changed)
+
+    @property
+    def Initiator(self) -> Str:
+        """ISCSI initiator name."""
+        return self.implementation.initiator
+
+    @emits_properties_changed
+    def SetInitiator(self, initiator: Str):
+        """Set the initiator name.
+
+        Sets the ISCSI initiator name.
+
+        :param initiator: a string with initiator name
+        """
+        self.implementation.set_initiator(initiator)
+
+    def CanSetInitiator(self) -> Bool:
+        """Can the iSCSI initator be set?
+
+        Once there are active nodes logged in the initator name can't be
+        changed.
+        """
+        return self.implementation.can_set_initiator()
+
+    def GetInterfaceMode(self) -> Str:
+        """Get the mode of interface used for iSCSI operations.
+
+        The mode is chosen during discovery of nodes.  Once there there are
+        active nodes logged in using particular mode, the mode can't be
+        changed.
+
+        Return values: IscsiInterfacesMode
+        """
+        return self.implementation.get_interface_mode().value
 
     def ReloadModule(self):
         """Reload the module.
@@ -35,16 +87,30 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         """
         self.implementation.reload_module()
 
-    def DiscoverWithTask(self, target: Structure, credentials: Structure) -> ObjPath:
+    def DiscoverWithTask(self, target: Structure, credentials: Structure, interface_mode: Str) -> ObjPath:
         """Discover an iSCSI device.
 
         :param target: the target information
         :param credentials: the iSCSI credentials
+        :param interfaces_mode: required mode specified by IscsiInterfacesMode
         :return: a DBus path to a task
         """
         target = Target.from_structure(target)
         credentials = Credentials.from_structure(credentials)
-        return self.implementation.discover_with_task(target, credentials)
+        return self.implementation.discover_with_task(target, credentials, interface_mode)
+
+    def LoginWithTask(self, target: Structure, credentials: Structure, node: Structure) -> ObjPath:
+        """Login into an iSCSI node discovered on a target.
+
+        :param target: the target information
+        :param credentials: the iSCSI credentials
+        :param node: the node information
+        :return: a DBus path to a task
+        """
+        target = Target.from_structure(target)
+        credentials = Credentials.from_structure(credentials)
+        node = Node.from_structure(node)
+        return self.implementation.login_with_task(target, credentials, node)
 
     def WriteConfiguration(self, sysroot: Str):
         """Write the configuration to sysroot.
