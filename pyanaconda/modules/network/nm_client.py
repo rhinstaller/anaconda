@@ -124,8 +124,11 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
         msg = "existing device found"
     # Specification by BOOTIF boot option
     elif spec == 'bootif':
-        device_name = get_iface_from_hwaddr(nm_client, bootif) or ""
-        msg = "existing device for {} found".format(bootif)
+        if bootif:
+            device_name = get_iface_from_hwaddr(nm_client, bootif) or ""
+            msg = "existing device for {} found".format(bootif)
+        else:
+            msg = "BOOTIF value is not specified in boot options"
     # First device with carrier (sorted lexicographically)
     elif spec == 'link':
         device_name = get_first_iface_with_link(nm_client, supported_devices) or ""
@@ -260,7 +263,7 @@ def _update_infiniband_connection_from_ksdata(connection, network_data):
 
     s_ib = NM.SettingInfiniband.new()
     s_ib.props.transport_mode = "datagram"
-    connection.add_settings(s_ib)
+    connection.add_setting(s_ib)
 
 
 def _update_ethernet_connection_from_ksdata(connection, network_data, bound_mac):
