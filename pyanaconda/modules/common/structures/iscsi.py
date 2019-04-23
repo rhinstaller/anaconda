@@ -16,14 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure
+from pyanaconda.dbus.structure import DBusData
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["Target", "Credentials"]
 
 
-@dbus_structure
-class Target(object):
+class Target(DBusData):
     """Data for iSCSI target."""
 
     def __init__(self):
@@ -81,8 +80,7 @@ class Target(object):
         self._bind = value
 
 
-@dbus_structure
-class Credentials(object):
+class Credentials(DBusData):
     """Data for iSCSI credentials."""
 
     def __init__(self):
@@ -140,8 +138,7 @@ class Credentials(object):
         self._reverse_password = password
 
 
-@dbus_structure
-class Node(object):
+class Node(DBusData):
     """Data for iSCSI node."""
 
     def __init__(self):

@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import ISCSI
@@ -43,8 +42,8 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         :param credentials: the iSCSI credentials
         :return: a DBus path to a task
         """
-        target = apply_structure(target, Target())
-        credentials = apply_structure(credentials, Credentials())
+        target = Target.from_structure(target)
+        credentials = Credentials.from_structure(credentials)
         return self.implementation.discover_with_task(target, credentials)
 
     def WriteConfiguration(self, sysroot: Str):
