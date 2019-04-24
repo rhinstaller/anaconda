@@ -146,24 +146,16 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False, 'IsRootAccountLocked' : True}, [])
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
 
-    def rootpw_not_kickstarted_test(self):
-        """Test rootpw is not marked as kickstarted without kickstart."""
-        # if no rootpw showed in input kickstart seen should be False
-        self.assertEqual(self.users_interface.IsRootpwKickstarted, False)
-        # check if we can set it to True (not sure why would we do it, but oh well)
-        self.users_interface.SetRootpwKickstarted(True)
-        self.assertEqual(self.users_interface.IsRootpwKickstarted, True)
-        self.callback.assert_called_with(USERS.interface_name, {'IsRootpwKickstarted': True}, [])
+    def rootpw_can_be_changed_test(self):
+        """Test rootpw is not marked as mutable without kickstart."""
+        # if no rootpw showed in input kickstart it should be marked as mutable
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
 
-    def rootpw_kickstarted_test(self):
-        """Test rootpw is marked as kickstarted with kickstart."""
-        # if rootpw shows up in the kickstart is should be reported as kickstarted
+    def rootpw_cant_be_changed_test(self):
+        """Test rootpw is marked as immutable with kickstart."""
+        # if rootpw shows up in the kickstart is should be reported as immutable
         self.users_interface.ReadKickstart("rootpw abcef")
-        self.assertEqual(self.users_interface.IsRootpwKickstarted, True)
-        # and we should be able to set it to False (for example when we override the data from kickstart)
-        self.users_interface.SetRootpwKickstarted(False)
-        self.assertEqual(self.users_interface.IsRootpwKickstarted, False)
-        self.callback.assert_called_with(USERS.interface_name, {'IsRootpwKickstarted': False}, [])
+        self.assertEqual(self.users_interface.CanChangeRootPassword, False)
 
     def no_users_property_test(self):
         """Test the users property with no users."""
@@ -447,6 +439,80 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetCryptedRootPassword("abc")
         self.users_interface.SetRootAccountLocked(False)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_kickstart_locked_nopw_root_test(self):
+        """Test that locked root without password is OK for kickstart install."""
+        self.users_interface.ReadKickstart("rootpw --lock")
+        # password should be marked as not set, locked and immutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, False)
+        # but this should still be a valid admin user from kickstart PoV
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_kickstart_locked_pw_root_test(self):
+        """Test that locked root with password is OK for kickstart install."""
+        self.users_interface.ReadKickstart("rootpw abcdef --lock")
+        # password should be marked as set, locked and immutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, False)
+        # but this should still be a valid admin user from kickstart PoV
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_kickstart_no_rootpw_test(self):
+        """Test that no rootpw in kickstart results in no valid admin users."""
+        # just some language selection, no rootpw command in kickstart
+        self.users_interface.ReadKickstart("lang en_US.UTF-8")
+        # password should be marked as not set, locked and mutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+        # not a valid admin user from kickstart PoV
+        self.assertFalse(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_kickstart_no_rootpw_user_no_wheel_test(self):
+        """Test that no rootpw + non-wheel user in results in no valid admin users."""
+        # just a non-wheel user in kickstart
+        self.users_interface.ReadKickstart("user --name=user1 --password=abcedf")
+        # password should be marked as not set, locked and mutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+        # no a valid admin user exists from kickstart PoV
+        self.assertFalse(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_kickstart_no_rootpw_wheel_user_test(self):
+        """Test that no rootpw + wheel user in results in valid admin user."""
+        # just a non-wheel user in kickstart
+        self.users_interface.ReadKickstart("user --name=user1 --password=abcedf --groups=wheel")
+        # password should be marked as not set, locked and mutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+        # provides a valid admin user exists from kickstart PoV
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_interactive_locked_nopw_root_test(self):
+        """Test that locked root without password is not OK for interactive install."""
+        # root password should be empty and locked by default, but mutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+        # this should not be considered a valid admin user for interactive install
+        self.assertFalse(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_interactive_locked_pw_root_test(self):
+        """Test that locked root with password is not OK for interactive install."""
+        # set a password and then lock the root account
+        self.users_interface.SetCryptedRootPassword("cryptedfoo")
+        self.users_interface.SetRootAccountLocked(True)
+        # password should be marked as set, locked and mutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+        # this should not be a valid admin user for interactive install
+        self.assertFalse(self.users_interface.CheckAdminUserExists())
 
     def users_type_test(self):
         """Test that type checking works correctly when setting user data."""

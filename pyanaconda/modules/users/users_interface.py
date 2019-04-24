@@ -39,31 +39,15 @@ class UsersInterface(KickstartModuleInterface):
         self.watch_property("SshKeys", self.implementation.ssh_keys_changed)
         self.watch_property("IsRootPasswordSet", self.implementation.root_password_is_set_changed)
         self.watch_property("IsRootAccountLocked", self.implementation.root_account_locked_changed)
-        self.watch_property("IsRootpwKickstarted", self.implementation.rootpw_seen_changed)
+        self.watch_property("CanChangeRootPassword", self.implementation.can_change_root_password_changed)
 
     @property
-    def IsRootpwKickstarted(self) -> Bool:
-        """Was the rootpw command seen in kickstart ?
+    def CanChangeRootPassword(self) -> Bool:
+        """Can the root password be changed ?
 
-        NOTE: this property should be only temporary and should be
-              dropped once the users module itself can report
-              if the password changed from kickstart
-
-        :return: True, if the rootpw was present in input kickstart, otherwise False
+        :return: True, if the root password can the changed, False otherwise
         """
-        return self.implementation.rootpw_seen
-
-    @emits_properties_changed
-    def SetRootpwKickstarted(self, rootpw_seen: Bool):
-        """Set if rootpw should be considered as coming from kickstart.
-
-        NOTE: this property should be only temporary and should be
-              dropped once the users module itself can report
-              if the password changed from kickstart
-
-        :param bool rootpw_seen: if rootpw should be considered as coming from kickstart
-        """
-        self.implementation.set_rootpw_seen(rootpw_seen)
+        return self.implementation.can_change_root_password
 
     @property
     def RootPassword(self) -> Str:

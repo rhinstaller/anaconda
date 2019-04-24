@@ -38,8 +38,8 @@ class UsersModule(KickstartModule):
 
     def __init__(self):
         super().__init__()
-        self.rootpw_seen_changed = Signal()
-        self._rootpw_seen = False
+        self.can_change_root_password_changed = Signal()
+        self._can_change_root_password = True
 
         self.root_password_is_set_changed = Signal()
         self._root_password_is_set = False
@@ -58,6 +58,8 @@ class UsersModule(KickstartModule):
         self.ssh_keys_changed = Signal()
         self._ssh_keys = []
 
+        self._rootpw_seen = False
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(USERS.object_path, UsersInterface(self))
@@ -71,13 +73,17 @@ class UsersModule(KickstartModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
+
         self.set_root_password(data.rootpw.password, crypted=data.rootpw.isCrypted)
         self.set_root_account_locked(data.rootpw.lock)
         # make sure the root account is locked unless a password is set in kickstart
         if not data.rootpw.password:
             log.debug("root specified in kickstart without password, locking account")
             self.set_root_account_locked(True)
-        self.set_rootpw_seen(data.rootpw.seen)
+        # if password was set in kickstart it can't be changed by default
+        if data.rootpw.seen:
+            self.set_can_change_root_password(False)
+            self._rootpw_seen = True
 
         user_data_list = []
         for user_ksdata in data.user.userList:
@@ -109,7 +115,6 @@ class UsersModule(KickstartModule):
         data.rootpw.password = self._root_password
         data.rootpw.isCrypted = self._root_password_is_crypted
         data.rootpw.lock = self.root_account_locked
-        data.rootpw.seen = self.rootpw_seen
 
         for user_data in self.users:
             data.user.userList.append(self._user_data_to_ksdata(data.UserData(),
@@ -245,13 +250,13 @@ class UsersModule(KickstartModule):
         log.debug("A new ssh key list has been set: %s", self._ssh_keys)
 
     @property
-    def rootpw_seen(self):
-        return self._rootpw_seen
+    def can_change_root_password(self):
+        return self._can_change_root_password
 
-    def set_rootpw_seen(self, rootpw_seen):
-        self._rootpw_seen = rootpw_seen
-        self.rootpw_seen_changed.emit()
-        log.debug("Root password considered seen in kickstart: %s.", rootpw_seen)
+    def set_can_change_root_password(self, can_change_root_password):
+        self._can_change_root_password = can_change_root_password
+        self.can_change_root_password_changed.emit()
+        log.debug("Can change root password state changed: %s.", can_change_root_password)
 
     @property
     def root_password(self):
@@ -328,8 +333,12 @@ class UsersModule(KickstartModule):
 
         :return: if at least one admin user exists
         """
-        # let's check root first
-        if not self.root_account_locked:
+        # any root set from kickstart is fine
+        if self._rootpw_seen:
+            return True
+        # if not set by kickstart root must not be
+        # locked to be cosnidered admin
+        elif not self.root_account_locked:
             return True
 
         # let's check all users
