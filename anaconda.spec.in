@@ -321,6 +321,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 24 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.152-1
+- Change the overflow color (vponcova)
+  Resolves: rhbz#1700471
+
 * Tue Apr 16 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.151-1
 - Support setting network default onboot in rhv installclass (qiyuan)
   Resolves: rhbz#1690336
