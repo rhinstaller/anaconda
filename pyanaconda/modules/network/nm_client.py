@@ -58,12 +58,16 @@ def get_iface_from_hwaddr(nm_client, hwaddr):
                                         NM.DeviceType.WIFI):
             try:
                 address = device.get_permanent_hw_address()
+                if not address:
+                    address = device.get_hw_address()
             except AttributeError as e:
                 log.warning("Device %s: %s", device.get_iface(), e)
                 address = device.get_hw_address()
         else:
             address = device.get_hw_address()
-        if address.upper() == hwaddr.upper():
+        # per #1703152, at least in *some* case, we wind up with
+        # address as None here, so we need to guard against that
+        if address and address.upper() == hwaddr.upper():
             return device.get_iface()
     return None
 
