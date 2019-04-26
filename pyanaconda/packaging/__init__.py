@@ -143,8 +143,15 @@ class SSLOptions(object):
                    clientkey=getattr(method, "sslclientkey", None))
 
     @classmethod
-    def createFromRepo(cls, repo):
+    def createFromKSRepo(cls, repo):
         return cls(sslverify=not repo.noverifyssl,
+                   cacert=repo.sslcacert,
+                   clientcert=repo.sslclientcert,
+                   clientkey=repo.sslclientkey)
+
+    @classmethod
+    def createFromYumRepo(cls, repo):
+        return cls(sslverify=repo.sslverify,
                    cacert=repo.sslcacert,
                    clientcert=repo.sslclientcert,
                    clientkey=repo.sslclientkey)

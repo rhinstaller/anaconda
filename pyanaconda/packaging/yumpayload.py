@@ -772,7 +772,7 @@ reposdir=%s
             proxy = None
 
         sslverify = not (flags.noverifyssl or repo.noverifyssl)
-        ssl_options = SSLOptions.createFromRepo(repo)
+        ssl_options = SSLOptions.createFromKSRepo(repo)
         ssl_options.sslverify = sslverify
 
         # this repo is already in ksdata, so we only add it to yum here
@@ -1694,6 +1694,7 @@ class RepoMDMetaHash(object):
     """
     def __init__(self, payload, repo):
         self._repoId = repo.id
+        self._ssl_container = SSLContainer.createFromYumRepo(repo)
         self._method = payload.data.method
         self._urls = repo.urls
         self._repomd_hash = ""
@@ -1725,8 +1726,7 @@ class RepoMDMetaHash(object):
         return m.digest()
 
     def _downloadRepoMD(self, method):
-        ugopts = {"ssl_verify_peer": not flags.noverifyssl,
-                  "ssl_verify_host": not flags.noverifyssl}
+        ugopts = self._ssl_container.getUrlGrabberSslOpts()
         proxies = {}
         repomd = ""
 
