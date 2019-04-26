@@ -142,6 +142,13 @@ class SSLOptions(object):
                    clientcert=getattr(method, "sslclientcert", None),
                    clientkey=getattr(method, "sslclientkey", None))
 
+    @classmethod
+    def createFromRepo(cls, repo):
+        return cls(sslverify=not repo.noverifyssl,
+                   cacert=repo.sslcacert,
+                   clientcert=repo.sslclientcert,
+                   clientkey=repo.sslclientkey)
+
     def getUrlGrabberSslOpts(self):
         if self.cacert:
             return {"ssl_verify_peer": True,
@@ -152,6 +159,15 @@ class SSLOptions(object):
         else:
             return {"ssl_verify_peer": self._sslverify,
                     "ssl_verify_host": self._sslverify}
+
+    def getYumSslDict(self):
+        if self.cacert:
+            return {"sslverify": True,
+                    "sslcacert": self.cacert,
+                    "sslclientcert": self.clientcert,
+                    "sslclientkey": self.clientkey}
+        else:
+            return {"sslverify": self._sslverify}
 
 class Payload(object):
     """Payload is an abstract class for OS install delivery methods."""

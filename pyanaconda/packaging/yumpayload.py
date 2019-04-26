@@ -619,7 +619,7 @@ reposdir=%s
                 ssl_options = SSLOptions.createFromMethod(method)
                 ssl_options.sslverify = sslverify
                 self._addYumRepo(BASE_REPO_NAME, url, mirrorlist=mirrorlist,
-                                 proxyurl=proxyurl, sslverify=sslverify)
+                                 proxyurl=proxyurl, **ssl_options.getYumSslDict())
                 self._addAddons(self._yum.repos.getRepo(BASE_REPO_NAME), url, proxyurl,
                                 ssl_options)
             except (MetadataError, PayloadError) as e:
@@ -772,12 +772,14 @@ reposdir=%s
             proxy = None
 
         sslverify = not (flags.noverifyssl or repo.noverifyssl)
+        ssl_options = SSLOptions.createFromRepo(repo)
+        ssl_options.sslverify = sslverify
 
         # this repo is already in ksdata, so we only add it to yum here
         self._addYumRepo(repo.name, url, repo.mirrorlist, cost=repo.cost,
                          exclude=repo.excludepkgs, includepkgs=repo.includepkgs,
-                         proxyurl=proxy, sslverify=sslverify)
-        self._addAddons(repo, url, proxy, sslverify)
+                         proxyurl=proxy, **ssl_options.getYumSslDict())
+        self._addAddons(repo, url, proxy, ssl_options)
 
     def _addAddons(self, repo, url, proxy, ssl_options):
         addons = self._getAddons(url or repo.mirrorlist,
