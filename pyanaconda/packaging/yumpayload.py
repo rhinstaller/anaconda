@@ -40,6 +40,7 @@ import shutil
 import sys
 import time
 import hashlib
+from pyanaconda.packaging import SSLOptions
 from pyanaconda.iutil import execReadlines, ipmi_abort
 from pyanaconda.simpleconfig import simple_replace
 from functools import wraps
@@ -615,9 +616,12 @@ reposdir=%s
                 else:
                     proxyurl = None
 
+                ssl_options = SSLOptions.createFromMethod(method)
+                ssl_options.sslverify = sslverify
                 self._addYumRepo(BASE_REPO_NAME, url, mirrorlist=mirrorlist,
                                  proxyurl=proxyurl, sslverify=sslverify)
-                self._addAddons(self._yum.repos.getRepo(BASE_REPO_NAME), url, proxyurl, sslverify)
+                self._addAddons(self._yum.repos.getRepo(BASE_REPO_NAME), url, proxyurl,
+                                ssl_options)
             except (MetadataError, PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it", method.method, url)
                 log.error("reason for repo removal: %s", e)
@@ -639,7 +643,9 @@ reposdir=%s
                 if self._yum.conf.yumvar['releasever'] == "rawhide" and \
                    "rawhide" in self.repos:
                     self.enableRepo("rawhide")
-                    self._addAddons(self._yum.repos.getRepo("rawhide"), url, proxyurl, sslverify)
+                    ssl_options = SSLOptions(sslverify)
+                    self._addAddons(self._yum.repos.getRepo("rawhide"), url, proxyurl,
+                                    ssl_options)
 
         # set up addon repos
         # FIXME: driverdisk support
@@ -773,10 +779,10 @@ reposdir=%s
                          proxyurl=proxy, sslverify=sslverify)
         self._addAddons(repo, url, proxy, sslverify)
 
-    def _addAddons(self, repo, url, proxy, sslverify):
+    def _addAddons(self, repo, url, proxy, ssl_options):
         addons = self._getAddons(url or repo.mirrorlist,
                                  proxy,
-                                 sslverify)
+                                 ssl_options)
 
         # Addons are added to the kickstart, but are disabled by default
         for addon in addons:
@@ -793,7 +799,7 @@ reposdir=%s
                                          enabled=False)
             self.data.repo.dataList().append(ks_repo)
 
-    def _getAddons(self, baseurl, proxy_url, sslverify):
+    def _getAddons(self, baseurl, proxy_url, ssl_options):
         """Check the baseurl or mirrorlist for a repository, see if it has any
         valid addon repos and if so, return a list of (repo name, repo URL).
 
@@ -801,15 +807,15 @@ reposdir=%s
         :type baseurl: string
         :param proxy_url: Full URL of optional proxy or ""
         :type proxy_url: string
-        :param sslverify: True if SSL certificate should be varified
-        :type sslverify: bool
+        :param ssl_options: container object storing all the ssl attributes
+        :type ssl_options: instance of the SSLOptions class
         :returns: list of tuples of addons (id, name, url)
         :rtype: list of tuples
         """
         retval = []
 
         # If there's no .treeinfo for this repo, don't bother looking for addons.
-        treeinfo = self._getTreeInfo(baseurl, proxy_url, sslverify)
+        treeinfo = self._getTreeInfo(baseurl, proxy_url, ssl_options)
         if not treeinfo:
             return retval
 

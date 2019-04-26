@@ -130,6 +130,18 @@ class SSLOptions(object):
     def sslverify(self):
         return True if self.cacert else self._sslverify
 
+    @sslverify.setter
+    def sslverify(self, value):
+        self._sslverify = value
+
+    @classmethod
+    def createFromMethod(cls, method):
+        sslverify = not (method.noverifyssl or flags.noverifyssl)
+        return cls(sslverify=sslverify,
+                   cacert=getattr(method, "sslcacert", None),
+                   clientcert=getattr(method, "sslclientcert", None),
+                   clientkey=getattr(method, "sslclientkey", None))
+
     def getUrlGrabberSslOpts(self):
         if self.cacert:
             return {"ssl_verify_peer": True,
@@ -573,8 +585,10 @@ class Payload(object):
         """Return the release version of the tree at the specified URL."""
         try:
             version = re.match(VERSION_DIGITS, productVersion).group(1)
+            ssl_options = SSLOptions.createFromMethod(self.data.method)
         except AttributeError:
             version = "rawhide"
+            ssl_options = SSLOptions(not flags.noverifyssl)
 
         log.debug("getting release version from tree at %s (%s)", url, version)
 
@@ -582,7 +596,8 @@ class Payload(object):
             proxy = self.data.method.proxy
         else:
             proxy = None
-        treeinfo = self._getTreeInfo(url, proxy, not flags.noverifyssl)
+
+        treeinfo = self._getTreeInfo(url, proxy, ssl_options)
         if treeinfo:
             c = ConfigParser.ConfigParser()
             c.read(treeinfo)
