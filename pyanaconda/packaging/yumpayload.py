@@ -363,14 +363,28 @@ reposdir=%s
             # kickstart repo modifiers
             ks_repo = self.getAddOnRepo(repo.id)
 
-            if not ks_repo and not repo.sslverify:
-                f.write("sslverify=0\n")
-
             if not ks_repo:
+                if not repo.sslverify:
+                    f.write("sslverify=0\n")
+                if repo.sslcacert:
+                    f.write("sslcacert=%s\n" % repo.sslcacert)
+                if repo.sslclientcert:
+                    f.write("sslclientcert=%s\n" % repo.sslclientcert)
+                if repo.sslclientkey:
+                    f.write("sslclientkey=%s\n" % repo.sslclientkey)
+
                 return
 
-            if ks_repo.noverifyssl:
-                f.write("sslverify=0\n")
+            # store all SSL data to a repo file
+            ssl_options = SSLOptions.createFromKSRepo(ks_repo)
+            for key, val in ssl_options.getYumSslDict().items():
+                if key == "sslverify":
+                    if not val:
+                        f.write("sslverify=0\n")
+                    continue
+
+                if val is not None:
+                    f.write("%s=%s\n" % (key, val))
 
             if ks_repo.proxy:
                 try:
@@ -1694,7 +1708,7 @@ class RepoMDMetaHash(object):
     """
     def __init__(self, payload, repo):
         self._repoId = repo.id
-        self._ssl_container = SSLContainer.createFromYumRepo(repo)
+        self._ssl_options = SSLOptions.createFromYumRepo(repo)
         self._method = payload.data.method
         self._urls = repo.urls
         self._repomd_hash = ""
@@ -1726,7 +1740,7 @@ class RepoMDMetaHash(object):
         return m.digest()
 
     def _downloadRepoMD(self, method):
-        ugopts = self._ssl_container.getUrlGrabberSslOpts()
+        ugopts = self._ssl_options.getUrlGrabberSslOpts()
         proxies = {}
         repomd = ""
 
