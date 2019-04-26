@@ -512,14 +512,6 @@ inst.vncconnect
 
     Use with ``vncviewer -listen``.
 
-.. inst.headless:
-
-inst.headless
-^^^^^^^^^^^^^
-
-Specify that the machine being installed onto doesn't have any display
-hardware, and that anaconda shouldn't bother looking for it.
-
 .. inst.xdriver:
 
 inst.xdriver
