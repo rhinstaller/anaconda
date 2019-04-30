@@ -1744,7 +1744,7 @@ class RepoMDMetaHash(object):
         proxies = {}
         repomd = ""
 
-        if hasattr(method, "proxy"):
+        if hasattr(method, "proxy") and method.proxy:
             proxy_url = method.proxy
             try:
                 proxy = ProxyString(proxy_url)
