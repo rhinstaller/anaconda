@@ -210,7 +210,8 @@ class YumPayload(PackagePayload):
             repo = self.getRepo(repoID)
             with _yum_lock:
                 repoMD = RepoMDMetaHash(self, repo)
-                repoMD.storeRepoMDHash()
+                if repo.enabled:
+                    repoMD.storeRepoMDHash()
                 self._repoMD_list.append(repoMD)
 
     def unsetup(self):
@@ -1730,6 +1731,8 @@ class RepoMDMetaHash(object):
 
     def verifyRepoMD(self):
         """Download and compare with stored repomd.xml file."""
+        if not self._repomd_hash:
+            return False
         new_repomd = self._downloadRepoMD(self._method)
         new_repomd_hash = self._calculateHash(new_repomd)
         return new_repomd_hash == self._repomd_hash
