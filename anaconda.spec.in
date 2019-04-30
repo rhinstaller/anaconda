@@ -354,6 +354,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 30 2019 Martin Kolman <mkolman@redhat.com> - 31.10-1
+- get_iface_from_hwaddr: be more careful about hwaddr (#1703152) (awilliam)
+- network: fix a typo in infiniband connections creating (#1698937) (rvykydal)
+- network: do not crash on --device bootif when BOOTIF is not specified
+  (#1699091) (rvykydal)
+- Add DBus support for the device specifier for use in /etc/fstab (vponcova)
+- Set swap devices for fstab in the interactive partitioning (vponcova)
+- Refactor the passphrase setup on unconfigured LUKS devices (vponcova)
+- Add DBus support for UUID (vponcova)
+- Add DBus support for device format (vponcova)
+- Add DBus support for unlocking LUKS devices (vponcova)
+- Add DBus support for finding mountable partitions (vponcova)
+- We inherit self.data.repo.dataList() from parent class. (riehecky)
+
 * Thu Apr 11 2019 Martin Kolman <mkolman@redhat.com> - 31.9-1
 - Remove the function get_structure (vponcova)
 - Remove the function apply_structure (vponcova)
