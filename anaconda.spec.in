@@ -354,6 +354,36 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 02 2019 Martin Kolman <mkolman@redhat.com> - 31.11-1
+- Remove no longer needed kickstart command overrides (mkolman)
+- Use Users DBUS module for user configuration in GUI (mkolman)
+- Use Users DBUS module for user configuration in TUI (mkolman)
+- Adjust Users module DBus API for better kickstart root configuration
+  (mkolman)
+- Use DBusData base class for data holders (mkolman)
+- Add a string representation for UserData (mkolman)
+- Add ui/lib/users.py (mkolman)
+- Use a constant for the UID/GID not set value (mkolman)
+- Improve ksdata <-> user data methods in Users DBUS module (mkolman)
+- Do root, group, user and SSH key configuration with DBUS tasks (mkolman)
+- Add tasks for root, user, group and ssh key configuration (mkolman)
+- Fix indentation for user creation method docstring (mkolman)
+- Drop support for using custom password crypt algorithm (mkolman)
+- Make clear_root_password() into set_root_password() alias (mkolman)
+- Lock root & user accounts if password in kickstart is empty (mkolman)
+- Convert create_user() from kwargs to optional args (mkolman)
+- Convert create_group() from kwargs to optional args (mkolman)
+- Mark the root account as locked by default (mkolman)
+- Add docstrings & some signature tweaking in users.py (mkolman)
+- Move methods from User class to module top-level (mkolman)
+- Apply PEP8 for method names in users.py (mkolman)
+- Move user management code to core (mkolman)
+- Use Pykickstart data classes via handler (mkolman)
+- Add API for easy admin user detection (mkolman)
+- Add support for SSH key management via the users DBUS module (mkolman)
+- Add support for group management via the users DBUS module (mkolman)
+- Add support for managing multiple users to the users module (mkolman)
+
 * Tue Apr 30 2019 Martin Kolman <mkolman@redhat.com> - 31.10-1
 - get_iface_from_hwaddr: be more careful about hwaddr (#1703152) (awilliam)
 - network: fix a typo in infiniband connections creating (#1698937) (rvykydal)
