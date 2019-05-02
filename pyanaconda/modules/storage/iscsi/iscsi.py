@@ -136,4 +136,55 @@ class ISCSIModule(KickstartBaseModule):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         data.iscsiname.iscsiname = self.initiator
-        data.iscsi.iscsi = self._iscsi_data
+        data.iscsi.iscsi = self.generate_iscsi_data(data.IscsiData)
+
+    def generate_iscsi_data(self, iscsi_data_class):
+        """Generate kickstart data based on original kickstart and attached nodes.
+
+        If all nodes for a target were added by a kickstart command, preserve
+        this in generated kickstart (ie do not add particular commands for each
+        discovered node).
+        """
+        iscsi_data_list = self._iscsi_data
+
+        for node in iscsi.active_nodes():
+            if node in iscsi.ibft_nodes:
+                continue
+            iscsi_data = iscsi_data_class()
+            self._setup_iscsi_data_from_node(iscsi_data, node)
+
+            for ks_command_data in iscsi_data_list:
+                # If there is already a (perhaps more general) command
+                # attaching the node, do not add another one
+                if (iscsi_data.ipaddr == ks_command_data.ipaddr and
+                    (not ks_command_data.target or iscsi_data.target == ks_command_data.target) and
+                    iscsi_data.port == ks_command_data.port and
+                    iscsi_data.iface == ks_command_data.iface):
+                    break
+            else:
+                iscsi_data_list.append(iscsi_data)
+
+        return iscsi_data_list
+
+    def _setup_iscsi_data_from_node(self, iscsi_data, dev_node):
+        """Set up iSCSI data from a device node.
+
+        :param iscsi_data: an instance of iSCSI data
+        :param dev_node: a device node NodeInfo object
+        """
+        iscsi_data.ipaddr = dev_node.address
+        iscsi_data.target = dev_node.name
+        iscsi_data.port = dev_node.port
+
+        if iscsi.ifaces:
+            iscsi_data.iface = iscsi.ifaces[dev_node.iface]
+
+        if dev_node.username and dev_node.password:
+            iscsi_data.user = dev_node.username
+            iscsi_data.password = dev_node.password
+
+        if dev_node.r_username and dev_node.r_password:
+            iscsi_data.user_in = dev_node.r_username
+            iscsi_data.password_in = dev_node.r_password
+
+        return iscsi_data
