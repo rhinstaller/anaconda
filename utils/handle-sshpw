@@ -25,7 +25,7 @@ import sys
 from pykickstart.parser import KickstartParser
 from pykickstart.version import makeVersion
 from pykickstart.sections import NullSection
-import pyanaconda.users as users
+import pyanaconda.core.users as users
 
 ksfile = '/run/install/ks.cfg'
 
@@ -39,20 +39,17 @@ ksparser.registerSection(NullSection(handler, sectionOpen="%addon"))
 ksparser.registerSection(NullSection(handler, sectionOpen="%anaconda"))
 ksparser.readKickstart(ksfile)
 
-u = users.Users()
-
 userdata = ksparser.handler.sshpw.dataList()
 for ud in userdata:
-    if u.checkUserExists(ud.username, root="/"):
+    if users.check_user_exists(ud.username, root="/"):
         if not ud.sshkey:
-            u.setUserPassword(username=ud.username, password=ud.password,
-                              isCrypted=ud.isCrypted, lock=ud.lock)
+            users.set_user_password(username=ud.username, password=ud.password,
+                                    is_crypted=ud.isCrypted, lock=ud.lock)
     else:
-        kwargs = ud.__dict__
-        kwargs.update({"root": "/"})
-        u.createUser(ud.username, **kwargs)
+        users.create_user(username=ud.username, password=ud.password, is_crypted=ud.isCrypted, lock=ud.lock,
+                          homedir=ud.homedir, shell=ud.shell, gecos=ud.gecos, root="/")
 
     if ud.sshkey:
         # Setup the account so that only the sshkey can be used
-        u.setUserPassword(username=ud.username, password="*", isCrypted=True, lock=False)
-        u.setUserSshKey(username=ud.username, key=ud.password, root="/")
+        users.set_user_password(username=ud.username, password="*", is_crypted=True, lock=False)
+        users.set_user_ssh_key(username=ud.username, key=ud.password, root="/")

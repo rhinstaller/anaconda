@@ -23,7 +23,7 @@ import pwquality
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.i18n import _
 from pyanaconda.core import constants, regexes
-from pyanaconda import users
+from pyanaconda.core import users
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

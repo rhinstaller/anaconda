@@ -176,7 +176,6 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/network/firewall/Makefile
                  pyanaconda/modules/localization/Makefile
                  pyanaconda/modules/users/Makefile
-                 pyanaconda/modules/users/user/Makefile
                  pyanaconda/modules/payload/Makefile
                  pyanaconda/modules/payload/dnf/Makefile
                  pyanaconda/modules/payload/dnf/packages/Makefile
