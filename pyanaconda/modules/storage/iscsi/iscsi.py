@@ -69,12 +69,12 @@ class ISCSIModule(KickstartBaseModule):
             self.initiator_changed.emit()
             log.debug("The iSCSI initiator is set to '%s'.", initiator)
         else:
-            log.debug("The iSCSI initiator has already been set to '%s'.", iscsi.initator)
+            log.debug("The iSCSI initiator has already been set to '%s'.", iscsi.initiator)
 
     def can_set_initiator(self):
         """Can the initiator be set?
 
-        Once there there are active nodes logged in the initator name can't be set.
+        Once there there are active nodes logged in the initiator name can't be set.
         """
         return not iscsi.initiator_set
 
@@ -117,6 +117,10 @@ class ISCSIModule(KickstartBaseModule):
         task = ISCSILoginTask(target, credentials, node)
         path = self.publish_task(ISCSI.namespace, task)
         return path
+
+    def stabilize(self):
+        """Wait for udev to create the devices for the just added disks"""
+        iscsi.stabilize()
 
     def write_configuration(self, sysroot):
         """Write the configuration to sysroot."""
