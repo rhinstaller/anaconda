@@ -24,11 +24,10 @@ from gi.repository import BlockDev as blockdev
 
 from blivet import util as blivet_util, arch
 from blivet.errors import FSResizeError, FormatResizeError
-from blivet.iscsi import iscsi
 
 from pyanaconda.core import util
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
-from pyanaconda.modules.common.constants.objects import FCOE, ZFCP
+from pyanaconda.modules.common.constants.objects import FCOE, ZFCP, ISCSI
 from pyanaconda.modules.common.constants.services import STORAGE
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -172,7 +171,9 @@ def write_storage_configuration(storage, sysroot=None):
 
     storage.make_mtab()
     storage.fsset.write()
-    iscsi.write(sysroot, storage)
+
+    iscsi_proxy = STORAGE.get_proxy(ISCSI)
+    iscsi_proxy.WriteConfiguration(sysroot)
 
     fcoe_proxy = STORAGE.get_proxy(FCOE)
     fcoe_proxy.WriteConfiguration(sysroot)
