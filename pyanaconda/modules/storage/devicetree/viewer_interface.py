@@ -20,8 +20,9 @@
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.structure import get_structure
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_VIEWER
+from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
+    DeviceFormatData
 
 __all__ = ["DeviceTreeViewerInterface"]
 
@@ -67,14 +68,22 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         :return: a structure with device data
         :raise: UnknownDeviceError if the device is not found
         """
-        return get_structure(self.implementation.get_device_data(name))
+        return DeviceData.to_structure(self.implementation.get_device_data(name))
+
+    def GetFormatData(self, name: Str) -> Structure:
+        """Get the device format.
+
+        :param name: a name of the device
+        :return: an instance of DeviceFormatData
+        """
+        return DeviceFormatData.to_structure(self.implementation.get_format_data(name))
 
     def GetActions(self) -> List[Structure]:
         """Get the device actions.
 
         :return: a list of structures with device action data
         """
-        return list(map(get_structure, self.implementation.get_actions()))
+        return DeviceActionData.to_structure_list(self.implementation.get_actions())
 
     def ResolveDevice(self, dev_spec: Str) -> Str:
         """Get the device matching the provided device specification.
@@ -126,3 +135,11 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         :return: a total size in bytes
         """
         return self.implementation.get_disk_reclaimable_space(disk_names)
+
+    def GetFstabSpec(self, name: Str) -> Str:
+        """Get the device specifier for use in /etc/fstab.
+
+        :param name: a name of the device
+        :return: a device specifier for /etc/fstab
+        """
+        return self.implementation.get_fstab_spec(name)

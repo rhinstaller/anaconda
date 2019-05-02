@@ -46,8 +46,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
         self._password = None
 
-        self._users_module = USERS.get_observer()
-        self._users_module.connect()
+        # connect to the Users DBUS module
+        self._users_module = USERS.get_proxy()
 
         self._services_module = SERVICES.get_observer()
         self._services_module.connect()
@@ -56,7 +56,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        return bool(self._users_module.proxy.IsRootPasswordSet or self._users_module.proxy.IsRootAccountLocked)
+        return bool(self._users_module.IsRootPasswordSet or self._users_module.IsRootAccountLocked)
 
     @property
     def showable(self):
@@ -64,12 +64,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def mandatory(self):
-        return not any(user for user in self.data.user.userList
-                       if "wheel" in user.groups)
+        """Root password spoke is mandatory if no users with admin rights have been requested."""
+        return self._users_module.CheckAdminUserExists()
 
     @property
     def status(self):
-        if self._users_module.proxy.IsRootAccountLocked:
+        if self._users_module.IsRootAccountLocked:
             # check if we are running in Initial Setup reconfig mode
             reconfig_mode = self._services_module.proxy.SetupOnBoot == SETUP_ON_BOOT_RECONFIG
             # reconfig mode currently allows re-enabling a locked root account if
@@ -79,7 +79,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             else:
                 return _("Root account is disabled.")
 
-        elif self._users_module.proxy.IsRootPasswordSet:
+        elif self._users_module.IsRootPasswordSet:
             return _("Password is set.")
         else:
             return _("Password is not set.")
@@ -106,6 +106,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self.close()
 
     def apply(self):
-        self._users_module.proxy.SetCryptedRootPassword(self._password)
-        self._users_module.proxy.SetRootAccountLocked(False)
-        self._users_module.proxy.SetRootpwKickstarted(False)
+        self._users_module.SetCryptedRootPassword(self._password)
+        if self._password:
+            self._users_module.SetRootAccountLocked(False)

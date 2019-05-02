@@ -20,68 +20,66 @@
 import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.structure import dbus_structure, get_structure, apply_structure, \
-    DBusStructureError, generate_string_from_data
+from pyanaconda.dbus.structure import DBusData, DBusStructureError, generate_string_from_data
 
 
 class DBusStructureTestCase(unittest.TestCase):
     """Test the DBus structure support."""
 
-    class NoData(object):
-        pass
-
     def empty_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            dbus_structure(self.NoData)
+            class NoData(DBusData):
+                pass
+
+            NoData()
 
         self.assertEqual(str(cm.exception), "No fields found.")
 
-    class ReadOnlyData(object):
-        @property
-        def x(self) -> Int:
-            return 1
-
     def readonly_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            dbus_structure(self.ReadOnlyData)
+            class ReadOnlyData(DBusData):
+                @property
+                def x(self) -> Int:
+                    return 1
+
+            ReadOnlyData()
 
         self.assertEqual(str(cm.exception), "Field 'x' cannot be set.")
 
-    class WriteOnlyData(object):
-        def __init__(self):
-            self._x = 0
-
-        def set_x(self, x):
-            self._x = x
-
-        x = property(None, set_x)
-
     def writeonly_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            dbus_structure(self.WriteOnlyData)
+            class WriteOnlyData(DBusData):
+                def __init__(self):
+                    self._x = 0
+
+                def set_x(self, x):
+                    self._x = x
+
+                x = property(None, set_x)
+
+            WriteOnlyData()
 
         self.assertEqual(str(cm.exception), "Field 'x' cannot be get.")
 
-    class NoTypeData(object):
-        def __init__(self):
-            self._x = 0
-
-        @property
-        def x(self):
-            return self._x
-
-        @x.setter
-        def x(self, x):
-            self._x = x
-
     def no_type_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            dbus_structure(self.NoTypeData)
+            class NoTypeData(DBusData):
+                def __init__(self):
+                    self._x = 0
+
+                @property
+                def x(self):
+                    return self._x
+
+                @x.setter
+                def x(self, x):
+                    self._x = x
+
+            NoTypeData()
 
         self.assertEqual(str(cm.exception), "Field 'x' has unknown type.")
 
-    @dbus_structure
-    class SkipData(object):
+    class SkipData(DBusData):
 
         class_attribute = 1
 
@@ -105,45 +103,14 @@ class DBusStructureTestCase(unittest.TestCase):
             pass
 
     def skip_members_test(self):
-        structure = get_structure(self.SkipData())
+        data = self.SkipData()
+        structure = self.SkipData.to_structure(data)
         self.assertEqual(structure, {'x': get_variant(Int, 0)})
 
-        data = apply_structure({'x': 10}, self.SkipData())
+        data = self.SkipData.from_structure({'x': 10})
         self.assertEqual(data.x, 10)
 
-    class InvalidData(object):
-
-        def __init__(self):
-            self._x = 0
-
-        @property
-        def x(self) -> Int:
-            return self._x
-
-        @x.setter
-        def x(self, x):
-            self._x = x
-
-    def apply_to_invalid_data_test(self):
-        data = self.InvalidData()
-        self.assertEqual(data.x, 0)
-
-        with self.assertRaises(DBusStructureError) as cm:
-            get_structure(data)
-
-        self.assertEqual(str(cm.exception), """Fields are not defined at '__dbus_fields__'.""")
-
-    def get_from_invalid_data_test(self):
-        data = self.InvalidData()
-        self.assertEqual(data.x, 0)
-
-        with self.assertRaises(DBusStructureError) as cm:
-            apply_structure({'y': 10}, self.InvalidData())
-
-        self.assertEqual(str(cm.exception), """Fields are not defined at '__dbus_fields__'.""")
-
-    @dbus_structure
-    class SimpleData(object):
+    class SimpleData(DBusData):
 
         def __init__(self):
             self._x = 0
@@ -160,32 +127,61 @@ class DBusStructureTestCase(unittest.TestCase):
         data = self.SimpleData()
         self.assertEqual(data.x, 0)
 
-        structure = get_structure(data)
+        structure = self.SimpleData.to_structure(data)
         self.assertEqual(structure, {'x': get_variant(Int, 0)})
 
         data.x = 10
         self.assertEqual(data.x, 10)
 
-        structure = get_structure(data)
+        structure = self.SimpleData.to_structure(data)
         self.assertEqual(structure, {'x': get_variant(Int, 10)})
+
+    def get_simple_structure_list_test(self):
+        d1 = self.SimpleData()
+        d1.x = 1
+
+        d2 = self.SimpleData()
+        d2.x = 2
+
+        d3 = self.SimpleData()
+        d3.x = 3
+
+        structures = self.SimpleData.to_structure_list([d1, d2, d3])
+
+        self.assertEqual(structures, [
+            {'x': get_variant(Int, 1)},
+            {'x': get_variant(Int, 2)},
+            {'x': get_variant(Int, 3)}
+        ])
 
     def apply_simple_structure_test(self):
         data = self.SimpleData()
         self.assertEqual(data.x, 0)
 
         structure = {'x': 10}
-        apply_structure(structure, data)
+        data = self.SimpleData.from_structure(structure)
 
         self.assertEqual(data.x, 10)
 
     def apply_simple_invalid_structure_test(self):
         with self.assertRaises(DBusStructureError) as cm:
-            apply_structure({'y': 10}, self.SimpleData())
+            self.SimpleData.from_structure({'y': 10})
 
         self.assertEqual(str(cm.exception), "Field 'y' doesn't exist.")
 
-    @dbus_structure
-    class ComplicatedData(object):
+    def apply_simple_structure_list_test(self):
+        s1 = {'x': 1}
+        s2 = {'x': 2}
+        s3 = {'x': 3}
+
+        data = self.SimpleData.from_structure_list([s1, s2, s3])
+
+        self.assertEqual(len(data), 3)
+        self.assertEqual(data[0].x, 1)
+        self.assertEqual(data[1].x, 2)
+        self.assertEqual(data[2].x, 3)
+
+    class ComplicatedData(DBusData):
 
         def __init__(self):
             self._very_long_property_name = ""
@@ -228,25 +224,23 @@ class DBusStructureTestCase(unittest.TestCase):
                 'bool-list': get_variant(List[Bool], [True, False, False]),
                 'very-long-property-name': get_variant(Str, "My String Value")
             },
-            get_structure(data)
+            self.ComplicatedData.to_structure(data)
         )
 
     def apply_complicated_structure_test(self):
-        data = apply_structure(
+        data = self.ComplicatedData.from_structure(
             {
                 'dictionary': {1: "1", 2: "2"},
                 'bool-list': [True, False, False],
                 'very-long-property-name': "My String Value"
-            },
-            self.ComplicatedData()
+            }
         )
 
         self.assertEqual(data.dictionary, {1: "1", 2: "2"})
         self.assertEqual(data.bool_list, [True, False, False])
         self.assertEqual(data.very_long_property_name, "My String Value")
 
-    @dbus_structure
-    class StringData(object):
+    class StringData(DBusData):
 
         def __init__(self):
             self._a = 1
@@ -278,9 +272,6 @@ class DBusStructureTestCase(unittest.TestCase):
         def c(self, value):
             self._c = value
 
-        def __repr__(self):
-            return generate_string_from_data(self)
-
     def string_representation_test(self):
         data = self.StringData()
 
@@ -296,8 +287,7 @@ class DBusStructureTestCase(unittest.TestCase):
         self.assertEqual(expected, repr(data))
         self.assertEqual(expected, str(data))
 
-    @dbus_structure
-    class AdvancedStringData(object):
+    class AdvancedStringData(DBusData):
 
         def __init__(self):
             self._a = ""

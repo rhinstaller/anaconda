@@ -22,7 +22,7 @@ from pyanaconda.ui import common
 from pyanaconda.core import util, constants
 from pyanaconda import input_checking
 from pyanaconda.core.i18n import _
-from pyanaconda.users import cryptPassword
+from pyanaconda.core.users import crypt_password
 
 from simpleline.render.adv_widgets import ErrorDialog, GetInputScreen, GetPasswordInputScreen, YesNoDialog
 from simpleline.render.screen import UIScreen, Prompt
@@ -204,7 +204,7 @@ class PasswordDialog(Dialog):
 
     def __init__(self, title, policy,
                  report_func=reporting_callback,
-                 process_func=cryptPassword,
+                 process_func=crypt_password,
                  secret_type=constants.SecretType.PASSWORD,
                  message=None):
         super().__init__(title, report_func=report_func)

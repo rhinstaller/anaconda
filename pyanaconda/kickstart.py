@@ -42,7 +42,6 @@ from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_ad
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, SELINUX_DEFAULT, \
     SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, FIREWALL_ENABLED, FIREWALL_DISABLED, \
     FIREWALL_USE_SYSTEM_DEFAULTS
-from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
@@ -308,7 +307,7 @@ class Realm(RemovedCommand):
 
     def setup(self):
         security_proxy = SECURITY.get_proxy()
-        realm = apply_structure(security_proxy.Realm, RealmData())
+        realm = RealmData.from_structure(security_proxy.Realm)
 
         if not realm.name:
             return
@@ -345,7 +344,7 @@ class Realm(RemovedCommand):
             return
 
         security_proxy = SECURITY.get_proxy()
-        realm = apply_structure(security_proxy.Realm, RealmData())
+        realm = RealmData.from_structure(security_proxy.Realm)
 
         for arg in realm.join_options:
             if arg.startswith("--no-password") or arg.startswith("--one-time-password"):
@@ -464,16 +463,6 @@ class Firstboot(RemovedCommand):
 
         log.debug("The %s service will be enabled.", unit_name)
         util.enable_service(unit_name)
-
-class Group(COMMANDS.Group):
-    def execute(self, storage, ksdata, users):
-        for grp in self.groupList:
-            kwargs = grp.__dict__
-            kwargs.update({"root": util.getSysroot()})
-            try:
-                users.createGroup(grp.name, **kwargs)
-            except ValueError as e:
-                group_log.warning(str(e))
 
 class Iscsi(COMMANDS.Iscsi):
     def parse(self, args):
@@ -672,28 +661,7 @@ class RootPw(RemovedCommand):
 
     def __str__(self):
         users_proxy = USERS.get_proxy()
-        return users_proxy.GenerateTemporaryKickstart()
-
-    def execute(self, storage, ksdata, users):
-
-        users_proxy = USERS.get_proxy()
-
-        if flags.automatedInstall and not users_proxy.IsRootPasswordSet and not users_proxy.IsRootpwKickstarted:
-            # Lock the root password if during an installation with kickstart
-            # the root password is empty & not specififed as empty in the kickstart
-            # (seen == False) via the rootpw command.
-            # Note that kickstart is actually the only way to specify an empty
-            # root password - we don't allow that via the UI.
-            users_proxy.SetRootAccountLocked(True)
-        elif not flags.automatedInstall and not users_proxy.IsRootPasswordSet:
-            # Also lock the root password if it was not set during interactive installation.
-            users_proxy.SetRootAccountLocked(True)
-
-        users.setRootPassword(users_proxy.RootPassword,
-                              users_proxy.IsRootPasswordCrypted,
-                              users_proxy.IsRootAccountLocked,
-                              None,
-                              util.getSysroot())
+        return users_proxy.GenerateKickstart()
 
 class SELinux(RemovedCommand):
 
@@ -743,11 +711,6 @@ class Services(RemovedCommand):
         for svc in services_proxy.EnabledServices:
             log.debug("Enabling the service %s.", svc)
             util.enable_service(svc)
-
-class SshKey(COMMANDS.SshKey):
-    def execute(self, storage, ksdata, users):
-        for usr in self.sshUserList:
-            users.setUserSshKey(usr.username, usr.key)
 
 class Timezone(RemovedCommand):
 
@@ -828,23 +791,6 @@ class Timezone(RemovedCommand):
                                                out_file_path=chronyd_conf_path)
                 except ntp.NTPconfigError as ntperr:
                     timezone_log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
-
-class User(COMMANDS.User):
-    def execute(self, storage, ksdata, users):
-
-        for usr in self.userList:
-            kwargs = usr.__dict__
-            kwargs.update({"root": util.getSysroot()})
-
-            # If the user password came from a kickstart and it is blank we
-            # need to make sure the account is locked, not created with an
-            # empty password.
-            if self.seen and kwargs.get("password", "") == "":
-                kwargs["password"] = None
-            try:
-                users.createUser(usr.name, **kwargs)
-            except ValueError as e:
-                user_log.warning(str(e))
 
 class VolGroup(COMMANDS.VolGroup):
     pass
@@ -994,7 +940,7 @@ commandMap = {
     "fcoe": UselessCommand,
     "firewall": Firewall,
     "firstboot": Firstboot,
-    "group": Group,
+    "group" : UselessCommand,
     "ignoredisk": UselessCommand,
     "iscsi": Iscsi,
     "iscsiname": IscsiName,
@@ -1013,11 +959,11 @@ commandMap = {
     "rootpw": RootPw,
     "selinux": SELinux,
     "services": Services,
-    "sshkey": SshKey,
+    "sshkey" : UselessCommand,
     "skipx": UselessCommand,
     "snapshot": Snapshot,
     "timezone": Timezone,
-    "user": User,
+    "user": UselessCommand,
     "volgroup": VolGroup,
     "xconfig": XConfig,
     "zerombr": UselessCommand,

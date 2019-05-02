@@ -18,7 +18,7 @@
 m4_define(python_required_version, 3.4)
 
 AC_PREREQ([2.63])
-AC_INIT([anaconda], [30.25], [anaconda-devel-list@redhat.com])
+AC_INIT([anaconda], [31.9], [anaconda-devel-list@redhat.com])
 
 # make it possible to set build info at build time
 # (patch only builds, modular builds, mass-rebuilds, etc.)
@@ -176,7 +176,6 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/network/firewall/Makefile
                  pyanaconda/modules/localization/Makefile
                  pyanaconda/modules/users/Makefile
-                 pyanaconda/modules/users/user/Makefile
                  pyanaconda/modules/payload/Makefile
                  pyanaconda/modules/payload/dnf/Makefile
                  pyanaconda/modules/payload/dnf/packages/Makefile

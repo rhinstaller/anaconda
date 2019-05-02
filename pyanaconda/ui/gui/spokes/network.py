@@ -43,7 +43,6 @@ from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.core import glib
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
-from pyanaconda.dbus.structure import apply_structure
 
 from pyanaconda import network
 
@@ -386,8 +385,8 @@ class NetworkControlBox(GObject.GObject):
 
     def _update_device_configurations(self, changes):
         for old_values, new_values in changes:
-            old_cfg = apply_structure(old_values, NetworkDeviceConfiguration())
-            new_cfg = apply_structure(new_values, NetworkDeviceConfiguration())
+            old_cfg = NetworkDeviceConfiguration.from_structure(old_values)
+            new_cfg = NetworkDeviceConfiguration.from_structure(new_values)
 
             device_type = old_cfg.device_type or new_cfg.device_type
             # physical devices - devices persist in store
@@ -422,7 +421,7 @@ class NetworkControlBox(GObject.GObject):
         device_configurations = self._network_module.proxy.GetDeviceConfigurations()
         self.dev_cfg_store.clear()
         for device_configuration in device_configurations:
-            dev_cfg = apply_structure(device_configuration, NetworkDeviceConfiguration())
+            dev_cfg = NetworkDeviceConfiguration.from_structure(device_configuration)
             self.add_dev_cfg(dev_cfg)
             self.watch_dev_cfg_device(dev_cfg)
 

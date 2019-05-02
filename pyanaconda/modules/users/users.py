@@ -21,21 +21,25 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import USERS
-from pyanaconda.modules.users.user import UserModule, UserInterface
+from pyanaconda.modules.common.structures.user import UserData, USER_GID_NOT_SET, \
+                                                      USER_UID_NOT_SET
+from pyanaconda.modules.common.structures.group import GroupData, GROUP_GID_NOT_SET
+from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 from pyanaconda.modules.users.users_interface import UsersInterface
+from pyanaconda.modules.users.installation import SetRootPasswordTask, CreateUsersTask, \
+                                                  CreateGroupsTask, SetSshKeysTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
 
 class UsersModule(KickstartModule):
     """The Users module."""
 
     def __init__(self):
         super().__init__()
-        self.rootpw_seen_changed = Signal()
-        self._rootpw_seen = False
+        self.can_change_root_password_changed = Signal()
+        self._can_change_root_password = True
 
         self.root_password_is_set_changed = Signal()
         self._root_password_is_set = False
@@ -43,10 +47,18 @@ class UsersModule(KickstartModule):
         self._root_password_is_crypted = False
 
         self.root_account_locked_changed = Signal()
-        self._root_account_locked = False
+        self._root_account_locked = True
 
         self.users_changed = Signal()
-        self._users = {}
+        self._users = []
+
+        self.groups_changed = Signal()
+        self._groups = []
+
+        self.ssh_keys_changed = Signal()
+        self._ssh_keys = []
+
+        self._rootpw_seen = False
 
     def publish(self):
         """Publish the module."""
@@ -61,90 +73,190 @@ class UsersModule(KickstartModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
+
         self.set_root_password(data.rootpw.password, crypted=data.rootpw.isCrypted)
         self.set_root_account_locked(data.rootpw.lock)
-        self.set_rootpw_seen(data.rootpw.seen)
+        # make sure the root account is locked unless a password is set in kickstart
+        if not data.rootpw.password:
+            log.debug("root specified in kickstart without password, locking account")
+            self.set_root_account_locked(True)
+        # if password was set in kickstart it can't be changed by default
+        if data.rootpw.seen:
+            self.set_can_change_root_password(False)
+            self._rootpw_seen = True
 
-        for user_data in data.user.userList:
-            user = self._create_user_instance()
-            user.process_kickstart(data, user_data)
-            self._publish_user_instance(user)
+        user_data_list = []
+        for user_ksdata in data.user.userList:
+            user_data_list.append(self._ksdata_to_user_data(user_ksdata))
+        self.set_users(user_data_list)
 
-    def generate_temporary_kickstart(self):
-        """Return the temporary kickstart string."""
-        return self.generate_kickstart(skip_unsupported=True)
+        group_data_list = []
+        for group_ksdata in data.group.groupList:
+            group_data = GroupData()
+            group_data.name = group_ksdata.name
+            if group_ksdata.gid is not None:
+                group_data.gid = group_ksdata.gid
+            group_data_list.append(group_data)
+        self.set_groups(group_data_list)
+
+        ssh_key_data_list = []
+        for ssh_key_ksdata in data.sshkey.sshUserList:
+            ssh_key_data = SshKeyData()
+            ssh_key_data.key = ssh_key_ksdata.key
+            ssh_key_data.username = ssh_key_ksdata.username
+            ssh_key_data_list.append(ssh_key_data)
+        self.set_ssh_keys(ssh_key_data_list)
 
     # pylint: disable=arguments-differ
-    def generate_kickstart(self, skip_unsupported=False):
+    def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
         data.rootpw.password = self._root_password
         data.rootpw.isCrypted = self._root_password_is_crypted
         data.rootpw.lock = self.root_account_locked
-        data.rootpw.seen = self.rootpw_seen
 
-        if skip_unsupported:
-            return str(data)
+        for user_data in self.users:
+            data.user.userList.append(self._user_data_to_ksdata(data.UserData(),
+                                                                user_data))
 
-        for user in self.users.values():
-            user.setup_kickstart(data)
+        for group_data in self.groups:
+            group_ksdata = data.GroupData()
+            group_ksdata.name = group_data.name
+            if group_data.gid != GROUP_GID_NOT_SET:
+                group_ksdata.gid = group_data.gid
+            data.group.groupList.append(group_ksdata)
+
+        for ssh_key_data in self.ssh_keys:
+            ssh_key_ksdata = data.SshKeyData()
+            ssh_key_ksdata.key = ssh_key_data.key
+            ssh_key_ksdata.username = ssh_key_data.username
+            data.sshkey.sshUserList.append(ssh_key_ksdata)
 
         return str(data)
 
+    def install_with_tasks(self, sysroot):
+        """Return the installation tasks of this module.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: list of object paths of installation tasks
+        """
+        tasks = [
+            SetRootPasswordTask(sysroot=sysroot, password=self.root_password,
+                crypted=self.root_password_is_crypted,
+                locked=self.root_account_locked),
+            CreateGroupsTask(sysroot=sysroot, group_data_list=self.groups),
+            CreateUsersTask(sysroot=sysroot, user_data_list=self.users),
+            SetSshKeysTask(sysroot=sysroot, ssh_key_data_list=self.ssh_keys)
+        ]
+
+        paths = [
+            self.publish_task(USERS.namespace, task) for task in tasks
+        ]
+
+        return paths
+
+    def _ksdata_to_user_data(self, user_ksdata):
+        """Apply kickstart user command data to UserData instance.
+
+        :param user_ksdata: data for the kickstart user command
+        :return: UserData instance with kickstart data applied
+        """
+        user_data = UserData()
+        user_data.name = user_ksdata.name
+        user_data.groups = user_ksdata.groups
+        # To denote that a value has not been set:
+        # - kickstart uses None
+        # - our DBUS API uses -1
+        # -> as user data is -1 by default ve only set it if kickstart has something,
+        #    that is not None
+        # We need to make sure we correctly convert between these two.
+        if user_ksdata.uid is not None:
+            user_data.uid = user_ksdata.uid
+        if user_ksdata.gid is not None:
+            user_data.gid = user_ksdata.gid
+        user_data.homedir = user_ksdata.homedir
+        user_data.password = user_ksdata.password
+        user_data.is_crypted = user_ksdata.isCrypted
+        user_data.lock = user_ksdata.lock
+        # make sure the user account is locked by default unless a password
+        # is set in kickstart
+        if not user_ksdata.password:
+            log.debug("user (%s) specified in kickstart without password, locking account",
+                      user_ksdata.name)
+            user_data.lock = True
+        user_data.shell = user_ksdata.shell
+        user_data.gecos = user_ksdata.gecos
+        return user_data
+
+    def _user_data_to_ksdata(self, user_ksdata, user_data):
+        """Convert UserData instance to kickstart user command data.
+
+        :param user_ksdata: UserData instance from Kickstart
+        :param user_data: our UserData instance
+        :return: kickstart user command data for a single user
+        """
+        user_ksdata.name = user_data.name
+        user_ksdata.groups = user_data.groups
+        # To denote that a value has not been set:
+        # - kickstart uses None
+        # - our DBUS API uses -1
+        # -> as ksdata has None as default, we simply only set the value if
+        #    it is != -1 on our side
+        # We need to make sure we correctly convert between these two.
+        if user_data.uid != USER_UID_NOT_SET:
+            user_ksdata.uid = user_data.uid
+        if user_data.gid != USER_GID_NOT_SET:
+            user_ksdata.gid = user_data.gid
+        user_ksdata.homedir = user_data.homedir
+        user_ksdata.password = user_data.password
+        user_ksdata.isCrypted = user_data.is_crypted
+        user_ksdata.lock = user_data.lock
+        user_ksdata.shell = user_data.shell
+        user_ksdata.gecos = user_data.gecos
+        return user_ksdata
+
     @property
     def users(self):
-        """Dictionary of users and their object paths."""
+        """List of UserData instances, one per user."""
         return self._users
 
-    @property
-    def object_paths_of_users(self):
-        """List of users object paths."""
-        return list(self._users.keys())
-
-    def create_user(self):
-        """Create and publish a new UserModule.
-
-        :return: an object path of the module
-        """
-        user_instance = self._create_user_instance()
-        object_path = self._publish_user_instance(user_instance)
-        return object_path
-
-    def _create_user_instance(self):
-        """Create a new instance of the user.
-
-        :return: an instance of UserModule
-        """
-        user_instance = UserModule()
-        log.debug("Created a new user instance.")
-        return user_instance
-
-    def _publish_user_instance(self, user_instance):
-        """Publish the user instance on DBus.
-
-        :param user_instance: an instance of UserModule
-        """
-        # Publish the DBus object.
-        publishable = UserInterface(user_instance)
-        object_path = UserInterface.get_object_path(USERS.namespace)
-        DBus.publish_object(object_path, publishable)
-
-        # Update the module.
-        self.users[object_path] = user_instance
+    def set_users(self, users):
+        """Set the list of UserData instances, one per user."""
+        self._users = users
         self.users_changed.emit()
-
-        log.debug("Published a user at '%s'.", object_path)
-        return object_path
+        log.debug("A new user list has been set: %s", self._users)
 
     @property
-    def rootpw_seen(self):
-        return self._rootpw_seen
+    def groups(self):
+        """List of GroupData instances, one per group."""
+        return self._groups
 
-    def set_rootpw_seen(self, rootpw_seen):
-        self._rootpw_seen = rootpw_seen
-        self.rootpw_seen_changed.emit()
-        log.debug("Root password considered seen in kickstart: %s.", rootpw_seen)
+    def set_groups(self, groups):
+        """Set the list of GroupData instances, one per group."""
+        self._groups = groups
+        self.groups_changed.emit()
+        log.debug("A new group list has been set: %s", self._groups)
+
+    @property
+    def ssh_keys(self):
+        """List of SshKeyData instances, one per ssh key."""
+        return self._ssh_keys
+
+    def set_ssh_keys(self, ssh_keys):
+        """Set the list of SshKeyData instances, one per ssh keys."""
+        self._ssh_keys = ssh_keys
+        self.ssh_keys_changed.emit()
+        log.debug("A new ssh key list has been set: %s", self._ssh_keys)
+
+    @property
+    def can_change_root_password(self):
+        return self._can_change_root_password
+
+    def set_can_change_root_password(self, can_change_root_password):
+        self._can_change_root_password = can_change_root_password
+        self.can_change_root_password_changed.emit()
+        log.debug("Can change root password state changed: %s.", can_change_root_password)
 
     @property
     def root_password(self):
@@ -167,20 +279,27 @@ class UsersModule(KickstartModule):
     def set_root_password(self, root_password, crypted):
         """Set the crypted root password.
 
+        NOTE: Setting password == "" is equivalent to
+              calling clear_root_password().
+
         :param str root_password: root password
         :param bool crypted: if the root password is crypted
         """
-        self._root_password = root_password
-        self._root_password_is_crypted = crypted
-        self.root_password_is_set_changed.emit()
-        log.debug("Root password set.")
+        if root_password == "":
+            self._root_password = ""
+            self._root_password_is_crypted = False
+            self.set_root_account_locked(True)
+            self.root_password_is_set_changed.emit()
+            log.debug("Root password cleared.")
+        else:
+            self._root_password = root_password
+            self._root_password_is_crypted = crypted
+            self.root_password_is_set_changed.emit()
+            log.debug("Root password set.")
 
     def clear_root_password(self):
         """Clear any set root password."""
-        self._root_password = ""
-        self._root_password_is_crypted = False
-        self.root_password_is_set_changed.emit()
-        log.debug("Root password cleared.")
+        self.set_root_password("", False)
 
     @property
     def root_password_is_set(self):
@@ -203,3 +322,30 @@ class UsersModule(KickstartModule):
     def root_account_locked(self):
         """Is the root account locked ?"""
         return self._root_account_locked
+
+    @property
+    def check_admin_user_exists(self):
+        """Reports if at least one admin user exists.
+
+        - an unlocked root account is considered to be an admin user
+        - an unlocked user account that is member of the group "wheel"
+          is considered to be an admin user
+
+        :return: if at least one admin user exists
+        """
+        # any root set from kickstart is fine
+        if self._rootpw_seen:
+            return True
+        # if not set by kickstart root must not be
+        # locked to be cosnidered admin
+        elif not self.root_account_locked:
+            return True
+
+        # let's check all users
+        for user in self.users:
+            if not user.lock:
+                if "wheel" in user.groups:
+                    return True
+
+        # no admin user found
+        return False

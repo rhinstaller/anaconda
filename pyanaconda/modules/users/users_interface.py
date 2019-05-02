@@ -22,6 +22,9 @@ from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
+from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.modules.common.structures.group import GroupData
+from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.dbus.interface import dbus_interface
 
 
@@ -32,46 +35,19 @@ class UsersInterface(KickstartModuleInterface):
     def connect_signals(self):
         super().connect_signals()
         self.watch_property("Users", self.implementation.users_changed)
+        self.watch_property("Groups", self.implementation.groups_changed)
+        self.watch_property("SshKeys", self.implementation.ssh_keys_changed)
         self.watch_property("IsRootPasswordSet", self.implementation.root_password_is_set_changed)
         self.watch_property("IsRootAccountLocked", self.implementation.root_account_locked_changed)
-        self.watch_property("IsRootpwKickstarted", self.implementation.rootpw_seen_changed)
+        self.watch_property("CanChangeRootPassword", self.implementation.can_change_root_password_changed)
 
     @property
-    def Users(self) -> List[ObjPath]:
-        """A list of object paths to available user objects."""
-        return self.implementation.object_paths_of_users
+    def CanChangeRootPassword(self) -> Bool:
+        """Can the root password be changed ?
 
-    @emits_properties_changed
-    def CreateUser(self) -> ObjPath:
-        """Create a new user object.
-
-        :return: an object path to the created user
+        :return: True, if the root password can the changed, False otherwise
         """
-        return self.implementation.create_user()
-
-    @property
-    def IsRootpwKickstarted(self) -> Bool:
-        """Was the rootpw command seen in kickstart ?
-
-        NOTE: this property should be only temporary and should be
-              dropped once the users module itself can report
-              if the password changed from kickstart
-
-        :return: True, if the rootpw was present in input kickstart, otherwise False
-        """
-        return self.implementation.rootpw_seen
-
-    @emits_properties_changed
-    def SetRootpwKickstarted(self, rootpw_seen: Bool):
-        """Set if rootpw should be considered as coming from kickstart.
-
-        NOTE: this property should be only temporary and should be
-              dropped once the users module itself can report
-              if the password changed from kickstart
-
-        :param bool rootpw_seen: if rootpw should be considered as coming from kickstart
-        """
-        self.implementation.set_rootpw_seen(rootpw_seen)
+        return self.implementation.can_change_root_password
 
     @property
     def RootPassword(self) -> Str:
@@ -130,3 +106,84 @@ class UsersInterface(KickstartModuleInterface):
         :return: True, if the root account is locked, otherwise False
         """
         return self.implementation.root_account_locked
+
+
+    @property
+    def Users(self) -> List[Structure]:
+        """List of users, each describing a single user.
+
+        :return: a list of user describing DBUS Structures
+        """
+        # internally we hold the data about users as a list of structures,
+        # which we need to turn into a list of dicts before returning it
+        # over DBUS
+        user_dicts = []
+
+        for user_data in self.implementation.users:
+            user_dicts.append(UserData.to_structure(user_data))
+        return user_dicts
+
+    @emits_properties_changed
+    def SetUsers(self, users: List[Structure]):
+        """Set a list of users, each corresponding to a single user.
+
+        :param users: a list of user describing DBUS structures
+        """
+        self.implementation.set_users(UserData.from_structure_list(users))
+
+    @property
+    def Groups(self) -> List[Structure]:
+        """List of groups, each describing a single group.
+
+        :return: a list of group describing DBUS Structures
+        """
+        # internally we hold the data about groups as a list of structures,
+        # which we need to turn into a list of dicts before returning it
+        # over DBUS
+        group_dicts = []
+
+        for group_data in self.implementation.groups:
+            group_dicts.append(GroupData.to_structure(group_data))
+        return group_dicts
+
+    @emits_properties_changed
+    def SetGroups(self, groups: List[Structure]):
+        """Set a list of groups, each corresponding to a single group.
+
+        :param groups: a list of group describing DBUS structures
+        """
+        self.implementation.set_groups(GroupData.from_structure_list(groups))
+
+    @property
+    def SshKeys(self) -> List[Structure]:
+        """List of SSH keys, each describing a single SSH key.
+
+        :return: a list of SSH key describing DBUS Structures
+        """
+        # internally we hold the data about SSH keys as a list of structures,
+        # which we need to turn into a list of dicts before returning it
+        # over DBUS
+        ssh_key_dicts = []
+
+        for ssh_key_data in self.implementation.ssh_keys:
+            ssh_key_dicts.append(SshKeyData.to_structure(ssh_key_data))
+        return ssh_key_dicts
+
+    @emits_properties_changed
+    def SetSshKeys(self, ssh_keys: List[Structure]):
+        """Set a list of DBUS structures, each corresponding to a single SSH key.
+
+        :param ssh_keys: a list of SSH key describing DBUS structures
+        """
+        self.implementation.set_ssh_keys(SshKeyData.from_structure_list(ssh_keys))
+
+    def CheckAdminUserExists(self) -> Bool:
+        """Reports if at least one admin user exists.
+
+        - an unlocked root account is considered to be an admin user
+        - an unlocked user account that is member of the group "wheel"
+          is considered to be an admin user
+
+        :return: if at least one admin user exists
+        """
+        return self.implementation.check_admin_user_exists

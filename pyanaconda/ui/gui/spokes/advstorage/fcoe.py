@@ -19,7 +19,6 @@
 from pyanaconda.modules.common.constants.objects import FCOE
 from pyanaconda.modules.common.constants.services import STORAGE, NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
-from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.ui.gui import GUIObject
@@ -60,7 +59,7 @@ class FCoEDialog(GUIObject):
         self._nicCombo.remove_all()
 
         network_proxy = NETWORK.get_proxy()
-        ethernet_devices = [apply_structure(device, NetworkDeviceInfo())
+        ethernet_devices = [NetworkDeviceInfo.from_structure(device)
                             for device in network_proxy.GetSupportedDevices()
                             if device['device-type'] == NM.DeviceType.ETHERNET]
         for dev_info in ethernet_devices:

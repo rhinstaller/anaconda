@@ -23,7 +23,8 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
-from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData
+from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
+    DeviceFormatData
 from pyanaconda.storage.utils import get_required_device_size
 
 log = get_module_logger(__name__)
@@ -101,7 +102,27 @@ class DeviceTreeViewer(ABC):
         data.description = getattr(device, "description", "")
 
         # Collect the additional attributes.
-        attrs = self._get_device_attrs(device)
+        attrs = self._get_attributes(device, DeviceData.SUPPORTED_ATTRIBUTES)
+        data.attrs = attrs
+
+        return data
+
+    def get_format_data(self, device_name):
+        """Get the device format.
+
+        :param device_name: a name of the device
+        :return: an instance of DeviceFormatData
+        """
+        # Find the device.
+        device = self._get_device(device_name)
+
+        # Collect the format data.
+        data = DeviceFormatData()
+        data.type = device.format.type or ""
+        data.description = device.format.name or ""
+
+        # Collect the additional attributes.
+        attrs = self._get_attributes(device.format, DeviceFormatData.SUPPORTED_ATTRIBUTES)
         data.attrs = attrs
 
         return data
@@ -128,17 +149,18 @@ class DeviceTreeViewer(ABC):
         """
         return list(map(self._get_device, names))
 
-    def _get_device_attrs(self, device):
-        """Get the device attributes.
+    def _get_attributes(self, obj, names):
+        """Get the attributes of the given object.
 
-        :param device: an instance of the device
+        :param obj: an object
+        :param names: names of the supported attributes
         :return: a dictionary of attributes
         """
         attrs = {}
 
-        for name in DeviceData.SUPPORTED_ATTRIBUTES:
+        for name in names:
             try:
-                value = getattr(device, name)
+                value = getattr(obj, name)
             except AttributeError:
                 # Skip if the attribute doesn't exist.
                 continue
@@ -233,3 +255,12 @@ class DeviceTreeViewer(ABC):
         """
         disks = self._get_devices(disk_names)
         return self.storage.get_disk_reclaimable_space(disks).get_bytes()
+
+    def get_fstab_spec(self, name):
+        """Get the device specifier for use in /etc/fstab.
+
+        :param name: a name of the device
+        :return: a device specifier for /etc/fstab
+        """
+        device = self._get_device(name)
+        return device.fstab_spec

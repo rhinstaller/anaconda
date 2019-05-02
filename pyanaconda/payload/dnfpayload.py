@@ -1151,11 +1151,6 @@ class DNFPayload(payload.PackagePayload):
                 enabled.append(repo.id)
                 repo.disable()
 
-        # If askmethod was specified on the command-line, leave all the repos
-        # disabled and return
-        if flags.askmethod:
-            return
-
         if method.method:
             try:
                 self._refresh_install_tree(install_tree_url)
@@ -1291,15 +1286,16 @@ class DNFPayload(payload.PackagePayload):
             if base_repo_url is not None:
                 existing_urls.append(base_repo_url)
 
-            for ksrepo in self.data.repo.dataList():
-                existing_urls.append(ksrepo.baseurl)
+            for ksrepo in self.addons:
+                baseurl = self.get_addon_repo(ksrepo).baseurl
+                existing_urls.append(baseurl)
 
             for repo_md in self._install_tree_metadata.get_metadata_repos():
                 if repo_md.path not in existing_urls:
                     repo = RepoData(name=repo_md.name, baseurl=repo_md.path,
                                     install=False, enabled=True)
                     repo.treeinfo_origin = True
-                    self.data.repo.dataList().append(repo)
+                    self.add_repo(repo)
 
         return install_tree_url
 

@@ -16,14 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import dbus_structure, generate_string_from_data
+from pyanaconda.dbus.structure import DBusData
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["DeviceData", "DeviceActionData"]
+__all__ = ["DeviceData", "DeviceFormatData", "DeviceActionData"]
 
 
-@dbus_structure
-class DeviceData(object):
+class DeviceData(DBusData):
     """Device data."""
 
     SUPPORTED_ATTRIBUTES = [
@@ -32,6 +31,7 @@ class DeviceData(object):
         "model",
         "bus",
         "wwn",
+        "uuid",
 
         # DASD
         "busid",
@@ -153,12 +153,63 @@ class DeviceData(object):
     def description(self, text):
         self._description = text
 
-    def __repr__(self):
-        return generate_string_from_data(self)
+
+class DeviceFormatData(DBusData):
+    """Device format data."""
+
+    SUPPORTED_ATTRIBUTES = [
+        "uuid",
+        "label"
+    ]
+
+    def __init__(self):
+        self._type = ""
+        self._attrs = {}
+        self._description = ""
+
+    @property
+    def type(self) -> Str:
+        """A type of the format.
+
+        :return: a format type
+        """
+        return self._type
+
+    @type.setter
+    def type(self, value):
+        self._type = value
+
+    @property
+    def attrs(self) -> Dict[Str, Str]:
+        """Additional attributes.
+
+        The supported attributes are defined by
+        the list SUPPORTED_ATTRIBUTES.
+
+        :return: a dictionary of attributes
+        """
+        return self._attrs
+
+    @attrs.setter
+    def attrs(self, attrs: Dict[Str, Str]):
+        self._attrs = attrs
+
+    @property
+    def description(self) -> Str:
+        """Description of the format.
+
+        FIXME: This is a temporary property.
+
+        :return: a string with description
+        """
+        return self._description
+
+    @description.setter
+    def description(self, text):
+        self._description = text
 
 
-@dbus_structure
-class DeviceActionData(object):
+class DeviceActionData(DBusData):
     """Device action data."""
 
     def __init__(self):
@@ -223,6 +274,3 @@ class DeviceActionData(object):
     @description.setter
     def description(self, text):
         self._description = text
-
-    def __repr__(self):
-        return generate_string_from_data(self)
