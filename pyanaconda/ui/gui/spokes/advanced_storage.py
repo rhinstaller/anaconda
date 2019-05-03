@@ -189,8 +189,8 @@ class SearchPage(FilterPage):
 
         ports = []
         for disk in disks:
-            if hasattr(disk, "node") and disk.node is not None:
-                ports.append(str(disk.node.port))
+            if hasattr(disk, "port") and disk.port is not None:
+                ports.append(str(disk.port))
 
         self.setupCombo(self._portCombo, ports)
 
@@ -203,8 +203,8 @@ class SearchPage(FilterPage):
     def _port_equal(self, device):
         active = self._portCombo.get_active_text()
         if active:
-            if hasattr(device, "node"):
-                return device.node.port == int(active)
+            if hasattr(device, "port"):
+                return device.port == int(active)
             else:
                 return False
         else:
@@ -220,9 +220,9 @@ class SearchPage(FilterPage):
     def _lun_equal(self, device):
         active = self._lunEntry.get_text().strip()
         if active:
-            if hasattr(device, "node"):
+            if hasattr(device, "lun"):
                 try:
-                    return int(active) == device.node.tpgt
+                    return int(active) == device.lun
                 except ValueError:
                     return False
             elif hasattr(device, "fcp_lun"):
@@ -349,12 +349,8 @@ class OtherPage(FilterPage):
             paths = [d.name for d in disk.parents]
             selected = disk.name in selectedNames
 
-            if hasattr(disk, "node") and disk.node is not None:
-                port = str(disk.node.port)
-                lun = str(disk.node.tpgt)
-            else:
-                port = ""
-                lun = ""
+            port = getattr(disk, "port", "")
+            lun = str(getattr(disk, "lun", ""))
 
             store.append([True, selected, not disk.protected,
                           disk.name, "", disk.model, str(disk.size),
