@@ -188,3 +188,14 @@ class ISCSIModule(KickstartBaseModule):
             iscsi_data.password_in = dev_node.r_password
 
         return iscsi_data
+
+    def node_is_from_ibft(self, node):
+        """Is the node configured from iBFT table?.
+
+        :param node: the node information
+        """
+        for ibft_node in iscsi.ibft_nodes:
+            if ibft_node.name == node.name and ibft_node.address == node.address \
+                    and ibft_node.port == int(node.port) and ibft_node.iface == node.interface:
+                return True
+        return False

@@ -33,7 +33,8 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.objects import FCOE
+from pyanaconda.modules.common.constants.objects import FCOE, ISCSI
+from pyanaconda.modules.common.structures.iscsi import Node
 from pyanaconda.modules.common.constants.services import STORAGE, NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
@@ -51,7 +52,18 @@ def _is_on_sw_iscsi(device):
 
 def _is_on_ibft(device):
     """Tells whether a given device is ibft disk or not."""
-    return all(getattr(disk, "ibft", False) for disk in device.disks)
+    iscsi_proxy = STORAGE.get_proxy(ISCSI)
+    for disk in device.disks:
+        if not isinstance(disk, blivet.devices.iScsiDiskDevice):
+            return False
+        node = Node()
+        node.name = disk.target
+        node.address = disk.address
+        node.port = disk.port
+        node.interface = disk.iface
+        if not iscsi_proxy.NodeIsFromIbft(Node.to_structure(node)):
+            return False
+    return True
 
 
 class BootLoaderError(Exception):

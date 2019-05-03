@@ -112,6 +112,14 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         node = Node.from_structure(node)
         return self.implementation.login_with_task(portal, credentials, node)
 
+    def NodeIsFromIbft(self, node: Structure) -> Bool:
+        """Is the node configured from iBFT table?.
+
+        :param node: the node information
+        """
+        node = Node.from_structure(node)
+        return self.implementation.node_is_from_ibft(node)
+
     def WriteConfiguration(self, sysroot: Str):
         """Write the configuration to sysroot.
 
