@@ -66,17 +66,17 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         self.initialize_start()
 
-        # connect to the Users DBUS module
+        # connect to the Users DBus module
         self._users_module = USERS.get_proxy()
 
         self.title = N_("User creation")
         self._container = None
 
-        # was user creation requested by the Users DBUS module
+        # was user creation requested by the Users DBus module
         # - at the moment this basically means user creation was
         #   requested via kickstart
         # - note that this does not currently update when user
-        #   list is changed via DBUS
+        #   list is changed via DBus
         self._user_requested = False
         self._user_cleared = False
 
@@ -265,7 +265,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self.user.is_crypted = False
 
         # Turning user creation off clears any already configured user,
-        # regardless of origin (kickstart, user, DBUS).
+        # regardless of origin (kickstart, user, DBus).
         if not self._create_user and self.user.name:
             self.user.name = ""
             self._user_cleared = True

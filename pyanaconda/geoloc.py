@@ -712,7 +712,7 @@ class Coordinates(object):
 
 
 class WifiScanner(object):
-    """Use the Network Manager DBUS API to provide information about nearby WiFi access points."""
+    """Use the Network Manager DBus API to provide information about nearby WiFi access points."""
 
     NETWORK_MANAGER_DEVICE_TYPE_WIFI = 2
 
@@ -752,7 +752,7 @@ class WifiScanner(object):
                 ap_id = "org.freedesktop.NetworkManager.AccessPoint"
 
                 for ap_path in device.GetAccessPoints():
-                    # drill down to the DBUS object for the AP
+                    # drill down to the DBus object for the AP
                     net = bus.get_object('org.freedesktop.NetworkManager', ap_path)
                     network_properties = dbus.Interface(
                         net, dbus_interface=dbus_iface_id)

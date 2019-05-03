@@ -22,14 +22,14 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 def get_user_list(users_module, add_default=False, add_if_not_empty=False):
-    """Get list of users from the Users DBUS module.
+    """Get list of users from the Users DBus module.
 
     If add_default is True we will add an empty UserData instance as the first element
     of the list, so that the UIs don't have to handle that themselves.
 
-    :param users_module: Users DBUS module proxy
+    :param users_module: Users DBus module proxy
     :param bool add_default: if True add default user as first list element
-    :returns: list of users from the Users DBUS module
+    :returns: list of users from the Users DBus module
     :rtype: list
     """
 
@@ -44,20 +44,20 @@ def get_user_list(users_module, add_default=False, add_if_not_empty=False):
     return user_data_list
 
 def set_user_list(users_module, user_data_list, remove_unset=False):
-    """Properly set the user list in the Users DBUS module.
+    """Properly set the user list in the Users DBus module.
 
-    Internally we are working with a list of UserData instances, while the SetUsers DBUS API
-    requires a list of DBUS structures.
+    Internally we are working with a list of UserData instances, while the SetUsers DBus API
+    requires a list of DBus structures.
 
     Doing the conversion each time we need to set a new user list would be troublesome so
-    this method takes a list of UserData instances, converts them to list of DBUS structs
+    this method takes a list of UserData instances, converts them to list of DBus structs
     and then forwards the list to the Users module.
 
     Also if remove_unset is True we will drop any UserData instances from the list before
-    forwarding it to the Users DBUS module. Missing name is used as an indicator that the
+    forwarding it to the Users DBus module. Missing name is used as an indicator that the
     given user has been unset by one of the UIs and should be discarded.
 
-    :param users_module: Users DBUS module proxy
+    :param users_module: Users DBus module proxy
     :param list user_data_list: list of user data objects
     :param bool remove_unset: remove all users without name from the list before setting it
     :type user_data_list: list of UserData instances

@@ -46,7 +46,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
         self._password = None
 
-        # connect to the Users DBUS module
+        # connect to the Users DBus module
         self._users_module = USERS.get_proxy()
 
         self._services_module = SERVICES.get_observer()

@@ -89,18 +89,18 @@ def stops_anaconda_services():
     print(RED + "waiting a bit for module shutdown to happen" + RESET)
     time.sleep(1)
 
-parser=argparse.ArgumentParser(description="Run Boss DBUS service locally on testing Bus")
+parser=argparse.ArgumentParser(description="Run Boss DBus service locally on testing Bus")
 parser.add_argument('-k', '--kickstart', action='store', type=str,
                     help='distribute kickstart to modules')
 args = parser.parse_args()
 if args.kickstart and not os.path.exists(args.kickstart):
     print("ERROR: kickstart file {} not found".format(args.kickstart))
 
-print("creating a temporary directory for DBUS service files")
+print("creating a temporary directory for DBus service files")
 temp_service_dir = tempfile.TemporaryDirectory(prefix="anaconda_dbus_")
 print(temp_service_dir.name)
 
-print("copying & modifying DBUS service files")
+print("copying & modifying DBus service files")
 modified_exec_path = 'Exec={}'.format(STARTUP_SCRIPT)
 for file_path in glob.glob(DBUS_SERVICES_DIR +  "*.service"):
     filename = os.path.split(file_path)[1]
@@ -117,7 +117,7 @@ test_dbus = Gio.TestDBus()
 test_dbus.add_service_dir(temp_service_dir.name)
 
 try:
-    # start the custom DBUS daemon
+    # start the custom DBus daemon
     print("starting custom dbus session")
     test_dbus.up()
 
@@ -156,7 +156,7 @@ try:
             loop = False
 
 finally:
-    # stop the custom DBUS daemon
+    # stop the custom DBus daemon
     print("stopping custom dbus session")
     test_dbus.down()
 

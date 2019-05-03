@@ -73,14 +73,14 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
         # root password is locked by default and remains locked even after a password is set
-        # and needs to be unlocked via another DBUS API call
+        # and needs to be unlocked via another DBus API call
         self.users_interface.SetRootAccountLocked(False)
         self.assertEqual(self.users_interface.IsRootPasswordSet, True)
         self.assertEqual(self.users_interface.IsRootAccountLocked, False)
         self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
 
     def lock_root_account_test(self):
-        """Test if root account can be locked via DBUS correctly."""
+        """Test if root account can be locked via DBus correctly."""
         self.users_interface.SetRootAccountLocked(True)
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
@@ -106,7 +106,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
 
     def ks_lock_dbus_unlock_root_account_test(self):
-        """Test locking root from kickstart and unlocking with DBUS."""
+        """Test locking root from kickstart and unlocking with DBus."""
         self.users_interface.ReadKickstart("rootpw --lock")
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
@@ -599,7 +599,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
             self.users_interface.SetUsers([user])
 
     def users_kickstart_output_test(self):
-        """Check if user data values set via DBUS API are valid in the output kickstart."""
+        """Check if user data values set via DBus API are valid in the output kickstart."""
         user1 = {
                 "name" : "user1",
                 "uid" : 123,
@@ -628,7 +628,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user_list_in = [user1, user2]
         # set the users list via API
         self.users_interface.SetUsers(user_list_in)
-        # also set some other atributes of the users module DBUS API
+        # also set some other atributes of the users module DBus API
         self.users_interface.SetCryptedRootPassword("abcdef")
         self.users_interface.SetRootAccountLocked(True)
 
@@ -731,7 +731,7 @@ user --groups=baz,bar --homedir=user2_home --name=user2 --password=laksdjaskldjh
         self.assertEqual(self.users_interface.Groups[0], different_group_out)
 
     def group_kickstart_output_test(self):
-        """Check if group data values set via DBUS API are valid in the output kickstart."""
+        """Check if group data values set via DBus API are valid in the output kickstart."""
         group1 = {
                 "name" : "group1",
                 "gid" : 321,
@@ -748,7 +748,7 @@ user --groups=baz,bar --homedir=user2_home --name=user2 --password=laksdjaskldjh
         group_list_in = [group1, group2, group3]
         # set the group list via API
         self.users_interface.SetGroups(group_list_in)
-        # also set some other atributes of the users module DBUS API
+        # also set some other atributes of the users module DBus API
         self.users_interface.SetCryptedRootPassword("abcdef")
         self.users_interface.SetRootAccountLocked(True)
 
@@ -852,7 +852,7 @@ rootpw --iscrypted --lock abcdef
         self.assertEqual(self.users_interface.SshKeys[0], different_key_out)
 
     def ssh_keys_kickstart_output_test(self):
-        """Check if SSH key data values set via DBUS API are valid in the output kickstart."""
+        """Check if SSH key data values set via DBus API are valid in the output kickstart."""
         key1 = {
                 "key" : "aaa",
                 "username" : "user1",
@@ -870,7 +870,7 @@ rootpw --iscrypted --lock abcdef
         key_list_in = [key1, key2, key3]
         # set the SSH key list via API
         self.users_interface.SetSshKeys(key_list_in)
-        # also set some other atributes of the users module DBUS API
+        # also set some other atributes of the users module DBus API
         self.users_interface.SetCryptedRootPassword("abcdef")
         self.users_interface.SetRootAccountLocked(True)
 
@@ -1255,7 +1255,7 @@ class SharedUICodeTestCase(unittest.TestCase):
     def get_default_user_test(self):
         """Test that default user is correctly added by get_user_list()."""
 
-        # prepare a mock Users DBUS module
+        # prepare a mock Users DBus module
         users_module_mock = Mock()
         users_module_mock.Users = []
 
@@ -1454,7 +1454,7 @@ class SharedUICodeTestCase(unittest.TestCase):
         user_list_in = [user1, user2]
 
         user_data_list_in = UserData.from_structure_list(user_list_in)
-        # create the mock Users DBUS module
+        # create the mock Users DBus module
         users_module_mock = Mock()
 
         # set the user data list on it
@@ -1513,7 +1513,7 @@ class SharedUICodeTestCase(unittest.TestCase):
         user_list_in = [user1, user2]
 
         user_data_list_in = UserData.from_structure_list(user_list_in)
-        # create the mock Users DBUS module
+        # create the mock Users DBus module
         users_module_mock = Mock()
 
         # set the user data list on it & specify that unset users should be removed

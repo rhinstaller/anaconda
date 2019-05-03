@@ -1,5 +1,5 @@
 # baz_interface.py
-# Example DBUS addon interface
+# Example DBus addon interface
 #
 # Copyright (C) 2017 Red Hat, Inc.
 #
