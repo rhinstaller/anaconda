@@ -51,7 +51,7 @@ from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZ
 from pyanaconda.modules.common.constants.objects import ISCSI
 from pyanaconda.modules.common.constants.objects import FIREWALL, FCOE
 from pyanaconda.modules.common.structures.realm import RealmData
-from pyanaconda.modules.common.structures.iscsi import Credentials, Target, Node
+from pyanaconda.modules.common.structures.iscsi import Credentials, Portal, Node
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -399,15 +399,15 @@ class Iscsi(COMMANDS.Iscsi):
             raise KickstartParseError(lineno=self.lineno,
                     msg=_("iscsi --iface must be specified (interface binding used) either for all targets or for none"))
 
-        target = Target()
-        target.ip_address = tg.ipaddr
+        portal = Portal()
+        portal.ip_address = tg.ipaddr
         if tg.port:
-            target.port = str(tg.port)
+            portal.port = str(tg.port)
 
         discovery_credentials = Credentials()
 
         task_path = iscsi_module.DiscoverWithTask(
-            Target.to_structure(target),
+            Portal.to_structure(portal),
             Credentials.to_structure(discovery_credentials),
             required_mode.value
         )
@@ -418,9 +418,9 @@ class Iscsi(COMMANDS.Iscsi):
         except StorageDiscoveryError as e:
             raise KickstartParseError(lineno=self.lineno, msg=str(e))
         else:
-            target_nodes = Node.from_structure_list(discovery_task.GetResult())
+            portal_nodes = Node.from_structure_list(discovery_task.GetResult())
 
-        if not target_nodes:
+        if not portal_nodes:
             raise KickstartParseError(lineno=self.lineno, msg=_("No iSCSI nodes discovered"))
 
         login_credentials = Credentials()
@@ -431,7 +431,7 @@ class Iscsi(COMMANDS.Iscsi):
 
         discovered_nodes = 0
         connected_nodes = 0
-        for node in target_nodes:
+        for node in portal_nodes:
             if tg.target and tg.target != node.name:
                 log.debug("iscsi: skipping logging to iscsi node '%s'", node.name)
                 continue
@@ -444,7 +444,7 @@ class Iscsi(COMMANDS.Iscsi):
             log.debug("iscsi: logging to iscsi node '%s' via %s",
                        node.name, node.net_ifacename)
             task_path = iscsi_module.LoginWithTask(
-                Target.to_structure(target),
+                Portal.to_structure(portal),
                 Credentials.to_structure(login_credentials),
                 Node.to_structure(node)
             )

@@ -23,7 +23,7 @@ from blivet.safe_dbus import SafeDBusError
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
-from pyanaconda.modules.common.structures.iscsi import Target, Credentials, Node
+from pyanaconda.modules.common.structures.iscsi import Portal, Credentials, Node
 from pyanaconda.modules.common.task import Task
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
@@ -34,15 +34,15 @@ log = get_module_logger(__name__)
 class ISCSIDiscoverTask(Task):
     """A task for discovering iSCSI nodes"""
 
-    def __init__(self, target: Target, credentials: Credentials, interfaces_mode: IscsiInterfacesMode):
+    def __init__(self, portal: Portal, credentials: Credentials, interfaces_mode: IscsiInterfacesMode):
         """Create a new task.
 
-        :param target: the target information
+        :param portal: the portal information
         :param credentials: the iSCSI credentials
         :param interfaces_mode: the mode of interfaces used for operation
         """
         super().__init__()
-        self._target = target
+        self._portal = portal
         self._credentials = credentials
         self._interfaces_mode = interfaces_mode
         self._nodes = []
@@ -54,7 +54,7 @@ class ISCSIDiscoverTask(Task):
     def run(self):
         """Run the discovery."""
         self._update_interfaces(self._interfaces_mode)
-        node_infos = self._discover_nodes(self._target, self._credentials)
+        node_infos = self._discover_nodes(self._portal, self._credentials)
         self._nodes = [self._get_node_from_node_info(node_info)
                        for node_info in node_infos]
         return self._nodes
@@ -86,16 +86,16 @@ class ISCSIDiscoverTask(Task):
             raise StorageDiscoveryError('Requiring "{}" mode while "{}" is already set.'.format(
                                         interfaces_mode, iscsi.mode))
 
-    def _discover_nodes(self, target, credentials):
+    def _discover_nodes(self, portal, credentials):
         """Discover iSCSI nodes.
 
-        :param target: the target information
+        :param portal: the portal information
         :param credentials: the iSCSI credentials
         :return: a list of discovered nodes
         """
         try:
             nodes = iscsi.discover(
-                ipaddr=target.ip_address,
+                ipaddr=portal.ip_address,
                 username=credentials.username,
                 password=credentials.password,
                 r_username=credentials.reverse_username,
@@ -113,15 +113,15 @@ class ISCSIDiscoverTask(Task):
 class ISCSILoginTask(Task):
     """A task for logging into an iSCSI node."""
 
-    def __init__(self, target: Target, credentials: Credentials, node: Node):
+    def __init__(self, portal: Portal, credentials: Credentials, node: Node):
         """Create a new task.
 
-        :param target: the target information
+        :param portal: the portal information
         :param credentials: the iSCSI credentials
         :param node: the node information
         """
         super().__init__()
-        self._target = target
+        self._portal = portal
         self._credentials = credentials
         self._node = node
 
@@ -131,25 +131,25 @@ class ISCSILoginTask(Task):
 
     def run(self):
         """Run the login."""
-        node_info = self._get_node_info(self._target, self._node)
+        node_info = self._get_node_info(self._portal, self._node)
         self._log_into_node(node_info, self._credentials)
 
-    def _get_node_info(self, target, node):
+    def _get_node_info(self, portal, node):
         """Get the node info.
 
-        :param target: an instance of Target
+        :param portal: an instance of Portal
         :param node: an instance of Node
         :return: an instance of NodeInfo or None
         """
-        target_info = TargetInfo(target.ip_address, target.port)
+        target_info = TargetInfo(portal.ip_address, portal.port)
 
-        target_nodes = [
+        portal_nodes = [
             info.node
             for info in iscsi.discovered_targets.get(target_info, [])
             if not info.logged_in
         ]
 
-        for info in target_nodes:
+        for info in portal_nodes:
             if info.name == node.name and info.address == node.address and \
                info.port == int(node.port) and info.iface == node.interface:
                 return info

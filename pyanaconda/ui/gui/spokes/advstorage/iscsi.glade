@@ -122,7 +122,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="targetEntry">
+                      <object class="GtkEntry" id="portalEntry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="hexpand">True</property>
@@ -141,7 +141,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure">_Target IP Address:</property>
                         <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">targetEntry</property>
+                        <property name="mnemonic_widget">portalEntry</property>
                         <property name="xalign">0</property>
                       </object>
                       <packing>

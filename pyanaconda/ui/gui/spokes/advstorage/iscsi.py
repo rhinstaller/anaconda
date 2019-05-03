@@ -21,7 +21,7 @@ from collections import namedtuple
 
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.task import async_run_task
-from pyanaconda.modules.common.structures.iscsi import Credentials, Target, Node
+from pyanaconda.modules.common.structures.iscsi import Credentials, Portal, Node
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.constants.objects import ISCSI
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode
@@ -127,12 +127,12 @@ class ISCSIDialog(GUIObject):
         valid, only then should the Start button be made sensitive.
         """
         style = self._authNotebook.get_current_page()
-        target = self._get_target()
+        portal = self._get_portal()
         credentials = self._get_discover_credentials(style)
 
         initiator = self._get_text("initiatorEntry")
         self._startButton.set_sensitive(
-            self._is_target_valid(target)
+            self._is_portal_valid(portal)
             and self._is_initiator_valid(initiator)
             and self._are_credentials_valid(style, credentials)
         )
@@ -149,18 +149,18 @@ class ISCSIDialog(GUIObject):
 
         # Get the node discovery credentials.
         style = self._authNotebook.get_current_page()
-        target = self._get_target()
+        portal = self._get_portal()
         credentials = self._get_discover_credentials(style)
         initiator = self._get_text("initiatorEntry")
 
         self._discoveredLabel.set_markup(_(
             "The following nodes were discovered using the iSCSI initiator "
-            "<b>%(initiatorName)s</b> using the target IP address "
-            "<b>%(targetAddress)s</b>.  Please select which nodes you "
+            "<b>%(initiatorName)s</b> using the portal IP address "
+            "<b>%(portalAddress)s</b>.  Please select which nodes you "
             "wish to log into:") %
             {
                 "initiatorName": escape_markup(initiator),
-                "targetAddress": escape_markup(target.ip_address)
+                "portalAddress": escape_markup(portal.ip_address)
             }
         )
 
@@ -170,7 +170,7 @@ class ISCSIDialog(GUIObject):
         else:
             interfaces_mode = IscsiInterfacesMode.DEFAULT
         task_path = self._iscsi_module.DiscoverWithTask(
-            Target.to_structure(target),
+            Portal.to_structure(portal),
             Credentials.to_structure(credentials),
             interfaces_mode.value
         )
@@ -230,25 +230,25 @@ class ISCSIDialog(GUIObject):
         """
         return self.builder.get_object(name).get_text()
 
-    def _get_target(self):
-        """Get the target for the discovery
+    def _get_portal(self):
+        """Get the portal for the discovery
 
-        :return: an instance of Target
+        :return: an instance of Portal
         """
-        target = Target()
-        target.ip_address = self._get_text("targetEntry")
-        return target
+        portal = Portal()
+        portal.ip_address = self._get_text("portalEntry")
+        return portal
 
-    def _is_target_valid(self, target):
-        """Is the target valid?
+    def _is_portal_valid(self, portal):
+        """Is the portal valid?
 
         iSCSI Naming Standards: RFC 3720 and RFC 3721
         Name should either match IQN format or EUI format.
 
-        :param target: an instance of Target
+        :param portal: an instance of Portal
         :return: True if valid, otherwise False
         """
-        return check_ip_address(target.ip_address)
+        return check_ip_address(portal.ip_address)
 
     def _is_initiator_valid(self, initiator):
         """Is the initiator name valid?"""
@@ -383,13 +383,13 @@ class ISCSIDialog(GUIObject):
         self._loginConditionNotebook.set_current_page(0)
 
         # Get data.
-        target = self._get_target()
+        portal = self._get_portal()
         node = self._find_node_for_row(row)
         _style, credentials = self._get_login_style_and_credentials()
 
         # Get the login task.
         task_path = self._iscsi_module.LoginWithTask(
-            Target.to_structure(target),
+            Portal.to_structure(portal),
             Credentials.to_structure(credentials),
             Node.to_structure(node)
         )

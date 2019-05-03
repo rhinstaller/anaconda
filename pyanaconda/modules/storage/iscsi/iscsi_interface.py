@@ -22,7 +22,7 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import ISCSI
-from pyanaconda.modules.common.structures.iscsi import Target, Credentials, Node
+from pyanaconda.modules.common.structures.iscsi import Portal, Credentials, Node
 from pyanaconda.modules.common.task import TaskInterface
 
 
@@ -87,30 +87,30 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         """
         self.implementation.reload_module()
 
-    def DiscoverWithTask(self, target: Structure, credentials: Structure, interface_mode: Str) -> ObjPath:
+    def DiscoverWithTask(self, portal: Structure, credentials: Structure, interface_mode: Str) -> ObjPath:
         """Discover an iSCSI device.
 
-        :param target: the target information
+        :param portal: the portal information
         :param credentials: the iSCSI credentials
         :param interfaces_mode: required mode specified by IscsiInterfacesMode
         :return: a DBus path to a task
         """
-        target = Target.from_structure(target)
+        portal = Portal.from_structure(portal)
         credentials = Credentials.from_structure(credentials)
-        return self.implementation.discover_with_task(target, credentials, interface_mode)
+        return self.implementation.discover_with_task(portal, credentials, interface_mode)
 
-    def LoginWithTask(self, target: Structure, credentials: Structure, node: Structure) -> ObjPath:
-        """Login into an iSCSI node discovered on a target.
+    def LoginWithTask(self, portal: Structure, credentials: Structure, node: Structure) -> ObjPath:
+        """Login into an iSCSI node discovered on a portal.
 
-        :param target: the target information
+        :param portal: the portal information
         :param credentials: the iSCSI credentials
         :param node: the node information
         :return: a DBus path to a task
         """
-        target = Target.from_structure(target)
+        portal = Portal.from_structure(portal)
         credentials = Credentials.from_structure(credentials)
         node = Node.from_structure(node)
-        return self.implementation.login_with_task(target, credentials, node)
+        return self.implementation.login_with_task(portal, credentials, node)
 
     def WriteConfiguration(self, sysroot: Str):
         """Write the configuration to sysroot.

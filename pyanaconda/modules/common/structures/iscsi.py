@@ -19,11 +19,11 @@
 from pyanaconda.dbus.structure import DBusData
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["Target", "Credentials", "Node"]
+__all__ = ["Portal", "Credentials", "Node"]
 
 
-class Target(DBusData):
-    """Data for iSCSI target."""
+class Portal(DBusData):
+    """Data for iSCSI portal."""
 
     def __init__(self):
         self._ip_address = ""
