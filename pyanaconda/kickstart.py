@@ -29,9 +29,6 @@ import tempfile
 import time
 import warnings
 
-import blivet.arch
-import blivet.iscsi
-
 from contextlib import contextmanager
 
 from pyanaconda import keyboard, network, ntp, timezone
@@ -1010,11 +1007,6 @@ def parseKickstart(f, strict_mode=False, pass_to_boss=False):
     addon_paths = collect_addon_paths(ADDON_PATHS)
     handler = AnacondaKSHandler(addon_paths["ks"])
     ksparser = AnacondaKSParser(handler)
-
-    # So that drives onlined by these can be used in the ks file
-    blivet.iscsi.iscsi.startup()
-    # Note we do NOT call dasd.startup() here, that does not online drives, but
-    # only checks if they need formatting, which requires zerombr to be known
 
     kswarnings = []
     ksmodule = "pykickstart"
