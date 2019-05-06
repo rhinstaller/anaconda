@@ -351,11 +351,12 @@ class OtherPage(FilterPage):
 
             port = getattr(disk, "port", "")
             lun = str(getattr(disk, "lun", ""))
+            target = getattr(disk, "target", "")
 
             store.append([True, selected, not disk.protected,
                           disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
-                          self._long_identifier(disk), "\n".join(paths), port, getattr(disk, "initiator", ""),
+                          self._long_identifier(disk), "\n".join(paths), port, target,
                           lun, "", "", "", ""])
 
             if not disk.vendor in vendors:
