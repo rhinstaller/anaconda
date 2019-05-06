@@ -55,8 +55,7 @@ __all__ = ["can_overwrite_configuration", "get_team_devices", "get_supported_dev
            "status_message", "wait_for_connectivity", "wait_for_connecting_NM_thread",
            "wait_for_network_devices", "wait_for_connected_NM", "initialize_network",
            "copy_resolv_conf_to_root", "get_hostname", "prefix_to_netmask", "netmask_to_prefix",
-           "get_first_ip_address", "is_valid_hostname", "check_ip_address", "get_nm_client",
-           "dracut_setup_args"]
+           "get_first_ip_address", "is_valid_hostname", "check_ip_address", "get_nm_client"]
 
 
 def get_nm_client():
@@ -192,27 +191,6 @@ def get_hostname():
         hostname = DEFAULT_HOSTNAME
 
     return hostname
-
-
-def dracut_setup_args(network_storage_device):
-    """Dracut cmdline arguments needed to access network storage device."""
-
-    target_ip = network_storage_device.host_address
-
-    if network_storage_device.nic == "default" or ":" in network_storage_device.nic:
-        if getattr(network_storage_device, 'ibft', False):
-            nic = ibft_iface()
-        else:
-            nic = iface_for_host_ip(target_ip)
-        if not nic:
-            return ""
-    else:
-        nic = network_storage_device.nic
-
-    network_proxy = NETWORK.get_proxy()
-    netargs = network_proxy.GetDracutArguments(nic, target_ip, "")
-
-    return netargs
 
 
 def ibft_iface():

@@ -25,7 +25,7 @@ from blivet.formats.disklabel import DiskLabel
 from blivet.size import Size
 from ordered_set import OrderedSet
 
-import pyanaconda.network
+from pyanaconda.network import ibft_iface, iface_for_host_ip
 from pyanaconda import platform
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.bootloader.image import LinuxBootLoaderImage
@@ -50,17 +50,22 @@ def _is_on_sw_iscsi(device):
                for disk in device.disks)
 
 
+def _get_iscsi_node_from_device(device):
+    node = Node()
+    node.name = device.target
+    node.address = device.address
+    node.port = device.port
+    node.interface = device.iface
+    return node
+
+
 def _is_on_ibft(device):
     """Tells whether a given device is ibft disk or not."""
     iscsi_proxy = STORAGE.get_proxy(ISCSI)
     for disk in device.disks:
         if not isinstance(disk, blivet.devices.iScsiDiskDevice):
             return False
-        node = Node()
-        node.name = disk.target
-        node.address = disk.address
-        node.port = disk.port
-        node.interface = disk.iface
+        node = _get_iscsi_node_from_device(disk)
         if not iscsi_proxy.NodeIsFromIbft(Node.to_structure(node)):
             return False
     return True
@@ -715,6 +720,7 @@ class BootLoader(object):
     def _set_storage_boot_args(self, storage):
         """Set the storage boot args."""
         fcoe_proxy = STORAGE.get_proxy(FCOE)
+        iscsi_proxy = STORAGE.get_proxy(ISCSI)
 
         # FIPS
         boot_device = storage.mountpoints.get("/boot")
@@ -765,6 +771,11 @@ class BootLoader(object):
 
                 if isinstance(dep, blivet.devices.FcoeDiskDevice):
                     setup_args = fcoe_proxy.GetDracutArguments(dep.nic)
+                elif isinstance(dep, blivet.devices.iScsiDiskDevice):
+                    # (partial) offload devices do not need setup in dracut
+                    if not dep.offload:
+                        node = _get_iscsi_node_from_device(dep)
+                        setup_args = iscsi_proxy.GetDracutArguments(Node.to_structure(node))
                 else:
                     setup_args = dep.dracut_setup_args()
 
@@ -775,18 +786,32 @@ class BootLoader(object):
                 self.dracut_args.update(setup_args)
                 done.append(dep)
 
-                # network storage
-                # XXX this is nothing to be proud of
+                # network configuration arguments
                 if isinstance(dep, NetworkStorageDevice):
-                    setup_args = pyanaconda.network.dracut_setup_args(dep)
-                    self.boot_args.update(setup_args)
-                    self.dracut_args.update(setup_args)
+                    network_proxy = NETWORK.get_proxy()
+                    network_args = []
+                    if isinstance(dep, blivet.devices.iScsiDiskDevice):
+                        if dep.iface == "default" or ":" in dep.iface:
+                            node = _get_iscsi_node_from_device(dep)
+                            if iscsi_proxy.NodeIsFromIbft(Node.to_structure(node)):
+                                nic = ibft_iface()
+                            else:
+                                nic = iface_for_host_ip(dep.host_address)
+                        else:
+                            nic = iscsi_proxy.GetInterface(dep.iface)
+                    else:
+                        nic = dep.nic
+                    if nic:
+                        network_args = network_proxy.GetDracutArguments(nic, dep.host_address, "")
+
+                    self.boot_args.update(network_args)
+                    self.dracut_args.update(network_args)
 
         # This is needed for FCoE, bug #743784. The case:
         # We discover LUN on an iface which is part of multipath setup.
         # If the iface is disconnected after discovery anaconda doesn't
         # write dracut ifname argument for the disconnected iface path
-        # (in network.dracut_setup_args).
+        # (in NETWORK.GetDracutArguments).
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
         for nic in fcoe_proxy.GetNics():

@@ -189,6 +189,15 @@ class ISCSIModule(KickstartBaseModule):
 
         return iscsi_data
 
+    def get_interface(self, iscsi_iface):
+        """Get network interface backing iscsi iface.
+
+        :param iscsi_iface: name of an iscsi interface (eg iface0)
+        :returns: specification of interface backing the iscsi iface (eg ens3)
+                  or "" if there is none
+        """
+        return iscsi.ifaces.get(iscsi_iface, "")
+
     def node_is_from_ibft(self, node):
         """Is the node configured from iBFT table?.
 
@@ -199,3 +208,37 @@ class ISCSIModule(KickstartBaseModule):
                     and ibft_node.port == int(node.port) and ibft_node.iface == node.interface:
                 return True
         return False
+
+    def get_dracut_arguments(self, node):
+        """Get dracut arguments for iSCSI device backed by the node.
+
+        :param node: the node information
+        :return: a list of dracut arguments
+
+        FIXME: This is just a temporary method.
+        """
+        if self.node_is_from_ibft(node):
+            return ["rd.iscsi.firmware"]
+
+        blivet_node = iscsi.get_node(node.name, node.address, node.port, node.interface)
+
+        address = blivet_node.address
+        # surround ipv6 addresses with []
+        if ":" in address:
+            address = "[{}]".format(address)
+
+        netroot = "netroot=iscsi:"
+        if blivet_node.username and blivet_node.password:
+            netroot += "{}:{}".format(blivet_node.username, blivet_node.password)
+            if blivet_node.r_username and blivet_node.r_password:
+                netroot += ":{}:{}".format(blivet_node.r_username, blivet_node.r_password)
+
+        iface_spec = ""
+        interface = self.get_interface(blivet_node.iface) or blivet_node.iface
+        if interface != "default":
+            iface_spec = ":{}:{}".format(blivet_node.iface, interface)
+        netroot += "@{}::{}{}::{}".format(address, blivet_node.port, iface_spec, blivet_node.name)
+
+        initiator = "rd.iscsi.initiator={}".format(self.initiator)
+
+        return [netroot, initiator]

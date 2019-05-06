@@ -120,6 +120,26 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         node = Node.from_structure(node)
         return self.implementation.node_is_from_ibft(node)
 
+    def GetInterface(self, iscsi_iface: Str) -> Str:
+        """Get network interface backing iscsi iface.
+
+        :param iscsi_iface: name of an iscsi interface (eg iface0)
+        :returns: specification of interface backing the iscsi iface (eg ens3)
+                  or "" if there is none
+        """
+        return self.implementation.get_interface(iscsi_iface)
+
+    def GetDracutArguments(self, node: Structure) -> List[Str]:
+        """Get dracut arguments for iSCSI device backed by the node.
+
+        :param node: the node information
+        :return: a list of dracut arguments
+
+        FIXME: This is just a temporary method.
+        """
+        node = Node.from_structure(node)
+        return self.implementation.get_dracut_arguments(node)
+
     def WriteConfiguration(self, sysroot: Str):
         """Write the configuration to sysroot.
 
