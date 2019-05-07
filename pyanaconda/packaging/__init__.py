@@ -118,6 +118,64 @@ class DependencyError(PayloadError):
 class PayloadInstallError(PayloadError):
     pass
 
+class SSLOptions(object):
+    """Store all SSL parts together in this container class."""
+    def __init__(self, sslverify, cacert=None, clientcert=None, clientkey=None):
+        self._sslverify = sslverify
+        self.cacert = cacert
+        self.clientcert = clientcert
+        self.clientkey = clientkey
+
+    @property
+    def sslverify(self):
+        return True if self.cacert else self._sslverify
+
+    @sslverify.setter
+    def sslverify(self, value):
+        self._sslverify = value
+
+    @classmethod
+    def createFromMethod(cls, method):
+        sslverify = not (method.noverifyssl or flags.noverifyssl)
+        return cls(sslverify=sslverify,
+                   cacert=getattr(method, "sslcacert", None),
+                   clientcert=getattr(method, "sslclientcert", None),
+                   clientkey=getattr(method, "sslclientkey", None))
+
+    @classmethod
+    def createFromKSRepo(cls, repo):
+        return cls(sslverify=not repo.noverifyssl,
+                   cacert=repo.sslcacert,
+                   clientcert=repo.sslclientcert,
+                   clientkey=repo.sslclientkey)
+
+    @classmethod
+    def createFromYumRepo(cls, repo):
+        return cls(sslverify=repo.sslverify,
+                   cacert=repo.sslcacert,
+                   clientcert=repo.sslclientcert,
+                   clientkey=repo.sslclientkey)
+
+    def getUrlGrabberSslOpts(self):
+        if self.cacert:
+            return {"ssl_verify_peer": True,
+                    "ssl_verify_host": True,
+                    "ssl_ca_cert": self.cacert,
+                    "ssl_cert": self.clientcert,
+                    "ssl_key": self.clientkey}
+        else:
+            return {"ssl_verify_peer": self._sslverify,
+                    "ssl_verify_host": self._sslverify}
+
+    def getYumSslDict(self):
+        if self.cacert:
+            return {"sslverify": True,
+                    "sslcacert": self.cacert,
+                    "sslclientcert": self.clientcert,
+                    "sslclientkey": self.clientkey}
+        else:
+            return {"sslverify": self._sslverify}
+
 class Payload(object):
     """Payload is an abstract class for OS install delivery methods."""
     def __init__(self, data):
@@ -456,26 +514,26 @@ class Payload(object):
     ##
     ## METHODS FOR TREE VERIFICATION
     ##
-    def _getTreeInfo(self, url, proxy_url, sslverify):
+    def _getTreeInfo(self, url, proxy_url, ssl_options):
         """Retrieve treeinfo and return the path to the local file.
 
         :param baseurl: url of the repo
         :type baseurl: string
         :param proxy_url: Optional full proxy URL of or ""
         :type proxy_url: string
-        :param sslverify: True if SSL certificate should be varified
-        :type sslverify: bool
+        :param ssl_options: SSL options abstracted in the SSLOptions object
+        :type ssl_options: SSLOptions object instance
         :returns: Path to retrieved .treeinfo file or None
         :rtype: string or None
         """
         if not url:
             return None
 
+        sslverify = ssl_options.sslverify
+        ugopts = ssl_options.getUrlGrabberSslOpts()
+
         log.debug("retrieving treeinfo from %s (proxy: %s ; sslverify: %s)",
                   url, proxy_url, sslverify)
-
-        ugopts = {"ssl_verify_peer": sslverify,
-                  "ssl_verify_host": sslverify}
 
         proxies = {}
         if proxy_url:
@@ -488,7 +546,6 @@ class Payload(object):
                          proxy_url, e)
 
         ug = URLGrabber()
-
         # Retry treeinfo downloads with a progressively longer pause,
         # so NetworkManager have a chance setup a network and we have
         # full connectivity before trying to download things. (#1292613)
@@ -551,8 +608,10 @@ class Payload(object):
         """Return the release version of the tree at the specified URL."""
         try:
             version = re.match(VERSION_DIGITS, productVersion).group(1)
+            ssl_options = SSLOptions.createFromMethod(self.data.method)
         except AttributeError:
             version = "rawhide"
+            ssl_options = SSLOptions(not flags.noverifyssl)
 
         log.debug("getting release version from tree at %s (%s)", url, version)
 
@@ -560,7 +619,8 @@ class Payload(object):
             proxy = self.data.method.proxy
         else:
             proxy = None
-        treeinfo = self._getTreeInfo(url, proxy, not flags.noverifyssl)
+
+        treeinfo = self._getTreeInfo(url, proxy, ssl_options)
         if treeinfo:
             c = ConfigParser.ConfigParser()
             c.read(treeinfo)

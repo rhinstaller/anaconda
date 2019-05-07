@@ -40,6 +40,7 @@ import shutil
 import sys
 import time
 import hashlib
+from pyanaconda.packaging import SSLOptions
 from pyanaconda.iutil import execReadlines, ipmi_abort
 from pyanaconda.simpleconfig import simple_replace
 from functools import wraps
@@ -209,7 +210,8 @@ class YumPayload(PackagePayload):
             repo = self.getRepo(repoID)
             with _yum_lock:
                 repoMD = RepoMDMetaHash(self, repo)
-                repoMD.storeRepoMDHash()
+                if repo.enabled:
+                    repoMD.storeRepoMDHash()
                 self._repoMD_list.append(repoMD)
 
     def unsetup(self):
@@ -362,14 +364,28 @@ reposdir=%s
             # kickstart repo modifiers
             ks_repo = self.getAddOnRepo(repo.id)
 
-            if not ks_repo and not repo.sslverify:
-                f.write("sslverify=0\n")
-
             if not ks_repo:
+                if not repo.sslverify:
+                    f.write("sslverify=0\n")
+                if repo.sslcacert:
+                    f.write("sslcacert=%s\n" % repo.sslcacert)
+                if repo.sslclientcert:
+                    f.write("sslclientcert=%s\n" % repo.sslclientcert)
+                if repo.sslclientkey:
+                    f.write("sslclientkey=%s\n" % repo.sslclientkey)
+
                 return
 
-            if ks_repo.noverifyssl:
-                f.write("sslverify=0\n")
+            # store all SSL data to a repo file
+            ssl_options = SSLOptions.createFromKSRepo(ks_repo)
+            for key, val in ssl_options.getYumSslDict().items():
+                if key == "sslverify":
+                    if not val:
+                        f.write("sslverify=0\n")
+                    continue
+
+                if val is not None:
+                    f.write("%s=%s\n" % (key, val))
 
             if ks_repo.proxy:
                 try:
@@ -615,9 +631,12 @@ reposdir=%s
                 else:
                     proxyurl = None
 
+                ssl_options = SSLOptions.createFromMethod(method)
+                ssl_options.sslverify = sslverify
                 self._addYumRepo(BASE_REPO_NAME, url, mirrorlist=mirrorlist,
-                                 proxyurl=proxyurl, sslverify=sslverify)
-                self._addAddons(self._yum.repos.getRepo(BASE_REPO_NAME), url, proxyurl, sslverify)
+                                 proxyurl=proxyurl, **ssl_options.getYumSslDict())
+                self._addAddons(self._yum.repos.getRepo(BASE_REPO_NAME), url, proxyurl,
+                                ssl_options)
             except (MetadataError, PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it", method.method, url)
                 log.error("reason for repo removal: %s", e)
@@ -639,7 +658,9 @@ reposdir=%s
                 if self._yum.conf.yumvar['releasever'] == "rawhide" and \
                    "rawhide" in self.repos:
                     self.enableRepo("rawhide")
-                    self._addAddons(self._yum.repos.getRepo("rawhide"), url, proxyurl, sslverify)
+                    ssl_options = SSLOptions(sslverify)
+                    self._addAddons(self._yum.repos.getRepo("rawhide"), url, proxyurl,
+                                    ssl_options)
 
         # set up addon repos
         # FIXME: driverdisk support
@@ -766,17 +787,19 @@ reposdir=%s
             proxy = None
 
         sslverify = not (flags.noverifyssl or repo.noverifyssl)
+        ssl_options = SSLOptions.createFromKSRepo(repo)
+        ssl_options.sslverify = sslverify
 
         # this repo is already in ksdata, so we only add it to yum here
         self._addYumRepo(repo.name, url, repo.mirrorlist, cost=repo.cost,
                          exclude=repo.excludepkgs, includepkgs=repo.includepkgs,
-                         proxyurl=proxy, sslverify=sslverify)
-        self._addAddons(repo, url, proxy, sslverify)
+                         proxyurl=proxy, **ssl_options.getYumSslDict())
+        self._addAddons(repo, url, proxy, ssl_options)
 
-    def _addAddons(self, repo, url, proxy, sslverify):
+    def _addAddons(self, repo, url, proxy, ssl_options):
         addons = self._getAddons(url or repo.mirrorlist,
                                  proxy,
-                                 sslverify)
+                                 ssl_options)
 
         # Addons are added to the kickstart, but are disabled by default
         for addon in addons:
@@ -793,7 +816,7 @@ reposdir=%s
                                          enabled=False)
             self.data.repo.dataList().append(ks_repo)
 
-    def _getAddons(self, baseurl, proxy_url, sslverify):
+    def _getAddons(self, baseurl, proxy_url, ssl_options):
         """Check the baseurl or mirrorlist for a repository, see if it has any
         valid addon repos and if so, return a list of (repo name, repo URL).
 
@@ -801,15 +824,15 @@ reposdir=%s
         :type baseurl: string
         :param proxy_url: Full URL of optional proxy or ""
         :type proxy_url: string
-        :param sslverify: True if SSL certificate should be varified
-        :type sslverify: bool
+        :param ssl_options: container object storing all the ssl attributes
+        :type ssl_options: instance of the SSLOptions class
         :returns: list of tuples of addons (id, name, url)
         :rtype: list of tuples
         """
         retval = []
 
         # If there's no .treeinfo for this repo, don't bother looking for addons.
-        treeinfo = self._getTreeInfo(baseurl, proxy_url, sslverify)
+        treeinfo = self._getTreeInfo(baseurl, proxy_url, ssl_options)
         if not treeinfo:
             return retval
 
@@ -1686,6 +1709,7 @@ class RepoMDMetaHash(object):
     """
     def __init__(self, payload, repo):
         self._repoId = repo.id
+        self._ssl_options = SSLOptions.createFromYumRepo(repo)
         self._method = payload.data.method
         self._urls = repo.urls
         self._repomd_hash = ""
@@ -1707,6 +1731,8 @@ class RepoMDMetaHash(object):
 
     def verifyRepoMD(self):
         """Download and compare with stored repomd.xml file."""
+        if not self._repomd_hash:
+            return False
         new_repomd = self._downloadRepoMD(self._method)
         new_repomd_hash = self._calculateHash(new_repomd)
         return new_repomd_hash == self._repomd_hash
@@ -1717,12 +1743,11 @@ class RepoMDMetaHash(object):
         return m.digest()
 
     def _downloadRepoMD(self, method):
-        ugopts = {"ssl_verify_peer": not flags.noverifyssl,
-                  "ssl_verify_host": not flags.noverifyssl}
+        ugopts = self._ssl_options.getUrlGrabberSslOpts()
         proxies = {}
         repomd = ""
 
-        if hasattr(method, "proxy"):
+        if hasattr(method, "proxy") and method.proxy:
             proxy_url = method.proxy
             try:
                 proxy = ProxyString(proxy_url)

@@ -26,12 +26,17 @@ import hashlib
 import shutil
 
 from pyanaconda.packaging.yumpayload import RepoMDMetaHash
+from pyanaconda.packaging import SSLOptions
 
 class DummyRepo(object):
 
     def __init__(self):
         self.id = "anaconda"
         self.urls = []
+        self.sslverify = None
+        self.sslclientcert = None
+        self.sslclientkey = None
+        self.sslcacert = None
 
 class DummyPayload(object):
     def __init__(self):
@@ -93,3 +98,62 @@ or it should be. Nah it's just a test!
         os.remove(self._md_file)
         self.assertFalse(r.verifyRepoMD())
 
+class SSLOptionsTests(unittest.TestCase):
+
+    def empty_grabber_verify_true_test(self):
+        options = SSLOptions(True)
+        expected = {"ssl_verify_peer": True,
+                    "ssl_verify_host": True}
+        self.assertEqual(options.getUrlGrabberSslOpts(), expected)
+
+    def empty_grabber_verify_false_test(self):
+        options = SSLOptions(False)
+        expected = {"ssl_verify_peer": False,
+                    "ssl_verify_host": False}
+        self.assertEqual(options.getUrlGrabberSslOpts(), expected)
+
+    def empty_yum_dict_verify_true_test(self):
+        options = SSLOptions(True)
+        expected = {"sslverify": True}
+        self.assertEqual(options.getYumSslDict(), expected)
+
+    def empty_yum_dict_verify_false_test(self):
+        options = SSLOptions(False)
+        expected = {"sslverify": False}
+        self.assertEqual(options.getYumSslDict(), expected)
+
+    def grabber_verify_true_test(self):
+        options = SSLOptions(True, cacert="cacert", clientcert="clientcert", clientkey="clientkey")
+        expected = {"ssl_verify_peer": True,
+                    "ssl_verify_host": True,
+                    "ssl_ca_cert": "cacert",
+                    "ssl_cert": "clientcert",
+                    "ssl_key": "clientkey"}
+        self.assertEqual(options.getUrlGrabberSslOpts(), expected)
+
+    def grabber_verify_false_test(self):
+        options = SSLOptions(False, cacert="cacert",
+                             clientcert="clientcert", clientkey="clientkey")
+        expected = {"ssl_verify_peer": True,
+                    "ssl_verify_host": True,
+                    "ssl_ca_cert": "cacert",
+                    "ssl_cert": "clientcert",
+                    "ssl_key": "clientkey"}
+        self.assertEqual(options.getUrlGrabberSslOpts(), expected)
+
+    def yum_dict_verify_true_test(self):
+        options = SSLOptions(True, cacert="cacert", clientcert="clientcert", clientkey="clientkey")
+        expected = {"sslverify": True,
+                    "sslcacert": "cacert",
+                    "sslclientcert": "clientcert",
+                    "sslclientkey": "clientkey"}
+        self.assertEqual(options.getYumSslDict(), expected)
+
+    def yum_dict_verify_false_test(self):
+        options = SSLOptions(False, cacert="cacert",
+                             clientcert="clientcert", clientkey="clientkey")
+        expected = {"sslverify": True,
+                    "sslcacert": "cacert",
+                    "sslclientcert": "clientcert",
+                    "sslclientkey": "clientkey"}
+        self.assertEqual(options.getYumSslDict(), expected)
