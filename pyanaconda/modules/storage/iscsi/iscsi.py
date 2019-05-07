@@ -205,7 +205,7 @@ class ISCSIModule(KickstartBaseModule):
         """
         for ibft_node in iscsi.ibft_nodes:
             if ibft_node.name == node.name and ibft_node.address == node.address \
-                    and ibft_node.port == int(node.port) and ibft_node.iface == node.interface:
+                    and ibft_node.port == int(node.port) and ibft_node.iface == node.iface:
                 return True
         return False
 
@@ -220,7 +220,7 @@ class ISCSIModule(KickstartBaseModule):
         if self.node_is_from_ibft(node):
             return ["rd.iscsi.firmware"]
 
-        blivet_node = iscsi.get_node(node.name, node.address, node.port, node.interface)
+        blivet_node = iscsi.get_node(node.name, node.address, node.port, node.iface)
 
         address = blivet_node.address
         # surround ipv6 addresses with []

@@ -119,7 +119,7 @@ class Node(DBusData):
         self._name = ""
         self._address = ""
         self._port = ""
-        self._interface = ""
+        self._iface = ""
         self._net_ifacename = ""
 
     @property
@@ -159,16 +159,16 @@ class Node(DBusData):
         self._port = port
 
     @property
-    def interface(self) -> Str:
+    def iface(self) -> Str:
         """ISCSI Interface.
 
-        :return: a string with an interface (eg "iface0")
+        :return: a string with an interface name (eg "iface0")
         """
-        return self._interface
+        return self._iface
 
-    @interface.setter
-    def interface(self, interface: Str):
-        self._interface = interface
+    @iface.setter
+    def iface(self, iscsi_iface: Str):
+        self._iface = iscsi_iface
 
     @property
     def net_ifacename(self) -> Str:

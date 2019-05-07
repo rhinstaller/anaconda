@@ -513,7 +513,7 @@ class ISCSIDialog(GUIObject):
         obj = NodeStoreRow(*row)
         for node in self._discovered_nodes:
             if (node.name == obj.name and obj.portal == "%s:%s" % (node.address, node.port)
-                and (not node.interface or node.net_ifacename == obj.iface)):
+                and (not node.iface or node.net_ifacename == obj.iface)):
                 return node
 
         return None

@@ -64,7 +64,7 @@ class ISCSIDiscoverTask(Task):
         node.name = node_info.name
         node.address = node_info.address
         node.port = str(node_info.port)
-        node.interface = node_info.iface
+        node.iface = node_info.iface
         if self._interfaces_mode == IscsiInterfacesMode.IFACENAME:
             node.net_ifacename = iscsi.ifaces[node_info.iface]
         return node
@@ -151,7 +151,7 @@ class ISCSILoginTask(Task):
 
         for info in portal_nodes:
             if info.name == node.name and info.address == node.address and \
-               info.port == int(node.port) and info.iface == node.interface:
+               info.port == int(node.port) and info.iface == node.iface:
                 return info
 
         raise StorageDiscoveryError("Unknown node.")

@@ -55,7 +55,7 @@ def _get_iscsi_node_from_device(device):
     node.name = device.target
     node.address = device.address
     node.port = device.port
-    node.interface = device.iface
+    node.iface = device.iface
     return node
 
 
