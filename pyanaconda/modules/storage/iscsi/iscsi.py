@@ -118,10 +118,6 @@ class ISCSIModule(KickstartBaseModule):
         path = self.publish_task(ISCSI.namespace, task)
         return path
 
-    def stabilize(self):
-        """Wait for udev to create the devices for the just added disks"""
-        iscsi.stabilize()
-
     def write_configuration(self, sysroot):
         """Write the configuration to sysroot."""
         log.debug("Write iSCSI configuration to %s.", sysroot)
@@ -145,7 +141,7 @@ class ISCSIModule(KickstartBaseModule):
         this in generated kickstart (ie do not add particular commands for each
         discovered node).
         """
-        iscsi_data_list = self._iscsi_data
+        iscsi_data_list = list(self._iscsi_data)
 
         for node in iscsi.active_nodes():
             if node in iscsi.ibft_nodes:

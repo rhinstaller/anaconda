@@ -146,7 +146,3 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         FIXME: This is just a temporary method.
         """
         self.implementation.write_configuration(sysroot)
-
-    def Stabilize(self):
-        """Wait for udev to create the devices for the just added disks"""
-        self.implementation.stabilize()

@@ -42,21 +42,17 @@ from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
-from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
-from pyanaconda.modules.common.constants.objects import ISCSI
 from pyanaconda.modules.common.constants.objects import FIREWALL, FCOE
 from pyanaconda.modules.common.structures.realm import RealmData
-from pyanaconda.modules.common.structures.iscsi import Credentials, Portal, Node
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
-from pykickstart.errors import KickstartError, KickstartParseError
+from pykickstart.errors import KickstartError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
@@ -379,99 +375,6 @@ class Firewall(RemovedCommand):
         if firewall_proxy.FirewallKickstarted:
             self.packages = ["firewalld"]
 
-class Iscsi(COMMANDS.Iscsi):
-    def parse(self, args):
-        tg = super().parse(args)
-
-        if tg.iface:
-            if not network.wait_for_network_devices([tg.iface]):
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target is not up.") %
-                             {"nic": tg.iface, "iscsiTarget": tg.target})
-
-        iscsi_module = STORAGE.get_proxy(ISCSI)
-        required_mode = IscsiInterfacesMode.IFACENAME if tg.iface else IscsiInterfacesMode.DEFAULT
-        mode = IscsiInterfacesMode(iscsi_module.GetInterfaceMode())
-        if mode != IscsiInterfacesMode.UNSET and required_mode != mode:
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("iscsi --iface must be specified (interface binding used) either for all targets or for none"))
-
-        portal = Portal()
-        portal.ip_address = tg.ipaddr
-        if tg.port:
-            portal.port = str(tg.port)
-
-        discovery_credentials = Credentials()
-
-        task_path = iscsi_module.DiscoverWithTask(
-            Portal.to_structure(portal),
-            Credentials.to_structure(discovery_credentials),
-            required_mode.value
-        )
-        discovery_task = STORAGE.get_proxy(task_path)
-
-        try:
-            sync_run_task(discovery_task)
-        except StorageDiscoveryError as e:
-            raise KickstartParseError(lineno=self.lineno, msg=str(e))
-        else:
-            portal_nodes = Node.from_structure_list(discovery_task.GetResult())
-
-        if not portal_nodes:
-            raise KickstartParseError(lineno=self.lineno, msg=_("No iSCSI nodes discovered"))
-
-        login_credentials = Credentials()
-        login_credentials.username = tg.user or ""
-        login_credentials.password = tg.password or ""
-        login_credentials.reverse_username = tg.user_in or ""
-        login_credentials.reverse_password = tg.password_in or ""
-
-        discovered_nodes = 0
-        connected_nodes = 0
-        for node in portal_nodes:
-            if tg.target and tg.target != node.name:
-                log.debug("iscsi: skipping logging to iscsi node '%s'", node.name)
-                continue
-            if tg.iface and tg.iface != node.net_ifacename:
-                log.debug("iscsi: skipping logging to iscsi node '%s' via %s",
-                            node.name, node.net_ifacename)
-                continue
-            discovered_nodes = discovered_nodes + 1
-
-            log.debug("iscsi: logging to iscsi node '%s' via %s",
-                       node.name, node.net_ifacename)
-            task_path = iscsi_module.LoginWithTask(
-                Portal.to_structure(portal),
-                Credentials.to_structure(login_credentials),
-                Node.to_structure(node)
-            )
-            login_task = STORAGE.get_proxy(task_path)
-
-            try:
-                sync_run_task(login_task)
-            except StorageDiscoveryError as e:
-                log.debug("iscsi: %s" % e)
-            else:
-                connected_nodes = connected_nodes + 1
-
-        if not discovered_nodes:
-            raise KickstartParseError(lineno=self.lineno, msg=_("Requested iSCSI nodes not discovered"))
-
-        if not connected_nodes:
-            raise KickstartParseError(lineno=self.lineno,
-                                      msg=_("Could not log in to any of the discovered nodes"))
-
-        iscsi_module.Stabilize()
-
-        return tg
-
-class IscsiName(COMMANDS.IscsiName):
-    def parse(self, args):
-        retval = super().parse(args)
-
-        iscsi_module = STORAGE.get_proxy(ISCSI)
-        iscsi_module.SetInitiator(self.iscsiname)
-        return retval
 
 class Lang(RemovedCommand):
     def __str__(self):
@@ -869,8 +772,8 @@ commandMap = {
     "firstboot": UselessCommand,
     "group" : UselessCommand,
     "ignoredisk": UselessCommand,
-    "iscsi": Iscsi,
-    "iscsiname": IscsiName,
+    "iscsi": UselessCommand,
+    "iscsiname": UselessCommand,
     "keyboard": Keyboard,
     "lang": Lang,
     "logging": Logging,

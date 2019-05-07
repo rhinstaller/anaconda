@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from blivet.fcoe import fcoe
+from blivet.iscsi import iscsi
 from blivet.static_data import nvdimm
 from blivet.zfcp import zfcp
 from blivet.formats import get_format
@@ -25,7 +26,8 @@ from blivet.formats.disklabel import DiskLabel
 from pykickstart.constants import CLEARPART_TYPE_NONE, NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
 from pykickstart.errors import KickstartParseError
 
-from pyanaconda.network import get_supported_devices
+from pyanaconda.network import get_supported_devices, wait_for_network_devices
+from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 from pyanaconda.storage.utils import device_matches
@@ -144,6 +146,51 @@ class Fcoe(COMMANDS.Fcoe):
         return fc
 
 
+class Iscsi(COMMANDS.Iscsi):
+    def parse(self, args):
+        tg = super().parse(args)
+
+        if tg.iface:
+            if not wait_for_network_devices([tg.iface]):
+                raise KickstartParseError(lineno=self.lineno,
+                        msg=_("Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target is not up.") %
+                             {"nic": tg.iface, "iscsiTarget": tg.target})
+
+        mode = iscsi.mode
+        if mode == "none":
+            if tg.iface:
+                network_proxy = NETWORK.get_proxy()
+                activated_ifaces = network_proxy.GetActivatedInterfaces()
+                iscsi.create_interfaces(activated_ifaces)
+        elif ((mode == "bind" and not tg.iface)
+              or (mode == "default" and tg.iface)):
+            raise KickstartParseError(lineno=self.lineno,
+                    msg=_("iscsi --iface must be specified (binding used) either for all targets or for none"))
+
+        try:
+            if tg.target:
+                log.info("adding iscsi target %s at %s:%d via %s", tg.target, tg.ipaddr, tg.port, tg.iface)
+            else:
+                log.info("adding all iscsi targets discovered at %s:%d via %s", tg.ipaddr, tg.port, tg.iface)
+            iscsi.add_target(tg.ipaddr, tg.port, tg.user,
+                             tg.password, tg.user_in,
+                             tg.password_in,
+                             target=tg.target,
+                             iface=tg.iface)
+        except (IOError, ValueError) as e:
+            raise KickstartParseError(lineno=self.lineno, msg=str(e))
+
+        return tg
+
+
+class IscsiName(COMMANDS.IscsiName):
+    def parse(self, args):
+        retval = super().parse(args)
+
+        iscsi.initiator = self.iscsiname
+        return retval
+
+
 class Nvdimm(COMMANDS.Nvdimm):
     """The nvdimm kickstart command."""
 
@@ -212,8 +259,8 @@ class StorageKickstartSpecification(KickstartSpecification):
         "clearpart": ClearPart,
         "fcoe": Fcoe,
         "ignoredisk": IgnoreDisk,
-        "iscsi": COMMANDS.Iscsi,
-        "iscsiname": COMMANDS.IscsiName,
+        "iscsi": Iscsi,
+        "iscsiname": IscsiName,
         "logvol": COMMANDS.LogVol,
         "mount": COMMANDS.Mount,
         "nvdimm": Nvdimm,
