@@ -127,6 +127,9 @@ class DBusData(ABC):
         :param structure: a DBus structure
         :return: a data object
         """
+        if not isinstance(structure, dict):
+            raise TypeError("Invalid type '{}'.".format(type(structure).__name__))
+
         data = cls()
         fields = get_fields(cls)
 
@@ -146,6 +149,9 @@ class DBusData(ABC):
 
         :return: a DBus structure
         """
+        if not isinstance(data, cls):
+            raise TypeError("Invalid type '{}'.".format(type(data).__name__))
+
         structure = {}
         fields = get_fields(cls)
 

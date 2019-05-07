@@ -181,6 +181,35 @@ class DBusStructureTestCase(unittest.TestCase):
         self.assertEqual(data[1].x, 2)
         self.assertEqual(data[2].x, 3)
 
+    class OtherData(DBusData):
+
+        def __init__(self):
+            self._x = 0
+
+        @property
+        def x(self) -> Int:
+            return self._x
+
+        @x.setter
+        def x(self, x):
+            self._x = x
+
+    def get_structure_from_invalid_type_test(self):
+        data = self.OtherData()
+
+        with self.assertRaises(TypeError) as cm:
+            self.SimpleData.to_structure(data)
+
+        self.assertEqual(str(cm.exception), "Invalid type 'OtherData'.")
+
+    def apply_structure_with_invalid_type_test(self):
+        structure = ["x"]
+
+        with self.assertRaises(TypeError) as cm:
+            self.SimpleData.from_structure(structure)
+
+        self.assertEqual(str(cm.exception), "Invalid type 'list'.")
+
     class ComplicatedData(DBusData):
 
         def __init__(self):
@@ -339,3 +368,9 @@ class DBusStructureTestCase(unittest.TestCase):
         expected = "AdvancedStringData(a='A', b_is_set=True, c='C')"
         self.assertEqual(expected, repr(data))
         self.assertEqual(expected, str(data))
+
+    def generate_string_from_invalid_type_test(self):
+        with self.assertRaises(DBusStructureError) as cm:
+            generate_string_from_data({"x": 1})
+
+        self.assertEqual(str(cm.exception), "Fields are not defined at '__dbus_fields__'.")
