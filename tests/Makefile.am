@@ -28,7 +28,7 @@
 #
 # nosetests will be run for any python files found in a directory matching *_tests
 
-AM_TESTS_ENVIRONMENT = top_srcdir="$(top_srcdir)" top_builddir="$(top_builddir)" ; . $(srcdir)/testenv.sh ;
+AM_TESTS_ENVIRONMENT = top_srcdir="$(abs_top_srcdir)" top_builddir="$(abs_top_builddir)" ; . $(srcdir)/testenv.sh ;
 TEST_EXTENSIONS = .sh
 
 # files necessary for running the tests (make ci) from a tarball
