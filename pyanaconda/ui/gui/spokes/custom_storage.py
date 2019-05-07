@@ -1722,7 +1722,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             bootloader_errors = str(e).split("\n")
             reset_bootloader(self.storage)
 
-        StorageCheckHandler.checkStorage(self)
+        StorageCheckHandler.check_storage(self)
 
         if self.errors or bootloader_errors:
             self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
