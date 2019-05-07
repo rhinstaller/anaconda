@@ -321,6 +321,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 07 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.153-1
+- Fix tests and add new tests (jkonecny)
+  Related: rhbz#1701032
+- Do not calculate hash for disabled repos (jkonecny)
+  Related: rhbz#1701032
+- Test proxy only if set (jkonecny)
+  Related: rhbz#1701032
+- Add certificate to the repo files (jkonecny)
+  Resolves: rhbz#1701032
+- Use SSLOptions for RepoMDMetaHash object (jkonecny)
+  Related: rhbz#1701032
+- Use SSLOptions for YUM calls (jkonecny)
+  Related: rhbz#1701032
+- Use SSLOptions for Base repository (jkonecny)
+  Related: rhbz#1701032
+- Use new ssl certificate KS option for .treeinfo (lars)
+  Related: rhbz#1701032
+
 * Wed Apr 24 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.152-1
 - Change the overflow color (vponcova)
   Resolves: rhbz#1700471
