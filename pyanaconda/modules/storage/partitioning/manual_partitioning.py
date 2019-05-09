@@ -19,11 +19,10 @@ from blivet.formats import get_format
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
-    MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.mount import MountPoint
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
     NonInteractivePartitioningTask
 
@@ -45,48 +44,48 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
 
         # Set up mount points.
         for mount_data in manual_part_proxy.MountPoints:
-            self._setup_mount_point(storage, mount_data)
+            self._setup_mount_point(storage, MountPoint.from_structure(mount_data))
 
     def _setup_mount_point(self, storage, mount_data):
         """Set up a mount point.
 
         :param storage: an instance of the Blivet's storage object
-        :param mount_data: an instance of MountData
+        :param mount_data: an instance of MountPoint
         """
-        device = mount_data[MOUNT_POINT_DEVICE]
-        device_reformat = mount_data[MOUNT_POINT_REFORMAT]
-        device_format = mount_data[MOUNT_POINT_FORMAT]
+        device_spec = mount_data.device_spec
+        reformat = mount_data.reformat
+        format_type = mount_data.format_type
 
-        dev = storage.devicetree.resolve_device(device)
-        if dev is None:
-            raise KickstartParseError(_("Unknown or invalid device '%s' specified") % device)
+        device = storage.devicetree.resolve_device(device_spec)
+        if device is None:
+            raise KickstartParseError(_("Unknown or invalid device '%s' specified") % device_spec)
 
-        if device_reformat:
-            if device_format:
-                fmt = get_format(device_format)
+        if reformat:
+            if format_type:
+                fmt = get_format(format_type)
 
                 if not fmt:
                     raise KickstartParseError(
                         _("Unknown or invalid format '%(format)s' specified for device "
-                          "'%(device)s'") % {"format": device_format, "device": device}
+                          "'%(device)s'") % {"format": format_type, "device": device_spec}
                     )
             else:
-                old_fmt = dev.format
+                old_fmt = device.format
 
                 if not old_fmt or old_fmt.type is None:
-                    raise KickstartParseError(_("No format on device '%s'") % device)
+                    raise KickstartParseError(_("No format on device '%s'") % device_spec)
 
                 fmt = get_format(old_fmt.type)
-            storage.format_device(dev, fmt)
+            storage.format_device(device, fmt)
             # make sure swaps end up in /etc/fstab
             if fmt.type == "swap":
-                storage.add_fstab_swap(dev)
+                storage.add_fstab_swap(device)
 
         # only set mount points for mountable formats
-        mount_point = mount_data[MOUNT_POINT_PATH]
+        mount_point = mount_data.mount_point
 
-        if dev.format.mountable and mount_point and mount_point != "none":
-            dev.format.mountpoint = mount_point
+        if device.format.mountable and mount_point and mount_point != "none":
+            device.format.mountpoint = mount_point
 
-        dev.format.create_options = mount_data[MOUNT_POINT_FORMAT_OPTIONS]
-        dev.format.options = mount_data[MOUNT_POINT_MOUNT_OPTIONS]
+        device.format.create_options = mount_data.format_options
+        device.format.options = mount_data.mount_options
