@@ -29,8 +29,6 @@ from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, 
 
 from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
-from pyanaconda.core.constants import MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, \
-    MOUNT_POINT_FORMAT, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.typing import get_variant, Str, Bool, ObjPath
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
@@ -1393,18 +1391,18 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         in_value = [
             {
                 "mount-point": "/boot",
-                "device": "/dev/sda1"
+                "device-spec": "/dev/sda1"
             }
         ]
 
         out_value = [
             {
-                MOUNT_POINT_PATH: get_variant(Str, "/boot"),
-                MOUNT_POINT_DEVICE: get_variant(Str, "/dev/sda1"),
-                MOUNT_POINT_REFORMAT: get_variant(Bool, False),
-                MOUNT_POINT_FORMAT: get_variant(Str, ""),
-                MOUNT_POINT_FORMAT_OPTIONS: get_variant(Str, ""),
-                MOUNT_POINT_MOUNT_OPTIONS: get_variant(Str, "")
+                "mount-point": get_variant(Str, "/boot"),
+                "device-spec": get_variant(Str, "/dev/sda1"),
+                "reformat": get_variant(Bool, False),
+                "format-type": get_variant(Str, ""),
+                "format-options": get_variant(Str, ""),
+                "mount-options": get_variant(Str, "")
             }
         ]
 
@@ -1417,9 +1415,9 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         in_value = [
             {
                 "mount-point":  "/boot",
-                "device": "/dev/sda1",
+                "device-spec": "/dev/sda1",
                 "reformat": True,
-                "format": "xfs",
+                "format-type": "xfs",
                 "format-options": "-L BOOT",
                 "mount-options": "user"
             }
@@ -1427,12 +1425,12 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
         out_value = [
             {
-                MOUNT_POINT_PATH: get_variant(Str, "/boot"),
-                MOUNT_POINT_DEVICE: get_variant(Str, "/dev/sda1"),
-                MOUNT_POINT_REFORMAT: get_variant(Bool, True),
-                MOUNT_POINT_FORMAT: get_variant(Str, "xfs"),
-                MOUNT_POINT_FORMAT_OPTIONS: get_variant(Str, "-L BOOT"),
-                MOUNT_POINT_MOUNT_OPTIONS: get_variant(Str, "user")
+                "mount-point": get_variant(Str, "/boot"),
+                "device-spec": get_variant(Str, "/dev/sda1"),
+                "reformat": get_variant(Bool, True),
+                "format-type": get_variant(Str, "xfs"),
+                "format-options": get_variant(Str, "-L BOOT"),
+                "mount-options": get_variant(Str, "user")
             }
         ]
 
@@ -1445,31 +1443,31 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         in_value = [
             {
                 "mount-point": "/boot",
-                "device": "/dev/sda1"
+                "device-spec": "/dev/sda1"
             },
             {
                 "mount-point": "/",
-                "device": "/dev/sda2",
+                "device-spec": "/dev/sda2",
                 "reformat": True
             }
         ]
 
         out_value = [
             {
-                MOUNT_POINT_PATH: get_variant(Str, "/boot"),
-                MOUNT_POINT_DEVICE: get_variant(Str, "/dev/sda1"),
-                MOUNT_POINT_REFORMAT: get_variant(Bool, False),
-                MOUNT_POINT_FORMAT: get_variant(Str, ""),
-                MOUNT_POINT_FORMAT_OPTIONS: get_variant(Str, ""),
-                MOUNT_POINT_MOUNT_OPTIONS: get_variant(Str, "")
+                "mount-point": get_variant(Str, "/boot"),
+                "device-spec": get_variant(Str, "/dev/sda1"),
+                "reformat": get_variant(Bool, False),
+                "format-type": get_variant(Str, ""),
+                "format-options": get_variant(Str, ""),
+                "mount-options": get_variant(Str, "")
             },
             {
-                MOUNT_POINT_PATH: get_variant(Str, "/"),
-                MOUNT_POINT_DEVICE: get_variant(Str, "/dev/sda2"),
-                MOUNT_POINT_REFORMAT: get_variant(Bool, True),
-                MOUNT_POINT_FORMAT: get_variant(Str, ""),
-                MOUNT_POINT_FORMAT_OPTIONS: get_variant(Str, ""),
-                MOUNT_POINT_MOUNT_OPTIONS: get_variant(Str, "")
+                "mount-point": get_variant(Str, "/"),
+                "device-spec": get_variant(Str, "/dev/sda2"),
+                "reformat": get_variant(Bool, True),
+                "format-type": get_variant(Str, ""),
+                "format-options": get_variant(Str, ""),
+                "mount-options": get_variant(Str, "")
             }
         ]
 
