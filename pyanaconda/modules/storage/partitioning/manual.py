@@ -21,8 +21,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
+from pyanaconda.modules.common.structures.mount import MountPoint
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
-from pyanaconda.modules.storage.partitioning.manual_data import MountPoint
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
@@ -60,7 +60,7 @@ class ManualPartitioningModule(PartitioningModule):
         mount_points = []
 
         for obj in data.mount.mount_points:
-            mount_point = self.get_new_mount_point()
+            mount_point = MountPoint()
             self._process_mount_data(obj, mount_point)
             mount_points.append(mount_point)
 
@@ -71,14 +71,14 @@ class ManualPartitioningModule(PartitioningModule):
         """Process kickstart mount data.
 
         :param data: an instance of kickstart mount data
-        :param point: a new instance of MountPoint
+        :param mount_point: a new instance of MountPoint
         """
-        mount_point.set_mount_point(data.mount_point)
-        mount_point.set_device(data.device)
-        mount_point.set_reformat(data.reformat)
-        mount_point.set_new_format(data.format)
-        mount_point.set_format_options(data.mkfs_opts)
-        mount_point.set_mount_options(data.mount_opts)
+        mount_point.mount_point = data.mount_point
+        mount_point.device_spec = data.device
+        mount_point.reformat = data.reformat
+        mount_point.format_type = data.format
+        mount_point.format_options = data.mkfs_opts
+        mount_point.mount_options = data.mount_opts
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -98,12 +98,12 @@ class ManualPartitioningModule(PartitioningModule):
         """Set up kickstart mount data.
 
         :param data: a new instance of kickstart mount data
-        :param point: an instance of MountPoint
+        :param mount_point: an instance of MountPoint
         """
         data.mount_point = mount_point.mount_point
-        data.device = mount_point.device
+        data.device = mount_point.device_spec
         data.reformat = mount_point.reformat
-        data.format = mount_point.new_format
+        data.format = mount_point.format_type
         data.mkfs_opts = mount_point.format_options
         data.mount_opts = mount_point.mount_options
 
@@ -120,13 +120,6 @@ class ManualPartitioningModule(PartitioningModule):
         self._enabled = enabled
         self.enabled_changed.emit()
         log.debug("Enabled is set to '%s'.", enabled)
-
-    def get_new_mount_point(self):
-        """Get a new mount point.
-
-        :return: a new instance of MountPoint
-        """
-        return MountPoint()
 
     @property
     def mount_points(self):

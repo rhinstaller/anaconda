@@ -17,12 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.constants import MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT, \
-    MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
+from pyanaconda.modules.common.structures.mount import MountPoint
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 
 
@@ -50,43 +49,15 @@ class ManualPartitioningInterface(PartitioningInterface):
         self.implementation.set_enabled(enabled)
 
     @property
-    def MountPoints(self) -> List[Dict[Str, Variant]]:
+    def MountPoints(self) -> List[Structure]:
         """List of mount point assignments."""
-        return [{
-            MOUNT_POINT_PATH: get_variant(Str, point.mount_point),
-            MOUNT_POINT_DEVICE: get_variant(Str, point.device),
-            MOUNT_POINT_REFORMAT: get_variant(Bool, point.reformat),
-            MOUNT_POINT_FORMAT: get_variant(Str, point.new_format),
-            MOUNT_POINT_FORMAT_OPTIONS: get_variant(Str, point.format_options),
-            MOUNT_POINT_MOUNT_OPTIONS: get_variant(Str, point.mount_options)
-        } for point in self.implementation.mount_points]
+        return MountPoint.to_structure_list(
+            self.implementation.mount_points
+        )
 
     @emits_properties_changed
-    def SetMountPoints(self, mount_points: List[Dict[Str, Variant]]):
+    def SetMountPoints(self, mount_points: List[Structure]):
         """Set the mount point assignments."""
-        mount_point_objects = []
-
-        for data in mount_points:
-            mount_point = self.implementation.get_new_mount_point()
-
-            if MOUNT_POINT_PATH in data:
-                mount_point.set_mount_point(data[MOUNT_POINT_PATH])
-
-            if MOUNT_POINT_DEVICE in data:
-                mount_point.set_device(data[MOUNT_POINT_DEVICE])
-
-            if MOUNT_POINT_REFORMAT in data:
-                mount_point.set_reformat(data[MOUNT_POINT_REFORMAT])
-
-            if MOUNT_POINT_FORMAT in data:
-                mount_point.set_new_format(data[MOUNT_POINT_FORMAT])
-
-            if MOUNT_POINT_FORMAT_OPTIONS in data:
-                mount_point.set_format_options(data[MOUNT_POINT_FORMAT_OPTIONS])
-
-            if MOUNT_POINT_MOUNT_OPTIONS in data:
-                mount_point.set_mount_options(data[MOUNT_POINT_MOUNT_OPTIONS])
-
-            mount_point_objects.append(mount_point)
-
-        self.implementation.set_mount_points(mount_point_objects)
+        self.implementation.set_mount_points(
+            MountPoint.from_structure_list(mount_points)
+        )
