@@ -19,11 +19,11 @@
 
 from collections import OrderedDict
 
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.input_checking import get_policy
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.mount import MountPoint
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
     BootloaderConfigurationError
 from pyanaconda.ui.categories.system import SystemCategory
@@ -47,9 +47,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
-    BOOTLOADER_LOCATION_MBR, SecretType, \
-    MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT, \
-    WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
+    BOOTLOADER_LOCATION_MBR, SecretType, WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
 from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.storage.initialization import reset_bootloader, reset_storage, \
     select_all_disks_by_default
@@ -732,20 +730,18 @@ class MountPointAssignSpoke(NormalTUISpoke):
         mount_points = []
 
         for _device, data in self._mount_info:
-            if data[MOUNT_POINT_REFORMAT] or data[MOUNT_POINT_PATH]:
-                mount_points.append({
-                    MOUNT_POINT_PATH: get_variant(Str, data[MOUNT_POINT_PATH] or "none"),
-                    MOUNT_POINT_DEVICE: get_variant(Str, data[MOUNT_POINT_DEVICE]),
-                    MOUNT_POINT_REFORMAT: get_variant(Bool, data[MOUNT_POINT_REFORMAT]),
-                    MOUNT_POINT_FORMAT: get_variant(Str, data[MOUNT_POINT_FORMAT])
-                })
+            if data.reformat or data.mount_point:
+                if not data.mount_point:
+                    data.mount_point = "none"
 
-        self._manual_part_proxy.SetMountPoints(mount_points)
+                mount_points.append(data)
+
+        self._manual_part_proxy.SetMountPoints(MountPoint.to_structure_list(mount_points))
 
     def _gather_mount_info(self):
         """Gather info about mount points."""
         selected_disks = self._disk_select_proxy.SelectedDisks
-        mount_points = self._manual_part_proxy.MountPoints
+        mount_points = MountPoint.from_structure_list(self._manual_part_proxy.MountPoints)
 
         mount_info = []
 
@@ -774,35 +770,33 @@ class MountPointAssignSpoke(NormalTUISpoke):
 
         # Try to find existing assignment for this device.
         for data in mount_points:
-            if device is self.storage.devicetree.resolve_device(data[MOUNT_POINT_DEVICE]):
+            if device is self.storage.devicetree.resolve_device(data.device_spec):
                 return data
 
         # Or create a new assignment.
-        if device.format.mountable and device.format.mountpoint:
-            mount_point = device.format.mountpoint
-        else:
-            mount_point = ""
+        data = MountPoint()
+        data.device_spec = device.path
+        data.format_type = device.format.type
+        data.reformat = False
 
-        return {
-            MOUNT_POINT_DEVICE: device.path,
-            MOUNT_POINT_PATH: mount_point,
-            MOUNT_POINT_FORMAT: device.format.type,
-            MOUNT_POINT_REFORMAT: False
-        }
+        if device.format.mountable and device.format.mountpoint:
+            data.mount_point = device.format.mountpoint
+
+        return data
 
     def _get_mount_info_description(self, info):
         """Get description of the given mount info."""
         device, data = info
-        description = "{} ({})".format(data[MOUNT_POINT_DEVICE], device.size)
+        description = "{} ({})".format(data.device_spec, device.size)
 
-        if data[MOUNT_POINT_FORMAT]:
-            description += "\n {}".format(data[MOUNT_POINT_FORMAT])
+        if data.format_type:
+            description += "\n {}".format(data.format_type)
 
-            if data[MOUNT_POINT_REFORMAT]:
+            if data.reformat:
                 description += "*"
 
-            if data[MOUNT_POINT_PATH]:
-                description += ", {}".format(data[MOUNT_POINT_PATH])
+            if data.mount_point:
+                description += ", {}".format(data.mount_point)
 
         return description
 
@@ -834,7 +828,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload, device, mount_data):
         super().__init__(data, storage, payload)
-        self.title = N_("Configure device: %s") % mount_data[MOUNT_POINT_DEVICE]
+        self.title = N_("Configure device: %s") % mount_data.device_spec
         self._container = None
 
         self._supported_filesystems = [fmt.type for fmt in get_supported_filesystems()]
@@ -872,11 +866,11 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
     def _add_mount_point_widget(self):
         """Add a widget for mount point assignment."""
         title = _("Mount point")
-        fmt = get_format(self._mount_data[MOUNT_POINT_FORMAT])
+        fmt = get_format(self._mount_data.format_type)
 
         if fmt and fmt.mountable:
             # mount point can be set
-            value = self._mount_data[MOUNT_POINT_PATH] or _("none")
+            value = self._mount_data.mount_point or _("none")
             callback = self._assign_mount_point
         elif fmt and fmt.type is None:
             # mount point cannot be set for no format
@@ -904,16 +898,16 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def _assign_mount_point(self, dialog):
         """Change the mount point assignment."""
-        self._mount_data[MOUNT_POINT_PATH] = dialog.run()
+        self._mount_data.mount_point = dialog.run()
 
         # Always reformat root.
-        if self._mount_data[MOUNT_POINT_PATH] == "/":
-            self._mount_data[MOUNT_POINT_REFORMAT] = True
+        if self._mount_data.mount_point == "/":
+            self._mount_data.reformat = True
 
     def _add_format_widget(self):
         """Add a widget for format."""
         dialog = Dialog(_("Format"), conditions=[self._check_format])
-        widget = EntryWidget(dialog.title, self._mount_data[MOUNT_POINT_FORMAT] or _("none"))
+        widget = EntryWidget(dialog.title, self._mount_data.format_type or _("none"))
         self._container.add(widget, self._set_format, dialog)
 
     def _check_format(self, user_input, report_func):
@@ -930,19 +924,19 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def _set_format(self, dialog):
         """Change value of format."""
-        old_format = self._mount_data[MOUNT_POINT_FORMAT]
+        old_format = self._mount_data.format_type
         new_format = dialog.run()
 
         # Reformat to a new format.
         if new_format != old_format:
-            self._mount_data[MOUNT_POINT_FORMAT] = new_format
-            self._mount_data[MOUNT_POINT_REFORMAT] = True
+            self._mount_data.format_type = new_format
+            self._mount_data.reformat = True
 
     def _add_reformat_widget(self):
         """Add a widget for reformat."""
         widget = CheckboxWidget(
             title=_("Reformat"),
-            completed=self._mount_data[MOUNT_POINT_REFORMAT]
+            completed=self._mount_data.reformat
         )
         self._container.add(widget, self._switch_reformat)
 
@@ -950,11 +944,11 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         """Change value of reformat."""
         device_format = self._device.format.type
 
-        if device_format and device_format != self._mount_data[MOUNT_POINT_FORMAT]:
+        if device_format and device_format != self._mount_data.format_type:
             reformat = True
-        elif self._mount_data[MOUNT_POINT_PATH] == "/":
+        elif self._mount_data.mount_point == "/":
             reformat = True
         else:
-            reformat = not self._mount_data[MOUNT_POINT_REFORMAT]
+            reformat = not self._mount_data.reformat
 
-        self._mount_data[MOUNT_POINT_REFORMAT] = reformat
+        self._mount_data.reformat = reformat
