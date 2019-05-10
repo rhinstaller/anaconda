@@ -666,19 +666,33 @@ def service_running(service):
     return ret == 0
 
 
-def enable_service(service):
-    """ Enable a systemd service in the sysroot """
-    ret = _run_systemctl("enable", service, root=getSysroot())
+def enable_service(service, root=None):
+    """ Enable a systemd service in the sysroot.
+
+    :param str service: name of the service to enable
+    :param str root: path to the sysroot or None to use default sysroot path
+    """
+    if root is None:
+        root = getSysroot()
+
+    ret = _run_systemctl("enable", service, root=root)
 
     if ret != 0:
         raise ValueError("Error enabling service %s: %s" % (service, ret))
 
 
-def disable_service(service):
-    """ Disable a systemd service in the sysroot """
+def disable_service(service, root=None):
+    """ Disable a systemd service in the sysroot.
+
+    :param str service: name of the service to enable
+    :param str root: path to the sysroot or None to use default sysroot path
+    """
+    if root is None:
+        root = getSysroot()
+
     # we ignore the error so we can disable services even if they don't
     # exist, because that's effectively disabled
-    ret = _run_systemctl("disable", service, root=getSysroot())
+    ret = _run_systemctl("disable", service, root=root)
 
     if ret != 0:
         log.warning("Disabling %s failed. It probably doesn't exist", service)
