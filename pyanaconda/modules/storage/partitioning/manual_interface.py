@@ -21,7 +21,7 @@ from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
-from pyanaconda.modules.common.structures.mount import MountPoint
+from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 
 
@@ -33,7 +33,7 @@ class ManualPartitioningInterface(PartitioningInterface):
         """Connect the signals."""
         super().connect_signals()
         self.watch_property("Enabled", self.implementation.enabled_changed)
-        self.watch_property("MountPoints", self.implementation.mount_points_changed)
+        self.watch_property("Requests", self.implementation.requests_changed)
 
     @property
     def Enabled(self) -> Bool:
@@ -49,15 +49,14 @@ class ManualPartitioningInterface(PartitioningInterface):
         self.implementation.set_enabled(enabled)
 
     @property
-    def MountPoints(self) -> List[Structure]:
-        """List of mount point assignments."""
-        return MountPoint.to_structure_list(
-            self.implementation.mount_points
-        )
+    def Requests(self) -> List[Structure]:
+        """List of mount point requests."""
+        return MountPointRequest.to_structure_list(self.implementation.requests)
 
     @emits_properties_changed
-    def SetMountPoints(self, mount_points: List[Structure]):
-        """Set the mount point assignments."""
-        self.implementation.set_mount_points(
-            MountPoint.from_structure_list(mount_points)
-        )
+    def SetRequests(self, requests: List[Structure]):
+        """Set the mount point requests.
+
+        :param requests: a list of requests
+        """
+        self.implementation.set_requests(MountPointRequest.from_structure_list(requests))

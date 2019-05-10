@@ -1384,7 +1384,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
     def mount_points_property_test(self):
         """Test the mount points property."""
         self._test_dbus_property(
-            "MountPoints",
+            "Requests",
             []
         )
 
@@ -1407,7 +1407,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         ]
 
         self._test_dbus_property(
-            "MountPoints",
+            "Requests",
             in_value,
             out_value
         )
@@ -1435,7 +1435,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         ]
 
         self._test_dbus_property(
-            "MountPoints",
+            "Requests",
             in_value,
             out_value,
         )
@@ -1472,7 +1472,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         ]
 
         self._test_dbus_property(
-            "MountPoints",
+            "Requests",
             in_value,
             out_value
         )

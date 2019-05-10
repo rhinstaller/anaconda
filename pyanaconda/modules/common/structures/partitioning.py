@@ -1,5 +1,5 @@
 #
-# Manual partitioning data.
+# DBus structures for the partitioning data.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -21,11 +21,11 @@
 from pyanaconda.dbus.structure import DBusData
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["MountPoint"]
+__all__ = ["MountPointRequest"]
 
 
-class MountPoint(DBusData):
-    """Mount point assignment data."""
+class MountPointRequest(DBusData):
+    """Mount point request data."""
 
     def __init__(self):
         self._device_spec = ""

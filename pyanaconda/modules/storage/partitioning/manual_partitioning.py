@@ -22,7 +22,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.mount import MountPoint
+from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
     NonInteractivePartitioningTask
 
@@ -43,14 +43,14 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 
         # Set up mount points.
-        for mount_data in manual_part_proxy.MountPoints:
-            self._setup_mount_point(storage, MountPoint.from_structure(mount_data))
+        for mount_data in manual_part_proxy.Requests:
+            self._setup_mount_point(storage, MountPointRequest.from_structure(mount_data))
 
     def _setup_mount_point(self, storage, mount_data):
         """Set up a mount point.
 
         :param storage: an instance of the Blivet's storage object
-        :param mount_data: an instance of MountPoint
+        :param mount_data: an instance of MountPointRequest
         """
         device_spec = mount_data.device_spec
         reformat = mount_data.reformat

@@ -21,7 +21,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
-from pyanaconda.modules.common.structures.mount import MountPoint
+from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
@@ -40,8 +40,8 @@ class ManualPartitioningModule(PartitioningModule):
         self.enabled_changed = Signal()
         self._enabled = False
 
-        self.mount_points_changed = Signal()
-        self._mount_points = list()
+        self.requests_changed = Signal()
+        self._requests = list()
 
     def publish(self):
         """Publish the module."""
@@ -53,32 +53,32 @@ class ManualPartitioningModule(PartitioningModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         if not data.mount.seen:
-            self.set_mount_points(list())
+            self.set_requests(list())
             self.set_enabled(False)
             return
 
-        mount_points = []
+        requests = []
 
         for obj in data.mount.mount_points:
-            mount_point = MountPoint()
-            self._process_mount_data(obj, mount_point)
-            mount_points.append(mount_point)
+            request = MountPointRequest()
+            self._process_mount_data(obj, request)
+            requests.append(request)
 
-        self.set_mount_points(mount_points)
+        self.set_requests(requests)
         self.set_enabled(True)
 
-    def _process_mount_data(self, data, mount_point):
+    def _process_mount_data(self, data, request):
         """Process kickstart mount data.
 
         :param data: an instance of kickstart mount data
-        :param mount_point: a new instance of MountPoint
+        :param request: a new instance of MountPointRequest
         """
-        mount_point.mount_point = data.mount_point
-        mount_point.device_spec = data.device
-        mount_point.reformat = data.reformat
-        mount_point.format_type = data.format
-        mount_point.format_options = data.mkfs_opts
-        mount_point.mount_options = data.mount_opts
+        request.mount_point = data.mount_point
+        request.device_spec = data.device
+        request.reformat = data.reformat
+        request.format_type = data.format
+        request.format_options = data.mkfs_opts
+        request.mount_options = data.mount_opts
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -87,25 +87,25 @@ class ManualPartitioningModule(PartitioningModule):
 
         data_list = []
 
-        for mount_point in self.mount_points:
+        for request in self.requests:
             mount_data = data.MountData()
-            self._setup_mount_data(mount_data, mount_point)
+            self._setup_mount_data(mount_data, request)
             data_list.append(mount_data)
 
         data.mount.mount_points = data_list
 
-    def _setup_mount_data(self, data, mount_point):
+    def _setup_mount_data(self, data, request):
         """Set up kickstart mount data.
 
         :param data: a new instance of kickstart mount data
-        :param mount_point: an instance of MountPoint
+        :param request: an instance of MountPointRequest
         """
-        data.mount_point = mount_point.mount_point
-        data.device = mount_point.device_spec
-        data.reformat = mount_point.reformat
-        data.format = mount_point.format_type
-        data.mkfs_opts = mount_point.format_options
-        data.mount_opts = mount_point.mount_options
+        data.mount_point = request.mount_point
+        data.device = request.device_spec
+        data.reformat = request.reformat
+        data.format = request.format_type
+        data.mkfs_opts = request.format_options
+        data.mount_opts = request.mount_options
 
     @property
     def enabled(self):
@@ -122,18 +122,18 @@ class ManualPartitioningModule(PartitioningModule):
         log.debug("Enabled is set to '%s'.", enabled)
 
     @property
-    def mount_points(self):
-        """A list of mount points."""
-        return self._mount_points
+    def requests(self):
+        """A list of mount point requests."""
+        return self._requests
 
-    def set_mount_points(self, mount_points):
-        """Set the list of mount points.
+    def set_requests(self, requests):
+        """Set the list of mount point requests.
 
-        :param mount_points: a list of instances of MountPoint
+        :param requests: a list of instances of MountPointRequest
         """
-        self._mount_points = mount_points
-        self.mount_points_changed.emit()
-        log.debug("Mount points are set to '%s'.", mount_points)
+        self._requests = requests
+        self.requests_changed.emit()
+        log.debug("Requests are set to '%s'.", requests)
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
