@@ -20,13 +20,19 @@
 import unittest
 from unittest.mock import patch, Mock
 
+from blivet.devices import StorageDevice, DiskDevice
+from blivet.formats import get_format
+from blivet.size import Size
+
 from pyanaconda.dbus.typing import get_variant, Str, Bool
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
+from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.partitioning import ManualPartitioningModule
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
@@ -153,6 +159,133 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             in_value,
             out_value
         )
+
+    def _add_device(self, device):
+        """Add a device to the device tree."""
+        self.module.storage.devicetree._add_device(device)
+
+    def gather_no_requests_test(self):
+        """Test GatherRequests with no devices."""
+        self.module.on_storage_reset(create_storage())
+        self.assertEqual(self.interface.GatherRequests(), [])
+
+    def gather_unusable_requests_test(self):
+        """Test GatherRequests with unusable devices."""
+        self.module.on_storage_reset(create_storage())
+
+        # Add device with no size.
+        self._add_device(StorageDevice(
+            "dev1",
+            size=Size(0)
+        ))
+
+        self.assertEqual(self.interface.GatherRequests(), [])
+
+        # Add protected device.
+        device = StorageDevice(
+            "dev2",
+            size=Size("1 GiB")
+        )
+
+        device.protected = True
+        self._add_device(device)
+        self.assertEqual(self.interface.GatherRequests(), [])
+
+        # Add unselected disk.
+        self._add_device(DiskDevice(
+            "dev3",
+            size=Size("1 GiB")
+        ))
+
+        self.module.on_selected_disks_changed(["dev1", "dev2"])
+        self.assertEqual(self.interface.GatherRequests(), [])
+
+    def gather_requests_test(self):
+        """Test GatherRequests."""
+        self.module.on_storage_reset(create_storage())
+
+        self._add_device(StorageDevice(
+            "dev1",
+            size=Size("1 GiB"),
+            fmt=get_format("ext4", mountpoint="/"))
+        )
+
+        self._add_device(StorageDevice(
+            "dev2",
+            size=Size("1 GiB"),
+            fmt=get_format("swap"))
+        )
+
+        self.assertEqual(self.interface.GatherRequests(), [
+            {
+                'device-spec': get_variant(Str, '/dev/dev1'),
+                'format-options': get_variant(Str, ''),
+                'format-type': get_variant(Str, 'ext4'),
+                'mount-options': get_variant(Str, ''),
+                'mount-point': get_variant(Str, '/'),
+                'reformat': get_variant(Bool, False)
+            },
+            {
+                'device-spec': get_variant(Str, '/dev/dev2'),
+                'format-options': get_variant(Str, ''),
+                'format-type': get_variant(Str, 'swap'),
+                'mount-options': get_variant(Str, ''),
+                'mount-point': get_variant(Str, ''),
+                'reformat': get_variant(Bool, False)
+            }
+        ])
+
+    def gather_requests_combination_test(self):
+        """Test GatherRequests with user requests."""
+        self.module.on_storage_reset(create_storage())
+
+        # Add devices dev1 and dev2.
+        self._add_device(StorageDevice(
+            "dev1",
+            size=Size("1 GiB"),
+            fmt=get_format("ext4", mountpoint="/"))
+        )
+
+        self._add_device(StorageDevice(
+            "dev2",
+            size=Size("1 GiB"),
+            fmt=get_format("swap"))
+        )
+
+        # Add requests for dev1 and dev3.
+        req1 = MountPointRequest()
+        req1.device_spec = '/dev/dev1'
+        req1.format_options = '-L BOOT'
+        req1.format_type = 'xfs'
+        req1.mount_options = 'user'
+        req1.mount_point = '/home'
+        req1.reformat = True
+
+        req3 = MountPointRequest()
+        req3.device_spec = '/dev/dev3'
+        req3.mount_point = '/'
+
+        self.module.set_requests([req1, req3])
+
+        # Get requests for dev1 and dev2.
+        self.assertEqual(self.interface.GatherRequests(), [
+            {
+                'device-spec': get_variant(Str, '/dev/dev1'),
+                'format-options': get_variant(Str, '-L BOOT'),
+                'format-type': get_variant(Str, 'xfs'),
+                'mount-options': get_variant(Str, 'user'),
+                'mount-point': get_variant(Str, '/home'),
+                'reformat': get_variant(Bool, True)
+            },
+            {
+                'device-spec': get_variant(Str, '/dev/dev2'),
+                'format-options': get_variant(Str, ''),
+                'format-type': get_variant(Str, 'swap'),
+                'mount-options': get_variant(Str, ''),
+                'mount-point': get_variant(Str, ''),
+                'reformat': get_variant(Bool, False)
+            }
+        ])
 
     @patch('pyanaconda.dbus.DBus.publish_object')
     def configure_with_task_test(self, publisher):
