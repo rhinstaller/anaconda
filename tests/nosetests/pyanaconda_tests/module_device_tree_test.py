@@ -200,6 +200,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'description': get_variant(Str, 'LUKS'),
         })
 
+    def get_format_type_data_test(self):
+        """Test GetFormatTypeData."""
+        self.assertEqual(self.interface.GetFormatTypeData("swap"), {
+            'type': get_variant(Str, 'swap'),
+            'attrs': get_variant(Dict[Str, Str], {}),
+            'description': get_variant(Str, 'swap'),
+        })
+
     def get_actions_test(self):
         """Test GetActions."""
         self.assertEqual(self.interface.GetActions(), [])
