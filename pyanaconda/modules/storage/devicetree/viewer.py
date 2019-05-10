@@ -26,7 +26,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
     DeviceFormatData, OSData
-from pyanaconda.storage.utils import get_required_device_size
+from pyanaconda.storage.utils import get_required_device_size, get_supported_filesystems
 
 log = get_module_logger(__name__)
 
@@ -234,6 +234,13 @@ class DeviceTreeViewer(ABC):
             return ""
 
         return device.name
+
+    def get_supported_file_systems(self):
+        """Get the supported types of filesystems.
+
+        :return: a list of filesystem names
+        """
+        return [fmt.type for fmt in get_supported_filesystems() if fmt.type]
 
     def get_required_device_size(self, required_space):
         """Get device size we need to get the required space on the device.

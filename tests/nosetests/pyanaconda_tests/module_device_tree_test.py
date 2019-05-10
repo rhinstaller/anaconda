@@ -228,6 +228,17 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'description': get_variant(Str, 'destroy device'),
         }])
 
+    def get_supported_file_systems_test(self):
+        """Test GetSupportedFileSystems."""
+        result = self.interface.GetSupportedFileSystems()
+        self.assertIsInstance(result, list)
+        self.assertNotEqual(len(result), 0)
+
+        for fs in result:
+            fmt = get_format(fs)
+            self.assertIsInstance(fs, str)
+            self.assertIsNotNone(fmt.type)
+
     def get_required_device_size_test(self):
         """Test GetRequiredDeviceSize."""
         required_size = self.interface.GetRequiredDeviceSize(Size("1 GiB").get_bytes())

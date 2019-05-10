@@ -109,6 +109,13 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return self.implementation.resolve_device(dev_spec)
 
+    def GetSupportedFileSystems(self) -> List[Str]:
+        """Get the supported types of filesystems.
+
+        :return: a list of filesystem names
+        """
+        return self.implementation.get_supported_file_systems()
+
     def GetRequiredDeviceSize(self, required_space: UInt64) -> UInt64:
         """Get device size we need to get the required space on the device.
 
