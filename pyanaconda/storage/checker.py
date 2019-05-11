@@ -502,21 +502,6 @@ class StorageChecker(object):
 
         self.constraints[name] = value
 
-    def update_constraint(self, name, value):
-        """ Update a constraint for storage checking if the
-        constraint is a dictionary or a set.
-
-        AttributeError will be raised, if the constraint
-        does not have the update method.
-
-        KeyError will be raised, if the constraint does
-        not exists.
-
-        :param str name: a name of the constraint
-        :param value: a value of the constraint (set or dictionary)
-        """
-        self.constraints[name].update(value)
-
     def check(self, storage, constraints=None, skip=None):
         """ Run a series of tests to verify the storage configuration.
 

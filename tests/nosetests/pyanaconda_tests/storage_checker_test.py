@@ -111,15 +111,6 @@ class StorageCheckerTests(unittest.TestCase):
         checker.add_new_constraint("x", None)
         self.assertRaises(KeyError, checker.add_new_constraint, "x", None)
 
-        # Try to update a constraint with a wrong method.
-        checker.add_constraint("x", 1)
-        self.assertRaises(AttributeError, checker.update_constraint, "x", None)
-
-        # Update a constraint.
-        checker.add_constraint("x", {"a": 1, "b": 2})
-        checker.update_constraint("x", {"c": 3})
-        self.assertEqual(checker.constraints["x"], {"a": 1, "b": 2, "c": 3})
-
     def check_constraints_test(self):
         """Test constraints checking."""
         checker = StorageChecker()
@@ -146,10 +137,6 @@ class StorageCheckerTests(unittest.TestCase):
         checker.add_new_constraint("x", {"a": 1, "b": 2, "c": 3})
         self.assertIn("x", checker.constraints)
         self.assertEqual(checker.constraints["x"], {"a": 1, "b": 2, "c": 3})
-
-        checker.update_constraint("x", {"a": None, "d": 4})
-        self.assertIn("x", checker.constraints)
-        self.assertEqual(checker.constraints["x"], {"a": None, "b": 2, "c": 3, "d": 4})
 
         checker.add_constraint("x", {"e": 4, "f": 5})
         self.assertIn("x", checker.constraints)
