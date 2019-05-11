@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
 
@@ -27,4 +28,12 @@ __all__ = ["StorageCheckerInterface"]
 @dbus_interface(STORAGE_CHECKER.interface_name)
 class StorageCheckerInterface(InterfaceTemplate):
     """DBus interface for the storage checker module."""
-    pass
+
+    def SetConstraint(self, name: Str, value: Variant):
+        """Set a constraint to a new value.
+
+        :param str name: a name of the existing constraint
+        :param value: a value of the constraint
+        :raise: KeyError if the constraint does not exist
+        """
+        self.implementation.set_constraint(name, value)

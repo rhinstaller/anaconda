@@ -22,6 +22,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface
+from pyanaconda.storage.checker import storage_checker
 
 log = get_module_logger(__name__)
 
@@ -34,3 +35,13 @@ class StorageCheckerModule(KickstartBaseModule):
     def publish(self):
         """Publish the module."""
         DBus.publish_object(STORAGE_CHECKER.object_path, StorageCheckerInterface(self))
+
+    def set_constraint(self, name, value):
+        """Set a constraint to a new value.
+
+        :param str name: a name of the existing constraint
+        :param value: a value of the constraint
+        :raise: KeyError if the constraint does not exist
+        """
+        storage_checker.set_constraint(name, value)
+        log.debug("Constraints set to '%s'.", storage_checker.constraints)
