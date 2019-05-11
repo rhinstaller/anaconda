@@ -137,6 +137,7 @@ class DeviceTreeViewer(ABC):
         # Collect the format data.
         data = DeviceFormatData()
         data.type = fmt.type or ""
+        data.mountable = fmt.mountable
         data.description = fmt.name or ""
 
         # Collect the additional attributes.

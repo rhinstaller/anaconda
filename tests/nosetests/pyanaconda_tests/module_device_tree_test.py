@@ -182,6 +182,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetFormatData("dev1"), {
             'type': get_variant(Str, 'ext4'),
+            'mountable': get_variant(Bool, True),
             'attrs': get_variant(Dict[Str, Str], {
                 "uuid": "1234-56-7890",
                 "label": "LABEL",
@@ -196,6 +197,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetFormatData("dev2"), {
             'type': get_variant(Str, 'luks'),
+            'mountable': get_variant(Bool, False),
             'attrs': get_variant(Dict[Str, Str], {}),
             'description': get_variant(Str, 'LUKS'),
         })
@@ -204,6 +206,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test GetFormatTypeData."""
         self.assertEqual(self.interface.GetFormatTypeData("swap"), {
             'type': get_variant(Str, 'swap'),
+            'mountable': get_variant(Bool, False),
             'attrs': get_variant(Dict[Str, Str], {}),
             'description': get_variant(Str, 'swap'),
         })
