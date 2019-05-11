@@ -84,7 +84,7 @@ class StorageCheckerTests(unittest.TestCase):
         def skipped_check(storage, constraints, report_error, report_warning):
             report_warning("skipped")
 
-        checker.add_new_constraint("x", None)
+        checker.add_constraint("x", None)
         checker.add_check(error_check)
         checker.add_check(warning_check)
         checker.add_check(skipped_check)
@@ -108,8 +108,8 @@ class StorageCheckerTests(unittest.TestCase):
         self.assertRaises(KeyError, checker.set_constraint, "x", None)
 
         # Try to add a new constraint two times.
-        checker.add_new_constraint("x", None)
-        self.assertRaises(KeyError, checker.add_new_constraint, "x", None)
+        checker.add_constraint("x", None)
+        self.assertRaises(KeyError, checker.add_constraint, "x", None)
 
     def check_constraints_test(self):
         """Test constraints checking."""
@@ -122,7 +122,7 @@ class StorageCheckerTests(unittest.TestCase):
         report = checker.check(None)
         self.assertListEqual(report.warnings, ["{}"])
 
-        checker.add_new_constraint("x", 1)
+        checker.add_constraint("x", 1)
         report = checker.check(None)
         self.assertListEqual(report.warnings, ["{'x': 1}"])
 
@@ -134,7 +134,7 @@ class StorageCheckerTests(unittest.TestCase):
         """Test the dictionary constraints."""
         checker = StorageChecker()
 
-        checker.add_new_constraint("x", {"a": 1, "b": 2, "c": 3})
+        checker.add_constraint("x", {"a": 1, "b": 2, "c": 3})
         self.assertIn("x", checker.constraints)
         self.assertEqual(checker.constraints["x"], {"a": 1, "b": 2, "c": 3})
 
@@ -164,9 +164,9 @@ class StorageCheckerTests(unittest.TestCase):
         checker.add_check(check_z)
 
         # Set the constraints.
-        checker.add_new_constraint("x", 1)
-        checker.add_new_constraint("y", 2)
-        checker.add_new_constraint("z", 3)
+        checker.add_constraint("x", 1)
+        checker.add_constraint("y", 2)
+        checker.add_constraint("z", 3)
 
         # Run the checker. OK
         report = checker.check(None)
