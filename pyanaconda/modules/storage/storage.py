@@ -26,6 +26,7 @@ from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUA
     CUSTOM_PARTITIONING, BLIVET_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.bootloader import BootloaderModule
+from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
@@ -62,6 +63,9 @@ class StorageModule(KickstartModule):
 
         # Initialize modules.
         self._modules = []
+
+        self._storage_checker_module = StorageCheckerModule()
+        self._add_module(self._storage_checker_module)
 
         self._device_tree_module = DeviceTreeModule()
         self._add_module(self._device_tree_module)
