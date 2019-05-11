@@ -645,7 +645,7 @@ if __name__ == "__main__":
         min_ram = isys.MIN_RAM
 
     from pyanaconda.storage.checker import storage_checker
-    storage_checker.add_constraint(constants.STORAGE_MIN_RAM, min_ram)
+    storage_checker.set_constraint(constants.STORAGE_MIN_RAM, min_ram)
 
     # Add a check for the snapshot requests.
     storage_checker.add_check(ksdata.snapshot.verify_requests)

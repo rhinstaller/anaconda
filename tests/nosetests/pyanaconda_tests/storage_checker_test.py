@@ -105,7 +105,7 @@ class StorageCheckerTests(unittest.TestCase):
         checker = StorageChecker()
 
         # Try to add a new constraint with a wrong method.
-        self.assertRaises(KeyError, checker.add_constraint, "x", None)
+        self.assertRaises(KeyError, checker.set_constraint, "x", None)
 
         # Try to add a new constraint two times.
         checker.add_new_constraint("x", None)
@@ -126,7 +126,7 @@ class StorageCheckerTests(unittest.TestCase):
         report = checker.check(None)
         self.assertListEqual(report.warnings, ["{'x': 1}"])
 
-        checker.add_constraint("x", 0)
+        checker.set_constraint("x", 0)
         report = checker.check(None)
         self.assertListEqual(report.warnings, ["{'x': 0}"])
 
@@ -138,7 +138,7 @@ class StorageCheckerTests(unittest.TestCase):
         self.assertIn("x", checker.constraints)
         self.assertEqual(checker.constraints["x"], {"a": 1, "b": 2, "c": 3})
 
-        checker.add_constraint("x", {"e": 4, "f": 5})
+        checker.set_constraint("x", {"e": 4, "f": 5})
         self.assertIn("x", checker.constraints)
         self.assertEqual(checker.constraints["x"], {"e": 4, "f": 5})
 
@@ -175,9 +175,9 @@ class StorageCheckerTests(unittest.TestCase):
         self.assertListEqual(report.warnings, [])
 
         # Set constraints to different values.
-        checker.add_constraint("x", 0)
-        checker.add_constraint("y", 1)
-        checker.add_constraint("z", 2)
+        checker.set_constraint("x", 0)
+        checker.set_constraint("y", 1)
+        checker.set_constraint("z", 2)
 
         # Run the checker. FAIL
         report = checker.check(None)

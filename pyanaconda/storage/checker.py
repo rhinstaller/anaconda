@@ -488,9 +488,8 @@ class StorageChecker(object):
 
         self.constraints[name] = value
 
-    def add_constraint(self, name, value):
-        """ Add a constraint for storage checking that will override
-        the existing one.
+    def set_constraint(self, name, value):
+        """ Set an existing constraint to a new value.
 
         KeyError will be raised if the constraint does not exist.
 
