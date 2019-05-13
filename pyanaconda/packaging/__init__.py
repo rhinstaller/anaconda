@@ -136,7 +136,7 @@ class SSLOptions(object):
 
     @classmethod
     def createFromMethod(cls, method):
-        sslverify = not (method.noverifyssl or flags.noverifyssl)
+        sslverify = not (getattr(method, "noverifyssl", False) or flags.noverifyssl)
         return cls(sslverify=sslverify,
                    cacert=getattr(method, "sslcacert", None),
                    clientcert=getattr(method, "sslclientcert", None),
