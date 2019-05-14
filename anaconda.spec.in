@@ -321,6 +321,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 14 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.154-1
+- Fix the installation from NFS (vponcova)
+  Resolves: rhbz#1708070
+
 * Tue May 07 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.153-1
 - Fix tests and add new tests (jkonecny)
   Related: rhbz#1701032
