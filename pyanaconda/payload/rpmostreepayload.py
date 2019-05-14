@@ -24,7 +24,6 @@ from subprocess import CalledProcessError
 
 import pyanaconda.errors as errors
 from pyanaconda.core import util
-from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_and_modifier
 from pyanaconda.progress import progressQ
@@ -206,7 +205,7 @@ class RPMOSTreePayload(Payload):
         if hasattr(ostreesetup, 'nogpg') and ostreesetup.nogpg:
             self._remoteOptions['gpg-verify'] = Variant('b', False)
 
-        if flags.noverifyssl:
+        if not conf.payload.verify_ssl:
             self._remoteOptions['tls-permissive'] = Variant('b', True)
 
         repo.remote_change(None, OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,

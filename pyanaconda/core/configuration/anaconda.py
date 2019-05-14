@@ -257,6 +257,10 @@ class AnacondaConfiguration(Configuration):
             self.target._set_option("type", TargetType.DIRECTORY.value)
             self.target._set_option("physical_root", opts.dirinstall)
 
+        # Set the payload flags.
+        if opts.noverifyssl:
+            self.payload._set_option("verify_ssl", not opts.noverifyssl)
+
         self.validate()
 
 

@@ -363,7 +363,7 @@ class DNFPayload(payload.PackagePayload):
             repo.mirrorlist = mirrorlist
         if metalink:
             repo.metalink = metalink
-        repo.sslverify = not (ksrepo.noverifyssl or flags.noverifyssl)
+        repo.sslverify = not ksrepo.noverifyssl and conf.payload.verify_ssl
         if ksrepo.proxy:
             try:
                 repo.proxy = ProxyString(ksrepo.proxy).url
@@ -1133,7 +1133,7 @@ class DNFPayload(payload.PackagePayload):
         method = self.data.method
         sslverify = True
         if method.method == "url":
-            sslverify = not (method.noverifyssl or flags.noverifyssl)
+            sslverify = not method.noverifyssl and conf.payload.verify_ssl
 
         # Read in all the repos from the installation environment, make a note of which
         # are enabled, and then disable them all.  If the user gave us a method, we want
@@ -1401,6 +1401,7 @@ class RepoMDMetaHash(object):
     def __init__(self, dnf_payload, repo):
         self._repoId = repo.id
         self._method = dnf_payload.data.method
+        self._ssl_verify = repo.sslverify
         self._urls = repo.baseurl
         self._repomd_hash = ""
 
@@ -1434,7 +1435,6 @@ class RepoMDMetaHash(object):
         proxies = {}
         repomd = ""
         headers = {"user-agent": USER_AGENT}
-        sslverify = not flags.noverifyssl
 
         if hasattr(method, "proxy"):
             proxy_url = method.proxy
@@ -1452,7 +1452,7 @@ class RepoMDMetaHash(object):
         for url in self._urls:
             try:
                 result = session.get("%s/repodata/repomd.xml" % url, headers=headers,
-                                     proxies=proxies, verify=sslverify)
+                                     proxies=proxies, verify=self._ssl_verify)
                 if result.ok:
                     repomd = result.text
                     break
