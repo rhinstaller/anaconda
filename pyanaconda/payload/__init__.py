@@ -81,6 +81,10 @@ class Payload(metaclass=ABCMeta):
     def first_payload_reset(self):
         return self._first_payload_reset
 
+    @property
+    def is_hmc_enabled(self):
+        return self.data.method.method == "hmc"
+
     def setup(self, storage):
         """Do any payload-specific setup."""
         self.storage = storage
