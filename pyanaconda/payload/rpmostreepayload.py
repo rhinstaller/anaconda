@@ -368,15 +368,19 @@ class RPMOSTreePayload(Payload):
         # both mounts like /home (really /var/home) and %post scripts might
         # want to write to e.g. `/srv`, `/root`, `/usr/local`, etc. The
         # /var/lib/rpm symlink is also critical for having e.g. `rpm -qa` work
-        # in %post. We don't iterate *all* tmpfiles because we don't have the
-        # matching NSS configuration inside Anaconda, and we can't "chroot" to
-        # get it because that would require mounting the API filesystems in the
-        # target.
-        for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
-                          'usrlocal', 'mnt', 'media', 'spool', 'spool/mail'):
-            self._safe_exec_with_redirect("systemd-tmpfiles",
-                                          ["--create", "--boot", "--root=" + util.getSysroot(),
-                                           "--prefix=/var/" + varsubdir])
+        # in %post.
+        nsspaths = ("/etc/", "/usr/lib/")
+        for nfile in ("passwd", "group"):
+            infiles = [util.getSysroot() + path + nfile for path in nsspaths]
+            if all([os.path.isfile(f) for f in infiles]):
+                log.debug("copying over %s from sysroot", nfile)
+                with open("/etc/{}".format(nfile), "w") as outf:
+                    for fname in infiles:
+                        with open(fname) as inf:
+                            outf.write(inf.read())
+        self._safe_exec_with_redirect("systemd-tmpfiles",
+                                      ["--create", "--boot", "--root=" + util.getSysroot(),
+                                       "--prefix=/var/"])
 
         # Handle mounts like /boot (except avoid /boot/efi; we just need the
         # toplevel), and any admin-specified points like /home (really
