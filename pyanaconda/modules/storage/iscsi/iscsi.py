@@ -194,7 +194,7 @@ class ISCSIModule(KickstartBaseModule):
         """
         return iscsi.ifaces.get(iscsi_iface, "")
 
-    def node_is_from_ibft(self, node):
+    def is_node_from_ibft(self, node):
         """Is the node configured from iBFT table?.
 
         :param node: the node information
@@ -213,7 +213,7 @@ class ISCSIModule(KickstartBaseModule):
 
         FIXME: This is just a temporary method.
         """
-        if self.node_is_from_ibft(node):
+        if self.is_node_from_ibft(node):
             return ["rd.iscsi.firmware"]
 
         blivet_node = iscsi.get_node(node.name, node.address, node.port, node.iface)

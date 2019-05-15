@@ -66,7 +66,7 @@ def _is_on_ibft(device):
         if not isinstance(disk, blivet.devices.iScsiDiskDevice):
             return False
         node = _get_iscsi_node_from_device(disk)
-        if not iscsi_proxy.NodeIsFromIbft(Node.to_structure(node)):
+        if not iscsi_proxy.IsNodeFromIbft(Node.to_structure(node)):
             return False
     return True
 
@@ -793,7 +793,7 @@ class BootLoader(object):
                     if isinstance(dep, blivet.devices.iScsiDiskDevice):
                         if dep.iface == "default" or ":" in dep.iface:
                             node = _get_iscsi_node_from_device(dep)
-                            if iscsi_proxy.NodeIsFromIbft(Node.to_structure(node)):
+                            if iscsi_proxy.IsNodeFromIbft(Node.to_structure(node)):
                                 nic = ibft_iface()
                             else:
                                 nic = iface_for_host_ip(dep.host_address)
