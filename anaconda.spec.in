@@ -354,6 +354,22 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 15 2019 Martin Kolman <mkolman@redhat.com> - 31.12-1
+- Fix condition for running GUI User spoke in Initial Setup (mkolman)
+- Expose individual user group, user and root password DBus tasks (mkolman)
+- Use a DBus task for Initial Setup configuration (mkolman)
+- Add ConfigureInitialSetupTask (mkolman)
+- Sysroot support for enable_service() and disable_service() (mkolman)
+- Fix documentation for nosslverify (jkonecny)
+- Replace noverifyssl flag in anaconda (jkonecny)
+- Adjust verify_ssl config from cmdline (jkonecny)
+- Move payload nosslverify to the config files (jkonecny)
+- Skip some of the driver disk tests (vponcova)
+- Use the absolute paths to set the testing environment (vponcova)
+- Use DBus consistently (mkolman)
+- Test generate_string_from_data with invalid argument (vponcova)
+- Make from_structure and to_structure more strict (vponcova)
+
 * Thu May 02 2019 Martin Kolman <mkolman@redhat.com> - 31.11-1
 - Remove no longer needed kickstart command overrides (mkolman)
 - Use Users DBUS module for user configuration in GUI (mkolman)
