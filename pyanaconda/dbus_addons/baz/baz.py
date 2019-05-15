@@ -1,5 +1,5 @@
 # baz.py
-# Example DBUS addon.
+# Example DBus addon.
 #
 # Copyright (C) 2017 Red Hat, Inc.
 #

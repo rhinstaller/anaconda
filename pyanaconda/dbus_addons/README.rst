@@ -7,4 +7,4 @@ and their source code will not be part of the Anaconda
 source code repository.
 
 Addons also might not even be written in Python, they just
-need to conform to the DBUS interface specification.
+need to conform to the DBus interface specification.

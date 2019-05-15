@@ -145,7 +145,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     def refresh(self):
         # report refresh is running
         self._refresh_running = True
-        # set the state of the lock checkbox based on DBUS data
+        # set the state of the lock checkbox based on DBus data
         # - set_active() apparently also triggers on_clicked() so
         #   we use the _refresh_running atribute to differentiate
         #   it from "real" clicks
@@ -316,7 +316,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     def on_lock_clicked(self, lock):
         if self._refresh_running:
             # this is not a "real" click, just refresh() setting the lock check
-            # box state based on data from the DBUS module
+            # box state based on data from the DBus module
             if not self._manually_locked:
                 # if the checkbox has not yet been manipulated by the user
                 # we can ignore this run and not adjust the fields

@@ -167,7 +167,7 @@ class UsersModule(KickstartModule):
         user_data.groups = user_ksdata.groups
         # To denote that a value has not been set:
         # - kickstart uses None
-        # - our DBUS API uses -1
+        # - our DBus API uses -1
         # -> as user data is -1 by default ve only set it if kickstart has something,
         #    that is not None
         # We need to make sure we correctly convert between these two.
@@ -200,7 +200,7 @@ class UsersModule(KickstartModule):
         user_ksdata.groups = user_data.groups
         # To denote that a value has not been set:
         # - kickstart uses None
-        # - our DBUS API uses -1
+        # - our DBus API uses -1
         # -> as ksdata has None as default, we simply only set the value if
         #    it is != -1 on our side
         # We need to make sure we correctly convert between these two.

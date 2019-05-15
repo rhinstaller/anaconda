@@ -258,7 +258,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.initialize_start()
 
         # We consider user creation requested if there was at least one user
-        # in the DBUS module user list at startup.
+        # in the DBus module user list at startup.
         # We also remember how the user was called so that we can clear it
         # in a reasonably safe way & if it was cleared.
         self._user_list = get_user_list(self._users_module, add_default=True)
@@ -420,8 +420,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         return self._user_list[0]
 
     def refresh(self):
-        # user data could have changed in the Users DBUS module
-        # since the last visit, so reload it from DBUS
+        # user data could have changed in the Users DBus module
+        # since the last visit, so reload it from DBus
         #
         # In the case that the user list is empty or
         # a requested user has been cleared from the list in previous
@@ -471,11 +471,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.user.name = self.username
         self.user.gecos = self.fullname
 
-        # We make it possible to clear users requested from kickstart (or DBUS API)
+        # We make it possible to clear users requested from kickstart (or DBus API)
         # during an interactive installation. This is done by setting their name
         # to "". Then during apply() we will check the user name and if it is
         # equal to "", we will remember that locally and not forward the user which
-        # has been cleared to the DBUS module, by using the remove_uset flag
+        # has been cleared to the DBus module, by using the remove_uset flag
         # for the set_user_list function.
 
         # record if the requested user has been explicitely unset

@@ -1,5 +1,5 @@
 # boss.py
-# Anaconda main DBUS module & module manager.
+# Anaconda main DBus module & module manager.
 #
 # Copyright (C) 2017 Red Hat, Inc.
 #

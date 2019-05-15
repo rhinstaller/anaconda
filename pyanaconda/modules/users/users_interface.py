@@ -112,11 +112,11 @@ class UsersInterface(KickstartModuleInterface):
     def Users(self) -> List[Structure]:
         """List of users, each describing a single user.
 
-        :return: a list of user describing DBUS Structures
+        :return: a list of user describing DBus Structures
         """
         # internally we hold the data about users as a list of structures,
         # which we need to turn into a list of dicts before returning it
-        # over DBUS
+        # over DBus
         user_dicts = []
 
         for user_data in self.implementation.users:
@@ -127,7 +127,7 @@ class UsersInterface(KickstartModuleInterface):
     def SetUsers(self, users: List[Structure]):
         """Set a list of users, each corresponding to a single user.
 
-        :param users: a list of user describing DBUS structures
+        :param users: a list of user describing DBus structures
         """
         self.implementation.set_users(UserData.from_structure_list(users))
 
@@ -135,11 +135,11 @@ class UsersInterface(KickstartModuleInterface):
     def Groups(self) -> List[Structure]:
         """List of groups, each describing a single group.
 
-        :return: a list of group describing DBUS Structures
+        :return: a list of group describing DBus Structures
         """
         # internally we hold the data about groups as a list of structures,
         # which we need to turn into a list of dicts before returning it
-        # over DBUS
+        # over DBus
         group_dicts = []
 
         for group_data in self.implementation.groups:
@@ -150,7 +150,7 @@ class UsersInterface(KickstartModuleInterface):
     def SetGroups(self, groups: List[Structure]):
         """Set a list of groups, each corresponding to a single group.
 
-        :param groups: a list of group describing DBUS structures
+        :param groups: a list of group describing DBus structures
         """
         self.implementation.set_groups(GroupData.from_structure_list(groups))
 
@@ -158,11 +158,11 @@ class UsersInterface(KickstartModuleInterface):
     def SshKeys(self) -> List[Structure]:
         """List of SSH keys, each describing a single SSH key.
 
-        :return: a list of SSH key describing DBUS Structures
+        :return: a list of SSH key describing DBus Structures
         """
         # internally we hold the data about SSH keys as a list of structures,
         # which we need to turn into a list of dicts before returning it
-        # over DBUS
+        # over DBus
         ssh_key_dicts = []
 
         for ssh_key_data in self.implementation.ssh_keys:
@@ -171,9 +171,9 @@ class UsersInterface(KickstartModuleInterface):
 
     @emits_properties_changed
     def SetSshKeys(self, ssh_keys: List[Structure]):
-        """Set a list of DBUS structures, each corresponding to a single SSH key.
+        """Set a list of DBus structures, each corresponding to a single SSH key.
 
-        :param ssh_keys: a list of SSH key describing DBUS structures
+        :param ssh_keys: a list of SSH key describing DBus structures
         """
         self.implementation.set_ssh_keys(SshKeyData.from_structure_list(ssh_keys))
 
