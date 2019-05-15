@@ -27,6 +27,7 @@ from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.services.services_interface import ServicesInterface
+from pyanaconda.modules.services.installation import ConfigureInitialSetupTask
 
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -187,3 +188,19 @@ class ServicesModule(KickstartModule):
         self._setup_on_boot = value
         self.setup_on_boot_changed.emit()
         log.debug("Setup on boot is set to %s.", value)
+
+    def install_with_tasks(self, sysroot):
+        """Return the installation tasks of this module.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: list of object paths of installation tasks
+        """
+        tasks = [
+            ConfigureInitialSetupTask(sysroot=sysroot, setup_on_boot=self.setup_on_boot)
+        ]
+
+        paths = [
+            self.publish_task(SERVICES.namespace, task) for task in tasks
+        ]
+
+        return paths

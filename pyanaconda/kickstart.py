@@ -34,14 +34,13 @@ import blivet.iscsi
 
 from contextlib import contextmanager
 
-from pyanaconda import keyboard, network, ntp, screen_access, timezone
+from pyanaconda import keyboard, network, ntp, timezone
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, SELINUX_DEFAULT, \
-    SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, FIREWALL_ENABLED, FIREWALL_DISABLED, \
-    FIREWALL_USE_SYSTEM_DEFAULTS
+    FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
@@ -429,40 +428,6 @@ class Firewall(RemovedCommand):
                 raise KickstartError(msg)
         else:
             util.execInSysroot(cmd, args)
-
-class Firstboot(RemovedCommand):
-
-    def __str__(self):
-        # The kickstart for this command is generated
-        # by Services module in the Services class.
-        return ""
-
-    def execute(self):
-        unit_name = "initial-setup.service"
-        services_proxy = SERVICES.get_proxy()
-        setup_on_boot = services_proxy.SetupOnBoot
-
-        if setup_on_boot == SETUP_ON_BOOT_DISABLED:
-            log.debug("The %s service will be disabled.", unit_name)
-            util.disable_service(unit_name)
-            # Also tell the screen access manager, so that the fact that post installation tools
-            # should be disabled propagates to the user interaction config file.
-            screen_access.sam.post_install_tools_disabled = True
-            return
-
-        if not os.path.exists(os.path.join(util.getSysroot(), "lib/systemd/system/", unit_name)):
-            log.debug("The %s service will not be started on first boot, because "
-                      "it's unit file is not installed.", unit_name)
-            return
-
-        if setup_on_boot == SETUP_ON_BOOT_RECONFIG:
-            log.debug("The %s service will run in the reconfiguration mode.", unit_name)
-            # write the reconfig trigger file
-            f = open(os.path.join(util.getSysroot(), "etc/reconfigSys"), "w+")
-            f.close()
-
-        log.debug("The %s service will be enabled.", unit_name)
-        util.enable_service(unit_name)
 
 class Iscsi(COMMANDS.Iscsi):
     def parse(self, args):
@@ -939,7 +904,7 @@ commandMap = {
     "eula": Eula,
     "fcoe": UselessCommand,
     "firewall": Firewall,
-    "firstboot": Firstboot,
+    "firstboot": UselessCommand,
     "group" : UselessCommand,
     "ignoredisk": UselessCommand,
     "iscsi": Iscsi,
