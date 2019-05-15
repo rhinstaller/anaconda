@@ -135,25 +135,56 @@ class UsersModule(KickstartModule):
 
         return str(data)
 
+    def configure_groups_with_task(self, sysroot):
+        """Return the user group configuration task.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: object path of the user group configuration task
+        """
+        task = CreateGroupsTask(sysroot=sysroot, group_data_list=self.groups)
+        return self.publish_task(USERS.namespace, task)
+
+    def configure_users_with_task(self, sysroot):
+        """Return the user configuration task.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: object path of the user configuration task
+        """
+        task = CreateUsersTask(sysroot=sysroot, user_data_list=self.users)
+        return self.publish_task(USERS.namespace, task)
+
+    def set_root_password_with_task(self, sysroot):
+        """Return the root password configuration task.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: object path of the root password configuration task
+        """
+        task =  SetRootPasswordTask(sysroot=sysroot, password=self.root_password,
+                                    crypted=self.root_password_is_crypted,
+                                    locked=self.root_account_locked)
+        return self.publish_task(USERS.namespace, task)
+
+    def set_ssh_keys_with_task(self, sysroot):
+        """Return the SSH key configuration task.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: object path of the SSH key configuration task
+        """
+        task = SetSshKeysTask(sysroot=sysroot, ssh_key_data_list=self.ssh_keys)
+        return self.publish_task(USERS.namespace, task)
+
     def install_with_tasks(self, sysroot):
         """Return the installation tasks of this module.
 
         :param str sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks
         """
-        tasks = [
-            SetRootPasswordTask(sysroot=sysroot, password=self.root_password,
-                crypted=self.root_password_is_crypted,
-                locked=self.root_account_locked),
-            CreateGroupsTask(sysroot=sysroot, group_data_list=self.groups),
-            CreateUsersTask(sysroot=sysroot, user_data_list=self.users),
-            SetSshKeysTask(sysroot=sysroot, ssh_key_data_list=self.ssh_keys)
-        ]
-
         paths = [
-            self.publish_task(USERS.namespace, task) for task in tasks
+            self.configure_groups_with_task(sysroot=sysroot),
+            self.configure_users_with_task(sysroot=sysroot),
+            self.set_root_password_with_task(sysroot=sysroot),
+            self.set_ssh_keys_with_task(sysroot=sysroot)
         ]
-
         return paths
 
     def _ksdata_to_user_data(self, user_ksdata):

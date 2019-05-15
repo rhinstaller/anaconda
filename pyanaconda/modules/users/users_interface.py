@@ -187,3 +187,24 @@ class UsersInterface(KickstartModuleInterface):
         :return: if at least one admin user exists
         """
         return self.implementation.check_admin_user_exists
+
+    def ConfigureGroupsWithTask(self, sysroot: Str) -> ObjPath:
+        """Configure user groups via a DBus task.
+
+        :returns: DBus path of the task
+        """
+        return self.implementation.configure_groups_with_task(sysroot)
+
+    def ConfigureUsersWithTask(self, sysroot: Str) -> ObjPath:
+        """Configure users via a DBus task.
+
+        :returns: DBus path of the task
+        """
+        return self.implementation.configure_users_with_task(sysroot)
+
+    def SetRootPasswordWithTask(self, sysroot: Str) -> ObjPath:
+        """Set root password via a DBus task.
+
+        :returns: DBus path of the task
+        """
+        return self.implementation.set_root_password_with_task(sysroot)
