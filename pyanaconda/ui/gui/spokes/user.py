@@ -242,7 +242,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             # cannot decide, stay in the game and let another call with data
             # available (will come) decide
             return True
-        elif environment == constants.FIRSTBOOT_ENVIRON and data and user_list:
+        elif environment == constants.FIRSTBOOT_ENVIRON and data and not user_list:
             return True
         else:
             return False
