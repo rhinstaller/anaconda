@@ -92,7 +92,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
             self._cdrom = opticalInstallMedia(self.storage.devicetree)
 
         # Enable the SE/HMC option.
-        if flags.hmc:
+        if self.payload.is_hmc_enabled:
             self._hmc = True
 
         self._ready = True
