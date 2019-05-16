@@ -99,10 +99,10 @@ class ISCSIModule(KickstartBaseModule):
 
         :param target: the target information
         :param credentials: the iSCSI credentials
-        :param interfaces_mode: required mode specified by IscsiInterfacesMode string value
+        :param interfaces_mode: required mode specified by IscsiInterfacesMode
         :return: a DBus path to a task
         """
-        task = ISCSIDiscoverTask(target, credentials, IscsiInterfacesMode(interfaces_mode))
+        task = ISCSIDiscoverTask(target, credentials, interfaces_mode)
         path = self.publish_task(ISCSI.namespace, task, ISCSIDiscoverTaskInterface)
         return path
 

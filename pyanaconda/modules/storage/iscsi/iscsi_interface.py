@@ -22,6 +22,7 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import ISCSI
+from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.common.structures.iscsi import Portal, Credentials, Node
 from pyanaconda.modules.common.task import TaskInterface
 
@@ -87,17 +88,18 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         """
         self.implementation.reload_module()
 
-    def DiscoverWithTask(self, portal: Structure, credentials: Structure, interface_mode: Str) -> ObjPath:
+    def DiscoverWithTask(self, portal: Structure, credentials: Structure, interfaces_mode: Str) -> ObjPath:
         """Discover an iSCSI device.
 
         :param portal: the portal information
         :param credentials: the iSCSI credentials
-        :param interfaces_mode: required mode specified by IscsiInterfacesMode
+        :param interfaces_mode: required mode specified by IscsiInterfacesMode string value
         :return: a DBus path to a task
         """
         portal = Portal.from_structure(portal)
         credentials = Credentials.from_structure(credentials)
-        return self.implementation.discover_with_task(portal, credentials, interface_mode)
+        interfaces_mode = IscsiInterfacesMode(interfaces_mode)
+        return self.implementation.discover_with_task(portal, credentials, interfaces_mode)
 
     def LoginWithTask(self, portal: Structure, credentials: Structure, node: Structure) -> ObjPath:
         """Login into an iSCSI node discovered on a portal.
