@@ -74,7 +74,7 @@ class ISCSIModule(KickstartBaseModule):
     def can_set_initiator(self):
         """Can the initiator be set?
 
-        Once there there are active nodes logged in the initiator name can't be set.
+        Once the initiator name is set it can't be changed.
         """
         return not iscsi.initiator_set
 
