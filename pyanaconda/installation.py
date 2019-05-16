@@ -24,7 +24,7 @@ from blivet.devices import BTRFSDevice
 
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import BOOTLOADER_DISABLED, SETUP_ON_BOOT_DISABLED
+from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, SNAPSHOT
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES
 from pyanaconda.modules.common.task import sync_run_task
@@ -105,17 +105,10 @@ def doConfiguration(storage, payload, ksdata):
         task_proxy = SERVICES.get_proxy(dbus_task)
         os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
 
-    # If Initial Setup is disabled notify Screen Access Manager so that
-    # this information ends up correctly in user interaction config file.
-    # Otherwise "firstboot --disable" in kickstart would only disable Initial Setup
-    # but not other tools reading the config file, such as Gnome Initial Setup.
-    if services_proxy.SetupOnBoot == SETUP_ON_BOOT_DISABLED:
-        # we need a simple function that does the assignment we can put into a task
-        def mark_post_inst_tools_disabled():
-            screen_access.sam.post_install_tools_disabled = True
-
-        os_config.append(Task("Set post install tools prefference to disabled",
-                         mark_post_inst_tools_disabled))
+    # The user interaction config file needs to be synchronized with
+    # current state of the Services module.
+    os_config.append(Task("Synchronize user interaction config file state",
+                     screen_access.sam.update_config_file_state))
 
     os_config.append(Task("Configure services", ksdata.services.execute))
     os_config.append(Task("Configure keyboard", ksdata.keyboard.execute))
