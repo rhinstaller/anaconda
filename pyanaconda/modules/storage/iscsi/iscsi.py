@@ -94,27 +94,27 @@ class ISCSIModule(KickstartBaseModule):
             log.error("Unknown iSCSI interface mode %s set by blivet, using UNSET", mode)
             return IscsiInterfacesMode.UNSET
 
-    def discover_with_task(self, target, credentials, interfaces_mode):
+    def discover_with_task(self, portal, credentials, interfaces_mode):
         """Discover an iSCSI device.
 
-        :param target: the target information
+        :param portal: the portal information
         :param credentials: the iSCSI credentials
         :param interfaces_mode: required mode specified by IscsiInterfacesMode
         :return: a DBus path to a task
         """
-        task = ISCSIDiscoverTask(target, credentials, interfaces_mode)
+        task = ISCSIDiscoverTask(portal, credentials, interfaces_mode)
         path = self.publish_task(ISCSI.namespace, task, ISCSIDiscoverTaskInterface)
         return path
 
-    def login_with_task(self, target, credentials, node):
-        """Login into an iSCSI node discovered on a target.
+    def login_with_task(self, portal, credentials, node):
+        """Login into an iSCSI node discovered on a portal.
 
-        :param target: the target information
+        :param portal: the portal information
         :param credentials: the iSCSI credentials
         :param node: the node information
         :return: a DBus path to a task
         """
-        task = ISCSILoginTask(target, credentials, node)
+        task = ISCSILoginTask(portal, credentials, node)
         path = self.publish_task(ISCSI.namespace, task)
         return path
 
