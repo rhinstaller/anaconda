@@ -470,8 +470,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             if self._auto_part_enabled or \
                     (flags.automatedInstall and
                      (self._auto_part_observer.proxy.Enabled or self.data.partition.seen)):
-                # run() executes StorageCheckHandler.checkStorage in a seperate thread
-                self.run()
+                hubQ.send_message(self.__class__.__name__, _("Checking storage configuration..."))
+                StorageCheckHandler.check_storage(self)
         finally:
             reset_custom_storage_data(self.data)
             self._ready = True
@@ -480,7 +480,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     @property
     def completed(self):
         retval = (threadMgr.get(constants.THREAD_EXECUTE_STORAGE) is None and
-                  not self.checking_storage and
                   self.storage.root_device is not None and
                   not self.errors)
         return retval

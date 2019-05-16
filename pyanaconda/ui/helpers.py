@@ -57,52 +57,32 @@ from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda.core import constants
 from pyanaconda.storage.utils import unmark_protected_device, mark_protected_device
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.core.i18n import _
+from pyanaconda.threading import threadMgr
 from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.anaconda_loggers import get_module_logger
 
 import copy
+
 
 class StorageCheckHandler(object, metaclass=ABCMeta):
     log = get_module_logger(__name__)
     errors = []
     warnings = []
 
-    def __init__(self, mainSpokeClass="StorageSpoke"):
-        self._mainSpokeClass = mainSpokeClass
-        self._checking = False
-
     @abstractproperty
     def storage(self):
         pass
 
-    def run(self):
-        threadMgr.add(AnacondaThread(name=constants.THREAD_CHECK_STORAGE,
-                                     target=self.checkStorage))
-
-    @property
-    def checking_storage(self):
-        return self._checking
-
-    def checkStorage(self):
+    def check_storage(self):
         from pyanaconda.storage.checker import storage_checker
-
-        threadMgr.wait(constants.THREAD_EXECUTE_STORAGE)
-
-        hubQ.send_not_ready(self._mainSpokeClass)
-        hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
-
-        self._checking = True
         report = storage_checker.check(self.storage)
+        report.log(self.log)
+
         # Storage spoke and custom spoke communicate errors via StorageCheckHandler,
         # so we need to set errors and warnings class attributes here.
         StorageCheckHandler.errors = report.errors
         StorageCheckHandler.warnings = report.warnings
-        self._checking = False
-        hubQ.send_ready(self._mainSpokeClass, True)
-        report.log(self.log)
+
 
 class SourceSwitchHandler(object, metaclass=ABCMeta):
     """ A class that can be used as a mixin handling

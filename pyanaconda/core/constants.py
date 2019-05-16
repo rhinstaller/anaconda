@@ -109,7 +109,6 @@ DEFAULT_DBUS_TIMEOUT = -1       # use default
 THREAD_EXECUTE_STORAGE = "AnaExecuteStorageThread"
 THREAD_STORAGE = "AnaStorageThread"
 THREAD_STORAGE_WATCHER = "AnaStorageWatcher"
-THREAD_CHECK_STORAGE = "AnaCheckStorageThread"
 THREAD_CUSTOM_STORAGE_INIT = "AnaCustomStorageInit"
 THREAD_WAIT_FOR_CONNECTING_NM = "AnaWaitForConnectingNMThread"
 THREAD_PAYLOAD = "AnaPayloadThread"
