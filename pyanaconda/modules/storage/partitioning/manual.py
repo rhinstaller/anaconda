@@ -59,26 +59,18 @@ class ManualPartitioningModule(PartitioningModule):
 
         requests = []
 
-        for obj in data.mount.mount_points:
+        for mount_data in data.mount.mount_points:
             request = MountPointRequest()
-            self._process_mount_data(obj, request)
+            request.mount_point = mount_data.mount_point
+            request.device_spec = mount_data.device
+            request.reformat = mount_data.reformat
+            request.format_type = mount_data.format
+            request.format_options = mount_data.mkfs_opts
+            request.mount_options = mount_data.mount_opts
             requests.append(request)
 
         self.set_requests(requests)
         self.set_enabled(True)
-
-    def _process_mount_data(self, data, request):
-        """Process kickstart mount data.
-
-        :param data: an instance of kickstart mount data
-        :param request: a new instance of MountPointRequest
-        """
-        request.mount_point = data.mount_point
-        request.device_spec = data.device
-        request.reformat = data.reformat
-        request.format_type = data.format
-        request.format_options = data.mkfs_opts
-        request.mount_options = data.mount_opts
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -89,23 +81,15 @@ class ManualPartitioningModule(PartitioningModule):
 
         for request in self.requests:
             mount_data = data.MountData()
-            self._setup_mount_data(mount_data, request)
+            mount_data.mount_point = request.mount_point
+            mount_data.device = request.device_spec
+            mount_data.reformat = request.reformat
+            mount_data.format = request.format_type
+            mount_data.mkfs_opts = request.format_options
+            mount_data.mount_opts = request.mount_options
             data_list.append(mount_data)
 
         data.mount.mount_points = data_list
-
-    def _setup_mount_data(self, data, request):
-        """Set up kickstart mount data.
-
-        :param data: a new instance of kickstart mount data
-        :param request: an instance of MountPointRequest
-        """
-        data.mount_point = request.mount_point
-        data.device = request.device_spec
-        data.reformat = request.reformat
-        data.format = request.format_type
-        data.mkfs_opts = request.format_options
-        data.mount_opts = request.mount_options
 
     @property
     def enabled(self):
