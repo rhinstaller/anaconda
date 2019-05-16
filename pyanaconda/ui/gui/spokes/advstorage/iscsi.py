@@ -24,7 +24,8 @@ from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.modules.common.structures.iscsi import Credentials, Portal, Node
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.constants.objects import ISCSI
-from pyanaconda.modules.storage.constants import IscsiInterfacesMode
+from pyanaconda.core.constants import ISCSI_INTERFACE_UNSET, ISCSI_INTERFACE_DEFAULT, \
+    ISCSI_INTERFACE_IFACENAME
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.storage.utils import try_populate_devicetree
@@ -85,7 +86,7 @@ class ISCSIDialog(GUIObject):
 
     def refresh(self):
         self._bindCheckbox.set_active(
-            self._iscsi_module.GetInterfaceMode() == IscsiInterfacesMode.IFACENAME.value
+            self._iscsi_module.GetInterfaceMode() == ISCSI_INTERFACE_IFACENAME
         )
         self._bindCheckbox.set_sensitive(self._mode_change_is_allowed())
         self._authTypeCombo.set_active(0)
@@ -96,7 +97,7 @@ class ISCSIDialog(GUIObject):
         self._initiatorEntry.set_sensitive(self._iscsi_module.CanSetInitiator())
 
     def _mode_change_is_allowed(self):
-        return self._iscsi_module.GetInterfaceMode() == IscsiInterfacesMode.UNSET.value
+        return self._iscsi_module.GetInterfaceMode() == ISCSI_INTERFACE_UNSET
 
     def run(self):
         rc = self.window.run()
@@ -166,13 +167,13 @@ class ISCSIDialog(GUIObject):
 
         # Get the discovery task.
         if self._bindCheckbox.get_active():
-            interfaces_mode = IscsiInterfacesMode.IFACENAME
+            interfaces_mode = ISCSI_INTERFACE_IFACENAME
         else:
-            interfaces_mode = IscsiInterfacesMode.DEFAULT
+            interfaces_mode = ISCSI_INTERFACE_DEFAULT
         task_path = self._iscsi_module.DiscoverWithTask(
             Portal.to_structure(portal),
             Credentials.to_structure(credentials),
-            interfaces_mode.value
+            interfaces_mode
         )
         task_proxy = STORAGE.get_proxy(task_path)
 
