@@ -32,7 +32,7 @@ class ConfigureInitialSetupTask(Task):
     """Installation task for Initial Setup configuration."""
 
     def __init__(self, sysroot, setup_on_boot):
-        """Create a new root password configuration task.
+        """Create a new Initial Setup configuration task.
 
         :param str sysroot: a path to the root of the target system
         :param enum setup_on_boot: setup-on-boot mode for Initial Setup
