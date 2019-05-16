@@ -20,6 +20,7 @@ from pyanaconda.dbus.identifier import DBusObjectIdentifier
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
     PARTITIONING_NAMESPACE, PAYLOAD_NAMESPACE, DNF_NAMESPACE, DEVICE_TREE_NAMESPACE
 
+# Storage objects.
 
 BOOTLOADER = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
@@ -70,7 +71,6 @@ FCOE = DBusObjectIdentifier(
     basename="FCoE"
 )
 
-
 NVDIMM = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="NVDIMM"
@@ -79,7 +79,11 @@ NVDIMM = DBusObjectIdentifier(
 SNAPSHOT = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="Snapshot"
+)
 
+STORAGE_CHECKER = DBusObjectIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="Checker"
 )
 
 ZFCP = DBusObjectIdentifier(
@@ -87,10 +91,14 @@ ZFCP = DBusObjectIdentifier(
     basename="zFCP"
 )
 
+# Network objects.
+
 FIREWALL = DBusObjectIdentifier(
     namespace=NETWORK_NAMESPACE,
     basename="Firewall"
 )
+
+# Payload objects.
 
 PAYLOAD_DEFAULT = DBusObjectIdentifier(
     namespace=PAYLOAD_NAMESPACE,

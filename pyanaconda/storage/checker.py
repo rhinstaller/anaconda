@@ -475,7 +475,7 @@ class StorageChecker(object):
         if callback in self.checks:
             self.checks.remove(callback)
 
-    def add_new_constraint(self, name, value):
+    def add_constraint(self, name, value):
         """ Add a new constraint for storage checking.
 
         KeyError will be raised if the constraint already exists.
@@ -488,9 +488,8 @@ class StorageChecker(object):
 
         self.constraints[name] = value
 
-    def add_constraint(self, name, value):
-        """ Add a constraint for storage checking that will override
-        the existing one.
+    def set_constraint(self, name, value):
+        """ Set an existing constraint to a new value.
 
         KeyError will be raised if the constraint does not exist.
 
@@ -501,21 +500,6 @@ class StorageChecker(object):
             raise KeyError("The constraint {} does not exist.".format(name))
 
         self.constraints[name] = value
-
-    def update_constraint(self, name, value):
-        """ Update a constraint for storage checking if the
-        constraint is a dictionary or a set.
-
-        AttributeError will be raised, if the constraint
-        does not have the update method.
-
-        KeyError will be raised, if the constraint does
-        not exists.
-
-        :param str name: a name of the constraint
-        :param value: a value of the constraint (set or dictionary)
-        """
-        self.constraints[name].update(value)
 
     def check(self, storage, constraints=None, skip=None):
         """ Run a series of tests to verify the storage configuration.
@@ -560,9 +544,9 @@ class StorageChecker(object):
     def set_default_constraints(self):
         """Set the default constraints needed by default checks."""
         self.constraints = dict()
-        self.add_new_constraint(STORAGE_MIN_RAM, isys.MIN_RAM)
-        self.add_new_constraint(STORAGE_MIN_ROOT, Size("250 MiB"))
-        self.add_new_constraint(STORAGE_MIN_PARTITION_SIZES, {
+        self.add_constraint(STORAGE_MIN_RAM, isys.MIN_RAM)
+        self.add_constraint(STORAGE_MIN_ROOT, Size("250 MiB"))
+        self.add_constraint(STORAGE_MIN_PARTITION_SIZES, {
             '/usr': Size("250 MiB"),
             '/tmp': Size("50 MiB"),
             '/var': Size("384 MiB"),
@@ -570,24 +554,24 @@ class StorageChecker(object):
             '/boot': Size("200 MiB")
         })
 
-        self.add_new_constraint(STORAGE_MUST_BE_ON_LINUXFS, {
+        self.add_constraint(STORAGE_MUST_BE_ON_LINUXFS, {
             '/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib'
         })
 
-        self.add_new_constraint(STORAGE_MUST_BE_ON_ROOT, {
+        self.add_constraint(STORAGE_MUST_BE_ON_ROOT, {
             '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
         })
 
-        self.add_new_constraint(STORAGE_REFORMAT_WHITELIST, {
+        self.add_constraint(STORAGE_REFORMAT_WHITELIST, {
             '/boot', '/var', '/tmp', '/usr'
         })
 
-        self.add_new_constraint(STORAGE_REFORMAT_BLACKLIST, {
+        self.add_constraint(STORAGE_REFORMAT_BLACKLIST, {
             '/home', '/usr/local', '/opt', '/var/www'
         })
 
-        self.add_new_constraint(STORAGE_SWAP_IS_RECOMMENDED, True)
-        self.add_new_constraint(STORAGE_LUKS2_MIN_RAM, Size("128 MiB"))
+        self.add_constraint(STORAGE_SWAP_IS_RECOMMENDED, True)
+        self.add_constraint(STORAGE_LUKS2_MIN_RAM, Size("128 MiB"))
 
     def set_default_checks(self):
         """Set the default checks."""

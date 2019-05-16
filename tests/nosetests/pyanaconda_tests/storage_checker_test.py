@@ -84,7 +84,7 @@ class StorageCheckerTests(unittest.TestCase):
         def skipped_check(storage, constraints, report_error, report_warning):
             report_warning("skipped")
 
-        checker.add_new_constraint("x", None)
+        checker.add_constraint("x", None)
         checker.add_check(error_check)
         checker.add_check(warning_check)
         checker.add_check(skipped_check)
@@ -105,20 +105,11 @@ class StorageCheckerTests(unittest.TestCase):
         checker = StorageChecker()
 
         # Try to add a new constraint with a wrong method.
-        self.assertRaises(KeyError, checker.add_constraint, "x", None)
+        self.assertRaises(KeyError, checker.set_constraint, "x", None)
 
         # Try to add a new constraint two times.
-        checker.add_new_constraint("x", None)
-        self.assertRaises(KeyError, checker.add_new_constraint, "x", None)
-
-        # Try to update a constraint with a wrong method.
-        checker.add_constraint("x", 1)
-        self.assertRaises(AttributeError, checker.update_constraint, "x", None)
-
-        # Update a constraint.
-        checker.add_constraint("x", {"a": 1, "b": 2})
-        checker.update_constraint("x", {"c": 3})
-        self.assertEqual(checker.constraints["x"], {"a": 1, "b": 2, "c": 3})
+        checker.add_constraint("x", None)
+        self.assertRaises(KeyError, checker.add_constraint, "x", None)
 
     def check_constraints_test(self):
         """Test constraints checking."""
@@ -131,11 +122,11 @@ class StorageCheckerTests(unittest.TestCase):
         report = checker.check(None)
         self.assertListEqual(report.warnings, ["{}"])
 
-        checker.add_new_constraint("x", 1)
+        checker.add_constraint("x", 1)
         report = checker.check(None)
         self.assertListEqual(report.warnings, ["{'x': 1}"])
 
-        checker.add_constraint("x", 0)
+        checker.set_constraint("x", 0)
         report = checker.check(None)
         self.assertListEqual(report.warnings, ["{'x': 0}"])
 
@@ -143,15 +134,11 @@ class StorageCheckerTests(unittest.TestCase):
         """Test the dictionary constraints."""
         checker = StorageChecker()
 
-        checker.add_new_constraint("x", {"a": 1, "b": 2, "c": 3})
+        checker.add_constraint("x", {"a": 1, "b": 2, "c": 3})
         self.assertIn("x", checker.constraints)
         self.assertEqual(checker.constraints["x"], {"a": 1, "b": 2, "c": 3})
 
-        checker.update_constraint("x", {"a": None, "d": 4})
-        self.assertIn("x", checker.constraints)
-        self.assertEqual(checker.constraints["x"], {"a": None, "b": 2, "c": 3, "d": 4})
-
-        checker.add_constraint("x", {"e": 4, "f": 5})
+        checker.set_constraint("x", {"e": 4, "f": 5})
         self.assertIn("x", checker.constraints)
         self.assertEqual(checker.constraints["x"], {"e": 4, "f": 5})
 
@@ -177,9 +164,9 @@ class StorageCheckerTests(unittest.TestCase):
         checker.add_check(check_z)
 
         # Set the constraints.
-        checker.add_new_constraint("x", 1)
-        checker.add_new_constraint("y", 2)
-        checker.add_new_constraint("z", 3)
+        checker.add_constraint("x", 1)
+        checker.add_constraint("y", 2)
+        checker.add_constraint("z", 3)
 
         # Run the checker. OK
         report = checker.check(None)
@@ -188,9 +175,9 @@ class StorageCheckerTests(unittest.TestCase):
         self.assertListEqual(report.warnings, [])
 
         # Set constraints to different values.
-        checker.add_constraint("x", 0)
-        checker.add_constraint("y", 1)
-        checker.add_constraint("z", 2)
+        checker.set_constraint("x", 0)
+        checker.set_constraint("y", 1)
+        checker.set_constraint("z", 2)
 
         # Run the checker. FAIL
         report = checker.check(None)
