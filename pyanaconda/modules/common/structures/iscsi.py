@@ -53,6 +53,9 @@ class Portal(DBusData):
     def port(self, port: Str):
         self._port = port
 
+    def __eq__(self, other):
+        return (self._ip_address, self._port) == (other.ip_address, other.port)
+
 
 class Credentials(DBusData):
     """Data for iSCSI credentials."""
@@ -111,6 +114,9 @@ class Credentials(DBusData):
     def reverse_password(self, password: Str):
         self._reverse_password = password
 
+    def __eq__(self, other):
+        return (self._username, self._password, self._reverse_username, self._reverse_password) == \
+            (other.username, other.password, other.reverse_username, other.reverse_password)
 
 class Node(DBusData):
     """Data for iSCSI node."""
@@ -181,3 +187,7 @@ class Node(DBusData):
     @net_ifacename.setter
     def net_ifacename(self, net_ifacename: Str):
         self._net_ifacename = net_ifacename
+
+    def __eq__(self, other):
+        return (self._name, self._address, self._port, self._iface, self._net_ifacename) == \
+            (other.name, other.address, other.port, other.iface, other.net_ifacename)
