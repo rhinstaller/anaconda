@@ -182,6 +182,10 @@ class DBusData(ABC):
         """Convert this data object to a string."""
         return generate_string_from_data(self)
 
+    def __eq__(self, other):
+        """Compare data of the data objects."""
+        return compare_data(self, other)
+
 
 def get_fields(obj):
     """Return DBus fields of a data object.
@@ -246,6 +250,18 @@ def generate_fields(cls):
     return fields
 
 
+def generate_dictionary_from_data(obj):
+    """Generate a dictionary from a data object.
+
+    :param obj: a data object
+    :return: a dictionary representation of the data object
+    """
+    return {
+        field.data_name: field.get_data(obj)
+        for field in get_fields(obj).values()
+    }
+
+
 def generate_string_from_data(obj, skip=None, add=None):
     """Generate a string representation of a data object.
 
@@ -276,3 +292,14 @@ def generate_string_from_data(obj, skip=None, add=None):
         attributes.sort()
 
     return "{}({})".format(obj.__class__.__name__, ", ".join(attributes))
+
+
+def compare_data(obj, other):
+    """Compare data of the given data objects.
+
+    :param obj: a data object
+    :param other: another data object
+    :return: True if the data is equal, otherwise False
+    """
+    return isinstance(obj, DBusData) and isinstance(other, DBusData) \
+        and generate_dictionary_from_data(obj) == generate_dictionary_from_data(other)
