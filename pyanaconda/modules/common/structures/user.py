@@ -252,8 +252,9 @@ class UserData(DBusData):
         :return: a string describing the UserData instance
         :rtype: str
         """
-        pw_string = "password_set={}".format(bool(self.password))
-        return generate_string_from_data(self, skip=["password"], add=[pw_string])
+        return generate_string_from_data(
+            self, skip=["password"], add={"password_set": bool(self.password)}
+        )
 
     def has_admin_priviledges(self):
         """Report if the user described by this structure is an admin.

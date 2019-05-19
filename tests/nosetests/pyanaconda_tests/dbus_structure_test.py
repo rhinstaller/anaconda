@@ -420,7 +420,7 @@ class DBusStructureTestCase(unittest.TestCase):
             return generate_string_from_data(
                 obj=self,
                 skip=["b"],
-                add=["b_is_set={}".format(bool(self.b))]
+                add={"b_is_set": bool(self.b)}
             )
 
     def advanced_string_representation_test(self):

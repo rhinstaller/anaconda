@@ -273,23 +273,20 @@ def generate_string_from_data(obj, skip=None, add=None):
 
     :param obj: a data object
     :param skip: a list of names that should be skipped or None
-    :param add: a list of strings to add or None
+    :param add: a dictionary of attributes to add or None
     :return: a string representation of the data object
     """
-    attributes = []
-    skipped_names = set(skip) if skip else set()
-    extra_attributes = list(add) if add else []
+    dictionary = generate_dictionary_from_data(obj)
 
-    for field in get_fields(obj).values():
-        if field.data_name in skipped_names:
-            continue
+    for name in skip or list():
+        dictionary.pop(name, None)
 
-        attribute = "{}={}".format(field.data_name, repr(field.get_data(obj)))
-        attributes.append(attribute)
+    for name in add or dict():
+        dictionary[name] = add[name]
 
-    if extra_attributes:
-        attributes.extend(extra_attributes)
-        attributes.sort()
+    attributes = sorted([
+        "{}={}".format(name, repr(value)) for name, value in dictionary.items()
+    ])
 
     return "{}({})".format(obj.__class__.__name__, ", ".join(attributes))
 
