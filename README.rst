@@ -10,6 +10,12 @@ Documentation
 Documentation for the Anaconda installer can be found at: https://anaconda-installer.readthedocs.io
 
 
+I want to report a bug!
+-----------------------
+
+Report a new bug or a feature request at: https://bugzilla.redhat.com/
+
+
 I want to contribute!
 ---------------------
 
