@@ -42,6 +42,8 @@ from threading import RLock
 from pyanaconda import startup_utils
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import SETUP_ON_BOOT_DISABLED
+from pyanaconda.modules.common.constants.services import SERVICES
 
 
 class ScreenAccessManager(object):
@@ -235,6 +237,19 @@ class ScreenAccessManager(object):
                 log.error("Can't check if options %s in section %s has been changed due to config file syntax error.",
                           option_name, screen_name)
             return False
+
+    def update_config_file_state(self):
+        """Synchornize user interaction config file state.
+
+        At the moment this means simply checking if post installation setup tools should
+        be enabled/disabled based on kickstart and state of the Services module.
+
+        It is assumed this method will be called at an appropriate time before the config
+        file is written out to the target system.
+        """
+        services_proxy = SERVICES.get_proxy()
+        if services_proxy.SetupOnBoot == SETUP_ON_BOOT_DISABLED:
+            self.post_install_tools_disabled = True
 
 sam = None
 
