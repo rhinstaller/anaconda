@@ -24,7 +24,7 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
-    DeviceFormatData
+    DeviceFormatData, OSData
 from pyanaconda.storage.utils import get_required_device_size
 
 log = get_module_logger(__name__)
@@ -264,3 +264,26 @@ class DeviceTreeViewer(ABC):
         """
         device = self._get_device(name)
         return device.fstab_spec
+
+    def get_existing_systems(self):
+        """"Get existing GNU/Linux installations.
+
+        :return: a list of data about found installations
+        """
+        return list(map(self._get_os_data, self.storage.roots))
+
+    def _get_os_data(self, root):
+        """Get the OS data.
+
+        :param root: an instance of Root
+        :return: an instance of OSData
+        """
+        data = OSData()
+        data.os_name = root.name or ""
+        data.swap_devices = [
+            device.name for device in root.swaps
+        ]
+        data.mount_points = {
+            path: device.name for path, device in root.mounts.items()
+        }
+        return data

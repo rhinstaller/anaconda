@@ -81,3 +81,12 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         :return: a list of device names
         """
         return self.implementation.find_mountable_partitions()
+
+    def FindExistingSystemsWithTask(self) -> ObjPath:
+        """"Find existing GNU/Linux installations.
+
+        The task will update data about existing installations.
+
+        :return: a path to the task
+        """
+        return self.implementation.find_existing_systems_with_task()

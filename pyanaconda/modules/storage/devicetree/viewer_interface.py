@@ -22,7 +22,7 @@ from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_VIEWER
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
-    DeviceFormatData
+    DeviceFormatData, OSData
 
 __all__ = ["DeviceTreeViewerInterface"]
 
@@ -143,3 +143,10 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         :return: a device specifier for /etc/fstab
         """
         return self.implementation.get_fstab_spec(name)
+
+    def GetExistingSystems(self) -> List[Structure]:
+        """"Get existing GNU/Linux installations.
+
+        :return: a list of data about found installations
+        """
+        return OSData.to_structure_list(self.implementation.get_existing_systems())
