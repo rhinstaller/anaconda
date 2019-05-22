@@ -24,7 +24,8 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_HANDLER
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask
+from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
+    MountExistingSystemTask
 from pyanaconda.storage.utils import find_optical_media, find_mountable_partitions, unlock_device
 
 log = get_module_logger(__name__)
@@ -146,3 +147,21 @@ class DeviceTreeHandler(ABC):
         :param roots: a list of found OS installations
         """
         self.storage.roots = roots
+
+    def mount_existing_system_with_task(self, sysroot, device_name, read_only):
+        """Mount existing GNU/Linux installation.
+
+        :param sysroot: a path to the root of the system
+        :param device_name: a name of the root device
+        :param read_only: mount the system in read-only mode
+        :return: a path to the task
+        """
+        task = MountExistingSystemTask(
+            storage=self.storage,
+            sysroot=sysroot,
+            device=self._get_device(device_name),
+            read_only=read_only
+        )
+
+        path = self.publish_task(DEVICE_TREE_HANDLER.namespace, task)
+        return path

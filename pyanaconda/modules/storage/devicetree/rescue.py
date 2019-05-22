@@ -17,10 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.storage.root import find_existing_installations
+from pyanaconda.storage.root import find_existing_installations, mount_existing_system
 from pyanaconda.modules.common.task import Task
 
-__all__ = ["FindExistingSystemsTask"]
+__all__ = ["FindExistingSystemsTask", "MountExistingSystemTask"]
 
 
 class FindExistingSystemsTask(Task):
@@ -44,3 +44,34 @@ class FindExistingSystemsTask(Task):
         :return: a list of data about found systems
         """
         return find_existing_installations(devicetree=self._devicetree)
+
+
+class MountExistingSystemTask(Task):
+    """A task to mount an existing GNU/Linux installation."""
+
+    def __init__(self, storage, sysroot, device, read_only):
+        """Create a new task.
+
+        :param storage: an instance of the Blivet's storage
+        :param sysroot: a path to the root of the system
+        :param device: a root device of the system
+        :param read_only: mount the system in read-only mode
+        """
+        super().__init__()
+        self._storage = storage
+        self._sysroot = sysroot
+        self._device = device
+        self._read_only = read_only
+
+    @property
+    def name(self):
+        return "Mount an existing operating system"
+
+    def run(self):
+        """Run the task."""
+        mount_existing_system(
+            storage=self._storage,
+            root_device=self._device,
+            read_only=self._read_only,
+            sysroot=self._sysroot
+        )
