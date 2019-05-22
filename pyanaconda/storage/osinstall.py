@@ -82,6 +82,7 @@ def enable_installer_mode():
     # into the *host's* /etc/lvm. This can get real messy on build systems.
     if blivet_flags.image_install:
         blivet_flags.lvm_metadata_backup = False
+        blivet_flags.protect_cdroms = True
 
     blivet_flags.auto_dev_updates = True
     blivet_flags.selinux_reset_fcon = True
