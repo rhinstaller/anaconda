@@ -205,19 +205,12 @@ class Rescue(object):
         """Mounts selected root and runs scripts."""
         # mount root fs
         try:
-            mount_existing_system(self._storage.fsset, root.device, read_only=self.ro)
+            mount_existing_system(self._storage, root.device, read_only=self.ro)
             log.info("System has been mounted under: %s", util.getSysroot())
         except StorageError as e:
             log.error("Mounting system under %s failed: %s", util.getSysroot(), e)
             self.status = RescueModeStatus.MOUNT_FAILED
             return False
-
-        # turn on swap
-        if not conf.target.is_image or not self.ro:
-            try:
-                self._storage.turn_on_swap()
-            except StorageError:
-                log.error("Error enabling swap.")
 
         # turn on selinux also
         if conf.security.selinux:
@@ -243,7 +236,6 @@ class Rescue(object):
 
         # make resolv.conf in chroot
         if not self.ro:
-            self._storage.make_mtab()
             try:
                 makeResolvConf(util.getSysroot())
             except(OSError, IOError) as e:
