@@ -50,6 +50,10 @@ if not productArch and productStamp.index(".") != -1:           # pylint: disabl
     productArch = productStamp[productStamp.index(".") + 1:]      # pylint: disable=no-member
 if productVersion == "development":
     productVersion = "rawhide"
+# 8.0.X -> 8.0
+if productVersion.count('.') >= 2:
+    productVersion = '.'.join(productVersion.split('.')[:2])
+
 
 def distributionText():
     return _("%(productName)s %(productVersion)s INSTALLATION") % \
