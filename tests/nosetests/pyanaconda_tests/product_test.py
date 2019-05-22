@@ -25,6 +25,7 @@ from textwrap import dedent
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
 from pyanaconda.core.configuration.base import ConfigurationError
 from pyanaconda.core.configuration.product import ProductLoader
+from pyanaconda.product import trim_product_version_for_ui
 
 PRODUCT_DIR = os.path.join(os.environ.get("ANACONDA_DATA"), "product.d")
 
@@ -276,3 +277,18 @@ class ProductConfigurationTestCase(unittest.TestCase):
             self.assertTrue(self._loader.check_product("My Product 1"))
             self.assertFalse(self._loader.check_product("My Product 2"))
             self.assertFalse(self._loader.check_product("My Product 3"))
+
+
+class ProductFromBuildstampTests(unittest.TestCase):
+
+    def trim_product_version_for_ui_test(self):
+        trimmed_versions = [
+            ("8.0.0", "8.0"),
+            ("rawhide", "rawhide"),
+            ("7.6", "7.6"),
+            ("7", "7"),
+            ("8.0.0.1", "8.0"),
+        ]
+
+        for original, trimmed in trimmed_versions:
+            self.assertEqual(trimmed, trim_product_version_for_ui(original))
