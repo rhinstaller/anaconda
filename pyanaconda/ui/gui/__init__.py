@@ -709,6 +709,11 @@ class GraphicalUserInterface(UserInterface):
 
         # Get the primary monitor dimensions in pixels and mm from Gdk
         primary_monitor = display.get_primary_monitor()
+
+        # It can be None if no primary monitor is configured by the user.
+        if not primary_monitor:
+            return
+
         monitor_geometry = primary_monitor.get_geometry()
         monitor_scale = primary_monitor.get_scale_factor()
         monitor_width_mm = primary_monitor.get_width_mm()
