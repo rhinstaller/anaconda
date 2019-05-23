@@ -103,9 +103,7 @@ def _df_map():
     lines = output.splitlines()
     structured = {}
     for line in lines:
-        items = line.split()
-        key = items[0]
-        val = items[1]
+        key, val = line.rsplit(maxsplit=1)
         if not key.startswith('/'):
             continue
         structured[key] = Size(int(val) * 1024)
