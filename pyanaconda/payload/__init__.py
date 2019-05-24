@@ -1164,10 +1164,8 @@ class PackagePayload(Payload):
                     raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
 
         # Check to see if the device is already mounted, in which case
-        # we don't need to mount it again
-        elif method.method == "cdrom" and blivet.util.get_mount_paths(device.path):
-            return
-        else:
+        # we don't need to mount it again so skip this part
+        elif not (method.method == "cdrom" and INSTALL_TREE in blivet.util.get_mount_paths(device.path)):
             device.format.setup(mountpoint=INSTALL_TREE)
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
