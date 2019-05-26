@@ -22,7 +22,6 @@ from abc import ABCMeta, abstractproperty
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, SETUP_ON_BOOT_RECONFIG
 from pyanaconda.modules.common.constants.services import SERVICES
-from pyanaconda import screen_access
 from pyanaconda.core.util import collect
 from pyanaconda.core.signal import Signal
 from pyanaconda import lifecycle
@@ -223,7 +222,6 @@ class Spoke(object, metaclass=ABCMeta):
 
         # connect default callbacks for the signals
         self.entered.connect(self.entry_logger)
-        self.entered.connect(self._mark_screen_visited)
         self.exited.connect(self.exit_logger)
 
     @abstractproperty
@@ -327,11 +325,6 @@ class Spoke(object, metaclass=ABCMeta):
            when the Spoke becomes ready.
         """
         raise NotImplementedError
-
-
-    def _mark_screen_visited(self, spoke_instance):
-        """Report the spoke screen as visited to the Spoke Access Manager."""
-        screen_access.sam.mark_screen_visited(spoke_instance.__class__.__name__)
 
     def entry_logger(self, spoke_instance):
         """Log immediately before this spoke is about to be displayed on the
