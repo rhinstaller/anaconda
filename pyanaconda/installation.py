@@ -40,7 +40,6 @@ from pyanaconda import flags
 from pyanaconda.core import util
 from pyanaconda import timezone
 from pyanaconda import network
-from pyanaconda import screen_access
 from pyanaconda.core.i18n import N_
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
@@ -112,11 +111,6 @@ def doConfiguration(storage, payload, ksdata):
     for dbus_task in services_dbus_tasks:
         task_proxy = SERVICES.get_proxy(dbus_task)
         os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
-
-    # The user interaction config file needs to be synchronized with
-    # current state of the Services module.
-    os_config.append(Task("Synchronize user interaction config file state",
-                     screen_access.sam.update_config_file_state))
 
     os_config.append(Task("Configure keyboard", ksdata.keyboard.execute))
     os_config.append(Task("Configure timezone", ksdata.timezone.execute))
@@ -211,18 +205,6 @@ def doConfiguration(storage, payload, ksdata):
     else:
        # write anaconda related configs & kickstarts
         write_configs.append(Task("Store kickstarts", _writeKS, (ksdata,)))
-
-    # Write out the user interaction config file.
-    #
-    # But make sure it's not written out in the image and directory installation mode,
-    # as that might result in spokes being inadvertently hidden when the actual installation
-    # starts from the generate image or directory contents.
-    if conf.target.is_image:
-        log.info("Not writing out user interaction config file due to image install mode.")
-    elif conf.target.is_directory:
-        log.info("Not writing out user interaction config file due to directory install mode.")
-    else:
-        write_configs.append(Task("Store user interaction config", screen_access.sam.write_out_config_file))
 
     # only add write_configs to the main queue if we actually store some kickstarts/configs
     if write_configs.task_count:
