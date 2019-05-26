@@ -19,6 +19,7 @@
 
 from abc import ABCMeta, abstractproperty
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, SETUP_ON_BOOT_RECONFIG
 from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda import screen_access
@@ -624,10 +625,11 @@ def collect_spokes(mask_paths, category):
         # filter out any spokes from the candidates that have already been visited by the user before
         # (eq. before Anaconda or Initial Setup started) and should not be visible again
         visible_spokes = []
+        hidden_spokes = conf.ui.hidden_spokes
         for candidate in candidate_spokes:
-            if screen_access.sam.get_screen_visited(candidate.__name__):
-                log.info("Spoke %s will not be displayed because it has already been visited before.",
-                         candidate.__name__)
+            if candidate.__name__ in hidden_spokes:
+                log.info("Spoke %s will not be displayed because it is hidden by "
+                         "the Anaconda configuration file.", candidate.__name__)
             else:
                 visible_spokes.append(candidate)
         spokes.extend(visible_spokes)
