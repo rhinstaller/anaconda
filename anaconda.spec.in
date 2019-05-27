@@ -354,6 +354,28 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 27 2019 Martin Kolman <mkolman@redhat.com> - 31.13-1
+- Parse the output of df correctly (#1708701) (vponcova)
+- Skip scaling if there is no primary monitor (#1592014) (vponcova)
+- Document how to report a bug (vponcova)
+- Handle post inst tools toggling in screen access manager (mkolman)
+- Fix a typo in Initial Setup configuration task (mkolman)
+- Remove methods _setup_mount_data and _process_mount_data (vponcova)
+- Rename MountPoint to MountPointRequest (vponcova)
+- Add tests for the storage checker module (vponcova)
+- Add DBus support for setting a constraint (vponcova)
+- Don't check the storage in a separate thread (vponcova)
+- Remove HMC from flags (jkonecny)
+- Rename the method add_new_constraint (vponcova)
+- Rename the method add_constraint (vponcova)
+- Remove the update_constraint method (vponcova)
+- Create the DBus module for the storage checker (vponcova)
+- Use MountPoint in TUI (vponcova)
+- Use MountPoint in ManualPartitioningTask (vponcova)
+- Use MountPoint in tests (vponcova)
+- Use MountPoint as DBus structure (vponcova)
+- Cleanup long removed "headless" option from docs (mkolman)
+
 * Wed May 15 2019 Martin Kolman <mkolman@redhat.com> - 31.12-1
 - Fix condition for running GUI User spoke in Initial Setup (mkolman)
 - Expose individual user group, user and root password DBus tasks (mkolman)
