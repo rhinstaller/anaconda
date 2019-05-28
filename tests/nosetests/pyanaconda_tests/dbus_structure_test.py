@@ -181,6 +181,25 @@ class DBusStructureTestCase(unittest.TestCase):
         self.assertEqual(data[1].x, 2)
         self.assertEqual(data[2].x, 3)
 
+    def compare_simple_structure_test(self):
+        data = self.SimpleData()
+
+        self.assertEqual(data, data)
+        self.assertEqual(data, self.SimpleData())
+
+        self.assertNotEqual(data, None)
+        self.assertNotEqual(None, data)
+
+        self.assertEqual(
+            self.SimpleData.from_structure({'x': 10}),
+            self.SimpleData.from_structure({'x': 10})
+        )
+
+        self.assertNotEqual(
+            self.SimpleData.from_structure({'x': 10}),
+            self.SimpleData.from_structure({'x': 9})
+        )
+
     class OtherData(DBusData):
 
         def __init__(self):
@@ -269,6 +288,56 @@ class DBusStructureTestCase(unittest.TestCase):
         self.assertEqual(data.bool_list, [True, False, False])
         self.assertEqual(data.very_long_property_name, "My String Value")
 
+    def compare_complicated_structure_test(self):
+        self.assertEqual(
+            self.ComplicatedData(),
+            self.ComplicatedData(),
+        )
+
+        self.assertNotEqual(
+            self.ComplicatedData(),
+            self.SimpleData()
+        )
+
+        self.assertNotEqual(
+            self.SimpleData(),
+            self.ComplicatedData()
+        )
+
+        self.assertEqual(
+            self.ComplicatedData.from_structure(
+                {
+                    'dictionary': {1: "1", 2: "2"},
+                    'bool-list': [True, False, False],
+                    'very-long-property-name': "My String Value"
+                }
+            ),
+            self.ComplicatedData.from_structure(
+                {
+                    'dictionary': {1: "1", 2: "2"},
+                    'bool-list': [True, False, False],
+                    'very-long-property-name': "My String Value"
+                }
+            )
+        )
+
+        self.assertNotEqual(
+            self.ComplicatedData.from_structure(
+                {
+                    'dictionary': {1: "1", 2: "2"},
+                    'bool-list': [True, False, False],
+                    'very-long-property-name': "My String Value"
+                }
+            ),
+            self.ComplicatedData.from_structure(
+                {
+                    'dictionary': {1: "1", 2: "2"},
+                    'bool-list': [True, False, True],
+                    'very-long-property-name': "My String Value"
+                }
+            )
+        )
+
     class StringData(DBusData):
 
         def __init__(self):
@@ -351,7 +420,7 @@ class DBusStructureTestCase(unittest.TestCase):
             return generate_string_from_data(
                 obj=self,
                 skip=["b"],
-                add=["b_is_set={}".format(bool(self.b))]
+                add={"b_is_set": bool(self.b)}
             )
 
     def advanced_string_representation_test(self):
