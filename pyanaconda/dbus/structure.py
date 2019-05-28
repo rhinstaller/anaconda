@@ -22,7 +22,7 @@ from typing import get_type_hints
 
 from pyanaconda.dbus.typing import get_variant, Structure, Dict, List
 
-__all__ = ["DBusStructureError", "generate_string_from_data", "DBusData"]
+__all__ = ["DBusStructureError", "generate_string_from_data", "DBusData", "compare_data"]
 
 
 # Class attribute for DBus fields.
@@ -181,10 +181,6 @@ class DBusData(ABC):
     def __repr__(self):
         """Convert this data object to a string."""
         return generate_string_from_data(self)
-
-    def __eq__(self, other):
-        """Compare data of the data objects."""
-        return compare_data(self, other)
 
 
 def get_fields(obj):
