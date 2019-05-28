@@ -274,3 +274,65 @@ class DeviceActionData(DBusData):
     @description.setter
     def description(self, text):
         self._description = text
+
+
+class OSData(DBusData):
+    """Data of an existing OS installation."""
+
+    def __init__(self):
+        self._os_name = ""
+        self._mount_points = {}
+        self._swap_devices = []
+
+    @property
+    def os_name(self) -> Str:
+        """Name of the OS.
+
+        :return: a string with name
+        """
+        return self._os_name
+
+    @os_name.setter
+    def os_name(self, name: Str):
+        self._os_name = name
+
+    @property
+    def mount_points(self) -> Dict[Str, Str]:
+        """Mount points.
+
+        :return: a dictionary of mount points and device names
+        """
+        return self._mount_points
+
+    @mount_points.setter
+    def mount_points(self, mount_points: Dict[Str, Str]):
+        self._mount_points = mount_points
+
+    @property
+    def swap_devices(self) -> List[Str]:
+        """Swap devices.
+
+        :return: a list of device names
+        """
+        return self._swap_devices
+
+    @swap_devices.setter
+    def swap_devices(self, devices: List[Str]):
+        self._swap_devices = devices
+
+    def get_root_device(self):
+        """Get the root device.
+
+        :return: a device name or None
+        """
+        return self.mount_points.get("/")
+
+    def get_devices(self):
+        """Get all devices.
+
+        :return: a list of device names
+        """
+        devices = []
+        devices.extend(self.swap_devices)
+        devices.extend(self.mount_points.values())
+        return devices

@@ -437,10 +437,11 @@ class InstallerStorage(Blivet):
     def create_swap_file(self, device, size):
         self.fsset.create_swap_file(device, size)
 
-    def make_mtab(self):
+    def make_mtab(self, chroot=None):
         path = "/etc/mtab"
         target = "/proc/self/mounts"
-        path = os.path.normpath("%s/%s" % (util.getSysroot(), path))
+        chroot = chroot or util.getSysroot()
+        path = os.path.normpath("%s/%s" % (chroot, path))
 
         if os.path.islink(path):
             # return early if the mtab symlink is already how we like it

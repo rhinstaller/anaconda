@@ -20,7 +20,12 @@
 from abc import abstractmethod, ABC
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.dbus import DBus
+from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_HANDLER
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
+from pyanaconda.modules.common.task import TaskInterface
+from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
+    MountExistingSystemTask
 from pyanaconda.storage.utils import find_optical_media, find_mountable_partitions, unlock_device
 
 log = get_module_logger(__name__)
@@ -49,6 +54,18 @@ class DeviceTreeHandler(ABC):
         :raise: UnknownDeviceError if no device is found
         """
         raise UnknownDeviceError(name)
+
+    @abstractmethod
+    def publish_task(self, namespace, task, interface=TaskInterface, message_bus=DBus):
+        """Publish a task.
+
+        :param namespace: a DBus namespace
+        :param task: an instance of task
+        :param interface: an interface class
+        :param message_bus: a message bus
+        :return: a DBus path of the published task
+        """
+        raise NotImplementedError()
 
     def setup_device(self, device_name):
         """Open, or set up, a device.
@@ -109,3 +126,42 @@ class DeviceTreeHandler(ABC):
         """
         devices = find_mountable_partitions(self.storage.devicetree)
         return [d.name for d in devices]
+
+    def find_existing_systems_with_task(self):
+        """"Find existing GNU/Linux installations.
+
+        The task will update data about existing installations.
+
+        :return: a path to the task
+        """
+        task = FindExistingSystemsTask(self.storage.devicetree)
+        task.succeeded_signal.connect(
+            lambda: self._update_existing_systems(task.get_result())
+        )
+        path = self.publish_task(DEVICE_TREE_HANDLER.namespace, task)
+        return path
+
+    def _update_existing_systems(self, roots):
+        """Update existing GNU/Linux installations.
+
+        :param roots: a list of found OS installations
+        """
+        self.storage.roots = roots
+
+    def mount_existing_system_with_task(self, sysroot, device_name, read_only):
+        """Mount existing GNU/Linux installation.
+
+        :param sysroot: a path to the root of the system
+        :param device_name: a name of the root device
+        :param read_only: mount the system in read-only mode
+        :return: a path to the task
+        """
+        task = MountExistingSystemTask(
+            storage=self.storage,
+            sysroot=sysroot,
+            device=self._get_device(device_name),
+            read_only=read_only
+        )
+
+        path = self.publish_task(DEVICE_TREE_HANDLER.namespace, task)
+        return path

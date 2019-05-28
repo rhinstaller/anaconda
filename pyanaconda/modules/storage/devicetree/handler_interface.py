@@ -81,3 +81,22 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         :return: a list of device names
         """
         return self.implementation.find_mountable_partitions()
+
+    def FindExistingSystemsWithTask(self) -> ObjPath:
+        """"Find existing GNU/Linux installations.
+
+        The task will update data about existing installations.
+
+        :return: a path to the task
+        """
+        return self.implementation.find_existing_systems_with_task()
+
+    def MountExistingSystemWithTask(self, sysroot: Str, device_name: Str, read_only: Bool) -> ObjPath:
+        """Mount existing GNU/Linux installation.
+
+        :param sysroot: a path to the root of the system
+        :param device_name: a name of the root device
+        :param read_only: mount the system in read-only mode
+        :return: a path to the task
+        """
+        return self.implementation.mount_existing_system_with_task(sysroot, device_name, read_only)

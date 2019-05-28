@@ -31,9 +31,13 @@ from blivet.size import Size
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
+from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
+from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
+    MountExistingSystemTask
 from pyanaconda.storage.initialization import create_storage
+from pyanaconda.storage.root import Root
 
 
 class DeviceTreeInterfaceTestCase(unittest.TestCase):
@@ -374,3 +378,87 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test GetFstabSpec."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4", uuid="123")))
         self.assertEqual(self.interface.GetFstabSpec("dev1"), "UUID=123")
+
+    def get_existing_systems_test(self):
+        """Test GetExistingSystems."""
+        self.assertEqual(self.interface.GetExistingSystems(), [])
+
+        root_device = StorageDevice("dev1", fmt=get_format("ext4"))
+        swap_device = StorageDevice("dev2", fmt=get_format("swap"))
+
+        self.storage.roots = [Root(
+            name="My Linux",
+            mounts={"/": root_device},
+            swaps=[swap_device]
+        )]
+
+        self.assertEqual(self.interface.GetExistingSystems(), [{
+            'os-name': get_variant(Str, 'My Linux'),
+            'mount-points': get_variant(Dict[Str, Str], {'/': 'dev1'}),
+            'swap-devices': get_variant(List[Str], ['dev2'])
+        }])
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def find_existing_systems_with_task_test(self, publisher):
+        """Test FindExistingSystemsWithTask."""
+        task_path = self.interface.FindExistingSystemsWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, FindExistingSystemsTask)
+        self.assertEqual(obj.implementation._devicetree, self.module.storage.devicetree)
+
+        roots = [Root(name="My Linux")]
+        obj.implementation._set_result(roots)
+        obj.implementation.succeeded_signal.emit()
+        self.assertEqual(self.storage.roots, roots)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def mount_existing_system_with_task_test(self, publisher):
+        """Test MountExistingSystemWithTask."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            task_path = self.interface.MountExistingSystemWithTask(sysroot, "dev1", True)
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, MountExistingSystemTask)
+        self.assertEqual(obj.implementation._storage, self.module.storage)
+        self.assertEqual(obj.implementation._sysroot, sysroot)
+        self.assertEqual(obj.implementation._device.name, "dev1")
+        self.assertEqual(obj.implementation._read_only, True)
+
+
+class DeviceTreeTasksTestCase(unittest.TestCase):
+    """Test the storage tasks."""
+
+    def find_existing_systems_test(self):
+        storage = create_storage()
+        task = FindExistingSystemsTask(storage.devicetree)
+        self.assertEqual(task.run(), [])
+
+    @patch('pyanaconda.modules.storage.devicetree.rescue.mount_existing_system')
+    def mount_existing_system_test(self, mount):
+        storage = create_storage()
+        device = StorageDevice("dev1", fmt=get_format("ext4"))
+        storage.devicetree._add_device(device)
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            task = MountExistingSystemTask(storage, sysroot, device, True)
+            task.run()
+
+        mount.assert_called_once_with(
+            storage=storage,
+            sysroot=sysroot,
+            root_device=device,
+            read_only=True
+        )

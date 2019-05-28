@@ -19,9 +19,11 @@ import os
 import shlex
 
 from blivet import util as blivet_util
+from blivet.errors import StorageError
 from blivet.storage_log import log_exception_info
 
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.storage.fsset import BlkidTab, CryptTab
 
@@ -31,11 +33,12 @@ log = get_module_logger(__name__)
 __all__ = ["mount_existing_system", "find_existing_installations", "Root"]
 
 
-def mount_existing_system(fsset, root_device, read_only=None):
+def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
     """Mount filesystems specified in root_device's /etc/fstab file."""
-    root_path = util.getSysroot()
+    root_path = sysroot or util.getSysroot()
     read_only = "ro" if read_only else ""
 
+    # Mount the root device.
     if root_device.protected and os.path.ismount("/mnt/install/isodir"):
         blivet_util.mount("/mnt/install/isodir",
                           root_path,
@@ -47,8 +50,20 @@ def mount_existing_system(fsset, root_device, read_only=None):
                                  mountpoint="/",
                                  options="%s,%s" % (root_device.format.options, read_only))
 
-    fsset.parse_fstab()
-    fsset.mount_filesystems(root_path=root_path, read_only=read_only, skip_root=True)
+    # Mount the filesystems.
+    storage.fsset.parse_fstab(chroot=root_path)
+    storage.fsset.mount_filesystems(root_path=root_path, read_only=read_only, skip_root=True)
+
+    # Turn on swap.
+    if not conf.target.is_image or not read_only:
+        try:
+            storage.fsset.turn_on_swap(root_path=sysroot)
+        except StorageError as e:
+            log.error("Error enabling swap: %s", str(e))
+
+    # Generate mtab.
+    if not read_only:
+        storage.make_mtab(chroot=root_path)
 
 
 def find_existing_installations(devicetree, teardown_all=True):
