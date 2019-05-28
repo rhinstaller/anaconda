@@ -44,6 +44,7 @@ from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
+from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.storage.initialization import enable_installer_mode, create_storage
 
@@ -294,7 +295,7 @@ class StorageModule(KickstartModule):
         FIXME: This is a simplified version of the storage installation.
 
         :param sysroot: a path to the root of the installed system
-        :returns: list of object paths of installation tasks.
+        :returns: list of object paths of installation tasks
         """
         storage = self.storage
 
@@ -302,6 +303,24 @@ class StorageModule(KickstartModule):
             ActivateFilesystemsTask(storage),
             MountFilesystemsTask(storage),
             WriteConfigurationTask(storage, sysroot)
+        ]
+
+        paths = [
+            self.publish_task(STORAGE.namespace, task) for task in tasks
+        ]
+
+        return paths
+
+    def teardown_with_tasks(self):
+        """Returns teardown tasks for this module.
+
+        :return: a list of DBus paths of the installation tasks
+        """
+        storage = self.storage
+
+        tasks = [
+            UnmountFilesystemsTask(storage),
+            TeardownDiskImagesTask(storage)
         ]
 
         paths = [

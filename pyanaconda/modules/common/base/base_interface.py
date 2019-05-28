@@ -127,9 +127,16 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         """Returns installation tasks of this module.
 
         :param sysroot: a path to the root of the installed system
-        :returns: list of object paths of installation tasks.
+        :returns: list of object paths of installation tasks
         """
         return self.implementation.install_with_tasks(sysroot)
+
+    def TeardownWithTasks(self) -> List[ObjPath]:
+        """Returns teardown tasks for this module.
+
+        :returns: list of object paths of installation tasks
+        """
+        return self.implementation.teardown_with_tasks()
 
     def Quit(self):
         """Shut the module down."""
