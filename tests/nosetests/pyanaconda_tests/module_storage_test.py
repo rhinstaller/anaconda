@@ -615,7 +615,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --passphrase="123456"
         """
         ks_out = """
-        autopart --encrypted --passphrase="123456"
+        autopart --encrypted
         """
         self._test_kickstart(ks_in, ks_out)
 

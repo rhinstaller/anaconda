@@ -134,7 +134,10 @@ class AutoPartitioningModule(PartitioningModule):
         data.autopart.noswap = self.noswap
 
         data.autopart.encrypted = self.encrypted
-        data.autopart.passphrase = self.passphrase
+
+        # Don't generate sensitive information.
+        data.autopart.passphrase = ""
+
         data.autopart.luks_version = self.luks_version
         data.autopart.pbkdf = self.pbkdf
         data.autopart.pbkdf_memory = self.pbkdf_memory
