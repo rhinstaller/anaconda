@@ -24,6 +24,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_HANDLER
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.task import TaskInterface
+from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
     MountExistingSystemTask
 from pyanaconda.storage.utils import find_optical_media, find_mountable_partitions, unlock_device
@@ -110,6 +111,17 @@ class DeviceTreeHandler(ABC):
         """
         device = self._get_device(device_name)
         return unlock_device(self.storage, device, passphrase)
+
+    def find_devices_with_task(self):
+        """Find new devices.
+
+        The task will populate the device tree with new devices.
+
+        :return: a path to the task
+        """
+        task = FindDevicesTask(self.storage.devicetree)
+        path = self.publish_task(DEVICE_TREE_HANDLER.namespace, task)
+        return path
 
     def find_optical_media(self):
         """Find all devices with mountable optical media.

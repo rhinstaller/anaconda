@@ -19,7 +19,7 @@
 #
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
     LUKSDevice
@@ -34,6 +34,7 @@ from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
+from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
     MountExistingSystemTask
 from pyanaconda.storage.initialization import create_storage
@@ -437,6 +438,20 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._device.name, "dev1")
         self.assertEqual(obj.implementation._read_only, True)
 
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def find_devices_with_task_test(self, publisher):
+        """Test FindDevicesWithTask."""
+        task_path = self.interface.FindDevicesWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, FindDevicesTask)
+        self.assertEqual(obj.implementation._devicetree, self.module.storage.devicetree)
+
 
 class DeviceTreeTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""
@@ -462,3 +477,11 @@ class DeviceTreeTasksTestCase(unittest.TestCase):
             root_device=device,
             read_only=True
         )
+
+    def find_devices_test(self):
+        storage = Mock()
+
+        task = FindDevicesTask(storage.devicetree)
+        task.run()
+
+        storage.devicetree.populate.assert_called_once_with()
