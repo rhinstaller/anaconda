@@ -1369,8 +1369,7 @@ class DNFPayload(Payload):
             if not iso_device:
                 raise PayloadSetupError("device for HDISO install %s does not exist" % dev_spec)
 
-            self._setup_media(iso_device)
-            url = "file://" + INSTALL_TREE
+            url = self._setup_media(iso_device)
             self.install_device = iso_device
 
         return url
@@ -1520,8 +1519,7 @@ class DNFPayload(Payload):
             if self.install_device:
                 if not method.method:
                     method.method = "cdrom"
-                self._setup_media(self.install_device)
-                url = "file://" + INSTALL_TREE
+                url = self._setup_media(self.install_device)
             elif method.method == "cdrom":
                 raise PayloadSetupError("no usable optical media found")
 
@@ -1538,11 +1536,14 @@ class DNFPayload(Payload):
 
                 try:
                     self._setup_install_tree(device, method.dir, INSTALL_TREE)
+                    return "file://" + INSTALL_TREE + method.dir
                 except PayloadSetupError as ex:
                     log.error(str(ex))
                     raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
         elif not (method.method == "cdrom" and self._device_is_mounted_as_source(device)):
             payload_utils.mount_device(device, INSTALL_TREE)
+
+        return "file://" + INSTALL_TREE
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
         """Find and mount installation source from ISO on device.
