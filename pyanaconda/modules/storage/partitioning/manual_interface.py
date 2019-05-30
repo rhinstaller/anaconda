@@ -60,3 +60,14 @@ class ManualPartitioningInterface(PartitioningInterface):
         :param requests: a list of requests
         """
         self.implementation.set_requests(MountPointRequest.from_structure_list(requests))
+
+    def GatherRequests(self) -> List[Structure]:
+        """Gather all mount point requests.
+
+        Return mount point requests for all usable devices. If there is
+        a defined request for the given device, we will use it. Otherwise,
+        we will generate a new request.
+
+        :return: a list of requests
+        """
+        return MountPointRequest.to_structure_list(self.implementation.gather_requests())

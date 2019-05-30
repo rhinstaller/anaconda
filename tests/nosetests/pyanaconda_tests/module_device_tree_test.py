@@ -182,6 +182,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetFormatData("dev1"), {
             'type': get_variant(Str, 'ext4'),
+            'mountable': get_variant(Bool, True),
             'attrs': get_variant(Dict[Str, Str], {
                 "uuid": "1234-56-7890",
                 "label": "LABEL",
@@ -196,8 +197,18 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetFormatData("dev2"), {
             'type': get_variant(Str, 'luks'),
+            'mountable': get_variant(Bool, False),
             'attrs': get_variant(Dict[Str, Str], {}),
             'description': get_variant(Str, 'LUKS'),
+        })
+
+    def get_format_type_data_test(self):
+        """Test GetFormatTypeData."""
+        self.assertEqual(self.interface.GetFormatTypeData("swap"), {
+            'type': get_variant(Str, 'swap'),
+            'mountable': get_variant(Bool, False),
+            'attrs': get_variant(Dict[Str, Str], {}),
+            'description': get_variant(Str, 'swap'),
         })
 
     def get_actions_test(self):
@@ -219,6 +230,17 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'device-name': get_variant(Str, 'dev1'),
             'description': get_variant(Str, 'destroy device'),
         }])
+
+    def get_supported_file_systems_test(self):
+        """Test GetSupportedFileSystems."""
+        result = self.interface.GetSupportedFileSystems()
+        self.assertIsInstance(result, list)
+        self.assertNotEqual(len(result), 0)
+
+        for fs in result:
+            fmt = get_format(fs)
+            self.assertIsInstance(fs, str)
+            self.assertIsNotNone(fmt.type)
 
     def get_required_device_size_test(self):
         """Test GetRequiredDeviceSize."""

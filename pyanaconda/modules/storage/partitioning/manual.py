@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
@@ -118,6 +120,81 @@ class ManualPartitioningModule(PartitioningModule):
         self._requests = requests
         self.requests_changed.emit()
         log.debug("Requests are set to '%s'.", requests)
+
+    def gather_requests(self):
+        """Gather all mount point requests.
+
+        Return mount point requests for all usable devices. If there is
+        a defined request for the given device, we will use it. Otherwise,
+        we will generate a new request.
+
+        :return: a list of instances of MountPointRequest
+        """
+        available_requests = set(self.requests)
+        requests = []
+
+        for device in self._iterate_usable_devices():
+            # Find an existing request.
+            request = self._find_request_for_device(device, available_requests)
+
+            # And use it only once.
+            if request:
+                available_requests.remove(request)
+            # Otherwise, create a new request.
+            else:
+                request = self._create_request_for_device(device)
+
+            # Add the request for this device.
+            requests.append(request)
+
+        return requests
+
+    def _iterate_usable_devices(self):
+        """Iterate over all usable devices.
+
+        :return: an iterator over Blivet's devices
+        """
+        selected_disks = set(self._selected_disks)
+
+        for device in self.storage.devicetree.leaves:
+            # Is the device usable?
+            if device.protected or device.size == Size(0):
+                continue
+
+            # All device's disks have to be in selected disks.
+            if selected_disks and not selected_disks.issuperset({d.name for d in device.disks}):
+                continue
+
+            yield device
+
+    def _find_request_for_device(self, device, requests):
+        """Find a mount point request for the given device.
+
+        :param device: a Blivet's device object
+        :param requests: a list of requests to search
+        :return: an instance of MountPointRequest or None
+        """
+        for request in requests:
+            if device is self.storage.devicetree.resolve_device(request.device_spec):
+                return request
+
+        return None
+
+    def _create_request_for_device(self, device):
+        """Create a mount point request for the given device.
+
+        :param device: a Blivet's device object
+        :return: an instance of MountPointRequest
+        """
+        request = MountPointRequest()
+        request.device_spec = device.path
+        request.format_type = device.format.type or ""
+        request.reformat = False
+
+        if device.format.mountable and device.format.mountpoint:
+            request.mount_point = device.format.mountpoint
+
+        return request
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""

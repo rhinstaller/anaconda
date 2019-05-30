@@ -19,13 +19,14 @@
 #
 from abc import abstractmethod, ABC
 
+from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
     DeviceFormatData, OSData
-from pyanaconda.storage.utils import get_required_device_size
+from pyanaconda.storage.utils import get_required_device_size, get_supported_filesystems
 
 log = get_module_logger(__name__)
 
@@ -108,21 +109,39 @@ class DeviceTreeViewer(ABC):
         return data
 
     def get_format_data(self, device_name):
-        """Get the device format.
+        """Get the device format data.
 
         :param device_name: a name of the device
         :return: an instance of DeviceFormatData
         """
-        # Find the device.
         device = self._get_device(device_name)
+        return self._get_format_data(device.format)
 
+    def get_format_type_data(self, format_name):
+        """Get the format type data.
+
+        For example: ext4
+
+        :param format_name: a name of the format type
+        :return: an instance of DeviceFormatData
+        """
+        fmt = get_format(format_name)
+        return self._get_format_data(fmt)
+
+    def _get_format_data(self, fmt):
+        """Get the format data.
+
+        :param fmt: an instance of DeviceFormat
+        :return: an instance of DeviceFormatData
+        """
         # Collect the format data.
         data = DeviceFormatData()
-        data.type = device.format.type or ""
-        data.description = device.format.name or ""
+        data.type = fmt.type or ""
+        data.mountable = fmt.mountable
+        data.description = fmt.name or ""
 
         # Collect the additional attributes.
-        attrs = self._get_attributes(device.format, DeviceFormatData.SUPPORTED_ATTRIBUTES)
+        attrs = self._get_attributes(fmt, DeviceFormatData.SUPPORTED_ATTRIBUTES)
         data.attrs = attrs
 
         return data
@@ -216,6 +235,13 @@ class DeviceTreeViewer(ABC):
             return ""
 
         return device.name
+
+    def get_supported_file_systems(self):
+        """Get the supported types of filesystems.
+
+        :return: a list of filesystem names
+        """
+        return [fmt.type for fmt in get_supported_filesystems() if fmt.type]
 
     def get_required_device_size(self, required_space):
         """Get device size we need to get the required space on the device.
