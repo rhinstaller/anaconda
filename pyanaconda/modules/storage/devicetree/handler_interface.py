@@ -68,6 +68,15 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         """
         return self.implementation.unlock_device(device_name, passphrase)
 
+    def FindDevicesWithTask(self) -> ObjPath:
+        """Find new devices.
+
+        The task will populate the device tree with new devices.
+
+        :return: a path to the task
+        """
+        return self.implementation.find_devices_with_task()
+
     def FindOpticalMedia(self) -> List[Str]:
         """Find all devices with mountable optical media.
 
