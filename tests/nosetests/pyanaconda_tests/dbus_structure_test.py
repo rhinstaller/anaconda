@@ -20,7 +20,8 @@
 import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.structure import DBusData, DBusStructureError, generate_string_from_data
+from pyanaconda.dbus.structure import DBusData, DBusStructureError, generate_string_from_data, \
+    compare_data
 
 
 class DBusStructureTestCase(unittest.TestCase):
@@ -184,21 +185,21 @@ class DBusStructureTestCase(unittest.TestCase):
     def compare_simple_structure_test(self):
         data = self.SimpleData()
 
-        self.assertEqual(data, data)
-        self.assertEqual(data, self.SimpleData())
+        self.assertTrue(compare_data(data, data))
+        self.assertTrue(compare_data(data, self.SimpleData()))
 
-        self.assertNotEqual(data, None)
-        self.assertNotEqual(None, data)
+        self.assertFalse(compare_data(data, None))
+        self.assertFalse(compare_data(None, data))
 
-        self.assertEqual(
+        self.assertTrue(compare_data(
             self.SimpleData.from_structure({'x': 10}),
             self.SimpleData.from_structure({'x': 10})
-        )
+        ))
 
-        self.assertNotEqual(
+        self.assertFalse(compare_data(
             self.SimpleData.from_structure({'x': 10}),
             self.SimpleData.from_structure({'x': 9})
-        )
+        ))
 
     class OtherData(DBusData):
 
@@ -289,22 +290,22 @@ class DBusStructureTestCase(unittest.TestCase):
         self.assertEqual(data.very_long_property_name, "My String Value")
 
     def compare_complicated_structure_test(self):
-        self.assertEqual(
+        self.assertTrue(compare_data(
             self.ComplicatedData(),
             self.ComplicatedData(),
-        )
+        ))
 
-        self.assertNotEqual(
+        self.assertFalse(compare_data(
             self.ComplicatedData(),
             self.SimpleData()
-        )
+        ))
 
-        self.assertNotEqual(
+        self.assertFalse(compare_data(
             self.SimpleData(),
             self.ComplicatedData()
-        )
+        ))
 
-        self.assertEqual(
+        self.assertTrue(compare_data(
             self.ComplicatedData.from_structure(
                 {
                     'dictionary': {1: "1", 2: "2"},
@@ -319,9 +320,9 @@ class DBusStructureTestCase(unittest.TestCase):
                     'very-long-property-name': "My String Value"
                 }
             )
-        )
+        ))
 
-        self.assertNotEqual(
+        self.assertFalse(compare_data(
             self.ComplicatedData.from_structure(
                 {
                     'dictionary': {1: "1", 2: "2"},
@@ -336,7 +337,7 @@ class DBusStructureTestCase(unittest.TestCase):
                     'very-long-property-name': "My String Value"
                 }
             )
-        )
+        ))
 
     class StringData(DBusData):
 
