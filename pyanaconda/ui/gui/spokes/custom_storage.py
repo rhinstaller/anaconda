@@ -223,9 +223,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.clear_errors()
         self._unhide_unusable_disks()
 
-        # update the global passphrase
-        self._auto_part_observer.proxy.SetPassphrase(self.passphrase)
-
         # make sure any device/passphrase pairs we've obtained are remembered
         setup_passphrase(self.storage, self.passphrase)
 
@@ -440,7 +437,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._back_already_clicked = False
 
-        self.passphrase = self._auto_part_observer.proxy.Passphrase
         self._reset_storage()
         self._do_refresh()
 

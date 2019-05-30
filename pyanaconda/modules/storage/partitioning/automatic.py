@@ -425,11 +425,10 @@ class AutoPartitioningModule(PartitioningModule):
             return {}
 
         luks_version = self.luks_version or self.storage.default_luks_version
-        passphrase = self.passphrase or self.storage.encryption_passphrase
         escrow_cert = self.storage.get_escrow_certificate(self.escrowcert)
 
         return {
-            "passphrase": passphrase,
+            "passphrase": self.passphrase,
             "cipher": self.cipher,
             "luks_version": luks_version,
             "pbkdf_args": self.pbkdf_args,

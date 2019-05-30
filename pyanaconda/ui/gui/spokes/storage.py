@@ -417,8 +417,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self._initialization_mode = CLEAR_PARTITIONS_NONE
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
 
-        self.storage.encryption_passphrase = self._auto_part_observer.proxy.Passphrase
-
     @async_action_nowait
     def execute(self):
         # Spawn storage execution as a separate thread so there's no big delay

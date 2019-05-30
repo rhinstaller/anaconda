@@ -227,7 +227,6 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
     def luks_format_args_test(self):
         """Test the luks_format_args property."""
         storage = create_storage()
-        storage.encryption_passphrase = "default"
         storage._escrow_certificates["file:///tmp/escrow.crt"] = "CERTIFICATE"
         self.module.on_storage_reset(storage)
 
@@ -235,6 +234,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.module.luks_format_args, {})
 
         self.module.set_encrypted(True)
+        self.module.set_passphrase("default")
         self.assertEqual(self.module.luks_format_args, {
             "passphrase": "default",
             "cipher": "",

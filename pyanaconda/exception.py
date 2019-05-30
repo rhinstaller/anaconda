@@ -287,7 +287,6 @@ def initExceptionHandling(anaconda):
                                 "_intf.storage.bootloader.password",
                                 "_intf.storage.data",
                                 "_intf.storage.ksdata",
-                                "_intf.storage.encryption_passphrase",
                                 "_intf.data",
                                 "_bootloader.encrypted_password",
                                 "_bootloader.password",

@@ -55,7 +55,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         super().__init__(storage)
         self._data = data
         self._disk_free_space = Size(0)
-        self._default_passphrase = storage.encryption_passphrase
+        self._default_passphrase = None
 
     def _get_passphrase(self, data):
         """Get a passphrase for the given data object.
