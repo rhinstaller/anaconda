@@ -140,6 +140,14 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             "123456"
         )
 
+    def requires_passphrase_test(self):
+        """Test RequiresPassphrase."""
+        self.assertEqual(self.interface.RequiresPassphrase(), False)
+        self.interface.SetEncrypted(True)
+        self.assertEqual(self.interface.RequiresPassphrase(), True)
+        self.interface.SetPassphrase("123456")
+        self.assertEqual(self.interface.RequiresPassphrase(), False)
+
     def luks_version_property_test(self):
         """Test the luks version property."""
         self._test_dbus_property(

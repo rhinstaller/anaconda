@@ -434,9 +434,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         threadMgr.wait(constants.THREAD_DASDFMT)
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         threadMgr.wait(constants.THREAD_STORAGE)
-        if flags.automatedInstall \
-                and self._auto_part_observer.proxy.Encrypted \
-                and not self._auto_part_observer.proxy.Passphrase:
+        if flags.automatedInstall and self._auto_part_observer.proxy.RequiresPassphrase():
             self._auto_part_missing_passphrase = True
             StorageCheckHandler.errors = [_("Passphrase for autopart encryption not specified.")]
             self._ready = True

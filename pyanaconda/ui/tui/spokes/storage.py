@@ -52,8 +52,6 @@ from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.storage.initialization import reset_bootloader, reset_storage, \
     select_all_disks_by_default
 
-from pykickstart.base import BaseData
-
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
@@ -347,8 +345,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def run_passphrase_dialog(self):
         """Ask user for a default passphrase."""
-        data_without_passphrase = self._get_data_without_passphrase()
-        if not data_without_passphrase:
+        if not self._is_passphrase_required():
             return
 
         dialog = PasswordDialog(
@@ -364,37 +361,38 @@ class StorageSpoke(NormalTUISpoke):
         while passphrase is None:
             passphrase = dialog.run()
 
-        self._set_data_without_passphrase(data_without_passphrase, passphrase)
+        self._set_required_passphrase(passphrase)
 
-    def _get_data_without_passphrase(self):
-        """Collect kickstart data and DBus proxies that require a passphrase."""
-        result = []
+    def _is_passphrase_required(self):
+        """Is the default passphrase required?"""
+        if self._auto_part_observer.proxy.RequiresPassphrase():
+            return True
 
-        if self._auto_part_observer.proxy.Encrypted \
-                and not self._auto_part_observer.proxy.Passphrase:
-            result.append(self._auto_part_observer.proxy)
+        if self._find_data_without_passphrase():
+            return True
 
-        for data in self.data.partition.dataList():
-            if data.encrypted and not data.passphrase:
-                result.append(data)
+        return False
 
-        for data in self.data.logvol.dataList():
-            if data.encrypted and not data.passphrase:
-                result.append(data)
+    def _set_required_passphrase(self, passphrase):
+        """Set the required passphrase."""
+        self._auto_part_observer.proxy.SetPassphrase(passphrase)
+        self._set_data_without_passphrase(passphrase)
 
-        for data in self.data.raid.dataList():
-            if data.encrypted and not data.passphrase:
-                result.append(data)
+    def _find_data_without_passphrase(self):
+        """Collect kickstart data and DBus proxies that require a passphrase.
 
-        return result
+        FIXME: This is a temporary workaround.
+        """
+        from pyanaconda.modules.storage.partitioning.custom import CustomPartitioningModule
+        return CustomPartitioningModule._find_data_without_passphrase(self)
 
-    def _set_data_without_passphrase(self, data_without_passphrase, passphrase):
-        """Set a passphrase to the collected kickstart data and DBus proxies."""
-        for data in data_without_passphrase:
-            if isinstance(data, BaseData):
-                data.passphrase = passphrase
-            else:
-                data.SetPassphrase(passphrase)
+    def _set_data_without_passphrase(self, passphrase):
+        """Set a passphrase to the collected kickstart data.
+
+        FIXME: This is a temporary workaround.
+        """
+        from pyanaconda.modules.storage.partitioning.custom import CustomPartitioningModule
+        return CustomPartitioningModule._set_data_without_passphrase(self, passphrase)
 
     def apply(self):
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled

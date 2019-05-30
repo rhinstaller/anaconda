@@ -22,7 +22,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.objects import CUSTOM_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
-from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
+from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 
@@ -50,7 +50,7 @@ class CustomPartitioningModule(PartitioningModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(CUSTOM_PARTITIONING.object_path, PartitioningInterface(self))
+        DBus.publish_object(CUSTOM_PARTITIONING.object_path, CustomPartitioningInterface(self))
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -59,6 +59,40 @@ class CustomPartitioningModule(PartitioningModule):
 
         # FIXME: Remove this ugly hack.
         self._data.onPart = {}
+
+    def requires_passphrase(self):
+        """Is the default passphrase required?
+
+        :return: True or False
+        """
+        return bool(self._find_data_without_passphrase())
+
+    def set_passphrase(self, passphrase):
+        """Set a default passphrase for all encrypted devices.
+
+        :param passphrase: a string with a passphrase
+        """
+        self._set_data_without_passphrase(passphrase)
+
+    def _find_data_without_passphrase(self):
+        """Collect kickstart data that require a passphrase.
+
+        :return: a list of kickstart data objects
+        """
+        data_list = \
+            self.data.partition.dataList() + \
+            self.data.logvol.dataList() + \
+            self.data.raid.dataList()
+
+        return [data for data in data_list if data.encrypted and not data.passphrase]
+
+    def _set_data_without_passphrase(self, passphrase):
+        """Set up kickstart data that require a passphrase.
+
+        :param passphrase: a passphrase
+        """
+        for data in self._find_data_without_passphrase():
+            data.passphrase = passphrase
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""

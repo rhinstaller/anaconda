@@ -272,6 +272,13 @@ class AutoPartitioningModule(PartitioningModule):
         """Default passphrase for all encrypted devices."""
         return self._passphrase
 
+    def requires_passphrase(self):
+        """Is the default passphrase required?
+
+        :return: True or False
+        """
+        return self.encrypted and not self.passphrase
+
     def set_passphrase(self, passphrase):
         """Set a default passphrase for all encrypted devices.
 

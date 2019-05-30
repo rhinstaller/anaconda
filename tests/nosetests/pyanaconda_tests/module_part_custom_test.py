@@ -23,9 +23,12 @@ from unittest.mock import Mock, patch
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.partitioning import CustomPartitioningModule
-from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
+from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from pyanaconda.modules.storage.storage import StorageModule
+from pyanaconda.modules.storage.storage_interface import StorageInterface
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class CustomPartitioningInterfaceTestCase(unittest.TestCase):
@@ -34,7 +37,7 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the module."""
         self.module = CustomPartitioningModule()
-        self.interface = PartitioningInterface(self.module)
+        self.interface = CustomPartitioningInterface(self.module)
 
     def data_test(self, ):
         """Test the data property."""
@@ -76,3 +79,27 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
 
         self.assertIsInstance(obj.implementation, StorageValidateTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
+
+
+class CustomPartitioningKickstartTestCase(unittest.TestCase):
+    """Test the custom partitioning module with kickstart."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.storage_module = StorageModule()
+        self.storage_interface = StorageInterface(self.storage_module)
+
+        self.module = self.storage_module._custom_part_module
+        self.interface = CustomPartitioningInterface(self.module)
+
+    def _process_kickstart(self, ks_in):
+        check_kickstart_interface(self, self.storage_interface, ks_in)
+
+    def requires_passphrase_test(self):
+        """Test RequiresPassphrase."""
+        self._process_kickstart("part /")
+        self.assertEqual(self.interface.RequiresPassphrase(), False)
+        self._process_kickstart("part / --encrypted")
+        self.assertEqual(self.interface.RequiresPassphrase(), True)
+        self.interface.SetPassphrase("123456")
+        self.assertEqual(self.interface.RequiresPassphrase(), False)

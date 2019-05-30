@@ -59,7 +59,7 @@ class run_in_glib(object):
         return create_loop
 
 
-def check_kickstart_interface(test, interface, ks_in, ks_out, ks_valid=True, ks_tmp=None):
+def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True, ks_tmp=None):
     """Test the parsing and generating of a kickstart module.
 
     :param test: instance of TestCase
@@ -85,6 +85,9 @@ def check_kickstart_interface(test, interface, ks_in, ks_out, ks_valid=True, ks_
             test.assertIn("line_number", result)
             test.assertIn("error_message", result)
             return
+
+    if ks_out is None:
+        return
 
     # Generate a kickstart
     ks_out = dedent(ks_out).strip()
