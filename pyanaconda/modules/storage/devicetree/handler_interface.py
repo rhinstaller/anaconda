@@ -68,6 +68,24 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         """
         return self.implementation.unlock_device(device_name, passphrase)
 
+    def FindUnconfiguredLUKS(self) -> List[Str]:
+        """Find all unconfigured LUKS devices.
+
+        Returns a list of devices that require to set up
+        a passphrase to complete their configuration.
+
+        :return: a list of device names
+        """
+        return self.implementation.find_unconfigured_luks()
+
+    def SetDevicePassphrase(self, device_name: Str, passphrase: Str):
+        """Set a passphrase of the unconfigured LUKS device.
+
+        :param device_name: a name of the device
+        :param passphrase: a passphrase
+        """
+        self.implementation.set_device_passphrase(device_name, passphrase)
+
     def FindDevicesWithTask(self) -> ObjPath:
         """Find new devices.
 

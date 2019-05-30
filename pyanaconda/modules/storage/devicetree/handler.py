@@ -27,7 +27,8 @@ from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
     MountExistingSystemTask
-from pyanaconda.storage.utils import find_optical_media, find_mountable_partitions, unlock_device
+from pyanaconda.storage.utils import find_optical_media, find_mountable_partitions, unlock_device, \
+    find_unconfigured_luks
 
 log = get_module_logger(__name__)
 
@@ -111,6 +112,27 @@ class DeviceTreeHandler(ABC):
         """
         device = self._get_device(device_name)
         return unlock_device(self.storage, device, passphrase)
+
+    def find_unconfigured_luks(self):
+        """Find all unconfigured LUKS devices.
+
+        Returns a list of devices that require to set up
+        a passphrase to complete their configuration.
+
+        :return: a list of device names
+        """
+        devices = find_unconfigured_luks(self.storage)
+        return [d.name for d in devices]
+
+    def set_device_passphrase(self, device_name, passphrase):
+        """Set a passphrase for the unconfigured LUKS device.
+
+        :param device_name: a name of the device
+        :param passphrase: a passphrase
+        """
+        device = self._get_device(device_name)
+        device.format.passphrase = passphrase
+        self.storage.save_passphrase(device)
 
     def find_devices_with_task(self):
         """Find new devices.

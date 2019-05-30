@@ -417,6 +417,32 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         device_teardown.assert_called_once()
         self.assertFalse(dev2.format.has_key)
 
+    def find_unconfigured_luks_test(self):
+        """Test FindUnconfiguredLUKS."""
+        self.assertEqual(self.interface.FindUnconfiguredLUKS(), [])
+
+        dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
+        self._add_device(dev1)
+
+        self.assertEqual(self.interface.FindUnconfiguredLUKS(), [])
+
+        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("luks"), size=Size("10 GiB"))
+        self._add_device(dev2)
+
+        self.assertEqual(self.interface.FindUnconfiguredLUKS(), ["dev2"])
+
+    def set_device_passphrase_test(self):
+        """Test SetDevicePassphrase."""
+        dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
+        self._add_device(dev1)
+
+        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("luks"), size=Size("10 GiB"))
+        self._add_device(dev2)
+
+        self.assertEqual(self.interface.FindUnconfiguredLUKS(), ["dev2"])
+        self.interface.SetDevicePassphrase("dev2", "123456")
+        self.assertEqual(self.interface.FindUnconfiguredLUKS(), [])
+
     def get_fstab_spec_test(self):
         """Test GetFstabSpec."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4", uuid="123")))
