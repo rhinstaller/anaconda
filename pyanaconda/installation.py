@@ -25,8 +25,9 @@ from blivet.devices import BTRFSDevice
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, SNAPSHOT
-from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, SNAPSHOT, \
+    FIREWALL
+from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
@@ -114,7 +115,12 @@ def doConfiguration(storage, payload, ksdata):
     os_config.append(Task("Configure keyboard", ksdata.keyboard.execute))
     os_config.append(Task("Configure timezone", ksdata.timezone.execute))
     os_config.append(Task("Configure language", ksdata.lang.execute))
-    os_config.append(Task("Configure firewall", ksdata.firewall.execute))
+
+    firewall_proxy = NETWORK.get_proxy(FIREWALL)
+    firewall_dbus_task = firewall_proxy.InstallWithTask(util.getSysroot())
+    task_proxy = NETWORK.get_proxy(firewall_dbus_task)
+    os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+
     os_config.append(Task("Configure X", ksdata.xconfig.execute))
     configuration_queue.append(os_config)
 

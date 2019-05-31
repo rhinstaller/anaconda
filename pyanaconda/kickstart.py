@@ -39,8 +39,7 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
-from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, SELINUX_DEFAULT, \
-    FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
+from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, SELINUX_DEFAULT
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
@@ -381,53 +380,6 @@ class Firewall(RemovedCommand):
         firewall_proxy = NETWORK.get_proxy(FIREWALL)
         if firewall_proxy.FirewallKickstarted:
             self.packages = ["firewalld"]
-
-    def execute(self):
-        args = []
-
-        firewall_proxy = NETWORK.get_proxy(FIREWALL)
-        # If --use-system-defaults was passed then the user wants
-        # whatever was provided by the rpms or ostree to be the
-        # default, do nothing.
-        if firewall_proxy.FirewallMode == FIREWALL_USE_SYSTEM_DEFAULTS:
-            firewall_log.info("ks file instructs to use system defaults for "
-                              "firewall, skipping configuration.")
-            return
-
-        # enabled is None if neither --enable or --disable is passed
-        # default to enabled if nothing has been set.
-        if firewall_proxy.FirewallMode == FIREWALL_DISABLED:
-            args += ["--disabled"]
-        else:
-            args += ["--enabled"]
-
-        ssh_service_not_enabled = "ssh" not in firewall_proxy.EnabledServices
-        ssh_service_not_disabled = "ssh" not in firewall_proxy.DisabledServices
-        ssh_port_not_enabled = "22:tcp" not in firewall_proxy.EnabledPorts
-
-        # always enable SSH unless the service is explicitely disabled
-        if ssh_service_not_enabled and ssh_service_not_disabled and ssh_port_not_enabled:
-            args += ["--service=ssh"]
-
-        for dev in firewall_proxy.Trusts:
-            args += ["--trust=%s" % (dev,)]
-
-        for port in firewall_proxy.EnabledPorts:
-            args += ["--port=%s" % (port,)]
-
-        for remove_service in firewall_proxy.DisabledServices:
-            args += ["--remove-service=%s" % (remove_service,)]
-
-        for service in firewall_proxy.EnabledServices:
-            args += ["--service=%s" % (service,)]
-
-        cmd = "/usr/bin/firewall-offline-cmd"
-        if not os.path.exists(util.getSysroot() + cmd):
-            if firewall_proxy.FirewallMode == FIREWALL_ENABLED:
-                msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
-                raise KickstartError(msg)
-        else:
-            util.execInSysroot(cmd, args)
 
 class Iscsi(COMMANDS.Iscsi):
     def parse(self, args):
