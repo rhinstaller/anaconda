@@ -109,3 +109,8 @@ DNF_PACKAGES = DBusObjectIdentifier(
     namespace=DNF_NAMESPACE,
     basename="Packages"
 )
+
+REQUIREMENTS = DBusObjectIdentifier(
+    namespace=PAYLOAD_NAMESPACE,
+    basename="Requirements"
+)

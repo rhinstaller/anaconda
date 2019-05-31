@@ -23,6 +23,7 @@ from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
+from pyanaconda.modules.payload.requirements import RequirementsModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -34,10 +35,12 @@ class PayloadModule(KickstartModule):
     def __init__(self):
         super().__init__()
         self._payload_handler = DNFHandlerModule()
+        self._requirements_module = RequirementsModule()
 
     def publish(self):
         """Publish the module."""
         self._payload_handler.publish()
+        self._requirements_module.publish()
 
         DBus.publish_object(PAYLOAD.object_path, PayloadInterface(self))
         DBus.register_service(PAYLOAD.service_name)
