@@ -353,6 +353,21 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri May 31 2019 Martin Kolman <mkolman@redhat.com> - 31.14-1
+- Require langtable-0.0.44, drop langtable-data requirement (mfabian)
+- Extend the format data with the mountable property (vponcova)
+- Add DBus support for supported file system types (vponcova)
+- Add DBus support for getting format type data (vponcova)
+- Add DBus support for gathering mount point requests (vponcova)
+- Move tests for partitioning modules to new files (vponcova)
+- Add DBus support for populating a device tree (vponcova)
+- Don't define the __eq__ method of DBusData (vponcova)
+- Add DBus support for mounting the existing system (vponcova)
+- Extend the function mount_existing_system (vponcova)
+- Add DBus support for finding existing operating system (vponcova)
+- Simplify generate_string_from_data (vponcova)
+- Define the __eq__ method of DBusData (vponcova)
+
 * Mon May 27 2019 Martin Kolman <mkolman@redhat.com> - 31.13-1
 - Parse the output of df correctly (#1708701) (vponcova)
 - Skip scaling if there is no primary monitor (#1592014) (vponcova)
