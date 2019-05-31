@@ -137,23 +137,17 @@ class AnacondaConfiguration(Configuration):
         """"Set the configuration from the default configuration files.
 
         Read the current configuration from the temporary config file.
-        Or load the configuration from these files:
+        Or load the default configuration file from:
 
             /etc/anaconda/anaconda.conf
-            /etc/anaconda/conf.d/*.conf
 
         """
-        config_path = os.environ.get("ANACONDA_CONFIG_TMP", ANACONDA_CONFIG_TMP)
+        path = os.environ.get("ANACONDA_CONFIG_TMP", ANACONDA_CONFIG_TMP)
 
-        if config_path and os.path.exists(config_path):
-            self.read(config_path)
-        else:
-            config_path = os.path.join(ANACONDA_CONFIG_DIR, "anaconda.conf")
-            self.read(config_path)
+        if not path or not os.path.exists(path):
+            path = os.path.join(ANACONDA_CONFIG_DIR, "anaconda.conf")
 
-            config_dir = os.path.join(ANACONDA_CONFIG_DIR, "conf.d")
-            self.read_from_directory(config_dir)
-
+        self.read(path)
         self.validate()
 
     def set_from_product(self, requested_product="", requested_variant=""):
@@ -210,6 +204,29 @@ class AnacondaConfiguration(Configuration):
 
         for config_path in config_paths:
             self.read(config_path)
+
+        self.validate()
+
+    def set_from_files(self, paths=None):
+        """Set the configuration from the given files and directories.
+
+        By default, read configuration files from:
+
+            /etc/anaconda/conf.d/
+
+        :param paths: a list of paths to files and directories
+        """
+        if not paths:
+            paths = [os.path.join(ANACONDA_CONFIG_DIR, "conf.d")]
+
+        for path in paths:
+            if not path or not os.path.exists(path):
+                continue
+
+            if os.path.isdir(path):
+                self.read_from_directory(path)
+            else:
+                self.read(path)
 
         self.validate()
 
