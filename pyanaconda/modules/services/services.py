@@ -54,6 +54,9 @@ class ServicesModule(KickstartModule):
         self.setup_on_boot_changed = Signal()
         self._setup_on_boot = SetupOnBootAction.DEFAULT
 
+        self.post_install_tools_enabled_changed = Signal()
+        self._post_install_tools_enabled = True
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(SERVICES.object_path, ServicesInterface(self))
@@ -79,6 +82,17 @@ class ServicesModule(KickstartModule):
 
         setup_on_boot = self._map_firstboot(data.firstboot.firstboot)
         self.set_setup_on_boot(setup_on_boot)
+
+        # If "firstboot --disable" is present in the input kickstart
+        # then the post_install_tools_enabled property is set to False.
+        #
+        # The property state is then reflected in the user interaction config file,
+        # which is parsed by Gnome Initial Setup.
+        #
+        # This way it is possible to disable both Initial Setup and
+        # Gnome Initial Setup with a single kickstart command.
+        if data.firstboot.firstboot == FIRSTBOOT_SKIP:
+            self.set_post_install_tools_enabled(False)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -188,6 +202,36 @@ class ServicesModule(KickstartModule):
         self._setup_on_boot = value
         self.setup_on_boot_changed.emit()
         log.debug("Setup on boot is set to %s.", value)
+
+    @property
+    def post_install_tools_enabled(self):
+        """Should all post installation tools be disabled ?
+
+        If set to True both Initial Setup and Gnome Initial Setup
+        will not start after the installation.
+        :return: True if post inst tools should be disabled,
+                 False otherwise
+        :rtype: bool
+        """
+        return self._post_install_tools_enabled
+
+    def set_post_install_tools_enabled(self, post_install_tools_enabled):
+        """Set if post install tools should be disabled.
+
+        Setting this property to False will result in the post_install_tools_disabled
+        key being written to the user interaction config file with the value of 1.
+
+        Setting this property to True (the default value) will not result in the
+        post_install_tools_disabled key being written into th user interaction config file.
+
+        :param bool post_install_tools_enabled: set to False to disable post install tools
+        """
+        self._post_install_tools_enabled = post_install_tools_enabled
+        self.post_install_tools_enabled_changed.emit()
+        if self.post_install_tools_enabled:
+            log.debug("Post installation tools will be enabled.")
+        else:
+            log.debug("Post installation tools will be disabled.")
 
     def install_with_tasks(self, sysroot):
         """Return the installation tasks of this module.

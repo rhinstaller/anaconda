@@ -42,7 +42,6 @@ from threading import RLock
 from pyanaconda import startup_utils
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import SETUP_ON_BOOT_DISABLED
 from pyanaconda.modules.common.constants.services import SERVICES
 
 
@@ -248,7 +247,7 @@ class ScreenAccessManager(object):
         file is written out to the target system.
         """
         services_proxy = SERVICES.get_proxy()
-        if services_proxy.SetupOnBoot == SETUP_ON_BOOT_DISABLED:
+        if not services_proxy.PostInstallToolsEnabled:
             self.post_install_tools_disabled = True
 
 sam = None

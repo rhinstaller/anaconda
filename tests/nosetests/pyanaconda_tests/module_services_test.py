@@ -88,6 +88,23 @@ class ServicesInterfaceTestCase(unittest.TestCase):
             SERVICES.interface_name, {'SetupOnBoot': SETUP_ON_BOOT_DISABLED}, []
         )
 
+    def post_install_tools_disabled_test(self):
+        """Test the post-install-tools-enabled property."""
+        # should not be marked as disabled by default
+        self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)
+        # mark as disabled
+        self.services_interface.SetPostInstallToolsEnabled(False)
+        self.assertEqual(self.services_interface.PostInstallToolsEnabled, False)
+        self.callback.assert_called_once_with(
+            SERVICES.interface_name, {'PostInstallToolsEnabled': False}, []
+        )
+        # mark as not disabled again
+        self.services_interface.SetPostInstallToolsEnabled(True)
+        self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)
+        self.callback.assert_called_with(
+            SERVICES.interface_name, {'PostInstallToolsEnabled': True}, []
+        )
+
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.services_interface, ks_in, ks_out)
 
@@ -97,6 +114,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._test_kickstart(ks_in, ks_out)
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_DEFAULT)
+        self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)
 
     def kickstart_empty_test(self):
         """Test with empty string."""
@@ -104,6 +122,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._test_kickstart(ks_in, ks_out)
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_DEFAULT)
+        self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)
 
     def services_kickstart_test(self):
         """Test the services command."""
@@ -148,6 +167,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_DISABLED)
+        self.assertEqual(self.services_interface.PostInstallToolsEnabled, False)
 
     def firstboot_enabled_kickstart_test(self):
         """Test the firstboot command - enabled."""
@@ -160,6 +180,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_ENABLED)
+        self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)
 
     def firstboot_reconfig_kickstart_test(self):
         """Test the firstboot command - reconfig."""
@@ -172,3 +193,4 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_RECONFIG)
+        self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)

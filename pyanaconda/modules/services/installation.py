@@ -31,6 +31,8 @@ __all__ = ["ConfigureInitialSetupTask"]
 class ConfigureInitialSetupTask(Task):
     """Installation task for Initial Setup configuration."""
 
+    INITIAL_SETUP_UNIT_NAME = "initial-setup.service"
+
     def __init__(self, sysroot, setup_on_boot):
         """Create a new Initial Setup configuration task.
 
@@ -48,23 +50,41 @@ class ConfigureInitialSetupTask(Task):
     def name(self):
         return "Configure Initial Setup"
 
-    def run(self):
-        unit_name = "initial-setup.service"
-        if self._setup_on_boot == SetupOnBootAction.DISABLED:
-            log.debug("Initial Setup will be disabled.")
-            util.disable_service(unit_name)
-            return
+    def _unit_file_exists(self, service):
+        """Check if unit file corresponding to the service exists in the chroot.
 
-        if not os.path.exists(os.path.join(self._sysroot, "lib/systemd/system/", unit_name)):
+        The check works by taking the service name and checking if a file with
+        such name exists in the folder where system wide unit files are stored.
+
+        :param str service: name of the service (including the .service extension) to check
+        """
+        return os.path.exists(os.path.join(self._sysroot, "lib/systemd/system/", service))
+
+    def _enable_service(self):
+        """Enable the Initial Setup service."""
+        if self._unit_file_exists(self.INITIAL_SETUP_UNIT_NAME):
+            util.enable_service(self.INITIAL_SETUP_UNIT_NAME)
+        else:
             log.debug("Initial Setup will not be started on first boot, because "
-                      "it's unit file (%s) is not installed.", unit_name)
-            return
+                      "its unit file (%s) is not installed.", self.INITIAL_SETUP_UNIT_NAME)
 
-        if self._setup_on_boot == SetupOnBootAction.RECONFIG:
-            log.debug("Initial Setup will run in reconfiguration mode.")
-            # write the reconfig trigger file
-            f = open(os.path.join(self._sysroot, "etc/reconfigSys"), "w+")
-            f.close()
+    def _disable_service(self):
+        """Disable the Initial Setup service."""
+        if self._unit_file_exists(self.INITIAL_SETUP_UNIT_NAME):
+            util.disable_service(self.INITIAL_SETUP_UNIT_NAME, root=self._sysroot)
 
-        log.debug("Initial Setup will be enabled.")
-        util.enable_service(unit_name)
+    def _enable_reconfig_mode(self):
+        """Write the reconfig mode trigger file."""
+        log.debug("Initial Setup reconfiguration mode will be enabled.")
+        util.touch(os.path.join(self._sysroot, "etc/reconfigSys"))
+
+    def run(self):
+        if self._setup_on_boot == SetupOnBootAction.ENABLED:
+            self._enable_service()
+        elif self._setup_on_boot == SetupOnBootAction.RECONFIG:
+            # reconfig implies enabled
+            self._enable_service()
+            self._enable_reconfig_mode()
+        else:
+            # the Initial Setup service is disabled by default
+            self._disable_service()

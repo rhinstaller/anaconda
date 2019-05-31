@@ -37,6 +37,7 @@ class ServicesInterface(KickstartModuleInterface):
         self.implementation.default_target_changed.connect(self.changed("DefaultTarget"))
         self.implementation.default_desktop_changed.connect(self.changed("DefaultDesktop"))
         self.implementation.setup_on_boot_changed.connect(self.changed("SetupOnBoot"))
+        self.implementation.post_install_tools_enabled_changed.connect(self.changed("PostInstallToolsEnabled"))
 
     @property
     def DisabledServices(self) -> List[Str]:
@@ -127,3 +128,29 @@ class ServicesInterface(KickstartModuleInterface):
         :param value: a number of the action
         """
         self.implementation.set_setup_on_boot(SetupOnBootAction(value))
+
+    @property
+    def PostInstallToolsEnabled(self) -> Bool:
+        """Disable post installation setup tools.
+
+        This option tells post installation tools
+        if they should start after the installation.
+
+        :return: True to start post install tools, False otherwise
+        :rtype: bool
+        """
+        return self.implementation.post_install_tools_enabled
+
+    @emits_properties_changed
+    def SetPostInstallToolsEnabled(self, post_install_tools_enabled: Bool):
+        """Set if post installation tools should be disabled.
+
+        Setting this value to False will result in the post_install_tools_disabled
+        key being written to the user interaction config file with the value of 1.
+
+        Setting this value to True (the default value) will not result in the
+        post_install_tools_disabled key being written into th user interaction config file.
+
+        :param post_install_tools_enabled: set to False to disable post installation tools
+        """
+        self.implementation.set_post_install_tools_enabled(post_install_tools_enabled)
