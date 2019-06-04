@@ -17,13 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from collections import OrderedDict, namedtuple
+from collections import OrderedDict
 
 from pyanaconda.core.constants import PayloadRequirementType
 from pyanaconda.payload.errors import PayloadRequirementsMissingApply
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import BaseModule
 from pyanaconda.modules.common.constants.objects import REQUIREMENTS
+from pyanaconda.modules.common.structures.payload import Requirement
 from pyanaconda.modules.payload.requirements_interface import RequirementsInterface
 
 
@@ -54,20 +55,20 @@ class RequirementsModule(BaseModule):
         """Publish the module."""
         DBus.publish_object(REQUIREMENTS.object_path, RequirementsInterface(self))
 
-    def add_packages(self, package_names, reason, strong=True):
+    def add_packages(self, package_ids, reason, strong=True):
         """Add packages required for the reason.
 
         If a package is already required, the new reason will be
         added and the strength of the requirement will be updated.
 
-        :param package_names: names of packages to be added
-        :type package_names: list of str
+        :param package_ids: names of packages to be added
+        :type package_ids: list of str
         :param reason: description of reason for adding the packages
         :type reason: str
         :param strong: is the requirement strong (ie is not satisfying it fatal?)
         :type strong: bool
         """
-        self._add(PayloadRequirementType.package, package_names, reason, strong)
+        self._add(PayloadRequirementType.package, package_ids, reason, strong)
 
     def add_groups(self, group_ids, reason, strong=True):
         """Add groups required for the reason.
@@ -87,13 +88,17 @@ class RequirementsModule(BaseModule):
     def _add(self, req_type, ids, reason, strong):
         if not ids:
             log.debug("no %s requirement added for %s", req_type.value, reason)
+
         reqs = self._reqs[req_type]
+
         for r_id in ids:
             if r_id not in reqs:
-                reqs[r_id] = PayloadRequirement(r_id)
+                req = Requirement()
+                req.id = r_id
+                reqs[r_id] = req
             reqs[r_id].add_reason(reason, strong)
             self._apply_called_for_all_requirements = False
-            log.debug("added %s requirement '%s' for %s, strong=%s",
+            log.debug("added %s requirement '%s' for '%s', strong=%s",
                       req_type.value, r_id, reason, strong)
 
     @property
@@ -101,7 +106,7 @@ class RequirementsModule(BaseModule):
         """List of package requirements.
 
         return: list of package requirements
-        rtype: list of PayloadRequirement
+        rtype: list of Requirement
         """
         return list(self._reqs[PayloadRequirementType.package].values())
 
@@ -110,7 +115,7 @@ class RequirementsModule(BaseModule):
         """List of group requirements.
 
         return: list of group requirements
-        rtype: list of PayloadRequirement
+        rtype: list of Requirement
         """
         return list(self._reqs[PayloadRequirementType.group].values())
 
@@ -166,45 +171,3 @@ class RequirementsModule(BaseModule):
             for rid, req in self._reqs[req_type].items():
                 r.append((req_type.value, rid, req))
         return str(r)
-
-
-class PayloadRequirement(object):
-    """An object to store a payload requirement with info about its reasons.
-
-    For each requirement multiple reasons together with their strength
-    can be stored in this object using the add_reason method.
-    A reason should be just a string with description (ie for tracking purposes).
-    Strength is a boolean flag that can be used to indicate whether missing the
-    requirement should be considered fatal. Strength of the requirement is
-    given by strength of all its reasons.
-    """
-    def __init__(self, req_id, reasons=None):
-        self._id = req_id
-        self._reasons = reasons or []
-
-    @property
-    def id(self):
-        """Identifier of the requirement (eg a package name)"""
-        return self._id
-
-    @property
-    def reasons(self):
-        """List of reasons for the requirement"""
-        return [reason for reason, strong in self._reasons]
-
-    @property
-    def strong(self):
-        """Strength of the requirement (ie should it be considered fatal?)"""
-        return any(strong for reason, strong in self._reasons)
-
-    def add_reason(self, reason, strong=False):
-        """Adds a reason to the requirement with optional strength of the reason"""
-        self._reasons.append(PayloadRequirementReason(reason, strong))
-
-    def __str__(self):
-        return "PayloadRequirement(id=%s, reasons=%s, strong=%s)" % (self.id,
-                                                                     self.reasons,
-                                                                     self.strong)
-
-    def __repr__(self):
-        return 'PayloadRequirement(id=%s, reasons=%s)' % (self.id, self._reasons)
