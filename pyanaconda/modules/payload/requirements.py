@@ -20,7 +20,6 @@
 from collections import OrderedDict
 
 from pyanaconda.core.constants import PayloadRequirementType
-from pyanaconda.payload.errors import PayloadRequirementsMissingApply
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import BaseModule
 from pyanaconda.modules.common.constants.objects import REQUIREMENTS
@@ -30,8 +29,6 @@ from pyanaconda.modules.payload.requirements_interface import RequirementsInterf
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
-PayloadRequirementReason = namedtuple('PayloadRequirementReason', ['reason', 'strong'])
 
 
 class RequirementsModule(BaseModule):
@@ -45,8 +42,6 @@ class RequirementsModule(BaseModule):
 
     def __init__(self):
         super().__init__()
-        self._apply_called_for_all_requirements = True
-        self._apply_cb = None
         self._reqs = {}
         for req_type in PayloadRequirementType:
             self._reqs[req_type] = OrderedDict()
@@ -97,7 +92,6 @@ class RequirementsModule(BaseModule):
                 req.id = r_id
                 reqs[r_id] = req
             reqs[r_id].add_reason(reason, strong)
-            self._apply_called_for_all_requirements = False
             log.debug("added %s requirement '%s' for '%s', strong=%s",
                       req_type.value, r_id, reason, strong)
 
@@ -118,43 +112,6 @@ class RequirementsModule(BaseModule):
         rtype: list of Requirement
         """
         return list(self._reqs[PayloadRequirementType.group].values())
-
-    def set_apply_callback(self, callback):
-        """Set the callback for applying requirements.
-
-        The callback will be called by apply() method.
-        param callback: callback function to be called by apply() method
-        type callback: a function taking one argument (requirements object)
-        """
-        self._apply_cb = callback
-
-    def apply(self):
-        """Apply requirements using callback function.
-
-        Calls the callback supplied via set_apply_callback() method. If no
-        callback was set, an axception is raised.
-
-        return: return value of the callback
-        rtype: type of the callback return value
-        raise PayloadRequirementsMissingApply: if there is no callback set
-
-        """
-        if self._apply_cb:
-            self._apply_called_for_all_requirements = True
-            rv = self._apply_cb(self)
-            log.debug("apply with result %s called on requirements %s", rv, self)
-            return rv
-        else:
-            raise PayloadRequirementsMissingApply
-
-    @property
-    def applied(self):
-        """Was all requirements applied?
-
-        return: Was apply called for all current requirements?
-        rtype: bool
-        """
-        return self.empty or self._apply_called_for_all_requirements
 
     @property
     def empty(self):
