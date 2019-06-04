@@ -111,7 +111,6 @@ def doConfiguration(storage, payload, ksdata):
     os_config.append(Task("Synchronize user interaction config file state",
                      screen_access.sam.update_config_file_state))
 
-    os_config.append(Task("Configure services", ksdata.services.execute))
     os_config.append(Task("Configure keyboard", ksdata.keyboard.execute))
     os_config.append(Task("Configure timezone", ksdata.timezone.execute))
     os_config.append(Task("Configure language", ksdata.lang.execute))

@@ -27,7 +27,8 @@ from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.services.services_interface import ServicesInterface
-from pyanaconda.modules.services.installation import ConfigureInitialSetupTask
+from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, \
+        ConfigureServicesTask
 
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -240,7 +241,13 @@ class ServicesModule(KickstartModule):
         :returns: list of object paths of installation tasks
         """
         tasks = [
-            ConfigureInitialSetupTask(sysroot=sysroot, setup_on_boot=self.setup_on_boot)
+            ConfigureInitialSetupTask(sysroot=sysroot, setup_on_boot=self.setup_on_boot),
+            ConfigureServicesTask(
+                sysroot=sysroot,
+                disabled_services=self.disabled_services,
+                enabled_services=self.enabled_services
+            ),
+
         ]
 
         paths = [
