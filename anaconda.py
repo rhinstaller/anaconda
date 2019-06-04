@@ -739,14 +739,14 @@ if __name__ == "__main__":
 
     # Finish the initialization of the setup on boot action.
     # This should be done sooner and somewhere else once it is possible.
-    from pyanaconda.core.constants import SETUP_ON_BOOT_DEFAULT, SETUP_ON_BOOT_DISABLED
+    from pyanaconda.core.constants import SETUP_ON_BOOT_DEFAULT, SETUP_ON_BOOT_ENABLED
     from pyanaconda.modules.common.constants.services import SERVICES
     services_proxy = SERVICES.get_proxy()
 
     if services_proxy.SetupOnBoot == SETUP_ON_BOOT_DEFAULT:
-        if flags.automatedInstall:
-            # Disable by default after kickstart installations.
-            services_proxy.SetSetupOnBoot(SETUP_ON_BOOT_DISABLED)
+        if  not flags.automatedInstall:
+            # Enable by default for interactive installations.
+            services_proxy.SetSetupOnBoot(SETUP_ON_BOOT_ENABLED)
 
     # Create pre-install snapshots
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL
