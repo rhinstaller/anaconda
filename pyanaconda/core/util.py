@@ -334,15 +334,18 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
     return (proc.returncode, output_string)
 
 
-def execInSysroot(command, argv, stdin=None):
+def execInSysroot(command, argv, stdin=None, root=None):
     """ Run an external program in the target root.
         :param command: The command to run
         :param argv: The argument list
         :param stdin: The file object to read stdin from.
+        :param root: The directory to chroot to before running the command.
         :return: The return code of the command
     """
+    if root is None:
+        root = getSysroot()
 
-    return execWithRedirect(command, argv, stdin=stdin, root=getSysroot())
+    return execWithRedirect(command, argv, stdin=stdin, root=root)
 
 
 def execWithRedirect(command, argv, stdin=None, stdout=None,

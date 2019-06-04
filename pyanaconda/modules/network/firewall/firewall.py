@@ -23,6 +23,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import FIREWALL
 from pyanaconda.modules.network.constants import FirewallMode
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
+from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -203,3 +204,20 @@ class FirewallModule(KickstartBaseModule):
         self._disabled_services = list(disabled_services)
         self.disabled_services_changed.emit()
         log.debug("Services that will be explicitly disabled on the firewall: %s", self._disabled_services)
+
+    def install_with_task(self, sysroot):
+        """Return the installation tasks of this module.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: list of object paths of installation tasks
+        """
+        firewall_configuration_task = ConfigureFirewallTask(
+                sysroot=sysroot,
+                firewall_mode=self.firewall_mode,
+                enabled_services=self.enabled_services,
+                disabled_services=self.disabled_services,
+                enabled_ports=self.enabled_ports,
+                trusts=self.trusts
+        )
+
+        return self.publish_task(FIREWALL.namespace, firewall_configuration_task)

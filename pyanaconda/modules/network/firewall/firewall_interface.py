@@ -114,3 +114,13 @@ class FirewallInterface(KickstartModuleInterfaceTemplate):
         :param disabled_services: a list of services to be enabled
         """
         self.implementation.set_disabled_services(disabled_services)
+
+    def InstallWithTask(self, sysroot: Str) -> ObjPath:
+        """Install the bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :param sysroot: a path to the root of the installed system
+        :return: a path to a DBus task
+        """
+        return self.implementation.install_with_task(sysroot)
