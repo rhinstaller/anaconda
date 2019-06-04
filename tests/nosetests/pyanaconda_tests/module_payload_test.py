@@ -22,6 +22,7 @@ import unittest
 from mock import Mock
 from textwrap import dedent
 
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
@@ -29,6 +30,9 @@ from pyanaconda.modules.payload.payload import PayloadModule
 from pyanaconda.modules.payload.dnf.packages.packages_interface import PackagesHandlerInterface
 from pyanaconda.modules.payload.dnf.packages.constants import TIMEOUT_UNSET, RETRIES_UNSET, \
     LANGUAGES_DEFAULT, LANGUAGES_NONE
+from pyanaconda.modules.payload.requirements import RequirementsModule
+from pyanaconda.modules.payload.requirements_interface import RequirementsInterface
+from pyanaconda.modules.common.structures.payload import Requirement
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
@@ -36,7 +40,6 @@ class PayloadInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
         """Set up the payload module."""
-        # Set up the security module.
         self.payload_module = PayloadModule()
         self.payload_interface = PayloadInterface(self.payload_module)
 
@@ -396,3 +399,135 @@ class PayloadInterfaceTestCase(unittest.TestCase):
 
     def retries_not_set_properties_test(self):
         self.assertEqual(self.package_interface.Retries, RETRIES_UNSET)
+
+
+class PayloadRequirementsInterfaceTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.requirements_module = RequirementsModule()
+        self.requirements_interface = RequirementsInterface(self.requirements_module)
+
+    def _test_requirements(self, data, ids, reasons, strong):
+        requirements = Requirement.from_structure_list(data)
+        res_ids = [req.id for req in requirements]
+        variant_ids = [get_variant(Str, req_id) for req_id in ids]
+
+        self.assertEqual(variant_ids, res_ids)
+        self.assertFalse(self.requirements_interface.Empty)
+
+        for req in requirements:
+            self.assertEqual(get_variant(Bool, strong), req.strong)
+            reason = reasons[req.id.get_string()]
+            self.assertEqual(get_variant(List[Str], reason), req.reasons)
+
+    def _test_is_strong(self, req_data, request_id, strong):
+        reqs = Requirement.from_structure_list(req_data)
+
+        for req in reqs:
+            if req.id.get_string() == request_id:
+                if strong:
+                    self.assertTrue(req.strong)
+                else:
+                    self.assertFalse(req.strong)
+                break
+
+    def empty_test(self):
+        self.assertTrue(self.requirements_interface.Empty)
+
+    def packages_simple_test(self):
+        packages = ["bee", "snake", "dragon"]
+        reason = "ZOO is here"
+        reasons_dict = {package: [reason] for package in packages}
+        strong = True
+
+        self.requirements_interface.AddPackages(packages, reason, strong)
+
+        requirements_data = self.requirements_interface.Packages
+
+        self.assertEqual(3, len(requirements_data))
+
+        self._test_requirements(requirements_data, packages, reasons_dict, strong)
+
+    def packages_multiple_reasons_test(self):
+        packages = ["bee", "snake", "dragon"]
+        reason1 = "ZOO is here"
+        reason2 = "Zoo is elsewhere now"
+        reasons_dict = {package: [reason1] for package in packages}
+        # add another reason for existing package
+        reasons_dict["snake"].append(reason2)
+
+        self.requirements_interface.AddPackages(packages, reason1, True)
+        # package will be deduplicated with a second reason
+        self.requirements_interface.AddPackages(["snake"], reason2, False)
+
+        requirements_data = self.requirements_interface.Packages
+
+        self.assertEqual(3, len(requirements_data))
+
+        self._test_requirements(requirements_data, packages, reasons_dict, True)
+
+    def packages_strong_reason_test(self):
+        self.requirements_interface.AddPackages(["pegas"], "because he's flying", False)
+
+        req_data = self.requirements_interface.Packages
+        self._test_is_strong(req_data, "pegas", False)
+
+        self.requirements_interface.AddPackages(["pegas"], "Still it's flying!", True)
+
+        req_data = self.requirements_interface.Packages
+        self._test_is_strong(req_data, "pegas", True)
+
+        self.requirements_interface.AddPackages(["dragon"], "Flames!", False)
+
+        req_data = self.requirements_interface.Packages
+        self._test_is_strong(req_data, "dragon", False)
+        self._test_is_strong(req_data, "pegas", True)
+
+    def groups_simple_test(self):
+        packages = ["@hive", "@nest", "@lair"]
+        reason = "ZOO has nice attractions"
+        reasons_dict = {package: [reason] for package in packages}
+        strong = False
+
+        self.requirements_interface.AddPackages(packages, reason, strong)
+
+        requirements_data = self.requirements_interface.Packages
+
+        self.assertEqual(3, len(requirements_data))
+
+        self._test_requirements(requirements_data, packages, reasons_dict, strong)
+
+    def groups_multiple_reasons_test(self):
+        packages = ["@hive", "@nest", "@lair"]
+        reason1 = "ZOO is here"
+        reason2 = "Zoo is elsewhere now"
+        reasons_dict = {package: [reason1] for package in packages}
+        # add another reason for existing group
+        reasons_dict["@nest"].append(reason2)
+
+        self.requirements_interface.AddGroups(packages, reason1, True)
+        # package will be deduplicated with a second reason
+        self.requirements_interface.AddGroups(["@nest"], reason2, False)
+
+        requirements_data = self.requirements_interface.Groups
+
+        self.assertEqual(3, len(requirements_data))
+
+        self._test_requirements(requirements_data, packages, reasons_dict, True)
+
+    def groups_strong_reason_test(self):
+        self.requirements_interface.AddGroups(["@horde"], "Orc", False)
+
+        req_data = self.requirements_interface.Groups
+        self._test_is_strong(req_data, "@horde", False)
+
+        self.requirements_interface.AddGroups(["@horde"], "For the Horde!", True)
+
+        req_data = self.requirements_interface.Groups
+        self._test_is_strong(req_data, "@horde", True)
+
+        self.requirements_interface.AddGroups(["@lair"], "Dungeons", False)
+
+        req_data = self.requirements_interface.Groups
+        self._test_is_strong(req_data, "@lair", False)
+        self._test_is_strong(req_data, "@horde", True)
