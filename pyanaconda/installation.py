@@ -27,7 +27,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, SNAPSHOT, \
     FIREWALL
-from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK
+from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
@@ -97,7 +97,13 @@ def doConfiguration(storage, payload, ksdata):
     # schedule the execute methods of ksdata that require an installed system to be present
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
     os_config.append(Task("Configure authselect", ksdata.authselect.execute))
-    os_config.append(Task("Configure SELinux", ksdata.selinux.execute))
+
+    security_proxy = SECURITY.get_proxy()
+    security_dbus_tasks = security_proxy.InstallWithTasks(util.getSysroot())
+    # add one Task instance per DBUS task
+    for dbus_task in security_dbus_tasks:
+        task_proxy = SECURITY.get_proxy(dbus_task)
+        os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
 
     services_proxy = SERVICES.get_proxy()
     services_dbus_tasks = services_proxy.InstallWithTasks(util.getSysroot())
