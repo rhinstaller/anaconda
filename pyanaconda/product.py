@@ -50,10 +50,17 @@ if not productArch and productStamp.index(".") != -1:           # pylint: disabl
     productArch = productStamp[productStamp.index(".") + 1:]      # pylint: disable=no-member
 if productVersion == "development":
     productVersion = "rawhide"
-# 8.0.X -> 8.0
-if productVersion.count('.') >= 2:
-    productVersion = '.'.join(productVersion.split('.')[:2])
 
+def trim_product_version_for_ui(version):
+    """Trim off parts of version that should not be displayed in UI.
+
+    Example: 8.0.1 -> 8.0
+    """
+    if version.count('.') >= 2:
+        version = '.'.join(version.split('.')[:2])
+    return version
+
+productVersion = trim_product_version_for_ui(productVersion)
 
 def distributionText():
     return _("%(productName)s %(productVersion)s INSTALLATION") % \
