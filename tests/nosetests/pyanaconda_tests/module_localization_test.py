@@ -132,7 +132,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
     def install_language_with_task_test(self, publisher):
         """Test InstallLanguageWithTask."""
         self.localization_interface.SetLanguage("cs_CZ.UTF-8")
-        task_path = self.localization_interface.InstallLanguageWithTask("/")
+        task_path = self.localization_interface.InstallWithTasks("/")[0]
 
         publisher.assert_called_once()
         object_path, obj = publisher.call_args[0]

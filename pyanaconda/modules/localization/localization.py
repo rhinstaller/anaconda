@@ -136,18 +136,6 @@ class LocalizationModule(KickstartModule):
         self.language_seen_changed.emit()
         log.debug("Language seen set to %s.", seen)
 
-    def install_language_with_task(self, sysroot):
-        """Install language with an installation task.
-
-        FIXME: This is just a temporary method.
-
-        :param sysroot: a path to the root of the installed system
-        :return: a DBus path of an installation task
-        """
-        task = LanguageInstallationTask(sysroot, self.language)
-        path = self.publish_task(LOCALIZATION.namespace, task)
-        return path
-
     @property
     def keyboard(self):
         """Return keyboard."""
@@ -202,3 +190,19 @@ class LocalizationModule(KickstartModule):
         self._keyboard_seen = keyboard_seen
         self.keyboard_seen_changed.emit()
         log.debug("keyboard command considered seen in kicksatart: %s.", keyboard_seen)
+
+    def install_with_tasks(self, sysroot):
+        """Return the installation tasks of this module.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: list of object paths of installation tasks
+        """
+        tasks = [
+            LanguageInstallationTask(sysroot=sysroot, lang=self.language)
+        ]
+
+        paths = [
+            self.publish_task(LOCALIZATION.namespace, task) for task in tasks
+        ]
+
+        return paths

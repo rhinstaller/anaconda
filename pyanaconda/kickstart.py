@@ -423,12 +423,6 @@ class Lang(RemovedCommand):
         localization_proxy = LOCALIZATION.get_proxy()
         return localization_proxy.GenerateKickstart()
 
-    def execute(self):
-        localization_proxy = LOCALIZATION.get_proxy()
-        task_path = localization_proxy.InstallLanguageWithTask(util.getSysroot())
-        task_proxy = LOCALIZATION.get_proxy(task_path)
-        sync_run_task(task_proxy)
-
 # no overrides needed here
 Eula = COMMANDS.Eula
 
