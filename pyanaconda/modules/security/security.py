@@ -27,6 +27,7 @@ from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
+from pyanaconda.modules.security.installation import ConfigureSELinuxTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -173,3 +174,20 @@ class SecurityModule(KickstartModule):
         self._realm = realm
         self.realm_changed.emit()
         log.debug("Realm is set to %s.", realm)
+
+
+    def install_with_tasks(self, sysroot):
+        """Return the installation tasks of this module.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: list of object paths of installation tasks
+        """
+        tasks = [
+            ConfigureSELinuxTask(sysroot=sysroot, selinux_mode=self.selinux)
+        ]
+
+        paths = [
+            self.publish_task(SECURITY.namespace, task) for task in tasks
+        ]
+
+        return paths

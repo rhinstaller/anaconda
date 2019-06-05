@@ -39,7 +39,7 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
-from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, SELINUX_DEFAULT
+from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
@@ -51,12 +51,10 @@ from pyanaconda.modules.common.constants.objects import FIREWALL, FCOE
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
-from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
 from pykickstart.base import BaseHandler, KickstartCommand
-from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
-    KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
+from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
 from pykickstart.errors import KickstartError, KickstartParseError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
@@ -83,7 +81,6 @@ user_log = log.getChild("kickstart.user")
 group_log = log.getChild("kickstart.group")
 iscsi_log = log.getChild("kickstart.iscsi")
 network_log = log.getChild("kickstart.network")
-selinux_log = log.getChild("kickstart.selinux")
 timezone_log = log.getChild("kickstart.timezone")
 realm_log = log.getChild("kickstart.realm")
 firewall_log = log.getChild("kickstart.firewall")
@@ -582,35 +579,9 @@ class RootPw(RemovedCommand):
 
 class SELinux(RemovedCommand):
 
-    SELINUX_STATES = {
-        SELINUX_DISABLED: "disabled",
-        SELINUX_ENFORCING: "enforcing",
-        SELINUX_PERMISSIVE: "permissive"
-    }
-
     def __str__(self):
         security_proxy = SECURITY.get_proxy()
         return security_proxy.GenerateKickstart()
-
-    def execute(self):
-        security_proxy = SECURITY.get_proxy()
-        selinux = security_proxy.SELinux
-
-        if selinux == SELINUX_DEFAULT:
-            selinux_log.debug("Use SELinux default configuration.")
-            return
-
-        if selinux not in self.SELINUX_STATES:
-            selinux_log.error("Unknown SELinux state for %s.", selinux)
-            return
-
-        try:
-            selinux_cfg = SimpleConfigFile(util.getSysroot() + "/etc/selinux/config")
-            selinux_cfg.read()
-            selinux_cfg.set(("SELINUX", self.SELINUX_STATES[selinux]))
-            selinux_cfg.write()
-        except IOError as msg:
-            selinux_log.error("SELinux configuration failed: %s", msg)
 
 class Services(RemovedCommand):
 
