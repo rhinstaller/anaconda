@@ -24,7 +24,7 @@ from unittest.mock import patch, call, Mock
 
 from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
-from pyanaconda.dbus.typing import ObjPath
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
@@ -97,6 +97,31 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             self.storage_interface.ApplyPartitioning(ObjPath("invalid"))
+
+    def collect_requirements_test(self):
+        """Test CollectRequirements."""
+        storage = Mock()
+        storage.bootloader = GRUB2()
+        storage.packages = ["lvm2"]
+
+        self.storage_module.set_storage(storage)
+        self.assertEqual(self.storage_interface.CollectRequirements(), [
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "lvm2"),
+                "reason": get_variant(Str, "storage")
+            },
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "grub2"),
+                "reason": get_variant(Str, "bootloader")
+            },
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "grub2-tools"),
+                "reason": get_variant(Str, "bootloader")
+            }
+        ])
 
     @patch('pyanaconda.dbus.DBus.publish_object')
     def install_with_tasks_test(self, publisher):

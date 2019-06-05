@@ -23,6 +23,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.bootloader import get_bootloader_class
 from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.bootloader.grub2 import GRUB2
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_LOCATION_DEFAULT, BOOTLOADER_TIMEOUT_UNSET, \
     BOOTLOADER_LOCATION_MBR, BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.core.i18n import _
@@ -31,6 +32,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
     InstallBootloaderTask
@@ -389,6 +391,26 @@ class BootloaderModule(KickstartBaseModule):
         """
         devices = filter(lambda d: d.format.name == "ntfs", self.storage.devices)
         return self.storage.bootloader.has_windows(devices)
+
+    def collect_requirements(self):
+        """Return installation requirements for this module.
+
+        :return: a list of requirements
+        """
+        if conf.target.is_directory:
+            log.debug("The bootloader configuration is disabled for dir installations.")
+            return []
+
+        if self.bootloader_mode == BootloaderMode.DISABLED:
+            log.debug("The bootloader configuration is disabled.")
+            return []
+
+        requirements = []
+
+        for name in self.storage.bootloader.packages:
+            requirements.append(Requirement.for_package(name, reason="bootloader"))
+
+        return requirements
 
     def configure_with_task(self, sysroot, kernel_versions):
         """Configure the bootloader.
