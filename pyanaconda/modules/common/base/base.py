@@ -127,6 +127,13 @@ class KickstartBaseModule(BaseModule):
         """
         return data
 
+    def collect_requirements(self):
+        """Return installation requirements.
+
+        :return: a list of requirements
+        """
+        return []
+
 
 class KickstartModule(MainModule, KickstartBaseModule):
     """Implementation of a main kickstart module.
