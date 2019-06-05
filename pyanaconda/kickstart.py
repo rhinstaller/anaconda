@@ -589,16 +589,6 @@ class Services(RemovedCommand):
         services_proxy = SERVICES.get_proxy()
         return services_proxy.GenerateKickstart()
 
-    def execute(self):
-        services_proxy = SERVICES.get_proxy()
-
-        for svc in services_proxy.DisabledServices:
-            log.debug("Disabling the service %s.", svc)
-            util.disable_service(svc)
-
-        for svc in services_proxy.EnabledServices:
-            log.debug("Enabling the service %s.", svc)
-            util.enable_service(svc)
 
 class Timezone(RemovedCommand):
 

@@ -25,7 +25,7 @@ from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["ConfigureInitialSetupTask"]
+__all__ = ["ConfigureInitialSetupTask", "ConfigureServicesTask"]
 
 
 class ConfigureInitialSetupTask(Task):
@@ -88,3 +88,38 @@ class ConfigureInitialSetupTask(Task):
         else:
             # the Initial Setup service is disabled by default
             self._disable_service()
+
+
+class ConfigureServicesTask(Task):
+    """Installation task for service configuration.
+
+    We enable and disable services as specified.
+    """
+
+    def __init__(self, sysroot, disabled_services, enabled_services):
+        """Create a new service configuration task.
+
+        :param str sysroot: a path to the root of the target system
+        :param disabled_services: services that should be disabled
+        :param enabled_services: services that should be enabled
+
+        NOTE: We always first disable all services that should be disabled
+              and only then enable all services that should be enabled.
+        """
+        super().__init__()
+        self._sysroot = sysroot
+        self._disabled_services = disabled_services
+        self._enabled_services = enabled_services
+
+    @property
+    def name(self):
+        return "Configure services"
+
+    def run(self):
+        for service_name in self._disabled_services:
+            log.debug("Disabling service: %s.", service_name)
+            util.disable_service(service_name, root=self._sysroot)
+
+        for service_name in self._enabled_services:
+            log.debug("Enabling service: %s.", service_name)
+            util.enable_service(service_name, root=self._sysroot)
