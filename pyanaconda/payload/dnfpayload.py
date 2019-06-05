@@ -379,6 +379,15 @@ class DNFPayload(payload.PackagePayload):
         if ksrepo.excludepkgs:
             repo.exclude = ksrepo.excludepkgs
 
+        if ksrepo.sslcacert:
+            repo.sslcacert = ksrepo.sslcacert
+
+        if ksrepo.sslclientcert:
+            repo.sslclientcert = ksrepo.sslclientcert
+
+        if ksrepo.sslclientkey:
+            repo.sslclientkey = ksrepo.sslclientkey
+
         # If this repo is already known, it's one of two things:
         # (1) The user is trying to do "repo --name=updates" in a kickstart file
         #     and we should just know to enable the already existing on-disk
@@ -1178,7 +1187,10 @@ class DNFPayload(payload.PackagePayload):
                 base_ksrepo = self.data.RepoData(
                     name=constants.BASE_REPO_NAME, baseurl=base_repo_url,
                     mirrorlist=mirrorlist, metalink=metalink,
-                    noverifyssl=not sslverify, proxy=proxy)
+                    noverifyssl=not sslverify, proxy=proxy,
+                    sslcacert=getattr(method, 'sslcacert', None),
+                    sslclientcert=getattr(method, 'sslclientcert', None),
+                    sslclientkey=getattr(method, 'sslclientkey', None))
                 self._add_repo(base_ksrepo)
                 self._fetch_md(base_ksrepo.name)
             except (payload.MetadataError, payload.PayloadError) as e:
