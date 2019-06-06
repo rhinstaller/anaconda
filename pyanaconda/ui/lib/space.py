@@ -114,7 +114,7 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
 
     def _calculate_free_space(self):
         """Calculate the available space."""
-        stat = os.statvfs(util.getSysroot())
+        stat = os.statvfs(util.getTargetPhysicalRoot())
         return Size(stat.f_bsize * stat.f_bfree)
 
     def _calculate_deficit(self, needed):
