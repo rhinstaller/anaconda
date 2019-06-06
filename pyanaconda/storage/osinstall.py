@@ -421,12 +421,21 @@ class InstallerStorage(Blivet):
     def turn_on_swap(self):
         self.fsset.turn_on_swap(root_path=util.getSysroot())
 
-    def mount_filesystems(self, read_only=None, skip_root=False):
-        self.fsset.mount_filesystems(root_path=util.getSysroot(),
-                                     read_only=read_only, skip_root=skip_root)
+    def mount_filesystems(self):
+        root_path = util.getTargetPhysicalRoot()
+
+        # Mount the root and the filesystems.
+        self.fsset.mount_filesystems(root_path=root_path)
+
+        # Set up the sysroot.
+        util.setSysroot(root_path)
 
     def umount_filesystems(self, swapoff=True):
+        # Unmount the root and the filesystems.
         self.fsset.umount_filesystems(swapoff=swapoff)
+
+        # Unmount the sysroot.
+        util.setSysroot(None)
 
     def parse_fstab(self, chroot=None):
         self.fsset.parse_fstab(chroot=chroot)
