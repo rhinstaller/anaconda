@@ -24,6 +24,7 @@ import os
 import hashlib
 import shutil
 
+from pyanaconda.core.util import getSysroot
 from pyanaconda.payload import dnfpayload
 from blivet.size import Size
 
@@ -35,15 +36,15 @@ from pyanaconda.payload.errors import PayloadRequirementsMissingApply
 class PickLocation(unittest.TestCase):
     def pick_download_location_test(self):
         """Take the biggest mountpoint which can be used for download"""
-        df_map = {"/mnt/sysimage/not_used" : Size("20 G"),
-                  "/mnt/sysimage/home"     : Size("2 G"),
-                  "/mnt/sysimage/"         : Size("5 G")}
+        df_map = {os.path.join(getSysroot(), "not_used"): Size("20 G"),
+                  os.path.join(getSysroot(), "home"): Size("2 G"),
+                  os.path.join(getSysroot()): Size("5 G")}
         download_size = Size("1.5 G")
         install_size = Size("1.8 G")
 
         mpoint = dnfpayload._pick_mpoint(df_map, download_size, install_size, True)
 
-        self.assertEqual(mpoint, "/mnt/sysimage/home")
+        self.assertEqual(mpoint, os.path.join(getSysroot(), "home"))
 
     def pick_download_root_test(self):
         """Take the root for download because there are no other available mountpoints
@@ -51,33 +52,33 @@ class PickLocation(unittest.TestCase):
 
            This is required when user skipped the space check.
         """
-        df_map = {"/mnt/sysimage/not_used" : Size("20 G"),
-                  "/mnt/sysimage/home"     : Size("2 G"),
-                  "/mnt/sysimage"         : Size("5 G")}
+        df_map = {os.path.join(getSysroot(), "not_used"): Size("20 G"),
+                  os.path.join(getSysroot(), "home"): Size("2 G"),
+                  os.path.join(getSysroot()): Size("5 G")}
         download_size = Size("2.5 G")
         install_size = Size("3.0 G")
 
         mpoint = dnfpayload._pick_mpoint(df_map, download_size, install_size, True)
 
-        self.assertEqual(mpoint, "/mnt/sysimage")
+        self.assertEqual(mpoint, os.path.join(getSysroot()))
 
     def pick_install_location_test(self):
         """Take the root for download and install."""
-        df_map = {"/mnt/sysimage/not_used" : Size("20 G"),
-                  "/mnt/sysimage/home"     : Size("2 G"),
-                  "/mnt/sysimage"         : Size("6 G")}
+        df_map = {os.path.join(getSysroot(), "not_used"): Size("20 G"),
+                  os.path.join(getSysroot(), "home"): Size("2 G"),
+                  os.path.join(getSysroot()): Size("6 G")}
         download_size = Size("1.5 G")
         install_size = Size("3.0 G")
 
         mpoint = dnfpayload._pick_mpoint(df_map, download_size, install_size, False)
 
-        self.assertEqual(mpoint, "/mnt/sysimage")
+        self.assertEqual(mpoint, getSysroot())
 
     def pick_install_location_error_test(self):
         """No suitable location is found."""
-        df_map = {"/mnt/sysimage/not_used" : Size("20 G"),
-                  "/mnt/sysimage/home"     : Size("1 G"),
-                  "/mnt/sysimage"         : Size("4 G")}
+        df_map = {os.path.join(getSysroot(), "not_used"): Size("20 G"),
+                  os.path.join(getSysroot(), "home"): Size("1 G"),
+                  os.path.join(getSysroot()): Size("4 G")}
         download_size = Size("1.5 G")
         install_size = Size("3.0 G")
 
