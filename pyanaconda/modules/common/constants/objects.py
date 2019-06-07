@@ -18,7 +18,8 @@
 #
 from pyanaconda.dbus.identifier import DBusObjectIdentifier
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
-    PARTITIONING_NAMESPACE, PAYLOAD_NAMESPACE, DNF_NAMESPACE, DEVICE_TREE_NAMESPACE
+    PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, \
+    PAYLOAD_NAMESPACE, DNF_NAMESPACE
 
 # Storage objects.
 
@@ -108,4 +109,9 @@ PAYLOAD_DEFAULT = DBusObjectIdentifier(
 DNF_PACKAGES = DBusObjectIdentifier(
     namespace=DNF_NAMESPACE,
     basename="Packages"
+)
+
+LIVE_HANDLER = DBusObjectIdentifier(
+    namespace=PAYLOAD_NAMESPACE,
+    basename="Live"
 )
