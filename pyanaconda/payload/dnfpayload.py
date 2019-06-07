@@ -666,6 +666,9 @@ class DNFPayload(payload.PackagePayload):
         conf.logdir = '/tmp/'
         # enable depsolver debugging if in debug mode
         self._base.conf.debug_solver = flags.debug
+        # REMOVE BEFORE MERGE
+        # - temporarily increse DNF debug level
+        self._base.conf.debuglevel = 10
         # set the platform id based on the /os/release
         # present in the installation environment
         platform_id = self.get_platform_id()
@@ -712,6 +715,9 @@ class DNFPayload(payload.PackagePayload):
         # Do this here to prevent import side-effects in anaconda_logging
         dnf_logger = get_dnf_logger()
         dnf_logger.setLevel(dnf.logging.DDEBUG)
+
+        # initialize plugins
+        self._base.init_plugins()
 
         log.debug("Dnf configuration:\n%s", conf.dump())
 
