@@ -27,7 +27,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, SNAPSHOT, \
     FIREWALL
-from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY
+from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
+    LOCALIZATION
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
@@ -119,7 +120,13 @@ def doConfiguration(storage, payload, ksdata):
 
     os_config.append(Task("Configure keyboard", ksdata.keyboard.execute))
     os_config.append(Task("Configure timezone", ksdata.timezone.execute))
-    os_config.append(Task("Configure language", ksdata.lang.execute))
+
+    localization_proxy = LOCALIZATION.get_proxy()
+    localization_dbus_tasks = localization_proxy.InstallWithTasks(util.getSysroot())
+    # add one Task instance per DBUS task
+    for dbus_task in localization_dbus_tasks:
+        task_proxy = LOCALIZATION.get_proxy(dbus_task)
+        os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
 
     firewall_proxy = NETWORK.get_proxy(FIREWALL)
     firewall_dbus_task = firewall_proxy.InstallWithTask(util.getSysroot())
