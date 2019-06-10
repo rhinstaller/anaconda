@@ -127,7 +127,6 @@ def doConfiguration(storage, payload, ksdata):
     task_proxy = NETWORK.get_proxy(firewall_dbus_task)
     os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
 
-    os_config.append(Task("Configure X", ksdata.xconfig.execute))
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)

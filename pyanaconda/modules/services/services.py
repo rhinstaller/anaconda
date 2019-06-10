@@ -27,8 +27,8 @@ from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.services.services_interface import ServicesInterface
-from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, \
-        ConfigureServicesTask, ConfigurePostInstallationToolsTask
+from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, ConfigurePostInstallationToolsTask, \
+        ConfigureServicesTask, ConfigureSystemdDefaultTargetTask, ConfigureDefaultDesktopTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -36,6 +36,9 @@ log = get_module_logger(__name__)
 
 class ServicesModule(KickstartModule):
     """The Services module."""
+
+    # list of systemd targets that we support as default targets
+    SUPPORTED_SYSTEMD_TARGETS = [TEXT_ONLY_TARGET, GRAPHICAL_TARGET]
 
     def __init__(self):
         super().__init__()
@@ -102,9 +105,12 @@ class ServicesModule(KickstartModule):
         data.services.enabled = self.enabled_services
         data.services.disabled = self.disabled_services
 
-        if self.default_target == TEXT_ONLY_TARGET:
+        # Use the _default_target attribute directly instead of the
+        # default_target property to differentiate if default
+        # target has been set.
+        if self._default_target == TEXT_ONLY_TARGET:
             data.skipx.skipx = True
-        elif self.default_target == GRAPHICAL_TARGET:
+        elif self._default_target == GRAPHICAL_TARGET:
             data.xconfig.startX = True
 
         data.xconfig.defaultdesktop = self.default_desktop
@@ -164,13 +170,23 @@ class ServicesModule(KickstartModule):
     @property
     def default_target(self):
         """Default target of the installed system."""
-        return self._default_target
+        # if no target has been set, default to the text only target
+        if not self._default_target:
+            return TEXT_ONLY_TARGET
+        else:
+            return self._default_target
 
     def set_default_target(self, target):
         """Set the default target of the installed system.
 
         :param target: a string with the target
         """
+        if target not in self.SUPPORTED_SYSTEMD_TARGETS:
+            msg = "Unsupported systemd default target: {} Specify one of: {}".format(
+                target, self.SUPPORTED_SYSTEMD_TARGETS
+            )
+            raise ValueError(msg)
+
         self._default_target = target
         self.default_target_changed.emit()
         log.debug("Default target is set to %s.", target)
@@ -253,6 +269,8 @@ class ServicesModule(KickstartModule):
                 disabled_services=self.disabled_services,
                 enabled_services=self.enabled_services
             ),
+            ConfigureSystemdDefaultTargetTask(sysroot=sysroot, default_target=self.default_target),
+            ConfigureDefaultDesktopTask(sysroot=sysroot, default_desktop=self.default_desktop),
         ]
 
         paths = [
