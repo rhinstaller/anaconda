@@ -25,6 +25,7 @@ from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING, \
     CUSTOM_PARTITIONING, BLIVET_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.dasd import DASDModule
@@ -265,6 +266,23 @@ class StorageModule(KickstartModule):
         # Apply the partitioning.
         self.set_storage(storage.copy())
         log.debug("Applied the partitioning from %s.", object_path)
+
+    def collect_requirements(self):
+        """Return installation requirements for this module.
+
+        :return: a list of requirements
+        """
+        requirements = []
+
+        # Add the storage requirements.
+        for name in self.storage.packages:
+            requirements.append(Requirement.for_package(name, reason="storage"))
+
+        # Add other requirements, for example for bootloader.
+        for kickstart_module in self._modules:
+            requirements.extend(kickstart_module.collect_requirements())
+
+        return requirements
 
     def install_with_tasks(self, sysroot):
         """Returns installation tasks of this module.

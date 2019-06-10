@@ -24,6 +24,7 @@ from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.modules.common.structures.requirement import Requirement
 
 
 @dbus_interface(KICKSTART_MODULE.interface_name)
@@ -114,6 +115,13 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         :return: a kickstart string
         """
         return self.implementation.generate_temporary_kickstart()
+
+    def CollectRequirements(self) -> List[Structure]:
+        """Return installation requirements of this module.
+
+        :return: a list of requirements
+        """
+        return Requirement.to_structure_list(self.implementation.collect_requirements())
 
     def InstallWithTasks(self, sysroot: Str) -> List[ObjPath]:
         """Returns installation tasks of this module.
