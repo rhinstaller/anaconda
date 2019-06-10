@@ -240,15 +240,18 @@ class MakeBumpVer:
 
         if len(fields) == 2:
             self.git_branch = fields[1]
+        else:
+            return False
 
-        if len(fields) == 2 and fields[1].startswith('rhel'):
+        if self.git_branch.startswith('rhel'):
             branch_pattern = r"^rhel(\d+)-(.*)"
-            m = re.match(branch_pattern, fields[1])
+            m = re.match(branch_pattern, self.git_branch)
             if m:
                 return m.group(1)
-            elif self.git_branch == "rhel-devel":
-                return "8"
-
+            rhel8_branch_pattern = r"^rhel-(\d+)(.*)"
+            m = re.match(rhel8_branch_pattern, self.git_branch)
+            if m:
+                return m.group(1)
         return False
 
     def _getCommitDetail(self, commit, field):
