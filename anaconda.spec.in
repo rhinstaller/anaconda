@@ -344,6 +344,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 10 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.2-1
+- Rename zanata rhel-devel version (rvykydal)
+  Related: rhbz#1666319
+- Adapt makebumpver to rhel-devel -> rhel-8 branch renaming. (rvykydal)
+  Resolves: rhbz#1666319
+
 * Thu Jun 06 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.1-1
 - Use new ssl certificate kickstart options (lars)
   Resolves: rhbz#1663954
