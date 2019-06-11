@@ -29,6 +29,7 @@ import crypt
 from ordered_set import OrderedSet
 
 from pyanaconda.core import util
+from pyanaconda.core.util import decode_bytes
 from blivet.devicelibs import raid
 from blivet.formats.disklabel import DiskLabel
 from pyanaconda.product import productName
@@ -2541,7 +2542,7 @@ def writeSysconfigKernel(storage, version, instClass):
         log.error("failed to get package name for default kernel")
         return
 
-    kernel = h.name.decode()
+    kernel = decode_bytes(h.name)
 
     f = open(util.getSysroot() + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
