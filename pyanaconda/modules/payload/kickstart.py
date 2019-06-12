@@ -20,7 +20,7 @@
 from pykickstart.sections import PackageSection
 from pykickstart.parser import Packages
 
-from pyanaconda.core.kickstart import VERSION, KickstartSpecification
+from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 
 
 class PayloadKickstartSpecification(KickstartSpecification):
@@ -28,6 +28,7 @@ class PayloadKickstartSpecification(KickstartSpecification):
     version = VERSION
 
     commands = {
+        "liveimg": COMMANDS.Liveimg
     }
 
     sections = {

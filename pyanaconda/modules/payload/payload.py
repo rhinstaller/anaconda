@@ -23,6 +23,7 @@ from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
+from pyanaconda.modules.payload.live.live import LiveHandlerModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -33,14 +34,16 @@ class PayloadModule(KickstartModule):
 
     def __init__(self):
         super().__init__()
-        self._payload_handler = DNFHandlerModule()
+        self._payload_handler = None
 
     def publish(self):
         """Publish the module."""
-        self._payload_handler.publish()
-
         DBus.publish_object(PAYLOAD.object_path, PayloadInterface(self))
         DBus.register_service(PAYLOAD.service_name)
+
+    def _publish_handler(self):
+        """Publish handler as soon as we know which one to chose"""
+        self._payload_handler.publish()
 
     @property
     def kickstart_specification(self):
@@ -50,7 +53,17 @@ class PayloadModule(KickstartModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
+
+        self._create_correct_handler(data)
+        self._publish_handler()
+
         self._payload_handler.process_kickstart(data)
+
+    def _create_correct_handler(self, data):
+        if data.liveimg.seen:
+            self._payload_handler = LiveHandlerModule()
+        else:
+            self._payload_handler = DNFHandlerModule()
 
     def generate_kickstart(self):
         """Return the kickstart string."""
