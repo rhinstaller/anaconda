@@ -23,6 +23,9 @@ import signal
 import shutil
 from threading import Lock
 
+import sys
+from unittest.mock import Mock, patch
+
 from pyanaconda.errors import ExitError
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
@@ -842,3 +845,17 @@ class MiscTests(unittest.TestCase):
         self.assertRaises(ValueError, util.decode_bytes, None)
         self.assertRaises(ValueError, util.decode_bytes, 0)
         self.assertRaises(ValueError, util.decode_bytes, [])
+
+    @patch.dict('sys.modules')
+    def get_anaconda_version_string_test(self):
+        # Disable the version module.
+        sys.modules['pyanaconda.version'] = None
+        self.assertEqual(util.get_anaconda_version_string(), "unknown")
+
+        # Mock the version module.
+        sys.modules['pyanaconda.version'] = Mock(
+            __version__="1.0",
+            __build_time_version__="1.0-1"
+        )
+        self.assertEqual(util.get_anaconda_version_string(), "1.0")
+        self.assertEqual(util.get_anaconda_version_string(build_time_version=True), "1.0-1")

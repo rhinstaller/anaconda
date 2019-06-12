@@ -28,7 +28,6 @@ log = get_module_logger(__name__)
 
 import sys
 import time
-import imp
 import os
 
 from pyanaconda.core import util, constants
@@ -43,76 +42,6 @@ from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 import blivet
-
-
-def module_exists(module_path):
-    """Report is a given module exists in the current module import pth or not.
-    Supports checking bot modules ("foo") os submodules ("foo.bar.baz")
-
-    :param str module_path: (sub)module identifier
-
-    :returns: True if (sub)module exists in path, False if not
-    :rtype: bool
-    """
-
-    module_path_components = module_path.split(".")
-    module_name = module_path_components.pop()
-    parent_module_path = None
-    if module_path_components:
-        # the path specifies a submodule ("bar.foo")
-        # we need to chain-import all the modules in the submodule path before
-        # we can check if the submodule itself exists
-        for name in module_path_components:
-            module_info = imp.find_module(name, parent_module_path)
-            module = imp.load_module(name, *module_info)
-            if module:
-                parent_module_path = module.__path__
-            else:
-                # one of the parents was not found, abort search
-                return False
-    # if we got this far we should have either some path or the module is
-    # not a submodule and the default set of paths will be used (path=None)
-    try:
-        # if the module is not found imp raises an ImportError
-        imp.find_module(module_name, parent_module_path)
-        return True
-    except ImportError:
-        return False
-
-
-def get_anaconda_version_string(build_time_version=False):
-    """Return a string describing current Anaconda version.
-    If the current version can't be determined the string
-    "unknown" will be returned.
-
-    :param bool build_time_version: return build time version
-
-    Build time version is set at package build time and will
-    in most cases be identified by a build number or other identifier
-    appended to the upstream tarball version.
-
-    :returns: string describing Anaconda version
-    :rtype: str
-    """
-    # we are importing the version module directly so that we don't drag in any
-    # non-necessary stuff; we also need to handle the possibility of the
-    # import itself failing
-    if module_exists("pyanaconda.version"):
-        # Ignore pylint not finding the version module, since thanks to automake
-        # there's a good chance that version.py is not in the same directory as
-        # the rest of pyanaconda.
-        try:
-            from pyanaconda import version  # pylint: disable=no-name-in-module
-            if build_time_version:
-                return version.__build_time_version__
-            else:
-                return version.__version__
-        except (ImportError, AttributeError):
-            # there is a slight chance version.py might be generated incorrectly
-            # during build, so don't crash in that case
-            return "unknown"
-    else:
-        return "unknown"
 
 
 def gtk_warning(title, reason):
@@ -316,7 +245,7 @@ def print_startup_note(options):
 
     :param options: command line/boot options
     """
-    verdesc = "%s for %s %s" % (get_anaconda_version_string(build_time_version=True),
+    verdesc = "%s for %s %s" % (util.get_anaconda_version_string(build_time_version=True),
                                 product.productName, product.productVersion)
     logs_note = " * installation log files are stored in /tmp during the installation"
     shell_and_tmux_note = " * shell is available on TTY2"
