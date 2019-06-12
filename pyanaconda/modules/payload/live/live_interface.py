@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import LIVE_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
@@ -26,3 +27,31 @@ from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 @dbus_interface(LIVE_HANDLER.interface_name)
 class LiveHandlerInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for Live payload module."""
+
+    def connect_signals(self):
+        super().connect_signals()
+
+        self.watch_property("Url", self.implementation.url_changed)
+        self.watch_property("Proxy", self.implementation.proxy_changed)
+        self.watch_property("Checksum", self.implementation.checksum_changed)
+        self.watch_property("VerifySSL", self.implementation.verifyssl_changed)
+
+    @property
+    def Url(self) -> Str:
+        """Get url where to obtain the live image for installation."""
+        return self.implementation.url
+
+    @property
+    def Proxy(self) -> Str:
+        """Get proxy setting which will be use to obtain the image."""
+        return self.implementation.proxy
+
+    @property
+    def Checksum(self) -> Str:
+        """Get checksum of the image for verification."""
+        return self.implementation.checksum
+
+    @property
+    def VerifySSL(self) -> Bool:
+        """Should the ssl verification be enabled?"""
+        return self.implementation.verifyssl

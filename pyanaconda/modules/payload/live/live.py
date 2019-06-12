@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
+from pyanaconda.core.signal import Signal
 
 from pyanaconda.modules.common.constants.objects import LIVE_HANDLER
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -32,10 +33,17 @@ class LiveHandlerModule(KickstartBaseModule):
 
     def __init__(self):
         super().__init__()
-        self._url = None
-        self._proxy = None
-        self._checksum = None
+        self._url = ""
+        self.url_changed = Signal()
+
+        self._proxy = ""
+        self.proxy_changed = Signal()
+
+        self._checksum = ""
+        self.checksum_changed = Signal()
+
         self._verifyssl = True
+        self.verifyssl_changed = Signal()
 
     def publish(self):
         """Publish the module."""
@@ -52,28 +60,64 @@ class LiveHandlerModule(KickstartBaseModule):
         if liveimg.noverifyssl:
             self._set_verifyssl(not liveimg.noverifyssl)
 
-    def _set_url(self, url):
-        self._url = url
-        log.debug("Liveimg url is set to %s", url)
-
-    def _set_proxy(self, proxy):
-        self._proxy = proxy
-        log.debug("Liveimg proxy is set to %s", proxy)
-
-    def _set_checksum(self, checksum):
-        self._checksum = checksum
-        log.debug("Liveimg checksum is set to %s", checksum)
-
-    def _set_verifyssl(self, verifyssl):
-        self._verifyssl = verifyssl
-        log.debug("Liveimg ssl verification is set to %s", verifyssl)
-
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         liveimg = data.liveimg
 
-        liveimg.url = self._url
-        liveimg.proxy = self._proxy
-        liveimg.checksum = self._checksum
-        liveimg.noverifyssl = not self._verifyssl
+        liveimg.url = self.url
+        liveimg.proxy = self.proxy
+        liveimg.checksum = self.checksum
+        liveimg.noverifyssl = not self.verifyssl
         liveimg.seen = True
+
+    @property
+    def url(self):
+        """Get url where to obtain the live image for installation.
+
+        :rtype: str
+        """
+        return self._url
+
+    def _set_url(self, url):
+        self._url = url or ""
+        self.url_changed.emit()
+        log.debug("Liveimg url is set to '%s'", self._url)
+
+    @property
+    def proxy(self):
+        """Get proxy setting which should be use to obtain the image.
+
+        :rtype: str
+        """
+        return self._proxy
+
+    def _set_proxy(self, proxy):
+        self._proxy = proxy or ""
+        self.proxy_changed.emit()
+        log.debug("Liveimg proxy is set to '%s'", self._proxy)
+
+    @property
+    def checksum(self):
+        """Get checksum of the image for verification.
+
+        :rtype: str
+        """
+        return self._checksum
+
+    def _set_checksum(self, checksum):
+        self._checksum = checksum or ""
+        self.checksum_changed.emit()
+        log.debug("Liveimg checksum is set to '%s'", self._checksum)
+
+    @property
+    def verifyssl(self):
+        """Get should ssl verification be enabled?
+
+        :rtype: bool
+        """
+        return self._verifyssl
+
+    def _set_verifyssl(self, verifyssl):
+        self._verifyssl = verifyssl
+        self.verifyssl_changed.emit()
+        log.debug("Liveimg ssl verification is set to '%s'", self._verifyssl)
