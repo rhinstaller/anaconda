@@ -22,16 +22,24 @@ import unittest
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadHandlerMixin
 
 from pyanaconda.modules.payload.live.live import LiveHandlerModule
+from pyanaconda.modules.payload.live.live_interface import LiveHandlerInterface
 
 
-class LiveHandlerInterfaceTestCase(unittest.TestCase, PayloadHandlerMixin):
+class LiveHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
     def setUp(self):
         self.setup_payload()
 
-    def _check_selected_payload(self):
+    def _check_properties(self, url, proxy="", checksum="", verifyssl=True):
         handler = self.get_payload_handler()
+
         self.assertIsInstance(handler, LiveHandlerModule)
+        intf = LiveHandlerInterface(handler)
+
+        self.assertEqual(intf.Url, url)
+        self.assertEqual(intf.Proxy, proxy)
+        self.assertEqual(intf.Checksum, checksum)
+        self.assertEqual(intf.VerifySSL, verifyssl)
 
     def liveimg_simple_kickstart_test(self):
         """Test the simple liveimg command."""
@@ -43,7 +51,7 @@ class LiveHandlerInterfaceTestCase(unittest.TestCase, PayloadHandlerMixin):
         liveimg --url="http://my/super/path"
         """
         self.check_kickstart(ks_in, ks_out)
-        self._check_selected_payload()
+        self._check_properties(url="http://my/super/path")
 
     def liveimg_proxy_kickstart_test(self):
         """Test the liveimg proxy parameter."""
@@ -55,7 +63,7 @@ class LiveHandlerInterfaceTestCase(unittest.TestCase, PayloadHandlerMixin):
         liveimg --url="http://my/super/path" --proxy="http://ultimate/proxy"
         """
         self.check_kickstart(ks_in, ks_out)
-        self._check_selected_payload()
+        self._check_properties(url="http://my/super/path", proxy="http://ultimate/proxy")
 
     def liveimg_checksum_kickstart_test(self):
         """Test the liveimg checksum parameter."""
@@ -67,7 +75,7 @@ class LiveHandlerInterfaceTestCase(unittest.TestCase, PayloadHandlerMixin):
         liveimg --url="http://my/super/path" --checksum="BATBATBATMAN!"
         """
         self.check_kickstart(ks_in, ks_out)
-        self._check_selected_payload()
+        self._check_properties(url="http://my/super/path", checksum="BATBATBATMAN!")
 
     def liveimg_noverifyssl_kickstart_test(self):
         """Test the liveimg noverifyssl parameter."""
@@ -79,7 +87,7 @@ class LiveHandlerInterfaceTestCase(unittest.TestCase, PayloadHandlerMixin):
         liveimg --url="http://my/super/path" --noverifyssl
         """
         self.check_kickstart(ks_in, ks_out)
-        self._check_selected_payload()
+        self._check_properties(url="http://my/super/path", verifyssl=False)
 
     def liveimg_complex_kickstart_test(self):
         """Test the liveimg all parameters."""
@@ -91,4 +99,26 @@ class LiveHandlerInterfaceTestCase(unittest.TestCase, PayloadHandlerMixin):
         liveimg --url="http://my/super/path" --proxy="http://NO!!!!!" --noverifyssl --checksum="ABCDEFG"
         """
         self.check_kickstart(ks_in, ks_out)
-        self._check_selected_payload()
+        self._check_properties(url="http://my/super/path",
+                               proxy="http://NO!!!!!",
+                               verifyssl=False,
+                               checksum="ABCDEFG")
+
+
+class LiveHandlerInterfaceTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.live_module = LiveHandlerModule()
+        self.live_interface = LiveHandlerInterface(self.live_module)
+
+    def default_url_test(self):
+        self.assertEqual(self.live_interface.Url, "")
+
+    def default_proxy_test(self):
+        self.assertEqual(self.live_interface.Proxy, "")
+
+    def default_checksum_test(self):
+        self.assertEqual(self.live_interface.Checksum, "")
+
+    def default_verifyssl_test(self):
+        self.assertTrue(self.live_interface.VerifySSL)
