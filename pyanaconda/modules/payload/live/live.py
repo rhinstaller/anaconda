@@ -32,6 +32,10 @@ class LiveHandlerModule(KickstartBaseModule):
 
     def __init__(self):
         super().__init__()
+        self._url = None
+        self._proxy = None
+        self._checksum = None
+        self._verifyssl = True
 
     def publish(self):
         """Publish the module."""
@@ -39,6 +43,37 @@ class LiveHandlerModule(KickstartBaseModule):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
+        liveimg = data.liveimg
+
+        self._set_url(liveimg.url)
+        self._set_proxy(liveimg.proxy)
+        self._set_checksum(liveimg.checksum)
+
+        if liveimg.noverifyssl:
+            self._set_verifyssl(not liveimg.noverifyssl)
+
+    def _set_url(self, url):
+        self._url = url
+        log.debug("Liveimg url is set to %s", url)
+
+    def _set_proxy(self, proxy):
+        self._proxy = proxy
+        log.debug("Liveimg proxy is set to %s", proxy)
+
+    def _set_checksum(self, checksum):
+        self._checksum = checksum
+        log.debug("Liveimg checksum is set to %s", checksum)
+
+    def _set_verifyssl(self, verifyssl):
+        self._verifyssl = verifyssl
+        log.debug("Liveimg ssl verification is set to %s", verifyssl)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
+        liveimg = data.liveimg
+
+        liveimg.url = self._url
+        liveimg.proxy = self._proxy
+        liveimg.checksum = self._checksum
+        liveimg.noverifyssl = not self._verifyssl
+        liveimg.seen = True
