@@ -40,3 +40,4 @@ class FindDevicesTask(Task):
     def run(self):
         """Run the task."""
         self._devicetree.populate()
+        self._devicetree.teardown_all()

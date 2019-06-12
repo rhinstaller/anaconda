@@ -218,12 +218,14 @@ class InstallerStorage(Blivet):
 
         super().reset(cleanup_only=cleanup_only)
 
+        # Protect devices from teardown.
+        self._mark_protected_devices()
+        self.devicetree.teardown_all()
+
         self.fsset = FSSet(self.devicetree)
 
         # Clear out attributes that refer to devices that are no longer in the tree.
         self.bootloader.reset()
-
-        self._mark_protected_devices()
 
         self.roots = []
         self.roots = find_existing_installations(self.devicetree)
