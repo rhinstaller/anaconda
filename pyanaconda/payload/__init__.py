@@ -1151,6 +1151,7 @@ class PackagePayload(Payload):
 
     def _setupMedia(self, device):
         method = self.data.method
+
         if method.method == "harddrive":
             try:
                 method.dir = self._find_and_mount_iso(device, ISO_DIR, method.dir, INSTALL_TREE)
@@ -1159,16 +1160,17 @@ class PackagePayload(Payload):
 
                 try:
                     self._setup_install_tree(device, method.dir, INSTALL_TREE)
+                    return "file://" + INSTALL_TREE + method.dir
                 except PayloadSetupError as ex:
                     log.debug(str(ex))
                     raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
 
         # Check to see if the device is already mounted, in which case
-        # we don't need to mount it again
-        elif method.method == "cdrom" and blivet.util.get_mount_paths(device.path):
-            return
-        else:
+        # we don't need to mount it again so skip this part
+        elif not (method.method == "cdrom" and blivet.util.get_mount_paths(device.path)):
             device.format.setup(mountpoint=INSTALL_TREE)
+
+        return "file://" + INSTALL_TREE
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
         """Find and mount installation source from ISO on device.
@@ -1272,8 +1274,7 @@ class PackagePayload(Payload):
             if not isodevice:
                 raise PayloadSetupError("device for HDISO install %s does not exist" % devspec)
 
-            self._setupMedia(isodevice)
-            url = "file://" + INSTALL_TREE
+            url = self._setupMedia(isodevice)
             self.install_device = isodevice
 
         return url
@@ -1422,8 +1423,7 @@ class PackagePayload(Payload):
             if self.install_device:
                 if not method.method:
                     method.method = "cdrom"
-                self._setupMedia(self.install_device)
-                url = "file://" + INSTALL_TREE
+                url = self._setupMedia(self.install_device)
             elif method.method == "cdrom":
                 raise PayloadSetupError("no usable optical media found")
 
