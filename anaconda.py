@@ -594,14 +594,6 @@ if __name__ == "__main__":
     threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM,
                                  target=wait_for_connecting_NM_thread))
 
-    # initialize the screen access manager before launching the UI
-    from pyanaconda import screen_access
-    screen_access.initSAM()
-    # try to open any existing config file
-    # (might be created by pre-anaconda helper tools, injected during image
-    # generation, etc.)
-    screen_access.sam.open_config_file()
-
     # now start the interface
     display.setup_display(anaconda, opts)
     if anaconda.gui_startup_failed:

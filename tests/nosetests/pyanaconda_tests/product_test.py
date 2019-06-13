@@ -82,13 +82,18 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ["fedora.conf", "fedora-workstation.conf"]
         )
         self._check_default_product(
+            "Fedora", "Workstation Live",
+            ["fedora.conf", "fedora-workstation.conf", "fedora-workstation-live.conf"]
+        )
+        self._check_default_product(
             "Fedora", "AtomicHost",
             ["fedora.conf", "fedora-atomic-host.conf"]
 
         )
         self._check_default_product(
             "Fedora", "Silverblue",
-            ["fedora.conf", "fedora-workstation.conf", "fedora-silverblue.conf"]
+            ["fedora.conf", "fedora-workstation.conf", "fedora-workstation-live.conf",
+             "fedora-silverblue.conf"]
         )
 
     def rhel_products_test(self):

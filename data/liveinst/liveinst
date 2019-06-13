@@ -74,7 +74,7 @@ fi
 if [ -f /etc/os-release ]; then
     variantid=$( grep VARIANT_ID /etc/os-release | tail -1 | cut -d= -f2)
     if [ "$variantid" = "workstation" ]; then
-        export ANACONDA_PRODUCTVARIANT="Workstation"
+        export ANACONDA_PRODUCTVARIANT="Workstation Live"
     fi
 fi
 

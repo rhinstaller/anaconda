@@ -78,7 +78,6 @@ from pyanaconda.storage.initialization import reset_storage, select_all_disks_by
     reset_bootloader
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.storage.format_dasd import DasdFormatting
-from pyanaconda.screen_access import sam
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
     BootloaderConfigurationError
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
@@ -333,7 +332,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # hide radio buttons for spokes that have been marked as visited by the
         # user interaction config file
-        if sam.get_screen_visited("CustomPartitioningSpoke"):
+        if "CustomPartitioningSpoke" in conf.ui.hidden_spokes:
             self._custom_part_radio_button.set_visible(False)
             self._custom_part_radio_button.set_no_show_all(True)
 
@@ -343,7 +342,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def _enable_blivet_gui(self, supported):
         if supported:
             self._blivet_gui_radio_button.connect("toggled", self._method_radio_button_toggled)
-            if sam.get_screen_visited("BlivetGuiSpoke"):
+            if "BlivetGuiSpoke" in conf.ui.hidden_spokes:
                 self._blivet_gui_radio_button.set_visible(False)
                 self._blivet_gui_radio_button.set_no_show_all(True)
         else:
