@@ -35,7 +35,7 @@ from pykickstart.commands.device import F24_Device as Device
 from pykickstart.commands.deviceprobe import F29_DeviceProbe as DeviceProbe
 from pykickstart.commands.dmraid import F24_DmRaid as DmRaid
 from pykickstart.commands.driverdisk import F14_DriverDisk as DriverDisk
-from pykickstart.commands.module import F29_Module as Module
+from pykickstart.commands.module import F31_Module as Module
 from pykickstart.commands.eula import F20_Eula as Eula
 from pykickstart.commands.fcoe import F28_Fcoe as Fcoe
 from pykickstart.commands.firewall import F28_Firewall as Firewall
@@ -89,7 +89,7 @@ from pykickstart.commands.btrfs import F23_BTRFSData as BTRFSData
 from pykickstart.commands.driverdisk import F14_DriverDiskData as DriverDiskData
 from pykickstart.commands.device import F8_DeviceData as DeviceData
 from pykickstart.commands.dmraid import FC6_DmRaidData as DmRaidData
-from pykickstart.commands.module import F29_ModuleData as ModuleData
+from pykickstart.commands.module import F31_ModuleData as ModuleData
 from pykickstart.commands.fcoe import F28_FcoeData as FcoeData
 from pykickstart.commands.group import F12_GroupData as GroupData
 from pykickstart.commands.iscsi import F17_IscsiData as IscsiData
