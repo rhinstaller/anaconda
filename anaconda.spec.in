@@ -344,6 +344,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 13 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.5-1
+- Fix the rescue mode (vponcova)
+  Resolves: rhbz#1628653
+
 * Wed Jun 12 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.4-1
 - Set default entry to the BLS id instead of the entry index (javierm)
   Resolves: rhbz#1671047
