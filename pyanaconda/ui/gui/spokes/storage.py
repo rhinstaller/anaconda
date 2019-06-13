@@ -304,7 +304,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self._initialization_mode = constants.CLEAR_PARTITIONS_NONE
         self._auto_part_encrypted = False
-        self._auto_part_passphrase = ""
         self._auto_part_missing_passphrase = False
         self._disks_errors = []
 
@@ -405,7 +404,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._auto_part_observer.proxy.SetEnabled(self._auto_part_enabled)
         self._auto_part_observer.proxy.SetType(DEFAULT_AUTOPART_TYPE)
         self._auto_part_observer.proxy.SetEncrypted(self._auto_part_encrypted)
-        self._auto_part_observer.proxy.SetPassphrase(self._auto_part_passphrase)
 
         boot_drive = self._bootloader_observer.proxy.Drive
         if boot_drive and boot_drive not in self._selected_disks:
@@ -593,8 +591,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
         self._auto_part_encrypted = self._auto_part_observer.proxy.Encrypted
-        self._auto_part_passphrase = self._auto_part_observer.proxy.Passphrase
-
         self._previous_auto_part = self._auto_part_enabled
 
         # First, remove all non-button children.
@@ -825,10 +821,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         if rc != 1:
             return False
 
-        self._auto_part_passphrase = dialog.passphrase
-
-        setup_passphrase(self.storage, self._auto_part_passphrase)
-
+        self._auto_part_observer.proxy.SetPassphrase(dialog.passphrase)
+        setup_passphrase(self.storage, dialog.passphrase)
         return True
 
     def _remove_nonexistant_partitions(self):
