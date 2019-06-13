@@ -1799,7 +1799,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 return
 
             if find_unconfigured_luks(self._storage_playground):
-                dialog = PassphraseDialog(self.data)
+                dialog = PassphraseDialog(self.data, default_passphrase=self.passphrase)
                 with self.main_window.enlightbox(dialog.window):
                     rc = dialog.run()
 

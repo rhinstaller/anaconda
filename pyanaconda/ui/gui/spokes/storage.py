@@ -816,7 +816,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         return rc
 
     def _setup_passphrase(self):
-        dialog = PassphraseDialog(self.data)
+        passphrase = self._auto_part_observer.proxy.Passphrase
+        dialog = PassphraseDialog(self.data, default_passphrase=passphrase)
+
         rc = self.run_lightbox_dialog(dialog)
         if rc != 1:
             return False
