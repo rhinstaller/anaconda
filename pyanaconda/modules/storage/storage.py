@@ -35,6 +35,7 @@ from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.installation import MountFilesystemsTask, ActivateFilesystemsTask, \
     WriteConfigurationTask
+from pyanaconda.modules.storage.iscsi import ISCSIModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.nvdimm import NVDIMMModule
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
@@ -85,6 +86,9 @@ class StorageModule(KickstartModule):
 
         self._fcoe_module = FCOEModule()
         self._add_module(self._fcoe_module)
+
+        self._iscsi_module = ISCSIModule()
+        self._add_module(self._iscsi_module)
 
         self._nvdimm_module = NVDIMMModule()
         self._add_module(self._nvdimm_module)

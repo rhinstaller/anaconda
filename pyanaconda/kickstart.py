@@ -29,9 +29,6 @@ import tempfile
 import time
 import warnings
 
-import blivet.arch
-import blivet.iscsi
-
 from contextlib import contextmanager
 
 from pyanaconda import keyboard, network, ntp, timezone
@@ -55,7 +52,7 @@ from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
-from pykickstart.errors import KickstartError, KickstartParseError
+from pykickstart.errors import KickstartError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
@@ -378,45 +375,6 @@ class Firewall(RemovedCommand):
         if firewall_proxy.FirewallKickstarted:
             self.packages = ["firewalld"]
 
-class Iscsi(COMMANDS.Iscsi):
-    def parse(self, args):
-        tg = super().parse(args)
-
-        if tg.iface:
-            if not network.wait_for_network_devices([tg.iface]):
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target is not up.") %
-                             {"nic": tg.iface, "iscsiTarget": tg.target})
-
-        mode = blivet.iscsi.iscsi.mode
-        if mode == "none":
-            if tg.iface:
-                network_proxy = NETWORK.get_proxy()
-                activated_ifaces = network_proxy.GetActivatedInterfaces()
-                blivet.iscsi.iscsi.create_interfaces(activated_ifaces)
-        elif ((mode == "bind" and not tg.iface)
-              or (mode == "default" and tg.iface)):
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("iscsi --iface must be specified (binding used) either for all targets or for none"))
-
-        try:
-            blivet.iscsi.iscsi.add_target(tg.ipaddr, tg.port, tg.user,
-                                          tg.password, tg.user_in,
-                                          tg.password_in,
-                                          target=tg.target,
-                                          iface=tg.iface)
-            iscsi_log.info("added iscsi target %s at %s via %s", tg.target, tg.ipaddr, tg.iface)
-        except (IOError, ValueError) as e:
-            raise KickstartParseError(lineno=self.lineno, msg=str(e))
-
-        return tg
-
-class IscsiName(COMMANDS.IscsiName):
-    def parse(self, args):
-        retval = super().parse(args)
-
-        blivet.iscsi.iscsi.initiator = self.iscsiname
-        return retval
 
 class Lang(RemovedCommand):
     def __str__(self):
@@ -814,8 +772,8 @@ commandMap = {
     "firstboot": UselessCommand,
     "group" : UselessCommand,
     "ignoredisk": UselessCommand,
-    "iscsi": Iscsi,
-    "iscsiname": IscsiName,
+    "iscsi": UselessCommand,
+    "iscsiname": UselessCommand,
     "keyboard": Keyboard,
     "lang": Lang,
     "logging": Logging,
@@ -952,11 +910,6 @@ def parseKickstart(f, strict_mode=False, pass_to_boss=False):
     addon_paths = collect_addon_paths(ADDON_PATHS)
     handler = AnacondaKSHandler(addon_paths["ks"])
     ksparser = AnacondaKSParser(handler)
-
-    # So that drives onlined by these can be used in the ks file
-    blivet.iscsi.iscsi.startup()
-    # Note we do NOT call dasd.startup() here, that does not online drives, but
-    # only checks if they need formatting, which requires zerombr to be known
 
     kswarnings = []
     ksmodule = "pykickstart"

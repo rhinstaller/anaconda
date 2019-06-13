@@ -36,6 +36,12 @@ from pyanaconda.modules.storage.dasd.format import DASDFormatTask
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
+from pyanaconda.modules.storage.iscsi import ISCSIModule
+from pyanaconda.modules.storage.iscsi.discover import ISCSIDiscoverTask, ISCSILoginTask
+from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface, ISCSIDiscoverTaskInterface
+from pyanaconda.modules.storage.constants import IscsiInterfacesMode
+from pyanaconda.modules.common.structures.iscsi import Portal, Credentials, Node
+from pyanaconda.modules.common.constants.objects import ISCSI
 from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, MountFilesystemsTask, \
     WriteConfigurationTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
@@ -159,6 +165,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
                 'clearpart',
                 'fcoe',
                 'ignoredisk',
+                'iscsi',
+                'iscsiname',
                 'logvol',
                 'mount',
                 'nvdimm',
@@ -747,6 +755,200 @@ class StorageInterfaceTestCase(unittest.TestCase):
         dev_info.device_name = "eth1"
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
+    @patch("pyanaconda.modules.storage.iscsi.iscsi.iscsi")
+    @patch("pyanaconda.modules.storage.kickstart.iscsi")
+    @patch("pyanaconda.dbus.DBus.get_proxy")
+    @patch("pyanaconda.modules.storage.kickstart.wait_for_network_devices")
+    def iscsi_kickstart_test(self, wait_for_network_devices, proxy_getter, iscsi, module_iscsi):
+        """Test the iscsi command."""
+        ks_in = """
+        iscsiname iqn.1994-05.com.redhat:blabla
+        iscsi --target=iqn.2014-08.com.example:t1 --ipaddr=10.43.136.51 --iface=ens3
+        """
+        ks_out = """
+        iscsiname iqn.1994-05.com.redhat:blabla
+        iscsi --target=iqn.2014-08.com.example:t1 --ipaddr=10.43.136.51 --iface=ens3
+        """
+        module_iscsi.initiator = "iqn.1994-05.com.redhat:blabla"
+        iscsi.mode = "none"
+        wait_for_network_devices.return_value = True
+        self._test_kickstart(ks_in, ks_out)
+
+    @patch("pyanaconda.modules.storage.iscsi.iscsi.iscsi")
+    @patch("pyanaconda.modules.storage.kickstart.iscsi")
+    @patch("pyanaconda.dbus.DBus.get_proxy")
+    @patch("pyanaconda.modules.storage.kickstart.wait_for_network_devices")
+    def iscsi_kickstart_with_ui_test(self, wait_for_network_devices, proxy_getter, kickstart_iscsi, iscsi):
+        """Test the iscsi command taking targets attached in GUI into account."""
+        wait_for_network_devices.return_value = True
+
+        # One node from kickstart one node from GUI
+        kickstart_iscsi.mode = "bind"
+        ks_in = """
+        iscsiname iqn.1994-05.com.redhat:blabla
+        iscsi --target=iqn.2014-08.com.example:t1 --ipaddr=10.43.136.51 --iface=ens3
+        """
+        ks_out = """
+        iscsiname iqn.1994-05.com.redhat:blabla
+        iscsi --target=iqn.2014-08.com.example:t1 --ipaddr=10.43.136.51 --iface=ens3
+        iscsi --target=iqn.2014-08.com.example:t2 --ipaddr=10.43.136.51 --iface=ens3
+        """
+        iscsi.initiator = "iqn.1994-05.com.redhat:blabla"
+        self._mock_active_nodes(
+            iscsi,
+            ibft_nodes=[],
+            nodes=[
+                # Attached by kickstart
+                Mock(
+                    nname="iqn.2014-08.com.example:t1",
+                    address="10.43.136.51",
+                    port=3260,
+                    iface="iface0",
+                    username=None,
+                    password=None,
+                    r_username=None,
+                    r_password=None,
+                ),
+                # Attached in GUI
+                Mock(
+                    # we can use 'name' attribute which is a reserved kwarg of Mock
+                    nname="iqn.2014-08.com.example:t2",
+                    address="10.43.136.51",
+                    port=3260,
+                    iface="iface0",
+                    username=None,
+                    password=None,
+                    r_username=None,
+                    r_password=None,
+                )
+            ],
+            ifaces={
+                "iface0": "ens3",
+                "iface1": "ens7"
+            }
+        )
+        self._test_kickstart(ks_in, ks_out)
+
+        # Node added from ibft
+        kickstart_iscsi.mode = "bind"
+        ks_in = """
+        """
+        ks_out = """
+        """
+        iscsi.initiator = ""
+        node_from_ibft = Mock(
+            nname="iqn.2014-08.com.example:t1",
+            address="10.43.136.51",
+            port=3260,
+            iface="iface0",
+            username=None,
+            password=None,
+            r_username=None,
+            r_password=None,
+        )
+        self._mock_active_nodes(
+            iscsi,
+            ibft_nodes=[
+                node_from_ibft
+            ],
+            nodes=[
+                node_from_ibft
+            ],
+            ifaces={
+                "iface0": "ens3",
+                "iface1": "ens7"
+            }
+        )
+        self._test_kickstart(ks_in, ks_out)
+
+        # One node from kickstart one node from GUI.
+        # Nodes actually attached from a portal don't override generic
+        # kickstart request to attach all nodes from the portal.
+        kickstart_iscsi.mode = "default"
+        ks_in = """
+        iscsiname iqn.1994-05.com.redhat:blabla
+        iscsi --ipaddr=10.43.136.51
+        """
+        ks_out = """
+        iscsiname iqn.1994-05.com.redhat:blabla
+        iscsi --ipaddr=10.43.136.51
+        iscsi --target=iqn.2014-08.com.example:t3 --ipaddr=10.43.136.55
+        """
+        iscsi.initiator = "iqn.1994-05.com.redhat:blabla"
+        self._mock_active_nodes(
+            iscsi,
+            ibft_nodes=[],
+            nodes=[
+                # Attached by kickstart
+                Mock(
+                    nname="iqn.2014-08.com.example:t1",
+                    address="10.43.136.51",
+                    port=3260,
+                    iface="default",
+                    username=None,
+                    password=None,
+                    r_username=None,
+                    r_password=None,
+                ),
+                # Attached in GUI
+                Mock(
+                    # we can use 'name' attribute which is a reserved kwarg of Mock
+                    nname="iqn.2014-08.com.example:t3",
+                    address="10.43.136.55",
+                    port=3260,
+                    iface="default",
+                    username=None,
+                    password=None,
+                    r_username=None,
+                    r_password=None,
+                )
+            ],
+            ifaces={}
+        )
+        self._test_kickstart(ks_in, ks_out)
+
+        # Node attached in GUI
+        # Credentials are put into generated kickstart.
+        kickstart_iscsi.mode = "default"
+        ks_in = """
+        """
+        ks_out = """
+        iscsiname iqn.1994-05.com.redhat:blabla
+        iscsi --target=iqn.2014-08.com.example:t3 --ipaddr=10.43.136.55 --user=uname --password=pwd --reverse-user=r_uname --reverse-password=r_pwd
+        """
+        iscsi.initiator = "iqn.1994-05.com.redhat:blabla"
+        self._mock_active_nodes(
+            iscsi,
+            ibft_nodes=[],
+            nodes=[
+                # Attached in GUI
+                Mock(
+                    # we can use 'name' attribute which is a reserved kwarg of Mock
+                    nname="iqn.2014-08.com.example:t3",
+                    address="10.43.136.55",
+                    port=3260,
+                    iface="default",
+                    username="uname",
+                    password="pwd",
+                    r_username="r_uname",
+                    r_password="r_pwd",
+                )
+            ],
+            ifaces={}
+        )
+        self._test_kickstart(ks_in, ks_out)
+
+    def _mock_active_nodes(self, iscsi_mock, ibft_nodes, nodes, ifaces):
+        iscsi_mock.ifaces = ifaces
+        # We can't use reserved 'name' attribute when creating the node Mock instance
+        # so set it here from 'nname'.
+        for node in ibft_nodes:
+            node.name = node.nname
+        for node in nodes:
+            node.name = node.nname
+        iscsi_mock.active_nodes.return_value = nodes + ibft_nodes
+        iscsi_mock.ibft_nodes = ibft_nodes
+
     @patch("pyanaconda.storage.initialization.load_plugin_s390")
     @patch("pyanaconda.modules.storage.kickstart.zfcp")
     @patch("pyanaconda.modules.storage.storage.arch.is_s390", return_value=True)
@@ -947,6 +1149,150 @@ class DASDTasksTestCase(unittest.TestCase):
             call("/dev/sda"),
             call("/dev/sdb")
         ])
+
+
+class ISCSIInterfaceTestCase(unittest.TestCase):
+    """Test DBus interface of the iSCSI module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.iscsi_module = ISCSIModule()
+        self.iscsi_interface = ISCSIInterface(self.iscsi_module)
+
+        self._portal = Portal()
+        self._portal.ip_address = "10.43.136.67"
+        self._portal.port = "3260"
+
+        self._credentials = Credentials()
+        self._credentials.username = "mersault"
+        self._credentials.password = "nothing"
+        self._credentials.reverse_username = "tluasrem"
+        self._credentials.reverse_password = "thing"
+
+        self._node = Node()
+        self._node.name = "iqn.2014-08.com.example:t1"
+        self._node.address = "10.43.136.67"
+        self._node.port = "3260"
+        self._node.iface = "iface0"
+        self._node.net_ifacename = "ens3"
+
+        # Connect to the properties changed signal.
+        self.callback = Mock()
+        self.iscsi_interface.PropertiesChanged.connect(self.callback)
+
+    @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
+    def initator_property_test(self, iscsi):
+        """Test Initiator property."""
+        initiator_name = "iqn.1994-05.com.redhat:blabla"
+        iscsi.initiator_set = False
+        self.iscsi_interface.SetInitiator(initiator_name)
+        iscsi.initiator = initiator_name
+        self.assertEqual(self.iscsi_interface.Initiator, initiator_name)
+        iscsi.initiator_set = True
+        initiator_name2 = "iqn.1994-05.com.redhat:blablabla"
+        self.iscsi_interface.SetInitiator(initiator_name2)
+        self.callback.assert_called_once_with(ISCSI.interface_name, {'Initiator': initiator_name}, [])
+
+    @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
+    def can_set_initiator_test(self, iscsi):
+        """Test CanSetInitiator method."""
+        self.assertIsInstance(self.iscsi_interface.CanSetInitiator(), bool)
+
+    @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
+    def get_interface_mode_test(self, iscsi):
+        """Test GetInterfaceMode method."""
+        blivet_mode_values = ["none", "default", "bind"]
+        for blivet_mode in blivet_mode_values + ["unexpected_value"]:
+            iscsi.mode = blivet_mode
+            _mode = IscsiInterfacesMode(self.iscsi_interface.GetInterfaceMode())
+
+    @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
+    def is_node_from_ibft_test(self, iscsi):
+        """Test IsNodeFromIbft method."""
+        iscsi.ibft_nodes = []
+        result = self.iscsi_interface.IsNodeFromIbft(
+            self._unpack_structure_content(Node.to_structure(self._node))
+        )
+        self.assertFalse(result)
+
+        blivet_node = Mock()
+        blivet_node.name = self._node.name
+        blivet_node.address = self._node.address
+        blivet_node.port = int(self._node.port)
+        blivet_node.iface = self._node.iface
+        iscsi.ibft_nodes = [blivet_node]
+        result = self.iscsi_interface.IsNodeFromIbft(
+            self._unpack_structure_content(Node.to_structure(self._node))
+        )
+        self.assertTrue(result)
+
+    @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
+    def get_interface_test(self, iscsi):
+        """Test GetInterface method."""
+        iscsi.ifaces = {
+            "iface0" : "ens3",
+            "iface1" : "ens7",
+        }
+        self.assertEqual(self.iscsi_interface.GetInterface("iface0"), "ens3")
+        self.assertEqual(self.iscsi_interface.GetInterface("nonexisting"), "")
+
+    def _unpack_structure_content(self, structure):
+        return {key: value.unpack() for key, value in structure.items()}
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def discover_with_task_test(self, publisher):
+        """Test the discover task."""
+        interfaces_mode = "default"
+        task_path = self.iscsi_interface.DiscoverWithTask(
+            self._unpack_structure_content(Portal.to_structure(self._portal)),
+            self._unpack_structure_content(Credentials.to_structure(self._credentials)),
+            interfaces_mode
+        )
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj, ISCSIDiscoverTaskInterface)
+
+        self.assertIsInstance(obj.implementation, ISCSIDiscoverTask)
+        self.assertEqual(obj.implementation._portal, self._portal)
+        self.assertEqual(obj.implementation._credentials, self._credentials)
+        self.assertEqual(obj.implementation._interfaces_mode, IscsiInterfacesMode.DEFAULT)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def login_with_task_test(self, publisher):
+        """Test the login task."""
+        task_path = self.iscsi_interface.LoginWithTask(
+            self._unpack_structure_content(Portal.to_structure(self._portal)),
+            self._unpack_structure_content(Credentials.to_structure(self._credentials)),
+            self._unpack_structure_content(Node.to_structure(self._node)),
+        )
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, ISCSILoginTask)
+        self.assertEqual(obj.implementation._portal, self._portal)
+        self.assertEqual(obj.implementation._credentials, self._credentials)
+        self.assertEqual(obj.implementation._node, self._node)
+
+    @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
+    def reload_module_test(self, iscsi):
+        """Test ReloadModule."""
+        self.iscsi_interface.ReloadModule()
+        iscsi.startup.assert_called_once_with()
+
+    @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
+    def write_configuration_test(self, iscsi):
+        """Test WriteConfiguration."""
+        with tempfile.TemporaryDirectory() as root:
+            self.iscsi_interface.WriteConfiguration(root)
+            iscsi.write.assert_called_once_with(root, None)
 
 
 class FCOEInterfaceTestCase(unittest.TestCase):
