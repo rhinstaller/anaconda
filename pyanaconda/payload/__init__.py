@@ -1167,7 +1167,7 @@ class PackagePayload(Payload):
 
         # Check to see if the device is already mounted, in which case
         # we don't need to mount it again so skip this part
-        elif not (method.method == "cdrom" and blivet.util.get_mount_paths(device.path)):
+        elif not (method.method == "cdrom" and INSTALL_TREE in blivet.util.get_mount_paths(device.path)):
             device.format.setup(mountpoint=INSTALL_TREE)
 
         return "file://" + INSTALL_TREE
