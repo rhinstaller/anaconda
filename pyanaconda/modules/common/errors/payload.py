@@ -1,5 +1,5 @@
 #
-# DBus errors related to the payload.
+# DBus errors related to the payload module and handlers.
 #
 # Copyright (C) 2019  Red Hat, Inc.  All rights reserved.
 #
@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 from pyanaconda.dbus.error import dbus_error
 from pyanaconda.modules.common.constants.namespaces import PAYLOAD_NAMESPACE
 from pyanaconda.modules.common.errors import AnacondaError
@@ -27,7 +26,14 @@ class SourceSetupError(AnacondaError):
     """Error raised during the source setup."""
     pass
 
+
 @dbus_error("InstallError", namespace=PAYLOAD_NAMESPACE)
 class InstallError(AnacondaError):
     """Error raised during payload installation."""
+    pass
+
+
+@dbus_error("HandlerNotSetError", namespace=PAYLOAD_NAMESPACE)
+class HandlerNotSetError(AnacondaError):
+    """Payload handler is not set."""
     pass

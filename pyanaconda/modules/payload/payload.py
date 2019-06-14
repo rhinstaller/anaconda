@@ -20,6 +20,7 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import PAYLOAD
+from pyanaconda.modules.common.errors.payload import HandlerNotSetError
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
@@ -44,12 +45,30 @@ class PayloadModule(KickstartModule):
 
     def _publish_handler(self):
         """Publish handler as soon as we know which one to chose"""
-        self._payload_handler.publish()
+        self.payload_handler.publish()
 
     @property
     def kickstart_specification(self):
         """Return the kickstart specification."""
         return PayloadKickstartSpecification
+
+    @property
+    def payload_handler(self):
+        """Get payload handler.
+
+        Handlers are handling the installation process.
+
+        There are a few types of handler e.g.: DNF, LiveImage...
+        """
+        if self._payload_handler is None:
+            raise HandlerNotSetError()
+        else:
+            return self._payload_handler
+
+    def set_payload_handler(self, payload_handler):
+        """Set payload handler."""
+        self._payload_handler = payload_handler
+        log.debug("Payload handler %s used.", payload_handler.__class__.__name__)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -58,20 +77,20 @@ class PayloadModule(KickstartModule):
         self._create_correct_handler(data)
         self._publish_handler()
 
-        self._payload_handler.process_kickstart(data)
+        self.payload_handler.process_kickstart(data)
 
     def _create_correct_handler(self, data):
         if data.liveimg.seen:
-            self._payload_handler = LiveImageHandlerModule()
+            self.set_payload_handler(LiveImageHandlerModule())
         else:
-            self._payload_handler = DNFHandlerModule()
+            self.set_payload_handler(DNFHandlerModule())
 
     def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
 
-        self._payload_handler.setup_kickstart(data)
+        self.payload_handler.setup_kickstart(data)
 
         return str(data)
 
