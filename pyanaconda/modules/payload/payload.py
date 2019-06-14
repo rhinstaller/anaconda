@@ -23,7 +23,7 @@ from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
-from pyanaconda.modules.payload.live.live import LiveHandlerModule
+from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -61,7 +61,7 @@ class PayloadModule(KickstartModule):
 
     def _create_correct_handler(self, data):
         if data.liveimg.seen:
-            self._payload_handler = LiveHandlerModule()
+            self._payload_handler = LiveImageHandlerModule()
         else:
             self._payload_handler = DNFHandlerModule()
 

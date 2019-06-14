@@ -1,5 +1,5 @@
 #
-# Kickstart module for Live payload.
+# Kickstart module for Live Image payload.
 #
 # Copyright (C) 2019 Red Hat, Inc.
 #
@@ -20,16 +20,16 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 
-from pyanaconda.modules.common.constants.objects import LIVE_HANDLER
+from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.payload.live.live_interface import LiveHandlerInterface
+from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveHandlerModule(KickstartBaseModule):
-    """The Live payload module."""
+class LiveImageHandlerModule(KickstartBaseModule):
+    """The Live Image payload module."""
 
     def __init__(self):
         super().__init__()
@@ -47,7 +47,7 @@ class LiveHandlerModule(KickstartBaseModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(LIVE_HANDLER.object_path, LiveHandlerInterface(self))
+        DBus.publish_object(LIVE_IMAGE_HANDLER.object_path, LiveImageHandlerInterface(self))
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

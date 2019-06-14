@@ -111,7 +111,7 @@ DNF_PACKAGES = DBusObjectIdentifier(
     basename="Packages"
 )
 
-LIVE_HANDLER = DBusObjectIdentifier(
+LIVE_IMAGE_HANDLER = DBusObjectIdentifier(
     namespace=PAYLOAD_NAMESPACE,
-    basename="Live"
+    basename="LiveImage"
 )
