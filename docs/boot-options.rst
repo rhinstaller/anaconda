@@ -177,6 +177,20 @@ All locations of type http, https or ftp specified with inst.stage2 will
 be used sequentially one by one until the image is fetched. Other locations
 will be ignored.
 
+In the following example, Anaconda will try to fetch the image at first from
+``http://a``, then from ``http://b`` and finally from ``http://c``.
+
+::
+
+   inst.stage2=http://a inst.stage2=http://b inst.stage2=http://c inst.stage2.all
+
+Without the boot option ``inst.stage2.all``, Anaconda will try to fetch the
+image only from ``http://c``, as usual.
+
+::
+
+   inst.stage2=http://a inst.stage2=http://b inst.stage2=http://c
+
 inst.dd
 ^^^^^^^
 
@@ -227,6 +241,21 @@ inst.ks.all
 All locations of type http, https or ftp specified with inst.ks will be used
 sequentially one by one until the kickstart file is fetched. Other locations
 will be ignored.
+
+In the following example, Anaconda will try to fetch the kickstart file at
+first from ``http://a/a.ks``, then from ``http://b/b.ks`` and finally from
+``http://c/c.ks``.
+
+::
+
+   inst.ks=http://a/a.ks inst.ks=http://b/b.ks inst.ks=http://c/c.ks inst.ks.all
+
+Without the boot option ``inst.ks.all``, Anaconda will try to fetch the
+kickstart file only from ``http://c/c.ks``, as usual.
+
+::
+
+   inst.ks=http://a/a.ks inst.ks=http://b/b.ks inst.ks=http://c/c.ks
 
 .. inst.ks.sendmac:
 
