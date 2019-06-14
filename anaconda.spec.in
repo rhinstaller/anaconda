@@ -344,6 +344,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.6-1
+- Require blivet with flags.protect_cdrom support (rvykydal)
+  Related: rhbz#1671713
+- Be more strict when checking for mounted dvd source. (rvykydal)
+  Resolves: rhbz#1671713
+- Protect cdroms during tree population for image installs. (rvykydal)
+  Resolves: rhbz#1671713
+
 * Thu Jun 13 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.5-1
 - Fix the rescue mode (vponcova)
   Resolves: rhbz#1628653
