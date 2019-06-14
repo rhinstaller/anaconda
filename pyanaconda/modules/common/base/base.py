@@ -245,3 +245,10 @@ class KickstartModule(MainModule, KickstartBaseModule):
         :return: a list of DBus paths of the installation tasks
         """
         return []
+
+    def teardown_with_tasks(self):
+        """Returns teardown tasks for this module.
+
+        :return: a list of DBus paths of the installation tasks
+        """
+        return []

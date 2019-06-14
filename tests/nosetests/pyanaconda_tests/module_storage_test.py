@@ -48,6 +48,7 @@ from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
+from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
 from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface
@@ -143,6 +144,29 @@ class StorageInterfaceTestCase(unittest.TestCase):
             task_paths = self.storage_interface.InstallWithTasks(sysroot)
 
         # Check the number of installation tasks.
+        task_number = len(task_classes)
+        self.assertEqual(task_number, len(task_paths))
+        self.assertEqual(task_number, publisher.call_count)
+
+        # Check the tasks.
+        for i in range(task_number):
+            object_path, obj = publisher.call_args_list[i][0]
+            self.assertEqual(object_path, task_paths[i])
+            self.assertIsInstance(obj, TaskInterface)
+            self.assertIsInstance(obj.implementation, task_classes[i])
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def teardown_with_tasks_test(self, publisher):
+        """Test TeardownWithTask."""
+        task_classes = [
+            UnmountFilesystemsTask,
+            TeardownDiskImagesTask
+        ]
+
+        # Get the teardown tasks.
+        task_paths = self.storage_interface.TeardownWithTasks()
+
+        # Check the number of teardown tasks.
         task_number = len(task_classes)
         self.assertEqual(task_number, len(task_paths))
         self.assertEqual(task_number, publisher.call_count)
