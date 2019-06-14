@@ -152,7 +152,12 @@ class BootLoader(object):
 
     @property
     def stage2_format_types(self):
-        return ["ext4", "ext3", "ext2"]
+        # If the product file_system_type is valid, use it by default
+        valid_fs = ["ext4", "ext3", "ext2"]
+        if conf.storage.file_system_type in valid_fs:
+            valid_fs.insert(0, conf.storage.file_system_type)
+
+        return valid_fs
 
     # this is so stupid...
     global_preserve_args = ["speakup_synth", "apic", "noapic", "apm", "ide",

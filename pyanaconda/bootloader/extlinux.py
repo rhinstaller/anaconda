@@ -32,12 +32,20 @@ class EXTLINUX(BootLoader):
     _config_file = "extlinux.conf"
     _config_dir = "/boot/extlinux"
 
-    stage2_format_types = ["ext4", "ext3", "ext2"]
     stage2_device_types = ["partition"]
     stage2_bootable = True
 
     # The extlinux bootloader doesn't have BLS support, the old grubby is needed
     packages = ["syslinux-extlinux", "grubby-deprecated"]
+
+    @property
+    def stage2_format_types(self):
+        # If the product file_system_type is valid, use it by default
+        valid_fs = ["ext4", "ext3", "ext2"]
+        if conf.storage.file_system_type in valid_fs:
+            valid_fs.insert(0, conf.storage.file_system_type)
+
+        return valid_fs
 
     @property
     def config_file(self):

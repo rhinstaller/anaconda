@@ -46,10 +46,12 @@ class ZIPL(BootLoader):
 
     @property
     def stage2_format_types(self):
-        if productName.startswith("Red Hat "):          # pylint: disable=no-member
-            return ["xfs", "ext4", "ext3", "ext2"]
-        else:
-            return ["ext4", "ext3", "ext2", "xfs"]
+        # If the product file_system_type is valid, use it by default
+        valid_fs = ["ext4", "ext3", "ext2", "xfs"]
+        if conf.storage.file_system_type in valid_fs:
+            valid_fs.insert(0, conf.storage.file_system_type)
+
+        return valid_fs
 
     image_label_attr = "short_label"
     preserve_args = ["cio_ignore", "rd.znet", "rd_ZNET", "zfcp.allow_lun_scan"]
