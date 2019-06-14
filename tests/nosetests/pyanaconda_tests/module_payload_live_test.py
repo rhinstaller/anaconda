@@ -19,13 +19,15 @@
 #
 import unittest
 
+from mock import Mock
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadHandlerMixin
 
-from pyanaconda.modules.payload.live.live import LiveHandlerModule
-from pyanaconda.modules.payload.live.live_interface import LiveHandlerInterface
+from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
+from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
+from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
 
 
-class LiveHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
+class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
     def setUp(self):
         self.setup_payload()
@@ -33,8 +35,8 @@ class LiveHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
     def _check_properties(self, url, proxy="", checksum="", verifyssl=True):
         handler = self.get_payload_handler()
 
-        self.assertIsInstance(handler, LiveHandlerModule)
-        intf = LiveHandlerInterface(handler)
+        self.assertIsInstance(handler, LiveImageHandlerModule)
+        intf = LiveImageHandlerInterface(handler)
 
         self.assertEqual(intf.Url, url)
         self.assertEqual(intf.Proxy, proxy)
@@ -105,20 +107,47 @@ class LiveHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
                                checksum="ABCDEFG")
 
 
-class LiveHandlerInterfaceTestCase(unittest.TestCase):
+class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.live_module = LiveHandlerModule()
-        self.live_interface = LiveHandlerInterface(self.live_module)
+        self.live_image_module = LiveImageHandlerModule()
+        self.live_image_interface = LiveImageHandlerInterface(self.live_image_module)
+
+        self.callback = Mock()
+        self.live_image_interface.PropertiesChanged.connect(self.callback)
 
     def default_url_test(self):
-        self.assertEqual(self.live_interface.Url, "")
+        self.assertEqual(self.live_image_interface.Url, "")
+
+    def url_properties_test(self):
+        self.live_image_interface.SetUrl("http://OUCH!")
+        self.assertEqual(self.live_image_interface.Url, "http://OUCH!")
+        self.callback.assert_called_once_with(
+            LIVE_IMAGE_HANDLER.interface_name, {"Url": "http://OUCH!"}, [])
 
     def default_proxy_test(self):
-        self.assertEqual(self.live_interface.Proxy, "")
+        self.assertEqual(self.live_image_interface.Proxy, "")
+
+    def proxy_properties_test(self):
+        self.live_image_interface.SetProxy("http://YAYKS!")
+        self.assertEqual(self.live_image_interface.Proxy, "http://YAYKS!")
+        self.callback.assert_called_once_with(
+            LIVE_IMAGE_HANDLER.interface_name, {"Proxy": "http://YAYKS!"}, [])
 
     def default_checksum_test(self):
-        self.assertEqual(self.live_interface.Checksum, "")
+        self.assertEqual(self.live_image_interface.Checksum, "")
+
+    def checksum_properties_test(self):
+        self.live_image_interface.SetChecksum("ABC1234")
+        self.assertEqual(self.live_image_interface.Checksum, "ABC1234")
+        self.callback.assert_called_once_with(
+            LIVE_IMAGE_HANDLER.interface_name, {"Checksum": "ABC1234"}, [])
 
     def default_verifyssl_test(self):
-        self.assertTrue(self.live_interface.VerifySSL)
+        self.assertTrue(self.live_image_interface.VerifySSL)
+
+    def verifyssl_properties_test(self):
+        self.live_image_interface.SetVerifySSL(True)
+        self.assertEqual(self.live_image_interface.VerifySSL, True)
+        self.callback.assert_called_once_with(
+            LIVE_IMAGE_HANDLER.interface_name, {"VerifySSL": True}, [])
