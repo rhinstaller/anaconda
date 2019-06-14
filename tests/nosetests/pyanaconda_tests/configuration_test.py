@@ -248,6 +248,51 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             f.flush()
             self.assertTrue(f.read(), "The file shouldn't be empty.")
 
+    def set_from_files_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+        paths = []
+
+        with tempfile.TemporaryDirectory() as d:
+            # Add nonexistent file.
+            nonexistent = os.path.join(d, "nonexistent")
+            paths.append(nonexistent)
+
+            # Add empty directory.
+            empty_dir = os.path.join(d, "empty")
+            os.mkdir(empty_dir)
+            paths.append(empty_dir)
+
+            # Add existing file.
+            existing = os.path.join(d, "a.conf")
+            paths.append(existing)
+
+            with open(existing, mode="w") as f:
+                f.write("")
+
+            # Add non-empty directory.
+            conf_dir = os.path.join(d, "conf.d")
+            os.mkdir(conf_dir)
+            paths.append(conf_dir)
+
+            for name in ["b.conf", "c.conf", "d"]:
+                with open(os.path.join(conf_dir, name), mode="w") as f:
+                    f.write("")
+
+            # Check the paths.
+            self.assertEqual(
+                [os.path.relpath(path, d) for path in paths],
+                ["nonexistent", "empty", "a.conf", "conf.d"]
+            )
+
+            conf._sources = []
+            conf.set_from_files(paths)
+
+            # Check the loaded files.
+            self.assertEqual(
+                [os.path.relpath(path, d) for path in conf.get_sources()],
+                ["a.conf", "conf.d/b.conf", "conf.d/c.conf"]
+            )
+
     def kickstart_modules_test(self):
         conf = AnacondaConfiguration.from_defaults()
 

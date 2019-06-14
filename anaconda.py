@@ -288,8 +288,9 @@ if __name__ == "__main__":
     anaconda_logging.init(write_to_journal=conf.target.is_hardware)
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
-    # Load the product configuration after a logging is set up.
+    # Load the remaining configuration after a logging is set up.
     conf.set_from_product(opts.product_name, opts.variant_name)
+    conf.set_from_files()
     conf.set_from_opts(opts)
 
     log = anaconda_loggers.get_main_logger()
