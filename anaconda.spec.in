@@ -321,6 +321,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 14 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.156-1
+- Pass nosmt boot option to installed system (rvykydal)
+  Resolves: rhbz#1718838
+
 * Tue Jun 04 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.155-1
 - Pull in new translations (rvykydal)
   Related: rhbz#1688213
