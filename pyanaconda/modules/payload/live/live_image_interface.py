@@ -19,6 +19,7 @@
 #
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
@@ -40,15 +41,38 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
     def Url(self) -> Str:
         """Get url where to obtain the live image for installation."""
         return self.implementation.url
+
+    @emits_properties_changed
+    def SetUrl(self, url: Str):
+        """Set url where to obtain the live image for installation."""
+        self.implementation.set_url(url)
+
     @property
     def Proxy(self) -> Str:
-        """Get proxy setting which will be use to obtain the image."""
+        """Get proxy setting which will be used to obtain the image."""
         return self.implementation.proxy
+
+    @emits_properties_changed
+    def SetProxy(self, proxy: Str):
+        """Set proxy which will be used to obtain the image."""
+        self.implementation.set_proxy(proxy)
+
     @property
     def Checksum(self) -> Str:
         """Get checksum of the image for verification."""
         return self.implementation.checksum
+
+    @emits_properties_changed
+    def SetChecksum(self, checksum: Str):
+        """Set checksum of the image for validation."""
+        self.implementation.set_checksum(checksum)
+
     @property
     def VerifySSL(self) -> Bool:
         """Should the ssl verification be enabled?"""
         return self.implementation.verifyssl
+
+    @emits_properties_changed
+    def SetVerifySSL(self, verify_ssl: Bool):
+        """Set if the ssl verification should be enabled."""
+        self.implementation.set_verifyssl(verify_ssl)

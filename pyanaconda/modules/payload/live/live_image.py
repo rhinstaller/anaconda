@@ -53,12 +53,12 @@ class LiveImageHandlerModule(KickstartBaseModule):
         """Process the kickstart data."""
         liveimg = data.liveimg
 
-        self._set_url(liveimg.url)
-        self._set_proxy(liveimg.proxy)
-        self._set_checksum(liveimg.checksum)
+        self.set_url(liveimg.url)
+        self.set_proxy(liveimg.proxy)
+        self.set_checksum(liveimg.checksum)
 
         if liveimg.noverifyssl:
-            self._set_verifyssl(not liveimg.noverifyssl)
+            self.set_verifyssl(not liveimg.noverifyssl)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -78,7 +78,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
         """
         return self._url
 
-    def _set_url(self, url):
+    def set_url(self, url):
         self._url = url or ""
         self.url_changed.emit()
         log.debug("Liveimg url is set to '%s'", self._url)
@@ -91,7 +91,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
         """
         return self._proxy
 
-    def _set_proxy(self, proxy):
+    def set_proxy(self, proxy):
         self._proxy = proxy or ""
         self.proxy_changed.emit()
         log.debug("Liveimg proxy is set to '%s'", self._proxy)
@@ -104,7 +104,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
         """
         return self._checksum
 
-    def _set_checksum(self, checksum):
+    def set_checksum(self, checksum):
         self._checksum = checksum or ""
         self.checksum_changed.emit()
         log.debug("Liveimg checksum is set to '%s'", self._checksum)
@@ -117,7 +117,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
         """
         return self._verifyssl
 
-    def _set_verifyssl(self, verifyssl):
+    def set_verifyssl(self, verifyssl):
         self._verifyssl = verifyssl
         self.verifyssl_changed.emit()
         log.debug("Liveimg ssl verification is set to '%s'", self._verifyssl)
