@@ -1,7 +1,5 @@
 #
-# Kickstart handler for packaging.
-#
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2019  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,24 +15,28 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.sections import PackageSection
-from pykickstart.parser import Packages
+# Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
+#
+from mock import Mock
 
-from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
+from pyanaconda.modules.payload.payload_interface import PayloadInterface
+from pyanaconda.modules.payload.payload import PayloadModule
 
 
-class PayloadKickstartSpecification(KickstartSpecification):
+class PayloadHandlerMixin(object):
 
-    version = VERSION
+    def setup_payload(self):
+        self.payload_module = PayloadModule()
+        self.payload_interface = PayloadInterface(self.payload_module)
 
-    commands = {
-        "liveimg": COMMANDS.Liveimg
-    }
+        # avoid publishing
+        self.publish_mock = Mock()
+        self.payload_module._publish_handler = self.publish_mock
 
-    sections = {
-        "packages": PackageSection
-    }
+    def check_kickstart(self, ks_in, ks_out):
+        check_kickstart_interface(self, self.payload_interface, ks_in, ks_out)
+        self.publish_mock.assert_called_once()
 
-    sections_data = {
-        "packages": Packages
-    }
+    def get_payload_handler(self):
+        return self.payload_module._payload_handler
