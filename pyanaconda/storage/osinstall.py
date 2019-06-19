@@ -264,8 +264,10 @@ class InstallerStorage(Blivet):
         if live_device_name:
             log.debug("Resolved live device to %s.", live_device_name)
             dev = self.devicetree.get_device_by_name(live_device_name, hidden=True)
-            protected.append(dev)
-            protected.extend(dev.parents)
+
+            if dev is not None:
+                protected.append(dev)
+                protected.extend(dev.parents)
 
         # Mark the collected devices as protected.
         for dev in protected:
