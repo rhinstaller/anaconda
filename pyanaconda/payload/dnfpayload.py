@@ -1141,8 +1141,9 @@ class DNFPayload(payload.PackagePayload):
         # Enable or disable updates.
         self.set_updates_enabled(self._updates_enabled)
 
-        # Repos on disk are always enabled. When reloaded their state needs to
-        # be synchronized with the user selection.
+        # Repo files are always loaded from the system.
+        # When reloaded their state needs to be synchronized with the user configuration.
+        # So we disable them now and enable them later if required.
         enabled = []
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
