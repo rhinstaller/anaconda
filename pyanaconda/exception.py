@@ -35,7 +35,6 @@ from meh.handler import ExceptionHandler
 
 from pyanaconda import kickstart
 from pyanaconda.core import util
-from pyanaconda import startup_utils
 from pyanaconda import product
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.configuration.anaconda import conf
@@ -272,7 +271,7 @@ def initExceptionHandling(anaconda):
         file_list.extend([anaconda.opts.ksfile])
 
     config = Config(programName="anaconda",
-                  programVersion=startup_utils.get_anaconda_version_string(),
+                  programVersion=util.get_anaconda_version_string(),
                   programArch=os.uname()[4],
                   attrSkipList=["_intf._actions",
                                 "_intf._currentAction._xklwrapper",

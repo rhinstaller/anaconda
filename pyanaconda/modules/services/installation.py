@@ -20,9 +20,9 @@ from configparser import ConfigParser
 
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.util import get_anaconda_version_string
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.services.constants import SetupOnBootAction
-from pyanaconda.startup_utils import get_anaconda_version_string
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

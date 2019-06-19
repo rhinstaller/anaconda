@@ -1513,3 +1513,32 @@ def decode_bytes(data):
         return data.decode('utf-8')
 
     raise ValueError("Unsupported type '{}'.".format(type(data).__name__))
+
+
+def get_anaconda_version_string(build_time_version=False):
+    """Return a string describing current Anaconda version.
+    If the current version can't be determined the string
+    "unknown" will be returned.
+
+    :param bool build_time_version: return build time version
+
+    Build time version is set at package build time and will
+    in most cases be identified by a build number or other identifier
+    appended to the upstream tarball version.
+
+    :returns: string describing Anaconda version
+    :rtype: str
+    """
+    # Ignore pylint not finding the version module, since thanks to automake
+    # there's a good chance that version.py is not in the same directory as
+    # the rest of pyanaconda.
+    try:
+        from pyanaconda import version  # pylint: disable=no-name-in-module
+        if build_time_version:
+            return version.__build_time_version__
+        else:
+            return version.__version__
+    except (ImportError, AttributeError):
+        # there is a slight chance version.py might be generated incorrectly
+        # during build, so don't crash in that case
+        return "unknown"
