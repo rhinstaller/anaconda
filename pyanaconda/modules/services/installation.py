@@ -27,9 +27,8 @@ from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-
-__all__ = ["ConfigureInitialSetupTask", "ConfigurePostInstallationToolsTask",
-           "ConfigureServicesTask"]
+__all__ = ["ConfigureInitialSetupTask", "ConfigureServicesTask", "ConfigureSystemdDefaultTargetTask",
+           "ConfigureDefaultDesktopTask"]
 
 
 class ConfigureInitialSetupTask(Task):
@@ -178,3 +177,62 @@ class ConfigureServicesTask(Task):
         for service_name in self._enabled_services:
             log.debug("Enabling service: %s.", service_name)
             util.enable_service(service_name, root=self._sysroot)
+
+
+class ConfigureSystemdDefaultTargetTask(Task):
+    """Installation task for configuring systemd default target.
+
+    Set the correct systemd default target for the target system.
+
+    We support setting either the text only "multi-user"
+    target or the graphical target called "graphical".
+    """
+
+    def __init__(self, sysroot, default_target):
+        """Create a new systemd target configuration task.
+
+        :param str sysroot: a path to the root of the target system
+        :param default_target: systemd default target to be set
+        """
+        super().__init__()
+        self._sysroot = sysroot
+        self._default_target = default_target
+
+    @property
+    def name(self):
+        return "Configure systemd default target"
+
+    def run(self):
+        log.debug("Setting systemd default target to: %s", self._default_target)
+
+        default_target_path = os.path.join(self._sysroot, 'etc/systemd/system/default.target')
+        # unlink any links already in place
+        if os.path.islink(default_target_path):
+            os.unlink(default_target_path)
+        # symlink the selected target
+        selected_target_path = os.path.join(self._sysroot, 'etc/systemd/system', self._default_target)
+        log.debug("Linking %s as systemd default target.", selected_target_path)
+        os.symlink(selected_target_path, default_target_path)
+
+
+class ConfigureDefaultDesktopTask(Task):
+    """Installation task for configuring the default desktop."""
+
+    def __init__(self, sysroot, default_desktop):
+        """Create a new default desktop configuration task.
+
+        :param str sysroot: a path to the root of the target system
+        :param str default_desktop: default desktop to be set
+        """
+        super().__init__()
+        self._sysroot = sysroot
+        self._default_desktop = default_desktop
+
+    @property
+    def name(self):
+        return "Configure default desktop"
+
+    def run(self):
+        if self._default_desktop:
+            with open(os.path.join(self._sysroot, "etc/sysconfig/desktop"), "wt") as f:
+                f.write("DESKTOP=%s\n" % self._default_desktop)

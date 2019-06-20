@@ -37,7 +37,6 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED
-from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
@@ -625,30 +624,6 @@ class Timezone(RemovedCommand):
 class VolGroup(COMMANDS.VolGroup):
     pass
 
-class XConfig(RemovedCommand):
-
-    def __str__(self):
-        # The kickstart for this command is generated
-        # by Services module in the Services class.
-        return ""
-
-    def execute(self):
-        desktop = Desktop()
-        services_proxy = SERVICES.get_proxy()
-        default_target = services_proxy.DefaultTarget
-        default_desktop = services_proxy.DefaultDesktop
-
-        if default_target:
-            log.debug("Using the default target %s.", default_target)
-            desktop.default_target = default_target
-
-        if default_desktop:
-            log.debug("Using the default desktop %s.", default_desktop)
-            desktop.desktop = default_desktop
-
-        desktop.write()
-
-
 class Snapshot(COMMANDS.Snapshot):
     """The snapshot kickstart command.
 
@@ -795,7 +770,7 @@ commandMap = {
     "timezone": Timezone,
     "user": UselessCommand,
     "volgroup": VolGroup,
-    "xconfig": XConfig,
+    "xconfig": UselessCommand,
     "zerombr": UselessCommand,
     "zfcp": UselessCommand,
 }

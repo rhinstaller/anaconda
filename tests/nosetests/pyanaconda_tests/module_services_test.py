@@ -21,16 +21,20 @@ import os
 import tempfile
 import unittest
 from textwrap import dedent
-from unittest.mock import patch
 
-from mock import Mock
+from mock import Mock, patch
 
-from pyanaconda.core.constants import GRAPHICAL_TARGET, SETUP_ON_BOOT_DISABLED, \
-    SETUP_ON_BOOT_RECONFIG, SETUP_ON_BOOT_ENABLED, SETUP_ON_BOOT_DEFAULT
+from pyanaconda.core.constants import SETUP_ON_BOOT_DISABLED, \
+    SETUP_ON_BOOT_RECONFIG, SETUP_ON_BOOT_ENABLED, SETUP_ON_BOOT_DEFAULT, \
+    TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda.modules.services.installation import ConfigurePostInstallationToolsTask
+from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.services.services import ServicesModule
 from pyanaconda.modules.services.services_interface import ServicesInterface
+from pyanaconda.modules.services.constants import SetupOnBootAction
+from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, \
+    ConfigureServicesTask, ConfigureSystemdDefaultTargetTask, ConfigureDefaultDesktopTask
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
@@ -70,12 +74,25 @@ class ServicesInterfaceTestCase(unittest.TestCase):
             SERVICES.interface_name, {'DisabledServices': ["a", "b", "c"]}, []
         )
 
-    def default_target_property_test(self):
-        """Test the default target property."""
+    def default_target_property_default_graphical_test(self):
+        """Test the default target property - default value."""
+        self.callback.assert_not_called()
+        self.assertEqual(self.services_interface.DefaultTarget, TEXT_ONLY_TARGET)
+
+    def default_target_property_graphical_test(self):
+        """Test the default target property - set graphical target."""
         self.services_interface.SetDefaultTarget(GRAPHICAL_TARGET)
         self.assertEqual(self.services_interface.DefaultTarget, GRAPHICAL_TARGET)
         self.callback.assert_called_once_with(
             SERVICES.interface_name, {'DefaultTarget': GRAPHICAL_TARGET}, []
+        )
+
+    def default_target_property_text_test(self):
+        """Test the default target property - set text target."""
+        self.services_interface.SetDefaultTarget(TEXT_ONLY_TARGET)
+        self.assertEqual(self.services_interface.DefaultTarget, TEXT_ONLY_TARGET)
+        self.callback.assert_called_once_with(
+            SERVICES.interface_name, {'DefaultTarget': TEXT_ONLY_TARGET}, []
         )
 
     def default_desktop_property_test(self):
@@ -205,6 +222,16 @@ class ServicesInterfaceTestCase(unittest.TestCase):
 class ServicesTasksTestCase(unittest.TestCase):
     """Test the services tasks."""
 
+    def setUp(self):
+        """Set up the services module."""
+        # Set up the services module.
+        self.services_module = ServicesModule()
+        self.services_interface = ServicesInterface(self.services_module)
+
+        # Connect to the properties changed signal.
+        self.callback = Mock()
+        self.services_interface.PropertiesChanged.connect(self.callback)
+
     @patch('pyanaconda.modules.services.installation.get_anaconda_version_string')
     def enable_post_install_tools_test(self, version_getter):
         version_getter.return_value = "1.0"
@@ -272,3 +299,202 @@ class ServicesTasksTestCase(unittest.TestCase):
             task.run()
 
             self.assertFalse(os.path.isfile(os.path.join(sysroot, "etc/sysconfig/anaconda")))
+
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def install_with_tasks_default_test(self, publisher):
+        """Test default install tasks behavior."""
+        tasks = self.services_interface.InstallWithTasks("/")
+        is_task_path = tasks[0]
+        post_install_tools_task = tasks[1]
+        services_task_path = tasks[2]
+        target_task_path = tasks[3]
+        desktop_task_path = tasks[4]
+
+        publisher.assert_called()
+
+        # Initial Setup configuration
+        object_path = publisher.call_args_list[0][0][0]
+        obj = publisher.call_args_list[0][0][1]
+
+        self.assertEqual(is_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureInitialSetupTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.DEFAULT)
+
+        # post install tools configuration
+        object_path = publisher.call_args_list[1][0][0]
+        obj = publisher.call_args_list[1][0][1]
+
+        self.assertEqual(post_install_tools_task, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigurePostInstallationToolsTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._tools_enabled, True)
+
+        # Services configuration
+        object_path = publisher.call_args_list[2][0][0]
+        obj = publisher.call_args_list[2][0][1]
+
+        self.assertEqual(services_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureServicesTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._enabled_services, [])
+        self.assertEqual(obj.implementation._disabled_services, [])
+
+        # Default systemd target configuration
+        object_path = publisher.call_args_list[3][0][0]
+        obj = publisher.call_args_list[3][0][1]
+
+        self.assertEqual(target_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureSystemdDefaultTargetTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._default_target, TEXT_ONLY_TARGET)
+
+        # Default desktop configuration
+        object_path = publisher.call_args_list[4][0][0]
+        obj = publisher.call_args_list[4][0][1]
+
+        self.assertEqual(desktop_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureDefaultDesktopTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._default_desktop, "")
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def initial_setup_config_task_enable_test(self, publisher):
+        """Test the Initial Setup conifg task - enable."""
+        self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_ENABLED)
+        tasks = self.services_interface.InstallWithTasks("/")
+        is_task_path = tasks[0]
+
+        publisher.assert_called()
+
+        # Initial Setup configuration
+        object_path = publisher.call_args_list[0][0][0]
+        obj = publisher.call_args_list[0][0][1]
+
+        self.assertEqual(is_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureInitialSetupTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.ENABLED)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def initial_setup_config_task_disable_test(self, publisher):
+        """Test the Initial Setup config task - disable."""
+        self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_DISABLED)
+        tasks = self.services_interface.InstallWithTasks("/")
+        is_task_path = tasks[0]
+
+        publisher.assert_called()
+
+        # Initial Setup configuration
+        object_path = publisher.call_args_list[0][0][0]
+        obj = publisher.call_args_list[0][0][1]
+
+        self.assertEqual(is_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureInitialSetupTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.DISABLED)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def initial_setup_config_task_reconfig_test(self, publisher):
+        """Test the Initial Setup config task - reconfig."""
+        self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_RECONFIG)
+        tasks = self.services_interface.InstallWithTasks("/")
+        is_task_path = tasks[0]
+
+        publisher.assert_called()
+
+        # Initial Setup configuration
+        object_path = publisher.call_args_list[0][0][0]
+        obj = publisher.call_args_list[0][0][1]
+
+        self.assertEqual(is_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureInitialSetupTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.RECONFIG)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def configure_services_task_test(self, publisher):
+        """Test the services configuration task."""
+        self.services_interface.SetEnabledServices(["a", "b", "c"])
+        self.services_interface.SetDisabledServices(["c", "e", "f"])
+        tasks = self.services_interface.InstallWithTasks("/")
+        services_task_path = tasks[2]
+
+        publisher.assert_called()
+
+        # Services configuration
+        object_path = publisher.call_args_list[2][0][0]
+        obj = publisher.call_args_list[2][0][1]
+
+        self.assertEqual(services_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureServicesTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._enabled_services, ["a", "b", "c"])
+        self.assertEqual(obj.implementation._disabled_services, ["c", "e", "f"])
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def configure_systemd_target_task_text_test(self, publisher):
+        """Test the systemd default traget configuration task - text."""
+        self.services_interface.SetDefaultTarget(TEXT_ONLY_TARGET)
+        tasks = self.services_interface.InstallWithTasks("/")
+        target_task_path = tasks[3]
+
+        publisher.assert_called()
+
+        # Default systemd target configuration
+        object_path = publisher.call_args_list[3][0][0]
+        obj = publisher.call_args_list[3][0][1]
+
+        self.assertEqual(target_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureSystemdDefaultTargetTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._default_target, TEXT_ONLY_TARGET)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def configure_systemd_target_task_graphical_test(self, publisher):
+        """Test the systemd default traget configuration task - graphical."""
+        self.services_interface.SetDefaultTarget(GRAPHICAL_TARGET)
+        tasks = self.services_interface.InstallWithTasks("/")
+        target_task_path = tasks[3]
+
+        publisher.assert_called()
+
+        # Default systemd target configuration
+        object_path = publisher.call_args_list[3][0][0]
+        obj = publisher.call_args_list[3][0][1]
+
+        self.assertEqual(target_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureSystemdDefaultTargetTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._default_target, GRAPHICAL_TARGET)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def configure_default_desktop_task_test(self, publisher):
+        """Test the default desktop configuration task."""
+        self.services_interface.SetDefaultDesktop("GNOME")
+        tasks = self.services_interface.InstallWithTasks("/")
+        desktop_task_path = tasks[4]
+
+        publisher.assert_called()
+
+        # Default desktop configuration
+        object_path = publisher.call_args_list[4][0][0]
+        obj = publisher.call_args_list[4][0][1]
+
+        self.assertEqual(desktop_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureDefaultDesktopTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._default_desktop, "GNOME")
