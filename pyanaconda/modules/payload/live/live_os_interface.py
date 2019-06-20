@@ -49,3 +49,7 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         This image will be used as the installation source.
         """
         self.implementation.set_image_path(image_path)
+
+    def SetupInstallationSourceWithTask(self) -> ObjPath:
+        """Setup installation source resources."""
+        return self.implementation.setup_installation_source_with_task()
