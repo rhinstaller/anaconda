@@ -30,7 +30,15 @@ from collections import namedtuple
 import functools
 import re
 
+from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
+    DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD, get_supported_raid_levels
+from blivet.devicelibs import btrfs, mdraid, raid
+from blivet.formats import get_format
+from blivet.size import Size
+
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
+from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.platform import platform
 from pyanaconda.storage.utils import size_from_input
@@ -38,22 +46,7 @@ from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
-from pyanaconda.core.i18n import _, N_, CN_
 
-from blivet.size import Size
-from blivet.formats import get_format
-from blivet.devicefactory import SIZE_POLICY_AUTO
-from blivet.devicefactory import SIZE_POLICY_MAX
-from blivet.devicefactory import DEVICE_TYPE_LVM
-from blivet.devicefactory import DEVICE_TYPE_BTRFS
-from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
-from blivet.devicefactory import DEVICE_TYPE_MD
-from blivet.devicefactory import get_supported_raid_levels
-from blivet.devicelibs import btrfs
-from blivet.devicelibs import mdraid
-from blivet.devicelibs import raid
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "

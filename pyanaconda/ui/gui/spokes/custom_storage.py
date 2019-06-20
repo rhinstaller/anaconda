@@ -35,13 +35,24 @@ from gi.repository.AnacondaWidgets import MountpointSelector
 
 import logging
 from contextlib import contextmanager
+from functools import wraps
+from itertools import chain
 
-from pyanaconda.core.i18n import _, N_, CP_, C_
-from pyanaconda.product import productName, productVersion, translated_new_install_name
-from pyanaconda.threading import AnacondaThread, threadMgr
+from blivet import devicefactory
+from blivet.devicefactory import DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_PARTITION, \
+    DEVICE_TYPE_MD, DEVICE_TYPE_DISK, DEVICE_TYPE_LVM_THINP, SIZE_POLICY_AUTO, \
+    is_supported_device_type
+from blivet.devicelibs import raid, crypto
+from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
+from blivet.errors import StorageError
+from blivet.formats import get_format
+from blivet.size import Size
+
+from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, \
     DEFAULT_AUTOPART_TYPE
+from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, \
     AUTO_PARTITIONING
@@ -52,55 +63,34 @@ from pyanaconda.modules.storage.disk_initialization import DiskInitializationCon
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.platform import platform
-from pyanaconda.storage.initialization import reset_bootloader
-
-from blivet import devicefactory
-from blivet.formats import get_format
-from blivet.size import Size
-from blivet.devicefactory import DEVICE_TYPE_LVM
-from blivet.devicefactory import DEVICE_TYPE_BTRFS
-from blivet.devicefactory import DEVICE_TYPE_PARTITION
-from blivet.devicefactory import DEVICE_TYPE_MD
-from blivet.devicefactory import DEVICE_TYPE_DISK
-from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
-from blivet.devicefactory import SIZE_POLICY_AUTO
-from blivet.devicefactory import is_supported_device_type
-from blivet.errors import StorageError
-from blivet.devicelibs import raid, crypto
-from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
-
-from pyanaconda.storage.root import find_existing_installations, Root
+from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
+from pyanaconda.storage.execution import configure_storage
+from pyanaconda.storage.initialization import reset_bootloader
+from pyanaconda.storage.root import find_existing_installations, Root
 from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
     DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, bound_size, \
     get_supported_filesystems, filter_unsupported_disklabel_devices, unlock_device, \
     setup_passphrase, find_unconfigured_luks
-from pyanaconda.storage.execution import configure_storage
-
+from pyanaconda.threading import AnacondaThread, threadMgr
+from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.helpers import StorageCheckHandler
+from pyanaconda.ui.gui.spokes.lib.accordion import update_selector_from_device, Accordion, Page, \
+    CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry, validate_label, \
+    get_raid_level, validate_mountpoint, selectedRaidLevel, raidLevelSelection, defaultRaidLevel, \
+    requiresRaidSelection, containerRaidLevelsSupported, raidLevelsSupported, get_container_type, \
+    defaultContainerRaidLevel, RAID_NOT_ENOUGH_DISKS, AddDialog, ConfirmDeleteDialog, DisksDialog, \
+    ContainerDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
-from pyanaconda.ui.gui.spokes.lib.accordion import update_selector_from_device, Accordion, Page, CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, get_raid_level
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import selectedRaidLevel, raidLevelSelection, defaultRaidLevel, requiresRaidSelection, containerRaidLevelsSupported, raidLevelsSupported, defaultContainerRaidLevel
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_type, RAID_NOT_ENOUGH_DISKS
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog
-
-from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape
-from pyanaconda.ui.gui.utils import really_hide, really_show, timed_action, escape_markup
-from pyanaconda.ui.categories.system import SystemCategory
-
-from functools import wraps
-from itertools import chain
-
-from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
+from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape, \
+    really_hide, really_show, timed_action, escape_markup
+from pyanaconda.ui.helpers import StorageCheckHandler
 
 log = get_module_logger(__name__)
 
