@@ -16,5 +16,21 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.storage.devicetree.devicetree import DeviceTreeModule
+from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 
-__all__ = ["DeviceTreeModule"]
+__all__ = ["DeviceTreeModule", "publish_device_tree"]
+
+
+def publish_device_tree(message_bus, namespace, device_tree, interface=DeviceTreeInterface):
+    """Publish a device tree module on the given message bus.
+
+    :param message_bus: a message bus
+    :param namespace: a sequence of names
+    :param device_tree: an instance of a DeviceTreeModule
+    :param interface: an interface class
+    :return: a DBus path of the published task
+    """
+    publishable = interface(device_tree)
+    object_path = interface.get_object_path(namespace)
+    message_bus.publish_object(object_path, publishable)
+    return object_path
