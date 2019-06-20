@@ -81,11 +81,12 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.accordion import update_selector_from_device, Accordion, Page, \
     CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry, validate_label, \
-    get_raid_level, validate_mountpoint, selectedRaidLevel, raidLevelSelection, defaultRaidLevel, \
-    requiresRaidSelection, containerRaidLevelsSupported, raidLevelsSupported, get_container_type, \
-    defaultContainerRaidLevel, RAID_NOT_ENOUGH_DISKS, AddDialog, ConfirmDeleteDialog, DisksDialog, \
-    ContainerDialog
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_entry, \
+    validate_label, get_device_raid_level, validate_mountpoint, get_selected_raid_level, \
+    get_raid_level_selection, get_default_raid_level, requires_raid_selection, \
+    get_supported_container_raid_levels, get_supported_raid_levels, get_container_type, \
+    get_default_container_raid_level, RAID_NOT_ENOUGH_DISKS, AddDialog, ConfirmDeleteDialog, \
+    DisksDialog, ContainerDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
@@ -752,8 +753,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             error = _("You must create a new file system on the root device.")
 
         if not error and \
-                (raid_level is not None or requiresRaidSelection(device_type)) and \
-                raid_level not in raidLevelsSupported(device_type):
+                (raid_level is not None or requires_raid_selection(device_type)) and \
+                raid_level not in get_supported_raid_levels(device_type):
             error = _("Device does not support RAID level selection %s.") % raid_level
 
         if not error and raid_level is not None:
@@ -1044,7 +1045,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if old_size.human_readable(max_places=self.MAX_SIZE_PLACES) == self._sizeEntry.get_text():
             size = old_size
         else:
-            size = size_from_entry(
+            size = get_size_from_entry(
                 self._sizeEntry,
                 lower_bound=self.MIN_SIZE_ENTRY,
                 units=SIZE_UNITS_DEFAULT
@@ -1132,8 +1133,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         changed_mountpoint = (old_mountpoint != mountpoint)
 
         # RAID LEVEL
-        raid_level = selectedRaidLevel(self._raidLevelCombo)
-        old_raid_level = get_raid_level(device)
+        raid_level = get_selected_raid_level(self._raidLevelCombo)
+        old_raid_level = get_device_raid_level(device)
         changed_raid_level = (old_device_type == device_type and
                               device_type in (DEVICE_TYPE_MD,
                                               DEVICE_TYPE_BTRFS) and
@@ -1188,7 +1189,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if old_container:
                 old_container_name = old_container.name
                 old_container_encrypted = old_container.encrypted
-                old_container_raid_level = get_raid_level(old_container)
+                old_container_raid_level = get_device_raid_level(old_container)
                 old_container_size = getattr(old_container, "size_policy",
                                              old_container.size)
 
@@ -1205,8 +1206,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         changed_container_encrypted = (container_encrypted != old_container_encrypted)
 
         container_raid_level = self._device_container_raid_level
-        if container_raid_level not in containerRaidLevelsSupported(device_type):
-            container_raid_level = defaultContainerRaidLevel(device_type)
+        if container_raid_level not in get_supported_container_raid_levels(device_type):
+            container_raid_level = get_default_container_raid_level(device_type)
 
         old_device_info["container_raid_level"] = old_container_raid_level
         new_device_info["container_raid_level"] = container_raid_level
@@ -1359,7 +1360,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _raid_level_visible(self, model, itr, user_data):
         device_type = self._get_current_device_type()
         raid_level = raid.get_raid_level(model[itr][1])
-        return raid_level in raidLevelsSupported(device_type)
+        return raid_level in get_supported_raid_levels(device_type)
 
     def _populate_raid(self, raid_level):
         """ Set up the raid-specific portion of the device details.
@@ -1370,13 +1371,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         device_type = self._get_current_device_type()
         log.debug("populate_raid: %s, %s", device_type, raid_level)
 
-        if not raidLevelsSupported(device_type):
+        if not get_supported_raid_levels(device_type):
             for widget in [self._raidLevelLabel, self._raidLevelCombo]:
                 really_hide(widget)
             return
 
-        raid_level = raid_level or defaultRaidLevel(device_type)
-        raid_level_name = raidLevelSelection(raid_level)
+        raid_level = raid_level or get_default_raid_level(device_type)
+        raid_level_name = get_raid_level_selection(raid_level)
 
         # Set a default RAID level in the combo.
         for (i, row) in enumerate(self._raidLevelCombo.get_model()):
@@ -1438,13 +1439,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _update_container_info(self, use_dev):
         if hasattr(use_dev, "vg"):
             self._device_container_name = use_dev.vg.name
-            self._device_container_raid_level = get_raid_level(use_dev.vg)
+            self._device_container_raid_level = get_device_raid_level(use_dev.vg)
             self._device_container_encrypted = use_dev.vg.encrypted
             self._device_container_size = use_dev.vg.size_policy
         elif hasattr(use_dev, "volume") or hasattr(use_dev, "subvolumes"):
             volume = getattr(use_dev, "volume", use_dev)
             self._device_container_name = volume.name
-            self._device_container_raid_level = get_raid_level(volume)
+            self._device_container_raid_level = get_device_raid_level(volume)
             self._device_container_encrypted = volume.encrypted
             self._device_container_size = volume.size_policy
         else:
@@ -1455,7 +1456,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._device_container_raid_level = \
             self._device_container_raid_level or \
-            defaultContainerRaidLevel(devicefactory.get_device_type(use_dev))
+            get_default_container_raid_level(devicefactory.get_device_type(use_dev))
 
     def _setup_fstype_combo(self, device):
         """ Setup the filesystem combo box.
@@ -1714,7 +1715,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 "This file system may not be resized."
             ))
 
-        self._populate_raid(get_raid_level(device))
+        self._populate_raid(get_device_raid_level(device))
         self._populate_container(device=use_dev)
         self._populate_luks(device)
 
@@ -1846,7 +1847,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             # don't override user-initiated changes to a defined container
             dev_info["disks"] = container.disks
             dev_info.update({"container_encrypted": container.encrypted,
-                             "container_raid_level": get_raid_level(container),
+                             "container_raid_level": get_device_raid_level(container),
                              "container_size": getattr(container, "size_policy",
                                                        container.size)})
 
@@ -1865,7 +1866,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 # don't override user-initiated changes to a defined container
                 dev_info["disks"] = container.disks
                 dev_info.update({"container_encrypted": container.encrypted,
-                                 "container_raid_level": get_raid_level(container),
+                                 "container_raid_level": get_device_raid_level(container),
                                  "container_size": getattr(container, "size_policy",
                                                            container.size),
                                  "container_name": container.name})
@@ -2036,7 +2037,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if container and not container.exists and container.children and \
                 container.size_policy == SIZE_POLICY_AUTO:
             cont_encrypted = container.encrypted
-            cont_raid = get_raid_level(container)
+            cont_raid = get_device_raid_level(container)
             cont_size = container.size_policy
             cont_name = container.name
             factory = devicefactory.get_device_factory(
@@ -2246,7 +2247,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._device_disks = disks
         self._set_devices_label()
-        self._populate_raid(selectedRaidLevel(self._raidLevelCombo))
+        self._populate_raid(get_selected_raid_level(self._raidLevelCombo))
 
     def _container_encryption_change(self, old_encrypted, new_encrypted):
         if not old_encrypted and new_encrypted:
@@ -2463,7 +2464,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         container_exists = getattr(container, "exists", False)  # might not be in the tree
 
         if container:
-            self._device_container_raid_level = get_raid_level(container)
+            self._device_container_raid_level = get_device_raid_level(container)
             self._device_container_encrypted = container.encrypted
             self._device_container_size = getattr(container, "size_policy",
                                                   container.size)
@@ -2871,7 +2872,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # device type
         self._raidStoreFilter.refilter()
 
-        self._populate_raid(defaultRaidLevel(new_type))
+        self._populate_raid(get_default_raid_level(new_type))
         self._populate_container()
 
         fancy_set_sensitive(self._nameEntry, new_type in NAMED_DEVICE_TYPES)

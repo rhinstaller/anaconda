@@ -19,19 +19,21 @@
 
 """Helper functions and classes for custom partitioning."""
 
-__all__ = ["size_from_entry", "populate_mountpoint_store", "validate_label",
-           "validate_mountpoint", "get_raid_level",
-           "selectedRaidLevel", "raidLevelSelection",
-           "defaultRaidLevel", "requiresRaidSelection", "defaultContainerRaidLevel",
-           "containerRaidLevelsSupported", "raidLevelsSupported", "get_container_type",
-           "AddDialog", "ConfirmDeleteDialog", "DisksDialog", "ContainerDialog"]
+__all__ = [
+    "get_size_from_entry", "populate_mountpoint_store", "validate_label", "validate_mountpoint",
+    "get_device_raid_level", "get_selected_raid_level", "get_raid_level_selection",
+    "get_default_raid_level", "requires_raid_selection", "get_default_container_raid_level",
+    "get_supported_container_raid_levels", "get_supported_raid_levels", "get_container_type",
+    "AddDialog", "ConfirmDeleteDialog", "DisksDialog", "ContainerDialog"
+]
 
 from collections import namedtuple
 import functools
 import re
 
 from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
-    DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD, get_supported_raid_levels
+    DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
+from blivet.devicefactory import get_supported_raid_levels as get_blivet_supported_raid_levels
 from blivet.devicelibs import btrfs, mdraid, raid
 from blivet.formats import get_format
 from blivet.size import Size
@@ -75,7 +77,7 @@ CONTAINER_TYPES = {
 system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
 
 
-def size_from_entry(entry, lower_bound=None, units=None):
+def get_size_from_entry(entry, lower_bound=None, units=None):
     """ Get a Size object from an entry field.
 
         :param lower_bound: lower bound for size returned,
@@ -171,7 +173,7 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
         return ""
 
 
-def get_raid_level(device):
+def get_device_raid_level(device):
     use_dev = device.raw_device
 
     raid_level = None
@@ -182,23 +184,23 @@ def get_raid_level(device):
     elif hasattr(use_dev, "volume"):
         raid_level = use_dev.volume.data_level
     elif not hasattr(use_dev, "vg") and hasattr(use_dev, "lvs") and len(use_dev.parents) == 1:
-        raid_level = get_raid_level(use_dev.parents[0])
+        raid_level = get_device_raid_level(use_dev.parents[0])
 
     return raid_level
 
 
-def selectedRaidLevel(raidLevelCombo):
+def get_selected_raid_level(raid_level_combo):
     """Interpret the selection of a RAID level combo box.
 
        :returns: the selected raid level, None if none selected
        :rtype: instance of blivet.devicelibs.raid.RaidLevel or NoneType
     """
-    if not raidLevelCombo.get_property("visible"):
+    if not raid_level_combo.get_property("visible"):
         # the combo is hidden when raid level isn't applicable
         return None
 
-    itr = raidLevelCombo.get_active_iter()
-    store = raidLevelCombo.get_model()
+    itr = raid_level_combo.get_active_iter()
+    store = raid_level_combo.get_model()
 
     if not itr:
         return
@@ -210,7 +212,7 @@ def selectedRaidLevel(raidLevelCombo):
         return raid.get_raid_level(selected_level)
 
 
-def raidLevelSelection(raid_level):
+def get_raid_level_selection(raid_level):
     """ Returns a string corresponding to the RAID level.
 
         :param raid_level: a raid level
@@ -221,7 +223,7 @@ def raidLevelSelection(raid_level):
     return raid_level.name if raid_level else "none"
 
 
-def defaultRaidLevel(device_type):
+def get_default_raid_level(device_type):
     """ Returns the default RAID level for this device type.
 
         :param int device_type: an int representing the device_type
@@ -234,7 +236,7 @@ def defaultRaidLevel(device_type):
     return None
 
 
-def defaultContainerRaidLevel(device_type):
+def get_default_container_raid_level(device_type):
     """ Returns the default RAID level for this device type's container type.
 
         :param int device_type: an int representing the device_type
@@ -247,7 +249,7 @@ def defaultContainerRaidLevel(device_type):
     return None
 
 
-def requiresRaidSelection(device_type):
+def requires_raid_selection(device_type):
     """ Whether GUI requires a RAID level be selected for this device type."""
     return device_type == DEVICE_TYPE_MD
 
@@ -274,7 +276,7 @@ def memoizer(f):
 
 
 @memoizer
-def raidLevelsSupported(device_type):
+def get_supported_raid_levels(device_type):
     """ The raid levels anaconda supports for this device type.
 
         It supports any RAID levels that it expects to support and that blivet
@@ -294,11 +296,12 @@ def raidLevelsSupported(device_type):
         supported = set(raid.RAIDLevels(["raid0", "raid1", "raid4", "raid5", "raid6", "raid10"]))
     else:
         supported = set()
-    return get_supported_raid_levels(device_type).intersection(supported)
+
+    return get_blivet_supported_raid_levels(device_type).intersection(supported)
 
 
 @memoizer
-def containerRaidLevelsSupported(device_type):
+def get_supported_container_raid_levels(device_type):
     """ The raid levels anaconda supports for a container for this
         device_type.
 
@@ -310,10 +313,15 @@ def containerRaidLevelsSupported(device_type):
     """
     if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP):
         supported = set(raid.RAIDLevels(["raid0", "raid1", "raid4", "raid5", "raid6", "raid10"]))
-        return get_supported_raid_levels(DEVICE_TYPE_MD).intersection(supported).union(set([None]))
+        return get_blivet_supported_raid_levels(DEVICE_TYPE_MD)\
+            .intersection(supported)\
+            .union({None})
+
     elif device_type == DEVICE_TYPE_BTRFS:
         supported = set(raid.RAIDLevels(["raid0", "raid1", "raid10", "single"]))
-        return get_supported_raid_levels(DEVICE_TYPE_BTRFS).intersection(supported)
+        return get_blivet_supported_raid_levels(DEVICE_TYPE_BTRFS)\
+            .intersection(supported)
+
     return set()
 
 
@@ -357,7 +365,7 @@ class AddDialog(GUIObject):
         if self._error:
             return
 
-        self.size = size_from_entry(
+        self.size = get_size_from_entry(
             self.builder.get_object("addSizeEntry"),
             lower_bound=self.MIN_SIZE_ENTRY,
             units=SIZE_UNITS_DEFAULT
@@ -516,7 +524,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         self._error = None
 
-        self._grabObjects()
+        self._grab_objects()
         GUIDialogInputCheckHandler.__init__(self, self._save_button)
 
         # set up the dialog labels with device-type-specific text
@@ -577,9 +585,9 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             self._sizeEntry.set_sensitive(False)
 
         # Check that the container name configured is valid
-        self.add_check(self._name_entry, self._checkNameEntry)
+        self.add_check(self._name_entry, self._check_name_entry)
 
-    def _grabObjects(self):
+    def _grab_objects(self):
         self._title_label = self.builder.get_object("container_dialog_title_label")
         self._dialog_label = self.builder.get_object("container_dialog_label")
         self._error_label = self.builder.get_object("containerErrorLabel")
@@ -611,7 +619,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         model, paths = self._treeview.get_selection().get_selected_rows()
 
-        raid_level = selectedRaidLevel(self._raidLevelCombo)
+        raid_level = get_selected_raid_level(self._raidLevelCombo)
         if raid_level:
             min_disks = raid_level.min_members
             if len(paths) < min_disks:
@@ -629,7 +637,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             size = SIZE_POLICY_MAX
         elif idx == 2:
             if self._original_size_text != self._sizeEntry.get_text():
-                size = size_from_entry(
+                size = get_size_from_entry(
                     self._sizeEntry,
                     lower_bound=self.MIN_SIZE_ENTRY,
                     units=SIZE_UNITS_DEFAULT
@@ -690,7 +698,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
     def _raid_level_visible(self, model, itr, user_data):
         raid_level_str = model[itr][1]
         raid_level = raid.get_raid_level(raid_level_str) if raid_level_str != "none" else None
-        return raid_level in containerRaidLevelsSupported(self.device_type)
+        return raid_level in get_supported_container_raid_levels(self.device_type)
 
     def _populate_raid(self):
         """ Set up the raid-specific portion of the device details.
@@ -698,13 +706,13 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             Hide the RAID level menu if this device type does not support RAID.
             Choose a default RAID level.
         """
-        if not containerRaidLevelsSupported(self.device_type):
+        if not get_supported_container_raid_levels(self.device_type):
             for widget in [self._raidLevelLabel, self._raidLevelCombo]:
                 really_hide(widget)
             return
 
-        raid_level = self.raid_level or defaultContainerRaidLevel(self.device_type)
-        raid_level_name = raidLevelSelection(raid_level)
+        raid_level = self.raid_level or get_default_container_raid_level(self.device_type)
+        raid_level_name = get_raid_level_selection(raid_level)
 
         # Set a default RAID level in the combo.
         for (i, row) in enumerate(self._raidLevelCombo.get_model()):
@@ -717,7 +725,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             really_show(widget)
         fancy_set_sensitive(self._raidLevelCombo, not self.exists)
 
-    def _checkNameEntry(self, inputcheck):
+    def _check_name_entry(self, inputcheck):
         container_name = self.get_input(inputcheck.input_obj).strip()
 
         # Check that the container name is valid
