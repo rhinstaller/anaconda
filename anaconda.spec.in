@@ -353,6 +353,33 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 20 2019 Martin Kolman <mkolman@redhat.com> - 31.16-1
+- Replace the XConfig execute() method by DBus Tasks (mkolman)
+- Fix list-screens script reference (gpchelkin)
+- Fix protecting of the live device (#1699387) (vponcova)
+- Adapt tests for new Live payload handler changes (jkonecny)
+- Add setters to LiveImage payload handler (jkonecny)
+- Rename Live payload handler to LiveImage (jkonecny)
+- Extend payload live handler with new properties (jkonecny)
+- Add read only properties to payload Live handler (jkonecny)
+- Add the apply-updates script (vponcova)
+- Add payload live handler tests (jkonecny)
+- Update payload DNF handler tests (jkonecny)
+- Create a new payload handler mixin class for tests (jkonecny)
+- Improve the documentation of inst.stage2.all and inst.ks.all (vponcova)
+- Add DBus support for teardown tasks (vponcova)
+- Tear down images with teardown_disk_images (vponcova)
+- Move get_anaconda_version_string to util (vponcova)
+- Support multiple payload handlers (jkonecny)
+- Add kickstart processing to payload live handler (jkonecny)
+- Create Live payload handler module (jkonecny)
+- Deprecate the method changed (vponcova)
+- Calculate free space for the physical root in dir installations (vponcova)
+- Use the actual sysroot to pick up a mount point for downloading (vponcova)
+- Use the physical root for mounting existing systems (vponcova)
+- Change the path to the system root (vponcova)
+- Read files in /etc/anaconda/conf.d on demand (vponcova)
+
 * Thu Jun 13 2019 Martin Kolman <mkolman@redhat.com> - 31.15-1
 - iscsi: require relevant blivet version for iscsi module (rvykydal)
 - iscsi: add unit tests for iscsi module (rvykydal)
