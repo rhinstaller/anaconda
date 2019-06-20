@@ -239,14 +239,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def status(self):
         return None
 
-    def _grabObjects(self):
+    def _grab_objects(self):
         self._partitionsViewport = self.builder.get_object("partitionsViewport")
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
 
         # Connect partitionsNotebook focus events to scrolling in the parent viewport
-        partitionsNotebookViewport = self.builder.get_object("partitionsNotebookViewport")
+        partitions_notebook_viewport = self.builder.get_object("partitionsNotebookViewport")
         self._partitionsNotebook.set_focus_vadjustment(
-            Gtk.Scrollable.get_vadjustment(partitionsNotebookViewport))
+            Gtk.Scrollable.get_vadjustment(partitions_notebook_viewport))
 
         self._pageLabel = self.builder.get_object("pageLabel")
 
@@ -286,10 +286,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # False so that the "Create a new..." row can overlap with the free space
         # on the other rows. These properties are not accessible from glade.
         cell_area = self._containerCombo.get_area()
-        descRenderer = self.builder.get_object("descRenderer")
-        freeSpaceRenderer = self.builder.get_object("freeSpaceRenderer")
-        cell_area.cell_set_property(descRenderer, "fixed-size", False)
-        cell_area.cell_set_property(freeSpaceRenderer, "fixed-size", False)
+        desc_renderer = self.builder.get_object("descRenderer")
+        free_space_renderer = self.builder.get_object("freeSpaceRenderer")
+        cell_area.cell_set_property(desc_renderer, "fixed-size", False)
+        cell_area.cell_set_property(free_space_renderer, "fixed-size", False)
 
         self._passphraseEntry = self.builder.get_object("passphraseEntry")
 
@@ -314,7 +314,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def initialize(self):
         NormalSpoke.initialize(self)
         self.initialize_start()
-        self._grabObjects()
+        self._grab_objects()
 
         setViewportBackground(self.builder.get_object("availableSpaceViewport"), "#db3279")
         setViewportBackground(self.builder.get_object("totalSpaceViewport"), "#60605b")
@@ -344,12 +344,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.initialize_done()
 
     @property
-    def _clearpartDevices(self):
+    def _clearpart_devices(self):
         drives_to_clear = self._disk_init_observer.proxy.DrivesToClear
         return [d for d in self._devices if d.name in drives_to_clear and d.partitioned]
 
     @property
-    def unusedDevices(self):
+    def unused_devices(self):
         unused_devices = [
             d for d in self._storage_playground.unused_devices
             if d.disks
@@ -370,7 +370,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         return unused_devices
 
     @property
-    def bootLoaderDevices(self):
+    def bootloader_devices(self):
         devices = []
         format_types = ["biosboot", "prepboot"]
         for device in self._devices:
@@ -385,22 +385,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         return devices
 
-    def _setCurrentFreeSpace(self):
+    def _set_current_free_space(self):
         """Add up all the free space on selected disks and return it as a Size."""
         self._free_space = self._storage_playground.get_disk_free_space()
 
-    def _currentTotalSpace(self):
+    def _current_total_space(self):
         """Add up the sizes of all selected disks and return it as a Size."""
-        totalSpace = sum((disk.size for disk in self._clearpartDevices),
-                         Size(0))
-        return totalSpace
+        return sum((disk.size for disk in self._clearpart_devices), Size(0))
 
-    def _updateSpaceDisplay(self):
+    def _update_space_display(self):
         # Set up the free space/available space displays in the bottom left.
-        self._setCurrentFreeSpace()
+        self._set_current_free_space()
 
         self._availableSpaceLabel.set_text(str(self._free_space))
-        self._totalSpaceLabel.set_text(str(self._currentTotalSpace()))
+        self._totalSpaceLabel.set_text(str(self._current_total_space()))
 
         count = len(self._disk_init_observer.proxy.DrivesToClear)
         summary = CP_("GUI|Custom Partitioning",
@@ -445,30 +443,30 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._reset_storage()
         self._do_refresh()
 
-        self._updateSpaceDisplay()
+        self._update_space_display()
         self._applyButton.set_sensitive(False)
 
     def _get_container_names(self):
         for data in self._containerStore:
             yield data[0]
 
-    def _get_fstype(self, fstypeCombo):
-        itr = fstypeCombo.get_active_iter()
+    def _get_fstype(self, fstype_combo):
+        itr = fstype_combo.get_active_iter()
         if not itr:
             return None
 
-        model = fstypeCombo.get_model()
+        model = fstype_combo.get_model()
         return model[itr][0]
 
-    def _get_autopart_type(self, autopartTypeCombo):
-        itr = autopartTypeCombo.get_active_iter()
+    def _get_autopart_type(self, autopart_type_combo):
+        itr = autopart_type_combo.get_active_iter()
         if not itr:
             return DEFAULT_AUTOPART_TYPE
 
-        model = autopartTypeCombo.get_model()
+        model = autopart_type_combo.get_model()
         return model[itr][1]
 
-    def _change_autopart_type(self, autopartTypeCombo):
+    def _change_autopart_type(self, autopart_type_combo):
         """
         This is called when the autopart type combo on the left hand side of
         custom partitioning is changed.  We already know how to handle the case
@@ -477,7 +475,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         clicks the '+' button.
 
         """
-        self._auto_part_observer.proxy.SetType(self._get_autopart_type(autopartTypeCombo))
+        self._auto_part_observer.proxy.SetType(self._get_autopart_type(autopart_type_combo))
 
     def get_new_devices(self):
         # A device scheduled for formatting only belongs in the new root.
@@ -491,7 +489,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_mounts = [d for d in self._storage_playground.mountpoints.values() if d.exists]
         if new_mounts or new_devices:
             new_devices.extend(self._storage_playground.mountpoints.values())
-            new_devices.extend(self.bootLoaderDevices)
+            new_devices.extend(self.bootloader_devices)
 
         new_devices = list(set(new_devices))
 
@@ -541,7 +539,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         new_devices = filter_unsupported_disklabel_devices(self.get_new_devices())
         all_devices = filter_unsupported_disklabel_devices(self._devices)
-        unused_devices = filter_unsupported_disklabel_devices(self.unusedDevices)
+        unused_devices = filter_unsupported_disklabel_devices(self.unused_devices)
 
         # Now it's time to populate the accordion.
         log.debug("ui: devices=%s", [d.name for d in all_devices])
@@ -581,7 +579,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                           if getattr(d.format, "mountpoint", None))
 
             for device in new_devices:
-                if device in self.bootLoaderDevices:
+                if device in self.bootloader_devices:
                     mounts[device.format.name] = device
 
             new_root = Root(mounts=mounts, swaps=swaps, name=translated_new_install_name())
@@ -617,7 +615,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             page.show_all()
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
-        if self.unusedDevices:
+        if self.unused_devices:
             page = UnknownPage(_("Unknown"))
             self._accordion.add_page(page, cb=self.on_page_clicked)
 
@@ -626,7 +624,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             page.show_all()
 
-    def _do_refresh(self, mountpointToShow=None):
+    def _do_refresh(self, mountpoint_to_show=None):
         # block mountpoint selector signal handler for now
         self._initialized = False
         self._accordion.clear_current_selector()
@@ -641,9 +639,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # And then open the first page by default.  Most of the time, this will
         # be fine since it'll be the new installation page.
         self._initialized = True
-        firstPage = self._accordion.all_pages[0]
-        self._accordion.expand_page(firstPage.pageTitle)
-        self._show_mountpoint(page=firstPage, mountpoint=mountpointToShow)
+        first_page = self._accordion.all_pages[0]
+        self._accordion.expand_page(first_page.pageTitle)
+        self._show_mountpoint(page=first_page, mountpoint=mountpoint_to_show)
 
         self._applyButton.set_sensitive(False)
         self._resetButton.set_sensitive(
@@ -666,7 +664,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             expander.add(page)
 
             # also pull in biosboot and prepboot that are on our boot disk
-            devices.extend(self.bootLoaderDevices)
+            devices.extend(self.bootloader_devices)
             devices = list(set(devices))
 
         for _device in devices:
@@ -769,7 +767,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _update_size_props(self):
         self._update_selectors()
-        self._updateSpaceDisplay()
+        self._update_space_display()
 
     def _try_replace_device(self, selector, removed_device, new_device_info,
                             old_device_info):
@@ -1526,7 +1524,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         should_appear = {"DEVICE_TYPE_PARTITION", "DEVICE_TYPE_LVM", "DEVICE_TYPE_LVM_THINP"}
 
         # only include md if there are two or more disks
-        if use_dev.type == "mdarray" or len(self._clearpartDevices) > 1:
+        if use_dev.type == "mdarray" or len(self._clearpart_devices) > 1:
             should_appear.add("DEVICE_TYPE_MD")
 
         if self._btrfs_in_typecombo(device):
@@ -1964,7 +1962,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES):
             dev_info["encrypted"] = False
 
-        dev_info["disks"] = self._clearpartDevices
+        dev_info["disks"] = self._clearpart_devices
 
         ## clear errors and try to add the mountpoint/device
         self.clear_errors()
@@ -1973,10 +1971,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         ## refresh internal state and UI elements
         self._devices = self._storage_playground.devices
         if not self._error:
-            self._do_refresh(mountpointToShow=dev_info["mountpoint"] or dev_info["fstype"])
+            self._do_refresh(mountpoint_to_show=dev_info["mountpoint"] or dev_info["fstype"])
         else:
             self._do_refresh()
-        self._updateSpaceDisplay()
+        self._update_space_display()
 
     @ui_storage_logged
     def _remove_empty_parents(self, device):
@@ -2180,7 +2178,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                 if s._device.id not in otherdevs):
                         # we only want to delete boot partitions if they're not
                         # shared *and* we have no unknown partitions
-                        if not self.unusedDevices or dev.format.type not in protected_types:
+                        if not self.unused_devices or dev.format.type not in protected_types:
                             log.debug("deleteall: removed %s", dev.name)
                             self._destroy_device(dev)
                         else:
@@ -2197,11 +2195,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if part_removed:
             self._storage_playground.roots = find_existing_installations(
                 self._storage_playground.devicetree)
-            self._updateSpaceDisplay()
+            self._update_space_display()
             self._do_refresh()
 
     def on_summary_clicked(self, button):
-        disks = self._clearpartDevices
+        disks = self._clearpart_devices
         dialog = SelectedDisksDialog(self.data, self.storage, disks, show_remove=False,
                                      set_boot=False)
 
@@ -2227,7 +2225,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         dialog = DisksDialog(
             self.data,
             self._storage_playground,
-            disks=self._clearpartDevices,
+            disks=self._clearpart_devices,
             selected=self._device_disks
         )
         with self.main_window.enlightbox(dialog.window):
@@ -2284,7 +2282,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             encrypted=self._device_container_encrypted,
             size_policy=size_policy,
             size=size,
-            disks=self._clearpartDevices,
+            disks=self._clearpart_devices,
             selected=self._device_disks,
             exists=getattr(container, "exists", False)
         )
@@ -2338,9 +2336,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         return True
 
-    def _container_store_row(self, name, freeSpace=None):
-        if freeSpace is not None:
-            return [name, _("(%s free)") % freeSpace]
+    def _container_store_row(self, name, free_space=None):
+        if free_space is not None:
+            return [name, _("(%s free)") % free_space]
         else:
             return [name, ""]
 
@@ -2403,12 +2401,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         c = self._storage_playground.devicetree.get_device_by_name(self._device_container_name)
-        freeSpace = getattr(c, "free_space", None)
+        free_space = getattr(c, "free_space", None)
 
         # else branch of for loop above ensures idx is defined
         # pylint: disable=undefined-loop-variable
         self._containerStore.insert(idx, self._container_store_row(self._device_container_name,
-                                                                   freeSpace))
+                                                                   free_space))
         self._containerCombo.set_active(idx)
         self._modifyContainerButton.set_sensitive(not container_exists)
         self._containerStore.remove(self._containerStore.get_iter_from_string("%s" % (idx + 1)))
@@ -2444,8 +2442,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 if user_changed_container and data[0] == new_text:
                     c = self._storage_playground.devicetree.get_device_by_name(
                         self._device_container_name)
-                    freeSpace = getattr(c, "free_space", None)
-                    row = self._container_store_row(self._device_container_name, freeSpace)
+                    free_space = getattr(c, "free_space", None)
+                    row = self._container_store_row(self._device_container_name, free_space)
 
                     self._containerStore.insert(idx, row)
                     combo.set_active(idx)  # triggers a call to this method
@@ -2497,21 +2495,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         curr_selector = self._accordion.current_selector
         no_edit = False
-        currentPageType = None
+        current_page_type = None
         if self._accordion.is_multiselection or not curr_selector:
-            currentPageType = NOTEBOOK_LABEL_PAGE
+            current_page_type = NOTEBOOK_LABEL_PAGE
             self._set_page_label_text()
             no_edit = True
         elif curr_selector.device.format.type == "luks" and \
                 curr_selector.device.format.exists:
-            currentPageType = NOTEBOOK_LUKS_PAGE
-            selectedDeviceLabel = self._encryptedDeviceLabel
-            selectedDeviceDescLabel = self._encryptedDeviceDescLabel
+            current_page_type = NOTEBOOK_LUKS_PAGE
+            selected_device_label = self._encryptedDeviceLabel
+            selected_device_desc_label = self._encryptedDeviceDescLabel
             no_edit = True
         elif not getattr(curr_selector.device, "complete", True):
-            currentPageType = NOTEBOOK_INCOMPLETE_PAGE
-            selectedDeviceLabel = self._incompleteDeviceLabel
-            selectedDeviceDescLabel = self._incompleteDeviceDescLabel
+            current_page_type = NOTEBOOK_INCOMPLETE_PAGE
+            selected_device_label = self._incompleteDeviceLabel
+            selected_device_desc_label = self._incompleteDeviceDescLabel
 
             if isinstance(curr_selector.device, MDRaidArrayDevice):
                 total = curr_selector.device.member_devices
@@ -2532,17 +2530,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._incompleteDeviceOptionsLabel.set_text(txt)
             no_edit = True
         elif devicefactory.get_device_type(curr_selector.device) is None:
-            currentPageType = NOTEBOOK_UNEDITABLE_PAGE
-            selectedDeviceLabel = self._uneditableDeviceLabel
-            selectedDeviceDescLabel = self._uneditableDeviceDescLabel
+            current_page_type = NOTEBOOK_UNEDITABLE_PAGE
+            selected_device_label = self._uneditableDeviceLabel
+            selected_device_desc_label = self._uneditableDeviceDescLabel
             no_edit = True
 
         if no_edit:
-            self._partitionsNotebook.set_current_page(currentPageType)
-            if currentPageType != NOTEBOOK_LABEL_PAGE:
-                selectedDeviceLabel.set_text(curr_selector.device.name)
+            self._partitionsNotebook.set_current_page(current_page_type)
+            if current_page_type != NOTEBOOK_LABEL_PAGE:
+                selected_device_label.set_text(curr_selector.device.name)
                 desc = _(MOUNTPOINT_DESCRIPTIONS.get(curr_selector.device.type, ""))
-                selectedDeviceDescLabel.set_text(desc)
+                selected_device_desc_label.set_text(desc)
 
             self._configButton.set_sensitive(False)
             self._removeButton.set_sensitive(True)
@@ -2563,7 +2561,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                          not container_device)
         self._removeButton.set_sensitive(not curr_selector.device.protected)
 
-    def on_page_clicked(self, page, mountpointToShow=None):
+    def on_page_clicked(self, page, mountpoint_to_show=None):
         if not self._initialized:
             return
 
@@ -2571,7 +2569,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if self._accordion.is_current_selected:
             self._save_current_page()
 
-        self._show_mountpoint(page=page, mountpoint=mountpointToShow)
+        self._show_mountpoint(page=page, mountpoint=mountpoint_to_show)
 
         # This is called when a Page header is clicked upon so we can support
         # deleting an entire installation at once and displaying something
@@ -2627,17 +2625,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 "<a href=\"\">Click for details.</a>"
             ))
 
-    def on_create_clicked(self, button, autopartTypeCombo):
+    def on_create_clicked(self, button, autopart_type_combo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
         # custom partitioning, so you have to make your own room.
-        self._do_autopart(self._get_autopart_type(autopartTypeCombo))
+        self._do_autopart(self._get_autopart_type(autopart_type_combo))
 
         # Refresh the spoke to make the new partitions appear.
         log.debug("refreshing ui")
         self._do_refresh()
         log.debug("finished refreshing ui")
         log.debug("updating space display")
-        self._updateSpaceDisplay()
+        self._update_space_display()
         log.debug("finished updating space display")
 
     def on_reformat_toggled(self, widget):
