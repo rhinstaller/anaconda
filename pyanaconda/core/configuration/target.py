@@ -43,6 +43,11 @@ class TargetSection(Section):
         return self._get_option("physical_root")
 
     @property
+    def system_root(self):
+        """A path to the system root of the target."""
+        return self._get_option("system_root")
+
+    @property
     def is_hardware(self):
         """Are we installing on hardware?"""
         return self.type is TargetType.HARDWARE

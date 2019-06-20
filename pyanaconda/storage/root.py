@@ -35,7 +35,7 @@ __all__ = ["mount_existing_system", "find_existing_installations", "Root"]
 
 def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
     """Mount filesystems specified in root_device's /etc/fstab file."""
-    root_path = sysroot or util.getSysroot()
+    root_path = sysroot or util.getTargetPhysicalRoot()
     read_only = "ro" if read_only else ""
 
     # Mount the root device.
@@ -49,6 +49,9 @@ def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
         root_device.format.mount(chroot=root_path,
                                  mountpoint="/",
                                  options="%s,%s" % (root_device.format.options, read_only))
+
+    # Set up the sysroot.
+    util.setSysroot(root_path)
 
     # Mount the filesystems.
     storage.fsset.parse_fstab(chroot=root_path)
@@ -94,7 +97,7 @@ def _find_existing_installations(devicetree):
     if not os.path.exists(util.getTargetPhysicalRoot()):
         blivet_util.makedirs(util.getTargetPhysicalRoot())
 
-    sysroot = util.getSysroot()
+    sysroot = util.getTargetPhysicalRoot()
     roots = []
     direct_devices = (dev for dev in devicetree.devices if dev.direct)
     for device in direct_devices:
@@ -122,7 +125,7 @@ def _find_existing_installations(devicetree):
             continue
 
         try:
-            (architecture, product, version) = get_release_string()
+            (architecture, product, version) = get_release_string(chroot=sysroot)
         except ValueError:
             name = _("Linux on %s") % device.name
         else:
@@ -147,7 +150,7 @@ def _find_existing_installations(devicetree):
     return roots
 
 
-def get_release_string():
+def get_release_string(chroot):
     """Identify the installation of a Linux distribution.
 
     Attempt to identify the installation of a Linux distribution by checking
@@ -160,7 +163,7 @@ def get_release_string():
     """
     rel_name = None
     rel_ver = None
-    sysroot = util.getSysroot()
+    sysroot = chroot
 
     try:
         rel_arch = blivet_util.capture_output(["arch"], root=sysroot).strip()
@@ -246,16 +249,13 @@ def _release_from_os_release(fn):
     return rel_name, rel_ver
 
 
-def _parse_fstab(devicetree, chroot=None):
+def _parse_fstab(devicetree, chroot):
     """Parse /etc/fstab.
 
     :param devicetree: a device tree
     :param chroot: a path to the target OS installation
     :return: a tuple of a mount dict and swap list
     """
-    if not chroot or not os.path.isdir(chroot):
-        chroot = util.getSysroot()
-
     mounts = {}
     swaps = []
     path = "%s/etc/fstab" % chroot
