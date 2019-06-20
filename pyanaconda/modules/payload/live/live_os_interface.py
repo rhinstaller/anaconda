@@ -18,6 +18,8 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
@@ -26,3 +28,24 @@ from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 @dbus_interface(LIVE_OS_HANDLER.interface_name)
 class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for Live OS payload module."""
+
+    def connect_signals(self):
+        super().connect_signals()
+
+        self.watch_property("ImagePath", self.implementation.image_path_changed)
+
+    @property
+    def ImagePath(self) -> Str:
+        """Get the path to the Live OS base image.
+
+        This image will be used as the installation.
+        """
+        return self.implementation.image_path
+
+    @emits_properties_changed
+    def SetImagePath(self, image_path: Str):
+        """Set the path to the Live OS base image.
+
+        This image will be used as the installation source.
+        """
+        self.implementation.set_image_path(image_path)

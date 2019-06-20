@@ -19,6 +19,8 @@
 #
 from pyanaconda.dbus import DBus
 
+from pyanaconda.core.signal import Signal
+
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
@@ -33,6 +35,9 @@ class LiveOSHandlerModule(KickstartBaseModule):
     def __init__(self):
         super().__init__()
 
+        self._image_path = ""
+        self.image_path_changed = Signal()
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(LIVE_OS_HANDLER.object_path, LiveOSHandlerInterface(self))
@@ -42,3 +47,23 @@ class LiveOSHandlerModule(KickstartBaseModule):
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
+
+    @property
+    def image_path(self):
+        """Path to the source live OS image.
+
+        This image will be used for the installation.
+
+        :rtype: str
+        """
+        return self._image_path
+
+    def set_image_path(self, image_path):
+        """Set path to the live os OS image.
+
+        :param image_path: path to the image
+        :type image_path: str
+        """
+        self._image_path = image_path
+        self.image_path_changed.emit()
+        log.debug("LiveOS image path is set to '%s'", self._image_path)
