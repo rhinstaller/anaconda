@@ -100,14 +100,14 @@ Naming of sections corresponding to Anaconda screens
 All section headers not named *General* are named according to the Anaconda spoke class name. For example ``DatetimeSpoke``
 or ``KeyboardSpoke``.
 
-To get a list of all such spokes run the ``list_spokes`` script from the ``scripts`` directory in the Anaconda source
+To get a list of all such spokes run the ``list-screens`` script from the ``scripts`` directory in the Anaconda source
 code tree:
 
 ::
 
     git clone https://github.com/rhinstaller/anaconda
     cd anaconda/scripts
-    ./list_screens
+    ./list-screens
 
 Note that this script only lists Anaconda spokes, not spokes provided by addons[2] or Initial Setup.
 
