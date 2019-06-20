@@ -201,6 +201,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                   DEVICE_TYPE_DISK: ""}
 
         self._initialized = False
+        self._accordion = None
 
         self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
         self._bootloader_observer.connect()
