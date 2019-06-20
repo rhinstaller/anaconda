@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+import warnings
 from abc import ABC
 
 from pyanaconda.dbus.property import PropertiesInterface
@@ -118,17 +119,27 @@ class AdvancedInterfaceTemplate(InterfaceTemplate, PropertiesInterface):
         :param property_name: a name of a DBus property
         :param signal: a signal that emits when the property is changed
         """
-        signal.connect(self.changed(property_name))
+        signal.connect(self._changed(property_name))
 
     def changed(self, property_name):
         """Returns a callback for the changed property.
-
-        FIXME: Remove this method and replace it with watch_property.
 
         The callback accepts any arguments, but ignores them.
 
         :param property_name: a name of a DBus property
         :return: a callback that should be run when the property has changed
+
+        .. deprecated::
+
+            Use watch_property instead.
+
         """
+        warnings.warn("The method changed is deprecated. Use watch_property.",
+                      category=DeprecationWarning, stacklevel=2)
+
+        return self._changed(property_name)
+
+    def _changed(self, property_name):
+        """Returns a callback for the changed property."""
         self._properties_changes.check_property(property_name)
         return lambda *args, **kwargs: self.report_changed_property(property_name)
