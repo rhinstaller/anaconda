@@ -20,6 +20,7 @@ from configparser import ConfigParser
 
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import TEXT_ONLY_TARGET
 from pyanaconda.core.util import get_anaconda_version_string
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.services.constants import SetupOnBootAction
@@ -203,14 +204,16 @@ class ConfigureSystemdDefaultTargetTask(Task):
         return "Configure systemd default target"
 
     def run(self):
-        log.debug("Setting systemd default target to: %s", self._default_target)
+        # if nothing decided on a default by now, go with text
+        default_target = self._default_target or TEXT_ONLY_TARGET
+        log.debug("Setting systemd default target to: %s", default_target)
 
         default_target_path = os.path.join(self._sysroot, 'etc/systemd/system/default.target')
         # unlink any links already in place
         if os.path.islink(default_target_path):
             os.unlink(default_target_path)
         # symlink the selected target
-        selected_target_path = os.path.join(self._sysroot, 'etc/systemd/system', self._default_target)
+        selected_target_path = os.path.join('/usr/lib/systemd/system', default_target)
         log.debug("Linking %s as systemd default target.", selected_target_path)
         os.symlink(selected_target_path, default_target_path)
 
