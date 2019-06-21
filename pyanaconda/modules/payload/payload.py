@@ -24,6 +24,7 @@ from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
 from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
+from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -73,3 +74,11 @@ class PayloadModule(KickstartModule):
         self._payload_handler.setup_kickstart(data)
 
         return str(data)
+
+    def create_live_os_handler(self):
+        """Create the live os payload handler and publish it on dbus.
+
+        FIXME: This is only temporary and the solution to manage handlers will change.
+        """
+        self._payload_handler = LiveOSHandlerModule()
+        self._publish_handler()
