@@ -21,6 +21,7 @@ from configparser import ConfigParser
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import get_anaconda_version_string
+from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.services.constants import SetupOnBootAction
 
@@ -202,15 +203,43 @@ class ConfigureSystemdDefaultTargetTask(Task):
     def name(self):
         return "Configure systemd default target"
 
-    def run(self):
-        log.debug("Setting systemd default target to: %s", self._default_target)
+    def _check_login_manager_package_is_installed(self):
+        """Check if a package which provides service(graphical-login) is installed.
 
+        If such package has been installed & no default target has been explicitely set
+        (via kickstart or DBus) then graphical.target should be the systemd
+        default target.
+        """
+        log.debug("Checking if a package with provides == service(graphical-login) is installed.")
+        try:
+            import rpm
+        except ImportError:
+            log.info("failed to import rpm -- not adjusting default runlevel")
+        else:
+            ts = rpm.TransactionSet(util.getSysroot())
+
+            if ts.dbMatch("provides", 'service(graphical-login)').count():
+                log.debug("A package with provides == service(graphical-login) is installed, using graphical.target.")
+                self._default_target = GRAPHICAL_TARGET
+
+    def run(self):
+        # If no target has been explicitly set we to switch the default target to graphical.target
+        # ig a graphical login manager has been installed.
+        if not self._default_target:
+            self._check_login_manager_package_is_installed()
+
+        # If at this point in time we still don't have a target set,
+        # we default to the multi-user.target.
+        if not self._default_target:
+            self._default_target = TEXT_ONLY_TARGET
+
+        log.debug("Setting systemd default target to: %s", self._default_target)
         default_target_path = os.path.join(self._sysroot, 'etc/systemd/system/default.target')
         # unlink any links already in place
         if os.path.islink(default_target_path):
             os.unlink(default_target_path)
         # symlink the selected target
-        selected_target_path = os.path.join(self._sysroot, 'etc/systemd/system', self._default_target)
+        selected_target_path = os.path.join('/usr/lib/systemd/system', self._default_target)
         log.debug("Linking %s as systemd default target.", selected_target_path)
         os.symlink(selected_target_path, default_target_path)
 
