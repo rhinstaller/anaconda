@@ -53,3 +53,7 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
     def SetupInstallationSourceWithTask(self) -> ObjPath:
         """Setup installation source resources."""
         return self.implementation.setup_installation_source_with_task()
+
+    def TeardownInstallationSourceWithTask(self) -> ObjPath:
+        """Teardown installation source resources."""
+        return self.implementation.teardown_installation_source_with_task()

@@ -25,7 +25,8 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
-from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask
+from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
+    TeardownInstallationSourceTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -73,5 +74,11 @@ class LiveOSHandlerModule(KickstartBaseModule):
     def setup_installation_source_with_task(self):
         """Setup installation source device."""
         task = SetupInstallationSourceTask(self.image_path, INSTALL_TREE)
+
+        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+
+    def teardown_installation_source_with_task(self):
+        """Teardown installation source device."""
+        task = TeardownInstallationSourceTask(INSTALL_TREE)
 
         return self.publish_task(LIVE_OS_HANDLER.namespace, task)
