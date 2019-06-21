@@ -103,7 +103,6 @@ def set_storage_defaults_from_kickstart(storage):
 
     if auto_part_proxy.Enabled and fstype:
         storage.set_default_fstype(fstype)
-        storage.set_default_boot_fstype(fstype)
 
 
 def load_plugin_s390():

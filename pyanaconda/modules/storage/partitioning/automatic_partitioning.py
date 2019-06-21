@@ -80,7 +80,6 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
         if fstype:
             storage.set_default_fstype(fstype)
-            storage.set_default_boot_fstype(fstype)
 
         # Set the default pbkdf args.
         pbkdf_args = self._luks_format_args.get('pbkdf_args', None)

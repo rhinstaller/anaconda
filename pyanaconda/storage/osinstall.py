@@ -48,7 +48,6 @@ class InstallerStorage(Blivet):
         super().__init__()
         self.protected_devices = []
         self._escrow_certificates = {}
-        self._default_boot_fstype = None
         self._bootloader = None
         self.__luks_devs = {}
         self.fsset = FSSet(self.devicetree)
@@ -71,20 +70,10 @@ class InstallerStorage(Blivet):
     @property
     def default_boot_fstype(self):
         """The default filesystem type for the boot partition."""
-        if self._default_boot_fstype:
-            return self._default_boot_fstype
+        if self.default_fstype in self.bootloader.stage2_format_types:
+            return self.default_fstype
 
         return self.bootloader.stage2_format_types[0]
-
-    def set_default_boot_fstype(self, newtype):
-        """ Set the default /boot fstype for this instance.
-
-            Raise ValueError on invalid input.
-        """
-        log.debug("trying to set new default /boot fstype to '%s'", newtype)
-        # This will raise ValueError if it isn't valid
-        self._check_valid_fstype(newtype)
-        self._default_boot_fstype = newtype
 
     @property
     def default_luks_version(self):
