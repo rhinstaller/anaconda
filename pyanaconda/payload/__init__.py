@@ -641,8 +641,6 @@ class Payload(metaclass=ABCMeta):
                 # We only manipulate the ksdata.  The symlink is made later
                 # during the config write out.
                 services_proxy.SetDefaultTarget(GRAPHICAL_TARGET)
-            else:
-                services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
 
     def post_install(self):
         """Perform post-installation tasks."""
