@@ -32,7 +32,7 @@ from blivet.size import Size
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.modules.storage.devicetree import DeviceTreeModule
+from pyanaconda.modules.storage.devicetree import DeviceTreeModule, publish_device_tree
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
@@ -50,6 +50,26 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         # Set the storage.
         self.module.on_storage_reset(create_storage())
+
+    def publish_device_tree_test(self):
+        """Test publish_device_tree."""
+        DeviceTreeInterface._tree_counter = 1
+        message_bus = Mock()
+
+        object_path = publish_device_tree(message_bus, ("A", "B", "C"), DeviceTreeModule())
+        self.assertEqual("/A/B/C/DeviceTree/1", object_path)
+        message_bus.publish_object.assert_called_once()
+        message_bus.reset_mock()
+
+        object_path = publish_device_tree(message_bus, ("A", "B", "C"), DeviceTreeModule())
+        self.assertEqual("/A/B/C/DeviceTree/2", object_path)
+        message_bus.publish_object.assert_called_once()
+        message_bus.reset_mock()
+
+        object_path = publish_device_tree(message_bus, ("A", "B", "C"), DeviceTreeModule())
+        self.assertEqual("/A/B/C/DeviceTree/3", object_path)
+        message_bus.publish_object.assert_called_once()
+        message_bus.reset_mock()
 
     @property
     def storage(self):

@@ -1,4 +1,6 @@
 #
+# DBus interface for the interactive partitioning module
+#
 # Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -15,22 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.storage.devicetree.devicetree import DeviceTreeModule
-from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
+from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.modules.common.constants.objects import INTERACTIVE_PARTITIONING
+from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 
-__all__ = ["DeviceTreeModule", "publish_device_tree"]
 
-
-def publish_device_tree(message_bus, namespace, device_tree, interface=DeviceTreeInterface):
-    """Publish a device tree module on the given message bus.
-
-    :param message_bus: a message bus
-    :param namespace: a sequence of names
-    :param device_tree: an instance of a DeviceTreeModule
-    :param interface: an interface class
-    :return: a DBus path of the published task
-    """
-    publishable = interface(device_tree)
-    object_path = interface.get_object_path(namespace)
-    message_bus.publish_object(object_path, publishable)
-    return object_path
+@dbus_interface(INTERACTIVE_PARTITIONING.interface_name)
+class InteractivePartitioningInterface(PartitioningInterface):
+    """DBus interface for the interactive partitioning module."""
