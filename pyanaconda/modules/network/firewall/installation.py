@@ -18,7 +18,7 @@
 import os
 
 from pyanaconda.core import util
-from pyanaconda.core.constants import FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
+from pyanaconda.modules.network.constants import FirewallMode
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.installation import FirewallConfigurationError
@@ -65,13 +65,13 @@ class ConfigureFirewallTask(Task):
         # If --use-system-defaults was passed then the user wants
         # whatever was provided by the rpms or ostree to be the
         # default, do nothing.
-        if self._firewall_mode == FIREWALL_USE_SYSTEM_DEFAULTS:
+        if self._firewall_mode == FirewallMode.USE_SYSTEM_DEFAULTS:
             log.info("ks file instructs to use system defaults for firewall, skipping configuration.")
             return
 
         # enabled is None if neither --enable or --disable is passed
         # default to enabled if nothing has been set.
-        if self._firewall_mode == FIREWALL_DISABLED:
+        if self._firewall_mode == FirewallMode.DISABLED:
             args += ["--disabled"]
         else:
             args += ["--enabled"]
@@ -97,7 +97,7 @@ class ConfigureFirewallTask(Task):
             args += ["--service=%s" % (service,)]
 
         if not os.path.exists(self._sysroot + self.FIREWALL_OFFLINE_CMD):
-            if self._firewall_mode == FIREWALL_ENABLED:
+            if self._firewall_mode == FirewallMode.ENABLED:
                 msg = _("%s is missing. Cannot setup firewall.") % (self.FIREWALL_OFFLINE_CMD,)
                 raise FirewallConfigurationError(msg)
         else:
