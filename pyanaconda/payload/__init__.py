@@ -26,8 +26,7 @@ from abc import ABCMeta
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, \
-    DD_RPMS, INSTALL_TREE, ISO_DIR, GRAPHICAL_TARGET, TEXT_ONLY_TARGET
-from pyanaconda.modules.common.constants.services import SERVICES
+    DD_RPMS, INSTALL_TREE, ISO_DIR
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
 
@@ -616,39 +615,8 @@ class Payload(metaclass=ABCMeta):
                                     "-f", "/boot/initramfs-%s.img" % kernel,
                                     kernel])
 
-    def _set_default_boot_target(self):
-        """Set the default systemd target for the system."""
-        if not os.path.exists(util.getSysroot() + "/etc/systemd/system"):
-            log.error("systemd is not installed -- can't set default target")
-            return
-
-        # If the target was already set, we don't have to continue.
-        services_proxy = SERVICES.get_proxy()
-        if services_proxy.DefaultTarget:
-            log.debug("The default target is already set.")
-            return
-
-        try:
-            import rpm
-        except ImportError:
-            log.info("failed to import rpm -- not adjusting default runlevel")
-        else:
-            ts = rpm.TransactionSet(util.getSysroot())
-
-            # XXX one day this might need to account for anaconda's display mode
-            if ts.dbMatch("provides", 'service(graphical-login)').count() and \
-               not flags.usevnc:
-                # We only manipulate the ksdata.  The symlink is made later
-                # during the config write out.
-                services_proxy.SetDefaultTarget(GRAPHICAL_TARGET)
-            else:
-                services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
-
     def post_install(self):
         """Perform post-installation tasks."""
-
-        # set default systemd target
-        self._set_default_boot_target()
 
         # write out static config (storage, modprobe, keyboard, ??)
         #   kickstart should handle this before we get here

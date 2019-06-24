@@ -105,12 +105,9 @@ class ServicesModule(KickstartModule):
         data.services.enabled = self.enabled_services
         data.services.disabled = self.disabled_services
 
-        # Use the _default_target attribute directly instead of the
-        # default_target property to differentiate if default
-        # target has been set.
-        if self._default_target == TEXT_ONLY_TARGET:
+        if self.default_target == TEXT_ONLY_TARGET:
             data.skipx.skipx = True
-        elif self._default_target == GRAPHICAL_TARGET:
+        elif self.default_target == GRAPHICAL_TARGET:
             data.xconfig.startX = True
 
         data.xconfig.defaultdesktop = self.default_desktop
@@ -170,11 +167,7 @@ class ServicesModule(KickstartModule):
     @property
     def default_target(self):
         """Default target of the installed system."""
-        # if no target has been set, default to the text only target
-        if not self._default_target:
-            return TEXT_ONLY_TARGET
-        else:
-            return self._default_target
+        return self._default_target
 
     def set_default_target(self, target):
         """Set the default target of the installed system.

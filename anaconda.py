@@ -611,13 +611,17 @@ if __name__ == "__main__":
     ksdata.displaymode.displayMode = display_mode_coversion_table[anaconda.display_mode]
     ksdata.displaymode.nonInteractive = not anaconda.interactive_mode
 
-    # if we're in text mode, the resulting system should be too
+    # If we're in text mode, the resulting system should be too
     # ...unless the kickstart specified otherwise
+    # NOTE: Installation controlled via VNC is considered to be
+    #       a text mode installation, as the installation run itself
+    #       is effectively headless.
     from pyanaconda.modules.common.constants.services import SERVICES
     from pyanaconda.core.constants import TEXT_ONLY_TARGET
     services_proxy = SERVICES.get_proxy()
 
-    if not services_proxy.DefaultTarget and anaconda.tui_mode:
+    if not services_proxy.DefaultTarget and (anaconda.tui_mode or flags.usevnc):
+        log.debug("no default systemd target set & in text/vnc mode - setting multi-user.target.")
         services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
 
     # Set flag to prompt for missing ks data
