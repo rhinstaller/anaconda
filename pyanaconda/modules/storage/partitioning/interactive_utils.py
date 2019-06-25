@@ -128,3 +128,18 @@ def collect_new_devices(storage, drive):
         new_devices.extend(collect_bootloader_devices(storage, drive))
 
     return list(set(new_devices))
+
+
+def collect_selected_disks(storage, selection):
+    """Collect selected disks.
+
+    FIXME: Is this method really necessary? Remove it.
+
+    :param storage: an instance of Blivet
+    :param selection: names of selected disks
+    :return: a list of devices
+    """
+    return [
+        d for d in storage.devices
+        if d.name in selection and d.partitioned
+    ]

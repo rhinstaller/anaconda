@@ -55,7 +55,7 @@ from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.core.util import lowerASCII
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
     StorageConfigurationError
@@ -63,7 +63,7 @@ from pyanaconda.modules.storage.disk_initialization import DiskInitializationCon
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
-    collect_bootloader_devices, collect_new_devices
+    collect_bootloader_devices, collect_new_devices, collect_selected_disks
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -213,8 +213,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
         self._bootloader_observer.connect()
 
-        self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
-        self._disk_init_observer.connect()
+        self._disk_select_observer = STORAGE.get_observer(DISK_SELECTION)
+        self._disk_select_observer.connect()
 
     def apply(self):
         self.clear_errors()
@@ -338,13 +338,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # report that the custom spoke has been initialized
         self.initialize_done()
 
-    @property
-    def _clearpart_devices(self):
-        drives_to_clear = self._disk_init_observer.proxy.DrivesToClear
-        return [
-            d for d in self._storage_playground.devices
-            if d.name in drives_to_clear and d.partitioned
-        ]
+    def _get_selected_disks(self):
+        return collect_selected_disks(
+            storage=self._storage_playground,
+            selection=self._disk_select_observer.proxy.SelectedDisks
+        )
 
     def _get_unused_devices(self):
         return collect_unused_devices(self._storage_playground)
@@ -367,7 +365,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _current_total_space(self):
         """Add up the sizes of all selected disks and return it as a Size."""
-        return sum((disk.size for disk in self._clearpart_devices), Size(0))
+        return sum((disk.size for disk in self._get_selected_disks()), Size(0))
 
     def _update_space_display(self):
         # Set up the free space/available space displays in the bottom left.
@@ -376,7 +374,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._availableSpaceLabel.set_text(str(self._free_space))
         self._totalSpaceLabel.set_text(str(self._current_total_space()))
 
-        count = len(self._disk_init_observer.proxy.DrivesToClear)
+        count = len(self._get_selected_disks())
         summary = CP_("GUI|Custom Partitioning",
                       "%d _storage device selected",
                       "%d _storage devices selected",
@@ -1474,7 +1472,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         should_appear = {"DEVICE_TYPE_PARTITION", "DEVICE_TYPE_LVM", "DEVICE_TYPE_LVM_THINP"}
 
         # only include md if there are two or more disks
-        if use_dev.type == "mdarray" or len(self._clearpart_devices) > 1:
+        if use_dev.type == "mdarray" or len(self._get_selected_disks()) > 1:
             should_appear.add("DEVICE_TYPE_MD")
 
         if self._btrfs_in_typecombo(device):
@@ -1912,7 +1910,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES):
             dev_info["encrypted"] = False
 
-        dev_info["disks"] = self._clearpart_devices
+        dev_info["disks"] = self._get_selected_disks()
 
         ## clear errors and try to add the mountpoint/device
         self.clear_errors()
@@ -2146,7 +2144,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._do_refresh()
 
     def on_summary_clicked(self, button):
-        disks = self._clearpart_devices
+        disks = self._get_selected_disks()
         dialog = SelectedDisksDialog(self.data, self.storage, disks, show_remove=False,
                                      set_boot=False)
 
@@ -2172,7 +2170,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         dialog = DisksDialog(
             self.data,
             self._storage_playground,
-            disks=self._clearpart_devices,
+            disks=self._get_selected_disks(),
             selected=self._device_disks
         )
         with self.main_window.enlightbox(dialog.window):
@@ -2229,7 +2227,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             encrypted=self._device_container_encrypted,
             size_policy=size_policy,
             size=size,
-            disks=self._clearpart_devices,
+            disks=self._get_selected_disks(),
             selected=self._device_disks,
             exists=getattr(container, "exists", False)
         )
