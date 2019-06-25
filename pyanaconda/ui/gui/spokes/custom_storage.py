@@ -349,7 +349,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _get_unused_devices(self):
         return collect_unused_devices(self._storage_playground)
 
-    def get_bootloader_devices(self):
+    def _get_bootloader_devices(self):
         return collect_bootloader_devices(
             storage=self._storage_playground,
             drive=self._bootloader_observer.proxy.Drive
@@ -460,7 +460,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_mounts = [d for d in self._storage_playground.mountpoints.values() if d.exists]
         if new_mounts or new_devices:
             new_devices.extend(self._storage_playground.mountpoints.values())
-            new_devices.extend(self.get_bootloader_devices())
+            new_devices.extend(self._get_bootloader_devices())
 
         new_devices = list(set(new_devices))
 
@@ -511,7 +511,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_devices = filter_unsupported_disklabel_devices(self.get_new_devices())
         all_devices = filter_unsupported_disklabel_devices(self._storage_playground.devices)
         unused_devices = filter_unsupported_disklabel_devices(self._get_unused_devices())
-        bootloader_devices = self.get_bootloader_devices()
+        bootloader_devices = self._get_bootloader_devices()
 
         # Now it's time to populate the accordion.
         log.debug("ui: devices=%s", [d.name for d in all_devices])
@@ -636,7 +636,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             expander.add(page)
 
             # also pull in biosboot and prepboot that are on our boot disk
-            devices.extend(self.get_bootloader_devices())
+            devices.extend(self._get_bootloader_devices())
             devices = list(set(devices))
 
         for _device in devices:
