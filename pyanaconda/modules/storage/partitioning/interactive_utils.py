@@ -78,3 +78,24 @@ def collect_unused_devices(storage):
     ]
 
     return unused + incomplete + unsupported
+
+
+def collect_bootloader_devices(storage, drive):
+    """Collect the bootloader devices.
+
+    :param storage: an instance of Blivet
+    :param drive: a name of the bootloader drive
+    :return: a list of devices
+    """
+    devices = []
+    boot_drive = drive
+
+    for device in storage.devices:
+        if device.format.type not in ["biosboot", "prepboot"]:
+            continue
+
+        # Boot drive may not be setup because it IS one of these.
+        if not boot_drive or boot_drive in (d.name for d in device.disks):
+            devices.append(device)
+
+    return devices

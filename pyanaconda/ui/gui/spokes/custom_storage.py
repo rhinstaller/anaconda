@@ -62,7 +62,8 @@ from pyanaconda.modules.common.errors.configuration import BootloaderConfigurati
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices
+from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
+    collect_bootloader_devices
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -348,21 +349,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def get_unused_devices(self):
         return collect_unused_devices(self._storage_playground)
 
-    @property
-    def bootloader_devices(self):
-        devices = []
-        format_types = ["biosboot", "prepboot"]
-        for device in self._storage_playground.devices:
-            if device.format.type not in format_types:
-                continue
-
-            disk_names = (d.name for d in device.disks)
-            # boot drive may not be setup because it IS one of these.
-            boot_drive = self._bootloader_observer.proxy.Drive
-            if not boot_drive or boot_drive in disk_names:
-                devices.append(device)
-
-        return devices
+    def get_bootloader_devices(self):
+        return collect_bootloader_devices(
+            storage=self._storage_playground,
+            drive=self._bootloader_observer.proxy.Drive
+        )
 
     def _set_current_free_space(self):
         """Add up all the free space on selected disks and return it as a Size."""
@@ -469,7 +460,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_mounts = [d for d in self._storage_playground.mountpoints.values() if d.exists]
         if new_mounts or new_devices:
             new_devices.extend(self._storage_playground.mountpoints.values())
-            new_devices.extend(self.bootloader_devices)
+            new_devices.extend(self.get_bootloader_devices())
 
         new_devices = list(set(new_devices))
 
@@ -520,6 +511,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_devices = filter_unsupported_disklabel_devices(self.get_new_devices())
         all_devices = filter_unsupported_disklabel_devices(self._storage_playground.devices)
         unused_devices = filter_unsupported_disklabel_devices(self.get_unused_devices())
+        bootloader_devices = self.get_bootloader_devices()
 
         # Now it's time to populate the accordion.
         log.debug("ui: devices=%s", [d.name for d in all_devices])
@@ -559,7 +551,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                           if getattr(d.format, "mountpoint", None))
 
             for device in new_devices:
-                if device in self.bootloader_devices:
+                if device in bootloader_devices:
                     mounts[device.format.name] = device
 
             new_root = Root(mounts=mounts, swaps=swaps, name=translated_new_install_name())
@@ -644,7 +636,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             expander.add(page)
 
             # also pull in biosboot and prepboot that are on our boot disk
-            devices.extend(self.bootloader_devices)
+            devices.extend(self.get_bootloader_devices())
             devices = list(set(devices))
 
         for _device in devices:
