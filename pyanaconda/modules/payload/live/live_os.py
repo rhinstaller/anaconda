@@ -17,6 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+import stat
+
 from pyanaconda.dbus import DBus
 
 from pyanaconda.core.signal import Signal
@@ -70,6 +73,20 @@ class LiveOSHandlerModule(KickstartBaseModule):
         self._image_path = image_path
         self.image_path_changed.emit()
         log.debug("LiveOS image path is set to '%s'", self._image_path)
+
+    def detect_live_os_base_image(self):
+        """Detect live os image in the system."""
+        log.debug("Trying to detect live os base image automatically")
+        for block_device in ["/dev/mapper/live-base", "/dev/mapper/live-osimg-min"]:
+            try:
+                if stat.S_ISBLK(os.stat(block_device)[stat.ST_MODE]):
+                    log.debug("Detected live base image %s", block_device)
+                    return block_device
+            except FileNotFoundError:
+                pass
+
+        log.debug("No live base image detected")
+        return ""
 
     def setup_installation_source_with_task(self):
         """Setup installation source device."""
