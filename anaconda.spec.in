@@ -344,6 +344,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 25 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.7-1
+- Add support for disabling modules via module --disable (mkolman)
+  Resolves: rhbz#1655523
+  Related: rhbz#1719347
+
 * Fri Jun 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.6-1
 - Require blivet with flags.protect_cdrom support (rvykydal)
   Related: rhbz#1671713
