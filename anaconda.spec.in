@@ -353,6 +353,28 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 25 2019 Jiri Konecny <jkonecny@redhat.com> - 31.18-1
+- Add comprehensive unit tests for ConfigureFirewallTask (mkolman)
+- Fix a typo (mkolman)
+- Use FirewallMode enum firewall configuration DBus Task (#1722979) (mkolman)
+- Don't encrypt devices in the interactive partitioning by default (vponcova)
+- Provide a default passphrase for the PassphraseDialog (vponcova)
+- Set the passphrase for the automatic partitioning from the dialog (vponcova)
+- Don't use the global encryption passphrase (vponcova)
+- Add support for passphrases in the device tree module (vponcova)
+- Handle the passphrase requirements in the partitioning modules (vponcova)
+- Use _get_passphrase in the custom partitioning task (vponcova)
+- Don't generate passphrases in a kickstart file (vponcova)
+- Fix the unit tests for the Services module (vponcova)
+- Convert names of attributes and variables in custom storage helpers
+  (vponcova)
+- Fix code alignment in the custom storage helpers (vponcova)
+- Convert names of attributes and variables in the custom spoke (vponcova)
+- Remove local variables with unused values in the custom spoke (vponcova)
+- Fix code alignment in the custom spoke (vponcova)
+- Initialize attributes in the __init__ method of the custom spoke (vponcova)
+- Reorganize imports in the custom spoke (vponcova)
+
 * Mon Jun 24 2019 Martin Kolman <mkolman@redhat.com> - 31.17-1
 - Move graphical login detection to a DBus Task (#1722950) (mkolman)
 - Add DBus support for device trees of partitioning modules (vponcova)
