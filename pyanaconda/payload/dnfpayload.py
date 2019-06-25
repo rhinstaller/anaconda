@@ -453,23 +453,37 @@ class DNFPayload(payload.PackagePayload):
         self._add_repo(ksrepo)
         super().addDisabledRepo(ksrepo)
 
-    def _enable_modules(self):
-        """Enable modules (if any)."""
+    def _process_module_command(self):
+        """Enable/disable modules (if any)."""
         # convert data from kickstart to module specs
-        module_specs = []
+        module_specs_to_enable = []
+        module_specs_to_disable = []
         for module in self.data.module.dataList():
             # stream definition is optional
             if module.stream:
                 module_spec = "{name}:{stream}".format(name=module.name, stream=module.stream)
             else:
                 module_spec = module.name
-            module_specs.append(module_spec)
 
-        # forward the module specs to enable to DNF
-        log.debug("enabling modules: %s", module_specs)
+            if module.enable:
+                module_specs_to_enable.append(module_spec)
+            else:
+                module_specs_to_disable.append(module_spec)
+
+        # forward the module specs to disable to DNF
+        log.debug("disabling modules: %s", module_specs_to_disable)
         try:
             module_base = dnf.module.module_base.ModuleBase(self._base)
-            module_base.enable(module_specs)
+            module_base.disable(module_specs_to_disable)
+        except dnf.exceptions.MarkingErrors as e:
+            log.debug("ModuleBase.disable(): some packages, groups or modules are missing or broken:\n%s", e)
+            self._payload_setup_error(e)
+
+        # forward the module specs to enable to DNF
+        log.debug("enabling modules: %s", module_specs_to_enable)
+        try:
+            module_base = dnf.module.module_base.ModuleBase(self._base)
+            module_base.enable(module_specs_to_enable)
         except dnf.exceptions.MarkingErrors as e:
             log.debug("ModuleBase.enable(): some packages, groups or modules are missing or broken:\n%s", e)
             self._payload_setup_error(e)
@@ -889,7 +903,7 @@ class DNFPayload(payload.PackagePayload):
         log.info("checking software selection")
         self._bump_tx_id()
         self._base.reset(goal=True)
-        self._enable_modules()
+        self._process_module_command()
         self._apply_selections()
 
         try:
