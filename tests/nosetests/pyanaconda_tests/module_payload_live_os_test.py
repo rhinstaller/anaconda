@@ -19,10 +19,17 @@
 #
 import unittest
 
-from mock import Mock
+from mock import Mock, patch
+
+from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
+from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
+from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
+    TeardownInstallationSourceTask
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 
 
 class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
@@ -44,3 +51,105 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.live_os_interface.ImagePath, "/my/supper/image/path")
         self.callback.assert_called_once_with(
             LIVE_OS_HANDLER.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def setup_installation_source_task_test(self, publisher):
+        """Test Live OS is able to create a setup installation source task."""
+        task_path = self.live_os_interface.SetupInstallationSourceWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, SetupInstallationSourceTask)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def teardown_installation_source_task_test(self, publisher):
+        """Test Live OS is able to create a teardown installation source task."""
+        task_path = self.live_os_interface.TeardownInstallationSourceWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, TeardownInstallationSourceTask)
+
+
+class LiveOSHandlerTasksTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.live_os_module = LiveOSHandlerModule()
+        self.live_os_interface = LiveOSHandlerInterface(self.live_os_module)
+
+        self.callback = Mock()
+        self.live_os_interface.PropertiesChanged.connect(self.callback)
+
+    @patch("pyanaconda.modules.payload.live.initialization.mount")
+    @patch("pyanaconda.modules.payload.live.initialization.stat")
+    @patch("os.stat")
+    @patch("pyanaconda.dbus.DBus.get_proxy")
+    def setup_install_source_task_test(self, proxy_getter, os_stat, stat, mount):
+        """Test Live OS setup installation source task."""
+        device_tree = Mock()
+        proxy_getter.return_value = device_tree
+        device_tree.ResolveDevice = Mock()
+        device_tree.ResolveDevice.return_value = "resolvedDeviceName"
+
+        device = DeviceData()
+        device.path = "/resolved/path/to/base/image"
+
+        device_tree.GetDeviceData = Mock()
+        device_tree.GetDeviceData.return_value = get_native(DeviceData.to_structure(device))
+
+        mount.return_value = 0
+
+        SetupInstallationSourceTask(
+            "/path/to/base/image",
+            "/path/to/mount/source/image"
+        ).run()
+
+        device_tree.ResolveDevice.assert_called_once_with("/path/to/base/image")
+        os_stat.assert_called_once_with("/resolved/path/to/base/image")
+
+    @patch("pyanaconda.dbus.DBus.get_proxy")
+    def setup_install_source_task_missing_image_test(self, proxy_getter):
+        """Test Live OS setup installation source task missing image error."""
+        device_tree = Mock()
+        proxy_getter.return_value = device_tree
+        device_tree.ResolveDevice = Mock()
+        device_tree.ResolveDevice.return_value = ""
+
+        with self.assertRaises(SourceSetupError):
+            SetupInstallationSourceTask(
+                "/path/to/base/image",
+                "/path/to/mount/source/image"
+            ).run()
+
+    @patch("pyanaconda.modules.payload.live.initialization.mount")
+    @patch("pyanaconda.modules.payload.live.initialization.stat")
+    @patch("os.stat")
+    @patch("pyanaconda.dbus.DBus.get_proxy")
+    def setup_install_source_task_failed_to_mount_test(self, proxy_getter, os_stat, stat, mount):
+        """Test Live OS setup installation source task mount error."""
+        device_tree = Mock()
+        proxy_getter.return_value = device_tree
+        device_tree.ResolveDevice = Mock()
+        device_tree.ResolveDevice.return_value = "resolvedDeviceName"
+
+        device = DeviceData()
+        device.path = "/resolved/path/to/base/image"
+
+        device_tree.GetDeviceData = Mock()
+        device_tree.GetDeviceData.return_value = get_native(DeviceData.to_structure(device))
+
+        mount.return_value = -20
+
+        with self.assertRaises(SourceSetupError):
+            SetupInstallationSourceTask(
+                "/path/to/base/image",
+                "/path/to/mount/source/image"
+            ).run()
