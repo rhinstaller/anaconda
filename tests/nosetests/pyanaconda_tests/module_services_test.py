@@ -77,7 +77,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
     def default_target_property_default_graphical_test(self):
         """Test the default target property - default value."""
         self.callback.assert_not_called()
-        self.assertEqual(self.services_interface.DefaultTarget, TEXT_ONLY_TARGET)
+        self.assertEqual(self.services_interface.DefaultTarget, "")
 
     def default_target_property_graphical_test(self):
         """Test the default target property - set graphical target."""
@@ -352,7 +352,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureSystemdDefaultTargetTask)
         self.assertEqual(obj.implementation._sysroot, "/")
-        self.assertEqual(obj.implementation._default_target, TEXT_ONLY_TARGET)
+        self.assertEqual(obj.implementation._default_target, "")
 
         # Default desktop configuration
         object_path = publisher.call_args_list[4][0][0]
