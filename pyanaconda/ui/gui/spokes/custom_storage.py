@@ -62,6 +62,7 @@ from pyanaconda.modules.common.errors.configuration import BootloaderConfigurati
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
+from pyanaconda.modules.storage.partitioning.interactive_utils import collect_used_devices
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -345,8 +346,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     @property
     def unused_devices(self):
+        used_devices = set(collect_used_devices(self._storage_playground))
+        all_devices = set(self._storage_playground.devices)
+        unused_devices = list(all_devices.difference(used_devices))
+
         unused_devices = [
-            d for d in self._storage_playground.unused_devices
+            d for d in unused_devices
             if d.disks
             and d.media_present
             and not d.partitioned

@@ -350,31 +350,6 @@ class InstallerStorage(Blivet):
                 if disk not in self.devices:
                     self.devicetree.unhide(disk)
 
-    @property
-    def unused_devices(self):
-        used_devices = []
-        for root in self.roots:
-            for device in list(root.mounts.values()) + root.swaps:
-                if device not in self.devices:
-                    continue
-
-                used_devices.extend(device.ancestors)
-
-        for new in [d for d in self.devicetree.leaves if not d.format.exists]:
-            if new.format.mountable and not new.format.mountpoint:
-                continue
-
-            used_devices.extend(new.ancestors)
-
-        for device in self.partitions:
-            if getattr(device, "is_logical", False):
-                extended = device.disk.format.extended_partition.path
-                used_devices.append(self.devicetree.get_device_by_path(extended))
-
-        used = set(used_devices)
-        _all = set(self.devices)
-        return list(_all.difference(used))
-
     def _get_hostname(self):
         """Return a hostname."""
         ignored_hostnames = {None, "", 'localhost', 'localhost.localdomain'}
