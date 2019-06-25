@@ -346,7 +346,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if d.name in drives_to_clear and d.partitioned
         ]
 
-    def get_unused_devices(self):
+    def _get_unused_devices(self):
         return collect_unused_devices(self._storage_playground)
 
     def get_bootloader_devices(self):
@@ -510,7 +510,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         new_devices = filter_unsupported_disklabel_devices(self.get_new_devices())
         all_devices = filter_unsupported_disklabel_devices(self._storage_playground.devices)
-        unused_devices = filter_unsupported_disklabel_devices(self.get_unused_devices())
+        unused_devices = filter_unsupported_disklabel_devices(self._get_unused_devices())
         bootloader_devices = self.get_bootloader_devices()
 
         # Now it's time to populate the accordion.
@@ -2140,7 +2140,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                 if s._device.id not in otherdevs):
                         # we only want to delete boot partitions if they're not
                         # shared *and* we have no unknown partitions
-                        if not self.get_unused_devices() or dev.format.type not in protected_types:
+                        if not self._get_unused_devices() or dev.format.type not in protected_types:
                             log.debug("deleteall: removed %s", dev.name)
                             self._destroy_device(dev)
                         else:
