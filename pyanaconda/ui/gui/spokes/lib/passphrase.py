@@ -26,8 +26,6 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 from pyanaconda import input_checking
 from pyanaconda.core import constants
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
-from pyanaconda.modules.common.constants.services import STORAGE
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -40,7 +38,7 @@ class PassphraseDialog(GUIObject):
     mainWidgetName = "passphrase_dialog"
     uiFile = "spokes/lib/passphrase.glade"
 
-    def __init__(self, data):
+    def __init__(self, data, default_passphrase=""):
         super().__init__(data)
 
         self._passphrase_entry = self.builder.get_object("passphrase_entry")
@@ -68,7 +66,7 @@ class PassphraseDialog(GUIObject):
         # connect UI updates to check results
         self._checker.checks_done.connect(self._set_status)
 
-        self.passphrase = ""
+        self.passphrase = default_passphrase
         self._passphrase_good_enough = False
 
         # check that the content of the passphrase field & the conformation field are the same
@@ -98,10 +96,6 @@ class PassphraseDialog(GUIObject):
         # disable input methods for the passphrase Entry widgets
         self._passphrase_entry.set_property("im-module", "")
         self._confirm_entry.set_property("im-module", "")
-
-        # initialize with the previously set passphrase
-        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-        self.passphrase = auto_part_proxy.Passphrase
 
         if not self.passphrase:
             self._save_button.set_sensitive(False)

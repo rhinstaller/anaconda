@@ -304,7 +304,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self._initialization_mode = constants.CLEAR_PARTITIONS_NONE
         self._auto_part_encrypted = False
-        self._auto_part_passphrase = ""
         self._auto_part_missing_passphrase = False
         self._disks_errors = []
 
@@ -405,7 +404,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._auto_part_observer.proxy.SetEnabled(self._auto_part_enabled)
         self._auto_part_observer.proxy.SetType(DEFAULT_AUTOPART_TYPE)
         self._auto_part_observer.proxy.SetEncrypted(self._auto_part_encrypted)
-        self._auto_part_observer.proxy.SetPassphrase(self._auto_part_passphrase)
 
         boot_drive = self._bootloader_observer.proxy.Drive
         if boot_drive and boot_drive not in self._selected_disks:
@@ -416,8 +414,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         if not self._auto_part_missing_passphrase:
             self._initialization_mode = CLEAR_PARTITIONS_NONE
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
-
-        self.storage.encryption_passphrase = self._auto_part_observer.proxy.Passphrase
 
     @async_action_nowait
     def execute(self):
@@ -434,9 +430,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         threadMgr.wait(constants.THREAD_DASDFMT)
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         threadMgr.wait(constants.THREAD_STORAGE)
-        if flags.automatedInstall \
-                and self._auto_part_observer.proxy.Encrypted \
-                and not self._auto_part_observer.proxy.Passphrase:
+        if flags.automatedInstall and self._auto_part_observer.proxy.RequiresPassphrase():
             self._auto_part_missing_passphrase = True
             StorageCheckHandler.errors = [_("Passphrase for autopart encryption not specified.")]
             self._ready = True
@@ -597,8 +591,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
         self._auto_part_encrypted = self._auto_part_observer.proxy.Encrypted
-        self._auto_part_passphrase = self._auto_part_observer.proxy.Passphrase
-
         self._previous_auto_part = self._auto_part_enabled
 
         # First, remove all non-button children.
@@ -824,15 +816,15 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         return rc
 
     def _setup_passphrase(self):
-        dialog = PassphraseDialog(self.data)
+        passphrase = self._auto_part_observer.proxy.Passphrase
+        dialog = PassphraseDialog(self.data, default_passphrase=passphrase)
+
         rc = self.run_lightbox_dialog(dialog)
         if rc != 1:
             return False
 
-        self._auto_part_passphrase = dialog.passphrase
-
-        setup_passphrase(self.storage, self._auto_part_passphrase)
-
+        self._auto_part_observer.proxy.SetPassphrase(dialog.passphrase)
+        setup_passphrase(self.storage, dialog.passphrase)
         return True
 
     def _remove_nonexistant_partitions(self):

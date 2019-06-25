@@ -154,6 +154,13 @@ class AutoPartitioningInterface(PartitioningInterface):
         """
         return self.implementation.passphrase
 
+    def RequiresPassphrase(self) -> Bool:
+        """Is the default passphrase required?
+
+        :return: True or False
+        """
+        return self.implementation.requires_passphrase()
+
     @emits_properties_changed
     def SetPassphrase(self, passphrase: Str):
         """Set a default passphrase for all encrypted devices.

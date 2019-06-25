@@ -134,7 +134,10 @@ class AutoPartitioningModule(PartitioningModule):
         data.autopart.noswap = self.noswap
 
         data.autopart.encrypted = self.encrypted
-        data.autopart.passphrase = self.passphrase
+
+        # Don't generate sensitive information.
+        data.autopart.passphrase = ""
+
         data.autopart.luks_version = self.luks_version
         data.autopart.pbkdf = self.pbkdf
         data.autopart.pbkdf_memory = self.pbkdf_memory
@@ -268,6 +271,13 @@ class AutoPartitioningModule(PartitioningModule):
     def passphrase(self):
         """Default passphrase for all encrypted devices."""
         return self._passphrase
+
+    def requires_passphrase(self):
+        """Is the default passphrase required?
+
+        :return: True or False
+        """
+        return self.encrypted and not self.passphrase
 
     def set_passphrase(self, passphrase):
         """Set a default passphrase for all encrypted devices.
@@ -415,11 +425,10 @@ class AutoPartitioningModule(PartitioningModule):
             return {}
 
         luks_version = self.luks_version or self.storage.default_luks_version
-        passphrase = self.passphrase or self.storage.encryption_passphrase
         escrow_cert = self.storage.get_escrow_certificate(self.escrowcert)
 
         return {
-            "passphrase": passphrase,
+            "passphrase": self.passphrase,
             "cipher": self.cipher,
             "luks_version": luks_version,
             "pbkdf_args": self.pbkdf_args,

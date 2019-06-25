@@ -223,7 +223,6 @@ class InstallerStorage(Blivet):
             self.setup_disk_images()
 
         # save passphrases for luks devices so we don't have to reprompt
-        self.encryption_passphrase = None
         for device in self.devices:
             if device.format.type == "luks" and device.format.exists:
                 self.save_passphrase(device)

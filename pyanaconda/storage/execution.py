@@ -43,7 +43,7 @@ def configure_storage(storage, data=None, interactive=False):
         task = InteractivePartitioningTask(storage)
     elif auto_part_proxy.Enabled:
         luks_version = auto_part_proxy.LUKSVersion or storage.default_luks_version
-        passphrase = auto_part_proxy.Passphrase or storage.encryption_passphrase
+        passphrase = auto_part_proxy.Passphrase
         escrow_cert = storage.get_escrow_certificate(auto_part_proxy.Escrowcert)
 
         pbkdf_args = get_pbkdf_args(

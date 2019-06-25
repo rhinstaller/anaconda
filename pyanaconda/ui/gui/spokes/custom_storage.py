@@ -223,9 +223,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.clear_errors()
         self._unhide_unusable_disks()
 
-        # update the global passphrase
-        self._auto_part_observer.proxy.SetPassphrase(self.passphrase)
-
         # make sure any device/passphrase pairs we've obtained are remembered
         setup_passphrase(self.storage, self.passphrase)
 
@@ -440,7 +437,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._back_already_clicked = False
 
-        self.passphrase = self._auto_part_observer.proxy.Passphrase
         self._reset_storage()
         self._do_refresh()
 
@@ -1803,7 +1799,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 return
 
             if find_unconfigured_luks(self._storage_playground):
-                dialog = PassphraseDialog(self.data)
+                dialog = PassphraseDialog(self.data, default_passphrase=self.passphrase)
                 with self.main_window.enlightbox(dialog.window):
                     rc = dialog.run()
 
@@ -1936,7 +1932,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # If you want "encrypt my VG/PVs" you'll have to either use the autopart
         # button or wait until we have a way to control container-level
         # encryption.
-        dev_info["encrypted"] = self._auto_part_observer.proxy.Encrypted
+        dev_info["encrypted"] = False
 
         # we're doing nothing here to ensure that bootable requests end up on
         # the boot disk, but the weight from platform should take care of this
@@ -2470,7 +2466,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                                   container.size)
         else:
             self._device_container_raid_level = None
-            self._device_container_encrypted = self._auto_part_observer.proxy.Encrypted
+            self._device_container_encrypted = False
             self._device_container_size = SIZE_POLICY_AUTO
 
         self._modifyContainerButton.set_sensitive(not container_exists)

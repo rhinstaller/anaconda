@@ -176,5 +176,9 @@ class PartitioningModule(KickstartBaseModule):
             device = complements[0] if complements else device
             device.populate_ksdata(device_data)
 
+            # Don't generate sensitive information.
+            if hasattr(device_data, "passphrase"):
+                device_data.passphrase = ""
+
             parent = getattr(data, list_attr)
             parent.dataList().append(device_data)
