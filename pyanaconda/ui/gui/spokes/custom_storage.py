@@ -62,7 +62,7 @@ from pyanaconda.modules.common.errors.configuration import BootloaderConfigurati
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive_utils import collect_used_devices
+from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -344,30 +344,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         drives_to_clear = self._disk_init_observer.proxy.DrivesToClear
         return [d for d in self._devices if d.name in drives_to_clear and d.partitioned]
 
-    @property
-    def unused_devices(self):
-        used_devices = set(collect_used_devices(self._storage_playground))
-        all_devices = set(self._storage_playground.devices)
-        unused_devices = list(all_devices.difference(used_devices))
-
-        unused_devices = [
-            d for d in unused_devices
-            if d.disks
-            and d.media_present
-            and not d.partitioned
-            and (d.direct or d.isleaf)
-        ]
-        # add incomplete VGs and MDs
-        incomplete = [
-            d for d in self._storage_playground.devicetree._devices
-            if not getattr(d, "complete", True)
-        ]
-        unused_devices.extend(incomplete)
-        unused_devices.extend(
-            d for d in self._storage_playground.partitioned
-            if not d.format.supported
-        )
-        return unused_devices
+    def get_unused_devices(self):
+        return collect_unused_devices(self._storage_playground)
 
     @property
     def bootloader_devices(self):
@@ -538,7 +516,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         new_devices = filter_unsupported_disklabel_devices(self.get_new_devices())
         all_devices = filter_unsupported_disklabel_devices(self._devices)
-        unused_devices = filter_unsupported_disklabel_devices(self.unused_devices)
+        unused_devices = filter_unsupported_disklabel_devices(self.get_unused_devices())
 
         # Now it's time to populate the accordion.
         log.debug("ui: devices=%s", [d.name for d in all_devices])
@@ -614,7 +592,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             page.show_all()
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
-        if self.unused_devices:
+        if unused_devices:
             page = UnknownPage(_("Unknown"))
             self._accordion.add_page(page, cb=self.on_page_clicked)
 
@@ -2177,7 +2155,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                 if s._device.id not in otherdevs):
                         # we only want to delete boot partitions if they're not
                         # shared *and* we have no unknown partitions
-                        if not self.unused_devices or dev.format.type not in protected_types:
+                        if not self.get_unused_devices() or dev.format.type not in protected_types:
                             log.debug("deleteall: removed %s", dev.name)
                             self._destroy_device(dev)
                         else:

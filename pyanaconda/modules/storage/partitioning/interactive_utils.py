@@ -46,3 +46,35 @@ def collect_used_devices(storage):
             used_devices.append(storage.devicetree.get_device_by_path(extended))
 
     return used_devices
+
+
+def collect_unused_devices(storage):
+    """Collect devices that are not used in existing or new installations.
+
+    :param storage: an instance of Blivet
+    :return: a list of devices
+    """
+    used_devices = set(collect_used_devices(storage))
+
+    unused = [
+        d for d in storage.devices
+        if d.disks
+        and d.media_present
+        and not d.partitioned
+        and (d.direct or d.isleaf)
+        and d not in used_devices
+    ]
+
+    # Add incomplete VGs and MDs
+    incomplete = [
+        d for d in storage.devicetree._devices
+        if not getattr(d, "complete", True)
+    ]
+
+    # Add partitioned devices with unsupported format.
+    unsupported = [
+        d for d in storage.partitioned
+        if not d.format.supported
+    ]
+
+    return unused + incomplete + unsupported
