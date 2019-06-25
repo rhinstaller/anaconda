@@ -568,7 +568,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
 
 class FirewallInterfaceTestCase(unittest.TestCase):
-    """Test DBus interface of the disk initialization module."""
+    """Test DBus interface of the Firewall module."""
 
     def setUp(self):
         """Set up the module."""
