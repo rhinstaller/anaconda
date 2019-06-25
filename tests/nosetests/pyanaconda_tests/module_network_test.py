@@ -18,6 +18,8 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
+import tempfile
+import os
 from unittest.mock import patch, Mock
 
 from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
@@ -25,11 +27,14 @@ from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.constants.objects import FIREWALL
+from pyanaconda.modules.common.errors.installation import FirewallConfigurationError
 from pyanaconda.modules.network.network import NetworkModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
+from pyanaconda.modules.network.constants import FirewallMode
 from pyanaconda.modules.network.installation import NetworkInstallationTask
 from pyanaconda.modules.network.firewall.firewall import FirewallModule
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
+from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
 from pyanaconda.modules.network.kickstart import DEFAULT_DEVICE_SPECIFICATION
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
@@ -683,6 +688,277 @@ class FirewallInterfaceTestCase(unittest.TestCase):
             "DisabledServices",
             ["ldap", "ldaps", "ssh"],
         )
+
+
+class FirewallConfigurationTaskTestCase(unittest.TestCase):
+    """Test the Firewall configuration DBus Task."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.firewall_module = FirewallModule()
+        self.firewall_interface = FirewallInterface(self.firewall_module)
+
+        # Connect to the properties changed signal.
+        self.callback = Mock()
+        self.firewall_interface.PropertiesChanged.connect(self.callback)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def firewall_config_task_basic_test(self, publisher):
+        """Test the Firewall configuration task - basic."""
+        task_path = self.firewall_interface.InstallWithTask("/")
+
+        publisher.assert_called()
+
+        object_path = publisher.call_args_list[0][0][0]
+        obj = publisher.call_args_list[0][0][1]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureFirewallTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._firewall_mode, FirewallMode.DEFAULT)
+        self.assertEqual(obj.implementation._enabled_services, [])
+        self.assertEqual(obj.implementation._disabled_services, [])
+        self.assertEqual(obj.implementation._enabled_ports, [])
+        self.assertEqual(obj.implementation._trusts, [])
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_enable_missing_tool_test(self, execInSysroot):
+        """Test the Firewall configuration task - enable & missing firewall-offline-cmd."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            # no firewall-offline-cmd in the sysroot
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.ENABLED,
+                                         enabled_services = [],
+                                         disabled_services = [],
+                                         enabled_ports = [],
+                                         trusts = [])
+            # should raise an exception
+            with self.assertRaises(FirewallConfigurationError):
+                task.run()
+            # should not call execInSysroot
+            execInSysroot.assert_not_called()
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_disable_missing_tool_test(self, execInSysroot):
+        """Test the Firewall configuration task - disable & missing firewall-offline-cmd"""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            # no firewall-offline-cmd in the sysroot
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.DISABLED,
+                                         enabled_services = [],
+                                         disabled_services = [],
+                                         enabled_ports = [],
+                                         trusts = [])
+            # should not raise an exception
+            task.run()
+            # should not call execInSysroot
+            execInSysroot.assert_not_called()
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_default_missing_tool_test(self, execInSysroot):
+        """Test the Firewall configuration task - default & missing firewall-offline-cmd"""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            # no firewall-offline-cmd in the sysroot
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.DEFAULT,
+                                         enabled_services = [],
+                                         disabled_services = [],
+                                         enabled_ports = [],
+                                         trusts = [])
+            # should not raise an exception
+            task.run()
+            # should not call execInSysroot
+            execInSysroot.assert_not_called()
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_system_defaults_missing_tool_test(self, execInSysroot):
+        """Test the Firewall configuration task - use-system-defaults & missing firewall-offline-cmd"""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            # no firewall-offline-cmd in the sysroot
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.USE_SYSTEM_DEFAULTS,
+                                         enabled_services = [],
+                                         disabled_services = [],
+                                         enabled_ports = [],
+                                         trusts = [])
+            # should not raise an exception
+            task.run()
+            # should not call execInSysroot
+            execInSysroot.assert_not_called()
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_default_test(self, execInSysroot):
+        """Test the Firewall configuration task - default."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.DEFAULT,
+                                         enabled_services = [],
+                                         disabled_services = [],
+                                         enabled_ports = [],
+                                         trusts = [])
+            task.run()
+
+            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
+                                                  ['--enabled', '--service=ssh'], root=sysroot)
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_enable_test(self, execInSysroot):
+        """Test the Firewall configuration task - enable."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.ENABLED,
+                                         enabled_services = [],
+                                         disabled_services = [],
+                                         enabled_ports = [],
+                                         trusts = [])
+            task.run()
+
+            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd', ['--enabled', '--service=ssh'], root=sysroot)
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_enable_with_options_test(self, execInSysroot):
+        """Test the Firewall configuration task - enable with options."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.ENABLED,
+                                         enabled_services = ["smnp"],
+                                         disabled_services = ["tftp"],
+                                         enabled_ports = ["22001:tcp","6400:udp"],
+                                         trusts = ["eth1"])
+            task.run()
+
+            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
+                                                  ['--enabled', '--service=ssh', '--trust=eth1', '--port=22001:tcp',
+                                                   '--port=6400:udp', '--remove-service=tftp', '--service=smnp'],
+                                                  root=sysroot)
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_disable_ssh_test(self, execInSysroot):
+        """Test the Firewall configuration task - test SSH can be disabled."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.ENABLED,
+                                         enabled_services = [],
+                                         disabled_services = ["ssh"],
+                                         enabled_ports = [],
+                                         trusts = [])
+            task.run()
+
+            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
+                                                  ['--enabled', '--remove-service=ssh'],
+                                                  root=sysroot)
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_enable_disable_service_test(self, execInSysroot):
+        """Test the Firewall configuration task - test enabling & disabling the same service"""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.ENABLED,
+                                         enabled_services = ["tftp"],
+                                         disabled_services = ["tftp"],
+                                         enabled_ports = [],
+                                         trusts = [])
+            task.run()
+
+            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
+                                                  ['--enabled', '--service=ssh', '--remove-service=tftp', '--service=tftp'],
+                                                  root=sysroot)
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_disable_test(self, execInSysroot):
+        """Test the Firewall configuration task - disable."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.DISABLED,
+                                         enabled_services = [],
+                                         disabled_services = [],
+                                         enabled_ports = [],
+                                         trusts = [])
+            task.run()
+
+            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd', ['--disabled', '--service=ssh'], root=sysroot)
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_disable_with_options_test(self, execInSysroot):
+        """Test the Firewall configuration task - disable with options."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.DISABLED,
+                                         enabled_services = ["smnp"],
+                                         disabled_services = ["tftp"],
+                                         enabled_ports = ["22001:tcp","6400:udp"],
+                                         trusts = ["eth1"])
+            task.run()
+
+            # even in disable mode, we still forward all the options to firewall-offline-cmd
+            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
+                                                  ['--disabled', '--service=ssh', '--trust=eth1', '--port=22001:tcp',
+                                                   '--port=6400:udp', '--remove-service=tftp', '--service=smnp'],
+                                                  root=sysroot)
+
+    @patch('pyanaconda.core.util.execInSysroot')
+    def firewall_config_task_use_system_defaults_test(self, execInSysroot):
+        """Test the Firewall configuration task - use system defaults."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+
+            task = ConfigureFirewallTask(sysroot=sysroot,
+                                         firewall_mode = FirewallMode.USE_SYSTEM_DEFAULTS,
+                                         enabled_services = [],
+                                         disabled_services = [],
+                                         enabled_ports = [],
+                                         trusts = [])
+            task.run()
+
+            # firewall-offline-cmd should not be called in use-system-defaults mode
+            execInSysroot.assert_not_called()
+
 
 class NetworkModuleTestCase(unittest.TestCase):
     """Test Network module."""
