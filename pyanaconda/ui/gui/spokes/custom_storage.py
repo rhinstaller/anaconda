@@ -186,8 +186,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._storage_playground = None
 
         self.passphrase = ""
-
-        self._devices = []
         self._error = None
         self._hidden_disks = []
         self._fs_types = set()  # set of supported fstypes
@@ -342,7 +340,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     @property
     def _clearpart_devices(self):
         drives_to_clear = self._disk_init_observer.proxy.DrivesToClear
-        return [d for d in self._devices if d.name in drives_to_clear and d.partitioned]
+        return [
+            d for d in self._storage_playground.devices
+            if d.name in drives_to_clear and d.partitioned
+        ]
 
     def get_unused_devices(self):
         return collect_unused_devices(self._storage_playground)
@@ -351,7 +352,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def bootloader_devices(self):
         devices = []
         format_types = ["biosboot", "prepboot"]
-        for device in self._devices:
+        for device in self._storage_playground.devices:
             if device.format.type not in format_types:
                 continue
 
@@ -404,7 +405,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _reset_storage(self):
         self._storage_playground = self.storage.copy()
         self._hide_unusable_disks()
-        self._devices = self._storage_playground.devices
 
     def refresh(self):
         self.clear_errors()
@@ -456,9 +456,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def get_new_devices(self):
         # A device scheduled for formatting only belongs in the new root.
-        new_devices = [d for d in self._devices if d.direct and
-                       not d.format.exists and
-                       not d.partitioned]
+        new_devices = [
+            d for d in self._storage_playground.devices
+            if d.direct
+            and not d.format.exists
+            and not d.partitioned
+        ]
 
         # If mountpoints have been assigned to any existing devices, go ahead
         # and pull those in along with any existing swap devices. It doesn't
@@ -515,7 +518,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._accordion.remove_all_pages()
 
         new_devices = filter_unsupported_disklabel_devices(self.get_new_devices())
-        all_devices = filter_unsupported_disklabel_devices(self._devices)
+        all_devices = filter_unsupported_disklabel_devices(self._storage_playground.devices)
         unused_devices = filter_unsupported_disklabel_devices(self.get_unused_devices())
 
         # Now it's time to populate the accordion.
@@ -660,8 +663,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         """ Create a replacement device and update the device selector. """
         selector = kwargs.pop("selector", None)
         new_device = self._storage_playground.factory_device(**kwargs)
-
-        self._devices = self._storage_playground.devices
 
         if selector:
             # update the selector with the new device and its size
@@ -879,7 +880,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not encrypted:
             log.info("removing encryption from %s", device.name)
             self._storage_playground.destroy_device(device)
-            self._devices.remove(device)
             old_device = device
             device = device.slave
             selector.device = device
@@ -892,12 +892,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             luks_dev = LUKSDevice("luks-" + device.name,
                                   parents=[device])
             self._storage_playground.create_device(luks_dev)
-            self._devices.append(luks_dev)
             device = luks_dev
             selector.device = device
             self._update_device_in_selectors(old_device, device)
-
-        self._devices = self._storage_playground.devices
 
         # possibly changed device and old_device, need to return the new ones
         return device, old_device
@@ -981,7 +978,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         device = selector.device
-        if device not in self._devices:
+        if device not in self._storage_playground.devices:
             # just-removed device
             return
 
@@ -1240,7 +1237,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if changed_device_type or changed_container:
                 # remove the current device
                 self._destroy_device(device)
-                if device in self._devices:
+                if device in self._storage_playground.devices:
                     # the removal failed. don't continue.
                     log.error("device removal failed")
                     return
@@ -1256,7 +1253,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 return
 
             self._update_device_in_selectors(device, selector.device)
-            self._devices = self._storage_playground.devices
 
             # update size properties and the right side
             self._update_size_props()
@@ -1946,7 +1942,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._add_device(dev_info)
 
         ## refresh internal state and UI elements
-        self._devices = self._storage_playground.devices
         if not self._error:
             self._do_refresh(mountpoint_to_show=dev_info["mountpoint"] or dev_info["fstype"])
         else:
@@ -1992,8 +1987,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             config = DiskInitializationConfig()
             if config.can_initialize(self._storage_playground, device.disk):
                 self._storage_playground.initialize_disk(device.disk)
-
-        self._devices = self._storage_playground.devices
 
         # should this be in DeviceTree._removeDevice?
         container = None
@@ -2580,8 +2573,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._error = e
             self.set_error(_("Automatic partitioning failed. "
                              "<a href=\"\">Click for details.</a>"))
-        else:
-            self._devices = self._storage_playground.devices
         finally:
             log.debug("finished automatic partitioning")
 
@@ -2964,7 +2955,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._storage_playground.roots = find_existing_installations(
                 self._storage_playground.devicetree)
 
-        self._devices = self._storage_playground.devices
         self._accordion.clear_current_selector()
         self._do_refresh()
 
