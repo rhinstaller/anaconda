@@ -63,7 +63,7 @@ from pyanaconda.modules.storage.disk_initialization import DiskInitializationCon
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
-    collect_bootloader_devices
+    collect_bootloader_devices, collect_new_devices
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -355,6 +355,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             drive=self._bootloader_observer.proxy.Drive
         )
 
+    def _get_new_devices(self):
+        return collect_new_devices(
+            storage=self._storage_playground,
+            drive=self._bootloader_observer.proxy.Drive
+        )
+
     def _set_current_free_space(self):
         """Add up all the free space on selected disks and return it as a Size."""
         self._free_space = self._storage_playground.get_disk_free_space()
@@ -445,27 +451,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         """
         self._partitioning_scheme = self._get_autopart_type(autopart_type_combo)
 
-    def get_new_devices(self):
-        # A device scheduled for formatting only belongs in the new root.
-        new_devices = [
-            d for d in self._storage_playground.devices
-            if d.direct
-            and not d.format.exists
-            and not d.partitioned
-        ]
-
-        # If mountpoints have been assigned to any existing devices, go ahead
-        # and pull those in along with any existing swap devices. It doesn't
-        # matter if the formats being mounted exist or not.
-        new_mounts = [d for d in self._storage_playground.mountpoints.values() if d.exists]
-        if new_mounts or new_devices:
-            new_devices.extend(self._storage_playground.mountpoints.values())
-            new_devices.extend(self._get_bootloader_devices())
-
-        new_devices = list(set(new_devices))
-
-        return new_devices
-
     def _set_page_label_text(self):
         if self._accordion.is_multiselection:
             select_tmpl = _("%(items_selected)s of %(items_total)s mount points in %(page_name)s")
@@ -508,7 +493,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # Make sure we start with a clean state.
         self._accordion.remove_all_pages()
 
-        new_devices = filter_unsupported_disklabel_devices(self.get_new_devices())
+        new_devices = filter_unsupported_disklabel_devices(self._get_new_devices())
         all_devices = filter_unsupported_disklabel_devices(self._storage_playground.devices)
         unused_devices = filter_unsupported_disklabel_devices(self._get_unused_devices())
         bootloader_devices = self._get_bootloader_devices()

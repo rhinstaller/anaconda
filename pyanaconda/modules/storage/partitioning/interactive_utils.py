@@ -99,3 +99,32 @@ def collect_bootloader_devices(storage, drive):
             devices.append(device)
 
     return devices
+
+
+def collect_new_devices(storage, drive):
+    """Collect new devices.
+
+    :param storage: an instance of Blivet
+    :param drive: a name of the bootloader drive
+    :return: a list of devices
+    """
+    # A device scheduled for formatting only belongs in the new root.
+    new_devices = [
+        d for d in storage.devices
+        if d.direct
+        and not d.format.exists
+        and not d.partitioned
+    ]
+
+    # If mount points have been assigned to any existing devices, go ahead
+    # and pull those in along with any existing swap devices. It doesn't
+    # matter if the formats being mounted exist or not.
+    new_mounts = [
+        d for d in storage.mountpoints.values() if d.exists
+    ]
+
+    if new_mounts or new_devices:
+        new_devices.extend(storage.mountpoints.values())
+        new_devices.extend(collect_bootloader_devices(storage, drive))
+
+    return list(set(new_devices))
