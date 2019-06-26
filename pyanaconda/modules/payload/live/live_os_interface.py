@@ -23,6 +23,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
+from pyanaconda.modules.payload.constants import ModuleState
 
 
 @dbus_interface(LIVE_OS_HANDLER.interface_name)
@@ -33,6 +34,7 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         super().connect_signals()
 
         self.watch_property("ImagePath", self.implementation.image_path_changed)
+        self.watch_property("State", self.implementation.state_changed)
 
     @property
     def ImagePath(self) -> Str:
@@ -49,6 +51,22 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         This image will be used as the installation source.
         """
         self.implementation.set_image_path(image_path)
+
+    @property
+    def State(self) -> Str:
+        """State of the payload handler.
+
+        For list of possible values see payload ModuleState enum.
+        """
+        return self.implementation.state.value
+
+    @emits_properties_changed
+    def SetState(self, state: Str):
+        """Set state of the payload handler.
+
+        For list of possible values see payload ModuleState enum.
+        """
+        self.implementation.set_state(ModuleState(state))
 
     def DetectLiveOSImage(self) -> Str:
         """Try to find valid live os image.

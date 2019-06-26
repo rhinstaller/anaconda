@@ -25,6 +25,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 
+from pyanaconda.modules.payload.constants import ModuleState
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
@@ -41,6 +42,11 @@ class LiveOSHandlerModule(KickstartBaseModule):
     def __init__(self):
         super().__init__()
 
+        self._state = None
+        self.state_changed = Signal()
+
+        self.set_state(ModuleState.STARTED)
+
         self._image_path = ""
         self.image_path_changed = Signal()
 
@@ -53,6 +59,24 @@ class LiveOSHandlerModule(KickstartBaseModule):
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
+
+    @property
+    def state(self):
+        """State of this payload handler.
+
+        :rtype: Enum pyanaconda.modules.payload.constants.ModuleState
+        """
+        return self._state
+
+    def set_state(self, state):
+        """Set state of this payload handler.
+
+        :param state: state of this payload handler
+        :type state: Enum pyanaconda.modules.payload.constants.ModuleState
+        """
+        self._state = state
+        self.state_changed.emit()
+        log.debug("LiveOS handler state has changed to %s", self._state)
 
     @property
     def image_path(self):
