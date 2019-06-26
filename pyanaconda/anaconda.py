@@ -48,7 +48,6 @@ class Anaconda(object):
         self.opts = None
         self._payload = None
         self.proxy = None
-        self.decorated = False
         self._storage = None
         self.mehConfig = None
 
@@ -67,7 +66,6 @@ class Anaconda(object):
     def set_from_opts(self, opts):
         """Load argument to variables from self.opts."""
         self.opts = opts
-        self.decorated = opts.decorated
         self.proxy = opts.proxy
         self.methodstr = opts.method
         self.additional_repos = opts.addRepo
@@ -281,7 +279,7 @@ class Anaconda(object):
             # use the window manager
             self._intf = GraphicalUserInterface(self.storage, self.payload,
                                                 gui_lock=self.gui_initialized,
-                                                fullscreen=False, decorated=self.decorated)
+                                                fullscreen=False)
 
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,

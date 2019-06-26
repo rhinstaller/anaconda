@@ -53,3 +53,14 @@ class UserInterfaceSection(Section):
         :return: a list of strings
         """
         return self._get_option("hidden_spokes", str).split()
+
+    @property
+    def decorated_window(self):
+        """Run GUI installer in a decorated window.
+
+        By default, the window is not decorated, so it doesn't
+        have a title bar, resize controls, etc.
+
+        :return: True or False
+        """
+        return self._get_option("decorated_window", bool)

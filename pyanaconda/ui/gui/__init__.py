@@ -646,7 +646,7 @@ class GraphicalUserInterface(UserInterface):
     """
     def __init__(self, storage, payload,
                  distributionText=product.distributionText, isFinal=product.isFinal,
-                 quitDialog=QuitDialog, gui_lock=None, fullscreen=False, decorated=False):
+                 quitDialog=QuitDialog, gui_lock=None, fullscreen=False):
 
         super().__init__(storage, payload)
 
@@ -656,7 +656,7 @@ class GraphicalUserInterface(UserInterface):
 
         self.data = None
 
-        self.mainWindow = MainWindow(fullscreen=fullscreen, decorated=decorated)
+        self.mainWindow = MainWindow(fullscreen=fullscreen, decorated=conf.ui.decorated_window)
 
         self._distributionText = distributionText
         self._isFinal = isFinal
