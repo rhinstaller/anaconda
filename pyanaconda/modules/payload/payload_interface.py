@@ -26,3 +26,10 @@ from pyanaconda.modules.common.base import KickstartModuleInterface
 @dbus_interface(PAYLOAD.interface_name)
 class PayloadInterface(KickstartModuleInterface):
     """DBus interface for Payload module."""
+
+    def CreateLiveOSHandler(self):
+        """Create Live OS payload handler and publish it on dbus.
+
+        # FIXME: This is a temporary solution which will change in the future commits
+        """
+        self.implementation.create_live_os_handler()

@@ -125,3 +125,8 @@ LIVE_IMAGE_HANDLER = DBusObjectIdentifier(
     namespace=PAYLOAD_NAMESPACE,
     basename="LiveImage"
 )
+
+LIVE_OS_HANDLER = DBusObjectIdentifier(
+    namespace=PAYLOAD_NAMESPACE,
+    basename="LiveOS"
+)
