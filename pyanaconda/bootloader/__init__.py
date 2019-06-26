@@ -61,8 +61,8 @@ def get_bootloader_class(platform_class=None):
         return IPSeriesGRUB2
 
     if platform_class is platform.PowerNV:
-        from pyanaconda.bootloader.grub2 import GRUB2
-        return GRUB2
+        from pyanaconda.bootloader.grub2 import PowerNVGRUB2
+        return PowerNVGRUB2
 
     if platform_class is platform.S390:
         from pyanaconda.bootloader.zipl import ZIPL
