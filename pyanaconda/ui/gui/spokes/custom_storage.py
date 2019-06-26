@@ -188,7 +188,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self.passphrase = ""
         self._error = None
-        self._hidden_disks = []
         self._fs_types = set()  # set of supported fstypes
         self._free_space = Size(0)
         self._partitioning_scheme = DEFAULT_AUTOPART_TYPE
@@ -218,9 +217,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def apply(self):
         self.clear_errors()
-        self._unhide_unusable_disks()
 
-        # make sure any device/passphrase pairs we've obtained are remembered
+        # Make sure that the protected disks are visible again.
+        self._storage_playground.show_protected_disks()
+
+        # Make sure any device/passphrase pairs we've obtained are remembered.
         setup_passphrase(self.storage, self.passphrase)
 
         hubQ.send_ready("StorageSpoke", True)
@@ -384,22 +385,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._summaryLabel.set_use_underline(True)
 
     @ui_storage_logged
-    def _hide_unusable_disks(self):
-        self._hidden_disks = []
-
-        for disk in self._storage_playground.disks:
-            if disk.protected:
-                # hide removable disks containing install media
-                self._hidden_disks.append(disk)
-                self._storage_playground.devicetree.hide(disk)
-
-    def _unhide_unusable_disks(self):
-        for disk in reversed(self._hidden_disks):
-            self._storage_playground.devicetree.unhide(disk)
-
     def _reset_storage(self):
         self._storage_playground = self.storage.copy()
-        self._hide_unusable_disks()
+        self._storage_playground.hide_protected_disks()
 
     def refresh(self):
         self.clear_errors()
