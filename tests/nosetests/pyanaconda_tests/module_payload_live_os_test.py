@@ -52,6 +52,17 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_once_with(
             LIVE_OS_HANDLER.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
+    def empty_state_properties_test(self):
+        """Test Live OS default state."""
+        self.assertEqual(self.live_os_interface.State, "started")
+
+    def state_properties_test(self):
+        """Test Live OS set state."""
+        self.live_os_interface.SetState("installing")
+        self.assertEqual(self.live_os_interface.State, "installing")
+        self.callback.assert_called_once_with(
+            LIVE_OS_HANDLER.interface_name, {"State": "installing"}, [])
+
     @patch("pyanaconda.modules.payload.live.live_os.stat")
     @patch("os.stat")
     def detect_live_os_image_test(self, os_stat, stat):
