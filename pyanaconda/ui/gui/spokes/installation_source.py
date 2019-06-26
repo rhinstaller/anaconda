@@ -817,6 +817,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     def _payload_finished(self):
         hubQ.send_ready("SoftwareSelectionSpoke", False)
+        self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
 
     def _payload_error(self):
@@ -830,6 +831,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self.payload.verbose_errors:
             self._error_msg += _(CLICK_FOR_DETAILS)
 
+        self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
 
     def _initialize(self):
