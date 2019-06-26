@@ -52,6 +52,30 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_once_with(
             LIVE_OS_HANDLER.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
+    @patch("pyanaconda.modules.payload.live.live_os.stat")
+    @patch("os.stat")
+    def detect_live_os_image_test(self, os_stat, stat):
+        """Test detect Live OS base image method."""
+        stat.S_ISBLK = Mock()
+        stat.S_ISBLK.return_value = True
+        ret = self.live_os_interface.DetectLiveOSImage()
+
+        # return the first known image from the list
+        # See DetectLiveOSImage image code for the list
+        self.assertEqual("/dev/mapper/live-base", ret)
+
+    @patch("pyanaconda.modules.payload.live.live_os.stat")
+    @patch("os.stat")
+    def detect_live_os_image_nothing_found_test(self, os_stat, stat):
+        """Test detect Live OS base image method when image doesn't exists."""
+        stat.S_ISBLK = Mock()
+        stat.S_ISBLK.return_value = False
+
+        ret = self.live_os_interface.DetectLiveOSImage()
+
+        # return empty string because there is no valid image found
+        self.assertEqual("", ret)
+
     @patch('pyanaconda.dbus.DBus.publish_object')
     def setup_installation_source_task_test(self, publisher):
         """Test Live OS is able to create a setup installation source task."""
