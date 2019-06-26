@@ -29,7 +29,7 @@ from pydbus import Variant
 __all__ = ["Bool", "Double", "Str", "Int", "Byte", "Int16", "UInt16",
            "Int32", "UInt32", "Int64", "UInt64", "File", "ObjPath",
            "Tuple", "List", "Dict", "Variant", "Structure",
-           "get_variant"]
+           "get_variant", "get_native"]
 
 # Basic types.
 Bool = bool
@@ -85,6 +85,30 @@ def get_variant(type_hint, value):
     :return: an instance of Variant
     """
     return Variant(get_dbus_type(type_hint), value)
+
+
+def get_native(value):
+    """Decompose a DBus value into a native Python object.
+
+    This function is useful for testing, when pydbus doesn't
+    decompose arguments and return values of DBus calls.
+
+    :param value: a DBus value
+    :return: a native Python object
+    """
+    if isinstance(value, Variant):
+        return value.unpack()
+
+    if isinstance(value, tuple):
+        return tuple(map(get_native, value))
+
+    if isinstance(value, list):
+        return list(map(get_native, value))
+
+    if isinstance(value, dict):
+        return {k: get_native(v) for k, v in value.items()}
+
+    return value
 
 
 class DBusType(object):

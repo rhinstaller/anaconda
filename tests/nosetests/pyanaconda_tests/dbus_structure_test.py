@@ -339,6 +339,18 @@ class DBusStructureTestCase(unittest.TestCase):
             )
         ))
 
+    def get_native_complicated_structure_test(self):
+        dictionary = {
+            'dictionary': {1: "1", 2: "2"},
+            'bool-list': [True, False, False],
+            'very-long-property-name': "My String Value"
+        }
+        data = self.ComplicatedData.from_structure(dictionary)
+        structure = self.ComplicatedData.to_structure(data)
+
+        self.assertEqual(get_native(structure), dictionary)
+        self.assertEqual(get_native(dictionary), dictionary)
+
     class StringData(DBusData):
 
         def __init__(self):

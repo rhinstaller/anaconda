@@ -137,6 +137,10 @@ class DBusTypingVariantTests(unittest.TestCase):
         v2 = Variant(expected_string, value)
         self.assertTrue(v2.equal(v1))
 
+        self.assertEqual(get_native(v1), value)
+        self.assertEqual(get_native(v1), get_native(v2))
+        self.assertEqual(get_native(value), value)
+
     def variant_invalid_test(self):
         """Test invalid variants."""
 
@@ -181,3 +185,46 @@ class DBusTypingVariantTests(unittest.TestCase):
         """Test variants with type aliases."""
         AliasType = List[Double]
         self._test_variant(Dict[Str, AliasType], "a{sad}", {"test": [1.1, 2.2]})
+
+    def _test_native(self, variants, values):
+        """Test native values of variants."""
+        for variant, value in zip(variants, values):
+            self.assertEqual(get_native(variant), value)
+
+        self.assertEqual(get_native(tuple(variants)), tuple(values))
+        self.assertEqual(get_native(list(variants)), list(values))
+        self.assertEqual(get_native(dict(enumerate(variants))), dict(enumerate(values)))
+
+    def basic_native_test(self):
+        """Test get_native with basic variants."""
+        self._test_native(
+            [
+                get_variant(Double, 1.2),
+                get_variant(List[Int], [0, -1]),
+                get_variant(Tuple[Bool, Bool], (True, False)),
+                get_variant(Dict[Str, Int], {"key": 0}),
+            ],
+            [
+                1.2,
+                [0, -1],
+                (True, False),
+                {"key": 0}
+            ]
+        )
+
+    def complex_native_test(self):
+        """Test get_native with complex variants."""
+        self._test_native(
+            [
+                get_variant(Variant, get_variant(Double, 1.2)),
+                get_variant(List[Variant], [get_variant(Int, 0), get_variant(Int, -1)]),
+                get_variant(Tuple[Variant, Bool], (get_variant(Bool, True), False)),
+                get_variant(Dict[Str, Variant], {"key": get_variant(Int, 0)})
+            ],
+            [
+                1.2,
+                [0, -1],
+                (True, False),
+                {"key": 0}
+            ]
+        )
