@@ -197,8 +197,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def sensitive(self):
-        return not (self.completed and flags.automatedInstall
-                    and self._users_module.proxy.IsRootpwKickstarted)
+        # A password set in kickstart can only be changed in the GUI
+        # if the changesok password policy is set for the root password.
+        kickstarted_password_cant_be_changed = self._users_module.proxy.IsRootpwKickstarted \
+                                and not self.checker.policy.changesok
+        return not (self.completed and flags.automatedInstall and kickstarted_password_cant_be_changed)
 
     def _checks_done(self, error_message):
         """Update the warning with the input validation error from the first
