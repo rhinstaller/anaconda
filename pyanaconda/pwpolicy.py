@@ -133,8 +133,8 @@ class F22_PwPolicy(KickstartCommand):
                         version=F22, help="""
                         Do not allow UI to be used to change the password/user
                         if it has been set in the kickstart.""")
-        op.add_argument("--emptyok", action="store_true", version=F22, help="""
-                        Allow empty password.""")
+        op.add_argument("--emptyok", action="store_true", version=F22, default=True,
+                        help="""Allow empty password.""")
         op.add_argument("--notempty", dest="emptyok", action="store_false",
                         version=F22, help="""
                         Don't allow an empty password.""")
