@@ -388,7 +388,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._hidden_disks = []
 
         for disk in self._storage_playground.disks:
-            if disk.protected or not disk.media_present:
+            if disk.protected:
                 # hide removable disks containing install media
                 self._hidden_disks.append(disk)
                 self._storage_playground.devicetree.hide(disk)
