@@ -55,8 +55,7 @@ from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.core.util import lowerASCII
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, \
-    AUTO_PARTITIONING
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
     StorageConfigurationError
@@ -192,6 +191,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._hidden_disks = []
         self._fs_types = set()  # set of supported fstypes
         self._free_space = Size(0)
+        self._partitioning_scheme = DEFAULT_AUTOPART_TYPE
 
         self._device_disks = []
         self._device_container_name = None
@@ -215,9 +215,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
         self._disk_init_observer.connect()
-
-        self._auto_part_observer = STORAGE.get_observer(AUTO_PARTITIONING)
-        self._auto_part_observer.connect()
 
     def apply(self):
         self.clear_errors()
@@ -472,7 +469,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         clicks the '+' button.
 
         """
-        self._auto_part_observer.proxy.SetType(self._get_autopart_type(autopart_type_combo))
+        self._partitioning_scheme = self._get_autopart_type(autopart_type_combo)
 
     def get_new_devices(self):
         # A device scheduled for formatting only belongs in the new root.
@@ -1940,7 +1937,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if lowerASCII(dev_info["mountpoint"]) in ("swap", "biosboot", "prepboot"):
             dev_info["mountpoint"] = None
 
-        dev_info["device_type"] = device_type_from_autopart(self._auto_part_observer.proxy.Type)
+        dev_info["device_type"] = device_type_from_autopart(self._partitioning_scheme)
         if (dev_info["device_type"] != DEVICE_TYPE_PARTITION and
                 ((dev_info["mountpoint"] and dev_info["mountpoint"].startswith("/boot")) or
                  dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES)):
