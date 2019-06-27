@@ -26,7 +26,7 @@ from pyanaconda.bootloader import get_bootloader_class
 from pyanaconda.bootloader.base import BootLoader
 from pyanaconda.bootloader.efi import EFIGRUB, MacEFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
 from pyanaconda.bootloader.extlinux import EXTLINUX
-from pyanaconda.bootloader.grub2 import GRUB2, IPSeriesGRUB2
+from pyanaconda.bootloader.grub2 import GRUB2, IPSeriesGRUB2, PowerNVGRUB2
 from pyanaconda.bootloader.zipl import ZIPL
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import BootloaderMode
@@ -279,6 +279,7 @@ class BootloaderClassTestCase(unittest.TestCase):
             platform.MacEFI: MacEFIGRUB,
             platform.PPC: GRUB2,
             platform.IPSeriesPPC: IPSeriesGRUB2,
+            platform.PowerNV: PowerNVGRUB2,
             platform.S390: ZIPL,
             platform.Aarch64EFI: Aarch64EFIGRUB,
             platform.ARM: EXTLINUX,
