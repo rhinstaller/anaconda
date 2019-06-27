@@ -189,7 +189,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.passphrase = ""
         self._error = None
         self._fs_types = set()  # set of supported fstypes
-        self._free_space = Size(0)
         self._partitioning_scheme = DEFAULT_AUTOPART_TYPE
 
         self._device_disks = []
@@ -360,19 +359,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             drive=self._bootloader_observer.proxy.Drive
         )
 
-    def _set_current_free_space(self):
-        """Add up all the free space on selected disks and return it as a Size."""
-        self._free_space = self._storage_playground.get_disk_free_space()
-
     def _current_total_space(self):
         """Add up the sizes of all selected disks and return it as a Size."""
         return sum((disk.size for disk in self._get_selected_disks()), Size(0))
 
     def _update_space_display(self):
         # Set up the free space/available space displays in the bottom left.
-        self._set_current_free_space()
+        free_space = self._storage_playground.get_disk_free_space()
 
-        self._availableSpaceLabel.set_text(str(self._free_space))
+        self._availableSpaceLabel.set_text(str(free_space))
         self._totalSpaceLabel.set_text(str(self._current_total_space()))
 
         count = len(self._get_selected_disks())
@@ -1857,7 +1852,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # create a device of the default type, using any disks, with an
         # appropriate fstype and mountpoint
         dev_info["mountpoint"] = dialog.mountpoint
-        log.debug("requested size = %s  ; available space = %s", dialog.size, self._free_space)
 
         # if no requested size, or size less than 1 MB, request maximum size
         if dialog.size is None or dialog.size < Size("1 MB"):
