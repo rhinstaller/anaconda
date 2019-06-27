@@ -361,13 +361,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _update_space_display(self):
         # Set up the free space/available space displays in the bottom left.
+        disks = self._get_selected_disks()
         free_space = self._storage_playground.get_disk_free_space()
-        total_space = sum((d.size for d in self._get_selected_disks()), Size(0))
+        total_space = sum((d.size for d in disks), Size(0))
 
         self._availableSpaceLabel.set_text(str(free_space))
         self._totalSpaceLabel.set_text(str(total_space))
 
-        count = len(self._get_selected_disks())
+        count = len(disks)
         summary = CP_("GUI|Custom Partitioning",
                       "%d _storage device selected",
                       "%d _storage devices selected",
