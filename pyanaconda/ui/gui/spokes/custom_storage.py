@@ -61,7 +61,7 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
-    create_new_root, revert_reformat, resize_device, change_encryption
+    create_new_root, revert_reformat, resize_device, change_encryption, reformat_device
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -743,16 +743,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         #
         # FORMATTING
         #
-        log.info("scheduling reformat of %s as %s", device.name, fs_type)
-        old_format = device.format
-        new_format = get_format(fs_type,
-                                mountpoint=mountpoint, label=label,
-                                device=device.path)
         try:
-            self._storage_playground.format_device(device, new_format)
-        except (StorageError, ValueError) as e:
-            log.error("failed to register device format action: %s", e)
-            device.format = old_format
+            reformat_device(
+                storage=self._storage_playground,
+                device=device,
+                fstype=fs_type,
+                mountpoint=mountpoint,
+                label=label
+            )
+        except StorageError as e:
             self._error = e
             self.set_warning(_("Device reformat request failed. "
                                "<a href=\"\">Click for details.</a>"))

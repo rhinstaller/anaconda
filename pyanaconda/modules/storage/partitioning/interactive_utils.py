@@ -336,3 +336,31 @@ def change_encryption(storage, device, encrypted, luks_version):
         luks_dev = LUKSDevice("luks-" + device.name, parents=[device])
         storage.create_device(luks_dev)
         return luks_dev
+
+
+def reformat_device(storage, device, fstype, mountpoint, label):
+    """Reformat the given device.
+
+    :param storage: an instance of Blivet
+    :param device: a device to reformat
+    :param fstype: a file system type
+    :param mountpoint: a mount point
+    :param label: a label
+    :raise: StorageError if we fail to format the device
+    """
+    log.info("scheduling reformat of %s as %s", device.name, fstype)
+
+    old_format = device.format
+    new_format = get_format(
+        fstype,
+        mountpoint=mountpoint,
+        label=label,
+        device=device.path
+    )
+
+    try:
+        storage.format_device(device, new_format)
+    except (StorageError, ValueError) as e:
+        log.error("failed to register device format action: %s", e)
+        device.format = old_format
+        raise StorageError(str(e)) from None
