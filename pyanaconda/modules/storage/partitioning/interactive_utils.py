@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.product import translated_new_install_name
+from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices
 
 
@@ -174,3 +175,41 @@ def collect_roots(storage):
         roots.append(root)
 
     return roots
+
+
+def create_new_root(storage, drive):
+    """Create a new root from the given devices.
+
+    :param storage: an instance of Blivet
+    :param drive: a name of the bootloader drive
+    :return: a new root
+    """
+    devices = filter_unsupported_disklabel_devices(collect_new_devices(
+            storage=storage,
+            drive=drive
+    ))
+
+    bootloader_devices = collect_bootloader_devices(
+        storage=storage,
+        drive=drive
+    )
+
+    swaps = [
+        d for d in devices
+        if d.format.type == "swap"
+    ]
+
+    mounts = {
+        d.format.mountpoint: d for d in devices
+        if getattr(d.format, "mountpoint", None)
+    }
+
+    for device in devices:
+        if device in bootloader_devices:
+            mounts[device.format.name] = device
+
+    return Root(
+        name=translated_new_install_name(),
+        mounts=mounts,
+        swaps=swaps
+    )

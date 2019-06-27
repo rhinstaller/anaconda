@@ -60,7 +60,8 @@ from pyanaconda.modules.storage.disk_initialization import DiskInitializationCon
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
-    collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots
+    collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
+    create_new_root
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -291,16 +292,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _get_unused_devices(self):
         return collect_unused_devices(self._storage_playground)
 
+    @property
+    def _bootloader_drive(self):
+        return self._bootloader_observer.proxy.Drive
+
     def _get_bootloader_devices(self):
         return collect_bootloader_devices(
             storage=self._storage_playground,
-            drive=self._bootloader_observer.proxy.Drive
+            drive=self._bootloader_drive
         )
 
     def _get_new_devices(self):
         return collect_new_devices(
             storage=self._storage_playground,
-            drive=self._bootloader_observer.proxy.Drive
+            drive=self._bootloader_drive
         )
 
     def _update_space_display(self):
@@ -419,7 +424,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_devices = filter_unsupported_disklabel_devices(self._get_new_devices())
         all_devices = filter_unsupported_disklabel_devices(self._storage_playground.devices)
         unused_devices = filter_unsupported_disklabel_devices(self._get_unused_devices())
-        bootloader_devices = self._get_bootloader_devices()
 
         # Collect the existing roots.
         ui_roots = collect_roots(self._storage_playground)
@@ -433,15 +437,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not new_devices:
             self._add_initial_page(reuse_existing=bool(ui_roots or unused_devices))
         else:
-            swaps = [d for d in new_devices if d.format.type == "swap"]
-            mounts = dict((d.format.mountpoint, d) for d in new_devices
-                          if getattr(d.format, "mountpoint", None))
-
-            for device in new_devices:
-                if device in bootloader_devices:
-                    mounts[device.format.name] = device
-
-            new_root = Root(mounts=mounts, swaps=swaps, name=translated_new_install_name())
+            new_root = create_new_root(self._storage_playground, self._bootloader_drive)
             ui_roots.insert(0, new_root)
 
         # Add in all the existing (or autopart-created) operating systems.
