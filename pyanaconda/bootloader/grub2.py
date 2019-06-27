@@ -618,10 +618,8 @@ class IPSeriesGRUB2(GRUB2):
 class PowerNVGRUB2(GRUB2):
     """PowerNV GRUBv2"""
 
-    #
-    # installation should be a no-op, just writing the config is sufficient for the
-    # firmware's bootloader (petitboot)
-    #
-
     def install(self, args=None):
+        """installation should be a no-op, just writing the config is sufficient for the
+        firmware's bootloader (petitboot)
+        """
         pass
