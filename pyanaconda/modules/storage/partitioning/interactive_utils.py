@@ -229,3 +229,19 @@ def create_new_root(storage, drive):
         mounts=mounts,
         swaps=swaps
     )
+
+
+def revert_reformat(storage, device):
+    """Revert reformat of the given device.
+
+    :param storage: an instance of Blivet
+    :param device: a device to reset
+    """
+    # Figure out the existing device.
+    if not device.raw_device.format.exists:
+        original_device = device.raw_device
+    else:
+        original_device = device
+
+    # Reset it.
+    storage.reset_device(original_device)

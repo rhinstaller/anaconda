@@ -61,7 +61,7 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
-    create_new_root
+    create_new_root, revert_reformat
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -676,24 +676,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                     return False
 
     @ui_storage_logged
-    def _revert_reformat(self, device):
-        """ Revert reformat.
-
-            :param device: the device being displayed
-            :type device: :class:`blivet.devices.StorageDevice`
-        """
-        use_dev = device.raw_device
-
-        # figure out the existing device and reset it
-        if not use_dev.format.exists:
-            original_device = use_dev
-        else:
-            original_device = device
-
-        log.debug("resetting device %s", original_device.name)
-        self._storage_playground.reset_device(original_device)
-
-    @ui_storage_logged
     def _handle_size_change(self, size, old_size, device):
         """ Handle size change.
 
@@ -1157,7 +1139,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # a reformat.
         if not reformat and (not use_dev.format.exists or
                              not device.format.exists):
-            self._revert_reformat(device)
+            revert_reformat(self._storage_playground, device)
 
         # Handle size change
         if changed_size:
