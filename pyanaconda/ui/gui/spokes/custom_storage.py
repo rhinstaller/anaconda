@@ -442,7 +442,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Add root pages.
         for root in ui_roots:
-            self._add_root_page(root, all_devices)
+            self._add_root_page(root)
 
         # Add the unknown page.
         if unused_devices:
@@ -460,16 +460,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
         self._set_page_label_text()
 
-    def _add_root_page(self, root, supported_devices):
+    def _add_root_page(self, root):
         page = Page(root.name)
         self._accordion.add_page(page, cb=self.on_page_clicked)
 
-        for (mountpoint, device) in root.mounts.items():
-            if device not in supported_devices or \
-                    not device.disks or \
-                    (root.name != translated_new_install_name() and not device.format.exists):
-                continue
-
+        for mountpoint, device in root.mounts.items():
             selector = page.add_selector(
                 device,
                 self.on_selector_clicked,
@@ -479,12 +474,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             selector.root = root
 
         for device in root.swaps:
-            # by using all_devices we've already accounted
-            # for devices on unsupported disklabels
-            if device not in supported_devices or \
-                    (root.name != translated_new_install_name() and not device.format.exists):
-                continue
-
             selector = page.add_selector(
                 device,
                 self.on_selector_clicked

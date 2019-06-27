@@ -155,24 +155,36 @@ def collect_roots(storage):
     :return: a list of roots
     """
     roots = []
-    all_devices = set(filter_unsupported_disklabel_devices(storage.devices))
+    supported_devices = set(filter_unsupported_disklabel_devices(storage.devices))
 
     for root in storage.roots:
-        # Collect root devices.
-        root_devices = []
-        root_devices.extend(root.swaps)
-        root_devices.extend(root.mounts.values())
+        # Get the name.
+        name = root.name
 
-        # Don't add the root if none of the root's devices are left.
-        if not filter_unsupported_disklabel_devices(root_devices):
+        # Get the supported swap devices.
+        swaps = [
+            d for d in root.swaps
+            if d in supported_devices
+            and (d.format.exists or root.name == translated_new_install_name())
+        ]
+
+        # Get the supported mount points.
+        mounts = {
+            m: d for m, d in root.mounts.items()
+            if d in supported_devices
+            and (d.format.exists or root.name == translated_new_install_name())
+            and d.disks
+        }
+
+        if not swaps and not mounts:
             continue
 
-        # Also, only include devices in an old page if the format is intact.
-        if not any(d for d in root_devices if d in all_devices and d.disks
-                   and (root.name == translated_new_install_name() or d.format.exists)):
-            continue
-
-        roots.append(root)
+        # Add a root with supported devices.
+        roots.append(Root(
+            name=name,
+            mounts=mounts,
+            swaps=swaps
+        ))
 
     return roots
 
@@ -184,14 +196,18 @@ def create_new_root(storage, drive):
     :param drive: a name of the bootloader drive
     :return: a new root
     """
-    devices = filter_unsupported_disklabel_devices(collect_new_devices(
+    devices = filter_unsupported_disklabel_devices(
+        collect_new_devices(
             storage=storage,
             drive=drive
-    ))
+        )
+    )
 
-    bootloader_devices = collect_bootloader_devices(
-        storage=storage,
-        drive=drive
+    bootloader_devices = filter_unsupported_disklabel_devices(
+        collect_bootloader_devices(
+            storage=storage,
+            drive=drive
+        )
     )
 
     swaps = [
