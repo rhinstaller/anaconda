@@ -61,7 +61,7 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
-    create_new_root, revert_reformat, resize_device
+    create_new_root, revert_reformat, resize_device, change_encryption
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -704,27 +704,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     @ui_storage_logged
     def _handle_encryption_change(self, encrypted, luks_version, device, old_device, selector):
-        if not encrypted:
-            log.info("removing encryption from %s", device.name)
-            self._storage_playground.destroy_device(device)
-            old_device = device
-            device = device.slave
-            selector.device = device
-            self._update_device_in_selectors(old_device, device)
-        else:
-            log.info("applying encryption to %s", device.name)
-            old_device = device
-            new_fmt = get_format("luks", device=device.path, luks_version=luks_version)
-            self._storage_playground.format_device(device, new_fmt)
-            luks_dev = LUKSDevice("luks-" + device.name,
-                                  parents=[device])
-            self._storage_playground.create_device(luks_dev)
-            device = luks_dev
-            selector.device = device
-            self._update_device_in_selectors(old_device, device)
+        old_device = device
+        new_device = change_encryption(
+            storage=self._storage_playground,
+            device=device,
+            encrypted=encrypted,
+            luks_version=luks_version
+        )
+
+        # update the selectors
+        selector.device = new_device
+        self._update_device_in_selectors(old_device, new_device)
 
         # possibly changed device and old_device, need to return the new ones
-        return device, old_device
+        return new_device, old_device
 
     @ui_storage_logged
     def _do_reformat(self, device, mountpoint, label, changed_encryption, encrypted,

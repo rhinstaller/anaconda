@@ -18,7 +18,9 @@
 # Red Hat, Inc.
 #
 from blivet.devicelibs import crypto
+from blivet.devices import LUKSDevice
 from blivet.errors import StorageError
+from blivet.formats import get_format
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.product import translated_new_install_name
@@ -312,3 +314,25 @@ def resize_device(storage, device, new_size, old_size):
         log.debug("new size: %s", device.raw_device.size)
         log.debug("target size: %s", device.raw_device.target_size)
         return True
+
+
+def change_encryption(storage, device, encrypted, luks_version):
+    """Change encryption of the given device.
+
+    :param storage: an instance of Blivet
+    :param device: a device to change
+    :param encrypted: should we encrypt the device?
+    :param luks_version: a version of LUKS
+    :return: a LUKS device or a device slave
+    """
+    if not encrypted:
+        log.info("removing encryption from %s", device.name)
+        storage.destroy_device(device)
+        return device.slave
+    else:
+        log.info("applying encryption to %s", device.name)
+        new_fmt = get_format("luks", device=device.path, luks_version=luks_version)
+        storage.format_device(device, new_fmt)
+        luks_dev = LUKSDevice("luks-" + device.name, parents=[device])
+        storage.create_device(luks_dev)
+        return luks_dev
