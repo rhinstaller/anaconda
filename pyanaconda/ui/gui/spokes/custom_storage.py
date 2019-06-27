@@ -440,34 +440,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             new_root = create_new_root(self._storage_playground, self._bootloader_drive)
             ui_roots.insert(0, new_root)
 
-        # Add in all the existing (or autopart-created) operating systems.
+        # Add root pages.
         for root in ui_roots:
-            page = Page(root.name)
-            self._accordion.add_page(page, cb=self.on_page_clicked)
-
-            for (mountpoint, device) in root.mounts.items():
-                # by using all_devices we've already accounted
-                # for devices on unsupported disklabels
-                if device not in all_devices or \
-                        not device.disks or \
-                        (root.name != translated_new_install_name() and not device.format.exists):
-                    continue
-
-                selector = page.add_selector(device, self.on_selector_clicked,
-                                             mountpoint=mountpoint)
-                selector.root = root
-
-            for device in root.swaps:
-                # by using all_devices we've already accounted
-                # for devices on unsupported disklabels
-                if device not in all_devices or \
-                        (root.name != translated_new_install_name() and not device.format.exists):
-                    continue
-
-                selector = page.add_selector(device, self.on_selector_clicked)
-                selector.root = root
-
-            page.show_all()
+            self._add_root_page(root, all_devices)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
         if unused_devices:
@@ -490,6 +465,40 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._accordion.add_page(page, cb=self.on_page_clicked)
         self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
         self._set_page_label_text()
+
+    def _add_root_page(self, root, supported_devices):
+        page = Page(root.name)
+        self._accordion.add_page(page, cb=self.on_page_clicked)
+
+        for (mountpoint, device) in root.mounts.items():
+            if device not in supported_devices or \
+                    not device.disks or \
+                    (root.name != translated_new_install_name() and not device.format.exists):
+                continue
+
+            selector = page.add_selector(
+                device,
+                self.on_selector_clicked,
+                mountpoint=mountpoint
+            )
+
+            selector.root = root
+
+        for device in root.swaps:
+            # by using all_devices we've already accounted
+            # for devices on unsupported disklabels
+            if device not in supported_devices or \
+                    (root.name != translated_new_install_name() and not device.format.exists):
+                continue
+
+            selector = page.add_selector(
+                device,
+                self.on_selector_clicked
+            )
+
+            selector.root = root
+
+        page.show_all()
 
     def _do_refresh(self, mountpoint_to_show=None):
         # block mountpoint selector signal handler for now
