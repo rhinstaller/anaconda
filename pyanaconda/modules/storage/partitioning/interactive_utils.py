@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.product import translated_new_install_name
+from pyanaconda.storage.utils import filter_unsupported_disklabel_devices
 
 
 def collect_used_devices(storage):
@@ -143,3 +145,32 @@ def collect_selected_disks(storage, selection):
         d for d in storage.devices
         if d.name in selection and d.partitioned
     ]
+
+
+def collect_roots(storage):
+    """Collect roots of existing installations.
+
+    :param storage: an instance of Blivet
+    :return: a list of roots
+    """
+    roots = []
+    all_devices = set(filter_unsupported_disklabel_devices(storage.devices))
+
+    for root in storage.roots:
+        # Collect root devices.
+        root_devices = []
+        root_devices.extend(root.swaps)
+        root_devices.extend(root.mounts.values())
+
+        # Don't add the root if none of the root's devices are left.
+        if not filter_unsupported_disklabel_devices(root_devices):
+            continue
+
+        # Also, only include devices in an old page if the format is intact.
+        if not any(d for d in root_devices if d in all_devices and d.disks
+                   and (root.name == translated_new_install_name() or d.format.exists)):
+            continue
+
+        roots.append(root)
+
+    return roots

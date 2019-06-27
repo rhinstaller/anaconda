@@ -60,7 +60,7 @@ from pyanaconda.modules.storage.disk_initialization import DiskInitializationCon
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
-    collect_bootloader_devices, collect_new_devices, collect_selected_disks
+    collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -421,25 +421,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         unused_devices = filter_unsupported_disklabel_devices(self._get_unused_devices())
         bootloader_devices = self._get_bootloader_devices()
 
+        # Collect the existing roots.
+        ui_roots = collect_roots(self._storage_playground)
+
         # Now it's time to populate the accordion.
         log.debug("ui: devices=%s", [d.name for d in all_devices])
         log.debug("ui: unused=%s", [d.name for d in unused_devices])
         log.debug("ui: new_devices=%s", [d.name for d in new_devices])
-
-        ui_roots = []
-        for root in self._storage_playground.roots:
-            root_devices = list(chain(root.swaps, root.mounts.values()))
-            # Don't make a page if none of the root's devices are left.
-            # Also, only include devices in an old page if the format is intact.
-            if not any(d for d in root_devices
-                       if d in all_devices and d.disks
-                       and (root.name == translated_new_install_name() or d.format.exists)):
-                continue
-
-            if not filter_unsupported_disklabel_devices(root_devices):
-                continue
-
-            ui_roots.append(root)
 
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
