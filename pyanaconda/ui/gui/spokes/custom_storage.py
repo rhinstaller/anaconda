@@ -429,18 +429,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         log.debug("ui: unused=%s", [d.name for d in unused_devices])
         log.debug("ui: new_devices=%s", [d.name for d in new_devices])
 
-        # If we've not yet run autopart, add an instance of CreateNewPage.  This
-        # ensures it's only added once.
+        # Add the initial page.
         if not new_devices:
-            page = CreateNewPage(translated_new_install_name(),
-                                 self.on_create_clicked,
-                                 self._change_autopart_type,
-                                 partitionsToReuse=bool(ui_roots) or bool(unused_devices))
-            self._accordion.add_page(page, cb=self.on_page_clicked)
-
-            self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
-            self._set_page_label_text()
-
+            self._add_initial_page(reuse_existing=bool(ui_roots or unused_devices))
         else:
             swaps = [d for d in new_devices if d.format.type == "swap"]
             mounts = dict((d.format.mountpoint, d) for d in new_devices
@@ -491,6 +482,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 page.add_selector(u, self.on_selector_clicked)
 
             page.show_all()
+
+    def _add_initial_page(self, reuse_existing=False):
+        page = CreateNewPage(
+            translated_new_install_name(),
+            self.on_create_clicked,
+            self._change_autopart_type,
+            partitionsToReuse=reuse_existing
+        )
+
+        self._accordion.add_page(page, cb=self.on_page_clicked)
+        self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
+        self._set_page_label_text()
 
     def _do_refresh(self, mountpoint_to_show=None):
         # block mountpoint selector signal handler for now
