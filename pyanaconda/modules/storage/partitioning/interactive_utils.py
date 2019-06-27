@@ -364,3 +364,17 @@ def reformat_device(storage, device, fstype, mountpoint, label):
         log.error("failed to register device format action: %s", e)
         device.format = old_format
         raise StorageError(str(e)) from None
+
+
+def get_device_luks_version(device):
+    """Get the LUKS version of the given device.
+
+    :param device: a device
+    :return: a LUKS version or None
+    """
+    device = device.raw_device
+
+    if device.format.type == "luks":
+        return device.format.luks_version
+
+    return None

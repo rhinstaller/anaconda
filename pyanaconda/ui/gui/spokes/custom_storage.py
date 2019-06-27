@@ -61,7 +61,8 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
-    create_new_root, revert_reformat, resize_device, change_encryption, reformat_device
+    create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
+    get_device_luks_version
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -1178,23 +1179,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         for widget in [self._raidLevelLabel, self._raidLevelCombo]:
             really_show(widget)
 
-    def _populate_luks(self, device):
+    def _populate_luks(self, luks_version):
         """Set up the LUKS version combo box.
 
-        :param device: an instance of blivet.devices.Device
+        :param luks_version: a LUKS version or None
         """
-        device = device.raw_device
-
         # Add the values.
         self._luksStore.clear()
         for luks_version in crypto.LUKS_VERSIONS:
             self._luksStore.append([luks_version])
 
         # Get the selected value.
-        if device.format.type == "luks":
-            luks_version = device.format.luks_version
-        else:
-            luks_version = self.storage.default_luks_version
+        luks_version = luks_version or self.storage.default_luks_version
 
         # Set the selected value.
         idx = next(
@@ -1508,7 +1504,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._populate_raid(get_device_raid_level(device))
         self._populate_container(device=use_dev)
-        self._populate_luks(device)
+        self._populate_luks(get_device_luks_version(device))
 
         # do this last to override the decision made by on_device_type_changed if necessary
         if use_dev.exists or use_dev.type == "btrfs volume":
