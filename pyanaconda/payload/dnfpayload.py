@@ -906,11 +906,11 @@ class DNFPayload(payload.PackagePayload):
 
         # Enable or disable updates.
         if self._updates_enabled:
-            self.enable_repo("updates")
-            self.enable_repo("updates-modular")
+            for repo in constants.DEFAULT_UPDATE_REPOS:
+                self.enable_repo(repo)
         else:
-            self.disable_repo("updates")
-            self.disable_repo("updates-modular")
+            for repo in constants.DEFAULT_UPDATE_REPOS:
+                self.disable_repo(repo)
 
         # Disable updates-testing.
         self.disable_repo("updates-testing")

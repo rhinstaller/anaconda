@@ -66,6 +66,10 @@ DEFAULT_REPOS = [productName.split('-')[0].lower(),
                  "rawhide",
                  "BaseOS"]
 
+# Get list of repo names which should be used as updates repos
+DEFAULT_UPDATE_REPOS = ["updates",
+                        "updates-modular"]
+
 ANACONDA_BUS_CONF_FILE = "/usr/share/anaconda/dbus/anaconda-bus.conf"
 ANACONDA_BUS_ADDR_FILE = "/run/anaconda/bus.address"
 
