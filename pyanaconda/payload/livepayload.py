@@ -432,6 +432,17 @@ class LiveImageKSPayload(LiveImagePayload):
         if self.is_tarfile:
             return
 
+        # Work around inability to move shared filesystems.
+        # Also, do not share the image mounts with /run bind-mounted to physical
+        # target root during storage.mount_filesystems.
+        rc = util.execWithRedirect("mount",
+                                   ["--make-rprivate", "/"])
+        if rc != 0:
+            log.error("mount error (%s) making mount of '/' rprivate", rc)
+            exn = PayloadInstallError("mount error %s" % rc)
+            if errorHandler.cb(exn) == ERROR_RAISE:
+                raise exn
+
         # Mount the image and check to see if it is a LiveOS/*.img
         # style squashfs image. If so, move it to IMAGE_DIR and mount the real
         # root image on INSTALL_TREE
@@ -452,12 +463,8 @@ class LiveImageKSPayload(LiveImagePayload):
         if img_files:
             # move the mount to IMAGE_DIR
             os.makedirs(IMAGE_DIR, 0o755)
-            # work around inability to move shared filesystems
             rc = util.execWithRedirect("mount",
-                                       ["--make-rprivate", "/"])
-            if rc == 0:
-                rc = util.execWithRedirect("mount",
-                                           ["--move", INSTALL_TREE, IMAGE_DIR])
+                                       ["--move", INSTALL_TREE, IMAGE_DIR])
             if rc != 0:
                 log.error("error %s moving mount", rc)
                 exn = PayloadInstallError("mount error %s" % rc)
