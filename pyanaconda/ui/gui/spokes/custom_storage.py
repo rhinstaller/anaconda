@@ -61,7 +61,7 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
-    create_new_root, revert_reformat
+    create_new_root, revert_reformat, resize_device
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -682,58 +682,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             :param device: the device being displayed
             :type device: :class:`blivet.devices.StorageDevice`
         """
-        use_dev = device.raw_device
+        try:
+            changed_size = resize_device(self._storage_playground, device, size, old_size)
+        except StorageError as e:
+            self._error = e
+            self.set_warning(_("Device resize request failed. "
+                               "<a href=\"\">Click for details.</a>"))
+            return
 
-        # If a LUKS device is being displayed, adjust the size
-        # to the appropriate size for the raw device.
-        use_size = size
-        use_old_size = old_size
-        if use_dev is not device:
-            use_size = size + crypto.LUKS_METADATA_SIZE
-            use_old_size = use_dev.size
-
-        # bound size to boundaries given by the device
-        use_size = use_dev.align_target_size(use_size)
-        use_size = bound_size(use_size, use_dev, use_old_size)
-        use_size = use_dev.align_target_size(use_size)
-
-        # And then we need to re-check that the max size is actually
-        # different from the current size.
-        _changed_size = False
-        if use_size == device.size or use_size == use_dev.size:
-            # the size hasn't changed
-            log.debug("canceled resize of device %s to %s", use_dev.name, use_size)
-
-        elif size == device.current_size or use_size == device.current_size:
-            # the size has been set back to its original value
-            log.debug("removing resize of device %s", use_dev.name)
-
-            actions = self._storage_playground.devicetree.actions.find(
-                action_type="resize",
-                devid=use_dev.id
-            )
-            for action in reversed(actions):
-                self._storage_playground.devicetree.actions.remove(action)
-                _changed_size = True
-        else:
-            # the size has changed
-            log.debug("scheduling resize of device %s to %s", use_dev.name, use_size)
-
-            try:
-                self._storage_playground.resize_device(use_dev, use_size)
-            except (StorageError, ValueError) as e:
-                log.error("failed to schedule device resize: %s", e)
-                use_dev.size = use_old_size
-                self._error = e
-                self.set_warning(_("Device resize request failed. "
-                                   "<a href=\"\">Click for details.</a>"))
-            else:
-                _changed_size = True
-
-        if _changed_size:
-            log.debug("new size: %s", use_dev.size)
-            log.debug("target size: %s", use_dev.target_size)
-
+        if changed_size:
             # update the selector's size property
             # The selector shows the visible disk, so it is necessary
             # to use device and size, which are the values visible to

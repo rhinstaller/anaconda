@@ -17,9 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.devicelibs import crypto
+from blivet.errors import StorageError
+
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.product import translated_new_install_name
 from pyanaconda.storage.root import Root
-from pyanaconda.storage.utils import filter_unsupported_disklabel_devices
+from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size
+
+log = get_module_logger(__name__)
 
 
 def collect_used_devices(storage):
@@ -245,3 +251,64 @@ def revert_reformat(storage, device):
 
     # Reset it.
     storage.reset_device(original_device)
+
+
+def resize_device(storage, device, new_size, old_size):
+    """Resize the given device.
+
+    :param storage: an instance of Blivet
+    :param device: a device to resize
+    :param new_size: a new size
+    :param old_size: an old size
+    :return: True if the device changed its size, otherwise False
+    :raise: StorageError if we fail to schedule the device resize
+    """
+    # If a LUKS device is being displayed, adjust the size
+    # to the appropriate size for the raw device.
+    use_size = new_size
+    use_old_size = old_size
+
+    if device.raw_device is not device:
+        use_size = new_size + crypto.LUKS_METADATA_SIZE
+        use_old_size = device.raw_device.size
+
+    # Bound size to boundaries given by the device.
+    use_size = device.raw_device.align_target_size(use_size)
+    use_size = bound_size(use_size, device.raw_device, use_old_size)
+    use_size = device.raw_device.align_target_size(use_size)
+
+    # And then we need to re-check that the max size is actually
+    # different from the current size.
+
+    if use_size == device.size or use_size == device.raw_device.size:
+        # The size hasn't changed.
+        log.debug("canceled resize of device %s to %s", device.raw_device.name, use_size)
+        return False
+
+    if new_size == device.current_size or use_size == device.current_size:
+        # The size has been set back to its original value.
+        log.debug("removing resize of device %s", device.raw_device.name)
+
+        actions = storage.devicetree.actions.find(
+            action_type="resize",
+            devid=device.raw_device.id
+        )
+
+        for action in reversed(actions):
+            storage.devicetree.actions.remove(action)
+
+        return bool(actions)
+    else:
+        # the size has changed
+        log.debug("scheduling resize of device %s to %s", device.raw_device.name, use_size)
+
+        try:
+            storage.resize_device(device.raw_device, use_size)
+        except (StorageError, ValueError) as e:
+            log.error("failed to schedule device resize: %s", e)
+            device.raw_device.size = use_old_size
+            raise StorageError(str(e)) from None
+
+        log.debug("new size: %s", device.raw_device.size)
+        log.debug("target size: %s", device.raw_device.target_size)
+        return True
