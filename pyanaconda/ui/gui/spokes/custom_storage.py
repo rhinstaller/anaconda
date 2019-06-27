@@ -444,15 +444,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         for root in ui_roots:
             self._add_root_page(root, all_devices)
 
-        # Anything that doesn't go with an OS we understand?  Put it in the Other box.
+        # Add the unknown page.
         if unused_devices:
-            page = UnknownPage(_("Unknown"))
-            self._accordion.add_page(page, cb=self.on_page_clicked)
-
-            for u in sorted(unused_devices, key=lambda d: d.name):
-                page.add_selector(u, self.on_selector_clicked)
-
-            page.show_all()
+            self._add_unknown_page(unused_devices)
 
     def _add_initial_page(self, reuse_existing=False):
         page = CreateNewPage(
@@ -497,6 +491,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             )
 
             selector.root = root
+
+        page.show_all()
+
+    def _add_unknown_page(self, devices):
+        page = UnknownPage(_("Unknown"))
+        self._accordion.add_page(page, cb=self.on_page_clicked)
+
+        for u in sorted(devices, key=lambda d: d.name):
+            page.add_selector(u, self.on_selector_clicked)
 
         page.show_all()
 
