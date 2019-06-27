@@ -359,16 +359,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             drive=self._bootloader_observer.proxy.Drive
         )
 
-    def _current_total_space(self):
-        """Add up the sizes of all selected disks and return it as a Size."""
-        return sum((disk.size for disk in self._get_selected_disks()), Size(0))
-
     def _update_space_display(self):
         # Set up the free space/available space displays in the bottom left.
         free_space = self._storage_playground.get_disk_free_space()
+        total_space = sum((d.size for d in self._get_selected_disks()), Size(0))
 
         self._availableSpaceLabel.set_text(str(free_space))
-        self._totalSpaceLabel.set_text(str(self._current_total_space()))
+        self._totalSpaceLabel.set_text(str(total_space))
 
         count = len(self._get_selected_disks())
         summary = CP_("GUI|Custom Partitioning",
