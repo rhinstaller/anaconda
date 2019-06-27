@@ -34,9 +34,6 @@ gi.require_version("AnacondaWidgets", "3.3")
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 
-import logging
-from contextlib import contextmanager
-from functools import wraps
 from itertools import chain
 
 from blivet import devicefactory
@@ -49,7 +46,7 @@ from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.size import Size
 
-from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, \
     DEFAULT_AUTOPART_TYPE
@@ -87,7 +84,10 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_en
     get_raid_level_selection, get_default_raid_level, requires_raid_selection, \
     get_supported_container_raid_levels, get_supported_raid_levels, get_container_type, \
     get_default_container_raid_level, RAID_NOT_ENOUGH_DISKS, AddDialog, ConfirmDeleteDialog, \
-    DisksDialog, ContainerDialog
+    DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
+    NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
+    DEVICE_CONFIGURATION_ERROR_MSG, UNRECOVERABLE_ERROR_MSG, DEVICE_TYPE_CONST_UNSUPPORTED, \
+    dev_type_from_const, ui_storage_logger, ui_storage_logged
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
@@ -98,62 +98,6 @@ from pyanaconda.ui.helpers import StorageCheckHandler
 log = get_module_logger(__name__)
 
 __all__ = ["CustomPartitioningSpoke"]
-
-NOTEBOOK_LABEL_PAGE = 0
-NOTEBOOK_DETAILS_PAGE = 1
-NOTEBOOK_LUKS_PAGE = 2
-NOTEBOOK_UNEDITABLE_PAGE = 3
-NOTEBOOK_INCOMPLETE_PAGE = 4
-
-NEW_CONTAINER_TEXT = N_("Create a new %(container_type)s ...")
-CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
-
-DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. "
-                                    "<a href=\"\">Click for details.</a>")
-
-UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
-                             "error. <a href=\"\">Click for details.</a>")
-
-DEVICE_TYPE_CONST_UNSUPPORTED = "DEVICE_TYPE_UNSUPPORTED"
-
-
-def dev_type_from_const(dev_type_const):
-    """ Return integer corresponding to name for device type defined as
-        a constant in blivet.devicefactory.
-
-        :param str dev_type_const: the name of a DEVICE_TYPE_*
-        :returns: the corresponding integer code, if there is one
-        :rtype: int or NoneType
-    """
-    return getattr(devicefactory, dev_type_const, None)
-
-
-class UIStorageFilter(logging.Filter):
-    """Logging filter for UI storage events"""
-
-    def filter(self, record):
-        record.name = "storage.ui"
-        return True
-
-
-@contextmanager
-def ui_storage_logger():
-    """Context manager that applies the UIStorageFilter for its block"""
-
-    storage_log = get_blivet_logger()
-    storage_filter = UIStorageFilter()
-    storage_log.addFilter(storage_filter)
-    yield
-    storage_log.removeFilter(storage_filter)
-
-
-def ui_storage_logged(func):
-    @wraps(func)
-    def decorated(*args, **kwargs):
-        with ui_storage_logger():
-            return func(*args, **kwargs)
-
-    return decorated
 
 
 class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):

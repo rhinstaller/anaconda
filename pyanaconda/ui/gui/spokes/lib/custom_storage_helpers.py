@@ -18,19 +18,16 @@
 #
 
 """Helper functions and classes for custom partitioning."""
-
-__all__ = [
-    "get_size_from_entry", "populate_mountpoint_store", "validate_label", "validate_mountpoint",
-    "get_device_raid_level", "get_selected_raid_level", "get_raid_level_selection",
-    "get_default_raid_level", "requires_raid_selection", "get_default_container_raid_level",
-    "get_supported_container_raid_levels", "get_supported_raid_levels", "get_container_type",
-    "AddDialog", "ConfirmDeleteDialog", "DisksDialog", "ContainerDialog"
-]
-
 from collections import namedtuple
+from contextlib import contextmanager
+
 import functools
+from functools import wraps
+
+import logging
 import re
 
+from blivet import devicefactory
 from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
     DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
 from blivet.devicefactory import get_supported_raid_levels as get_blivet_supported_raid_levels
@@ -38,7 +35,7 @@ from blivet.devicelibs import btrfs, mdraid, raid
 from blivet.formats import get_format
 from blivet.size import Size
 
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.util import lowerASCII
@@ -50,6 +47,23 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
 
 log = get_module_logger(__name__)
+
+NOTEBOOK_LABEL_PAGE = 0
+NOTEBOOK_DETAILS_PAGE = 1
+NOTEBOOK_LUKS_PAGE = 2
+NOTEBOOK_UNEDITABLE_PAGE = 3
+NOTEBOOK_INCOMPLETE_PAGE = 4
+
+NEW_CONTAINER_TEXT = N_("Create a new %(container_type)s ...")
+CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
+
+DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. "
+                                    "<a href=\"\">Click for details.</a>")
+
+UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
+                             "error. <a href=\"\">Click for details.</a>")
+
+DEVICE_TYPE_CONST_UNSUPPORTED = "DEVICE_TYPE_UNSUPPORTED"
 
 RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
                            "requires more disks (%(min)d) than you "
@@ -328,6 +342,45 @@ def get_supported_container_raid_levels(device_type):
 def get_container_type(device_type):
     return CONTAINER_TYPES.get(device_type, ContainerType(N_("container"), CN_(
         "GUI|Custom Partitioning|Configure|Devices", "container")))
+
+
+def dev_type_from_const(dev_type_const):
+    """ Return integer corresponding to name for device type defined as
+        a constant in blivet.devicefactory.
+
+        :param str dev_type_const: the name of a DEVICE_TYPE_*
+        :returns: the corresponding integer code, if there is one
+        :rtype: int or NoneType
+    """
+    return getattr(devicefactory, dev_type_const, None)
+
+
+@contextmanager
+def ui_storage_logger():
+    """Context manager that applies the UIStorageFilter for its block"""
+
+    storage_log = get_blivet_logger()
+    storage_filter = UIStorageFilter()
+    storage_log.addFilter(storage_filter)
+    yield
+    storage_log.removeFilter(storage_filter)
+
+
+def ui_storage_logged(func):
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        with ui_storage_logger():
+            return func(*args, **kwargs)
+
+    return decorated
+
+
+class UIStorageFilter(logging.Filter):
+    """Logging filter for UI storage events"""
+
+    def filter(self, record):
+        record.name = "storage.ui"
+        return True
 
 
 class AddDialog(GUIObject):
