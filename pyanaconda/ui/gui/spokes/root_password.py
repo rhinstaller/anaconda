@@ -75,6 +75,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._password_bar = self.builder.get_object("password_bar")
         self._password_label = self.builder.get_object("password_label")
         self._lock = self.builder.get_object("lock")
+        self._root_password_ssh_login_override = self.builder.get_object("root_password_ssh_login_override")
 
         # Install the password checks:
         # - Has a password been specified?
@@ -185,6 +186,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         pw = self.password
 
         self._users_module.SetRootAccountLocked(self._lock.get_active())
+
+        # the checkbox makes it possible to override the default Open SSH
+        # policy of not allowing root to login with password
+        ssh_login_override = self._root_password_ssh_login_override.get_active()
+        self._users_module.SetRootPasswordSSHLoginAllowed(ssh_login_override)
 
         if not pw:
             self._users_module.ClearRootPassword()

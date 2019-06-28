@@ -17,8 +17,10 @@
 #
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
+import os
+import tempfile
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import gi
 gi.require_version("GLib", "2.0")
@@ -26,8 +28,10 @@ from gi.repository import GLib
 
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.users.users import UsersModule
 from pyanaconda.modules.users.users_interface import UsersInterface
+from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask
 from pyanaconda.dbus.typing import get_variant, List, Str, Int, Bool
 from pyanaconda.ui.lib.users import get_user_list, set_user_list
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
@@ -57,6 +61,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """Test the default user module values are as expected."""
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, False)
 
     def set_crypted_roopw_test(self):
         """Test if setting crypted root password works correctly."""
@@ -85,6 +90,12 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootAccountLocked': True}, [])
+
+    def allow_root_password_ssh_login_test(self):
+        """Test if root password SSH login can be allowed."""
+        self.users_interface.SetRootPasswordSSHLoginAllowed(True)
+        self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, True)
+        self.callback.assert_called_once_with(USERS.interface_name, {'RootPasswordSSHLoginAllowed': True}, [])
 
     def ks_set_plaintext_roopw_test(self):
         """Test if setting plaintext root password from kickstart works correctly."""
@@ -1531,3 +1542,68 @@ class SharedUICodeTestCase(unittest.TestCase):
         self.assertEqual(user_data_list[0]["lock"], GLib.Variant('b', False))
         self.assertEqual(user_data_list[0]["shell"], GLib.Variant('s', "csh"))
         self.assertEqual(user_data_list[0]["gecos"], GLib.Variant('s', "some other stuff"))
+
+class UsersModuleTasksTestCase(unittest.TestCase):
+    """Test the DBus Tasks provided by the Users module."""
+
+    SSHD_OVERRIDE_PATH = "etc/systemd/system/sshd.service.d/anaconda.conf"
+
+    def setUp(self):
+        """Set up the users module."""
+        self.users_module = UsersModule()
+        self.users_interface = UsersInterface(self.users_module)
+
+        # Connect to the properties changed signal.
+        self.callback = Mock()
+        self.users_interface.PropertiesChanged.connect(self.callback)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def root_ssh_password_config_task_basic_test(self, publisher):
+        """Test the root password SSH login configuration task - basic."""
+        self.users_interface.SetRootPasswordSSHLoginAllowed(True)
+        task_path = self.users_interface.InstallWithTasks("/")[4]
+
+        publisher.assert_called()
+
+        object_path = publisher.call_args_list[4][0][0]
+        obj = publisher.call_args_list[4][0][1]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureRootPasswordSSHLoginTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._password_allowed, True)
+
+    def root_ssh_password_config_task_enabled_test(self):
+        """Test the root password SSH login configuration task - enabled (write config file)."""
+
+        # the config file should be written out when the override is enabled
+        with tempfile.TemporaryDirectory() as sysroot:
+            config_path = os.path.join(sysroot, self.SSHD_OVERRIDE_PATH)
+            # no config should exist beofre we run the task
+            self.assertFalse(os.path.exists(config_path))
+
+            task = ConfigureRootPasswordSSHLoginTask(sysroot=sysroot, password_allowed=True)
+            task.run()
+
+            # correct override config should exist after we run the task
+            self.assertTrue(os.path.exists(config_path))
+            with open(config_path, "rt") as f:
+                config_content = f.read()
+
+            self.assertEqual(config_content, '[Service]\nEnvironment=OPTIONS="-oPermitRootLogin=yes"')
+
+    def root_ssh_password_config_task_disabled_test(self):
+        """Test the root password SSH login configuration task - disabled (no config file)."""
+
+        # the config file should not be written out when the override is disabled
+        with tempfile.TemporaryDirectory() as sysroot:
+            config_path = os.path.join(sysroot, self.SSHD_OVERRIDE_PATH)
+            # no config should exist beofre we run the task
+            self.assertFalse(os.path.exists(config_path))
+
+            task = ConfigureRootPasswordSSHLoginTask(sysroot=sysroot, password_allowed=False)
+            task.run()
+
+            # correct override config should exist after we run the task
+            self.assertFalse(os.path.exists(config_path))
