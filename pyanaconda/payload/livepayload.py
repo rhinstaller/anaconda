@@ -537,6 +537,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
         if os.path.exists(IMAGE_DIR + "/LiveOS"):
             payload_utils.unmount(IMAGE_DIR, raise_exc=True)
+            os.rmdir(IMAGE_DIR)
 
         if os.path.exists(self.image_path) and not self.data.method.url.startswith("file://"):
             os.unlink(self.image_path)
