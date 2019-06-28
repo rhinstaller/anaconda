@@ -61,7 +61,7 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
-    get_device_luks_version, collect_file_system_types
+    get_device_luks_version, collect_file_system_types, collect_device_types
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -88,7 +88,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_en
     DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
     NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
     DEVICE_CONFIGURATION_ERROR_MSG, UNRECOVERABLE_ERROR_MSG, DEVICE_TYPE_CONST_UNSUPPORTED, \
-    dev_type_from_const, ui_storage_logger, ui_storage_logged
+    ui_storage_logger, ui_storage_logged
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
@@ -564,14 +564,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             else:
                 log.warning("failed to replace device: %s", s._device)
 
-    def _add_device_type(self, dev_type_const):
-        self._typeStore.append([_(DEVICE_TEXT_MAP[dev_type_from_const(dev_type_const)]),
-                                dev_type_const])
+    def _add_device_type(self, device_type):
+        self._typeStore.append([_(DEVICE_TEXT_MAP[device_type]), device_type])
 
-    def _set_device_type(self, dev_type_const):
+    def _set_device_type(self, device_type):
         itr = self._typeStore.get_iter_first()
         while itr:
-            if dev_type_from_const(self._typeStore[itr][1]) == dev_type_const:
+            if self._typeStore[itr][1] == device_type:
                 self._typeCombo.set_active_iter(itr)
                 return True
             itr = self._typeStore.iter_next(itr)
@@ -1187,19 +1186,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._luksCombo.set_active(idx)
         self.on_encrypt_toggled(self._encryptCheckbox)
 
-    def _get_current_device_type_name(self):
-        """ Return name for type combo selection.
-
-            :returns: the corresponding name extracted from the combo
-            :rtype: str or NoneType
-        """
-        itr = self._typeCombo.get_active_iter()
-        if not itr:
-            return None
-
-        # we have the constant name in the second column of the store
-        return self._typeStore[itr][1]
-
     def _get_current_device_type(self):
         """ Return integer for type combo selection.
 
@@ -1207,8 +1193,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             blivet.devicefactory.
             :rtype: int or NoneType
         """
-        device_type_name = self._get_current_device_type_name()
-        return dev_type_from_const(device_type_name) if device_type_name else None
+        itr = self._typeCombo.get_active_iter()
+        if not itr:
+            return None
+
+        device_type = self._typeStore[itr][1]
+        if device_type == DEVICE_TYPE_CONST_UNSUPPORTED:
+            return None
+
+        return device_type
 
     def _update_container_info(self, use_dev):
         if hasattr(use_dev, "vg"):
@@ -1252,27 +1245,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # do additional updating handled by other method
         self._update_fstype_combo(devicefactory.get_device_type(device))
 
-    def _btrfs_in_typecombo(self, device):
-        """ Whether BTRFS should appear in device type combo box.
-
-            :param device: the device being displayed
-            :type device: :class:`blivet.devices.StorageDevice`
-            :rtype: bool
-            :returns: True if BTRFS should appear, otherwise False
-        """
-        device = device.raw_device
-
-        # The device is btrfs, so btrfs must be shown.
-        if device.format.type == "btrfs":
-            return True
-
-        # Return True if btrfs filesystem is both allowed and supported.
-        fmt = get_format("btrfs")
-
-        return fmt.supported and \
-            fmt.formattable and \
-            device.format.type not in PARTITION_ONLY_FORMAT_TYPES + ("swap",)
-
     def _setup_device_type_combo(self, device, device_name):
         """ Set up device type combo.
 
@@ -1283,41 +1255,24 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             :returns: the device type that was decided on
             :rtype: int (an enumeration defined in blivet.devicefactory)
         """
-        use_dev = device.raw_device
-
-        # these device types should always be listed
-        should_appear = {"DEVICE_TYPE_PARTITION", "DEVICE_TYPE_LVM", "DEVICE_TYPE_LVM_THINP"}
-
-        # only include md if there are two or more disks
-        if use_dev.type == "mdarray" or len(self._get_selected_disks()) > 1:
-            should_appear.add("DEVICE_TYPE_MD")
-
-        if self._btrfs_in_typecombo(device):
-            should_appear.add("DEVICE_TYPE_BTRFS")
-
-        # only include disk if the current device is a disk
-        if use_dev.is_disk:
-            should_appear.add("DEVICE_TYPE_DISK")
-
-        should_appear_supported = set(dt for dt in should_appear
-                                      if is_supported_device_type(dev_type_from_const(dt)))
+        types = collect_device_types(device, self._get_selected_disks())
 
         # go through the store and remove things that shouldn't be included
         # store.remove() updates or invalidates the passed iterator
         itr = self._typeStore.get_iter_first()
         valid = True
         while itr and valid:
-            dev_type_const = self._typeStore[itr][1]
-            if dev_type_const not in should_appear_supported:
+            dev_type = self._typeStore[itr][1]
+            if dev_type not in types:
                 valid = self._typeStore.remove(itr)
             else:
                 # already seen, shouldn't be added to the list again
-                should_appear_supported.remove(dev_type_const)
+                types.remove(dev_type)
                 itr = self._typeStore.iter_next(itr)
 
         # add missing device types
-        for dev_type_const in should_appear_supported:
-            self._add_device_type(dev_type_const)
+        for dev_type in types:
+            self._add_device_type(dev_type)
 
         device_type = devicefactory.get_device_type(device)
 
@@ -1340,9 +1295,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._device_name_dict[_type] = name
 
         if not self._set_device_type(device_type):
-            unsupported = device_type in (dev_type_from_const(dc) for dc
-                                          in should_appear - should_appear_supported)
-            if unsupported:
+            if not devicefactory.is_supported_device_type(device_type):
                 # For existing unsupported device add the information in the UI
                 log.debug("Existing device with unsupported type %s found",
                           DEVICE_TEXT_MAP[device_type])
@@ -2602,17 +2555,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         # The name of the device type is more informative than the numeric id
-        new_type = self._get_current_device_type_name()
+        new_type = self._get_current_device_type()
         log.debug("device_type_changed: %s", new_type)
 
         # Quit if no device type is selected.
-        if new_type is None:
-            return
-
-        # The numeric id of the device is what is needed by blivet.
-        new_type = dev_type_from_const(new_type)
-
-        # Quit if device type name is unrecognized by blivet.
         if new_type is None:
             return
 

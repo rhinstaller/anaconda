@@ -27,7 +27,6 @@ from functools import wraps
 import logging
 import re
 
-from blivet import devicefactory
 from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
     DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
 from blivet.devicefactory import get_supported_raid_levels as get_blivet_supported_raid_levels
@@ -63,7 +62,7 @@ DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. "
 UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
                              "error. <a href=\"\">Click for details.</a>")
 
-DEVICE_TYPE_CONST_UNSUPPORTED = "DEVICE_TYPE_UNSUPPORTED"
+DEVICE_TYPE_CONST_UNSUPPORTED = -1
 
 RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
                            "requires more disks (%(min)d) than you "
@@ -342,17 +341,6 @@ def get_supported_container_raid_levels(device_type):
 def get_container_type(device_type):
     return CONTAINER_TYPES.get(device_type, ContainerType(N_("container"), CN_(
         "GUI|Custom Partitioning|Configure|Devices", "container")))
-
-
-def dev_type_from_const(dev_type_const):
-    """ Return integer corresponding to name for device type defined as
-        a constant in blivet.devicefactory.
-
-        :param str dev_type_const: the name of a DEVICE_TYPE_*
-        :returns: the corresponding integer code, if there is one
-        :rtype: int or NoneType
-    """
-    return getattr(devicefactory, dev_type_const, None)
 
 
 @contextmanager

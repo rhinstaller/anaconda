@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import devicefactory
 from blivet.devicelibs import crypto
 from blivet.devices import LUKSDevice
 from blivet.errors import StorageError
@@ -27,7 +28,7 @@ from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.product import translated_new_install_name
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
-    get_supported_filesystems
+    get_supported_filesystems, PARTITION_ONLY_FORMAT_TYPES, SUPPORTED_DEVICE_TYPES
 
 log = get_module_logger(__name__)
 
@@ -403,3 +404,31 @@ def collect_file_system_types(device):
         supported_types.add(device.original_format.name)
 
     return list(supported_types)
+
+
+def collect_device_types(device, disks):
+    """Collect supported device types for the given device.
+
+    :param device: a device
+    :param disks: a list of selected disks
+    :return: a list of device types
+    """
+    # Collect the supported device types.
+    supported_types = set(SUPPORTED_DEVICE_TYPES)
+
+    # Include the type of the given device.
+    supported_types.add(devicefactory.get_device_type(device))
+
+    # Include md only if there are two or more disks.
+    if len(disks) > 1:
+        supported_types.discard(devicefactory.DEVICE_TYPE_MD)
+
+    # Include btrfs if it is both allowed and supported.
+    fmt = get_format("btrfs")
+
+    if fmt.supported \
+            and fmt.formattable \
+            and device.raw_device.format.type not in PARTITION_ONLY_FORMAT_TYPES + ("swap",):
+        supported_types.add(devicefactory.DEVICE_TYPE_BTRFS)
+
+    return sorted(filter(devicefactory.is_supported_device_type, supported_types))
