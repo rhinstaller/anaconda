@@ -48,8 +48,7 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
-    THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, \
-    DEFAULT_AUTOPART_TYPE
+    SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTION
@@ -62,7 +61,7 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
-    get_device_luks_version
+    get_device_luks_version, collect_file_system_types
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -134,7 +133,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self.passphrase = ""
         self._error = None
-        self._fs_types = set()  # set of supported fstypes
         self._partitioning_scheme = DEFAULT_AUTOPART_TYPE
 
         self._device_disks = []
@@ -271,17 +269,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._accordion.set_focus_vadjustment(
             Gtk.Scrollable.get_vadjustment(self._partitionsViewport))
 
-        threadMgr.add(AnacondaThread(name=THREAD_CUSTOM_STORAGE_INIT, target=self._initialize))
-
-    def _initialize(self):
-        """ Populate the set of valid filesystem types from the format classes.
-
-            Restrict the set to ones that we might allow users to select.
-        """
-        supported_filesystems = {fs.name for fs in get_supported_filesystems()}
-        self._fs_types = supported_filesystems - set(UNSUPPORTED_FILESYSTEMS)
-
-        # report that the custom spoke has been initialized
         self.initialize_done()
 
     def _get_selected_disks(self):
@@ -1250,26 +1237,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             :param device: blivet.devices.Device instance
         """
-        type_name = device.format.name
-
-        # Possibly unsupported but still required filesystem names
-        if device.exists and \
-                device.format.type != device.original_format.type and \
-                device.original_format.type not in self._fs_types:
-            extra_names = (type_name, device.original_format.name)
-        else:
-            extra_names = (type_name,)
-
-        names = list(self._fs_types.union(extra_names))
-        names.sort()
+        default = device.format.name
+        types = collect_file_system_types(device)
 
         # Add all desired fileystem type names to the box, sorted alphabetically
         self._fsStore.clear()
-        for ty in names:
+        for ty in types:
             self._fsStore.append([ty])
 
         # set the active filesystem type
-        idx = next(i for i, data in enumerate(self._fsCombo.get_model()) if data[0] == type_name)
+        idx = next(i for i, data in enumerate(self._fsCombo.get_model()) if data[0] == default)
         self._fsCombo.set_active(idx)
 
         # do additional updating handled by other method

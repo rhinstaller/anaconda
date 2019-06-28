@@ -23,9 +23,11 @@ from blivet.errors import StorageError
 from blivet.formats import get_format
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.product import translated_new_install_name
 from pyanaconda.storage.root import Root
-from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size
+from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
+    get_supported_filesystems
 
 log = get_module_logger(__name__)
 
@@ -378,3 +380,26 @@ def get_device_luks_version(device):
         return device.format.luks_version
 
     return None
+
+
+def collect_file_system_types(device):
+    """Collect supported file system types for the given device.
+
+    :param device: a device
+    :return: a list of file system names
+    """
+    # Collect the supported filesystem types.
+    supported_types = {
+        fs.name for fs in get_supported_filesystems()
+        if fs.name not in UNSUPPORTED_FILESYSTEMS
+    }
+
+    # Add possibly unsupported but still required file system types:
+    # Add the device format type.
+    supported_types.add(device.format.name)
+
+    # Add the original device format type.
+    if device.exists:
+        supported_types.add(device.original_format.name)
+
+    return list(supported_types)

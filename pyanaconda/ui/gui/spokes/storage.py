@@ -714,7 +714,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Wait for storage.
         threadMgr.wait(constants.THREAD_STORAGE)
-        threadMgr.wait(constants.THREAD_CUSTOM_STORAGE_INIT)
 
         # Automatically format DASDs if allowed.
         DasdFormatting.run_automatically(self.storage, self.data, self._show_dasdfmt_report)
