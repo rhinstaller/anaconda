@@ -193,7 +193,6 @@ class StorageModule(KickstartModule):
         # Set the default filesystem type.
         if data.autopart.autopart and data.autopart.fstype:
             self.storage.set_default_fstype(data.autopart.fstype)
-            self.storage.set_default_boot_fstype(data.autopart.fstype)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
