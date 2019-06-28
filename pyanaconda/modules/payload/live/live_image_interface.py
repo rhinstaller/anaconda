@@ -17,12 +17,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.interface import dbus_interface, dbus_class
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
+from pyanaconda.modules.common.task import TaskInterface
+
+
+@dbus_class
+class CheckInstallationSourceImageTaskInterface(TaskInterface):
+    """The interface for a source image check task
+
+    The task returns size of space required for the image.
+    """
+
+    @staticmethod
+    def convert_result(value):
+        return get_variant(UInt64, value)
 
 
 @dbus_interface(LIVE_IMAGE_HANDLER.interface_name)
@@ -36,6 +49,7 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("Proxy", self.implementation.proxy_changed)
         self.watch_property("Checksum", self.implementation.checksum_changed)
         self.watch_property("VerifySSL", self.implementation.verifyssl_changed)
+        self.watch_property("RequiredSpace", self.implementation.required_space_changed)
 
     @property
     def Url(self) -> Str:
@@ -76,3 +90,21 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
     def SetVerifySSL(self, verify_ssl: Bool):
         """Set if the ssl verification should be enabled."""
         self.implementation.set_verifyssl(verify_ssl)
+
+    @property
+    def RequiredSpace(self) -> UInt64:
+        """Space required by the source image."""
+        return self.implementation.required_space
+
+    @emits_properties_changed
+    def SetRequiredSpace(self, required_space: UInt64):
+        """Set the space required by the source image."""
+        self.implementation.set_required_space(required_space)
+
+    def SetupWithTask(self) -> ObjPath:
+        """Setup the handler.
+
+        FIXME: use real name? CheckSourceImageWithTask
+        Check availability of the image and update required space
+        """
+        return self.implementation.check_source_image_with_task()

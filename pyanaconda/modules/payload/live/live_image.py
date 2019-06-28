@@ -19,10 +19,13 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.util import requests_session
 
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
+from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface, \
+    CheckInstallationSourceImageTaskInterface
+from pyanaconda.modules.payload.live.initialization import CheckSourceImageTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -44,6 +47,11 @@ class LiveImageHandlerModule(KickstartBaseModule):
 
         self._verifyssl = True
         self.verifyssl_changed = Signal()
+
+        self._required_space = 1024 * 1024 * 1024
+        self.required_space_changed = Signal()
+
+        self._requests_session = None
 
     def publish(self):
         """Publish the module."""
@@ -121,3 +129,42 @@ class LiveImageHandlerModule(KickstartBaseModule):
         self._verifyssl = verifyssl
         self.verifyssl_changed.emit()
         log.debug("Liveimg ssl verification is set to '%s'", self._verifyssl)
+
+    @property
+    def required_space(self):
+        """Get space required for the source image.
+
+        :rtype: int
+        """
+        return self._required_space
+
+    def set_required_space(self, required_space):
+        """Set space required for the source image."""
+        self._required_space = required_space
+        self.required_space_changed.emit()
+        log.debug("Space required for source image is set to '%s'", self.required_space)
+
+
+    @property
+    def requests_session(self):
+        """Get requests session."""
+        # FIXME: share in Payload module?
+        if not self._requests_session:
+            self._requests_session = requests_session()
+        return self._requests_session
+
+    def check_source_image_with_task(self):
+        """Check availability of the image and update required space."""
+        task = CheckInstallationSourceImageTask(
+            self.url,
+            self.proxy,
+            self.requests_session
+        )
+        task.succeeded_signal.connect(lambda: self.update_required_space_from_task(task))
+        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task,
+                                 CheckInstallationSourceImageTaskInterface)
+
+    def update_required_space_from_task(self, task):
+        result = task.get_result()
+        log.debug("'%s' task result: %s", task.name, result)
+        self.set_required_space(result)
