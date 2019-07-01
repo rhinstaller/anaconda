@@ -54,6 +54,10 @@ if [ $LIVE_INSTALL = 1 -a ! -b "$LIVE_BLOCK" ]; then
   exit 1
 fi
 
+# Start swap on ZRAM service. Do this for LiveOS only, rather than enabling
+# it on the target system, for the time being.
+systemctl start zram.service
+
 # Allow running another command in the place of anaconda, but in this same
 # environment.  This allows storage testing to make use of all the module
 # loading and lvm control in this file, too.
