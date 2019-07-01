@@ -251,7 +251,7 @@ options. This includes driver disks, kickstarts, and finding the anaconda
 runtime on NFS/HTTP/FTP servers or local disks.
 
 %prep
-%setup -q
+%autosetup -p 1
 
 %build
 # use actual build-time release number, not tarball creation time release number
