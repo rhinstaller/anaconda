@@ -140,7 +140,7 @@ class LiveImagePayload(Payload):
         #           symlinks, hardlinks
         # go recursively, include devices and special files, don't cross
         # file system boundaries
-        args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
+        args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
                 "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
                 "--exclude", "/etc/machine-id", INSTALL_TREE + "/", util.getSysroot()]
@@ -166,6 +166,17 @@ class LiveImagePayload(Payload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
         # Live needs to create the rescue image before bootloader is written
+        self._create_rescue_image()
+
+    def _create_rescue_image(self):
+        """Create the rescue initrd images for each installed kernel. """
+        # Always make sure the new system has a new machine-id, it won't boot without it
+        # (and nor will some of the subsequent commands like grub2-mkconfig and kernel-install)
+        log.info("Generating machine ID")
+        if os.path.exists(util.getSysroot() + "/etc/machine-id"):
+            os.unlink(util.getSysroot() + "/etc/machine-id")
+        util.execInSysroot("systemd-machine-id-setup", [])
+
         if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
             use_nkp = True
         else:
@@ -193,18 +204,22 @@ class LiveImagePayload(Payload):
 
         super().post_install()
 
-        # Make sure the new system has a machine-id, it won't boot without it
-        # (and nor will some of the subsequent commands)
-        if not os.path.exists(util.getSysroot() + "/etc/machine-id"):
-            log.info("Generating machine ID")
-            util.execInSysroot("systemd-machine-id-setup", [])
+        # Not using BLS configuration, skip it
+        if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+            return
 
+        # Remove any existing BLS entries, they will not match the new system's
+        # machine-id or /boot mountpoint.
+        for file in glob.glob(util.getSysroot() + "/boot/loader/entries/*.conf"):
+            log.info("Removing old BLS entry: %s", file)
+            os.unlink(file)
+
+        # Create new BLS entries for this system
         for kernel in self.kernel_version_list:
-            if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
-                log.info("Regenerating BLS info for %s", kernel)
-                util.execInSysroot("kernel-install", ["add",
-                                                      kernel,
-                                                      "/lib/modules/{0}/vmlinuz".format(kernel)])
+            log.info("Regenerating BLS info for %s", kernel)
+            util.execInSysroot("kernel-install", ["add",
+                                                  kernel,
+                                                  "/lib/modules/{0}/vmlinuz".format(kernel)])
 
     @property
     def space_required(self):
@@ -505,9 +520,10 @@ class LiveImageKSPayload(LiveImagePayload):
         cmd = "tar"
         # preserve: ACL's, xattrs, and SELinux context
         args = ["--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
-                "--exclude", "/dev/", "--exclude", "/proc/",
-                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/etc/machine-id", "-xaf", self.image_path, "-C", util.getSysroot()]
+                "--exclude", "dev/*", "--exclude", "proc/*", "--exclude", "tmp/*",
+                "--exclude", "sys/*", "--exclude", "run/*", "--exclude", "boot/*rescue*",
+                "--exclude", "boot/loader", "--exclude", "boot/efi/loader",
+                "--exclude", "etc/machine-id", "-xaf", self.image_path, "-C", util.getSysroot()]
         try:
             rc = util.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
@@ -530,10 +546,7 @@ class LiveImageKSPayload(LiveImagePayload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
         # Live needs to create the rescue image before bootloader is written
-        for kernel in self.kernel_version_list:
-            log.info("Generating rescue image for %s", kernel)
-            util.execInSysroot("new-kernel-pkg",
-                               ["--rpmposttrans", kernel])
+        self._create_rescue_image()
 
     def post_install(self):
         """ Unmount and remove image
@@ -567,10 +580,19 @@ class LiveImageKSPayload(LiveImagePayload):
         if not self.is_tarfile:
             return super().kernel_version_list
 
+        if self._kernel_version_list:
+            return self._kernel_version_list
+
+        # Cache a list of the kernels (the tar payload may be cleaned up on subsequent calls)
+        if not os.path.exists(self.image_path):
+            raise PayloadInstallError("kernel_version_list: missing tar payload")
+
         import tarfile
         with tarfile.open(self.image_path) as archive:
             names = archive.getnames()
 
             # Strip out vmlinuz- from the names
-            return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
-                          key=functools.cmp_to_key(payload_utils.version_cmp))
+            self._kernel_version_list = sorted((n.split("/")[-1][8:] for n in names
+                                               if "boot/vmlinuz-" in n),
+                                               key=functools.cmp_to_key(payload_utils.version_cmp))
+        return self._kernel_version_list
