@@ -23,7 +23,7 @@ from requests.exceptions import RequestException
 
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE, INSTALL_TREE
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.payload.utils import mount, unmount
@@ -312,6 +312,41 @@ class SetupInstallationSourceImageTask(Task):
             self._mount_image(self._image_path)
 
         return self._image_path
+
+
+class PostInstallationLiveImageTask(Task):
+    """Task to do post installation steps."""
+
+    def __init__(self, image_path, url):
+        """Create a new task.
+
+        :param image_path: destination path for image download
+        :type image_path: str
+        :param url: installation source image url
+        :type url: str
+        """
+        super().__init__()
+        self._image_path = image_path
+        self._url = url
+
+    @property
+    def name(self):
+        return "Do post installation steps."""
+
+    def run(self):
+        """Run post installation steps."""
+        if not url_target_is_tarfile(self._url):
+            unmount(INSTALL_TREE, raise_exc=True)
+            #FIXME: Payload and LiveOS stuff
+            # FIXME: do we need a task for this?
+            if os.path.exists(IMAGE_DIR + "/LiveOS"):
+                # FIXME: catch and pass the exception
+                unmount(IMAGE_DIR, raise_exc=True)
+                os.rmdir(IMAGE_DIR)
+
+        if not get_local_image_path_from_url(self._url):
+            if os.path.exists(self._image_path):
+                os.unlink(self._image_path)
 
 
 def get_local_image_path_from_url(url):

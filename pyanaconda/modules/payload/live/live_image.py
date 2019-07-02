@@ -26,7 +26,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface, \
     CheckInstallationSourceImageTaskInterface, SetupInstallationSourceImageTaskInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
-    SetupInstallationSourceImageTask
+    SetupInstallationSourceImageTask, PostInstallationLiveImageTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -194,3 +194,8 @@ class LiveImageHandlerModule(KickstartBaseModule):
         result = task.get_result()
         log.debug("'%s' task result: %s", task.name, result)
         self.image_path = result
+
+    def post_install_with_task(self):
+        """Do post installation tasks."""
+        task = PostInstallationLiveImageTask(self.image_path, self.url)
+        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)

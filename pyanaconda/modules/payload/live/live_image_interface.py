@@ -130,3 +130,15 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         * Mount the image
         """
         return self.implementation.setup_installation_source_image_with_task()
+
+    def PostInstallWithTask(self) -> ObjPath:
+        """Do post installation tasks.
+
+        * unmount installation tree (LiveOSPayload)
+        * [TODO] copy driver disk files (Payload)
+        * [NO] check installation requirements were applied (Payload)
+        * [TODO] Update BLS entries (LiveOSPayload)
+        * umount nested image
+        * remove downloaded image
+        """
+        return self.implementation.post_install_with_task()
