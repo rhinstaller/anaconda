@@ -61,7 +61,8 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
-    get_device_luks_version, collect_file_system_types, collect_device_types, get_device_raid_level
+    get_device_luks_version, collect_file_system_types, collect_device_types, \
+    get_device_raid_level, add_device
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -1524,64 +1525,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     @ui_storage_logged
     def _add_device(self, dev_info):
-        factory = devicefactory.get_device_factory(
-            self._storage_playground,
-            device_type=dev_info["device_type"],
-            size=dev_info["size"],
-            min_luks_entropy=crypto.MIN_CREATE_ENTROPY
-        )
-
-        container = factory.get_container()
-        if container:
-            # don't override user-initiated changes to a defined container
-            dev_info["disks"] = container.disks
-            dev_info.update({"container_encrypted": container.encrypted,
-                             "container_raid_level": get_device_raid_level(container),
-                             "container_size": getattr(container, "size_policy",
-                                                       container.size)})
-
-            # The container is already encrypted
-            if container.encrypted:
-                dev_info["encrypted"] = False
-
         try:
-            self._storage_playground.factory_device(**dev_info)
+            add_device(self._storage_playground, dev_info)
         except StorageError as e:
-            log.error("factory_device failed: %s", e)
-            log.debug("trying to find an existing container to use")
-            container = factory.get_container(allow_existing=True)
-            log.debug("found container %s", container)
-            if container:
-                # don't override user-initiated changes to a defined container
-                dev_info["disks"] = container.disks
-                dev_info.update({"container_encrypted": container.encrypted,
-                                 "container_raid_level": get_device_raid_level(container),
-                                 "container_size": getattr(container, "size_policy",
-                                                           container.size),
-                                 "container_name": container.name})
-                try:
-                    self._storage_playground.factory_device(**dev_info)
-                except StorageError as e2:
-                    log.error("factory_device failed w/ old container: %s", e2)
-                else:
-                    type_str = _(DEVICE_TEXT_MAP[dev_info["device_type"]])
-                    self.set_info(_("Added new %(type)s to existing "
-                                    "container %(name)s.")
-                                  % {"type": type_str, "name": container.name})
-                    e = None
-
-            # the factory's error handling has replaced all of the devices
-            # with copies, so update the selectors' devices accordingly
-            self._update_all_devices_in_selectors()
-
-            if e:
-                self._error = e
-                self.set_error(_("Failed to add new device. <a href=\"\">Click for "
-                                 "details.</a>"))
-        except OverflowError as e:
-            log.error("invalid size set for partition")
+            log.error("add_device has failed: %s", e)
             self._error = e
-            self.set_error(_("Invalid partition size set. Use a valid integer."))
+            self.set_error(_("Failed to add new device. <a href=\"\">Click for details.</a>"))
 
     def on_add_clicked(self, button):
         self._save_right_side(self._accordion.current_selector)

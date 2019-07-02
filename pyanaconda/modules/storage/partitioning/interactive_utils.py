@@ -455,3 +455,81 @@ def collect_device_types(device, disks):
         supported_types.add(devicefactory.DEVICE_TYPE_BTRFS)
 
     return sorted(filter(devicefactory.is_supported_device_type, supported_types))
+
+
+def add_device(storage, dev_info):
+    """Add d device to the storage model.
+
+    :param storage: an instance of Blivet
+    :param dev_info: a device info
+    :raise: StorageError if the device cannot be created
+    """
+    try:
+        # Trying to use a new container.
+        _add_device(storage, dev_info, use_existing_container=False)
+        return
+    except StorageError as e:
+        # Keep the first error.
+        error = e
+
+    try:
+        # Trying to use an existing container.
+        _add_device(storage, dev_info, use_existing_container=True)
+        return
+    except StorageError:
+        # Ignore the second error.
+        pass
+
+    raise error
+
+
+def _add_device(storage, dev_info, use_existing_container=False):
+    """Add a device to the storage model.
+
+    :param storage: an instance of Blivet
+    :param dev_info: a device info
+    :param use_existing_container: should we use an existing container?
+    :raise: StorageError if the device cannot be created
+    """
+    # Create the device factory.
+    factory = devicefactory.get_device_factory(
+        storage,
+        device_type=dev_info["device_type"],
+        size=dev_info["size"],
+        min_luks_entropy=crypto.MIN_CREATE_ENTROPY
+    )
+
+    # Find a container.
+    container = factory.get_container(
+        allow_existing=use_existing_container
+    )
+
+    if use_existing_container and not container:
+        raise StorageError("No existing container found.")
+
+    # Update the device info.
+    if container:
+        # Don't override user-initiated changes to a defined container.
+        dev_info["disks"] = container.disks
+        dev_info.update({
+            "container_encrypted": container.encrypted,
+            "container_raid_level": get_device_raid_level(container),
+            "container_size": getattr(container, "size_policy", container.size)})
+
+        # The existing container has a name.
+        if use_existing_container:
+            dev_info["container_name"] = container.name
+
+        # The container is already encrypted
+        if container.encrypted:
+            dev_info["encrypted"] = False
+
+    # Create the device.
+    try:
+        storage.factory_device(**dev_info)
+    except StorageError as e:
+        log.error("The device creation has failed: %s", e)
+        raise
+    except OverflowError as e:
+        log.error("Invalid partition size set: %s", str(e))
+        raise StorageError("Invalid partition size set. Use a valid integer.") from None
