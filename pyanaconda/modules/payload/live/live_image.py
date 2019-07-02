@@ -19,13 +19,14 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.util import requests_session
+from pyanaconda.core.util import requests_session, getSysroot
 
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface, \
-    CheckInstallationSourceImageTaskInterface
-from pyanaconda.modules.payload.live.initialization import CheckSourceImageTask
+    CheckInstallationSourceImageTaskInterface, SetupInstallationSourceImageTaskInterface
+from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
+    SetupInstallationSourceImageTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -52,6 +53,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
         self.required_space_changed = Signal()
 
         self._requests_session = None
+        self.image_path = getSysroot() + "/disk.img"
 
     def publish(self):
         """Publish the module."""
@@ -168,3 +170,27 @@ class LiveImageHandlerModule(KickstartBaseModule):
         result = task.get_result()
         log.debug("'%s' task result: %s", task.name, result)
         self.set_required_space(result)
+
+    def setup_installation_source_image_with_task(self):
+        """Set up installation source image
+
+        * Download the image
+        * Check the checksum
+        * Mount the image
+        """
+        task = SetupInstallationSourceImageTask(
+            self.url,
+            self.proxy,
+            self.checksum,
+            self.verifyssl,
+            self.image_path,
+            self.requests_session
+        )
+        task.succeeded_signal.connect(lambda: self.update_image_path_from_task(task))
+        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task,
+                                 SetupInstallationSourceImageTaskInterface)
+
+    def update_image_path_from_task(self, task):
+        result = task.get_result()
+        log.debug("'%s' task result: %s", task.name, result)
+        self.image_path = result

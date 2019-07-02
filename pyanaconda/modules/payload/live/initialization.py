@@ -17,15 +17,20 @@
 #
 import os
 import stat
+import hashlib
+import glob
+from requests.exceptions import RequestException
 
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE, INSTALL_TREE
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.payload.utils import mount, unmount
-from pyanaconda.core.constants import TAR_SUFFIX
-from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.core.constants import TAR_SUFFIX, INSTALL_TREE, IMAGE_DIR
+
+from pyanaconda.core.util import ProxyString, ProxyStringError, lowerASCII, \
+    execWithRedirect
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -117,18 +122,9 @@ class CheckInstallationSourceImageTask(Task):
 
     def _check_remote_image(self, url, proxy):
         """Check that the url is available and return required space."""
-        # FIXME: move to a function
-        # FIXME: validate earlier when setting?
         size = 0
-        proxies = {}
-        if self._proxy:
-            try:
-                proxy = ProxyString(self._proxy)
-                proxies = {"http": proxy.url,
-                           "https": proxy.url}
-            except ProxyStringError as e:
-                log.info("Failed to parse proxy \"%s\": %s", self._proxy, e)
-
+        # FIXME: validate earlier when setting?
+        proxies = get_proxies_from_option(self._proxy)
         try:
             response = self._session.get(url, proxies=proxies, verify=True)
 
@@ -152,12 +148,190 @@ class CheckInstallationSourceImageTask(Task):
         :rtype: int
         """
         size = 0
-        if self._url.startswith("file://"):
-            file_path = self._url[7:]
-            size = self._check_file_image(file_path)
+        local_image_path = get_local_image_path_from_url(self._url)
+        if local_image_path:
+            size = self._check_local_image(local_image_path)
         else:
-            size = self._check_url_image(self._url, self._proxy)
+            size = self._check_remote_image(self._url, self._proxy)
         return size
+
+
+class SetupInstallationSourceImageTask(Task):
+    """Task to set up source image for installation.
+
+    * Download the image if it is remote.
+    * Check the checksum.
+    * Mount the image.
+    """
+
+    def __init__(self, url, proxy, checksum, noverifyssl, image_path, session):
+        """Create a new task.
+
+        :param url: installation source image url
+        :type url: str
+        :param proxy: proxy to be used to fetch the image
+        :type proxy: str
+        :param checksum: checksum of the image
+        :type checksum: str
+        :param image_path: destination path for image download
+        :type image_path: str
+        :param session: Requests session for image download
+        :type session:
+        """
+        super().__init__()
+        self._url = url
+        self._proxy = proxy
+        self._checksum = checksum
+        self._noverifyssl = noverifyssl
+        self._image_path = image_path
+        self._session = session
+
+    @property
+    def name(self):
+        return "Set up installation source image."
+
+    def _download_image(self, url, image_path, session):
+        """Download the image using Requests with progress reporting"""
+        #FIXME: progress
+
+        error = None
+        #progress = DownloadProgress()
+        try:
+            log.info("Starting image download")
+            with open(image_path, "wb") as f:
+                ssl_verify = not self._noverifyssl
+                proxies = get_proxies_from_option(self._proxy)
+                response = session.get(url, proxies=proxies, verify=ssl_verify, stream=True)
+                total_length = response.headers.get('content-length')
+                if total_length is None:
+                    # just download the file in one go and fake the progress reporting once done
+                    log.warning("content-length header is missing for the installation image, "
+                                "download progress reporting will not be available")
+                    f.write(response.content)
+                    #size = f.tell()
+                    #progress.start(self.data.method.url, size)
+                    #progress.end(size)
+                else:
+                    # requests return headers as strings, so convert total_length to int
+                    #progress.start(self.data.method.url, int(total_length))
+                    bytes_read = 0
+                    for buf in response.iter_content(1024 * 1024):
+                        if buf:
+                            f.write(buf)
+                            f.flush()
+                            bytes_read += len(buf)
+                            #progress.update(bytes_read)
+                    #progress.end(bytes_read)
+                log.info("Image download finished")
+        except RequestException as e:
+            error = "Error downloading liveimg: {}".format(e)
+            log.error(error)
+            raise SourceSetupError(error)
+        else:
+            if not os.path.exists(image_path):
+                error = "Failed to download {}, file doesn't exist".format(self._url)
+                log.error(error)
+                raise SourceSetupError(error)
+
+    def _check_image_sum(self, image_path, checksum):
+        #progressQ.send_message(_("Checking image checksum"))
+        sha256 = hashlib.sha256()
+        with open(image_path, "rb") as f:
+            while True:
+                data = f.read(1024 * 1024)
+                if not data:
+                    break
+                sha256.update(data)
+        filesum = sha256.hexdigest()
+        log.debug("sha256 of %s is %s", image_path, filesum)
+
+        if lowerASCII(checksum) != filesum:
+            log.error("%s does not match checksum of %s.", checksum, image_path)
+            raise SourceSetupError("Checksum of image {} does not match".format(image_path))
+
+    def _mount_image(self, image_path):
+        # Work around inability to move shared filesystems.
+        # Also, do not share the image mounts with /run bind-mounted to physical
+        # target root during storage.mount_filesystems.
+        rc = execWithRedirect("mount", ["--make-rprivate", "/"])
+        if rc != 0:
+            log.error("mount error (%s) making mount of '/' rprivate", rc)
+            raise SourceSetupError("Mount error {}".format(rc))
+
+        # Mount the image and check to see if it is a LiveOS/*.img
+        # style squashfs image. If so, move it to IMAGE_DIR and mount the real
+        # root image on INSTALL_TREE
+        rc = mount(image_path, INSTALL_TREE, fstype="auto", options="ro")
+        if rc != 0:
+            log.error("mount error (%s) with %s", rc, image_path)
+            raise SourceSetupError("Mount error {}".format(rc))
+
+        nested_image_files = glob.glob(INSTALL_TREE + "/LiveOS/*.img")
+        if nested_image_files:
+            # Mount the first .img in the directory on INSTALL_TREE
+            nested_image = sorted(nested_image_files)[0]
+
+            # move the mount to IMAGE_DIR
+            os.makedirs(IMAGE_DIR, 0o755)
+            rc = execWithRedirect("mount", ["--move", INSTALL_TREE, IMAGE_DIR])
+            if rc != 0:
+                log.error("error %s moving mount", rc)
+                raise SourceSetupError("Mount error {}".format(rc))
+
+            nested_image_path = IMAGE_DIR + "/LiveOS/" + os.path.basename(nested_image)
+            rc = mount(nested_image_path, INSTALL_TREE, fstype="auto", options="ro")
+            if rc != 0:
+                log.error("mount error (%s) with %s", rc, nested_image_path)
+                raise SourceSetupError("Mount error {} with {}".format(rc, nested_image_path))
+
+        # FIXME: Update kernel version outside of this task
+        #
+        # Grab the kernel version list now so it's available after umount
+        # self._update_kernel_version_list()
+
+        # FIXME: This should be done by the module
+        #source = os.statvfs(INSTALL_TREE)
+        #self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
+
+    def run(self):
+        """Run set up or installation source."""
+        image_path_from_url = get_local_image_path_from_url(self._url)
+        if image_path_from_url:
+            self._image_path = image_path_from_url
+        else:
+            self._download_image(self._url, self._image_path, self._session)
+
+        # TODO - do we use it at all in LiveImage
+        ## Used to make install progress % look correct
+        #self._adj_size = os.stat(self.image_path)[stat.ST_SIZE]
+
+        if self._checksum:
+            self._check_image_sum(self._image_path, self._checksum)
+
+        if not url_target_is_tarfile(self._url):
+            self._mount_image(self._image_path)
+
+        return self._image_path
+
+
+def get_local_image_path_from_url(url):
+    image_path = ""
+    if url.startswith("file://"):
+        image_path = url[7:]
+    return image_path
+
+
+def get_proxies_from_option(proxy_option):
+    proxies = {}
+    if proxy_option:
+        try:
+            proxy = ProxyString(proxy_option)
+            proxies = {"http": proxy.url,
+                       "https": proxy.url}
+        except ProxyStringError as e:
+            log.info("Failed to parse proxy \"%s\": %s", proxy_option, e)
+    return proxies
+
 
 # FIXME:
 # Create SourceImageType enum? ... when we have more than 2

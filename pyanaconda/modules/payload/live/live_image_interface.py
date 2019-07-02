@@ -38,6 +38,18 @@ class CheckInstallationSourceImageTaskInterface(TaskInterface):
         return get_variant(UInt64, value)
 
 
+@dbus_class
+class SetupInstallationSourceImageTaskInterface (TaskInterface):
+    """The interface for a source image setup task
+
+    The task returns local path of the image file.
+    """
+
+    @staticmethod
+    def convert_result(value):
+        return get_variant(Str, value)
+
+
 @dbus_interface(LIVE_IMAGE_HANDLER.interface_name)
 class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for Live Image payload module."""
@@ -108,3 +120,13 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         Check availability of the image and update required space
         """
         return self.implementation.check_source_image_with_task()
+
+    def PreInstallWithTask(self) -> ObjPath:
+        """Set up installation source image
+
+        FIXME: use real name? (SetupInstallationSourceImageTask)
+        * Download the image
+        * Check the checksum
+        * Mount the image
+        """
+        return self.implementation.setup_installation_source_image_with_task()
