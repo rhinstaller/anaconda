@@ -184,22 +184,6 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
         return ""
 
 
-def get_device_raid_level(device):
-    use_dev = device.raw_device
-
-    raid_level = None
-    if hasattr(use_dev, "level"):
-        raid_level = use_dev.level
-    elif hasattr(use_dev, "data_level"):
-        raid_level = use_dev.data_level
-    elif hasattr(use_dev, "volume"):
-        raid_level = use_dev.volume.data_level
-    elif not hasattr(use_dev, "vg") and hasattr(use_dev, "lvs") and len(use_dev.parents) == 1:
-        raid_level = get_device_raid_level(use_dev.parents[0])
-
-    return raid_level
-
-
 def get_selected_raid_level(raid_level_combo):
     """Interpret the selection of a RAID level combo box.
 

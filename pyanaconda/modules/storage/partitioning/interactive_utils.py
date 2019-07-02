@@ -383,6 +383,29 @@ def get_device_luks_version(device):
     return None
 
 
+def get_device_raid_level(device):
+    """Get the RAID level of the given device.
+
+    :param device: a device
+    :return: a RAID level
+    """
+    device = device.raw_device
+
+    if hasattr(device, "level"):
+        return device.level
+
+    if hasattr(device, "data_level"):
+        return device.data_level
+
+    if hasattr(device, "volume"):
+        return device.volume.data_level
+
+    if not hasattr(device, "vg") and hasattr(device, "lvs") and len(device.parents) == 1:
+        return get_device_raid_level(device.parents[0])
+
+    return None
+
+
 def collect_file_system_types(device):
     """Collect supported file system types for the given device.
 

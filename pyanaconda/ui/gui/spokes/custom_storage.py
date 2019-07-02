@@ -61,7 +61,7 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
-    get_device_luks_version, collect_file_system_types, collect_device_types
+    get_device_luks_version, collect_file_system_types, collect_device_types, get_device_raid_level
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -81,7 +81,7 @@ from pyanaconda.ui.gui.spokes.lib.accordion import update_selector_from_device, 
     CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_entry, \
-    validate_label, get_device_raid_level, validate_mountpoint, get_selected_raid_level, \
+    validate_label, validate_mountpoint, get_selected_raid_level, \
     get_raid_level_selection, get_default_raid_level, requires_raid_selection, \
     get_supported_container_raid_levels, get_supported_raid_levels, get_container_type, \
     get_default_container_raid_level, RAID_NOT_ENOUGH_DISKS, AddDialog, ConfirmDeleteDialog, \
