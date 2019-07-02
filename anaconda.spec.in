@@ -344,6 +344,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 02 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.9-1
+- Adjust the exclude arguments for livepayloads (bcl)
+  Related: rhbz#1684542
+- Recreate the BLS entries when using liveimg (bcl)
+  Resolves: rhbz#1684542
+- Cache the liveimg tar kernel list (bcl)
+  Related: rhbz#1684542
+- Add common function for creating rescue images (bcl)
+  Related: rhbz#1684542
+- Re-generate BLS loader file snippets on live installs (awilliam)
+  Related: rhbz#1684542
+
 * Tue Jul 02 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.8-1
 - Respect changesok password policy for root password (mkolman)
   Resolves: rhbz#1584145
