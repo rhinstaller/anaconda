@@ -1568,13 +1568,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._update_space_display()
 
     @ui_storage_logged
-    def _remove_empty_parents(self, device):
-        # if this device has parents with no other children, remove them too
-        for parent in device.parents:
-            if not parent.children and not parent.is_disk:
-                self._destroy_device(parent)
-
-    @ui_storage_logged
     def _destroy_device(self, device):
         self.clear_errors()
         is_logical_partition = getattr(device, "isLogical", False)
@@ -1618,7 +1611,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         if not container:
             # no container, just remove empty parents of the device
-            self._remove_empty_parents(device)
+            for parent in device.parents:
+                if not parent.children and not parent.is_disk:
+                    self._destroy_device(parent)
             return
 
         # adjust container to size of remaining devices, if auto-sized
@@ -1641,7 +1636,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             )
             factory.configure()
 
-        self._remove_empty_parents(device)
+        for parent in device.parents:
+            if not parent.children and not parent.is_disk:
+                self._destroy_device(parent)
 
     def _show_mountpoint(self, page, mountpoint=None):
         if not self._initialized:
