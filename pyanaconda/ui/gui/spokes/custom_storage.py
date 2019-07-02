@@ -62,7 +62,7 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     get_device_luks_version, collect_file_system_types, collect_device_types, \
-    get_device_raid_level, add_device
+    get_device_raid_level, add_device, destroy_device
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -1570,75 +1570,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     @ui_storage_logged
     def _destroy_device(self, device):
         self.clear_errors()
-        is_logical_partition = getattr(device, "isLogical", False)
+
         try:
-            if device.is_disk:
-                if device.partitioned and not device.format.supported:
-                    self._storage_playground.recursive_remove(device)
-                self._storage_playground.initialize_disk(device)
-            elif device.direct and not device.isleaf:
-                # we shouldn't call this method for with non-leaf devices except
-                # for those which are also directly accessible like lvm
-                # snapshot origins and btrfs subvolumes that contain other
-                # subvolumes
-                self._storage_playground.recursive_remove(device)
-            else:
-                self._storage_playground.destroy_device(device)
+            destroy_device(self._storage_playground, device)
         except StorageError as e:
-            log.error("failed to schedule device removal: %s", e)
+            log.error("The device removal has failed: %s", e)
             self._error = e
-            self.set_warning(_("Device removal request failed. <a href=\"\">Click "
-                               "for details.</a>"))
-        else:
-            if is_logical_partition:
-                self._storage_playground.remove_empty_extended_partitions()
-
-        # If we've just removed the last partition and the disklabel is pre-
-        # existing, reinitialize the disk.
-        if device.type == "partition" and device.exists and device.disk.format.exists:
-            config = DiskInitializationConfig()
-            if config.can_initialize(self._storage_playground, device.disk):
-                self._storage_playground.initialize_disk(device.disk)
-
-        # should this be in DeviceTree._removeDevice?
-        container = None
-        if hasattr(device, "vg"):
-            container = device.vg
-            device_type = devicefactory.get_device_type(device)
-        elif hasattr(device, "volume"):
-            container = device.volume
-            device_type = DEVICE_TYPE_BTRFS
-
-        if not container:
-            # no container, just remove empty parents of the device
-            for parent in device.parents:
-                if not parent.children and not parent.is_disk:
-                    self._destroy_device(parent)
-            return
-
-        # adjust container to size of remaining devices, if auto-sized
-        if container and not container.exists and container.children and \
-                container.size_policy == SIZE_POLICY_AUTO:
-            cont_encrypted = container.encrypted
-            cont_raid = get_device_raid_level(container)
-            cont_size = container.size_policy
-            cont_name = container.name
-            factory = devicefactory.get_device_factory(
-                self._storage_playground,
-                device_type=device_type,
-                size=Size(0),
-                disks=container.disks,
-                container_name=cont_name,
-                container_encrypted=cont_encrypted,
-                container_raid_level=cont_raid,
-                container_size=cont_size,
-                min_luks_entropy=crypto.MIN_CREATE_ENTROPY
-            )
-            factory.configure()
-
-        for parent in device.parents:
-            if not parent.children and not parent.is_disk:
-                self._destroy_device(parent)
+            self.set_warning(_("Device removal request failed. "
+                               "<a href=\"\">Click for details.</a>"))
 
     def _show_mountpoint(self, page, mountpoint=None):
         if not self._initialized:

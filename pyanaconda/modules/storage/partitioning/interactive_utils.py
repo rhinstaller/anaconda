@@ -22,10 +22,12 @@ from blivet.devicelibs import crypto
 from blivet.devices import LUKSDevice
 from blivet.errors import StorageError
 from blivet.formats import get_format
+from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.util import lowerASCII
+from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.product import translated_new_install_name
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
@@ -574,3 +576,73 @@ def _add_device(storage, dev_info, use_existing_container=False):
     except OverflowError as e:
         log.error("Invalid partition size set: %s", str(e))
         raise StorageError("Invalid partition size set. Use a valid integer.") from None
+
+
+def destroy_device(storage, device):
+    """Destroy the given device in the storage model.
+
+    :param storage: an instance of Blivet
+    :param device: an instance of a device
+    """
+    # Remove the device.
+    if device.is_disk and device.partitioned and not device.format.supported:
+        storage.recursive_remove(device)
+    elif device.direct and not device.isleaf:
+        # We shouldn't call this method for with non-leaf devices
+        # except for those which are also directly accessible like
+        # lvm snapshot origins and btrfs subvolumes that contain
+        # other subvolumes.
+        storage.recursive_remove(device)
+    else:
+        storage.destroy_device(device)
+
+    # Initialize the disk.
+    if device.is_disk:
+        storage.initialize_disk(device)
+
+    # Remove empty extended partitions.
+    if getattr(device, "is_logical", False):
+        storage.remove_empty_extended_partitions()
+
+    # If we've just removed the last partition and the disk label
+    # is preexisting, reinitialize the disk.
+    if device.type == "partition" and device.exists and device.disk.format.exists:
+        config = DiskInitializationConfig()
+
+        if config.can_initialize(storage, device.disk):
+            storage.initialize_disk(device.disk)
+
+    # Get the device container.
+    if hasattr(device, "vg"):
+        container = device.vg
+        device_type = devicefactory.get_device_type(device)
+    elif hasattr(device, "volume"):
+        container = device.volume
+        device_type = devicefactory.DEVICE_TYPE_BTRFS
+    else:
+        container = None
+        device_type = None
+
+    # Adjust container to size of remaining devices, if auto-sized.
+    if (container and not container.exists and container.children and
+            container.size_policy == devicefactory.SIZE_POLICY_AUTO):
+        # Create the device factory.
+        factory = devicefactory.get_device_factory(
+            storage,
+            device_type=device_type,
+            size=Size(0),
+            disks=container.disks,
+            container_name=container.name,
+            container_encrypted=container.encrypted,
+            container_raid_level=get_device_raid_level(container),
+            container_size=container.size_policy,
+            min_luks_entropy=crypto.MIN_CREATE_ENTROPY
+        )
+
+        # Configure the factory's devices.
+        factory.configure()
+
+    # Finally, remove empty parents of the device.
+    for parent in device.parents:
+        if not parent.children and not parent.is_disk:
+            destroy_device(storage, parent)
