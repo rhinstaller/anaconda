@@ -25,6 +25,7 @@ from blivet.formats import get_format
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
+from pyanaconda.core.util import lowerASCII
 from pyanaconda.product import translated_new_install_name
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
@@ -464,6 +465,9 @@ def add_device(storage, dev_info):
     :param dev_info: a device info
     :raise: StorageError if the device cannot be created
     """
+    # Complete the device info.
+    _update_device_info(storage, dev_info)
+
     try:
         # Trying to use a new container.
         _add_device(storage, dev_info, use_existing_container=False)
@@ -481,6 +485,43 @@ def add_device(storage, dev_info):
         pass
 
     raise error
+
+
+def _update_device_info(storage, dev_info):
+    """Update the device info.
+
+    :param storage: an instance of Blivet
+    :param dev_info: a device info
+    """
+    # Set the defaults.
+    dev_info.setdefault("mountpoint", None)
+    dev_info.setdefault("device_type", devicefactory.DEVICE_TYPE_LVM)
+    dev_info.setdefault("encrypted", False)
+    dev_info.setdefault("min_luks_entropy", crypto.MIN_CREATE_ENTROPY)
+    dev_info.setdefault("luks_version", storage.default_luks_version)
+
+    # Set the file system type for the given mount point.
+    dev_info.setdefault("fstype", storage.get_fstype(dev_info["mountpoint"]))
+
+    # Fix the mount point.
+    if lowerASCII(dev_info["mountpoint"]) in ("swap", "biosboot", "prepboot"):
+        dev_info["mountpoint"] = None
+
+    # We should create a partition in some cases.
+    # These devices should never be encrypted.
+    if ((dev_info["mountpoint"] and dev_info["mountpoint"].startswith("/boot")) or
+            dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES):
+        dev_info["device_type"] = devicefactory.DEVICE_TYPE_PARTITION
+        dev_info["encrypted"] = False
+
+    # We shouldn't create swap on a thinly provisioned volume.
+    if (dev_info["fstype"] == "swap" and
+            dev_info["device_type"] == devicefactory.DEVICE_TYPE_LVM_THINP):
+        dev_info["device_type"] = devicefactory.DEVICE_TYPE_LVM
+
+    # Encryption of thinly provisioned volumes isn't supported.
+    if dev_info["device_type"] == devicefactory.DEVICE_TYPE_LVM_THINP:
+        dev_info["encrypted"] = False
 
 
 def _add_device(storage, dev_info, use_existing_container=False):

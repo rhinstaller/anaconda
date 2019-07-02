@@ -1523,22 +1523,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         NormalSpoke.on_back_clicked(self, button)
 
-    @ui_storage_logged
-    def _add_device(self, dev_info):
-        try:
-            add_device(self._storage_playground, dev_info)
-        except StorageError as e:
-            log.error("add_device has failed: %s", e)
-            self._error = e
-            self.set_error(_("Failed to add new device. <a href=\"\">Click for details.</a>"))
-
     def on_add_clicked(self, button):
         self._save_right_side(self._accordion.current_selector)
 
-        ## initialize and run the AddDialog
-        dialog = AddDialog(self.data,
-                           mountpoints=self._storage_playground.mountpoints.keys())
+        # Initialize and run the AddDialog.
+        mount_points = self._storage_playground.mountpoints.keys()
+        dialog = AddDialog(self.data, mount_points)
         dialog.refresh()
+
         with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
 
@@ -1549,68 +1541,30 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._back_already_clicked = False
 
-        ## gather data about the added mountpoint
-        # minimum entropy required for LUKS creation is always the same
-        # TODO: use instance of a class with properly named attributes
-        dev_info = {"min_luks_entropy": crypto.MIN_CREATE_ENTROPY}
-
-        # set the default luks version
-        dev_info["luks_version"] = self.storage.default_luks_version
-
-        # create a device of the default type, using any disks, with an
-        # appropriate fstype and mountpoint
+        # Gather data about the added mount point.
+        dev_info = dict()
         dev_info["mountpoint"] = dialog.mountpoint
 
-        # if no requested size, or size less than 1 MB, request maximum size
         if dialog.size is None or dialog.size < Size("1 MB"):
             dev_info["size"] = None
         else:
             dev_info["size"] = dialog.size
 
-        dev_info["fstype"] = self.storage.get_fstype(dev_info["mountpoint"])
-
-        # The encryption setting as applied here means "encrypt leaf devices".
-        # If you want "encrypt my VG/PVs" you'll have to either use the autopart
-        # button or wait until we have a way to control container-level
-        # encryption.
-        dev_info["encrypted"] = False
-
-        # we're doing nothing here to ensure that bootable requests end up on
-        # the boot disk, but the weight from platform should take care of this
-
-        if lowerASCII(dev_info["mountpoint"]) in ("swap", "biosboot", "prepboot"):
-            dev_info["mountpoint"] = None
-
         dev_info["device_type"] = device_type_from_autopart(self._partitioning_scheme)
-        if (dev_info["device_type"] != DEVICE_TYPE_PARTITION and
-                ((dev_info["mountpoint"] and dev_info["mountpoint"].startswith("/boot")) or
-                 dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES)):
-            dev_info["device_type"] = DEVICE_TYPE_PARTITION
-
-        # we shouldn't create swap on a thinly provisioned volume
-        if dev_info["fstype"] == "swap" and dev_info["device_type"] == DEVICE_TYPE_LVM_THINP:
-            dev_info["device_type"] = DEVICE_TYPE_LVM
-
-        # encryption of thinly provisioned volumes isn't supported
-        if dev_info["encrypted"] and dev_info["device_type"] == DEVICE_TYPE_LVM_THINP:
-            dev_info["encrypted"] = False
-
-        # some devices should never be encrypted
-        if ((dev_info["mountpoint"] and dev_info["mountpoint"].startswith("/boot")) or
-                dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES):
-            dev_info["encrypted"] = False
-
         dev_info["disks"] = self._get_selected_disks()
 
-        ## clear errors and try to add the mountpoint/device
+        # Clear errors and try to add the mountpoint/device.
         self.clear_errors()
-        self._add_device(dev_info)
 
-        ## refresh internal state and UI elements
-        if not self._error:
-            self._do_refresh(mountpoint_to_show=dev_info["mountpoint"] or dev_info["fstype"])
-        else:
+        try:
+            add_device(self._storage_playground, dev_info)
+        except StorageError as e:
+            self.set_error(_("Failed to add new device. <a href=\"\">Click for details.</a>"))
+            self._error = e
             self._do_refresh()
+        else:
+            self._do_refresh(mountpoint_to_show=dialog.mountpoint)
+
         self._update_space_display()
 
     @ui_storage_logged
