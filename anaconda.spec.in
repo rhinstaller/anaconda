@@ -344,6 +344,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 02 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.8-1
+- Respect changesok password policy for root password (mkolman)
+  Resolves: rhbz#1584145
+- Fix default value for pwpolicy emptyok (mkolman)
+  Resolves: rhbz#1664704
+
 * Tue Jun 25 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.7-1
 - Add support for disabling modules via module --disable (mkolman)
   Resolves: rhbz#1655523
