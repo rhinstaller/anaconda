@@ -62,8 +62,6 @@ DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. "
 UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
                              "error. <a href=\"\">Click for details.</a>")
 
-DEVICE_TYPE_CONST_UNSUPPORTED = -1
-
 RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
                            "requires more disks (%(min)d) than you "
                            "currently have selected (%(count)d).")

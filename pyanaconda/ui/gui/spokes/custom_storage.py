@@ -72,7 +72,7 @@ from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEV
     DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, bound_size, \
     get_supported_filesystems, filter_unsupported_disklabel_devices, unlock_device, \
-    setup_passphrase, find_unconfigured_luks
+    setup_passphrase, find_unconfigured_luks, DEVICE_TYPE_UNSUPPORTED
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
@@ -87,8 +87,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_en
     get_default_container_raid_level, RAID_NOT_ENOUGH_DISKS, AddDialog, ConfirmDeleteDialog, \
     DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
     NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
-    DEVICE_CONFIGURATION_ERROR_MSG, UNRECOVERABLE_ERROR_MSG, DEVICE_TYPE_CONST_UNSUPPORTED, \
-    ui_storage_logger, ui_storage_logged
+    DEVICE_CONFIGURATION_ERROR_MSG, UNRECOVERABLE_ERROR_MSG, ui_storage_logger, ui_storage_logged
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
@@ -563,18 +562,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                     break
             else:
                 log.warning("failed to replace device: %s", s._device)
-
-    def _add_device_type(self, device_type):
-        self._typeStore.append([_(DEVICE_TEXT_MAP[device_type]), device_type])
-
-    def _set_device_type(self, device_type):
-        itr = self._typeStore.get_iter_first()
-        while itr:
-            if self._typeStore[itr][1] == device_type:
-                self._typeCombo.set_active_iter(itr)
-                return True
-            itr = self._typeStore.iter_next(itr)
-        return False
 
     def _validate_mountpoint(self, mountpoint, device, device_type, new_fs_type,
                              reformat, encrypted, raid_level):
@@ -1198,7 +1185,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return None
 
         device_type = self._typeStore[itr][1]
-        if device_type == DEVICE_TYPE_CONST_UNSUPPORTED:
+        if device_type == DEVICE_TYPE_UNSUPPORTED:
             return None
 
         return device_type
@@ -1245,36 +1232,34 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # do additional updating handled by other method
         self._update_fstype_combo(devicefactory.get_device_type(device))
 
-    def _setup_device_type_combo(self, device, device_name):
-        """ Set up device type combo.
+    def _setup_device_type_combo(self, device):
+        """Set up device type combo."""
+        device_type = devicefactory.get_device_type(device)
 
-            :param device: the device
-            :type device: :class:`blivet.devices.StorageDevice`
-            :param str device_name: the device name
-
-            :returns: the device type that was decided on
-            :rtype: int (an enumeration defined in blivet.devicefactory)
-        """
+        # Collect the supported device types.
         types = collect_device_types(device, self._get_selected_disks())
 
-        # go through the store and remove things that shouldn't be included
-        # store.remove() updates or invalidates the passed iterator
-        itr = self._typeStore.get_iter_first()
-        valid = True
-        while itr and valid:
-            dev_type = self._typeStore[itr][1]
-            if dev_type not in types:
-                valid = self._typeStore.remove(itr)
-            else:
-                # already seen, shouldn't be added to the list again
-                types.remove(dev_type)
-                itr = self._typeStore.iter_next(itr)
+        # For existing unsupported device add the information in the UI.
+        if device_type not in types:
+            log.debug("Existing device with unsupported type %s found", device_type)
+            device_type = DEVICE_TYPE_UNSUPPORTED
+            types.append(device_type)
 
-        # add missing device types
-        for dev_type in types:
-            self._add_device_type(dev_type)
+        # Add values.
+        self._typeStore.clear()
+        for dt in types:
+            self._typeStore.append([_(DEVICE_TEXT_MAP[dt]), dt])
 
-        device_type = devicefactory.get_device_type(device)
+        # Set the selected value.
+        idx = next(
+            i for i, data in enumerate(self._typeCombo.get_model())
+            if data[1] == device_type
+        )
+        self._typeCombo.set_active(idx)
+
+    def _update_device_name_dict(self, device, device_name):
+        """Update the dictionary of device names."""
+        device_type = self._get_current_device_type()
 
         for _type in self._device_name_dict.keys():
             if _type == device_type:
@@ -1293,20 +1278,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 )
 
             self._device_name_dict[_type] = name
-
-        if not self._set_device_type(device_type):
-            if not devicefactory.is_supported_device_type(device_type):
-                # For existing unsupported device add the information in the UI
-                log.debug("Existing device with unsupported type %s found",
-                          DEVICE_TEXT_MAP[device_type])
-                itr = self._typeStore.append(
-                    [_(DEVICE_TEXT_UNSUPPORTED), DEVICE_TYPE_CONST_UNSUPPORTED])
-                self._typeCombo.set_active_iter(itr)
-            else:
-                msg = "Didn't find device type %s in device type combobox" % device_type
-                raise KeyError(msg)
-
-        return device_type
 
     def _set_devices_label(self):
         device_disks = self._device_disks
@@ -1384,18 +1355,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._setup_fstype_combo(device)
 
         # Set up the device type combo.
-        orig_device_type = self._get_current_device_type()
-        device_type = self._setup_device_type_combo(device, device_name)
+        self._setup_device_type_combo(device)
 
-        # If the device type did not change, run the signal handler anyway
-        # to update widgets for the new device
-        if orig_device_type == device_type:
-            self.on_device_type_changed(self._typeCombo)
+        # Update the device name dictionary.
+        self._update_device_name_dict(device, device_name)
+        self.on_device_type_changed(self._typeCombo)
 
-        fancy_set_sensitive(
-            self._fsCombo,
-            self._reformatCheckbox.get_active() and device_type != DEVICE_TYPE_BTRFS
-        )
+        # You can't change the fstype in some cases.
+        is_sensitive = self._reformatCheckbox.get_active() \
+            and self._get_current_device_type() != DEVICE_TYPE_BTRFS
+
+        fancy_set_sensitive(self._fsCombo, is_sensitive)
 
         # you can't change the type of an existing device
         fancy_set_sensitive(self._typeCombo, not use_dev.exists)
@@ -1408,6 +1378,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
         # XXX CHECKME: encryption of thin logical volumes is not supported at this time
+        device_type = self._get_current_device_type()
+
         if device_type in [DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP]:
             fancy_set_sensitive(self._encryptCheckbox, False)
 
