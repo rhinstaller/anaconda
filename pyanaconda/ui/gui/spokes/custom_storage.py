@@ -1861,7 +1861,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         return True
 
-    def _container_store_row(self, name, free_space=None):
+    def _get_container_store_row(self, container):
+        name = container.name
+        free_space = getattr(container, "free_space", None)
+
         if free_space is not None:
             return [name, _("(%s free)") % free_space]
         else:
@@ -1910,11 +1913,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 self._device_container_name
             )
 
-            row = self._container_store_row(
-                self._device_container_name,
-                getattr(container, "free_space", None)
-            )
-
+            row = self._get_container_store_row(container)
             self._containerStore.insert(idx, row)
             self._containerCombo.set_active(idx)
 
@@ -1954,11 +1953,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             user_changed_container = self.run_container_editor(name=name, new_container=True)
             for idx, data in enumerate(self._containerStore):
                 if user_changed_container and data[0] == new_text:
-                    c = self._storage_playground.devicetree.get_device_by_name(
-                        self._device_container_name)
-                    free_space = getattr(c, "free_space", None)
-                    row = self._container_store_row(self._device_container_name, free_space)
-
+                    container = self._storage_playground.devicetree.get_device_by_name(
+                        self._device_container_name
+                    )
+                    row = self._get_container_store_row(container)
                     self._containerStore.insert(idx, row)
                     combo.set_active(idx)  # triggers a call to this method
                     return
@@ -2251,8 +2249,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         default_seen = False
         for c in containers:
-            self._containerStore.append(
-                self._container_store_row(c.name, getattr(c, "free_space", None)))
+            row = self._get_container_store_row(c)
+            self._containerStore.append(row)
+
             if default_container_name and c.name == default_container_name:
                 default_seen = True
                 self._containerCombo.set_active(containers.index(c))
@@ -2265,13 +2264,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._device_container_size = container_size_policy
 
         if not default_seen:
-            self._containerStore.append(self._container_store_row(default_container_name))
+            self._containerStore.append([default_container_name, ""])
             self._containerCombo.set_active(len(self._containerStore) - 1)
 
-        self._containerStore.append(self._container_store_row(
-            _(NEW_CONTAINER_TEXT) % {"container_type": _(container_type.name).lower()}))
+        container_type_name = _(container_type.name).lower()
+
+        self._containerStore.append([
+            _(NEW_CONTAINER_TEXT) % {"container_type": container_type_name}, ""
+        ])
         self._containerCombo.set_tooltip_text(
-            _(CONTAINER_TOOLTIP) % {"container_type": _(container_type.name).lower()})
+            _(CONTAINER_TOOLTIP) % {"container_type": container_type_name}
+        )
+
         if default_container_name is None:
             self._containerCombo.set_active(len(self._containerStore) - 1)
 
