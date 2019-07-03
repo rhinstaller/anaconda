@@ -145,6 +145,14 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.setup_installation_source_image_with_task()
 
+    def InstallWithTask(self) -> ObjPath:
+        """Install the payload.
+
+        * Copy the payload.
+        * Create rescue images
+        """
+        return self.implementation.install_with_task()
+
     def PostInstallWithTask(self) -> ObjPath:
         """Do post installation tasks.
 

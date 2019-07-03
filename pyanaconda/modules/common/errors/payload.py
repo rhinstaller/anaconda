@@ -26,3 +26,8 @@ from pyanaconda.modules.common.errors import AnacondaError
 class SourceSetupError(AnacondaError):
     """Error raised during the source setup."""
     pass
+
+@dbus_error("InstallError", namespace=PAYLOAD_NAMESPACE)
+class InstallError(AnacondaError):
+    """Error raised during payload installation."""
+    pass
