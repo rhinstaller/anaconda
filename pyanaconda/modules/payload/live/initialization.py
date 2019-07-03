@@ -317,17 +317,23 @@ class SetupInstallationSourceImageTask(Task):
 class PostInstallationLiveImageTask(Task):
     """Task to do post installation steps."""
 
-    def __init__(self, image_path, url):
+    def __init__(self, image_path, url, dest_path, kernel_version_list):
         """Create a new task.
 
         :param image_path: destination path for image download
         :type image_path: str
         :param url: installation source image url
         :type url: str
+        :param dest_path: installation destination root path
+        :type dest_path: str
+        :param kernel_version_list: list of kernel versions for updating of BLS configuration
+        :type krenel_version_list: list(str)
         """
         super().__init__()
         self._image_path = image_path
         self._url = url
+        self._dest_path = dest_path
+        self._kernel_version_list = kernel_version_list
 
     @property
     def name(self):
@@ -335,6 +341,8 @@ class PostInstallationLiveImageTask(Task):
 
     def run(self):
         """Run post installation steps."""
+        update_bls_configuration(self._dest_path, self._kernel_version_list)
+
         if not url_target_is_tarfile(self._url):
             unmount(INSTALL_TREE, raise_exc=True)
             #FIXME: Payload and LiveOS stuff
@@ -347,6 +355,27 @@ class PostInstallationLiveImageTask(Task):
         if not get_local_image_path_from_url(self._url):
             if os.path.exists(self._image_path):
                 os.unlink(self._image_path)
+
+
+def update_bls_configuration(root, kernel_version_list):
+    # Not using BLS configuration, skip it
+    if os.path.exists(root + "/usr/sbin/new-kernel-pkg"):
+        return
+
+    # Remove any existing BLS entries, they will not match the new system's
+    # machine-id or /boot mountpoint.
+    for file in glob.glob(root + "/boot/loader/entries/*.conf"):
+        log.info("Removing old BLS entry: %s", file)
+        os.unlink(file)
+
+    # Create new BLS entries for this system
+    for kernel in kernel_version_list:
+        log.info("Regenerating BLS info for %s", kernel)
+        execWithRedirect(
+            "kernel-install",
+            ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
+            root=root
+        )
 
 
 def get_local_image_path_from_url(url):

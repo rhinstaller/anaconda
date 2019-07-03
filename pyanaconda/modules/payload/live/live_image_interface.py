@@ -159,7 +159,7 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         * unmount installation tree (LiveOSPayload)
         * [TODO] copy driver disk files (Payload)
         * [NO] check installation requirements were applied (Payload)
-        * [TODO] Update BLS entries (LiveOSPayload)
+        * Update BLS entries (LiveOSPayload)
         * umount nested image
         * remove downloaded image
         """

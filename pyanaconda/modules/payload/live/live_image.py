@@ -240,7 +240,12 @@ class LiveImageHandlerModule(KickstartBaseModule):
 
     def post_install_with_task(self):
         """Do post installation tasks."""
-        task = PostInstallationLiveImageTask(self.image_path, self.url)
+        task = PostInstallationLiveImageTask(
+            self.image_path,
+            self.url,
+            getSysroot(),
+            self.kernel_version_list
+        )
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 
     def install_with_task(self):
