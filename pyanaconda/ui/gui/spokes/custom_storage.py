@@ -1406,7 +1406,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             ))
 
         self._populate_raid(get_device_raid_level(device))
-        self._populate_container(device=use_dev)
+        self._populate_container(use_dev)
         self._populate_luks(get_device_luks_version(device))
 
         # do this last to override the decision made by on_device_type_changed if necessary
@@ -2197,18 +2197,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             encrypted.get_active() and encrypted.get_sensitive()
         )
 
-    def _populate_container(self, device=None):
+    def _populate_container(self, device):
         """ Set up the vg widgets for lvm or hide them for other types. """
         device_type = self._get_current_device_type()
-        if device is None:
-            if self._accordion.current_selector is None:
-                return
-
-            device = self._accordion.current_selector.device
-            if device:
-                device = device.raw_device
-
         container_size_policy = SIZE_POLICY_AUTO
+
         if device_type not in CONTAINER_DEVICE_TYPES:
             # just hide the buttons with no meaning for non-container devices
             for widget in [self._containerLabel,
@@ -2381,7 +2374,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._raidStoreFilter.refilter()
 
         self._populate_raid(get_default_raid_level(new_type))
-        self._populate_container()
+
+        if self._accordion.current_selector:
+            self._populate_container(self._accordion.current_selector.device.raw_device)
 
         fancy_set_sensitive(self._nameEntry, new_type in NAMED_DEVICE_TYPES)
         self._nameEntry.set_text(self._device_name_dict[new_type])
