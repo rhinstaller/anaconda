@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface, dbus_class
+from pyanaconda.dbus.interface import dbus_interface, dbus_class, dbus_signal
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.property import emits_properties_changed
 
@@ -62,6 +62,7 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("Checksum", self.implementation.checksum_changed)
         self.watch_property("VerifySSL", self.implementation.verifyssl_changed)
         self.watch_property("RequiredSpace", self.implementation.required_space_changed)
+        self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
 
     @property
     def Url(self) -> Str:
@@ -112,6 +113,19 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
     def SetRequiredSpace(self, required_space: UInt64):
         """Set the space required by the source image."""
         self.implementation.set_required_space(required_space)
+
+    def UpdateKernelVersionList(self):
+        """Update the list of kernel versions."""
+        self.implementation.update_kernel_version_list()
+
+    def GetKernelVersionList(self) -> List[Str]:
+        """Get the kernel versions list."""
+        return self.implementation.kernel_version_list
+
+    @dbus_signal
+    def KernelVersionListChanged(self, kernel_version_list: List[Str]):
+        """Signal kernel version list change."""
+        pass
 
     def SetupWithTask(self) -> ObjPath:
         """Setup the handler.
