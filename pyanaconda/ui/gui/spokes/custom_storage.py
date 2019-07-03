@@ -1111,8 +1111,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             try:
                 use_dev.name = name
             except ValueError as e:
-                self._error = e
-                self.set_error(_("Invalid device name: %s") % name)
+                self.set_detailed_error(_("Invalid device name."), e)
             else:
                 new_name = use_dev.name
                 log.debug("changing name of %s to %s", old_name, new_name)
@@ -1560,8 +1559,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         try:
             add_device(self._storage_playground, dev_info)
         except StorageError as e:
-            self.set_error(_("Failed to add new device. <a href=\"\">Click for details.</a>"))
-            self._error = e
+            self.set_detailed_error(_("Failed to add new device."), e)
             self._do_refresh()
         else:
             self._do_refresh(mountpoint_to_show=dialog.mountpoint)
@@ -1895,8 +1893,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                     name=self._device_container_name
                 )
             except StorageError as e:
-                self._error = e
-                self.set_error(_("Invalid device name: %s") % self._device_container_name)
+                self.set_detailed_error(_("Invalid device name."), e)
                 self._device_container_name = container_name
                 self.on_update_settings_clicked(None)
                 return
@@ -2113,9 +2110,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             task.run()
         except (StorageConfigurationError, BootloaderConfigurationError) as e:
             self._reset_storage()
-            self._error = e
-            self.set_error(_("Automatic partitioning failed. "
-                             "<a href=\"\">Click for details.</a>"))
+            self.set_detailed_error(_("Automatic partitioning failed."), e)
         finally:
             log.debug("finished automatic partitioning")
 
@@ -2130,11 +2125,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             messages = "\n".join(report.errors)
             log.error("do_autopart failed: %s", messages)
             self._reset_storage()
-            self._error = messages
-            self.set_error(_(
-                "Automatic partitioning failed. "
-                "<a href=\"\">Click for details.</a>"
-            ))
+            self.set_detailed_error(_("Automatic partitioning failed."), messages)
 
     def on_create_clicked(self, button, autopart_type_combo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
@@ -2368,6 +2359,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         fancy_set_sensitive(self._sizeEntry, new_type != DEVICE_TYPE_BTRFS)
 
         self._update_fstype_combo(new_type)
+
+    def set_detailed_error(self, msg, detailed_msg):
+        self._error = detailed_msg
+        self.set_error(msg + _(" <a href=\"\">Click for details.</a>"))
 
     def clear_errors(self):
         self._error = None
