@@ -31,7 +31,8 @@ from pyanaconda.modules.storage.disk_initialization import DiskInitializationCon
 from pyanaconda.product import translated_new_install_name
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
-    get_supported_filesystems, PARTITION_ONLY_FORMAT_TYPES, SUPPORTED_DEVICE_TYPES
+    get_supported_filesystems, PARTITION_ONLY_FORMAT_TYPES, SUPPORTED_DEVICE_TYPES, \
+    CONTAINER_DEVICE_TYPES
 
 log = get_module_logger(__name__)
 
@@ -683,3 +684,27 @@ def rename_container(storage, container, name):
 
         luks_name = "luks-%s" % device.name
         storage.devicetree.names.append(luks_name)
+
+
+def get_container(storage, device_type, device=None):
+    """Get a container of the given type.
+
+    :param storage: an instance of Blivet
+    :param device_type: a device type
+    :param device: a defined factory device or None
+    :return: a container device
+    """
+    if device_type not in CONTAINER_DEVICE_TYPES:
+        raise StorageError("Invalid device type {}".format(device_type))
+
+    if device and devicefactory.get_device_type(device) != device_type:
+        device = None
+
+    factory = devicefactory.get_device_factory(
+        storage,
+        device_type=device_type,
+        size=Size(0),
+        min_luks_entropy=crypto.MIN_CREATE_ENTROPY
+    )
+
+    return factory.get_container(device=device)

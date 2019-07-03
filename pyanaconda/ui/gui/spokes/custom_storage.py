@@ -62,7 +62,7 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     get_device_luks_version, collect_file_system_types, collect_device_types, \
-    get_device_raid_level, add_device, destroy_device, rename_container
+    get_device_raid_level, add_device, destroy_device, rename_container, get_container
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -2200,7 +2200,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _populate_container(self, device):
         """ Set up the vg widgets for lvm or hide them for other types. """
         device_type = self._get_current_device_type()
-        container_size_policy = SIZE_POLICY_AUTO
 
         if device_type not in CONTAINER_DEVICE_TYPES:
             # just hide the buttons with no meaning for non-container devices
@@ -2212,24 +2211,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # else really populate the container
         # set up the vg widgets and then bail out
-        if devicefactory.get_device_type(device) == device_type:
-            _device = device
-        else:
-            _device = None
-
-        with ui_storage_logger():
-            factory = devicefactory.get_device_factory(
-                self._storage_playground,
-                device_type=device_type,
-                size=Size(0),
-                min_luks_entropy=crypto.MIN_CREATE_ENTROPY
-            )
-            container = factory.get_container(device=_device)
-            default_container_name = getattr(container, "name", None)
-            if container:
-                container_size_policy = container.size_policy
-
+        container = get_container(device_type, device)
+        default_container_name = getattr(container, "name", None)
+        container_exists = getattr(container, "exists", False)
+        container_size_policy = getattr(container, "size_policy", SIZE_POLICY_AUTO)
         container_type = get_container_type(device_type)
+
         self._containerLabel.set_text(
             C_("GUI|Custom Partitioning|Configure|Devices", container_type.label).title()
         )
@@ -2281,7 +2268,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         can_change_container = (device is not None and not device.exists and
                                 device != container)
         fancy_set_sensitive(self._containerCombo, can_change_container)
-        container_exists = getattr(container, "exists", False)
         self._modifyContainerButton.set_sensitive(not container_exists)
 
     def _update_fstype_combo(self, device_type):
