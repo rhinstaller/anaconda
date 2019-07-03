@@ -62,7 +62,8 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     get_device_luks_version, collect_file_system_types, collect_device_types, \
-    get_device_raid_level, add_device, destroy_device, rename_container, get_container
+    get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
+    collect_containers
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -2222,12 +2223,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         )
         self._containerLabel.set_use_underline(True)
         self._containerStore.clear()
-        if device_type == DEVICE_TYPE_BTRFS:
-            containers = self._storage_playground.btrfs_volumes
-        else:
-            containers = self._storage_playground.vgs
 
+        containers = collect_containers(self._storage_playground, device_type)
         default_seen = False
+
         for c in containers:
             row = self._get_container_store_row(c)
             self._containerStore.append(row)

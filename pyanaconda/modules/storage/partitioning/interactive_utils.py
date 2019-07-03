@@ -708,3 +708,16 @@ def get_container(storage, device_type, device=None):
     )
 
     return factory.get_container(device=device)
+
+
+def collect_containers(storage, device_type):
+    """Collect containers of the given type.
+
+    :param storage: an instance of Blivet
+    :param device_type: a device type
+    :return: a list of container devices
+    """
+    if device_type == devicefactory.DEVICE_TYPE_BTRFS:
+        return storage.btrfs_volumes
+    else:
+        return storage.vgs
