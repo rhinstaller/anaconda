@@ -646,3 +646,40 @@ def destroy_device(storage, device):
     for parent in device.parents:
         if not parent.children and not parent.is_disk:
             destroy_device(storage, parent)
+
+
+def rename_container(storage, container, name):
+    """Rename the given container.
+
+    :param storage: an instance of Blivet
+    :param container: an instance of a container
+    :param name: a new name of the container
+    """
+    # Remove the names of the container and its child
+    # devices from the list of already-used names.
+    for device in [container] + container.children:
+        if device.name in storage.devicetree.names:
+            storage.devicetree.names.remove(device.name)
+
+        luks_name = "luks-%s" % device.name
+        if luks_name in storage.devicetree.names:
+            storage.devicetree.names.remove(luks_name)
+
+    # Set the name of the container.
+    try:
+        container.name = name
+    except ValueError as e:
+        raise StorageError(str(e)) from None
+
+    # Fix the btrfs label.
+    if container.format.type == "btrfs":
+        container.format.label = name
+
+    # Add the new names to the list of the already-used
+    # names and prevent potential issues with making the
+    # devices encrypted later
+    for device in [container] + container.children:
+        storage.devicetree.names.append(device.name)
+
+        luks_name = "luks-%s" % device.name
+        storage.devicetree.names.append(luks_name)

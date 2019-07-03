@@ -62,7 +62,7 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     get_device_luks_version, collect_file_system_types, collect_device_types, \
-    get_device_raid_level, add_device, destroy_device
+    get_device_raid_level, add_device, destroy_device, rename_container
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -1881,60 +1881,49 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self.on_update_settings_clicked(None)
             return
 
+        # Rename the container.
         log.debug("renaming container %s to %s", container_name, self._device_container_name)
         if container:
-            # remove the names of the container and its child devices from the
-            # list of already-used names
-            for device in chain([container], container.children):
-                if device.name in self._storage_playground.devicetree.names:
-                    self._storage_playground.devicetree.names.remove(device.name)
-                luks_name = "luks-%s" % device.name
-                if luks_name in self._storage_playground.devicetree.names:
-                    self._storage_playground.devicetree.names.remove(luks_name)
-
             try:
-                container.name = self._device_container_name
-            except ValueError as e:
+                rename_container(
+                    storage=self._storage_playground,
+                    container=container,
+                    name=self._device_container_name
+                )
+            except StorageError as e:
                 self._error = e
                 self.set_error(_("Invalid device name: %s") % self._device_container_name)
                 self._device_container_name = container_name
                 self.on_update_settings_clicked(None)
                 return
-            else:
-                if container.format.type == "btrfs":
-                    container.format.label = self._device_container_name
-            finally:
-                # add the new names to the list of the already-used names and
-                # prevent potential issues with making the devices encrypted
-                # later
-                for device in chain([container], container.children):
-                    self._storage_playground.devicetree.names.append(device.name)
-                    luks_name = "luks-%s" % device.name
-                    self._storage_playground.devicetree.names.append(luks_name)
 
-        container_exists = getattr(container, "exists", False)
+        # Update the UI.
+        idx = None
 
-        # TODO: implement and use function for finding item in combobox
         for idx, data in enumerate(self._containerStore):
             # we're looking for the original vg name
             if data[0] == container_name:
                 break
-        else:
-            # no match found, just update selectors and return
-            self._update_selectors()
-            self.on_update_settings_clicked(None)
-            return
 
-        c = self._storage_playground.devicetree.get_device_by_name(self._device_container_name)
-        free_space = getattr(c, "free_space", None)
+        if idx:
+            container = self._storage_playground.devicetree.get_device_by_name(
+                self._device_container_name
+            )
 
-        # else branch of for loop above ensures idx is defined
-        # pylint: disable=undefined-loop-variable
-        self._containerStore.insert(idx, self._container_store_row(self._device_container_name,
-                                                                   free_space))
-        self._containerCombo.set_active(idx)
-        self._modifyContainerButton.set_sensitive(not container_exists)
-        self._containerStore.remove(self._containerStore.get_iter_from_string("%s" % (idx + 1)))
+            row = self._container_store_row(
+                self._device_container_name,
+                getattr(container, "free_space", None)
+            )
+
+            self._containerStore.insert(idx, row)
+            self._containerCombo.set_active(idx)
+
+            next_idx = self._containerStore.get_iter_from_string("%s" % (idx + 1))
+            self._containerStore.remove(next_idx)
+
+            self._modifyContainerButton.set_sensitive(
+                not getattr(container, "exists", False)
+            )
 
         self._update_selectors()
         self.on_update_settings_clicked(None)
