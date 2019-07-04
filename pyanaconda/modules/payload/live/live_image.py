@@ -33,7 +33,8 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface, \
     CheckInstallationSourceImageTaskInterface, SetupInstallationSourceImageTaskInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
-    SetupInstallationSourceImageTask, PostInstallationLiveImageTask, url_target_is_tarfile
+    SetupInstallationSourceImageTask, PostInstallTask, url_target_is_tarfile, \
+    TeardownInstallationSourceImageTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list
 from pyanaconda.modules.payload.live.installation import InstallTask, InstallFromTarfileTask
 
@@ -241,12 +242,9 @@ class LiveImageHandlerModule(KickstartBaseModule):
 
     def post_install_with_task(self):
         """Do post installation tasks."""
-        task = PostInstallationLiveImageTask(
-            self.image_path,
-            self.url,
+        task = PostInstallTask(
             getSysroot(),
-            self.kernel_version_list,
-            INSTALL_TREE
+            self.kernel_version_list
         )
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 
@@ -263,4 +261,18 @@ class LiveImageHandlerModule(KickstartBaseModule):
                 getSysroot(),
                 self.kernel_version_list
             )
+        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
+
+    def teardown_installation_source_image_with_task(self):
+        """Tear down installation source image.
+
+        * Unmount the image
+        * Clean up mount point directories
+        * Remove downloaded image
+        """
+        task = TeardownInstallationSourceImageTask(
+            self.image_path,
+            self.url,
+            INSTALL_TREE
+        )
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)

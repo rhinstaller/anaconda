@@ -156,11 +156,17 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
     def PostInstallWithTask(self) -> ObjPath:
         """Do post installation tasks.
 
-        * unmount installation tree (LiveOSPayload)
         * [TODO] copy driver disk files (Payload)
         * [NO] check installation requirements were applied (Payload)
         * Update BLS entries (LiveOSPayload)
-        * umount nested image
-        * remove downloaded image
         """
         return self.implementation.post_install_with_task()
+
+    def TeardownWithTask(self) -> ObjPath:
+        """Tear down installation source image.
+
+        * Unmount the image
+        * Clean up mount point directories
+        * Remove downloaded image
+        """
+        return self.implementation.teardown_installation_source_image_with_task()

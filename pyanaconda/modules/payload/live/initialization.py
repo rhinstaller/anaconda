@@ -317,38 +317,30 @@ class SetupInstallationSourceImageTask(Task):
         return self._image_path
 
 
-class PostInstallationLiveImageTask(Task):
-    """Task to do post installation steps."""
+class TeardownInstallationSourceImageTask(Task):
+    """Task to tear down installation source image."""
 
-    def __init__(self, image_path, url, dest_path, kernel_version_list, image_mount_point):
+    def __init__(self, image_path, url, image_mount_point):
         """Create a new task.
 
         :param image_path: destination path for image download
         :type image_path: str
         :param url: installation source image url
         :type url: str
-        :param dest_path: installation destination root path
-        :type dest_path: str
-        :param kernel_version_list: list of kernel versions for updating of BLS configuration
-        :type krenel_version_list: list(str)
         :param image_mount_point: Mount point of the source image
         :type image_mount_point: str
         """
         super().__init__()
         self._image_path = image_path
         self._url = url
-        self._dest_path = dest_path
-        self._kernel_version_list = kernel_version_list
         self._image_mount_point = image_mount_point
 
     @property
     def name(self):
-        return "Do post installation steps."""
+        return "Tear down installation source image."""
 
     def run(self):
-        """Run post installation steps."""
-        update_bls_configuration(self._dest_path, self._kernel_version_list)
-
+        """Run tear down of installation source image."""
         if not url_target_is_tarfile(self._url):
             unmount(self._image_mount_point, raise_exc=True)
             #FIXME: Payload and LiveOS stuff
@@ -361,6 +353,30 @@ class PostInstallationLiveImageTask(Task):
         if not get_local_image_path_from_url(self._url):
             if os.path.exists(self._image_path):
                 os.unlink(self._image_path)
+
+
+class PostInstallTask(Task):
+    """Task to do post installation steps."""
+
+    def __init__(self, dest_path, kernel_version_list):
+        """Create a new task.
+
+        :param dest_path: installation destination root path
+        :type dest_path: str
+        :param kernel_version_list: list of kernel versions for updating of BLS configuration
+        :type krenel_version_list: list(str)
+        """
+        super().__init__()
+        self._dest_path = dest_path
+        self._kernel_version_list = kernel_version_list
+
+    @property
+    def name(self):
+        return "Do post installation steps."""
+
+    def run(self):
+        """Run post installation steps."""
+        update_bls_configuration(self._dest_path, self._kernel_version_list)
 
 
 def update_bls_configuration(root, kernel_version_list):
