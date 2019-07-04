@@ -28,6 +28,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
+from pyanaconda.platform import platform
 from pyanaconda.product import translated_new_install_name
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
@@ -244,6 +245,28 @@ def create_new_root(storage, drive):
         mounts=mounts,
         swaps=swaps
     )
+
+
+def collect_mount_points():
+    """Collect supported mount points.
+
+    :return: a list of paths
+    """
+    paths = ["/", "/boot", "/home", "/var"]
+
+    # Add the mount point requirements for bootloader stage1 devices.
+    paths.extend(platform.boot_stage1_constraint_dict["mountpoints"])
+
+    # Sort the list now so all the real mount points go to the front,
+    # then add all the pseudo mount points we have.
+    paths.sort()
+    paths += ["swap"]
+
+    for fmt in ["appleboot", "biosboot", "prepboot"]:
+        if get_format(fmt).supported:
+            paths += [fmt]
+
+    return paths
 
 
 def revert_reformat(storage, device):

@@ -38,6 +38,7 @@ from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.util import lowerASCII
+from pyanaconda.modules.storage.partitioning.interactive_utils import collect_mount_points
 from pyanaconda.platform import platform
 from pyanaconda.storage.utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck
@@ -105,25 +106,6 @@ def get_size_from_entry(entry, lower_bound=None, units=None):
     if lower_bound is not None and size < lower_bound:
         return lower_bound
     return size
-
-
-def populate_mountpoint_store(store, used_mountpoints):
-    # sure, add whatever you want to this list. this is just a start.
-    paths = ["/", "/boot", "/home", "/var"] + \
-            platform.boot_stage1_constraint_dict["mountpoints"]
-
-    # Sort the list now so all the real mountpoints go to the front, then
-    # add all the pseudo mountpoints we have.
-    paths.sort()
-    paths += ["swap"]
-
-    for fmt in ["appleboot", "biosboot", "prepboot"]:
-        if get_format(fmt).supported:
-            paths += [fmt]
-
-    for path in paths:
-        if path not in used_mountpoints:
-            store.append([path])
 
 
 def validate_label(label, fmt):
@@ -364,7 +346,12 @@ class AddDialog(GUIObject):
         self._error = False
 
         store = self.builder.get_object("mountPointStore")
-        populate_mountpoint_store(store, self.mountpoints)
+        paths = collect_mount_points()
+
+        for path in paths:
+            if path not in self.mountpoints:
+                store.append([path])
+
         self.builder.get_object("addMountPointEntry").set_model(store)
 
         completion = self.builder.get_object("mountPointCompletion")
