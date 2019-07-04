@@ -31,7 +31,6 @@ from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_
     DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
 from blivet.devicefactory import get_supported_raid_levels as get_blivet_supported_raid_levels
 from blivet.devicelibs import btrfs, mdraid, raid
-from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
@@ -39,7 +38,6 @@ from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_mount_points
-from pyanaconda.platform import platform
 from pyanaconda.storage.utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
@@ -106,30 +104,6 @@ def get_size_from_entry(entry, lower_bound=None, units=None):
     if lower_bound is not None and size < lower_bound:
         return lower_bound
     return size
-
-
-def validate_label(label, fmt):
-    """Returns a code indicating either that the given label can be set for
-       this filesystem or the reason why it cannot.
-
-       In the case where the format cannot assign a label, the empty string
-       stands for accept the default, but in the case where the format can
-       assign a label the empty string represents itself.
-
-       :param str label: The label
-       :param DeviceFormat fmt: The device format to label
-
-    """
-    if fmt.exists:
-        return _("Cannot relabel already existing file system.")
-    if not fmt.labeling():
-        if label == "":
-            return ""
-        else:
-            return _("Cannot set label on file system.")
-    if not fmt.label_format_ok(label):
-        return _("Unacceptable label format for file system.")
-    return ""
 
 
 def validate_mountpoint(mountpoint, used_mountpoints, strict=True):

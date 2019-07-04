@@ -26,6 +26,7 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
+from pyanaconda.core.i18n import _
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.platform import platform
@@ -267,6 +268,26 @@ def collect_mount_points():
             paths += [fmt]
 
     return paths
+
+
+def validate_label(label, fmt):
+    """Validate the label.
+
+    :param str label: a label
+    :param DeviceFormat fmt: a device format to label
+    :return: a list of error messages
+    """
+    errors = []
+
+    if fmt.exists:
+        errors.append(_("Cannot relabel already existing file system."))
+    elif not fmt.labeling():
+        if label != "":
+            errors.append(_("Cannot set label on file system."))
+    elif not fmt.label_format_ok(label):
+        return errors.append(_("Unacceptable label format for file system."))
+
+    return errors
 
 
 def revert_reformat(storage, device):

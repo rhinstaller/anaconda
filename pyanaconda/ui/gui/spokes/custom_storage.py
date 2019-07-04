@@ -63,7 +63,7 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     get_device_luks_version, collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
-    collect_containers
+    collect_containers, validate_label
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -83,7 +83,7 @@ from pyanaconda.ui.gui.spokes.lib.accordion import update_selector_from_device, 
     CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_entry, \
-    validate_label, validate_mountpoint, get_selected_raid_level, \
+    validate_mountpoint, get_selected_raid_level, \
     get_raid_level_selection, get_default_raid_level, requires_raid_selection, \
     get_supported_container_raid_levels, get_supported_raid_levels, get_container_type, \
     get_default_container_raid_level, RAID_NOT_ENOUGH_DISKS, AddDialog, ConfirmDeleteDialog, \
@@ -861,9 +861,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         old_device_info["label"] = old_label
         new_device_info["label"] = label
         if changed_label or changed_fs_type:
-            error = validate_label(label, new_fs)
-            if error:
-                self.set_detailed_warning(_("Label validation failed."), error)
+            errors = validate_label(label, new_fs)
+            if errors:
+                self.set_detailed_warning(_("Label validation failed."), " ".join(errors))
                 self._populate_right_side(selector)
                 return
 
@@ -1080,7 +1080,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         else:
             # Set various attributes that do not require actions.
             if old_label != label and hasattr(device.format, "label") and \
-                    validate_label(label, device.format) == "":
+                    validate_label(label, device.format) == []:
                 self.clear_errors()
                 log.debug("updating label on %s to %s", device.name, label)
                 device.format.label = label
