@@ -56,12 +56,6 @@ NOTEBOOK_INCOMPLETE_PAGE = 4
 NEW_CONTAINER_TEXT = N_("Create a new %(container_type)s ...")
 CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
 
-DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. "
-                                    "<a href=\"\">Click for details.</a>")
-
-UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
-                             "error. <a href=\"\">Click for details.</a>")
-
 RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
                            "requires more disks (%(min)d) than you "
                            "currently have selected (%(count)d).")

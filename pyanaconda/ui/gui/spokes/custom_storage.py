@@ -89,7 +89,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_en
     get_default_container_raid_level, RAID_NOT_ENOUGH_DISKS, AddDialog, ConfirmDeleteDialog, \
     DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
     NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
-    DEVICE_CONFIGURATION_ERROR_MSG, UNRECOVERABLE_ERROR_MSG, ui_storage_logger, ui_storage_logged
+    ui_storage_logger, ui_storage_logged
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
@@ -625,8 +625,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             # devices with copies, so update the selectors' devices
             # accordingly
             self._update_all_devices_in_selectors()
-            self._error = e
-            self.set_warning(_(DEVICE_CONFIGURATION_ERROR_MSG))
+            self.set_detailed_warning(_("Device reconfiguration failed."), e)
 
             if not removed_device:
                 # nothing more to do
@@ -647,8 +646,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 except StorageError as e:
                     # failed to recover.
                     self.refresh()  # this calls self.clear_errors
-                    self._error = e
-                    self.set_warning(_(UNRECOVERABLE_ERROR_MSG))
+                    self.set_detailed_warning(_("Storage configuration reset due "
+                                                "to unrecoverable error."), e)
                     return False
 
     @ui_storage_logged
@@ -661,9 +660,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         try:
             changed_size = resize_device(self._storage_playground, device, size, old_size)
         except StorageError as e:
-            self._error = e
-            self.set_warning(_("Device resize request failed. "
-                               "<a href=\"\">Click for details.</a>"))
+            self.set_detailed_warning(_("Device resize request failed."), e)
             return
 
         if changed_size:
@@ -728,9 +725,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 label=label
             )
         except StorageError as e:
-            self._error = e
-            self.set_warning(_("Device reformat request failed. "
-                               "<a href=\"\">Click for details.</a>"))
+            self.set_detailed_warning(_("Device reformat request failed."), e)
         else:
             # first, remove this selector from any old install page(s)
             new_selector = None
@@ -868,8 +863,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if changed_label or changed_fs_type:
             error = validate_label(label, new_fs)
             if error:
-                self._error = error
-                self.set_warning(self._error)
+                self.set_detailed_warning(_("Label validation failed."), error)
                 self._populate_right_side(selector)
                 return
 
@@ -889,8 +883,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             error = validate_mountpoint(mountpoint, mountpoints.keys())
             if error:
-                self._error = error
-                self.set_warning(self._error)
+                self.set_detailed_warning(_("Mount point validation failed."), error)
                 self._populate_right_side(selector)
                 return
 
@@ -1574,9 +1567,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             destroy_device(self._storage_playground, device)
         except StorageError as e:
             log.error("The device removal has failed: %s", e)
-            self._error = e
-            self.set_warning(_("Device removal request failed. "
-                               "<a href=\"\">Click for details.</a>"))
+            self.set_detailed_warning(_("Device removal request failed."), e)
 
     def _show_mountpoint(self, page, mountpoint=None):
         if not self._initialized:
@@ -2360,6 +2351,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._update_fstype_combo(new_type)
 
+    def set_detailed_warning(self, msg, detailed_msg):
+        self._error = detailed_msg
+        self.set_warning(msg + _(" <a href=\"\">Click for details.</a>"))
+
     def set_detailed_error(self, msg, detailed_msg):
         self._error = detailed_msg
         self.set_error(msg + _(" <a href=\"\">Click for details.</a>"))
@@ -2457,9 +2452,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         if not unlocked:
             self._passphraseEntry.set_text("")
-            self._error = "Failed to unlock {}.".format(device.name)
-            self.set_warning(_("Failed to unlock encrypted block device. "
-                               "<a href=\"\">Click for details.</a>"))
+            self.set_detailed_warning(
+                _("Failed to unlock encrypted block device."),
+                "Failed to unlock {}.".format(device.name)
+            )
             return
 
         # set the passphrase also to the original_format of the device (a
