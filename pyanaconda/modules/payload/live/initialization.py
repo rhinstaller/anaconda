@@ -156,6 +156,55 @@ class CheckInstallationSourceImageTask(Task):
         return size
 
 
+class DownloadProgress(object):
+    """Provide methods for download progress reporting."""
+
+    def __init__(self, task):
+        """Create a progress object for given task.
+
+        :param task: task to report in
+        :type task: Task
+        """
+        self._task = task
+
+    def start(self, url, size):
+        """Start of download
+
+        :param url: url of the download
+        :type url: str
+        :param size: length of the file
+        :type size: int
+        """
+        self.url = url
+        self.size = size
+        self._pct = -1
+
+    def update(self, bytes_read):
+        """Download update
+
+        :param bytes_read: Bytes read so far
+        :type bytes_read:  int
+        """
+        if not bytes_read:
+            return
+        pct = min(100, int(100 * bytes_read / self.size))
+
+        if pct == self._pct:
+            return
+        self._pct = pct
+        self._task.report_progress("Downloading image %(url)s (%(pct)d%%)" %
+                                   {"url": self.url, "pct": pct})
+
+    def end(self, bytes_read):
+        """Download complete
+
+        :param bytes_read: Bytes read so far
+        :type bytes_read:  int
+        """
+        self._task.report_progress("Downloading image %(url)s (%(pct)d%%)" %
+                                   {"url": self.url, "pct": 100})
+
+
 class SetupInstallationSourceImageTask(Task):
     """Task to set up source image for installation.
 
@@ -195,10 +244,8 @@ class SetupInstallationSourceImageTask(Task):
 
     def _download_image(self, url, image_path, session):
         """Download the image using Requests with progress reporting"""
-        #FIXME: progress
-
         error = None
-        #progress = DownloadProgress()
+        progress = DownloadProgress(self)
         try:
             log.info("Starting image download")
             with open(image_path, "wb") as f:
@@ -211,20 +258,20 @@ class SetupInstallationSourceImageTask(Task):
                     log.warning("content-length header is missing for the installation image, "
                                 "download progress reporting will not be available")
                     f.write(response.content)
-                    #size = f.tell()
-                    #progress.start(self.data.method.url, size)
-                    #progress.end(size)
+                    size = f.tell()
+                    progress.start(self._url, size)
+                    progress.end(size)
                 else:
                     # requests return headers as strings, so convert total_length to int
-                    #progress.start(self.data.method.url, int(total_length))
+                    progress.start(self._url, int(total_length))
                     bytes_read = 0
                     for buf in response.iter_content(1024 * 1024):
                         if buf:
                             f.write(buf)
                             f.flush()
                             bytes_read += len(buf)
-                            #progress.update(bytes_read)
-                    #progress.end(bytes_read)
+                            progress.update(bytes_read)
+                    progress.end(bytes_read)
                 log.info("Image download finished")
         except RequestException as e:
             error = "Error downloading liveimg: {}".format(e)
@@ -237,7 +284,7 @@ class SetupInstallationSourceImageTask(Task):
                 raise SourceSetupError(error)
 
     def _check_image_sum(self, image_path, checksum):
-        #progressQ.send_message(_("Checking image checksum"))
+        self.report_progress("Checking image checksum")
         sha256 = hashlib.sha256()
         with open(image_path, "rb") as f:
             while True:
