@@ -34,12 +34,9 @@ gi.require_version("AnacondaWidgets", "3.3")
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 
-from itertools import chain
-
 from blivet import devicefactory
 from blivet.devicefactory import DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_PARTITION, \
-    DEVICE_TYPE_MD, DEVICE_TYPE_DISK, DEVICE_TYPE_LVM_THINP, SIZE_POLICY_AUTO, \
-    is_supported_device_type
+    DEVICE_TYPE_MD, DEVICE_TYPE_DISK, DEVICE_TYPE_LVM_THINP, SIZE_POLICY_AUTO
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 from blivet.errors import StorageError
@@ -48,14 +45,12 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
-    SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, DEFAULT_AUTOPART_TYPE
+    SIZE_UNITS_DEFAULT, DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.i18n import _, N_, CP_, C_
-from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
     StorageConfigurationError
-from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
@@ -69,13 +64,12 @@ from pyanaconda.product import productName, productVersion, translated_new_insta
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.storage.initialization import reset_bootloader
-from pyanaconda.storage.root import find_existing_installations, Root
+from pyanaconda.storage.root import find_existing_installations
 from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
-    DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS, \
-    NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, bound_size, \
-    get_supported_filesystems, filter_unsupported_disklabel_devices, unlock_device, \
-    setup_passphrase, find_unconfigured_luks, DEVICE_TYPE_UNSUPPORTED
-from pyanaconda.threading import AnacondaThread, threadMgr
+    PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, \
+    CONTAINER_DEVICE_TYPES, device_type_from_autopart, filter_unsupported_disklabel_devices, \
+    unlock_device, setup_passphrase, find_unconfigured_luks, DEVICE_TYPE_UNSUPPORTED
+from pyanaconda.threading import threadMgr
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
