@@ -227,6 +227,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
             self.checksum,
             self.verifyssl,
             self.image_path,
+            INSTALL_TREE,
             self.requests_session
         )
         task.succeeded_signal.connect(lambda: self.update_image_path_from_task(task))
@@ -244,7 +245,8 @@ class LiveImageHandlerModule(KickstartBaseModule):
             self.image_path,
             self.url,
             getSysroot(),
-            self.kernel_version_list
+            self.kernel_version_list,
+            INSTALL_TREE
         )
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 

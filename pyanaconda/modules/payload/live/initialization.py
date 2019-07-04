@@ -27,7 +27,7 @@ from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.payload.utils import mount, unmount
-from pyanaconda.core.constants import TAR_SUFFIX, INSTALL_TREE, IMAGE_DIR
+from pyanaconda.core.constants import TAR_SUFFIX, IMAGE_DIR
 
 from pyanaconda.core.util import ProxyString, ProxyStringError, lowerASCII, \
     execWithRedirect
@@ -164,7 +164,7 @@ class SetupInstallationSourceImageTask(Task):
     * Mount the image.
     """
 
-    def __init__(self, url, proxy, checksum, noverifyssl, image_path, session):
+    def __init__(self, url, proxy, checksum, noverifyssl, image_path, image_mount_point, session):
         """Create a new task.
 
         :param url: installation source image url
@@ -175,6 +175,8 @@ class SetupInstallationSourceImageTask(Task):
         :type checksum: str
         :param image_path: destination path for image download
         :type image_path: str
+        :param image_mount_point: Mount point of the source image
+        :type image_mount_point: str
         :param session: Requests session for image download
         :type session:
         """
@@ -185,6 +187,7 @@ class SetupInstallationSourceImageTask(Task):
         self._noverifyssl = noverifyssl
         self._image_path = image_path
         self._session = session
+        self._image_mount_point = image_mount_point
 
     @property
     def name(self):
@@ -249,7 +252,7 @@ class SetupInstallationSourceImageTask(Task):
             log.error("%s does not match checksum of %s.", checksum, image_path)
             raise SourceSetupError("Checksum of image {} does not match".format(image_path))
 
-    def _mount_image(self, image_path):
+    def _mount_image(self, image_path, mount_point):
         # Work around inability to move shared filesystems.
         # Also, do not share the image mounts with /run bind-mounted to physical
         # target root during storage.mount_filesystems.
@@ -260,26 +263,26 @@ class SetupInstallationSourceImageTask(Task):
 
         # Mount the image and check to see if it is a LiveOS/*.img
         # style squashfs image. If so, move it to IMAGE_DIR and mount the real
-        # root image on INSTALL_TREE
-        rc = mount(image_path, INSTALL_TREE, fstype="auto", options="ro")
+        # root image on mount_point
+        rc = mount(image_path, mount_point, fstype="auto", options="ro")
         if rc != 0:
             log.error("mount error (%s) with %s", rc, image_path)
             raise SourceSetupError("Mount error {}".format(rc))
 
-        nested_image_files = glob.glob(INSTALL_TREE + "/LiveOS/*.img")
+        nested_image_files = glob.glob(mount_point + "/LiveOS/*.img")
         if nested_image_files:
-            # Mount the first .img in the directory on INSTALL_TREE
+            # Mount the first .img in the directory on mount_point
             nested_image = sorted(nested_image_files)[0]
 
             # move the mount to IMAGE_DIR
             os.makedirs(IMAGE_DIR, 0o755)
-            rc = execWithRedirect("mount", ["--move", INSTALL_TREE, IMAGE_DIR])
+            rc = execWithRedirect("mount", ["--move", mount_point, IMAGE_DIR])
             if rc != 0:
                 log.error("error %s moving mount", rc)
                 raise SourceSetupError("Mount error {}".format(rc))
 
             nested_image_path = IMAGE_DIR + "/LiveOS/" + os.path.basename(nested_image)
-            rc = mount(nested_image_path, INSTALL_TREE, fstype="auto", options="ro")
+            rc = mount(nested_image_path, mount_point, fstype="auto", options="ro")
             if rc != 0:
                 log.error("mount error (%s) with %s", rc, nested_image_path)
                 raise SourceSetupError("Mount error {} with {}".format(rc, nested_image_path))
@@ -290,7 +293,7 @@ class SetupInstallationSourceImageTask(Task):
         # self._update_kernel_version_list()
 
         # FIXME: This should be done by the module
-        #source = os.statvfs(INSTALL_TREE)
+        #source = os.statvfs(mount_point)
         #self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
     def run(self):
@@ -309,7 +312,7 @@ class SetupInstallationSourceImageTask(Task):
             self._check_image_sum(self._image_path, self._checksum)
 
         if not url_target_is_tarfile(self._url):
-            self._mount_image(self._image_path)
+            self._mount_image(self._image_path, self._image_mount_point)
 
         return self._image_path
 
@@ -317,7 +320,7 @@ class SetupInstallationSourceImageTask(Task):
 class PostInstallationLiveImageTask(Task):
     """Task to do post installation steps."""
 
-    def __init__(self, image_path, url, dest_path, kernel_version_list):
+    def __init__(self, image_path, url, dest_path, kernel_version_list, image_mount_point):
         """Create a new task.
 
         :param image_path: destination path for image download
@@ -328,12 +331,15 @@ class PostInstallationLiveImageTask(Task):
         :type dest_path: str
         :param kernel_version_list: list of kernel versions for updating of BLS configuration
         :type krenel_version_list: list(str)
+        :param image_mount_point: Mount point of the source image
+        :type image_mount_point: str
         """
         super().__init__()
         self._image_path = image_path
         self._url = url
         self._dest_path = dest_path
         self._kernel_version_list = kernel_version_list
+        self._image_mount_point = image_mount_point
 
     @property
     def name(self):
@@ -344,7 +350,7 @@ class PostInstallationLiveImageTask(Task):
         update_bls_configuration(self._dest_path, self._kernel_version_list)
 
         if not url_target_is_tarfile(self._url):
-            unmount(INSTALL_TREE, raise_exc=True)
+            unmount(self._image_mount_point, raise_exc=True)
             #FIXME: Payload and LiveOS stuff
             # FIXME: do we need a task for this?
             if os.path.exists(IMAGE_DIR + "/LiveOS"):
