@@ -1,4 +1,3 @@
-# Progress hub classes
 #
 # Copyright (C) 2011-2013  Red Hat, Inc.
 #
@@ -17,9 +16,6 @@
 # Red Hat, Inc.
 
 import gi
-
-from pyanaconda.core.timer import Timer
-
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
@@ -29,60 +25,61 @@ import os
 import sys
 import glob
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.timer import Timer
 from pyanaconda.localization import find_best_locale_match
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG, IPMI_FINISHED
+from pyanaconda.core.constants import THREAD_INSTALL, DEFAULT_LANG, IPMI_FINISHED
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
-from pyanaconda.ui.gui.hubs import Hub
+from pyanaconda.ui.gui.hubs.summary import SummaryHub
+from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import gtk_call_once
-from pyanaconda.core.async_utils import async_action_nowait
 
-__all__ = ["ProgressHub"]
+log = get_module_logger(__name__)
 
-class ProgressHub(Hub):
+__all__ = ["ProgressSpoke"]
+
+
+class ProgressSpoke(StandaloneSpoke):
     """
-       .. inheritance-diagram:: ProgressHub
+       .. inheritance-diagram:: ProgressSpoke
           :parts: 3
     """
+
     builderObjects = ["progressWindow"]
     mainWidgetName = "progressWindow"
-    uiFile = "hubs/progress.glade"
+    uiFile = "spokes/installation_progress.glade"
     helpFile = "ProgressHub.xml"
+
+    postForHub = SummaryHub
+    priority = 0
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
-
         self._totalSteps = 0
         self._currentStep = 0
-        self._configurationDone = False
         self._update_progress_timer = Timer()
         self._cycle_rnotes_timer = Timer()
 
-    def _do_configuration(self, widget=None, reenable_ransom=True):
-        from pyanaconda.installation import doConfiguration
-        from pyanaconda.threading import threadMgr, AnacondaThread
+        self._progressBar = self.builder.get_object("progressBar")
+        self._progressLabel = self.builder.get_object("progressLabel")
+        self._progressNotebook = self.builder.get_object("progressNotebook")
+        self._spinner = self.builder.get_object("progressSpinner")
+        self._rnotesPages = None
 
-        assert self._configurationDone == False
+    @property
+    def completed(self):
+        """This spoke is never completed, initially."""
+        return False
 
-        self._configurationDone = True
-
-        # Disable all personalization spokes
-        self.builder.get_object("progressWindow-scroll").set_sensitive(False)
-
-        if reenable_ransom:
-            self._start_ransom_notes()
-
-        self._restart_spinner()
-
-        self._update_progress_timer.timeout_msec(250, self._update_progress,
-                                                 self._configuration_done)
-        threadMgr.add(AnacondaThread(name=THREAD_CONFIGURATION, target=doConfiguration,
-                                     args=(self.storage, self.payload, self.data)))
+    def apply(self):
+        """There is nothing to apply."""
+        pass
 
     def _start_ransom_notes(self):
         # Adding this as a timeout below means it'll get called after 60
@@ -133,15 +130,12 @@ class ProgressHub(Hub):
 
         return True
 
-
-    def _configuration_done(self):
+    def _installation_done(self):
+        log.debug("The installation has finished.")
         # Configuration done, remove ransom notes timer
         # and switch to the Reboot page
-
         self._cycle_rnotes_timer.cancel()
-        self._progressNotebook.set_current_page(1)
-        self.window.set_may_continue(True)
-
+        self._progressNotebook.set_current_page(0)
         util.ipmi_report(IPMI_FINISHED)
 
         if conf.license.eula:
@@ -149,20 +143,16 @@ class ProgressHub(Hub):
                                "found at %s") % conf.license.eula)
             self.window.show_all()
 
+        # Enable the continue button.
+        self.window.set_may_continue(True)
+
+        # Hide the quit button.
+        quit_button = self.window.get_quit_button()
+        quit_button.hide()
+
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
             self.window.emit("continue-clicked")
-
-    def _install_done(self):
-        # package installation done, check personalization spokes
-        # and start the configuration step if all is ready
-        if not self._inSpoke and self.continuePossible:
-            self._do_configuration(reenable_ransom=False)
-        else:
-            # some mandatory spokes are not ready
-            # switch to configure and finish page
-            self._cycle_rnotes_timer.cancel()
-            self._progressNotebook.set_current_page(0)
 
     def _do_globs(self, path):
         return glob.glob(path + "/*.png") + \
@@ -218,28 +208,34 @@ class ProgressHub(Hub):
 
     def initialize(self):
         super().initialize()
+        # Disable the continue button.
+        self.window.set_may_continue(False)
 
-        if not conf.system.can_reboot and conf.target.is_hardware:
-            continueText = self.builder.get_object("rebootLabel")
-            continueText.set_text(_("%s is now successfully installed on your system and ready "
-                                    "for you to use!  When you are ready, reboot your system to start using it!"))
-            continueText.set_line_wrap(True)
-            self.window.get_continue_button().set_label(C_("GUI|Progress", "_Quit"))
+        # Set the label of the continue button.
+        if conf.target.is_hardware and conf.system.can_reboot:
+            continue_label = C_("GUI|Progress", "_Reboot System")
+        else:
+            continue_label = C_("GUI|Progress", "_Finish Installation")
 
-        self._progressBar = self.builder.get_object("progressBar")
-        self._progressLabel = self.builder.get_object("progressLabel")
-        self._progressNotebook = self.builder.get_object("progressNotebook")
-        self._spinner = self.builder.get_object("progressSpinner")
+        continue_button = self.window.get_continue_button()
+        continue_button.set_label(continue_label)
 
-        lbl = self.builder.get_object("configurationLabel")
-        lbl.set_text(_("%s is now successfully installed, but some configuration still needs to be done.\n"
-            "Finish it and then click the Finish configuration button please.") %
-            productName)
+        # Set the reboot label.
+        if conf.target.is_hardware:
+            continue_text = _(
+                "%s is now successfully installed and ready for you to use!\n"
+                "Go ahead and reboot your system to start using it!"
+            ) % productName
+        else:
+            continue_text = _(
+                "%s is now successfully installed and ready for you to use!\n"
+                "Go ahead and quit the application to start using it!"
+            ) % productName
 
-        lbl = self.builder.get_object("rebootLabel")
-        lbl.set_text(_("%s is now successfully installed and ready for you to use!\n"
-                "Go ahead and reboot to start using it!") % productName)
+        label = self.builder.get_object("rebootLabel")
+        label.set_text(continue_text)
 
+        # Set up the ransom notes.
         rnotes = self._get_rnotes()
         # Get the start of the pages we're about to add to the notebook
         rnotes_start = self._progressNotebook.get_n_pages()
@@ -251,8 +247,9 @@ class ProgressHub(Hub):
                 self._progressNotebook.append_page(img, None)
 
             # An infinite list of the page numbers containing ransom notes images.
-            self._rnotesPages = itertools.cycle(range(rnotes_start,
-                self._progressNotebook.get_n_pages()))
+            self._rnotesPages = itertools.cycle(
+                range(rnotes_start, self._progressNotebook.get_n_pages())
+            )
         else:
             # Add a blank page to the notebook and we'll just cycle to that
             # over and over again.
@@ -262,21 +259,25 @@ class ProgressHub(Hub):
             self._rnotesPages = itertools.cycle([rnotes_start])
 
     def refresh(self):
-        from pyanaconda.installation import doInstall
+        from pyanaconda.installation import run_installation
         from pyanaconda.threading import threadMgr, AnacondaThread
-
         super().refresh()
 
         self._start_ransom_notes()
-        self._update_progress_timer.timeout_msec(250, self._update_progress, self._install_done)
-        threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall,
-                                     args=(self.storage, self.payload, self.data)))
 
-    def _updateContinueButton(self):
-        if self._configurationDone:
-            self.window.set_may_continue(self.continuePossible)
-        else:
-            self.builder.get_object("configureButton").set_sensitive(self.continuePossible)
+        self._update_progress_timer.timeout_msec(
+            250,
+            self._update_progress,
+            self._installation_done
+        )
+
+        threadMgr.add(AnacondaThread(
+            name=THREAD_INSTALL,
+            target=run_installation,
+            args=(self.storage, self.payload, self.data))
+        )
+
+        log.debug("The installation has started.")
 
     def _init_progress_bar(self, steps):
         self._totalSteps = steps
@@ -296,8 +297,3 @@ class ProgressHub(Hub):
             return
 
         gtk_call_once(self._progressLabel.set_text, message)
-
-    @async_action_nowait
-    def _restart_spinner(self):
-        self._spinner.show()
-        self._spinner.start()
