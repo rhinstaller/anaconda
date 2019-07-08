@@ -290,6 +290,19 @@ def validate_label(label, fmt):
     return errors
 
 
+def suggest_device_name(storage, device):
+    """Get a suggestion for a device name.
+
+    :param storage: an instance of Blivet
+    :param device: a device to name
+    :return:
+    """
+    return storage.suggest_device_name(
+        swap=bool(device.format.type == "swap"),
+        mountpoint=getattr(device.format, "mountpoint", None)
+    )
+
+
 def revert_reformat(storage, device):
     """Revert reformat of the given device.
 

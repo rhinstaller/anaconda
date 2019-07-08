@@ -35,8 +35,8 @@ from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 
 from blivet import devicefactory
-from blivet.devicefactory import DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_PARTITION, \
-    DEVICE_TYPE_MD, DEVICE_TYPE_DISK, DEVICE_TYPE_LVM_THINP, SIZE_POLICY_AUTO
+from blivet.devicefactory import DEVICE_TYPE_BTRFS, DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD, \
+    DEVICE_TYPE_LVM_THINP, SIZE_POLICY_AUTO
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 from blivet.errors import StorageError
@@ -58,7 +58,7 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     get_device_luks_version, collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
-    collect_containers, validate_label
+    collect_containers, validate_label, suggest_device_name
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -131,18 +131,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._partitioning_scheme = DEFAULT_AUTOPART_TYPE
 
         self._device_disks = []
+        self._device_name = ""
+        self._device_type = None
+        self._device_suggested_name = ""
         self._device_container_name = None
         self._device_container_raid_level = None
         self._device_container_encrypted = False
         self._device_container_size = SIZE_POLICY_AUTO
-        self._device_name_dict = {
-            DEVICE_TYPE_LVM: None,
-            DEVICE_TYPE_MD: None,
-            DEVICE_TYPE_LVM_THINP: None,
-            DEVICE_TYPE_PARTITION: "",
-            DEVICE_TYPE_BTRFS: "",
-            DEVICE_TYPE_DISK: ""
-        }
 
         self._initialized = False
         self._accordion = None
@@ -1245,27 +1240,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         )
         self._typeCombo.set_active(idx)
 
-    def _update_device_name_dict(self, device, device_name):
+    def _get_device_name(self, device_type):
         """Update the dictionary of device names."""
-        device_type = self._get_current_device_type()
-
-        for _type in self._device_name_dict.keys():
-            if _type == device_type:
-                self._device_name_dict[_type] = device_name
-                continue
-            elif _type not in NAMED_DEVICE_TYPES:
-                continue
-
-            is_swap = device.format.type == "swap"
-            mountpoint = getattr(device.format, "mountpoint", None)
-
-            with ui_storage_logger():
-                name = self._storage_playground.suggest_device_name(
-                    swap=is_swap,
-                    mountpoint=mountpoint
-                )
-
-            self._device_name_dict[_type] = name
+        if device_type == self._device_type:
+            return self._device_name
+        elif device_type in NAMED_DEVICE_TYPES:
+            return self._device_suggested_name
+        else:
+            return ""
 
     def _set_devices_label(self):
         device_disks = self._device_disks
@@ -1305,8 +1287,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._set_devices_label()
 
-        device_name = getattr(use_dev, "lvname", use_dev.name)
-        self._nameEntry.set_text(device_name)
+        self._device_name = getattr(use_dev, "lvname", use_dev.name)
+        self._device_suggested_name = suggest_device_name(self._storage_playground, device)
+        self._nameEntry.set_text(self._device_name)
 
         self._mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
         fancy_set_sensitive(self._mountPointEntry, device.format.mountable)
@@ -1344,10 +1327,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Set up the device type combo.
         self._setup_device_type_combo(device)
-
-        # Update the device name dictionary.
-        self._update_device_name_dict(device, device_name)
-        self.on_device_type_changed(self._typeCombo)
 
         # You can't change the fstype in some cases.
         is_sensitive = self._reformatCheckbox.get_active() \
@@ -2340,7 +2319,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._populate_container(self._accordion.current_selector.device.raw_device)
 
         fancy_set_sensitive(self._nameEntry, new_type in NAMED_DEVICE_TYPES)
-        self._nameEntry.set_text(self._device_name_dict[new_type])
+        self._nameEntry.set_text(self._get_device_name(new_type))
         fancy_set_sensitive(self._sizeEntry, new_type != DEVICE_TYPE_BTRFS)
 
         self._update_fstype_combo(new_type)
