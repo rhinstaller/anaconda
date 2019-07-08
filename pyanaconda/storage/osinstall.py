@@ -358,7 +358,7 @@ class InstallerStorage(Blivet):
                 self._hidden_protected_disks.append(disk)
                 self.devicetree.hide(disk)
 
-    def unhide_protected_disks(self):
+    def show_protected_disks(self):
         """Show hidden protected disks."""
         while self._hidden_protected_disks:
             disk = self._hidden_protected_disks.pop()
