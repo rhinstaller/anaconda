@@ -25,5 +25,5 @@ __all__ = ["UserSettingsCategory"]
 class UserSettingsCategory(SpokeCategory):
     displayOnHubGUI = "SummaryHub"
     displayOnHubTUI = "SummaryHub"
-    sortOrder = 200
+    sortOrder = 400
     title = N_("USER SETTINGS")
