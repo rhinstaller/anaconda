@@ -2188,7 +2188,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # else really populate the container
         # set up the vg widgets and then bail out
-        container = get_container(device_type, device)
+        container = get_container(self._storage_playground, device_type, device)
         default_container_name = getattr(container, "name", None)
         container_exists = getattr(container, "exists", False)
         container_size_policy = getattr(container, "size_policy", SIZE_POLICY_AUTO)
