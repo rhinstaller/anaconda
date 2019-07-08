@@ -23,7 +23,5 @@ from pyanaconda.ui.categories import SpokeCategory
 __all__ = ["LocalizationCategory"]
 
 class LocalizationCategory(SpokeCategory):
-    displayOnHubGUI = "SummaryHub"
-    displayOnHubTUI = "SummaryHub"
     sortOrder = 100
     title = N_("LOCALIZATION")
