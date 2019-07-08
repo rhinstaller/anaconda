@@ -18,28 +18,6 @@
       <!-- column-name deviceType -->
       <column type="gint"/>
     </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Standard Partition</col>
-        <col id="1">DEVICE_TYPE_PARTITION</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Btrfs</col>
-        <col id="1">DEVICE_TYPE_BTRFS</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">LVM</col>
-        <col id="1">DEVICE_TYPE_LVM</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID</col>
-        <col id="1">DEVICE_TYPE_MD</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">LVM Thin Provisioning</col>
-        <col id="1">DEVICE_TYPE_LVM_THINP</col>
-      </row>
-    </data>
   </object>
   <object class="GtkListStore" id="fileSystemStore">
     <columns>
