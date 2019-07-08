@@ -23,7 +23,7 @@ from pyanaconda.ui.categories import SpokeCategory
 __all__ = ["UserSettingsCategory"]
 
 class UserSettingsCategory(SpokeCategory):
-    displayOnHubGUI = "ProgressHub"
+    displayOnHubGUI = "SummaryHub"
     displayOnHubTUI = "SummaryHub"
     sortOrder = 200
     title = N_("USER SETTINGS")
