@@ -505,7 +505,7 @@ def collect_device_types(device, disks):
 
     # Include md only if there are two or more disks.
     if len(disks) > 1:
-        supported_types.discard(devicefactory.DEVICE_TYPE_MD)
+        supported_types.add(devicefactory.DEVICE_TYPE_MD)
 
     # Include btrfs if it is both allowed and supported.
     fmt = get_format("btrfs")
