@@ -312,9 +312,9 @@ class AddDialog(GUIObject):
     # If the user enters a smaller size, the GUI changes it to this value
     MIN_SIZE_ENTRY = Size("1 MiB")
 
-    def __init__(self, *args, **kwargs):
-        self.mountpoints = kwargs.pop("mountpoints", [])
-        super().__init__(*args, **kwargs)
+    def __init__(self, data, mount_points):
+        super().__init__(data)
+        self.mountpoints = mount_points
         self.size = Size(0)
         self.mountpoint = ""
         self._error = False
