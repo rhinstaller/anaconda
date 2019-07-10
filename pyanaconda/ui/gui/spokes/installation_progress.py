@@ -14,26 +14,16 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
-
-import gi
-gi.require_version("Gtk", "3.0")
-
-from gi.repository import Gtk
-
-import itertools
-import os
 import sys
-import glob
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.timer import Timer
-from pyanaconda.localization import find_best_locale_match
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import THREAD_INSTALL, DEFAULT_LANG, IPMI_FINISHED
+from pyanaconda.core.constants import THREAD_INSTALL, IPMI_FINISHED
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
@@ -64,13 +54,11 @@ class ProgressSpoke(StandaloneSpoke):
         self._totalSteps = 0
         self._currentStep = 0
         self._update_progress_timer = Timer()
-        self._cycle_rnotes_timer = Timer()
 
         self._progressBar = self.builder.get_object("progressBar")
         self._progressLabel = self.builder.get_object("progressLabel")
         self._progressNotebook = self.builder.get_object("progressNotebook")
         self._spinner = self.builder.get_object("progressSpinner")
-        self._rnotesPages = None
 
     @property
     def completed(self):
@@ -80,12 +68,6 @@ class ProgressSpoke(StandaloneSpoke):
     def apply(self):
         """There is nothing to apply."""
         pass
-
-    def _start_ransom_notes(self):
-        # Adding this as a timeout below means it'll get called after 60
-        # seconds, so we need to do the first call manually.
-        self._cycle_rnotes()
-        self._cycle_rnotes_timer.timeout_sec(60, self._cycle_rnotes)
 
     def _update_progress(self, callback=None):
         from pyanaconda.progress import progressQ
@@ -132,16 +114,15 @@ class ProgressSpoke(StandaloneSpoke):
 
     def _installation_done(self):
         log.debug("The installation has finished.")
-        # Configuration done, remove ransom notes timer
-        # and switch to the Reboot page
-        self._cycle_rnotes_timer.cancel()
-        self._progressNotebook.set_current_page(0)
         util.ipmi_report(IPMI_FINISHED)
 
         if conf.license.eula:
             self.set_warning(_("Use of this product is subject to the license agreement "
                                "found at %s") % conf.license.eula)
             self.window.show_all()
+
+        # Show the reboot message.
+        self._progressNotebook.set_current_page(1)
 
         # Enable the continue button.
         self.window.set_may_continue(True)
@@ -153,58 +134,6 @@ class ProgressSpoke(StandaloneSpoke):
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
             self.window.emit("continue-clicked")
-
-    def _do_globs(self, path):
-        return glob.glob(path + "/*.png") + \
-               glob.glob(path + "/*.jpg") + \
-               glob.glob(path + "/*.svg")
-
-    def _get_rnotes(self):
-        # We first look for rnotes in paths containing the language, then in
-        # directories without the language component.  You know, just in case.
-
-        paths = ["/tmp/updates/pixmaps/rnotes/",
-                 "/tmp/product/pixmaps/rnotes/",
-                 "/usr/share/anaconda/pixmaps/rnotes/"]
-
-        all_lang_pixmaps = []
-        for path in paths:
-            all_lang_pixmaps += self._do_globs(path + "/*")
-
-        pixmap_langs = [pixmap.split(os.path.sep)[-2] for pixmap in all_lang_pixmaps]
-        best_lang = find_best_locale_match(os.environ["LANG"], pixmap_langs)
-
-        if not best_lang:
-            # nothing found, try the default language
-            best_lang = find_best_locale_match(DEFAULT_LANG, pixmap_langs)
-
-        if not best_lang:
-            # nothing found even for the default language, try non-localized rnotes
-            non_localized = []
-            for path in paths:
-                non_localized += self._do_globs(path)
-
-            return non_localized
-
-        best_lang_pixmaps = []
-        for path in paths:
-            best_lang_pixmaps += self._do_globs(path + best_lang)
-
-        return best_lang_pixmaps
-
-    def _cycle_rnotes(self):
-        # Change the ransom notes image every minute by grabbing the next
-        # image's filename.  Note that self._rnotesPages is an infinite list,
-        # so this will cycle through the images indefinitely.
-        try:
-            nxt = next(self._rnotesPages)
-        except StopIteration:
-            # there are no rnotes
-            pass
-        else:
-            self._progressNotebook.set_current_page(nxt)
-
-        return True
 
     def initialize(self):
         super().initialize()
@@ -235,35 +164,13 @@ class ProgressSpoke(StandaloneSpoke):
         label = self.builder.get_object("rebootLabel")
         label.set_text(continue_text)
 
-        # Set up the ransom notes.
-        rnotes = self._get_rnotes()
-        # Get the start of the pages we're about to add to the notebook
-        rnotes_start = self._progressNotebook.get_n_pages()
-        if rnotes:
-            # Add a new page in the notebook for each ransom note image.
-            for f in rnotes:
-                img = Gtk.Image.new_from_file(f)
-                img.show()
-                self._progressNotebook.append_page(img, None)
-
-            # An infinite list of the page numbers containing ransom notes images.
-            self._rnotesPages = itertools.cycle(
-                range(rnotes_start, self._progressNotebook.get_n_pages())
-            )
-        else:
-            # Add a blank page to the notebook and we'll just cycle to that
-            # over and over again.
-            blank = Gtk.Box()
-            blank.show()
-            self._progressNotebook.append_page(blank, None)
-            self._rnotesPages = itertools.cycle([rnotes_start])
+        # Don't show the reboot message.
+        self._progressNotebook.set_current_page(0)
 
     def refresh(self):
         from pyanaconda.installation import run_installation
         from pyanaconda.threading import threadMgr, AnacondaThread
         super().refresh()
-
-        self._start_ransom_notes()
 
         self._update_progress_timer.timeout_msec(
             250,
