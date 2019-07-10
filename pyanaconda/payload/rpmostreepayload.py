@@ -277,7 +277,7 @@ class RPMOSTreePayload(Payload):
         assert len(deployments) > 0
         deployment = deployments[0]
         deployment_path = sysroot.get_deployment_directory(deployment)
-        util.setSysroot(deployment_path.get_path())
+        util.set_system_root(deployment_path.get_path())
 
         try:
             self._copy_bootloader_data()

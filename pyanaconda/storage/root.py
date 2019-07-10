@@ -51,7 +51,7 @@ def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
                                  options="%s,%s" % (root_device.format.options, read_only))
 
     # Set up the sysroot.
-    util.setSysroot(root_path)
+    util.set_system_root(root_path)
 
     # Mount the filesystems.
     storage.fsset.parse_fstab(chroot=root_path)

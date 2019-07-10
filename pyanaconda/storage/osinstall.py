@@ -411,14 +411,14 @@ class InstallerStorage(Blivet):
         self.fsset.mount_filesystems(root_path=root_path)
 
         # Set up the sysroot.
-        util.setSysroot(root_path)
+        util.set_system_root(root_path)
 
     def umount_filesystems(self, swapoff=True):
         # Unmount the root and the filesystems.
         self.fsset.umount_filesystems(swapoff=swapoff)
 
         # Unmount the sysroot.
-        util.setSysroot(None)
+        util.set_system_root(None)
 
     def parse_fstab(self, chroot=None):
         self.fsset.parse_fstab(chroot=chroot)

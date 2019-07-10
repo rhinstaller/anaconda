@@ -85,12 +85,21 @@ def augmentEnv():
     return env
 
 
-def setSysroot(path):
+def set_system_root(path):
     """Change the OS root path.
-       :param path: The new OS root path
 
-    This should only be used by Payload subclasses which install operating
-    systems to non-default roots.
+    The path defined by conf.target.system_root will be bind mounted at the given
+    path, so conf.target.system_root can be used to access the root of the new OS.
+
+    We always call it after the root device is mounted at conf.target.physical_root
+    to set the physical root as the current system root.
+
+    Then, it can be used by Payload subclasses which install operating systems to
+    non-default roots.
+
+    If the given path is None, then conf.target.system_root is only unmounted.
+
+    :param path: the new OS root path or None
     """
     sysroot = conf.target.system_root
 
