@@ -402,7 +402,7 @@ class InstallerStorage(Blivet):
         return template
 
     def turn_on_swap(self):
-        self.fsset.turn_on_swap(root_path=util.getSysroot())
+        self.fsset.turn_on_swap(root_path=conf.target.system_root)
 
     def mount_filesystems(self):
         root_path = conf.target.physical_root
@@ -432,7 +432,7 @@ class InstallerStorage(Blivet):
     def make_mtab(self, chroot=None):
         path = "/etc/mtab"
         target = "/proc/self/mounts"
-        chroot = chroot or util.getSysroot()
+        chroot = chroot or conf.target.system_root
         path = os.path.normpath("%s/%s" % (chroot, path))
 
         if os.path.islink(path):

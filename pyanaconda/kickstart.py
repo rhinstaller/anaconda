@@ -226,8 +226,8 @@ class Authselect(RemovedCommand):
 
     @property
     def fingerprint_supported(self):
-        return (os.path.exists(util.getSysroot() + "/lib64/security/pam_fprintd.so") or
-                os.path.exists(util.getSysroot() + "/lib/security/pam_fprintd.so"))
+        return (os.path.exists(conf.target.system_root + "/lib64/security/pam_fprintd.so") or
+                os.path.exists(conf.target.system_root + "/lib/security/pam_fprintd.so"))
 
     def setup(self):
         security_proxy = SECURITY.get_proxy()
@@ -264,7 +264,7 @@ class Authselect(RemovedCommand):
             )
 
     def _run(self, cmd, args, required=True):
-        if not os.path.lexists(util.getSysroot() + cmd):
+        if not os.path.lexists(conf.target.system_root + cmd):
             if required:
                 msg = _("%s is missing. Cannot setup authentication.") % cmd
                 raise KickstartError(msg)
@@ -345,7 +345,7 @@ class Realm(RemovedCommand):
             # no explicit password arg using implicit --no-password
             pw_args = ["--no-password"]
 
-        argv = ["join", "--install", util.getSysroot(), "--verbose"] + pw_args + realm.join_options
+        argv = ["join", "--install", conf.target.system_root, "--verbose"] + pw_args + realm.join_options
         rc = -1
         try:
             rc = util.execWithRedirect("realm", argv)
@@ -443,7 +443,7 @@ class Network(COMMANDS.Network):
                        if dev.device_name in fcoe_nics]
         overwrite = network.can_overwrite_configuration(payload)
         network_proxy = NETWORK.get_proxy()
-        task_path = network_proxy.InstallNetworkWithTask(util.getSysroot(),
+        task_path = network_proxy.InstallNetworkWithTask(conf.target.system_root,
                                                          fcoe_ifaces,
                                                          overwrite)
         task_proxy = NETWORK.get_proxy(task_path)
@@ -595,13 +595,13 @@ class Timezone(RemovedCommand):
                                  "back to default (America/New_York).", kickstart_timezone)
             timezone_proxy.SetTimezone("America/New_York")
 
-        timezone.write_timezone_config(timezone_proxy, util.getSysroot())
+        timezone.write_timezone_config(timezone_proxy, conf.target.system_root)
 
         # write out NTP configuration (if set) and --nontp is not used
         kickstart_ntp_servers = timezone_proxy.NTPServers
 
         if timezone_proxy.NTPEnabled and kickstart_ntp_servers:
-            chronyd_conf_path = os.path.normpath(util.getSysroot() + ntp.NTP_CONFIG_FILE)
+            chronyd_conf_path = os.path.normpath(conf.target.system_root + ntp.NTP_CONFIG_FILE)
             pools, servers = ntp.internal_to_pools_and_servers(kickstart_ntp_servers)
             if os.path.exists(chronyd_conf_path):
                 timezone_log.debug("Modifying installed chrony configuration")
@@ -668,7 +668,7 @@ class Keyboard(RemovedCommand):
 
     def execute(self):
         localization_proxy = LOCALIZATION.get_proxy()
-        keyboard.write_keyboard_config(localization_proxy, util.getSysroot())
+        keyboard.write_keyboard_config(localization_proxy, conf.target.system_root)
 
 
 ###
@@ -972,7 +972,7 @@ def runPostScripts(scripts):
 
     script_log.info("Running kickstart %%post script(s)")
     for script in postScripts:
-        script.run(util.getSysroot())
+        script.run(conf.target.system_root)
     script_log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):

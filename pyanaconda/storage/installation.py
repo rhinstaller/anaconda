@@ -25,7 +25,7 @@ from gi.repository import BlockDev as blockdev
 from blivet import util as blivet_util, arch
 from blivet.errors import FSResizeError, FormatResizeError
 
-from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.objects import FCOE, ZFCP, ISCSI
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -162,7 +162,7 @@ def write_storage_configuration(storage, sysroot=None):
     :param sysroot: a path to the target OS installation
     """
     if sysroot is None:
-        sysroot = util.getSysroot()
+        sysroot = conf.target.system_root
 
     if not os.path.isdir("%s/etc" % sysroot):
         os.mkdir("%s/etc" % sysroot)

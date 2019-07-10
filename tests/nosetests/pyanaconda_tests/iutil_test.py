@@ -830,7 +830,7 @@ class MiscTests(unittest.TestCase):
 
     def sysroot_test(self):
         self.assertEqual(conf.target.physical_root, "/mnt/sysimage")
-        self.assertEqual(util.getSysroot(), "/mnt/sysroot")
+        self.assertEqual(conf.target.system_root, "/mnt/sysroot")
 
     def decode_bytes_test(self):
         self.assertEqual("STRING", util.decode_bytes("STRING"))

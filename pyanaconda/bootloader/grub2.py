@@ -225,7 +225,7 @@ class GRUB2(BootLoader):
 
     def write_device_map(self):
         """Write out a device map containing all supported devices."""
-        map_path = os.path.normpath(util.getSysroot() + self.device_map_file)
+        map_path = os.path.normpath(conf.target.system_root + self.device_map_file)
         if os.access(map_path, os.R_OK):
             os.rename(map_path, map_path + ".anacbak")
 
@@ -250,7 +250,7 @@ class GRUB2(BootLoader):
         dev_map.close()
 
     def write_defaults(self):
-        defaults_file = "%s%s" % (util.getSysroot(), self.defaults_file)
+        defaults_file = "%s%s" % (conf.target.system_root, self.defaults_file)
         defaults = open(defaults_file, "w+")
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
         defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\"\n")
@@ -270,7 +270,7 @@ class GRUB2(BootLoader):
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
         #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
 
-        if self.use_bls and os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+        if self.use_bls and os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
             log.warning("BLS support disabled due new-kernel-pkg being present")
             self.use_bls = False
 
@@ -292,7 +292,7 @@ class GRUB2(BootLoader):
         os.close(pwrite)
         buf = util.execWithCapture("grub2-mkpasswd-pbkdf2", [],
                                    stdin=pread,
-                                   root=util.getSysroot())
+                                   root=conf.target.system_root)
         os.close(pread)
         self.encrypted_password = buf.split()[-1].strip()
         if not self.encrypted_password.startswith("grub.pbkdf2."):
@@ -302,7 +302,7 @@ class GRUB2(BootLoader):
         if not self.password and not self.encrypted_password:
             return
 
-        users_file = "%s%s/%s" % (util.getSysroot(), self.config_dir, self._passwd_file)
+        users_file = "%s%s/%s" % (conf.target.system_root, self.config_dir, self._passwd_file)
         header = util.open_with_perm(users_file, "w", 0o700)
         # XXX FIXME: document somewhere that the username is "root"
         self._encrypt_password()
@@ -327,7 +327,7 @@ class GRUB2(BootLoader):
 
         # make sure the default entry is the OS we are installing
         if self.default is not None:
-            machine_id_path = util.getSysroot() + "/etc/machine-id"
+            machine_id_path = conf.target.system_root + "/etc/machine-id"
             if not os.access(machine_id_path, os.R_OK):
                 log.error("failed to read machine-id, default entry not set")
                 return
@@ -421,7 +421,7 @@ class GRUB2(BootLoader):
                     log.info("bootloader.py: mbr will be updated for grub2")
 
             rc = util.execWithRedirect("grub2-install", grub_args,
-                                       root=util.getSysroot(),
+                                       root=conf.target.system_root,
                                        env_prune=['MALLOC_PERTURB_'])
             if rc:
                 raise BootLoaderError("boot loader install failed")
@@ -603,7 +603,7 @@ class IPSeriesGRUB2(GRUB2):
     def write_defaults(self):
         super().write_defaults()
 
-        defaults_file = "%s%s" % (util.getSysroot(), self.defaults_file)
+        defaults_file = "%s%s" % (conf.target.system_root, self.defaults_file)
         defaults = open(defaults_file, "a+")
         # The terminfo's X and Y size, and output location could change in the future
         defaults.write("GRUB_TERMINFO=\"terminfo -g 80x24 console\"\n")

@@ -23,6 +23,7 @@ import os.path
 import subprocess
 from contextlib import contextmanager
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import strip_accents
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
@@ -247,10 +248,10 @@ def create_group(group_name, gid=None, root=None):
     :param int gid: The GID for the new user. If none is given, the next available one is used.
     :param str root: The directory of the system to create the new user in.
                      homedir will be interpreted relative to this. Defaults
-                     to util.getSysroot().
+                     to conf.target.system_root.
     """
     if root is None:
-        root = util.getSysroot()
+        root = conf.target.system_root
 
     if _getgrnam(group_name, root):
         raise ValueError("Group %s already exists" % group_name)
@@ -300,7 +301,7 @@ def create_user(username, password=False, is_crypted=False, lock=False,
                       Defaults to "".
     :param str root: The directory of the system to create the new user in.
                      The homedir option will be interpreted relative to this.
-                     Defaults to util.getSysroot().
+                     Defaults to conf.target.system_root.
     """
 
     # resolve the optional arguments that need a default that can't be
@@ -314,7 +315,7 @@ def create_user(username, password=False, is_crypted=False, lock=False,
         groups = []
 
     if root is None:
-        root = util.getSysroot()
+        root = conf.target.system_root
 
     if check_user_exists(username, root):
         raise ValueError("User %s already exists" % username)
@@ -427,7 +428,7 @@ def check_user_exists(username, root=None):
     :param str root: target system sysroot path
     """
     if root is None:
-        root = util.getSysroot()
+        root = conf.target.system_root
 
     if _getpwnam(username, root):
         return True
@@ -484,7 +485,7 @@ def set_user_ssh_key(username, key, root=None):
     :param str root: target system sysroot path
     """
     if root is None:
-        root = util.getSysroot()
+        root = conf.target.system_root
 
     pwent = _getpwnam(username, root)
     if not pwent:

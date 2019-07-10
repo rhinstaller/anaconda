@@ -16,7 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.install_manager.installation import SystemInstallationTask
 
@@ -62,7 +62,7 @@ class InstallManager(object):
         tasks = []
 
         # FIXME: We need to figure out how to handle the sysroot.
-        sysroot = util.getSysroot()
+        sysroot = conf.target.system_root
 
         if not self._module_observers:
             log.error("Starting installation without available modules.")

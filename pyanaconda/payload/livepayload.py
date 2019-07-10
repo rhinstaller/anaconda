@@ -110,7 +110,7 @@ class LiveImagePayload(Payload):
         while self.pct < 100:
             dest_size = 0
             for mnt in mountpoints:
-                mnt_stat = os.statvfs(util.getSysroot() + mnt)
+                mnt_stat = os.statvfs(conf.target.system_root + mnt)
                 dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
             if dest_size >= self._adj_size:
                 dest_size -= self._adj_size
@@ -143,7 +143,7 @@ class LiveImagePayload(Payload):
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
                 "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
-                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", util.getSysroot()]
+                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", conf.target.system_root]
         try:
             rc = util.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
@@ -173,11 +173,11 @@ class LiveImagePayload(Payload):
         # Always make sure the new system has a new machine-id, it won't boot without it
         # (and nor will some of the subsequent commands like grub2-mkconfig and kernel-install)
         log.info("Generating machine ID")
-        if os.path.exists(util.getSysroot() + "/etc/machine-id"):
-            os.unlink(util.getSysroot() + "/etc/machine-id")
+        if os.path.exists(conf.target.system_root + "/etc/machine-id"):
+            os.unlink(conf.target.system_root + "/etc/machine-id")
         util.execInSysroot("systemd-machine-id-setup", [])
 
-        if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+        if os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
             use_nkp = True
         else:
             log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
@@ -189,8 +189,8 @@ class LiveImagePayload(Payload):
                 util.execInSysroot("new-kernel-pkg",
                                    ["--rpmposttrans", kernel])
             else:
-                files = glob.glob(util.getSysroot() + "/etc/kernel/postinst.d/*")
-                srlen = len(util.getSysroot())
+                files = glob.glob(conf.target.system_root + "/etc/kernel/postinst.d/*")
+                srlen = len(conf.target.system_root)
                 files = sorted([f[srlen:] for f in files
                                 if os.access(f, os.X_OK)])
                 for file in files:
@@ -205,12 +205,12 @@ class LiveImagePayload(Payload):
         super().post_install()
 
         # Not using BLS configuration, skip it
-        if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+        if os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
             return
 
         # Remove any existing BLS entries, they will not match the new system's
         # machine-id or /boot mountpoint.
-        for file in glob.glob(util.getSysroot() + "/boot/loader/entries/*.conf"):
+        for file in glob.glob(conf.target.system_root + "/boot/loader/entries/*.conf"):
             log.info("Removing old BLS entry: %s", file)
             os.unlink(file)
 
@@ -286,7 +286,7 @@ class LiveImageKSPayload(LiveImagePayload):
         super().__init__(*args, **kwargs)
         self._min_size = 0
         self._proxies = {}
-        self.image_path = util.getSysroot() + "/disk.img"
+        self.image_path = conf.target.system_root + "/disk.img"
 
     @property
     def is_tarfile(self):
@@ -523,7 +523,7 @@ class LiveImageKSPayload(LiveImagePayload):
                 "--exclude", "dev/*", "--exclude", "proc/*", "--exclude", "tmp/*",
                 "--exclude", "sys/*", "--exclude", "run/*", "--exclude", "boot/*rescue*",
                 "--exclude", "boot/loader", "--exclude", "boot/efi/loader",
-                "--exclude", "etc/machine-id", "-xaf", self.image_path, "-C", util.getSysroot()]
+                "--exclude", "etc/machine-id", "-xaf", self.image_path, "-C", conf.target.system_root]
         try:
             rc = util.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:

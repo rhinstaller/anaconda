@@ -123,15 +123,15 @@ def _pick_mpoint(df, download_size, install_size, download_only):
         '/tmp',
         '/',
         '/var/tmp',
-        util.getSysroot(),
-        os.path.join(util.getSysroot(), 'home'),
-        os.path.join(util.getSysroot(), 'tmp'),
-        os.path.join(util.getSysroot(), 'var'),
+        conf.target.system_root,
+        os.path.join(conf.target.system_root, 'home'),
+        os.path.join(conf.target.system_root, 'tmp'),
+        os.path.join(conf.target.system_root, 'var'),
     }
 
     requested = download_size
     requested_root = requested + install_size
-    root_mpoint = util.getSysroot()
+    root_mpoint = conf.target.system_root
     log.debug('Input mount points: %s', df)
     log.info('Estimated size: download %s & install %s', requested,
              (requested_root - requested))
@@ -668,7 +668,7 @@ class DNFPayload(payload.PackagePayload):
             self._base.conf.module_platform_id = platform_id
 
         config.releasever = self._get_release_version(None)
-        config.installroot = util.getSysroot()
+        config.installroot = conf.target.system_root
         config.prepend_installroot('persistdir')
 
         self._base.conf.substitutions.update_from_etc(config.installroot)
@@ -828,7 +828,7 @@ class DNFPayload(payload.PackagePayload):
 
         download_size = self._download_space
         valid_points = _df_map()
-        root_mpoint = util.getSysroot()
+        root_mpoint = conf.target.system_root
         for (key, val) in self.storage.mountpoints.items():
             new_key = key
             if key.endswith('/'):
@@ -1380,7 +1380,7 @@ class DNFPayload(payload.PackagePayload):
                     continue
             except (dnf.exceptions.RepoError, KeyError):
                 continue
-            repo_path = util.getSysroot() + YUM_REPOS_DIR + "%s.repo" % repo.id
+            repo_path = conf.target.system_root + YUM_REPOS_DIR + "%s.repo" % repo.id
             try:
                 log.info("Writing %s.repo to target system.", repo.id)
                 self._write_dnf_repo(repo, repo_path)

@@ -80,18 +80,9 @@ def setenv(name, value):
 
 def augmentEnv():
     env = os.environ.copy()
-    env.update({"ANA_INSTALL_PATH": getSysroot()})
+    env.update({"ANA_INSTALL_PATH": conf.target.system_root})
     env.update(_child_env)
     return env
-
-
-def getSysroot():
-    """Returns the path to the target OS installation.
-
-    For ordinary package-based installations, this is the same as the
-    target root.
-    """
-    return conf.target.system_root
 
 
 def setSysroot(path):
@@ -101,7 +92,7 @@ def setSysroot(path):
     This should only be used by Payload subclasses which install operating
     systems to non-default roots.
     """
-    sysroot = getSysroot()
+    sysroot = conf.target.system_root
 
     if sysroot == path:
         return
@@ -155,7 +146,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
     # configured system root.
     target_root = root
     if target_root == conf.target.physical_root:
-        target_root = getSysroot()
+        target_root = conf.target.system_root
 
     # Check for and save a preexec_fn argument
     preexec_fn = kwargs.pop("preexec_fn", None)
@@ -344,7 +335,7 @@ def execInSysroot(command, argv, stdin=None, root=None):
         :return: The return code of the command
     """
     if root is None:
-        root = getSysroot()
+        root = conf.target.system_root
 
     return execWithRedirect(command, argv, stdin=stdin, root=root)
 
@@ -590,7 +581,7 @@ def reIPL(ipldev):
 
 
 def resetRpmDb():
-    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % getSysroot()):
+    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % conf.target.system_root):
         try:
             os.unlink(rpmfile)
         except OSError as e:
@@ -677,7 +668,7 @@ def enable_service(service, root=None):
     :param str root: path to the sysroot or None to use default sysroot path
     """
     if root is None:
-        root = getSysroot()
+        root = conf.target.system_root
 
     ret = _run_systemctl("enable", service, root=root)
 
@@ -692,7 +683,7 @@ def disable_service(service, root=None):
     :param str root: path to the sysroot or None to use default sysroot path
     """
     if root is None:
-        root = getSysroot()
+        root = conf.target.system_root
 
     # we ignore the error so we can disable services even if they don't
     # exist, because that's effectively disabled
@@ -1289,7 +1280,7 @@ def sysroot_path(path):
        :returns: sysrooted path
        :rtype: str
     """
-    return os.path.join(getSysroot(), path.lstrip(os.path.sep))
+    return os.path.join(conf.target.system_root, path.lstrip(os.path.sep))
 
 
 def save_screenshots():
