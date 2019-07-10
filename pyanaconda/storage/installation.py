@@ -173,14 +173,14 @@ def write_storage_configuration(storage, sysroot=None):
     storage.fsset.write()
 
     iscsi_proxy = STORAGE.get_proxy(ISCSI)
-    iscsi_proxy.WriteConfiguration(sysroot)
+    iscsi_proxy.WriteConfiguration()
 
     fcoe_proxy = STORAGE.get_proxy(FCOE)
-    fcoe_proxy.WriteConfiguration(sysroot)
+    fcoe_proxy.WriteConfiguration()
 
     if arch.is_s390():
         zfcp_proxy = STORAGE.get_proxy(ZFCP)
-        zfcp_proxy.WriteConfiguration(sysroot)
+        zfcp_proxy.WriteConfiguration()
 
     _write_dasd_conf(storage, sysroot)
 

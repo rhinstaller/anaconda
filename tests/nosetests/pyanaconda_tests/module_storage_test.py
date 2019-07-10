@@ -18,17 +18,16 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import logging
-import tempfile
 import unittest
 from unittest.mock import patch, call, Mock
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
     patch_dbus_publish_object
 
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-
 from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
@@ -138,9 +137,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
             WriteConfigurationTask
         ]
 
-        # Get the installation tasks.
-        with tempfile.TemporaryDirectory() as sysroot:
-            task_paths = self.storage_interface.InstallWithTasks(sysroot)
+        task_paths = self.storage_interface.InstallWithTasks()
 
         # Check the number of installation tasks.
         task_number = len(task_classes)
@@ -1295,9 +1292,8 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
     def write_configuration_test(self, iscsi):
         """Test WriteConfiguration."""
-        with tempfile.TemporaryDirectory() as root:
-            self.iscsi_interface.WriteConfiguration(root)
-            iscsi.write.assert_called_once_with(root, None)
+        self.iscsi_interface.WriteConfiguration()
+        iscsi.write.assert_called_once_with(conf.target.system_root, None)
 
 
 class FCOEInterfaceTestCase(unittest.TestCase):
@@ -1340,10 +1336,8 @@ class FCOEInterfaceTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
     def write_configuration_test(self, fcoe):
         """Test WriteConfiguration."""
-
-        with tempfile.TemporaryDirectory() as root:
-            self.fcoe_interface.WriteConfiguration(root)
-            fcoe.write.assert_called_once_with(root)
+        self.fcoe_interface.WriteConfiguration()
+        fcoe.write.assert_called_once_with(conf.target.system_root)
 
 
 class FCOETasksTestCase(unittest.TestCase):
@@ -1402,10 +1396,8 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.zfcp.zfcp.zfcp')
     def write_configuration_test(self, zfcp):
         """Test WriteConfiguration."""
-
-        with tempfile.TemporaryDirectory() as root:
-            self.zfcp_interface.WriteConfiguration(root)
-            zfcp.write.assert_called_once_with(root)
+        self.zfcp_interface.WriteConfiguration()
+        zfcp.write.assert_called_once_with(conf.target.system_root)
 
 
 class ZFCPTasksTestCase(unittest.TestCase):

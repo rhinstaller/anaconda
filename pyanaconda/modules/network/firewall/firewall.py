@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -205,14 +206,13 @@ class FirewallModule(KickstartBaseModule):
         self.disabled_services_changed.emit()
         log.debug("Services that will be explicitly disabled on the firewall: %s", self._disabled_services)
 
-    def install_with_task(self, sysroot):
+    def install_with_task(self):
         """Return the installation tasks of this module.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks
         """
         firewall_configuration_task = ConfigureFirewallTask(
-                sysroot=sysroot,
+                sysroot=conf.target.system_root,
                 firewall_mode=self.firewall_mode,
                 enabled_services=self.enabled_services,
                 disabled_services=self.disabled_services,

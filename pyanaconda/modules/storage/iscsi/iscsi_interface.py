@@ -145,9 +145,9 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         node = Node.from_structure(node)
         return self.implementation.get_dracut_arguments(node)
 
-    def WriteConfiguration(self, sysroot: Str):
+    def WriteConfiguration(self):
         """Write the configuration to sysroot.
 
         FIXME: This is just a temporary method.
         """
-        self.implementation.write_configuration(sysroot)
+        self.implementation.write_configuration()

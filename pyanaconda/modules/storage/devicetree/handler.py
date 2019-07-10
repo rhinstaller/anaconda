@@ -182,17 +182,15 @@ class DeviceTreeHandler(ABC):
         """
         self.storage.roots = roots
 
-    def mount_existing_system_with_task(self, sysroot, device_name, read_only):
+    def mount_existing_system_with_task(self, device_name, read_only):
         """Mount existing GNU/Linux installation.
 
-        :param sysroot: a path to the root of the system
         :param device_name: a name of the root device
         :param read_only: mount the system in read-only mode
         :return: a path to the task
         """
         task = MountExistingSystemTask(
             storage=self.storage,
-            sysroot=sysroot,
             device=self._get_device(device_name),
             read_only=read_only
         )

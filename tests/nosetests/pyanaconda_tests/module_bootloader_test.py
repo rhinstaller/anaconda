@@ -181,31 +181,27 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
         storage = Mock()
-        sysroot = "/mnt/sysroot"
         version = "4.17.7-200.fc28.x86_64"
 
         self.bootloader_module.on_storage_reset(storage)
-        task_path = self.bootloader_interface.ConfigureWithTask(sysroot, [version])
+        task_path = self.bootloader_interface.ConfigureWithTask([version])
 
         obj = check_task_creation(self, task_path, publisher, ConfigureBootloaderTask)
 
         self.assertEqual(obj.implementation._storage, storage)
-        self.assertEqual(obj.implementation._sysroot, sysroot)
         self.assertEqual(obj.implementation._versions, [version])
 
     @patch_dbus_publish_object
     def install_with_task_test(self, publisher):
         """Test InstallWithTask."""
         storage = Mock()
-        sysroot = "/mnt/sysroot"
 
         self.bootloader_module.on_storage_reset(storage)
-        task_path = self.bootloader_interface.InstallWithTask(sysroot)
+        task_path = self.bootloader_interface.InstallWithTask()
 
         obj = check_task_creation(self, task_path, publisher, InstallBootloaderTask)
 
         self.assertEqual(obj.implementation._storage, storage)
-        self.assertEqual(obj.implementation._sysroot, sysroot)
 
 
 class BootloaderTasksTestCase(unittest.TestCase):
@@ -241,19 +237,13 @@ class BootloaderTasksTestCase(unittest.TestCase):
         bootloader = Mock()
         storage = Mock(bootloader=bootloader)
 
-        with tempfile.TemporaryDirectory() as root:
-            InstallBootloaderTask(storage, BootloaderMode.DISABLED, root).run()
-
+        InstallBootloaderTask(storage, BootloaderMode.DISABLED).run()
         bootloader.write.assert_not_called()
 
-        with tempfile.TemporaryDirectory() as root:
-            InstallBootloaderTask(storage, BootloaderMode.SKIPPED, root).run()
-
+        InstallBootloaderTask(storage, BootloaderMode.SKIPPED).run()
         bootloader.write.assert_not_called()
 
-        with tempfile.TemporaryDirectory() as root:
-            InstallBootloaderTask(storage, BootloaderMode.ENABLED, root).run()
-
+        InstallBootloaderTask(storage, BootloaderMode.ENABLED).run()
         bootloader.set_boot_args.assert_called_once()
         bootloader.write.assert_called_once()
 

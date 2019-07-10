@@ -1563,7 +1563,7 @@ class UsersModuleTasksTestCase(unittest.TestCase):
     def root_ssh_password_config_task_basic_test(self, publisher):
         """Test the root password SSH login configuration task - basic."""
         self.users_interface.SetRootPasswordSSHLoginAllowed(True)
-        task_path = self.users_interface.InstallWithTasks("/")[4]
+        task_path = self.users_interface.InstallWithTasks()[4]
 
         publisher.assert_called()
 
@@ -1573,7 +1573,6 @@ class UsersModuleTasksTestCase(unittest.TestCase):
         self.assertEqual(task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureRootPasswordSSHLoginTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._password_allowed, True)
 
     def root_ssh_password_config_task_enabled_test(self):

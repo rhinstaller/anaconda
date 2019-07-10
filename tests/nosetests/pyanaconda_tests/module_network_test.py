@@ -200,14 +200,12 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module._get_onboot_ifaces_by_policy = Mock(return_value=["ens4"])
 
         task_path = self.network_interface.InstallNetworkWithTask(
-            "/mnt/sysimage",
             ["ens3"],
             False,
         )
 
         obj = check_task_creation(self, task_path, publisher, NetworkInstallationTask)
 
-        self.assertEqual(obj.implementation._sysroot, "/mnt/sysimage")
         self.assertEqual(obj.implementation._hostname, "my_hostname")
         self.assertEqual(obj.implementation._disable_ipv6, True)
         self.assertEqual(obj.implementation._overwrite, False)
@@ -677,11 +675,10 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def firewall_config_task_basic_test(self, publisher):
         """Test the Firewall configuration task - basic."""
-        task_path = self.firewall_interface.InstallWithTask("/")
+        task_path = self.firewall_interface.InstallWithTask()
 
         obj = check_task_creation(self, task_path, publisher, ConfigureFirewallTask)
 
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._firewall_mode, FirewallMode.DEFAULT)
         self.assertEqual(obj.implementation._enabled_services, [])
         self.assertEqual(obj.implementation._disabled_services, [])

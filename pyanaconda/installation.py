@@ -91,14 +91,14 @@ def _prepare_configuration(storage, payload, ksdata):
     os_config.append(Task("Configure authselect", ksdata.authselect.execute))
 
     security_proxy = SECURITY.get_proxy()
-    security_dbus_tasks = security_proxy.InstallWithTasks(conf.target.system_root)
+    security_dbus_tasks = security_proxy.InstallWithTasks()
     # add one Task instance per DBUS task
     for dbus_task in security_dbus_tasks:
         task_proxy = SECURITY.get_proxy(dbus_task)
         os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
 
     services_proxy = SERVICES.get_proxy()
-    services_dbus_tasks = services_proxy.InstallWithTasks(conf.target.system_root)
+    services_dbus_tasks = services_proxy.InstallWithTasks()
     # add one Task instance per DBUS task
     for dbus_task in services_dbus_tasks:
         task_proxy = SERVICES.get_proxy(dbus_task)
@@ -108,14 +108,14 @@ def _prepare_configuration(storage, payload, ksdata):
     os_config.append(Task("Configure timezone", ksdata.timezone.execute))
 
     localization_proxy = LOCALIZATION.get_proxy()
-    localization_dbus_tasks = localization_proxy.InstallWithTasks(conf.target.system_root)
+    localization_dbus_tasks = localization_proxy.InstallWithTasks()
     # add one Task instance per DBUS task
     for dbus_task in localization_dbus_tasks:
         task_proxy = LOCALIZATION.get_proxy(dbus_task)
         os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
 
     firewall_proxy = NETWORK.get_proxy(FIREWALL)
-    firewall_dbus_task = firewall_proxy.InstallWithTask(conf.target.system_root)
+    firewall_dbus_task = firewall_proxy.InstallWithTask()
     task_proxy = NETWORK.get_proxy(firewall_dbus_task)
     os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
 
@@ -132,7 +132,7 @@ def _prepare_configuration(storage, payload, ksdata):
     user_config = TaskQueue("User creation", N_("Creating users"))
 
     users_proxy = USERS.get_proxy()
-    users_dbus_tasks = users_proxy.InstallWithTasks(conf.target.system_root)
+    users_dbus_tasks = users_proxy.InstallWithTasks()
     # add one Task instance per DBUS task
     for dbus_task in users_dbus_tasks:
         task_proxy = USERS.get_proxy(dbus_task)

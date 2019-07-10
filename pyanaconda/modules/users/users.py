@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
@@ -139,68 +140,74 @@ class UsersModule(KickstartModule):
 
         return str(data)
 
-    def configure_groups_with_task(self, sysroot):
+    def configure_groups_with_task(self):
         """Return the user group configuration task.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: object path of the user group configuration task
         """
-        task = CreateGroupsTask(sysroot=sysroot, group_data_list=self.groups)
+        task = CreateGroupsTask(
+            sysroot=conf.target.system_root,
+            group_data_list=self.groups
+        )
         return self.publish_task(USERS.namespace, task)
 
-    def configure_users_with_task(self, sysroot):
+    def configure_users_with_task(self):
         """Return the user configuration task.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: object path of the user configuration task
         """
-        task = CreateUsersTask(sysroot=sysroot, user_data_list=self.users)
+        task = CreateUsersTask(
+            sysroot=conf.target.system_root,
+            user_data_list=self.users
+        )
         return self.publish_task(USERS.namespace, task)
 
-    def set_root_password_with_task(self, sysroot):
+    def set_root_password_with_task(self):
         """Return the root password configuration task.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: object path of the root password configuration task
         """
-        task =  SetRootPasswordTask(sysroot=sysroot, password=self.root_password,
-                                    crypted=self.root_password_is_crypted,
-                                    locked=self.root_account_locked)
+        task = SetRootPasswordTask(
+            sysroot=conf.target.system_root,
+            password=self.root_password,
+            crypted=self.root_password_is_crypted,
+            locked=self.root_account_locked
+        )
         return self.publish_task(USERS.namespace, task)
 
-    def set_ssh_keys_with_task(self, sysroot):
+    def set_ssh_keys_with_task(self):
         """Return the SSH key configuration task.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: object path of the SSH key configuration task
         """
-        task = SetSshKeysTask(sysroot=sysroot, ssh_key_data_list=self.ssh_keys)
+        task = SetSshKeysTask(
+            sysroot=conf.target.system_root,
+            ssh_key_data_list=self.ssh_keys
+        )
         return self.publish_task(USERS.namespace, task)
 
-    def configure_root_password_ssh_login_with_task(self, sysroot):
+    def configure_root_password_ssh_login_with_task(self):
         """Return the root password SSH login configuration task.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: object path of the root password SSH login configuration task
         """
         task = ConfigureRootPasswordSSHLoginTask(
-            sysroot=sysroot,
+            sysroot=conf.target.system_root,
             password_allowed=self.root_password_ssh_login_allowed
         )
         return self.publish_task(USERS.namespace, task)
 
-    def install_with_tasks(self, sysroot):
+    def install_with_tasks(self):
         """Return the installation tasks of this module.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks
         """
         paths = [
-            self.configure_groups_with_task(sysroot=sysroot),
-            self.configure_users_with_task(sysroot=sysroot),
-            self.set_root_password_with_task(sysroot=sysroot),
-            self.set_ssh_keys_with_task(sysroot=sysroot),
-            self.configure_root_password_ssh_login_with_task(sysroot=sysroot)
+            self.configure_groups_with_task(),
+            self.configure_users_with_task(),
+            self.set_root_password_with_task(),
+            self.set_ssh_keys_with_task(),
+            self.configure_root_password_ssh_login_with_task()
         ]
         return paths
 

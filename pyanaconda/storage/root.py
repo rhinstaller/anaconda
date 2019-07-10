@@ -33,9 +33,9 @@ log = get_module_logger(__name__)
 __all__ = ["mount_existing_system", "find_existing_installations", "Root"]
 
 
-def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
+def mount_existing_system(storage, root_device, read_only=None):
     """Mount filesystems specified in root_device's /etc/fstab file."""
-    root_path = sysroot or conf.target.physical_root
+    root_path = conf.target.physical_root
     read_only = "ro" if read_only else ""
 
     # Mount the root device.
@@ -60,7 +60,7 @@ def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
     # Turn on swap.
     if not conf.target.is_image or not read_only:
         try:
-            storage.fsset.turn_on_swap(root_path=sysroot)
+            storage.fsset.turn_on_swap(root_path=root_path)
         except StorageError as e:
             log.error("Error enabling swap: %s", str(e))
 

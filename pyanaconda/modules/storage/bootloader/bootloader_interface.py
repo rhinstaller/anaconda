@@ -260,23 +260,21 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.detect_windows()
 
-    def ConfigureWithTask(self, sysroot: Str, kernel_versions: List[Str]):
+    def ConfigureWithTask(self, kernel_versions: List[Str]):
         """Configure the bootloader.
 
         FIXME: This is just a temporary method.
 
-        :param sysroot: a path to the root of the installed system
         :param kernel_versions: a list of kernel versions
         :return: a path to a DBus task
         """
-        return self.implementation.configure_with_task(sysroot, kernel_versions)
+        return self.implementation.configure_with_task(kernel_versions)
 
-    def InstallWithTask(self, sysroot: Str):
+    def InstallWithTask(self):
         """Install the bootloader.
 
         FIXME: This is just a temporary method.
 
-        :param sysroot: a path to the root of the installed system
         :return: a path to a DBus task
         """
-        return self.implementation.install_with_task(sysroot)
+        return self.implementation.install_with_task()

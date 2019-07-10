@@ -19,6 +19,7 @@
 #
 from pykickstart.constants import FIRSTBOOT_DEFAULT, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
@@ -242,28 +243,33 @@ class ServicesModule(KickstartModule):
         else:
             log.debug("Post installation tools will be disabled.")
 
-    def install_with_tasks(self, sysroot):
+    def install_with_tasks(self):
         """Return the installation tasks of this module.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks
         """
         tasks = [
             ConfigureInitialSetupTask(
-                sysroot=sysroot,
+                sysroot=conf.target.system_root,
                 setup_on_boot=self.setup_on_boot
             ),
             ConfigurePostInstallationToolsTask(
-                sysroot=sysroot,
+                sysroot=conf.target.system_root,
                 tools_enabled=self.post_install_tools_enabled
             ),
             ConfigureServicesTask(
-                sysroot=sysroot,
+                sysroot=conf.target.system_root,
                 disabled_services=self.disabled_services,
                 enabled_services=self.enabled_services
             ),
-            ConfigureSystemdDefaultTargetTask(sysroot=sysroot, default_target=self.default_target),
-            ConfigureDefaultDesktopTask(sysroot=sysroot, default_desktop=self.default_desktop),
+            ConfigureSystemdDefaultTargetTask(
+                sysroot=conf.target.system_root,
+                default_target=self.default_target
+            ),
+            ConfigureDefaultDesktopTask(
+                sysroot=conf.target.system_root,
+                default_desktop=self.default_desktop
+            ),
         ]
 
         paths = [

@@ -60,11 +60,10 @@ class MountFilesystemsTask(Task):
 class WriteConfigurationTask(Task):
     """Installation task for writing out the storage configuration."""
 
-    def __init__(self, storage, sysroot):
+    def __init__(self, storage):
         """Create a new task."""
         super().__init__()
         self._storage = storage
-        self._sysroot = sysroot
 
     @property
     def name(self):
@@ -72,4 +71,4 @@ class WriteConfigurationTask(Task):
 
     def run(self):
         """Mount the filesystems."""
-        write_storage_configuration(self._storage, sysroot=self._sysroot)
+        write_storage_configuration(self._storage)

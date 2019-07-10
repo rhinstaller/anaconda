@@ -19,6 +19,7 @@
 #
 import shlex
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
@@ -176,14 +177,13 @@ class SecurityModule(KickstartModule):
         log.debug("Realm is set to %s.", realm)
 
 
-    def install_with_tasks(self, sysroot):
+    def install_with_tasks(self):
         """Return the installation tasks of this module.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks
         """
         tasks = [
-            ConfigureSELinuxTask(sysroot=sysroot, selinux_mode=self.selinux)
+            ConfigureSELinuxTask(sysroot=conf.target.system_root, selinux_mode=self.selinux)
         ]
 
         paths = [

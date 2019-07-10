@@ -133,11 +133,9 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
     def install_language_with_task_test(self, publisher):
         """Test InstallLanguageWithTask."""
         self.localization_interface.SetLanguage("cs_CZ.UTF-8")
-        task_path = self.localization_interface.InstallWithTasks("/")[0]
+        task_path = self.localization_interface.InstallWithTasks()[0]
 
         obj = check_task_creation(self, task_path, publisher, LanguageInstallationTask)
-
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._lang, "cs_CZ.UTF-8")
 
     def _test_kickstart(self, ks_in, ks_out):

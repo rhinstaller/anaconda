@@ -65,12 +65,11 @@ class ConfigureBootloaderTask(Task):
 class InstallBootloaderTask(Task):
     """Installation task for the bootloader."""
 
-    def __init__(self, storage, mode, sysroot):
+    def __init__(self, storage, mode):
         """Create a new task."""
         super().__init__()
         self._storage = storage
         self._mode = mode
-        self._sysroot = sysroot
 
     @property
     def name(self):

@@ -278,10 +278,9 @@ class NetworkModule(KickstartModule):
         self._disable_ipv6 = disable_ipv6
         log.debug("disable IPv6 is set to %s", disable_ipv6)
 
-    def install_network_with_task(self, sysroot, onboot_ifaces, overwrite):
+    def install_network_with_task(self, onboot_ifaces, overwrite):
         """Install network with an installation task.
 
-        :param sysroot: a path to the root of the installed system
         :param onboot_ifaces: list of network interfaces which should have ONBOOT=yes
         :param overwrite: overwrite existing configuration
         :return: a DBus path of an installation task
@@ -299,9 +298,17 @@ class NetworkModule(KickstartModule):
         log.debug("ONBOOT will be set to yes for %s (fcoe) %s (policy)",
                   onboot_ifaces, onboot_ifaces_by_policy)
 
-        task = NetworkInstallationTask(sysroot, self.hostname, disable_ipv6, overwrite,
-                                       onboot_yes_uuids, network_ifaces, self.ifname_option_values)
-        task.succeeded_signal.connect(lambda: self.log_task_result(task, root_path=sysroot))
+        task = NetworkInstallationTask(
+            conf.target.system_root,
+            self.hostname,
+            disable_ipv6,
+            overwrite,
+            onboot_yes_uuids,
+            network_ifaces,
+            self.ifname_option_values
+        )
+
+        task.succeeded_signal.connect(lambda: self.log_task_result(task, conf.target.system_root))
         path = self.publish_task(NETWORK.namespace, task)
         return path
 
