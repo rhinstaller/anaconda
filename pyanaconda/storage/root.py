@@ -35,7 +35,7 @@ __all__ = ["mount_existing_system", "find_existing_installations", "Root"]
 
 def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
     """Mount filesystems specified in root_device's /etc/fstab file."""
-    root_path = sysroot or util.getTargetPhysicalRoot()
+    root_path = sysroot or conf.target.physical_root
     read_only = "ro" if read_only else ""
 
     # Mount the root device.
@@ -94,10 +94,10 @@ def _find_existing_installations(devicetree):
     :param devicetree: a device tree to find existing installations in
     :return: roots of all found installations
     """
-    if not os.path.exists(util.getTargetPhysicalRoot()):
-        blivet_util.makedirs(util.getTargetPhysicalRoot())
+    if not os.path.exists(conf.target.physical_root):
+        blivet_util.makedirs(conf.target.physical_root)
 
-    sysroot = util.getTargetPhysicalRoot()
+    sysroot = conf.target.physical_root
     roots = []
     direct_devices = (dev for dev in devicetree.devices if dev.direct)
     for device in direct_devices:

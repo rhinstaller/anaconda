@@ -30,6 +30,7 @@ from pyanaconda.errors import ExitError
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
 from pyanaconda.core.util import synchronized
+from pyanaconda.core.configuration.anaconda import conf
 
 from timer import timer
 
@@ -828,7 +829,7 @@ class MiscTests(unittest.TestCase):
             test_function()
 
     def sysroot_test(self):
-        self.assertEqual(util.getTargetPhysicalRoot(), "/mnt/sysimage")
+        self.assertEqual(conf.target.physical_root, "/mnt/sysimage")
         self.assertEqual(util.getSysroot(), "/mnt/sysroot")
 
     def decode_bytes_test(self):

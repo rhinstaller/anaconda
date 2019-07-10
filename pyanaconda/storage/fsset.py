@@ -31,6 +31,7 @@ from blivet.formats import get_format, get_device_format_class
 from blivet.storage_log import log_exception_info
 
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.platform import platform as _platform, EFI
 
@@ -591,7 +592,7 @@ class FSSet(object):
         """Create and activate a swap file under storage root."""
         filename = "/SWAP"
         count = 0
-        basedir = os.path.normpath("%s/%s" % (util.getTargetPhysicalRoot(),
+        basedir = os.path.normpath("%s/%s" % (conf.target.physical_root,
                                               device.format.mountpoint))
         while os.path.exists("%s/%s" % (basedir, filename)) or \
                 self.devicetree.get_device_by_name(filename):
@@ -627,7 +628,7 @@ class FSSet(object):
 
     @property
     def root_device(self):
-        for path in ["/", util.getTargetPhysicalRoot()]:
+        for path in ["/", conf.target.physical_root]:
             for device in self.devices:
                 try:
                     mountpoint = device.format.mountpoint

@@ -85,21 +85,6 @@ def augmentEnv():
     return env
 
 
-def getTargetPhysicalRoot():
-    """Returns the path to the "physical" storage root, traditionally /mnt/sysimage.
-
-    This may be distinct from the sysroot, which could be a
-    chroot-type subdirectory of the physical root.  This is used for
-    example by all OSTree-based installations.
-    """
-
-    # We always use the traditional /mnt/sysimage - the physical OS
-    # target is never mounted anywhere else.  This API call just
-    # allows us to have a clean "git grep ROOT_PATH" in other parts of
-    # the code.
-    return conf.target.physical_root
-
-
 def getSysroot():
     """Returns the path to the target OS installation.
 
@@ -169,7 +154,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
     # Transparently redirect callers requesting root=_root_path to the
     # configured system root.
     target_root = root
-    if target_root == getTargetPhysicalRoot():
+    if target_root == conf.target.physical_root:
         target_root = getSysroot()
 
     # Check for and save a preexec_fn argument

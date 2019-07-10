@@ -928,7 +928,7 @@ class BootLoader(object):
 
         self.write_config()
         os.sync()
-        self.stage2_device.format.sync(root=util.getTargetPhysicalRoot())
+        self.stage2_device.format.sync(root=conf.target.physical_root)
         self.install()
 
     def install(self, args=None):

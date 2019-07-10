@@ -141,7 +141,7 @@ class RPMOSTreePayload(Payload):
         # be fixed to *copy* data into /boot at install time, instead
         # of shipping it in the RPM).
         is_efi = isinstance(self.storage.bootloader, EFIBase)
-        physboot = util.getTargetPhysicalRoot() + '/boot'
+        physboot = conf.target.physical_root + '/boot'
         ostree_boot_source = util.getSysroot() + '/usr/lib/ostree-boot'
         if not os.path.isdir(ostree_boot_source):
             ostree_boot_source = util.getSysroot() + '/boot'
@@ -188,12 +188,12 @@ class RPMOSTreePayload(Payload):
 
         # Initialize the filesystem - this will create the repo as well
         self._safe_exec_with_redirect("ostree",
-                                      ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
-                                       "init-fs", util.getTargetPhysicalRoot()])
+                                      ["admin", "--sysroot=" + conf.target.physical_root,
+                                       "init-fs", conf.target.physical_root])
 
         # Here, we use the physical root as sysroot, because we haven't
         # yet made a deployment.
-        sysroot_file = Gio.File.new_for_path(util.getTargetPhysicalRoot())
+        sysroot_file = Gio.File.new_for_path(conf.target.physical_root)
         sysroot = OSTree.Sysroot.new(sysroot_file)
         sysroot.load(cancellable)
         repo = sysroot.get_repo(None)[1]
@@ -257,10 +257,10 @@ class RPMOSTreePayload(Payload):
         repo.remote_delete(self.data.ostreesetup.remote, None)
 
         self._safe_exec_with_redirect("ostree",
-                                      ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
+                                      ["admin", "--sysroot=" + conf.target.physical_root,
                                        "os-init", ostreesetup.osname])
 
-        admin_deploy_args = ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
+        admin_deploy_args = ["admin", "--sysroot=" + conf.target.physical_root,
                              "deploy", "--os=" + ostreesetup.osname]
 
         admin_deploy_args.append(ostreesetup.remote + ':' + ref)
@@ -310,7 +310,7 @@ class RPMOSTreePayload(Payload):
             dest = src
         # Almost all of our mounts go from physical to sysroot
         if src_physical:
-            src = util.getTargetPhysicalRoot() + src
+            src = conf.target.physical_root + src
         else:
             src = util.getSysroot() + src
         # Canonicalize dest to the full path

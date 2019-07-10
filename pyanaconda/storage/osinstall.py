@@ -405,7 +405,7 @@ class InstallerStorage(Blivet):
         self.fsset.turn_on_swap(root_path=util.getSysroot())
 
     def mount_filesystems(self):
-        root_path = util.getTargetPhysicalRoot()
+        root_path = conf.target.physical_root
 
         # Mount the root and the filesystems.
         self.fsset.mount_filesystems(root_path=root_path)
