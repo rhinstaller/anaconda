@@ -35,7 +35,7 @@ from pyanaconda.modules.payload.live.initialization import CheckInstallationSour
     SetupInstallationSourceImageTask, PostInstallTask, url_target_is_tarfile, \
     TeardownInstallationSourceImageTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list
-from pyanaconda.modules.payload.live.installation import InstallTask, InstallFromTarfileTask
+from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -252,13 +252,13 @@ class LiveImageHandlerModule(KickstartBaseModule):
     def install_with_task(self):
         """Install the payload."""
         if url_target_is_tarfile(self._url):
-            task = InstallFromTarfileTask(
+            task = InstallFromTarTask(
                 self.image_path,
                 getSysroot(),
                 self.kernel_version_list
             )
         else:
-            task = InstallTask(
+            task = InstallFromImageTask(
                 getSysroot(),
                 self.kernel_version_list
             )

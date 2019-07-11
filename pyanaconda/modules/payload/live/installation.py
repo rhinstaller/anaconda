@@ -27,7 +27,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class InstallTask(Task):
+class InstallFromImageTask(Task):
     """Task to install the payload from image."""
 
     def __init__(self, dest_path, kernel_version_list):
@@ -75,7 +75,7 @@ class InstallTask(Task):
         create_rescue_image(self._dest_path, self._kernel_version_list)
 
 
-class InstallFromTarfileTask(Task):
+class InstallFromTarTask(Task):
     """Task to install the payload from tarball."""
 
     def __init__(self, tarfile_path, dest_path, kernel_version_list):
