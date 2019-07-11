@@ -84,11 +84,6 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         """Space required by the source image."""
         return self.implementation.required_space
 
-    @emits_properties_changed
-    def SetRequiredSpace(self, required_space: UInt64):
-        """Set the space required by the source image."""
-        self.implementation.set_required_space(required_space)
-
     def UpdateKernelVersionList(self):
         """Update the list of kernel versions."""
         self.implementation.update_kernel_version_list()
