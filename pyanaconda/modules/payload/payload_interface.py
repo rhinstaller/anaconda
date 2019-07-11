@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.base import KickstartModuleInterface
@@ -27,9 +28,7 @@ from pyanaconda.modules.common.base import KickstartModuleInterface
 class PayloadInterface(KickstartModuleInterface):
     """DBus interface for Payload module."""
 
-    def CreateLiveOSHandler(self):
-        """Create Live OS payload handler and publish it on dbus.
-
-        # FIXME: This is a temporary solution which will change in the future commits
-        """
+    def CreateLiveOSHandler(self) -> ObjPath:
+        """Create Live OS payload handler and publish it on dbus."""
         self.implementation.create_live_os_handler()
+        return self.implementation.get_active_handler_path()

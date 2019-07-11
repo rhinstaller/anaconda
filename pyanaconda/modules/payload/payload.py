@@ -70,6 +70,10 @@ class PayloadModule(KickstartModule):
         self._payload_handler = payload_handler
         log.debug("Payload handler %s used.", payload_handler.__class__.__name__)
 
+    def get_active_handler_path(self):
+        """Get path of the active payload handler."""
+        return self.payload_handler.get_handler_path()
+
     def process_kickstart(self, data):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
