@@ -32,7 +32,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
-    SetupInstallationSourceImageTask, PostInstallTask, url_target_is_tarfile, \
+    SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, url_target_is_tarfile, \
     TeardownInstallationSourceImageTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
@@ -243,7 +243,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
 
     def post_install_with_task(self):
         """Do post installation tasks."""
-        task = PostInstallTask(
+        task = UpdateBLSConfigurationTask(
             getSysroot(),
             self.kernel_version_list
         )

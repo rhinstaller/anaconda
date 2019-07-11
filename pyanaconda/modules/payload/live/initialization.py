@@ -394,49 +394,45 @@ class TeardownInstallationSourceImageTask(Task):
                 os.unlink(self._image_path)
 
 
-class PostInstallTask(Task):
-    """Task to do post installation steps."""
+class UpdateBLSConfigurationTask(Task):
+    """Task to update BLS configuration."""
 
-    def __init__(self, dest_path, kernel_version_list):
+    def __init__(self, sysroot, kernel_version_list):
         """Create a new task.
 
-        :param dest_path: installation destination root path
-        :type dest_path: str
+        :param sysroot: a path to the root of the installed system
+        :type sysroot: str
         :param kernel_version_list: list of kernel versions for updating of BLS configuration
         :type krenel_version_list: list(str)
         """
         super().__init__()
-        self._dest_path = dest_path
+        self._sysroot = sysroot
         self._kernel_version_list = kernel_version_list
 
     @property
     def name(self):
-        return "Do post installation steps."""
+        return "Update BLS configuration."""
 
     def run(self):
-        """Run post installation steps."""
-        update_bls_configuration(self._dest_path, self._kernel_version_list)
+        """Run update of bls configuration."""
+        # Not using BLS configuration, skip it
+        if os.path.exists(self._sysroot + "/usr/sbin/new-kernel-pkg"):
+            return
 
+        # Remove any existing BLS entries, they will not match the new system's
+        # machine-id or /boot mountpoint.
+        for file in glob.glob(self._sysroot + "/boot/loader/entries/*.conf"):
+            log.info("Removing old BLS entry: %s", file)
+            os.unlink(file)
 
-def update_bls_configuration(root, kernel_version_list):
-    # Not using BLS configuration, skip it
-    if os.path.exists(root + "/usr/sbin/new-kernel-pkg"):
-        return
-
-    # Remove any existing BLS entries, they will not match the new system's
-    # machine-id or /boot mountpoint.
-    for file in glob.glob(root + "/boot/loader/entries/*.conf"):
-        log.info("Removing old BLS entry: %s", file)
-        os.unlink(file)
-
-    # Create new BLS entries for this system
-    for kernel in kernel_version_list:
-        log.info("Regenerating BLS info for %s", kernel)
-        execWithRedirect(
-            "kernel-install",
-            ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
-            root=root
-        )
+        # Create new BLS entries for this system
+        for kernel in self._kernel_version_list:
+            log.info("Regenerating BLS info for %s", kernel)
+            execWithRedirect(
+                "kernel-install",
+                ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
+                root=self._sysroot
+            )
 
 
 def get_local_image_path_from_url(url):
