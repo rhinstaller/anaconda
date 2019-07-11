@@ -160,28 +160,23 @@ class CheckInstallationSourceImageTask(Task):
 class DownloadProgress(object):
     """Provide methods for download progress reporting."""
 
-    def __init__(self, task):
+    def __init__(self, url, size, report_callback):
         """Create a progress object for given task.
-
-        :param task: task to report in
-        :type task: Task
-        """
-        self._task = task
-
-    def start(self, url, size):
-        """Start of download
 
         :param url: url of the download
         :type url: str
         :param size: length of the file
         :type size: int
+        :param report_callback: callback with progress message argument
+        :type task: callable taking str argument
         """
+        self.report = report_callback
         self.url = url
         self.size = size
         self._pct = -1
 
     def update(self, bytes_read):
-        """Download update
+        """Download update.
 
         :param bytes_read: Bytes read so far
         :type bytes_read:  int
@@ -193,17 +188,13 @@ class DownloadProgress(object):
         if pct == self._pct:
             return
         self._pct = pct
-        self._task.report_progress("Downloading image %(url)s (%(pct)d%%)" %
-                                   {"url": self.url, "pct": pct})
+        self.report("Downloading image %(url)s (%(pct)d%%)" %
+                    {"url": self.url, "pct": pct})
 
-    def end(self, bytes_read):
-        """Download complete
-
-        :param bytes_read: Bytes read so far
-        :type bytes_read:  int
-        """
-        self._task.report_progress("Downloading image %(url)s (%(pct)d%%)" %
-                                   {"url": self.url, "pct": 100})
+    def end(self):
+        """Download complete."""
+        self.report("Downloading image %(url)s (%(pct)d%%)" %
+                    {"url": self.url, "pct": 100})
 
 
 class SetupInstallationSourceImageTask(Task):
@@ -246,7 +237,6 @@ class SetupInstallationSourceImageTask(Task):
     def _download_image(self, url, image_path, session):
         """Download the image using Requests with progress reporting"""
         error = None
-        progress = DownloadProgress(self)
         try:
             log.info("Starting image download")
             with open(image_path, "wb") as f:
@@ -260,11 +250,11 @@ class SetupInstallationSourceImageTask(Task):
                                 "download progress reporting will not be available")
                     f.write(response.content)
                     size = f.tell()
-                    progress.start(self._url, size)
-                    progress.end(size)
+                    progress = DownloadProgress(self._url, size, self.report_progress)
+                    progress.end()
                 else:
                     # requests return headers as strings, so convert total_length to int
-                    progress.start(self._url, int(total_length))
+                    progress = DownloadProgress(self._url, int(total_length), self.report_progress)
                     bytes_read = 0
                     for buf in response.iter_content(1024 * 1024):
                         if buf:
@@ -272,7 +262,7 @@ class SetupInstallationSourceImageTask(Task):
                             f.flush()
                             bytes_read += len(buf)
                             progress.update(bytes_read)
-                    progress.end(bytes_read)
+                    progress.end()
                 log.info("Image download finished")
         except RequestException as e:
             error = "Error downloading liveimg: {}".format(e)
