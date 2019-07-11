@@ -313,6 +313,7 @@ def revert_reformat(storage, device):
         original_device = device
 
     # Reset it.
+    log.debug("Resetting device %s.", original_device.name)
     storage.reset_device(original_device)
 
 
@@ -522,6 +523,8 @@ def add_device(storage, dev_info):
     :param dev_info: a device info
     :raise: StorageError if the device cannot be created
     """
+    log.debug("Add device: %s", dev_info)
+
     # Complete the device info.
     _update_device_info(storage, dev_info)
 
