@@ -529,7 +529,7 @@ def collect_device_types(device, disks):
 
 
 def add_device(storage, dev_info):
-    """Add d device to the storage model.
+    """Add a device to the storage model.
 
     :param storage: an instance of Blivet
     :param dev_info: a device info
