@@ -184,23 +184,40 @@ class ConsolidateInitramfsConnectionsTask(Task):
 
             ifcfg_file = get_ifcfg_file_of_device(self._nm_client, iface)
             if not ifcfg_file:
-                log.error("%s: %d for %s - no ifcfg file found",
+                log.debug("%s: %d for %s - no ifcfg file found",
                           self.name, number_of_connections, iface)
-                continue
+                con_for_iface = self._select_persistent_connection_for_iface(iface, cons)
+                if not con_for_iface:
+                    log.debug("%s: %d for %s - no suitable connection for the interface found",
+                              self.name, number_of_connections, iface)
+                    continue
             else:
                 # Handle only ifcfgs created from boot options in initramfs
                 # (Kickstart based ifcfgs are handled when applying kickstart)
                 if ifcfg_file.is_from_kickstart:
                     continue
+                con_for_iface = ifcfg_file.uuid
 
             log.debug("%s: %d for %s - ensure active ifcfg connection",
                       self.name, number_of_connections, iface)
 
-            ensure_active_connection_for_device(self._nm_client, ifcfg_file.uuid, iface, only_replace=True)
+            ensure_active_connection_for_device(
+                self._nm_client,
+                con_for_iface.get_uuid(),
+                iface,
+                only_replace=True
+            )
 
             consolidated_devices.append(iface)
 
         return consolidated_devices
+
+    def _select_persistent_connection_for_iface(self, iface, cons):
+        """Select the connection suitable to store configuration for the interface."""
+        for con in cons:
+            if con.get_interface_name() == iface:
+                return con
+        return None
 
 
 class SetRealOnbootValuesFromKickstartTask(Task):
@@ -327,6 +344,35 @@ class DumpMissingIfcfgFilesTask(Task):
     def name(self):
         return "Dump missing ifcfg files"
 
+    def _select_persistent_connection_for_device(self, device, cons):
+        """Select the connection suitable to store configuration for the device."""
+        iface = device.get_iface()
+        ac = device.get_active_connection()
+        if ac:
+            con = ac.get_connection()
+            if con.get_interface_name() == iface and con in cons:
+                return con
+            else:
+                log.debug("%s: active connection for %s can't be used as persistent",
+                          self.name, iface)
+        for con in cons:
+            if con.get_interface_name() == iface:
+                return con
+        return None
+
+    def _update_connection(self, con, iface):
+        log.debug("%s: updating id and binding (interface-name) of connection %s for %s",
+                  self.name, con.get_uuid(), iface)
+        s_con = con.get_setting_connection()
+        s_con.set_property(NM.SETTING_CONNECTION_ID, iface)
+        s_con.set_property(NM.SETTING_CONNECTION_INTERFACE_NAME, iface)
+        if not bound_hwaddr_of_device(self._nm_client, iface, self._ifname_option_values):
+            s_wired = con.get_setting_wired()
+            s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
+        else:
+            log.debug("%s: iface %s bound to mac address by ifname boot option",
+                      self.name, iface)
+
     @guard_by_system_configuration(return_value=[])
     def run(self):
         """Run dumping of missing ifcfg files.
@@ -362,23 +408,23 @@ class DumpMissingIfcfgFilesTask(Task):
                               self.name, iface)
                     continue
                 con = cons[0]
-                log.debug("%s: dumping default autoconnection %s for %s",
+                self._update_connection(con, iface)
+                log.debug("%s: dumping connection %s to ifcfg file for %s",
                           self.name, con.get_uuid(), iface)
-                s_con = con.get_setting_connection()
-                s_con.set_property(NM.SETTING_CONNECTION_ID, iface)
-                s_con.set_property(NM.SETTING_CONNECTION_INTERFACE_NAME, iface)
-                if not bound_hwaddr_of_device(self._nm_client, iface, self._ifname_option_values):
-                    s_wired = con.get_setting_wired()
-                    s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
-                else:
-                    log.debug("%s: iface %s bound to mac address by ifname boot option",
-                              self.name, iface)
                 con.commit_changes(True, None)
             elif n_cons > 1:
                 if not device_is_slave:
-                    log.warning("%s: %d non-slave connections found for device %s",
-                                self.name, n_cons, iface)
-                continue
+                    log.debug("%s: %d non-slave connections found for device %s",
+                              self.name, n_cons, iface)
+                    con = self._select_persistent_connection_for_device(device, cons)
+                    if not con:
+                        log.warning("%s: none of the connections %s can be dumped as persistent",
+                                    self.name, [con.get_uuid() for con in cons])
+                        continue
+                    self._update_connection(con, iface)
+                    log.debug("%s: dumping selected connection %s to ifcfg file for %s",
+                              self.name, con.get_uuid(), iface)
+                    con.commit_changes(True, None)
 
             new_ifcfgs.append(iface)
 
