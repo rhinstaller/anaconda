@@ -32,9 +32,8 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
-    SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, url_target_is_tarfile, \
-    TeardownInstallationSourceImageTask
-from pyanaconda.modules.payload.live.utils import get_kernel_version_list
+    SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, TeardownInstallationSourceImageTask
+from pyanaconda.modules.payload.live.utils import get_kernel_version_list, url_target_is_tarfile
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
 
 from pyanaconda.anaconda_loggers import get_module_logger

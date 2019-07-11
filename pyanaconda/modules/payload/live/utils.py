@@ -20,6 +20,11 @@ import functools
 import os
 from pyanaconda.payload.utils import version_cmp
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.util import ProxyString, ProxyStringError, execWithRedirect
+from pyanaconda.core.constants import TAR_SUFFIX
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 def get_kernel_version_list(root_path):
@@ -30,3 +35,54 @@ def get_kernel_version_list(root_path):
                                   if os.path.isfile(f) and "-rescue-" not in f),
                                  key=functools.cmp_to_key(version_cmp))
     return kernel_version_list
+
+
+def get_local_image_path_from_url(url):
+    image_path = ""
+    if url.startswith("file://"):
+        image_path = url[7:]
+    return image_path
+
+
+def get_proxies_from_option(proxy_option):
+    proxies = {}
+    if proxy_option:
+        try:
+            proxy = ProxyString(proxy_option)
+            proxies = {"http": proxy.url,
+                       "https": proxy.url}
+        except ProxyStringError as e:
+            log.info("Failed to parse proxy \"%s\": %s", proxy_option, e)
+    return proxies
+
+
+def url_target_is_tarfile(url):
+    """Does the url point to a tarfile?"""
+    return any(url.endswith(suffix) for suffix in TAR_SUFFIX)
+
+
+def create_rescue_image(root, kernel_version_list):
+    """Create the rescue initrd images for each kernel."""
+    # Always make sure the new system has a new machine-id, it won't boot without it
+    # (and nor will some of the subsequent commands like grub2-mkconfig and kernel-install)
+    log.info("Generating machine ID")
+    if os.path.exists(root + "/etc/machine-id"):
+        os.unlink(root + "/etc/machine-id")
+    execWithRedirect("systemd-machine-id-setup", [], root=root)
+
+    if os.path.exists(root + "/usr/sbin/new-kernel-pkg"):
+        use_nkp = True
+    else:
+        log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
+        use_nkp = False
+
+    for kernel in kernel_version_list:
+        log.info("Generating rescue image for %s", kernel)
+        if use_nkp:
+            execWithRedirect("new-kernel-pkg", ["--rpmposttrans", kernel], root=root)
+        else:
+            files = glob.glob(root + "/etc/kernel/postinst.d/*")
+            srlen = len(root)
+            files = sorted([f[srlen:] for f in files if os.access(f, os.X_OK)])
+            for file in files:
+                execWithRedirect(file, [kernel, "/boot/vmlinuz-%s" % kernel], root=root)

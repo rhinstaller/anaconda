@@ -15,13 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-import glob
-
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithRedirect
+from pyanaconda.modules.payload.live.utils import create_rescue_image
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -112,30 +110,3 @@ class InstallFromTarTask(Task):
             raise InstallError(err or msg)
 
         create_rescue_image(self._dest_path, self._kernel_version_list)
-
-
-def create_rescue_image(root, kernel_version_list):
-    """Create the rescue initrd images for each kernel."""
-    # Always make sure the new system has a new machine-id, it won't boot without it
-    # (and nor will some of the subsequent commands like grub2-mkconfig and kernel-install)
-    log.info("Generating machine ID")
-    if os.path.exists(root + "/etc/machine-id"):
-        os.unlink(root + "/etc/machine-id")
-    execWithRedirect("systemd-machine-id-setup", [], root=root)
-
-    if os.path.exists(root + "/usr/sbin/new-kernel-pkg"):
-        use_nkp = True
-    else:
-        log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
-        use_nkp = False
-
-    for kernel in kernel_version_list:
-        log.info("Generating rescue image for %s", kernel)
-        if use_nkp:
-            execWithRedirect("new-kernel-pkg", ["--rpmposttrans", kernel], root=root)
-        else:
-            files = glob.glob(root + "/etc/kernel/postinst.d/*")
-            srlen = len(root)
-            files = sorted([f[srlen:] for f in files if os.access(f, os.X_OK)])
-            for file in files:
-                execWithRedirect(file, [kernel, "/boot/vmlinuz-%s" % kernel], root=root)

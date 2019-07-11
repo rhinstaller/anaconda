@@ -26,11 +26,12 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.payload.live.utils import get_local_image_path_from_url, \
+    get_proxies_from_option, url_target_is_tarfile
 from pyanaconda.payload.utils import mount, unmount
-from pyanaconda.core.constants import TAR_SUFFIX, IMAGE_DIR
+from pyanaconda.core.constants import IMAGE_DIR
 
-from pyanaconda.core.util import ProxyString, ProxyStringError, lowerASCII, \
-    execWithRedirect
+from pyanaconda.core.util import lowerASCII, execWithRedirect
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -433,30 +434,3 @@ class UpdateBLSConfigurationTask(Task):
                 ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
                 root=self._sysroot
             )
-
-
-def get_local_image_path_from_url(url):
-    image_path = ""
-    if url.startswith("file://"):
-        image_path = url[7:]
-    return image_path
-
-
-def get_proxies_from_option(proxy_option):
-    proxies = {}
-    if proxy_option:
-        try:
-            proxy = ProxyString(proxy_option)
-            proxies = {"http": proxy.url,
-                       "https": proxy.url}
-        except ProxyStringError as e:
-            log.info("Failed to parse proxy \"%s\": %s", proxy_option, e)
-    return proxies
-
-
-# FIXME:
-# Create SourceImageType enum? ... when we have more than 2
-# Export it by the Handler? ... NO
-def url_target_is_tarfile(url):
-    """Does the url point to a tarfile?"""
-    return any(url.endswith(suffix) for suffix in TAR_SUFFIX)
