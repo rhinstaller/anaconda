@@ -51,13 +51,11 @@ def collect_used_devices(storage):
         for device in list(root.mounts.values()) + root.swaps:
             if device not in storage.devices:
                 continue
-
             used_devices.extend(device.ancestors)
 
     for new in [d for d in storage.devicetree.leaves if not d.format.exists]:
         if new.format.mountable and not new.format.mountpoint:
             continue
-
         used_devices.extend(new.ancestors)
 
     for device in storage.partitions:
