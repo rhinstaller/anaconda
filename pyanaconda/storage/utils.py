@@ -195,6 +195,7 @@ def try_populate_devicetree(devicetree):
     while True:
         try:
             devicetree.populate()
+            devicetree.teardown_all()
         except StorageError as e:
             if errorHandler.cb(e) == ERROR_RAISE:
                 raise
