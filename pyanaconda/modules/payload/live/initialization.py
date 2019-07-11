@@ -362,6 +362,7 @@ class SetupInstallationSourceImageTask(Task):
         if not url_target_is_tarfile(self._url):
             self._mount_image(self._image_path, self._image_mount_point)
 
+        log.debug("Source image file path: %s", self._image_path)
         return self._image_path
 
 

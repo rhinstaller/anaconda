@@ -64,8 +64,9 @@ class LiveImageHandlerModule(KickstartBaseModule):
         self._kernel_version_list = []
         self.kernel_version_list_changed = Signal()
 
+        self._image_path = getSysroot() + "/disk.img"
+
         self._requests_session = None
-        self.image_path = getSysroot() + "/disk.img"
 
     def publish(self):
         """Publish the module."""
@@ -159,6 +160,19 @@ class LiveImageHandlerModule(KickstartBaseModule):
         log.debug("Space required for source image is set to '%s'", self._required_space)
 
     @property
+    def image_path(self):
+        """Get source image file path.
+
+        :rtype: str
+        """
+        return self._image_path
+
+    def set_image_path(self, image_path):
+        """Set source image file path."""
+        self._image_path = image_path
+        log.debug("Source image file path is set to '%s'", self._image_path)
+
+    @property
     def requests_session(self):
         """Get requests session."""
         # FIXME: share in Payload module?
@@ -224,13 +238,8 @@ class LiveImageHandlerModule(KickstartBaseModule):
             INSTALL_TREE,
             self.requests_session
         )
-        task.succeeded_signal.connect(lambda: self.update_image_path_from_task(task))
+        task.succeeded_signal.connect(lambda: self.set_image_path(task.get_result()))
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
-
-    def update_image_path_from_task(self, task):
-        result = task.get_result()
-        log.debug("'%s' task result: %s", task.name, result)
-        self.image_path = result
 
     def post_install_with_task(self):
         """Do post installation tasks."""
