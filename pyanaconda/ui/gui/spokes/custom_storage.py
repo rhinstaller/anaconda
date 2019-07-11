@@ -277,13 +277,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _get_bootloader_devices(self):
         return collect_bootloader_devices(
             storage=self._storage_playground,
-            drive=self._bootloader_drive
+            boot_drive=self._bootloader_drive
         )
 
     def _get_new_devices(self):
         return collect_new_devices(
             storage=self._storage_playground,
-            drive=self._bootloader_drive
+            boot_drive=self._bootloader_drive
         )
 
     def _update_space_display(self):

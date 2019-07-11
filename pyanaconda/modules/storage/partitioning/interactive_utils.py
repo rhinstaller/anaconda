@@ -98,15 +98,14 @@ def collect_unused_devices(storage):
     return unused + incomplete + unsupported
 
 
-def collect_bootloader_devices(storage, drive):
+def collect_bootloader_devices(storage, boot_drive):
     """Collect the bootloader devices.
 
     :param storage: an instance of Blivet
-    :param drive: a name of the bootloader drive
+    :param boot_drive: a name of the bootloader drive
     :return: a list of devices
     """
     devices = []
-    boot_drive = drive
 
     for device in storage.devices:
         if device.format.type not in ["biosboot", "prepboot"]:
@@ -119,11 +118,11 @@ def collect_bootloader_devices(storage, drive):
     return devices
 
 
-def collect_new_devices(storage, drive):
+def collect_new_devices(storage, boot_drive):
     """Collect new devices.
 
     :param storage: an instance of Blivet
-    :param drive: a name of the bootloader drive
+    :param boot_drive: a name of the bootloader drive
     :return: a list of devices
     """
     # A device scheduled for formatting only belongs in the new root.
@@ -143,7 +142,7 @@ def collect_new_devices(storage, drive):
 
     if new_mounts or new_devices:
         new_devices.extend(storage.mountpoints.values())
-        new_devices.extend(collect_bootloader_devices(storage, drive))
+        new_devices.extend(collect_bootloader_devices(storage, boot_drive))
 
     return list(set(new_devices))
 
@@ -204,24 +203,24 @@ def collect_roots(storage):
     return roots
 
 
-def create_new_root(storage, drive):
+def create_new_root(storage, boot_drive):
     """Create a new root from the given devices.
 
     :param storage: an instance of Blivet
-    :param drive: a name of the bootloader drive
+    :param boot_drive: a name of the bootloader drive
     :return: a new root
     """
     devices = filter_unsupported_disklabel_devices(
         collect_new_devices(
             storage=storage,
-            drive=drive
+            boot_drive=boot_drive
         )
     )
 
     bootloader_devices = filter_unsupported_disklabel_devices(
         collect_bootloader_devices(
             storage=storage,
-            drive=drive
+            boot_drive=boot_drive
         )
     )
 
