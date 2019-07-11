@@ -30,7 +30,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.platform import platform
-from pyanaconda.product import translated_new_install_name
+from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
     get_supported_filesystems, PARTITION_ONLY_FORMAT_TYPES, SUPPORTED_DEVICE_TYPES, \
@@ -171,6 +171,9 @@ def collect_roots(storage):
     roots = []
     supported_devices = set(filter_unsupported_disklabel_devices(storage.devices))
 
+    # Get the name of the new installation.
+    new_root_name = get_new_root_name()
+
     for root in storage.roots:
         # Get the name.
         name = root.name
@@ -179,14 +182,14 @@ def collect_roots(storage):
         swaps = [
             d for d in root.swaps
             if d in supported_devices
-            and (d.format.exists or root.name == translated_new_install_name())
+            and (d.format.exists or root.name == new_root_name)
         ]
 
         # Get the supported mount points.
         mounts = {
             m: d for m, d in root.mounts.items()
             if d in supported_devices
-            and (d.format.exists or root.name == translated_new_install_name())
+            and (d.format.exists or root.name == new_root_name)
             and d.disks
         }
 
@@ -201,6 +204,15 @@ def collect_roots(storage):
         ))
 
     return roots
+
+
+def get_new_root_name():
+    """Get the name of the new installation.
+
+    :return: a translated string
+    """
+    return _("New %(name)s %(version)s Installation") \
+        % {"name": productName, "version": productVersion}
 
 
 def create_new_root(storage, boot_drive):
@@ -239,7 +251,7 @@ def create_new_root(storage, boot_drive):
             mounts[device.format.name] = device
 
     return Root(
-        name=translated_new_install_name(),
+        name=get_new_root_name(),
         mounts=mounts,
         swaps=swaps
     )

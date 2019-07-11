@@ -58,9 +58,9 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     get_device_luks_version, collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
-    collect_containers, validate_label, suggest_device_name
+    collect_containers, validate_label, suggest_device_name, get_new_root_name
 from pyanaconda.platform import platform
-from pyanaconda.product import productName, productVersion, translated_new_install_name
+from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.storage.initialization import reset_bootloader
@@ -261,6 +261,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self.initialize_done()
 
+    @property
+    def _new_root_name(self):
+        return get_new_root_name()
+
     def _get_selected_disks(self):
         return collect_selected_disks(
             storage=self._storage_playground,
@@ -428,7 +432,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _add_initial_page(self, reuse_existing=False):
         page = CreateNewPage(
-            translated_new_install_name(),
+            self._new_root_name,
             self.on_create_clicked,
             self._change_autopart_type,
             partitionsToReuse=reuse_existing
@@ -498,15 +502,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     ###
     def add_new_selector(self, device):
         """ Add an entry for device to the new install Page. """
-        page = self._accordion.find_page_by_title(translated_new_install_name())
+        page = self._accordion.find_page_by_title(self._new_root_name)
         devices = [device]
         if not page.members:
             # remove the CreateNewPage and replace it with a regular Page
-            expander = self._accordion.find_page_by_title(
-                translated_new_install_name()).get_parent()
+            expander = self._accordion.find_page_by_title(self._new_root_name).get_parent()
             expander.remove(expander.get_child())
 
-            page = Page(translated_new_install_name())
+            page = Page(self._new_root_name)
             expander.add(page)
 
             # also pull in biosboot and prepboot that are on our boot disk
@@ -521,7 +524,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _update_selectors(self):
         """ Update all btrfs selectors' size properties. """
         # we're only updating selectors in the new root. problem?
-        page = self._accordion.find_page_by_title(translated_new_install_name())
+        page = self._accordion.find_page_by_title(self._new_root_name)
         for selector in page.members:
             update_selector_from_device(selector, selector.device)
 
@@ -720,7 +723,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             new_selector = None
             for (page, _selector) in self._accordion.all_members:
                 if _selector.device in (device, old_device):
-                    if page.pageTitle == translated_new_install_name():
+                    if page.pageTitle == self._new_root_name:
                         new_selector = _selector
                         continue
 
@@ -1614,7 +1617,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             log.debug("removing device '%s' from page %s", device, root_name)
 
-            if root_name == translated_new_install_name():
+            if root_name == self._new_root_name:
                 if is_multiselection and not option_checked:
                     (rc, option_checked) = self._show_confirmation_dialog(
                         root_name, device, protected_types
