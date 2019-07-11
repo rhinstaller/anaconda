@@ -99,9 +99,11 @@ class PayloadModule(KickstartModule):
         return str(data)
 
     def create_live_os_handler(self):
-        """Create the live os payload handler and publish it on dbus.
+        """Create the live os payload handler and publish it and return DBus path.
 
-        FIXME: This is only temporary and the solution to manage handlers will change.
+        :returns: DBus path to the handler
+        :rtype: str
         """
-        self._payload_handler = LiveOSHandlerModule()
+        self.set_payload_handler(LiveOSHandlerModule())
         self._publish_handler()
+        return self.payload_handler.get_handler_path()
