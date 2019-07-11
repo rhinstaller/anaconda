@@ -100,20 +100,18 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
     def SetupWithTask(self) -> ObjPath:
         """Setup the handler.
 
-        FIXME: use real name? CheckSourceImageWithTask
         Check availability of the image and update required space
         """
-        return self.implementation.check_source_image_with_task()
+        return self.implementation.setup_with_task()
 
     def PreInstallWithTask(self) -> ObjPath:
         """Set up installation source image
 
-        FIXME: use real name? (SetupInstallationSourceImageTask)
         * Download the image
         * Check the checksum
         * Mount the image
         """
-        return self.implementation.setup_installation_source_image_with_task()
+        return self.implementation.pre_install_with_task()
 
     def InstallWithTask(self) -> ObjPath:
         """Install the payload.
@@ -139,4 +137,4 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         * Clean up mount point directories
         * Remove downloaded image
         """
-        return self.implementation.teardown_installation_source_image_with_task()
+        return self.implementation.teardown_with_task()

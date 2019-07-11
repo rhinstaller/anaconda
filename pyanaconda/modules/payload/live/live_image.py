@@ -212,7 +212,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
         self.kernel_version_list_changed.emit(self._kernel_version_list)
         log.debug("List of kernel versions is set to '%s'", self._kernel_version_list)
 
-    def check_source_image_with_task(self):
+    def setup_with_task(self):
         """Check availability of the image and update required space."""
         task = CheckInstallationSourceImageTask(
             self.url,
@@ -222,7 +222,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
         task.succeeded_signal.connect(lambda: self.set_required_space(task.get_result()))
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 
-    def setup_installation_source_image_with_task(self):
+    def pre_install_with_task(self):
         """Set up installation source image
 
         * Download the image
@@ -264,7 +264,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
             )
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 
-    def teardown_installation_source_image_with_task(self):
+    def teardown_with_task(self):
         """Tear down installation source image.
 
         * Unmount the image
