@@ -1331,9 +1331,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # Set up the device type combo.
         self._setup_device_type_combo(device)
 
+        # Get the current device type.
+        device_type = self._get_current_device_type()
+
         # You can't change the fstype in some cases.
         is_sensitive = self._reformatCheckbox.get_active() \
-            and self._get_current_device_type() != DEVICE_TYPE_BTRFS
+            and device_type != DEVICE_TYPE_BTRFS
 
         fancy_set_sensitive(self._fsCombo, is_sensitive)
 
@@ -1348,8 +1351,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
         # XXX CHECKME: encryption of thin logical volumes is not supported at this time
-        device_type = self._get_current_device_type()
-
         if device_type in [DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP]:
             fancy_set_sensitive(self._encryptCheckbox, False)
 
