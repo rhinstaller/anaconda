@@ -614,3 +614,12 @@ class IPSeriesGRUB2(GRUB2):
         #       PowerVM / POWER on qemu/kvm
         defaults.write("GRUB_DISABLE_OS_PROBER=true\n")
         defaults.close()
+
+class PowerNVGRUB2(GRUB2):
+    """PowerNV GRUBv2"""
+
+    def install(self, args=None):
+        """installation should be a no-op, just writing the config is sufficient for the
+        firmware's bootloader (petitboot)
+        """
+        pass
