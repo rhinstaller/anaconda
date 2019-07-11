@@ -1922,7 +1922,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                     container = self._storage_playground.devicetree.get_device_by_name(
                         self._device_container_name
                     )
-                    row = self._get_container_store_row(container)
+
+                    if container:
+                        row = self._get_container_store_row(container)
+                    else:
+                        row = [self._device_container_name, ""]
+
                     self._containerStore.insert(idx, row)
                     combo.set_active(idx)  # triggers a call to this method
                     return
