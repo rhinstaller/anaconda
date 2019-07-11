@@ -25,8 +25,8 @@ from pyanaconda.core.util import requests_session, getSysroot
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
-from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
     SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, \
@@ -39,7 +39,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveImageHandlerModule(KickstartBaseModule):
+class LiveImageHandlerModule(PayloadHandlerBase):
     """The Live Image payload module."""
 
     def __init__(self):
@@ -90,6 +90,10 @@ class LiveImageHandlerModule(KickstartBaseModule):
         liveimg.checksum = self.checksum
         liveimg.noverifyssl = not self.verifyssl
         liveimg.seen = True
+
+    def get_handler_path(self):
+        """Get path of this payload handler."""
+        return LIVE_IMAGE_HANDLER.object_path
 
     @property
     def url(self):
