@@ -153,6 +153,7 @@ class CheckInstallationSourceImageTask(Task):
             size = self._check_local_image(local_image_path)
         else:
             size = self._check_remote_image(self._url, self._proxy)
+        log.debug("Required space: %s", size)
         return size
 
 

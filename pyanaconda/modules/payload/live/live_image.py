@@ -205,13 +205,8 @@ class LiveImageHandlerModule(KickstartBaseModule):
             self.proxy,
             self.requests_session
         )
-        task.succeeded_signal.connect(lambda: self.update_required_space_from_task(task))
+        task.succeeded_signal.connect(lambda: self.set_required_space(task.get_result()))
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
-
-    def update_required_space_from_task(self, task):
-        result = task.get_result()
-        log.debug("'%s' task result: %s", task.name, result)
-        self.set_required_space(result)
 
     def setup_installation_source_image_with_task(self):
         """Set up installation source image
