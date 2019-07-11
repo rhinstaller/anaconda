@@ -21,7 +21,6 @@
 from abc import ABC
 
 from pyanaconda.core.event_loop import EventLoop
-from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.timer import Timer
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.task import publish_task, TaskInterface
@@ -94,8 +93,8 @@ class MainModule(BaseModule):
 
     def run(self):
         """Run the module's loop."""
-        log.debug("Schedule publishing.")
-        run_in_loop(self.publish)
+        log.debug("Publish the module.")
+        self.publish()
         log.debug("Start the loop.")
         self._loop.run()
 
