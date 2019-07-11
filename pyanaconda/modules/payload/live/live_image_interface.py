@@ -17,37 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface, dbus_class, dbus_signal
+from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
-from pyanaconda.modules.common.task import TaskInterface
-
-
-@dbus_class
-class CheckInstallationSourceImageTaskInterface(TaskInterface):
-    """The interface for a source image check task
-
-    The task returns size of space required for the image.
-    """
-
-    @staticmethod
-    def convert_result(value):
-        return get_variant(UInt64, value)
-
-
-@dbus_class
-class SetupInstallationSourceImageTaskInterface (TaskInterface):
-    """The interface for a source image setup task
-
-    The task returns local path of the image file.
-    """
-
-    @staticmethod
-    def convert_result(value):
-        return get_variant(Str, value)
 
 
 @dbus_interface(LIVE_IMAGE_HANDLER.interface_name)

@@ -30,8 +30,7 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface, \
-    CheckInstallationSourceImageTaskInterface, SetupInstallationSourceImageTaskInterface
+from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
     SetupInstallationSourceImageTask, PostInstallTask, url_target_is_tarfile, \
     TeardownInstallationSourceImageTask
@@ -207,8 +206,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
             self.requests_session
         )
         task.succeeded_signal.connect(lambda: self.update_required_space_from_task(task))
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task,
-                                 CheckInstallationSourceImageTaskInterface)
+        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 
     def update_required_space_from_task(self, task):
         result = task.get_result()
@@ -232,8 +230,7 @@ class LiveImageHandlerModule(KickstartBaseModule):
             self.requests_session
         )
         task.succeeded_signal.connect(lambda: self.update_image_path_from_task(task))
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task,
-                                 SetupInstallationSourceImageTaskInterface)
+        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 
     def update_image_path_from_task(self, task):
         result = task.get_result()
