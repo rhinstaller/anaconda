@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.property import emits_properties_changed
 
@@ -36,6 +36,8 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("Proxy", self.implementation.proxy_changed)
         self.watch_property("Checksum", self.implementation.checksum_changed)
         self.watch_property("VerifySSL", self.implementation.verifyssl_changed)
+        self.watch_property("RequiredSpace", self.implementation.required_space_changed)
+        self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
 
     @property
     def Url(self) -> Str:
@@ -76,3 +78,63 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
     def SetVerifySSL(self, verify_ssl: Bool):
         """Set if the ssl verification should be enabled."""
         self.implementation.set_verifyssl(verify_ssl)
+
+    @property
+    def RequiredSpace(self) -> UInt64:
+        """Space required by the source image."""
+        return self.implementation.required_space
+
+    def UpdateKernelVersionList(self):
+        """Update the list of kernel versions."""
+        self.implementation.update_kernel_version_list()
+
+    def GetKernelVersionList(self) -> List[Str]:
+        """Get the kernel versions list."""
+        return self.implementation.kernel_version_list
+
+    @dbus_signal
+    def KernelVersionListChanged(self, kernel_version_list: List[Str]):
+        """Signal kernel version list change."""
+        pass
+
+    def SetupWithTask(self) -> ObjPath:
+        """Setup the handler.
+
+        Check availability of the image and update required space
+        """
+        return self.implementation.setup_with_task()
+
+    def PreInstallWithTask(self) -> ObjPath:
+        """Set up installation source image
+
+        * Download the image
+        * Check the checksum
+        * Mount the image
+        """
+        return self.implementation.pre_install_with_task()
+
+    def InstallWithTask(self) -> ObjPath:
+        """Install the payload.
+
+        * Copy the payload.
+        * Create rescue images
+        """
+        return self.implementation.install_with_task()
+
+    def PostInstallWithTask(self) -> ObjPath:
+        """Do post installation tasks.
+
+        * [TODO] copy driver disk files (Payload)
+        * [NO] check installation requirements were applied (Payload)
+        * Update BLS entries (LiveOSPayload)
+        """
+        return self.implementation.post_install_with_task()
+
+    def TeardownWithTask(self) -> ObjPath:
+        """Tear down installation source image.
+
+        * Unmount the image
+        * Clean up mount point directories
+        * Remove downloaded image
+        """
+        return self.implementation.teardown_with_task()
