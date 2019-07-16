@@ -43,10 +43,6 @@ class PayloadModule(KickstartModule):
         DBus.publish_object(PAYLOAD.object_path, PayloadInterface(self))
         DBus.register_service(PAYLOAD.service_name)
 
-    def _publish_handler(self):
-        """Publish handler as soon as we know which one to chose"""
-        self.payload_handler.publish()
-
     @property
     def kickstart_specification(self):
         """Return the kickstart specification."""
@@ -85,15 +81,19 @@ class PayloadModule(KickstartModule):
         log.debug("Processing kickstart data...")
 
         self._create_correct_handler(data)
-        self._publish_handler()
 
         self.payload_handler.process_kickstart(data)
 
     def _create_correct_handler(self, data):
+        handler = None
+
         if data.liveimg.seen:
-            self.set_payload_handler(LiveImageHandlerModule())
+            handler = LiveImageHandlerModule()
         else:
-            self.set_payload_handler(DNFHandlerModule())
+            handler = DNFHandlerModule()
+
+        handler.publish()
+        self.set_payload_handler(handler)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -113,6 +113,9 @@ class PayloadModule(KickstartModule):
         :returns: DBus path to the handler
         :rtype: str
         """
-        self.set_payload_handler(LiveOSHandlerModule())
-        self._publish_handler()
+        handler = LiveOSHandlerModule()
+
+        handler.publish()
+        self.set_payload_handler(handler)
+
         return self.payload_handler.get_handler_path()
