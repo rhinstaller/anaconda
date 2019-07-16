@@ -28,6 +28,10 @@ from pyanaconda.modules.common.base import KickstartModuleInterface
 class PayloadInterface(KickstartModuleInterface):
     """DBus interface for Payload module."""
 
+    def CreateDNFHandler(self) -> ObjPath:
+        """Create DNF payload handler and publish it on a dbus."""
+        return self.implementation.create_dnf_handler()
+
     def CreateLiveOSHandler(self) -> ObjPath:
         """Create Live OS payload handler and publish it on dbus."""
         return self.implementation.create_live_os_handler()

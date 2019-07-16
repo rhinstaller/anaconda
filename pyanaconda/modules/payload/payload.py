@@ -117,6 +117,15 @@ class PayloadModule(KickstartModule):
 
         return str(data)
 
+    def create_dnf_handler(self):
+        """Create the DNF payload handler and publish it.
+
+        :returns: DBus path to the handler
+        :rtype: str
+        """
+        self._initialize_handler(DNFHandlerModule)
+        return self.payload_handler.get_handler_path()
+
     def create_live_os_handler(self):
         """Create the live os payload handler and publish it.
 
