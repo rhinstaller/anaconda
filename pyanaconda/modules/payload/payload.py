@@ -80,20 +80,30 @@ class PayloadModule(KickstartModule):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
 
-        self._create_correct_handler(data)
+        handler_class = self._get_correct_handler_class(data)
+        self._initialize_handler(handler_class)
 
         self.payload_handler.process_kickstart(data)
 
-    def _create_correct_handler(self, data):
-        handler = None
-
+    def _get_correct_handler_class(self, data):
         if data.liveimg.seen:
-            handler = LiveImageHandlerModule()
+            return LiveImageHandlerModule
         else:
-            handler = DNFHandlerModule()
+            return DNFHandlerModule
 
-        handler.publish()
+    def _initialize_handler(self, handler_class):
+        handler = handler_class()
+
+        self._publish_handler(handler)
         self.set_payload_handler(handler)
+
+    @staticmethod
+    def _publish_handler(handler):
+        """Publish handler passed in.
+
+        This method is really helpful for testing purpose.
+        """
+        handler.publish()
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -108,14 +118,10 @@ class PayloadModule(KickstartModule):
         return str(data)
 
     def create_live_os_handler(self):
-        """Create the live os payload handler and publish it and return DBus path.
+        """Create the live os payload handler and publish it.
 
         :returns: DBus path to the handler
         :rtype: str
         """
-        handler = LiveOSHandlerModule()
-
-        handler.publish()
-        self.set_payload_handler(handler)
-
+        self._initialize_handler(LiveOSHandlerModule)
         return self.payload_handler.get_handler_path()
