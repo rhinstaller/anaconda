@@ -100,7 +100,10 @@ class PayloadModule(KickstartModule):
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
 
-        self.payload_handler.setup_kickstart(data)
+        try:
+            self.payload_handler.setup_kickstart(data)
+        except HandlerNotSetError:
+            log.warning("Generating kickstart data without set handler - data will be empty!")
 
         return str(data)
 
