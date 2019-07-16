@@ -39,4 +39,4 @@ class PayloadHandlerMixin(object):
         self.publish_mock.assert_called_once()
 
     def get_payload_handler(self):
-        return self.payload_module._payload_handler
+        return self.payload_module.payload_handler
