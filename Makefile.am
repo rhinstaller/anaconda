@@ -48,8 +48,7 @@ ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
 ZANATA_PUSH_ARGS = --srcfile $(srcdir)/po/anaconda.pot --push-type source --force
 
-# the Zanata Python client is unfortunately Python 2 only at the moment
-ZANATA_CLIENT_PKG=python2-zanata-client
+ZANATA_CLIENT_BIN=zanata
 
 DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
 				-e 's/^f//' \
@@ -90,7 +89,7 @@ tag:
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
 po-pull:
-	rpm -q $(ZANATA_CLIENT_PKG) &>/dev/null || ( echo "need to run: dnf install $(ZANATA_CLIENT_PKG)"; exit 1 )
+	which $(ZANATA_CLIENT_BIN) &>/dev/null || ( echo "need to install zanata python client package"; exit 1 )
 	( cd $(srcdir) && zanata pull $(ZANATA_PULL_ARGS) )
 
 po-push:
