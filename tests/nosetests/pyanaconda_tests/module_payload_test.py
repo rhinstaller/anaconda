@@ -22,7 +22,8 @@ from mock import patch
 
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
-from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER
+from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
+    LIVE_IMAGE_HANDLER
 
 
 class PayloadInterfaceTestCase(TestCase):
@@ -61,6 +62,14 @@ class PayloadInterfaceTestCase(TestCase):
         self.payload_interface.CreateLiveOSHandler()
         self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
                          LIVE_OS_HANDLER.object_path)
+        publisher.assert_called_once()
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def create_live_image_handler_test(self, publisher):
+        """Test creation and publishing of the Live image handler module."""
+        self.payload_interface.CreateLiveImageHandler()
+        self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
+                         LIVE_IMAGE_HANDLER.object_path)
         publisher.assert_called_once()
 
     @patch('pyanaconda.dbus.DBus.publish_object')
