@@ -41,7 +41,7 @@ TEST_DEPENDENCIES = ["e2fsprogs", "git", "bzip2", "cppcheck", "rpm-ostree", "pyk
 
 PIP_DEPENDENCIES = ["rpmfluff", "dogtail", "pocketlint"]
 
-RELEASE_DEPENDENCIES = ["python2-zanata-client"]
+RELEASE_DEPENDENCIES = ["python3-zanata-client"]
 
 
 def _resolve_top_dir():
