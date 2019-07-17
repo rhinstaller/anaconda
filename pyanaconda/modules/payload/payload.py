@@ -134,3 +134,12 @@ class PayloadModule(KickstartModule):
         """
         self._initialize_handler(LiveOSHandlerModule)
         return self.payload_handler.get_handler_path()
+
+    def create_live_image_handler(self):
+        """Create the live image payload handler and publish it.
+
+        :returns: DBus path to the handler
+        :rtype: str
+        """
+        self._initialize_handler(LiveImageHandlerModule)
+        return self.payload_handler.get_handler_path()

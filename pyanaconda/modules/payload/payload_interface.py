@@ -36,6 +36,10 @@ class PayloadInterface(KickstartModuleInterface):
         """Create Live OS payload handler and publish it on dbus."""
         return self.implementation.create_live_os_handler()
 
+    def CreateLiveImageHandler(self) -> ObjPath:
+        """Create Live image payload handler and publish it on dbus."""
+        return self.implementation.create_live_image_handler()
+
     def GetActiveHandlerPath(self) -> ObjPath:
         """Get path to the payload which is used now."""
         return self.implementation.get_active_handler_path()
