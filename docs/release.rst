@@ -150,7 +150,7 @@ uncomment it and set it to True instead
 
 ::
 
-    ./scripts/testing/setup-mock-test-env.py --init -c -p --release fedora-rawhide-x86_64
+    ./scripts/testing/setup-mock-test-env.py --init -c --release fedora-rawhide-x86_64
 
 6. connect to the prepared mock environment
 
