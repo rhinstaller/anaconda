@@ -17,14 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import functools
-import tarfile
 import os
 
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import requests_session, getSysroot
-from pyanaconda.payload.utils import version_cmp
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
@@ -32,8 +29,10 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
-    SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, TeardownInstallationSourceImageTask
-from pyanaconda.modules.payload.live.utils import get_kernel_version_list, url_target_is_tarfile
+    SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, \
+    TeardownInstallationSourceImageTask
+from pyanaconda.modules.payload.live.utils import get_kernel_version_list, \
+    get_kernel_version_list_from_tar, url_target_is_tarfile
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -184,21 +183,11 @@ class LiveImageHandlerModule(KickstartBaseModule):
         if url_target_is_tarfile(self._url):
             if not os.path.exists(self.image_path):
                 raise SourceSetupError("Failed to find tarfile image")
-            kernel_version_list = self._get_kernel_version_list_from_tar(self.image_path)
+            kernel_version_list = get_kernel_version_list_from_tar(self.image_path)
         else:
             kernel_version_list = get_kernel_version_list(INSTALL_TREE)
 
         self.set_kernel_version_list(kernel_version_list)
-
-    def _get_kernel_version_list_from_tar(self, tarfile_path):
-        with tarfile.open(tarfile_path) as archive:
-            names = archive.getnames()
-
-            # Strip out vmlinuz- from the names
-            kernel_version_list = sorted((n.split("/")[-1][8:] for n in names
-                                          if "boot/vmlinuz-" in n),
-                                         key=functools.cmp_to_key(version_cmp))
-        return kernel_version_list
 
     @property
     def kernel_version_list(self):
