@@ -66,11 +66,6 @@ class SetupInstallationSourceTask(Task):
         if rc != 0:
             raise SourceSetupError("Failed to mount the install tree")
 
-        # FIXME: Update kernel version outside of this task
-        #
-        # Grab the kernel version list now so it's available after umount
-        # self._update_kernel_version_list()
-
         # FIXME: This should be done by the module
         # source = os.statvfs(self._target_mount)
         # self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
