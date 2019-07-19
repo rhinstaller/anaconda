@@ -24,13 +24,14 @@ from pyanaconda.dbus import DBus
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.core.util import execWithCapture
+from pyanaconda.core.util import execWithCapture, getSysroot
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
     TeardownInstallationSourceTask
+from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -114,6 +115,14 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         """Teardown installation source device."""
         task = TeardownInstallationSourceTask(INSTALL_TREE)
 
+        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+
+    def install_with_task(self):
+        """Install the payload."""
+        task = InstallFromImageTask(
+            getSysroot(),
+            self.kernel_version_list
+        )
         return self.publish_task(LIVE_OS_HANDLER.namespace, task)
 
     def update_kernel_version_list(self):

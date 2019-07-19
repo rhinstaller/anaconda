@@ -65,6 +65,14 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         """Teardown installation source resources."""
         return self.implementation.teardown_installation_source_with_task()
 
+    def InstallWithTask(self) -> ObjPath:
+        """Install the payload.
+
+        * Copy the payload.
+        * Create rescue images
+        """
+        return self.implementation.install_with_task()
+
     def UpdateKernelVersionList(self):
         """Update the list of kernel versions."""
         self.implementation.update_kernel_version_list()
