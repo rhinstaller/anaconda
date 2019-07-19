@@ -41,6 +41,7 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
+from pyanaconda.modules.payload.utils import create_root_dir
 
 from pykickstart.parser import Group
 
@@ -505,8 +506,7 @@ class Payload(metaclass=ABCMeta):
     ###
     def pre_install(self):
         """Perform pre-installation tasks."""
-        util.mkdirChain(conf.target.system_root + "/root")
-
+        create_root_dir()
         self._write_module_blacklist()
 
     def install(self):
