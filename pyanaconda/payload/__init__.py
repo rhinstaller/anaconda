@@ -41,7 +41,7 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
-from pyanaconda.modules.payload.utils import create_root_dir
+from pyanaconda.modules.payload.utils import create_root_dir, write_module_blacklist
 
 from pykickstart.parser import Group
 
@@ -507,25 +507,11 @@ class Payload(metaclass=ABCMeta):
     def pre_install(self):
         """Perform pre-installation tasks."""
         create_root_dir()
-        self._write_module_blacklist()
+        write_module_blacklist()
 
     def install(self):
         """Install the payload."""
         raise NotImplementedError()
-
-    def _write_module_blacklist(self):
-        """Copy modules from modprobe.blacklist=<module> on cmdline to
-        /etc/modprobe.d/anaconda-blacklist.conf so that modules will
-        continue to be blacklisted when the system boots.
-        """
-        if "modprobe.blacklist" not in flags.cmdline:
-            return
-
-        util.mkdirChain(conf.target.system_root + "/etc/modprobe.d")
-        with open(conf.target.system_root + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
-            f.write("# Module blacklists written by anaconda\n")
-            for module in flags.cmdline["modprobe.blacklist"].split():
-                f.write("blacklist %s\n" % module)
 
     def _copy_driver_disk_files(self):
         # Multiple driver disks may be loaded, so we need to glob for all
