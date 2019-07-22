@@ -18,31 +18,26 @@
 #
 
 """Helper functions and classes for custom partitioning."""
-
-__all__ = [
-    "get_size_from_entry", "populate_mountpoint_store", "validate_label", "validate_mountpoint",
-    "get_device_raid_level", "get_selected_raid_level", "get_raid_level_selection",
-    "get_default_raid_level", "requires_raid_selection", "get_default_container_raid_level",
-    "get_supported_container_raid_levels", "get_supported_raid_levels", "get_container_type",
-    "AddDialog", "ConfirmDeleteDialog", "DisksDialog", "ContainerDialog"
-]
-
 from collections import namedtuple
+from contextlib import contextmanager
+
 import functools
+from functools import wraps
+
+import logging
 import re
 
 from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
     DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
 from blivet.devicefactory import get_supported_raid_levels as get_blivet_supported_raid_levels
 from blivet.devicelibs import btrfs, mdraid, raid
-from blivet.formats import get_format
 from blivet.size import Size
 
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.util import lowerASCII
-from pyanaconda.platform import platform
+from pyanaconda.modules.storage.partitioning.interactive_utils import collect_mount_points
 from pyanaconda.storage.utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
@@ -50,6 +45,15 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
 
 log = get_module_logger(__name__)
+
+NOTEBOOK_LABEL_PAGE = 0
+NOTEBOOK_DETAILS_PAGE = 1
+NOTEBOOK_LUKS_PAGE = 2
+NOTEBOOK_UNEDITABLE_PAGE = 3
+NOTEBOOK_INCOMPLETE_PAGE = 4
+
+NEW_CONTAINER_TEXT = N_("Create a new %(container_type)s ...")
+CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
 
 RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
                            "requires more disks (%(min)d) than you "
@@ -102,49 +106,6 @@ def get_size_from_entry(entry, lower_bound=None, units=None):
     return size
 
 
-def populate_mountpoint_store(store, used_mountpoints):
-    # sure, add whatever you want to this list. this is just a start.
-    paths = ["/", "/boot", "/home", "/var"] + \
-            platform.boot_stage1_constraint_dict["mountpoints"]
-
-    # Sort the list now so all the real mountpoints go to the front, then
-    # add all the pseudo mountpoints we have.
-    paths.sort()
-    paths += ["swap"]
-
-    for fmt in ["appleboot", "biosboot", "prepboot"]:
-        if get_format(fmt).supported:
-            paths += [fmt]
-
-    for path in paths:
-        if path not in used_mountpoints:
-            store.append([path])
-
-
-def validate_label(label, fmt):
-    """Returns a code indicating either that the given label can be set for
-       this filesystem or the reason why it cannot.
-
-       In the case where the format cannot assign a label, the empty string
-       stands for accept the default, but in the case where the format can
-       assign a label the empty string represents itself.
-
-       :param str label: The label
-       :param DeviceFormat fmt: The device format to label
-
-    """
-    if fmt.exists:
-        return _("Cannot relabel already existing file system.")
-    if not fmt.labeling():
-        if label == "":
-            return ""
-        else:
-            return _("Cannot set label on file system.")
-    if not fmt.label_format_ok(label):
-        return _("Unacceptable label format for file system.")
-    return ""
-
-
 def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
     if strict:
         fake_mountpoints = []
@@ -171,22 +132,6 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
         return _("That mount point is invalid. Try something else?")
     else:
         return ""
-
-
-def get_device_raid_level(device):
-    use_dev = device.raw_device
-
-    raid_level = None
-    if hasattr(use_dev, "level"):
-        raid_level = use_dev.level
-    elif hasattr(use_dev, "data_level"):
-        raid_level = use_dev.data_level
-    elif hasattr(use_dev, "volume"):
-        raid_level = use_dev.volume.data_level
-    elif not hasattr(use_dev, "vg") and hasattr(use_dev, "lvs") and len(use_dev.parents) == 1:
-        raid_level = get_device_raid_level(use_dev.parents[0])
-
-    return raid_level
 
 
 def get_selected_raid_level(raid_level_combo):
@@ -330,6 +275,34 @@ def get_container_type(device_type):
         "GUI|Custom Partitioning|Configure|Devices", "container")))
 
 
+@contextmanager
+def ui_storage_logger():
+    """Context manager that applies the UIStorageFilter for its block"""
+
+    storage_log = get_blivet_logger()
+    storage_filter = UIStorageFilter()
+    storage_log.addFilter(storage_filter)
+    yield
+    storage_log.removeFilter(storage_filter)
+
+
+def ui_storage_logged(func):
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        with ui_storage_logger():
+            return func(*args, **kwargs)
+
+    return decorated
+
+
+class UIStorageFilter(logging.Filter):
+    """Logging filter for UI storage events"""
+
+    def filter(self, record):
+        record.name = "storage.ui"
+        return True
+
+
 class AddDialog(GUIObject):
     builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion",
                       "mountPointEntryBuffer"]
@@ -339,15 +312,20 @@ class AddDialog(GUIObject):
     # If the user enters a smaller size, the GUI changes it to this value
     MIN_SIZE_ENTRY = Size("1 MiB")
 
-    def __init__(self, *args, **kwargs):
-        self.mountpoints = kwargs.pop("mountpoints", [])
-        super().__init__(*args, **kwargs)
+    def __init__(self, data, mount_points):
+        super().__init__(data)
+        self.mountpoints = mount_points
         self.size = Size(0)
         self.mountpoint = ""
         self._error = False
 
         store = self.builder.get_object("mountPointStore")
-        populate_mountpoint_store(store, self.mountpoints)
+        paths = collect_mount_points()
+
+        for path in paths:
+            if path not in self.mountpoints:
+                store.append([path])
+
         self.builder.get_object("addMountPointEntry").set_model(store)
 
         completion = self.builder.get_object("mountPointCompletion")

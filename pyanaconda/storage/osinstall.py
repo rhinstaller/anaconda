@@ -47,6 +47,7 @@ class InstallerStorage(Blivet):
     def __init__(self):
         super().__init__()
         self.protected_devices = []
+        self._hidden_protected_disks = []
         self._escrow_certificates = {}
         self._bootloader = None
         self.__luks_devs = {}
@@ -352,30 +353,20 @@ class InstallerStorage(Blivet):
                 if disk not in self.devices:
                     self.devicetree.unhide(disk)
 
-    @property
-    def unused_devices(self):
-        used_devices = []
-        for root in self.roots:
-            for device in list(root.mounts.values()) + root.swaps:
-                if device not in self.devices:
-                    continue
+    def hide_protected_disks(self):
+        """Hide protected disks."""
+        for disk in self.disks:
+            if disk.protected:
+                self._hidden_protected_disks.append(disk)
+                self.devicetree.hide(disk)
 
-                used_devices.extend(device.ancestors)
+    def show_protected_disks(self):
+        """Show hidden protected disks."""
+        while self._hidden_protected_disks:
+            disk = self._hidden_protected_disks.pop()
 
-        for new in [d for d in self.devicetree.leaves if not d.format.exists]:
-            if new.format.mountable and not new.format.mountpoint:
-                continue
-
-            used_devices.extend(new.ancestors)
-
-        for device in self.partitions:
-            if getattr(device, "is_logical", False):
-                extended = device.disk.format.extended_partition.path
-                used_devices.append(self.devicetree.get_device_by_path(extended))
-
-        used = set(used_devices)
-        _all = set(self.devices)
-        return list(_all.difference(used))
+            if disk not in self.devices:
+                self.devicetree.unhide(disk)
 
     def _get_hostname(self):
         """Return a hostname."""
