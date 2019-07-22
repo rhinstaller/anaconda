@@ -65,6 +65,10 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         """Teardown installation source resources."""
         return self.implementation.teardown_installation_source_with_task()
 
+    def PreInstallWithTask(self) -> ObjPath:
+        """Prepare installation source for the installation."""
+        return self.implementation.pre_install_with_task()
+
     def InstallWithTask(self) -> ObjPath:
         """Install the payload.
 

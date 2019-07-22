@@ -27,7 +27,10 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithCapture, getSysroot
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
+
 from pyanaconda.modules.payload.shared.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask
+
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
     TeardownInstallationSourceTask
@@ -114,6 +117,12 @@ class LiveOSHandlerModule(PayloadHandlerBase):
     def teardown_installation_source_with_task(self):
         """Teardown installation source device."""
         task = TeardownInstallationSourceTask(INSTALL_TREE)
+
+        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+
+    def pre_install_with_task(self):
+        """Prepare intallation task."""
+        task = PrepareSystemForInstallationTask()
 
         return self.publish_task(LIVE_OS_HANDLER.namespace, task)
 
