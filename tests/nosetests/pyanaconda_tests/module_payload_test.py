@@ -17,15 +17,21 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
+import os
+
 from unittest import TestCase
+from mock import patch
+from textwrap import dedent
+from tempfile import TemporaryDirectory
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
 
+from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
+    LIVE_IMAGE_HANDLER
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
 from pyanaconda.modules.payload.handler_factory import HandlerType
-from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
-    LIVE_IMAGE_HANDLER
+from pyanaconda.modules.payload.shared.utils import create_root_dir, write_module_blacklist
 
 
 class PayloadInterfaceTestCase(TestCase):
@@ -105,3 +111,55 @@ class PayloadInterfaceTestCase(TestCase):
         self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
                          LIVE_OS_HANDLER.object_path)
         self.assertEqual(publisher.call_count, 3)
+
+
+class PayloadSharedUtilsTest(TestCase):
+
+    @patch('pyanaconda.modules.payload.shared.utils.getSysroot')
+    def create_root_test(self, getSysroot):
+        """Test payload create root directory function."""
+        with TemporaryDirectory() as temp:
+            getSysroot.return_value = temp
+
+            create_root_dir()
+
+            root_dir = os.path.join(temp, "/root")
+
+            self.assertTrue(os.path.isdir(root_dir))
+
+    @patch('pyanaconda.modules.payload.shared.utils.flags')
+    @patch('pyanaconda.modules.payload.shared.utils.getSysroot')
+    def write_module_blacklist_test(self, getSysroot, flags):
+        """Test write kernel module blacklist to the install root."""
+        with TemporaryDirectory() as temp:
+            getSysroot.return_value = temp
+            flags.cmdline = {"modprobe.blacklist": "mod1 mod2 nonono_mod"}
+
+            write_module_blacklist()
+
+            blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
+
+            self.assertTrue(os.path.isfile(blacklist_file))
+
+            with open(blacklist_file, "rt") as f:
+                expected_content = """
+                # Module blacklists written by anaconda
+                blacklist mod1
+                blacklist mod2
+                blacklist nonono_mod
+                """
+                self.assertEqual(dedent(expected_content).lstrip(), f.read())
+
+    @patch('pyanaconda.modules.payload.shared.utils.flags')
+    @patch('pyanaconda.modules.payload.shared.utils.getSysroot')
+    def write_empty_module_blacklist_test(self, getSysroot, flags):
+        """Test write kernel module blacklist to the install root -- empty list."""
+        with TemporaryDirectory() as temp:
+            getSysroot.return_value = temp
+            flags.cmdline = {}
+
+            write_module_blacklist()
+
+            blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
+
+            self.assertFalse(os.path.isfile(blacklist_file))
