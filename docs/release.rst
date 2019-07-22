@@ -9,6 +9,7 @@ In that case just ignore all section that require you to be an Anaconda maintain
 0. prerequisites
 
 - you need an up to date anaconda source code checkout
+- it is recommended to make the release on a fresh clone (prevent you from pushing local work into the upstream repository)
 - you need to have commit access to the anaconda repository (so that you can push release commits)
 - you need to have write access to the corresponding Fedora Zanata project so that you can push .pot file updates
 - you need to have the ``rpmbuild`` or ``mock`` and ``fedpkg`` tools installed
@@ -150,7 +151,7 @@ uncomment it and set it to True instead
 
 ::
 
-    ./scripts/testing/setup-mock-test-env.py --init -c -p --release fedora-rawhide-x86_64
+    ./scripts/testing/setup-mock-test-env.py --init -c --release fedora-rawhide-x86_64
 
 6. connect to the prepared mock environment
 
