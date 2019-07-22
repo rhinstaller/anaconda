@@ -25,6 +25,7 @@ from gi.repository import GLib
 from textwrap import dedent
 from mock import Mock
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
+from pyanaconda.modules.common.task import TaskInterface
 
 
 class run_in_glib(object):
@@ -142,3 +143,21 @@ def check_dbus_property(test, interface_id, interface, property_name,
         getter = lambda: getattr(interface, property_name)
 
     test.assertEqual(getter(), out_value)
+
+
+def check_task_creation(test, task_path, publisher, task_class):
+    """Check that the DBus task is correctly created.
+
+    :param test: instance of TestCase
+    :param task_path: DBus path of the task
+    :param publisher: Mock instance of the pyanaconda.dbus.DBus.publish_object
+    :param task_class: class of the tested task
+    """
+    publisher.assert_called_once()
+    object_path, obj = publisher.call_args[0]
+
+    test.assertEqual(task_path, object_path)
+    test.assertIsInstance(obj, TaskInterface)
+    test.assertIsInstance(obj.implementation, task_class)
+
+    return obj
