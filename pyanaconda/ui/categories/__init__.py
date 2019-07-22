@@ -21,6 +21,7 @@ from pyanaconda.core.i18n import N_
 
 __all__ = ["SpokeCategory"]
 
+
 class SpokeCategory(object):
     """A SpokeCategory is an object used to group multiple related Spokes
        together on a hub.  It consists of a title displayed above, and then
@@ -30,17 +31,11 @@ class SpokeCategory(object):
 
        Class attributes:
 
-       displayOnHubGUI  -- The GUI Hub subclass to display this Category on.
-                           If None, this Category will be skipped.
-       displayOnHubTUI  -- The TUI Hub subclass to display this Category on.
-                           If None, this Category will be skipped.
        sortOrder     -- A number indicating the order in which this Category
                         will be displayed.  A lower number indicates display
                         higher up in the Hub.
        title         -- The title of this SpokeCategory, to be displayed above
                         the grid.
     """
-    displayOnHubGUI = None
-    displayOnHubTUI = None
     sortOrder = 1000
     title = N_("DEFAULT TITLE")

@@ -749,8 +749,7 @@ class GraphicalUserInterface(UserInterface):
     def _list_hubs(self):
         """Return a list of Hub classes to be imported to this interface"""
         from pyanaconda.ui.gui.hubs.summary import SummaryHub
-        from pyanaconda.ui.gui.hubs.progress import ProgressHub
-        return [SummaryHub, ProgressHub]
+        return [SummaryHub]
 
     def _is_standalone(self, obj):
         """Is the spoke passed as obj standalone?"""

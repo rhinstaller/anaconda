@@ -24,9 +24,8 @@ from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, SETUP
 from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda.core.util import collect
 from pyanaconda.core.signal import Signal
+from pyanaconda.ui.categories import SpokeCategory
 from pyanaconda import lifecycle
-
-from pykickstart.constants import DISPLAY_MODE_TEXT
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -579,7 +578,7 @@ class Hub(object, metaclass=ABCMeta):
            by a custom collect method.
            One example of such usage is the Initial Setup application.
         """
-        return collectCategoriesAndSpokes(self.paths, self.__class__, self.data.displaymode.displayMode)
+        return collectCategoriesAndSpokes(self.paths, self.__class__)
 
     def exit_logger(self, hub_instance):
         """Log when a user leaves the hub.  Subclasses may override this
@@ -629,21 +628,18 @@ def collect_spokes(mask_paths, category):
 
     return spokes
 
-def collect_categories(mask_paths, displaymode):
+def collect_categories(mask_paths):
     """Return a list of all category subclasses. Look for them in modules
        imported as module_mask % basename(f) where f is name of all files in path.
     """
     categories = []
-    if displaymode == DISPLAY_MODE_TEXT:
-        for mask, path in mask_paths:
-            categories.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHubTUI", None) is not None))
-    else:
-        for mask, path in mask_paths:
-            categories.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHubGUI", None) is not None))
+
+    for mask, path in mask_paths:
+        categories.extend(collect(mask, path, lambda obj: issubclass(obj, SpokeCategory)))
 
     return categories
 
-def collectCategoriesAndSpokes(paths, klass, displaymode):
+def collectCategoriesAndSpokes(paths, klass):
     """Collects categories and spokes to be displayed on this Hub
 
        :param paths: dictionary mapping categories, spokes, and hubs to their
@@ -655,12 +651,8 @@ def collectCategoriesAndSpokes(paths, klass, displaymode):
     ret = {}
     # Collect all the categories this hub displays, then collect all the
     # spokes belonging to all those categories.
-    if displaymode == DISPLAY_MODE_TEXT:
-        categories = sorted(filter(lambda c: c.displayOnHubTUI == klass.__name__, collect_categories(paths["categories"], displaymode)),
-                            key=lambda c: c.sortOrder)
-    else:
-        categories = sorted(filter(lambda c: c.displayOnHubGUI == klass.__name__, collect_categories(paths["categories"], displaymode)),
-                            key=lambda c: c.sortOrder)
+    categories = sorted(collect_categories(paths["categories"]), key=lambda c: c.sortOrder)
+
     for c in categories:
         ret[c] = collect_spokes(paths["spokes"], c.__name__)
 

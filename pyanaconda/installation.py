@@ -48,6 +48,9 @@ from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+__all__ = ["run_installation"]
+
+
 class WriteResolvConfTask(Task):
     """Custom task subclass for handling the resolv.conf copy task.
 
@@ -74,7 +77,8 @@ def _writeKS(ksdata):
     with util.open_with_perm(path, "w", 0o600) as f:
         f.write(str(ksdata))
 
-def doConfiguration(storage, payload, ksdata):
+
+def _prepare_configuration(storage, payload, ksdata):
     """Configure the installed system."""
 
     configuration_queue = TaskQueue("Configuration queue")
@@ -197,27 +201,10 @@ def doConfiguration(storage, payload, ksdata):
     if write_configs.task_count:
         configuration_queue.append(write_configs)
 
-    # notify progress tracking about the number of steps
-    progress_init(configuration_queue.task_count)
-    # log contents of the main task queue
-    log.info(configuration_queue.summary)
+    return configuration_queue
 
-    # log tasks and queues when they are started
-    # - note that we are using generators to add the counter
-    queue_counter = util.item_counter(configuration_queue.queue_count)
-    task_started_counter = util.item_counter(configuration_queue.task_count)
-    task_completed_counter = util.item_counter(configuration_queue.task_count)
-    configuration_queue.queue_started.connect(lambda x: log.info("Queue started: %s (%s)", x.name, next(queue_counter)))
-    configuration_queue.task_started.connect(lambda x: log.info("Task started: %s (%s)", x.name, next(task_started_counter)))
-    configuration_queue.task_completed.connect(lambda x: log.debug("Task completed: %s (%s) (%1.1f s)",
-                                                                   x.name, next(task_completed_counter),
-                                                                   x.elapsed_time))
-    # start the task queue
-    configuration_queue.start()
-    # done
-    progress_complete()
 
-def doInstall(storage, payload, ksdata):
+def _prepare_installation(storage, payload, ksdata):
     """Perform an installation.  This method takes the ksdata as prepared by
        the UI (the first hub, in graphical mode) and applies it to the disk.
        The two main tasks for this are putting filesystems onto disks and
@@ -384,22 +371,39 @@ def doInstall(storage, payload, ksdata):
         snapshot_creation.append(Task("Create post-install snapshots", snapshot_task.run))
         installation_queue.append(snapshot_creation)
 
+    return installation_queue
+
+
+def run_installation(storage, payload, ksdata):
+    """Run the complete installation."""
+    queue = TaskQueue("Complete installation queue")
+    queue.append(_prepare_installation(storage, payload, ksdata))
+    queue.append(_prepare_configuration(storage, payload, ksdata))
+
     # notify progress tracking about the number of steps
-    progress_init(installation_queue.task_count)
+    progress_init(queue.task_count)
+
     # log contents of the main task queue
-    log.info(installation_queue.summary)
+    log.info(queue.summary)
 
     # log tasks and queues when they are started
     # - note that we are using generators to add the counter
-    queue_counter = util.item_counter(installation_queue.queue_count)
-    task_started_counter = util.item_counter(installation_queue.task_count)
-    task_completed_counter = util.item_counter(installation_queue.task_count)
-    installation_queue.queue_started.connect(lambda x: log.info("Queue started: %s (%s)", x.name, next(queue_counter)))
-    installation_queue.task_started.connect(lambda x: log.info("Task started: %s (%s)", x.name, next(task_started_counter)))
-    installation_queue.task_completed.connect(lambda x: log.debug("Task completed: %s (%s) (%1.1f s)",
-                                                                  x.name, next(task_completed_counter),
-                                                                  x.elapsed_time))
+    queue_counter = util.item_counter(queue.queue_count)
+    task_started_counter = util.item_counter(queue.task_count)
+    task_completed_counter = util.item_counter(queue.task_count)
+    queue.queue_started.connect(
+        lambda x: log.info("Queue started: %s (%s)", x.name, next(queue_counter))
+    )
+    queue.task_started.connect(
+        lambda x: log.info("Task started: %s (%s)", x.name, next(task_started_counter))
+    )
+    queue.task_completed.connect(
+        lambda x: log.debug("Task completed: %s (%s) (%1.1f s)", x.name,
+                            next(task_completed_counter), x.elapsed_time)
+    )
+
     # start the task queue
-    installation_queue.start()
+    queue.start()
+
     # done
     progress_complete()

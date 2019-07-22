@@ -23,7 +23,5 @@ from pyanaconda.ui.categories import SpokeCategory
 __all__ = ["SystemCategory"]
 
 class SystemCategory(SpokeCategory):
-    displayOnHubGUI = "SummaryHub"
-    displayOnHubTUI = "SummaryHub"
     sortOrder = 300
     title = N_("SYSTEM")
