@@ -26,6 +26,9 @@ from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_pub
 from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.structures.storage import DeviceData
+
+from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask
+
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
@@ -83,6 +86,13 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         task_path = self.live_os_interface.SetupInstallationSourceWithTask()
 
         check_task_creation(self, task_path, publisher, SetupInstallationSourceTask)
+
+    @patch_dbus_publish_object
+    def prepare_system_for_installation_task_test(self, publisher):
+        """Test Live OS is able to create a prepare installation task."""
+        task_path = self.live_os_interface.PreInstallWithTask()
+
+        check_task_creation(self, task_path, publisher, PrepareSystemForInstallationTask)
 
     @patch_dbus_publish_object
     def teardown_installation_source_task_test(self, publisher):
