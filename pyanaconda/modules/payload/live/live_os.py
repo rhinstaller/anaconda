@@ -27,7 +27,7 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithCapture, getSysroot
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
-from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.shared.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
     TeardownInstallationSourceTask

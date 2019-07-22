@@ -19,7 +19,7 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
-from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.shared.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.dnf.dnf_interface import DNFHandlerInterface
 from pyanaconda.modules.payload.dnf.packages.packages import PackagesHandlerModule
 

@@ -41,7 +41,7 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
-from pyanaconda.modules.payload.utils import create_root_dir, write_module_blacklist
+from pyanaconda.modules.payload.shared.utils import create_root_dir, write_module_blacklist
 
 from pykickstart.parser import Group
 
