@@ -81,6 +81,11 @@ class PayloadModule(KickstartModule):
         log.debug("Processing kickstart data...")
 
         handler_class = self._get_correct_handler_class(data)
+
+        if not handler_class:
+            log.warning("No handler was created. Kickstart data passed in are lost.")
+            return
+
         self._initialize_handler(handler_class)
 
         self.payload_handler.process_kickstart(data)
@@ -88,8 +93,10 @@ class PayloadModule(KickstartModule):
     def _get_correct_handler_class(self, data):
         if data.liveimg.seen:
             return LiveImageHandlerModule
-        else:
+        elif data.packages.seen:
             return DNFHandlerModule
+        else:
+            return None
 
     def _initialize_handler(self, handler_class):
         handler = handler_class()
