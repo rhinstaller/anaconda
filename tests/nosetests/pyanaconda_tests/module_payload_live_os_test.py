@@ -21,10 +21,11 @@ import unittest
 
 from mock import Mock, patch
 
+from tests.nosetests.pyanaconda_tests import check_task_creation
+
 from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
@@ -81,26 +82,14 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         """Test Live OS is able to create a setup installation source task."""
         task_path = self.live_os_interface.SetupInstallationSourceWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
-
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, SetupInstallationSourceTask)
+        check_task_creation(self, task_path, publisher, SetupInstallationSourceTask)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
     def teardown_installation_source_task_test(self, publisher):
         """Test Live OS is able to create a teardown installation source task."""
         task_path = self.live_os_interface.TeardownInstallationSourceWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
-
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, TeardownInstallationSourceTask)
+        check_task_creation(self, task_path, publisher, TeardownInstallationSourceTask)
 
 
 class LiveOSHandlerTasksTestCase(unittest.TestCase):
