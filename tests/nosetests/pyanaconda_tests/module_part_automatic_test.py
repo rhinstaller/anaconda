@@ -20,20 +20,20 @@
 import unittest
 from unittest.mock import Mock, patch
 
+from tests.nosetests.pyanaconda_tests import check_dbus_property, check_task_creation
+
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.formats.luks import LUKS2PBKDFArgs
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
     AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.storage.initialization import create_storage
-from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
 class AutopartitioningInterfaceTestCase(unittest.TestCase):
@@ -282,13 +282,8 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_reset(Mock())
         task_path = self.interface.ConfigureWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, AutomaticPartitioningTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, AutomaticPartitioningTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
@@ -297,11 +292,6 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_reset(Mock())
         task_path = self.interface.ValidateWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, StorageValidateTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
