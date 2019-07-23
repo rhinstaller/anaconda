@@ -195,9 +195,14 @@ class DeviceTreeViewer(ABC):
     def get_actions(self):
         """Get the device actions.
 
+        The actions are pruned and sorted.
+
         :return: a list of DeviceActionData
         """
         actions = []
+
+        self.storage.devicetree.actions.prune()
+        self.storage.devicetree.actions.sort()
 
         for action in self.storage.devicetree.actions.find():
             actions.append(self._get_action_data(action))

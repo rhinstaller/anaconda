@@ -32,7 +32,6 @@ class InteractivePartitioningTask(PartitioningTask):
         """Only set up the bootloader."""
         self._prepare_bootloader(storage)
         self._set_fstab_swaps(storage)
-        self._organize_actions(storage)
 
     def _prepare_bootloader(self, storage):
         """Prepare the bootloader."""
@@ -44,11 +43,6 @@ class InteractivePartitioningTask(PartitioningTask):
             d for d in storage.devices
             if d.direct and not d.format.exists and not d.partitioned and d.format.type == "swap"
         ])
-
-    def _organize_actions(self, storage):
-        """Prune and sort the scheduled actions."""
-        storage.devicetree.actions.prune()
-        storage.devicetree.actions.sort()
 
 
 class InteractiveAutoPartitioningTask(AutomaticPartitioningTask):

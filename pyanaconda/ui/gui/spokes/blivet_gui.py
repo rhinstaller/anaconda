@@ -247,6 +247,8 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
             if not self._do_check():
                 return
 
+        self._storage_playground.devicetree.actions.prune()
+        self._storage_playground.devicetree.actions.sort()
         actions = self._storage_playground.devicetree.actions.find()
 
         if actions:
