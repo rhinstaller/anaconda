@@ -21,7 +21,7 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import check_dbus_property, check_task_creation
 
 from pyanaconda import platform
 from pyanaconda.bootloader import get_bootloader_class
@@ -41,7 +41,6 @@ from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
     InstallBootloaderTask
-from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):

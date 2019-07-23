@@ -22,11 +22,12 @@ import tempfile
 import unittest
 from unittest.mock import patch, call, Mock
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation
+
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
@@ -40,12 +41,13 @@ from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
 from pyanaconda.modules.storage.iscsi import ISCSIModule
 from pyanaconda.modules.storage.iscsi.discover import ISCSIDiscoverTask, ISCSILoginTask
-from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface, ISCSIDiscoverTaskInterface
+from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface, \
+    ISCSIDiscoverTaskInterface
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.common.structures.iscsi import Portal, Credentials, Node
 from pyanaconda.modules.common.constants.objects import ISCSI
-from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, MountFilesystemsTask, \
-    WriteConfigurationTask
+from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, \
+    MountFilesystemsTask, WriteConfigurationTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage import StorageModule
@@ -55,7 +57,6 @@ from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
 from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface
 from pyanaconda.storage.checker import StorageCheckerReport
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class StorageInterfaceTestCase(unittest.TestCase):

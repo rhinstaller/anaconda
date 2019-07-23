@@ -20,7 +20,7 @@
 import unittest
 from unittest.mock import patch, Mock
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import check_task_creation, check_dbus_property
 
 from blivet.devices import StorageDevice, DiskDevice
 from blivet.formats import get_format
@@ -34,7 +34,6 @@ from pyanaconda.modules.storage.partitioning.manual_interface import ManualParti
 from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.storage.initialization import create_storage
-from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
 class ManualPartitioningInterfaceTestCase(unittest.TestCase):

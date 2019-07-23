@@ -20,7 +20,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation
 
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning import CustomPartitioningModule
@@ -29,7 +29,6 @@ from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPa
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class CustomPartitioningInterfaceTestCase(unittest.TestCase):
