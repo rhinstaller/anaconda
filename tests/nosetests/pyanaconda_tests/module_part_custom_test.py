@@ -20,15 +20,15 @@
 import unittest
 from unittest.mock import Mock, patch
 
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation
+
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.partitioning import CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class CustomPartitioningInterfaceTestCase(unittest.TestCase):
@@ -56,13 +56,8 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.process_kickstart(Mock())
         task_path = self.interface.ConfigureWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, CustomPartitioningTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, CustomPartitioningTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
@@ -71,13 +66,8 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_reset(Mock())
         task_path = self.interface.ValidateWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, StorageValidateTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
 

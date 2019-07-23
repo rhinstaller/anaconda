@@ -22,9 +22,10 @@ import tempfile
 import os
 from unittest.mock import patch, Mock
 
+from tests.nosetests.pyanaconda_tests import check_task_creation
+
 from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
         FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.constants.objects import FIREWALL
 from pyanaconda.modules.common.errors.installation import FirewallConfigurationError
@@ -204,13 +205,8 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             False,
         )
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, NetworkInstallationTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, NetworkInstallationTask)
         self.assertEqual(obj.implementation._sysroot, "/mnt/sysimage")
         self.assertEqual(obj.implementation._hostname, "my_hostname")
         self.assertEqual(obj.implementation._disable_ipv6, True)
@@ -240,13 +236,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test ConsolidateInitramfsConnectionsWithTask."""
         task_path = self.network_interface.ConsolidateInitramfsConnectionsWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
-
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, ConsolidateInitramfsConnectionsTask)
+        obj = check_task_creation(self, task_path, publisher, ConsolidateInitramfsConnectionsTask)
 
         self.network_module.log_task_result = Mock()
 
@@ -259,13 +249,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self._mock_supported_devices([("ens3", "", 0)])
         task_path = self.network_interface.ApplyKickstartWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
-
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, ApplyKickstartTask)
+        obj = check_task_creation(self, task_path, publisher, ApplyKickstartTask)
 
         self.network_module.log_task_result = Mock()
 
@@ -278,13 +262,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self._mock_supported_devices([("ens3", "", 0)])
         task_path = self.network_interface.SetRealOnbootValuesFromKickstartWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
-
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, SetRealOnbootValuesFromKickstartTask)
+        obj = check_task_creation(self, task_path, publisher, SetRealOnbootValuesFromKickstartTask)
 
         self.network_module.log_task_result = Mock()
 
@@ -296,13 +274,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test DumpMissingIfcfgFilesWithTask."""
         task_path = self.network_interface.DumpMissingIfcfgFilesWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
-
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, DumpMissingIfcfgFilesTask)
+        obj = check_task_creation(self, task_path, publisher, DumpMissingIfcfgFilesTask)
 
         self.network_module.log_task_result = Mock()
 
@@ -707,14 +679,8 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         """Test the Firewall configuration task - basic."""
         task_path = self.firewall_interface.InstallWithTask("/")
 
-        publisher.assert_called()
+        obj = check_task_creation(self, task_path, publisher, ConfigureFirewallTask)
 
-        object_path = publisher.call_args_list[0][0][0]
-        obj = publisher.call_args_list[0][0][1]
-
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-        self.assertIsInstance(obj.implementation, ConfigureFirewallTask)
         self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._firewall_mode, FirewallMode.DEFAULT)
         self.assertEqual(obj.implementation._enabled_services, [])

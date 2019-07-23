@@ -22,9 +22,10 @@ import pickle
 import unittest
 from unittest.mock import patch, Mock
 
+from tests.nosetests.pyanaconda_tests import check_task_creation
+
 from blivetgui.communication.proxy_utils import ProxyID
 
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.partitioning import BlivetPartitioningModule
 from pyanaconda.modules.storage.partitioning.blivet_interface import \
     BlivetPartitioningInterface
@@ -106,13 +107,8 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_reset(Mock())
         task_path = self.interface.ConfigureWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, InteractivePartitioningTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, InteractivePartitioningTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
@@ -121,11 +117,6 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_reset(Mock())
         task_path = self.interface.ValidateWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, StorageValidateTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)

@@ -20,11 +20,12 @@
 import unittest
 from unittest.mock import patch, Mock
 
+from tests.nosetests.pyanaconda_tests import check_task_creation
+
 from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
@@ -66,13 +67,8 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_reset(Mock())
         task_path = self.interface.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, SnapshotCreateTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, SnapshotCreateTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
         self.assertEqual(obj.implementation._requests, [])
         self.assertEqual(obj.implementation._when, SNAPSHOT_WHEN_PRE_INSTALL)

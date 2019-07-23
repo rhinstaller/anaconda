@@ -25,8 +25,9 @@ import unittest
 from textwrap import dedent
 from unittest.mock import patch, Mock
 
+from tests.nosetests.pyanaconda_tests import check_task_creation
+
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.nvdimm import NVDIMMModule
 from pyanaconda.modules.storage.nvdimm.nvdimm_interface import NVDIMMInterface
 from pyanaconda.modules.storage.nvdimm.reconfigure import NVDIMMReconfigureTask
@@ -55,13 +56,8 @@ class NVDIMMInterfaceTestCase(unittest.TestCase):
         """Test ReconfigureWithTask."""
         task_path = self.nvdimm_interface.ReconfigureWithTask("namespace0.0", "sector", 512)
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, NVDIMMReconfigureTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, NVDIMMReconfigureTask)
         self.assertEqual(obj.implementation._namespace, "namespace0.0")
         self.assertEqual(obj.implementation._mode, "sector")
         self.assertEqual(obj.implementation._sector_size, 512)

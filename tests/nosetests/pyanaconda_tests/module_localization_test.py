@@ -20,16 +20,16 @@
 import os
 import tempfile
 import unittest
-from textwrap import dedent
 
+from textwrap import dedent
 from mock import Mock, patch
 
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation
+
 from pyanaconda.modules.common.constants.services import LOCALIZATION
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.localization.installation import LanguageInstallationTask
 from pyanaconda.modules.localization.localization import LocalizationModule
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class LocalizationInterfaceTestCase(unittest.TestCase):
@@ -134,12 +134,8 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.localization_interface.SetLanguage("cs_CZ.UTF-8")
         task_path = self.localization_interface.InstallWithTasks("/")[0]
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, LanguageInstallationTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-        self.assertIsInstance(obj.implementation, LanguageInstallationTask)
         self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._lang, "cs_CZ.UTF-8")
 

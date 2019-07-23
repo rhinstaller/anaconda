@@ -21,6 +21,8 @@ import tempfile
 import unittest
 from unittest.mock import patch, Mock
 
+from tests.nosetests.pyanaconda_tests import check_task_creation
+
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
     LUKSDevice
 from blivet.errors import StorageError
@@ -31,7 +33,6 @@ from blivet.size import Size
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule, publish_device_tree
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
@@ -472,13 +473,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test FindExistingSystemsWithTask."""
         task_path = self.interface.FindExistingSystemsWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, FindExistingSystemsTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, FindExistingSystemsTask)
         self.assertEqual(obj.implementation._devicetree, self.module.storage.devicetree)
 
         roots = [Root(name="My Linux")]
@@ -494,13 +490,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             task_path = self.interface.MountExistingSystemWithTask(sysroot, "dev1", True)
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, MountExistingSystemTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, MountExistingSystemTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
         self.assertEqual(obj.implementation._sysroot, sysroot)
         self.assertEqual(obj.implementation._device.name, "dev1")
@@ -511,13 +502,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test FindDevicesWithTask."""
         task_path = self.interface.FindDevicesWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, FindDevicesTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, FindDevicesTask)
         self.assertEqual(obj.implementation._devicetree, self.module.storage.devicetree)
 
 

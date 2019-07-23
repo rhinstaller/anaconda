@@ -22,9 +22,12 @@ import tempfile
 import unittest
 from unittest.mock import patch, call, Mock
 
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation
+
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+
 from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
@@ -38,12 +41,13 @@ from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
 from pyanaconda.modules.storage.iscsi import ISCSIModule
 from pyanaconda.modules.storage.iscsi.discover import ISCSIDiscoverTask, ISCSILoginTask
-from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface, ISCSIDiscoverTaskInterface
+from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface, \
+    ISCSIDiscoverTaskInterface
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.common.structures.iscsi import Portal, Credentials, Node
 from pyanaconda.modules.common.constants.objects import ISCSI
-from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, MountFilesystemsTask, \
-    WriteConfigurationTask
+from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, \
+    MountFilesystemsTask, WriteConfigurationTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage import StorageModule
@@ -53,7 +57,6 @@ from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
 from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface
 from pyanaconda.storage.checker import StorageCheckerReport
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class StorageInterfaceTestCase(unittest.TestCase):
@@ -69,13 +72,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """Test ResetWithTask."""
         task_path = self.storage_interface.ResetWithTask()
 
-        # Check the task.
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, StorageResetTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-        self.assertIsInstance(obj.implementation, StorageResetTask)
         self.assertIsNotNone(obj.implementation._storage)
 
         # Check the side affects.
@@ -1125,13 +1123,8 @@ class DASDInterfaceTestCase(unittest.TestCase):
         """Test DiscoverWithTask."""
         task_path = self.dasd_interface.DiscoverWithTask("0.0.A100")
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, DASDDiscoverTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, DASDDiscoverTask)
         self.assertEqual(obj.implementation._device_number, "0.0.A100")
 
     @patch('pyanaconda.dbus.DBus.publish_object')
@@ -1139,12 +1132,8 @@ class DASDInterfaceTestCase(unittest.TestCase):
         """Test the discover task."""
         task_path = self.dasd_interface.FormatWithTask(["/dev/sda", "/dev/sdb"])
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, DASDFormatTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-        self.assertIsInstance(obj.implementation, DASDFormatTask)
         self.assertEqual(obj.implementation._dasds, ["/dev/sda", "/dev/sdb"])
 
 
@@ -1273,14 +1262,10 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
             interfaces_mode
         )
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, ISCSIDiscoverTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj, ISCSIDiscoverTaskInterface)
 
-        self.assertIsInstance(obj.implementation, ISCSIDiscoverTask)
         self.assertEqual(obj.implementation._portal, self._portal)
         self.assertEqual(obj.implementation._credentials, self._credentials)
         self.assertEqual(obj.implementation._interfaces_mode, IscsiInterfacesMode.DEFAULT)
@@ -1294,13 +1279,8 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
             self._unpack_structure_content(Node.to_structure(self._node)),
         )
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, ISCSILoginTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, ISCSILoginTask)
         self.assertEqual(obj.implementation._portal, self._portal)
         self.assertEqual(obj.implementation._credentials, self._credentials)
         self.assertEqual(obj.implementation._node, self._node)
@@ -1344,13 +1324,8 @@ class FCOEInterfaceTestCase(unittest.TestCase):
             True  # auto_vlan
         )
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, FCOEDiscoverTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, FCOEDiscoverTask)
         self.assertEqual(obj.implementation._nic, "eth0")
         self.assertEqual(obj.implementation._dcb, False)
         self.assertEqual(obj.implementation._auto_vlan, True)
@@ -1411,13 +1386,8 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
             "0x401040a000000000"
         )
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, ZFCPDiscoverTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, ZFCPDiscoverTask)
         self.assertEqual(obj.implementation._device_number, "0.0.fc00")
         self.assertEqual(obj.implementation._wwpn, "0x5105074308c212e9")
         self.assertEqual(obj.implementation._lun, "0x401040a000000000")

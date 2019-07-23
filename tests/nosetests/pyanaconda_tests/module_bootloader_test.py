@@ -21,6 +21,8 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
+from tests.nosetests.pyanaconda_tests import check_dbus_property, check_task_creation
+
 from pyanaconda import platform
 from pyanaconda.bootloader import get_bootloader_class
 from pyanaconda.bootloader.base import BootLoader
@@ -35,12 +37,10 @@ from pyanaconda.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_TYPE_EXTLINUX, \
     BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
     InstallBootloaderTask
-from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):
@@ -186,13 +186,8 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.bootloader_module.on_storage_reset(storage)
         task_path = self.bootloader_interface.ConfigureWithTask(sysroot, [version])
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, ConfigureBootloaderTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, ConfigureBootloaderTask)
         self.assertEqual(obj.implementation._storage, storage)
         self.assertEqual(obj.implementation._sysroot, sysroot)
         self.assertEqual(obj.implementation._versions, [version])
@@ -206,13 +201,8 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.bootloader_module.on_storage_reset(storage)
         task_path = self.bootloader_interface.InstallWithTask(sysroot)
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, InstallBootloaderTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, InstallBootloaderTask)
         self.assertEqual(obj.implementation._storage, storage)
         self.assertEqual(obj.implementation._sysroot, sysroot)
 

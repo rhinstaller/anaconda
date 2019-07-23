@@ -20,6 +20,8 @@
 import unittest
 from unittest.mock import patch, Mock
 
+from tests.nosetests.pyanaconda_tests import check_task_creation, check_dbus_property
+
 from blivet.devices import StorageDevice, DiskDevice
 from blivet.formats import get_format
 from blivet.size import Size
@@ -27,13 +29,11 @@ from blivet.size import Size
 from pyanaconda.dbus.typing import get_variant, Str, Bool
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.partitioning import ManualPartitioningModule
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.storage.initialization import create_storage
-from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
 class ManualPartitioningInterfaceTestCase(unittest.TestCase):
@@ -293,13 +293,8 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_reset(Mock())
         task_path = self.interface.ConfigureWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, ManualPartitioningTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, ManualPartitioningTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
@@ -308,11 +303,6 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_reset(Mock())
         task_path = self.interface.ValidateWithTask()
 
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
+        obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
 
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, StorageValidateTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
