@@ -98,15 +98,8 @@ class PayloadModule(KickstartModule):
         self._initialize_handler(handler)
 
     def _initialize_handler(self, handler):
-        self._publish_handler(handler)
-        self.set_payload_handler(handler)
-
-    def _publish_handler(self, handler):
-        """Publish handler passed in.
-
-        This method is really helpful for testing purpose.
-        """
         self._payload_handler_path = handler.publish_handler()
+        self.set_payload_handler(handler)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
