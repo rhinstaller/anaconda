@@ -87,15 +87,22 @@ class PayloadModule(KickstartModule):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
 
+        # create handler if no handler is set already
+        if not self.is_handler_set():
+            if not self._create_handler_from_ks_data(data):
+                log.warning("No handler was created. Kickstart data passed in are lost.")
+                return
+
+        self.payload_handler.process_kickstart(data)
+
+    def _create_handler_from_ks_data(self, data):
         handler_class = self._get_correct_handler_class(data)
 
         if not handler_class:
-            log.warning("No handler was created. Kickstart data passed in are lost.")
-            return
+            return False
 
         self._initialize_handler(handler_class)
-
-        self.payload_handler.process_kickstart(data)
+        return True
 
     def _get_correct_handler_class(self, data):
         if data.liveimg.seen:
