@@ -22,7 +22,8 @@ import tempfile
 import unittest
 from unittest.mock import patch, call, Mock
 
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
+    patch_dbus_publish_object
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
@@ -67,7 +68,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.storage_module = StorageModule()
         self.storage_interface = StorageInterface(self.storage_module)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def reset_with_task_test(self, publisher):
         """Test ResetWithTask."""
         task_path = self.storage_interface.ResetWithTask()
@@ -128,7 +129,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
             }
         ])
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def install_with_tasks_test(self, publisher):
         """Test InstallWithTask."""
         task_classes = [
@@ -153,7 +154,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
             self.assertIsInstance(obj, TaskInterface)
             self.assertIsInstance(obj.implementation, task_classes[i])
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def teardown_with_tasks_test(self, publisher):
         """Test TeardownWithTask."""
         task_classes = [
@@ -1118,7 +1119,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
         self.dasd_module = DASDModule()
         self.dasd_interface = DASDInterface(self.dasd_module)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def discover_with_task_test(self, publisher):
         """Test DiscoverWithTask."""
         task_path = self.dasd_interface.DiscoverWithTask("0.0.A100")
@@ -1127,7 +1128,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(obj.implementation._device_number, "0.0.A100")
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def format_with_task_test(self, publisher):
         """Test the discover task."""
         task_path = self.dasd_interface.FormatWithTask(["/dev/sda", "/dev/sdb"])
@@ -1252,7 +1253,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
     def _unpack_structure_content(self, structure):
         return {key: value.unpack() for key, value in structure.items()}
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def discover_with_task_test(self, publisher):
         """Test the discover task."""
         interfaces_mode = "default"
@@ -1270,7 +1271,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._credentials, self._credentials)
         self.assertEqual(obj.implementation._interfaces_mode, IscsiInterfacesMode.DEFAULT)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def login_with_task_test(self, publisher):
         """Test the login task."""
         task_path = self.iscsi_interface.LoginWithTask(
@@ -1315,7 +1316,7 @@ class FCOEInterfaceTestCase(unittest.TestCase):
         """Test the get dracut arguments method."""
         self.assertEqual(self.fcoe_interface.GetDracutArguments("eth0"), list())
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def discover_with_task_test(self, publisher):
         """Test the discover task."""
         task_path = self.fcoe_interface.DiscoverWithTask(
@@ -1377,7 +1378,7 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
         self.zfcp_module = ZFCPModule()
         self.zfcp_interface = ZFCPInterface(self.zfcp_module)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def discover_with_task_test(self, publisher):
         """Test the discover task."""
         task_path = self.zfcp_interface.DiscoverWithTask(

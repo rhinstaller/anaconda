@@ -22,7 +22,7 @@ import pickle
 import unittest
 from unittest.mock import patch, Mock
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from blivetgui.communication.proxy_utils import ProxyID
 
@@ -101,7 +101,7 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         self.assertIsInstance(answer, ProxyID)
         self.assertEqual(answer.id, 0)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
         self.module.on_storage_reset(Mock())
@@ -111,7 +111,7 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def validate_with_task_test(self, publisher):
         """Test ValidateWithTask."""
         self.module.on_storage_reset(Mock())

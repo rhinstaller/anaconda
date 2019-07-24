@@ -25,7 +25,7 @@ import unittest
 from textwrap import dedent
 from unittest.mock import patch, Mock
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.storage.nvdimm import NVDIMMModule
@@ -51,7 +51,7 @@ class NVDIMMInterfaceTestCase(unittest.TestCase):
         """Test SetNamespacesToUse."""
         self.nvdimm_interface.SetNamespacesToUse(["namespace0.0", "namespace1.0"])
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def reconfigure_with_task_test(self, publisher):
         """Test ReconfigureWithTask."""
         task_path = self.nvdimm_interface.ReconfigureWithTask("namespace0.0", "sector", 512)

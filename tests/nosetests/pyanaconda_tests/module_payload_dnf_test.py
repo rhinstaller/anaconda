@@ -21,6 +21,8 @@ import unittest
 
 from mock import Mock
 
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
+
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.payload.dnf.packages.packages import PackagesHandlerModule
@@ -67,7 +69,8 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
             self.assertEqual([], intf.Languages)
         self.assertEqual(ignore_missing, intf.MissingIgnored)
 
-    def packages_section_empty_kickstart_test(self):
+    @patch_dbus_publish_object
+    def packages_section_empty_kickstart_test(self, publisher):
         """Test the empty packages section."""
         ks_in = """
         %packages
@@ -81,7 +84,8 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         self.check_kickstart(ks_in, ks_out)
         self._check_properties()
 
-    def packages_section_kickstart_test(self):
+    @patch_dbus_publish_object
+    def packages_section_kickstart_test(self, publisher):
         """Test the packages section."""
         ks_in = """
         %packages
@@ -109,7 +113,8 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         self._expected_groups = ["group", "module:10", "module2:1.5/server"]
         self._check_properties()
 
-    def packages_section_complex_kickstart_test(self):
+    @patch_dbus_publish_object
+    def packages_section_complex_kickstart_test(self, publisher):
         """Test the packages section with duplicates."""
         ks_in = """
         %packages
@@ -153,7 +158,8 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         self._expected_groups = ["group1", "group2", "module:4", "module:3.5/server"]
         self._check_properties()
 
-    def packages_section_with_attribute_kickstart_test(self):
+    @patch_dbus_publish_object
+    def packages_section_with_attribute_kickstart_test(self, publisher):
         """Test the packages section with attribute."""
         ks_in = """
         %packages --nocore
@@ -167,7 +173,8 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         self.check_kickstart(ks_in, ks_out)
         self._check_properties(nocore=True)
 
-    def packages_section_multiple_attributes_kickstart_test(self):
+    @patch_dbus_publish_object
+    def packages_section_multiple_attributes_kickstart_test(self, publisher):
         """Test the packages section with multiple attributes."""
         ks_in = """
         %packages --nocore --multilib --instLangs en_US.UTF-8
@@ -182,7 +189,8 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         self.check_kickstart(ks_in, ks_out)
         self._check_properties(nocore=True, multilib="all", langs="en_US.UTF-8")
 
-    def packages_section_excludes_kickstart_test(self):
+    @patch_dbus_publish_object
+    def packages_section_excludes_kickstart_test(self, publisher):
         """Test the packages section with excludes."""
         ks_in = """
         %packages
@@ -200,7 +208,8 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         self._expected_excluded_packages = ["vim"]
         self._check_properties()
 
-    def packages_section_complex_exclude_kickstart_test(self):
+    @patch_dbus_publish_object
+    def packages_section_complex_exclude_kickstart_test(self, publisher):
         """Test the packages section with complex exclude example."""
         ks_in = """
         %packages --nocore --ignoremissing --instLangs=

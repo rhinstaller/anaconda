@@ -22,7 +22,8 @@ import tempfile
 import os
 from unittest.mock import patch, Mock
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
+    check_kickstart_interface, check_task_creation
 
 from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
         FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
@@ -37,7 +38,6 @@ from pyanaconda.modules.network.firewall.firewall import FirewallModule
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
 from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
 from pyanaconda.modules.network.kickstart import DEFAULT_DEVICE_SPECIFICATION
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     SetRealOnbootValuesFromKickstartTask, DumpMissingIfcfgFilesTask, \
@@ -181,7 +181,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.network.network.find_ifcfg_uuid_of_device',
            return_value="mocked_uuid")
     @patch('pyanaconda.modules.network.network.devices_ignore_ipv6', return_value=True)
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def install_network_with_task_test(self, publisher, devices_ignore_ipv6,
                                        find_ifcfg_uuid_of_device):
         """Test InstallNetworkWithTask."""
@@ -231,7 +231,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             ret_val.append(dev)
         self.network_module.get_supported_devices = Mock(return_value=ret_val)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def consolidate_initramfs_connections_with_task_test(self, publisher):
         """Test ConsolidateInitramfsConnectionsWithTask."""
         task_path = self.network_interface.ConsolidateInitramfsConnectionsWithTask()
@@ -243,7 +243,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         obj.implementation.succeeded_signal.emit()
         self.network_module.log_task_result.assert_called_once()
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def apply_kickstart_with_task_test(self, publisher):
         """Test ApplyKickstartWithTask."""
         self._mock_supported_devices([("ens3", "", 0)])
@@ -256,7 +256,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         obj.implementation.succeeded_signal.emit()
         self.network_module.log_task_result.assert_called_once()
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def set_real_onboot_values_from_kickstart_with_task_test(self, publisher):
         """Test SetRealOnbootValuesFromKickstartWithTask."""
         self._mock_supported_devices([("ens3", "", 0)])
@@ -269,7 +269,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         obj.implementation.succeeded_signal.emit()
         self.network_module.log_task_result.assert_called_once()
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def dump_missing_ifcfg_files_with_task_test(self, publisher):
         """Test DumpMissingIfcfgFilesWithTask."""
         task_path = self.network_interface.DumpMissingIfcfgFilesWithTask()
@@ -674,7 +674,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         self.callback = Mock()
         self.firewall_interface.PropertiesChanged.connect(self.callback)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def firewall_config_task_basic_test(self, publisher):
         """Test the Firewall configuration task - basic."""
         task_path = self.firewall_interface.InstallWithTask("/")

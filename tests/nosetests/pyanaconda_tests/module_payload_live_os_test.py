@@ -21,7 +21,7 @@ import unittest
 
 from mock import Mock, patch
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
 
 from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
@@ -77,14 +77,14 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         # return empty string because there is no valid image found
         self.assertEqual("", ret)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def setup_installation_source_task_test(self, publisher):
         """Test Live OS is able to create a setup installation source task."""
         task_path = self.live_os_interface.SetupInstallationSourceWithTask()
 
         check_task_creation(self, task_path, publisher, SetupInstallationSourceTask)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def teardown_installation_source_task_test(self, publisher):
         """Test Live OS is able to create a teardown installation source task."""
         task_path = self.live_os_interface.TeardownInstallationSourceWithTask()

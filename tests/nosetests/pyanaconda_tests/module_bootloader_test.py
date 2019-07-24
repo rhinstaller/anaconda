@@ -19,9 +19,10 @@
 #
 import tempfile
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
-from tests.nosetests.pyanaconda_tests import check_dbus_property, check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
+    check_task_creation
 
 from pyanaconda import platform
 from pyanaconda.bootloader import get_bootloader_class
@@ -176,7 +177,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         storage.bootloader.has_windows.return_value = True
         self.assertEqual(self.bootloader_interface.DetectWindows(), True)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
         storage = Mock()
@@ -192,7 +193,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._sysroot, sysroot)
         self.assertEqual(obj.implementation._versions, [version])
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def install_with_task_test(self, publisher):
         """Test InstallWithTask."""
         storage = Mock()
