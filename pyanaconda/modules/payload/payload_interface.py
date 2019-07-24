@@ -43,3 +43,7 @@ class PayloadInterface(KickstartModuleInterface):
     def GetActiveHandlerPath(self) -> ObjPath:
         """Get path to the payload which is used now."""
         return self.implementation.get_active_handler_path()
+
+    def IsHandlerSet(self) -> Bool:
+        """Test if any handler is set and used."""
+        return self.implementation.is_handler_set()

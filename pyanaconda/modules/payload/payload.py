@@ -66,6 +66,13 @@ class PayloadModule(KickstartModule):
         self._payload_handler = payload_handler
         log.debug("Payload handler %s used.", payload_handler.__class__.__name__)
 
+    def is_handler_set(self):
+        """Test if any handler is created and used.
+
+        :rtype: bool
+        """
+        return self._payload_handler is not None
+
     def get_active_handler_path(self):
         """Get path of the active payload handler.
 
