@@ -47,6 +47,21 @@ class PayloadInterfaceTestCase(TestCase):
         """Test kickstart parsing without handler set."""
         self.assertEqual(self.payload_interface.GenerateKickstart(), "")
 
+    def process_kickstart_with_no_handler_test(self):
+        """Test kickstart processing when no handler set or created based on KS data."""
+        with self.assertLogs('anaconda.modules.payload.payload', level="WARNING") as log:
+            self.payload_interface.ReadKickstart("")
+
+            self.assertTrue(any(map(lambda x: "No handler was created" in x, log.output)))
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def is_handler_set_test(self, publisher):
+        """Test IsHandlerSet API."""
+        self.assertFalse(self.payload_interface.IsHandlerSet())
+
+        self.payload_interface.CreateDNFHandler()
+        self.assertTrue(self.payload_interface.IsHandlerSet())
+
     @patch('pyanaconda.dbus.DBus.publish_object')
     def create_dnf_handler_test(self, publisher):
         """Test creation and publishing of the DNF handler module."""
