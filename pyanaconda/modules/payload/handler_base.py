@@ -37,12 +37,3 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
         :rtype: string
         """
         pass
-
-    @abstractmethod
-    def get_handler_path(self):
-        """Get path of this payload handler.
-
-        :returns: path to this handler
-        :rtype: string
-        """
-        pass

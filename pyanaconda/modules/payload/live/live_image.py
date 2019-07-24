@@ -92,10 +92,6 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         liveimg.noverifyssl = not self.verifyssl
         liveimg.seen = True
 
-    def get_handler_path(self):
-        """Get path of this payload handler."""
-        return LIVE_IMAGE_HANDLER.object_path
-
     @property
     def url(self):
         """Get url where to obtain the live image for installation.

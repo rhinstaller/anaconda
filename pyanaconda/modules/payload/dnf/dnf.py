@@ -48,7 +48,3 @@ class DNFHandlerModule(PayloadHandlerBase):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         self._packages_handler.setup_kickstart(data)
-
-    def get_handler_path(self):
-        """Get path of this payload handler."""
-        return PAYLOAD_DEFAULT.object_path

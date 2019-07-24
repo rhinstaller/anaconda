@@ -55,10 +55,6 @@ class LiveOSHandlerModule(PayloadHandlerBase):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
 
-    def get_handler_path(self):
-        """Get path of this payload handle."""
-        return LIVE_OS_HANDLER.object_path
-
     @property
     def image_path(self):
         """Path to the source live OS image.
