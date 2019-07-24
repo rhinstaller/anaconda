@@ -176,6 +176,8 @@ def patch_dbus_publish_object(func):
     @wraps(func)
     def function_wrapper(*args, **kwargs):
         with patch('pyanaconda.dbus.DBus.publish_object') as publisher:
+            # FIXME: Find a way how to add publisher on the same position as @patch
+            # Right now it's always the last
             func(*args, publisher, **kwargs)
 
     return function_wrapper

@@ -182,8 +182,8 @@ class NetworkInterfaceTestCase(unittest.TestCase):
            return_value="mocked_uuid")
     @patch('pyanaconda.modules.network.network.devices_ignore_ipv6', return_value=True)
     @patch_dbus_publish_object
-    def install_network_with_task_test(self, publisher, devices_ignore_ipv6,
-                                       find_ifcfg_uuid_of_device):
+    def install_network_with_task_test(self, devices_ignore_ipv6,
+                                       find_ifcfg_uuid_of_device, publisher):
         """Test InstallNetworkWithTask."""
         self.network_module._hostname = "my_hostname"
         self.network_module._disable_ipv6 = True
