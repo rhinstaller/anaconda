@@ -21,7 +21,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.errors.payload import HandlerNotSetError
-from pyanaconda.modules.payload.handler_factory import HandlerFactory, HandlerType
+from pyanaconda.modules.payload.handler_factory import HandlerFactory
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 
@@ -120,32 +120,12 @@ class PayloadModule(KickstartModule):
 
         return str(data)
 
-    def create_dnf_handler(self):
-        """Create the DNF payload handler and publish it.
+    def create_handler(self, handler_type):
+        """Create handler based on the passed type.
 
-        :returns: DBus path to the handler
-        :rtype: str
+        :param handler_type: type of the desirable handler
+        :type handler_type: value of the payload.handler_factory.HandlerType enum
         """
-        handler = HandlerFactory.create_handler(HandlerType.DNF)
-        self._initialize_handler(handler)
-        return self.payload_handler.get_handler_path()
-
-    def create_live_os_handler(self):
-        """Create the live os payload handler and publish it.
-
-        :returns: DBus path to the handler
-        :rtype: str
-        """
-        handler = HandlerFactory.create_handler(HandlerType.LIVE_OS)
-        self._initialize_handler(handler)
-        return self.payload_handler.get_handler_path()
-
-    def create_live_image_handler(self):
-        """Create the live image payload handler and publish it.
-
-        :returns: DBus path to the handler
-        :rtype: str
-        """
-        handler = HandlerFactory.create_handler(HandlerType.LIVE_IMAGE)
+        handler = HandlerFactory.create_handler(handler_type)
         self._initialize_handler(handler)
         return self.payload_handler.get_handler_path()
