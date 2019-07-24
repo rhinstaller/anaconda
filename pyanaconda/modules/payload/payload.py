@@ -92,9 +92,9 @@ class PayloadModule(KickstartModule):
                 log.warning("No handler was created. Kickstart data passed in are lost.")
                 return
 
-        self._initialize_handler(handler)
-
         handler.process_kickstart(data)
+
+        self._initialize_handler(handler)
 
     def _initialize_handler(self, handler):
         self._publish_handler(handler)
