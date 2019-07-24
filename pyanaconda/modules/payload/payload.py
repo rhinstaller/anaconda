@@ -35,6 +35,7 @@ class PayloadModule(KickstartModule):
     def __init__(self):
         super().__init__()
         self._payload_handler = None
+        self._payload_handler_path = None
 
     def publish(self):
         """Publish the module."""
@@ -76,10 +77,10 @@ class PayloadModule(KickstartModule):
 
         :rtype: str
         """
-        try:
-            return self.payload_handler.get_handler_path()
-        except HandlerNotSetError:
-            return ""
+        if self._payload_handler_path:
+            return self._payload_handler_path
+
+        return ""
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -100,13 +101,12 @@ class PayloadModule(KickstartModule):
         self._publish_handler(handler)
         self.set_payload_handler(handler)
 
-    @staticmethod
-    def _publish_handler(handler):
+    def _publish_handler(self, handler):
         """Publish handler passed in.
 
         This method is really helpful for testing purpose.
         """
-        handler.publish()
+        self._payload_handler_path = handler.publish_handler()
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -128,4 +128,4 @@ class PayloadModule(KickstartModule):
         """
         handler = HandlerFactory.create_handler(handler_type)
         self._initialize_handler(handler)
-        return self.payload_handler.get_handler_path()
+        return self._payload_handler_path

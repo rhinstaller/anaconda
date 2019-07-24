@@ -34,11 +34,12 @@ class DNFHandlerModule(PayloadHandlerBase):
         super().__init__()
         self._packages_handler = PackagesHandlerModule()
 
-    def publish(self):
-        """Publish the module."""
+    def publish_handler(self):
+        """Publish the handler."""
         self._packages_handler.publish()
 
         DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFHandlerInterface(self))
+        return PAYLOAD_DEFAULT.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

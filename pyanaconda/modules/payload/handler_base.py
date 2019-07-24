@@ -30,6 +30,15 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
     """
 
     @abstractmethod
+    def publish_handler(self):
+        """Publish object on DBus and return its path.
+
+        :returns: path to this handler
+        :rtype: string
+        """
+        pass
+
+    @abstractmethod
     def get_handler_path(self):
         """Get path of this payload handler.
 

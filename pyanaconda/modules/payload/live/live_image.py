@@ -66,9 +66,10 @@ class LiveImageHandlerModule(PayloadHandlerBase):
 
         self._requests_session = None
 
-    def publish(self):
-        """Publish the module."""
+    def publish_handler(self):
+        """Publish the handler."""
         DBus.publish_object(LIVE_IMAGE_HANDLER.object_path, LiveImageHandlerInterface(self))
+        return LIVE_IMAGE_HANDLER.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
