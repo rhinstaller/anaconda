@@ -21,11 +21,9 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.errors.payload import HandlerNotSetError
+from pyanaconda.modules.payload.handler_factory import HandlerFactory, HandlerType
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
-from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
-from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -89,32 +87,16 @@ class PayloadModule(KickstartModule):
 
         # create handler if no handler is set already
         if not self.is_handler_set():
-            if not self._create_handler_from_ks_data(data):
+            handler = HandlerFactory.create_handler_from_ks_data(data)
+            if not handler:
                 log.warning("No handler was created. Kickstart data passed in are lost.")
                 return
 
-        self.payload_handler.process_kickstart(data)
+        self._initialize_handler(handler)
 
-    def _create_handler_from_ks_data(self, data):
-        handler_class = self._get_correct_handler_class(data)
+        handler.process_kickstart(data)
 
-        if not handler_class:
-            return False
-
-        self._initialize_handler(handler_class)
-        return True
-
-    def _get_correct_handler_class(self, data):
-        if data.liveimg.seen:
-            return LiveImageHandlerModule
-        elif data.packages.seen:
-            return DNFHandlerModule
-        else:
-            return None
-
-    def _initialize_handler(self, handler_class):
-        handler = handler_class()
-
+    def _initialize_handler(self, handler):
         self._publish_handler(handler)
         self.set_payload_handler(handler)
 
@@ -144,7 +126,8 @@ class PayloadModule(KickstartModule):
         :returns: DBus path to the handler
         :rtype: str
         """
-        self._initialize_handler(DNFHandlerModule)
+        handler = HandlerFactory.create_handler(HandlerType.DNF)
+        self._initialize_handler(handler)
         return self.payload_handler.get_handler_path()
 
     def create_live_os_handler(self):
@@ -153,7 +136,8 @@ class PayloadModule(KickstartModule):
         :returns: DBus path to the handler
         :rtype: str
         """
-        self._initialize_handler(LiveOSHandlerModule)
+        handler = HandlerFactory.create_handler(HandlerType.LIVE_OS)
+        self._initialize_handler(handler)
         return self.payload_handler.get_handler_path()
 
     def create_live_image_handler(self):
@@ -162,5 +146,6 @@ class PayloadModule(KickstartModule):
         :returns: DBus path to the handler
         :rtype: str
         """
-        self._initialize_handler(LiveImageHandlerModule)
+        handler = HandlerFactory.create_handler(HandlerType.LIVE_IMAGE)
+        self._initialize_handler(handler)
         return self.payload_handler.get_handler_path()
