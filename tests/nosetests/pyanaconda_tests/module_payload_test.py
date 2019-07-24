@@ -89,6 +89,12 @@ class PayloadInterfaceTestCase(TestCase):
         publisher.assert_called_once()
 
     @patch('pyanaconda.dbus.DBus.publish_object')
+    def create_invalid_handler_test(self, publisher):
+        """Test creation of the not existing handler."""
+        with self.assertRaises(ValueError):
+            self.payload_interface.CreateHandler("NotAHandler")
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
     def create_multiple_handlers_test(self, publisher):
         """Test creating two handlers."""
         self.payload_interface.CreateHandler(HandlerType.DNF.value)
