@@ -50,7 +50,7 @@ if ("inst.debug=1" in proc_cmdline) or ("inst.debug" in proc_cmdline):
 import atexit, sys, time, signal
 import pid
 
-def exitHandler(rebootData, storage):
+def exitHandler(rebootData):
     # Clear the list of watched PIDs.
     from pyanaconda.core.process_watchers import WatchProcesses
     WatchProcesses.unwatch_all_processes()
@@ -80,13 +80,12 @@ def exitHandler(rebootData, storage):
     if anaconda.payload:
         anaconda.payload.unsetup()
 
-    # Unmount the filesystems.
-    if not conf.target.is_hardware:
-        anaconda.storage.umount_filesystems(swapoff=False)
+    from pyanaconda.modules.common.task import sync_run_task
+    storage_proxy = STORAGE.get_proxy()
 
-    # Tear down disk images.
-    if conf.target.is_image:
-        anaconda.storage.devicetree.teardown_disk_images()
+    for task_path in storage_proxy.TeardownWithTasks():
+        task_proxy = STORAGE.get_proxy(task_path)
+        sync_run_task(task_proxy)
 
     # Clean up the PID file
     if pidfile:
@@ -98,9 +97,16 @@ def exitHandler(rebootData, storage):
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
         if flags.eject or rebootData.eject:
-            for cdrom in (d for d in storage.devices if d.type == "cdrom"):
-                if util.get_mount_paths(cdrom.path):
-                    util.dracut_eject(cdrom.path)
+            from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+            from pyanaconda.modules.common.structures.storage import DeviceData
+            device_tree_proxy = STORAGE.get_proxy(DEVICE_TREE)
+
+            for device_name in device_tree_proxy.FindOpticalMedia:
+                device_data = DeviceData.from_structure(
+                    device_tree_proxy.GetDeviceData(device_name)
+                )
+                if util.get_mount_paths(device_data.path):
+                    util.dracut_eject(device_data.path)
 
         if flags.kexec:
             util.execWithRedirect("systemctl", ["--no-wall", "kexec"])
@@ -577,9 +583,6 @@ if __name__ == "__main__":
     # Now that LANG is set, do something with it
     localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=anaconda.tui_mode)
 
-    from pyanaconda.storage.initialization import enable_installer_mode, reset_storage
-    enable_installer_mode()
-
     # Initialize the network now, in case the display needs it
     from pyanaconda.network import initialize_network, wait_for_connecting_NM_thread, wait_for_connected_NM
 
@@ -675,9 +678,9 @@ if __name__ == "__main__":
     from pyanaconda.timezone import time_initialize
 
     if not conf.target.is_directory:
+        from pyanaconda.storage.initialization import reset_storage
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
-                                     target=reset_storage,
-                                     args=(anaconda.storage, )))
+                                     target=reset_storage))
 
     from pyanaconda.modules.common.constants.services import TIMEZONE
     timezone_proxy = TIMEZONE.get_proxy()
@@ -685,8 +688,7 @@ if __name__ == "__main__":
     if conf.system.can_initialize_system_clock:
         threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT,
                                      target=time_initialize,
-                                     args=(timezone_proxy,
-                                           anaconda.storage)))
+                                     args=(timezone_proxy, )))
 
     if flags.rescue_mode:
         rescue.start_rescue_mode_ui(anaconda)
@@ -702,7 +704,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGUSR1, lambda signum, frame:
                   exception.test_exception_handling())
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
-    atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
+    atexit.register(exitHandler, ksdata.reboot)
 
     from pyanaconda import exception
     anaconda.mehConfig = exception.initExceptionHandling(anaconda)
@@ -712,7 +714,7 @@ if __name__ == "__main__":
 
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
-    payloadMgr.restart_thread(anaconda.storage, ksdata, anaconda.payload, fallback=fallback)
+    payloadMgr.restart_thread(None, ksdata, anaconda.payload, fallback=fallback)
 
     # initialize the geolocation singleton
     geoloc.init_geolocation(geoloc_option=opts.geoloc, options_override=opts.geoloc_use_with_ks)
@@ -760,7 +762,7 @@ if __name__ == "__main__":
         # Run the tasks.
         with check_kickstart_error():
             from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
-            SnapshotCreateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
+            SnapshotCreateTask(None, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
 
     anaconda.intf.setup(ksdata)
     anaconda.intf.run()
