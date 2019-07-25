@@ -18,18 +18,32 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.base import KickstartModuleInterface
+
+from pyanaconda.modules.payload.handler_factory import HandlerType
 
 
 @dbus_interface(PAYLOAD.interface_name)
 class PayloadInterface(KickstartModuleInterface):
     """DBus interface for Payload module."""
 
-    def CreateLiveOSHandler(self):
-        """Create Live OS payload handler and publish it on dbus.
+    def GetActiveHandlerPath(self) -> ObjPath:
+        """Get path to the payload which is used now."""
+        return self.implementation.get_active_handler_path()
 
-        # FIXME: This is a temporary solution which will change in the future commits
+    def IsHandlerSet(self) -> Bool:
+        """Test if any handler is set and used."""
+        return self.implementation.is_handler_set()
+
+    def CreateHandler(self, handler_type: Str) -> ObjPath:
+        """Create payload handler and publish it on a dbus.
+
+        handler_type could contain these values:
+         - DNF
+         - LIVE_OS
+         - LIVE_IMAGE
         """
-        self.implementation.create_live_os_handler()
+        return self.implementation.create_handler(HandlerType(handler_type))

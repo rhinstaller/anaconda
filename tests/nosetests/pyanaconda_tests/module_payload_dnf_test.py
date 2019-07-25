@@ -78,7 +78,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
         self._check_properties()
 
     def packages_section_kickstart_test(self):
@@ -102,7 +102,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
 
         self._expected_env = "environment"
         self._expected_packages = ["package"]
@@ -146,7 +146,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
 
         self._expected_env = "environment2"
         self._expected_packages = ["package1", "package2"]
@@ -164,7 +164,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
         self._check_properties(nocore=True)
 
     def packages_section_multiple_attributes_kickstart_test(self):
@@ -179,7 +179,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
         self._check_properties(nocore=True, multilib="all", langs="en_US.UTF-8")
 
     def packages_section_excludes_kickstart_test(self):
@@ -195,7 +195,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
 
         self._expected_excluded_packages = ["vim"]
         self._check_properties()
@@ -225,7 +225,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
 
         self._expected_env = "environment1"
         self._expected_packages = ["package1", "package3"]

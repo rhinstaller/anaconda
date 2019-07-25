@@ -26,7 +26,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
-from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
     TeardownInstallationSourceTask
@@ -35,7 +35,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveOSHandlerModule(KickstartBaseModule):
+class LiveOSHandlerModule(PayloadHandlerBase):
     """The Live OS payload module."""
 
     def __init__(self):
@@ -44,9 +44,10 @@ class LiveOSHandlerModule(KickstartBaseModule):
         self._image_path = ""
         self.image_path_changed = Signal()
 
-    def publish(self):
-        """Publish the module."""
+    def publish_handler(self):
+        """Publish the handler."""
         DBus.publish_object(LIVE_OS_HANDLER.object_path, LiveOSHandlerInterface(self))
+        return LIVE_OS_HANDLER.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

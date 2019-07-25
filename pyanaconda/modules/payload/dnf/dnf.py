@@ -18,8 +18,8 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
+from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.dnf.dnf_interface import DNFHandlerInterface
 from pyanaconda.modules.payload.dnf.packages.packages import PackagesHandlerModule
 
@@ -27,18 +27,19 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class DNFHandlerModule(KickstartBaseModule):
+class DNFHandlerModule(PayloadHandlerBase):
     """The DNF payload module."""
 
     def __init__(self):
         super().__init__()
         self._packages_handler = PackagesHandlerModule()
 
-    def publish(self):
-        """Publish the module."""
+    def publish_handler(self):
+        """Publish the handler."""
         self._packages_handler.publish()
 
         DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFHandlerInterface(self))
+        return PAYLOAD_DEFAULT.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
