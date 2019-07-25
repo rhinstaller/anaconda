@@ -21,14 +21,16 @@ from blivet.errors import StorageError
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE, QUIT_MESSAGE
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatData
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.storage.root import mount_existing_system, find_existing_installations
-from pyanaconda.storage.utils import unlock_device
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
@@ -121,29 +123,6 @@ class RescueModeStatus(Enum):
     ROOT_NOT_FOUND = "root not found"
 
 
-class EncryptedDeviceState(object):
-    """A container for encrypted device and its state."""
-    def __init__(self, device, passphrase="", locked=True):
-        self._device = device
-        self._passphrase = passphrase
-        self._locked = locked
-
-    def set_unlocked(self, passphrase):
-        """Mark the device as unlocked."""
-        self._passphrase = passphrase
-        self._locked = False
-
-    @property
-    def locked(self):
-        """Is the device locked?"""
-        return self._locked
-
-    @property
-    def device(self):
-        """The device object (blivet)."""
-        return self._device
-
-
 class Rescue(object):
     """Rescue mode module.
 
@@ -159,8 +138,6 @@ class Rescue(object):
         - storage initialization thread
 
         Initialization:
-        storage     - storage object
-                      <blivet.blivet.Blivet>
         rescue_data - data of rescue command seen in kickstart
                       <pykickstart.commands.rescue.XX_Rescue>
         reboot      - flag for rebooting after finishing
@@ -169,17 +146,16 @@ class Rescue(object):
                       <pyanaconda.kickstart.AnacondaKSScript>
 
     """
-    def __init__(self, storage, rescue_data=None, reboot=False, scripts=None, rescue_nomount=True):
+    def __init__(self, rescue_data=None, reboot=False, scripts=None, rescue_nomount=True):
+        self._storage_proxy = STORAGE.get_proxy()
+        self._device_tree_proxy = STORAGE.get_proxy(DEVICE_TREE)
 
-        self._storage = storage
         self._scripts = scripts
-
         self.reboot = reboot
         self.automated = False
         self.mount = False
         self.ro = False
 
-        self._luks_devices_states = None
         self.status = RescueModeStatus.NOT_SET
 
         if rescue_data:
@@ -193,7 +169,14 @@ class Rescue(object):
 
     def find_roots(self):
         """List of found roots."""
-        roots = find_existing_installations(self._storage.devicetree)
+        task_path = self._device_tree_proxy.FindExistingSystemsWithTask()
+
+        task_proxy = STORAGE.get_proxy(task_path)
+        sync_run_task(task_proxy)
+
+        roots = OSData.from_structure_list(
+            self._device_tree_proxy.GetExistingSystems()
+        )
 
         if not roots:
             self.status = RescueModeStatus.ROOT_NOT_FOUND
@@ -205,7 +188,12 @@ class Rescue(object):
         """Mounts selected root and runs scripts."""
         # mount root fs
         try:
-            mount_existing_system(self._storage, root.device, read_only=self.ro)
+            task_path = self._device_tree_proxy.MountExistingSystemWithTask(
+                root.get_root_device(),
+                self.ro
+            )
+            task_proxy = STORAGE.get_proxy(task_path)
+            sync_run_task(task_proxy)
             log.info("System has been mounted under: %s", conf.target.system_root)
         except StorageError as e:
             log.error("Mounting system under %s failed: %s", conf.target.system_root, e)
@@ -251,41 +239,28 @@ class Rescue(object):
         self.status = RescueModeStatus.MOUNTED
         return True
 
-    @property
-    def luks_devices_states(self):
-        """List of objects representing LUKS devices and their state."""
-        if self._luks_devices_states is None:
-            ldevs = [dev for dev in self._storage.devices if dev.format.type == "luks"]
-            self._luks_devices_states = [EncryptedDeviceState(dev) for dev in ldevs]
-        return self._luks_devices_states
-
     def get_locked_device_names(self):
-        """List of names of unlocked LUKS devices."""
-        device_names = [device_state.device.name for device_state
-                        in self.luks_devices_states if device_state.locked]
-        return device_names
+        """Get a list of names of locked LUKS devices.
 
-    def _find_device_state(self, device_name):
-        for device_state in self.luks_devices_states:
-            if device_state.device.name == device_name:
-                return device_state
-        return None
+        All LUKS devices are considered locked.
+        """
+        device_names = []
+
+        for device_name in self._device_tree_proxy.GetDevices():
+            format_data = DeviceFormatData.from_structure(
+                self._device_tree_proxy.GetFormatData(device_name)
+            )
+
+            if not format_data.type == "luks":
+                continue
+
+            device_names.append(device_name)
+
+        return device_names
 
     def unlock_device(self, device_name, passphrase):
         """Unlocks LUKS device."""
-        device_state = self._find_device_state(device_name)
-        if device_state is None:
-            # TODO: raise an exception?
-            log.error("Can't find device to unlock %s", device_name)
-            return False
-
-        device = device_state.device
-        unlocked = unlock_device(self._storage, device, passphrase)
-
-        if unlocked:
-            device_state.set_unlocked(passphrase)
-
-        return unlocked
+        return self._device_tree_proxy.UnlockDevice(device_name, passphrase)
 
     def run_shell(self):
         """Launch a shell."""
@@ -401,32 +376,23 @@ class RescueModeSpoke(NormalTUISpoke):
         self.close()
 
     def _unlock_devices(self):
-        """Attempt to unlock all locked LUKS devices.
-
-        Returns true if all devices were unlocked.
-        """
-        try_passphrase = None
+        """Attempt to unlock all locked LUKS devices."""
         passphrase = None
+
         for device_name in self._rescue.get_locked_device_names():
-            skip = False
-            unlocked = False
-            while not (skip or unlocked):
-                if try_passphrase is None:
-                    p = PasswordDialog(device_name)
-                    ScreenHandler.push_screen_modal(p)
-                    if p.answer:
-                        passphrase = p.answer.strip()
-                else:
-                    passphrase = try_passphrase
-
+            while True:
                 if passphrase is None:
-                    # cancelled
-                    skip = True
-                else:
-                    unlocked = self._rescue.unlock_device(device_name, passphrase)
-                    try_passphrase = passphrase if unlocked else None
+                    dialog = PasswordDialog(device_name)
+                    ScreenHandler.push_screen_modal(dialog)
+                    if not dialog.answer:
+                        break
 
-        return not self._rescue.get_locked_device_names()
+                    passphrase = dialog.answer.strip()
+
+                if self._rescue.unlock_device(device_name, passphrase):
+                    break
+
+                passphrase = None
 
     def apply(self):
         """Move along home."""
@@ -535,7 +501,7 @@ class RootSelectionSpoke(NormalTUISpoke):
 
         for root in self._roots:
             box = CheckboxWidget(
-                title="{} on {}".format(root.name, root.device.path),
+                title="{} on {}".format(root.os_name, root.get_root_device()),
                 completed=(self._selection == root)
             )
 
@@ -575,7 +541,6 @@ def start_rescue_mode_ui(anaconda):
     if anaconda.ksdata.rescue.seen:
         ksdata_rescue = anaconda.ksdata.rescue
     scripts = anaconda.ksdata.scripts
-    storage = anaconda.storage
     rescue_nomount = anaconda.opts.rescue_nomount
     reboot = True
     if conf.target.is_image:
@@ -583,7 +548,7 @@ def start_rescue_mode_ui(anaconda):
     if flags.automatedInstall and anaconda.ksdata.reboot.action not in [KS_REBOOT, KS_SHUTDOWN]:
         reboot = False
 
-    rescue = Rescue(storage, ksdata_rescue, reboot, scripts, rescue_nomount)
+    rescue = Rescue(ksdata_rescue, reboot, scripts, rescue_nomount)
     rescue.initialize()
 
     # We still want to choose from multiple roots, or unlock encrypted devices
