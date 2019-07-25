@@ -18,7 +18,9 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
 
 from tests.nosetests.pyanaconda_tests import check_task_creation
 
@@ -39,7 +41,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         self.module = InteractivePartitioningModule()
         self.interface = InteractivePartitioningInterface(self.module)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def get_device_tree_test(self, publisher):
         """Test GetDeviceTree."""
         DeviceTreeInterface._tree_counter = 1
@@ -65,7 +67,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
 
         publisher.assert_not_called()
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
         self.module.on_storage_reset(Mock())
@@ -75,7 +77,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def validate_with_task_test(self, publisher):
         """Test ValidateWithTask."""
         self.module.on_storage_reset(Mock())

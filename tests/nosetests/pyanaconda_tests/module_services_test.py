@@ -24,6 +24,8 @@ from textwrap import dedent
 
 from mock import Mock, patch
 
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface
+
 from pyanaconda.core.constants import SETUP_ON_BOOT_DISABLED, \
     SETUP_ON_BOOT_RECONFIG, SETUP_ON_BOOT_ENABLED, SETUP_ON_BOOT_DEFAULT, \
     TEXT_ONLY_TARGET, GRAPHICAL_TARGET
@@ -35,7 +37,6 @@ from pyanaconda.modules.services.services_interface import ServicesInterface
 from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, \
     ConfigureServicesTask, ConfigureSystemdDefaultTargetTask, ConfigureDefaultDesktopTask
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class ServicesInterfaceTestCase(unittest.TestCase):
@@ -301,7 +302,7 @@ class ServicesTasksTestCase(unittest.TestCase):
             self.assertFalse(os.path.isfile(os.path.join(sysroot, "etc/sysconfig/anaconda")))
 
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def install_with_tasks_default_test(self, publisher):
         """Test default install tasks behavior."""
         tasks = self.services_interface.InstallWithTasks("/")
@@ -364,7 +365,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._default_desktop, "")
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def initial_setup_config_task_enable_test(self, publisher):
         """Test the Initial Setup conifg task - enable."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_ENABLED)
@@ -383,7 +384,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.ENABLED)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def initial_setup_config_task_disable_test(self, publisher):
         """Test the Initial Setup config task - disable."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_DISABLED)
@@ -402,7 +403,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.DISABLED)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def initial_setup_config_task_reconfig_test(self, publisher):
         """Test the Initial Setup config task - reconfig."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_RECONFIG)
@@ -421,7 +422,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.RECONFIG)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def configure_services_task_test(self, publisher):
         """Test the services configuration task."""
         self.services_interface.SetEnabledServices(["a", "b", "c"])
@@ -442,7 +443,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._enabled_services, ["a", "b", "c"])
         self.assertEqual(obj.implementation._disabled_services, ["c", "e", "f"])
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def configure_systemd_target_task_text_test(self, publisher):
         """Test the systemd default traget configuration task - text."""
         self.services_interface.SetDefaultTarget(TEXT_ONLY_TARGET)
@@ -461,7 +462,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._default_target, TEXT_ONLY_TARGET)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def configure_systemd_target_task_graphical_test(self, publisher):
         """Test the systemd default traget configuration task - graphical."""
         self.services_interface.SetDefaultTarget(GRAPHICAL_TARGET)
@@ -480,7 +481,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._default_target, GRAPHICAL_TARGET)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def configure_default_desktop_task_test(self, publisher):
         """Test the default desktop configuration task."""
         self.services_interface.SetDefaultDesktop("GNOME")

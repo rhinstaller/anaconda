@@ -22,9 +22,10 @@ import tempfile
 import unittest
 
 from textwrap import dedent
-from mock import Mock, patch
+from mock import Mock
 
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
+    patch_dbus_publish_object
 
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.installation import LanguageInstallationTask
@@ -128,7 +129,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.localization_interface.LanguageKickstarted, True)
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageKickstarted': True}, [])
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def install_language_with_task_test(self, publisher):
         """Test InstallLanguageWithTask."""
         self.localization_interface.SetLanguage("cs_CZ.UTF-8")

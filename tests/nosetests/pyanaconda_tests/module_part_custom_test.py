@@ -18,7 +18,9 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation
 
@@ -49,7 +51,7 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.process_kickstart(data)
         self.assertEqual(self.module.data, data)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
         self.module.on_storage_reset(Mock())
@@ -60,7 +62,7 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def validate_with_task_test(self, publisher):
         """Test ValidateWithTask."""
         self.module.on_storage_reset(Mock())

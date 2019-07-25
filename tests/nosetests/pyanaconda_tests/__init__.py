@@ -23,7 +23,9 @@ gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
 from textwrap import dedent
-from mock import Mock
+from mock import Mock, patch
+from functools import wraps
+
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.modules.common.task import TaskInterface
 
@@ -161,3 +163,21 @@ def check_task_creation(test, task_path, publisher, task_class):
     test.assertIsInstance(obj.implementation, task_class)
 
     return obj
+
+
+def patch_dbus_publish_object(func):
+    """Avoid publishing on dbus. Pass the mock inside the patched function.
+
+    This is a shortcut to avoid constant patching with the path.
+
+    # TODO: Extend this to patch the whole DBus object and pass in a useful abstraction.
+    """
+
+    @wraps(func)
+    def function_wrapper(*args, **kwargs):
+        with patch('pyanaconda.dbus.DBus.publish_object') as publisher:
+            # FIXME: Find a way how to add publisher on the same position as @patch
+            # Right now it's always the last
+            func(*args, publisher, **kwargs)
+
+    return function_wrapper

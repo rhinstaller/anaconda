@@ -21,7 +21,7 @@ import tempfile
 import unittest
 from unittest.mock import patch, Mock
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
     LUKSDevice
@@ -468,7 +468,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'swap-devices': get_variant(List[Str], ['dev2'])
         }])
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def find_existing_systems_with_task_test(self, publisher):
         """Test FindExistingSystemsWithTask."""
         task_path = self.interface.FindExistingSystemsWithTask()
@@ -482,7 +482,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         obj.implementation.succeeded_signal.emit()
         self.assertEqual(self.storage.roots, roots)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def mount_existing_system_with_task_test(self, publisher):
         """Test MountExistingSystemWithTask."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
@@ -497,7 +497,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._device.name, "dev1")
         self.assertEqual(obj.implementation._read_only, True)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def find_devices_with_task_test(self, publisher):
         """Test FindDevicesWithTask."""
         task_path = self.interface.FindDevicesWithTask()

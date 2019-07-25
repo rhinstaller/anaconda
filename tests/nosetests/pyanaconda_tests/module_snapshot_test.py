@@ -20,7 +20,7 @@
 import unittest
 from unittest.mock import patch, Mock
 
-from tests.nosetests.pyanaconda_tests import check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
 from pykickstart.errors import KickstartParseError
@@ -58,7 +58,7 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), True)
         self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), True)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def create_with_task_test(self, publisher):
         """Test CreateWithTask."""
         with self.assertRaises(UnavailableStorageError):

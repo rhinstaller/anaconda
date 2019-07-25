@@ -18,9 +18,10 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
-from tests.nosetests.pyanaconda_tests import check_dbus_property, check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
+    check_task_creation
 
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.formats.luks import LUKS2PBKDFArgs
@@ -276,7 +277,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.assertNotEqual(self.module.storage, storage)
         self.assertIsNotNone(self.module._storage_playground)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
         self.module.on_storage_reset(Mock())
@@ -286,7 +287,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def validate_with_task_test(self, publisher):
         """Test ValidateWithTask."""
         self.module.on_storage_reset(Mock())
