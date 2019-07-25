@@ -26,15 +26,12 @@ from blivet.flags import flags as blivet_flags
 from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_logging import program_log_lock
-from pyanaconda.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET, STORAGE_SWAP_IS_RECOMMENDED
+from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
-    FCOE, ZFCP, BOOTLOADER, ISCSI
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, FCOE, ZFCP, BOOTLOADER, \
+    ISCSI
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.platform import platform
 
@@ -97,28 +94,6 @@ def create_storage():
     storage.set_default_luks_version(conf.storage.luks_version or storage.default_luks_version)
 
     return storage
-
-
-def set_storage_defaults_from_kickstart(storage):
-    """Set the storage default values from a kickstart file.
-
-    FIXME: A temporary workaround for UI.
-    """
-    # Set the default filesystem types.
-    auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-    request = PartitioningRequest.from_structure(auto_part_proxy.Request)
-
-    if request.file_system_type:
-        storage.set_default_fstype(request.file_system_type)
-
-    if "swap" in request.excluded_mount_points:
-        storage_checker.set_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)
-
-    # Set up the bootloader.
-    boot_loader_proxy = STORAGE.get_proxy(BOOTLOADER)
-    default_type = boot_loader_proxy.GetDefaultType()
-    default_class = BootLoaderFactory.get_class_by_name(default_type)
-    BootLoaderFactory.set_default_class(default_class)
 
 
 def load_plugin_s390():
