@@ -48,7 +48,6 @@ class Anaconda(object):
         self.opts = None
         self._payload = None
         self.proxy = None
-        self._storage = None
         self.mehConfig = None
 
         # Data for inhibiting the screensaver
@@ -130,17 +129,6 @@ class Anaconda(object):
             raise RuntimeError("addrepo boot option has incorrect format. Correct format is: "
                                "inst.addrepo=<name>,<url>") from None
         return name, rest
-
-    @property
-    def storage(self):
-        if not self._storage:
-            from pyanaconda.storage.initialization import create_storage
-            self._storage = create_storage()
-
-            from pyanaconda.storage.initialization import set_storage_defaults_from_kickstart
-            set_storage_defaults_from_kickstart(self._storage)
-
-        return self._storage
 
     @property
     def display_mode(self):
@@ -277,7 +265,7 @@ class Anaconda(object):
             from pyanaconda.ui.gui import GraphicalUserInterface
             # Run the GUI in non-fullscreen mode, so live installs can still
             # use the window manager
-            self._intf = GraphicalUserInterface(self.storage, self.payload,
+            self._intf = GraphicalUserInterface(None, self.payload,
                                                 gui_lock=self.gui_initialized,
                                                 fullscreen=False)
 
@@ -287,7 +275,7 @@ class Anaconda(object):
         elif self.tui_mode:
             # TUI and noninteractive TUI are the same in this regard
             from pyanaconda.ui.tui import TextUserInterface
-            self._intf = TextUserInterface(self.storage, self.payload)
+            self._intf = TextUserInterface(None, self.payload)
 
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
