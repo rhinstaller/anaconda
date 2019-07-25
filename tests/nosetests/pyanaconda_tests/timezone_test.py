@@ -64,5 +64,5 @@ class s390HWclock(unittest.TestCase):
     @patch('pyanaconda.timezone.util.execWithRedirect')
     def s390_time_initialize_test(self, exec_mock, s390_mock):
         """Check that time_initialize doesn't call hwclock on s390."""
-        timezone.time_initialize(Mock(), Mock())
+        timezone.time_initialize(Mock())
         self.assertFalse(exec_mock.called)
