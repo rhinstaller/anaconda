@@ -29,9 +29,9 @@ from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, FCOE, ZFCP, BOOTLOADER, \
-    ISCSI
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.platform import platform
 
@@ -113,10 +113,11 @@ def load_plugin_s390():
     blockdev.reinit([plugin], reload=False)
 
 
-def reset_storage(storage, scan_all=False, retry=True):
+def reset_storage(storage=None, scan_all=False, retry=True):
     """Reset the storage model.
 
-    :param storage: an instance of the Blivet's storage object
+    FIXME: Remove the storage argument.
+
     :param scan_all: should we scan all devices in the system?
     :param retry: should we allow to retry the reset?
     """
@@ -128,7 +129,10 @@ def reset_storage(storage, scan_all=False, retry=True):
     # Do the reset.
     while True:
         try:
-            _reset_storage(storage)
+            storage_proxy = STORAGE.get_proxy()
+            task_path = storage_proxy.ResetWithTask()
+            task_proxy = STORAGE.get_proxy(task_path)
+            sync_run_task(task_proxy)
         except StorageError as e:
             # Is the retry allowed?
             if not retry:
@@ -173,33 +177,3 @@ def select_all_disks_by_default(storage):
         log.debug("Selecting all disks by default: %s", ",".join(selected_disks))
 
     return selected_disks
-
-
-def _reset_storage(storage):
-    """Do reset the storage.
-
-    FIXME: Call the DBus task instead of this function.
-
-    :param storage: an instance of the Blivet's storage object
-    """
-    # Set the ignored and exclusive disks.
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    storage.ignored_disks = disk_select_proxy.IgnoredDisks
-    storage.exclusive_disks = disk_select_proxy.ExclusiveDisks
-    storage.protected_devices = disk_select_proxy.ProtectedDevices
-    storage.disk_images = disk_select_proxy.DiskImages
-
-    # Reload additional modules.
-    if not conf.target.is_image:
-        iscsi_proxy = STORAGE.get_proxy(ISCSI)
-        iscsi_proxy.ReloadModule()
-
-        fcoe_proxy = STORAGE.get_proxy(FCOE)
-        fcoe_proxy.ReloadModule()
-
-        if arch.is_s390():
-            zfcp_proxy = STORAGE.get_proxy(ZFCP)
-            zfcp_proxy.ReloadModule()
-
-    # Do the reset.
-    storage.reset()
