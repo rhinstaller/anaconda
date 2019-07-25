@@ -168,10 +168,9 @@ def _prepare_configuration(storage, payload, ksdata):
     configuration_queue.append(generate_initramfs)
 
     # join a realm (if required)
-    if ksdata.realm.discovered:
-        join_realm = TaskQueue("Realm join", N_("Joining realm: %s") % ksdata.realm.discovered)
-        join_realm.append(Task("Join a realm", ksdata.realm.execute))
-        configuration_queue.append(join_realm)
+    join_realm = TaskQueue("Realm join", N_("Joining realm"))
+    join_realm.append(Task("Join a realm", ksdata.realm.execute))
+    configuration_queue.append(join_realm)
 
     post_scripts = TaskQueue("Post installation scripts", N_("Running post-installation scripts"))
     post_scripts.append(Task("Run post installation scripts", runPostScripts, (ksdata.scripts,)))
