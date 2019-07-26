@@ -247,8 +247,7 @@ class StorageModule(KickstartModule):
 
         # Create the task.
         task = StorageResetTask(storage)
-        # FIXME: Don't set the storage if the task has failed.
-        task.stopped_signal.connect(lambda: self.set_storage(storage))
+        task.succeeded_signal.connect(lambda: self.set_storage(storage))
 
         # Publish the task.
         path = self.publish_task(STORAGE.namespace, task)

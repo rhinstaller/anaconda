@@ -81,7 +81,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         storage_changed_callback = Mock()
         self.storage_module.storage_changed.connect(storage_changed_callback)
 
-        obj.implementation.stopped_signal.emit()
+        obj.implementation.succeeded_signal.emit()
         storage_changed_callback.assert_called_once()
 
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
