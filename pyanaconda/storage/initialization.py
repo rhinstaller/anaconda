@@ -22,7 +22,6 @@ from gi.repository import BlockDev as blockdev
 from blivet import util as blivet_util, udev, arch
 from blivet.errors import StorageError
 from blivet.flags import flags as blivet_flags
-from blivet.storage_log import log_exception_info
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
@@ -122,21 +121,13 @@ def load_plugin_s390():
     blockdev.reinit([plugin], reload=False)
 
 
-def reset_storage(storage, scan_all=False, teardown=False, retry=True):
+def reset_storage(storage, scan_all=False, retry=True):
     """Reset the storage model.
 
     :param storage: an instance of the Blivet's storage object
     :param scan_all: should we scan all devices in the system?
-    :param teardown: should we teardown devices in the current device tree?
     :param retry: should we allow to retry the reset?
     """
-    # Deactivate all devices.
-    if teardown:
-        try:
-            storage.devicetree.teardown_all()
-        except Exception:  # pylint: disable=broad-except
-            log_exception_info(log.error, "Failure tearing down device tree.")
-
     # Clear the exclusive disks to scan all devices in the system.
     if scan_all:
         disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
