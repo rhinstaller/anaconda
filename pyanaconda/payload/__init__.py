@@ -30,10 +30,10 @@ from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
 
-from pyanaconda.core import util
 from pyanaconda import isys
 from pyanaconda.payload.image import findFirstIsoImage, mountImage, find_optical_install_media,\
     verifyMedia, verify_valid_installtree
+from pyanaconda.core import util
 from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup
@@ -41,7 +41,7 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
-from pyanaconda.modules.payload.shared.utils import create_root_dir, write_module_blacklist
+from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask
 
 from pykickstart.parser import Group
 
@@ -506,8 +506,7 @@ class Payload(metaclass=ABCMeta):
     ###
     def pre_install(self):
         """Perform pre-installation tasks."""
-        create_root_dir()
-        write_module_blacklist()
+        PrepareSystemForInstallationTask().run()
 
     def install(self):
         """Install the payload."""
