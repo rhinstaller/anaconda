@@ -17,7 +17,6 @@
 # Red Hat, Inc.
 #
 import os
-import shutil
 import re
 import functools
 from glob import glob
@@ -25,8 +24,7 @@ from fnmatch import fnmatch
 from abc import ABCMeta
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, \
-    DD_RPMS, INSTALL_TREE, ISO_DIR
+from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, INSTALL_TREE, ISO_DIR
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
 
@@ -42,6 +40,7 @@ from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask
+from pyanaconda.modules.payload.shared.utils import copy_driver_disk_files
 
 from pykickstart.parser import Group
 
@@ -512,28 +511,6 @@ class Payload(metaclass=ABCMeta):
         """Install the payload."""
         raise NotImplementedError()
 
-    def _copy_driver_disk_files(self):
-        # Multiple driver disks may be loaded, so we need to glob for all
-        # the firmware files in the common DD firmware directory
-        for f in glob(DD_FIRMWARE + "/*"):
-            try:
-                shutil.copyfile(f, "%s/lib/firmware/" % conf.target.system_root)
-            except IOError as e:
-                log.error("Could not copy firmware file %s: %s", f, e.strerror)
-
-        # copy RPMS
-        for d in glob(DD_RPMS):
-            shutil.copytree(d, conf.target.system_root + "/root/" + os.path.basename(d))
-
-        # copy modules and firmware into root's home directory
-        if os.path.exists(DD_ALL):
-            try:
-                shutil.copytree(DD_ALL, conf.target.system_root + "/root/DD")
-            except IOError as e:
-                log.error("failed to copy driver disk files: %s", e.strerror)
-                # XXX TODO: real error handling, as this is probably going to
-                #           prevent boot on some systems
-
     @property
     def needs_storage_configuration(self):
         """Should we write the storage before doing the installation?
@@ -603,7 +580,7 @@ class Payload(metaclass=ABCMeta):
         # write out static config (storage, modprobe, keyboard, ??)
         #   kickstart should handle this before we get here
 
-        self._copy_driver_disk_files()
+        copy_driver_disk_files()
 
         log.info("Installation requirements: %s", self.requirements)
         if not self.requirements.applied:
