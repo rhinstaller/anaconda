@@ -39,8 +39,8 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
-from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask
-from pyanaconda.modules.payload.shared.utils import copy_driver_disk_files
+from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask, \
+    CopyDriverDisksFilesTask
 
 from pykickstart.parser import Group
 
@@ -579,8 +579,7 @@ class Payload(metaclass=ABCMeta):
 
         # write out static config (storage, modprobe, keyboard, ??)
         #   kickstart should handle this before we get here
-
-        copy_driver_disk_files()
+        CopyDriverDisksFilesTask().run()
 
         log.info("Installation requirements: %s", self.requirements)
         if not self.requirements.applied:
