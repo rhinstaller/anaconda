@@ -368,6 +368,9 @@ def verify_mounted_partitions(storage, constraints, report_error, report_warning
     :param report_warning: a function for warning reporting
     """
     for disk in storage.disks:
+        if disk.protected:
+            continue
+
         if not disk.partitioned:
             continue
 
