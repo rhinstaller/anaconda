@@ -33,7 +33,7 @@ from pyanaconda.modules.payload.shared.initialization import PrepareSystemForIns
 
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
-    TeardownInstallationSourceTask
+    TeardownInstallationSourceTask, UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list
 
@@ -129,6 +129,14 @@ class LiveOSHandlerModule(PayloadHandlerBase):
     def install_with_task(self):
         """Install the payload."""
         task = InstallFromImageTask(
+            getSysroot(),
+            self.kernel_version_list
+        )
+        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+
+    def post_install_with_task(self):
+        """Perform post installation tasks."""
+        task = UpdateBLSConfigurationTask(
             getSysroot(),
             self.kernel_version_list
         )

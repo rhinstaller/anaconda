@@ -125,7 +125,6 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
 
         * [TODO] copy driver disk files (Payload)
         * [NO] check installation requirements were applied (Payload)
-        * Update BLS entries (LiveOSPayload)
         """
         return self.implementation.post_install_with_task()
 
