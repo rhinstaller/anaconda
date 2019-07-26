@@ -15,12 +15,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.errors import NoDisksError, NotEnoughFreeSpaceError
 from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
@@ -133,18 +131,10 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         log.debug("all names: %s", [d.name for d in storage.devices])
         log.debug("boot disk: %s", getattr(storage.bootloader.stage1_disk, "name", None))
 
-        if not any(d.format.supported for d in storage.partitioned):
-            raise NoDisksError(_("No usable disks selected"))
-
         disks = get_candidate_disks(storage)
+        log.debug("candidate disks: %s", [d.name for d in disks])
+
         devs = schedule_implicit_partitions(storage, disks, scheme, encrypted, luks_fmt_args)
-        log.debug("candidate disks: %s", disks)
-        log.debug("devs: %s", devs)
-
-        if not disks:
-            raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
-                                            "automatic partitioning"))
-
         devs = schedule_partitions(storage, disks, devs, scheme, requests, encrypted, luks_fmt_args)
 
         # run the autopart function to allocate and grow partitions
