@@ -18,7 +18,8 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 from unittest import TestCase
-from mock import patch
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
 
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
@@ -55,7 +56,7 @@ class PayloadInterfaceTestCase(TestCase):
 
             self.assertTrue(any(map(lambda x: "No handler was created" in x, log.output)))
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def is_handler_set_test(self, publisher):
         """Test IsHandlerSet API."""
         self.assertFalse(self.payload_interface.IsHandlerSet())
@@ -63,7 +64,7 @@ class PayloadInterfaceTestCase(TestCase):
         self.payload_interface.CreateHandler(HandlerType.DNF.value)
         self.assertTrue(self.payload_interface.IsHandlerSet())
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def create_dnf_handler_test(self, publisher):
         """Test creation and publishing of the DNF handler module."""
         self.payload_interface.CreateHandler(HandlerType.DNF.value)
@@ -72,7 +73,7 @@ class PayloadInterfaceTestCase(TestCase):
         # here the publisher is called twice because the Packages section is also published
         self.assertEqual(publisher.call_count, 2)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def create_live_os_handler_test(self, publisher):
         """Test creation and publishing of the Live OS handler module."""
         self.payload_interface.CreateHandler(HandlerType.LIVE_OS.value)
@@ -80,7 +81,7 @@ class PayloadInterfaceTestCase(TestCase):
                          LIVE_OS_HANDLER.object_path)
         publisher.assert_called_once()
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def create_live_image_handler_test(self, publisher):
         """Test creation and publishing of the Live image handler module."""
         self.payload_interface.CreateHandler(HandlerType.LIVE_IMAGE.value)
@@ -88,13 +89,13 @@ class PayloadInterfaceTestCase(TestCase):
                          LIVE_IMAGE_HANDLER.object_path)
         publisher.assert_called_once()
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def create_invalid_handler_test(self, publisher):
         """Test creation of the not existing handler."""
         with self.assertRaises(ValueError):
             self.payload_interface.CreateHandler("NotAHandler")
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def create_multiple_handlers_test(self, publisher):
         """Test creating two handlers."""
         self.payload_interface.CreateHandler(HandlerType.DNF.value)
