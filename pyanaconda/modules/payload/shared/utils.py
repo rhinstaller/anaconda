@@ -53,22 +53,24 @@ def write_module_blacklist():
 
 
 def copy_driver_disk_files():
+    """Copy driver disk files to the installed system."""
     # Multiple driver disks may be loaded, so we need to glob for all
     # the firmware files in the common DD firmware directory
     for f in glob(DD_FIRMWARE + "/*"):
         try:
-            shutil.copyfile(f, "%s/lib/firmware/" % conf.target.system_root)
+            shutil.copyfile(f, os.path.join(conf.target.system_root, "lib/firmware/"))
         except IOError as e:
             log.error("Could not copy firmware file %s: %s", f, e.strerror)
 
     # copy RPMS
     for d in glob(DD_RPMS):
-        shutil.copytree(d, conf.target.system_root + "/root/" + os.path.basename(d))
+        dest_dir = os.path.join(conf.target.system_root, "root/", os.path.basename(d))
+        shutil.copytree(d, dest_dir)
 
     # copy modules and firmware into root's home directory
     if os.path.exists(DD_ALL):
         try:
-            shutil.copytree(DD_ALL, conf.target.system_root + "/root/DD")
+            shutil.copytree(DD_ALL, os.path.join(conf.target.system_root, "root/DD"))
         except IOError as e:
             log.error("failed to copy driver disk files: %s", e.strerror)
             # XXX TODO: real error handling, as this is probably going to
