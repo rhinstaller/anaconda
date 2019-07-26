@@ -50,6 +50,14 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         """
         self.implementation.set_image_path(image_path)
 
+    @property
+    def SpaceRequired(self) -> UInt64:
+        """Space required by the source image.
+
+        :return: required size in bytes
+        """
+        return self.implementation.space_required
+
     def DetectLiveOSImage(self) -> Str:
         """Try to find valid live os image.
 
