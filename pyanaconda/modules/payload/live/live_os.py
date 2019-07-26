@@ -29,7 +29,8 @@ from pyanaconda.core.util import execWithCapture, getSysroot
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 
 from pyanaconda.modules.payload.shared.handler_base import PayloadHandlerBase
-from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask
+from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask, \
+    CopyDriverDisksFilesTask
 
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
@@ -134,13 +135,22 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         )
         return self.publish_task(LIVE_OS_HANDLER.namespace, task)
 
-    def post_install_with_task(self):
-        """Perform post installation tasks."""
-        task = UpdateBLSConfigurationTask(
-            getSysroot(),
-            self.kernel_version_list
-        )
-        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+    def post_install_with_tasks(self):
+        """Perform post installation tasks.
+
+        :returns: list of paths.
+        :rtype: List
+        """
+        tasks = [
+            UpdateBLSConfigurationTask(
+                getSysroot(),
+                self.kernel_version_list
+            ),
+            CopyDriverDisksFilesTask()
+        ]
+
+        paths = [self.publish_task(LIVE_OS_HANDLER.namespace, task) for task in tasks]
+        return paths
 
     def update_kernel_version_list(self):
         """Update list of kernel versions.

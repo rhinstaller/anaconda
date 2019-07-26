@@ -17,7 +17,8 @@
 #
 
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payload.shared.utils import create_root_dir, write_module_blacklist
+from pyanaconda.modules.payload.shared.utils import create_root_dir, write_module_blacklist, \
+    copy_driver_disk_files
 
 
 class PrepareSystemForInstallationTask(Task):
@@ -36,3 +37,15 @@ class PrepareSystemForInstallationTask(Task):
         """Create a root and write module blacklist."""
         create_root_dir()
         write_module_blacklist()
+
+
+class CopyDriverDisksFilesTask(Task):
+    """Copy driver disks files after installation to the installed system."""
+
+    @property
+    def name(self):
+        return "Copy Driver Disks Files"
+
+    def run(self):
+        """Copy files from the driver disks to the installed system."""
+        copy_driver_disk_files()

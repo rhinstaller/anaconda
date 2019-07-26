@@ -77,13 +77,12 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.install_with_task()
 
-    def PostInstallWithTask(self) -> ObjPath:
+    def PostInstallWithTasks(self) -> List[ObjPath]:
         """Do post installation tasks.
 
-        * [TODO] copy driver disk files (Payload)
         * [NO] check installation requirements were applied (Payload)
         """
-        return self.implementation.post_install_with_task()
+        return self.implementation.post_install_with_tasks()
 
     def UpdateKernelVersionList(self):
         """Update the list of kernel versions."""
