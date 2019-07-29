@@ -1149,6 +1149,10 @@ class PackagePayload(Payload):
             else:
                 blivet.util.umount(mount_point)
 
+    def _device_is_mounted_as_source(self, device):
+        device_mounts = blivet.util.get_mount_paths(device.path)
+        return INSTALL_TREE in device_mounts or DRACUT_REPODIR in device_mounts
+
     def _setupMedia(self, device):
         method = self.data.method
         if method.method == "harddrive":
@@ -1162,10 +1166,7 @@ class PackagePayload(Payload):
                 except PayloadSetupError as ex:
                     log.debug(str(ex))
                     raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
-
-        # Check to see if the device is already mounted, in which case
-        # we don't need to mount it again so skip this part
-        elif not (method.method == "cdrom" and INSTALL_TREE in blivet.util.get_mount_paths(device.path)):
+        elif not (method.method == "cdrom" and self._device_is_mounted_as_source(device)):
             device.format.setup(mountpoint=INSTALL_TREE)
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
