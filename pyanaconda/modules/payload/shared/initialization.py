@@ -15,10 +15,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+import shutil
+from glob import glob
 
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import DD_ALL, DD_FIRMWARE, DD_RPMS
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payload.shared.utils import create_root_dir, write_module_blacklist, \
-    copy_driver_disk_files
+from pyanaconda.modules.payload.shared.utils import create_root_dir, write_module_blacklist
+
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 class PrepareSystemForInstallationTask(Task):
@@ -48,4 +56,24 @@ class CopyDriverDisksFilesTask(Task):
 
     def run(self):
         """Copy files from the driver disks to the installed system."""
-        copy_driver_disk_files()
+        # Multiple driver disks may be loaded, so we need to glob for all
+        # the firmware files in the common DD firmware directory
+        for f in glob(DD_FIRMWARE + "/*"):
+            try:
+                shutil.copyfile(f, os.path.join(conf.target.system_root, "lib/firmware/"))
+            except IOError as e:
+                log.error("Could not copy firmware file %s: %s", f, e.strerror)
+
+        # copy RPMS
+        for d in glob(DD_RPMS):
+            dest_dir = os.path.join(conf.target.system_root, "root/", os.path.basename(d))
+            shutil.copytree(d, dest_dir)
+
+        # copy modules and firmware into root's home directory
+        if os.path.exists(DD_ALL):
+            try:
+                shutil.copytree(DD_ALL, os.path.join(conf.target.system_root, "root/DD"))
+            except IOError as e:
+                log.error("failed to copy driver disk files: %s", e.strerror)
+                # XXX TODO: real error handling, as this is probably going to
+                #           prevent boot on some systems
