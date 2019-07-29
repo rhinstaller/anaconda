@@ -56,6 +56,13 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_once_with(
             LIVE_OS_HANDLER.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
+    @patch("pyanaconda.modules.payload.live.live_os.getDirSize")
+    def space_required_properties_test(self, get_dir_size_mock):
+        """Test Live OS SpaceRequired property."""
+        get_dir_size_mock.return_value = 2
+
+        self.assertEqual(self.live_os_interface.SpaceRequired, 2048)
+
     @patch("pyanaconda.modules.payload.live.live_os.stat")
     @patch("os.stat")
     def detect_live_os_image_test(self, os_stat, stat):
