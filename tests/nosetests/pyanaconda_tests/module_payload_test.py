@@ -31,7 +31,8 @@ from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
 from pyanaconda.modules.payload.handler_factory import HandlerType
-from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist
+from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist, \
+    get_dir_size
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask
 
 
@@ -173,3 +174,19 @@ class PayloadSharedUtilsTest(TestCase):
             blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
 
             self.assertFalse(os.path.isfile(blacklist_file))
+
+    def get_dir_size_test(self):
+        """Test the get_dir_size function."""
+
+        # dev null should have a size == 0
+        self.assertEqual(get_dir_size('/dev/null'), 0)
+
+        # incorrect path should also return 0
+        self.assertEqual(get_dir_size('/dev/null/foo'), 0)
+
+        # check if an int is always returned
+        self.assertIsInstance(get_dir_size('/dev/null'), int)
+        self.assertIsInstance(get_dir_size('/dev/null/foo'), int)
+
+        # TODO: mock some dirs and check if their size is
+        # computed correctly
