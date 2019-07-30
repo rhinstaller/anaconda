@@ -31,14 +31,14 @@ class LocalizationInterface(KickstartModuleInterface):
 
     def connect_signals(self):
         super().connect_signals()
-        self.implementation.language_changed.connect(self.changed("Language"))
-        self.implementation.language_support_changed.connect(self.changed("LanguageSupport"))
-        self.implementation.language_seen_changed.connect(self.changed("LanguageKickstarted"))
-        self.implementation.keyboard_changed.connect(self.changed("Keyboard"))
-        self.implementation.vc_keymap_changed.connect(self.changed("VirtualConsoleKeymap"))
-        self.implementation.x_layouts_changed.connect(self.changed("XLayouts"))
-        self.implementation.switch_options_changed.connect(self.changed("LayoutSwitchOptions"))
-        self.implementation.keyboard_seen_changed.connect(self.changed("KeyboardKickstarted"))
+        self.watch_property("Language", self.implementation.language_changed)
+        self.watch_property("LanguageSupport", self.implementation.language_support_changed)
+        self.watch_property("LanguageKickstarted", self.implementation.language_seen_changed)
+        self.watch_property("Keyboard", self.implementation.keyboard_changed)
+        self.watch_property("VirtualConsoleKeymap", self.implementation.vc_keymap_changed)
+        self.watch_property("XLayouts", self.implementation.x_layouts_changed)
+        self.watch_property("LayoutSwitchOptions", self.implementation.switch_options_changed)
+        self.watch_property("KeyboardKickstarted", self.implementation.keyboard_seen_changed)
 
     @property
     def Language(self) -> Str:

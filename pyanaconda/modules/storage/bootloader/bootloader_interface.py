@@ -34,11 +34,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         super().connect_signals()
         self.watch_property("BootloaderMode", self.implementation.bootloader_mode_changed)
         self.watch_property("BootloaderType", self.implementation.bootloader_type_changed)
-
         self.watch_property("PreferredLocation", self.implementation.preferred_location_changed)
         self.watch_property("Drive", self.implementation.drive_changed)
         self.watch_property("DriveOrder", self.implementation.drive_order_changed)
-
         self.watch_property("KeepMBR", self.implementation.keep_mbr_changed)
         self.watch_property("KeepBootOrder", self.implementation.keep_boot_order_changed)
         self.watch_property("ExtraArguments", self.implementation.extra_arguments_changed)

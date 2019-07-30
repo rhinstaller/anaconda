@@ -31,7 +31,6 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
 
     def connect_signals(self):
         super().connect_signals()
-
         self.watch_property("Url", self.implementation.url_changed)
         self.watch_property("Proxy", self.implementation.proxy_changed)
         self.watch_property("Checksum", self.implementation.checksum_changed)

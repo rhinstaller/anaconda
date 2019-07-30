@@ -207,8 +207,8 @@ class DBusPropertyTestCase(unittest.TestCase):
         def connect_signals(self):
             super().connect_signals()
             self.implementation.module_properties_changed.connect(self.flush_changes)
-            self.implementation.a_changed.connect(self.changed("A"))
-            self.implementation.b_changed.connect(self.changed("B"))
+            self.watch_property("A", self.implementation.a_changed)
+            self.watch_property("B", self.implementation.b_changed)
 
         @property
         def A(self) -> Int:
@@ -306,7 +306,7 @@ class DBusPropertyTestCase(unittest.TestCase):
         def connect_signals(self):
             super().connect_signals()
             self.implementation.module_properties_changed.connect(self.flush_changes)
-            self.implementation.a_changed.connect(self.changed("A"))
+            self.watch_property("A", self.implementation.a_changed)
 
         @property
         def A(self) -> Int:
@@ -325,7 +325,7 @@ class DBusPropertyTestCase(unittest.TestCase):
 
         def connect_signals(self):
             super().connect_signals()
-            self.implementation.b_changed.connect(self.changed("B"))
+            self.watch_property("B", self.implementation.b_changed)
 
         @property
         def B(self) -> Int:
@@ -419,6 +419,9 @@ class DBusPropertyTestCase(unittest.TestCase):
         """Test the template with invalid property."""
         test8implementation = self.Test8Implementation()
         test8 = self.Test8(test8implementation)
+        signal = Mock()
 
         with self.assertRaises(PropertiesException):
-            test8.changed("A")
+            test8.watch_property("A", signal)
+
+        signal.connect.assert_not_called()

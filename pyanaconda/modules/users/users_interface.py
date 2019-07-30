@@ -37,10 +37,14 @@ class UsersInterface(KickstartModuleInterface):
         self.watch_property("Users", self.implementation.users_changed)
         self.watch_property("Groups", self.implementation.groups_changed)
         self.watch_property("SshKeys", self.implementation.ssh_keys_changed)
-        self.watch_property("IsRootPasswordSet", self.implementation.root_password_is_set_changed)
-        self.watch_property("IsRootAccountLocked", self.implementation.root_account_locked_changed)
-        self.watch_property("RootPasswordSSHLoginAllowed", self.implementation.root_password_ssh_login_allowed_changed)
-        self.watch_property("CanChangeRootPassword", self.implementation.can_change_root_password_changed)
+        self.watch_property("IsRootPasswordSet",
+                            self.implementation.root_password_is_set_changed)
+        self.watch_property("IsRootAccountLocked",
+                            self.implementation.root_account_locked_changed)
+        self.watch_property("RootPasswordSSHLoginAllowed",
+                            self.implementation.root_password_ssh_login_allowed_changed)
+        self.watch_property("CanChangeRootPassword",
+                            self.implementation.can_change_root_password_changed)
 
     @property
     def CanChangeRootPassword(self) -> Bool:

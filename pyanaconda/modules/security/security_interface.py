@@ -32,10 +32,10 @@ class SecurityInterface(KickstartModuleInterface):
 
     def connect_signals(self):
         super().connect_signals()
-        self.implementation.selinux_changed.connect(self.changed("SELinux"))
-        self.implementation.authselect_changed.connect(self.changed("Authselect"))
-        self.implementation.authconfig_changed.connect(self.changed("Authconfig"))
-        self.implementation.realm_changed.connect(self.changed("Realm"))
+        self.watch_property("SELinux", self.implementation.selinux_changed)
+        self.watch_property("Authselect", self.implementation.authselect_changed)
+        self.watch_property("Authconfig", self.implementation.authconfig_changed)
+        self.watch_property("Realm", self.implementation.realm_changed)
 
     @property
     def SELinux(self) -> Int:

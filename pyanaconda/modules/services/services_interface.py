@@ -32,12 +32,12 @@ class ServicesInterface(KickstartModuleInterface):
     def connect_signals(self):
         """Connect signals to the implementation."""
         super().connect_signals()
-        self.implementation.enabled_services_changed.connect(self.changed("EnabledServices"))
-        self.implementation.disabled_services_changed.connect(self.changed("DisabledServices"))
-        self.implementation.default_target_changed.connect(self.changed("DefaultTarget"))
-        self.implementation.default_desktop_changed.connect(self.changed("DefaultDesktop"))
-        self.implementation.setup_on_boot_changed.connect(self.changed("SetupOnBoot"))
-        self.implementation.post_install_tools_enabled_changed.connect(self.changed("PostInstallToolsEnabled"))
+        self.watch_property("EnabledServices", self.implementation.enabled_services_changed)
+        self.watch_property("DisabledServices", self.implementation.disabled_services_changed)
+        self.watch_property("DefaultTarget", self.implementation.default_target_changed)
+        self.watch_property("DefaultDesktop", self.implementation.default_desktop_changed)
+        self.watch_property("SetupOnBoot", self.implementation.setup_on_boot_changed)
+        self.watch_property("PostInstallToolsEnabled", self.implementation.post_install_tools_enabled_changed)
 
     @property
     def DisabledServices(self) -> List[Str]:

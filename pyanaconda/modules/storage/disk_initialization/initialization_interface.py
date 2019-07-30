@@ -37,10 +37,8 @@ class DiskInitializationInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("DrivesToClear", self.implementation.drives_to_clear_changed)
         self.watch_property("DefaultDiskLabel", self.implementation.default_disk_label_changed)
         self.watch_property("FormatLDLEnabled", self.implementation.format_ldl_enabled_changed)
-
         self.watch_property("FormatUnrecognizedEnabled",
                             self.implementation.format_unrecognized_enabled_changed)
-
         self.watch_property("InitializeLabelsEnabled",
                             self.implementation.initialize_labels_enabled_changed)
 
