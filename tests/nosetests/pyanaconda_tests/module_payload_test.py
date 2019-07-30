@@ -121,7 +121,8 @@ class PayloadSharedTasksTest(TestCase):
     def prepare_system_for_install_task_test(self, create_root_dir_mock,
                                              write_module_blacklist_mock):
         """Test task prepare system for installation."""
-        task = PrepareSystemForInstallationTask()
+        # the dir won't be used because of mock
+        task = PrepareSystemForInstallationTask("/some/dir")
 
         task.run()
 

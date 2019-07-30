@@ -37,6 +37,15 @@ class PrepareSystemForInstallationTask(Task):
     * Create a module blacklist from the boot cmdline
     """
 
+    def __init__(self, sysroot):
+        """Create prepare system for installation task.
+
+        :param sysroot: path to the installation root
+        :type sysroot: str
+        """
+        super().__init__()
+        self._sysroot = sysroot
+
     @property
     def name(self):
         return "Prepare System for Installation"

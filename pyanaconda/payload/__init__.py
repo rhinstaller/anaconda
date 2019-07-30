@@ -505,7 +505,7 @@ class Payload(metaclass=ABCMeta):
     ###
     def pre_install(self):
         """Perform pre-installation tasks."""
-        PrepareSystemForInstallationTask().run()
+        PrepareSystemForInstallationTask(conf.target.system_root).run()
 
     def install(self):
         """Install the payload."""

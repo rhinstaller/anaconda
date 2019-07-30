@@ -22,6 +22,7 @@ import stat
 
 from pyanaconda.dbus import DBus
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithCapture, getSysroot, getDirSize
@@ -135,7 +136,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
     def pre_install_with_task(self):
         """Prepare intallation task."""
-        task = PrepareSystemForInstallationTask()
+        task = PrepareSystemForInstallationTask(conf.target.system_root)
 
         return self.publish_task(LIVE_OS_HANDLER.namespace, task)
 
