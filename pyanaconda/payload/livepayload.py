@@ -49,6 +49,8 @@ from pyanaconda.progress import progressQ
 from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.constants import IMAGE_DIR, TAR_SUFFIX, NETWORK_CONNECTION_TIMEOUT
 
+from pyanaconda.modules.payload.base.utils import get_dir_size
+
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
@@ -224,7 +226,7 @@ class LiveImagePayload(Payload):
 
     @property
     def space_required(self):
-        return Size(util.get_dir_size("/") * 1024)
+        return Size(get_dir_size("/") * 1024)
 
     def _update_kernel_version_list(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")

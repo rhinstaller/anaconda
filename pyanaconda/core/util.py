@@ -20,7 +20,6 @@
 
 import glob
 import os
-import stat
 import os.path
 import subprocess
 import unicodedata
@@ -504,47 +503,6 @@ def execConsole():
         proc.wait()
     except OSError as e:
         raise RuntimeError("Error running /bin/sh: " + e.strerror)
-
-def get_dir_size(directory):
-    """Get the size of a directory and all its subdirectories.
-
-    :param dir: the name of the directory to find the size of
-    :return: the size of the directory in kilobytes
-    """
-    def get_subdir_size(directory):
-        # returns size in bytes
-        try:
-            mydev = os.lstat(directory)[stat.ST_DEV]
-        except OSError as e:
-            log.debug("failed to stat %s: %s", directory, e)
-            return 0
-
-        try:
-            dirlist = os.listdir(directory)
-        except OSError as e:
-            log.debug("failed to listdir %s: %s", directory, e)
-            return 0
-
-        dsize = 0
-        for f in dirlist:
-            curpath = '%s/%s' % (directory, f)
-            try:
-                sinfo = os.lstat(curpath)
-            except OSError as e:
-                log.debug("failed to stat %s/%s: %s", directory, f, e)
-                continue
-
-            if stat.S_ISDIR(sinfo[stat.ST_MODE]):
-                if os.path.ismount(curpath):
-                    continue
-                if mydev == sinfo[stat.ST_DEV]:
-                    dsize += get_subdir_size(curpath)
-            elif stat.S_ISREG(sinfo[stat.ST_MODE]):
-                dsize += sinfo[stat.ST_SIZE]
-
-        return dsize
-    return get_subdir_size(directory) // 1024
-
 
 ## Create a directory path.  Don't fail if the directory already exists.
 def mkdirChain(directory):
