@@ -20,8 +20,10 @@ gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
 from blivet import util as blivet_util, udev, arch
+from blivet.devicelibs import crypto
 from blivet.errors import StorageError
 from blivet.flags import flags as blivet_flags
+from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
@@ -65,6 +67,9 @@ def enable_installer_mode():
 
     # Platform class setup depends on flags, re-initialize it.
     platform.update_from_flags()
+
+    # Set the minimum required entropy.
+    luks_data.min_entropy = crypto.MIN_CREATE_ENTROPY
 
     # Load plugins.
     if arch.is_s390():

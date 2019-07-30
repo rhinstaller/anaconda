@@ -15,7 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.size import Size
 from blivet.static_data import luks_data
@@ -153,12 +152,6 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         if pbkdf_args and not luks_data.pbkdf_args:
             luks_data.pbkdf_args = pbkdf_args
 
-        # Set the minimal entropy.
-        min_luks_entropy = luks_format_args.get('min_luks_entropy', None)
-
-        if min_luks_entropy is not None:
-            luks_data.min_entropy = min_luks_entropy
-
         # Get the autopart requests.
         requests = self._get_partitioning(storage, self._request.excluded_mount_points)
 
@@ -194,7 +187,6 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             "pbkdf_args": pbkdf_args,
             "escrow_cert": escrow_cert,
             "add_backup_passphrase": request.backup_passphrase_enabled,
-            "min_luks_entropy": MIN_CREATE_ENTROPY,
         }
 
     @staticmethod

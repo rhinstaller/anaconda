@@ -27,7 +27,6 @@ from pyanaconda.storage.partspec import PartSpec
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation
 
-from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.formats.luks import LUKS2PBKDFArgs
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
 
@@ -183,7 +182,6 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             "pbkdf_args": None,
             "escrow_cert": "CERTIFICATE",
             "add_backup_passphrase": True,
-            "min_luks_entropy": MIN_CREATE_ENTROPY,
         })
 
     def luks2_format_args_test(self):
@@ -206,7 +204,6 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             "luks_version": "luks2",
             "escrow_cert": None,
             "add_backup_passphrase": False,
-            "min_luks_entropy": MIN_CREATE_ENTROPY,
         })
 
         self.assertIsInstance(pbkdf_args, LUKS2PBKDFArgs)

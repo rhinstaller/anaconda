@@ -17,7 +17,6 @@
 #
 import blivet
 from blivet.deviceaction import ActionResizeFormat, ActionResizeDevice, ActionCreateFormat
-from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice, LVMVolumeGroupDevice
 from blivet.devices.lvm import LVMCacheRequest
@@ -450,7 +449,6 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     cipher=partition_data.cipher,
                     escrow_cert=cert,
                     add_backup_passphrase=partition_data.backuppassphrase,
-                    min_luks_entropy=MIN_CREATE_ENTROPY,
                     luks_version=partition_data.luks_version,
                     pbkdf_args=pbkdf_args
                 )
@@ -467,7 +465,6 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     cipher=partition_data.cipher,
                     escrow_cert=cert,
                     add_backup_passphrase=partition_data.backuppassphrase,
-                    min_luks_entropy=MIN_CREATE_ENTROPY,
                     luks_version=partition_data.luks_version,
                     pbkdf_args=pbkdf_args
                 )
@@ -1169,7 +1166,6 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     cipher=logvol_data.cipher,
                     escrow_cert=cert,
                     add_backup_passphrase=logvol_data.backuppassphrase,
-                    min_luks_entropy=MIN_CREATE_ENTROPY,
                     luks_version=logvol_data.luks_version,
                     pbkdf_args=pbkdf_args
                 )

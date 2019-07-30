@@ -678,7 +678,6 @@ def generate_device_info(storage, device):
     device_type = devicefactory.get_device_type(device)
 
     dev_info = dict()
-    dev_info["min_luks_entropy"] = crypto.MIN_CREATE_ENTROPY
     dev_info["device"] = device
     dev_info["name"] = getattr(device.raw_device, "lvname", device.raw_device.name)
     dev_info["size"] = device.size
@@ -759,7 +758,6 @@ def _update_device_info(storage, dev_info):
     dev_info.setdefault("mountpoint", None)
     dev_info.setdefault("device_type", devicefactory.DEVICE_TYPE_LVM)
     dev_info.setdefault("encrypted", False)
-    dev_info.setdefault("min_luks_entropy", crypto.MIN_CREATE_ENTROPY)
     dev_info.setdefault("luks_version", storage.default_luks_version)
 
     # Set the file system type for the given mount point.
@@ -799,7 +797,6 @@ def _add_device(storage, dev_info, use_existing_container=False):
         storage,
         device_type=dev_info["device_type"],
         size=dev_info["size"],
-        min_luks_entropy=crypto.MIN_CREATE_ENTROPY
     )
 
     # Find a container.
@@ -896,7 +893,6 @@ def destroy_device(storage, device):
             container_encrypted=container.encrypted,
             container_raid_level=get_device_raid_level(container),
             container_size=container.size_policy,
-            min_luks_entropy=crypto.MIN_CREATE_ENTROPY
         )
 
         # Configure the factory's devices.
@@ -963,7 +959,6 @@ def get_container(storage, device_type, device=None):
         storage,
         device_type=device_type,
         size=Size(0),
-        min_luks_entropy=crypto.MIN_CREATE_ENTROPY
     )
 
     return factory.get_container(device=device)
