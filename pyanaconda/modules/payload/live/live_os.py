@@ -28,12 +28,10 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithCapture
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
-
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask
 from pyanaconda.modules.payload.base.utils import get_dir_size
-
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
     TeardownInstallationSourceTask, UpdateBLSConfigurationTask

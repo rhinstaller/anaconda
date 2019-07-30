@@ -23,7 +23,6 @@ import stat
 from pyanaconda.core.util import mkdirChain
 from pyanaconda.flags import flags
 
-
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 

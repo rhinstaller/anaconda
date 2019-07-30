@@ -20,10 +20,12 @@
 import os
 
 from pyanaconda.dbus import DBus
+
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import requests_session
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
+
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
