@@ -52,7 +52,6 @@ class ZIPL(BootLoader):
             return ["ext4", "ext3", "ext2", "xfs"]
 
     image_label_attr = "short_label"
-    preserve_args = ["cio_ignore", "rd.znet", "rd_ZNET", "zfcp.allow_lun_scan"]
 
     def __init__(self):
         super().__init__()
