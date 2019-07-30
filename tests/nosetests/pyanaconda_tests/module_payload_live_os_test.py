@@ -27,7 +27,7 @@ from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.structures.storage import DeviceData
 
-from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask
+from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask
 
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface

@@ -31,8 +31,8 @@ from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
 from pyanaconda.modules.payload.handler_factory import HandlerType
-from pyanaconda.modules.payload.shared.utils import create_root_dir, write_module_blacklist
-from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask
+from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist
+from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask
 
 
 class PayloadInterfaceTestCase(TestCase):
@@ -116,8 +116,8 @@ class PayloadInterfaceTestCase(TestCase):
 
 class PayloadSharedTasksTest(TestCase):
 
-    @patch('pyanaconda.modules.payload.shared.initialization.write_module_blacklist')
-    @patch('pyanaconda.modules.payload.shared.initialization.create_root_dir')
+    @patch('pyanaconda.modules.payload.base.initialization.write_module_blacklist')
+    @patch('pyanaconda.modules.payload.base.initialization.create_root_dir')
     def prepare_system_for_install_task_test(self, create_root_dir_mock,
                                              write_module_blacklist_mock):
         """Test task prepare system for installation."""
@@ -131,7 +131,7 @@ class PayloadSharedTasksTest(TestCase):
 
 class PayloadSharedUtilsTest(TestCase):
 
-    @patch('pyanaconda.modules.payload.shared.utils.getSysroot')
+    @patch('pyanaconda.modules.payload.base.utils.getSysroot')
     def create_root_test(self, getSysroot):
         """Test payload create root directory function."""
         with TemporaryDirectory() as temp:
@@ -143,8 +143,8 @@ class PayloadSharedUtilsTest(TestCase):
 
             self.assertTrue(os.path.isdir(root_dir))
 
-    @patch('pyanaconda.modules.payload.shared.utils.flags')
-    @patch('pyanaconda.modules.payload.shared.utils.getSysroot')
+    @patch('pyanaconda.modules.payload.base.utils.flags')
+    @patch('pyanaconda.modules.payload.base.utils.getSysroot')
     def write_module_blacklist_test(self, getSysroot, flags):
         """Test write kernel module blacklist to the install root."""
         with TemporaryDirectory() as temp:
@@ -166,8 +166,8 @@ class PayloadSharedUtilsTest(TestCase):
                 """
                 self.assertEqual(dedent(expected_content).lstrip(), f.read())
 
-    @patch('pyanaconda.modules.payload.shared.utils.flags')
-    @patch('pyanaconda.modules.payload.shared.utils.getSysroot')
+    @patch('pyanaconda.modules.payload.base.utils.flags')
+    @patch('pyanaconda.modules.payload.base.utils.getSysroot')
     def write_empty_module_blacklist_test(self, getSysroot, flags):
         """Test write kernel module blacklist to the install root -- empty list."""
         with TemporaryDirectory() as temp:

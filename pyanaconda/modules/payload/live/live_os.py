@@ -28,8 +28,8 @@ from pyanaconda.core.util import execWithCapture, getSysroot, getDirSize
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 
-from pyanaconda.modules.payload.shared.handler_base import PayloadHandlerBase
-from pyanaconda.modules.payload.shared.initialization import PrepareSystemForInstallationTask, \
+from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask
 
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface

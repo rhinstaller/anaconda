@@ -22,7 +22,7 @@ from glob import glob
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DD_ALL, DD_FIRMWARE, DD_RPMS
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payload.shared.utils import create_root_dir, write_module_blacklist
+from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist
 
 
 from pyanaconda.anaconda_loggers import get_module_logger

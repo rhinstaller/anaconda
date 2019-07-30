@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-payload_moduledir = $(pkgpyexecdir)/modules/payload/shared
+payload_moduledir = $(pkgpyexecdir)/modules/payload/base
 payload_module_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
