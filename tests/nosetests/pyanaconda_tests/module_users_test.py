@@ -21,11 +21,13 @@ import os
 import tempfile
 import unittest
 from textwrap import dedent
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
+
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object
 
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
@@ -35,7 +37,6 @@ from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask
 from pyanaconda.dbus.typing import get_variant, List, Str, Int, Bool
 from pyanaconda.ui.lib.users import get_user_list, set_user_list
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class UsersInterfaceTestCase(unittest.TestCase):
@@ -1559,7 +1560,7 @@ class UsersModuleTasksTestCase(unittest.TestCase):
         self.callback = Mock()
         self.users_interface.PropertiesChanged.connect(self.callback)
 
-    @patch('pyanaconda.dbus.DBus.publish_object')
+    @patch_dbus_publish_object
     def root_ssh_password_config_task_basic_test(self, publisher):
         """Test the root password SSH login configuration task - basic."""
         self.users_interface.SetRootPasswordSSHLoginAllowed(True)
