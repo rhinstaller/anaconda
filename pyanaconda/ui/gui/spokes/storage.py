@@ -272,19 +272,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.applyOnSkip = True
 
-        self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
-        self._bootloader_observer.connect()
+        self._bootloader_module = STORAGE.get_proxy(BOOTLOADER)
+        self._disk_init_module = STORAGE.get_proxy(DISK_INITIALIZATION)
+        self._disk_select_module = STORAGE.get_proxy(DISK_SELECTION)
+        self._auto_part_module = STORAGE.get_proxy(AUTO_PARTITIONING)
 
-        self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
-        self._disk_init_observer.connect()
-
-        self._disk_select_observer = STORAGE.get_observer(DISK_SELECTION)
-        self._disk_select_observer.connect()
-
-        self._auto_part_observer = STORAGE.get_observer(AUTO_PARTITIONING)
-        self._auto_part_observer.connect()
-
-        self._selected_disks = self._disk_select_observer.proxy.SelectedDisks
+        self._selected_disks = self._disk_select_module.SelectedDisks
         self._last_selected_disks = []
 
         # This list contains all possible disks that can be included in the install.
@@ -294,12 +287,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
-            self._auto_part_observer.proxy.SetEnabled(True)
+            self._auto_part_module.SetEnabled(True)
 
         self._ready = False
         self._back_clicked = False
 
-        self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
+        self._auto_part_enabled = self._auto_part_module.Enabled
         self._previous_auto_part = False
 
         self._initialization_mode = constants.CLEAR_PARTITIONS_NONE
@@ -401,19 +394,19 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     def apply(self):
         apply_disk_selection(self.storage, self._selected_disks)
-        self._auto_part_observer.proxy.SetEnabled(self._auto_part_enabled)
-        self._auto_part_observer.proxy.SetType(DEFAULT_AUTOPART_TYPE)
-        self._auto_part_observer.proxy.SetEncrypted(self._auto_part_encrypted)
+        self._auto_part_module.SetEnabled(self._auto_part_enabled)
+        self._auto_part_module.SetType(DEFAULT_AUTOPART_TYPE)
+        self._auto_part_module.SetEncrypted(self._auto_part_encrypted)
 
-        boot_drive = self._bootloader_observer.proxy.Drive
+        boot_drive = self._bootloader_module.Drive
         if boot_drive and boot_drive not in self._selected_disks:
             reset_bootloader(self.storage)
 
-        self._disk_init_observer.proxy.SetInitializeLabelsEnabled(True)
+        self._disk_init_module.SetInitializeLabelsEnabled(True)
 
         if not self._auto_part_missing_passphrase:
             self._initialization_mode = CLEAR_PARTITIONS_NONE
-            self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
+            self._disk_init_module.SetInitializationMode(CLEAR_PARTITIONS_NONE)
 
     @async_action_nowait
     def execute(self):
@@ -430,7 +423,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         threadMgr.wait(constants.THREAD_DASDFMT)
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         threadMgr.wait(constants.THREAD_STORAGE)
-        if flags.automatedInstall and self._auto_part_observer.proxy.RequiresPassphrase():
+        if flags.automatedInstall and self._auto_part_module.RequiresPassphrase():
             self._auto_part_missing_passphrase = True
             StorageCheckHandler.errors = [_("Passphrase for autopart encryption not specified.")]
             self._ready = True
@@ -462,7 +455,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         else:
             if self._auto_part_enabled or \
                     (flags.automatedInstall and
-                     (self._auto_part_observer.proxy.Enabled or self.data.partition.seen)):
+                     (self._auto_part_module.Enabled or self.data.partition.seen)):
                 hubQ.send_message(self.__class__.__name__, _("Checking storage configuration..."))
                 StorageCheckHandler.check_storage(self)
         finally:
@@ -494,13 +487,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             return _("Formatting DASDs")
         elif flags.automatedInstall and not self.storage.root_device:
             return _("Kickstart insufficient")
-        elif not self._disk_select_observer.proxy.SelectedDisks:
+        elif not self._disk_select_module.SelectedDisks:
             return _("No disks selected")
         elif self.errors:
             return _("Error checking storage configuration")
         elif self.warnings:
             return _("Warning checking storage configuration")
-        elif self._auto_part_observer.proxy.Enabled:
+        elif self._auto_part_module.Enabled:
             return _("Automatic partitioning selected")
         else:
             return _("Custom partitioning selected")
@@ -582,15 +575,15 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # synchronize our local data store with the global ksdata
         disk_names = [d.name for d in self._available_disks]
-        selected_names = self._disk_select_observer.proxy.SelectedDisks
+        selected_names = self._disk_select_module.SelectedDisks
         self._selected_disks = [d for d in selected_names if d in disk_names]
 
         # unhide previously hidden disks so that they don't look like being
         # empty (because of all child devices hidden)
         self.storage.select_disks(disk_names)
 
-        self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
-        self._auto_part_encrypted = self._auto_part_observer.proxy.Encrypted
+        self._auto_part_enabled = self._auto_part_module.Enabled
+        self._auto_part_encrypted = self._auto_part_module.Encrypted
         self._previous_auto_part = self._auto_part_enabled
 
         # First, remove all non-button children.
@@ -802,7 +795,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self._update_summary()
 
-        if self._bootloader_observer.proxy.BootloaderMode != BOOTLOADER_ENABLED:
+        if self._bootloader_module.BootloaderMode != BOOTLOADER_ENABLED:
             self.set_warning(_("You have chosen to skip boot loader installation. "
                                "Your system may not be bootable."))
         else:
@@ -815,14 +808,14 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         return rc
 
     def _setup_passphrase(self):
-        passphrase = self._auto_part_observer.proxy.Passphrase
+        passphrase = self._auto_part_module.Passphrase
         dialog = PassphraseDialog(self.data, default_passphrase=passphrase)
 
         rc = self.run_lightbox_dialog(dialog)
         if rc != 1:
             return False
 
-        self._auto_part_observer.proxy.SetPassphrase(dialog.passphrase)
+        self._auto_part_module.SetPassphrase(dialog.passphrase)
         setup_passphrase(self.storage, dialog.passphrase)
         return True
 

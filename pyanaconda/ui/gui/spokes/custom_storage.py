@@ -142,11 +142,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._initialized = False
         self._accordion = None
 
-        self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
-        self._bootloader_observer.connect()
-
-        self._disk_select_observer = STORAGE.get_observer(DISK_SELECTION)
-        self._disk_select_observer.connect()
+        self._bootloader_module = STORAGE.get_proxy(BOOTLOADER)
+        self._disk_select_module = STORAGE.get_proxy(DISK_SELECTION)
 
     def apply(self):
         self.clear_errors()
@@ -268,7 +265,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _get_selected_disks(self):
         return collect_selected_disks(
             storage=self._storage_playground,
-            selection=self._disk_select_observer.proxy.SelectedDisks
+            selection=self._disk_select_module.SelectedDisks
         )
 
     def _get_unused_devices(self):
@@ -276,7 +273,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     @property
     def _bootloader_drive(self):
-        return self._bootloader_observer.proxy.Drive
+        return self._bootloader_module.Drive
 
     def _get_bootloader_devices(self):
         return collect_bootloader_devices(

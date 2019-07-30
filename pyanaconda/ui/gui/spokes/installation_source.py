@@ -421,8 +421,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repo_checks = {}
         self._repo_store_lock = threading.Lock()
 
-        self._network_module = NETWORK.get_observer()
-        self._network_module.connect()
+        self._network_module = NETWORK.get_proxy()
 
         self._treeinfo_repos_already_disabled = False
 
@@ -1043,7 +1042,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 widget.set_tooltip_text(_("The installation source is in use by the installer "
                                           "and cannot be changed."))
 
-        if not self._network_module.proxy.Connected:
+        if not self._network_module.Connected:
             self._network_button.set_sensitive(False)
             self._network_box.set_sensitive(False)
 
@@ -1114,7 +1113,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     # This method is shared by the checks on urlEntry and repoUrlEntry
     def _check_url(self, inputcheck, combo):
         # Network is not up, don't check urls.
-        if not self._network_module.proxy.Connected:
+        if not self._network_module.Connected:
             return InputCheck.CHECK_OK
 
         # If combo is not set inputcheck holds repo

@@ -46,11 +46,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
         self._password = None
 
-        # connect to the Users DBus module
         self._users_module = USERS.get_proxy()
-
-        self._services_module = SERVICES.get_observer()
-        self._services_module.connect()
+        self._services_module = SERVICES.get_proxy()
 
         self.initialize_done()
 
@@ -71,7 +68,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def status(self):
         if self._users_module.IsRootAccountLocked:
             # check if we are running in Initial Setup reconfig mode
-            reconfig_mode = self._services_module.proxy.SetupOnBoot == SETUP_ON_BOOT_RECONFIG
+            reconfig_mode = self._services_module.SetupOnBoot == SETUP_ON_BOOT_RECONFIG
             # reconfig mode currently allows re-enabling a locked root account if
             # user sets a new root password
             if reconfig_mode:

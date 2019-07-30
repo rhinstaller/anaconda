@@ -202,15 +202,14 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
         self.title = N_("Network configuration")
-        self._network_module = NETWORK.get_observer()
-        self._network_module.connect()
+        self._network_module = NETWORK.get_proxy()
 
         self.nm_client = network.get_nm_client()
         if not self.nm_client and conf.system.provides_system_bus:
             self.nm_client = NM.Client.new(None)
 
         self._container = None
-        self.hostname = self._network_module.proxy.Hostname
+        self.hostname = self._network_module.Hostname
         self.editable_configurations = []
         self.errors = []
         self._apply = False
@@ -223,7 +222,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self.initialize_start()
         NormalTUISpoke.initialize(self)
         self._update_editable_configurations()
-        self._network_module.proxy.DeviceConfigurationChanged.connect(self._device_configurations_changed)
+        self._network_module.DeviceConfigurationChanged.connect(self._device_configurations_changed)
         self.initialize_done()
 
     def _device_configurations_changed(self, device_configurations):
@@ -231,7 +230,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._update_editable_configurations()
 
     def _update_editable_configurations(self):
-        device_configurations = self._network_module.proxy.GetDeviceConfigurations()
+        device_configurations = self._network_module.GetDeviceConfigurations()
         self.editable_configurations = [NetworkDeviceConfiguration.from_structure(dc)
                                         for dc in device_configurations
                                         if dc['device-type'] in self.configurable_device_types]
@@ -241,7 +240,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """ Check whether this spoke is complete or not."""
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or self._network_module.proxy.GetActivatedInterfaces())
+                or self._network_module.GetActivatedInterfaces())
 
     @property
     def mandatory(self):
@@ -257,7 +256,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def _summary_text(self):
         """Devices cofiguration shown to user."""
         msg = ""
-        activated_devs = self._network_module.proxy.GetActivatedInterfaces()
+        activated_devs = self._network_module.GetActivatedInterfaces()
         for device_configuration in self.editable_configurations:
             name = device_configuration.device_name
             if name in activated_devs:
@@ -313,9 +312,9 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         summary = self._summary_text()
         self.window.add_with_separator(TextWidget(summary))
 
-        hostname = _("Host Name: %s\n") % self._network_module.proxy.Hostname
+        hostname = _("Host Name: %s\n") % self._network_module.Hostname
         self.window.add_with_separator(TextWidget(hostname))
-        current_hostname = _("Current host name: %s\n") % self._network_module.proxy.GetCurrentHostname()
+        current_hostname = _("Current host name: %s\n") % self._network_module.GetCurrentHostname()
         self.window.add_with_separator(TextWidget(current_hostname))
 
         # if we have any errors, display them
@@ -381,7 +380,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                       connection_uuid, iface)
             self.nm_client.activate_connection_async(connection, device, None, None)
 
-        self._network_module.proxy.LogConfigurationState(
+        self._network_module.LogConfigurationState(
             "Settings of {} updated in TUI.".format(iface)
         )
 
@@ -400,14 +399,14 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         # Inform network module that device configurations might have been changed
         # and we want to generate kickstart from device configurations
         # (persistent NM / ifcfg configuration), instead of using original kickstart.
-        self._network_module.proxy.NetworkDeviceConfigurationChanged()
+        self._network_module.NetworkDeviceConfigurationChanged()
 
         (valid, error) = network.is_valid_hostname(self.hostname)
         if valid:
-            self._network_module.proxy.SetHostname(self.hostname)
+            self._network_module.SetHostname(self.hostname)
         else:
             self.errors.append(_("Host name is not valid: %s") % error)
-            self.hostname = self._network_module.proxy.Hostname
+            self.hostname = self._network_module.Hostname
 
         if self._apply:
             self._apply = False
@@ -442,10 +441,10 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
                   self._data)
 
     def _get_onboot(self, connection_uuid):
-        return self._network_module.proxy.GetConnectionOnbootValue(connection_uuid)
+        return self._network_module.GetConnectionOnbootValue(connection_uuid)
 
     def _set_onboot(self, connection_uuid, onboot):
-        return self._network_module.proxy.SetConnectionOnbootValue(connection_uuid, onboot)
+        return self._network_module.SetConnectionOnbootValue(connection_uuid, onboot)
 
     def refresh(self, args=None):
         """ Refresh window. """

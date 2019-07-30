@@ -67,14 +67,13 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         LangLocaleHandler.__init__(self, self.payload)
         self._origStrings = {}
 
-        self._l12_module = LOCALIZATION.get_observer()
-        self._l12_module.connect()
+        self._l12_module = LOCALIZATION.get_proxy()
 
     def apply(self):
         (store, itr) = self._localeSelection.get_selected()
 
         locale = store[itr][1]
-        locale = localization.setup_locale(locale, self._l12_module.proxy, text_mode=False)
+        locale = localization.setup_locale(locale, self._l12_module, text_mode=False)
         self._set_lang(locale)
 
         # Skip timezone and keyboard default setting for kickstart installs.
@@ -86,7 +85,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             return
 
         timezone_proxy = TIMEZONE.get_proxy()
-        loc_timezones = localization.get_locale_timezones(self._l12_module.proxy.Language)
+        loc_timezones = localization.get_locale_timezones(self._l12_module.Language)
         if geoloc.geoloc.result.timezone:
             # (the geolocation module makes sure that the returned timezone is
             # either a valid timezone or None)
@@ -113,8 +112,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         if flags.flags.singlelang:
             return True
 
-        if flags.flags.automatedInstall and self._l12_module.proxy.LanguageKickstarted:
-            return bool(self._l12_module.proxy.Language)
+        if flags.flags.automatedInstall and self._l12_module.LanguageKickstarted:
+            return bool(self._l12_module.Language)
 
     def _row_is_separator(self, model, itr, *args):
         return model[itr][3]
@@ -149,8 +148,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         territory = geoloc.geoloc.result.territory_code
 
         # bootopts and kickstart have priority over geoip
-        language = self._l12_module.proxy.Language
-        if language and self._l12_module.proxy.LanguageKickstarted:
+        language = self._l12_module.Language
+        if language and self._l12_module.LanguageKickstarted:
             locales = [language]
         else:
             locales = localization.get_territory_locales(territory) or [DEFAULT_LANG]
@@ -176,8 +175,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         # use default
         if not langs_with_translations:
             self._set_lang(DEFAULT_LANG)
-            localization.setup_locale(DEFAULT_LANG, self._l12_module.proxy, text_mode=False)
-            lang_itr, _locale_itr = self._select_locale(self._l12_module.proxy.Language)
+            localization.setup_locale(DEFAULT_LANG, self._l12_module, text_mode=False)
+            lang_itr, _locale_itr = self._select_locale(self._l12_module.Language)
             langs_with_translations[DEFAULT_LANG] = lang_itr
             locales = [DEFAULT_LANG]
 
@@ -200,9 +199,9 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         store.set(newItr, 0, "", 1, "", 2, "", 3, True)
 
         # setup the "best" locale
-        locale = localization.setup_locale(locales[0], self._l12_module.proxy)
+        locale = localization.setup_locale(locales[0], self._l12_module)
         self._set_lang(locale)
-        self._select_locale(self._l12_module.proxy.Language)
+        self._select_locale(self._l12_module.Language)
 
         # report that we are done
         self.initialize_done()
@@ -265,7 +264,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             self.main_window.reapply_language()
 
     def refresh(self):
-        self._select_locale(self._l12_module.proxy.Language)
+        self._select_locale(self._l12_module.Language)
         self._languageEntry.set_text("")
         self._languageStoreFilter.refilter()
 
