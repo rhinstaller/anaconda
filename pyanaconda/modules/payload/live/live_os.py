@@ -25,7 +25,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.core.util import execWithCapture, getSysroot
+from pyanaconda.core.util import execWithCapture
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 
@@ -144,7 +144,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
     def install_with_task(self):
         """Install the payload."""
         task = InstallFromImageTask(
-            getSysroot(),
+            conf.target.system_root,
             self.kernel_version_list
         )
         return self.publish_task(LIVE_OS_HANDLER.namespace, task)
@@ -157,7 +157,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         """
         tasks = [
             UpdateBLSConfigurationTask(
-                getSysroot(),
+                conf.target.system_root,
                 self.kernel_version_list
             ),
             CopyDriverDisksFilesTask(conf.target.system_root)
