@@ -17,14 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import mkdirChain
 from pyanaconda.flags import flags
 
 
-def create_root_dir():
+def create_root_dir(sysroot):
     """Create root directory on the installed system."""
-    mkdirChain(conf.target.system_root + "/root")
+    mkdirChain(os.path.join(sysroot, "root"))
 
 
 def write_module_blacklist():

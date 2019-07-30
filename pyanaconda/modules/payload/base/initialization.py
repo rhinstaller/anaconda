@@ -52,7 +52,7 @@ class PrepareSystemForInstallationTask(Task):
 
     def run(self):
         """Create a root and write module blacklist."""
-        create_root_dir()
+        create_root_dir(self._sysroot)
         write_module_blacklist()
 
 

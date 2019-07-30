@@ -132,13 +132,10 @@ class PayloadSharedTasksTest(TestCase):
 
 class PayloadSharedUtilsTest(TestCase):
 
-    @patch('pyanaconda.modules.payload.base.utils.getSysroot')
-    def create_root_test(self, getSysroot):
+    def create_root_test(self):
         """Test payload create root directory function."""
         with TemporaryDirectory() as temp:
-            getSysroot.return_value = temp
-
-            create_root_dir()
+            create_root_dir(temp)
 
             root_dir = os.path.join(temp, "/root")
 
