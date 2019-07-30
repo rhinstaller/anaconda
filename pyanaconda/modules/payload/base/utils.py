@@ -19,7 +19,6 @@
 #
 import os
 
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import mkdirChain
 from pyanaconda.flags import flags
 
@@ -29,7 +28,7 @@ def create_root_dir(sysroot):
     mkdirChain(os.path.join(sysroot, "root"))
 
 
-def write_module_blacklist():
+def write_module_blacklist(sysroot):
     """Create module blacklist based on the user preference.
 
     Copy modules from modprobe.blacklist=<module> on cmdline to
@@ -39,8 +38,8 @@ def write_module_blacklist():
     if "modprobe.blacklist" not in flags.cmdline:
         return
 
-    mkdirChain(conf.target.system_root + "/etc/modprobe.d")
-    with open(conf.target.system_root + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
+    mkdirChain(os.path.join(sysroot, "etc/modprobe.d"))
+    with open(os.path.join(sysroot, "etc/modprobe.d/anaconda-blacklist.conf"), "w") as f:
         f.write("# Module blacklists written by anaconda\n")
         for module in flags.cmdline["modprobe.blacklist"].split():
             f.write("blacklist %s\n" % module)

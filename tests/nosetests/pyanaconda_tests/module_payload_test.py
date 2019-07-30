@@ -142,14 +142,12 @@ class PayloadSharedUtilsTest(TestCase):
             self.assertTrue(os.path.isdir(root_dir))
 
     @patch('pyanaconda.modules.payload.base.utils.flags')
-    @patch('pyanaconda.modules.payload.base.utils.getSysroot')
-    def write_module_blacklist_test(self, getSysroot, flags):
+    def write_module_blacklist_test(self, flags):
         """Test write kernel module blacklist to the install root."""
         with TemporaryDirectory() as temp:
-            getSysroot.return_value = temp
             flags.cmdline = {"modprobe.blacklist": "mod1 mod2 nonono_mod"}
 
-            write_module_blacklist()
+            write_module_blacklist(temp)
 
             blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
 
@@ -165,14 +163,12 @@ class PayloadSharedUtilsTest(TestCase):
                 self.assertEqual(dedent(expected_content).lstrip(), f.read())
 
     @patch('pyanaconda.modules.payload.base.utils.flags')
-    @patch('pyanaconda.modules.payload.base.utils.getSysroot')
-    def write_empty_module_blacklist_test(self, getSysroot, flags):
+    def write_empty_module_blacklist_test(self, flags):
         """Test write kernel module blacklist to the install root -- empty list."""
         with TemporaryDirectory() as temp:
-            getSysroot.return_value = temp
             flags.cmdline = {}
 
-            write_module_blacklist()
+            write_module_blacklist(temp)
 
             blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
 
