@@ -224,7 +224,7 @@ class LiveImagePayload(Payload):
 
     @property
     def space_required(self):
-        return Size(util.getDirSize("/") * 1024)
+        return Size(util.get_dir_size("/") * 1024)
 
     def _update_kernel_version_list(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")

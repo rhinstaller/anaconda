@@ -25,7 +25,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.core.util import execWithCapture, getSysroot, getDirSize
+from pyanaconda.core.util import execWithCapture, getSysroot, get_dir_size
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 
@@ -96,7 +96,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         :return: required size in bytes
         :rtype: int
         """
-        return getDirSize("/") * 1024
+        return get_dir_size("/") * 1024
 
     def detect_live_os_base_image(self):
         """Detect live os image in the system."""

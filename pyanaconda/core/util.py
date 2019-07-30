@@ -505,13 +505,13 @@ def execConsole():
     except OSError as e:
         raise RuntimeError("Error running /bin/sh: " + e.strerror)
 
-def getDirSize(directory):
-    """ Get the size of a directory and all its subdirectories.
+def get_dir_size(directory):
+    """Get the size of a directory and all its subdirectories.
 
-    :param dir: The name of the directory to find the size of.
-    :return: The size of the directory in kilobytes.
+    :param dir: the name of the directory to find the size of
+    :return: the size of the directory in kilobytes
     """
-    def getSubdirSize(directory):
+    def get_subdir_size(directory):
         # returns size in bytes
         try:
             mydev = os.lstat(directory)[stat.ST_DEV]
@@ -538,12 +538,12 @@ def getDirSize(directory):
                 if os.path.ismount(curpath):
                     continue
                 if mydev == sinfo[stat.ST_DEV]:
-                    dsize += getSubdirSize(curpath)
+                    dsize += get_subdir_size(curpath)
             elif stat.S_ISREG(sinfo[stat.ST_MODE]):
                 dsize += sinfo[stat.ST_SIZE]
 
         return dsize
-    return getSubdirSize(directory) // 1024
+    return get_subdir_size(directory) // 1024
 
 
 ## Create a directory path.  Don't fail if the directory already exists.

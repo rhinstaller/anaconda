@@ -464,17 +464,17 @@ done
 
 class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
-        """Test the getDirSize."""
+        """Test the get_dir_size."""
 
         # dev null should have a size == 0
-        self.assertEqual(util.getDirSize('/dev/null'), 0)
+        self.assertEqual(util.get_dir_size('/dev/null'), 0)
 
         # incorrect path should also return 0
-        self.assertEqual(util.getDirSize('/dev/null/foo'), 0)
+        self.assertEqual(util.get_dir_size('/dev/null/foo'), 0)
 
         # check if an int is always returned
-        self.assertIsInstance(util.getDirSize('/dev/null'), int)
-        self.assertIsInstance(util.getDirSize('/dev/null/foo'), int)
+        self.assertIsInstance(util.get_dir_size('/dev/null'), int)
+        self.assertIsInstance(util.get_dir_size('/dev/null/foo'), int)
 
         # TODO: mock some dirs and check if their size is
         # computed correctly
