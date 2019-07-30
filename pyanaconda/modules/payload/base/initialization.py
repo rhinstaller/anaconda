@@ -19,7 +19,6 @@ import os
 import shutil
 from glob import glob
 
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DD_ALL, DD_FIRMWARE, DD_RPMS
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist
@@ -59,6 +58,15 @@ class PrepareSystemForInstallationTask(Task):
 class CopyDriverDisksFilesTask(Task):
     """Copy driver disks files after installation to the installed system."""
 
+    def __init__(self, sysroot):
+        """Create copy driver disks files task.
+
+        :param sysroot: path to the installation root
+        :type sysroot: str
+        """
+        super().__init__()
+        self._sysroot = sysroot
+
     @property
     def name(self):
         return "Copy Driver Disks Files"
@@ -69,19 +77,19 @@ class CopyDriverDisksFilesTask(Task):
         # the firmware files in the common DD firmware directory
         for f in glob(DD_FIRMWARE + "/*"):
             try:
-                shutil.copyfile(f, os.path.join(conf.target.system_root, "lib/firmware/"))
+                shutil.copyfile(f, os.path.join(self._sysroot, "lib/firmware/"))
             except IOError as e:
                 log.error("Could not copy firmware file %s: %s", f, e.strerror)
 
         # copy RPMS
         for d in glob(DD_RPMS):
-            dest_dir = os.path.join(conf.target.system_root, "root/", os.path.basename(d))
+            dest_dir = os.path.join(self._sysroot, "root/", os.path.basename(d))
             shutil.copytree(d, dest_dir)
 
         # copy modules and firmware into root's home directory
         if os.path.exists(DD_ALL):
             try:
-                shutil.copytree(DD_ALL, os.path.join(conf.target.system_root, "root/DD"))
+                shutil.copytree(DD_ALL, os.path.join(self._sysroot, "root/DD"))
             except IOError as e:
                 log.error("failed to copy driver disk files: %s", e.strerror)
                 # XXX TODO: real error handling, as this is probably going to

@@ -579,7 +579,7 @@ class Payload(metaclass=ABCMeta):
 
         # write out static config (storage, modprobe, keyboard, ??)
         #   kickstart should handle this before we get here
-        CopyDriverDisksFilesTask().run()
+        CopyDriverDisksFilesTask(conf.target.system_root).run()
 
         log.info("Installation requirements: %s", self.requirements)
         if not self.requirements.applied:

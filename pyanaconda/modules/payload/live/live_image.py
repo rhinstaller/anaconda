@@ -238,7 +238,7 @@ class LiveImageHandlerModule(PayloadHandlerBase):
                 conf.target.system_root,
                 self.kernel_version_list
             ),
-            CopyDriverDisksFilesTask()
+            CopyDriverDisksFilesTask(conf.target.system_root)
         ]
         paths = [self.publish_task(LIVE_IMAGE_HANDLER.namespace, task) for task in tasks]
         return paths

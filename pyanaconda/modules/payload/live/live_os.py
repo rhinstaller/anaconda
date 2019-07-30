@@ -159,7 +159,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
                 getSysroot(),
                 self.kernel_version_list
             ),
-            CopyDriverDisksFilesTask()
+            CopyDriverDisksFilesTask(conf.target.system_root)
         ]
 
         paths = [self.publish_task(LIVE_OS_HANDLER.namespace, task) for task in tasks]
