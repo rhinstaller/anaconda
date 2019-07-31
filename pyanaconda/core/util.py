@@ -1008,7 +1008,7 @@ def detect_unsupported_hardware():
 
     :return: a list of warnings
     """
-    warnings = []
+    warnings = []  # pylint: disable=redefined-outer-name
 
     if flags.automatedInstall or not conf.target.is_hardware:
         log.info("Skipping detection of unsupported hardware.")
