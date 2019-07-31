@@ -154,14 +154,6 @@ class BootLoader(object):
     def stage2_format_types(self):
         return ["ext4", "ext3", "ext2"]
 
-    # this is so stupid...
-    global_preserve_args = ["speakup_synth", "apic", "noapic", "apm", "ide",
-                            "noht", "acpi", "video", "pci", "nodmraid",
-                            "nompath", "nomodeset", "noiswmd", "fips",
-                            "selinux", "biosdevname", "ipv6.disable",
-                            "net.ifnames"]
-    preserve_args = []
-
     def __init__(self):
         super().__init__()
         self.boot_args = Arguments()
@@ -826,7 +818,7 @@ class BootLoader(object):
 
     def _preserve_some_boot_args(self):
         """Preserve some of the boot args."""
-        for opt in self.global_preserve_args + self.preserve_args:
+        for opt in conf.bootloader.preserved_arguments:
             if opt not in flags.cmdline:
                 continue
 

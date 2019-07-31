@@ -309,3 +309,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                 services.SERVICES
             ))
         )
+
+    def bootloader_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+        self.assertIn("selinux", conf.bootloader.preserved_arguments)

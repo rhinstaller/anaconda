@@ -41,3 +41,11 @@ class BootloaderSection(Section):
         which were not configured in iBFT.
         """
         return self._get_option("nonibft_iscsi_boot", bool)
+
+    @property
+    def preserved_arguments(self):
+        """Arguments preserved from the installation system.
+
+        :return: a list of kernel arguments
+        """
+        return self._get_option("preserved_arguments", str).split()
