@@ -94,8 +94,17 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test GetDevices."""
         self.assertEqual(self.interface.GetDevices(), [])
 
-        self._add_device(DiskDevice("dev1", fmt=get_format("ext4")))
-        self._add_device(StorageDevice("dev2", fmt=get_format("ext4")))
+        self._add_device(DiskDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB")
+        ))
+
+        self._add_device(StorageDevice(
+            "dev2",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB")
+        ))
 
         self.assertEqual(self.interface.GetDevices(), ["dev1", "dev2"])
 
@@ -168,6 +177,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self._add_device(DASDDevice(
             "dev1",
             fmt=get_format("ext4"),
+            size=Size("10 GiB"),
             busid="0.0.0201",
             opts={}
         ))
@@ -181,6 +191,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self._add_device(ZFCPDiskDevice(
             "dev1",
             fmt=get_format("ext4"),
+            size=Size("10 GiB"),
             fcp_lun="0x5719000000000000",
             wwpn="0x5005076300c18154",
             hba_id="0.0.010a"
