@@ -470,13 +470,7 @@ def find_live_backing_device():
             continue
 
         live_device_path = mnt.split()[0]
-        udev_device = udev.get_device(device_node=live_device_path)
-
-        if udev_device and udev.device_is_partition(udev_device):
-            live_device_name = udev.device_get_partition_disk(udev_device)
-        else:
-            live_device_name = live_device_path.split("/")[-1]
-
+        live_device_name = live_device_path.split("/")[-1]
         return live_device_name or None
 
     return None

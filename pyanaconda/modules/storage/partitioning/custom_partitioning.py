@@ -21,7 +21,7 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice, LVMVolumeGroupDevice
 from blivet.devices.lvm import LVMCacheRequest
-from blivet.errors import StorageError, BTRFSValueError, NoDisksError, NotEnoughFreeSpaceError
+from blivet.errors import StorageError, BTRFSValueError
 from blivet.formats import get_format
 from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.size import Size
@@ -121,14 +121,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         if not reqs:
             return
 
-        if not any(d.format.supported for d in storage.partitioned):
-            raise NoDisksError(_("No usable disks selected"))
-
         disks = get_candidate_disks(storage)
-
-        if not disks:
-            raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
-                                            "automatic partitioning"))
 
         log.debug("Applying requirements:\n%s", "".join(map(str, reqs)))
         schedule_partitions(storage, disks, [], scheme=AUTOPART_TYPE_PLAIN, requests=reqs)

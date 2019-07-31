@@ -23,7 +23,7 @@ from blivet.size import Size
 from blivet.devices.partition import PartitionDevice, FALLBACK_DEFAULT_PART_SIZE
 from blivet.devices.luks import LUKSDevice
 from blivet.devices.lvm import DEFAULT_THPOOL_RESERVE
-from blivet.errors import NotEnoughFreeSpaceError
+from blivet.errors import NotEnoughFreeSpaceError, NoDisksError
 from blivet.formats import get_format
 from blivet.partitioning import get_free_regions, get_next_partition_type
 
@@ -51,11 +51,14 @@ def get_candidate_disks(storage):
     :return: a list of partitioned disks with at least 500MiB of free space
     :rtype: list of :class:`blivet.devices.StorageDevice`
     """
-    disks = []
+    usable_disks = []
     for disk in storage.partitioned:
         if not disk.format.supported or disk.protected:
             continue
+        usable_disks.append(disk)
 
+    free_disks = []
+    for disk in usable_disks:
         if get_next_partition_type(disk.format.parted_disk) is None:
             # new partition can't be added to the disk -- there is no free slot
             # for a primary partition and no extended partition
@@ -68,12 +71,18 @@ def get_candidate_disks(storage):
                 continue
 
             if Size(part.getLength(unit="B")) > PartitionDevice.default_size:
-                disks.append(disk)
+                free_disks.append(disk)
                 break
 
             part = part.nextPartition()
 
-    return disks
+    if not usable_disks:
+        raise NoDisksError(_("No usable disks selected."))
+
+    if not free_disks:
+        raise NotEnoughFreeSpaceError(_("Not enough free space on selected disks."))
+
+    return free_disks
 
 
 def schedule_implicit_partitions(storage, disks, scheme, encrypted=False, luks_fmt_args=None):
