@@ -32,7 +32,6 @@ class AutoPartitioningInterface(PartitioningInterface):
     def connect_signals(self):
         """Connect the signals."""
         super().connect_signals()
-
         self.watch_property("Enabled", self.implementation.enabled_changed)
         self.watch_property("Type", self.implementation.type_changed)
         self.watch_property("FilesystemType", self.implementation.fstype_changed)
@@ -48,10 +47,8 @@ class AutoPartitioningInterface(PartitioningInterface):
         self.watch_property("PBKDFTime", self.implementation.pbkdf_time_changed)
         self.watch_property("PBKDFIterations", self.implementation.pbkdf_iterations_changed)
         self.watch_property("Escrowcert", self.implementation.escrowcert_changed)
-
-        self.watch_property(
-            "BackupPassphraseEnabled", self.implementation.backup_passphrase_enabled_changed
-        )
+        self.watch_property("BackupPassphraseEnabled",
+                            self.implementation.backup_passphrase_enabled_changed)
 
     @property
     def Enabled(self) -> Bool:

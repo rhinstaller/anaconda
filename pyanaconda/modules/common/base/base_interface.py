@@ -37,7 +37,7 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
     def connect_signals(self):
         """Connect the signals."""
         super().connect_signals()
-        self.implementation.kickstarted_changed.connect(self.changed("Kickstarted"))
+        self.watch_property("Kickstarted", self.implementation.kickstarted_changed)
 
     @property
     def KickstartCommands(self) -> List[Str]:

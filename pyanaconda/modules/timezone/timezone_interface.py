@@ -30,10 +30,10 @@ class TimezoneInterface(KickstartModuleInterface):
 
     def connect_signals(self):
         super().connect_signals()
-        self.implementation.timezone_changed.connect(self.changed("Timezone"))
-        self.implementation.is_utc_changed.connect(self.changed("IsUTC"))
-        self.implementation.ntp_enabled_changed.connect(self.changed("NTPEnabled"))
-        self.implementation.ntp_servers_changed.connect(self.changed("NTPServers"))
+        self.watch_property("Timezone", self.implementation.timezone_changed)
+        self.watch_property("IsUTC", self.implementation.is_utc_changed)
+        self.watch_property("NTPEnabled", self.implementation.ntp_enabled_changed)
+        self.watch_property("NTPServers", self.implementation.ntp_servers_changed)
 
     @property
     def Timezone(self) -> Str:

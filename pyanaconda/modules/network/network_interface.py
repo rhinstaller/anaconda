@@ -46,9 +46,9 @@ class NetworkInterface(KickstartModuleInterface):
 
     def connect_signals(self):
         super().connect_signals()
-        self.implementation.hostname_changed.connect(self.changed("Hostname"))
+        self.watch_property("Hostname", self.implementation.hostname_changed)
         self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
-        self.implementation.connected_changed.connect(self.changed("Connected"))
+        self.watch_property("Connected", self.implementation.connected_changed)
         self.implementation.configurations_changed.connect(self._device_configurations_changed)
 
     @property

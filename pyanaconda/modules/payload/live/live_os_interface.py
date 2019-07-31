@@ -31,7 +31,6 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
 
     def connect_signals(self):
         super().connect_signals()
-
         self.watch_property("ImagePath", self.implementation.image_path_changed)
 
     @property

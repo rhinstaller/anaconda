@@ -32,21 +32,19 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
 
     def connect_signals(self):
         super().connect_signals()
-
-        self.implementation.core_group_enabled_changed.connect(self.changed("CoreGroupEnabled"))
-        self.implementation.environment_changed.connect(self.changed("Environment"))
-        self.implementation.groups_changed.connect(self.changed("Groups"))
-        self.implementation.packages_changed.connect(self.changed("Packages"))
-        self.implementation.excluded_groups_changed.connect(self.changed("ExcludedGroups"))
-        self.implementation.excluded_packages_changed.connect(self.changed("ExcludedPackages"))
-
-        self.implementation.docs_excluded_changed.connect(self.changed("DocsExcluded"))
-        self.implementation.weakdeps_excluded_changed.connect(self.changed("WeakdepsExcluded"))
-        self.implementation.missing_ignored_changed.connect(self.changed("MissingIgnored"))
-        self.implementation.languages_changed.connect(self.changed("Languages"))
-        self.implementation.multilib_policy_changed.connect(self.changed("MultilibPolicy"))
-        self.implementation.timeout_changed.connect(self.changed("Timeout"))
-        self.implementation.retries_changed.connect(self.changed("Retries"))
+        self.watch_property("CoreGroupEnabled", self.implementation.core_group_enabled_changed)
+        self.watch_property("Environment", self.implementation.environment_changed)
+        self.watch_property("Groups", self.implementation.groups_changed)
+        self.watch_property("Packages", self.implementation.packages_changed)
+        self.watch_property("ExcludedGroups", self.implementation.excluded_groups_changed)
+        self.watch_property("ExcludedPackages", self.implementation.excluded_packages_changed)
+        self.watch_property("DocsExcluded", self.implementation.docs_excluded_changed)
+        self.watch_property("WeakdepsExcluded", self.implementation.weakdeps_excluded_changed)
+        self.watch_property("MissingIgnored", self.implementation.missing_ignored_changed)
+        self.watch_property("Languages", self.implementation.languages_changed)
+        self.watch_property("MultilibPolicy", self.implementation.multilib_policy_changed)
+        self.watch_property("Timeout", self.implementation.timeout_changed)
+        self.watch_property("Retries", self.implementation.retries_changed)
 
     @property
     def CoreGroupEnabled(self) -> Bool:
