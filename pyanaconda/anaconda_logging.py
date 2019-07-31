@@ -41,6 +41,7 @@ MAIN_LOG_FILE = "/tmp/anaconda.log"
 PROGRAM_LOG_FILE = "/tmp/program.log"
 STORAGE_LOG_FILE = "/tmp/storage.log"
 PACKAGING_LOG_FILE = "/tmp/packaging.log"
+ADDONS_LOG_FILE = "/tmp/addons.log"
 SENSITIVE_INFO_LOG_FILE = "/tmp/sensitive-info.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 ANACONDA_SYSLOG_IDENTIFIER = "anaconda"
@@ -228,6 +229,14 @@ class AnacondaLog(object):
         self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger,
                             minLevel=logging.NOTSET)
         self.forwardToJournal(dnf_logger)
+
+        # Create the addons logger
+        addons_logger = logging.getLogger(constants.LOGGER_ADDONS)
+        addons_logger.setLevel(logging.DEBUG)
+        addons_logger.propagate = False
+        self.addFileHandler(ADDONS_LOG_FILE, addons_logger,
+                            minLevel=logging.DEBUG)
+        self.forwardToJournal(addons_logger)
 
         # Create the simpleline logger and link it to anaconda
         simpleline_logger = logging.getLogger(constants.LOGGER_SIMPLELINE)

@@ -68,3 +68,6 @@ def get_blivet_logger():
 
 def get_sensitive_info_logger():
     return logging.getLogger(constants.LOGGER_SENSITIVE_INFO)
+
+def get_addons_logger():
+    return logging.getLogger(constants.LOGGER_ADDONS)
