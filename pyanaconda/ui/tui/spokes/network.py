@@ -601,6 +601,6 @@ def get_default_connection(iface, device_type, autoconnect=False):
         s_con.props.type = "infiniband"
         s_ib = NM.SettingInfiniband.new()
         s_ib.props.transport_mode = "datagram"
-        connection.add_settings(s_ib)
+        connection.add_setting(s_ib)
     connection.add_setting(s_con)
     return connection
