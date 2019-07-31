@@ -23,6 +23,7 @@ from mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
 
+from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.structures.storage import DeviceData
@@ -62,6 +63,39 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         get_dir_size_mock.return_value = 2
 
         self.assertEqual(self.live_os_interface.SpaceRequired, 2048)
+
+    @patch("pyanaconda.modules.payload.live.live_os.get_kernel_version_list")
+    def empty_kernel_version_list_test(self, get_kernel_version_list):
+        """Test Live OS empty get kernel version list."""
+        self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
+
+        get_kernel_version_list.return_value = []
+        kernel_list_callback = Mock()
+
+        # pylint: disable=no-member
+        self.live_os_interface.KernelVersionListChanged.connect(kernel_list_callback)
+        self.live_os_interface.UpdateKernelVersionList()
+
+        get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
+
+        self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
+        kernel_list_callback.assert_called_once_with([])
+
+    @patch("pyanaconda.modules.payload.live.live_os.get_kernel_version_list")
+    def kernel_version_list_test(self, get_kernel_version_list):
+        """Test Live OS get kernel version list."""
+        kernel_list = ["kernel-abc", "magic-kernel.fc3000.x86_64", "sad-kernel"]
+        get_kernel_version_list.return_value = kernel_list
+        kernel_list_callback = Mock()
+
+        # pylint: disable=no-member
+        self.live_os_interface.KernelVersionListChanged.connect(kernel_list_callback)
+        self.live_os_interface.UpdateKernelVersionList()
+
+        get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
+
+        self.assertListEqual(self.live_os_interface.GetKernelVersionList(), kernel_list)
+        kernel_list_callback.assert_called_once_with(kernel_list)
 
     @patch("pyanaconda.modules.payload.live.live_os.stat")
     @patch("os.stat")
