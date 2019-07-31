@@ -498,13 +498,11 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test MountExistingSystemWithTask."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
 
-        with tempfile.TemporaryDirectory() as sysroot:
-            task_path = self.interface.MountExistingSystemWithTask(sysroot, "dev1", True)
+        task_path = self.interface.MountExistingSystemWithTask("dev1", True)
 
         obj = check_task_creation(self, task_path, publisher, MountExistingSystemTask)
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
-        self.assertEqual(obj.implementation._sysroot, sysroot)
         self.assertEqual(obj.implementation._device.name, "dev1")
         self.assertEqual(obj.implementation._read_only, True)
 
@@ -532,13 +530,11 @@ class DeviceTreeTasksTestCase(unittest.TestCase):
         device = StorageDevice("dev1", fmt=get_format("ext4"))
         storage.devicetree._add_device(device)
 
-        with tempfile.TemporaryDirectory() as sysroot:
-            task = MountExistingSystemTask(storage, sysroot, device, True)
-            task.run()
+        task = MountExistingSystemTask(storage, device, True)
+        task.run()
 
         mount.assert_called_once_with(
             storage=storage,
-            sysroot=sysroot,
             root_device=device,
             read_only=True
         )

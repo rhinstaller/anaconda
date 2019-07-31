@@ -19,6 +19,7 @@ import os
 
 from pyanaconda.bootloader.base import BootLoader, Arguments, BootLoaderError
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.product import productName
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -106,7 +107,7 @@ class EXTLINUX(BootLoader):
             config.write("menu notabmsg Press [Tab] and enter the password to edit options")
 
     def write_config_post(self):
-        etc_extlinux = os.path.normpath(util.getSysroot() + "/etc/" + self._config_file)
+        etc_extlinux = os.path.normpath(conf.target.system_root + "/etc/" + self._config_file)
         if not os.access(etc_extlinux, os.R_OK):
             try:
                 os.symlink("../boot/%s" % self._config_file, etc_extlinux)

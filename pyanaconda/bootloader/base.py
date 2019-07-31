@@ -847,7 +847,7 @@ class BootLoader(object):
             pass
         else:
             util.resetRpmDb()
-            ts = rpm.TransactionSet(util.getSysroot())
+            ts = rpm.TransactionSet(conf.target.system_root)
 
             # Only add "rhgb quiet" on non-s390, non-serial installs.
             if util.isConsoleOnVirtualTerminal() \
@@ -904,7 +904,7 @@ class BootLoader(object):
         if not self.config_file:
             raise BootLoaderError("no config file defined for this boot loader")
 
-        config_path = os.path.normpath(util.getSysroot() + self.config_file)
+        config_path = os.path.normpath(conf.target.system_root + self.config_file)
         if os.access(config_path, os.R_OK):
             os.rename(config_path, config_path + ".anacbak")
 
@@ -928,7 +928,7 @@ class BootLoader(object):
 
         self.write_config()
         os.sync()
-        self.stage2_device.format.sync(root=util.getTargetPhysicalRoot())
+        self.stage2_device.format.sync(root=conf.target.physical_root)
         self.install()
 
     def install(self, args=None):

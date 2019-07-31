@@ -291,12 +291,11 @@ class StorageModule(KickstartModule):
 
         return requirements
 
-    def install_with_tasks(self, sysroot):
+    def install_with_tasks(self):
         """Returns installation tasks of this module.
 
         FIXME: This is a simplified version of the storage installation.
 
-        :param sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks
         """
         storage = self.storage
@@ -304,7 +303,7 @@ class StorageModule(KickstartModule):
         tasks = [
             ActivateFilesystemsTask(storage),
             MountFilesystemsTask(storage),
-            WriteConfigurationTask(storage, sysroot)
+            WriteConfigurationTask(storage)
         ]
 
         paths = [

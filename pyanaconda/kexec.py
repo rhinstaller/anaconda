@@ -21,7 +21,8 @@
 import shutil
 from collections import namedtuple
 
-from pyanaconda.core.util import getSysroot, execReadlines, execWithRedirect
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.util import execReadlines, execWithRedirect
 from pyanaconda.simpleconfig import unquote
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -54,7 +55,7 @@ def run_grubby(args=None):
     # loop when all of the needed values have been gathered.
     try:
 
-        for line in execReadlines("grubby", args, root=getSysroot()):
+        for line in execReadlines("grubby", args, root=conf.target.system_root):
             key, _sep, value = line.partition("=")
             value = unquote(value)
 
@@ -99,8 +100,8 @@ def setup_kexec():
             return
 
     # Copy the kernel and initrd to /tmp/
-    shutil.copy2(getSysroot() + boot_info.kernel, "/tmp/vmlinuz-kexec-reboot")
-    shutil.copy2(getSysroot() + boot_info.initrd, "/tmp/initrd-kexec-reboot")
+    shutil.copy2(conf.target.system_root + boot_info.kernel, "/tmp/vmlinuz-kexec-reboot")
+    shutil.copy2(conf.target.system_root + boot_info.initrd, "/tmp/initrd-kexec-reboot")
 
     append = "root=%s %s" % (boot_info.root, boot_info.args)
     args = ["--initrd", "/tmp/initrd-kexec-reboot", "--append", append, "-l", "/tmp/vmlinuz-kexec-reboot"]

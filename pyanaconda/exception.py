@@ -212,12 +212,12 @@ class AnacondaExceptionHandler(ExceptionHandler):
         anaconda = dump_info.object
 
         # See if there is a /root present in the root path and put exception there as well
-        if os.access(util.getSysroot() + "/root", os.X_OK):
+        if os.access(conf.target.system_root + "/root", os.X_OK):
             try:
-                dest = util.getSysroot() + "/root/%s" % os.path.basename(self.exnFile)
+                dest = conf.target.system_root + "/root/%s" % os.path.basename(self.exnFile)
                 shutil.copyfile(self.exnFile, dest)
             except (shutil.Error, IOError):
-                log.error("Failed to copy %s to %s/root", self.exnFile, util.getSysroot())
+                log.error("Failed to copy %s to %s/root", self.exnFile, conf.target.system_root)
 
         # run kickstart traceback scripts (if necessary)
         try:
@@ -260,7 +260,7 @@ def initExceptionHandling(anaconda):
     file_list = ["/tmp/anaconda.log", "/tmp/packaging.log",
                  "/tmp/program.log", "/tmp/storage.log",
                  "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
-                 "/tmp/lvm.log", util.getSysroot() + "/root/install.log",
+                 "/tmp/lvm.log", conf.target.system_root + "/root/install.log",
                  "/proc/cmdline", "/root/lorax-packages.log",
                  "/tmp/blivet-gui-utils.log", "/tmp/dbus.log"]
 

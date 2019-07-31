@@ -20,7 +20,6 @@ from glob import glob
 
 from pyanaconda.bootloader.base import BootLoaderError
 from pyanaconda.bootloader.image import LinuxBootLoaderImage
-from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import decode_bytes
 from pyanaconda.errors import errorHandler, ERROR_RAISE
@@ -44,7 +43,7 @@ def write_boot_loader(storage, payload):
     # Configure the boot loader.
     if not payload.handles_bootloader_configuration:
         configure_boot_loader(
-            sysroot=util.getSysroot(),
+            sysroot=conf.target.system_root,
             storage=storage,
             kernel_versions=payload.kernel_version_list
         )

@@ -20,6 +20,7 @@ import re
 
 from pyanaconda.bootloader.base import BootLoader, Arguments, BootLoaderError
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler
 from pyanaconda.product import productName
 
@@ -83,7 +84,7 @@ class ZIPL(BootLoader):
         config.write(stanza)
 
     def update_bls_args(self, image, args):
-        machine_id_path = util.getSysroot() + "/etc/machine-id"
+        machine_id_path = conf.target.system_root + "/etc/machine-id"
         if not os.access(machine_id_path, os.R_OK):
             log.error("failed to read machine-id file")
             return
@@ -91,7 +92,7 @@ class ZIPL(BootLoader):
         with open(machine_id_path, "r") as fd:
             machine_id = fd.readline().strip()
 
-        bls_dir = "%s%s/loader/entries/" % (util.getSysroot(), self.boot_dir)
+        bls_dir = "%s%s/loader/entries/" % (conf.target.system_root, self.boot_dir)
 
         if image.kernel == "vmlinuz-0-rescue-" + machine_id:
             bls_path = "%s%s-0-rescue.conf" % (bls_dir, machine_id)
@@ -137,7 +138,7 @@ class ZIPL(BootLoader):
                   "target=/boot\n")
         config.write(header.format(self.timeout))
 
-        if self.use_bls and os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+        if self.use_bls and os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
             log.warning("BLS support disabled due new-kernel-pkg being present")
             self.use_bls = False
 
@@ -149,7 +150,7 @@ class ZIPL(BootLoader):
     #
 
     def install(self, args=None):
-        buf = util.execWithCapture("zipl", [], root=util.getSysroot())
+        buf = util.execWithCapture("zipl", [], root=conf.target.system_root)
         for line in buf.splitlines():
             if line.startswith("Preparing boot device: "):
                 # Output here may look like:

@@ -49,17 +49,15 @@ class FindExistingSystemsTask(Task):
 class MountExistingSystemTask(Task):
     """A task to mount an existing GNU/Linux installation."""
 
-    def __init__(self, storage, sysroot, device, read_only):
+    def __init__(self, storage, device, read_only):
         """Create a new task.
 
         :param storage: an instance of the Blivet's storage
-        :param sysroot: a path to the root of the system
         :param device: a root device of the system
         :param read_only: mount the system in read-only mode
         """
         super().__init__()
         self._storage = storage
-        self._sysroot = sysroot
         self._device = device
         self._read_only = read_only
 
@@ -72,6 +70,5 @@ class MountExistingSystemTask(Task):
         mount_existing_system(
             storage=self._storage,
             root_device=self._device,
-            read_only=self._read_only,
-            sysroot=self._sysroot
+            read_only=self._read_only
         )

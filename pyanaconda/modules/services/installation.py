@@ -216,7 +216,7 @@ class ConfigureSystemdDefaultTargetTask(Task):
         except ImportError:
             log.info("failed to import rpm -- not adjusting default runlevel")
         else:
-            ts = rpm.TransactionSet(util.getSysroot())
+            ts = rpm.TransactionSet(conf.target.system_root)
 
             if ts.dbMatch("provides", 'service(graphical-login)').count():
                 log.debug("A package with provides == service(graphical-login) is installed, using graphical.target.")

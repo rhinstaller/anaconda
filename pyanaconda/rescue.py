@@ -206,9 +206,9 @@ class Rescue(object):
         # mount root fs
         try:
             mount_existing_system(self._storage, root.device, read_only=self.ro)
-            log.info("System has been mounted under: %s", util.getSysroot())
+            log.info("System has been mounted under: %s", conf.target.system_root)
         except StorageError as e:
-            log.error("Mounting system under %s failed: %s", util.getSysroot(), e)
+            log.error("Mounting system under %s failed: %s", conf.target.system_root, e)
             self.status = RescueModeStatus.MOUNT_FAILED
             return False
 
@@ -217,7 +217,7 @@ class Rescue(object):
             # we have to catch the possible exception, because we
             # support read-only mounting
             try:
-                fd = open("%s/.autorelabel" % util.getSysroot(), "w+")
+                fd = open("%s/.autorelabel" % conf.target.system_root, "w+")
                 fd.close()
             except IOError as e:
                 log.warning("Error turning on selinux: %s", e)
@@ -237,7 +237,7 @@ class Rescue(object):
         # make resolv.conf in chroot
         if not self.ro:
             try:
-                makeResolvConf(util.getSysroot())
+                makeResolvConf(conf.target.system_root)
             except(OSError, IOError) as e:
                 log.error("Error making resolv.conf: %s", e)
 
@@ -324,7 +324,7 @@ class RescueModeSpoke(NormalTUISpoke):
                 "this step.\nYou can choose to mount your file "
                 "systems read-only instead of read-write by choosing "
                 "'2'.\nIf for some reason this process does not work "
-                "choose '3' to skip directly to a shell.\n\n") % (util.getSysroot())
+                "choose '3' to skip directly to a shell.\n\n") % (conf.target.system_root)
         self.window.add_with_separator(TextWidget(msg))
 
         self._container = ListColumnContainer(1)
@@ -464,7 +464,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                                     "If you would like to make the root of your system the "
                                     "root of the active system, run the command:\n\n"
                                     "\tchroot %(mountpoint)s\n\n")
-                                  % {"mountpoint": util.getSysroot()} + finish_msg)
+                                  % {"mountpoint": conf.target.system_root} + finish_msg)
             elif status == RescueModeStatus.MOUNT_FAILED:
                 if self._rescue.reboot:
                     finish_msg = exit_reboot_msg
@@ -472,7 +472,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                     finish_msg = umount_msg
                 text = TextWidget(_("An error occurred trying to mount some or all of "
                                     "your system.  Some of it may be mounted under %s\n\n") %
-                                  util.getSysroot() + finish_msg)
+                                  conf.target.system_root + finish_msg)
             elif status == RescueModeStatus.ROOT_NOT_FOUND:
                 if self._rescue.reboot:
                     finish_msg = _("Rebooting.")

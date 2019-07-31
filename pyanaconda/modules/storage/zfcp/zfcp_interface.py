@@ -44,9 +44,9 @@ class ZFCPInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.discover_with_task(device_number, wwpn, lun)
 
-    def WriteConfiguration(self, sysroot: Str):
+    def WriteConfiguration(self):
         """Write the configuration to sysroot.
 
         FIXME: This is just a temporary method.
         """
-        self.implementation.write_configuration(sysroot)
+        self.implementation.write_configuration()

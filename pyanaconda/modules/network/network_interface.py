@@ -124,16 +124,15 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.get_activated_interfaces()
 
-    def InstallNetworkWithTask(self, sysroot: Str, onboot_ifaces: List[Str], overwrite: Bool) -> ObjPath:
+    def InstallNetworkWithTask(self, onboot_ifaces: List[Str], overwrite: Bool) -> ObjPath:
         """Install network with an installation task.
 
-        :param sysroot: a path to the root of the installed system
         :param onboot_ifaces: list of network interfaces which should have ONBOOT=yes
         FIXME: does overwrite still apply?
         :param overwrite: overwrite existing configuration
         :return: a DBus path of an installation task
         """
-        return self.implementation.install_network_with_task(sysroot, onboot_ifaces, overwrite)
+        return self.implementation.install_network_with_task(onboot_ifaces, overwrite)
 
     def CreateDeviceConfigurations(self):
         """Create and populate the state of network devices configuration."""

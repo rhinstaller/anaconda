@@ -33,9 +33,9 @@ log = get_module_logger(__name__)
 __all__ = ["mount_existing_system", "find_existing_installations", "Root"]
 
 
-def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
+def mount_existing_system(storage, root_device, read_only=None):
     """Mount filesystems specified in root_device's /etc/fstab file."""
-    root_path = sysroot or util.getTargetPhysicalRoot()
+    root_path = conf.target.physical_root
     read_only = "ro" if read_only else ""
 
     # Mount the root device.
@@ -51,7 +51,7 @@ def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
                                  options="%s,%s" % (root_device.format.options, read_only))
 
     # Set up the sysroot.
-    util.setSysroot(root_path)
+    util.set_system_root(root_path)
 
     # Mount the filesystems.
     storage.fsset.parse_fstab(chroot=root_path)
@@ -60,7 +60,7 @@ def mount_existing_system(storage, root_device, read_only=None, sysroot=None):
     # Turn on swap.
     if not conf.target.is_image or not read_only:
         try:
-            storage.fsset.turn_on_swap(root_path=sysroot)
+            storage.fsset.turn_on_swap(root_path=root_path)
         except StorageError as e:
             log.error("Error enabling swap: %s", str(e))
 
@@ -94,10 +94,10 @@ def _find_existing_installations(devicetree):
     :param devicetree: a device tree to find existing installations in
     :return: roots of all found installations
     """
-    if not os.path.exists(util.getTargetPhysicalRoot()):
-        blivet_util.makedirs(util.getTargetPhysicalRoot())
+    if not os.path.exists(conf.target.physical_root):
+        blivet_util.makedirs(conf.target.physical_root)
 
-    sysroot = util.getTargetPhysicalRoot()
+    sysroot = conf.target.physical_root
     roots = []
     direct_devices = (dev for dev in devicetree.devices if dev.direct)
     for device in direct_devices:

@@ -19,6 +19,7 @@
 #
 from blivet.zfcp import zfcp
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -58,10 +59,10 @@ class ZFCPModule(KickstartBaseModule):
         path = self.publish_task(ZFCP.namespace, task)
         return path
 
-    def write_configuration(self, sysroot):
+    def write_configuration(self):
         """Write the configuration to sysroot."""
-        log.debug("Write zFCP configuration to %s.", sysroot)
-        zfcp.write(sysroot)
+        log.debug("Write zFCP configuration.")
+        zfcp.write(conf.target.system_root)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

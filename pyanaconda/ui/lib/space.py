@@ -18,7 +18,7 @@
 #
 import os
 from blivet.size import Size
-from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -114,7 +114,7 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
 
     def _calculate_free_space(self):
         """Calculate the available space."""
-        stat = os.statvfs(util.getTargetPhysicalRoot())
+        stat = os.statvfs(conf.target.physical_root)
         return Size(stat.f_bsize * stat.f_bfree)
 
     def _calculate_deficit(self, needed):

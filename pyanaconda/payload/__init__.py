@@ -508,7 +508,7 @@ class Payload(metaclass=ABCMeta):
     ###
     def pre_install(self):
         """Perform pre-installation tasks."""
-        util.mkdirChain(util.getSysroot() + "/root")
+        util.mkdirChain(conf.target.system_root + "/root")
 
         self._write_module_blacklist()
 
@@ -524,8 +524,8 @@ class Payload(metaclass=ABCMeta):
         if "modprobe.blacklist" not in flags.cmdline:
             return
 
-        util.mkdirChain(util.getSysroot() + "/etc/modprobe.d")
-        with open(util.getSysroot() + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
+        util.mkdirChain(conf.target.system_root + "/etc/modprobe.d")
+        with open(conf.target.system_root + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
             f.write("# Module blacklists written by anaconda\n")
             for module in flags.cmdline["modprobe.blacklist"].split():
                 f.write("blacklist %s\n" % module)
@@ -535,18 +535,18 @@ class Payload(metaclass=ABCMeta):
         # the firmware files in the common DD firmware directory
         for f in glob(DD_FIRMWARE + "/*"):
             try:
-                shutil.copyfile(f, "%s/lib/firmware/" % util.getSysroot())
+                shutil.copyfile(f, "%s/lib/firmware/" % conf.target.system_root)
             except IOError as e:
                 log.error("Could not copy firmware file %s: %s", f, e.strerror)
 
         # copy RPMS
         for d in glob(DD_RPMS):
-            shutil.copytree(d, util.getSysroot() + "/root/" + os.path.basename(d))
+            shutil.copytree(d, conf.target.system_root + "/root/" + os.path.basename(d))
 
         # copy modules and firmware into root's home directory
         if os.path.exists(DD_ALL):
             try:
-                shutil.copytree(DD_ALL, util.getSysroot() + "/root/DD")
+                shutil.copytree(DD_ALL, conf.target.system_root + "/root/DD")
             except IOError as e:
                 log.error("failed to copy driver disk files: %s", e.strerror)
                 # XXX TODO: real error handling, as this is probably going to
@@ -576,7 +576,7 @@ class Payload(metaclass=ABCMeta):
 
         :returns: None
         """
-        if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+        if os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
             use_dracut = False
         else:
             log.warning("new-kernel-pkg does not exist - grubby wasn't installed? "
@@ -707,7 +707,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         files = []
 
-        ts = rpm.TransactionSet(util.getSysroot())
+        ts = rpm.TransactionSet(conf.target.system_root)
         mi = ts.dbMatch('providename', 'kernel')
         for hdr in mi:
             unicode_fnames = (decode_bytes(f) for f in hdr.filenames)

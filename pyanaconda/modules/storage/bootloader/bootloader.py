@@ -412,12 +412,11 @@ class BootloaderModule(KickstartBaseModule):
 
         return requirements
 
-    def configure_with_task(self, sysroot, kernel_versions):
+    def configure_with_task(self, kernel_versions):
         """Configure the bootloader.
 
         FIXME: This is just a temporary method.
 
-        :param sysroot: a path to the root of the installed system
         :param kernel_versions: a list of kernel versions
         :return: a path to a DBus task
         """
@@ -425,23 +424,21 @@ class BootloaderModule(KickstartBaseModule):
             storage=self.storage,
             mode=self.bootloader_mode,
             kernel_versions=kernel_versions,
-            sysroot=sysroot
+            sysroot=conf.target.system_root
         )
         path = self.publish_task(BOOTLOADER.namespace, task)
         return path
 
-    def install_with_task(self, sysroot):
+    def install_with_task(self):
         """Install the bootloader.
 
         FIXME: This is just a temporary method.
 
-        :param sysroot: a path to the root of the installed system
         :return: a path to a DBus task
         """
         task = InstallBootloaderTask(
             storage=self.storage,
-            mode=self.bootloader_mode,
-            sysroot=sysroot
+            mode=self.bootloader_mode
         )
         path = self.publish_task(BOOTLOADER.namespace, task)
         return path

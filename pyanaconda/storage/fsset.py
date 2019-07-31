@@ -30,7 +30,7 @@ from blivet.errors import UnrecognizedFSTabEntryError, FSTabTypeMismatchError, S
 from blivet.formats import get_format, get_device_format_class
 from blivet.storage_log import log_exception_info
 
-from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.platform import platform as _platform, EFI
 
@@ -46,7 +46,7 @@ def copy_to_system(source):
         log.info("copy_to_system: source '%s' does not exist.", source)
         return False
 
-    target = util.getSysroot() + source
+    target = conf.target.system_root + source
     target_dir = os.path.dirname(target)
     log.debug("copy_to_system: '%s' -> '%s'.", source, target)
     if not os.path.isdir(target_dir):
@@ -411,7 +411,7 @@ class FSSet(object):
             loop mounts?
         """
         if not chroot or not os.path.isdir(chroot):
-            chroot = util.getSysroot()
+            chroot = conf.target.system_root
 
         path = "%s/etc/fstab" % chroot
         if not os.access(path, os.R_OK):
@@ -591,7 +591,7 @@ class FSSet(object):
         """Create and activate a swap file under storage root."""
         filename = "/SWAP"
         count = 0
-        basedir = os.path.normpath("%s/%s" % (util.getTargetPhysicalRoot(),
+        basedir = os.path.normpath("%s/%s" % (conf.target.physical_root,
                                               device.format.mountpoint))
         while os.path.exists("%s/%s" % (basedir, filename)) or \
                 self.devicetree.get_device_by_name(filename):
@@ -611,7 +611,7 @@ class FSSet(object):
 
     def mk_dev_root(self):
         root = self.root_device
-        sysroot = util.getSysroot()
+        sysroot = conf.target.system_root
         dev = "%s/%s" % (sysroot, root.path)
         if not os.path.exists("%s/dev/root" % (sysroot,)) and os.path.exists(dev):
             rdev = os.stat(dev).st_rdev
@@ -627,7 +627,7 @@ class FSSet(object):
 
     @property
     def root_device(self):
-        for path in ["/", util.getTargetPhysicalRoot()]:
+        for path in ["/", conf.target.physical_root]:
             for device in self.devices:
                 try:
                     mountpoint = device.format.mountpoint
@@ -639,7 +639,7 @@ class FSSet(object):
 
     def write(self):
         """Write out all config files based on the set of filesystems."""
-        sysroot = util.getSysroot()
+        sysroot = conf.target.system_root
         # /etc/fstab
         fstab_path = os.path.normpath("%s/etc/fstab" % sysroot)
         fstab = self.fstab()

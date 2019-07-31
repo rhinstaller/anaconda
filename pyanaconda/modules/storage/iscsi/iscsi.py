@@ -20,6 +20,7 @@
 from blivet.iscsi import iscsi
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -118,10 +119,10 @@ class ISCSIModule(KickstartBaseModule):
         path = self.publish_task(ISCSI.namespace, task)
         return path
 
-    def write_configuration(self, sysroot):
+    def write_configuration(self):
         """Write the configuration to sysroot."""
-        log.debug("Write iSCSI configuration to %s.", sysroot)
-        iscsi.write(sysroot, None)
+        log.debug("Write iSCSI configuration.")
+        iscsi.write(conf.target.system_root, None)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

@@ -16,7 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core import util
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.install_manager.installation import SystemInstallationTask
 
@@ -61,9 +60,6 @@ class InstallManager(object):
         """
         tasks = []
 
-        # FIXME: We need to figure out how to handle the sysroot.
-        sysroot = util.getSysroot()
-
         if not self._module_observers:
             log.error("Starting installation without available modules.")
 
@@ -76,7 +72,7 @@ class InstallManager(object):
                 continue
 
             service_name = observer.service_name
-            task_paths = observer.proxy.InstallWithTasks(sysroot)
+            task_paths = observer.proxy.InstallWithTasks()
 
             for object_path in task_paths:
                 log.debug("Getting task %s from module %s", object_path, service_name)

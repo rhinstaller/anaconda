@@ -305,7 +305,7 @@ class ServicesTasksTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def install_with_tasks_default_test(self, publisher):
         """Test default install tasks behavior."""
-        tasks = self.services_interface.InstallWithTasks("/")
+        tasks = self.services_interface.InstallWithTasks()
         is_task_path = tasks[0]
         post_install_tools_task = tasks[1]
         services_task_path = tasks[2]
@@ -321,7 +321,6 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(is_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureInitialSetupTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.DEFAULT)
 
         # post install tools configuration
@@ -331,7 +330,6 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(post_install_tools_task, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigurePostInstallationToolsTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._tools_enabled, True)
 
         # Services configuration
@@ -341,7 +339,6 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(services_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureServicesTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._enabled_services, [])
         self.assertEqual(obj.implementation._disabled_services, [])
 
@@ -352,7 +349,6 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(target_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureSystemdDefaultTargetTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._default_target, "")
 
         # Default desktop configuration
@@ -362,14 +358,13 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(desktop_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureDefaultDesktopTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._default_desktop, "")
 
     @patch_dbus_publish_object
     def initial_setup_config_task_enable_test(self, publisher):
         """Test the Initial Setup conifg task - enable."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_ENABLED)
-        tasks = self.services_interface.InstallWithTasks("/")
+        tasks = self.services_interface.InstallWithTasks()
         is_task_path = tasks[0]
 
         publisher.assert_called()
@@ -381,14 +376,13 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(is_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureInitialSetupTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.ENABLED)
 
     @patch_dbus_publish_object
     def initial_setup_config_task_disable_test(self, publisher):
         """Test the Initial Setup config task - disable."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_DISABLED)
-        tasks = self.services_interface.InstallWithTasks("/")
+        tasks = self.services_interface.InstallWithTasks()
         is_task_path = tasks[0]
 
         publisher.assert_called()
@@ -400,14 +394,13 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(is_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureInitialSetupTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.DISABLED)
 
     @patch_dbus_publish_object
     def initial_setup_config_task_reconfig_test(self, publisher):
         """Test the Initial Setup config task - reconfig."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_RECONFIG)
-        tasks = self.services_interface.InstallWithTasks("/")
+        tasks = self.services_interface.InstallWithTasks()
         is_task_path = tasks[0]
 
         publisher.assert_called()
@@ -419,7 +412,6 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(is_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureInitialSetupTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.RECONFIG)
 
     @patch_dbus_publish_object
@@ -427,7 +419,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         """Test the services configuration task."""
         self.services_interface.SetEnabledServices(["a", "b", "c"])
         self.services_interface.SetDisabledServices(["c", "e", "f"])
-        tasks = self.services_interface.InstallWithTasks("/")
+        tasks = self.services_interface.InstallWithTasks()
         services_task_path = tasks[2]
 
         publisher.assert_called()
@@ -439,7 +431,6 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(services_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureServicesTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._enabled_services, ["a", "b", "c"])
         self.assertEqual(obj.implementation._disabled_services, ["c", "e", "f"])
 
@@ -447,7 +438,7 @@ class ServicesTasksTestCase(unittest.TestCase):
     def configure_systemd_target_task_text_test(self, publisher):
         """Test the systemd default traget configuration task - text."""
         self.services_interface.SetDefaultTarget(TEXT_ONLY_TARGET)
-        tasks = self.services_interface.InstallWithTasks("/")
+        tasks = self.services_interface.InstallWithTasks()
         target_task_path = tasks[3]
 
         publisher.assert_called()
@@ -459,14 +450,13 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(target_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureSystemdDefaultTargetTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._default_target, TEXT_ONLY_TARGET)
 
     @patch_dbus_publish_object
     def configure_systemd_target_task_graphical_test(self, publisher):
         """Test the systemd default traget configuration task - graphical."""
         self.services_interface.SetDefaultTarget(GRAPHICAL_TARGET)
-        tasks = self.services_interface.InstallWithTasks("/")
+        tasks = self.services_interface.InstallWithTasks()
         target_task_path = tasks[3]
 
         publisher.assert_called()
@@ -478,14 +468,13 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(target_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureSystemdDefaultTargetTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._default_target, GRAPHICAL_TARGET)
 
     @patch_dbus_publish_object
     def configure_default_desktop_task_test(self, publisher):
         """Test the default desktop configuration task."""
         self.services_interface.SetDefaultDesktop("GNOME")
-        tasks = self.services_interface.InstallWithTasks("/")
+        tasks = self.services_interface.InstallWithTasks()
         desktop_task_path = tasks[4]
 
         publisher.assert_called()
@@ -497,5 +486,4 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(desktop_task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
         self.assertIsInstance(obj.implementation, ConfigureDefaultDesktopTask)
-        self.assertEqual(obj.implementation._sysroot, "/")
         self.assertEqual(obj.implementation._default_desktop, "GNOME")

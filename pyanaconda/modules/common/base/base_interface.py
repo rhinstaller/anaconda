@@ -123,13 +123,12 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         """
         return Requirement.to_structure_list(self.implementation.collect_requirements())
 
-    def InstallWithTasks(self, sysroot: Str) -> List[ObjPath]:
+    def InstallWithTasks(self) -> List[ObjPath]:
         """Returns installation tasks of this module.
 
-        :param sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks
         """
-        return self.implementation.install_with_tasks(sysroot)
+        return self.implementation.install_with_tasks()
 
     def TeardownWithTasks(self) -> List[ObjPath]:
         """Returns teardown tasks for this module.

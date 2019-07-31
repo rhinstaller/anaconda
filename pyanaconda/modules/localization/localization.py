@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
@@ -191,14 +192,13 @@ class LocalizationModule(KickstartModule):
         self.keyboard_seen_changed.emit()
         log.debug("keyboard command considered seen in kicksatart: %s.", keyboard_seen)
 
-    def install_with_tasks(self, sysroot):
+    def install_with_tasks(self):
         """Return the installation tasks of this module.
 
-        :param str sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks
         """
         tasks = [
-            LanguageInstallationTask(sysroot=sysroot, lang=self.language)
+            LanguageInstallationTask(sysroot=conf.target.system_root, lang=self.language)
         ]
 
         paths = [

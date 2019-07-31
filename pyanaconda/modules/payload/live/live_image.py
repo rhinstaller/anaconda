@@ -21,8 +21,8 @@ import os
 
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.util import requests_session, getSysroot
-
+from pyanaconda.core.util import requests_session
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError
@@ -62,7 +62,7 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         self._kernel_version_list = []
         self.kernel_version_list_changed = Signal()
 
-        self._image_path = getSysroot() + "/disk.img"
+        self._image_path = conf.target.system_root + "/disk.img"
 
         self._requests_session = None
 
@@ -233,7 +233,7 @@ class LiveImageHandlerModule(PayloadHandlerBase):
     def post_install_with_task(self):
         """Do post installation tasks."""
         task = UpdateBLSConfigurationTask(
-            getSysroot(),
+            conf.target.system_root,
             self.kernel_version_list
         )
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
@@ -243,12 +243,12 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         if url_target_is_tarfile(self._url):
             task = InstallFromTarTask(
                 self.image_path,
-                getSysroot(),
+                conf.target.system_root,
                 self.kernel_version_list
             )
         else:
             task = InstallFromImageTask(
-                getSysroot(),
+                conf.target.system_root,
                 self.kernel_version_list
             )
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)

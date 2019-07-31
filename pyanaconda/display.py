@@ -24,6 +24,7 @@ import subprocess
 import time
 import pkgutil
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda import isys
 from pyanaconda import startup_utils
@@ -198,7 +199,7 @@ def do_extra_x11_actions(runres, gui_mode):
 def write_xdriver(driver, root=None):
     """Write the X driver."""
     if root is None:
-        root = util.getSysroot()
+        root = conf.target.system_root
 
     if not os.path.isdir("%s/etc/X11" % (root,)):
         os.makedirs("%s/etc/X11" % (root,), mode=0o755)

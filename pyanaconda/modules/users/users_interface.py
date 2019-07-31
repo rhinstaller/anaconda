@@ -201,23 +201,23 @@ class UsersInterface(KickstartModuleInterface):
         """
         return self.implementation.check_admin_user_exists
 
-    def ConfigureGroupsWithTask(self, sysroot: Str) -> ObjPath:
+    def ConfigureGroupsWithTask(self) -> ObjPath:
         """Configure user groups via a DBus task.
 
         :returns: DBus path of the task
         """
-        return self.implementation.configure_groups_with_task(sysroot)
+        return self.implementation.configure_groups_with_task()
 
-    def ConfigureUsersWithTask(self, sysroot: Str) -> ObjPath:
+    def ConfigureUsersWithTask(self) -> ObjPath:
         """Configure users via a DBus task.
 
         :returns: DBus path of the task
         """
-        return self.implementation.configure_users_with_task(sysroot)
+        return self.implementation.configure_users_with_task()
 
-    def SetRootPasswordWithTask(self, sysroot: Str) -> ObjPath:
+    def SetRootPasswordWithTask(self) -> ObjPath:
         """Set root password via a DBus task.
 
         :returns: DBus path of the task
         """
-        return self.implementation.set_root_password_with_task(sysroot)
+        return self.implementation.set_root_password_with_task()

@@ -29,6 +29,7 @@ import string  # pylint: disable=deprecated-module
 import shutil
 import tempfile
 import re
+import warnings
 from urllib.parse import quote, unquote
 import gettext
 import signal
@@ -80,43 +81,44 @@ def setenv(name, value):
 
 def augmentEnv():
     env = os.environ.copy()
-    env.update({"ANA_INSTALL_PATH": getSysroot()})
+    env.update({"ANA_INSTALL_PATH": conf.target.system_root})
     env.update(_child_env)
     return env
-
-
-def getTargetPhysicalRoot():
-    """Returns the path to the "physical" storage root, traditionally /mnt/sysimage.
-
-    This may be distinct from the sysroot, which could be a
-    chroot-type subdirectory of the physical root.  This is used for
-    example by all OSTree-based installations.
-    """
-
-    # We always use the traditional /mnt/sysimage - the physical OS
-    # target is never mounted anywhere else.  This API call just
-    # allows us to have a clean "git grep ROOT_PATH" in other parts of
-    # the code.
-    return conf.target.physical_root
 
 
 def getSysroot():
     """Returns the path to the target OS installation.
 
-    For ordinary package-based installations, this is the same as the
-    target root.
+    .. deprecated::
+
+        Use conf.target.system_root instead.
+
     """
+    warnings.warn(
+        "The function getSysroot is deprecated. Use conf.target.system_root.",
+        category=DeprecationWarning, stacklevel=2
+    )
+
     return conf.target.system_root
 
 
-def setSysroot(path):
+def set_system_root(path):
     """Change the OS root path.
-       :param path: The new OS root path
 
-    This should only be used by Payload subclasses which install operating
-    systems to non-default roots.
+    The path defined by conf.target.system_root will be bind mounted at the given
+    path, so conf.target.system_root can be used to access the root of the new OS.
+
+    We always call it after the root device is mounted at conf.target.physical_root
+    to set the physical root as the current system root.
+
+    Then, it can be used by Payload subclasses which install operating systems to
+    non-default roots.
+
+    If the given path is None, then conf.target.system_root is only unmounted.
+
+    :param path: the new OS root path or None
     """
-    sysroot = getSysroot()
+    sysroot = conf.target.system_root
 
     if sysroot == path:
         return
@@ -169,8 +171,8 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
     # Transparently redirect callers requesting root=_root_path to the
     # configured system root.
     target_root = root
-    if target_root == getTargetPhysicalRoot():
-        target_root = getSysroot()
+    if target_root == conf.target.physical_root:
+        target_root = conf.target.system_root
 
     # Check for and save a preexec_fn argument
     preexec_fn = kwargs.pop("preexec_fn", None)
@@ -359,7 +361,7 @@ def execInSysroot(command, argv, stdin=None, root=None):
         :return: The return code of the command
     """
     if root is None:
-        root = getSysroot()
+        root = conf.target.system_root
 
     return execWithRedirect(command, argv, stdin=stdin, root=root)
 
@@ -605,7 +607,7 @@ def reIPL(ipldev):
 
 
 def resetRpmDb():
-    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % getSysroot()):
+    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % conf.target.system_root):
         try:
             os.unlink(rpmfile)
         except OSError as e:
@@ -692,7 +694,7 @@ def enable_service(service, root=None):
     :param str root: path to the sysroot or None to use default sysroot path
     """
     if root is None:
-        root = getSysroot()
+        root = conf.target.system_root
 
     ret = _run_systemctl("enable", service, root=root)
 
@@ -707,7 +709,7 @@ def disable_service(service, root=None):
     :param str root: path to the sysroot or None to use default sysroot path
     """
     if root is None:
-        root = getSysroot()
+        root = conf.target.system_root
 
     # we ignore the error so we can disable services even if they don't
     # exist, because that's effectively disabled
@@ -1304,7 +1306,7 @@ def sysroot_path(path):
        :returns: sysrooted path
        :rtype: str
     """
-    return os.path.join(getSysroot(), path.lstrip(os.path.sep))
+    return os.path.join(conf.target.system_root, path.lstrip(os.path.sep))
 
 
 def save_screenshots():
