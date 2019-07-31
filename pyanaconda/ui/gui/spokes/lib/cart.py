@@ -53,7 +53,7 @@ class SelectedDisksDialog(GUIObject):
         self._set_button = self.builder.get_object("set_as_boot_button")
         self._remove_button = self.builder.get_object("remove_button")
 
-        self._bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+        self._bootloader_module = STORAGE.get_proxy(BOOTLOADER)
 
         self._previousID = None
 
@@ -77,12 +77,12 @@ class SelectedDisksDialog(GUIObject):
             return
 
         # Don't select a boot device if no boot device is asked for.
-        if self._bootloader_proxy.BootloaderMode != BOOTLOADER_ENABLED:
+        if self._bootloader_module.BootloaderMode != BOOTLOADER_ENABLED:
             return
 
         # Set up the default boot device.  Use what's in the ksdata if anything,
         # then fall back to the first device.
-        boot_drive = self._bootloader_proxy.Drive
+        boot_drive = self._bootloader_module.Drive
         default_id = None
 
         if boot_drive:
@@ -162,15 +162,15 @@ class SelectedDisksDialog(GUIObject):
             if row[IS_BOOT_COL]:
                 for disk in self.disks:
                     if disk.id == row[ID_COL]:
-                        self._bootloader_proxy.SetBootloaderMode(BOOTLOADER_ENABLED)
-                        self._bootloader_proxy.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
-                        self._bootloader_proxy.SetDrive(disk.name)
+                        self._bootloader_module.SetBootloaderMode(BOOTLOADER_ENABLED)
+                        self._bootloader_module.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
+                        self._bootloader_module.SetDrive(disk.name)
                         return
 
         # No device was selected.  The user does not want to install
         # a bootloader.
-        self._bootloader_proxy.SetBootloaderMode(BOOTLOADER_SKIPPED)
-        self._bootloader_proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+        self._bootloader_module.SetBootloaderMode(BOOTLOADER_SKIPPED)
+        self._bootloader_module.SetDrive(BOOTLOADER_DRIVE_UNSET)
 
     def _toggle_button_text(self, row):
         if row[IS_BOOT_COL]:

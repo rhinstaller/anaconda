@@ -86,19 +86,12 @@ class StorageSpoke(NormalTUISpoke):
         self.title = N_("Installation Destination")
         self._container = None
 
-        self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
-        self._bootloader_observer.connect()
+        self._bootloader_module = STORAGE.get_proxy(BOOTLOADER)
+        self._disk_init_module = STORAGE.get_proxy(DISK_INITIALIZATION)
+        self._disk_select_module = STORAGE.get_proxy(DISK_SELECTION)
+        self._auto_part_module = STORAGE.get_proxy(AUTO_PARTITIONING)
 
-        self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
-        self._disk_init_observer.connect()
-
-        self._disk_select_observer = STORAGE.get_observer(DISK_SELECTION)
-        self._disk_select_observer.connect()
-
-        self._auto_part_observer = STORAGE.get_observer(AUTO_PARTITIONING)
-        self._auto_part_observer.connect()
-
-        self._selected_disks = self._disk_select_observer.proxy.SelectedDisks
+        self._selected_disks = self._disk_select_module.SelectedDisks
 
         # This list gets set up once in initialize and should not be modified
         # except perhaps to add advanced devices. It will remain the full list
@@ -107,7 +100,7 @@ class StorageSpoke(NormalTUISpoke):
 
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
-            self._auto_part_observer.proxy.SetEnabled(True)
+            self._auto_part_module.SetEnabled(True)
 
         self._ready = False
         self._select_all = False
@@ -139,13 +132,13 @@ class StorageSpoke(NormalTUISpoke):
         """ A short string describing the current status of storage setup. """
         if flags.automatedInstall and not self.storage.root_device:
             return _("Kickstart insufficient")
-        elif not self._disk_select_observer.proxy.SelectedDisks:
+        elif not self._disk_select_module.SelectedDisks:
             return _("No disks selected")
         if self.errors:
             return _("Error checking storage configuration")
         elif self.warnings:
             return _("Warning checking storage configuration")
-        elif self._auto_part_observer.proxy.Enabled:
+        elif self._auto_part_module.Enabled:
             return _("Automatic partitioning selected")
         else:
             return _("Custom partitioning selected")
@@ -195,7 +188,7 @@ class StorageSpoke(NormalTUISpoke):
         # Commment out because there is no way to select a disk right
         # now without putting it in ksdata.  Seems wrong?
         # self.selected_disks = self.data.ignoredisk.onlyuse[:]
-        self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
+        self._auto_part_enabled = self._auto_part_module.Enabled
 
         self._container = ListColumnContainer(1, spacing=1)
 
@@ -365,7 +358,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def _is_passphrase_required(self):
         """Is the default passphrase required?"""
-        if self._auto_part_observer.proxy.RequiresPassphrase():
+        if self._auto_part_module.RequiresPassphrase():
             return True
 
         if self._find_data_without_passphrase():
@@ -375,7 +368,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def _set_required_passphrase(self, passphrase):
         """Set the required passphrase."""
-        self._auto_part_observer.proxy.SetPassphrase(passphrase)
+        self._auto_part_module.SetPassphrase(passphrase)
         self._set_data_without_passphrase(passphrase)
 
     def _find_data_without_passphrase(self):
@@ -395,12 +388,12 @@ class StorageSpoke(NormalTUISpoke):
         return CustomPartitioningModule._set_data_without_passphrase(self, passphrase)
 
     def apply(self):
-        self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
+        self._auto_part_enabled = self._auto_part_module.Enabled
 
         self.storage.select_disks(self._selected_disks)
 
-        self._bootloader_observer.proxy.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
-        boot_drive = self._bootloader_observer.proxy.Drive
+        self._bootloader_module.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
+        boot_drive = self._bootloader_module.Drive
 
         if boot_drive and boot_drive not in self._selected_disks:
             reset_bootloader(self.storage)
@@ -442,7 +435,7 @@ class StorageSpoke(NormalTUISpoke):
         threadMgr.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
 
-        self._selected_disks = self._disk_select_observer.proxy.SelectedDisks
+        self._selected_disks = self._disk_select_module.SelectedDisks
         # Probably need something here to track which disks are selected?
 
     def _initialize(self):

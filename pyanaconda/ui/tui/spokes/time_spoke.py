@@ -69,8 +69,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._ntp_servers = OrderedDict()
         self._ntp_servers_lock = RLock()
 
-        self._timezone_module = TIMEZONE.get_observer()
-        self._timezone_module.connect()
+        self._timezone_module = TIMEZONE.get_proxy()
 
     @property
     def indirect(self):
@@ -86,7 +85,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         ntp_servers = []
 
         if constants.ANACONDA_ENVIRON in flags.environs:
-            ntp_servers = self._timezone_module.proxy.NTPServers
+            ntp_servers = self._timezone_module.NTPServers
         elif constants.FIRSTBOOT_ENVIRON in flags.environs:
             ntp_servers = ntp.get_servers_from_config()[1]  # returns a (NPT pools, NTP servers) tupple
         else:
@@ -188,7 +187,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        return bool(self._timezone_module.proxy.Timezone)
+        return bool(self._timezone_module.Timezone)
 
     @property
     def mandatory(self):
@@ -196,7 +195,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def status(self):
-        kickstart_timezone = self._timezone_module.proxy.Timezone
+        kickstart_timezone = self._timezone_module.Timezone
 
         if kickstart_timezone:
             return _("%s timezone") % kickstart_timezone
@@ -211,7 +210,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """
         msg = ""
         # timezone
-        kickstart_timezone = self._timezone_module.proxy.Timezone
+        kickstart_timezone = self._timezone_module.Timezone
         timezone_msg = _("not set")
         if kickstart_timezone:
             timezone_msg = kickstart_timezone
@@ -237,7 +236,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         summary = self._summary_text()
         self.window.add_with_separator(TextWidget(summary))
 
-        if self._timezone_module.proxy.Timezone:
+        if self._timezone_module.Timezone:
             timezone_option = _("Change timezone")
         else:
             timezone_option = _("Set timezone")
@@ -268,7 +267,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         # update the NTP server list in kickstart
-        self._timezone_module.proxy.SetNTPServers(list(self.ntp_servers.keys()))
+        self._timezone_module.SetNTPServers(list(self.ntp_servers.keys()))
 
 
 class TimeZoneSpoke(NormalTUISpoke):
@@ -295,8 +294,7 @@ class TimeZoneSpoke(NormalTUISpoke):
         self._lower_zones = [z.lower().replace("_", " ") for region in self._timezones for z in self._timezones[region]]
         self._selection = ""
 
-        self._timezone_module = TIMEZONE.get_observer()
-        self._timezone_module.connect()
+        self._timezone_module = TIMEZONE.get_proxy()
 
     @property
     def indirect(self):
@@ -369,8 +367,8 @@ class TimeZoneSpoke(NormalTUISpoke):
         return prompt
 
     def apply(self):
-        self._timezone_module.proxy.SetTimezone(self._selection)
-        self._timezone_module.proxy.SetKickstarted(False)
+        self._timezone_module.SetTimezone(self._selection)
+        self._timezone_module.SetKickstarted(False)
 
 
 class NTPServersSpoke(NormalTUISpoke):

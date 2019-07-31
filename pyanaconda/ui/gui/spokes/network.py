@@ -367,7 +367,7 @@ class NetworkControlBox(GObject.GObject):
 
 
         self._load_device_configurations()
-        self._dev_cfg_subscription = self._network_module.proxy.DeviceConfigurationChanged.connect(
+        self._dev_cfg_subscription = self._network_module.DeviceConfigurationChanged.connect(
             self.on_device_configurations_changed)
 
         # select the first device
@@ -418,7 +418,7 @@ class NetworkControlBox(GObject.GObject):
                         self.watch_dev_cfg_device(new_cfg)
 
     def _load_device_configurations(self):
-        device_configurations = self._network_module.proxy.GetDeviceConfigurations()
+        device_configurations = self._network_module.GetDeviceConfigurations()
         self.dev_cfg_store.clear()
         for device_configuration in device_configurations:
             dev_cfg = NetworkDeviceConfiguration.from_structure(device_configuration)
@@ -593,7 +593,7 @@ class NetworkControlBox(GObject.GObject):
                 con, device, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
                     gtk_call_once(self._activate_connection_cb, con, device)
-            self._network_module.proxy.LogConfigurationState("Connection Editor was run.")
+            self._network_module.LogConfigurationState("Connection Editor was run.")
 
     def _activate_connection_cb(self, con, device):
         self.client.activate_connection_async(con, device, None, None)
@@ -1423,13 +1423,12 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.networking_changed = False
-        self._network_module = NETWORK.get_observer()
-        self._network_module.connect()
+        self._network_module = NETWORK.get_proxy()
         self._nm_client = network.get_nm_client()
         self.network_control_box = NetworkControlBox(self.builder, self._nm_client, self._network_module, spoke=self)
-        self.network_control_box.hostname = self._network_module.proxy.Hostname
-        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
-        self._network_module.proxy.CurrentHostnameChanged.connect(self._hostname_changed)
+        self.network_control_box.hostname = self._network_module.Hostname
+        self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
+        self._network_module.CurrentHostnameChanged.connect(self._hostname_changed)
         self.network_control_box.connect("nm-state-changed",
                                          self.on_nm_state_changed)
         self.network_control_box.connect("device-state-changed",
@@ -1444,8 +1443,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # Inform network module that device configurations might have been changed
         # and we want to generate kickstart from device configurations
         # (persistent NM / ifcfg configuration), instead of using original kickstart.
-        self._network_module.proxy.NetworkDeviceConfigurationChanged()
-        self._network_module.proxy.SetHostname(self.network_control_box.hostname)
+        self._network_module.NetworkDeviceConfigurationChanged()
+        self._network_module.SetHostname(self.network_control_box.hostname)
         log.debug("apply ksdata %s", self.data.network)
 
         # if installation media or hdd aren't used and settings have changed
@@ -1472,7 +1471,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # TODO: check also if source requires updates when implemented
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or self._network_module.proxy.GetActivatedInterfaces())
+                or self._network_module.GetActivatedInterfaces())
 
     @property
     def mandatory(self):
@@ -1503,7 +1502,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
         self.network_control_box.refresh()
-        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
+        self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
 
     def on_nm_state_changed(self, *args):
         gtk_call_once(self._update_status)
@@ -1528,13 +1527,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         else:
             self.clear_info()
             if conf.system.can_change_hostname:
-                self._network_module.proxy.SetCurrentHostname(hostname)
+                self._network_module.SetCurrentHostname(hostname)
 
     def _update_status(self):
         hubQ.send_message(self.__class__.__name__, self.status)
 
     def _update_hostname(self):
-        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
+        self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
 
     def on_back_clicked(self, button):
         hostname = self.network_control_box.hostname
@@ -1570,14 +1569,13 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._network_module = NETWORK.get_observer()
-        self._network_module.connect()
+        self._network_module = NETWORK.get_proxy()
         self._nm_client = network.get_nm_client()
         self.network_control_box = NetworkControlBox(self.builder, self._nm_client, self._network_module, spoke=self)
 
-        self.network_control_box.hostname = self._network_module.proxy.Hostname
-        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
-        self._network_module.proxy.CurrentHostnameChanged.connect(self._hostname_changed)
+        self.network_control_box.hostname = self._network_module.Hostname
+        self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
+        self._network_module.CurrentHostnameChanged.connect(self._hostname_changed)
 
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
@@ -1598,8 +1596,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         # Inform network module that device configurations might have been changed
         # and we want to generate kickstart from device configurations
         # (persistent NM / ifcfg configuration), instead of using original kickstart.
-        self._network_module.proxy.NetworkDeviceConfigurationChanged()
-        self._network_module.proxy.SetHostname(self.network_control_box.hostname)
+        self._network_module.NetworkDeviceConfigurationChanged()
+        self._network_module.SetHostname(self.network_control_box.hostname)
 
         log.debug("apply ksdata %s", self.data.network)
 
@@ -1619,7 +1617,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def completed(self):
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or self._network_module.proxy.GetActivatedInterfaces()
+                or self._network_module.GetActivatedInterfaces()
                 or self.data.method.method not in ("url", "nfs"))
 
     def initialize(self):
@@ -1630,7 +1628,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def refresh(self):
         super().refresh()
         self.network_control_box.refresh()
-        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
+        self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
 
     def _on_continue_clicked(self, window, user_data=None):
         hostname = self.network_control_box.hostname
@@ -1661,10 +1659,10 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         else:
             self.clear_info()
             if conf.system.can_change_hostname:
-                self._network_module.proxy.SetCurrentHostname(hostname)
+                self._network_module.SetCurrentHostname(hostname)
 
     def _update_hostname(self):
-        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
+        self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
 
 
 def test():
@@ -1676,10 +1674,9 @@ def test():
     ui_file_path = os.environ.get('UIPATH')+'spokes/network.glade'
     builder.add_from_file(ui_file_path)
 
-    network_module = NETWORK.get_observer()
-    network_module.connect()
-
+    network_module = NETWORK.get_proxy()
     nmclient = NM.Client.new(None)
+
     n = NetworkControlBox(builder, nmclient, network_module)
     n.initialize()
     n.refresh()

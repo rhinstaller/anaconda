@@ -206,7 +206,7 @@ class ConfigureSwitchingDialog(GUIObject):
         itr = self._switchingOptsStore.get_iter_first()
         while itr:
             option = self._switchingOptsStore[itr][0]
-            if option in self._l12_module.proxy.LayoutSwitchOptions:
+            if option in self._l12_module.LayoutSwitchOptions:
                 self._switchingOptsStore.set_value(itr, 1, True)
             else:
                 self._switchingOptsStore.set_value(itr, 1, False)
@@ -288,9 +288,8 @@ class KeyboardSpoke(NormalSpoke):
         self._removeButton = self.builder.get_object("removeLayoutButton")
         self._previewButton = self.builder.get_object("previewButton")
 
-        self._l12_module = LOCALIZATION.get_observer()
-        self._l12_module.connect()
-        self._seen = self._l12_module.proxy.KeyboardKickstarted
+        self._l12_module = LOCALIZATION.get_proxy()
+        self._seen = self._l12_module.KeyboardKickstarted
 
     def apply(self):
         # the user has confirmed (seen) the configuration
@@ -299,14 +298,14 @@ class KeyboardSpoke(NormalSpoke):
 
         # Update module with actual values
         layouts = [row[0] for row in self._store]
-        self._l12_module.proxy.SetXLayouts(layouts)
+        self._l12_module.SetXLayouts(layouts)
 
     @property
     def completed(self):
         if flags.flags.automatedInstall and not self._seen:
             return False
         elif not self._confirmed and \
-                self._xkl_wrapper.get_current_layout() != self._l12_module.proxy.XLayouts[0] and \
+                self._xkl_wrapper.get_current_layout() != self._l12_module.XLayouts[0] and \
                 not flags.flags.usevnc:
             # the currently activated layout is a different one from the
             # installed system's default. Ignore VNC, since VNC keymaps are
@@ -334,11 +333,11 @@ class KeyboardSpoke(NormalSpoke):
         # set X keyboard defaults
         # - this needs to be done early in spoke initialization so that
         #   the spoke status does not show outdated keyboard selection
-        keyboard.set_x_keyboard_defaults(self._l12_module.proxy, self._xkl_wrapper)
+        keyboard.set_x_keyboard_defaults(self._l12_module, self._xkl_wrapper)
 
         # make sure the x_layouts list has at least one keyboard layout
-        if not self._l12_module.proxy.XLayouts:
-            self._l12_module.proxy.SetXLayouts([DEFAULT_KEYBOARD])
+        if not self._l12_module.XLayouts:
+            self._l12_module.SetXLayouts([DEFAULT_KEYBOARD])
 
         self._add_dialog = AddLayoutDialog(self.data)
         self._add_dialog.initialize()
@@ -433,7 +432,7 @@ class KeyboardSpoke(NormalSpoke):
         store.remove(itr)
 
     def _refresh_switching_info(self):
-        switch_options = self._l12_module.proxy.LayoutSwitchOptions
+        switch_options = self._l12_module.LayoutSwitchOptions
         if flags.flags.usevnc:
             self._layoutSwitchLabel.set_text(_("Keyboard layouts are not "
                                                "supported when using VNC.\n"
@@ -620,19 +619,19 @@ class KeyboardSpoke(NormalSpoke):
         # OK clicked, set and save switching options.
         new_options = self._switching_dialog.checked_options
         self._xkl_wrapper.set_switching_options(new_options)
-        self._l12_module.proxy.SetLayoutSwitchOptions(new_options)
+        self._l12_module.SetLayoutSwitchOptions(new_options)
 
         # Refresh switching info label.
         self._refresh_switching_info()
 
     def _add_data_layouts(self):
-        if not self._l12_module.proxy.XLayouts:
+        if not self._l12_module.XLayouts:
             # nothing specified, just add the default
             self._addLayout(self._store, DEFAULT_KEYBOARD)
             return
 
         valid_layouts = []
-        for layout in self._l12_module.proxy.XLayouts:
+        for layout in self._l12_module.XLayouts:
             try:
                 self._addLayout(self._store, layout)
                 valid_layouts += layout
@@ -642,7 +641,7 @@ class KeyboardSpoke(NormalSpoke):
         if not valid_layouts:
             log.error("No valid layout given, falling back to default %s", DEFAULT_KEYBOARD)
             self._addLayout(self._store, DEFAULT_KEYBOARD)
-            self._l12_module.proxy.SetXLayouts([DEFAULT_KEYBOARD])
+            self._l12_module.SetXLayouts([DEFAULT_KEYBOARD])
 
     def _flush_layouts_to_X(self):
         layouts_list = list()

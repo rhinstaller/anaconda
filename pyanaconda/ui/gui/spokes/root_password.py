@@ -57,12 +57,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         GUISpokeInputCheckHandler.__init__(self)
-
         self._users_module = USERS.get_proxy()
-
-        self._services_module = SERVICES.get_observer()
-        self._services_module.connect()
-
+        self._services_module = SERVICES.get_proxy()
         self._refresh_running = False
         self._manually_locked = False
 
@@ -164,7 +160,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     def status(self):
         if self._users_module.IsRootAccountLocked:
             # check if we are running in Initial Setup reconfig mode
-            reconfig_mode = self._services_module.proxy.SetupOnBoot == constants.SETUP_ON_BOOT_RECONFIG
+            reconfig_mode = self._services_module.SetupOnBoot == constants.SETUP_ON_BOOT_RECONFIG
             # reconfig mode currently allows re-enabling a locked root account if
             # user sets a new root password
             if reconfig_mode and not self._lock.get_active():

@@ -33,8 +33,6 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE
 from pyanaconda.core.i18n import _, CN_, C_
 from pyanaconda.storage.initialization import reset_bootloader
-from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.threading import threadMgr
@@ -89,9 +87,6 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         self.label_actions = None
         self.button_reset = None
         self.button_undo = None
-
-        self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
-        self._bootloader_observer.connect()
 
         StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, data, storage, payload)
