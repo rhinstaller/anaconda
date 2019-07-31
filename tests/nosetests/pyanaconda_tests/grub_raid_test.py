@@ -70,7 +70,14 @@ class GRUBRaidSimpleTest(unittest.TestCase):
         for part in (self.sda1, self.sda2, self.sda3, self.sda4, self.sdb1, self.sdb2, self.sdb4):
             part.parents = part.req_disks
 
-        self.boot_md = MDRaidArrayDevice(name="md1", parents=[self.sda2, self.sdb2], level=1)
+        self.boot_md = MDRaidArrayDevice(
+            name="md1",
+            size=Size("500 MiB"),
+            parents=[self.sda2, self.sdb2],
+            level=1,
+            member_devices=2,
+            total_devices=2
+        )
         self.boot_md.format = get_format("ext4", mountpoint="/boot")
 
         # Set up the btrfs raid1 volume with a subvolume for /boot
