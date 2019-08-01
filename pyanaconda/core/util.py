@@ -29,7 +29,6 @@ import string  # pylint: disable=deprecated-module
 import shutil
 import tempfile
 import re
-import warnings
 from urllib.parse import quote, unquote
 import gettext
 import signal
@@ -84,22 +83,6 @@ def augmentEnv():
     env.update({"ANA_INSTALL_PATH": conf.target.system_root})
     env.update(_child_env)
     return env
-
-
-def getSysroot():
-    """Returns the path to the target OS installation.
-
-    .. deprecated::
-
-        Use conf.target.system_root instead.
-
-    """
-    warnings.warn(
-        "The function getSysroot is deprecated. Use conf.target.system_root.",
-        category=DeprecationWarning, stacklevel=2
-    )
-
-    return conf.target.system_root
 
 
 def set_system_root(path):
