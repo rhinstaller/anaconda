@@ -824,22 +824,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # TODO: member type (as a device type?)
 
         # NAME
-        old_name = old_device_info["name"]
-
         if self._nameEntry.get_sensitive():
             name = self._nameEntry.get_text()
         else:
             # name entry insensitive means we don't control the name
             name = None
-            old_name = None
+            old_device_info["name"] = None
 
         # SIZE
-        old_size = old_device_info["size"]
 
         # If the size text hasn't changed at all from that displayed,
         # assume no change intended.
-        if old_size.human_readable(max_places=self.MAX_SIZE_PLACES) == self._sizeEntry.get_text():
-            size = old_size
+        displayed_size = old_device_info["size"].human_readable(max_places=self.MAX_SIZE_PLACES)
+
+        if displayed_size == self._sizeEntry.get_text():
+            size = old_device_info["size"]
         else:
             size = get_size_from_entry(
                 self._sizeEntry,
@@ -848,37 +847,32 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             )
 
         if not (use_dev.resizable or not use_dev.exists):
-            size = old_size
+            size = old_device_info["size"]
 
         # DEVICE TYPE
         device_type = self._get_current_device_type()
-        old_device_type = old_device_info["device_type"]
 
         # REFORMAT
         reformat = self._reformatCheckbox.get_active()
         log.debug("reformat: %s", reformat)
 
         # FS TYPE
-        old_fs_type = old_device_info["fstype"]
         fs_type_index = self._fsCombo.get_active()
         fs_type_str = self._fsCombo.get_model()[fs_type_index][0]
         new_fs = get_format(fs_type_str)
         fs_type = new_fs.type
 
         # ENCRYPTION
-        old_encrypted = old_device_info["encrypted"]
         encrypted = self._encryptCheckbox.get_active() and self._encryptCheckbox.is_sensitive()
 
-        old_luks_version = old_device_info["luks_version"]
         luks_version_index = self._luksCombo.get_active()
         luks_version_str = self._luksCombo.get_model()[luks_version_index][0]
         luks_version = luks_version_str if encrypted else None
 
         # FS LABEL
         label = self._labelEntry.get_text()
-        old_label = old_device_info["label"]
 
-        if (label != old_label) or (old_fs_type != fs_type):
+        if (label != old_device_info["label"]) or (old_device_info["fstype"] != fs_type):
             errors = validate_label(label, new_fs)
             if errors:
                 self.set_detailed_warning(_("Label validation failed."), " ".join(errors))
@@ -890,13 +884,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if self._mountPointEntry.get_sensitive():
             mountpoint = self._mountPointEntry.get_text()
 
-        old_mountpoint = old_device_info["mountpoint"]
-
         if mountpoint is not None and (reformat or
-                                       mountpoint != old_mountpoint):
+                                       mountpoint != old_device_info["mountpoint"]):
             mountpoints = self._storage_playground.mountpoints.copy()
-            if old_mountpoint:
-                del mountpoints[old_mountpoint]
+            if old_device_info["mountpoint"]:
+                del mountpoints[old_device_info["mountpoint"]]
 
             error = validate_mountpoint(mountpoint, mountpoints.keys())
             if error:
@@ -904,13 +896,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 self._populate_right_side(selector)
                 return
 
-        if not old_mountpoint:
+        if not old_device_info["mountpoint"]:
             # prevent false positives below when "" != None
-            old_mountpoint = None
+            old_device_info["mountpoint"] = None
 
         # RAID LEVEL
         raid_level = get_selected_raid_level(self._raidLevelCombo)
-        old_raid_level = old_device_info["raid_level"]
 
         ##
         ## VALIDATION
@@ -927,13 +918,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # are mountpoint and container-wide settings.
         if device_type == DEVICE_TYPE_BTRFS and hasattr(use_dev, "subvolumes"):
             size = Size(0)
-            old_size = Size(0)
+            old_device_info["size"] = Size(0)
 
             encrypted = False
-            old_encrypted = False
+            old_device_info["encrypted"] = False
 
             raid_level = None
-            old_raid_level = None
+            old_device_info["raid_level"] = None
 
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
@@ -949,15 +940,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             )
 
         # CONTAINER
-        old_container_name = old_device_info["container_name"]
-        old_container_encrypted = old_device_info["container_encrypted"]
-        old_container_raid_level = old_device_info["container_raid_level"]
-        old_container_size = old_device_info["container_size"]
-
         container_name = self._device_container_name
         container = factory.get_container()
 
-        if old_device_type == device_type:
+        if old_device_info["device_type"] == device_type:
             container = factory.get_container(name=container_name)
 
         container_encrypted = self._device_container_encrypted
@@ -969,9 +955,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         container_size = self._device_container_size
 
         # DISK SET
-        old_disks = old_device_info["disks"]
         disks = self._device_disks[:]
-        if container and old_device_type != device_type:
+        if container and old_device_info["device_type"] != device_type:
             log.debug("overriding disk set with container's")
             disks = container.disks[:]
 
@@ -1001,20 +986,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # XXX prevent multiple raid or encryption layers?
 
         # Collect changes.
-        changed_name = (name != old_name)
-        changed_size = (size != old_size)
-        changed_device_type = (old_device_type != device_type)
-        changed_fs_type = (old_fs_type != fs_type)
-        changed_encryption = (old_encrypted != encrypted)
-        changed_luks_version = (old_luks_version != luks_version)
-        changed_label = (label != old_label)
-        changed_mountpoint = (old_mountpoint != mountpoint)
-        changed_raid_level = (old_raid_level is not raid_level)
-        changed_container = (container_name != old_container_name)
-        changed_container_encrypted = (container_encrypted != old_container_encrypted)
-        changed_container_raid_level = (old_container_raid_level != container_raid_level)
-        changed_container_size = (old_container_size != container_size)
-        changed_disk_set = (set(old_disks) != set(disks))
+        changed_name = (name != old_device_info["name"])
+        changed_size = (size != old_device_info["size"])
+        changed_device_type = (old_device_info["device_type"] != device_type)
+        changed_fs_type = (old_device_info["fstype"] != fs_type)
+        changed_encryption = (old_device_info["encrypted"] != encrypted)
+        changed_luks_version = (old_device_info["luks_version"] != luks_version)
+        changed_label = (label != old_device_info["label"])
+        changed_mountpoint = (old_device_info["mountpoint"] != mountpoint)
+        changed_raid_level = (old_device_info["raid_level"] is not raid_level)
+        changed_container = (container_name != old_device_info["container_name"])
+        changed_container_encrypted = (container_encrypted != old_device_info["container_encrypted"])
+        changed_container_raid_level = (old_device_info["container_raid_level"] != container_raid_level)
+        changed_container_size = (old_device_info["container_size"] != container_size)
+        changed_disk_set = (set(old_device_info["disks"]) != set(disks))
 
         changed = (changed_name or changed_size or changed_device_type or
                    changed_label or changed_mountpoint or changed_disk_set or
@@ -1034,7 +1019,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             self.clear_errors()
 
-            if changed_device_type or (old_container_name and changed_container):
+            if changed_device_type or (old_device_info["container_name"] and changed_container):
                 # remove the current device
                 self._destroy_device(device)
                 if device in self._storage_playground.devices:
@@ -1073,7 +1058,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Handle size change
         if changed_size:
-            self._handle_size_change(size, old_size, device)
+            self._handle_size_change(size, old_device_info["size"], device)
 
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
@@ -1091,17 +1076,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             )
         else:
             # Set various attributes that do not require actions.
-            if old_label != label and hasattr(device.format, "label") and \
+            if old_device_info["label"] != label and hasattr(device.format, "label") and \
                     validate_label(label, device.format) == []:
                 self.clear_errors()
                 log.debug("updating label on %s to %s", device.name, label)
                 device.format.label = label
 
-            if mountpoint and old_mountpoint != mountpoint:
+            if mountpoint and old_device_info["mountpoint"] != mountpoint:
                 self.clear_errors()
                 log.debug("updating mountpoint of %s to %s", device.name, mountpoint)
                 device.format.mountpoint = mountpoint
-                if old_mountpoint:
+                if old_device_info["mountpoint"]:
                     update_selector_from_device(selector, device)
                 else:
                     # add an entry to the new page but do not remove any entries
@@ -1111,6 +1096,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         #
         # NAME
         #
+        old_name = old_device_info["name"]
+
         if changed_name:
             self.clear_errors()
             try:
