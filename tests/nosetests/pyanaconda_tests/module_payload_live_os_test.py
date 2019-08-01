@@ -98,28 +98,39 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         kernel_list_callback.assert_called_once_with(kernel_list)
 
     @patch("pyanaconda.modules.payload.live.live_os.stat")
-    @patch("os.stat")
-    def detect_live_os_image_test(self, os_stat, stat):
-        """Test detect Live OS base image method."""
-        stat.S_ISBLK = Mock()
-        stat.S_ISBLK.return_value = True
-        ret = self.live_os_interface.DetectLiveOSImage()
+    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
+    def detect_live_os_image_failed_block_device_test(self, os_stat_mock, stat_mock):
+        """Test Live OS image detection failed block device check."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        os_stat_mock.return_value = {stat_mock.ST_MODE: "whatever"}
 
-        # return the first known image from the list
-        # See DetectLiveOSImage image code for the list
-        self.assertEqual("/dev/mapper/live-base", ret)
+        stat_mock.S_ISBLK = Mock()
+        stat_mock.S_ISBLK.return_value = False
+
+        self.assertEqual(self.live_os_interface.DetectLiveOSImage(), "")
+
+    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
+    def detect_live_os_image_failed_nothing_found_test(self, os_stat_mock):
+        """Test Live OS image detection failed missing file."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        os_stat_mock.side_effect = FileNotFoundError()
+
+        self.assertEqual(self.live_os_interface.DetectLiveOSImage(), "")
 
     @patch("pyanaconda.modules.payload.live.live_os.stat")
-    @patch("os.stat")
-    def detect_live_os_image_nothing_found_test(self, os_stat, stat):
-        """Test detect Live OS base image method when image doesn't exists."""
-        stat.S_ISBLK = Mock()
-        stat.S_ISBLK.return_value = False
+    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
+    def detect_live_os_image_test(self, os_stat_mock, stat_mock):
+        """Test Live OS image detection."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        stat_mock.S_ISBLK = Mock(return_value=True)
 
-        ret = self.live_os_interface.DetectLiveOSImage()
+        detected_image = self.live_os_interface.DetectLiveOSImage()
+        stat_mock.S_ISBLK.assert_called_once()
 
-        # return empty string because there is no valid image found
-        self.assertEqual("", ret)
+        self.assertEqual(detected_image, "/dev/mapper/live-base")
 
     @patch_dbus_publish_object
     def setup_installation_source_task_test(self, publisher):
