@@ -813,20 +813,44 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._back_already_clicked = False
 
+        # Get the reformat option.
+        reformat = self._reformatCheckbox.get_active()
+        log.debug("reformat: %s", reformat)
+
         # dictionaries for many, many pieces of information about the device and
         # requested changes, minimum required entropy for LUKS creation is
         # always the same
         old_device_info = self._get_old_device_info(device)
+        new_device_info = self._get_new_device_info(selector, old_device_info, reformat)
 
-        new_device_info = dict()
-        new_device_info["min_luks_entropy"] = crypto.MIN_CREATE_ENTROPY
-        new_device_info["device"] = device
+        # Log the results.
+        log.debug("new device request: %s", new_device_info)
+        log.debug("old device request: %s", old_device_info)
 
+        # Apply the changes.
+        self.clear_errors()
+
+        if not device.raw_device.exists:
+            self._change_device(selector, new_device_info, old_device_info)
+        else:
+            self._revert_device_reformat(selector, reformat)
+            self._change_device_size(selector, old_device_info, new_device_info)
+            self._change_device_format(selector, old_device_info, new_device_info, reformat)
+            self._change_device_name(selector, old_device_info, new_device_info)
+
+        # Update UI.
+        self._populate_right_side(selector)
+        log.debug("leaving save_right_side")
+
+    def _get_new_device_info(self, selector, old_device_info, reformat):
+        device = selector.device
         use_dev = device.raw_device
 
         log.info("ui: saving changes to device %s", device.name)
 
-        # TODO: member type (as a device type?)
+        new_device_info = dict()
+        new_device_info["min_luks_entropy"] = crypto.MIN_CREATE_ENTROPY
+        new_device_info["device"] = device
 
         # NAME
         if self._nameEntry.get_sensitive():
@@ -856,10 +880,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # DEVICE TYPE
         new_device_info["device_type"] = self._get_current_device_type()
-
-        # REFORMAT
-        reformat = self._reformatCheckbox.get_active()
-        log.debug("reformat: %s", reformat)
 
         # FS TYPE
         fs_type_index = self._fsCombo.get_active()
@@ -977,26 +997,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("overriding disk set with container's")
             new_device_info["disks"] = container.disks[:]
 
-        # Log the results.
-        log.debug("new device request: %s", new_device_info)
-        log.debug("old device request: %s", old_device_info)
-
-        # XXX prevent multiple raid or encryption layers?
-
-        # Apply the changes.
-        self.clear_errors()
-
-        if not use_dev.exists:
-            self._change_device(selector, new_device_info, old_device_info)
-        else:
-            self._revert_device_reformat(selector, reformat)
-            self._change_device_size(selector, old_device_info, new_device_info)
-            self._change_device_format(selector, old_device_info, new_device_info, reformat)
-            self._change_device_name(selector, old_device_info, new_device_info)
-
-        # Update UI.
-        self._populate_right_side(selector)
-        log.debug("leaving save_right_side")
+        return new_device_info
 
     def _change_device(self, selector, new_device_info, old_device_info):
         # If something has changed but the device does not exist,
