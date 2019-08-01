@@ -983,67 +983,79 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # XXX prevent multiple raid or encryption layers?
 
-        # Compare the device info.
-        changed = (new_device_info != old_device_info)
+        # Apply the changes.
+        self.clear_errors()
 
+        if not use_dev.exists:
+            self._change_device(selector, new_device_info, old_device_info)
+        else:
+            self._revert_device_reformat(selector, reformat)
+            self._change_device_size(selector, old_device_info, new_device_info)
+            self._change_device_format(selector, old_device_info, new_device_info, reformat)
+            self._change_device_name(selector, old_device_info, new_device_info)
+
+        # Update UI.
+        self._populate_right_side(selector)
+        log.debug("leaving save_right_side")
+
+    def _change_device(self, selector, new_device_info, old_device_info):
         # If something has changed but the device does not exist,
         # there is no need to schedule actions on the device.
         # It is only necessary to create a new device object
         # which reflects the current choices.
-        changed_device_type = (old_device_info["device_type"] != new_device_info["device_type"])
-        changed_container = (new_device_info["container_name"] != old_device_info["container_name"])
+        device = selector.device
 
-        if not use_dev.exists:
-            if not changed:
-                log.debug("nothing changed for new device")
-                return
-
-            self.clear_errors()
-
-            if changed_device_type or (old_device_info["container_name"] and changed_container):
-                # remove the current device
-                self._destroy_device(device)
-                if device in self._storage_playground.devices:
-                    # the removal failed. don't continue.
-                    log.error("device removal failed")
-                    return
-                removed_device = True
-            else:
-                removed_device = False
-
-            with ui_storage_logger():
-                succ = self._try_replace_device(selector, removed_device,
-                                                new_device_info, old_device_info)
-            if not succ:
-                # failed, nothing more to be done
-                return
-
-            self._update_device_in_selectors(device, selector.device)
-
-            # update size properties and the right side
-            self._update_size_props()
-            self._populate_right_side(selector)
-
-            log.debug("leaving save_right_side")
+        if new_device_info == old_device_info:
+            log.debug("nothing changed for new device")
             return
 
-        ##
-        ## Handle changes to preexisting devices
-        ##
+        removed_device = (
+            (old_device_info["device_type"] != new_device_info["device_type"]) or
+            (old_device_info["container_name"] and
+             new_device_info["container_name"] != old_device_info["container_name"])
+        )
 
+        if removed_device:
+            # remove the current device
+            self._destroy_device(device)
+            if device in self._storage_playground.devices:
+                # the removal failed. don't continue.
+                log.error("device removal failed")
+                return
+
+        with ui_storage_logger():
+            success = self._try_replace_device(
+                selector, removed_device, new_device_info, old_device_info
+            )
+
+        if not success:
+            # failed, nothing more to be done
+            return
+
+        self._update_device_in_selectors(device, selector.device)
+        self._update_size_props()
+
+    def _revert_device_reformat(self, selector, reformat):
         # Handle deactivation of the reformat checkbutton after having committed
         # a reformat.
+        device = selector.device
+        use_dev = device.raw_device
+
         if not reformat and (not use_dev.format.exists or
                              not device.format.exists):
             revert_reformat(self._storage_playground, device)
 
-        # Handle size change
+    def _change_device_size(self, selector, old_device_info, new_device_info):
+        device = selector.device
+
         if new_device_info["size"] != old_device_info["size"]:
             self._handle_size_change(new_device_info["size"], old_device_info["size"], device)
 
+    def _change_device_format(self, selector, old_device_info, new_device_info, reformat):
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
         # encryption got toggled
+        device = selector.device
         changed_encryption = (old_device_info["encrypted"] != new_device_info["encrypted"])
         changed_luks_version = (old_device_info["luks_version"] != new_device_info["luks_version"])
         changed_fs_type = (old_device_info["fstype"] != new_device_info["fstype"])
@@ -1065,28 +1077,40 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 device, mountpoint, label, changed_encryption, encrypted,
                 changed_luks_version, luks_version, selector, fs_type
             )
+            update_selector_from_device(selector, device)
         else:
             # Set various attributes that do not require actions.
-            if old_device_info["label"] != label and hasattr(device.format, "label") and \
-                    validate_label(label, device.format) == []:
-                self.clear_errors()
-                log.debug("updating label on %s to %s", device.name, label)
-                device.format.label = label
+            self._change_device_label(selector, old_device_info, new_device_info)
+            self._change_device_mount_point(selector, old_device_info, new_device_info)
 
-            if mountpoint and old_device_info["mountpoint"] != mountpoint:
-                self.clear_errors()
-                log.debug("updating mountpoint of %s to %s", device.name, mountpoint)
-                device.format.mountpoint = mountpoint
-                if old_device_info["mountpoint"]:
-                    update_selector_from_device(selector, device)
-                else:
-                    # add an entry to the new page but do not remove any entries
-                    # from other pages since we haven't altered the filesystem
-                    self.add_new_selector(device)
+    def _change_device_label(self, selector, old_device_info, new_device_info):
+        device = selector.device
+        label = new_device_info["label"]
 
-        #
-        # NAME
-        #
+        if old_device_info["label"] != label and hasattr(device.format, "label") and \
+                validate_label(label, device.format) == []:
+            self.clear_errors()
+            log.debug("updating label on %s to %s", device.name, label)
+            device.format.label = label
+
+    def _change_device_mount_point(self, selector, old_device_info, new_device_info):
+        device = selector.device
+        mountpoint = new_device_info["mountpoint"]
+
+        if mountpoint and old_device_info["mountpoint"] != mountpoint:
+            self.clear_errors()
+            log.debug("updating mountpoint of %s to %s", device.name, mountpoint)
+            device.format.mountpoint = mountpoint
+            if old_device_info["mountpoint"]:
+                update_selector_from_device(selector, device)
+            else:
+                # add an entry to the new page but do not remove any entries
+                # from other pages since we haven't altered the filesystem
+                self.add_new_selector(device)
+
+    def _change_device_name(self, selector, old_device_info, new_device_info):
+        device = selector.device
+        use_dev = device.raw_device
         name = new_device_info["name"]
         old_name = old_device_info["name"]
         changed_name = new_device_info["name"] != old_device_info["name"]
@@ -1105,8 +1129,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                     self.set_info(_("Specified name %s already in use.") % new_name)
                 else:
                     update_selector_from_device(selector, device)
-
-        self._populate_right_side(selector)
 
     def _raid_level_visible(self, model, itr, user_data):
         device_type = self._get_current_device_type()
