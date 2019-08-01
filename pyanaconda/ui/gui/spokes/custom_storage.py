@@ -554,48 +554,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             else:
                 log.warning("failed to replace device: %s", s._device)
 
-    def _validate_mountpoint(self, mountpoint, device, device_type, new_fs_type,
-                             reformat, encrypted, raid_level):
-        """ Validate various aspects of a mountpoint.
-
-            :param str mountpoint: the mountpoint
-            :param device: blivet.devices.Device instance
-            :param int device_type: one of an enumeration of device types
-            :param str new_fs_type: string representing the new filesystem type
-            :param bool reformat: whether the device is to be reformatted
-            :param bool encrypted: whether the device is to be encrypted
-            :param raid_level: instance of blivet.devicelibs.raid.RAIDLevel or None
-        """
-        error = None
-        if device_type not in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD) and \
-                mountpoint == "/boot/efi":
-            error = (_("/boot/efi must be on a device of type %(oneFsType)s or %(anotherFsType)s")
-                     % {"oneFsType": _(DEVICE_TEXT_PARTITION), "anotherFsType": _(DEVICE_TEXT_MD)})
-        elif device_type != DEVICE_TYPE_PARTITION and \
-                new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
-            error = (_("%(fs)s must be on a device of type %(type)s")
-                     % {"fs": new_fs_type, "type": _(DEVICE_TEXT_PARTITION)})
-        elif mountpoint and encrypted and mountpoint.startswith("/boot"):
-            error = _("%s cannot be encrypted") % mountpoint
-        elif encrypted and new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
-            error = _("%s cannot be encrypted") % new_fs_type
-        elif mountpoint == "/" and device.format.exists and not reformat:
-            error = _("You must create a new file system on the root device.")
-
-        if not error and \
-                (raid_level is not None or requires_raid_selection(device_type)) and \
-                raid_level not in get_supported_raid_levels(device_type):
-            error = _("Device does not support RAID level selection %s.") % raid_level
-
-        if not error and raid_level is not None:
-            min_disks = raid_level.min_members
-            if len(self._device_disks) < min_disks:
-                error = _(RAID_NOT_ENOUGH_DISKS) % {"level": raid_level,
-                                                    "min": min_disks,
-                                                    "count": len(self._device_disks)}
-
-        return error
-
     def _update_size_props(self):
         self._update_selectors()
         self._update_space_display()
@@ -828,7 +786,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         log.debug("old device request: %s", old_device_info)
 
         # Validate the device info.
-        if not self._validate_new_device_info(new_device_info, old_device_info, reformat, device):
+        error = self._validate_new_device_info(new_device_info, old_device_info, reformat)
+
+        if error:
+            self.set_warning(error)
             self._populate_right_side(selector)
             log.debug("leaving save_right_side - invalid request")
             return
@@ -994,48 +955,69 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             new_device_info["disks"] = container.disks[:]
 
     def _validate_new_device_info(self, new_device_info, old_device_info, reformat):
+        mountpoint = new_device_info["mountpoint"]
+        device = new_device_info["device"]
+        device_type = new_device_info["device_type"]
+        new_fs_type = new_device_info["fstype"]
+        encrypted = new_device_info["encrypted"]
+        raid_level = new_device_info["raid_level"]
+        disks = new_device_info["disks"]
         changed_label = new_device_info["label"] != old_device_info["label"]
         changed_fstype = old_device_info["fstype"] != new_device_info["fstype"]
         changed_mount_point = new_device_info["mountpoint"] != old_device_info["mountpoint"]
 
         if changed_label or changed_fstype:
-            errors = validate_label(
+            error = validate_label(
                 new_device_info["label"],
-                get_format(new_device_info["fstype"])
+                get_format(new_fs_type)
             )
+            if error:
+                return error
 
-            if errors:
-                self.set_detailed_warning(_("Label validation failed."), " ".join(errors))
-                return False
-
-        if (new_device_info["mountpoint"] is not None) and (reformat or changed_mount_point):
+        if (mountpoint is not None) and (reformat or changed_mount_point):
             used_mount_points = set(self._storage_playground.mountpoints.keys())
             used_mount_points.discard(old_device_info["mountpoint"])
 
             error = validate_mountpoint(
-                new_device_info["mountpoint"],
+                mountpoint,
                 used_mount_points
             )
-
             if error:
-                self.set_detailed_warning(_("Mount point validation failed."), error)
-                return False
+                return error
 
-        error = self._validate_mountpoint(
-            new_device_info["mountpoint"],
-            new_device_info["device"],
-            new_device_info["device_type"],
-            new_device_info["fstype"],
-            reformat,
-            new_device_info["encrypted"],
-            new_device_info["raid_level"]
-        )
+        supported_types = (DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD)
+        if mountpoint == "/boot/efi" and device_type not in supported_types:
+            return _("/boot/efi must be on a device of type %(type)s or %(another)s") \
+                   % {"type": _(DEVICE_TEXT_PARTITION), "another": _(DEVICE_TEXT_MD)}
 
-        if error:
-            self.set_warning(error)
-            return False
+        if device_type != DEVICE_TYPE_PARTITION and \
+                new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
+            return _("%(fs)s must be on a device of type %(type)s") \
+                   % {"fs": new_fs_type, "type": _(DEVICE_TEXT_PARTITION)}
 
-        return True
+        if mountpoint and encrypted and mountpoint.startswith("/boot"):
+            return _("%s cannot be encrypted") % mountpoint
+
+        if encrypted and new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
+            return _("%s cannot be encrypted") % new_fs_type
+
+        if mountpoint == "/" and device.format.exists and not reformat:
+            return _("You must create a new file system on the root device.")
+
+        if (raid_level is not None or requires_raid_selection(device_type)) and \
+                raid_level not in get_supported_raid_levels(device_type):
+            return _("Device does not support RAID level selection %s.") % raid_level
+
+        if raid_level is not None:
+            min_disks = raid_level.min_members
+            if len(disks) < min_disks:
+                return _(RAID_NOT_ENOUGH_DISKS) % {
+                    "level": raid_level,
+                    "min": min_disks,
+                    "count": len(disks)
+                }
+
+        return None
 
     def _change_device(self, selector, new_device_info, old_device_info):
         # If something has changed but the device does not exist,
@@ -1127,7 +1109,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         label = new_device_info["label"]
 
         if old_device_info["label"] != label and hasattr(device.format, "label") and \
-                validate_label(label, device.format) == []:
+                not validate_label(label, device.format):
             self.clear_errors()
             log.debug("updating label on %s to %s", device.name, label)
             device.format.label = label

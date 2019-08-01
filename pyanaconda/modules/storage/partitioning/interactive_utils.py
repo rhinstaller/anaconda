@@ -284,19 +284,19 @@ def validate_label(label, fmt):
 
     :param str label: a label
     :param DeviceFormat fmt: a device format to label
-    :return: a list of error messages
+    :return: an error message
     """
-    errors = []
-
     if fmt.exists:
-        errors.append(_("Cannot relabel already existing file system."))
-    elif not fmt.labeling():
-        if label != "":
-            errors.append(_("Cannot set label on file system."))
-    elif not fmt.label_format_ok(label):
-        return errors.append(_("Unacceptable label format for file system."))
+        return _("Cannot relabel already existing file system.")
 
-    return errors
+    if not fmt.labeling():
+        if label != "":
+            return _("Cannot set label on file system.")
+
+    if not fmt.label_format_ok(label):
+        return _("Unacceptable label format for file system.")
+
+    return None
 
 
 def suggest_device_name(storage, device):
