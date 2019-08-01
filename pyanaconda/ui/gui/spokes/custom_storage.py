@@ -990,8 +990,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("overriding disk set with container's")
             disks = container.disks[:]
         changed_disk_set = (set(old_disks) != set(disks))
-        log.debug("old disks: %s", [d.name for d in old_disks])
-        log.debug("new disks: %s", [d.name for d in disks])
 
         # Generate new device info:
         new_device_info = dict()
@@ -1012,13 +1010,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_device_info["container_size"] = container_size
         new_device_info["disks"] = disks
 
-        log.debug("device: %s", device)
-        already_logged = {"disks", "device"}
-        # log the other changes (old_device_info doesn't have the 'device' key)
-        for key in (to_log for to_log in
-                    old_device_info.keys() if to_log not in already_logged):
-            log.debug("old %s: %s", key, old_device_info[key])
-            log.debug("new %s: %s", key, new_device_info[key])
+        # Log the results.
+        log.debug("new device request: %s", new_device_info)
+        log.debug("old device request: %s", old_device_info)
 
         # XXX prevent multiple raid or encryption layers?
 
