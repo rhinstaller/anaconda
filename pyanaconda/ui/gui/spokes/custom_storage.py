@@ -821,11 +821,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # requested changes, minimum required entropy for LUKS creation is
         # always the same
         old_device_info = self._get_old_device_info(device)
-        new_device_info = self._get_new_device_info(selector, old_device_info, reformat)
+        new_device_info = self._get_new_device_info(device, old_device_info)
 
         # Log the results.
         log.debug("new device request: %s", new_device_info)
         log.debug("old device request: %s", old_device_info)
+
+        # Validate the device info.
+        if not self._validate_new_device_info(new_device_info, old_device_info, reformat, device):
+            self._populate_right_side(selector)
+            log.debug("leaving save_right_side - invalid request")
+            return
 
         # Apply the changes.
         self.clear_errors()
@@ -842,17 +848,29 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._populate_right_side(selector)
         log.debug("leaving save_right_side")
 
-    def _get_new_device_info(self, selector, old_device_info, reformat):
-        device = selector.device
-        use_dev = device.raw_device
-
+    def _get_new_device_info(self, device, old_device_info):
         log.info("ui: saving changes to device %s", device.name)
 
         new_device_info = dict()
         new_device_info["min_luks_entropy"] = crypto.MIN_CREATE_ENTROPY
         new_device_info["device"] = device
 
-        # NAME
+        self._get_new_device_name(new_device_info, old_device_info)
+        self._get_new_device_size(new_device_info, old_device_info)
+        self._get_new_device_type(new_device_info, old_device_info)
+        self._get_new_device_fstype(new_device_info, old_device_info)
+        self._get_new_device_enctyption(new_device_info, old_device_info)
+        self._get_new_device_luks_version(new_device_info, old_device_info)
+        self._get_new_device_label(new_device_info, old_device_info)
+        self._get_new_device_mount_point(new_device_info, old_device_info)
+        self._get_new_device_raid_level(new_device_info, old_device_info)
+        self._get_new_device_for_btrfs(new_device_info, old_device_info)
+        self._get_new_device_disks(new_device_info, old_device_info)
+        self._get_new_device_container(new_device_info, old_device_info)
+
+        return new_device_info
+
+    def _get_new_device_name(self, new_device_info, old_device_info):
         if self._nameEntry.get_sensitive():
             new_device_info["name"] = self._nameEntry.get_text()
         else:
@@ -860,10 +878,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             new_device_info["name"] = None
             old_device_info["name"] = None
 
-        # SIZE
-
+    def _get_new_device_size(self, new_device_info, old_device_info):
         # If the size text hasn't changed at all from that displayed,
         # assume no change intended.
+        device = new_device_info["device"]
+        use_dev = device.raw_device
         displayed_size = old_device_info["size"].human_readable(max_places=self.MAX_SIZE_PLACES)
 
         if displayed_size == self._sizeEntry.get_text():
@@ -878,74 +897,44 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not (use_dev.resizable or not use_dev.exists):
             new_device_info["size"] = old_device_info["size"]
 
-        # DEVICE TYPE
+    def _get_new_device_type(self, new_device_info, old_device_info):
         new_device_info["device_type"] = self._get_current_device_type()
 
-        # FS TYPE
+    def _get_new_device_fstype(self, new_device_info, old_device_info):
         fs_type_index = self._fsCombo.get_active()
         fs_type_str = self._fsCombo.get_model()[fs_type_index][0]
         new_fs = get_format(fs_type_str)
         new_device_info["fstype"] = new_fs.type
 
-        # ENCRYPTION
+    def _get_new_device_enctyption(self, new_device_info, old_device_info):
         new_device_info["encrypted"] = (self._encryptCheckbox.get_active()
                                         and self._encryptCheckbox.is_sensitive())
 
+    def _get_new_device_luks_version(self, new_device_info, old_device_info):
         luks_version_index = self._luksCombo.get_active()
         luks_version_str = self._luksCombo.get_model()[luks_version_index][0]
         new_device_info["luks_version"] = luks_version_str if new_device_info["encrypted"] else None
 
-        # FS LABEL
+    def _get_new_device_label(self, new_device_info, old_device_info):
         new_device_info["label"] = self._labelEntry.get_text()
 
-        if ((new_device_info["label"] != old_device_info["label"])
-                or (old_device_info["fstype"] != new_device_info["fstype"])):
-            errors = validate_label(new_device_info["label"], new_fs)
-
-            if errors:
-                self.set_detailed_warning(_("Label validation failed."), " ".join(errors))
-                self._populate_right_side(selector)
-                return
-
-        # MOUNTPOINT
+    def _get_new_device_mount_point(self, new_device_info, old_device_info):
         new_device_info["mountpoint"] = None  # None means format type is not mountable
 
         if self._mountPointEntry.get_sensitive():
             new_device_info["mountpoint"] = self._mountPointEntry.get_text()
 
-        if (new_device_info["mountpoint"] is not None
-                and (reformat or new_device_info["mountpoint"] != old_device_info["mountpoint"])):
-            mountpoints = self._storage_playground.mountpoints.copy()
-
-            if old_device_info["mountpoint"]:
-                del mountpoints[old_device_info["mountpoint"]]
-
-            error = validate_mountpoint(new_device_info["mountpoint"], mountpoints.keys())
-
-            if error:
-                self.set_detailed_warning(_("Mount point validation failed."), error)
-                self._populate_right_side(selector)
-                return
-
         if not old_device_info["mountpoint"]:
             # prevent false positives below when "" != None
             old_device_info["mountpoint"] = None
 
-        # RAID LEVEL
+    def _get_new_device_raid_level(self, new_device_info, old_device_info):
         new_device_info["raid_level"] = get_selected_raid_level(self._raidLevelCombo)
 
-        ##
-        ## VALIDATION
-        ##
-        error = self._validate_mountpoint(
-            new_device_info["mountpoint"], device, new_device_info["device_type"], fs_type_str,
-            reformat, new_device_info["encrypted"], new_device_info["raid_level"]
-        )
-
-        if error:
-            self.set_warning(error)
-            self._populate_right_side(selector)
-            return
+    def _get_new_device_for_btrfs(self,  new_device_info, old_device_info):
+        # FIXME: Move this code to the new methods.
+        device = new_device_info["device"]
+        use_dev = device.raw_device
 
         # If the device is a btrfs volume, the only things we can set/update
         # are mountpoint and container-wide settings.
@@ -958,6 +947,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             new_device_info["raid_level"] = None
             old_device_info["raid_level"] = None
+
+    def _get_new_device_disks(self, new_device_info, old_device_info):
+        new_device_info["disks"] = self._device_disks[:]
+
+    def _get_new_device_container(self, new_device_info, old_device_info):
+        device = new_device_info["device"]
 
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
@@ -972,15 +967,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 min_luks_entropy=crypto.MIN_CREATE_ENTROPY
             )
 
-        # CONTAINER
+        # Name
         new_device_info["container_name"] = self._device_container_name
         container = factory.get_container()
 
         if old_device_info["device_type"] == new_device_info["device_type"]:
             container = factory.get_container(name=new_device_info["container_name"])
 
+        # Encryption
         new_device_info["container_encrypted"] = self._device_container_encrypted
 
+        # Raid level
         new_device_info["container_raid_level"] = self._device_container_raid_level
         supported_raid_levels = get_supported_container_raid_levels(new_device_info["device_type"])
         default_raid_level = get_default_container_raid_level(new_device_info["device_type"])
@@ -988,16 +985,57 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if new_device_info["container_raid_level"] not in supported_raid_levels:
             new_device_info["container_raid_level"] = default_raid_level
 
+        # Size
         new_device_info["container_size"] = self._device_container_size
 
-        # DISK SET
-        new_device_info["disks"] = self._device_disks[:]
-
+        # Disks
         if container and old_device_info["device_type"] != new_device_info["device_type"]:
             log.debug("overriding disk set with container's")
             new_device_info["disks"] = container.disks[:]
 
-        return new_device_info
+    def _validate_new_device_info(self, new_device_info, old_device_info, reformat):
+        changed_label = new_device_info["label"] != old_device_info["label"]
+        changed_fstype = old_device_info["fstype"] != new_device_info["fstype"]
+        changed_mount_point = new_device_info["mountpoint"] != old_device_info["mountpoint"]
+
+        if changed_label or changed_fstype:
+            errors = validate_label(
+                new_device_info["label"],
+                get_format(new_device_info["fstype"])
+            )
+
+            if errors:
+                self.set_detailed_warning(_("Label validation failed."), " ".join(errors))
+                return False
+
+        if (new_device_info["mountpoint"] is not None) and (reformat or changed_mount_point):
+            used_mount_points = set(self._storage_playground.mountpoints.keys())
+            used_mount_points.discard(old_device_info["mountpoint"])
+
+            error = validate_mountpoint(
+                new_device_info["mountpoint"],
+                used_mount_points
+            )
+
+            if error:
+                self.set_detailed_warning(_("Mount point validation failed."), error)
+                return False
+
+        error = self._validate_mountpoint(
+            new_device_info["mountpoint"],
+            new_device_info["device"],
+            new_device_info["device_type"],
+            new_device_info["fstype"],
+            reformat,
+            new_device_info["encrypted"],
+            new_device_info["raid_level"]
+        )
+
+        if error:
+            self.set_warning(error)
+            return False
+
+        return True
 
     def _change_device(self, selector, new_device_info, old_device_info):
         # If something has changed but the device does not exist,
