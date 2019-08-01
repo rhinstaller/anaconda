@@ -983,33 +983,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # XXX prevent multiple raid or encryption layers?
 
-        # Collect changes.
-        changed_name = (new_device_info["name"] != old_device_info["name"])
-        changed_size = (new_device_info["size"] != old_device_info["size"])
-        changed_device_type = (old_device_info["device_type"] != new_device_info["device_type"])
-        changed_fs_type = (old_device_info["fstype"] != new_device_info["fstype"])
-        changed_encryption = (old_device_info["encrypted"] != new_device_info["encrypted"])
-        changed_luks_version = (old_device_info["luks_version"] != new_device_info["luks_version"])
-        changed_label = (new_device_info["label"] != old_device_info["label"])
-        changed_mountpoint = (old_device_info["mountpoint"] != new_device_info["mountpoint"])
-        changed_raid_level = (old_device_info["raid_level"] is not new_device_info["raid_level"])
-        changed_container = (new_device_info["container_name"] != old_device_info["container_name"])
-        changed_container_encrypted = (new_device_info["container_encrypted"] != old_device_info["container_encrypted"])
-        changed_container_raid_level = (old_device_info["container_raid_level"] != new_device_info["container_raid_level"])
-        changed_container_size = (old_device_info["container_size"] != new_device_info["container_size"])
-        changed_disk_set = (set(old_device_info["disks"]) != set(new_device_info["disks"]))
-
-        changed = (changed_name or changed_size or changed_device_type or
-                   changed_label or changed_mountpoint or changed_disk_set or
-                   changed_encryption or changed_luks_version or
-                   changed_raid_level or changed_fs_type or
-                   changed_container or changed_container_encrypted or
-                   changed_container_raid_level or changed_container_size)
+        # Compare the device info.
+        changed = (new_device_info != old_device_info)
 
         # If something has changed but the device does not exist,
         # there is no need to schedule actions on the device.
         # It is only necessary to create a new device object
         # which reflects the current choices.
+        changed_device_type = (old_device_info["device_type"] != new_device_info["device_type"])
+        changed_container = (new_device_info["container_name"] != old_device_info["container_name"])
+
         if not use_dev.exists:
             if not changed:
                 log.debug("nothing changed for new device")
@@ -1055,12 +1038,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             revert_reformat(self._storage_playground, device)
 
         # Handle size change
-        if changed_size:
+        if new_device_info["size"] != old_device_info["size"]:
             self._handle_size_change(new_device_info["size"], old_device_info["size"], device)
 
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
         # encryption got toggled
+        changed_encryption = (old_device_info["encrypted"] != new_device_info["encrypted"])
+        changed_luks_version = (old_device_info["luks_version"] != new_device_info["luks_version"])
+        changed_fs_type = (old_device_info["fstype"] != new_device_info["fstype"])
+
         do_reformat = (reformat and (changed_encryption or
                                      changed_luks_version or
                                      changed_fs_type or
@@ -1102,6 +1089,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         #
         name = new_device_info["name"]
         old_name = old_device_info["name"]
+        changed_name = new_device_info["name"] != old_device_info["name"]
 
         if changed_name:
             self.clear_errors()
