@@ -70,10 +70,10 @@ class DBusObserverTestCase(unittest.TestCase):
         self._make_service_available(observer)
         self._make_service_unavailable(observer)
 
-    def object_observer_test(self):
-        """Test the object observer."""
+    def module_observer_test(self):
+        """Test the module observer."""
         dbus = Mock()
-        observer = ModuleObserver(dbus, "SERVICE", "OBJECT")
+        observer = ModuleObserver(dbus, "my.test.module")
 
         # Setup the observer.
         self._setup_observer(observer)
@@ -88,7 +88,7 @@ class DBusObserverTestCase(unittest.TestCase):
 
         # Access the proxy.
         observer.proxy.DoSomething()
-        dbus.get_proxy.assert_called_once_with("SERVICE", "OBJECT")
+        dbus.get_proxy.assert_called_once_with("my.test.module", "/my/test/module")
         self.assertIsNotNone(observer._proxy)
 
         # Service unavailable.

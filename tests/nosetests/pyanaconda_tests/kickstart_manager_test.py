@@ -194,6 +194,12 @@ class KickstartManagerTestCase(unittest.TestCase):
         for filename, _content in kickstart:
             os.remove(filename)
 
+    def _get_module_observer(self, service_path, module_proxy, available=True):
+        observer = ModuleObserver(Mock(), service_path)
+        observer._proxy = module_proxy
+        observer._is_service_available = available
+        return observer
+
     def distribute_test(self):
         manager = KickstartManager()
 
@@ -202,18 +208,16 @@ class KickstartManagerTestCase(unittest.TestCase):
         module3 = TestModule(sections=["packages"])
         module4 = TestModule(addons=["scorched"])
 
-        m1_observer = TestModuleObserver("1", "1", module1)
-        m2_observer = TestModuleObserver("2", "2", module2)
-        m3_observer = TestModuleObserver("3", "3", module3)
-
-        unavailable_observer = TestModuleObserver("4", "4", module4)
-        unavailable_observer._is_service_available = False
+        m1_observer = self._get_module_observer("1", module1)
+        m2_observer = self._get_module_observer("2", module2)
+        m3_observer = self._get_module_observer("3", module3)
+        m4_observer = self._get_module_observer("4", module4, available=False)
 
         manager.module_observers = [
             m1_observer,
             m2_observer,
             m3_observer,
-            unavailable_observer
+            m4_observer
         ]
 
         with self._create_ks_files(self._kickstart_include) as filename:
@@ -275,14 +279,6 @@ network --device=ens3
         manager = KickstartManager()
         with self._create_ks_files([("ks.mgr.test.missing_include.cfg", ks_content)]) as filename:
             self.assertRaises(SplitKickstartMissingIncludeError, manager.split, filename)
-
-
-class TestModuleObserver(ModuleObserver):
-
-    def __init__(self, service_name, object_path, test_module):
-        super().__init__(Mock(), service_name, object_path)
-        self._proxy = test_module
-        self._is_service_available = True
 
 
 class TestModule(object):

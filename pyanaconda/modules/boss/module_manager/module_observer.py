@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.dbus.namespace import get_namespace_from_name, get_dbus_path
 from pyanaconda.dbus.observer import DBusObserver, DBusObserverError
 
 log = get_module_logger(__name__)
@@ -24,16 +24,16 @@ log = get_module_logger(__name__)
 class ModuleObserver(DBusObserver):
     """Observer of an Anaconda module."""
 
-    def __init__(self, message_bus, service_name, object_path):
-        """Creates an DBus object observer.
+    def __init__(self, message_bus, service_name):
+        """Creates a module observer.
 
         :param message_bus: a message bus
         :param service_name: a DBus name of a service
-        :param object_path: a DBus path of an object
         """
         super().__init__(message_bus, service_name)
         self._proxy = None
-        self._object_path = object_path
+        self._namespace = get_namespace_from_name(service_name)
+        self._object_path = get_dbus_path(*self._namespace)
 
     @property
     def proxy(self):
