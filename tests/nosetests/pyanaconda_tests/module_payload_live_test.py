@@ -18,15 +18,16 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import os
+import stat
 import unittest
 
-from mock import patch
+from mock import patch, call
 from tempfile import TemporaryDirectory
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.payload import InstallError
-from pyanaconda.modules.payload.live.utils import get_kernel_version_list
+from pyanaconda.modules.payload.live.utils import get_kernel_version_list, create_rescue_image
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
@@ -46,6 +47,30 @@ class LiveUtilsTestCase(unittest.TestCase):
         self._kernel_test_files_list.append(name[8:])
         if is_valid:
             self._kernel_test_valid_list.append(name[8:])
+
+    def _prepare_rescue_test_dirs(self, temp_dir,
+                                  fake_machine_id,
+                                  fake_new_kernel_pkg,
+                                  fake_postinst_scripts_list):
+        etc_path = os.path.join(temp_dir, "etc")
+        postinst_path = os.path.join(etc_path, "kernel/postinst.d")
+        sbin_path = os.path.join(temp_dir, "usr/sbin")
+
+        os.makedirs(etc_path)
+
+        if fake_machine_id:
+            open(os.path.join(etc_path, "machine-id"), "wt").close()
+
+        if fake_new_kernel_pkg:
+            os.makedirs(sbin_path)
+            open(os.path.join(sbin_path, "new-kernel-pkg"), "wb").close()
+
+        if fake_postinst_scripts_list:
+            os.makedirs(postinst_path)
+            for path in fake_postinst_scripts_list:
+                path = os.path.join(postinst_path, path)
+                open(path, "wt").close()
+                os.chmod(path, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
 
     def kernel_list_empty_test(self):
         """Test empty get kernel list function."""
@@ -72,6 +97,68 @@ class LiveUtilsTestCase(unittest.TestCase):
             kernel_list = get_kernel_version_list(temp)
 
             self.assertListEqual(kernel_list, self._kernel_test_valid_list)
+
+    @patch("pyanaconda.modules.payload.live.utils.execWithRedirect")
+    def create_rescue_image_with_new_kernel_pkg_test(self, exec_with_redirect):
+        """Test creation of rescue image with kernel pkg."""
+        kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        with TemporaryDirectory() as temp:
+            self._prepare_rescue_test_dirs(temp,
+                                           fake_machine_id=True,
+                                           fake_new_kernel_pkg=True,
+                                           fake_postinst_scripts_list=[])
+
+            create_rescue_image(temp, kernel_version_list)
+
+            calls = [call("systemd-machine-id-setup", [], root=temp)]
+            for kernel in kernel_version_list:
+                calls.append(call("new-kernel-pkg", ["--rpmposttrans", kernel], root=temp))
+
+            exec_with_redirect.assert_has_calls(calls)
+
+    @patch("pyanaconda.modules.payload.live.utils.execWithRedirect")
+    def create_rescue_image_without_machine_id_test(self, exec_with_redirect):
+        """Test creation of rescue image without machine-id file."""
+        kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        with TemporaryDirectory() as temp:
+            self._prepare_rescue_test_dirs(temp,
+                                           fake_machine_id=False,
+                                           fake_new_kernel_pkg=True,
+                                           fake_postinst_scripts_list=[])
+
+            create_rescue_image(temp, kernel_version_list)
+
+            calls = [call("systemd-machine-id-setup", [], root=temp)]
+            for kernel in kernel_version_list:
+                calls.append(call("new-kernel-pkg", ["--rpmposttrans", kernel], root=temp))
+
+            exec_with_redirect.assert_has_calls(calls)
+
+    @patch("pyanaconda.modules.payload.live.utils.execWithRedirect")
+    def create_rescue_image_with_postinst_scripts_test(self, exec_with_redirect):
+        """Test creation of rescue image with postinst scripts."""
+        kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        postinst_scripts = ["01-create", "02-rule", "03-aaaand-we-lost"]
+        with TemporaryDirectory() as temp:
+            self._prepare_rescue_test_dirs(temp,
+                                           fake_machine_id=True,
+                                           fake_new_kernel_pkg=False,
+                                           fake_postinst_scripts_list=postinst_scripts)
+
+            with self.assertLogs(level="WARNING") as cm:
+                create_rescue_image(temp, kernel_version_list)
+
+                self.assertTrue(any(map(lambda x: "new-kernel-pkg does not exist" in x,
+                                        cm.output)))
+
+            calls = [call("systemd-machine-id-setup", [], root=temp)]
+            for kernel in kernel_version_list:
+                for script in sorted(postinst_scripts):
+                    script = os.path.join("/etc/kernel/postinst.d", script)
+                    kernel_path = "/boot/vmlinuz-{}".format(kernel)
+                    calls.append(call(script, [kernel, kernel_path], root=temp))
+
+            exec_with_redirect.assert_has_calls(calls)
 
 
 class LiveTasksTestCase(unittest.TestCase):
