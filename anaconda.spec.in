@@ -344,6 +344,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 02 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.10-1
+- Do not try to mount cdrom source also if it has been mounted in dracut.
+  (rvykydal)
+  Resolves: rhbz#1733507
+
 * Tue Jul 02 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.9-1
 - Adjust the exclude arguments for livepayloads (bcl)
   Related: rhbz#1684542
