@@ -318,6 +318,11 @@ def revert_reformat(storage, device):
     :param storage: an instance of Blivet
     :param device: a device to reset
     """
+    # Skip if formats exists.
+    if device.format.exists and device.raw_device.format.exists:
+        log.debug("Nothing to revert for %s.", device.name)
+        return
+
     # Figure out the existing device.
     if not device.raw_device.format.exists:
         original_device = device.raw_device

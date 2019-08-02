@@ -1067,10 +1067,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # Handle deactivation of the reformat checkbutton after having committed
         # a reformat.
         device = selector.device
-        use_dev = device.raw_device
 
-        if not reformat and (not use_dev.format.exists or
-                             not device.format.exists):
+        if not reformat:
             revert_reformat(self._storage_playground, device)
 
     def _change_device_size(self, selector, old_device_info, new_device_info):
