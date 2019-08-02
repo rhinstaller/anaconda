@@ -640,18 +640,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         return new_device, old_device
 
     @ui_storage_logged
-    def _do_reformat(self, device, mountpoint, label, changed_encryption, encrypted,
-                     changed_luks_version, luks_version, selector, fs_type):
+    def _do_reformat(self, selector, old_device_info, new_device_info):
+        device = selector.device
+        mountpoint = new_device_info["mountpoint"]
+        label = new_device_info["label"]
+        encrypted = new_device_info["encrypted"]
+        luks_version = new_device_info["luks_version"]
+        fs_type = new_device_info["fstype"]
+
         self.clear_errors()
         #
         # ENCRYPTION
         #
         old_device = None
-        if changed_encryption:
+
+        if old_device_info["encrypted"] != new_device_info["encrypted"]:
             device, old_device = self._handle_encryption_change(
                 encrypted, luks_version, device, old_device, selector
             )
-        elif encrypted and changed_luks_version:
+        elif encrypted and old_device_info["luks_version"] != new_device_info["luks_version"]:
 
             device, old_device = self._handle_encryption_change(
                 False, luks_version, device, old_device, selector
@@ -1087,18 +1094,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                      device.format.exists))
 
         # Handle reformat
-        mountpoint = new_device_info["mountpoint"]
-        label = new_device_info["label"]
-        encrypted = new_device_info["encrypted"]
-        luks_version = new_device_info["luks_version"]
-        fs_type = new_device_info["fstype"]
-
         if do_reformat:
-            device = self._do_reformat(
-                device, mountpoint, label, changed_encryption, encrypted,
-                changed_luks_version, luks_version, selector, fs_type
-            )
-            update_selector_from_device(selector, device)
+            self._do_reformat(selector, old_device_info, new_device_info)
         else:
             # Set various attributes that do not require actions.
             self._change_device_label(selector, old_device_info, new_device_info)
