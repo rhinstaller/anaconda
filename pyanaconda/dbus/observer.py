@@ -22,7 +22,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["DBusObserverError", "DBusObjectObserver"]
+__all__ = ["DBusObserverError", "DBusObserver"]
 
 
 class DBusObserverError(Exception):
@@ -181,74 +181,6 @@ class DBusObserver(object):
         """Returns a string representation."""
         return "{}({})".format(self.__class__.__name__,
                                self._service_name)
-
-
-class DBusObjectObserver(DBusObserver):
-    """Observer of a DBus object.
-
-    This class is recommended to use when you are interested in only one
-    object provided by a service. You can specify the object path in the
-    __init__ method and access the proxy of the object in the proxy property.
-    The proxy is cached.
-
-    Usage:
-
-    observer = DBusObjectObserver(SystemBus, "org.freedesktop.NetworkManager",
-                                  "org/freedesktop/NetworkManager/Settings")
-    observer.connect()
-    result = observer.proxy.ListConnections()
-    print(result)
-
-    .. deprecated::
-
-        Use a DBus proxy to access a DBus object or DBusObserver to monitor
-        a DBus service.
-
-    """
-
-    def __init__(self, message_bus, service_name, object_path):
-        """Creates an DBus object observer.
-
-        :param message_bus: a message bus
-        :param service_name: a DBus name of a service
-        :param object_path: a DBus path of an object
-        """
-        super().__init__(message_bus, service_name)
-        self._proxy = None
-        self._object_path = object_path
-
-    @property
-    def proxy(self):
-        """"Returns a proxy of the remote object."""
-        if not self._is_service_available:
-            raise DBusObserverError("Service {} is not available."
-                                    .format(self._service_name))
-
-        if not self._proxy:
-            self._proxy = self._message_bus.get_proxy(self._service_name,
-                                                      self._object_path)
-
-        return self._proxy
-
-    def _enable_service(self):
-        """Enable the service."""
-        self._proxy = None
-        super()._enable_service()
-
-    def _disable_service(self):
-        """Disable the service"""
-        self._proxy = None
-        super()._disable_service()
-
-    def __str__(self):
-        """Returns a string version of this object."""
-        return self._object_path
-
-    def __repr__(self):
-        """Returns a string representation."""
-        return "{}({},{})".format(self.__class__.__name__,
-                                  self._service_name,
-                                  self._object_path)
 
 
 class PropertiesCache(object):

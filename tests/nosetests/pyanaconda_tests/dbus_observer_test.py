@@ -20,8 +20,8 @@
 import unittest
 from mock import Mock
 
-from pyanaconda.dbus.observer import PropertiesCache, DBusObjectObserver, \
-    DBusObserverError, DBusObserver
+from pyanaconda.dbus.observer import PropertiesCache, DBusObserverError, DBusObserver
+from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
 
 
 class DBusObserverTestCase(unittest.TestCase):
@@ -73,7 +73,7 @@ class DBusObserverTestCase(unittest.TestCase):
     def object_observer_test(self):
         """Test the object observer."""
         dbus = Mock()
-        observer = DBusObjectObserver(dbus, "SERVICE", "OBJECT")
+        observer = ModuleObserver(dbus, "SERVICE", "OBJECT")
 
         # Setup the observer.
         self._setup_observer(observer)

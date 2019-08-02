@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
 from pyanaconda.modules.boss.module_manager.module_manager import ModuleManager
 
-__all__ = ['ModuleManager']
+__all__ = ['ModuleManager', 'ModuleObserver']

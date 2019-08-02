@@ -24,7 +24,7 @@ from mock import Mock
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartSectionParsingError, \
     SplitKickstartMissingIncludeError
-from pyanaconda.dbus.observer import DBusObjectObserver
+from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
 
 KICKSTART1 = """
 text
@@ -277,7 +277,7 @@ network --device=ens3
             self.assertRaises(SplitKickstartMissingIncludeError, manager.split, filename)
 
 
-class TestModuleObserver(DBusObjectObserver):
+class TestModuleObserver(ModuleObserver):
 
     def __init__(self, service_name, object_path, test_module):
         super().__init__(Mock(), service_name, object_path)
