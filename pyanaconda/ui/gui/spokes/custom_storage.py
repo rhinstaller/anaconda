@@ -598,31 +598,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                     return False
 
     @ui_storage_logged
-    def _handle_size_change(self, size, old_size, device):
-        """ Handle size change.
-
-            :param device: the device being displayed
-            :type device: :class:`blivet.devices.StorageDevice`
-        """
-        try:
-            changed_size = resize_device(self._storage_playground, device, size, old_size)
-        except StorageError as e:
-            self.set_detailed_warning(_("Device resize request failed."), e)
-            return
-
-        if changed_size:
-            # update the selector's size property
-            # The selector shows the visible disk, so it is necessary
-            # to use device and size, which are the values visible to
-            # the user.
-            for s in self._accordion.all_selectors:
-                if s._device == device:
-                    s.size = str(device.size)
-
-            # update size props of all btrfs devices' selectors
-            self._update_size_props()
-
-    @ui_storage_logged
     def _handle_encryption_change(self, encrypted, luks_version, device, old_device, selector):
         old_device = device
         new_device = change_encryption(
@@ -1075,7 +1050,28 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         device = selector.device
 
         if new_device_info["size"] != old_device_info["size"]:
-            self._handle_size_change(new_device_info["size"], old_device_info["size"], device)
+            try:
+                changed_size = resize_device(
+                    self._storage_playground,
+                    device,
+                    new_device_info["size"],
+                    old_device_info["size"]
+                )
+            except StorageError as e:
+                self.set_detailed_warning(_("Device resize request failed."), e)
+                return
+
+            if changed_size:
+                # update the selector's size property
+                # The selector shows the visible disk, so it is necessary
+                # to use device and size, which are the values visible to
+                # the user.
+                for s in self._accordion.all_selectors:
+                    if s._device == device:
+                        s.size = str(device.size)
+
+                # update size props of all btrfs devices' selectors
+                self._update_size_props()
 
     def _change_device_format(self, selector, old_device_info, new_device_info, reformat):
         # it's possible that reformat is active but fstype is unchanged, in
