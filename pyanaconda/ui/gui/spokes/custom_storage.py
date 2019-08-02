@@ -1020,10 +1020,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         if removed_device:
             # remove the current device
-            self._destroy_device(device)
-            if device in self._storage_playground.devices:
+            success = self._destroy_device(device)
+
+            if not success:
                 # the removal failed. don't continue.
-                log.error("device removal failed")
                 return
 
         with ui_storage_logger():
@@ -1578,9 +1578,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         try:
             destroy_device(self._storage_playground, device)
+            return True
         except StorageError as e:
             log.error("The device removal has failed: %s", e)
             self.set_detailed_warning(_("Device removal request failed."), e)
+            return False
 
     def _show_mountpoint(self, page, mountpoint=None):
         if not self._initialized:
