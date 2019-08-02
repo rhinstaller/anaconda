@@ -20,10 +20,14 @@
 import os
 import unittest
 
+from mock import patch
 from tempfile import TemporaryDirectory
 
+from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list
+from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
 class LiveUtilsTestCase(unittest.TestCase):
@@ -68,3 +72,73 @@ class LiveUtilsTestCase(unittest.TestCase):
             kernel_list = get_kernel_version_list(temp)
 
             self.assertListEqual(kernel_list, self._kernel_test_valid_list)
+
+
+class LiveTasksTestCase(unittest.TestCase):
+
+    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    def install_image_task_test(self, exec_with_redirect, create_rescue_image_mock):
+        """Test installation from an image task."""
+        dest_path = "/destination/path"
+        kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        exec_with_redirect.return_value = 0
+
+        InstallFromImageTask(dest_path, kernel_version_list).run()
+
+        expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
+                               "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
+                               "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
+                               "--exclude", "/boot/efi/loader/",
+                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
+
+        exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
+        create_rescue_image_mock.assert_called_once_with(dest_path, kernel_version_list)
+
+    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    def install_image_task_failed_exception_test(self, exec_with_redirect,
+                                                 create_rescue_image_mock):
+        """Test installation from an image task with exception."""
+        dest_path = "/destination/path"
+        kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        exec_with_redirect.side_effect = OSError("mock exception")
+
+        with self.assertLogs(level="ERROR") as cm:
+            with self.assertRaises(InstallError):
+                InstallFromImageTask(dest_path, kernel_version_list).run()
+
+            self.assertTrue(any(map(lambda x: "mock exception" in x, cm.output)))
+
+        expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
+                               "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
+                               "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
+                               "--exclude", "/boot/efi/loader/",
+                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
+
+        exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
+        create_rescue_image_mock.assert_not_called()
+
+    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    def install_image_task_failed_return_code_test(self, exec_with_redirect,
+                                                   create_rescue_image_mock):
+        """Test installation from an image task with bad return code."""
+        dest_path = "/destination/path"
+        kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        exec_with_redirect.return_value = 11
+
+        with self.assertLogs(level="INFO") as cm:
+            with self.assertRaises(InstallError):
+                InstallFromImageTask(dest_path, kernel_version_list).run()
+
+            self.assertTrue(any(map(lambda x: "exited with code 11" in x, cm.output)))
+
+        expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
+                               "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
+                               "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
+                               "--exclude", "/boot/efi/loader/",
+                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
+
+        exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
+        create_rescue_image_mock.assert_not_called()
