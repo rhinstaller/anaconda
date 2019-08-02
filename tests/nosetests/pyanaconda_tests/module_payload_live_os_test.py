@@ -26,13 +26,15 @@ from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_pub
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
-from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask
+from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.task.task_interface import TaskInterface
+from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
+    CopyDriverDisksFilesTask
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
-    TeardownInstallationSourceTask
+    TeardownInstallationSourceTask, UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
@@ -158,6 +160,28 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         task_path = self.live_os_interface.InstallWithTask()
 
         check_task_creation(self, task_path, publisher, InstallFromImageTask)
+
+    @patch_dbus_publish_object
+    def post_install_with_tasks_test(self, publisher):
+        """Test Live OS post installation configuration task."""
+        task_classes = [
+            UpdateBLSConfigurationTask,
+            CopyDriverDisksFilesTask
+        ]
+
+        task_paths = self.live_os_interface.PostInstallWithTasks()
+
+        # Check the number of installation tasks.
+        task_number = len(task_classes)
+        self.assertEqual(task_number, len(task_paths))
+        self.assertEqual(task_number, publisher.call_count)
+
+        # Check the tasks.
+        for i in range(task_number):
+            object_path, obj = publisher.call_args_list[i][0]
+            self.assertEqual(object_path, task_paths[i])
+            self.assertIsInstance(obj, TaskInterface)
+            self.assertIsInstance(obj.implementation, task_classes[i])
 
 
 class LiveOSHandlerTasksTestCase(unittest.TestCase):
