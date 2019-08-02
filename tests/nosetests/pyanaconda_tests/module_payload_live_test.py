@@ -28,6 +28,7 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list, create_rescue_image
+from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
@@ -163,6 +164,23 @@ class LiveUtilsTestCase(unittest.TestCase):
 
 class LiveTasksTestCase(unittest.TestCase):
 
+    def _prepare_bls_test_env(self, temp_dir, fake_kernel_pkg, bls_entries):
+        sbin_path = os.path.join(temp_dir, "usr/sbin")
+        entries_path = os.path.join(temp_dir, "boot/loader/entries")
+        lib_modules_path = os.path.join(temp_dir, "lib/modules")
+
+        if fake_kernel_pkg:
+            os.makedirs(sbin_path)
+            open(os.path.join(sbin_path, "new-kernel-pkg"), "wb").close()
+            return
+
+        os.makedirs(entries_path)
+        os.makedirs(lib_modules_path)
+
+        if bls_entries:
+            for entry in bls_entries:
+                open(os.path.join(entries_path, entry), "wt").close()
+
     @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
     @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
     def install_image_task_test(self, exec_with_redirect, create_rescue_image_mock):
@@ -229,3 +247,73 @@ class LiveTasksTestCase(unittest.TestCase):
 
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
         create_rescue_image_mock.assert_not_called()
+
+    @patch("pyanaconda.modules.payload.live.initialization.execWithRedirect")
+    def update_bls_configuration_task_no_bls_system_test(self, exec_with_redirect):
+        """Test update bls configuration task on no BLS system."""
+        kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+
+        with TemporaryDirectory() as temp:
+            self._prepare_bls_test_env(temp, fake_kernel_pkg=True, bls_entries=[])
+
+            UpdateBLSConfigurationTask(temp, kernel_version_list).run()
+
+            # nothing should be done when new-kernel-pkg is present
+            exec_with_redirect.assert_not_called()
+
+    @patch("pyanaconda.modules.payload.live.initialization.execWithRedirect")
+    def update_bls_configuration_task_old_entries_test(self, exec_with_redirect):
+        """Test update bls configuration task with old bls entries."""
+        kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        bls_entries = ["one.conf", "two.conf", "three_trillions_twenty_two.noconf"]
+
+        with TemporaryDirectory() as temp:
+            self._prepare_bls_test_env(temp, fake_kernel_pkg=False, bls_entries=bls_entries)
+
+            UpdateBLSConfigurationTask(temp, kernel_version_list).run()
+
+            entries_path = os.path.join(temp, "boot/loader/entries")
+            for entry in bls_entries:
+                entry = os.path.join(entries_path, entry)
+                if entry[-7:] != ".noconf":
+                    self.assertFalse(os.path.exists(entry),
+                                     msg="File {} should be removed".format(entry))
+                else:
+                    self.assertTrue(os.path.exists(entry),
+                                    msg="File {} shouldn't be removed".format(entry))
+
+            calls = []
+            for kernel in kernel_version_list:
+                calls.append(
+                    call("kernel-install",
+                         ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
+                         root=temp),
+                )
+
+            exec_with_redirect.assert_has_calls(calls)
+
+    @patch("pyanaconda.modules.payload.live.initialization.execWithRedirect")
+    def update_bls_configuration_task_no_old_entries_test(self, exec_with_redirect):
+        """Test update bls configuration task without old bls entries."""
+        kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        bls_entries = ["three_trillions_twenty_two.noconf"]
+
+        with TemporaryDirectory() as temp:
+            self._prepare_bls_test_env(temp, fake_kernel_pkg=False, bls_entries=bls_entries)
+
+            UpdateBLSConfigurationTask(temp, kernel_version_list).run()
+
+            entries_path = os.path.join(temp, "boot/loader/entries")
+            entry = os.path.join(entries_path, bls_entries[0])
+            self.assertTrue(os.path.exists(entry),
+                            msg="File {} shouldn't be removed".format(entry))
+
+            calls = []
+            for kernel in kernel_version_list:
+                calls.append(
+                    call("kernel-install",
+                         ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
+                         root=temp),
+                )
+
+            exec_with_redirect.assert_has_calls(calls)
