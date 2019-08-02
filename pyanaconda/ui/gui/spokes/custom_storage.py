@@ -58,7 +58,8 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     get_device_luks_version, collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
-    collect_containers, validate_label, suggest_device_name, get_new_root_name
+    collect_containers, validate_label, suggest_device_name, get_new_root_name, \
+    generate_device_info
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -678,56 +679,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # possibly changed device, need to return the new one
         return device
 
-    def _get_old_device_info(self, device):
-        use_dev = device.raw_device
-        device_type = devicefactory.get_device_type(device)
-
-        old_device_info = dict()
-        old_device_info["min_luks_entropy"] = crypto.MIN_CREATE_ENTROPY
-        old_device_info["device"] = device
-        old_device_info["name"] = getattr(use_dev, "lvname", use_dev.name)
-        old_device_info["size"] = device.size
-        old_device_info["device_type"] = device_type
-        old_device_info["fstype"] = device.format.type
-        old_device_info["encrypted"] = isinstance(device, LUKSDevice)
-        old_device_info["luks_version"] = device.format.luks_version if device.format.type == "luks" else None
-        old_device_info["label"] = getattr(device.format, "label", "")
-        old_device_info["mountpoint"] = getattr(device.format, "mountpoint", "") or ""
-        old_device_info["raid_level"] = get_device_raid_level(device)
-
-        if hasattr(device, "req_disks") and not device.exists:
-            disks = device.req_disks
-        else:
-            disks = device.disks
-
-        old_device_info["disks"] = disks
-
-        factory = devicefactory.get_device_factory(
-            self._storage_playground,
-            device_type=device_type,
-            device=use_dev
-        )
-
-        old_container = factory.get_container()
-
-        if old_container:
-            old_container_name = old_container.name
-            old_container_encrypted = old_container.encrypted
-            old_container_raid_level = get_device_raid_level(old_container)
-            old_container_size = getattr(old_container, "size_policy", old_container.size)
-        else:
-            old_container_name = None
-            old_container_encrypted = False
-            old_container_raid_level = None
-            old_container_size = SIZE_POLICY_AUTO
-
-        old_device_info["container_name"] = old_container_name
-        old_device_info["container_encrypted"] = old_container_encrypted
-        old_device_info["container_raid_level"] = old_container_raid_level
-        old_device_info["container_size"] = old_container_size
-
-        return old_device_info
-
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -760,7 +711,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # dictionaries for many, many pieces of information about the device and
         # requested changes, minimum required entropy for LUKS creation is
         # always the same
-        old_device_info = self._get_old_device_info(device)
+        old_device_info = generate_device_info(self._storage_playground, device)
         new_device_info = self._get_new_device_info(device, old_device_info)
 
         # Log the results.

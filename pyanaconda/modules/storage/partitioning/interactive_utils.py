@@ -533,6 +533,56 @@ def collect_device_types(device, disks):
     return sorted(filter(devicefactory.is_supported_device_type, supported_types))
 
 
+def generate_device_info(storage, device):
+    """Generate a device info for the given device.
+
+    :param storage: an instance of Blivet
+    :param device: a device
+    :return: a device info
+    """
+    device_type = devicefactory.get_device_type(device)
+
+    dev_info = dict()
+    dev_info["min_luks_entropy"] = crypto.MIN_CREATE_ENTROPY
+    dev_info["device"] = device
+    dev_info["name"] = getattr(device.raw_device, "lvname", device.raw_device.name)
+    dev_info["size"] = device.size
+    dev_info["device_type"] = device_type
+    dev_info["fstype"] = device.format.type
+    dev_info["encrypted"] = isinstance(device, LUKSDevice)
+    dev_info["luks_version"] = device.format.luks_version if device.format.type == "luks" else None
+    dev_info["label"] = getattr(device.format, "label", "")
+    dev_info["mountpoint"] = getattr(device.format, "mountpoint", "") or ""
+    dev_info["raid_level"] = get_device_raid_level(device)
+
+    if hasattr(device, "req_disks") and not device.exists:
+        disks = device.req_disks
+    else:
+        disks = device.disks
+
+    dev_info["disks"] = disks
+
+    factory = devicefactory.get_device_factory(
+        storage,
+        device_type=device_type,
+        device=device.raw_device
+    )
+    container = factory.get_container()
+
+    if container:
+        dev_info["container_name"] = container.name
+        dev_info["container_encrypted"] = container.encrypted
+        dev_info["container_raid_level"] = get_device_raid_level(container)
+        dev_info["container_size"] = getattr(container, "size_policy", container.size)
+    else:
+        dev_info["container_name"] = None
+        dev_info["container_encrypted"] = False
+        dev_info["container_raid_level"] = None
+        dev_info["container_size"] = factory.SIZE_POLICY_AUTO
+
+    return dev_info
+
+
 def add_device(storage, dev_info):
     """Add a device to the storage model.
 
