@@ -51,10 +51,7 @@ class DBusObserver(object):
     observer.service_available.connect(callback1)
     observer.service_unavailable.connect(callback2)
 
-    # Connect to the service immediately.
-    observer.connect()
-
-    # Or connect to the service once it is available.
+    # Connect to the service once it is available.
     # observer.connect_once_available()
 
     # Disconnect the observer.
@@ -103,20 +100,6 @@ class DBusObserver(object):
         call the watch method to activate the signals.
         """
         return self._service_unavailable
-
-    def connect(self):
-        """Connect to the service immediately.
-
-        :raise DBusObserverError: if service is not available
-        """
-        bus_proxy = self._message_bus.get_dbus_proxy()
-
-        if not bus_proxy.NameHasOwner(self.service_name):
-            raise DBusObserverError("Service {} is not available."
-                                    .format(self._service_name))
-
-        self._enable_service()
-        self._watch()
 
     def connect_once_available(self):
         """Connect to the service once it is available.

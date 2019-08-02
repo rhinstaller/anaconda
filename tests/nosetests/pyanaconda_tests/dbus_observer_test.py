@@ -145,9 +145,14 @@ class DBusObserverTestCase(unittest.TestCase):
         observer = DBusObserver(dbus, "SERVICE")
         self._setup_observer(observer)
 
-        observer.connect()
+        observer.connect_once_available()
+
         dbus.connection.watch_name.assert_called_once()
-        self._test_if_service_available(observer)
+        self.assertFalse(observer.is_service_available)
+        observer._service_available.emit.assert_not_called()  # pylint: disable=no-member
+        observer._service_unavailable.emit.assert_not_called()  # pylint: disable=no-member
+
+        self._make_service_available(observer)
 
         observer.disconnect()
         dbus.connection.unwatch_name.assert_called_once()
@@ -159,9 +164,14 @@ class DBusObserverTestCase(unittest.TestCase):
         observer = DBusObserver(dbus, "SERVICE")
         self._setup_observer(observer)
 
-        observer.connect()
+        observer.connect_once_available()
+
         dbus.connection.watch_name.assert_called_once()
-        self._test_if_service_available(observer)
+        self.assertFalse(observer.is_service_available)
+        observer._service_available.emit.assert_not_called()  # pylint: disable=no-member
+        observer._service_unavailable.emit.assert_not_called()  # pylint: disable=no-member
+
+        self._make_service_available(observer)
 
         observer._service_name_appeared_callback()
         self.assertTrue(observer.is_service_available)
@@ -176,16 +186,3 @@ class DBusObserverTestCase(unittest.TestCase):
         self.assertFalse(observer.is_service_available)
         observer._service_available.emit.assert_not_called()  # pylint: disable=no-member
         observer._service_unavailable.emit.assert_not_called()  # pylint: disable=no-member
-
-    def connect_failed_test(self):
-        """Test observer connect failed."""
-        dbus = Mock()
-        observer = DBusObserver(dbus, "SERVICE")
-        self._setup_observer(observer)
-
-        proxy = Mock()
-        proxy.NameHasOwner.return_value = False
-        dbus.get_dbus_proxy.return_value = proxy
-
-        with self.assertRaises(DBusObserverError):
-            observer.connect()
