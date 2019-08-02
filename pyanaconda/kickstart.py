@@ -44,7 +44,6 @@ from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
 from pyanaconda.modules.common.constants.objects import FIREWALL, FCOE
-from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
@@ -284,76 +283,6 @@ class AutoPart(RemovedCommand):
 
 class BTRFS(COMMANDS.BTRFS):
     pass
-
-class Realm(RemovedCommand):
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.packages = []
-        self.discovered = ""
-
-    def __str__(self):
-        # The kickstart for this command is generated
-        # by Security module in the SELinux class.
-        return ""
-
-    def setup(self):
-        security_proxy = SECURITY.get_proxy()
-        realm = RealmData.from_structure(security_proxy.Realm)
-
-        if not realm.name:
-            return
-
-        try:
-            argv = ["discover", "--verbose"] + realm.discover_options + [realm.name]
-            output = util.execWithCapture("realm", argv, filter_stderr=True)
-        except OSError:
-            # TODO: A lousy way of propagating what will usually be
-            # 'no such realm'
-            # The error message is logged by util
-            return
-
-        # Now parse the output for the required software. First line is the
-        # realm name, and following lines are information as "name: value"
-        self.packages = ["realmd"]
-        self.discovered = ""
-
-        lines = output.split("\n")
-        if not lines:
-            return
-        self.discovered = lines.pop(0).strip()
-        realm_log.info("Realm discovered: %s", self.discovered)
-        for line in lines:
-            parts = line.split(":", 1)
-            if len(parts) == 2 and parts[0].strip() == "required-package":
-                self.packages.append(parts[1].strip())
-
-        realm_log.info("Realm %s needs packages %s",
-                       self.discovered, ", ".join(self.packages))
-
-    def execute(self):
-        if not self.discovered:
-            return
-
-        security_proxy = SECURITY.get_proxy()
-        realm = RealmData.from_structure(security_proxy.Realm)
-
-        for arg in realm.join_options:
-            if arg.startswith("--no-password") or arg.startswith("--one-time-password"):
-                pw_args = []
-                break
-        else:
-            # no explicit password arg using implicit --no-password
-            pw_args = ["--no-password"]
-
-        argv = ["join", "--install", conf.target.system_root, "--verbose"] + pw_args + realm.join_options
-        rc = -1
-        try:
-            rc = util.execWithRedirect("realm", argv)
-        except OSError:
-            pass
-
-        if rc == 0:
-            realm_log.info("Joined realm %s", realm.name)
 
 class ClearPart(RemovedCommand):
     def __str__(self):
@@ -758,7 +687,7 @@ commandMap = {
     "part": Partition,
     "partition": Partition,
     "raid": Raid,
-    "realm": Realm,
+    "realm": UselessCommand,
     "reqpart": ReqPart,
     "rootpw": RootPw,
     "selinux": SELinux,
