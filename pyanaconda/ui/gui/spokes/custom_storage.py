@@ -912,10 +912,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Name
         new_device_info["container_name"] = self._device_container_name
-        container = factory.get_container()
-
-        if old_device_info["device_type"] == new_device_info["device_type"]:
-            container = factory.get_container(name=new_device_info["container_name"])
 
         # Encryption
         new_device_info["container_encrypted"] = self._device_container_encrypted
@@ -932,6 +928,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_device_info["container_size"] = self._device_container_size
 
         # Disks
+        container = factory.get_container()
+
         if container and old_device_info["device_type"] != new_device_info["device_type"]:
             log.debug("overriding disk set with container's")
             new_device_info["disks"] = container.disks[:]
