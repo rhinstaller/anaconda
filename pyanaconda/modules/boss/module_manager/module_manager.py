@@ -37,9 +37,9 @@ class ModuleManager(object):
         """Return the modules observers."""
         return self._module_observers
 
-    def add_module(self, service_name):
+    def add_module(self, service_name, is_addon=False):
         """Add a modules with the given service name."""
-        observer = ModuleObserver(DBus, service_name)
+        observer = ModuleObserver(DBus, service_name, is_addon)
         self._module_observers.append(observer)
 
     def add_addon_modules(self):
@@ -50,7 +50,7 @@ class ModuleManager(object):
 
         for service_name in names:
             if service_name.startswith(prefix):
-                self.add_module(service_name)
+                self.add_module(service_name, is_addon=True)
 
     def start_modules(self):
         """Start anaconda modules (including addons)."""

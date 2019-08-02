@@ -24,16 +24,26 @@ log = get_module_logger(__name__)
 class ModuleObserver(DBusObserver):
     """Observer of an Anaconda module."""
 
-    def __init__(self, message_bus, service_name):
+    def __init__(self, message_bus, service_name, is_addon=False):
         """Creates a module observer.
 
         :param message_bus: a message bus
         :param service_name: a DBus name of a service
+        :param is_addon: is the observed module an addon?
         """
         super().__init__(message_bus, service_name)
         self._proxy = None
+        self._is_addon = is_addon
         self._namespace = get_namespace_from_name(service_name)
         self._object_path = get_dbus_path(*self._namespace)
+
+    @property
+    def is_addon(self):
+        """Is the observed module an addon?
+
+        :return: True or False
+        """
+        return self._is_addon
 
     @property
     def proxy(self):
