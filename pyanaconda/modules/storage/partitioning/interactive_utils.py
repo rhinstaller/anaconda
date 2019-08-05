@@ -334,6 +334,25 @@ def validate_mount_point(path, mount_points):
     return None
 
 
+def validate_raid_level(raid_level, num_members):
+    """Validate the given raid level.
+
+    :param raid_level: a RAID level
+    :param num_members: a number of members
+    :return: an error message
+    """
+    if num_members < raid_level.min_members:
+        return _("The RAID level you have selected (%(level)s) requires more "
+                 "disks (%(min)d) than you currently have selected (%(count)d).") \
+               % {
+                   "level": raid_level,
+                   "min": raid_level.min_members,
+                   "count": num_members
+               }
+
+    return None
+
+
 def suggest_device_name(storage, device):
     """Get a suggestion for a device name.
 

@@ -37,7 +37,7 @@ from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_mount_points, \
-    validate_mount_point
+    validate_mount_point, validate_raid_level
 from pyanaconda.storage.utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
@@ -54,11 +54,6 @@ NOTEBOOK_INCOMPLETE_PAGE = 4
 
 NEW_CONTAINER_TEXT = N_("Create a new %(container_type)s ...")
 CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
-
-RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
-                           "requires more disks (%(min)d) than you "
-                           "currently have selected (%(count)d).")
-
 CONTAINER_DIALOG_TITLE = N_("CONFIGURE %(container_type)s")
 CONTAINER_DIALOG_TEXT = N_("Please create a name for this %(container_type)s "
                            "and select at least one disk below.")
@@ -573,11 +568,9 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         raid_level = get_selected_raid_level(self._raidLevelCombo)
         if raid_level:
-            min_disks = raid_level.min_members
-            if len(paths) < min_disks:
-                self._error = (_(RAID_NOT_ENOUGH_DISKS) % {"level": raid_level,
-                                                           "min": min_disks,
-                                                           "count": len(paths)})
+            self._error = validate_raid_level(raid_level, len(paths))
+
+            if self._error:
                 self._error_label.set_text(self._error)
                 self.window.show_all()
                 return

@@ -59,7 +59,7 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     get_device_luks_version, collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
     collect_containers, validate_label, suggest_device_name, get_new_root_name, \
-    generate_device_info, validate_mount_point
+    generate_device_info, validate_mount_point, validate_raid_level
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -81,7 +81,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_en
     get_selected_raid_level, \
     get_raid_level_selection, get_default_raid_level, requires_raid_selection, \
     get_supported_container_raid_levels, get_supported_raid_levels, get_container_type, \
-    get_default_container_raid_level, RAID_NOT_ENOUGH_DISKS, AddDialog, ConfirmDeleteDialog, \
+    get_default_container_raid_level, AddDialog, ConfirmDeleteDialog, \
     DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
     NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
     ui_storage_logger, ui_storage_logged
@@ -937,13 +937,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return _("Device does not support RAID level selection %s.") % raid_level
 
         if raid_level is not None:
-            min_disks = raid_level.min_members
-            if len(disks) < min_disks:
-                return _(RAID_NOT_ENOUGH_DISKS) % {
-                    "level": raid_level,
-                    "min": min_disks,
-                    "count": len(disks)
-                }
+            error = validate_raid_level(
+                raid_level,
+                len(disks)
+            )
+            if error:
+                return error
 
         return None
 
