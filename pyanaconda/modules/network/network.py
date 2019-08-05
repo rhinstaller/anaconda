@@ -308,7 +308,7 @@ class NetworkModule(KickstartModule):
             self.ifname_option_values
         )
 
-        task.succeeded_signal.connect(lambda: self.log_task_result(task, conf.target.system_root))
+        task.succeeded_signal.connect(lambda: self.log_task_result(task, root_path=conf.target.system_root))
         path = self.publish_task(NETWORK.namespace, task)
         return path
 
