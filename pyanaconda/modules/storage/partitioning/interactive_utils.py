@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import re
+
 from blivet import devicefactory
 from blivet.devicelibs import crypto
 from blivet.devices import LUKSDevice
@@ -295,6 +297,44 @@ def validate_label(label, fmt):
 
     if not fmt.label_format_ok(label):
         return _("Unacceptable label format for file system.")
+
+    return None
+
+
+def validate_mount_point(path, mount_points, strict=True):
+    """Validate the given path of a mount point.
+
+    :param path: a path to validate
+    :param mount_points: a list of existing mount points
+    :param strict: are fake mount points allowed?
+    :return: an error message
+    """
+    system_mount_points = ["/dev", "/proc", "/run", "/sys"]
+    fake_mount_points = ["swap", "biosboot", "prepboot"]
+
+    if path in mount_points:
+        return _("That mount point is already in use. Try something else?")
+
+    if not path:
+        return _("Please enter a valid mount point.")
+
+    if path in system_mount_points:
+        return _("That mount point is invalid. Try something else?")
+
+    if not strict and lowerASCII(path) in fake_mount_points:
+        # don't validate fake mount points
+        pass
+    elif ((len(path) > 1 and path.endswith("/")) or
+          not path.startswith("/") or
+          " " in path or
+          re.search(r'/\.*/', path) or
+          re.search(r'/\.+$', path)):
+        # - does not end with '/' unless mountpoint _is_ '/'
+        # - starts with '/' except for "swap", &c
+        # - does not contain spaces
+        # - does not contain pairs of '/' enclosing zero or more '.'
+        # - does not end with '/' followed by one or more '.'
+        return _("That mount point is invalid. Try something else?")
 
     return None
 

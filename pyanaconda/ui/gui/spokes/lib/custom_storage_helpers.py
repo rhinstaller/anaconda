@@ -25,7 +25,6 @@ import functools
 from functools import wraps
 
 import logging
-import re
 
 from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
     DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
@@ -36,8 +35,8 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_
-from pyanaconda.core.util import lowerASCII
-from pyanaconda.modules.storage.partitioning.interactive_utils import collect_mount_points
+from pyanaconda.modules.storage.partitioning.interactive_utils import collect_mount_points, \
+    validate_mount_point
 from pyanaconda.storage.utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
@@ -77,9 +76,6 @@ CONTAINER_TYPES = {
         CN_("GUI|Custom Partitioning|Configure|Devices", "_Volume:"))
 }
 
-# These cannot be specified as mountpoints
-system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
-
 
 def get_size_from_entry(entry, lower_bound=None, units=None):
     """ Get a Size object from an entry field.
@@ -104,34 +100,6 @@ def get_size_from_entry(entry, lower_bound=None, units=None):
     if lower_bound is not None and size < lower_bound:
         return lower_bound
     return size
-
-
-def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
-    if strict:
-        fake_mountpoints = []
-    else:
-        fake_mountpoints = ["swap", "biosboot", "prepboot"]
-
-    if mountpoint in used_mountpoints:
-        return _("That mount point is already in use. Try something else?")
-    elif not mountpoint:
-        return _("Please enter a valid mount point.")
-    elif mountpoint in system_mountpoints:
-        return _("That mount point is invalid. Try something else?")
-    elif (lowerASCII(mountpoint) not in fake_mountpoints and
-          ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
-           not mountpoint.startswith("/") or
-           " " in mountpoint or
-           re.search(r'/\.*/', mountpoint) or
-           re.search(r'/\.+$', mountpoint))):
-        # - does not end with '/' unless mountpoint _is_ '/'
-        # - starts with '/' except for "swap", &c
-        # - does not contain spaces
-        # - does not contain pairs of '/' enclosing zero or more '.'
-        # - does not end with '/' followed by one or more '.'
-        return _("That mount point is invalid. Try something else?")
-    else:
-        return ""
 
 
 def get_selected_raid_level(raid_level_combo):
@@ -336,8 +304,8 @@ class AddDialog(GUIObject):
 
     def on_add_confirm_clicked(self, button, *args):
         self.mountpoint = self.builder.get_object("addMountPointEntry").get_active_text()
-        self._error = validate_mountpoint(self.mountpoint, self.mountpoints,
-                                          strict=False)
+        self._error = validate_mount_point(self.mountpoint, self.mountpoints,
+                                           strict=False)
         self._warningLabel.set_text(self._error)
         self.window.show_all()
         if self._error:
