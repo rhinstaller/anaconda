@@ -905,13 +905,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if error:
                 return error
 
-        if (mountpoint is not None) and (reformat or changed_mount_point):
-            used_mount_points = set(self._storage_playground.mountpoints.keys())
-            used_mount_points.discard(old_device_info["mountpoint"])
-
+        if changed_mount_point and mountpoint is not None:
             error = validate_mount_point(
                 mountpoint,
-                used_mount_points
+                self._storage_playground.mountpoints.keys()
             )
             if error:
                 return error
@@ -1482,8 +1479,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._save_right_side(self._accordion.current_selector)
 
         # Initialize and run the AddDialog.
-        mount_points = self._storage_playground.mountpoints.keys()
-        dialog = AddDialog(self.data, mount_points)
+        dialog = AddDialog(self.data, self._storage_playground)
         dialog.refresh()
 
         with self.main_window.enlightbox(dialog.window):
@@ -1498,7 +1494,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Gather data about the added mount point.
         dev_info = dict()
-        dev_info["mountpoint"] = dialog.mountpoint
+        dev_info["mountpoint"] = dialog.mount_point
 
         if dialog.size is None or dialog.size < Size("1 MB"):
             dev_info["size"] = None
@@ -1517,7 +1513,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self.set_detailed_error(_("Failed to add new device."), e)
             self._do_refresh()
         else:
-            self._do_refresh(mountpoint_to_show=dialog.mountpoint)
+            self._do_refresh(mountpoint_to_show=dialog.mount_point)
 
         self._update_space_display()
 
