@@ -58,25 +58,17 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 # TODO: all those constants and mappings should go to blivet
-DEVICE_TEXT_LVM = N_("LVM")
-DEVICE_TEXT_LVM_THINP = N_("LVM Thin Provisioning")
-DEVICE_TEXT_MD = N_("RAID")
-DEVICE_TEXT_PARTITION = N_("Standard Partition")
-DEVICE_TEXT_BTRFS = N_("Btrfs")
-DEVICE_TEXT_DISK = N_("Disk")
-
 # Used for info about device with no more supported type (ie btrfs).
 DEVICE_TYPE_UNSUPPORTED = -1
-DEVICE_TEXT_UNSUPPORTED = N_("Unsupported")
 
 DEVICE_TEXT_MAP = {
-    DEVICE_TYPE_UNSUPPORTED: DEVICE_TEXT_UNSUPPORTED,
-    DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
-    DEVICE_TYPE_MD: DEVICE_TEXT_MD,
-    DEVICE_TYPE_PARTITION: DEVICE_TEXT_PARTITION,
-    DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS,
-    DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP,
-    DEVICE_TYPE_DISK: DEVICE_TEXT_DISK
+    DEVICE_TYPE_UNSUPPORTED: N_("Unsupported"),
+    DEVICE_TYPE_LVM: N_("LVM"),
+    DEVICE_TYPE_MD: N_("RAID"),
+    DEVICE_TYPE_PARTITION: N_("Standard Partition"),
+    DEVICE_TYPE_BTRFS: N_("Btrfs"),
+    DEVICE_TYPE_LVM_THINP: N_("LVM Thin Provisioning"),
+    DEVICE_TYPE_DISK: N_("Disk")
 }
 
 PARTITION_ONLY_FORMAT_TYPES = ("macefi", "prepboot", "biosboot", "appleboot")
