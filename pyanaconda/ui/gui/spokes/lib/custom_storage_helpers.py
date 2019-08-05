@@ -180,31 +180,6 @@ def memoizer(f):
 
 
 @memoizer
-def get_supported_raid_levels(device_type):
-    """ The raid levels anaconda supports for this device type.
-
-        It supports any RAID levels that it expects to support and that blivet
-        supports for the given device type.
-
-        Since anaconda only ever allows the user to choose RAID levels for
-        device type DEVICE_TYPE_MD, hiding the RAID menu for all other device
-        types, the function only returns a non-empty set for this device type.
-        If this changes, then so should this function, but at this time it
-        is not clear what RAID levels should be offered for other device types.
-
-        :param int device_type: one of an enumeration of device types
-        :returns: a set of supported raid levels
-        :rtype: a set of instances of blivet.devicelibs.raid.RAIDLevel
-    """
-    if device_type == DEVICE_TYPE_MD:
-        supported = set(raid.RAIDLevels(["raid0", "raid1", "raid4", "raid5", "raid6", "raid10"]))
-    else:
-        supported = set()
-
-    return get_blivet_supported_raid_levels(device_type).intersection(supported)
-
-
-@memoizer
 def get_supported_container_raid_levels(device_type):
     """ The raid levels anaconda supports for a container for this
         device_type.

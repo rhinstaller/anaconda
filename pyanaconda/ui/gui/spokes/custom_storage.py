@@ -58,7 +58,7 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     get_device_luks_version, collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
     collect_containers, validate_label, suggest_device_name, get_new_root_name, \
-    generate_device_info, validate_device_info
+    generate_device_info, validate_device_info, get_supported_raid_levels
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -77,7 +77,8 @@ from pyanaconda.ui.gui.spokes.lib.accordion import update_selector_from_device, 
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_entry, \
     get_selected_raid_level, \
-    get_raid_level_selection, get_default_raid_level, get_supported_container_raid_levels, get_supported_raid_levels, get_container_type, \
+    get_raid_level_selection, get_default_raid_level, get_supported_container_raid_levels, \
+    get_container_type, \
     get_default_container_raid_level, AddDialog, ConfirmDeleteDialog, \
     DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
     NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
