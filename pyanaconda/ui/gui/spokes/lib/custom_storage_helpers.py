@@ -158,11 +158,6 @@ def get_default_container_raid_level(device_type):
     return None
 
 
-def requires_raid_selection(device_type):
-    """ Whether GUI requires a RAID level be selected for this device type."""
-    return device_type == DEVICE_TYPE_MD
-
-
 def memoizer(f):
     """ A simple decorator that memoizes by means of the shared default
         value for cache in the result function.

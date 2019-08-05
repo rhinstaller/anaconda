@@ -36,7 +36,8 @@ from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
     get_supported_filesystems, PARTITION_ONLY_FORMAT_TYPES, SUPPORTED_DEVICE_TYPES, \
-    CONTAINER_DEVICE_TYPES
+    CONTAINER_DEVICE_TYPES, DEVICE_TEXT_MAP
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_supported_raid_levels
 
 log = get_module_logger(__name__)
 
@@ -349,6 +350,81 @@ def validate_raid_level(raid_level, num_members):
                    "min": raid_level.min_members,
                    "count": num_members
                }
+
+    return None
+
+
+def validate_device_info(storage, dev_info, reformat):
+    """Validate the given device info.
+
+    :param storage: an instance of Blivet
+    :param dev_info: a device info to validate
+    :param reformat: is reformatting enabled?
+    :return: an error message
+    """
+    device = dev_info["device"]
+    disks = dev_info["disks"]
+    device_type = dev_info["device_type"]
+    fs_type = dev_info["fstype"]
+    encrypted = dev_info["encrypted"]
+    raid_level = dev_info["raid_level"]
+    mount_point = dev_info["mountpoint"]
+
+    changed_label = dev_info["label"] != getattr(device.format, "label", "")
+    changed_fstype = dev_info["fstype"] != device.format.type
+
+    if changed_label or changed_fstype:
+        error = validate_label(
+            dev_info["label"],
+            get_format(fs_type)
+        )
+        if error:
+            return error
+
+    changed_mount_point = dev_info["mountpoint"] != getattr(device.format, "mountpoint")
+
+    if changed_mount_point and mount_point is not None:
+        error = validate_mount_point(
+            mount_point,
+            storage.mountpoints.keys()
+        )
+        if error:
+            return error
+
+    supported_types = (devicefactory.DEVICE_TYPE_PARTITION, devicefactory.DEVICE_TYPE_MD)
+
+    if mount_point == "/boot/efi" and device_type not in supported_types:
+        return _("/boot/efi must be on a device of type %(type)s or %(another)s") % {
+            "type": _(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_PARTITION]),
+            "another": _(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_MD])
+        }
+
+    if device_type != devicefactory.DEVICE_TYPE_PARTITION and \
+            fs_type in PARTITION_ONLY_FORMAT_TYPES:
+        return _("%(fs)s must be on a device of type %(type)s") % {
+            "fs": fs_type, "type": _(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_PARTITION])
+        }
+
+    if mount_point and encrypted and mount_point.startswith("/boot"):
+        return _("%s cannot be encrypted") % mount_point
+
+    if encrypted and fs_type in PARTITION_ONLY_FORMAT_TYPES:
+        return _("%s cannot be encrypted") % fs_type
+
+    if mount_point == "/" and device.format.exists and not reformat:
+        return _("You must create a new file system on the root device.")
+
+    if (raid_level is not None or device_type == devicefactory.DEVICE_TYPE_MD) and \
+            raid_level not in get_supported_raid_levels(device_type):
+        return _("Device does not support RAID level selection %s.") % raid_level
+
+    if raid_level is not None:
+        error = validate_raid_level(
+            raid_level,
+            len(disks)
+        )
+        if error:
+            return error
 
     return None
 

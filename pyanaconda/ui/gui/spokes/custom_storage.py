@@ -35,8 +35,7 @@ from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 
 from blivet import devicefactory
-from blivet.devicefactory import DEVICE_TYPE_BTRFS, DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD, \
-    DEVICE_TYPE_LVM_THINP, SIZE_POLICY_AUTO
+from blivet.devicefactory import DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, SIZE_POLICY_AUTO
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 from blivet.errors import StorageError
@@ -59,15 +58,14 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     get_device_luks_version, collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
     collect_containers, validate_label, suggest_device_name, get_new_root_name, \
-    generate_device_info, validate_mount_point, validate_raid_level
+    generate_device_info, validate_device_info
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.storage.initialization import reset_bootloader
 from pyanaconda.storage.root import find_existing_installations
-from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
-    PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, \
+from pyanaconda.storage.utils import DEVICE_TEXT_MAP, MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, \
     CONTAINER_DEVICE_TYPES, device_type_from_autopart, filter_unsupported_disklabel_devices, \
     unlock_device, setup_passphrase, find_unconfigured_luks, DEVICE_TYPE_UNSUPPORTED
 from pyanaconda.threading import threadMgr
@@ -79,8 +77,7 @@ from pyanaconda.ui.gui.spokes.lib.accordion import update_selector_from_device, 
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_entry, \
     get_selected_raid_level, \
-    get_raid_level_selection, get_default_raid_level, requires_raid_selection, \
-    get_supported_container_raid_levels, get_supported_raid_levels, get_container_type, \
+    get_raid_level_selection, get_default_raid_level, get_supported_container_raid_levels, get_supported_raid_levels, get_container_type, \
     get_default_container_raid_level, AddDialog, ConfirmDeleteDialog, \
     DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
     NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
@@ -719,7 +716,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         log.debug("old device request: %s", old_device_info)
 
         # Validate the device info.
-        error = self._validate_new_device_info(new_device_info, old_device_info, reformat)
+        error = validate_device_info(self._storage_playground, new_device_info, reformat)
+        log.debug("validate device info: %s", error)
 
         if error:
             self.set_warning(error)
@@ -884,67 +882,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if container and old_device_info["device_type"] != new_device_info["device_type"]:
             log.debug("overriding disk set with container's")
             new_device_info["disks"] = container.disks[:]
-
-    def _validate_new_device_info(self, new_device_info, old_device_info, reformat):
-        mountpoint = new_device_info["mountpoint"]
-        device = new_device_info["device"]
-        device_type = new_device_info["device_type"]
-        new_fs_type = new_device_info["fstype"]
-        encrypted = new_device_info["encrypted"]
-        raid_level = new_device_info["raid_level"]
-        disks = new_device_info["disks"]
-        changed_label = new_device_info["label"] != old_device_info["label"]
-        changed_fstype = old_device_info["fstype"] != new_device_info["fstype"]
-        changed_mount_point = new_device_info["mountpoint"] != old_device_info["mountpoint"]
-
-        if changed_label or changed_fstype:
-            error = validate_label(
-                new_device_info["label"],
-                get_format(new_fs_type)
-            )
-            if error:
-                return error
-
-        if changed_mount_point and mountpoint is not None:
-            error = validate_mount_point(
-                mountpoint,
-                self._storage_playground.mountpoints.keys()
-            )
-            if error:
-                return error
-
-        supported_types = (DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD)
-        if mountpoint == "/boot/efi" and device_type not in supported_types:
-            return _("/boot/efi must be on a device of type %(type)s or %(another)s") \
-                   % {"type": _(DEVICE_TEXT_PARTITION), "another": _(DEVICE_TEXT_MD)}
-
-        if device_type != DEVICE_TYPE_PARTITION and \
-                new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
-            return _("%(fs)s must be on a device of type %(type)s") \
-                   % {"fs": new_fs_type, "type": _(DEVICE_TEXT_PARTITION)}
-
-        if mountpoint and encrypted and mountpoint.startswith("/boot"):
-            return _("%s cannot be encrypted") % mountpoint
-
-        if encrypted and new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
-            return _("%s cannot be encrypted") % new_fs_type
-
-        if mountpoint == "/" and device.format.exists and not reformat:
-            return _("You must create a new file system on the root device.")
-
-        if (raid_level is not None or requires_raid_selection(device_type)) and \
-                raid_level not in get_supported_raid_levels(device_type):
-            return _("Device does not support RAID level selection %s.") % raid_level
-
-        if raid_level is not None:
-            error = validate_raid_level(
-                raid_level,
-                len(disks)
-            )
-            if error:
-                return error
-
-        return None
 
     def _change_device(self, selector, new_device_info, old_device_info):
         # If something has changed but the device does not exist,
