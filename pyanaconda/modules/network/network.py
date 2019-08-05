@@ -23,6 +23,7 @@ from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
 from pyanaconda.modules.network.network_interface import NetworkInterface, \
     NetworkInitializationTaskInterface
@@ -278,6 +279,20 @@ class NetworkModule(KickstartModule):
         self._disable_ipv6 = disable_ipv6
         log.debug("disable IPv6 is set to %s", disable_ipv6)
 
+    def collect_requirements(self):
+        """Return installation requirements for this module.
+
+        :return: a list of requirements
+        """
+        # first collect requirements from the Firewall sub-module
+        requirements = self._firewall_module.collect_requirements()
+
+        # team device configuration support
+        if self.get_team_devices():
+            requirements.append(Requirement.for_package("teamd", reason="Necessary for network team device configuration."))
+
+        return requirements
+
     def install_network_with_task(self, onboot_ifaces, overwrite):
         """Install network with an installation task.
 
@@ -459,6 +474,15 @@ class NetworkModule(KickstartModule):
                 activated_ifaces.append(device.get_ip_iface() or device.get_iface())
 
         return activated_ifaces
+
+    def get_team_devices(self):
+        """Get existing team network devices.
+
+        :return: basic information about existing team devices
+        :rtype: list(NetworkDeviceInfo)
+        """
+        return [dev for dev in self.get_supported_devices()
+                if dev.device_type == NM.DeviceType.TEAM]
 
     @property
     def bootif(self):

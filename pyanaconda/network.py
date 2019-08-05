@@ -51,7 +51,7 @@ network_connected_condition = threading.Condition()
 
 _nm_client = None
 
-__all__ = ["can_overwrite_configuration", "get_team_devices", "get_supported_devices",
+__all__ = ["can_overwrite_configuration", "get_supported_devices",
            "status_message", "wait_for_connectivity", "wait_for_connecting_NM_thread",
            "wait_for_network_devices", "wait_for_connected_NM", "initialize_network",
            "copy_resolv_conf_to_root", "get_hostname", "prefix_to_netmask", "netmask_to_prefix",
@@ -535,15 +535,6 @@ def get_supported_devices():
     network_proxy = NETWORK.get_proxy()
     return NetworkDeviceInfo.from_structure_list(network_proxy.GetSupportedDevices())
 
-
-def get_team_devices():
-    """Get existing team network devices.
-
-    :return: basic information about existing team devices
-    :rtype: list(NetworkDeviceInfo)
-    """
-    return [dev for dev in get_supported_devices()
-            if dev.device_type == NM.DeviceType.TEAM]
 
 
 def get_ntp_servers_from_dhcp(nm_client):

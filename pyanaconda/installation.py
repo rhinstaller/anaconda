@@ -292,8 +292,6 @@ def _prepare_installation(storage, payload, ksdata):
     # - check for possibly needed additional packages.
     pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
     pre_install.append(Task("Setup authselect", ksdata.authselect.setup))
-    pre_install.append(Task("Setup firewall", ksdata.firewall.setup))
-    pre_install.append(Task("Setup network", ksdata.network.setup))
     # Setup timezone and add chrony as package if timezone was set in KS
     # and "-chrony" wasn't in packages section and/or --nontp wasn't set.
     pre_install.append(Task("Setup timezone", ksdata.timezone.setup, (ksdata,)))
@@ -316,8 +314,6 @@ def _prepare_installation(storage, payload, ksdata):
         # to finish setting up the system.
         payload.requirements.add_packages(storage.packages, reason="storage")
         payload.requirements.add_packages(ksdata.authselect.packages, reason="authselect")
-        payload.requirements.add_packages(ksdata.firewall.packages, reason="firewall")
-        payload.requirements.add_packages(ksdata.network.packages, reason="network")
         payload.requirements.add_packages(ksdata.timezone.packages, reason="ntp", strong=False)
 
         if can_install_bootloader:
@@ -331,7 +327,7 @@ def _prepare_installation(storage, payload, ksdata):
         # add package requirements from modules
         # - iterate over all modules we know have valid package requirements
         # - add any requirements found to the payload requirement tracking
-        modules_with_package_requirements = [SECURITY]
+        modules_with_package_requirements = [SECURITY, NETWORK]
         for module in modules_with_package_requirements:
             module_proxy = module.get_proxy()
             module_requirements = Requirement.from_structure_list(module_proxy.CollectRequirements())

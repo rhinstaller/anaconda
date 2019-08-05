@@ -22,6 +22,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import FIREWALL
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.network.constants import FirewallMode
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
 from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
@@ -35,7 +36,6 @@ class FirewallModule(KickstartBaseModule):
     def __init__(self):
         super().__init__()
 
-        self.firewall_seen_changed = Signal()
         self._firewall_seen = False
 
         self.firewall_mode_changed = Signal()
@@ -107,7 +107,6 @@ class FirewallModule(KickstartBaseModule):
         :param bool firewall_seen: if the firewall command has been present in input kickstart
         """
         self._firewall_seen = firewall_seen
-        self.firewall_seen_changed.emit()
         log.debug("Firewall command considered seen in kickstart: %s.", self._firewall_seen)
 
     @property
@@ -205,6 +204,18 @@ class FirewallModule(KickstartBaseModule):
         self._disabled_services = list(disabled_services)
         self.disabled_services_changed.emit()
         log.debug("Services that will be explicitly disabled on the firewall: %s", self._disabled_services)
+
+    def collect_requirements(self):
+        """Return installation requirements for this module.
+
+        :return: a list of requirements
+        """
+        requirements = []
+
+        if self.firewall_seen:
+            requirements.append(Requirement.for_package("firewalld", reason="Requested by the firewall kickstart command."))
+
+        return requirements
 
     def install_with_task(self):
         """Return the installation tasks of this module.

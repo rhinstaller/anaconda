@@ -32,7 +32,6 @@ class FirewallInterface(KickstartModuleInterfaceTemplate):
     def connect_signals(self):
         """Connect the signals."""
         super().connect_signals()
-        self.watch_property("FirewallKickstarted", self.implementation.firewall_seen_changed)
         self.watch_property("FirewallMode", self.implementation.firewall_mode_changed)
         self.watch_property("EnabledPorts", self.implementation.enabled_ports_changed)
         self.watch_property("Trusts", self.implementation.trusts_changed)
@@ -57,11 +56,6 @@ class FirewallInterface(KickstartModuleInterfaceTemplate):
     def SetFirewallMode(self, firewall_mode: Bool):
         """Set firewall configuration mode for the target system."""
         self.implementation.set_firewall_mode(FirewallMode(firewall_mode))
-
-    @property
-    def FirewallKickstarted(self) -> Bool:
-        """Was the firewall command present in the input kickstart ?"""
-        return self.implementation.firewall_seen
 
     @property
     def EnabledPorts(self) -> List[Str]:
