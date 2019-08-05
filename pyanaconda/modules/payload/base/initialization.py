@@ -19,7 +19,6 @@ import os
 import shutil
 from glob import glob
 
-from pyanaconda.core.constants import DD_ALL, DD_FIRMWARE, DD_RPMS
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist
 
@@ -57,6 +56,11 @@ class PrepareSystemForInstallationTask(Task):
 class CopyDriverDisksFilesTask(Task):
     """Copy driver disks files after installation to the installed system."""
 
+    DD_DIR = "/tmp/DD"
+    DD_FIRMWARE_DIR = "/tmp/DD/lib/firmware"
+    DD_RPMS_DIR = "/tmp"
+    DD_RPMS_GLOB = "DD-*"
+
     def __init__(self, sysroot):
         """Create copy driver disks files task.
 
@@ -74,21 +78,21 @@ class CopyDriverDisksFilesTask(Task):
         """Copy files from the driver disks to the installed system."""
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in the common DD firmware directory
-        for f in glob(DD_FIRMWARE + "/*"):
+        for f in glob(self.DD_FIRMWARE_DIR + "/*"):
             try:
                 shutil.copyfile(f, os.path.join(self._sysroot, "lib/firmware/"))
             except IOError as e:
                 log.error("Could not copy firmware file %s: %s", f, e.strerror)
 
         # copy RPMS
-        for d in glob(DD_RPMS):
+        for d in glob(os.path.join(self.DD_RPMS_DIR, self.DD_RPMS_GLOB)):
             dest_dir = os.path.join(self._sysroot, "root/", os.path.basename(d))
             shutil.copytree(d, dest_dir)
 
         # copy modules and firmware into root's home directory
-        if os.path.exists(DD_ALL):
+        if os.path.exists(self.DD_DIR):
             try:
-                shutil.copytree(DD_ALL, os.path.join(self._sysroot, "root/DD"))
+                shutil.copytree(self.DD_DIR, os.path.join(self._sysroot, "root/DD"))
             except IOError as e:
                 log.error("failed to copy driver disk files: %s", e.strerror)
                 # XXX TODO: real error handling, as this is probably going to
