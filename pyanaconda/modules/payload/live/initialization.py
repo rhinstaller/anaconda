@@ -417,6 +417,8 @@ class UpdateBLSConfigurationTask(Task):
         if os.path.exists(self._sysroot + "/usr/sbin/new-kernel-pkg"):
             return
 
+        # TODO: test if this is not a dir install
+
         # Remove any existing BLS entries, they will not match the new system's
         # machine-id or /boot mountpoint.
         for file in glob.glob(self._sysroot + "/boot/loader/entries/*.conf"):

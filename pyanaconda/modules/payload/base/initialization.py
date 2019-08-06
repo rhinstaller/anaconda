@@ -53,6 +53,11 @@ class PrepareSystemForInstallationTask(Task):
         write_module_blacklist(self._sysroot)
 
 
+# TODO: Can we remove this really old code which probably even doesn't work now?
+# The tmpfs is mounted above Dracut /tmp where the below files are created so we never copy
+# anything because we don't see those files.
+# This code was introduced by commit 13f58e367f918320ce7f5be2e08c6a02ff90a087 with no bz number.
+# It looks that the functionality is not required anymore on the newer implementation.
 class CopyDriverDisksFilesTask(Task):
     """Copy driver disks files after installation to the installed system."""
 
