@@ -55,7 +55,6 @@ def exitHandler(rebootData):
     if anaconda.payload:
         anaconda.payload.unsetup()
 
-    from pyanaconda.modules.common.task import sync_run_task
     storage_proxy = STORAGE.get_proxy()
 
     for task_path in storage_proxy.TeardownWithTasks():
@@ -719,6 +718,7 @@ if __name__ == "__main__":
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL
     from pyanaconda.kickstart import check_kickstart_error
     from pyanaconda.modules.common.constants.objects import SNAPSHOT
+    from pyanaconda.modules.common.task import sync_run_task
     snapshot_proxy = STORAGE.get_proxy(SNAPSHOT)
 
     if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL):
@@ -726,13 +726,12 @@ if __name__ == "__main__":
         # FIXME: Don't block the main thread!
         threadMgr.wait(constants.THREAD_STORAGE)
 
-        # Prepare the requests.
-        requests = ksdata.snapshot.get_requests(SNAPSHOT_WHEN_PRE_INSTALL)
+        # Run the task.
+        snapshot_task_path = snapshot_proxy.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)
+        snapshot_task_proxy = STORAGE.get_proxy(snapshot_task_path)
 
-        # Run the tasks.
         with check_kickstart_error():
-            from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
-            SnapshotCreateTask(None, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
+            sync_run_task(snapshot_task_proxy)
 
     anaconda.intf.setup(ksdata)
     anaconda.intf.run()
