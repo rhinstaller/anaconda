@@ -118,6 +118,20 @@ class PayloadRequirements(object):
         """
         self._add(PayloadRequirementType.group, group_ids, reason, strong)
 
+    def add_requirements(self, requirements):
+        """Add requirements from a list of Requirement instances.
+
+        :param requirements: list of Requirement instances
+        """
+        for requirement in requirements:
+            # check requirement type and add a payload requirement appropriately
+            if requirement.type == "package":
+                self.add_packages([requirement.name], reason=requirement.reason)
+            elif requirement.type == "group":
+                self.add_groups([requirement.name], reason=requirement.reason)
+            else:
+                log.warning("Unknown type: %s in requirement: %s, skipping.", requirement.type, requirement)
+
     def _add(self, req_type, ids, reason, strong):
         if not ids:
             log.debug("no %s requirement added for %s", req_type.value, reason)
