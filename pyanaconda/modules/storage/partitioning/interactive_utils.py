@@ -288,12 +288,14 @@ def validate_label(label, fmt):
     :param DeviceFormat fmt: a device format to label
     :return: an error message
     """
+    if not label:
+        return None
+
     if fmt.exists:
         return _("Cannot relabel already existing file system.")
 
     if not fmt.labeling():
-        if label != "":
-            return _("Cannot set label on file system.")
+        return _("Cannot set label on file system.")
 
     if not fmt.label_format_ok(label):
         return _("Unacceptable label format for file system.")
