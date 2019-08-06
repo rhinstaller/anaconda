@@ -681,7 +681,7 @@ def generate_device_info(storage, device):
     dev_info["encrypted"] = isinstance(device, LUKSDevice)
     dev_info["luks_version"] = device.format.luks_version if device.format.type == "luks" else None
     dev_info["label"] = getattr(device.format, "label", "")
-    dev_info["mountpoint"] = getattr(device.format, "mountpoint", "") or ""
+    dev_info["mountpoint"] = getattr(device.format, "mountpoint") or None
     dev_info["raid_level"] = get_device_raid_level(device)
 
     if hasattr(device, "req_disks") and not device.exists:

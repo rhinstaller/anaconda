@@ -812,14 +812,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_device_info["label"] = self._labelEntry.get_text()
 
     def _get_new_device_mount_point(self, new_device_info, old_device_info):
-        new_device_info["mountpoint"] = None  # None means format type is not mountable
-
         if self._mountPointEntry.get_sensitive():
-            new_device_info["mountpoint"] = self._mountPointEntry.get_text()
-
-        if not old_device_info["mountpoint"]:
-            # prevent false positives below when "" != None
-            old_device_info["mountpoint"] = None
+            new_device_info["mountpoint"] = self._mountPointEntry.get_text() or None
+        else:
+            new_device_info["mountpoint"] = None
 
     def _get_new_device_raid_level(self, new_device_info, old_device_info):
         new_device_info["raid_level"] = get_selected_raid_level(self._raidLevelCombo)
