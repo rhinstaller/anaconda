@@ -713,8 +713,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_device_info = self._get_new_device_info(device, old_device_info)
 
         # Log the results.
-        log.debug("new device request: %s", new_device_info)
-        log.debug("old device request: %s", old_device_info)
+        description = self._get_device_info_description(new_device_info, old_device_info)
+        log.debug("Device request: %s", description)
 
         # Validate the device info.
         error = validate_device_info(self._storage_playground, new_device_info, reformat)
@@ -883,6 +883,37 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if container and old_device_info["device_type"] != new_device_info["device_type"]:
             log.debug("overriding disk set with container's")
             new_device_info["disks"] = container.disks[:]
+
+    def _get_device_info_description(self, new_device_info, old_device_info):
+        # FIXME: Remove this method once we replace dictionaries with structures.
+        attributes = []
+
+        if new_device_info.keys() != old_device_info.keys():
+            raise KeyError
+
+        for key in new_device_info.keys():
+            if key == "device":
+                def prettify(device):
+                    return device.name
+            elif key == "disks":
+                def prettify(disks):
+                    return [disk.name for disk in disks]
+            else:
+                def prettify(value):
+                    return "''" if str(value) == "" else value
+
+            if new_device_info[key] == old_device_info[key]:
+                attribute = "{} = {}".format(
+                    key, prettify(new_device_info[key])
+                )
+            else:
+                attribute = "{} = {} -> {}".format(
+                    key, prettify(old_device_info[key]), prettify(new_device_info[key])
+                )
+
+            attributes.append(attribute)
+
+        return "\n".join(["{"] + attributes + ["}"])
 
     def _change_device(self, selector, new_device_info, old_device_info):
         # If something has changed but the device does not exist,
