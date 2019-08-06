@@ -682,7 +682,7 @@ def generate_device_info(storage, device):
     dev_info["device_type"] = device_type
     dev_info["fstype"] = device.format.type
     dev_info["encrypted"] = isinstance(device, LUKSDevice)
-    dev_info["luks_version"] = device.format.luks_version if device.format.type == "luks" else None
+    dev_info["luks_version"] = get_device_luks_version(device)
     dev_info["label"] = getattr(device.format, "label", "")
     dev_info["mountpoint"] = getattr(device.format, "mountpoint") or None
     dev_info["raid_level"] = get_device_raid_level(device)
@@ -710,7 +710,7 @@ def generate_device_info(storage, device):
         dev_info["container_name"] = None
         dev_info["container_encrypted"] = False
         dev_info["container_raid_level"] = None
-        dev_info["container_size"] = factory.SIZE_POLICY_AUTO
+        dev_info["container_size"] = devicefactory.SIZE_POLICY_AUTO
 
     return dev_info
 
