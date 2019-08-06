@@ -382,7 +382,10 @@ def validate_device_info(storage, dev_info, reformat):
 
     changed_mount_point = dev_info["mountpoint"] != getattr(device.format, "mountpoint")
 
-    if changed_mount_point and mount_point is not None:
+    if reformat and not mount_point:
+        return _("Please enter a mount point.")
+
+    if changed_mount_point and mount_point:
         error = validate_mount_point(
             mount_point,
             storage.mountpoints.keys()
