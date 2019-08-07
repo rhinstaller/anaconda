@@ -45,17 +45,10 @@ class PartitioningTestCase(unittest.TestCase):
         requests = _complete_partitioning_requests(storage, [PartSpec("/boot"), PartSpec("/")])
         self.assertEqual(["ext4", "xfs"], [spec.fstype for spec in requests])
 
-    @patch("pyanaconda.dbus.DBus.get_proxy")
-    def filter_all_default_partitioning_test(self, proxy_getter):
-        proxy = Mock()
-        proxy_getter.return_value = proxy
-
-        proxy.NoHome = True
-        proxy.NoBoot = True
-        proxy.NoSwap = True
-
+    def filter_all_default_partitioning_test(self):
         requests = _filter_default_partitions(
-            [PartSpec("/boot"), PartSpec("/"), PartSpec("/home"), PartSpec(fstype="swap")]
+            [PartSpec("/boot"), PartSpec("/"), PartSpec("/home"), PartSpec(fstype="swap")],
+            excluded_mount_points=["/boot", "/home", "swap"]
         )
 
         self.assertEqual(["/"], [spec.mountpoint for spec in requests])
@@ -65,12 +58,9 @@ class PartitioningTestCase(unittest.TestCase):
         proxy = Mock()
         proxy_getter.return_value = proxy
 
-        proxy.NoHome = False
-        proxy.NoBoot = False
-        proxy.NoSwap = False
-
         requests = _filter_default_partitions(
-            [PartSpec("/boot"), PartSpec("/"), PartSpec("/home"), PartSpec(fstype="swap")]
+            [PartSpec("/boot"), PartSpec("/"), PartSpec("/home"), PartSpec(fstype="swap")],
+            excluded_mount_points=[]
         )
 
         self.assertEqual(

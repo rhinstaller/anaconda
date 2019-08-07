@@ -20,9 +20,6 @@ from blivet.size import Size
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.storage import PartitioningType
 from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED
-
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
-from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.partspec import PartSpec
 
 # Partitioning requirements for servers.
@@ -87,17 +84,18 @@ def get_default_partitioning():
     raise ValueError("Invalid partitioning type: {}".format(conf.storage.default_partitioning))
 
 
-def get_full_partitioning_requests(storage, platform, requests):
+def get_full_partitioning_requests(storage, platform, requests, excluded_mount_points):
     """Get the full partitioning requests.
 
     :param storage: the Blivet's storage object
     :param platform: the current platform object
     :param requests: a list of partitioning specs
+    :param excluded_mount_points: a list of mount points to exclude
     :return:
     """
     requests = _get_platform_specific_partitioning(platform, requests)
     requests = _complete_partitioning_requests(storage, requests)
-    requests = _filter_default_partitions(requests)
+    requests = _filter_default_partitions(requests, excluded_mount_points)
     return requests
 
 
@@ -127,38 +125,19 @@ def _complete_partitioning_requests(storage, requests):
     return requests
 
 
-def _filter_default_partitions(requests):
-    """Filter default partitions based on the kickstart data.
+def _filter_default_partitions(requests, excluded_mount_points):
+    """Filter default partitions.
 
     :param requests: a list of requests
+    :param excluded_mount_points: a list of mount points to exclude
     :return: a customized list of requests
     """
-    auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-    skipped_mountpoints = set()
-    skipped_fstypes = set()
+    if "swap" in excluded_mount_points:
+        # Swap will not be recommended by the storage checker.
+        # TODO: Remove this code from this function.
+        from pyanaconda.storage.checker import storage_checker
+        storage_checker.set_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)
 
-    # Create sets of mountpoints and fstypes to remove from autorequests.
-    if auto_part_proxy.Enabled:
-        # Remove /home if --nohome is selected.
-        if auto_part_proxy.NoHome:
-            skipped_mountpoints.add("/home")
-
-        # Remove /boot if --noboot is selected.
-        if auto_part_proxy.NoBoot:
-            skipped_mountpoints.add("/boot")
-
-        # Remove swap if --noswap is selected.
-        if auto_part_proxy.NoSwap:
-            skipped_fstypes.add("swap")
-
-            # Swap will not be recommended by the storage checker.
-            # TODO: Remove this code from this function.
-            from pyanaconda.storage.checker import storage_checker
-            storage_checker.set_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)
-
-    # Skip mountpoints we want to remove.
-    return [
-        req for req in requests
-        if req.mountpoint not in skipped_mountpoints
-           and req.fstype not in skipped_fstypes
-    ]
+    return list(filter(
+        lambda x: (x.mountpoint or x.fstype) not in excluded_mount_points, requests
+    ))
