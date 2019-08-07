@@ -366,12 +366,14 @@ class DumpMissingIfcfgFilesTask(Task):
         s_con = con.get_setting_connection()
         s_con.set_property(NM.SETTING_CONNECTION_ID, iface)
         s_con.set_property(NM.SETTING_CONNECTION_INTERFACE_NAME, iface)
-        if not bound_hwaddr_of_device(self._nm_client, iface, self._ifname_option_values):
-            s_wired = con.get_setting_wired()
-            s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
-        else:
-            log.debug("%s: iface %s bound to mac address by ifname boot option",
-                      self.name, iface)
+        s_wired = con.get_setting_wired()
+        # By default connections are bound to interface name
+        s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
+        bound_mac = bound_hwaddr_of_device(self._nm_client, iface, self._ifname_option_values)
+        if bound_mac:
+            s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, bound_mac)
+            log.debug("%s: iface %s bound to mac address %s by ifname boot option",
+                      self.name, iface, bound_mac)
 
     @guard_by_system_configuration(return_value=[])
     def run(self):
