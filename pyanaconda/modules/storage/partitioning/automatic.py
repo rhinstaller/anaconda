@@ -17,20 +17,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
+import copy
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
-from pyanaconda.modules.storage.constants import AutoPartitioningType
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
     AutomaticPartitioningTask
-from pyanaconda.storage.utils import get_pbkdf_args
 
 log = get_module_logger(__name__)
 
@@ -44,50 +43,8 @@ class AutoPartitioningModule(PartitioningModule):
         self.enabled_changed = Signal()
         self._enabled = False
 
-        self.type_changed = Signal()
-        self._type = None
-
-        self.fstype_changed = Signal()
-        self._fstype = ""
-
-        self.nohome_changed = Signal()
-        self._nohome = False
-
-        self.noboot_changed = Signal()
-        self._noboot = False
-
-        self.noswap_changed = Signal()
-        self._noswap = False
-
-        self.encrypted_changed = Signal()
-        self._encrypted = False
-
-        self.cipher_changed = Signal()
-        self._cipher = ""
-
-        self.passphrase_changed = Signal()
-        self._passphrase = ""
-
-        self.luks_version_changed = Signal()
-        self._luks_version = ""
-
-        self.pbkdf_changed = Signal()
-        self._pbkdf = ""
-
-        self.pbkdf_memory_changed = Signal()
-        self._pbkdf_memory = 0
-
-        self.pbkdf_time_changed = Signal()
-        self._pbkdf_time = 0
-
-        self.pbkdf_iterations_changed = Signal()
-        self._pbkdf_iterations = 0
-
-        self.escrowcert_changed = Signal()
-        self._escrowcert = ""
-
-        self.backup_passphrase_enabled_changed = Signal()
-        self._backup_passphrase_enabled = False
+        self.request_changed = Signal()
+        self._request = PartitioningRequest()
 
     def publish(self):
         """Publish the module."""
@@ -95,57 +52,66 @@ class AutoPartitioningModule(PartitioningModule):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-
         self.set_enabled(data.autopart.autopart)
+        request = PartitioningRequest()
 
         if data.autopart.type is not None:
-            self.set_type(AutoPartitioningType(data.autopart.type))
+            request.partitioning_scheme = data.autopart.type
 
         if data.autopart.fstype:
-            self.set_fstype(data.autopart.fstype)
+            request.file_system_type = data.autopart.fstype
 
-        self.set_nohome(data.autopart.nohome)
-        self.set_noboot(data.autopart.noboot)
-        self.set_noswap(data.autopart.noswap)
+        if data.autopart.noboot:
+            request.excluded_mount_points.append("/boot")
+
+        if data.autopart.nohome:
+            request.excluded_mount_points.append("/home")
+
+        if data.autopart.noswap:
+            request.excluded_mount_points.append("swap")
 
         if data.autopart.encrypted:
-            self.set_encrypted(data.autopart.encrypted)
-            self.set_passphrase(data.autopart.passphrase)
-            self.set_luks_version(data.autopart.luks_version)
-            self.set_pbkdf(data.autopart.pbkdf)
-            self.set_pbkdf_memory(data.autopart.pbkdf_memory)
-            self.set_pbkdf_time(data.autopart.pbkdf_time)
-            self.set_pbkdf_iterations(data.autopart.pbkdf_iterations)
-            self.set_escrowcert(data.autopart.escrowcert)
-            self.set_backup_passphrase_enabled(data.autopart.backuppassphrase)
-            self.set_cipher(data.autopart.cipher)
+            request.encrypted = True
+            request.passphrase = data.autopart.passphrase
+            request.cipher = data.autopart.cipher
+            request.luks_version = data.autopart.luks_version
+
+            request.pbkdf = data.autopart.pbkdf
+            request.pbkdf_memory = data.autopart.pbkdf_memory
+            request.pbkdf_time = data.autopart.pbkdf_time
+            request.pbkdf_iterations = data.autopart.pbkdf_iterations
+
+            request.escrow_certificate = data.autopart.escrowcert
+            request.backup_passphrase_enabled = data.autopart.backuppassphrase
+
+        self.set_request(request)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-
         data.autopart.autopart = self.enabled
-        data.autopart.fstype = self.fstype
+        data.autopart.fstype = self.request.file_system_type
 
-        if not self.is_type_default:
-            data.autopart.type = self.type.value
+        if self.request.partitioning_scheme != DEFAULT_AUTOPART_TYPE:
+            data.autopart.type = self.request.partitioning_scheme
 
-        data.autopart.nohome = self.nohome
-        data.autopart.noboot = self.noboot
-        data.autopart.noswap = self.noswap
+        data.autopart.nohome = "/home" in self.request.excluded_mount_points
+        data.autopart.noboot = "/boot" in self.request.excluded_mount_points
+        data.autopart.noswap = "swap" in self.request.excluded_mount_points
 
-        data.autopart.encrypted = self.encrypted
+        data.autopart.encrypted = self.request.encrypted
 
         # Don't generate sensitive information.
         data.autopart.passphrase = ""
+        data.autopart.cipher = self.request.cipher
+        data.autopart.luks_version = self.request.luks_version
 
-        data.autopart.luks_version = self.luks_version
-        data.autopart.pbkdf = self.pbkdf
-        data.autopart.pbkdf_memory = self.pbkdf_memory
-        data.autopart.pbkdf_time = self.pbkdf_time
-        data.autopart.pbkdf_iterations = self.pbkdf_iterations
-        data.autopart.escrowcert = self.escrowcert
-        data.autopart.backuppassphrase = self.backup_passphrase_enabled
-        data.autopart.cipher = self.cipher
+        data.autopart.pbkdf = self.request.pbkdf
+        data.autopart.pbkdf_memory = self.request.pbkdf_memory
+        data.autopart.pbkdf_time = self.request.pbkdf_time
+        data.autopart.pbkdf_iterations = self.request.pbkdf_iterations
+
+        data.autopart.escrowcert = self.request.escrow_certificate
+        data.autopart.backuppassphrase = self.request.backup_passphrase_enabled
 
     @property
     def enabled(self):
@@ -162,290 +128,39 @@ class AutoPartitioningModule(PartitioningModule):
         log.debug("Enabled is set to '%s'.", enabled)
 
     @property
-    def is_type_default(self):
-        """Is the type of a filesystem set to a default value?"""
-        return self._type is None
+    def request(self):
+        """The partitioning request."""
+        return self._request
 
-    @property
-    def type(self):
-        """Type of a filesystem used on the partitions."""
-        if self.is_type_default:
-            return AutoPartitioningType(DEFAULT_AUTOPART_TYPE)
+    def set_request(self, request):
+        """Set the partitioning request.
 
-        return self._type
-
-    def set_type(self, scheme):
-        """Set the partitioning scheme.
-
-        :param scheme: an instance of AutoPartitioningType
+        :param request: a request
         """
-        self._type = scheme
-        self.type_changed.emit()
-        log.debug("Type is set to '%s'.", scheme)
-
-    @property
-    def fstype(self):
-        """Type of a filesystem used on the partitions."""
-        return self._fstype
-
-    def set_fstype(self, fstype):
-        """Set the type of a filesystem used on the partitions.
-
-        :param fstype: a string with the filesystem type
-        """
-        self._fstype = fstype
-        self.fstype_changed.emit()
-        log.debug("Filesystem type is set to '%s'.", fstype)
-
-    @property
-    def nohome(self):
-        """Do not create a /home partition."""
-        return self._nohome
-
-    def set_nohome(self, nohome):
-        """Enable or disable creation of a /home partition.
-
-        :param nohome: a boolean value
-        """
-        self._nohome = nohome
-        self.nohome_changed.emit()
-        log.debug("Nohome is set to '%s'.", nohome)
-
-    @property
-    def noboot(self):
-        """Do not create a /boot partition."""
-        return self._noboot
-
-    def set_noboot(self, noboot):
-        """Enable or disable creation of a /boot partition.
-
-        :param noboot: a boolean value
-        """
-        self._noboot = noboot
-        self.noboot_changed.emit()
-        log.debug("Noboot is set to '%s'.", noboot)
-
-    @property
-    def noswap(self):
-        """Do not create a swap partition."""
-        return self._noswap
-
-    def set_noswap(self, noswap):
-        """Enable or disable creation of a swap partition.
-
-        :param noswap: a boolean value
-        """
-        self._noswap = noswap
-        self.noswap_changed.emit()
-        log.debug("Noswap is set to '%s'.", noswap)
-
-    @property
-    def encrypted(self):
-        """Should all devices with support be encrypted by default?"""
-        return self._encrypted
-
-    def set_encrypted(self, encrypted):
-        """Set if all devices with support should be encrypted by default.
-
-        :param encrypted: a boolean value
-        """
-        self._encrypted = encrypted
-        self.encrypted_changed.emit()
-        log.debug("Encrypted is set to '%s'.", encrypted)
-
-    @property
-    def cipher(self):
-        """Encryption algorithm used to encrypt the filesystem."""
-        return self._cipher
-
-    def set_cipher(self, cipher):
-        """Set the encryption algorithm used to encrypt the filesystem.
-
-        :param cipher: a name of an algorithm
-        """
-        self._cipher = cipher
-        self.cipher_changed.emit()
-        log.debug("Cipher is set to '%s'.", cipher)
-
-    @property
-    def passphrase(self):
-        """Default passphrase for all encrypted devices."""
-        return self._passphrase
+        self._request = request
+        self.request_changed.emit()
+        log.debug("Request is set to '%s'.", request)
 
     def requires_passphrase(self):
         """Is the default passphrase required?
 
         :return: True or False
         """
-        return self.encrypted and not self.passphrase
+        return self.request.encrypted and not self.request.passphrase
 
     def set_passphrase(self, passphrase):
         """Set a default passphrase for all encrypted devices.
 
         :param passphrase: a string with a passphrase
         """
-        self._passphrase = passphrase
-        self.passphrase_changed.emit()
-        log.debug("Passphrase is set.")
-
-    @property
-    def luks_version(self):
-        """Version of LUKS."""
-        return self._luks_version
-
-    def set_luks_version(self, version):
-        """Set the version of LUKS.
-
-        :param version: a string with the LUKS version
-        """
-        self._luks_version = version
-        self.luks_version_changed.emit()
-        log.debug("LUKS version is set to '%s'.", version)
-
-    @property
-    def pbkdf(self):
-        """The PBKDF algorithm."""
-        return self._pbkdf
-
-    def set_pbkdf(self, pbkdf):
-        """Set the PBKDF algorithm.
-
-        Set Password-Based Key Derivation Function (PBKDF)
-        algorithm for LUKS keyslot.
-
-        :param pbkdf: a name of the algorithm
-        """
-        self._pbkdf = pbkdf
-        self.pbkdf_changed.emit()
-        log.debug("PBKDF is set to '%s'.", pbkdf)
-
-    @property
-    def pbkdf_memory(self):
-        """The memory cost for PBKDF."""
-        return self._pbkdf_memory
-
-    def set_pbkdf_memory(self, memory):
-        """Set the memory cost for PBKDF.
-
-        :param memory: the memory cost in kilobytes
-        """
-        self._pbkdf_memory = memory
-        self.pbkdf_memory_changed.emit()
-        log.debug("PBKDF memory is set to '%s'.", memory)
-
-    @property
-    def pbkdf_time(self):
-        """The time to spend with PBKDF processing."""
-        return self._pbkdf_time
-
-    def set_pbkdf_time(self, time_ms):
-        """Set the time to spend with PBKDF processing.
-
-        Sets the number of milliseconds to spend with PBKDF
-        passphrase processing.
-
-        :param time_ms: a number of milliseconds
-        """
-        self._pbkdf_time = time_ms
-        self.pbkdf_time_changed.emit()
-        log.debug("PBKDF time is set to '%s'.", time_ms)
-
-    @property
-    def pbkdf_iterations(self):
-        """The number of iterations for PBKDF."""
-        return self._pbkdf_iterations
-
-    def set_pbkdf_iterations(self, iterations):
-        """Set the number of iterations for PBKDF.
-
-        Avoid PBKDF benchmark and set time cost (iterations) directly.
-
-        :param iterations: a number of iterations
-        """
-        self._pbkdf_iterations = iterations
-        self.pbkdf_iterations_changed.emit()
-        log.debug("PBKDF iterations are set to '%s'.", iterations)
-
-    @property
-    def escrowcert(self):
-        """URL of an X.509 certificate."""
-        return self._escrowcert
-
-    def set_escrowcert(self, url):
-        """Set URL of an X.509 certificate.
-
-        :param url: URL of an X.509 certificate
-        """
-        self._escrowcert = url
-        self.escrowcert_changed.emit()
-        log.debug("Escrowcert is set to '%s'.", url)
-
-    @property
-    def backup_passphrase_enabled(self):
-        """Is the backup passphrase enabled?"""
-        return self._backup_passphrase_enabled
-
-    def set_backup_passphrase_enabled(self, enabled):
-        """Enable or disable the backup passphrase.
-
-        :param enabled: a boolean value
-        """
-        self._backup_passphrase_enabled = enabled
-        self.backup_passphrase_enabled_changed.emit()
-        log.debug("Backup passphrase enabled is set to '%s'.", enabled)
-
-    @property
-    def pbkdf_args(self):
-        """Arguments for PBKDF.
-
-        :return: a dictionary of arguments.
-        :raise: UnavailableStorageError if the storage is not available
-        """
-        if not self.encrypted:
-            return None
-
-        luks_version = self.luks_version or self.storage.default_luks_version
-
-        return get_pbkdf_args(
-            luks_version=luks_version,
-            pbkdf_type=self.pbkdf or None,
-            max_memory_kb=self.pbkdf_memory,
-            iterations=self.pbkdf_iterations,
-            time_ms=self.pbkdf_time
-        )
-
-    @property
-    def luks_format_args(self):
-        """Arguments for the LUKS format constructor.
-
-        :return: a dictionary of arguments
-        :raise: UnavailableStorageError if the storage is not available
-        """
-        if not self.encrypted:
-            return {}
-
-        luks_version = self.luks_version or self.storage.default_luks_version
-        escrow_cert = self.storage.get_escrow_certificate(self.escrowcert)
-
-        return {
-            "passphrase": self.passphrase,
-            "cipher": self.cipher,
-            "luks_version": luks_version,
-            "pbkdf_args": self.pbkdf_args,
-            "escrow_cert": escrow_cert,
-            "add_backup_passphrase": self.backup_passphrase_enabled,
-            "min_luks_entropy": MIN_CREATE_ENTROPY,
-        }
+        # Update the request with a new copy.
+        request = copy.deepcopy(self.request)
+        request.passphrase = passphrase
+        self.set_request(request)
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
-        task = AutomaticPartitioningTask(
-            storage=self.storage,
-            scheme=self.type.value,
-            encrypted=self.encrypted,
-            luks_format_args=self.luks_format_args
-        )
-
+        task = AutomaticPartitioningTask(self.storage, self.request)
         path = self.publish_task(AUTO_PARTITIONING.namespace, task)
         return path
 
