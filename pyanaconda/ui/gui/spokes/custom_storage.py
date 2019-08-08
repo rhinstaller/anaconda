@@ -26,7 +26,6 @@
 # - Implement striping and mirroring for LVM.
 # - Activating reformat should always enable resize for existing devices.
 import gi
-
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("AnacondaWidgets", "3.3")
@@ -51,6 +50,7 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTI
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
     StorageConfigurationError
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
@@ -2077,8 +2077,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         log.debug("running automatic partitioning")
         self.clear_errors()
 
+        request = PartitioningRequest()
+        request.partitioning_scheme = scheme
+
         try:
-            task = InteractiveAutoPartitioningTask(self._storage_playground, scheme)
+            task = InteractiveAutoPartitioningTask(self._storage_playground, request)
             task.run()
         except (StorageConfigurationError, BootloaderConfigurationError) as e:
             self._reset_storage()

@@ -71,9 +71,8 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, \
-    BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, DEFAULT_AUTOPART_TYPE, WARNING_NO_DISKS_SELECTED, \
-    WARNING_NO_DISKS_DETECTED
+from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
+    STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED
 from pyanaconda.storage.initialization import reset_storage, select_all_disks_by_default, \
     reset_bootloader
 from pyanaconda.storage.snapshot import on_disk_storage
@@ -83,6 +82,7 @@ from pyanaconda.modules.common.errors.configuration import StorageConfigurationE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.payload.livepayload import LiveImagePayload
 
 import sys
@@ -294,9 +294,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self._auto_part_enabled = self._auto_part_module.Enabled
         self._previous_auto_part = False
+        self._partitioning_request = PartitioningRequest()
 
         self._initialization_mode = constants.CLEAR_PARTITIONS_NONE
-        self._auto_part_encrypted = False
         self._auto_part_missing_passphrase = False
         self._disks_errors = []
 
@@ -395,8 +395,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def apply(self):
         apply_disk_selection(self.storage, self._selected_disks)
         self._auto_part_module.SetEnabled(self._auto_part_enabled)
-        self._auto_part_module.SetType(DEFAULT_AUTOPART_TYPE)
-        self._auto_part_module.SetEncrypted(self._auto_part_encrypted)
+
+        self._auto_part_module.SetRequest(
+            PartitioningRequest.to_structure(self._partitioning_request)
+        )
 
         boot_drive = self._bootloader_module.Drive
         if boot_drive and boot_drive not in self._selected_disks:
@@ -583,8 +585,11 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self.storage.select_disks(disk_names)
 
         self._auto_part_enabled = self._auto_part_module.Enabled
-        self._auto_part_encrypted = self._auto_part_module.Encrypted
         self._previous_auto_part = self._auto_part_enabled
+
+        self._partitioning_request = PartitioningRequest.from_structure(
+            self._auto_part_module.Request
+        )
 
         # First, remove all non-button children.
         for child in self.local_overviews + self.advanced_overviews:
@@ -616,7 +621,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             overview.set_chosen(name in self._selected_disks)
 
         # if encrypted is specified in kickstart, select the encryptionCheckbox in the GUI
-        if self._auto_part_encrypted:
+        if self._partitioning_request.encrypted:
             self._encrypted_checkbox.set_active(True)
 
         self._update_summary()
@@ -808,15 +813,16 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         return rc
 
     def _setup_passphrase(self):
-        passphrase = self._auto_part_module.Passphrase
+        passphrase = self._partitioning_request.passphrase
         dialog = PassphraseDialog(self.data, default_passphrase=passphrase)
 
         rc = self.run_lightbox_dialog(dialog)
         if rc != 1:
             return False
 
-        self._auto_part_module.SetPassphrase(dialog.passphrase)
-        setup_passphrase(self.storage, dialog.passphrase)
+        passphrase = dialog.passphrase
+        self._partitioning_request.passphrase = passphrase
+        setup_passphrase(self.storage, passphrase)
         return True
 
     def _remove_nonexistant_partitions(self):
@@ -1003,10 +1009,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # even if they're not doing autopart, setting autopart.encrypted
         # establishes a default of encrypting new devices
-        self._auto_part_encrypted = self._encrypted_checkbox.get_active()
+        self._partitioning_request.encrypted = self._encrypted_checkbox.get_active()
 
         # We might first need to ask about an encryption passphrase.
-        if self._auto_part_encrypted and not self._setup_passphrase():
+        if self._partitioning_request.encrypted and not self._setup_passphrase():
             self._back_clicked = False
             return
 
