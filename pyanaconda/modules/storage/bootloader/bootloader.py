@@ -408,7 +408,9 @@ class BootloaderModule(KickstartBaseModule):
         requirements = []
 
         for name in self.storage.bootloader.packages:
-            requirements.append(Requirement.for_package(name, reason="bootloader"))
+            requirements.append(Requirement.for_package(
+                name, reason="Necessary for the bootloader configuration."
+            ))
 
         return requirements
 

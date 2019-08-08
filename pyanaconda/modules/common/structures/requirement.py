@@ -65,9 +65,15 @@ class Requirement(DBusData):
 
     @property
     def reason(self) -> Str:
-        """A reason of the requirement.
+        """An explanation of the requirement.
 
-        Usually a name of a component that requires this requirement.
+        Provides a message that explains why this requirement
+        is required.
+
+        For example:
+            Required to join a realm.
+            Requested by the firewall kickstart command.
+            Necessary for network team device configuration.
 
         :return: a reason
         """
@@ -82,7 +88,7 @@ class Requirement(DBusData):
         """Create a package requirement.
 
         :param package_name: a name of a package
-        :param reason: a name of a component
+        :param reason: why is this package required?
         :return: a new requirement
         """
         requirement = cls()
@@ -96,7 +102,7 @@ class Requirement(DBusData):
         """Create a group requirement.
 
         :param group_name: a name of a group
-        :param reason: a name of a component
+        :param reason: why is this group required?
         :return: a new requirement
         """
         requirement = cls()
