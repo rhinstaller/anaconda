@@ -30,6 +30,7 @@ from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
     FCOE, ZFCP, BOOTLOADER, ISCSI
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.platform import platform
 
@@ -98,10 +99,10 @@ def set_storage_defaults_from_kickstart(storage):
     """
     # Set the default filesystem types.
     auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-    fstype = auto_part_proxy.FilesystemType
+    request = PartitioningRequest.from_structure(auto_part_proxy.Request)
 
-    if auto_part_proxy.Enabled and fstype:
-        storage.set_default_fstype(fstype)
+    if auto_part_proxy.Enabled and request.file_system_type:
+        storage.set_default_fstype(request.file_system_type)
 
 
 def load_plugin_s390():

@@ -15,17 +15,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
-
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
     AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
-from pyanaconda.storage.utils import get_pbkdf_args
 
 __all__ = ["configure_storage"]
 
@@ -42,34 +40,8 @@ def configure_storage(storage, data=None, interactive=False):
     if interactive:
         task = InteractivePartitioningTask(storage)
     elif auto_part_proxy.Enabled:
-        luks_version = auto_part_proxy.LUKSVersion or storage.default_luks_version
-        passphrase = auto_part_proxy.Passphrase
-        escrow_cert = storage.get_escrow_certificate(auto_part_proxy.Escrowcert)
-
-        pbkdf_args = get_pbkdf_args(
-            luks_version=luks_version,
-            pbkdf_type=auto_part_proxy.PBKDF or None,
-            max_memory_kb=auto_part_proxy.PBKDFMemory,
-            iterations=auto_part_proxy.PBKDFIterations,
-            time_ms=auto_part_proxy.PBKDFTime
-        )
-
-        luks_format_args = {
-            "passphrase": passphrase,
-            "cipher": auto_part_proxy.Cipher,
-            "luks_version": luks_version,
-            "pbkdf_args": pbkdf_args,
-            "escrow_cert": escrow_cert,
-            "add_backup_passphrase": auto_part_proxy.BackupPassphraseEnabled,
-            "min_luks_entropy": MIN_CREATE_ENTROPY,
-        }
-
-        task = AutomaticPartitioningTask(
-            storage,
-            auto_part_proxy.Type,
-            auto_part_proxy.Encrypted,
-            luks_format_args
-        )
+        request = PartitioningRequest.from_structure(auto_part_proxy.Request)
+        task = AutomaticPartitioningTask(storage, request)
     elif STORAGE.get_proxy(MANUAL_PARTITIONING).Enabled:
         task = ManualPartitioningTask(storage)
     else:
