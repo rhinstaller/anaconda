@@ -25,10 +25,12 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_db
 
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.formats.luks import LUKS2PBKDFArgs
-from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
+from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
 
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
@@ -60,207 +62,55 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             True
         )
 
-    def type_property_test(self):
-        """Test the type property."""
-        self._test_dbus_property(
-            "Type",
-            AUTOPART_TYPE_LVM_THINP
-        )
+    def request_property_test(self):
+        """Test the property request."""
+        in_value = {
+            'partitioning-scheme': AUTOPART_TYPE_LVM_THINP,
+            'file-system-type': 'ext4',
+            'excluded-mount-points': ['/home', '/boot', 'swap'],
+            'encrypted': True,
+            'passphrase': '123456',
+            'cipher': 'aes-xts-plain64',
+            'luks-version': 'luks1',
+            'pbkdf': 'argon2i',
+            'pbkdf-memory': 256,
+            'pbkdf-time': 100,
+            'pbkdf-iterations': 1000,
+            'escrow-certificate': 'file:///tmp/escrow.crt',
+            'backup-passphrase-enabled': True,
+        }
+
+        out_value = {
+            'partitioning-scheme': get_variant(Int, AUTOPART_TYPE_LVM_THINP),
+            'file-system-type': get_variant(Str, 'ext4'),
+            'excluded-mount-points': get_variant(List[Str], ['/home', '/boot', 'swap']),
+            'encrypted': get_variant(Bool, True),
+            'passphrase': get_variant(Str, '123456'),
+            'cipher': get_variant(Str, 'aes-xts-plain64'),
+            'luks-version': get_variant(Str, 'luks1'),
+            'pbkdf': get_variant(Str, 'argon2i'),
+            'pbkdf-memory': get_variant(Int, 256),
+            'pbkdf-time': get_variant(Int, 100),
+            'pbkdf-iterations': get_variant(Int, 1000),
+            'escrow-certificate': get_variant(Str, 'file:///tmp/escrow.crt'),
+            'backup-passphrase-enabled': get_variant(Bool, True),
+        }
 
         self._test_dbus_property(
-            "Type",
-            AUTOPART_TYPE_PLAIN
-        )
-
-        self._test_dbus_property(
-            "Type",
-            AUTOPART_TYPE_LVM
-        )
-
-    def filesystem_type_property_test(self):
-        """Test the filesystem property."""
-        self._test_dbus_property(
-            "FilesystemType",
-            "ext4"
-        )
-
-    def nohome_property_test(self):
-        """Test the nohome property."""
-        def setter(value):
-            self.module.set_nohome(value)
-            self.module.module_properties_changed.emit()
-
-        self._test_dbus_property(
-            "NoHome",
-            True,
-            setter=setter
-        )
-
-    def noboot_property_test(self):
-        """Test the noboot property."""
-        def setter(value):
-            self.module.set_noboot(value)
-            self.module.module_properties_changed.emit()
-
-        self._test_dbus_property(
-            "NoBoot",
-            True,
-            setter=setter
-        )
-
-    def noswap_property_test(self):
-        """Test the noswap property."""
-        def setter(value):
-            self.module.set_noswap(value)
-            self.module.module_properties_changed.emit()
-
-        self._test_dbus_property(
-            "NoSwap",
-            True,
-            setter=setter
-        )
-
-    def encrypted_property_test(self):
-        """Test the encrypted property."""
-        self._test_dbus_property(
-            "Encrypted",
-            True
-        )
-
-    def cipher_property_test(self):
-        """Test the cipher property,"""
-        self._test_dbus_property(
-            "Cipher",
-            "aes-xts-plain64"
-        )
-
-    def passphrase_property_test(self):
-        """Test the passphrase property."""
-        self._test_dbus_property(
-            "Passphrase",
-            "123456"
+            "Request",
+            in_value,
+            out_value
         )
 
     def requires_passphrase_test(self):
         """Test RequiresPassphrase."""
         self.assertEqual(self.interface.RequiresPassphrase(), False)
-        self.interface.SetEncrypted(True)
+
+        self.module.request.encrypted = True
         self.assertEqual(self.interface.RequiresPassphrase(), True)
-        self.interface.SetPassphrase("123456")
+
+        self.module.request.passphrase = "123456"
         self.assertEqual(self.interface.RequiresPassphrase(), False)
-
-    def luks_version_property_test(self):
-        """Test the luks version property."""
-        self._test_dbus_property(
-            "LUKSVersion",
-            "luks1"
-        )
-
-    def pbkdf_property_test(self):
-        """Test the PBKDF property."""
-        self._test_dbus_property(
-            "PBKDF",
-            "argon2i"
-        )
-
-    def pbkdf_memory_property_test(self):
-        """Test the PBKDF memory property."""
-        self._test_dbus_property(
-            "PBKDFMemory",
-            256
-        )
-
-    def pbkdf_time_property_test(self):
-        """Test the PBKDF time property."""
-        self._test_dbus_property(
-            "PBKDFTime",
-            100
-        )
-
-    def pbkdf_iterations_property_test(self):
-        """Test the PBKDF iterations property."""
-        self._test_dbus_property(
-            "PBKDFIterations",
-            1000
-        )
-
-    def escrowcert_property_test(self):
-        """Test the escrowcert property."""
-        self._test_dbus_property(
-            "Escrowcert",
-            "file:///tmp/escrow.crt"
-        )
-
-    def backup_passphrase_enabled_property_test(self):
-        """Test the backup passphrase enabled property."""
-        self._test_dbus_property(
-            "BackupPassphraseEnabled",
-            True
-        )
-
-    def pbkdf_args_test(self):
-        """Test the pbkdf_args property."""
-        self.module.set_encrypted(False)
-        self.assertEqual(self.module.pbkdf_args, None)
-
-        self.module.set_encrypted(True)
-        self.module.set_luks_version("luks1")
-        self.assertEqual(self.module.pbkdf_args, None)
-
-        self.module.set_encrypted(True)
-        self.module.set_luks_version("luks2")
-        self.assertEqual(self.module.pbkdf_args, None)
-
-        self.module.set_encrypted(True)
-        self.module.set_luks_version("luks2")
-        self.module.set_pbkdf("argon2i")
-        self.module.set_pbkdf_memory(256)
-        self.module.set_pbkdf_iterations(1000)
-        self.module.set_pbkdf_time(100)
-
-        pbkdf_args = self.module.pbkdf_args
-        self.assertIsInstance(pbkdf_args, LUKS2PBKDFArgs)
-        self.assertEqual(pbkdf_args.type, "argon2i")
-        self.assertEqual(pbkdf_args.max_memory_kb, 256)
-        self.assertEqual(pbkdf_args.iterations, 1000)
-        self.assertEqual(pbkdf_args.time_ms, 100)
-
-    def luks_format_args_test(self):
-        """Test the luks_format_args property."""
-        storage = create_storage()
-        storage._escrow_certificates["file:///tmp/escrow.crt"] = "CERTIFICATE"
-        self.module.on_storage_reset(storage)
-
-        self.module.set_encrypted(False)
-        self.assertEqual(self.module.luks_format_args, {})
-
-        self.module.set_encrypted(True)
-        self.module.set_passphrase("default")
-        self.assertEqual(self.module.luks_format_args, {
-            "passphrase": "default",
-            "cipher": "",
-            "luks_version": "luks2",
-            "pbkdf_args": None,
-            "escrow_cert": None,
-            "add_backup_passphrase": False,
-            "min_luks_entropy": MIN_CREATE_ENTROPY,
-        })
-
-        self.module.set_encrypted(True)
-        self.module.set_luks_version("luks1")
-        self.module.set_passphrase("passphrase")
-        self.module.set_cipher("aes-xts-plain64")
-        self.module.set_escrowcert("file:///tmp/escrow.crt")
-        self.module.set_backup_passphrase_enabled(True)
-        self.assertEqual(self.module.luks_format_args, {
-            "passphrase": "passphrase",
-            "cipher": "aes-xts-plain64",
-            "luks_version": "luks1",
-            "pbkdf_args": None,
-            "escrow_cert": "CERTIFICATE",
-            "add_backup_passphrase": True,
-            "min_luks_entropy": MIN_CREATE_ENTROPY,
-        })
 
     def reset_test(self):
         """Test the reset of the storage."""
@@ -286,6 +136,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         obj = check_task_creation(self, task_path, publisher, AutomaticPartitioningTask)
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
+        self.assertEqual(obj.implementation._request, self.module.request)
 
     @patch_dbus_publish_object
     def validate_with_task_test(self, publisher):
@@ -296,3 +147,66 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
+
+
+class AutomaticPartitioningTaskTestCase(unittest.TestCase):
+    """Test the automatic partitioning task."""
+
+    def no_luks_format_args_test(self):
+        storage = create_storage()
+        request = PartitioningRequest()
+
+        args = AutomaticPartitioningTask._get_luks_format_args(storage, request)
+        self.assertEqual(args, {})
+
+    def luks1_format_args_test(self):
+        storage = create_storage()
+        storage._escrow_certificates["file:///tmp/escrow.crt"] = "CERTIFICATE"
+
+        request = PartitioningRequest()
+        request.encrypted = True
+        request.passphrase = "passphrase"
+        request.luks_version = "luks1"
+        request.cipher = "aes-xts-plain64"
+        request.escrow_certificate = "file:///tmp/escrow.crt"
+        request.backup_passphrase_enabled = True
+
+        args = AutomaticPartitioningTask._get_luks_format_args(storage, request)
+        self.assertEqual(args, {
+            "passphrase": "passphrase",
+            "cipher": "aes-xts-plain64",
+            "luks_version": "luks1",
+            "pbkdf_args": None,
+            "escrow_cert": "CERTIFICATE",
+            "add_backup_passphrase": True,
+            "min_luks_entropy": MIN_CREATE_ENTROPY,
+        })
+
+    def luks2_format_args_test(self):
+        storage = create_storage()
+        request = PartitioningRequest()
+        request.encrypted = True
+        request.passphrase = "default"
+        request.luks_version = "luks2"
+        request.pbkdf = "argon2i"
+        request.pbkdf_memory = 256
+        request.pbkdf_iterations = 1000
+        request.pbkdf_time = 100
+
+        args = AutomaticPartitioningTask._get_luks_format_args(storage, request)
+        pbkdf_args = args.pop("pbkdf_args")
+
+        self.assertEqual(args, {
+            "passphrase": "default",
+            "cipher": "",
+            "luks_version": "luks2",
+            "escrow_cert": None,
+            "add_backup_passphrase": False,
+            "min_luks_entropy": MIN_CREATE_ENTROPY,
+        })
+
+        self.assertIsInstance(pbkdf_args, LUKS2PBKDFArgs)
+        self.assertEqual(pbkdf_args.type, "argon2i")
+        self.assertEqual(pbkdf_args.max_memory_kb, 256)
+        self.assertEqual(pbkdf_args.iterations, 1000)
+        self.assertEqual(pbkdf_args.time_ms, 100)
