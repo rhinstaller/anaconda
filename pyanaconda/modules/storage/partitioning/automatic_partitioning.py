@@ -17,22 +17,88 @@
 #
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.partitioning import do_partitioning, grow_lvm
+from blivet.size import Size
 from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.configuration.storage import PartitioningType
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
     NonInteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.schedule import get_candidate_disks, \
     schedule_implicit_partitions, schedule_volumes, schedule_partitions
 from pyanaconda.platform import platform
-from pyanaconda.storage.partitioning import get_full_partitioning_requests, \
-    get_default_partitioning
+from pyanaconda.storage.partspec import PartSpec
 from pyanaconda.storage.utils import suggest_swap_size, get_pbkdf_args
 
 log = get_module_logger(__name__)
 
 __all__ = ["AutomaticPartitioningTask"]
+
+
+SERVER_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("2GiB"),
+        max_size=Size("15GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        fstype="swap",
+        grow=False,
+        lv=True,
+        encrypted=True
+    )
+]
+
+WORKSTATION_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("1GiB"),
+        max_size=Size("70GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True),
+    PartSpec(
+        mountpoint="/home",
+        size=Size("500MiB"), grow=True,
+        required_space=Size("50GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True),
+    PartSpec(
+        fstype="swap",
+        grow=False,
+        lv=True,
+        encrypted=True
+    )
+]
+
+
+def get_default_partitioning(partitioning_type=None):
+    """Get the default partitioning requests.
+
+    :param partitioning_type: a type of the partitioning
+    :return: a list of partitioning specs
+    """
+    if not partitioning_type:
+        partitioning_type = conf.storage.default_partitioning
+
+    if partitioning_type is PartitioningType.SERVER:
+        return platform.set_default_partitioning() + SERVER_PARTITIONING
+
+    if partitioning_type is PartitioningType.WORKSTATION:
+        return platform.set_default_partitioning() + WORKSTATION_PARTITIONING
+
+    raise ValueError("Invalid partitioning type: {}".format(conf.storage.default_partitioning))
 
 
 class AutomaticPartitioningTask(NonInteractivePartitioningTask):
@@ -94,7 +160,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             luks_data.min_entropy = min_luks_entropy
 
         # Get the autopart requests.
-        requests = self._get_autopart_requests(storage, self._request.excluded_mount_points)
+        requests = self._get_partitioning(storage, self._request.excluded_mount_points)
 
         # Do the autopart.
         self._do_autopart(storage, scheme, requests, encrypted, luks_format_args)
@@ -132,26 +198,30 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         }
 
     @staticmethod
-    def _get_autopart_requests(storage, excluded_mount_points):
+    def _get_partitioning(storage, excluded_mount_points=()):
         """Get the partitioning requests for autopart.
 
         :param storage: blivet.Blivet instance
         :param excluded_mount_points: a list of mount points to exclude
         :return: a list of full partitioning specs
         """
-        requests = get_full_partitioning_requests(
-            storage=storage,
-            platform=platform,
-            requests=get_default_partitioning(),
-            excluded_mount_points=excluded_mount_points
-        )
+        requests = []
 
-        # Update the size of swap.
-        for request in requests:
+        for request in get_default_partitioning():
+            # Skip excluded mount points.
+            if (request.mountpoint or request.fstype) in excluded_mount_points:
+                continue
+
+            # Set the default filesystem type.
+            if request.fstype is None:
+                request.fstype = storage.get_fstype(request.mountpoint)
+
+            # Update the size of swap.
             if request.fstype == "swap":
                 disk_space = storage.get_disk_free_space()
                 request.size = suggest_swap_size(disk_space=disk_space)
-                break
+
+            requests.append(request)
 
         return requests
 

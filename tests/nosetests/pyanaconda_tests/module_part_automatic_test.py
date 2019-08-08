@@ -18,8 +18,12 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
+from blivet.size import Size
+
+from pyanaconda.core.configuration.storage import PartitioningType
+from pyanaconda.storage.partspec import PartSpec
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation
 
@@ -34,7 +38,7 @@ from pyanaconda.modules.common.structures.partitioning import PartitioningReques
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
-    AutomaticPartitioningTask
+    AutomaticPartitioningTask, get_default_partitioning
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.storage.initialization import create_storage
 
@@ -210,3 +214,55 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         self.assertEqual(pbkdf_args.max_memory_kb, 256)
         self.assertEqual(pbkdf_args.iterations, 1000)
         self.assertEqual(pbkdf_args.time_ms, 100)
+
+    @patch('pyanaconda.modules.storage.partitioning.automatic_partitioning.platform')
+    def get_default_partitioning_test(self, platform):
+        platform.set_default_partitioning.return_value = [PartSpec("/boot")]
+
+        requests = get_default_partitioning(PartitioningType.WORKSTATION)
+        self.assertEqual(["/boot", "/", "/home", None], [spec.mountpoint for spec in requests])
+
+        requests = get_default_partitioning(PartitioningType.SERVER)
+        self.assertEqual(["/boot", "/", None], [spec.mountpoint for spec in requests])
+
+    @patch('pyanaconda.modules.storage.partitioning.automatic_partitioning.suggest_swap_size')
+    @patch('pyanaconda.modules.storage.partitioning.automatic_partitioning.platform')
+    def get_partitioning_test(self, platform, suggest_swap_size):
+        storage = create_storage()
+
+        # Set the platform specs.
+        platform.set_default_partitioning.return_value = [
+            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+        ]
+
+        # Set the file system type for /boot.
+        storage._bootloader = Mock(stage2_format_types=["xfs"])
+
+        # Set the swap size.
+        suggest_swap_size.return_value = Size("1024MiB")
+
+        # Collect the requests.
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            excluded_mount_points=["/home", "/boot", "swap"]
+        )
+
+        self.assertEqual(["/"], [spec.mountpoint for spec in requests])
+
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            excluded_mount_points=[]
+        )
+
+        self.assertEqual(
+            ["/boot", "/", "/home", None],
+            [spec.mountpoint for spec in requests]
+        )
+        self.assertEqual(
+            ["xfs", "ext4", "ext4", "swap"],
+            [spec.fstype for spec in requests]
+        )
+        self.assertEqual(
+            [Size("1GiB"), Size("1GiB"), Size("500MiB"), Size("1024MiB")],
+            [spec.size for spec in requests]
+        )
