@@ -26,7 +26,6 @@ from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
     LOCALIZATION
-from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
@@ -91,34 +90,28 @@ def _prepare_configuration(storage, payload, ksdata):
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
     os_config.append(Task("Configure authselect", ksdata.authselect.execute))
 
+    # add installation tasks for the Security DBus module
     security_proxy = SECURITY.get_proxy()
     security_dbus_tasks = security_proxy.InstallWithTasks()
-    # add one Task instance per DBUS task
-    for dbus_task in security_dbus_tasks:
-        task_proxy = SECURITY.get_proxy(dbus_task)
-        os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+    os_config.append_dbus_tasks(SECURITY, security_dbus_tasks)
 
+    # add installation tasks for the Services DBus module
     services_proxy = SERVICES.get_proxy()
     services_dbus_tasks = services_proxy.InstallWithTasks()
-    # add one Task instance per DBUS task
-    for dbus_task in services_dbus_tasks:
-        task_proxy = SERVICES.get_proxy(dbus_task)
-        os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+    os_config.append_dbus_tasks(SERVICES, services_dbus_tasks)
 
     os_config.append(Task("Configure keyboard", ksdata.keyboard.execute))
     os_config.append(Task("Configure timezone", ksdata.timezone.execute))
 
+    # add installation tasks for the Localization DBus module
     localization_proxy = LOCALIZATION.get_proxy()
     localization_dbus_tasks = localization_proxy.InstallWithTasks()
-    # add one Task instance per DBUS task
-    for dbus_task in localization_dbus_tasks:
-        task_proxy = LOCALIZATION.get_proxy(dbus_task)
-        os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+    os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
 
+    # add the Firewall configuration task
     firewall_proxy = NETWORK.get_proxy(FIREWALL)
     firewall_dbus_task = firewall_proxy.InstallWithTask()
-    task_proxy = NETWORK.get_proxy(firewall_dbus_task)
-    os_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+    os_config.append_dbus_tasks(NETWORK, [firewall_dbus_task])
 
     configuration_queue.append(os_config)
 
@@ -129,15 +122,11 @@ def _prepare_configuration(storage, payload, ksdata):
                                    ksdata.network.execute, (payload, )))
         configuration_queue.append(network_config)
 
-    # creating users and groups requires some pre-configuration.
+    # add installation tasks for the Users DBus module
     user_config = TaskQueue("User creation", N_("Creating users"))
-
     users_proxy = USERS.get_proxy()
     users_dbus_tasks = users_proxy.InstallWithTasks()
-    # add one Task instance per DBUS task
-    for dbus_task in users_dbus_tasks:
-        task_proxy = USERS.get_proxy(dbus_task)
-        user_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+    os_config.append_dbus_tasks(USERS, users_dbus_tasks)
     configuration_queue.append(user_config)
 
     # Anaconda addon configuration
@@ -170,8 +159,7 @@ def _prepare_configuration(storage, payload, ksdata):
 
     # realm join
     # - this can run only after network is configured in the target system chroot
-    task_proxy = SECURITY.get_proxy(security_proxy.JoinRealmWithTask())
-    configuration_queue.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+    configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
 
     post_scripts = TaskQueue("Post installation scripts", N_("Running post-installation scripts"))
     post_scripts.append(Task("Run post installation scripts", runPostScripts, (ksdata.scripts,)))
@@ -304,8 +292,7 @@ def _prepare_installation(storage, payload, ksdata):
 
     # realm discovery
     security_proxy = SECURITY.get_proxy()
-    task_proxy = SECURITY.get_proxy(security_proxy.DiscoverRealmWithTask())
-    pre_install.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+    pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
 
     def run_pre_install():
         """This means to gather what additional packages (if any) are needed & executing payload.pre_install()."""
