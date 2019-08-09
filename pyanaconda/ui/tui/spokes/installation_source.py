@@ -25,7 +25,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
-from pyanaconda.image import find_optical_install_media, find_potential_hdiso_sources
+from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources
 
 from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.core.constants import THREAD_STORAGE_WATCHER

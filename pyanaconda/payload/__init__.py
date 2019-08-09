@@ -32,9 +32,8 @@ from pyanaconda.flags import flags
 
 from pyanaconda.core import util
 from pyanaconda import isys
-from pyanaconda.image import findFirstIsoImage
-from pyanaconda.image import mountImage
-from pyanaconda.image import find_optical_install_media, verifyMedia, verify_valid_installtree
+from pyanaconda.payload.image import findFirstIsoImage, mountImage, find_optical_install_media,\
+    verifyMedia, verify_valid_installtree
 from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup

@@ -30,7 +30,7 @@ from pyanaconda.core import glib, constants
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_, CN_
-from pyanaconda.image import find_optical_install_media, find_potential_hdiso_sources
+from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources
 from pyanaconda.core.util import ProxyString, ProxyStringError, cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
