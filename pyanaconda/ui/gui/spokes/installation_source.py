@@ -352,7 +352,6 @@ class IsoChooser(GUIObject):
     def run(self, dev):
         retval = None
 
-        unmount = not dev.format.status
         mounts = get_mount_paths(dev.path)
         mountpoint = None
         # We have to check both ISO_DIR and the DRACUT_ISODIR because we
@@ -370,7 +369,7 @@ class IsoChooser(GUIObject):
             if f:
                 retval = f.replace(constants.ISO_DIR, "")
 
-        if unmount:
+        if not mounts:
             dev.format.unmount(mountpoint=mountpoint)
 
         self.window.destroy()
@@ -1341,7 +1340,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         dialog = MediaCheckDialog(self.data)
         with self.main_window.enlightbox(dialog.window):
-            unmount = not p.format.status
             mounts = get_mount_paths(p.path)
             mountpoint = None
             # We have to check both ISO_DIR and the DRACUT_ISODIR because we
@@ -1352,7 +1350,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 mountpoint = constants.ISO_DIR
                 p.format.mount(mountpoint=mountpoint)
             dialog.run(constants.ISO_DIR + "/" + f)
-            if unmount:
+            if not mounts:
                 p.format.unmount(mountpoint=mountpoint)
 
     def on_verify_media_clicked(self, button):
