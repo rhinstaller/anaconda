@@ -20,6 +20,7 @@
 from threading import RLock
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import synchronized
+from pyanaconda.modules.common.task import sync_run_task
 import time
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -320,6 +321,17 @@ class TaskQueue(BaseTask):
     def append(self, item):
         item.parent = self
         self._list.append(item)
+
+    @synchronized
+    def append_dbus_tasks(self, service_id, dbus_tasks):
+        """Append DBus Tasks from a module to the TaskQueue.
+
+        :param service_id: DBusServiceIdentifier instance corresponding to an Anaconda DBus module
+        :param dbus_tasks: list of DBus Tasks paths
+        """
+        for dbus_task_path in dbus_tasks:
+            task_proxy = service_id.get_proxy(dbus_task_path)
+            self.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
 
     @synchronized
     def insert(self, index, item):
