@@ -402,6 +402,12 @@ class DeviceConfigurations(object):
         device_type = self.setting_types.get(connection_type, None)
         iface = get_iface_from_connection(self.nm_client, uuid)
 
+        # Require interface name for physical devices
+        if device_type in supported_wired_device_types and not iface:
+            log.debug("add_connection: not adding %s: interface name is required for type %s",
+                      uuid, device_type)
+            return False
+
         # Handle also vlan connections without interface-name specified
         if device_type == NM.DeviceType.VLAN:
             if not iface:
