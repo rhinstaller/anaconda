@@ -28,18 +28,35 @@ from pyanaconda.payload.errors import PayloadSetupError
 log = get_module_logger(__name__)
 
 
-def get_mount_device(mountpoint):
-    if os.path.ismount(mountpoint):
-        return blivet.util.get_mount_device(mountpoint)
+def get_mount_device(mount_point):
+    """Given a mount point, return the device node path mounted there.
+
+    :param mount_point: a mount point
+    :return: a device path or None
+    """
+    if os.path.ismount(mount_point):
+        return blivet.util.get_mount_device(mount_point)
+
+    return None
 
 
 def get_mount_paths(device_path):
+    """Given a device node path, return a list of all active mount points.
+
+    :param device_path: a device path
+    :return: a list of mount points
+    """
     return blivet.util.get_mount_paths(device_path)
 
 
-def unmount(mountpoint, raise_exc=False):
+def unmount(mount_point, raise_exc=False):
+    """Unmount a filesystem.
+
+    :param mount_point: a mount point
+    :param raise_exc: raise an exception if it fails
+    """
     try:
-        blivet.util.umount(mountpoint)
+        blivet.util.umount(mount_point)
     except OSError as e:
         log.error(str(e))
         log.info("umount failed -- mounting on top of it")
@@ -47,18 +64,27 @@ def unmount(mountpoint, raise_exc=False):
             raise
 
 
-def mount(url, mountpoint, fstype, options):
+def mount(device_path, mount_point, fstype, options):
+    """Mount a filesystem.
+
+    :param device_path: a device path
+    :param mount_point: a mount point
+    :param fstype: a filesystem type
+    :param options: a string of mount options
+    """
     try:
-        return blivet.util.mount(url, mountpoint, fstype=fstype, options=options)
+        return blivet.util.mount(device_path, mount_point, fstype=fstype, options=options)
     except OSError as e:
         raise PayloadSetupError(str(e))
 
 
 def arch_is_x86():
+    """Does the hardware support X86?"""
     return blivet.arch.is_x86(32)
 
 
 def arch_is_arm():
+    """Does the hardware support ARM?"""
     return blivet.arch.is_arm()
 
 
