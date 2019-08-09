@@ -468,7 +468,7 @@ class Payload(metaclass=ABCMeta):
                 payload_utils.unmount(real_mountpoint)
 
         try:
-            device.setup()
+            payload_utils.setup_device(device)
             payload_utils.mount_device(device, mountpoint)
         except StorageError as e:
             log.error("mount failed: %s", e)

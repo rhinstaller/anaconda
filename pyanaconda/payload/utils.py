@@ -38,6 +38,14 @@ def resolve_device(storage, dev_spec):
     return storage.devicetree.resolve_device(dev_spec)
 
 
+def setup_device(device):
+    """Open, or set up, a device.
+
+    :param device: an instance of a device
+    """
+    device.setup()
+
+
 def mount_device(device, mount_point):
     """Mount a filesystem on the device.
 
