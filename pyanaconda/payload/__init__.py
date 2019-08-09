@@ -779,7 +779,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
     def _unmount_source_directory(self, mount_point):
         if os.path.ismount(mount_point):
             device_path = payload_utils.get_mount_device(mount_point)
-            device = self.storage.devicetree.get_device_by_path(device_path)
+            device = payload_utils.resolve_device(self.storage, device_path)
             if device:
                 device.teardown(recursive=True)
             else:
@@ -905,7 +905,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 # We don't setup an install_device here
                 # because we can't tear it down
 
-        iso_device = self.storage.devicetree.resolve_device(dev_spec)
+        iso_device = payload_utils.resolve_device(self.storage, dev_spec)
         if need_mount:
             if not iso_device:
                 raise PayloadSetupError("device for HDISO install %s does not exist" % dev_spec)
@@ -1045,7 +1045,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         # Only look at the dracut mount if we don't already have a cdrom
         if device_path and not self.install_device:
-            self.install_device = self.storage.devicetree.get_device_by_path(device_path)
+            self.install_device = payload_utils.resolve_device(self.storage, device_path)
             url = "file://" + DRACUT_REPODIR
             if not method.method:
                 # See if this is a nfs mount
@@ -1071,7 +1071,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         return url
 
     def _setup_harddrive_addon_repo(self, ksrepo):
-        iso_device = self.storage.devicetree.resolve_device(ksrepo.partition)
+        iso_device = payload_utils.resolve_device(self.storage, ksrepo.partition)
         if not iso_device:
             raise PayloadSetupError("device for HDISO addon repo install %s does not exist" %
                                     ksrepo.partition)

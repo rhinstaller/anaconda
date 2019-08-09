@@ -28,6 +28,16 @@ from pyanaconda.payload.errors import PayloadSetupError
 log = get_module_logger(__name__)
 
 
+def resolve_device(storage, dev_spec):
+    """Get the device matching the provided device specification.
+
+    :param storage: an instance of Blivet's storage
+    :param dev_spec: a string describing a block device
+    :return: an instance of a device or None
+    """
+    return storage.devicetree.resolve_device(dev_spec)
+
+
 def get_mount_device(mount_point):
     """Given a mount point, return the device node path mounted there.
 
