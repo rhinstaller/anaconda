@@ -34,7 +34,7 @@ from pyanaconda.core import util
 from pyanaconda import isys
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
-from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_installtree
+from pyanaconda.image import find_optical_install_media, verifyMedia, verify_valid_installtree
 from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup
@@ -1041,7 +1041,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         # Check for valid optical media if we didn't boot from one
         if not verifyMedia(DRACUT_REPODIR):
-            self.install_device = opticalInstallMedia(self.storage.devicetree)
+            self.install_device = find_optical_install_media(self.storage)
 
         # Only look at the dracut mount if we don't already have a cdrom
         if device_path and not self.install_device:

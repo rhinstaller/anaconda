@@ -25,7 +25,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
-from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
+from pyanaconda.image import find_optical_install_media, potentialHdisoSources
 
 from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.core.constants import THREAD_STORAGE_WATCHER
@@ -89,7 +89,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         if self.data.method.method == "cdrom":
             self._cdrom = self.payload.install_device
         elif not flags.automatedInstall:
-            self._cdrom = opticalInstallMedia(self.storage.devicetree)
+            self._cdrom = find_optical_install_media(self.storage)
 
         # Enable the SE/HMC option.
         if self.payload.is_hmc_enabled:

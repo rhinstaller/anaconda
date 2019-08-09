@@ -189,16 +189,16 @@ def mountImage(isodir, tree):
             break
 
 
-def opticalInstallMedia(devicetree):
+def find_optical_install_media(storage):
     """Find a device with a valid optical install media.
 
     Return the first device containing a valid optical install
     media for this product.
 
-    :param devicetree: an instance of a device tree
+    :param storage: an instance of Blivet's storage
     :return: a device or None
     """
-    for dev in find_optical_media(devicetree):
+    for dev in find_optical_media(storage.devicetree):
         mountpoint = tempfile.mkdtemp()
 
         try:
