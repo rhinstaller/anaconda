@@ -38,6 +38,14 @@ def resolve_device(storage, dev_spec):
     return storage.devicetree.resolve_device(dev_spec)
 
 
+def teardown_device(device):
+    """Close, or tear down, a device.
+
+    :param device: an instance of a device
+    """
+    device.teardown(recursive=True)
+
+
 def get_mount_device(mount_point):
     """Given a mount point, return the device node path mounted there.
 

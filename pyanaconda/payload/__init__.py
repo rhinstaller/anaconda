@@ -472,7 +472,7 @@ class Payload(metaclass=ABCMeta):
             device.format.setup(mountpoint=mountpoint)
         except StorageError as e:
             log.error("mount failed: %s", e)
-            device.teardown(recursive=True)
+            payload_utils.teardown_device(device)
             raise PayloadSetupError(str(e))
 
     @staticmethod
@@ -738,14 +738,14 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         if os.path.ismount(INSTALL_TREE):
             if self.install_device and \
                payload_utils.get_mount_device(INSTALL_TREE) == self.install_device.path:
-                self.install_device.teardown(recursive=True)
+                payload_utils.teardown_device(self.install_device)
             else:
                 payload_utils.unmount(INSTALL_TREE, raise_exc=True)
 
         if os.path.ismount(ISO_DIR):
             if self.install_device and \
                payload_utils.get_mount_device(ISO_DIR) == self.install_device.path:
-                self.install_device.teardown(recursive=True)
+                payload_utils.teardown_device(self.install_device)
             # The below code will fail when nfsiso is the stage2 source
             # But if we don't do this we may not be able to switch from
             # one nfsiso repo to another nfsiso repo.  We need to have a
@@ -780,7 +780,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
             device_path = payload_utils.get_mount_device(mount_point)
             device = payload_utils.resolve_device(self.storage, device_path)
             if device:
-                device.teardown(recursive=True)
+                payload_utils.teardown_device(device)
             else:
                 payload_utils.unmount(mount_point, raise_exc=True)
 
@@ -823,7 +823,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         #     use
         image = findFirstIsoImage(path)
         if not image:
-            device.teardown(recursive=True)
+            payload_utils.teardown_device(device)
             raise PayloadSetupError("failed to find valid iso image")
 
         if path.endswith(".iso"):
@@ -851,7 +851,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         path = os.path.normpath("%s/%s" % (device_mount_dir, install_tree_path))
 
         if not verify_valid_installtree(path):
-            device.teardown(recursive=True)
+            payload_utils.teardown_device(device)
             raise PayloadSetupError("failed to find valid installation tree")
 
     def _setup_install_device(self, checkmount):
