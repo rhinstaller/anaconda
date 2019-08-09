@@ -425,7 +425,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._treeinfo_repos_already_disabled = False
 
     def apply(self):
-        payloadMgr.restart_thread(self.storage, self.data, self.payload, checkmount=False)
+        payloadMgr.restart_thread(self.payload, checkmount=False)
         self.clear_info()
 
     def _method_changed(self):

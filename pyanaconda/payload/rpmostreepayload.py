@@ -47,8 +47,8 @@ log = get_module_logger(__name__)
 class RPMOSTreePayload(Payload):
     """ A RPMOSTreePayload deploys a tree (possibly with layered packages)
     onto the target system."""
-    def __init__(self, data):
-        super().__init__(data)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._remoteOptions = None
         self._internal_mounts = []
         self._locale_map = None
@@ -331,7 +331,7 @@ class RPMOSTreePayload(Payload):
                                           [bindopt, src, dest])
         self._internal_mounts.append(src if bind_ro else dest)
 
-    def prepare_mount_targets(self, storage):
+    def prepare_mount_targets(self):
         """ Prepare the ostree root """
         ostreesetup = self.data.ostreesetup
 
@@ -353,7 +353,7 @@ class RPMOSTreePayload(Payload):
         # to do the default ostree one.
         # https://github.com/ostreedev/ostree/issues/855
         var_root = '/ostree/deploy/' + ostreesetup.osname + '/var'
-        if storage.mountpoints.get("/var") is None:
+        if self.storage.mountpoints.get("/var") is None:
             self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
         else:
             # Otherwise, bind it
@@ -384,7 +384,7 @@ class RPMOSTreePayload(Payload):
         # sub-mounts will be in the list too.  We sort by length as a crude
         # hack to try to simulate the tree relationship; it looks like this
         # is handled in blivet in a different way.
-        for mount in sorted(storage.mountpoints, key=len):
+        for mount in sorted(self.storage.mountpoints, key=len):
             if mount in ('/', '/var') or mount in api_mounts:
                 continue
             self._setup_internal_bindmount(mount, recurse=False)

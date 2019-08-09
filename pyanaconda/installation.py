@@ -346,9 +346,7 @@ def _prepare_installation(storage, payload, ksdata):
     # for some payloads storage is configured after the payload is installed
     if not payload.needs_storage_configuration:
         late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
-        late_storage.append(Task("Prepare mount targets",
-                                 task=payload.prepare_mount_targets,
-                                 task_args=(storage, )))
+        late_storage.append(Task("Prepare mount targets", task=payload.prepare_mount_targets))
 
         if not conf.target.is_directory:
             late_storage.append(Task("Write late storage",

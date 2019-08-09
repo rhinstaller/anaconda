@@ -55,13 +55,14 @@ USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 class Payload(metaclass=ABCMeta):
     """Payload is an abstract class for OS install delivery methods."""
-    def __init__(self, data):
+    def __init__(self, data, storage):
         """Initialize Payload class
 
         :param data: This param is a kickstart.AnacondaKSHandler class.
+        :param storage: an instance of Blivet's storage model
         """
         self.data = data
-        self.storage = None
+        self.storage = storage
         self.tx_id = None
 
         self._install_tree_metadata = None
@@ -84,14 +85,12 @@ class Payload(metaclass=ABCMeta):
     def is_hmc_enabled(self):
         return self.data.method.method == "hmc"
 
-    def setup(self, storage):
+    def setup(self):
         """Do any payload-specific setup."""
-        self.storage = storage
         self.verbose_errors = []
 
     def unsetup(self):
         """Invalidate a previously setup payload."""
-        self.storage = None
         self._install_tree_metadata = None
 
     def post_setup(self):
@@ -113,7 +112,7 @@ class Payload(metaclass=ABCMeta):
         """Reset the instance, not including ksdata."""
         pass
 
-    def prepare_mount_targets(self, storage):
+    def prepare_mount_targets(self):
         """Run when physical storage is mounted, but other mount points may
         not exist.  Used by the RPMOSTreePayload subclass.
         """
@@ -631,8 +630,8 @@ class Payload(metaclass=ABCMeta):
 class PackagePayload(Payload, metaclass=ABCMeta):
     """A PackagePayload installs a set of packages onto the target system."""
 
-    def __init__(self, data):
-        super().__init__(data)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.install_device = None
         self._rpm_macros = []
 
@@ -856,7 +855,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
             device.teardown(recursive=True)
             raise PayloadSetupError("failed to find valid installation tree")
 
-    def _setup_install_device(self, storage, checkmount):
+    def _setup_install_device(self, checkmount):
         # XXX FIXME: does this need to handle whatever was set up by dracut?
         method = self.data.method
         url = None
@@ -869,24 +868,24 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         if method.method == "harddrive":
             log.debug("Setting up harddrive install device")
-            url = self._setup_harddrive_device(storage, method, isodev, device)
+            url = self._setup_harddrive_device(method, isodev, device)
         elif method.method == "nfs":
             log.debug("Setting up nfs install device")
-            url = self._setup_nfs_device(storage, method, isodev, device)
+            url = self._setup_nfs_device(method, isodev, device)
         elif method.method == "url":
             url = method.url
             mirrorlist = method.mirrorlist
             metalink = method.metalink
         elif method.method == "hmc":
             log.debug("Setting up hmc install device")
-            url = self._setup_hmc_device(storage, method, isodev, device)
+            url = self._setup_hmc_device(method, isodev, device)
         elif method.method == "cdrom" or (checkmount and not method.method):
             log.debug("Setting up cdrom install device")
-            url = self._setup_cdrom_device(storage, method, isodev, device)
+            url = self._setup_cdrom_device(method, isodev, device)
 
         return url, mirrorlist, metalink
 
-    def _setup_harddrive_device(self, storage, method, isodev, device):
+    def _setup_harddrive_device(self, method, isodev, device):
         url = None
         need_mount = False
 
@@ -906,7 +905,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 # We don't setup an install_device here
                 # because we can't tear it down
 
-        iso_device = storage.devicetree.resolve_device(dev_spec)
+        iso_device = self.storage.devicetree.resolve_device(dev_spec)
         if need_mount:
             if not iso_device:
                 raise PayloadSetupError("device for HDISO install %s does not exist" % dev_spec)
@@ -917,7 +916,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         return url
 
-    def _setup_nfs_device(self, storage, method, isodev, device):
+    def _setup_nfs_device(self, method, isodev, device):
         # There are several possible scenarios here:
         # 1. dracut could have mounted both the nfs repo and an iso and used
         #    the stage2 from inside the iso to boot from.
@@ -1005,7 +1004,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         return url
 
-    def _setup_hmc_device(self, storage, method, isodev, device):
+    def _setup_hmc_device(self, method, isodev, device):
         # Check if /dev/hmcdrv is already mounted.
         if device == "/dev/hmcdrv":
             log.debug("HMC is already mounted at %s.", DRACUT_REPODIR)
@@ -1033,7 +1032,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         return url
 
-    def _setup_cdrom_device(self, storage, method, isodev, device):
+    def _setup_cdrom_device(self, method, isodev, device):
         url = None
 
         # FIXME: We really should not talk about NFS here - regression from re-factorization?
@@ -1042,11 +1041,11 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         # Check for valid optical media if we didn't boot from one
         if not verifyMedia(DRACUT_REPODIR):
-            self.install_device = opticalInstallMedia(storage.devicetree)
+            self.install_device = opticalInstallMedia(self.storage.devicetree)
 
         # Only look at the dracut mount if we don't already have a cdrom
         if device and not self.install_device:
-            self.install_device = storage.devicetree.get_device_by_path(device)
+            self.install_device = self.storage.devicetree.get_device_by_path(device)
             url = "file://" + DRACUT_REPODIR
             if not method.method:
                 # See if this is a nfs mount
@@ -1071,8 +1070,8 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         return url
 
-    def _setup_harddrive_addon_repo(self, storage, ksrepo):
-        iso_device = storage.devicetree.resolve_device(ksrepo.partition)
+    def _setup_harddrive_addon_repo(self, ksrepo):
+        iso_device = self.storage.devicetree.resolve_device(ksrepo.partition)
         if not iso_device:
             raise PayloadSetupError("device for HDISO addon repo install %s does not exist" %
                                     ksrepo.partition)
