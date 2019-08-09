@@ -42,13 +42,12 @@ from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload
+from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.storage.utils import device_matches, mark_protected_device, unmark_protected_device
-
-from blivet.util import get_mount_device, get_mount_paths
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -351,8 +350,7 @@ class IsoChooser(GUIObject):
 
     def run(self, dev):
         retval = None
-
-        mounts = get_mount_paths(dev.path)
+        mounts = payload_utils.get_mount_paths(dev.path)
         mountpoint = None
         # We have to check both ISO_DIR and the DRACUT_ISODIR because we
         # still reference both, even though /mnt/install is a symlink to
@@ -360,7 +358,7 @@ class IsoChooser(GUIObject):
         if constants.ISO_DIR not in mounts and constants.DRACUT_ISODIR not in mounts:
             # We're not mounted to either location, so do the mount
             mountpoint = constants.ISO_DIR
-            dev.format.mount(mountpoint=mountpoint)
+            payload_utils.mount_device(dev, mountpoint)
 
         # If any directory was chosen, return that.  Otherwise, return None.
         rc = self.window.run()
@@ -370,7 +368,7 @@ class IsoChooser(GUIObject):
                 retval = f.replace(constants.ISO_DIR, "")
 
         if not mounts:
-            dev.format.unmount(mountpoint=mountpoint)
+            payload_utils.unmount_device(dev, mountpoint)
 
         self.window.destroy()
         return retval
@@ -471,7 +469,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # The / gets stripped off by payload.ISO_image
             self.data.method.dir = "/" + self._current_iso_file
             if old_method == "harddrive" \
-               and self.storage.devicetree.resolve_device(old_partition) == part \
+               and payload_utils.resolve_device(self.storage, old_partition) == part \
                and old_dir in [self._current_iso_file, "/" + self._current_iso_file]:
                 return False
 
@@ -1033,7 +1031,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # change it.  Thus, this entire portion of the spoke should be
         # insensitive.
         if self.data.method.method == "harddrive" and \
-           get_mount_device(constants.DRACUT_ISODIR) == get_mount_device(constants.DRACUT_REPODIR):
+           payload_utils.get_mount_device(constants.DRACUT_ISODIR) == \
+                payload_utils.get_mount_device(constants.DRACUT_REPODIR):
             for widget in [self._autodetect_button, self._autodetect_box, self._iso_button,
                            self._iso_box, self._network_button, self._network_box,
                            self._hmc_button]:
@@ -1340,7 +1339,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         dialog = MediaCheckDialog(self.data)
         with self.main_window.enlightbox(dialog.window):
-            mounts = get_mount_paths(p.path)
+            mounts = payload_utils.get_mount_paths(p.path)
             mountpoint = None
             # We have to check both ISO_DIR and the DRACUT_ISODIR because we
             # still reference both, even though /mnt/install is a symlink to
@@ -1348,10 +1347,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             if constants.ISO_DIR not in mounts and constants.DRACUT_ISODIR not in mounts:
                 # We're not mounted to either location, so do the mount
                 mountpoint = constants.ISO_DIR
-                p.format.mount(mountpoint=mountpoint)
+                payload_utils.mount_device(p, mountpoint)
             dialog.run(constants.ISO_DIR + "/" + f)
+
             if not mounts:
-                p.format.unmount(mountpoint=mountpoint)
+                payload_utils.unmount_device(p, mountpoint)
 
     def on_verify_media_clicked(self, button):
         if not self._cdrom:

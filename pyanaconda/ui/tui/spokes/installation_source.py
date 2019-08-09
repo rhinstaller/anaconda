@@ -23,6 +23,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload
+from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources
@@ -38,8 +39,6 @@ from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget, EntryWidget
-
-from blivet.util import get_mount_device, get_mount_paths
 
 import os
 import fnmatch
@@ -153,7 +152,8 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
         if self.data.method.method == "harddrive" and \
-           get_mount_device(DRACUT_ISODIR) == get_mount_device(DRACUT_REPODIR):
+           payload_utils.get_mount_device(DRACUT_ISODIR) == \
+                payload_utils.get_mount_device(DRACUT_REPODIR):
             message = _("The installation source is in use by the installer and "
                         "cannot be changed.")
             self.window.add_with_separator(TextWidget(message))
@@ -511,16 +511,16 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def _mount_device(self):
         """ Mount the device so we can search it for ISOs. """
-        mounts = get_mount_paths(self._device.path)
+        mounts = payload_utils.get_mount_paths(self._device.path)
         # We have to check both ISO_DIR and the DRACUT_ISODIR because we
         # still reference both, even though /mnt/install is a symlink to
         # /run/install.  Finding mount points doesn't handle the symlink
         if ISO_DIR not in mounts and DRACUT_ISODIR not in mounts:
             # We're not mounted to either location, so do the mount
-            self._device.format.mount(mountpoint=ISO_DIR)
+            payload_utils.mount_device(self._device, ISO_DIR)
 
     def _unmount_device(self):
-        self._device.format.unmount()
+        payload_utils.unmount_device(self._device, mount_point=None)
 
     def _getISOs(self):
         """List all *.iso files in the root folder
