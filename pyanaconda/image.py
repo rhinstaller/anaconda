@@ -219,11 +219,16 @@ def find_optical_install_media(storage):
     return None
 
 
-def potentialHdisoSources(devicetree):
-    """ Return a generator yielding Device instances that may have HDISO install
-        media somewhere. Candidate devices are simply any that we can mount.
+def find_potential_hdiso_sources(storage):
+    """Find potential HDISO sources.
+
+    Return a generator yielding Device instances that may have HDISO install
+    media somewhere. Candidate devices are simply any that we can mount.
+
+    :param storage: an instance of Blivet's storage
+    :return: a list of devices
     """
-    return find_mountable_partitions(devicetree)
+    return find_mountable_partitions(storage.devicetree)
 
 
 def verifyMedia(tree, timestamp=None):

@@ -25,7 +25,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
-from pyanaconda.image import find_optical_install_media, potentialHdisoSources
+from pyanaconda.image import find_optical_install_media, find_potential_hdiso_sources
 
 from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.core.constants import THREAD_STORAGE_WATCHER
@@ -406,7 +406,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
     def _get_mountable_devices(self):
         disks = []
         fstring = "%(model)s %(path)s (%(size)s MB) %(format)s %(label)s"
-        for dev in potentialHdisoSources(self.storage.devicetree):
+        for dev in find_potential_hdiso_sources(self.storage):
             # path model size format type uuid of format
             dev_info = {"model": self._sanitize_model(dev.disk.model),
                         "path": dev.path,

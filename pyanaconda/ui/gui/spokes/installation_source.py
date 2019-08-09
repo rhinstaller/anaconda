@@ -30,7 +30,7 @@ from pyanaconda.core import glib, constants
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_, CN_
-from pyanaconda.image import find_optical_install_media, potentialHdisoSources
+from pyanaconda.image import find_optical_install_media, find_potential_hdiso_sources
 from pyanaconda.core.util import ProxyString, ProxyStringError, cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
@@ -914,7 +914,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self.data.method.method == "harddrive":
             method_dev_name = self._get_harddrive_partition_name()
 
-        for dev in potentialHdisoSources(self.storage.devicetree):
+        for dev in find_potential_hdiso_sources(self.storage):
             # path model size format type uuid of format
             dev_info = {"model": self._sanitize_model(dev.disk.model or ""),
                         "path": dev.path,
