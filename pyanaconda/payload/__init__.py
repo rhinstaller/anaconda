@@ -469,7 +469,7 @@ class Payload(metaclass=ABCMeta):
 
         try:
             device.setup()
-            device.format.setup(mountpoint=mountpoint)
+            payload_utils.mount_device(device, mountpoint)
         except StorageError as e:
             log.error("mount failed: %s", e)
             payload_utils.teardown_device(device)
@@ -803,7 +803,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         elif method.method == "cdrom" and payload_utils.get_mount_paths(device.path):
             return
         else:
-            device.format.setup(mountpoint=INSTALL_TREE)
+            payload_utils.mount_device(device, INSTALL_TREE)
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
         """Find and mount installation source from ISO on device.

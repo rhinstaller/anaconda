@@ -38,6 +38,15 @@ def resolve_device(storage, dev_spec):
     return storage.devicetree.resolve_device(dev_spec)
 
 
+def mount_device(device, mount_point):
+    """Mount a filesystem on the device.
+
+    :param device: an instance of a device
+    :param mount_point: a path to the mount point
+    """
+    device.format.mount(mountpoint=mount_point)
+
+
 def teardown_device(device):
     """Close, or tear down, a device.
 

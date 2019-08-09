@@ -24,6 +24,7 @@ import tempfile
 
 from pyanaconda import isys
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
+from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.storage.utils import find_optical_media, find_mountable_partitions
 
@@ -203,7 +204,7 @@ def find_optical_install_media(storage):
 
         try:
             try:
-                dev.format.mount(mountpoint=mountpoint)
+                payload_utils.mount_device(dev, mountpoint)
             except FSError:
                 continue
             try:
