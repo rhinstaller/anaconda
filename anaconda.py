@@ -24,42 +24,17 @@
 # A lot less messy now. :) (2016-10-13)
 
 import os
-import site
-
-
-coverage = None
-
-# setup code coverage monitoring
-proc_cmdline = open("/proc/cmdline", "r").read()
-proc_cmdline = proc_cmdline.split()
-if ("inst.debug=1" in proc_cmdline) or ("inst.debug" in proc_cmdline):
-    import coverage
-    pyanaconda_dir = "pyanaconda"
-    for sitepkg in site.getsitepackages():
-        possible_dir = os.path.join(sitepkg, "pyanaconda")
-        if os.path.isdir(possible_dir):
-            pyanaconda_dir = possible_dir
-            break
-    cov = coverage.coverage(data_file="/mnt/sysimage/root/anaconda.coverage",
-                            branch=True,
-                            source=["/usr/sbin/anaconda", pyanaconda_dir]
-                            )
-    cov.start()
-
-
-import atexit, sys, time, signal
+import atexit
+import sys
+import time
+import signal
 import pid
+
 
 def exitHandler(rebootData, storage):
     # Clear the list of watched PIDs.
     from pyanaconda.core.process_watchers import WatchProcesses
     WatchProcesses.unwatch_all_processes()
-
-    # stop and save coverage here b/c later the file system may be unavailable
-    if coverage is not None:
-        cov.stop()
-        if os.path.isdir('/mnt/sysimage/root'):
-            cov.save()
 
     if flags.usevnc:
         vnc.shutdownServer()
