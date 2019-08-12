@@ -29,7 +29,7 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.live.utils import get_local_image_path_from_url, \
     get_proxies_from_option, url_target_is_tarfile
 from pyanaconda.payload.utils import mount, unmount
-from pyanaconda.core.constants import IMAGE_DIR
+from pyanaconda.core.constants import IMAGE_DIR, NETWORK_CONNECTION_TIMEOUT
 
 from pyanaconda.core.util import lowerASCII, execWithRedirect
 
@@ -127,7 +127,8 @@ class CheckInstallationSourceImageTask(Task):
         # FIXME: validate earlier when setting?
         proxies = get_proxies_from_option(self._proxy)
         try:
-            response = self._session.get(url, proxies=proxies, verify=True)
+            response = self._session.get(url, proxies=proxies, verify=True,
+                                         timeout=NETWORK_CONNECTION_TIMEOUT)
 
             # At this point we know we can get the image and what its size is
             # Make a guess as to minimum size needed:
@@ -243,7 +244,8 @@ class SetupInstallationSourceImageTask(Task):
             with open(image_path, "wb") as f:
                 ssl_verify = not self._noverifyssl
                 proxies = get_proxies_from_option(self._proxy)
-                response = session.get(url, proxies=proxies, verify=ssl_verify, stream=True)
+                response = session.get(url, proxies=proxies, verify=ssl_verify, stream=True,
+                                       timeout=NETWORK_CONNECTION_TIMEOUT)
                 total_length = response.headers.get('content-length')
                 if total_length is None:
                     # just download the file in one go and fake the progress reporting once done

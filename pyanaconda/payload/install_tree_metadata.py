@@ -135,7 +135,8 @@ class InstallTreeMetadata(object):
     def _download_treeinfo_file(session, url, file_name, headers, proxies, verify, cert):
         try:
             result = session.get("%s/%s" % (url, file_name), headers=headers,
-                                 proxies=proxies, verify=verify, cert=cert)
+                                 proxies=proxies, verify=verify, cert=cert,
+                                 timeout=constants.NETWORK_CONNECTION_TIMEOUT)
             # Server returned HTTP 4XX or 5XX codes
             if 400 <= result.status_code < 600:
                 log.info("Server returned %i code", result.status_code)

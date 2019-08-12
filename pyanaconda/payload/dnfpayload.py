@@ -1450,7 +1450,8 @@ class RepoMDMetaHash(object):
         for url in self._urls:
             try:
                 result = session.get("%s/repodata/repomd.xml" % url, headers=headers,
-                                     proxies=proxies, verify=self._ssl_verify)
+                                     proxies=proxies, verify=self._ssl_verify,
+                                     timeout=constants.NETWORK_CONNECTION_TIMEOUT)
                 if result.ok:
                     repomd = result.text
                     break
