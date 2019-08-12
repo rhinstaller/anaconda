@@ -35,8 +35,8 @@ from pyanaconda import keyboard, network, ntp, timezone
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
-from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
-from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED
+from pyanaconda.addons import AddonSection, AddonData, AddonRegistry
+from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
@@ -878,13 +878,10 @@ def preScriptPass(f):
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
 
-def parseKickstart(f, strict_mode=False, pass_to_boss=False):
+def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
     # preprocessing the kickstart file has already been handled in initramfs.
 
-    addon_paths = collect_addon_paths(ADDON_PATHS)
-    handler = AnacondaKSHandler(addon_paths["ks"])
     ksparser = AnacondaKSParser(handler)
-
     kswarnings = []
     ksmodule = "pykickstart"
     kscategories = (UserWarning, SyntaxWarning, DeprecationWarning)
@@ -944,8 +941,6 @@ def parseKickstart(f, strict_mode=False, pass_to_boss=False):
         util.ipmi_report(IPMI_ABORTED)
         time.sleep(10)
         sys.exit(1)
-
-    return handler
 
 def appendPostScripts(ksdata):
     scripts = ""
