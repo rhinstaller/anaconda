@@ -36,8 +36,7 @@ from pyanaconda.modules.network.device_configuration import DeviceConfigurations
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, devices_ignore_ipv6, \
     get_connections_dump
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
-    get_dracut_arguments_from_ifcfg, get_kickstart_network_data, get_ifcfg_file, get_ifcfg_files_content, \
-    update_onboot_value
+    get_dracut_arguments_from_ifcfg, get_kickstart_network_data, get_ifcfg_file, get_ifcfg_files_content
 from pyanaconda.modules.network.installation import NetworkInstallationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
@@ -647,32 +646,3 @@ class NetworkModule(KickstartModule):
         if self.nm_available:
             for line in get_connections_dump(self.nm_client).splitlines():
                 log.debug(line)
-
-    def set_connection_onboot_value(self, uuid, onboot):
-        """Sets ONBOOT value of connection given by uuid.
-
-        The value is stored in ifcfg file because setting the value in
-        NetworkManager connection ('autoconnect') to True could cause
-        activating of the connection.
-
-        :param uuid: UUID of the connection to be set
-        :param onboot: value of ONBOOT for the connection
-        """
-        return update_onboot_value(uuid, onboot)
-
-    def get_connection_onboot_value(self, uuid):
-        """Gets ONBOOT value of connection given by uuid.
-
-        The value is stored in ifcfg file because setting the value in
-        NetworkManager connection ('autoconnect') to True could cause
-        activating of the connection.
-
-        :param uuid: UUID of the connection
-        :return: ONBOOT value
-        """
-        ifcfg = get_ifcfg_file([('UUID', uuid)])
-        if not ifcfg:
-            log.error("Can't get ONBOOT value for connection %s", uuid)
-            return False
-        ifcfg.read()
-        return ifcfg.get('ONBOOT') != "no"

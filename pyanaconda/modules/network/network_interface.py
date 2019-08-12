@@ -268,27 +268,3 @@ class NetworkInterface(KickstartModuleInterface):
         :param msg_header: header of the log messages
         """
         return self.implementation.log_configuration_state(msg_header)
-
-    def SetConnectionOnbootValue(self, uuid: Str, onboot: Bool):
-        """Sets ONBOOT value of connection given by uuid.
-
-        The value is stored in ifcfg file because setting the value in
-        NetworkManager connection ('autoconnect') to True could cause
-        activating of the connection.
-
-        :param uuid: UUID of the connection to be set
-        :param onboot: value of ONBOOT for the connection
-        """
-        return self.implementation.set_connection_onboot_value(uuid, onboot)
-
-    def GetConnectionOnbootValue(self, uuid: Str) -> Bool:
-        """Gets ONBOOT value of connection given by uuid.
-
-        The value is stored in ifcfg file because setting the value in
-        NetworkManager connection ('autoconnect') to True could cause
-        activating of the connection.
-
-        :param uuid: UUID of the connection
-        :return: ONBOOT value
-        """
-        return self.implementation.get_connection_onboot_value(uuid)

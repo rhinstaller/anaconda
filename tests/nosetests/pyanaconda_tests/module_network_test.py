@@ -60,15 +60,6 @@ class MockedNMClient():
     def get_state(self):
         return self.state
 
-class MockedSimpleIfcfgFileGetter():
-    def __init__(self, values):
-        self.values = {}
-        for key, value in values:
-            self.values[key] = value
-    def get(self, key):
-        return self.values.get(key, "")
-    def read(self):
-        pass
 
 class NetworkInterfaceTestCase(unittest.TestCase):
     """Test DBus interface for the Network module."""
@@ -366,37 +357,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
                 'hw-address': get_variant(Str, "33:33:33:33:33:33"),
                 'device-type': get_variant(Int, NM.DeviceType.TEAM)
             }
-        )
-
-    def set_connection_onboot_value_test(self):
-        """Test SetConnectionOnbootValue."""
-        self.network_interface.SetConnectionOnbootValue(
-            "ddc991d3-a495-4f24-9416-30a6fae01469",
-            False
-        )
-
-    @patch('pyanaconda.modules.network.network.get_ifcfg_file')
-    def get_connection_onboot_value_test(self, get_ifcfg_file):
-        """Test GetConnectionOnbootValue."""
-        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([('ONBOOT', "yes")])
-        self.assertEqual(
-            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
-            True
-        )
-        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([])
-        self.assertEqual(
-            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
-            True
-        )
-        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([('ONBOOT', "no")])
-        self.assertEqual(
-            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
-            False
-        )
-        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([('ONBOOT', "whatever")])
-        self.assertEqual(
-            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
-            True
         )
 
     def _mock_nm_active_connections(self, connection_specs):
