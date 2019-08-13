@@ -351,18 +351,33 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                     connection = get_default_connection(iface, device_type)
                     connection_uuid = connection.get_uuid()
                     log.debug("adding default connection %s for %s", connection_uuid, iface)
-                    persistent = False
                     data = (iface, connection_uuid)
-                    self.nm_client.add_connection_async(connection, persistent, None,
-                                                        self._default_connection_added_cb, data)
+                    self.nm_client.add_connection2(
+                        connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
+                        (NM.SettingsAddConnection2Flags.TO_DISK |
+                         NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
+                        None,
+                        False,
+                        None,
+                        self._default_connection_added_cb,
+                        data
+                    )
                 return
         log.error("device configuration for %s not found", iface)
 
     def _default_connection_added_cb(self, client, result, data):
-        client.add_connection_finish(result)
         iface, connection_uuid = data
-        log.debug("added default connection %s for %s", connection_uuid, iface)
-        self._configure_connection(iface, connection_uuid)
+        try:
+            _connection, result = client.add_connection2_finish(result)
+        except Exception as e:  # pylint: disable=broad-except
+            msg = "adding default connection {} from {} failed: {}".format(
+                connection_uuid, iface, str(e))
+            log.error(msg)
+            self.errors.append(msg)
+            self.redraw()
+        else:
+            log.debug("added default connection %s for %s: %s", connection_uuid, iface, result)
+            self._configure_connection(iface, connection_uuid)
 
     def _configure_connection(self, iface, connection_uuid):
         connection = self.nm_client.get_connection_by_uuid(connection_uuid)
@@ -584,12 +599,12 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         log.debug("updated connection %s:\n%s", connection_uuid,
                   connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
-def get_default_connection(iface, device_type, autoconnect=False):
+def get_default_connection(iface, device_type):
     """Get default connection to be edited by the UI."""
     connection = NM.SimpleConnection.new()
     s_con = NM.SettingConnection.new()
     s_con.props.uuid = NM.utils_uuid_generate()
-    s_con.props.autoconnect = autoconnect
+    s_con.props.autoconnect = True
     s_con.props.id = iface
     s_con.props.interface_name = iface
     if device_type == NM.DeviceType.ETHERNET:
