@@ -283,7 +283,9 @@ class StorageModule(KickstartModule):
 
         # Add the storage requirements.
         for name in self.storage.packages:
-            requirements.append(Requirement.for_package(name, reason="storage"))
+            requirements.append(Requirement.for_package(
+                name, reason="Required to manage storage devices."
+            ))
 
         # Add other requirements, for example for bootloader.
         for kickstart_module in self._modules:

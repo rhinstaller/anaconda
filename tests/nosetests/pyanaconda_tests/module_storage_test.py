@@ -114,17 +114,17 @@ class StorageInterfaceTestCase(unittest.TestCase):
             {
                 "type": get_variant(Str, "package"),
                 "name": get_variant(Str, "lvm2"),
-                "reason": get_variant(Str, "storage")
+                "reason": get_variant(Str, "Required to manage storage devices.")
             },
             {
                 "type": get_variant(Str, "package"),
                 "name": get_variant(Str, "grub2"),
-                "reason": get_variant(Str, "bootloader")
+                "reason": get_variant(Str, "Necessary for the bootloader configuration.")
             },
             {
                 "type": get_variant(Str, "package"),
                 "name": get_variant(Str, "grub2-tools"),
-                "reason": get_variant(Str, "bootloader")
+                "reason": get_variant(Str, "Necessary for the bootloader configuration.")
             }
         ])
 
