@@ -29,6 +29,8 @@ class RealmData(DBusData):
         self._name = ""
         self._discover_options = list()
         self._join_options = list()
+        self._discovered = False
+        self._required_packages = []
 
     @property
     def name(self) -> Str:
@@ -71,3 +73,26 @@ class RealmData(DBusData):
     @join_options.setter
     def join_options(self, options: List[Str]):
         self._join_options = options
+
+    @property
+    def discovered(self) -> Bool:
+        """Reports if a realm has been successfully discovered."""
+        return self._discovered
+
+    @discovered.setter
+    def discovered(self, discovered : Bool):
+        self._discovered = discovered
+
+    @property
+    def required_packages(self) -> List[Str]:
+        """Packages required for joining a realm.
+
+        For example: ['realmd']
+
+        :return: a list of required packages
+        """
+        return self._required_packages
+
+    @required_packages.setter
+    def required_packages(self, packages: List[Str]):
+        self._required_packages = packages

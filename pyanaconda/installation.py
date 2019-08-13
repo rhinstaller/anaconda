@@ -27,6 +27,7 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FI
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
     LOCALIZATION
 from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
 from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
@@ -167,10 +168,10 @@ def _prepare_configuration(storage, payload, ksdata):
 
     configuration_queue.append(generate_initramfs)
 
-    # join a realm (if required)
-    join_realm = TaskQueue("Realm join", N_("Joining realm"))
-    join_realm.append(Task("Join a realm", ksdata.realm.execute))
-    configuration_queue.append(join_realm)
+    # realm join
+    # - this can run only after network is configured in the target system chroot
+    task_proxy = SECURITY.get_proxy(security_proxy.JoinRealmWithTask())
+    configuration_queue.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
 
     post_scripts = TaskQueue("Post installation scripts", N_("Running post-installation scripts"))
     post_scripts.append(Task("Run post installation scripts", runPostScripts, (ksdata.scripts,)))
@@ -286,14 +287,9 @@ def _prepare_installation(storage, payload, ksdata):
     pre_install_scripts.append(Task("Run %pre-install scripts", runPreInstallScripts, (ksdata.scripts,)))
     installation_queue.append(pre_install_scripts)
 
-    # Do packaging.
-
-    # Discover information about realms to join to determine the need for additional packages.
-    realm_discover = TaskQueue("Realm discover", N_("Discovering realm to join"))
-    realm_discover.append(Task("Discover realm to join", ksdata.realm.setup))
-    installation_queue.append(realm_discover)
-
-    # Check for other possibly needed additional packages.
+    # Do various pre-installation tasks
+    # - try to discover a realm (if any)
+    # - check for possibly needed additional packages.
     pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
     pre_install.append(Task("Setup authselect", ksdata.authselect.setup))
     pre_install.append(Task("Setup firewall", ksdata.firewall.setup))
@@ -308,13 +304,17 @@ def _prepare_installation(storage, payload, ksdata):
         # only when the task is actually started, not at task creation time
         pre_install.append(WriteResolvConfTask("Copy resolv.conf to sysroot"))
 
+    # realm discovery
+    security_proxy = SECURITY.get_proxy()
+    task_proxy = SECURITY.get_proxy(security_proxy.DiscoverRealmWithTask())
+    pre_install.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+
     def run_pre_install():
         """This means to gather what additional packages (if any) are needed & executing payload.pre_install()."""
         # anaconda requires storage packages in order to make sure the target
         # system is bootable and configurable, and some other packages in order
         # to finish setting up the system.
         payload.requirements.add_packages(storage.packages, reason="storage")
-        payload.requirements.add_packages(ksdata.realm.packages, reason="realm")
         payload.requirements.add_packages(ksdata.authselect.packages, reason="authselect")
         payload.requirements.add_packages(ksdata.firewall.packages, reason="firewall")
         payload.requirements.add_packages(ksdata.network.packages, reason="network")
@@ -327,6 +327,17 @@ def _prepare_installation(storage, payload, ksdata):
 
         payload.requirements.add_groups(payload.language_groups(), reason="language groups")
         payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
+
+        # add package requirements from modules
+        # - iterate over all modules we know have valid package requirements
+        # - add any requirements found to the payload requirement tracking
+        modules_with_package_requirements = [SECURITY]
+        for module in modules_with_package_requirements:
+            module_proxy = module.get_proxy()
+            module_requirements = Requirement.from_structure_list(module_proxy.CollectRequirements())
+            log.debug("Adding requirements for module %s : %s", module, module_requirements)
+            payload.requirements.add_requirements(module_requirements)
+
         payload.pre_install()
 
     pre_install.append(Task("Find additional packages & run pre_install()", run_pre_install))

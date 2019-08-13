@@ -18,14 +18,23 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from mock import Mock
-from pykickstart.constants import SELINUX_ENFORCING
+import tempfile
+import os
+from mock import Mock, patch
+
+from pykickstart.constants import SELINUX_ENFORCING, SELINUX_PERMISSIVE
 
 from pyanaconda.modules.common.constants.services import SECURITY
-from pyanaconda.dbus.typing import get_variant, Str, List
+from pyanaconda.modules.common.structures.realm import RealmData
+from pyanaconda.modules.common.task import TaskInterface
+from pyanaconda.dbus.typing import get_variant, Str, List, Bool
 from pyanaconda.modules.security.security import SecurityModule
 from pyanaconda.modules.security.security_interface import SecurityInterface
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
+from pyanaconda.modules.security.constants import SELinuxMode
+from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
+        RealmDiscoverTask, RealmJoinTask
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface, \
+        check_task_creation
 
 
 class SecurityInterfaceTestCase(unittest.TestCase):
@@ -72,13 +81,16 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm_in = {
             "name": "domain.example.com",
             "discover-options": ["--client-software=sssd"],
-            "join-options": ["--one-time-password=password"]
+            "join-options": ["--one-time-password=password"],
+            "discovered": True
         }
 
         realm_out = {
             "name": get_variant(Str, "domain.example.com"),
             "discover-options": get_variant(List[Str], ["--client-software=sssd"]),
-            "join-options": get_variant(List[Str], ["--one-time-password=password"])
+            "join-options": get_variant(List[Str], ["--one-time-password=password"]),
+            "discovered": get_variant(Bool, True),
+            "required-packages": get_variant(List[Str], [])
         }
 
         self.security_interface.SetRealm(realm_in)
@@ -154,3 +166,573 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm join --one-time-password=password --client-software=sssd domain.example.com
         """
         self._test_kickstart(ks_in, ks_out)
+
+    @patch_dbus_publish_object
+    def realm_discover_default_test(self, publisher):
+        """Test module in default state with realm discover task."""
+        realm_discover_task_path = self.security_interface.DiscoverRealmWithTask()
+
+        publisher.assert_called()
+
+        # realm discover
+        obj = check_task_creation(self, realm_discover_task_path, publisher, RealmDiscoverTask)
+        self.assertEqual(obj.implementation._realm_data.name, "")
+        self.assertEqual(obj.implementation._realm_data.discover_options, [])
+
+    @patch_dbus_publish_object
+    def realm_discover_configured_test(self, publisher):
+        """Test module in configured state with realm discover task."""
+
+        realm_in = {
+            "name": "domain.example.com",
+            "discover-options": ["--client-software=sssd"],
+        }
+
+        self.security_interface.SetRealm(realm_in)
+
+        realm_discover_task_path = self.security_interface.DiscoverRealmWithTask()
+
+        publisher.assert_called()
+
+        # realm discover
+        obj = check_task_creation(self, realm_discover_task_path, publisher, RealmDiscoverTask)
+        self.assertEqual(obj.implementation._realm_data.name, "domain.example.com")
+        self.assertEqual(obj.implementation._realm_data.discover_options, ["--client-software=sssd"])
+
+    @patch_dbus_publish_object
+    def install_with_tasks_default_test(self, publisher):
+        """Test install tasks - module in default state."""
+        tasks = self.security_interface.InstallWithTasks()
+        selinux_task_path = tasks[0]
+
+        publisher.assert_called()
+
+        # SELinux configuration
+        object_path = publisher.call_args_list[0][0][0]
+        obj = publisher.call_args_list[0][0][1]
+
+        self.assertEqual(selinux_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureSELinuxTask)
+        self.assertEqual(obj.implementation._selinux_mode, SELinuxMode.DEFAULT)
+
+    @patch_dbus_publish_object
+    def realm_join_default_test(self, publisher):
+        """Test module in default state with realm join task."""
+
+        realm_join_task_path = self.security_interface.JoinRealmWithTask()
+
+        publisher.assert_called()
+
+        # realm join
+        obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
+        self.assertEqual(obj.implementation._realm_data.discovered, False)
+        self.assertEqual(obj.implementation._realm_data.name, "")
+        self.assertEqual(obj.implementation._realm_data.join_options, [])
+
+    @patch_dbus_publish_object
+    def install_with_tasks_configured_test(self, publisher):
+        """Test install tasks - module in configured state."""
+
+        realm_in = {
+            "name": "domain.example.com",
+            "discover-options": ["--client-software=sssd"],
+            "join-options": ["--one-time-password=password"],
+            "discovered": True
+        }
+
+        self.security_interface.SetRealm(realm_in)
+        self.security_interface.SetSELinux(SELINUX_PERMISSIVE)
+
+        tasks = self.security_interface.InstallWithTasks()
+        selinux_task_path = tasks[0]
+
+        publisher.assert_called()
+
+        # SELinux configuration
+        object_path = publisher.call_args_list[0][0][0]
+        obj = publisher.call_args_list[0][0][1]
+
+        self.assertEqual(selinux_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, ConfigureSELinuxTask)
+        self.assertEqual(obj.implementation._selinux_mode, SELinuxMode.PERMISSIVE)
+
+    @patch_dbus_publish_object
+    def realm_join_configured_test(self, publisher):
+        """Test module in configured state with realm join task."""
+
+        realm_in = {
+            "name": "domain.example.com",
+            "discover-options": ["--client-software=sssd"],
+            "join-options": ["--one-time-password=password"],
+            "discovered": True
+        }
+
+        self.security_interface.SetRealm(realm_in)
+
+        realm_join_task_path = self.security_interface.JoinRealmWithTask()
+
+        publisher.assert_called()
+
+        # realm join
+        obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
+        self.assertEqual(obj.implementation._realm_data.discovered, True)
+        self.assertEqual(obj.implementation._realm_data.name, "domain.example.com")
+        self.assertEqual(obj.implementation._realm_data.join_options, ["--one-time-password=password"])
+
+    @patch_dbus_publish_object
+    def realm_data_propagation_test(self, publisher):
+        """Test that realm data changes propagate to realm join task."""
+
+        # We connect to the realm_changed signal and update the realm data holder
+        # in the realm join task when the signal is triggered.
+
+        realm_in_1 = {
+            "name": "domain.example.com",
+            "discover-options": ["--client-software=sssd"],
+            "discovered": False
+        }
+
+        self.security_interface.SetRealm(realm_in_1)
+
+        realm_join_task_path = self.security_interface.JoinRealmWithTask()
+
+        publisher.assert_called()
+
+        # realm join - after task creation
+        obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
+        self.assertEqual(obj.implementation._realm_data.discovered, False)
+        self.assertEqual(obj.implementation._realm_data.name, "domain.example.com")
+        self.assertEqual(obj.implementation._realm_data.join_options, [])
+
+        # change realm data and check the changes propagate to the realm join task
+        realm_in_2 = {
+            "name": "domain.example.com",
+            "discover-options": ["--client-software=sssd"],
+            "join-options": ["--one-time-password=password"],
+            "discovered": True
+        }
+        self.security_interface.SetRealm(realm_in_2)
+
+        # realm join - after realm data update
+        self.assertEqual(obj.implementation._realm_data.discovered, True)
+        self.assertEqual(obj.implementation._realm_data.name, "domain.example.com")
+        self.assertEqual(obj.implementation._realm_data.join_options, ["--one-time-password=password"])
+
+    def collect_requirements_default_test(self):
+        """Test requrements are empty by default."""
+        reqs = self.security_interface.CollectRequirements()
+        self.assertListEqual(reqs, [])
+
+    def realmd_requirements_test(self):
+        """Test that package requirements in realm data propagate correctly."""
+
+        realm_in = {
+            "name": "domain.example.com",
+            "discover-options": ["--client-software=sssd"],
+            "join-options": ["--one-time-password=password"],
+            "discovered": True,
+            "required-packages" : ["realmd", "foo", "bar"]
+        }
+
+        self.security_interface.SetRealm(realm_in)
+
+        # check that the teamd package is requested
+        self.assertEqual(self.security_interface.CollectRequirements(), [
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "realmd"),
+                "reason": get_variant(Str, "Needed to join a realm.")
+            },
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "foo"),
+                "reason": get_variant(Str, "Needed to join a realm.")
+            },
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "bar"),
+                "reason": get_variant(Str, "Needed to join a realm.")
+            }
+        ])
+
+class SecurityTasksTestCase(unittest.TestCase):
+    """Test the secusrity tasks."""
+
+    def setUp(self):
+        """Set up the security module."""
+        self.security_module = SecurityModule()
+        self.security_interface = SecurityInterface(self.security_module)
+
+        # Connect to the properties changed signal.
+        self.callback = Mock()
+        self.security_interface.PropertiesChanged.connect(self.callback)
+
+    def configure_selinux_task_disable_test(self):
+        """Test SELinux configuration task - SELinux disabled."""
+
+        content = """
+        SELINUX=disabled
+        """
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "etc/selinux/"))
+            os.mknod(os.path.join(sysroot, "etc/selinux/config"))
+
+            ConfigureSELinuxTask(
+                sysroot=sysroot,
+                selinux_mode=SELinuxMode.DISABLED
+            ).run()
+
+            with open(os.path.join(sysroot, "etc/selinux/config")) as f:
+                self.assertEqual(f.read().strip(), content.strip())
+
+    def configure_selinux_task_enforcing_test(self):
+        """Test SELinux configuration task - SELinux enforcing."""
+
+        content = """
+        SELINUX=enforcing
+        """
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "etc/selinux/"))
+            os.mknod(os.path.join(sysroot, "etc/selinux/config"))
+
+            ConfigureSELinuxTask(
+                sysroot=sysroot,
+                selinux_mode=SELinuxMode.ENFORCING
+            ).run()
+
+            with open(os.path.join(sysroot, "etc/selinux/config")) as f:
+                self.assertEqual(f.read().strip(), content.strip())
+
+    def configure_selinux_task_permissive_test(self):
+        """Test SELinux configuration task - SELinux permissive."""
+
+        content = """
+        SELINUX=permissive
+        """
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "etc/selinux/"))
+            os.mknod(os.path.join(sysroot, "etc/selinux/config"))
+
+            ConfigureSELinuxTask(
+                sysroot=sysroot,
+                selinux_mode=SELinuxMode.PERMISSIVE
+            ).run()
+
+            with open(os.path.join(sysroot, "etc/selinux/config")) as f:
+                self.assertEqual(f.read().strip(), content.strip())
+
+    def configure_selinux_task_default_test(self):
+        """Test SELinux configuration task - SELinux default."""
+
+        content = """
+        SELINUX=foo
+        """
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "etc/selinux/"))
+            with open(os.path.join(sysroot, "etc/selinux/config"), "wt") as f:
+                f.write(content)
+                f.close()
+
+            # check the default value in the SELinux config file is not changed
+            ConfigureSELinuxTask(
+                sysroot=sysroot,
+                selinux_mode=SELinuxMode.DEFAULT
+            ).run()
+
+            with open(os.path.join(sysroot, "etc/selinux/config")) as f:
+                self.assertEqual(f.read().strip(), content.strip())
+
+    @patch('pyanaconda.core.util.execWithCapture')
+    def realm_discover_success_task_test(self, execWithCapture):
+        """Test the realm discover setup task - success."""
+
+        execWithCapture.return_value = """foo-domain-discovered
+                                          required-package:package-foo
+                                          required-package:package-bar
+                                          required-package:package-baz"""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-domain"
+            realm_data.discover_options = ["--bar", "baz"]
+
+            task = RealmDiscoverTask(sysroot=sysroot, realm_data=realm_data)
+            new_realm_data = task.run()
+
+            # check if the realm command invocation looks right
+            execWithCapture.assert_called_once_with('realm',
+                                                  ['discover', '--verbose', '--bar', 'baz', 'foo-domain'],
+                                                  filter_stderr=True)
+
+            # check if the results returned by the task look correct
+            self.assertTrue(new_realm_data.discovered)
+            self.assertListEqual(new_realm_data.required_packages, ["realmd", "package-foo", "package-bar", "package-baz"])
+
+    @patch('pyanaconda.core.util.execWithCapture')
+    def realm_discover_success_with_garbage_task_test(self, execWithCapture):
+        """Test the realm discover setup task - success with garbage in output."""
+
+        execWithCapture.return_value = """foo-domain-discovered
+                                          stuff-foo
+                                          required-package:package-foo
+                                          required-package:package-bar
+
+
+                                          required-package:package-baz
+                                          required-package:
+                                          unrelatedstuff"""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-domain"
+            realm_data.discover_options = ["--bar", "baz"]
+
+            task = RealmDiscoverTask(sysroot=sysroot, realm_data=realm_data)
+            new_realm_data = task.run()
+
+            # check if the realm command invocation looks right
+            execWithCapture.assert_called_once_with('realm',
+                                                  ['discover', '--verbose', '--bar', 'baz', 'foo-domain'],
+                                                  filter_stderr=True)
+
+            # check if the results returned by the task look correct
+            self.assertTrue(new_realm_data.discovered)
+            self.assertListEqual(new_realm_data.required_packages, ["realmd", "package-foo", "package-bar", "package-baz"])
+
+    @patch('pyanaconda.core.util.execWithCapture')
+    def realm_discover_success_no_extra_packages_with_garbage_task_test(self, execWithCapture):
+        """Test the realm discover setup task - success, no extra packages, garbage in output."""
+
+        execWithCapture.return_value = """foo-domain-discovered
+                                       stuff, stuff
+                                       stuff
+                                       dsdsd dadasd
+                                       """
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-domain"
+            realm_data.discover_options = ["--bar", "baz"]
+
+            task = RealmDiscoverTask(sysroot=sysroot, realm_data=realm_data)
+            new_realm_data = task.run()
+
+            # check if the realm command invocation looks right
+            execWithCapture.assert_called_once_with('realm',
+                                                  ['discover', '--verbose', '--bar', 'baz', 'foo-domain'],
+                                                  filter_stderr=True)
+
+            # check if the results returned by the task look correct
+            self.assertTrue(new_realm_data.discovered)
+            self.assertListEqual(new_realm_data.required_packages, ["realmd"])
+
+    @patch('pyanaconda.core.util.execWithCapture')
+    def realm_discover_failure_test(self, execWithCapture):
+        """Test the realm discover setup task - discovery failed."""
+
+        execWithCapture.return_value = ""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-domain"
+            realm_data.discover_options = ["--bar", "baz"]
+
+            task = RealmDiscoverTask(sysroot=sysroot, realm_data=realm_data)
+            new_realm_data = task.run()
+
+            # check if the realm command invocation looks right
+            execWithCapture.assert_called_once_with('realm',
+                                                  ['discover', '--verbose', '--bar', 'baz', 'foo-domain'],
+                                                  filter_stderr=True)
+
+            # check if the results returned by the task look correct
+            self.assertFalse(new_realm_data.discovered)
+            # if realm discover invocation fails to discover a realm, we still add realmd as a required package
+            self.assertListEqual(new_realm_data.required_packages, ["realmd"])
+
+    @patch('pyanaconda.core.util.execWithCapture')
+    def realm_discover_failure_with_exception_test(self, execWithCapture):
+        """Test the realm discover setup task - discovery failed with exception."""
+
+        execWithCapture.return_value = ""
+        execWithCapture.side_effect = OSError()
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-domain"
+            realm_data.discover_options = ["--bar", "baz"]
+
+            task = RealmDiscoverTask(sysroot=sysroot, realm_data=realm_data)
+            new_realm_data = task.run()
+
+            # check if the realm command invocation looks right
+            execWithCapture.assert_called_once_with('realm',
+                                                  ['discover', '--verbose', '--bar', 'baz', 'foo-domain'],
+                                                  filter_stderr=True)
+
+            # check if the results returned by the task look correct
+            self.assertFalse(new_realm_data.discovered)
+            # if realm discover invocation fails hard, we don't add realmd as a required package
+            self.assertListEqual(new_realm_data.required_packages, [])
+
+    @patch('pyanaconda.core.util.execWithCapture')
+    def realm_discover_no_realm_name_test(self, execWithCapture):
+        """Test the realm discover setup task - no realm name."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+
+            realm_data = RealmData()
+            realm_data.name = ""
+            realm_data.discover_options = []
+
+            task = RealmDiscoverTask(sysroot=sysroot, realm_data=realm_data)
+            new_realm_data = task.run()
+
+            # check if the realm command invocation looks right
+            execWithCapture.assert_not_called()
+
+            # no realm name so it can not be discovered
+            self.assertFalse(new_realm_data.discovered)
+            # if realm can't be discovered, we can't join it so no extra packages are needed
+            self.assertListEqual(new_realm_data.required_packages, [])
+
+    @patch('pyanaconda.core.util.execWithRedirect')
+    def realm_join_test(self, execWithRedirect):
+        """Test the realm join install task."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-realm"
+            realm_data.join_options = ["--bar", "baz"]
+            realm_data.discovered = True
+            task = RealmJoinTask(sysroot=sysroot, realm_data=realm_data)
+            task.run()
+
+            # check if the realm command invocation looks right
+            execWithRedirect.assert_called_once_with('realm',
+                                                     ['join', '--install', sysroot, '--verbose',
+                                                      '--no-password', '--bar', 'baz'])
+
+    @patch('pyanaconda.core.util.execWithRedirect')
+    def realm_join_one_time_password_test(self, execWithRedirect):
+        """Test the realm join install task - one time password."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-realm"
+            realm_data.join_options=["--one-time-password", "abcdefgh"]
+            realm_data.discovered = True
+
+            task = RealmJoinTask(sysroot=sysroot, realm_data=realm_data)
+            task.run()
+
+            # check if the realm command invocation looks right
+            execWithRedirect.assert_called_once_with('realm',
+                                                     ['join', '--install', sysroot, '--verbose',
+                                                      '--one-time-password', 'abcdefgh'])
+
+    @patch('pyanaconda.core.util.execWithRedirect')
+    def realm_join_non_zero_return_value_test(self, execWithRedirect):
+        """Test the realm join install task - non zero return value."""
+
+        execWithRedirect.return_value = 1
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-realm"
+            realm_data.join_options = ["--one-time-password", "abcdefgh"]
+            realm_data.discovered = True
+
+            task = RealmJoinTask(sysroot=sysroot, realm_data=realm_data)
+            task.run()
+
+            # check if the realm command invocation looks right
+            execWithRedirect.assert_called_once_with('realm',
+                                                     ['join', '--install', sysroot, '--verbose',
+                                                      '--one-time-password', 'abcdefgh'])
+
+    @patch('pyanaconda.core.util.execWithRedirect')
+    def realm_join_exception_test(self, execWithRedirect):
+        """Test the realm join install task - exception."""
+
+        execWithRedirect.side_effect = OSError()
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-realm"
+            realm_data.join_options = ["--one-time-password", "abcdefgh"]
+            realm_data.discovered = True
+
+            task = RealmJoinTask(sysroot=sysroot, realm_data=realm_data)
+            task.run()
+
+            # check if the realm command invocation looks right
+            execWithRedirect.assert_called_once_with('realm',
+                                                     ['join', '--install', sysroot, '--verbose',
+                                                      '--one-time-password', 'abcdefgh'])
+
+    @patch('pyanaconda.core.util.execWithRedirect')
+    def realm_join_not_discovered_test(self, execWithRedirect):
+        """Test the realm join install task - no realm discovered."""
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(os.path.join(sysroot, "usr/bin"))
+            os.mknod(os.path.join(sysroot, "usr/bin/realm"))
+            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+
+            realm_data = RealmData()
+            realm_data.name = "foo-realm"
+            realm_data.join_options = ["--bar", "baz"]
+            realm_data.discovered = False
+
+            task = RealmJoinTask(sysroot=sysroot, realm_data=realm_data)
+            task.run()
+
+            # check if the realm command invocation looks right
+            execWithRedirect.assert_not_called()

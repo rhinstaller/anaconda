@@ -32,6 +32,7 @@ from pyanaconda.payload.dnfpayload import RepoMDMetaHash
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.payload.errors import PayloadRequirementsMissingApply
 
+from pyanaconda.modules.common.structures.requirement import Requirement
 
 class PickLocation(unittest.TestCase):
     def pick_download_location_test(self):
@@ -251,3 +252,38 @@ class PayloadRequirementsTestCase(unittest.TestCase):
         self.assertFalse(reqs.applied)
         self.assertTrue(reqs.apply())
         self.assertTrue(reqs.applied)
+
+    def add_requirements_test(self):
+        """Check that multiple requirements can be added at once."""
+
+        reqs = PayloadRequirements()
+        self.assertTrue(reqs.empty)
+
+        # add a package, group & unknown requirement type
+        req_list = []
+        req_list.append(Requirement.for_package("foo-package", reason="foo package needed"))
+        req_list.append(Requirement.for_group("bar-group", reason="bar group needed"))
+        unknown_req = Requirement()
+        unknown_req.name = "baz-unknown"
+        unknown_req.reson = "unknown reason for installation"
+        unknown_req.type = "baz-unknown-type"
+        req_list.append(unknown_req)
+
+        # add the requrements list and check it is processed correctly
+        reqs.add_requirements(req_list)
+
+        self.assertFalse(reqs.empty)
+
+        # package
+        self.assertEqual(len(reqs.packages), 1)
+        self.assertEqual(reqs.packages[0].id, "foo-package")
+        self.assertEqual(len(reqs.packages[0].reasons), 1)
+        self.assertEqual(reqs.packages[0].reasons[0], "foo package needed")
+        self.assertTrue(reqs.packages[0].strong)
+
+        # group
+        self.assertEqual(len(reqs.groups), 1)
+        self.assertEqual(reqs.groups[0].id, "bar-group")
+        self.assertEqual(len(reqs.groups[0].reasons), 1)
+        self.assertEqual(reqs.groups[0].reasons[0], "bar group needed")
+        self.assertTrue(reqs.groups[0].strong)

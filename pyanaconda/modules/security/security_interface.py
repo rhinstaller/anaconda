@@ -118,3 +118,17 @@ class SecurityInterface(KickstartModuleInterface):
         :param realm: a dictionary with a specification
         """
         self.implementation.set_realm(RealmData.from_structure(realm))
+
+    def DiscoverRealmWithTask(self) -> ObjPath:
+        """Discover realm with a task.
+
+        NOTE: temporary API needed before dynamic task scheduling is implemented
+        """
+        return self.implementation.discover_realm_with_task()
+
+    def JoinRealmWithTask(self) -> ObjPath:
+        """Join realm with a task.
+
+        NOTE: temporary API needed before dynamic task scheduling is implemented
+        """
+        return self.implementation.join_realm_with_task()

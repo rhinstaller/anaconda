@@ -25,10 +25,12 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.structures.realm import RealmData
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
-from pyanaconda.modules.security.installation import ConfigureSELinuxTask
+from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
+    RealmDiscoverTask, RealmJoinTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -176,15 +178,52 @@ class SecurityModule(KickstartModule):
         self.realm_changed.emit()
         log.debug("Realm is set to %s.", realm)
 
+    def handle_realm_discover_results(self, realm_data):
+        """ Handle results from the RealmDiscover task.
+
+        :param results: an updated instance of realm data
+        """
+        log.debug("Updating realm data with results from realm discover task.")
+        self.set_realm(realm_data)
+
+    def collect_requirements(self):
+        """Return installation requirements for this module.
+
+        :return: a list of requirements
+        """
+        requirements = []
+
+        # Add realm requirements.
+        for name in self.realm.required_packages:
+            requirements.append(Requirement.for_package(name, reason="Needed to join a realm."))
+
+        return requirements
+
+    def discover_realm_with_task(self):
+        """Return the setup task for discovering a realm."""
+        realm_task = RealmDiscoverTask(sysroot=conf.target.system_root,
+                                      realm_data=self.realm)
+
+        realm_task.succeeded_signal.connect(lambda: self.handle_realm_discover_results(realm_task.get_result()))
+
+        return self.publish_task(SECURITY.namespace, realm_task)
+
+    def join_realm_with_task(self):
+        """Return the setup task for joining a realm."""
+        realm_task = RealmJoinTask(sysroot=conf.target.system_root, realm_data=self.realm)
+
+        # connect to realm-data-changed signal, so that the realm data in the realm-join task is always up to date
+        self.realm_changed.connect(lambda: realm_task.set_realm_data(self.realm))
+
+        return self.publish_task(SECURITY.namespace, realm_task)
 
     def install_with_tasks(self):
         """Return the installation tasks of this module.
 
         :returns: list of object paths of installation tasks
         """
-        tasks = [
-            ConfigureSELinuxTask(sysroot=conf.target.system_root, selinux_mode=self.selinux)
-        ]
+
+        tasks = [ConfigureSELinuxTask(sysroot=conf.target.system_root, selinux_mode=self.selinux)]
 
         paths = [
             self.publish_task(SECURITY.namespace, task) for task in tasks
