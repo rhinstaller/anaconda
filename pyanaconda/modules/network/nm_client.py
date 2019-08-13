@@ -735,37 +735,52 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
     return activated
 
 
-def update_iface_setting_values(nm_client, iface, new_values):
-    """Update settings of the connection for the interface.
+def get_connections_available_for_iface(nm_client, iface):
+    """Get all connections available for given interface.
 
-    The values will be applied only if a single applicable connection is found
-    for the iface (return value is 1).
-
-    :param iface: name of the device
+    :param iface: interface name
     :type iface: str
+    :return: list of all available connections
+    :rtype: list(NM.RemoteConnection)
+    """
+    cons = []
+    device = nm_client.get_device_by_iface(iface)
+    if device:
+        cons = device.get_available_connections()
+    else:
+        # Try also non-existing (not real) virtual devices
+        for device in nm_client.get_all_devices():
+            if not device.is_real() and device.get_iface() == iface:
+                cons = device.get_available_connections()
+                if cons:
+                    break
+        else:
+            # Getting available connections does not seem to work quite well for
+            # non-real team - try to look them up in all connections.
+            for con in nm_client.get_connections():
+                if con.get_interface_name() == iface:
+                    cons.append(con)
+    return cons
+
+
+def update_connection_values(connection, new_values):
+    """Update setting values of a connection.
+
+    :param connection: existing NetworkManager connection to be updated
+    :type connection: NM.RemoteConnection
     :param new_values: list of properties to be updated
     :type new_values: [(SETTING_NAME, SETTING_PROPERTY, VALUE)]
-    :returns: number of applicable connections found
-    :rtype: int
     """
-    n_cons = 0
-    device = nm_client.get_device_by_iface(iface)
-    if not device:
-        return n_cons
-
-    cons = device.get_available_connections()
-    n_cons = len(cons)
-    if n_cons != 1:
-        return n_cons
-
-    con = cons[0]
     for setting_name, setting_property, value in new_values:
-        setting = con.get_setting_by_name(setting_name)
-        setting.set_property(setting_property, value)
-        log.debug("updating %s device setting '%s' '%s' to '%s'",
-                  iface, setting_name, setting_property, value)
-    con.commit_changes(True, None)
-    return n_cons
+        setting = connection.get_setting_by_name(setting_name)
+        if setting:
+            setting.set_property(setting_property, value)
+            log.debug("updating connection %s setting '%s' '%s' to '%s'",
+                    connection.get_uuid(), setting_name, setting_property, value)
+        else:
+            log.debug("setting '%s' not found while updating connection %s",
+                      setting_name, connection.get_uuid())
+    connection.commit_changes(True, None)
 
 
 def devices_ignore_ipv6(nm_client, device_types):

@@ -28,7 +28,7 @@ from pyanaconda.core.kickstart.commands import NetworkData
 from pyanaconda.modules.network.ifcfg import get_dracut_arguments_from_ifcfg, IFCFG_DIR, \
     IfcfgFile, get_ifcfg_files_paths, get_ifcfg_file, get_ifcfg_file_of_device, \
     get_slaves_from_ifcfgs, get_kickstart_network_data, update_onboot_value, \
-    update_slaves_onboot_value
+    get_master_slaves_from_ifcfgs
 
 HWADDR_TO_IFACE = {
     "52:54:00:0c:77:e3": "ens6",
@@ -1822,480 +1822,139 @@ class IfcfgFileTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.network.ifcfg.find_ifcfg_uuid_of_device",
            lambda client, device_name, root_path: DEVNAME_TO_UUID[device_name])
-    def _update_slaves_onboot_value_of_a_device_type(self, device_type_master_key):
+    def _get_master_slaves_from_ifcfgs_of_a_device_type(self, device_type_master_key):
         nm_client = Mock()
         other_master_uuid = "9fc96635-c7cc-4817-b680-20765bdd9155"
         not_found_uuid = "29c4abb0-f95d-447c-aa94-88f908efe31f"
 
-        initial_ifcfg_files = [
+        ifcfg_files = [
             ("ifcfg-ens3",
              """
              NAME=ens3
-             ONBOOT=yes
+             UUID=7fe6a329-d8b2-4f7d-9abe-30e1a7ccca53
              {}={}
              """.format(device_type_master_key, MASTER0_UUID),
              None),
             ("ifcfg-ens5",
              """
              NAME=ens5
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens6",
-             """
-             NAME=ens6
+             UUID=f0851b85-72a8-42ab-918d-bb8c1ef532c4
              {}={}
              """.format(device_type_master_key, MASTER0_UUID),
              None),
             ("ifcfg-ens7",
              """
              NAME=ens7
-             ONBOOT=yes
+             UUID=c34cb55c-da79-4c0f-b0c4-b957a533a456
              {}={}
              """.format(device_type_master_key, other_master_uuid),
              None),
             ("ifcfg-ens8",
              """
              NAME=ens8
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens9",
-             """
-             NAME=ens9
+             UUID=09f4ae3d-decc-4185-800b-d8bc284fb656
              {}={}
              """.format(device_type_master_key, other_master_uuid),
              None),
             ("ifcfg-ens10",
              """
              NAME=ens10
-             ONBOOT=yes
+             UUID=7c95485c-05cb-48bc-9382-18475d028b65
              {}={}
              """.format(device_type_master_key, MASTER1_NAME),
              None),
             ("ifcfg-ens11",
              """
              NAME=ens11
-             ONBOOT=no
+             UUID=063a11d5-90c8-48e9-beae-31e26a2be367
              {}={}
              """.format(device_type_master_key, MASTER1_NAME),
              None),
-            ("ifcfg-ens12",
+            ("ifcfg-ens13",
              """
-             NAME=ens12
-             {}={}
-             """.format(device_type_master_key, MASTER1_NAME),
+             NAME=ens13
+             UUID=063a11d5-90c8-48e9-beae-21e26a2be367
+             """,
              None),
         ]
-
-        ##### Test setting to True
-
-        # ens3, ens5, ens6 are updated
-        ifcfg_files_set_to_yes = [
-            ("ifcfg-ens3",
-             # NOTE: nothing is actually written as nothing has changed,
-             # therefore no quotes.
-             """
-             NAME=ens3
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens5",
-             """
-             NAME="ens5"
-             ONBOOT="yes"
-             {}="{}"
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens6",
-             """
-             NAME="ens6"
-             {}="{}"
-             ONBOOT="yes"
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens7",
-             """
-             NAME=ens7
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens8",
-             """
-             NAME=ens8
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens9",
-             """
-             NAME=ens9
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens10",
-             """
-             NAME=ens10
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-            ("ifcfg-ens11",
-             """
-             NAME=ens11
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-            ("ifcfg-ens12",
-             """
-             NAME=ens12
-             {}={}
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-        ]
-
         # Specify by master device name (looked up by uuid) name and uuid (found)
-        self._dump_ifcfg_files(initial_ifcfg_files)
+        self._dump_ifcfg_files(ifcfg_files)
         self.assertEqual(
             set(
-                update_slaves_onboot_value(nm_client, MASTER0_NAME, True,
-                                           root_path=self._root_dir,
-                                           uuid=MASTER0_UUID)
+                get_master_slaves_from_ifcfgs(nm_client, MASTER0_NAME,
+                                              root_path=self._root_dir,
+                                              uuid=MASTER0_UUID)
             ),
-            set(
-                ["ens3", "ens5", "ens6"]
-            )
+            set([
+                ("ens3", "7fe6a329-d8b2-4f7d-9abe-30e1a7ccca53"),
+                ("ens5", "f0851b85-72a8-42ab-918d-bb8c1ef532c4")
+            ])
         )
-        self._check_ifcfg_files(ifcfg_files_set_to_yes)
         # Specify by master uuid (found)
-        self._dump_ifcfg_files(initial_ifcfg_files)
+        self._dump_ifcfg_files(ifcfg_files)
         self.assertEqual(
             set(
-                update_slaves_onboot_value(nm_client, None, True,
-                                           root_path=self._root_dir,
-                                           uuid=MASTER0_UUID)
+                get_master_slaves_from_ifcfgs(nm_client, None,
+                                              root_path=self._root_dir,
+                                              uuid=MASTER0_UUID)
             ),
-            set(
-                ["ens3", "ens5", "ens6"]
-            )
+            set([
+                ("ens3", "7fe6a329-d8b2-4f7d-9abe-30e1a7ccca53"),
+                ("ens5", "f0851b85-72a8-42ab-918d-bb8c1ef532c4")
+            ])
         )
-        self._check_ifcfg_files(ifcfg_files_set_to_yes)
-
         # Specify by master uuid - not found
-        self._dump_ifcfg_files(initial_ifcfg_files)
+        self._dump_ifcfg_files(ifcfg_files)
         self.assertEqual(
             set(
-                update_slaves_onboot_value(nm_client, None, True,
-                                           root_path=self._root_dir,
-                                           uuid=not_found_uuid)
+                get_master_slaves_from_ifcfgs(nm_client, None,
+                                              root_path=self._root_dir,
+                                              uuid=not_found_uuid)
             ),
-            set(
-                []
-            )
+            set([
+            ])
         )
-        self._check_ifcfg_files(initial_ifcfg_files)
         # Specify by master device name (uuid is not supplied, but looked up)
-        self._dump_ifcfg_files(initial_ifcfg_files)
+        self._dump_ifcfg_files(ifcfg_files)
         self.assertEqual(
             set(
-                update_slaves_onboot_value(nm_client, MASTER0_NAME, True,
-                                           root_path=self._root_dir, uuid=None)
+                get_master_slaves_from_ifcfgs(nm_client, MASTER0_NAME,
+                                              root_path=self._root_dir,
+                                              uuid=None)
             ),
-            set(
-                ["ens3", "ens5", "ens6"]
-            )
+            set([
+                ("ens3", "7fe6a329-d8b2-4f7d-9abe-30e1a7ccca53"),
+                ("ens5", "f0851b85-72a8-42ab-918d-bb8c1ef532c4")
+            ])
         )
-        self._check_ifcfg_files(ifcfg_files_set_to_yes)
-
-        # ens10, ens11, ens12 are updated
-        ifcfg_files_set_to_yes = [
-            ("ifcfg-ens3",
-             """
-             NAME=ens3
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens5",
-             """
-             NAME=ens5
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens6",
-             """
-             NAME=ens6
-             {}={}
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens7",
-             """
-             NAME=ens7
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens8",
-             """
-             NAME=ens8
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens9",
-             """
-             NAME=ens9
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens10",
-             """
-             NAME=ens10
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-            ("ifcfg-ens11",
-             """
-             NAME="ens11"
-             ONBOOT="yes"
-             {}="{}"
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-            ("ifcfg-ens12",
-             """
-             NAME="ens12"
-             {}="{}"
-             ONBOOT="yes"
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-        ]
-
         # Specify by master devname in ifcfg file
-        self._dump_ifcfg_files(initial_ifcfg_files)
+        self._dump_ifcfg_files(ifcfg_files)
         self.assertEqual(
             set(
-                update_slaves_onboot_value(nm_client, MASTER1_NAME, True,
-                                           root_path=self._root_dir)
+                get_master_slaves_from_ifcfgs(nm_client, MASTER1_NAME,
+                                              root_path=self._root_dir)
             ),
-            set(
-                ["ens10", "ens11", "ens12"]
-            )
+            set([
+                ("ens10", "7c95485c-05cb-48bc-9382-18475d028b65"),
+                ("ens11", "063a11d5-90c8-48e9-beae-31e26a2be367")
+            ])
         )
-        self._check_ifcfg_files(ifcfg_files_set_to_yes)
-
-
-        ##### Test setting to False
-
-        # ens3, ens5, ens6 are updated
-        ifcfg_files_set_to_no = [
-            ("ifcfg-ens3",
-             # NOTE: nothing is actually written as nothing has changed,
-             # therefore no quotes.
-             """
-             NAME="ens3"
-             ONBOOT="no"
-             {}="{}"
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens5",
-             """
-             NAME=ens5
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens6",
-             """
-             NAME="ens6"
-             {}="{}"
-             ONBOOT="no"
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens7",
-             """
-             NAME=ens7
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens8",
-             """
-             NAME=ens8
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens9",
-             """
-             NAME=ens9
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens10",
-             """
-             NAME=ens10
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-            ("ifcfg-ens11",
-             """
-             NAME=ens11
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-            ("ifcfg-ens12",
-             """
-             NAME=ens12
-             {}={}
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-        ]
-
-        # Specify by master device name (looked up by uuid) name and uuid (found)
-        self._dump_ifcfg_files(initial_ifcfg_files)
+        # Specify by master uuid - not found as slaves refer to master by name
+        self._dump_ifcfg_files(ifcfg_files)
         self.assertEqual(
             set(
-                update_slaves_onboot_value(nm_client, MASTER0_NAME, False,
-                                           root_path=self._root_dir,
-                                           uuid=MASTER0_UUID)
+                get_master_slaves_from_ifcfgs(nm_client, None,
+                                              root_path=self._root_dir,
+                                              uuid=MASTER1_UUID)
             ),
-            set(
-                ["ens3", "ens5", "ens6"]
-            )
+            set([
+            ])
         )
-        self._check_ifcfg_files(ifcfg_files_set_to_no)
-        # Specify by master uuid (found)
-        self._dump_ifcfg_files(initial_ifcfg_files)
-        self.assertEqual(
-            set(
-                update_slaves_onboot_value(nm_client, None, False,
-                                           root_path=self._root_dir,
-                                           uuid=MASTER0_UUID)
-            ),
-            set(
-                ["ens3", "ens5", "ens6"]
-            )
-        )
-        self._check_ifcfg_files(ifcfg_files_set_to_no)
 
-        # Specify by master uuid - not found
-        self._dump_ifcfg_files(initial_ifcfg_files)
-        self.assertEqual(
-            set(
-                update_slaves_onboot_value(nm_client, None, False,
-                                           root_path=self._root_dir,
-                                           uuid=not_found_uuid)
-            ),
-            set(
-                []
-            )
-        )
-        self._check_ifcfg_files(initial_ifcfg_files)
-        # Specify by master device name (uuid is not supplied, but looked up)
-        self._dump_ifcfg_files(initial_ifcfg_files)
-        self.assertEqual(
-            set(
-                update_slaves_onboot_value(nm_client, MASTER0_NAME, False,
-                                           root_path=self._root_dir, uuid=None)
-            ),
-            set(
-                ["ens3", "ens5", "ens6"]
-            )
-        )
-        self._check_ifcfg_files(ifcfg_files_set_to_no)
-
-        # ens10, ens11, ens12 are updated
-        ifcfg_files_set_to_no = [
-            ("ifcfg-ens3",
-             """
-             NAME=ens3
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens5",
-             """
-             NAME=ens5
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens6",
-             """
-             NAME=ens6
-             {}={}
-             """.format(device_type_master_key, MASTER0_UUID),
-             None),
-            ("ifcfg-ens7",
-             """
-             NAME=ens7
-             ONBOOT=yes
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens8",
-             """
-             NAME=ens8
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens9",
-             """
-             NAME=ens9
-             {}={}
-             """.format(device_type_master_key, other_master_uuid),
-             None),
-            ("ifcfg-ens10",
-             """
-             NAME="ens10"
-             ONBOOT="no"
-             {}="{}"
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-            ("ifcfg-ens11",
-             """
-             NAME=ens11
-             ONBOOT=no
-             {}={}
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-            ("ifcfg-ens12",
-             """
-             NAME="ens12"
-             {}="{}"
-             ONBOOT="no"
-             """.format(device_type_master_key, MASTER1_NAME),
-             None),
-        ]
-
-        # Specify by master devname in ifcfg file
-        self._dump_ifcfg_files(initial_ifcfg_files)
-        self.assertEqual(
-            set(
-                update_slaves_onboot_value(nm_client, MASTER1_NAME, False,
-                                           root_path=self._root_dir)
-            ),
-            set(
-                ["ens10", "ens11", "ens12"]
-            )
-        )
-        self._check_ifcfg_files(ifcfg_files_set_to_no)
-
-    def update_slaves_onboot_value_test(self):
-        """Test update_slaves_onboot_value."""
+    def get_master_slaves_from_ifcfgs_test(self):
+        """Test get_master_slaves_from_ifcfgs."""
         for master_key in ("MASTER", "TEAM_MASTER", "BRIDGE"):
-            self._update_slaves_onboot_value_of_a_device_type(master_key)
-
+            self._get_master_slaves_from_ifcfgs_of_a_device_type(master_key)
 
 # TODO: move to IfcfgFileTestCase, use real ifcfg files, and raise coverage
 class IfcfgGetDracutArgumentsCase(unittest.TestCase):

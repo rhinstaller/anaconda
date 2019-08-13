@@ -462,8 +462,8 @@ def update_onboot_value(connection_uuid, onboot, root_path=""):
     return True
 
 
-def update_slaves_onboot_value(nm_client, master_devname, onboot, root_path="", uuid=None):
-    """Update onboot value in slave ifcfg files of given master.
+def get_master_slaves_from_ifcfgs(nm_client, master_devname, root_path="", uuid=None):
+    """Get all slaves based on ifcfg files of given master.
 
     Master can be identified by device name or uuid. If uuid is not provided
     as argument it will be looked up in master's ifcfg file.
@@ -472,17 +472,14 @@ def update_slaves_onboot_value(nm_client, master_devname, onboot, root_path="", 
     :type nm_client: NM.Client
     :param master_devname: name of master device
     :type devname: str
-    :param onboot: value of ONBOOT setting
-    :type onboot: bool
-    :param root_path: optional root path for ifcfg files to be updated
+    :param root_path: optional root path for ifcfg files
     :type root_path: str
     :param uuid: uuid of master connection (optional)
     :type uuid: str
-    :returns: True if the value was updated, False otherwise
-    :rtype: bool
+    :returns: list of slaves represented by tuple (<CONNECTION_NAME>, <UUID>)
+    :rtype: list((str, str))
     """
-    new_value = "yes" if onboot else "no"
-    updated_devices = []
+    slaves = []
     # Master can be identified by devname or uuid, try to find master uuid
     if not uuid:
         uuid = find_ifcfg_uuid_of_device(nm_client, master_devname, root_path=root_path)
@@ -490,15 +487,9 @@ def update_slaves_onboot_value(nm_client, master_devname, onboot, root_path="", 
         ifcfg = IfcfgFile(ifcfg_path)
         ifcfg.read()
         master = ifcfg.get("MASTER") or ifcfg.get("TEAM_MASTER") or ifcfg.get("BRIDGE")
-        if master in (master_devname, uuid):
-            old_value = ifcfg.get('ONBOOT')
-            slave = ifcfg.get("NAME")
-            log.debug("updating ONBOOT value of slave %s from %s to %s", slave, old_value, new_value)
-            ifcfg.set(('ONBOOT', new_value))
-            ifcfg.write()
-            updated_devices.append(slave)
-
-    return updated_devices
+        if master and master in (master_devname, uuid):
+            slaves.append((ifcfg.get("NAME"), ifcfg.get("UUID")))
+    return slaves
 
 
 def get_dracut_arguments_from_ifcfg(nm_client, ifcfg, iface, target_ip, hostname):
