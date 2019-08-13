@@ -47,7 +47,7 @@ class KickstartManager(object):
         """Set module observers for kickstart distribution.
 
         :param modules: Module observers list
-        :type modules: list(DBusObjectObserver)
+        :type modules: list(ModuleObserver)
         """
         self._module_observers = modules
 

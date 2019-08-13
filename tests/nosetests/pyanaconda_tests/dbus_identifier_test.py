@@ -166,26 +166,3 @@ class DBusServiceIdentifierTestCase(unittest.TestCase):
         service.get_proxy(obj.object_path)
         bus.get_proxy.assert_called_with("a.b.c", "/a/b/c/object")
         bus.reset_mock()
-
-    def get_observer_test(self):
-        """Test getting an observer."""
-        bus = Mock()
-        namespace = ("a", "b", "c")
-
-        service = DBusServiceIdentifier(
-            namespace=namespace,
-            message_bus=bus
-        )
-
-        obj = DBusObjectIdentifier(
-            basename="d",
-            namespace=namespace
-        )
-
-        service.get_observer()
-        bus.get_observer.assert_called_with("a.b.c", "/a/b/c")
-        bus.reset_mock()
-
-        service.get_observer(obj.object_path)
-        bus.get_observer.assert_called_with("a.b.c", "/a/b/c/d")
-        bus.reset_mock()

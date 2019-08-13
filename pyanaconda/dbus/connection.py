@@ -24,7 +24,6 @@ import pydbus
 
 from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE
 from pyanaconda.dbus.constants import DBUS_ANACONDA_SESSION_ADDRESS, DBUS_STARTER_ADDRESS
-from pyanaconda.dbus.observer import DBusObjectObserver
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -141,20 +140,6 @@ class Connection(ABC):
             return
 
         raise RuntimeError("Cannot access {} from the main thread.".format(service_name))
-
-    def get_observer(self, service_name, object_path):
-        """Returns an observer of a remote DBus object.
-
-        :param service_name: a DBus name of a service
-        :param object_path: a DBus path an object
-        :return: an instance of DBusObjectObserver
-
-        .. deprecated::
-
-            Use get_proxy instead.
-
-        """
-        return DBusObjectObserver(self, service_name, object_path)
 
     def disconnect(self):
         """Disconnect from DBus."""

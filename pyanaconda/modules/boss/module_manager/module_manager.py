@@ -18,7 +18,8 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
-from pyanaconda.dbus.namespace import get_dbus_name, get_namespace_from_name, get_dbus_path
+from pyanaconda.dbus.namespace import get_dbus_name
+from pyanaconda.modules.boss.module_manager import ModuleObserver
 from pyanaconda.modules.common.constants.namespaces import ADDONS_NAMESPACE
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -36,14 +37,9 @@ class ModuleManager(object):
         """Return the modules observers."""
         return self._module_observers
 
-    def add_module(self, service_name):
+    def add_module(self, service_name, is_addon=False):
         """Add a modules with the given service name."""
-        # Get the object path.
-        namespace = get_namespace_from_name(service_name)
-        object_path = get_dbus_path(*namespace)
-
-        # Add the observer.
-        observer = DBus.get_observer(service_name, object_path)
+        observer = ModuleObserver(DBus, service_name, is_addon)
         self._module_observers.append(observer)
 
     def add_addon_modules(self):
@@ -54,7 +50,7 @@ class ModuleManager(object):
 
         for service_name in names:
             if service_name.startswith(prefix):
-                self.add_module(service_name)
+                self.add_module(service_name, is_addon=True)
 
     def start_modules(self):
         """Start anaconda modules (including addons)."""
