@@ -103,7 +103,11 @@ TEXT_ONLY_TARGET = 'multi-user.target'
 GRAPHICAL_TARGET = 'graphical.target'
 
 # Network
-NETWORK_CONNECTION_TIMEOUT = 45  # in seconds
+
+# Requests package (where this constant is used) recommends to have timeout slightly
+# above multiple of 3 because of it is default packet re-transmission window.
+# See: https://3.python-requests.org/user/advanced/#timeouts
+NETWORK_CONNECTION_TIMEOUT = 46  # in seconds
 NETWORK_CONNECTED_CHECK_INTERVAL = 0.1  # in seconds
 
 # DBus

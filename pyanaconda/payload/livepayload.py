@@ -47,7 +47,7 @@ from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.progress import progressQ
 
 from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
-from pyanaconda.core.constants import IMAGE_DIR, TAR_SUFFIX
+from pyanaconda.core.constants import IMAGE_DIR, TAR_SUFFIX, NETWORK_CONNECTION_TIMEOUT
 
 from blivet.size import Size
 
@@ -309,7 +309,8 @@ class LiveImageKSPayload(LiveImagePayload):
 
         error = None
         try:
-            response = self._session.get(self.data.method.url, proxies=self._proxies, verify=True)
+            response = self._session.get(self.data.method.url, proxies=self._proxies, verify=True,
+                                         timeout=NETWORK_CONNECTION_TIMEOUT)
 
             # At this point we know we can get the image and what its size is
             # Make a guess as to minimum size needed:
@@ -369,7 +370,8 @@ class LiveImageKSPayload(LiveImagePayload):
             with open(self.image_path, "wb") as f:
                 ssl_verify = not self.data.method.noverifyssl
                 response = self._session.get(self.data.method.url, proxies=self._proxies,
-                                             verify=ssl_verify, stream=True)
+                                             verify=ssl_verify, stream=True,
+                                             timeout=NETWORK_CONNECTION_TIMEOUT)
                 total_length = response.headers.get('content-length')
                 if total_length is None:  # no content length header
                     # just download the file in one go and fake the progress reporting once done
