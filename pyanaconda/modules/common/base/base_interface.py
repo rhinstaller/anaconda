@@ -123,6 +123,22 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         """
         return Requirement.to_structure_list(self.implementation.collect_requirements())
 
+    def SetLocale(self, locale: Str):
+        """Set the locale for the module.
+
+        This function modifies the process environment, which is not thread-safe.
+        It should be called before any threads are run.
+
+        We cannot get around setting $LANG. Python's gettext implementation
+        differs from C in that consults only the environment for the current
+        language and not the data set via setlocale. If we want translations
+        from python modules to work, something needs to be set in the
+        environment when the language changes.
+
+        Examples: "cs_CZ.UTF-8", "fr_FR"
+        """
+        return self.implementation.set_locale(locale)
+
     def InstallWithTasks(self) -> List[ObjPath]:
         """Returns installation tasks of this module.
 

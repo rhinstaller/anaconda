@@ -18,10 +18,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
 from abc import ABC
+from locale import setlocale, LC_ALL
 
 from pyanaconda.core.event_loop import EventLoop
 from pyanaconda.core.timer import Timer
+from pyanaconda.core.util import setenv
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.task import publish_task, TaskInterface
 from pyanaconda.core.signal import Signal
@@ -102,6 +105,26 @@ class MainModule(BaseModule):
         """Stop the module's loop."""
         DBus.disconnect()
         Timer().timeout_sec(1, self.loop.quit)
+
+    def set_locale(self, locale):
+        """Set the locale for the module.
+
+        This function modifies the process environment, which is not thread-safe.
+        It should be called before any threads are run.
+
+        We cannot get around setting $LANG. Python's gettext implementation
+        differs from C in that consults only the environment for the current
+        language and not the data set via setlocale. If we want translations
+        from python modules to work, something needs to be set in the
+        environment when the language changes.
+
+        :param str locale: locale to set
+        """
+        os.environ["LANG"] = locale  # pylint: disable=environment-modify
+        setlocale(LC_ALL, locale)
+        # Set locale for child processes
+        setenv("LANG", locale)
+        log.debug("Locale is set to %s.", locale)
 
 
 class KickstartBaseModule(BaseModule):

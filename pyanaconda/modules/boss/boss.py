@@ -132,3 +132,12 @@ class Boss(MainModule):
         task = self._install_manager.install_system_with_task()
         path = self.publish_task(BOSS.namespace, task)
         return path
+
+    def set_locale(self, locale):
+        """Set locale of boss and all modules.
+
+        :param str locale: locale to set
+        """
+        log.info("Setting locale of all modules to %s.", locale)
+        super().set_locale(locale)
+        self._module_manager.set_modules_locale(locale)

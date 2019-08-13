@@ -97,6 +97,19 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
+    @patch("pyanaconda.modules.common.base.base.setlocale")
+    @patch("pyanaconda.modules.common.base.base.os")
+    def set_locale_test(self, mocked_os, setlocale):
+        """Test setting locale of the module."""
+        from locale import LC_ALL
+        import pyanaconda.core.util
+        locale = "en_US.UTF-8"
+        mocked_os.environ = {}
+        self.network_interface.SetLocale(locale)
+        self.assertEqual(mocked_os.environ["LANG"], locale)
+        setlocale.assert_called_once_with(LC_ALL, locale)
+        self.assertEqual(pyanaconda.core.util._child_env['LANG'], locale)
+
     def hostname_property_test(self):
         """Test the hostname property."""
         self._test_dbus_property(

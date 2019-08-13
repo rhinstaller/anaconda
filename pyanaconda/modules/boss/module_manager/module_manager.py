@@ -103,6 +103,18 @@ class ModuleManager(object):
 
         return True
 
+    def set_modules_locale(self, locale):
+        """Set locale of all modules.
+
+        :param str locale: locale to set
+        """
+        log.info("Setting locale of all modules to %s.", locale)
+        for observer in self.module_observers:
+            if not observer.is_service_available:
+                log.warning("%s is not available when setting locale", observer)
+                continue
+            observer.proxy.SetLocale(locale)
+
     def stop_modules(self):
         """Tell all running modules to quit."""
         log.debug("Stop modules.")
