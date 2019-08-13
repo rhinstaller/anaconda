@@ -554,6 +554,49 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    def default_requirements_test(self):
+        """Test that by default no packages are required by the network module."""
+        self.assertEqual(self.network_interface.CollectRequirements(), [])
+
+    def kickstart_firewall_package_requirements_test(self):
+        """Test that firewall command in kickstart results in request for firewalld package."""
+
+        ks_in = "firewall --ftp --http --smtp --ssh"
+        ks_out = """
+        # Firewall configuration
+        firewall --enabled --service=ftp,http,smtp,ssh
+        # Network information
+        network  --hostname=localhost.localdomain
+        """
+        self._test_kickstart(ks_in, ks_out)
+        self.assertEqual(self.network_interface.CollectRequirements(), [
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "firewalld"),
+                "reason": get_variant(Str, "Requested by the firewall kickstart command.")
+            }
+        ])
+
+    def teamd_requirements_test(self):
+        """Test that mocked team devices result in request for teamd package."""
+
+        # mock a team device
+        self.network_module.nm_client = Mock()
+        self.__mock_nm_client_devices(
+            [
+                ("team0", None, "33:33:33:33:33:33", NM.DeviceType.TEAM)
+            ]
+        )
+
+        # check that the teamd package is requested
+        self.assertEqual(self.network_interface.CollectRequirements(), [
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "teamd"),
+                "reason": get_variant(Str, "Necessary for network team device configuration.")
+            }
+        ])
+
 
 class FirewallInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the Firewall module."""
@@ -580,7 +623,6 @@ class FirewallInterfaceTestCase(unittest.TestCase):
 
     def default_property_values_test(self):
         """Test the default firewall module values are as expected."""
-        self.assertFalse(self.firewall_interface.FirewallKickstarted)
         self.assertEqual(self.firewall_interface.FirewallMode, FIREWALL_DEFAULT)
         self.assertListEqual(self.firewall_interface.EnabledPorts, [])
         self.assertListEqual(self.firewall_interface.Trusts, [])
