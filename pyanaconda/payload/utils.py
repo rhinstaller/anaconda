@@ -32,7 +32,7 @@ def resolve_device(storage, dev_spec):
     """Get the device matching the provided device specification.
 
     :param storage: an instance of Blivet's storage
-    :param dev_spec: a string describing a block device
+    :param str dev_spec: a string describing a block device
     :return: an instance of a device or None
     """
     return storage.devicetree.resolve_device(dev_spec)
@@ -50,7 +50,7 @@ def mount_device(device, mount_point):
     """Mount a filesystem on the device.
 
     :param device: an instance of a device
-    :param mount_point: a path to the mount point
+    :param str mount_point: a path to the mount point
     """
     device.format.mount(mountpoint=mount_point)
 
@@ -59,7 +59,7 @@ def unmount_device(device, mount_point):
     """Unmount a filesystem on the device.
 
     :param device: an instance of a device
-    :param mount_point: a path to the mount point or None
+    :param str mount_point: a path to the mount point or None
     """
     device.format.unmount(mountpoint=mount_point)
 
@@ -75,7 +75,7 @@ def teardown_device(device):
 def get_mount_device(mount_point):
     """Given a mount point, return the device node path mounted there.
 
-    :param mount_point: a mount point
+    :param str mount_point: a mount point
     :return: a device path or None
     """
     if os.path.ismount(mount_point):
@@ -96,7 +96,7 @@ def get_mount_paths(device_path):
 def unmount(mount_point, raise_exc=False):
     """Unmount a filesystem.
 
-    :param mount_point: a mount point
+    :param str mount_point: a mount point
     :param raise_exc: raise an exception if it fails
     """
     try:
@@ -111,10 +111,10 @@ def unmount(mount_point, raise_exc=False):
 def mount(device_path, mount_point, fstype, options):
     """Mount a filesystem.
 
-    :param device_path: a device path
-    :param mount_point: a mount point
-    :param fstype: a filesystem type
-    :param options: a string of mount options
+    :param str device_path: a device path
+    :param str mount_point: a mount point
+    :param str fstype: a filesystem type
+    :param str options: mount options
     """
     try:
         return blivet.util.mount(device_path, mount_point, fstype=fstype, options=options)
