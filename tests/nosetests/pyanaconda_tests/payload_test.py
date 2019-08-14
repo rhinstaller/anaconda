@@ -25,6 +25,7 @@ import hashlib
 import shutil
 
 from tempfile import TemporaryDirectory
+from mock import patch, Mock, call
 
 from blivet.size import Size
 
@@ -304,3 +305,28 @@ class FlatpakTest(unittest.TestCase):
             flatpak._remote_path = temp
 
             self.assertTrue(flatpak.is_available())
+
+    @patch("pyanaconda.payload.flatpak.Transaction")
+    @patch("pyanaconda.payload.flatpak.Installation")
+    @patch("pyanaconda.payload.flatpak.Remote")
+    def setup_test(self, remote, installation, transaction):
+        """Test flatpak setup."""
+        remote_inner = Mock()
+        remote.new.return_value = remote_inner
+
+        installation_inner = Mock()
+        installation.new_for_path.return_value = installation_inner
+
+        flatpak = FlatpakPayload("/mock/system/root/path")
+        flatpak.setup()
+
+        remote.new.assert_called_once()
+        installation.new_for_path.assert_called_once()
+        transaction.new_for_installation.assert_called_once()
+
+        expected_remote_calls = [call.set_gpg_verify(False),
+                                 call.set_url("file://{}".format(flatpak.remote_path))]
+        self.assertEqual(remote_inner.method_calls, expected_remote_calls)
+
+        expected_remote_calls = [call.add_remote(remote_inner, False, None)]
+        self.assertEqual(installation_inner.method_calls, expected_remote_calls)
