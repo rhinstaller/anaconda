@@ -24,15 +24,18 @@ import os
 import hashlib
 import shutil
 
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.payload import dnfpayload
+from tempfile import TemporaryDirectory
+
 from blivet.size import Size
 
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.payload import dnfpayload
+from pyanaconda.payload.flatpak import FlatpakPayload
 from pyanaconda.payload.dnfpayload import RepoMDMetaHash
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.payload.errors import PayloadRequirementsMissingApply
 
-from pyanaconda.modules.common.structures.requirement import Requirement
 
 class PickLocation(unittest.TestCase):
     def pick_download_location_test(self):
@@ -287,3 +290,17 @@ class PayloadRequirementsTestCase(unittest.TestCase):
         self.assertEqual(len(reqs.groups[0].reasons), 1)
         self.assertEqual(reqs.groups[0].reasons[0], "bar group needed")
         self.assertTrue(reqs.groups[0].strong)
+
+
+class FlatpakTest(unittest.TestCase):
+
+    def is_available_test(self):
+        """Test check for flatpak availability of the system sources."""
+        flatpak = FlatpakPayload("/mock/system/root/path")
+
+        self.assertFalse(flatpak.is_available())
+
+        with TemporaryDirectory() as temp:
+            flatpak._remote_path = temp
+
+            self.assertTrue(flatpak.is_available())
