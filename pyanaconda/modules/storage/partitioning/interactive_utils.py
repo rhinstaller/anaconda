@@ -213,8 +213,9 @@ def get_new_root_name():
 
     :return: a translated string
     """
-    return _("New %(name)s %(version)s Installation") \
-        % {"name": productName, "version": productVersion}
+    return _("New {name} {version} Installation").format(
+        name=productName, version=productVersion
+    )
 
 
 def create_new_root(storage, boot_drive):
@@ -344,13 +345,12 @@ def validate_raid_level(raid_level, num_members):
     :return: an error message
     """
     if num_members < raid_level.min_members:
-        return _("The RAID level you have selected (%(level)s) requires more "
-                 "disks (%(min)d) than you currently have selected (%(count)d).") \
-               % {
-                   "level": raid_level,
-                   "min": raid_level.min_members,
-                   "count": num_members
-               }
+        return _("The RAID level you have selected {level} requires more disks "
+                 "({min}) than you currently have selected ({count}).").format(
+            level=raid_level,
+            min=raid_level.min_members,
+            count=num_members
+        )
 
     return None
 
@@ -398,29 +398,30 @@ def validate_device_info(storage, dev_info, reformat):
     supported_types = (devicefactory.DEVICE_TYPE_PARTITION, devicefactory.DEVICE_TYPE_MD)
 
     if mount_point == "/boot/efi" and device_type not in supported_types:
-        return _("/boot/efi must be on a device of type %(type)s or %(another)s") % {
-            "type": _(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_PARTITION]),
-            "another": _(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_MD])
-        }
+        return _("/boot/efi must be on a device of type {type} or {another}").format(
+            type=_(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_PARTITION]),
+            another=_(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_MD])
+        )
 
     if device_type != devicefactory.DEVICE_TYPE_PARTITION and \
             fs_type in PARTITION_ONLY_FORMAT_TYPES:
-        return _("%(fs)s must be on a device of type %(type)s") % {
-            "fs": fs_type, "type": _(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_PARTITION])
-        }
+        return _("{fs} must be on a device of type {type}").format(
+            fs=fs_type,
+            type=_(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_PARTITION])
+        )
 
     if mount_point and encrypted and mount_point.startswith("/boot"):
-        return _("%s cannot be encrypted") % mount_point
+        return _("{} cannot be encrypted").format(mount_point)
 
     if encrypted and fs_type in PARTITION_ONLY_FORMAT_TYPES:
-        return _("%s cannot be encrypted") % fs_type
+        return _("{} cannot be encrypted").format(fs_type)
 
     if mount_point == "/" and device.format.exists and not reformat:
         return _("You must create a new file system on the root device.")
 
     if (raid_level is not None or device_type == devicefactory.DEVICE_TYPE_MD) and \
             raid_level not in get_supported_raid_levels(device_type):
-        return _("Device does not support RAID level selection %s.") % raid_level
+        return _("Device does not support RAID level selection {}.").format(raid_level)
 
     if raid_level is not None:
         error = validate_raid_level(
