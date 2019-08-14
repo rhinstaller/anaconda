@@ -713,7 +713,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_device_info = self._get_new_device_info(device, old_device_info)
 
         # Log the results.
-        description = self._get_device_info_description(new_device_info, old_device_info)
+        description = self._get_new_device_info_description(new_device_info, old_device_info)
         log.debug("Device request: %s", description)
 
         # Validate the device info.
@@ -880,7 +880,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("overriding disk set with container's")
             new_device_info["disks"] = container.disks[:]
 
-    def _get_device_info_description(self, new_device_info, old_device_info):
+    def _get_new_device_info_description(self, new_device_info, old_device_info):
         # FIXME: Remove this method once we replace dictionaries with structures.
         attributes = []
 
