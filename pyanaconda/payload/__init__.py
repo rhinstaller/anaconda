@@ -456,7 +456,7 @@ class Payload(metaclass=ABCMeta):
         # This is to catch /run/install/isodir vs. /mnt/install/isodir, for
         # instance.
         real_mountpoint = os.path.realpath(mountpoint)
-        mount_device_path = payload_utils.get_mount_device(real_mountpoint)
+        mount_device_path = payload_utils.get_mount_device_path(real_mountpoint)
 
         if mount_device_path:
             log.warning("%s is already mounted on %s", mount_device_path, mountpoint)
@@ -478,7 +478,7 @@ class Payload(metaclass=ABCMeta):
     def _setup_NFS(mountpoint, server, path, options):
         """Prepare an NFS directory for use as an install source."""
         log.info("mounting %s:%s:%s on %s", server, path, options, mountpoint)
-        device_path = payload_utils.get_mount_device(mountpoint)
+        device_path = payload_utils.get_mount_device_path(mountpoint)
 
         # test if the mountpoint is occupied already
         if device_path:
@@ -736,14 +736,14 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         # nfsiso: umount INSTALL_TREE, umount ISO_DIR
         if os.path.ismount(INSTALL_TREE):
             if self.install_device and \
-               payload_utils.get_mount_device(INSTALL_TREE) == self.install_device.path:
+               payload_utils.get_mount_device_path(INSTALL_TREE) == self.install_device.path:
                 payload_utils.teardown_device(self.install_device)
             else:
                 payload_utils.unmount(INSTALL_TREE, raise_exc=True)
 
         if os.path.ismount(ISO_DIR):
             if self.install_device and \
-               payload_utils.get_mount_device(ISO_DIR) == self.install_device.path:
+               payload_utils.get_mount_device_path(ISO_DIR) == self.install_device.path:
                 payload_utils.teardown_device(self.install_device)
             # The below code will fail when nfsiso is the stage2 source
             # But if we don't do this we may not be able to switch from
@@ -776,7 +776,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
     def _unmount_source_directory(self, mount_point):
         if os.path.ismount(mount_point):
-            device_path = payload_utils.get_mount_device(mount_point)
+            device_path = payload_utils.get_mount_device_path(mount_point)
             device = payload_utils.resolve_device(self.storage, device_path)
             if device:
                 payload_utils.teardown_device(device)
@@ -861,8 +861,8 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         metalink = None
 
         # See if we already have stuff mounted due to dracut
-        iso_device_path = payload_utils.get_mount_device(DRACUT_ISODIR)
-        device_path = payload_utils.get_mount_device(DRACUT_REPODIR)
+        iso_device_path = payload_utils.get_mount_device_path(DRACUT_ISODIR)
+        device_path = payload_utils.get_mount_device_path(DRACUT_REPODIR)
 
         if method.method == "harddrive":
             log.debug("Setting up harddrive install device")
@@ -1035,7 +1035,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         # FIXME: We really should not talk about NFS here - regression from re-factorization?
         # Did dracut leave the DVD or NFS mounted for us?
-        device_path = payload_utils.get_mount_device(DRACUT_REPODIR)
+        device_path = payload_utils.get_mount_device_path(DRACUT_REPODIR)
 
         # Check for valid optical media if we didn't boot from one
         if not verifyMedia(DRACUT_REPODIR):
@@ -1137,11 +1137,11 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         # This could either be mounted to INSTALL_TREE or on
         # DRACUT_ISODIR if dracut did the mount.
-        device_path = payload_utils.get_mount_device(INSTALL_TREE)
+        device_path = payload_utils.get_mount_device_path(INSTALL_TREE)
         if device_path:
             return device_path[len(ISO_DIR) + 1:]
 
-        device_path = payload_utils.get_mount_device(DRACUT_ISODIR)
+        device_path = payload_utils.get_mount_device_path(DRACUT_ISODIR)
         if device_path:
             return device_path[len(DRACUT_ISODIR) + 1:]
 

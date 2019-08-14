@@ -152,8 +152,8 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
         if self.data.method.method == "harddrive" and \
-           payload_utils.get_mount_device(DRACUT_ISODIR) == \
-                payload_utils.get_mount_device(DRACUT_REPODIR):
+           payload_utils.get_mount_device_path(DRACUT_ISODIR) == \
+                payload_utils.get_mount_device_path(DRACUT_REPODIR):
             message = _("The installation source is in use by the installer and "
                         "cannot be changed.")
             self.window.add_with_separator(TextWidget(message))

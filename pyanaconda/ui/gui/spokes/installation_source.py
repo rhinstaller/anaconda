@@ -1031,8 +1031,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # change it.  Thus, this entire portion of the spoke should be
         # insensitive.
         if self.data.method.method == "harddrive" and \
-           payload_utils.get_mount_device(constants.DRACUT_ISODIR) == \
-                payload_utils.get_mount_device(constants.DRACUT_REPODIR):
+           payload_utils.get_mount_device_path(constants.DRACUT_ISODIR) == \
+                payload_utils.get_mount_device_path(constants.DRACUT_REPODIR):
             for widget in [self._autodetect_button, self._autodetect_box, self._iso_button,
                            self._iso_box, self._network_button, self._network_box,
                            self._hmc_button]:

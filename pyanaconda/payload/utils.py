@@ -72,7 +72,7 @@ def teardown_device(device):
     device.teardown(recursive=True)
 
 
-def get_mount_device(mount_point):
+def get_mount_device_path(mount_point):
     """Given a mount point, return the device node path mounted there.
 
     :param str mount_point: a mount point
