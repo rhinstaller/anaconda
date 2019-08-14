@@ -23,6 +23,7 @@ gi.require_version("NM", "1.0")
 from gi.repository import NM
 
 import socket
+from queue import Queue
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
@@ -804,11 +805,13 @@ def update_connection_values(connection, new_values):
         if setting:
             setting.set_property(setting_property, value)
             log.debug("updating connection %s setting '%s' '%s' to '%s'",
-                    connection.get_uuid(), setting_name, setting_property, value)
+                      connection.get_uuid(), setting_name, setting_property, value)
         else:
             log.debug("setting '%s' not found while updating connection %s",
                       setting_name, connection.get_uuid())
-    connection.commit_changes(True, None)
+    commit_changes_with_autoconnection_blocked(connection)
+    log.debug("updated connection %s:\n%s", connection.get_uuid(),
+              connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
 
 def devices_ignore_ipv6(nm_client, device_types):
@@ -839,3 +842,41 @@ def get_connections_dump(nm_client):
     for con in nm_client.get_connections():
         con_dumps.append(str(con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS)))
     return "\n".join(con_dumps)
+
+
+def commit_changes_with_autoconnection_blocked(connection, save_to_disk=True):
+    """Implementation of NM CommitChanges() method with blocked autoconnection.
+
+    Update2() API is used to implement the functionality (called synchronously).
+
+    Prevents autoactivation of the connection on its update which would happen
+    with CommitChanges if "autoconnect" is set True.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param save_to_disk: should the changes be written also to disk?
+    :type save_to_disk: bool
+    :return: on success result of the Update2() call, None of failure
+    :rtype: GVariant of type "a{sv}" or None
+    """
+    sync_queue = Queue()
+
+    def finish_callback(connection, result, sync_queue):
+        ret = connection.update2_finish(result)
+        sync_queue.put(ret)
+
+    flags = NM.SettingsUpdate2Flags.BLOCK_AUTOCONNECT
+    if save_to_disk:
+        flags |= NM.SettingsUpdate2Flags.TO_DISK
+
+    con2 = NM.SimpleConnection.new_clone(connection)
+    connection.update2(
+        con2.to_dbus(NM.ConnectionSerializationFlags.ALL),
+        flags,
+        None,
+        None,
+        finish_callback,
+        sync_queue
+    )
+
+    return sync_queue.get()
