@@ -55,6 +55,15 @@ def mount_device(device, mount_point):
     device.format.mount(mountpoint=mount_point)
 
 
+def unmount_device(device, mount_point):
+    """Unmount a filesystem on the device.
+
+    :param device: an instance of a device
+    :param mount_point: a path to the mount point or None
+    """
+    device.format.unmount(mountpoint=mount_point)
+
+
 def teardown_device(device):
     """Close, or tear down, a device.
 

@@ -211,7 +211,7 @@ def find_optical_install_media(storage):
                 if not verifyMedia(mountpoint):
                     continue
             finally:
-                dev.format.unmount(mountpoint=mountpoint)
+                payload_utils.unmount_device(dev, mountpoint)
         finally:
             os.rmdir(mountpoint)
 
