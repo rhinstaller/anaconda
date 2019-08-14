@@ -1034,8 +1034,6 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         url = None
 
         # FIXME: We really should not talk about NFS here - regression from re-factorization?
-        # Did dracut leave the DVD or NFS mounted for us?
-        repo_device_path = payload_utils.get_mount_device_path(DRACUT_REPODIR)
 
         # Check for valid optical media if we didn't boot from one
         if not verifyMedia(DRACUT_REPODIR):
