@@ -86,7 +86,9 @@ class DasdFormatting(object):
 
     def _is_unformatted_dasd(self, disk):
         """Is it an unformatted DASD?"""
-        return self._is_dasd(disk) and blockdev.s390.dasd_needs_format(disk.busid)
+        return self._is_dasd(disk) \
+            and not blockdev.s390.dasd_is_fba(disk.name) \
+            and blockdev.s390.dasd_needs_format(disk.busid)
 
     def _is_ldl_dasd(self, disk):
         """Is it an LDL DASD?"""
