@@ -17,10 +17,28 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
 
 
 class FlatpakPayload(object):
     """Main class to handle flatpak installation and management."""
 
     def __init__(self):
-        pass
+        self._remote_path = "/flatpak/repo"
+
+    @property
+    def remote_path(self):
+        """Path to the remote repository."""
+        return self._remote_path
+
+    @remote_path.setter
+    def remote_path(self, value):
+        """"Set path to the remote repository."""
+        self.remote_path = value
+
+    def is_available(self):
+        """Test if flatpak installation source is available.
+
+        :return: bool
+        """
+        return os.path.isdir(self.remote_path)
