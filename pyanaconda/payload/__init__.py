@@ -459,8 +459,7 @@ class Payload(metaclass=ABCMeta):
         mount_device_path = payload_utils.get_mount_device(real_mountpoint)
 
         if mount_device_path:
-            if mount_device_path:
-                log.warning("%s is already mounted on %s", mount_device_path, mountpoint)
+            log.warning("%s is already mounted on %s", mount_device_path, mountpoint)
 
             if mount_device_path == device.path:
                 return
