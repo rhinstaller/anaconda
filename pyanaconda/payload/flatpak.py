@@ -30,6 +30,8 @@ from gi.repository.Gio import File
 class FlatpakPayload(object):
     """Main class to handle flatpak installation and management."""
 
+    REMOTE_NAME = "Anaconda"
+
     def __init__(self, sysroot):
         """Create and initialize this class.
 
@@ -68,7 +70,7 @@ class FlatpakPayload(object):
         self._transaction = self._create_flatpak_transaction(installation)
 
     def _create_flatpak_remote(self):
-        remote = Remote.new("Anaconda")
+        remote = Remote.new(self.REMOTE_NAME)
         remote.set_gpg_verify(False)
         remote.set_url("file://{}".format(self.remote_path))
 
