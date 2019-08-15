@@ -27,6 +27,9 @@ from gi.repository.Flatpak import Transaction, Installation, Remote
 from gi.repository.Gio import File
 
 
+__all__ = ["FlatpakPayload"]
+
+
 class FlatpakPayload(object):
     """Main class to handle flatpak installation and management."""
 
@@ -92,3 +95,46 @@ class FlatpakPayload(object):
         :return: bool
         """
         return os.path.isdir(self.remote_path)
+
+
+class RemoteRefsList(object):
+
+    def __init__(self, installation):
+        """Load all flatpak refs from the remote.
+
+        :param installation: flatpak installation instance with remotes attached
+        :type installation: Flatpak.Installation instance
+        """
+        self._installation = installation
+
+        self._remote_refs = []
+
+    @property
+    def remote_refs(self):
+        """Get list of remote flatpak applications refs."""
+        if not self._remote_refs:
+            self._load_remote_refs()
+
+        return self._remote_refs
+
+    def _load_remote_refs(self):
+        """Load remote application references.
+
+        This will load the list just once. We can do that because we support only one repository
+        on the fixed place right now. This have to be re-implemented when there will be a proper
+        flatpak support.
+        """
+        self._remote_refs = self._installation.list_remote_refs_sync(FlatpakPayload.REMOTE_NAME,
+                                                                     None)
+
+    def get_sum_installation_size(self):
+        """Get sum of the installation size for all the flatpaks.
+
+        :return: sum of bytes of the installation size of the all flatpaks
+        :rtype: int
+        """
+        size_sum = 0
+        for ref in self.remote_refs:
+            size_sum = size_sum + ref.get_installed_size()
+
+        return size_sum
