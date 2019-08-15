@@ -30,6 +30,7 @@ from pyanaconda.progress import progressQ
 from pyanaconda.payload import Payload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError
+from pyanaconda.payload.flatpak import FlatpakPayload
 from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
@@ -52,6 +53,9 @@ class RPMOSTreePayload(Payload):
         self._remoteOptions = None
         self._internal_mounts = []
         self._locale_map = None
+
+        self._flatpak_payload = FlatpakPayload(conf.target.system_root)
+        self._flatpak_payload.setup()
 
     @property
     def handles_bootloader_configuration(self):
