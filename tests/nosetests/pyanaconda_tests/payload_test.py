@@ -23,6 +23,7 @@ import tempfile
 import os
 import hashlib
 import shutil
+import gi
 
 from tempfile import TemporaryDirectory
 from mock import patch, Mock, call
@@ -36,6 +37,9 @@ from pyanaconda.payload.flatpak import FlatpakPayload
 from pyanaconda.payload.dnfpayload import RepoMDMetaHash
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.payload.errors import PayloadRequirementsMissingApply
+
+gi.require_version("Flatpak", "1.0")
+from gi.repository.Flatpak import RefKind
 
 
 class PickLocation(unittest.TestCase):
@@ -351,9 +355,9 @@ class FlatpakTest(unittest.TestCase):
         flatpak.setup()
 
         self._installation.list_remote_refs_sync.return_value = [
-            RefMock(2000),
-            RefMock(3000),
-            RefMock(100)
+            RefMock(installed_size=2000),
+            RefMock(installed_size=3000),
+            RefMock(installed_size=100)
         ]
 
         installation_size = flatpak.get_required_size()
@@ -377,11 +381,66 @@ class FlatpakTest(unittest.TestCase):
 
         self.assertEqual(installation_size, 0)
 
+    @patch("pyanaconda.payload.flatpak.Transaction")
+    @patch("pyanaconda.payload.flatpak.Installation")
+    @patch("pyanaconda.payload.flatpak.Remote")
+    def install_test(self, remote_cls, installation_cls, transaction_cls):
+        """Test flatpak installation is working."""
+        flatpak = FlatpakPayload("remote/path")
+
+        self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
+
+        flatpak.setup()
+
+        self._installation.list_remote_refs_sync.return_value = [
+            RefMock(name="org.space.coolapp", kind=RefKind.APP, arch="x86_64", branch="stable"),
+            RefMock(name="com.prop.notcoolapp", kind=RefKind.APP, arch="i386", branch="f36"),
+            RefMock(name="org.space.coolruntime", kind=RefKind.RUNTIME, arch="x86_64",
+                    branch="stable"),
+            RefMock(name="com.prop.notcoolruntime", kind=RefKind.RUNTIME, arch="i386",
+                    branch="f36")
+        ]
+
+        flatpak.install_all()
+
+        expected_calls = [call.add_install(FlatpakPayload.REMOTE_NAME,
+                                           "app/org.space.coolapp/x86_64/stable",
+                                           None),
+                          call.add_install(FlatpakPayload.REMOTE_NAME,
+                                           "app/com.prop.notcoolapp/i386/f36",
+                                           None),
+                          call.add_install(FlatpakPayload.REMOTE_NAME,
+                                           "runtime/org.space.coolruntime/x86_64/stable",
+                                           None),
+                          call.add_install(FlatpakPayload.REMOTE_NAME,
+                                           "runtime/com.prop.notcoolruntime/i386/f36",
+                                           None),
+                          call.run()]
+
+        self.assertEqual(self._transaction.mock_calls, expected_calls)
+
 
 class RefMock(object):
 
-    def __init__(self, installation_size):
-        self._installation_size = installation_size
+    def __init__(self, name="org.app", kind=RefKind.APP, arch="x86_64", branch="stable",
+                 installed_size=0):
+        self._name = name
+        self._kind = kind
+        self._arch = arch
+        self._branch = branch
+        self._installed_size = installed_size
+
+    def get_name(self):
+        return self._name
+
+    def get_kind(self):
+        return self._kind
+
+    def get_arch(self):
+        return self._arch
+
+    def get_branch(self):
+        return self._branch
 
     def get_installed_size(self):
-        return self._installation_size
+        return self._installed_size
