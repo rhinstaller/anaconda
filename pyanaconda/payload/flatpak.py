@@ -23,7 +23,7 @@ import gi
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
 
-from gi.repository.Flatpak import Transaction, Installation, Remote
+from gi.repository.Flatpak import Transaction, Installation, Remote, RefKind
 from gi.repository.Gio import File
 
 
@@ -107,6 +107,15 @@ class FlatpakPayload(object):
         """
         return self._remote_refs_list.get_sum_installation_size()
 
+    def install_all(self):
+        """Install all the refs contained on the remote."""
+        self._stuff_refs_to_transaction()
+        self._transaction.run()
+
+    def _stuff_refs_to_transaction(self):
+        for ref in self._remote_refs_list.get_refs_in_install_format():
+            self._transaction.add_install(self.REMOTE_NAME, ref, None)
+
 
 class RemoteRefsList(object):
 
@@ -149,3 +158,23 @@ class RemoteRefsList(object):
             size_sum = size_sum + ref.get_installed_size()
 
         return size_sum
+
+    def get_refs_in_install_format(self):
+        """Get list of strings used for the installation.
+
+        Transaction object require to have refs for the installation in the correct format so
+        create the correct format here.
+
+        :return: list of refs in the correct format
+        :rtype: [str]
+        """
+        result = []
+        for ref in self.remote_refs:
+            kind_type = "app" if ref.get_kind() is RefKind.APP else "runtime"
+            # create ref string in format "runtime/org.example.app/x86_64/f30"
+            result.append(kind_type + "/" +
+                          ref.get_name() + "/" +
+                          ref.get_arch() + "/" +
+                          ref.get_branch())
+
+        return result
