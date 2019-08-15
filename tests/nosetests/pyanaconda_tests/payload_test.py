@@ -295,6 +295,18 @@ class PayloadRequirementsTestCase(unittest.TestCase):
 
 class FlatpakTest(unittest.TestCase):
 
+    def setUp(self):
+        self._remote = Mock()
+        self._installation = Mock()
+        self._transaction = Mock()
+
+    def _setup_flatpak_objects(self, remote_cls, installation_cls, transaction_cls):
+        remote_cls.new.return_value = self._remote
+        installation_cls.new_for_path.return_value = self._installation
+        transaction_cls.new_for_installation.return_value = self._transaction
+
+        self._transaction.get_installation.return_value = self._installation
+
     def is_available_test(self):
         """Test check for flatpak availability of the system sources."""
         flatpak = FlatpakPayload("/mock/system/root/path")
@@ -309,24 +321,67 @@ class FlatpakTest(unittest.TestCase):
     @patch("pyanaconda.payload.flatpak.Transaction")
     @patch("pyanaconda.payload.flatpak.Installation")
     @patch("pyanaconda.payload.flatpak.Remote")
-    def setup_test(self, remote, installation, transaction):
+    def setup_test(self, remote_cls, installation_cls, transaction_cls):
         """Test flatpak setup."""
-        remote_inner = Mock()
-        remote.new.return_value = remote_inner
-
-        installation_inner = Mock()
-        installation.new_for_path.return_value = installation_inner
+        self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
         flatpak = FlatpakPayload("/mock/system/root/path")
         flatpak.setup()
 
-        remote.new.assert_called_once()
-        installation.new_for_path.assert_called_once()
-        transaction.new_for_installation.assert_called_once()
+        remote_cls.new.assert_called_once()
+        installation_cls.new_for_path.assert_called_once()
+        transaction_cls.new_for_installation.assert_called_once()
 
         expected_remote_calls = [call.set_gpg_verify(False),
                                  call.set_url("file://{}".format(flatpak.remote_path))]
-        self.assertEqual(remote_inner.method_calls, expected_remote_calls)
+        self.assertEqual(self._remote.method_calls, expected_remote_calls)
 
-        expected_remote_calls = [call.add_remote(remote_inner, False, None)]
-        self.assertEqual(installation_inner.method_calls, expected_remote_calls)
+        expected_remote_calls = [call.add_remote(self._remote, False, None)]
+        self.assertEqual(self._installation.method_calls, expected_remote_calls)
+
+    @patch("pyanaconda.payload.flatpak.Transaction")
+    @patch("pyanaconda.payload.flatpak.Installation")
+    @patch("pyanaconda.payload.flatpak.Remote")
+    def get_required_space_test(self, remote_cls, installation_cls, transaction_cls):
+        """Test flatpak required space method."""
+        flatpak = FlatpakPayload("any path")
+
+        self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
+
+        flatpak.setup()
+
+        self._installation.list_remote_refs_sync.return_value = [
+            RefMock(2000),
+            RefMock(3000),
+            RefMock(100)
+        ]
+
+        installation_size = flatpak.get_required_size()
+
+        self.assertEqual(installation_size, 5100)
+
+    @patch("pyanaconda.payload.flatpak.Transaction")
+    @patch("pyanaconda.payload.flatpak.Installation")
+    @patch("pyanaconda.payload.flatpak.Remote")
+    def get_empty_refs_required_space_test(self, remote_cls, installation_cls, transaction_cls):
+        """Test flatpak required space method with no refs."""
+        flatpak = FlatpakPayload("any path")
+
+        self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
+
+        flatpak.setup()
+
+        self._installation.list_remote_refs_sync.return_value = []
+
+        installation_size = flatpak.get_required_size()
+
+        self.assertEqual(installation_size, 0)
+
+
+class RefMock(object):
+
+    def __init__(self, installation_size):
+        self._installation_size = installation_size
+
+    def get_installed_size(self):
+        return self._installation_size
