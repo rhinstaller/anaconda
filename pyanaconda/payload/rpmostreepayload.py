@@ -69,7 +69,18 @@ class RPMOSTreePayload(Payload):
     @property
     def space_required(self):
         # We don't have this data with OSTree at the moment
-        return Size("500 MB")
+        size = Size("500 MB")
+
+        # add flatpak size to the requirement
+        #
+        # TODO: Are we able to get required size by sum of the REFs installed size? The problem
+        # is deduplication. If we have to install a runtime with two versions the size won't be
+        # 2 * runtime but thanks to the deduplication it will be runtime (and delta).
+        # This is not something what we can predict.
+        if self._flatpak_payload.is_available():
+            size = size + Size(self._flatpak_payload.get_required_size())
+
+        return size
 
     @property
     def needs_network(self):

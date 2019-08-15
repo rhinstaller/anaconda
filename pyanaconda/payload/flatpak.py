@@ -49,6 +49,8 @@ class FlatpakPayload(object):
         self._remote_path = "/flatpak/repo"
         self._install_path = os.path.join(sysroot, "var/lib/flatpak")
 
+        self._remote_refs_list = None
+
         self._transaction = None
 
     @property
@@ -71,6 +73,7 @@ class FlatpakPayload(object):
         installation = self._create_flatpak_installation(remote)
 
         self._transaction = self._create_flatpak_transaction(installation)
+        self._remote_refs_list = RemoteRefsList(installation)
 
     def _create_flatpak_remote(self):
         remote = Remote.new(self.REMOTE_NAME)
@@ -95,6 +98,14 @@ class FlatpakPayload(object):
         :return: bool
         """
         return os.path.isdir(self.remote_path)
+
+    def get_required_size(self):
+        """Get required size to install all the flatpaks.
+
+        :returns: bytes required to install all flatpaks in the remote
+        :rtype: int
+        """
+        return self._remote_refs_list.get_sum_installation_size()
 
 
 class RemoteRefsList(object):
