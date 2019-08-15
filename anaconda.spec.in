@@ -344,6 +344,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 15 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.42-1
+- Require blivet with flags.protect_cdrom support (rvykydal)
+  Resolves: rhbz#1715344
+- Do not try to mount cdrom source also if it has been mounted in dracut.
+  (rvykydal)
+  Resolves: rhbz#1715344
+- Be more strict when checking for mounted dvd source. (rvykydal)
+  Resolves: rhbz#1715344
+- Protect cdroms during tree population for image installs. (rvykydal)
+  Resolves: rhbz#1715344
+- Use rhel-8.0 zanata version. (rvykydal)
+  Related: rhbz#1715344
+- Rename zanata rhel-devel version (rvykydal)
+  Related: rhbz#1715344
+
 * Wed Apr 3 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.41-1
 - Use new ssl certificate kickstart options (lueberni)
   Resolves: rhbz#1693976
