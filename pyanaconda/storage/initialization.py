@@ -25,11 +25,13 @@ from blivet.flags import flags as blivet_flags
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET
+from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET, STORAGE_SWAP_IS_RECOMMENDED
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
     FCOE, ZFCP, BOOTLOADER, ISCSI
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.platform import platform
 
@@ -98,10 +100,13 @@ def set_storage_defaults_from_kickstart(storage):
     """
     # Set the default filesystem types.
     auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-    fstype = auto_part_proxy.FilesystemType
+    request = PartitioningRequest.from_structure(auto_part_proxy.Request)
 
-    if auto_part_proxy.Enabled and fstype:
-        storage.set_default_fstype(fstype)
+    if request.file_system_type:
+        storage.set_default_fstype(request.file_system_type)
+
+    if "swap" in request.excluded_mount_points:
+        storage_checker.set_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)
 
 
 def load_plugin_s390():
