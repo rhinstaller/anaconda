@@ -570,13 +570,12 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     # IP configuration
     update_connection_ip_settings_from_ksdata(connection, network_data)
 
-    # ONBOOT workaround so that the connection is not activated
     s_con = connection.get_setting_connection()
-    s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, False)
+    s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)
 
     bind_connection(nm_client, connection, network_data.bindto, device_name)
 
-    connection.commit_changes(True, None)
+    commit_changes_with_autoconnection_blocked(connection)
 
     log.debug("updated connection %s:\n%s", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
