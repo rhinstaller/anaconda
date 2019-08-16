@@ -334,20 +334,20 @@ def _update_wired_connection_with_s390_settings(connection, s390cfg):
         s_wired.props.s90_options = opts_dict
 
 
-def add_connection_from_ksdata(nm_client, network_data, device_name, activate=False, ifname_option_values=None):
-    """Add NM connection created from kickstart configuration.
+def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_option_values=None):
+    """Create NM connections from kickstart configuration.
 
     :param network_data: kickstart configuration
     :type network_data: pykickstart NetworkData
     :param device_name: name of the device to be configured by kickstart
     :type device_name: str
-    :param activate: activate the added connection
-    :type activate: bool
     :param ifname_option_values: list of ifname boot option values
     :type ifname_option_values: list(str)
+    :return: list of tuples (CONNECTION, NAME_OF_DEVICE_TO_BE_ACTIVATED)
+    :rtype: list((NM.RemoteConnection, str))
     """
     ifname_option_values = ifname_option_values or []
-    added_connections = []
+    connections = []
     device_to_activate = device_name
 
     con_uuid = NM.utils_uuid_generate()
@@ -372,7 +372,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
         for i, slave in enumerate(network_data.bondslaves.split(","), 1):
             slave_con = create_slave_connection('bond', i, slave, device_name)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            added_connections.append((slave_con, slave))
+            connections.append((slave_con, slave))
 
     # type "team"
     elif network_data.teamslaves:
@@ -384,7 +384,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
             slave_con = create_slave_connection('team', i, slave, device_name,
                                                 settings=[s_team_port])
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            added_connections.append((slave_con, slave))
+            connections.append((slave_con, slave))
 
     # type "vlan"
     elif network_data.vlanid:
@@ -398,7 +398,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
         for i, slave in enumerate(network_data.bridgeslaves.split(","), 1):
             slave_con = create_slave_connection('bridge', i, slave, device_name)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            added_connections.append((slave_con, slave))
+            connections.append((slave_con, slave))
 
     # type "infiniband"
     elif is_infiniband_device(nm_client, device_name):
@@ -419,17 +419,40 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
             s390cfg = get_s390_settings(device_name)
             _update_wired_connection_with_s390_settings(con, s390cfg)
 
-    added_connections.insert(0, (con, device_to_activate))
+    connections.insert(0, (con, device_to_activate))
 
-    for con, device_name in added_connections:
-        log.debug("add connection: %s for %s\n%s", con_uuid, device_name,
+    return connections
+
+
+def add_connection_from_ksdata(nm_client, network_data, device_name, activate=False,
+                               ifname_option_values=None):
+    """Add NM connection created from kickstart configuration.
+
+    :param network_data: kickstart configuration
+    :type network_data: pykickstart NetworkData
+    :param device_name: name of the device to be configured by kickstart
+    :type device_name: str
+    :param activate: activate the added connection
+    :type activate: bool
+    :param ifname_option_values: list of ifname boot option values
+    :type ifname_option_values: list(str)
+    """
+    connections = create_connections_from_ksdata(
+        nm_client,
+        network_data,
+        device_name,
+        ifname_option_values
+    )
+
+    for con, device_name in connections:
+        log.debug("add connection: %s for %s\n%s", con.get_uuid(), device_name,
                   con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
         device_to_activate = device_name if activate else None
         nm_client.add_connection_async(con, True, None,
                                        _connection_added_cb,
                                        device_to_activate)
 
-    return added_connections
+    return connections
 
 
 def _connection_added_cb(client, result, device_to_activate=None):
