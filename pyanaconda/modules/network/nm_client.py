@@ -24,6 +24,7 @@ from gi.repository import NM
 
 import socket
 from pykickstart.constants import BIND_TO_MAC
+from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, get_s390_settings, netmask2prefix
 
@@ -48,6 +49,29 @@ def get_iface_from_connection(nm_client, uuid):
             mac = wired_setting.get_mac_address()
             if mac:
                 iface = get_iface_from_hwaddr(nm_client, mac)
+    return iface
+
+
+def get_vlan_interface_name_from_connection(nm_client, connection):
+    """Get vlan interface name from vlan connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+
+    If no interface name is specified in the connection settings, infer the
+    value as <PARENT_IFACE>.<VLAN_ID> - same as NetworkManager.
+    """
+    iface = connection.get_setting_connection().get_interface_name()
+    if not iface:
+        setting_vlan = connection.get_setting_vlan()
+        if setting_vlan:
+            vlanid = setting_vlan.get_id()
+            parent = setting_vlan.get_parent()
+            # if parent is specified by UUID
+            if len(parent) == NM_CONNECTION_UUID_LENGTH:
+                parent = get_iface_from_connection(nm_client, parent)
+            if vlanid is not None and parent:
+                iface = default_ks_vlan_interface_name(parent, vlanid)
     return iface
 
 
@@ -758,8 +782,12 @@ def get_connections_available_for_iface(nm_client, iface):
             # Getting available connections does not seem to work quite well for
             # non-real team - try to look them up in all connections.
             for con in nm_client.get_connections():
-                if con.get_interface_name() == iface:
+                interface_name = con.get_interface_name()
+                if not interface_name and con.get_connection_type() == "vlan":
+                    interface_name = get_vlan_interface_name_from_connection(nm_client, con)
+                if interface_name == iface:
                     cons.append(con)
+
     return cons
 
 
