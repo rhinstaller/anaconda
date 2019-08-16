@@ -25,7 +25,6 @@ import functools
 from functools import wraps
 
 import logging
-import re
 
 from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
     DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
@@ -37,7 +36,8 @@ from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.util import lowerASCII
-from pyanaconda.modules.storage.partitioning.interactive_utils import collect_mount_points
+from pyanaconda.modules.storage.partitioning.interactive_utils import collect_mount_points, \
+    validate_mount_point, validate_raid_level
 from pyanaconda.storage.utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
@@ -54,11 +54,6 @@ NOTEBOOK_INCOMPLETE_PAGE = 4
 
 NEW_CONTAINER_TEXT = N_("Create a new %(container_type)s ...")
 CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
-
-RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
-                           "requires more disks (%(min)d) than you "
-                           "currently have selected (%(count)d).")
-
 CONTAINER_DIALOG_TITLE = N_("CONFIGURE %(container_type)s")
 CONTAINER_DIALOG_TEXT = N_("Please create a name for this %(container_type)s "
                            "and select at least one disk below.")
@@ -76,9 +71,6 @@ CONTAINER_TYPES = {
         N_("Volume"),
         CN_("GUI|Custom Partitioning|Configure|Devices", "_Volume:"))
 }
-
-# These cannot be specified as mountpoints
-system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
 
 
 def get_size_from_entry(entry, lower_bound=None, units=None):
@@ -104,34 +96,6 @@ def get_size_from_entry(entry, lower_bound=None, units=None):
     if lower_bound is not None and size < lower_bound:
         return lower_bound
     return size
-
-
-def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
-    if strict:
-        fake_mountpoints = []
-    else:
-        fake_mountpoints = ["swap", "biosboot", "prepboot"]
-
-    if mountpoint in used_mountpoints:
-        return _("That mount point is already in use. Try something else?")
-    elif not mountpoint:
-        return _("Please enter a valid mount point.")
-    elif mountpoint in system_mountpoints:
-        return _("That mount point is invalid. Try something else?")
-    elif (lowerASCII(mountpoint) not in fake_mountpoints and
-          ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
-           not mountpoint.startswith("/") or
-           " " in mountpoint or
-           re.search(r'/\.*/', mountpoint) or
-           re.search(r'/\.+$', mountpoint))):
-        # - does not end with '/' unless mountpoint _is_ '/'
-        # - starts with '/' except for "swap", &c
-        # - does not contain spaces
-        # - does not contain pairs of '/' enclosing zero or more '.'
-        # - does not end with '/' followed by one or more '.'
-        return _("That mount point is invalid. Try something else?")
-    else:
-        return ""
 
 
 def get_selected_raid_level(raid_level_combo):
@@ -194,11 +158,6 @@ def get_default_container_raid_level(device_type):
     return None
 
 
-def requires_raid_selection(device_type):
-    """ Whether GUI requires a RAID level be selected for this device type."""
-    return device_type == DEVICE_TYPE_MD
-
-
 def memoizer(f):
     """ A simple decorator that memoizes by means of the shared default
         value for cache in the result function.
@@ -218,31 +177,6 @@ def memoizer(f):
         return result
 
     return new_func
-
-
-@memoizer
-def get_supported_raid_levels(device_type):
-    """ The raid levels anaconda supports for this device type.
-
-        It supports any RAID levels that it expects to support and that blivet
-        supports for the given device type.
-
-        Since anaconda only ever allows the user to choose RAID levels for
-        device type DEVICE_TYPE_MD, hiding the RAID menu for all other device
-        types, the function only returns a non-empty set for this device type.
-        If this changes, then so should this function, but at this time it
-        is not clear what RAID levels should be offered for other device types.
-
-        :param int device_type: one of an enumeration of device types
-        :returns: a set of supported raid levels
-        :rtype: a set of instances of blivet.devicelibs.raid.RAIDLevel
-    """
-    if device_type == DEVICE_TYPE_MD:
-        supported = set(raid.RAIDLevels(["raid0", "raid1", "raid4", "raid5", "raid6", "raid10"]))
-    else:
-        supported = set()
-
-    return get_blivet_supported_raid_levels(device_type).intersection(supported)
 
 
 @memoizer
@@ -312,18 +246,19 @@ class AddDialog(GUIObject):
     # If the user enters a smaller size, the GUI changes it to this value
     MIN_SIZE_ENTRY = Size("1 MiB")
 
-    def __init__(self, data, mount_points):
+    def __init__(self, data, storage):
         super().__init__(data)
-        self.mountpoints = mount_points
+        self.storage = storage
+        self.mount_points = storage.mountpoints.keys()
         self.size = Size(0)
-        self.mountpoint = ""
+        self.mount_point = ""
         self._error = False
 
         store = self.builder.get_object("mountPointStore")
         paths = collect_mount_points()
 
         for path in paths:
-            if path not in self.mountpoints:
+            if path not in self.mount_points:
                 store.append([path])
 
         self.builder.get_object("addMountPointEntry").set_model(store)
@@ -335,9 +270,13 @@ class AddDialog(GUIObject):
         self._warningLabel = self.builder.get_object("mountPointWarningLabel")
 
     def on_add_confirm_clicked(self, button, *args):
-        self.mountpoint = self.builder.get_object("addMountPointEntry").get_active_text()
-        self._error = validate_mountpoint(self.mountpoint, self.mountpoints,
-                                          strict=False)
+        self.mount_point = self.builder.get_object("addMountPointEntry").get_active_text()
+
+        if lowerASCII(self.mount_point) in ("swap", "biosboot", "prepboot"):
+            self._error = None
+        else:
+            self._error = validate_mount_point(self.mount_point, self.mount_points)
+
         self._warningLabel.set_text(self._error)
         self.window.show_all()
         if self._error:
@@ -599,11 +538,9 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         raid_level = get_selected_raid_level(self._raidLevelCombo)
         if raid_level:
-            min_disks = raid_level.min_members
-            if len(paths) < min_disks:
-                self._error = (_(RAID_NOT_ENOUGH_DISKS) % {"level": raid_level,
-                                                           "min": min_disks,
-                                                           "count": len(paths)})
+            self._error = validate_raid_level(raid_level, len(paths))
+
+            if self._error:
                 self._error_label.set_text(self._error)
                 self.window.show_all()
                 return
