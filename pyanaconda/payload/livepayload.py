@@ -57,6 +57,7 @@ log = get_packaging_logger()
 
 class LiveImagePayload(Payload):
     """ A LivePayload copies the source image onto the target system. """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Used to adjust size of sysroot when files are already present
@@ -67,11 +68,11 @@ class LiveImagePayload(Payload):
 
         self._kernel_version_list = []
 
-    def setup(self, storage):
-        super().setup(storage)
+    def setup(self):
+        super().setup()
 
         # Mount the live device and copy from it instead of the overlay at /
-        osimg = storage.devicetree.get_device_by_path(self.data.method.partition)
+        osimg = payload_utils.resolve_device(self.storage, self.data.method.partition)
         if not osimg:
             raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
 
@@ -336,12 +337,12 @@ class LiveImageKSPayload(LiveImagePayload):
         self._min_size = os.stat(self.data.method.url[7:])[stat.ST_SIZE] * 3
         return None
 
-    def setup(self, storage):
+    def setup(self):
         """ Check the availability and size of the image.
         """
         # This is on purpose, we don't want to call LiveImagePayload's setup method.
         # FIXME: this should be solved on a inheritance level not like this
-        Payload.setup(self, storage)
+        Payload.setup(self)
 
         if self.data.method.url.startswith("file://"):
             error = self._setup_file_image()

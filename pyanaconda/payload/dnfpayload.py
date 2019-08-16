@@ -291,9 +291,9 @@ def do_transaction(base, queue_instance):
 
 
 class DNFPayload(payload.PackagePayload):
-    def __init__(self, data):
-        super().__init__(data)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._base = None
         self._download_location = None
         self._updates_enabled = True
@@ -1135,8 +1135,7 @@ class DNFPayload(payload.PackagePayload):
     def update_base_repo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
         self.reset()
-        install_tree_url, mirrorlist, metalink = self._setup_install_device(self.storage,
-                                                                            checkmount)
+        install_tree_url, mirrorlist, metalink = self._setup_install_device(checkmount)
 
         # Fallback to installation root
         base_repo_url = install_tree_url
@@ -1221,7 +1220,7 @@ class DNFPayload(payload.PackagePayload):
             ksrepo = self.get_addon_repo(repo)
 
             if ksrepo.is_harddrive_based():
-                ksrepo.baseurl = self._setup_harddrive_addon_repo(self.storage, ksrepo)
+                ksrepo.baseurl = self._setup_harddrive_addon_repo(ksrepo)
 
             log.debug("repo %s: mirrorlist %s, baseurl %s, metalink %s",
                       ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl, ksrepo.metalink)

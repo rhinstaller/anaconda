@@ -112,8 +112,7 @@ class PayloadManager(object):
             elif event_id <= self._thread_state:
                 func()
 
-    def restart_thread(self, storage, ksdata, payload,
-                       fallback=False, checkmount=True, onlyOnChange=False):
+    def restart_thread(self, payload, fallback=False, checkmount=True, onlyOnChange=False):
         """Start or restart the payload thread.
 
         This method starts a new thread to restart the payload thread, so
@@ -121,8 +120,6 @@ class PayloadManager(object):
         thread. If there is already a payload thread restart pending, this method
         has no effect.
 
-        :param pyanaconda.storage.InstallerStorage storage: The blivet storage instance
-        :param kickstart.AnacondaKSHandler ksdata: The kickstart data instance
         :param payload.Payload payload: The payload instance
         :param bool fallback: Whether to fall back to the default repo in case of error
         :param bool checkmount: Whether to check for valid mounted media
@@ -135,24 +132,28 @@ class PayloadManager(object):
         if threadMgr.get(THREAD_PAYLOAD_RESTART):
             return
 
-        thread_args = (storage, ksdata, payload, fallback, checkmount, onlyOnChange)
         # Launch a new thread so that this method can return immediately
-        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_RESTART, target=self._restart_thread,
-                                     args=thread_args))
+        threadMgr.add(AnacondaThread(
+            name=THREAD_PAYLOAD_RESTART,
+            target=self._restart_thread,
+            args=(payload, fallback, checkmount, onlyOnChange)
+        ))
 
     @property
     def running(self):
         """Is the payload thread running right now?"""
         return threadMgr.exists(THREAD_PAYLOAD_RESTART) or threadMgr.exists(THREAD_PAYLOAD)
 
-    def _restart_thread(self, storage, ksdata, payload, fallback, checkmount, onlyOnChange):
+    def _restart_thread(self, payload, fallback, checkmount, onlyOnChange):
         # Wait for the old thread to finish
         threadMgr.wait(THREAD_PAYLOAD)
 
-        thread_args = (storage, ksdata, payload, fallback, checkmount, onlyOnChange)
         # Start a new payload thread
-        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD, target=self._run_thread,
-                                     args=thread_args))
+        threadMgr.add(AnacondaThread(
+            name=THREAD_PAYLOAD,
+            target=self._run_thread,
+            args=(payload, fallback, checkmount, onlyOnChange)
+        ))
 
     def _set_state(self, event_id):
         # Update the current state
@@ -166,7 +167,7 @@ class PayloadManager(object):
             for func in self._event_listeners[event_id]:
                 func()
 
-    def _run_thread(self, storage, ksdata, payload, fallback, checkmount, onlyOnChange):
+    def _run_thread(self, payload, fallback, checkmount, onlyOnChange):
         # This is the thread entry
         # Set the initial state
         self._error = None
@@ -182,7 +183,7 @@ class PayloadManager(object):
         # (set and use payload.needs_network ?)
         threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
 
-        payload.setup(storage)
+        payload.setup()
 
         # If this is a non-package Payload, we're done
         if not isinstance(payload, PackagePayload):

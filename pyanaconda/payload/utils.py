@@ -28,18 +28,79 @@ from pyanaconda.payload.errors import PayloadSetupError
 log = get_module_logger(__name__)
 
 
-def get_mount_device(mountpoint):
-    if os.path.ismount(mountpoint):
-        return blivet.util.get_mount_device(mountpoint)
+def resolve_device(storage, dev_spec):
+    """Get the device matching the provided device specification.
+
+    :param storage: an instance of Blivet's storage
+    :param str dev_spec: a string describing a block device
+    :return: an instance of a device or None
+    """
+    return storage.devicetree.resolve_device(dev_spec)
+
+
+def setup_device(device):
+    """Open, or set up, a device.
+
+    :param device: an instance of a device
+    """
+    device.setup()
+
+
+def mount_device(device, mount_point):
+    """Mount a filesystem on the device.
+
+    :param device: an instance of a device
+    :param str mount_point: a path to the mount point
+    """
+    device.format.mount(mountpoint=mount_point)
+
+
+def unmount_device(device, mount_point):
+    """Unmount a filesystem on the device.
+
+    :param device: an instance of a device
+    :param str mount_point: a path to the mount point or None
+    """
+    device.format.unmount(mountpoint=mount_point)
+
+
+def teardown_device(device):
+    """Close, or tear down, a device.
+
+    :param device: an instance of a device
+    """
+    device.teardown(recursive=True)
+
+
+def get_mount_device_path(mount_point):
+    """Given a mount point, return the device node path mounted there.
+
+    :param str mount_point: a mount point
+    :return: a device path or None
+    """
+    if os.path.ismount(mount_point):
+        return blivet.util.get_mount_device(mount_point)
+
+    return None
 
 
 def get_mount_paths(device_path):
+    """Given a device node path, return a list of all active mount points.
+
+    :param device_path: a device path
+    :return: a list of mount points
+    """
     return blivet.util.get_mount_paths(device_path)
 
 
-def unmount(mountpoint, raise_exc=False):
+def unmount(mount_point, raise_exc=False):
+    """Unmount a filesystem.
+
+    :param str mount_point: a mount point
+    :param raise_exc: raise an exception if it fails
+    """
     try:
-        blivet.util.umount(mountpoint)
+        blivet.util.umount(mount_point)
     except OSError as e:
         log.error(str(e))
         log.info("umount failed -- mounting on top of it")
@@ -47,18 +108,27 @@ def unmount(mountpoint, raise_exc=False):
             raise
 
 
-def mount(url, mountpoint, fstype, options):
+def mount(device_path, mount_point, fstype, options):
+    """Mount a filesystem.
+
+    :param str device_path: a device path
+    :param str mount_point: a mount point
+    :param str fstype: a filesystem type
+    :param str options: mount options
+    """
     try:
-        return blivet.util.mount(url, mountpoint, fstype=fstype, options=options)
+        return blivet.util.mount(device_path, mount_point, fstype=fstype, options=options)
     except OSError as e:
         raise PayloadSetupError(str(e))
 
 
 def arch_is_x86():
+    """Does the hardware support X86?"""
     return blivet.arch.is_x86(32)
 
 
 def arch_is_arm():
+    """Does the hardware support ARM?"""
     return blivet.arch.is_arm()
 
 
