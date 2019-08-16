@@ -304,6 +304,10 @@ class RPMOSTreePayload(Payload):
                 util.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(1)
 
+        # Install flatpak from the local source on SilverBlue
+        if self._flatpak_payload.is_available():
+            self._flatpak_payload.install_all()
+
         mainctx.pop_thread_default()
 
     def _setup_internal_bindmount(self, src, dest=None,
