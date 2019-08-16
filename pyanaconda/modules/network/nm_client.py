@@ -359,10 +359,7 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
     s_con.props.uuid = con_uuid
     s_con.props.id = device_name
     s_con.props.interface_name = device_name
-    # HACK preventing NM to autoactivate the connection
-    # The real network --onboot value (ifcfg ONBOOT) will be set later by
-    # update_onboot
-    s_con.props.autoconnect = False
+    s_con.props.autoconnect = network_data.onboot
     con.add_setting(s_con)
 
     # type "bond"
@@ -448,9 +445,16 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
         log.debug("add connection: %s for %s\n%s", con.get_uuid(), device_name,
                   con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
         device_to_activate = device_name if activate else None
-        nm_client.add_connection_async(con, True, None,
-                                       _connection_added_cb,
-                                       device_to_activate)
+        nm_client.add_connection2(
+            con.to_dbus(NM.ConnectionSerializationFlags.ALL),
+            (NM.SettingsAddConnection2Flags.TO_DISK |
+             NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
+            None,
+            False,
+            None,
+            _connection_added_cb,
+            device_to_activate
+        )
 
     return connections
 
@@ -462,7 +466,7 @@ def _connection_added_cb(client, result, device_to_activate=None):
                                 added connection.
     :type device_to_activate: str
     """
-    con = client.add_connection_finish(result)
+    con, result = client.add_connection2_finish(result)
     log.debug("connection %s added:\n%s", con.get_uuid(),
               con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
     if device_to_activate:
