@@ -777,8 +777,7 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
             active_uuid = ac.get_uuid() if ac else None
             if uuid != active_uuid:
                 ifcfg_con = nm_client.get_connection_by_uuid(uuid)
-                # TODO make the API calls synchronous ?
-                nm_client.activate_connection_async(ifcfg_con, None, None, None)
+                activate_connection_sync(nm_client, ifcfg_con, None)
                 activated = True
     msg = "activated" if activated else "not activated"
     log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
@@ -899,6 +898,35 @@ def commit_changes_with_autoconnection_blocked(connection, save_to_disk=True):
     connection.update2(
         con2.to_dbus(NM.ConnectionSerializationFlags.ALL),
         flags,
+        None,
+        None,
+        finish_callback,
+        sync_queue
+    )
+
+    return sync_queue.get()
+
+
+def activate_connection_sync(nm_client, connection, device):
+    """Activate a connection synchronously.
+
+    Synchronous wrapper of ActivateConnection() NM method.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param device: the preferred device to apply the connection to
+                   None if not needed
+    :type device: NM.Device
+    """
+    sync_queue = Queue()
+
+    def finish_callback(nm_client, result, sync_queue):
+        ret = nm_client.activate_connection_finish(result)
+        sync_queue.put(ret)
+
+    nm_client.activate_connection_async(
+        connection,
+        device,
         None,
         None,
         finish_callback,
