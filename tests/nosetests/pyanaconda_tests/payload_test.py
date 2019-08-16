@@ -403,7 +403,10 @@ class FlatpakTest(unittest.TestCase):
 
         flatpak.install_all()
 
-        expected_calls = [call.add_install(FlatpakPayload.REMOTE_NAME,
+        expected_calls = [call.connect("new_operation", flatpak._operation_started_callback),
+                          call.connect("operation_done", flatpak._operation_stopped_callback),
+                          call.connect("operation_error", flatpak._operation_error_callback),
+                          call.add_install(FlatpakPayload.REMOTE_NAME,
                                            "app/org.space.coolapp/x86_64/stable",
                                            None),
                           call.add_install(FlatpakPayload.REMOTE_NAME,
