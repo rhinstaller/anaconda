@@ -745,7 +745,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         log.info("ui: saving changes to device %s", device.name)
 
         new_device_info = dict()
-        new_device_info["min_luks_entropy"] = crypto.MIN_CREATE_ENTROPY
         new_device_info["device"] = device
 
         self._get_new_device_name(new_device_info, old_device_info)
@@ -853,7 +852,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 encrypted=new_device_info["encrypted"],
                 luks_version=new_device_info["luks_version"],
                 raid_level=new_device_info["raid_level"],
-                min_luks_entropy=crypto.MIN_CREATE_ENTROPY
             )
 
         # Name
