@@ -122,19 +122,24 @@ class ApplyKickstartTask(Task):
             # If there is no kickstart ifcfg from initramfs the command was added
             # in %pre section after switch root, so apply it now
             applied_devices.append(device_name)
+
+            connection = None
             if ifcfg_file:
+                connection = self._nm_client.get_connection_by_uuid(ifcfg_file.uuid)
+            if not connection:
+                connection = self._find_initramfs_connection_of_iface(device_name)
+
+            if connection:
                 # if the device was already configured in initramfs update the settings
-                con_uuid = ifcfg_file.uuid
-                log.debug("%s: pre kickstart - updating settings %s of device %s",
-                          self.name, con_uuid, device_name)
-                connection = self._nm_client.get_connection_by_uuid(con_uuid)
+                log.debug("%s: pre kickstart - updating connection %s of device %s",
+                          self.name, connection.get_uuid(), device_name)
                 update_connection_from_ksdata(self._nm_client, connection, network_data,
                                               device_name=device_name)
                 if network_data.activate:
                     device = self._nm_client.get_device_by_iface(device_name)
                     self._nm_client.activate_connection_async(connection, device, None, None)
                     log.debug("%s: pre kickstart - activating connection %s with device %s",
-                              self.name, con_uuid, device_name)
+                              self.name, connection.get_uuid(), device_name)
             else:
                 log.debug("%s: pre kickstart - adding connection for %s", self.name, device_name)
                 add_connection_from_ksdata(self._nm_client, network_data, device_name,
@@ -142,6 +147,17 @@ class ApplyKickstartTask(Task):
                                            ifname_option_values=self._ifname_option_values)
 
         return applied_devices
+
+    def _find_initramfs_connection_of_iface(self, iface):
+        device = self._nm_client.get_device_by_iface(iface)
+        if device:
+            cons = device.get_available_connections()
+            for con in cons:
+                if (con.get_interface_name() == iface and
+                    con.get_id() == iface):
+                    return con
+        return None
+
 
 
 class ConsolidateInitramfsConnectionsTask(Task):
