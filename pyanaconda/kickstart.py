@@ -353,8 +353,12 @@ class Network(COMMANDS.Network):
                        if dev.device_name in fcoe_nics]
         overwrite = network.can_overwrite_configuration(payload)
         network_proxy = NETWORK.get_proxy()
-        task_path = network_proxy.InstallNetworkWithTask(fcoe_ifaces,
-                                                         overwrite)
+
+        task_path = network_proxy.ConfigureActivationOnBootWithTask(fcoe_ifaces)
+        task_proxy = NETWORK.get_proxy(task_path)
+        sync_run_task(task_proxy)
+
+        task_path = network_proxy.InstallNetworkWithTask(overwrite)
         task_proxy = NETWORK.get_proxy(task_path)
         sync_run_task(task_proxy)
 

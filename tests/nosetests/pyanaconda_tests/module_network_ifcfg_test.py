@@ -27,8 +27,7 @@ from pyanaconda.core.kickstart.commands import NetworkData
 
 from pyanaconda.modules.network.ifcfg import get_dracut_arguments_from_ifcfg, IFCFG_DIR, \
     IfcfgFile, get_ifcfg_files_paths, get_ifcfg_file, get_ifcfg_file_of_device, \
-    get_slaves_from_ifcfgs, get_kickstart_network_data, update_onboot_value, \
-    get_master_slaves_from_ifcfgs
+    get_slaves_from_ifcfgs, get_kickstart_network_data, get_master_slaves_from_ifcfgs
 
 HWADDR_TO_IFACE = {
     "52:54:00:0c:77:e3": "ens6",
@@ -1733,92 +1732,6 @@ class IfcfgFileTestCase(unittest.TestCase):
             if generated_ks:
                 generated_ks = dedent(str(generated_ks)).strip()
             self.assertEqual(generated_ks, expected_ks)
-
-    def update_onboot_value_test(self):
-        """Test update_onboot_value."""
-        onboot_yes_uuid = "c9e36ab2-de90-4321-98fb-63fba02dec87"
-        onboot_no_uuid = "9ca1144d-ceba-4454-b800-b58e39ebeab8"
-        onboot_missing_uuid = "7eb32ca0-dbc3-4ea9-89ca-0185b017f3d6"
-        not_found_uuid = "7201c278-c3ed-4d6b-8f3e-7c290cfb23cc"
-        initial_ifcfg_files = [
-            ("ifcfg-ens3",
-             """
-             ONBOOT=yes
-             UUID={}
-             """.format(onboot_yes_uuid),
-             None),
-            ("ifcfg-ens5",
-             """
-             ONBOOT=no
-             UUID={}
-             """.format(onboot_no_uuid),
-             None),
-            ("ifcfg-ens6",
-             """
-             UUID={}
-             """.format(onboot_missing_uuid),
-             None),
-        ]
-
-        # Test setting to True
-        ifcfg_files_set_to_yes = [
-            ("ifcfg-ens3",
-             # NOTE: nothing is actually written as nothing has changed,
-             # therefore no quotes.
-             """
-             ONBOOT=yes
-             UUID={}
-             """.format(onboot_yes_uuid),
-             None),
-            ("ifcfg-ens5",
-             """
-             ONBOOT="yes"
-             UUID="{}"
-             """.format(onboot_no_uuid),
-             None),
-            ("ifcfg-ens6",
-             """
-             UUID="{}"
-             ONBOOT="yes"
-             """.format(onboot_missing_uuid),
-             None),
-        ]
-        self._dump_ifcfg_files(initial_ifcfg_files)
-        self.assertTrue(update_onboot_value(onboot_yes_uuid, True, root_path=self._root_dir))
-        self.assertTrue(update_onboot_value(onboot_no_uuid, True, root_path=self._root_dir))
-        self.assertTrue(update_onboot_value(onboot_missing_uuid, True, root_path=self._root_dir))
-        self.assertFalse(update_onboot_value(not_found_uuid, True, root_path=self._root_dir))
-        self._check_ifcfg_files(ifcfg_files_set_to_yes)
-
-        # Test setting to False
-        ifcfg_files_set_to_no = [
-            ("ifcfg-ens3",
-             """
-             ONBOOT="no"
-             UUID="{}"
-             """.format(onboot_yes_uuid),
-             None),
-            # NOTE: nothing is actually written as nothing has changed,
-            # therefore no quotes.
-            ("ifcfg-ens5",
-             """
-             ONBOOT=no
-             UUID={}
-             """.format(onboot_no_uuid),
-             None),
-            ("ifcfg-ens6",
-             """
-             UUID="{}"
-             ONBOOT="no"
-             """.format(onboot_missing_uuid),
-             None),
-        ]
-        self._dump_ifcfg_files(initial_ifcfg_files)
-        self.assertTrue(update_onboot_value(onboot_yes_uuid, False, root_path=self._root_dir))
-        self.assertTrue(update_onboot_value(onboot_no_uuid, False, root_path=self._root_dir))
-        self.assertTrue(update_onboot_value(onboot_missing_uuid, False, root_path=self._root_dir))
-        self.assertFalse(update_onboot_value(not_found_uuid, False, root_path=self._root_dir))
-        self._check_ifcfg_files(ifcfg_files_set_to_no)
 
     @patch("pyanaconda.modules.network.ifcfg.find_ifcfg_uuid_of_device",
            lambda client, device_name, root_path: DEVNAME_TO_UUID[device_name])

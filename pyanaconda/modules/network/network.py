@@ -33,11 +33,10 @@ from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, 
 from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, supported_device_types, \
     supported_wired_device_types
-from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, devices_ignore_ipv6, \
-    get_connections_dump
-from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
-    get_dracut_arguments_from_ifcfg, get_kickstart_network_data, get_ifcfg_file, get_ifcfg_files_content
-from pyanaconda.modules.network.installation import NetworkInstallationTask
+from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump
+from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, get_dracut_arguments_from_ifcfg, \
+    get_kickstart_network_data, get_ifcfg_file, get_ifcfg_files_content
+from pyanaconda.modules.network.installation import NetworkInstallationTask, ConfigureActivationOnBootTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
     DumpMissingIfcfgFilesTask
@@ -84,7 +83,6 @@ class NetworkModule(KickstartModule):
                 log.debug("NetworkManager is not running.")
 
         self._original_network_data = []
-        self._onboot_yes_ifaces = []
         self._device_configurations = None
         self._use_device_configurations = False
         self.configurations_changed = Signal()
@@ -151,8 +149,6 @@ class NetworkModule(KickstartModule):
             device_data = self._original_network_data
 
         data.network.network = device_data
-
-        self._update_network_data_with_onboot(data.network.network, self._onboot_yes_ifaces)
 
         hostname_data = data.NetworkData(hostname=self.hostname, bootProto="")
         update_network_hostname_data(data.network.network, hostname_data)
@@ -293,32 +289,45 @@ class NetworkModule(KickstartModule):
 
         return requirements
 
-    def install_network_with_task(self, onboot_ifaces, overwrite):
-        """Install network with an installation task.
+    def configure_activation_on_boot_with_task(self, onboot_ifaces):
+        """Configure automatic activation of devices on system boot.
+
+        1) Specified devices are set to be activated automatically.
+        2) Policy set in anaconda configuration (default_on_boot) is applied.
 
         :param onboot_ifaces: list of network interfaces which should have ONBOOT=yes
-        :param overwrite: overwrite existing configuration
-        :return: an installation task
         """
-        disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client, supported_wired_device_types)
-        network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
-
         onboot_ifaces_by_policy = []
         if self._should_apply_onboot_policy() and \
                 not self._has_any_onboot_yes_device(self._device_configurations):
             onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(conf.network.default_on_boot)
-        all_onboot_ifaces = list(set(onboot_ifaces + onboot_ifaces_by_policy))
-        self._onboot_yes_ifaces = all_onboot_ifaces
-        onboot_yes_uuids = [find_ifcfg_uuid_of_device(self.nm_client, iface) or "" for iface in all_onboot_ifaces]
-        log.debug("ONBOOT will be set to yes for %s (fcoe) %s (policy)",
+
+        log.debug("Configure ONBOOT: set to yes for %s (reqested) %s (policy)",
                   onboot_ifaces, onboot_ifaces_by_policy)
+
+        all_onboot_ifaces = list(set(onboot_ifaces + onboot_ifaces_by_policy))
+
+        task = ConfigureActivationOnBootTask(
+            self.nm_client,
+            all_onboot_ifaces
+        )
+        task.succeeded_signal.connect(lambda: self.log_task_result(task))
+        return task
+
+    def install_network_with_task(self, overwrite):
+        """Install network with an installation task.
+
+        :param overwrite: overwrite existing configuration
+        :return: a DBus path of an installation task
+        """
+        disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client, supported_wired_device_types)
+        network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
 
         task = NetworkInstallationTask(
             conf.target.system_root,
             self.hostname,
             disable_ipv6,
             overwrite,
-            onboot_yes_uuids,
             network_ifaces,
             self.ifname_option_values
         )
@@ -380,17 +389,6 @@ class NetworkModule(KickstartModule):
                     ifaces.append(iface)
 
         return ifaces
-
-    def _update_network_data_with_onboot(self, network_data, ifaces):
-        if not ifaces:
-            return
-        for nd in network_data:
-            supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
-            device_name = get_device_name_from_network_data(self.nm_client,
-                                                            nd, supported_devices, self.bootif)
-            if device_name in ifaces:
-                log.debug("Updating network data onboot value: %s -> %s", nd.onboot, True)
-                nd.onboot = True
 
     def create_device_configurations(self):
         """Create and populate the state of network devices configuration."""

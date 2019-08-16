@@ -22,10 +22,14 @@ from pyanaconda.core import util
 from pyanaconda.modules.common.errors.installation import NetworkInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.network.ifcfg import update_onboot_value
+from pyanaconda.modules.network.nm_client import update_connection_values
+from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device
 
 log = get_module_logger(__name__)
 
+import gi
+gi.require_version("NM", "1.0")
+from gi.repository import NM
 
 class NetworkInstallationTask(Task):
     """Installation task for the network configuration."""
@@ -48,7 +52,7 @@ Name={}
 """.strip()
 
     def __init__(self, sysroot, hostname, disable_ipv6, overwrite,
-                 onboot_yes_uuids, network_ifaces, ifname_option_values):
+                 network_ifaces, ifname_option_values):
         """Create a new task.
 
         :param sysroot: a path to the root of installed system
@@ -59,8 +63,6 @@ Name={}
         :type disable_ipv6: bool
         :param overwrite: overwrite config files if they already exist
         :type overwrite: bool
-        :param onboot_yes_uuids: set ONBOOT yes to ifcfg files specified by uuids
-        :type onboot_yes_ifaces: list(str)
         :param network_ifaces: list of network interfaces for dhcp configuration
         :type network_ifaces: list(str)
         :param ifname_option_values: list of ifname boot option values
@@ -71,7 +73,6 @@ Name={}
         self._hostname = hostname
         self._disable_ipv6 = disable_ipv6
         self._overwrite = overwrite
-        self._onboot_yes_uuids = onboot_yes_uuids
         self._network_ifaces = network_ifaces
         self._ifname_option_values = ifname_option_values
 
@@ -89,7 +90,6 @@ Name={}
         self._copy_device_config_files(self._sysroot)
         self._copy_dhclient_config_files(self._sysroot, self._network_ifaces)
         self._copy_resolv_conf(self._sysroot, self._overwrite)
-        self._set_onboot_to_yes(self._sysroot, self._onboot_yes_uuids)
 
     def _write_hostname(self, root, hostname, overwrite):
         """Write static hostname to the target system configuration file.
@@ -237,13 +237,34 @@ Name={}
             dhclient_file = self.DHCLIENT_FILE_TEMPLATE.format(device_name)
             self._copy_file_to_root(root, dhclient_file)
 
-    def _set_onboot_to_yes(self, root, connection_uuids):
-        """Set onboot value of config (ifcfg) files on target system.
 
-        :param root: path to the root of the target system
-        :type root: str
-        :param connection_uuids: uuids of config files to be set
-        :type connection_uuids: list(str)
+class ConfigureActivationOnBootTask(Task):
+    """Task for configuration of automatic activation of devices on boot"""
+
+    def __init__(self, nm_client, onboot_ifaces):
+        """Create a new task.
+
+        :param nm_client: NetworkManager client used as configuration backend
+        :type nm_client: NM.Client
+        :param onboot_ifaces: interfaces that should be autoactivated on boot
+        :type onboot_ifaces: list(str)
         """
-        for uuid in connection_uuids:
-            update_onboot_value(uuid, True, root)
+        super().__init__()
+        self._nm_client = nm_client
+        self._onboot_ifaces = onboot_ifaces
+
+    @property
+    def name(self):
+        return "Configure automatic activation on boot."
+
+    def run(self):
+        for iface in self._onboot_ifaces:
+            con_uuid = find_ifcfg_uuid_of_device(self._nm_client, iface)
+            if con_uuid:
+                con = self._nm_client.get_connection_by_uuid(con_uuid)
+                update_connection_values(
+                    con,
+                    [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, True)]
+                )
+            else:
+                log.warning("Configure ONBOOT: can't find ifcfg for %s", iface)

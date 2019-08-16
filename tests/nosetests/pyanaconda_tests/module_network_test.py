@@ -33,7 +33,8 @@ from pyanaconda.modules.common.errors.installation import FirewallConfigurationE
 from pyanaconda.modules.network.network import NetworkModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.constants import FirewallMode
-from pyanaconda.modules.network.installation import NetworkInstallationTask
+from pyanaconda.modules.network.installation import NetworkInstallationTask, \
+    ConfigureActivationOnBootTask
 from pyanaconda.modules.network.firewall.firewall import FirewallModule
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
 from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
@@ -182,12 +183,9 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test LogConfigurationState."""
         self.network_interface.LogConfigurationState("message")
 
-    @patch('pyanaconda.modules.network.network.find_ifcfg_uuid_of_device',
-           return_value="mocked_uuid")
     @patch('pyanaconda.modules.network.network.devices_ignore_ipv6', return_value=True)
     @patch_dbus_publish_object
-    def install_network_with_task_test(self, devices_ignore_ipv6,
-                                       find_ifcfg_uuid_of_device, publisher):
+    def install_network_with_task_test(self, devices_ignore_ipv6, publisher):
         """Test InstallNetworkWithTask."""
         self.network_module._hostname = "my_hostname"
         self.network_module._disable_ipv6 = True
@@ -199,12 +197,8 @@ class NetworkInterfaceTestCase(unittest.TestCase):
                 ("ens5", "55:55:55:55:55:55", "55:55:55:55:55:55", NM.DeviceType.ETHERNET)
             ]
         )
-        self.network_module._should_apply_onboot_policy = Mock(return_value=True)
-        self.network_module._has_any_onboot_yes_device = Mock(return_value=False)
-        self.network_module._get_onboot_ifaces_by_policy = Mock(return_value=["ens4"])
 
         task_path = self.network_interface.InstallNetworkWithTask(
-            ["ens3"],
             False,
         )
 
@@ -213,10 +207,34 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._hostname, "my_hostname")
         self.assertEqual(obj.implementation._disable_ipv6, True)
         self.assertEqual(obj.implementation._overwrite, False)
-        self.assertEqual(obj.implementation._onboot_yes_uuids, ["mocked_uuid", "mocked_uuid"])
         self.assertEqual(obj.implementation._network_ifaces, ["ens3", "ens4", "ens5"])
 
-        self.assertSetEqual(set(self.network_module._onboot_yes_ifaces), set(["ens3", "ens4"]))
+        self.network_module.log_task_result = Mock()
+
+        obj.implementation.succeeded_signal.emit()
+        self.network_module.log_task_result.assert_called_once()
+
+    @patch('pyanaconda.modules.network.installation.update_connection_values')
+    @patch('pyanaconda.modules.network.installation.find_ifcfg_uuid_of_device')
+    @patch_dbus_publish_object
+    def configure_activation_on_boot_with_task_test(self, find_ifcfg_uuid_of_device,
+                                                    update_connection_values, publisher):
+        """Test ConfigureActivationOnBootWithTask."""
+        self.network_module.nm_client = Mock()
+        self.network_module._should_apply_onboot_policy = Mock(return_value=True)
+        self.network_module._has_any_onboot_yes_device = Mock(return_value=False)
+        self.network_module._get_onboot_ifaces_by_policy = Mock(return_value=["ens4"])
+
+        task_path = self.network_interface.ConfigureActivationOnBootWithTask(
+            ["ens3"],
+        )
+
+        obj = check_task_creation(self, task_path, publisher, ConfigureActivationOnBootTask)
+
+        self.assertEqual(
+            set(obj.implementation._onboot_ifaces),
+            set(["ens3", "ens4"])
+        )
 
         self.network_module.log_task_result = Mock()
 

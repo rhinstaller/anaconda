@@ -434,34 +434,6 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
     return nd
 
 
-def update_onboot_value(connection_uuid, onboot, root_path=""):
-    """Update onboot value in ifcfg files.
-
-    :param connection_uuid: uuid of the connection to be updated
-    :type connection_uuid: str
-    :param onboot: value of ONBOOT setting
-    :type onboot: bool
-    :param root_path: optional root path for ifcfg files to be updated
-    :type root_path: str
-    :returns: True if the value was updated, False otherwise
-    :rtype: bool
-    """
-
-    ifcfg = get_ifcfg_file([("UUID", connection_uuid)], root_path)
-    if not ifcfg:
-        log.debug("can't find ifcfg file of %s", connection_uuid)
-        return False
-
-    ifcfg.read()
-    old_value = ifcfg.get('ONBOOT')
-    new_value = "yes" if onboot else "no"
-    log.debug("updating ONBOOT value of %s from %s to %s", connection_uuid, old_value, new_value)
-    ifcfg.set(('ONBOOT', new_value))
-    ifcfg.write()
-
-    return True
-
-
 def get_master_slaves_from_ifcfgs(nm_client, master_devname, root_path="", uuid=None):
     """Get all slaves based on ifcfg files of given master.
 

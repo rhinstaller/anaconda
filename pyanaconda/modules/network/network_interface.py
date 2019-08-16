@@ -125,16 +125,27 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.get_activated_interfaces()
 
-    def InstallNetworkWithTask(self, onboot_ifaces: List[Str], overwrite: Bool) -> ObjPath:
+    def InstallNetworkWithTask(self, overwrite: Bool) -> ObjPath:
         """Install network with an installation task.
 
-        :param onboot_ifaces: list of network interfaces which should have ONBOOT=yes
         FIXME: does overwrite still apply?
         :param overwrite: overwrite existing configuration
         :return: a DBus path of an installation task
         """
         return TaskContainer.to_object_path(
-            self.implementation.install_network_with_task(onboot_ifaces, overwrite)
+            self.implementation.install_network_with_task(overwrite)
+        )
+
+    def ConfigureActivationOnBootWithTask(self, onboot_ifaces: List[Str]) -> ObjPath:
+        """Configure automatic activation of devices on system boot.
+
+        1) Specified devices are set to be activated automatically.
+        2) Policy set in anaconda configuration (default_on_boot) is applied.
+
+        :param onboot_ifaces: list of network interfaces which should have ONBOOT=yes
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.configure_activation_on_boot_with_task(onboot_ifaces)
         )
 
     def CreateDeviceConfigurations(self):
