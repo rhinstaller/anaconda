@@ -20,12 +20,18 @@
 import os
 import gi
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
+from pyanaconda.progress import progressQ
+
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
 
-from gi.repository.Flatpak import Transaction, Installation, Remote, RefKind
+from gi.repository.Flatpak import Transaction, Installation, Remote, RefKind, \
+    TransactionOperationType
 from gi.repository.Gio import File
 
+log = get_module_logger(__name__)
 
 __all__ = ["FlatpakPayload"]
 
@@ -68,6 +74,7 @@ class FlatpakPayload(object):
 
         We know where is the fixed position of the repository so everything will be fixed here.
         """
+        log.debug("Configure flatpak")
         remote = self._create_flatpak_remote()
 
         installation = self._create_flatpak_installation(remote)
@@ -90,7 +97,12 @@ class FlatpakPayload(object):
         return installation
 
     def _create_flatpak_transaction(self, installation):
-        return Transaction.new_for_installation(installation)
+        transaction = Transaction.new_for_installation(installation)
+        transaction.connect("new_operation", self._operation_started_callback)
+        transaction.connect("operation_done", self._operation_stopped_callback)
+        transaction.connect("operation_error", self._operation_error_callback)
+
+        return transaction
 
     def is_available(self):
         """Test if flatpak installation source is available.
@@ -109,12 +121,61 @@ class FlatpakPayload(object):
 
     def install_all(self):
         """Install all the refs contained on the remote."""
+        progressQ.send_message(_("Starting Flatpak installation"))
         self._stuff_refs_to_transaction()
         self._transaction.run()
+        progressQ.send_message(_("Flatpak installation has finished"))
 
     def _stuff_refs_to_transaction(self):
         for ref in self._remote_refs_list.get_refs_in_install_format():
             self._transaction.add_install(self.REMOTE_NAME, ref, None)
+
+    def _operation_started_callback(self, transaction, operation, progress):
+        """Start of the new operation.
+
+        :param transaction: the main transaction object
+        :type transaction: Flatpak.Transaction instance
+        :param operation: object describing the operation
+        :type operation: Flatpak.TransactionOperation instance
+        :param progress: object providing progess of the operation
+        :type progress: Flatpak.TransactionProgress instance
+        """
+        self._log_operation(operation, "started")
+        progressQ.send_message(_("Installing %(flatpak_name)s") %
+                               {"flatpak_name": operation.get_ref()})
+
+    def _operation_stopped_callback(self, transaction, operation, commit, result):
+        """Existing operation ended.
+
+        :param transaction: the main transaction object
+        :type transaction: Flatpak.Transaction instance
+        :param operation: object describing the operation
+        :type operation: Flatpak.TransactionOperation instance
+        :param str commit: operation was committed this is a commit id
+        :param result: object containing details about the result of the operation
+        :type result: Flatpak.TransactionResult instance
+        """
+        self._log_operation(operation, "stopped")
+
+    def _operation_error_callback(self, transaction, operation, error, details):
+        """Process error raised by the flatpak operation.
+
+        :param transaction: the main transaction object
+        :type transaction: Flatpak.Transaction instance
+        :param operation: object describing the operation
+        :type operation: Flatpak.TransactionOperation instance
+        :param error: object containing error description
+        :type error: GLib.Error instance
+        :param details: information if the error was fatal
+        :type details: int value of Flatpak.TransactionErrorDetails
+        """
+        self._log_operation(operation, "failed")
+
+    @staticmethod
+    def _log_operation(operation, state):
+        operation_type_str = TransactionOperationType.to_string(operation.get_operation_type())
+        log.debug("Flatpak operation: %s of ref %s state %s",
+                  operation_type_str, operation.get_ref(), state)
 
 
 class RemoteRefsList(object):
