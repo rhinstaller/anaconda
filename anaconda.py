@@ -243,8 +243,6 @@ if __name__ == "__main__":
     # init threading before Gtk can do anything and before we start using threads
     from pyanaconda.threading import AnacondaThread, threadMgr
     from pyanaconda.core.i18n import _
-
-    from pyanaconda.addons import collect_addon_paths
     from pyanaconda.core import util, constants
     from pyanaconda import startup_utils
 
@@ -430,13 +428,19 @@ if __name__ == "__main__":
         time.sleep(10)
         sys.exit(1)
 
+    # Find a kickstart file.
+    kspath = startup_utils.find_kickstart(opts)
+    log.info("Found a kickstart file: %s", kspath)
+
+    # Run %pre scripts.
+    startup_utils.run_pre_scripts(kspath)
+
     # Collect all addon paths
+    from pyanaconda.addons import collect_addon_paths
     addon_paths = collect_addon_paths(constants.ADDON_PATHS)
 
-    # If we were given a kickstart file on the command line, parse (but do not
-    # execute) that now.  Otherwise, load in defaults from kickstart files
-    # shipped with the installation media.
-    ksdata = startup_utils.parse_kickstart(opts, addon_paths, pass_to_boss=True)
+    # Parse the kickstart file.
+    ksdata = startup_utils.parse_kickstart(kspath, addon_paths, strict_mode=opts.ksstrict)
 
     # Pick up any changes from interactive-defaults.ks that would
     # otherwise be covered by the dracut KS parser.
@@ -687,7 +691,7 @@ if __name__ == "__main__":
 
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
-    payloadMgr.restart_thread(anaconda.storage, ksdata, anaconda.payload, fallback=fallback)
+    payloadMgr.restart_thread(anaconda.payload, fallback=fallback)
 
     # initialize the geolocation singleton
     geoloc.init_geolocation(geoloc_option=opts.geoloc, options_override=opts.geoloc_use_with_ks)

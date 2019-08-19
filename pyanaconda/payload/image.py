@@ -24,6 +24,7 @@ import tempfile
 
 from pyanaconda import isys
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
+from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.storage.utils import find_optical_media, find_mountable_partitions
 
@@ -189,28 +190,28 @@ def mountImage(isodir, tree):
             break
 
 
-def opticalInstallMedia(devicetree):
+def find_optical_install_media(storage):
     """Find a device with a valid optical install media.
 
     Return the first device containing a valid optical install
     media for this product.
 
-    :param devicetree: an instance of a device tree
+    :param storage: an instance of Blivet's storage
     :return: a device or None
     """
-    for dev in find_optical_media(devicetree):
+    for dev in find_optical_media(storage.devicetree):
         mountpoint = tempfile.mkdtemp()
 
         try:
             try:
-                dev.format.mount(mountpoint=mountpoint)
+                payload_utils.mount_device(dev, mountpoint)
             except FSError:
                 continue
             try:
                 if not verifyMedia(mountpoint):
                     continue
             finally:
-                dev.format.unmount(mountpoint=mountpoint)
+                payload_utils.unmount_device(dev, mountpoint)
         finally:
             os.rmdir(mountpoint)
 
@@ -219,11 +220,16 @@ def opticalInstallMedia(devicetree):
     return None
 
 
-def potentialHdisoSources(devicetree):
-    """ Return a generator yielding Device instances that may have HDISO install
-        media somewhere. Candidate devices are simply any that we can mount.
+def find_potential_hdiso_sources(storage):
+    """Find potential HDISO sources.
+
+    Return a generator yielding Device instances that may have HDISO install
+    media somewhere. Candidate devices are simply any that we can mount.
+
+    :param storage: an instance of Blivet's storage
+    :return: a list of devices
     """
-    return find_mountable_partitions(devicetree)
+    return find_mountable_partitions(storage.devicetree)
 
 
 def verifyMedia(tree, timestamp=None):

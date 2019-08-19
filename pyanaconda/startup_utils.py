@@ -328,19 +328,18 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
         ksdata.method.partition = source.partition
 
 
-def parse_kickstart(options, addon_paths, pass_to_boss=False):
-    """Parse the input kickstart.
+def find_kickstart(options):
+    """Find a kickstart to parse.
 
-    If we were given a kickstart file, parse (but do not execute) that now.
-    Otherwise, load in defaults from kickstart files shipped with the
-    installation media. Pick up any changes from interactive-defaults.ks
-    that would otherwise be covered by the dracut KS parser.
+    If we were given a kickstart file, return that one. Otherwise, return
+    a default kickstart file shipped with the installation media.
+
+    Pick up any changes from interactive-defaults.ks that would otherwise
+    be covered by the dracut kickstart parser.
 
     :param options: command line/boot options
-    :param dict addon_paths: addon paths dictionary
-    :returns: kickstart parsed to a data model
+    :returns: a path to a kickstart file or None
     """
-    ksdata = None
     if options.ksfile and not options.liveinst:
         if not os.path.exists(options.ksfile):
             stdout_log.error("Kickstart file %s is missing.", options.ksfile)
@@ -364,15 +363,32 @@ def parse_kickstart(options, addon_paths, pass_to_boss=False):
         if not os.path.exists(ks):
             continue
 
+        return ks
+
+    return None
+
+
+def run_pre_scripts(ks):
+    """Run %pre scripts.
+
+    :param ks: a path to a kickstart file or None
+    """
+    if ks is not None:
         kickstart.preScriptPass(ks)
+
+
+def parse_kickstart(ks, addon_paths, strict_mode=False):
+    """Parse the given kickstart file.
+
+    :param ks: a path to a kickstart file or None
+    :param addon_paths: a dictionary of addon paths
+    :param strict_mode: process warnings as errors if True
+    :returns: kickstart parsed to a data model
+    """
+    ksdata = kickstart.AnacondaKSHandler(addon_paths["ks"])
+
+    if ks is not None:
         log.info("Parsing kickstart: %s", ks)
-
-        ksdata = kickstart.parseKickstart(ks, options.ksstrict, pass_to_boss)
-
-        # Only load the first defaults file we find.
-        break
-
-    if not ksdata:
-        ksdata = kickstart.AnacondaKSHandler(addon_paths["ks"])
+        kickstart.parseKickstart(ksdata, ks, strict_mode=strict_mode, pass_to_boss=True)
 
     return ksdata

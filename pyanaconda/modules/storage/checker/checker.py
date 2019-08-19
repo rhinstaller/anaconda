@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
@@ -44,4 +45,10 @@ class StorageCheckerModule(KickstartBaseModule):
         :raise: KeyError if the constraint does not exist
         """
         storage_checker.set_constraint(name, value)
-        log.debug("Constraints set to '%s'.", storage_checker.constraints)
+        log.debug("Constraint '%s' is set to '%s'.", name, value)
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        if data.autopart.noswap:
+            # Don't recommend swap if it is disabled for partitioning.
+            self.set_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)

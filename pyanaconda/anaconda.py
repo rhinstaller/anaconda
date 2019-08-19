@@ -95,7 +95,7 @@ class Anaconda(object):
                 from pyanaconda.payload.dnfpayload import DNFPayload
                 klass = DNFPayload
 
-            self._payload = klass(self.ksdata)
+            self._payload = klass(self.ksdata, self.storage)
 
         return self._payload
 
