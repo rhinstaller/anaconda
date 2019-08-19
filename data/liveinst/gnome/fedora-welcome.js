@@ -97,7 +97,7 @@ const WelcomeWindow = new Lang.Class({
                                          spacing: 16 });
 
       // provided by the 'fedora-logos' package
-      installContent.add(new Gtk.Image({ icon_name: 'anaconda',
+      installContent.add(new Gtk.Image({ icon_name: 'org.fedoraproject.AnacondaInstaller',
                                          pixel_size: 256 }));
       installContent.add(makeLabel(anacondaApp.get_name(), true));
 

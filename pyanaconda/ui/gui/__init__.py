@@ -361,8 +361,8 @@ class MainWindow(Gtk.Window):
         self.set_title(_(WINDOW_TITLE_TEXT))
 
         # Set the icon used in the taskbar of window managers that have a taskbar
-        # The "anaconda" icon is part of fedora-logos
-        self.set_icon_name("anaconda")
+        # The "org.fedoraproject.AnacondaInstaller" icon is part of fedora-logos
+        self.set_icon_name("org.fedoraproject.AnacondaInstaller")
 
         # Treat an attempt to close the window the same as hitting quit
         self.connect("delete-event", self._on_delete_event)
