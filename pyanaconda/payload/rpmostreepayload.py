@@ -55,6 +55,7 @@ class RPMOSTreePayload(Payload):
         self._locale_map = None
 
         self._flatpak_payload = FlatpakPayload(conf.target.system_root)
+        # Initialize temporal repo to enable reading of the remote
         self._flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
 
     @property
@@ -306,6 +307,10 @@ class RPMOSTreePayload(Payload):
 
         # Install flatpak from the local source on SilverBlue
         if self._flatpak_payload.is_available():
+            # Cleanup temporal repo created in the __init__
+            self._flatpak_payload.cleanup()
+
+            # Initialize new repo on the installed system
             self._flatpak_payload.initialize_with_system_path()
             self._flatpak_payload.install_all()
 
