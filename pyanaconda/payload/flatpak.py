@@ -42,7 +42,7 @@ __all__ = ["FlatpakPayload"]
 class FlatpakPayload(object):
     """Main class to handle flatpak installation and management."""
 
-    REMOTE_NAME = "Anaconda"
+    LOCAL_REMOTE_NAME = "Anaconda"
 
     def __init__(self, sysroot):
         """Create and initialize this class.
@@ -97,7 +97,7 @@ class FlatpakPayload(object):
         self._remote_refs_list = RemoteRefsList(installation)
 
     def _create_flatpak_remote(self):
-        remote = Remote.new(self.REMOTE_NAME)
+        remote = Remote.new(self.LOCAL_REMOTE_NAME)
         remote.set_gpg_verify(False)
         remote.set_url("file://{}".format(self.remote_path))
 
@@ -164,7 +164,7 @@ class FlatpakPayload(object):
 
     def _stuff_refs_to_transaction(self):
         for ref in self._remote_refs_list.get_refs_in_install_format():
-            self._transaction.add_install(self.REMOTE_NAME, ref, None)
+            self._transaction.add_install(self.LOCAL_REMOTE_NAME, ref, None)
 
     def _operation_started_callback(self, transaction, operation, progress):
         """Start of the new operation.
@@ -243,8 +243,9 @@ class RemoteRefsList(object):
         on the fixed place right now. This have to be re-implemented when there will be a proper
         flatpak support.
         """
-        self._remote_refs = self._installation.list_remote_refs_sync(FlatpakPayload.REMOTE_NAME,
-                                                                     None)
+        self._remote_refs = self._installation.list_remote_refs_sync(
+            FlatpakPayload.LOCAL_REMOTE_NAME,
+            None)
 
     def get_sum_installation_size(self):
         """Get sum of the installation size for all the flatpaks.
