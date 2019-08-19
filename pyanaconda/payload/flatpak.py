@@ -43,6 +43,7 @@ class FlatpakPayload(object):
     """Main class to handle flatpak installation and management."""
 
     LOCAL_REMOTE_NAME = "Anaconda"
+    LOCAL_REMOTE_PATH = "/flatpak/repo"
 
     def __init__(self, sysroot):
         """Create and initialize this class.
@@ -55,21 +56,10 @@ class FlatpakPayload(object):
         :param sysroot: path to the system root
         :type sysroot: str
         """
-        self._remote_path = "/flatpak/repo"
         self._sysroot = sysroot
         self._remote_refs_list = None
 
         self._transaction = None
-
-    @property
-    def remote_path(self):
-        """Path to the remote repository."""
-        return self._remote_path
-
-    @remote_path.setter
-    def remote_path(self, value):
-        """"Set path to the remote repository."""
-        self.remote_path = value
 
     def initialize_with_system_path(self):
         """Create flatpak objects and set them to install to the result system.
@@ -89,17 +79,17 @@ class FlatpakPayload(object):
         :param str target_path: path where we want to install flatpaks
         """
         log.debug("Configure flatpak for path %s", target_path)
-        remote = self._create_flatpak_remote()
+        remote = self._create_flatpak_remote(self.LOCAL_REMOTE_NAME, self.LOCAL_REMOTE_PATH, False)
 
         installation = self._create_flatpak_installation(remote, target_path)
 
         self._transaction = self._create_flatpak_transaction(installation)
         self._remote_refs_list = RemoteRefsList(installation)
 
-    def _create_flatpak_remote(self):
-        remote = Remote.new(self.LOCAL_REMOTE_NAME)
-        remote.set_gpg_verify(False)
-        remote.set_url("file://{}".format(self.remote_path))
+    def _create_flatpak_remote(self, name, path, gpg_verify):
+        remote = Remote.new(name)
+        remote.set_gpg_verify(gpg_verify)
+        remote.set_url("file://{}".format(path))
 
         return remote
 
@@ -140,7 +130,7 @@ class FlatpakPayload(object):
 
         :return: bool
         """
-        return os.path.isdir(self.remote_path)
+        return os.path.isdir(self.LOCAL_REMOTE_PATH)
 
     def get_required_size(self):
         """Get required size to install all the flatpaks.
