@@ -229,7 +229,7 @@ class RemoteRefsList(object):
         self._remote_refs = []
 
     @property
-    def remote_refs(self):
+    def refs(self):
         """Get list of remote flatpak applications refs."""
         if not self._remote_refs:
             self._load_remote_refs()
@@ -253,7 +253,7 @@ class RemoteRefsList(object):
         :rtype: int
         """
         size_sum = 0
-        for ref in self.remote_refs:
+        for ref in self.refs:
             size_sum = size_sum + ref.get_installed_size()
 
         return size_sum
@@ -268,7 +268,7 @@ class RemoteRefsList(object):
         :rtype: [str]
         """
         result = []
-        for ref in self.remote_refs:
+        for ref in self.refs:
             kind_type = "app" if ref.get_kind() is RefKind.APP else "runtime"
             # create ref string in format "runtime/org.example.app/x86_64/f30"
             result.append(kind_type + "/" +
@@ -294,7 +294,7 @@ class InstalledRefsList(object):
         self._installed_refs = None
 
     @property
-    def installed_refs(self):
+    def refs(self):
         """Get list of installed application refs."""
         if not self._installed_refs:
             self._load_installed_refs()
