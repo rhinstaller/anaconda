@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 import os
+import shutil
 import gi
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -114,6 +115,23 @@ class FlatpakPayload(object):
         transaction.connect("operation_error", self._operation_error_callback)
 
         return transaction
+
+    def cleanup(self):
+        """Clean the current repository and settings.
+
+        One of the initialize methods have to be called before the flatpak object can be
+        used again.
+        """
+        log.debug("Cleaning up flatpak repository")
+        if self._transaction:
+            path = self._transaction.get_installation().get_path()
+            path = path.get_path()  # unpack the Gio.File
+
+            if os.path.exists(path):
+                log.debug("Removing flatpak repository %s", path)
+                shutil.rmtree(path)
+
+        self._transaction = None
 
     def is_available(self):
         """Test if flatpak installation source is available.
