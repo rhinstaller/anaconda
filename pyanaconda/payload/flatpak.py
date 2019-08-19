@@ -140,6 +140,31 @@ class FlatpakPayload(object):
         """
         return self._remote_refs_list.get_sum_installation_size()
 
+    def add_remote(self, name, url):
+        """Add a new remote to the existing installation.
+
+        :param str name: name of the remote
+        :param str url: url pointing to the remote
+        """
+        log.debug("Adding a new flatpak remote %s: %s", name, url)
+        remote = self._create_flatpak_remote(name, url, True)
+
+        installation = self._transaction.get_installation()
+        installation.add_remote(remote, True, None)
+
+    def remove_remote(self, name):
+        """Remove remote from the existing installation.
+
+        :param str name: Name of the remote to remove.
+        """
+        log.debug("Removing a flatpak remote %s", name)
+        installation = self._transaction.get_installation()
+
+        for remote in installation.list_remotes():
+            if remote.get_name() == name:
+                installation.remove_remote(name, None)
+                log.debug("Flatpak remote %s removed", name)
+
     def install_all(self):
         """Install all the refs contained on the remote."""
         progressQ.send_message(_("Starting Flatpak installation"))
