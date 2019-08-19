@@ -277,3 +277,29 @@ class RemoteRefsList(object):
                           ref.get_branch())
 
         return result
+
+
+class InstalledRefsList(object):
+
+    def __init__(self, installation):
+        """Load all flatpak refs from the installed system.
+
+        Makes easier operations above the refs.
+
+        :param installation: flatpak installation instance with remotes attached
+        :type installation: Flatpak.Installation instance
+        """
+        self._installation = installation
+
+        self._installed_refs = None
+
+    @property
+    def installed_refs(self):
+        """Get list of installed application refs."""
+        if not self._installed_refs:
+            self._load_installed_refs()
+
+        return self._installed_refs
+
+    def _load_installed_refs(self):
+        self._installed_refs = self._installation.list_installed_refs()
