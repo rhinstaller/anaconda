@@ -39,6 +39,8 @@ if [ -z "$LIVE_BLOCK" ]; then
        LIVE_BLOCK="/dev/mapper/live-base"
     elif [ -b "/dev/mapper/live-osimg-min" ]; then
        LIVE_BLOCK="/dev/mapper/live-osimg-min"
+    elif [ -e "/run/rootfsbase" ]; then
+        LIVE_BLOCK="$(findmnt -n -o SOURCE /run/rootfsbase)"
     fi
 fi
 

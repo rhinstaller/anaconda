@@ -16,40 +16,101 @@
 # Red Hat, Inc.
 #
 from blivet.partitioning import do_partitioning, grow_lvm
+from blivet.size import Size
 from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
-from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.configuration.storage import PartitioningType
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
     NonInteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.schedule import get_candidate_disks, \
     schedule_implicit_partitions, schedule_volumes, schedule_partitions
 from pyanaconda.platform import platform
-from pyanaconda.storage.partitioning import get_full_partitioning_requests, \
-    get_default_partitioning
-from pyanaconda.storage.utils import suggest_swap_size
+from pyanaconda.storage.partspec import PartSpec
+from pyanaconda.storage.utils import suggest_swap_size, get_pbkdf_args
 
 log = get_module_logger(__name__)
 
 __all__ = ["AutomaticPartitioningTask"]
 
 
+SERVER_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("2GiB"),
+        max_size=Size("15GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        fstype="swap",
+        grow=False,
+        lv=True,
+        encrypted=True
+    )
+]
+
+WORKSTATION_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("1GiB"),
+        max_size=Size("70GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True),
+    PartSpec(
+        mountpoint="/home",
+        size=Size("500MiB"), grow=True,
+        required_space=Size("50GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True),
+    PartSpec(
+        fstype="swap",
+        grow=False,
+        lv=True,
+        encrypted=True
+    )
+]
+
+
+def get_default_partitioning(partitioning_type=None):
+    """Get the default partitioning requests.
+
+    :param partitioning_type: a type of the partitioning
+    :return: a list of partitioning specs
+    """
+    if not partitioning_type:
+        partitioning_type = conf.storage.default_partitioning
+
+    if partitioning_type is PartitioningType.SERVER:
+        return platform.set_default_partitioning() + SERVER_PARTITIONING
+
+    if partitioning_type is PartitioningType.WORKSTATION:
+        return platform.set_default_partitioning() + WORKSTATION_PARTITIONING
+
+    raise ValueError("Invalid partitioning type: {}".format(conf.storage.default_partitioning))
+
+
 class AutomaticPartitioningTask(NonInteractivePartitioningTask):
     """A task for the automatic partitioning configuration."""
 
-    def __init__(self, storage, scheme, encrypted=False, luks_format_args=None):
+    def __init__(self, storage, request: PartitioningRequest):
         """Create a task.
 
         :param storage: an instance of Blivet
-        :param scheme: a type of the partitioning scheme
-        :param encrypted: encrypt the scheduled partitions
-        :param luks_format_args: arguments for the LUKS format constructor
+        :param request: an instance of PartitioningRequest
         """
         super().__init__(storage)
-        self._scheme = scheme
-        self._encrypted = encrypted
-        self._luks_format_args = luks_format_args or {}
+        self._request = request
 
     def _get_initialization_config(self):
         """Get the initialization config.
@@ -70,51 +131,94 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         """
         log.debug("Executing the automatic partitioning.")
 
-        # Create the auto partitioning proxy.
-        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+        # Get the partitioning scheme.
+        scheme = self._request.partitioning_scheme
 
         # Set the filesystem type.
-        fstype = auto_part_proxy.FilesystemType
+        fstype = self._request.file_system_type
 
         if fstype:
             storage.set_default_fstype(fstype)
 
+        # Get the encryption configuration.
+        encrypted = self._request.encrypted
+
+        # Get LUKS format args.
+        luks_format_args = self._get_luks_format_args(self._storage, self._request)
+
         # Set the default pbkdf args.
-        pbkdf_args = self._luks_format_args.get('pbkdf_args', None)
+        pbkdf_args = luks_format_args.get('pbkdf_args', None)
 
         if pbkdf_args and not luks_data.pbkdf_args:
             luks_data.pbkdf_args = pbkdf_args
 
-        # Set the minimal entropy.
-        min_luks_entropy = self._luks_format_args.get('min_luks_entropy', None)
-
-        if min_luks_entropy is not None:
-            luks_data.min_entropy = min_luks_entropy
-
         # Get the autopart requests.
-        requests = self._get_autopart_requests(storage)
+        requests = self._get_partitioning(storage, self._request.excluded_mount_points)
 
         # Do the autopart.
-        self._do_autopart(storage, self._scheme, requests, self._encrypted, self._luks_format_args)
+        self._do_autopart(storage, scheme, requests, encrypted, luks_format_args)
 
-    def _get_autopart_requests(self, storage):
+    @staticmethod
+    def _get_luks_format_args(storage, request):
+        """Arguments for the LUKS format constructor.
+
+        :param storage: blivet.Blivet instance
+        :param request: a partitioning request
+        :return: a dictionary of arguments
+        """
+        if not request.encrypted:
+            return {}
+
+        luks_version = request.luks_version or storage.default_luks_version
+        escrow_cert = storage.get_escrow_certificate(request.escrow_certificate)
+
+        pbkdf_args = get_pbkdf_args(
+            luks_version=luks_version,
+            pbkdf_type=request.pbkdf or None,
+            max_memory_kb=request.pbkdf_memory,
+            iterations=request.pbkdf_iterations,
+            time_ms=request.pbkdf_time
+        )
+
+        return {
+            "passphrase": request.passphrase,
+            "cipher": request.cipher,
+            "luks_version": luks_version,
+            "pbkdf_args": pbkdf_args,
+            "escrow_cert": escrow_cert,
+            "add_backup_passphrase": request.backup_passphrase_enabled,
+        }
+
+    @staticmethod
+    def _get_partitioning(storage, excluded_mount_points=()):
         """Get the partitioning requests for autopart.
 
         :param storage: blivet.Blivet instance
+        :param excluded_mount_points: a list of mount points to exclude
         :return: a list of full partitioning specs
         """
-        requests = get_full_partitioning_requests(storage, platform, get_default_partitioning())
+        requests = []
 
-        # Update the size of swap.
-        for request in requests:
+        for request in get_default_partitioning():
+            # Skip excluded mount points.
+            if (request.mountpoint or request.fstype) in excluded_mount_points:
+                continue
+
+            # Set the default filesystem type.
+            if request.fstype is None:
+                request.fstype = storage.get_fstype(request.mountpoint)
+
+            # Update the size of swap.
             if request.fstype == "swap":
                 disk_space = storage.get_disk_free_space()
                 request.size = suggest_swap_size(disk_space=disk_space)
-                break
+
+            requests.append(request)
 
         return requests
 
-    def _do_autopart(self, storage, scheme, requests, encrypted=False, luks_fmt_args=None):
+    @staticmethod
+    def _do_autopart(storage, scheme, requests, encrypted=False, luks_fmt_args=None):
         """Perform automatic partitioning.
 
         :param storage: an instance of Blivet

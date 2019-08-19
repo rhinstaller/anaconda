@@ -23,7 +23,8 @@ from pyanaconda.input_checking import get_policy
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.partitioning import MountPointRequest
+from pyanaconda.modules.common.structures.partitioning import MountPointRequest, \
+    PartitioningRequest
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
     BootloaderConfigurationError
 from pyanaconda.ui.categories.system import SystemCategory
@@ -609,16 +610,21 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         self.part_schemes = OrderedDict()
 
         self._auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-        pre_select = self._auto_part_proxy.Type
+        self._request = PartitioningRequest.from_structure(
+            self._auto_part_proxy.Request
+        )
+
         supported_choices = get_supported_autopart_choices()
 
         if supported_choices:
             # Fallback value (eg when default is not supported)
             self._selected_scheme_value = supported_choices[0][1]
 
+        selected_choice = self._request.partitioning_scheme
+
         for item in supported_choices:
             self.part_schemes[item[0]] = item[1]
-            if item[1] == pre_select:
+            if item[1] == selected_choice:
                 self._selected_scheme_value = item[1]
 
     @property
@@ -656,7 +662,8 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 
     def apply(self):
         """ Apply our selections. """
-        self._auto_part_proxy.SetType(self._selected_scheme_value)
+        self._request.partitioning_scheme = self._selected_scheme_value
+        self._auto_part_proxy.SetRequest(PartitioningRequest.to_structure(self._request))
 
 
 class MountPointAssignSpoke(NormalTUISpoke):

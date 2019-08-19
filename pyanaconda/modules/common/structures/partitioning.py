@@ -18,10 +18,234 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.dbus.structure import DBusData
+from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
+from pyanaconda.dbus.structure import DBusData, generate_string_from_data
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["MountPointRequest"]
+__all__ = ["PartitioningRequest", "MountPointRequest"]
+
+
+class PartitioningRequest(DBusData):
+    """Partitioning request data."""
+
+    def __init__(self):
+        self._partitioning_scheme = DEFAULT_AUTOPART_TYPE
+        self._file_system_type = ""
+        self._excluded_mount_points = []
+
+        self._encrypted = False
+        self._passphrase = ""
+        self._cipher = ""
+        self._luks_version = ""
+
+        self._pbkdf = ""
+        self._pbkdf_memory = 0
+        self._pbkdf_time = 0
+        self._pbkdf_iterations = 0
+
+        self._escrow_certificate = ""
+        self._backup_passphrase_enabled = False
+
+    @property
+    def partitioning_scheme(self) -> Int:
+        """The partitioning scheme.
+
+        Allowed values:
+            0  Create regular partitions.
+            1  Use the btrfs scheme.
+            2  Use the lvm scheme.
+            3  Use the lvm thinp scheme.
+
+        :return: an number of the partitioning scheme
+        """
+        return self._partitioning_scheme
+
+    @partitioning_scheme.setter
+    def partitioning_scheme(self, scheme: Int):
+        self._partitioning_scheme = scheme
+
+    @property
+    def file_system_type(self) -> Str:
+        """Type of a file system used on the partitions.
+
+        For example: ext4
+
+        :return: a name of a file system type
+        """
+        return self._file_system_type
+
+    @file_system_type.setter
+    def file_system_type(self, value: Str):
+        self._file_system_type = value
+
+    @property
+    def excluded_mount_points(self) -> List[Str]:
+        """Excluded mount points.
+
+        Don't create partitions for the excluded
+        mount points during the partitioning.
+
+        For example: /home, /boot, swap
+
+        :return: a list of mount points
+        """
+        return self._excluded_mount_points
+
+    @excluded_mount_points.setter
+    def excluded_mount_points(self, mount_points: List[Str]):
+        self._excluded_mount_points = mount_points
+
+    @property
+    def encrypted(self) -> Bool:
+        """Should devices be encrypted?
+
+        :return: True or False
+        """
+        return self._encrypted
+
+    @encrypted.setter
+    def encrypted(self, encrypted: Bool):
+        self._encrypted = encrypted
+
+    @property
+    def passphrase(self) -> Str:
+        """Passphrase for all encrypted devices.
+
+        :return: a string with the passphrase
+        """
+        return self._passphrase
+
+    @passphrase.setter
+    def passphrase(self, value: Str):
+        self._passphrase = value
+
+    @property
+    def cipher(self) -> Str:
+        """Encryption algorithm used to encrypt the filesystem.
+
+        For example: aes-xts-plain64
+
+        :return: a name of an algorithm
+        """
+        return self._cipher
+
+    @cipher.setter
+    def cipher(self, cipher: Str):
+        self._cipher = cipher
+
+    @property
+    def luks_version(self) -> Str:
+        """Version of LUKS.
+
+        Allowed values:
+            luks1  Use the version 1.
+            luks2  Use the version 2.
+
+        :return: a string with the LUKS version
+        """
+        return self._luks_version
+
+    @luks_version.setter
+    def luks_version(self, version: Str):
+        self._luks_version = version
+
+    @property
+    def pbkdf(self) -> Str:
+        """The PBKDF algorithm.
+
+        Set Password-Based Key Derivation Function (PBKDF)
+        algorithm for LUKS keyslot.
+
+        Example: 'argon2i'
+
+        :return: a name of the algorithm
+        """
+        return self._pbkdf
+
+    @pbkdf.setter
+    def pbkdf(self, pbkdf: Str):
+        self._pbkdf = pbkdf
+
+    @property
+    def pbkdf_memory(self) -> Int:
+        """The memory cost for PBKDF."""
+        return self._pbkdf_memory
+
+    @pbkdf_memory.setter
+    def pbkdf_memory(self, memory: Int):
+        """Set the memory cost for PBKDF.
+
+        :param memory: the memory cost in kilobytes
+        """
+        self._pbkdf_memory = memory
+
+    @property
+    def pbkdf_time(self) -> Int:
+        """The time to spend with PBKDF processing.
+
+        Sets the number of milliseconds to spend with PBKDF
+        passphrase processing.
+
+        :return: a number of milliseconds
+        """
+        return self._pbkdf_time
+
+    @pbkdf_time.setter
+    def pbkdf_time(self, time_ms: Int):
+        self._pbkdf_time = time_ms
+
+    @property
+    def pbkdf_iterations(self) -> Int:
+        """The number of iterations for PBKDF.
+
+        Avoid PBKDF benchmark and set time cost (iterations) directly.
+
+        :return: a number of iterations
+        """
+        return self._pbkdf_iterations
+
+    @pbkdf_iterations.setter
+    def pbkdf_iterations(self, iterations: Int):
+        self._pbkdf_iterations = iterations
+
+    @property
+    def escrow_certificate(self) -> Str:
+        """URL of an X.509 certificate.
+
+        Store the data encryption keys of all encrypted volumes created during
+        installation, encrypted using the certificate, as files in /root.
+
+        :return: URL of an X.509 certificate
+        """
+        return self._escrow_certificate
+
+    @escrow_certificate.setter
+    def escrow_certificate(self, url: Str):
+        self._escrow_certificate = url
+
+    @property
+    def backup_passphrase_enabled(self) -> Bool:
+        """Is the backup passphrase enabled?
+
+        In addition to storing the data encryption keys, generate a backup passphrase
+        and add it to all encrypted volumes created during installation. Then store the
+        passphrase, encrypted using the specified certificate as files in /root.
+
+        :return: True or False
+        """
+        return self._backup_passphrase_enabled
+
+    @backup_passphrase_enabled.setter
+    def backup_passphrase_enabled(self, enabled: Bool):
+        self._backup_passphrase_enabled = enabled
+
+    def __repr__(self):
+        """Generate a string representation."""
+        return generate_string_from_data(
+            self,
+            skip=["passphrase"],
+            add={"passphrase_set": bool(self.passphrase)}
+        )
 
 
 class MountPointRequest(DBusData):

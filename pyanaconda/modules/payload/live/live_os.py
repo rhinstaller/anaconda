@@ -24,6 +24,7 @@ from pyanaconda.dbus import DBus
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.core.util import execWithCapture
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
@@ -84,6 +85,16 @@ class LiveOSHandlerModule(PayloadHandlerBase):
                     log.debug("Detected live base image %s", block_device)
                     return block_device
             except FileNotFoundError:
+                pass
+
+        # Is it a squashfs+overlayfs base image?
+        if os.path.exists("/run/rootfsbase"):
+            try:
+                block_device = execWithCapture("findmnt", ["-n", "-o", "SOURCE", "/run/rootfsbase"]).strip()
+                if block_device:
+                    log.debug("Detected live base image %s", block_device)
+                    return block_device
+            except (OSError, FileNotFoundError):
                 pass
 
         log.debug("No live base image detected")
