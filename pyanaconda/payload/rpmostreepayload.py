@@ -29,7 +29,7 @@ from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_an
 from pyanaconda.progress import progressQ
 from pyanaconda.payload import Payload
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.errors import PayloadInstallError
+from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
 from pyanaconda.payload.flatpak import FlatpakPayload
 from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.core.configuration.anaconda import conf
@@ -312,7 +312,16 @@ class RPMOSTreePayload(Payload):
 
             # Initialize new repo on the installed system
             self._flatpak_payload.initialize_with_system_path()
-            self._flatpak_payload.install_all()
+
+            try:
+                self._flatpak_payload.install_all()
+            except FlatpakInstallError as e:
+                exn = PayloadInstallError("Failed to install flatpaks: %s" % e)
+                log.error(str(exn))
+                if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
+                    progressQ.send_quit(1)
+                    util.ipmi_abort(scripts=self.data.scripts)
+                    sys.exit(1)
 
         mainctx.pop_thread_default()
 

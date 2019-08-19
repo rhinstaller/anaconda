@@ -23,13 +23,15 @@ import gi
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
+from pyanaconda.core.glib import GError
 from pyanaconda.progress import progressQ
+from pyanaconda.payload.errors import FlatpakInstallError
 
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
 
 from gi.repository.Flatpak import Transaction, Installation, Remote, RefKind, \
-    TransactionOperationType
+    TransactionOperationType, TransactionErrorDetails
 from gi.repository.Gio import File
 
 log = get_module_logger(__name__)
@@ -152,7 +154,12 @@ class FlatpakPayload(object):
         """Install all the refs contained on the remote."""
         progressQ.send_message(_("Starting Flatpak installation"))
         self._stuff_refs_to_transaction()
-        self._transaction.run()
+
+        try:
+            self._transaction.run()
+        except GError as exn:
+            raise FlatpakInstallError(exn.message)
+
         progressQ.send_message(_("Flatpak installation has finished"))
 
     def _stuff_refs_to_transaction(self):
@@ -199,6 +206,8 @@ class FlatpakPayload(object):
         :type details: int value of Flatpak.TransactionErrorDetails
         """
         self._log_operation(operation, "failed")
+        log.error("Flatpak installation failed with message: '%s' -- error is fatal %s",
+                  error.message, details == TransactionErrorDetails.FATAL)
 
     @staticmethod
     def _log_operation(operation, state):
