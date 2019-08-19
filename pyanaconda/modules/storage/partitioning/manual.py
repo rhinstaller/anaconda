@@ -45,12 +45,13 @@ class ManualPartitioningModule(PartitioningModule):
         self.requests_changed = Signal()
         self._requests = list()
 
+    def for_publication(self):
+        """Return a DBus representation."""
+        return ManualPartitioningInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(
-            MANUAL_PARTITIONING.object_path,
-            ManualPartitioningInterface(self)
-        )
+        DBus.publish_object(MANUAL_PARTITIONING.object_path, self.for_publication())
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

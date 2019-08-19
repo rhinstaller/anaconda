@@ -38,9 +38,13 @@ class BlivetPartitioningModule(PartitioningModule):
         self._storage_handler = None
         self._request_handler = None
 
+    def for_publication(self):
+        """Return a DBus representation."""
+        return BlivetPartitioningInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(BLIVET_PARTITIONING.object_path, BlivetPartitioningInterface(self))
+        DBus.publish_object(BLIVET_PARTITIONING.object_path, self.for_publication())
 
     @property
     def storage_handler(self):

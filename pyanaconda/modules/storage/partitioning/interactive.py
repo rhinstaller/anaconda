@@ -33,12 +33,13 @@ log = get_module_logger(__name__)
 class InteractivePartitioningModule(PartitioningModule):
     """The interactive partitioning module."""
 
+    def for_publication(self):
+        """Return a DBus representation."""
+        return InteractivePartitioningInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(
-            INTERACTIVE_PARTITIONING.object_path,
-            InteractivePartitioningInterface(self)
-        )
+        DBus.publish_object(INTERACTIVE_PARTITIONING.object_path, self.for_publication())
 
     def configure_with_task(self):
         """Complete the scheduled partitioning."""

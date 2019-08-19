@@ -46,9 +46,13 @@ class AutoPartitioningModule(PartitioningModule):
         self.request_changed = Signal()
         self._request = PartitioningRequest()
 
+    def for_publication(self):
+        """Return a DBus representation."""
+        return AutoPartitioningInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(AUTO_PARTITIONING.object_path, AutoPartitioningInterface(self))
+        DBus.publish_object(AUTO_PARTITIONING.object_path, self.for_publication())
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

@@ -22,6 +22,7 @@ from abc import abstractmethod
 from blivet.devices import PartitionDevice, TmpFSDevice, LVMLogicalVolumeDevice, \
     LVMVolumeGroupDevice, MDRaidArrayDevice, BTRFSDevice
 
+from pyanaconda.dbus.publishable import Publishable
 from pyanaconda.modules.common.base.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -32,7 +33,7 @@ log = get_module_logger(__name__)
 __all__ = ["PartitioningModule"]
 
 
-class PartitioningModule(KickstartBaseModule):
+class PartitioningModule(KickstartBaseModule, Publishable):
     """The partitioning module."""
 
     def __init__(self):

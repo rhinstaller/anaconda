@@ -40,6 +40,10 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         self.module = InteractivePartitioningModule()
         self.interface = InteractivePartitioningInterface(self.module)
 
+    def publication_test(self):
+        """Test the DBus representation."""
+        self.assertIsInstance(self.module.for_publication(), InteractivePartitioningInterface)
+
     @patch_dbus_publish_object
     def get_device_tree_test(self, publisher):
         """Test GetDeviceTree."""

@@ -20,6 +20,7 @@
 import unittest
 
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
+from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.factory import PartitioningFactory
 
@@ -32,6 +33,7 @@ class PartitioningFactoryTestCase(unittest.TestCase):
         for method in PartitioningMethod:
             module = PartitioningFactory.create_partitioning(method)
             self.assertIsInstance(module, PartitioningModule)
+            self.assertIsInstance(module.for_publication(), PartitioningInterface)
 
     def failed_partitioning_test(self):
         """Test failed create_partitioning."""

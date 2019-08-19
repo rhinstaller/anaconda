@@ -48,9 +48,13 @@ class CustomPartitioningModule(PartitioningModule):
 
         return self._data
 
+    def for_publication(self):
+        """Return a DBus representation."""
+        return CustomPartitioningInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(CUSTOM_PARTITIONING.object_path, CustomPartitioningInterface(self))
+        DBus.publish_object(CUSTOM_PARTITIONING.object_path, self.for_publication())
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
