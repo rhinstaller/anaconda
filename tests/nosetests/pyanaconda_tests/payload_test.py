@@ -470,6 +470,45 @@ class FlatpakTest(unittest.TestCase):
 
         self.assertEqual(self._transaction.mock_calls, expected_calls)
 
+    @patch("pyanaconda.payload.flatpak.Transaction")
+    @patch("pyanaconda.payload.flatpak.Installation")
+    @patch("pyanaconda.payload.flatpak.Remote")
+    def add_remote_test(self, remote_cls, installation_cls, transaction_cls):
+        """Test flatpak add new remote."""
+        flatpak = FlatpakPayload("remote/path")
+
+        self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
+
+        flatpak.initialize_with_system_path()
+        flatpak.add_remote("hive", "url://zerglings/home")
+
+        remote_cls.new.assert_called_with("hive")
+        self._remote.set_gpg_verify.assert_called_with(True)
+        self._remote.set_url("url://zerglings/home")
+        self.assertEqual(remote_cls.new.call_count, 2)
+        self.assertEqual(self._installation.add_remote.call_count, 2)
+
+    @patch("pyanaconda.payload.flatpak.Transaction")
+    @patch("pyanaconda.payload.flatpak.Installation")
+    @patch("pyanaconda.payload.flatpak.Remote")
+    def remove_remote_test(self, remote_cls, installation_cls, transaction_cls):
+        """Test flatpak remove a remote."""
+        flatpak = FlatpakPayload("remote/path")
+
+        self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
+
+        mock_remote1 = Mock()
+        mock_remote2 = Mock()
+        mock_remote1.get_name.return_value = "nest"
+        mock_remote2.get_name.return_value = "hive"
+
+        self._installation.list_remotes.return_value = [mock_remote1, mock_remote2]
+
+        flatpak.initialize_with_system_path()
+        flatpak.remove_remote("hive")
+
+        self._installation.remove_remote.assert_called_once_with("hive", None)
+
 
 class RefMock(object):
 
