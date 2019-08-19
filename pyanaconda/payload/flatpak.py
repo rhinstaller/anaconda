@@ -53,8 +53,7 @@ class FlatpakPayload(object):
         :type sysroot: str
         """
         self._remote_path = "/flatpak/repo"
-        self._install_path = os.path.join(sysroot, "var/lib/flatpak")
-
+        self._sysroot = sysroot
         self._remote_refs_list = None
 
         self._transaction = None
@@ -69,15 +68,27 @@ class FlatpakPayload(object):
         """"Set path to the remote repository."""
         self.remote_path = value
 
-    def setup(self):
-        """Create flatpak objects and set them correct values.
+    def initialize_with_system_path(self):
+        """Create flatpak objects and set them to install to the result system.
 
-        We know where is the fixed position of the repository so everything will be fixed here.
+        This call will re-initialize current settings so everything set here will be cleaned.
         """
-        log.debug("Configure flatpak")
+        target_path = os.path.join(self._sysroot, "var/lib/flatpak")
+        self.initialize_with_path(target_path)
+
+    def initialize_with_path(self, target_path):
+        """Create flatpak objects and set them for the given target path.
+
+        The initialization process will create a repository on the given path.
+
+        This call will re-initialize current settings so everything set here will be cleaned.
+
+        :param str target_path: path where we want to install flatpaks
+        """
+        log.debug("Configure flatpak for path %s", target_path)
         remote = self._create_flatpak_remote()
 
-        installation = self._create_flatpak_installation(remote)
+        installation = self._create_flatpak_installation(remote, target_path)
 
         self._transaction = self._create_flatpak_transaction(installation)
         self._remote_refs_list = RemoteRefsList(installation)
@@ -89,8 +100,8 @@ class FlatpakPayload(object):
 
         return remote
 
-    def _create_flatpak_installation(self, remote):
-        install_path = File.new_for_path(self._install_path)
+    def _create_flatpak_installation(self, remote, target_path):
+        install_path = File.new_for_path(target_path)
         installation = Installation.new_for_path(install_path, False, None)
         installation.add_remote(remote, False, None)
 

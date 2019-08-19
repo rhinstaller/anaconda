@@ -55,7 +55,7 @@ class RPMOSTreePayload(Payload):
         self._locale_map = None
 
         self._flatpak_payload = FlatpakPayload(conf.target.system_root)
-        self._flatpak_payload.setup()
+        self._flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
 
     @property
     def handles_bootloader_configuration(self):
@@ -306,6 +306,7 @@ class RPMOSTreePayload(Payload):
 
         # Install flatpak from the local source on SilverBlue
         if self._flatpak_payload.is_available():
+            self._flatpak_payload.initialize_with_system_path()
             self._flatpak_payload.install_all()
 
         mainctx.pop_thread_default()

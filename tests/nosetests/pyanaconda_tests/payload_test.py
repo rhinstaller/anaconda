@@ -325,16 +325,17 @@ class FlatpakTest(unittest.TestCase):
     @patch("pyanaconda.payload.flatpak.Transaction")
     @patch("pyanaconda.payload.flatpak.Installation")
     @patch("pyanaconda.payload.flatpak.Remote")
-    def setup_test(self, remote_cls, installation_cls, transaction_cls):
-        """Test flatpak setup."""
+    def initialize_with_path_test(self, remote_cls, installation_cls, transaction_cls):
+        """Test flatpak initialize with path."""
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
         flatpak = FlatpakPayload("/mock/system/root/path")
-        flatpak.setup()
+        flatpak.initialize_with_path("/test/path/installation")
 
         remote_cls.new.assert_called_once()
-        installation_cls.new_for_path.assert_called_once()
-        transaction_cls.new_for_installation.assert_called_once()
+        installation_cls.new_for_path.assert_called_once_with("/test/path/installation",
+                                                              False, None)
+        transaction_cls.new_for_installation.assert_called_once_with(self._installation)
 
         expected_remote_calls = [call.set_gpg_verify(False),
                                  call.set_url("file://{}".format(flatpak.remote_path))]
@@ -352,7 +353,7 @@ class FlatpakTest(unittest.TestCase):
 
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
-        flatpak.setup()
+        flatpak.initialize_with_system_path()
 
         self._installation.list_remote_refs_sync.return_value = [
             RefMock(installed_size=2000),
@@ -373,7 +374,7 @@ class FlatpakTest(unittest.TestCase):
 
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
-        flatpak.setup()
+        flatpak.initialize_with_system_path()
 
         self._installation.list_remote_refs_sync.return_value = []
 
@@ -390,7 +391,7 @@ class FlatpakTest(unittest.TestCase):
 
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
-        flatpak.setup()
+        flatpak.initialize_with_system_path()
 
         self._installation.list_remote_refs_sync.return_value = [
             RefMock(name="org.space.coolapp", kind=RefKind.APP, arch="x86_64", branch="stable"),
