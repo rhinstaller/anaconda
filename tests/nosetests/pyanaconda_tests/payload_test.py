@@ -333,8 +333,7 @@ class FlatpakTest(unittest.TestCase):
         flatpak.initialize_with_path("/test/path/installation")
 
         remote_cls.new.assert_called_once()
-        installation_cls.new_for_path.assert_called_once_with("/test/path/installation",
-                                                              False, None)
+        installation_cls.new_for_path.assert_called_once()
         transaction_cls.new_for_installation.assert_called_once_with(self._installation)
 
         expected_remote_calls = [call.set_gpg_verify(False),
@@ -343,6 +342,54 @@ class FlatpakTest(unittest.TestCase):
 
         expected_remote_calls = [call.add_remote(self._remote, False, None)]
         self.assertEqual(self._installation.method_calls, expected_remote_calls)
+
+    def cleanup_call_without_initialize_test(self):
+        """Test the cleanup call without initialize."""
+        flatpak = FlatpakPayload("/tmp/flatpak-test")
+
+        flatpak.cleanup()
+
+    @patch("pyanaconda.payload.flatpak.shutil.rmtree")
+    @patch("pyanaconda.payload.flatpak.Transaction")
+    @patch("pyanaconda.payload.flatpak.Installation")
+    @patch("pyanaconda.payload.flatpak.Remote")
+    def cleanup_call_no_repo_test(self, remote_cls, installation_cls, transaction_cls, rmtree):
+        """Test the cleanup call with no repository created."""
+        flatpak = FlatpakPayload("any path")
+
+        self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
+
+        file_mock_path = Mock()
+        file_mock_path.get_path.return_value = "/install/test/path"
+        self._installation.get_path.return_value = file_mock_path
+
+        flatpak.initialize_with_path("/install/test/path")
+        flatpak.cleanup()
+
+        rmtree.assert_not_called()
+
+    @patch("pyanaconda.payload.flatpak.shutil.rmtree")
+    @patch("pyanaconda.payload.flatpak.Transaction")
+    @patch("pyanaconda.payload.flatpak.Installation")
+    @patch("pyanaconda.payload.flatpak.Remote")
+    def cleanup_call_mock_repo_test(self, remote_cls, installation_cls, transaction_cls, rmtree):
+        """Test the cleanup call with mocked repository."""
+        flatpak = FlatpakPayload("any path")
+
+        self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
+
+        with TemporaryDirectory() as temp:
+            install_path = os.path.join(temp, "install/test/path")
+            file_mock_path = Mock()
+            file_mock_path.get_path.return_value = install_path
+            self._installation.get_path.return_value = file_mock_path
+
+            os.makedirs(install_path)
+
+            flatpak.initialize_with_path(install_path)
+            flatpak.cleanup()
+
+            rmtree.assert_called_once_with(install_path)
 
     @patch("pyanaconda.payload.flatpak.Transaction")
     @patch("pyanaconda.payload.flatpak.Installation")
