@@ -22,12 +22,10 @@ from abc import abstractmethod
 from blivet.devices import PartitionDevice, TmpFSDevice, LVMLogicalVolumeDevice, \
     LVMVolumeGroupDevice, MDRaidArrayDevice, BTRFSDevice
 
-from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base.base import KickstartBaseModule
-from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.storage.devicetree import DeviceTreeModule, publish_device_tree
+from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 
 log = get_module_logger(__name__)
 
@@ -44,7 +42,6 @@ class PartitioningModule(KickstartBaseModule):
         self._storage_playground = None
         self._selected_disks = []
         self._device_tree_module = None
-        self._device_tree_path = ""
 
     @property
     def storage(self):
@@ -73,23 +70,18 @@ class PartitioningModule(KickstartBaseModule):
         self._selected_disks = selection
 
     def get_device_tree(self):
-        """Get the device tree.
+        """Get the device tree module.
 
-        :return: a DBus path to a device tree
+        :return: a device tree module
         """
-        if not self._device_tree_module:
+        module = self._device_tree_module
+
+        if not module:
             module = DeviceTreeModule()
             module.on_storage_reset(self.storage)
             self._device_tree_module = module
 
-        if not self._device_tree_path:
-            self._device_tree_path = publish_device_tree(
-                message_bus=DBus,
-                namespace=STORAGE.namespace,
-                device_tree=self._device_tree_module
-            )
-
-        return self._device_tree_path
+        return module
 
     @abstractmethod
     def configure_with_task(self):

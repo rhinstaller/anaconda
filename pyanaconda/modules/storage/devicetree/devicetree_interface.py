@@ -17,9 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda.dbus.interface import dbus_class
-from pyanaconda.dbus.namespace import get_dbus_path
 from pyanaconda.modules.storage.devicetree.handler_interface import DeviceTreeHandlerInterface
 from pyanaconda.modules.storage.devicetree.viewer_interface import DeviceTreeViewerInterface
 
@@ -29,18 +27,4 @@ __all__ = ["DeviceTreeInterface"]
 @dbus_class
 class DeviceTreeInterface(DeviceTreeViewerInterface, DeviceTreeHandlerInterface):
     """DBus interface for the device tree module."""
-
-    _tree_counter = 1
-
-    @staticmethod
-    def get_object_path(namespace):
-        """Get the unique object path in the given namespace.
-
-        This method is not thread safe for now.
-
-        :param namespace: a sequence of names
-        :return: a DBus path of a device tree
-        """
-        tree_number = DeviceTreeInterface._tree_counter
-        DeviceTreeInterface._tree_counter += 1
-        return get_dbus_path(*namespace, "DeviceTree", str(tree_number))
+    pass

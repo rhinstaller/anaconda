@@ -21,6 +21,7 @@ from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import PARTITIONING
+from pyanaconda.modules.common.containers import DeviceTreeContainer
 
 __all__ = ["PartitioningInterface"]
 
@@ -34,7 +35,9 @@ class PartitioningInterface(ModuleInterfaceTemplate):
 
         :return: a DBus path to a device tree
         """
-        return self.implementation.get_device_tree()
+        return DeviceTreeContainer.to_object_path(
+            self.implementation.get_device_tree()
+        )
 
     def ConfigureWithTask(self) -> ObjPath:
         """Schedule the partitioning actions.
