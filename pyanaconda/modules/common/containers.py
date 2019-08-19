@@ -24,3 +24,8 @@ DeviceTreeContainer = DBusContainer(
     namespace=STORAGE_NAMESPACE,
     basename="DeviceTree"
 )
+
+PartitioningContainer = DBusContainer(
+    namespace=STORAGE_NAMESPACE,
+    basename="Partitioning"
+)
