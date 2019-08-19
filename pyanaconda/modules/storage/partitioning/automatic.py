@@ -27,6 +27,7 @@ from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
     AutomaticPartitioningTask
@@ -45,6 +46,11 @@ class AutoPartitioningModule(PartitioningModule):
 
         self.request_changed = Signal()
         self._request = PartitioningRequest()
+
+    @property
+    def partitioning_method(self):
+        """Type of the partitioning method."""
+        return PartitioningMethod.AUTOMATIC
 
     def for_publication(self):
         """Return a DBus representation."""

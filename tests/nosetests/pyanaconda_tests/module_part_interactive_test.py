@@ -20,6 +20,7 @@
 import unittest
 from unittest.mock import Mock
 
+from pyanaconda.core.constants import PARTITIONING_METHOD_INTERACTIVE
 from pyanaconda.modules.common.containers import DeviceTreeContainer
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
@@ -43,6 +44,10 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
     def publication_test(self):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), InteractivePartitioningInterface)
+
+    def method_property_test(self):
+        """Test Method property."""
+        self.assertEqual(self.interface.PartitioningMethod, PARTITIONING_METHOD_INTERACTIVE)
 
     @patch_dbus_publish_object
     def get_device_tree_test(self, publisher):

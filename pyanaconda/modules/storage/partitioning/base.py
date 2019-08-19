@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from abc import abstractmethod
+from abc import abstractmethod, abstractproperty
 
 from blivet.devices import PartitionDevice, TmpFSDevice, LVMLogicalVolumeDevice, \
     LVMVolumeGroupDevice, MDRaidArrayDevice, BTRFSDevice
@@ -43,6 +43,11 @@ class PartitioningModule(KickstartBaseModule, Publishable):
         self._storage_playground = None
         self._selected_disks = []
         self._device_tree_module = None
+
+    @abstractproperty
+    def partitioning_method(self):
+        """Type of the partitioning method."""
+        return None
 
     @property
     def storage(self):

@@ -23,6 +23,7 @@ from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.blivet_interface import \
     BlivetPartitioningInterface
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
@@ -37,6 +38,11 @@ class BlivetPartitioningModule(PartitioningModule):
         super().__init__()
         self._storage_handler = None
         self._request_handler = None
+
+    @property
+    def partitioning_method(self):
+        """Type of the partitioning method."""
+        return PartitioningMethod.BLIVET
 
     def for_publication(self):
         """Return a DBus representation."""

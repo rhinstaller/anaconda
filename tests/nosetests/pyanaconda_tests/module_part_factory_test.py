@@ -34,6 +34,7 @@ class PartitioningFactoryTestCase(unittest.TestCase):
             module = PartitioningFactory.create_partitioning(method)
             self.assertIsInstance(module, PartitioningModule)
             self.assertIsInstance(module.for_publication(), PartitioningInterface)
+            self.assertEqual(module.partitioning_method, method)
 
     def failed_partitioning_test(self):
         """Test failed create_partitioning."""

@@ -30,6 +30,14 @@ __all__ = ["PartitioningInterface"]
 class PartitioningInterface(ModuleInterfaceTemplate):
     """DBus interface for a partitioning module."""
 
+    @property
+    def PartitioningMethod(self) -> Str:
+        """Type of the partitioning method.
+
+        :return: a name of the method
+        """
+        return self.implementation.partitioning_method.value
+
     def GetDeviceTree(self) -> ObjPath:
         """Get the device tree.
 

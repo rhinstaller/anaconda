@@ -24,7 +24,7 @@ from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONIN
 
 
 class PartitioningMethod(Enum):
-    """The partitioning method."""
+    """Type of the partitioning method."""
     AUTOMATIC = PARTITIONING_METHOD_AUTOMATIC
     CUSTOM = PARTITIONING_METHOD_CUSTOM
     MANUAL = PARTITIONING_METHOD_MANUAL
