@@ -323,8 +323,9 @@ class RPMOSTreePayload(Payload):
                     util.ipmi_abort(scripts=self.data.scripts)
                     sys.exit(1)
 
-            self._flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
             self._flatpak_payload.add_remote("fedora", "oci+https://registry.fedoraproject.org")
+            self._flatpak_payload.replace_installed_refs_remote("fedora")
+            self._flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
 
         mainctx.pop_thread_default()
 
