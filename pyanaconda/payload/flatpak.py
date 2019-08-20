@@ -180,7 +180,7 @@ class FlatpakPayload(object):
         progressQ.send_message(_("Flatpak installation has finished"))
 
     def _stuff_refs_to_transaction(self):
-        for ref in self._remote_refs_list.get_refs_in_install_format():
+        for ref in self._remote_refs_list.get_refs_full_format():
             self._transaction.add_install(self.LOCAL_REMOTE_NAME, ref, None)
 
     def _operation_started_callback(self, transaction, operation, progress):
@@ -259,6 +259,32 @@ class BaseRefsList(ABC):
     def _load_refs(self):
         pass
 
+    def get_refs_full_format(self):
+        """Get list of refs in full format.
+
+        This formatting is used for example for installation.
+        The format looks like:
+
+        [app|runtime]/ref/arch/branch
+
+        examples:
+        runtime/org.videolan.VLC.Plugin.bdj/x86_64/3-18.08
+        app/org.gnome.Gnote/x86_64/stable
+
+        :return: list of refs in the full format
+        :rtype: [str]
+        """
+        result = []
+        for ref in self.refs:
+            kind_type = "app" if ref.get_kind() is RefKind.APP else "runtime"
+            # create ref string in format "runtime/org.example.app/x86_64/f30"
+            result.append(kind_type + "/" +
+                          ref.get_name() + "/" +
+                          ref.get_arch() + "/" +
+                          ref.get_branch())
+
+        return result
+
 
 class RemoteRefsList(BaseRefsList):
 
@@ -284,26 +310,6 @@ class RemoteRefsList(BaseRefsList):
             size_sum = size_sum + ref.get_installed_size()
 
         return size_sum
-
-    def get_refs_in_install_format(self):
-        """Get list of strings used for the installation.
-
-        Transaction object require to have refs for the installation in the correct format so
-        create the correct format here.
-
-        :return: list of refs in the correct format
-        :rtype: [str]
-        """
-        result = []
-        for ref in self.refs:
-            kind_type = "app" if ref.get_kind() is RefKind.APP else "runtime"
-            # create ref string in format "runtime/org.example.app/x86_64/f30"
-            result.append(kind_type + "/" +
-                          ref.get_name() + "/" +
-                          ref.get_arch() + "/" +
-                          ref.get_branch())
-
-        return result
 
 
 class InstalledRefsList(BaseRefsList):
