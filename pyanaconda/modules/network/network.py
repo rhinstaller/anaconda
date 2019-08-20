@@ -344,10 +344,13 @@ class NetworkModule(KickstartModule):
         uuids = [dev_cfg.connection_uuid for dev_cfg in device_configurations.get_all()
                  if dev_cfg.connection_uuid]
         for uuid in uuids:
-            ifcfg = get_ifcfg_file([("UUID", uuid)])
-            if ifcfg:
-                ifcfg.read()
-                if ifcfg.get('ONBOOT') != "no":
+            con = self.nm_client.get_connection_by_uuid(uuid)
+            if con:
+                if (con.get_flags() & NM.SettingsConnectionFlags.UNSAVED):
+                    log.debug("ONBOOT policy: not considering UNSAVED connection %s", con.get_uuid())
+                    continue
+                if con.get_setting_connection().get_autoconnect():
+                    log.debug("ONBOOT policy: %s has 'autoconnect' == True", con.get_uuid())
                     return True
         return False
 
