@@ -307,6 +307,7 @@ class RPMOSTreePayload(Payload):
 
         # Install flatpak from the local source on SilverBlue
         if self._flatpak_payload.is_available():
+            progressQ.send_message(_("Starting Flatpak installation"))
             # Cleanup temporal repo created in the __init__
             self._flatpak_payload.cleanup()
 
@@ -323,9 +324,13 @@ class RPMOSTreePayload(Payload):
                     util.ipmi_abort(scripts=self.data.scripts)
                     sys.exit(1)
 
+            progressQ.send_message(_("Post-installation flatpak tasks"))
+
             self._flatpak_payload.add_remote("fedora", "oci+https://registry.fedoraproject.org")
             self._flatpak_payload.replace_installed_refs_remote("fedora")
             self._flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
+
+            progressQ.send_message(_("Flatpak installation has finished"))
 
         mainctx.pop_thread_default()
 

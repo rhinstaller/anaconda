@@ -169,15 +169,12 @@ class FlatpakPayload(object):
 
     def install_all(self):
         """Install all the refs contained on the remote."""
-        progressQ.send_message(_("Starting Flatpak installation"))
         self._stuff_refs_to_transaction()
 
         try:
             self._transaction.run()
         except GError as exn:
             raise FlatpakInstallError(exn.message)
-
-        progressQ.send_message(_("Flatpak installation has finished"))
 
     def _stuff_refs_to_transaction(self):
         for ref in self._remote_refs_list.get_refs_full_format():
