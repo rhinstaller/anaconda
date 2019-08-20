@@ -21,6 +21,8 @@ import os
 import shutil
 import gi
 
+from abc import ABC, abstractmethod
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.glib import GError
@@ -231,34 +233,43 @@ class FlatpakPayload(object):
                   operation_type_str, operation.get_ref(), state)
 
 
-class RemoteRefsList(object):
+class BaseRefsList(ABC):
 
     def __init__(self, installation):
-        """Load all flatpak refs from the remote.
+        """Load all flatpak refs from the installed system.
+
+        Makes easier operations above the refs.
 
         :param installation: flatpak installation instance with remotes attached
         :type installation: Flatpak.Installation instance
         """
         self._installation = installation
 
-        self._remote_refs = []
+        self._refs = []
 
     @property
     def refs(self):
-        """Get list of remote flatpak applications refs."""
-        if not self._remote_refs:
-            self._load_remote_refs()
+        """Get list of installed application refs."""
+        if not self._refs:
+            self._load_refs()
 
-        return self._remote_refs
+        return self._refs
 
-    def _load_remote_refs(self):
+    @abstractmethod
+    def _load_refs(self):
+        pass
+
+
+class RemoteRefsList(BaseRefsList):
+
+    def _load_refs(self):
         """Load remote application references.
 
         This will load the list just once. We can do that because we support only one repository
         on the fixed place right now. This have to be re-implemented when there will be a proper
         flatpak support.
         """
-        self._remote_refs = self._installation.list_remote_refs_sync(
+        self._refs = self._installation.list_remote_refs_sync(
             FlatpakPayload.LOCAL_REMOTE_NAME,
             None)
 
@@ -295,27 +306,7 @@ class RemoteRefsList(object):
         return result
 
 
-class InstalledRefsList(object):
+class InstalledRefsList(BaseRefsList):
 
-    def __init__(self, installation):
-        """Load all flatpak refs from the installed system.
-
-        Makes easier operations above the refs.
-
-        :param installation: flatpak installation instance with remotes attached
-        :type installation: Flatpak.Installation instance
-        """
-        self._installation = installation
-
-        self._installed_refs = None
-
-    @property
-    def refs(self):
-        """Get list of installed application refs."""
-        if not self._installed_refs:
-            self._load_installed_refs()
-
-        return self._installed_refs
-
-    def _load_installed_refs(self):
-        self._installed_refs = self._installation.list_installed_refs()
+    def _load_refs(self):
+        self._refs = self._installation.list_installed_refs()
