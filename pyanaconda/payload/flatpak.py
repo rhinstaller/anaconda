@@ -45,7 +45,7 @@ class FlatpakPayload(object):
     """Main class to handle flatpak installation and management."""
 
     LOCAL_REMOTE_NAME = "Anaconda"
-    LOCAL_REMOTE_PATH = "/flatpak/repo"
+    LOCAL_REMOTE_PATH = "file:///flatpak/repo"
 
     def __init__(self, sysroot):
         """Create and initialize this class.
@@ -91,7 +91,7 @@ class FlatpakPayload(object):
     def _create_flatpak_remote(self, name, path, gpg_verify):
         remote = Remote.new(name)
         remote.set_gpg_verify(gpg_verify)
-        remote.set_url("file://{}".format(path))
+        remote.set_url(path)
 
         return remote
 
@@ -132,7 +132,8 @@ class FlatpakPayload(object):
 
         :return: bool
         """
-        return os.path.isdir(self.LOCAL_REMOTE_PATH)
+        # Remove the file:// prefix
+        return os.path.isdir(self.LOCAL_REMOTE_PATH[7:])
 
     def get_required_size(self):
         """Get required size to install all the flatpaks.
@@ -146,7 +147,7 @@ class FlatpakPayload(object):
         """Add a new remote to the existing installation.
 
         :param str name: name of the remote
-        :param str url: url pointing to the remote
+        :param str url: url pointing to the remote (use file:// for local paths)
         """
         log.debug("Adding a new flatpak remote %s: %s", name, url)
         remote = self._create_flatpak_remote(name, url, True)

@@ -318,7 +318,7 @@ class FlatpakTest(unittest.TestCase):
         self.assertFalse(flatpak.is_available())
 
         with TemporaryDirectory() as temp:
-            flatpak.LOCAL_REMOTE_PATH = temp
+            flatpak.LOCAL_REMOTE_PATH = "file://" + temp
 
             self.assertTrue(flatpak.is_available())
 
@@ -337,7 +337,7 @@ class FlatpakTest(unittest.TestCase):
         transaction_cls.new_for_installation.assert_called_once_with(self._installation)
 
         expected_remote_calls = [call.set_gpg_verify(False),
-                                 call.set_url("file://{}".format(flatpak.LOCAL_REMOTE_PATH))]
+                                 call.set_url(flatpak.LOCAL_REMOTE_PATH)]
         self.assertEqual(self._remote.method_calls, expected_remote_calls)
 
         expected_remote_calls = [call.add_remote(self._remote, False, None)]
