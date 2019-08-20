@@ -183,6 +183,15 @@ class FlatpakPayload(object):
         for ref in self._remote_refs_list.get_refs_full_format():
             self._transaction.add_install(self.LOCAL_REMOTE_NAME, ref, None)
 
+    def replace_installed_refs_remote(self, new_remote):
+        """Replace remote on all the installed refs.
+
+        :param str new_remote: name of the new remote
+        """
+        installed_refs_list = InstalledRefsList(self._transaction.get_installation())
+
+        installed_refs_list.replace_installed_refs_remote(new_remote)
+
     def _operation_started_callback(self, transaction, operation, progress):
         """Start of the new operation.
 
