@@ -25,7 +25,7 @@ from abc import ABC, abstractmethod
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.core.glib import GError
+from pyanaconda.core.glib import GError, VariantType, Variant, Bytes
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.errors import FlatpakInstallError
 
@@ -314,5 +314,33 @@ class RemoteRefsList(BaseRefsList):
 
 class InstalledRefsList(BaseRefsList):
 
+    FLATPAK_DEPLOY_DATA_GVARIANT_STRING = '(ssasta{sv})'
+
     def _load_refs(self):
         self._refs = self._installation.list_installed_refs()
+
+    def replace_installed_refs_remote(self, new_remote_name):
+        """Replace remote for all the refs.
+
+        :param str new_remote_name: the remote name which will be used instead of the current one
+        """
+        install_path = self._installation.get_path()
+        install_path = install_path.get_path()  # unpack the Gio.File
+
+        variant_type = VariantType(self.FLATPAK_DEPLOY_DATA_GVARIANT_STRING)
+
+        for ref in self.get_refs_full_format():
+            deploy_path = os.path.join(install_path, ref, "active/deploy")
+
+            with open(deploy_path, "rb") as f:
+                content = f.read()
+
+            variant = Variant.new_from_bytes(variant_type, Bytes(content), False)
+            children = [variant.get_child_value(i) for i in range(variant.n_children())]
+            # Replace the origin
+            children[0] = Variant('s', new_remote_name)
+            new_variant = Variant.new_tuple(*children)
+            serialized = new_variant.get_data_as_bytes().get_data()
+
+            with open(deploy_path, "wb") as f:
+                f.write(serialized)
