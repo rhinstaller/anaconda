@@ -192,6 +192,20 @@ class RPMOSTreePayload(Payload):
                 os.unlink(efi_grubenv_link)
 
     def install(self):
+        # This is top installation method
+        # TODO: Broke this to pieces when ostree payload is migrated to the DBus solution
+
+        # download and install the ostree image
+        self._install()
+
+        # prepare mountpoints of the installed system
+        self._prepare_mount_targets()
+
+        # install flatpaks to the system if available
+        if self._flatpak_payload.is_available():
+            self._flatpak_install()
+
+    def _install(self):
         mainctx = create_new_context()
         mainctx.push_thread_default()
 
@@ -305,33 +319,6 @@ class RPMOSTreePayload(Payload):
                 util.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(1)
 
-        # Install flatpak from the local source on SilverBlue
-        if self._flatpak_payload.is_available():
-            progressQ.send_message(_("Starting Flatpak installation"))
-            # Cleanup temporal repo created in the __init__
-            self._flatpak_payload.cleanup()
-
-            # Initialize new repo on the installed system
-            self._flatpak_payload.initialize_with_system_path()
-
-            try:
-                self._flatpak_payload.install_all()
-            except FlatpakInstallError as e:
-                exn = PayloadInstallError("Failed to install flatpaks: %s" % e)
-                log.error(str(exn))
-                if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
-                    progressQ.send_quit(1)
-                    util.ipmi_abort(scripts=self.data.scripts)
-                    sys.exit(1)
-
-            progressQ.send_message(_("Post-installation flatpak tasks"))
-
-            self._flatpak_payload.add_remote("fedora", "oci+https://registry.fedoraproject.org")
-            self._flatpak_payload.replace_installed_refs_remote("fedora")
-            self._flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
-
-            progressQ.send_message(_("Flatpak installation has finished"))
-
         mainctx.pop_thread_default()
 
     def _setup_internal_bindmount(self, src, dest=None,
@@ -374,7 +361,7 @@ class RPMOSTreePayload(Payload):
                                           [bindopt, src, dest])
         self._internal_mounts.append(src if bind_ro else dest)
 
-    def prepare_mount_targets(self):
+    def _prepare_mount_targets(self):
         """ Prepare the ostree root """
         ostreesetup = self.data.ostreesetup
 
@@ -434,6 +421,33 @@ class RPMOSTreePayload(Payload):
 
         # And finally, do a nonrecursive bind for the sysroot
         self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
+
+    def _flatpak_install(self):
+        # Install flatpak from the local source on SilverBlue
+        progressQ.send_message(_("Starting Flatpak installation"))
+        # Cleanup temporal repo created in the __init__
+        self._flatpak_payload.cleanup()
+
+        # Initialize new repo on the installed system
+        self._flatpak_payload.initialize_with_system_path()
+
+        try:
+            self._flatpak_payload.install_all()
+        except FlatpakInstallError as e:
+            exn = PayloadInstallError("Failed to install flatpaks: %s" % e)
+            log.error(str(exn))
+            if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
+                progressQ.send_quit(1)
+                util.ipmi_abort(scripts=self.data.scripts)
+                sys.exit(1)
+
+        progressQ.send_message(_("Post-installation flatpak tasks"))
+
+        self._flatpak_payload.add_remote("fedora", "oci+https://registry.fedoraproject.org")
+        self._flatpak_payload.replace_installed_refs_remote("fedora")
+        self._flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
+
+        progressQ.send_message(_("Flatpak installation has finished"))
 
     def unsetup(self):
         super().unsetup()
