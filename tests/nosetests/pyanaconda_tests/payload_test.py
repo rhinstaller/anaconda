@@ -509,6 +509,49 @@ class FlatpakTest(unittest.TestCase):
 
         self._installation.remove_remote.assert_called_once_with("hive", None)
 
+    @patch("pyanaconda.payload.flatpak.Variant")
+    @patch("pyanaconda.payload.flatpak.VariantType")
+    @patch("pyanaconda.payload.flatpak.open")
+    @patch("pyanaconda.payload.flatpak.Transaction")
+    @patch("pyanaconda.payload.flatpak.Installation")
+    @patch("pyanaconda.payload.flatpak.Remote")
+    def replace_remote_test(self, remote_cls, installation_cls, transaction_cls,
+                            open_mock, variant_type, variant):
+        """Test flatpak replace remote for installed refs call."""
+        flatpak = FlatpakPayload("/system/test-root")
+
+        self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
+
+        install_path = "/installation/path"
+
+        install_path_mock = Mock()
+        install_path_mock.get_path.return_value = install_path
+        self._installation.get_path.return_value = install_path_mock
+
+        self._installation.list_installed_refs.return_value = [
+            RefMock(name="org.space.coolapp", kind=RefKind.APP, arch="x86_64", branch="stable"),
+            RefMock(name="org.space.coolruntime", kind=RefKind.RUNTIME, arch="x86_64",
+                    branch="stable")
+        ]
+
+        flatpak.initialize_with_system_path()
+        flatpak.replace_installed_refs_remote("cylon_officer")
+
+        expected_refs = ["app/org.space.coolapp/x86_64/stable",
+                         "runtime/org.space.coolruntime/x86_64/stable"]
+
+        open_calls = []
+
+        for ref in expected_refs:
+            ref_file_path = os.path.join(install_path, ref, "active/deploy")
+            open_calls.append(call(ref_file_path, "rb"))
+            open_calls.append(call(ref_file_path, "wb"))
+
+        # test that every file is read and written
+        self.assertEqual(open_mock.call_count, 2 * len(expected_refs))
+
+        open_mock.has_calls(open_calls)
+
 
 class RefMock(object):
 
