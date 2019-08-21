@@ -382,9 +382,10 @@ def validate_device_info(storage, dev_info, reformat):
         if error:
             return error
 
+    is_format_mountable = get_format(fs_type).mountable
     changed_mount_point = dev_info["mountpoint"] != getattr(device.format, "mountpoint", None)
 
-    if reformat and not mount_point:
+    if reformat and is_format_mountable and not mount_point:
         return _("Please enter a mount point.")
 
     if changed_mount_point and mount_point:
