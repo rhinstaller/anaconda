@@ -102,7 +102,7 @@ def _find_existing_installations(devicetree):
     direct_devices = (dev for dev in devicetree.devices if dev.direct)
     for device in direct_devices:
         if not device.format.linux_native or not device.format.mountable or \
-           not device.controllable:
+           not device.controllable or not device.format.exists:
             continue
 
         try:
