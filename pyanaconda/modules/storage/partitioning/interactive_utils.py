@@ -382,7 +382,7 @@ def validate_device_info(storage, dev_info, reformat):
         if error:
             return error
 
-    changed_mount_point = dev_info["mountpoint"] != getattr(device.format, "mountpoint")
+    changed_mount_point = dev_info["mountpoint"] != getattr(device.format, "mountpoint", None)
 
     if reformat and not mount_point:
         return _("Please enter a mount point.")
@@ -686,7 +686,7 @@ def generate_device_info(storage, device):
     dev_info["encrypted"] = isinstance(device, LUKSDevice)
     dev_info["luks_version"] = get_device_luks_version(device)
     dev_info["label"] = getattr(device.format, "label", "")
-    dev_info["mountpoint"] = getattr(device.format, "mountpoint") or None
+    dev_info["mountpoint"] = getattr(device.format, "mountpoint", None) or None
     dev_info["raid_level"] = get_device_raid_level(device)
 
     if hasattr(device, "req_disks") and not device.exists:
