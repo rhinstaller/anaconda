@@ -54,9 +54,13 @@ class RPMOSTreePayload(Payload):
         self._internal_mounts = []
         self._locale_map = None
 
-        self._flatpak_payload = FlatpakPayload(conf.target.system_root)
-        # Initialize temporal repo to enable reading of the remote
-        self._flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
+        # flatpak_payload will be None if it can't be used in this environment (don't have repo)
+        self._flatpak_payload = None
+
+        if FlatpakPayload.is_available():
+            self._flatpak_payload = FlatpakPayload(conf.target.system_root)
+            # Initialize temporal repo to enable reading of the remote
+            self._flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
 
     @property
     def handles_bootloader_configuration(self):
@@ -78,7 +82,7 @@ class RPMOSTreePayload(Payload):
         # is deduplication. If we have to install a runtime with two versions the size won't be
         # 2 * runtime but thanks to the deduplication it will be runtime (and delta).
         # This is not something what we can predict.
-        if self._flatpak_payload.is_available():
+        if self._flatpak_payload is not None:
             size = size + Size(self._flatpak_payload.get_required_size())
 
         return size
@@ -202,7 +206,7 @@ class RPMOSTreePayload(Payload):
         self._prepare_mount_targets()
 
         # install flatpaks to the system if available
-        if self._flatpak_payload.is_available():
+        if self._flatpak_payload is not None:
             self._flatpak_install()
 
     def _install(self):
