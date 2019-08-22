@@ -54,14 +54,6 @@ class RPMOSTreePayload(Payload):
         self._internal_mounts = []
         self._locale_map = None
 
-        # flatpak_payload will be None if it can't be used in this environment (don't have repo)
-        self._flatpak_payload = None
-
-        if FlatpakPayload.is_available():
-            self._flatpak_payload = FlatpakPayload(conf.target.system_root)
-            # Initialize temporal repo to enable reading of the remote
-            self._flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
-
     @property
     def handles_bootloader_configuration(self):
         return True
@@ -74,18 +66,7 @@ class RPMOSTreePayload(Payload):
     @property
     def space_required(self):
         # We don't have this data with OSTree at the moment
-        size = Size("500 MB")
-
-        # add flatpak size to the requirement
-        #
-        # TODO: Are we able to get required size by sum of the REFs installed size? The problem
-        # is deduplication. If we have to install a runtime with two versions the size won't be
-        # 2 * runtime but thanks to the deduplication it will be runtime (and delta).
-        # This is not something what we can predict.
-        if self._flatpak_payload is not None:
-            size = size + Size(self._flatpak_payload.get_required_size())
-
-        return size
+        return Size("500 MB")
 
     @property
     def needs_network(self):
@@ -204,10 +185,6 @@ class RPMOSTreePayload(Payload):
 
         # prepare mountpoints of the installed system
         self._prepare_mount_targets()
-
-        # install flatpaks to the system if available
-        if self._flatpak_payload is not None:
-            self._flatpak_install()
 
     def _install(self):
         mainctx = create_new_context()
@@ -426,33 +403,6 @@ class RPMOSTreePayload(Payload):
         # And finally, do a nonrecursive bind for the sysroot
         self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
 
-    def _flatpak_install(self):
-        # Install flatpak from the local source on SilverBlue
-        progressQ.send_message(_("Starting Flatpak installation"))
-        # Cleanup temporal repo created in the __init__
-        self._flatpak_payload.cleanup()
-
-        # Initialize new repo on the installed system
-        self._flatpak_payload.initialize_with_system_path()
-
-        try:
-            self._flatpak_payload.install_all()
-        except FlatpakInstallError as e:
-            exn = PayloadInstallError("Failed to install flatpaks: %s" % e)
-            log.error(str(exn))
-            if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
-                progressQ.send_quit(1)
-                util.ipmi_abort(scripts=self.data.scripts)
-                sys.exit(1)
-
-        progressQ.send_message(_("Post-installation flatpak tasks"))
-
-        self._flatpak_payload.add_remote("fedora", "oci+https://registry.fedoraproject.org")
-        self._flatpak_payload.replace_installed_refs_remote("fedora")
-        self._flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
-
-        progressQ.send_message(_("Flatpak installation has finished"))
-
     def unsetup(self):
         super().unsetup()
 
@@ -516,3 +466,55 @@ class RPMOSTreePayload(Payload):
             set_kargs_args.extend(self.storage.bootloader.boot_args)
             set_kargs_args.append("root=" + self.storage.root_device.fstab_spec)
             self._safe_exec_with_redirect("ostree", set_kargs_args, root=conf.target.system_root)
+
+
+class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
+
+    def __init__(self, *args, **kwargs):
+        """Variant of rpmostree payload with flatpak support.
+
+        This variant will be used if flatpaks are available for system.
+        """
+        super().__init__(*args, **kwargs)
+
+        self._flatpak_payload = FlatpakPayload(conf.target.system_root)
+        # Initialize temporal repo to enable reading of the remote
+        self._flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
+
+    @property
+    def space_required(self):
+        return super().space_required + Size(self._flatpak_payload.get_required_size())
+
+    def install(self):
+        # install ostree payload first
+        super().install()
+
+        # then flatpaks
+        self._flatpak_install()
+
+    def _flatpak_install(self):
+        # Install flatpak from the local source on SilverBlue
+        progressQ.send_message(_("Starting Flatpak installation"))
+        # Cleanup temporal repo created in the __init__
+        self._flatpak_payload.cleanup()
+
+        # Initialize new repo on the installed system
+        self._flatpak_payload.initialize_with_system_path()
+
+        try:
+            self._flatpak_payload.install_all()
+        except FlatpakInstallError as e:
+            exn = PayloadInstallError("Failed to install flatpaks: %s" % e)
+            log.error(str(exn))
+            if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
+                progressQ.send_quit(1)
+                util.ipmi_abort(scripts=self.data.scripts)
+                sys.exit(1)
+
+        progressQ.send_message(_("Post-installation flatpak tasks"))
+
+        self._flatpak_payload.add_remote("fedora", "oci+https://registry.fedoraproject.org")
+        self._flatpak_payload.replace_installed_refs_remote("fedora")
+        self._flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
+
+        progressQ.send_message(_("Flatpak installation has finished"))
