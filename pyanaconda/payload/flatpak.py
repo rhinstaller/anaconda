@@ -127,13 +127,14 @@ class FlatpakPayload(object):
 
         self._transaction = None
 
-    def is_available(self):
+    @classmethod
+    def is_available(cls):
         """Test if flatpak installation source is available.
 
         :return: bool
         """
         # Remove the file:// prefix
-        return os.path.isdir(self.LOCAL_REMOTE_PATH[7:])
+        return os.path.isdir(cls.LOCAL_REMOTE_PATH[7:])
 
     def get_required_size(self):
         """Get required size to install all the flatpaks.
