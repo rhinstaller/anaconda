@@ -25,27 +25,13 @@ from pyanaconda.modules.network.nm_client import get_device_name_from_network_da
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types
-from pyanaconda.core.configuration.anaconda import conf
-from functools import wraps
+from pyanaconda.modules.network.utils import guard_by_system_configuration
 
 log = get_module_logger(__name__)
 
 import gi
 gi.require_version("NM", "1.0")
 from gi.repository import NM
-
-
-def guard_by_system_configuration(return_value):
-    def wrap(function):
-        @wraps(function)
-        def wrapped(*args, **kwargs):
-            if not conf.system.can_configure_network:
-                log.debug("Network configuration is disabled on this system.")
-                return return_value
-            else:
-                return function(*args, **kwargs)
-        return wrapped
-    return wrap
 
 
 class ApplyKickstartTask(Task):

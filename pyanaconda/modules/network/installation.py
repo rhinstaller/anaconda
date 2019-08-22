@@ -24,6 +24,7 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.nm_client import update_connection_values
 from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device
+from pyanaconda.modules.network.utils import guard_by_system_configuration
 
 log = get_module_logger(__name__)
 
@@ -257,7 +258,12 @@ class ConfigureActivationOnBootTask(Task):
     def name(self):
         return "Configure automatic activation on boot."
 
+    @guard_by_system_configuration(return_value=None)
     def run(self):
+        if not self._nm_client:
+            log.debug("%s: No NetworkManager available.", self.name)
+            return None
+
         for iface in self._onboot_ifaces:
             con_uuid = find_ifcfg_uuid_of_device(self._nm_client, iface)
             if con_uuid:
