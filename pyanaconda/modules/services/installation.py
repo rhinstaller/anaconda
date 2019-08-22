@@ -223,6 +223,11 @@ class ConfigureSystemdDefaultTargetTask(Task):
                 self._default_target = GRAPHICAL_TARGET
 
     def run(self):
+        # Skip if /etc/systemd/system doesn't exist.
+        if not os.path.isdir(os.path.join(self._sysroot, 'etc/systemd/system')):
+            log.warning("There is no /etc/systemd/system directory, cannot update default.target!")
+            return
+
         # If no target has been explicitly set we to switch the default target to graphical.target
         # ig a graphical login manager has been installed.
         if not self._default_target:
