@@ -660,7 +660,7 @@ class Payload(object):
         #   - the path to a cert file
         #   - True, to use the system's certificates
         #   - False, to not verify
-        sslverify = getattr(self.data.method, "sslcacert", not flags.noverifyssl)
+        sslverify = getattr(self.data.method, "sslcacert", None) or not flags.noverifyssl
 
         sslclientcert = getattr(self.data.method, "sslclientcert", None)
         sslclientkey = getattr(self.data.method, "sslclientkey", None)
