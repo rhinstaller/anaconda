@@ -313,14 +313,12 @@ class FlatpakTest(unittest.TestCase):
 
     def is_available_test(self):
         """Test check for flatpak availability of the system sources."""
-        flatpak = FlatpakPayload("/mock/system/root/path")
-
-        self.assertFalse(flatpak.is_available())
+        self.assertFalse(FlatpakPayload.is_available())
 
         with TemporaryDirectory() as temp:
-            flatpak.LOCAL_REMOTE_PATH = "file://" + temp
+            FlatpakPayload.LOCAL_REMOTE_PATH = "file://" + temp
 
-            self.assertTrue(flatpak.is_available())
+            self.assertTrue(FlatpakPayload.is_available())
 
     @patch("pyanaconda.payload.flatpak.Transaction")
     @patch("pyanaconda.payload.flatpak.Installation")
