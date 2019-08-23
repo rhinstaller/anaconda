@@ -92,6 +92,8 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         TODO: Add missing check if source is ready. Until then you shouldn't call this when
         source is not ready.
 
+        TODO: This is not that fast as I thought (a few seconds). Caching or task?
+
         :return: required size in bytes
         :rtype: int
         """
