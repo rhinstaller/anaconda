@@ -22,15 +22,21 @@ import stat
 
 from pyanaconda.dbus import DBus
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithCapture
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
-from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
+    CopyDriverDisksFilesTask
+from pyanaconda.modules.payload.base.utils import get_dir_size
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
-    TeardownInstallationSourceTask
+    TeardownInstallationSourceTask, UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.live.installation import InstallFromImageTask
+from pyanaconda.modules.payload.live.utils import get_kernel_version_list
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -44,6 +50,9 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
         self._image_path = ""
         self.image_path_changed = Signal()
+
+        self._kernel_version_list = []
+        self.kernel_version_list_changed = Signal()
 
     def publish_handler(self):
         """Publish the handler."""
@@ -75,6 +84,20 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         self._image_path = image_path
         self.image_path_changed.emit()
         log.debug("LiveOS image path is set to '%s'", self._image_path)
+
+    @property
+    def space_required(self):
+        """Get space required for the source image.
+
+        TODO: Add missing check if source is ready. Until then you shouldn't call this when
+        source is not ready.
+
+        TODO: This is not that fast as I thought (a few seconds). Caching or task?
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        return get_dir_size("/") * 1024
 
     def detect_live_os_base_image(self):
         """Detect live os image in the system."""
@@ -111,3 +134,55 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         task = TeardownInstallationSourceTask(INSTALL_TREE)
 
         return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+
+    def pre_install_with_task(self):
+        """Prepare intallation task."""
+        task = PrepareSystemForInstallationTask(conf.target.system_root)
+
+        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+
+    def install_with_task(self):
+        """Install the payload."""
+        task = InstallFromImageTask(
+            conf.target.system_root,
+            self.kernel_version_list
+        )
+        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+
+    def post_install_with_tasks(self):
+        """Perform post installation tasks.
+
+        :returns: list of paths.
+        :rtype: List
+        """
+        tasks = [
+            UpdateBLSConfigurationTask(
+                conf.target.system_root,
+                self.kernel_version_list
+            ),
+            CopyDriverDisksFilesTask(conf.target.system_root)
+        ]
+
+        paths = [self.publish_task(LIVE_OS_HANDLER.namespace, task) for task in tasks]
+        return paths
+
+    def update_kernel_version_list(self):
+        """Update list of kernel versions.
+
+        Source have to be set-up first.
+        """
+        self.set_kernel_version_list(get_kernel_version_list(INSTALL_TREE))
+
+    @property
+    def kernel_version_list(self):
+        """Get list of kernel versions.
+
+        :rtype: [str]
+        """
+        return self._kernel_version_list
+
+    def set_kernel_version_list(self, kernel_version_list):
+        """Set list of kernel versions."""
+        self._kernel_version_list = kernel_version_list
+        self.kernel_version_list_changed.emit(self._kernel_version_list)
+        log.debug("List of kernel versions is set to '%s'", self._kernel_version_list)

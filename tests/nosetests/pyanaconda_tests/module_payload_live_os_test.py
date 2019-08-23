@@ -23,14 +23,19 @@ from mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
 
+from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.task.task_interface import TaskInterface
+from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
+    CopyDriverDisksFilesTask
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
-    TeardownInstallationSourceTask
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+    TeardownInstallationSourceTask, UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
 class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
@@ -53,29 +58,80 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_once_with(
             LIVE_OS_HANDLER.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
+    @patch("pyanaconda.modules.payload.live.live_os.get_dir_size")
+    def space_required_properties_test(self, get_dir_size_mock):
+        """Test Live OS SpaceRequired property."""
+        get_dir_size_mock.return_value = 2
+
+        self.assertEqual(self.live_os_interface.SpaceRequired, 2048)
+
+    @patch("pyanaconda.modules.payload.live.live_os.get_kernel_version_list")
+    def empty_kernel_version_list_test(self, get_kernel_version_list):
+        """Test Live OS empty get kernel version list."""
+        self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
+
+        get_kernel_version_list.return_value = []
+        kernel_list_callback = Mock()
+
+        # pylint: disable=no-member
+        self.live_os_interface.KernelVersionListChanged.connect(kernel_list_callback)
+        self.live_os_interface.UpdateKernelVersionList()
+
+        get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
+
+        self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
+        kernel_list_callback.assert_called_once_with([])
+
+    @patch("pyanaconda.modules.payload.live.live_os.get_kernel_version_list")
+    def kernel_version_list_test(self, get_kernel_version_list):
+        """Test Live OS get kernel version list."""
+        kernel_list = ["kernel-abc", "magic-kernel.fc3000.x86_64", "sad-kernel"]
+        get_kernel_version_list.return_value = kernel_list
+        kernel_list_callback = Mock()
+
+        # pylint: disable=no-member
+        self.live_os_interface.KernelVersionListChanged.connect(kernel_list_callback)
+        self.live_os_interface.UpdateKernelVersionList()
+
+        get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
+
+        self.assertListEqual(self.live_os_interface.GetKernelVersionList(), kernel_list)
+        kernel_list_callback.assert_called_once_with(kernel_list)
+
     @patch("pyanaconda.modules.payload.live.live_os.stat")
-    @patch("os.stat")
-    def detect_live_os_image_test(self, os_stat, stat):
-        """Test detect Live OS base image method."""
-        stat.S_ISBLK = Mock()
-        stat.S_ISBLK.return_value = True
-        ret = self.live_os_interface.DetectLiveOSImage()
+    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
+    def detect_live_os_image_failed_block_device_test(self, os_stat_mock, stat_mock):
+        """Test Live OS image detection failed block device check."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        os_stat_mock.return_value = {stat_mock.ST_MODE: "whatever"}
 
-        # return the first known image from the list
-        # See DetectLiveOSImage image code for the list
-        self.assertEqual("/dev/mapper/live-base", ret)
+        stat_mock.S_ISBLK = Mock()
+        stat_mock.S_ISBLK.return_value = False
+
+        self.assertEqual(self.live_os_interface.DetectLiveOSImage(), "")
+
+    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
+    def detect_live_os_image_failed_nothing_found_test(self, os_stat_mock):
+        """Test Live OS image detection failed missing file."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        os_stat_mock.side_effect = FileNotFoundError()
+
+        self.assertEqual(self.live_os_interface.DetectLiveOSImage(), "")
 
     @patch("pyanaconda.modules.payload.live.live_os.stat")
-    @patch("os.stat")
-    def detect_live_os_image_nothing_found_test(self, os_stat, stat):
-        """Test detect Live OS base image method when image doesn't exists."""
-        stat.S_ISBLK = Mock()
-        stat.S_ISBLK.return_value = False
+    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
+    def detect_live_os_image_test(self, os_stat_mock, stat_mock):
+        """Test Live OS image detection."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        stat_mock.S_ISBLK = Mock(return_value=True)
 
-        ret = self.live_os_interface.DetectLiveOSImage()
+        detected_image = self.live_os_interface.DetectLiveOSImage()
+        stat_mock.S_ISBLK.assert_called_once()
 
-        # return empty string because there is no valid image found
-        self.assertEqual("", ret)
+        self.assertEqual(detected_image, "/dev/mapper/live-base")
 
     @patch_dbus_publish_object
     def setup_installation_source_task_test(self, publisher):
@@ -85,11 +141,47 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         check_task_creation(self, task_path, publisher, SetupInstallationSourceTask)
 
     @patch_dbus_publish_object
+    def prepare_system_for_installation_task_test(self, publisher):
+        """Test Live OS is able to create a prepare installation task."""
+        task_path = self.live_os_interface.PreInstallWithTask()
+
+        check_task_creation(self, task_path, publisher, PrepareSystemForInstallationTask)
+
+    @patch_dbus_publish_object
     def teardown_installation_source_task_test(self, publisher):
         """Test Live OS is able to create a teardown installation source task."""
         task_path = self.live_os_interface.TeardownInstallationSourceWithTask()
 
         check_task_creation(self, task_path, publisher, TeardownInstallationSourceTask)
+
+    @patch_dbus_publish_object
+    def install_with_task_test(self, publisher):
+        """Test Live OS install with tasks."""
+        task_path = self.live_os_interface.InstallWithTask()
+
+        check_task_creation(self, task_path, publisher, InstallFromImageTask)
+
+    @patch_dbus_publish_object
+    def post_install_with_tasks_test(self, publisher):
+        """Test Live OS post installation configuration task."""
+        task_classes = [
+            UpdateBLSConfigurationTask,
+            CopyDriverDisksFilesTask
+        ]
+
+        task_paths = self.live_os_interface.PostInstallWithTasks()
+
+        # Check the number of installation tasks.
+        task_number = len(task_classes)
+        self.assertEqual(task_number, len(task_paths))
+        self.assertEqual(task_number, publisher.call_count)
+
+        # Check the tasks.
+        for i in range(task_number):
+            object_path, obj = publisher.call_args_list[i][0]
+            self.assertEqual(object_path, task_paths[i])
+            self.assertIsInstance(obj, TaskInterface)
+            self.assertIsInstance(obj.implementation, task_classes[i])
 
 
 class LiveOSHandlerTasksTestCase(unittest.TestCase):

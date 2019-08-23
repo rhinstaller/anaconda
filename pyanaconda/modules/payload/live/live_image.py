@@ -20,13 +20,16 @@
 import os
 
 from pyanaconda.dbus import DBus
+
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import requests_session
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
+
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
     SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, \
@@ -230,13 +233,17 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         task.succeeded_signal.connect(lambda: self.set_image_path(task.get_result()))
         return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 
-    def post_install_with_task(self):
+    def post_install_with_tasks(self):
         """Do post installation tasks."""
-        task = UpdateBLSConfigurationTask(
-            conf.target.system_root,
-            self.kernel_version_list
-        )
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
+        tasks = [
+            UpdateBLSConfigurationTask(
+                conf.target.system_root,
+                self.kernel_version_list
+            ),
+            CopyDriverDisksFilesTask(conf.target.system_root)
+        ]
+        paths = [self.publish_task(LIVE_IMAGE_HANDLER.namespace, task) for task in tasks]
+        return paths
 
     def install_with_task(self):
         """Install the payload."""
