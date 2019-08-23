@@ -22,6 +22,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import USERS
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.user import UserData, USER_GID_NOT_SET, \
                                                       USER_UID_NOT_SET
 from pyanaconda.modules.common.structures.group import GroupData, GROUP_GID_NOT_SET
@@ -67,6 +68,7 @@ class UsersModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(USERS.namespace)
         DBus.publish_object(USERS.object_path, UsersInterface(self))
         DBus.register_service(USERS.service_name)
 

@@ -23,6 +23,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface, BazCalculationTaskInterface
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import BAZ
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.task import Task
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -34,6 +35,7 @@ class Baz(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(BAZ.namespace)
         DBus.publish_object(BAZ.object_path, BazInterface(self))
         DBus.register_service(BAZ.service_name)
 

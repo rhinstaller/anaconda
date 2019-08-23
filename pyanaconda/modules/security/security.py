@@ -24,6 +24,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import SECURITY
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.security.constants import SELinuxMode
@@ -56,6 +57,7 @@ class SecurityModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(SECURITY.namespace)
         DBus.publish_object(SECURITY.object_path, SecurityInterface(self))
         DBus.register_service(SECURITY.service_name)
 

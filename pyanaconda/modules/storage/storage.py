@@ -23,6 +23,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.checker import StorageCheckerModule
@@ -145,6 +146,8 @@ class StorageModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(STORAGE.namespace)
+
         for kickstart_module in self._modules:
             kickstart_module.publish()
 

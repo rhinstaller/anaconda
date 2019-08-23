@@ -23,6 +23,7 @@ from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
 from pyanaconda.modules.network.network_interface import NetworkInterface, \
@@ -98,6 +99,7 @@ class NetworkModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(NETWORK.namespace)
         self._firewall_module.publish()
 
         DBus.publish_object(NETWORK.object_path, NetworkInterface(self))

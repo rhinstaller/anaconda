@@ -25,6 +25,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import SERVICES
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.services.services_interface import ServicesInterface
@@ -63,6 +64,7 @@ class ServicesModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(SERVICES.namespace)
         DBus.publish_object(SERVICES.object_path, ServicesInterface(self))
         DBus.register_service(SERVICES.service_name)
 

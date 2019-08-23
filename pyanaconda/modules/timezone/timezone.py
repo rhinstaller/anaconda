@@ -21,6 +21,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 
@@ -47,6 +48,7 @@ class TimezoneModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(TIMEZONE.namespace)
         DBus.publish_object(TIMEZONE.object_path, TimezoneInterface(self))
         DBus.register_service(TIMEZONE.service_name)
 
