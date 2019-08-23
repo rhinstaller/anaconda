@@ -24,6 +24,7 @@ from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
+from pyanaconda.modules.common.errors.storage import UnknownDeviceError, ProtectedDeviceError
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
@@ -167,6 +168,35 @@ class AutoPartitioningModule(PartitioningModule):
         request = copy.deepcopy(self.request)
         request.passphrase = passphrase
         self.set_request(request)
+
+    def remove_device(self, device_name):
+        """Remove a device after removing its dependent devices.
+
+        If the device is protected, do nothing. If the device has
+        protected children, just remove the unprotected ones.
+
+        :param device_name: a name of the device
+        """
+        device = self.storage.devicetree.get_device_by_name(device_name)
+
+        if not device:
+            raise UnknownDeviceError(device_name)
+
+        if device.protected:
+            raise ProtectedDeviceError(device_name)
+
+        # Only remove unprotected children if any protected.
+        if any(d.protected for d in device.children):
+            log.debug("Removing unprotected children of %s.", device_name)
+
+            for child in (d for d in device.children if not d.protected):
+                self.storage.recursive_remove(child)
+
+            return
+
+        # No protected children, remove the device
+        log.debug("Removing device %s.", device_name)
+        self.storage.recursive_remove(device)
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
