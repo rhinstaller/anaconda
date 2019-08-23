@@ -22,6 +22,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.objects import CUSTOM_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
@@ -38,6 +39,11 @@ class CustomPartitioningModule(PartitioningModule):
         self._data = None
 
     @property
+    def partitioning_method(self):
+        """Type of the partitioning method."""
+        return PartitioningMethod.CUSTOM
+
+    @property
     def data(self):
         """The partitioning data.
 
@@ -48,9 +54,13 @@ class CustomPartitioningModule(PartitioningModule):
 
         return self._data
 
+    def for_publication(self):
+        """Return a DBus representation."""
+        return CustomPartitioningInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(CUSTOM_PARTITIONING.object_path, CustomPartitioningInterface(self))
+        DBus.publish_object(CUSTOM_PARTITIONING.object_path, self.for_publication())
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

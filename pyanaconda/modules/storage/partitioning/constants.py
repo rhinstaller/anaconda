@@ -1,5 +1,5 @@
 #
-# DBus interface for the device tree module
+# The constants for partitioning.
 #
 # Copyright (C) 2019 Red Hat, Inc.
 #
@@ -17,14 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_class
-from pyanaconda.modules.storage.devicetree.handler_interface import DeviceTreeHandlerInterface
-from pyanaconda.modules.storage.devicetree.viewer_interface import DeviceTreeViewerInterface
+from enum import Enum
 
-__all__ = ["DeviceTreeInterface"]
+from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, \
+    PARTITIONING_METHOD_MANUAL, PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_BLIVET
 
 
-@dbus_class
-class DeviceTreeInterface(DeviceTreeViewerInterface, DeviceTreeHandlerInterface):
-    """DBus interface for the device tree module."""
-    pass
+class PartitioningMethod(Enum):
+    """Type of the partitioning method."""
+    AUTOMATIC = PARTITIONING_METHOD_AUTOMATIC
+    CUSTOM = PARTITIONING_METHOD_CUSTOM
+    MANUAL = PARTITIONING_METHOD_MANUAL
+    INTERACTIVE = PARTITIONING_METHOD_INTERACTIVE
+    BLIVET = PARTITIONING_METHOD_BLIVET

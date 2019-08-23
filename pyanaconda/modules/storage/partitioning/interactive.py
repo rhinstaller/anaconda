@@ -21,6 +21,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.objects import INTERACTIVE_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive_interface import \
     InteractivePartitioningInterface
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
@@ -33,12 +34,18 @@ log = get_module_logger(__name__)
 class InteractivePartitioningModule(PartitioningModule):
     """The interactive partitioning module."""
 
+    @property
+    def partitioning_method(self):
+        """Type of the partitioning method."""
+        return PartitioningMethod.INTERACTIVE
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return InteractivePartitioningInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(
-            INTERACTIVE_PARTITIONING.object_path,
-            InteractivePartitioningInterface(self)
-        )
+        DBus.publish_object(INTERACTIVE_PARTITIONING.object_path, self.for_publication())
 
     def configure_with_task(self):
         """Complete the scheduled partitioning."""
