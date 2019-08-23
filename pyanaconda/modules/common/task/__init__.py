@@ -17,25 +17,23 @@
 #
 from time import sleep
 
-from pyanaconda.modules.common.task.task import Task, AbstractTask
 from pyanaconda.modules.common.task.task_interface import TaskInterface
+from pyanaconda.modules.common.task.task import Task, AbstractTask
 
 __all__ = ["publish_task", "sync_run_task", "async_run_task", "AbstractTask", "Task",
            "TaskInterface"]
 
 
-def publish_task(message_bus, namespace, task, interface=TaskInterface):
+def publish_task(message_bus, namespace, task):
     """Publish a task on the given message bus.
 
     :param message_bus: a message bus
     :param namespace: a sequence of names
     :param task: an instance of a Task
-    :param interface: an interface class
     :return: a DBus path of the published task
     """
-    publishable = interface(task)
-    object_path = interface.get_object_path(namespace)
-    message_bus.publish_object(object_path, publishable)
+    object_path = TaskInterface.get_object_path(namespace)
+    message_bus.publish_object(object_path, task.for_publication())
     return object_path
 
 

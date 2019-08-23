@@ -18,6 +18,7 @@
 
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.network.network_interface import NetworkInitializationTaskInterface
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, add_connection_from_ksdata, \
     update_iface_setting_values, bound_hwaddr_of_device
@@ -74,6 +75,10 @@ class ApplyKickstartTask(Task):
     @property
     def name(self):
         return "Apply kickstart"
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return NetworkInitializationTaskInterface(self)
 
     @guard_by_system_configuration(return_value=[])
     def run(self):
@@ -154,6 +159,10 @@ class ConsolidateInitramfsConnectionsTask(Task):
     @property
     def name(self):
         return "Consolidate initramfs connections"
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return NetworkInitializationTaskInterface(self)
 
     @guard_by_system_configuration(return_value=[])
     def run(self):
@@ -247,6 +256,10 @@ class SetRealOnbootValuesFromKickstartTask(Task):
     @property
     def name(self):
         return "Set real ONBOOT values from kickstart"
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return NetworkInitializationTaskInterface(self)
 
     @guard_by_system_configuration(return_value=[])
     def run(self):
@@ -343,6 +356,10 @@ class DumpMissingIfcfgFilesTask(Task):
     @property
     def name(self):
         return "Dump missing ifcfg files"
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return NetworkInitializationTaskInterface(self)
 
     def _select_persistent_connection_for_device(self, device, cons):
         """Select the connection suitable to store configuration for the device."""

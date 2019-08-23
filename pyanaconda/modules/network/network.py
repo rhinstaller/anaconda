@@ -26,8 +26,7 @@ from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
-from pyanaconda.modules.network.network_interface import NetworkInterface, \
-    NetworkInitializationTaskInterface
+from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, \
     update_network_hostname_data, update_network_data_with_default_device, DEFAULT_DEVICE_SPECIFICATION, \
     update_first_network_command_activate_value
@@ -429,7 +428,7 @@ class NetworkModule(KickstartModule):
         """
         task = ConsolidateInitramfsConnectionsTask(self.nm_client)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
+        return self.publish_task(NETWORK.namespace, task)
 
     def get_supported_devices(self):
         """Get information about existing supported devices on the system.
@@ -531,7 +530,7 @@ class NetworkModule(KickstartModule):
                                   self.bootif,
                                   self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
+        return self.publish_task(NETWORK.namespace, task)
 
     def set_real_onboot_values_from_kickstart_with_task(self):
         """Update ifcfg ONBOOT values according to kickstart configuration.
@@ -552,7 +551,7 @@ class NetworkModule(KickstartModule):
                                                     self.bootif,
                                                     self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
+        return self.publish_task(NETWORK.namespace, task)
 
     def dump_missing_ifcfg_files_with_task(self):
         """Dump missing default ifcfg file for wired devices.
@@ -579,7 +578,7 @@ class NetworkModule(KickstartModule):
                                          default_network_data,
                                          self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
+        return self.publish_task(NETWORK.namespace, task)
 
     def network_device_configuration_changed(self):
         if not self._device_configurations:

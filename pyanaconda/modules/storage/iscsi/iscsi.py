@@ -27,7 +27,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import ISCSI
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.storage.iscsi.discover import ISCSIDiscoverTask, ISCSILoginTask
-from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface, ISCSIDiscoverTaskInterface
+from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface
 
 log = get_module_logger(__name__)
 
@@ -104,7 +104,7 @@ class ISCSIModule(KickstartBaseModule):
         :return: a DBus path to a task
         """
         task = ISCSIDiscoverTask(portal, credentials, interfaces_mode)
-        path = self.publish_task(ISCSI.namespace, task, ISCSIDiscoverTaskInterface)
+        path = self.publish_task(ISCSI.namespace, task)
         return path
 
     def login_with_task(self, portal, credentials, node):

@@ -45,7 +45,7 @@ class Baz(KickstartModule):
 
     def calculate_with_task(self):
         """Return a calculation task."""
-        return self.publish_task(BAZ.namespace, BazCalculationTask(), BazCalculationTaskInterface)
+        return self.publish_task(BAZ.namespace, BazCalculationTask())
 
 
 class BazTask(Task):
@@ -76,6 +76,10 @@ class BazCalculationTask(Task):
     @property
     def name(self):
         return "Calculate something"
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return BazCalculationTaskInterface(self)
 
     def run(self):
         result = 0
