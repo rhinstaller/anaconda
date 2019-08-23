@@ -19,6 +19,8 @@
 #
 import copy
 
+from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.dbus import DBus
@@ -197,6 +199,31 @@ class AutoPartitioningModule(PartitioningModule):
         # No protected children, remove the device
         log.debug("Removing device %s.", device_name)
         self.storage.recursive_remove(device)
+
+    def shrink_device(self, device_name, size):
+        """Shrink the size of the device.
+
+        :param device_name: a name of the device
+        :param size: a new size in bytes
+        """
+        size = Size(size)
+        device = self.storage.devicetree.get_device_by_name(device_name)
+
+        if not device:
+            raise UnknownDeviceError(device_name)
+
+        if device.protected:
+            raise ProtectedDeviceError(device_name)
+
+        # The device size is small enough.
+        if device.size <= size:
+            log.debug("The size of %s is already %s.", device_name, device.size)
+            return
+
+        # Resize the device.
+        log.debug("Shrinking a size of %s to %s.", device_name, size)
+        aligned_size = device.align_target_size(size)
+        self.storage.resize_device(device, aligned_size)
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""

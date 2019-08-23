@@ -85,3 +85,11 @@ class AutoPartitioningInterface(PartitioningInterface):
         :param device_name: a name of the device
         """
         self.implementation.remove_device(device_name)
+
+    def ShrinkDevice(self, device_name: Str, size: UInt64):
+        """Shrink the size of the device.
+
+        :param device_name: a name of the device
+        :param size: a new size in bytes
+        """
+        self.implementation.shrink_device(device_name, size)

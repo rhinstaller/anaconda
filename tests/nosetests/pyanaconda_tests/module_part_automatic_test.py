@@ -188,6 +188,34 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.assertNotIn(dev2, self.module.storage.devices)
         self.assertNotIn(dev3, self.module.storage.devices)
 
+    def shrink_device_test(self):
+        """Test ShrinkDevice."""
+        self.module.on_storage_reset(create_storage())
+
+        sda1 = StorageDevice(
+            "sda1",
+            exists=False,
+            size=Size("10 GiB"),
+            fmt=get_format("ext4")
+        )
+        self.module.storage.devicetree._add_device(sda1)
+
+        def resize_device(device, size):
+            device.size = size
+
+        self.module.storage.resize_device = resize_device
+
+        sda1.protected = True
+        with self.assertRaises(ProtectedDeviceError):
+            self.interface.ShrinkDevice("sda1", Size("3 GiB").get_bytes())
+
+        sda1.protected = False
+        self.interface.ShrinkDevice("sda1", Size("3 GiB").get_bytes())
+        self.assertEqual(sda1.size, Size("3 GiB"))
+
+        self.interface.ShrinkDevice("sda1", Size("5 GiB").get_bytes())
+        self.assertEqual(sda1.size, Size("3 GiB"))
+
     @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""

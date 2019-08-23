@@ -450,13 +450,11 @@ class ResizeDialog(GUIObject):
         if not obj.editable:
             return False
 
-        device = self.storage.devicetree.get_device_by_name(obj.name)
-
         if obj.action == _(PRESERVE):
-            return False
-        elif obj.action == _(SHRINK) and int(device.size) != int(obj.target):
-            aligned = device.align_target_size(Size(obj.target))
-            self.storage.resize_device(device, aligned)
+            pass
+        elif obj.action == _(SHRINK):
+            # FIXME: This is an ugly temporary workaround for UI.
+            AutoPartitioningModule.shrink_device(self, obj.name, obj.target)
         elif obj.action == _(DELETE):
             # FIXME: This is an ugly temporary workaround for UI.
             AutoPartitioningModule.remove_device(self, obj.name)
