@@ -23,6 +23,7 @@ from pyanaconda.modules.common.constants.interfaces import BOSS_ANACONDA
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.modules.common.containers import TaskContainer
 
 
 @dbus_interface(BOSS.interface_name)
@@ -34,7 +35,9 @@ class BossInterface(InterfaceTemplate):
 
         :return: a DBus path of the main installation task
         """
-        return self.implementation.install_system_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.install_system_with_task()
+        )
 
     def Quit(self):
         """Stop all modules and then stop the boss."""

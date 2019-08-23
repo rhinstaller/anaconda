@@ -21,7 +21,7 @@ from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import PARTITIONING
-from pyanaconda.modules.common.containers import DeviceTreeContainer
+from pyanaconda.modules.common.containers import DeviceTreeContainer, TaskContainer
 
 __all__ = ["PartitioningInterface"]
 
@@ -52,7 +52,9 @@ class PartitioningInterface(ModuleInterfaceTemplate):
 
         :return: a DBus path to a task
         """
-        return self.implementation.configure_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.configure_with_task()
+        )
 
     def ValidateWithTask(self) -> ObjPath:
         """Validate the scheduled partitioning.
@@ -62,4 +64,6 @@ class PartitioningInterface(ModuleInterfaceTemplate):
 
         :return: a DBus path to a task
         """
-        return self.implementation.validate_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.validate_with_task()
+        )

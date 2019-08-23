@@ -22,6 +22,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.security.constants import SELinuxMode
 
@@ -124,11 +125,15 @@ class SecurityInterface(KickstartModuleInterface):
 
         NOTE: temporary API needed before dynamic task scheduling is implemented
         """
-        return self.implementation.discover_realm_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.discover_realm_with_task()
+        )
 
     def JoinRealmWithTask(self) -> ObjPath:
         """Join realm with a task.
 
         NOTE: temporary API needed before dynamic task scheduling is implemented
         """
-        return self.implementation.join_realm_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.join_realm_with_task()
+        )

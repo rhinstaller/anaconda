@@ -22,6 +22,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.storage.constants import BootloaderMode, BootloaderType
 
 
@@ -258,7 +259,7 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.detect_windows()
 
-    def ConfigureWithTask(self, kernel_versions: List[Str]):
+    def ConfigureWithTask(self, kernel_versions: List[Str]) -> ObjPath:
         """Configure the bootloader.
 
         FIXME: This is just a temporary method.
@@ -266,13 +267,17 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         :param kernel_versions: a list of kernel versions
         :return: a path to a DBus task
         """
-        return self.implementation.configure_with_task(kernel_versions)
+        return TaskContainer.to_object_path(
+            self.implementation.configure_with_task(kernel_versions)
+        )
 
-    def InstallWithTask(self):
+    def InstallWithTask(self) -> ObjPath:
         """Install the bootloader.
 
         FIXME: This is just a temporary method.
 
         :return: a path to a DBus task
         """
-        return self.implementation.install_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.install_with_task()
+        )

@@ -22,6 +22,7 @@ from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.common.structures.sshkey import SshKeyData
@@ -210,18 +211,24 @@ class UsersInterface(KickstartModuleInterface):
 
         :returns: DBus path of the task
         """
-        return self.implementation.configure_groups_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.configure_groups_with_task()
+        )
 
     def ConfigureUsersWithTask(self) -> ObjPath:
         """Configure users via a DBus task.
 
         :returns: DBus path of the task
         """
-        return self.implementation.configure_users_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.configure_users_with_task()
+        )
 
     def SetRootPasswordWithTask(self) -> ObjPath:
         """Set root password via a DBus task.
 
         :returns: DBus path of the task
         """
-        return self.implementation.set_root_password_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.set_root_password_with_task()
+        )

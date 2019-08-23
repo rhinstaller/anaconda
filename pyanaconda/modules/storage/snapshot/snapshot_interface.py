@@ -21,6 +21,7 @@ from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import SNAPSHOT
+from pyanaconda.modules.common.containers import TaskContainer
 
 
 @dbus_interface(SNAPSHOT.interface_name)
@@ -49,4 +50,6 @@ class SnapshotInterface(KickstartModuleInterfaceTemplate):
         :param when: a type of the requests
         :return: a DBus path to a task
         """
-        return self.implementation.create_with_task(when)
+        return TaskContainer.to_object_path(
+            self.implementation.create_with_task(when)
+        )

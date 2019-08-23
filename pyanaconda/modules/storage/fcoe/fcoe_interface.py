@@ -21,6 +21,7 @@ from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import FCOE
+from pyanaconda.modules.common.containers import TaskContainer
 
 
 @dbus_interface(FCOE.interface_name)
@@ -42,7 +43,9 @@ class FCOEInterface(KickstartModuleInterfaceTemplate):
         :param auto_vlan: automatic VLAN discovery and setup enabled
         :return: a DBus path to a task
         """
-        return self.implementation.discover_with_task(nic, dcb, auto_vlan)
+        return TaskContainer.to_object_path(
+            self.implementation.discover_with_task(nic, dcb, auto_vlan)
+        )
 
     def WriteConfiguration(self):
         """Write the configuration to sysroot.
