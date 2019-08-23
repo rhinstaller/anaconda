@@ -212,7 +212,7 @@ class LiveImageHandlerModule(PayloadHandlerBase):
             self.requests_session
         )
         task.succeeded_signal.connect(lambda: self.set_required_space(task.get_result()))
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
+        return task
 
     def pre_install_with_task(self):
         """Set up installation source image
@@ -231,34 +231,31 @@ class LiveImageHandlerModule(PayloadHandlerBase):
             self.requests_session
         )
         task.succeeded_signal.connect(lambda: self.set_image_path(task.get_result()))
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
+        return task
 
     def post_install_with_tasks(self):
         """Do post installation tasks."""
-        tasks = [
+        return [
             UpdateBLSConfigurationTask(
                 conf.target.system_root,
                 self.kernel_version_list
             ),
             CopyDriverDisksFilesTask(conf.target.system_root)
         ]
-        paths = [self.publish_task(LIVE_IMAGE_HANDLER.namespace, task) for task in tasks]
-        return paths
 
     def install_with_task(self):
         """Install the payload."""
         if url_target_is_tarfile(self._url):
-            task = InstallFromTarTask(
+            return InstallFromTarTask(
                 self.image_path,
                 conf.target.system_root,
                 self.kernel_version_list
             )
         else:
-            task = InstallFromImageTask(
+            return InstallFromImageTask(
                 conf.target.system_root,
                 self.kernel_version_list
             )
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 
     def teardown_with_task(self):
         """Tear down installation source image.
@@ -267,9 +264,8 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         * Clean up mount point directories
         * Remove downloaded image
         """
-        task = TeardownInstallationSourceImageTask(
+        return TeardownInstallationSourceImageTask(
             self.image_path,
             self.url,
             INSTALL_TREE
         )
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)

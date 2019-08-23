@@ -23,7 +23,7 @@ from pyanaconda.dbus.interface import dbus_class
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.boss.install_manager.installation import SystemInstallationTask
 from pyanaconda.modules.common.errors.task import NoResultError
-from pyanaconda.modules.common.task import Task, TaskInterface, publish_task, sync_run_task, \
+from pyanaconda.modules.common.task import Task, TaskInterface, sync_run_task, \
     async_run_task
 from tests.nosetests.pyanaconda_tests import run_in_glib
 
@@ -118,26 +118,6 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.task_interface.IsRunning, False)
         self.assertEqual(self.task_interface.Steps, 1)
         self.assertEqual(self.task_interface.Progress, (0, ""))
-
-    def publish_test(self):
-        """Test task publishing."""
-        TaskInterface._task_counter = 1
-        message_bus = Mock()
-
-        object_path = publish_task(message_bus, ("A", "B", "C"), self.SimpleTask())
-        self.assertEqual("/A/B/C/Tasks/1", object_path)
-        message_bus.publish_object.assert_called_once()
-        message_bus.reset_mock()
-
-        object_path = publish_task(message_bus, ("A", "B", "C"), self.SimpleTask())
-        self.assertEqual("/A/B/C/Tasks/2", object_path)
-        message_bus.publish_object.assert_called_once()
-        message_bus.reset_mock()
-
-        object_path = publish_task(message_bus, ("A", "B", "C"), self.SimpleTask())
-        self.assertEqual("/A/B/C/Tasks/3", object_path)
-        message_bus.publish_object.assert_called_once()
-        message_bus.reset_mock()
 
     def simple_progress_reporting_test(self):
         """Test simple progress reporting."""

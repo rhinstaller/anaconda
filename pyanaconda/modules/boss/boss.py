@@ -128,11 +128,9 @@ class Boss(MainModule):
     def install_system_with_task(self):
         """Install the system.
 
-        :return: a DBus path of the main installation task
+        :return: the main installation task
         """
-        task = self._install_manager.install_system_with_task()
-        path = self.publish_task(BOSS.namespace, task)
-        return path
+        return self._install_manager.install_system_with_task()
 
     def set_locale(self, locale):
         """Set locale of boss and all modules.

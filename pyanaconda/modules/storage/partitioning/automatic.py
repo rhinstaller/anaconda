@@ -170,12 +170,8 @@ class AutoPartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
-        task = AutomaticPartitioningTask(self.storage, self.request)
-        path = self.publish_task(AUTO_PARTITIONING.namespace, task)
-        return path
+        return AutomaticPartitioningTask(self.storage, self.request)
 
     def validate_with_task(self):
         """Validate the scheduled partitions."""
-        task = StorageValidateTask(self.storage)
-        path = self.publish_task(AUTO_PARTITIONING.namespace, task)
-        return path
+        return StorageValidateTask(self.storage)

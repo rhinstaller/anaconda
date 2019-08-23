@@ -145,73 +145,67 @@ class UsersModule(KickstartModule):
     def configure_groups_with_task(self):
         """Return the user group configuration task.
 
-        :returns: object path of the user group configuration task
+        :returns: a user group configuration task
         """
-        task = CreateGroupsTask(
+        return CreateGroupsTask(
             sysroot=conf.target.system_root,
             group_data_list=self.groups
         )
-        return self.publish_task(USERS.namespace, task)
 
     def configure_users_with_task(self):
         """Return the user configuration task.
 
-        :returns: object path of the user configuration task
+        :returns: a user configuration task
         """
-        task = CreateUsersTask(
+        return CreateUsersTask(
             sysroot=conf.target.system_root,
             user_data_list=self.users
         )
-        return self.publish_task(USERS.namespace, task)
 
     def set_root_password_with_task(self):
         """Return the root password configuration task.
 
-        :returns: object path of the root password configuration task
+        :returns: a root password configuration task
         """
-        task = SetRootPasswordTask(
+        return SetRootPasswordTask(
             sysroot=conf.target.system_root,
             password=self.root_password,
             crypted=self.root_password_is_crypted,
             locked=self.root_account_locked
         )
-        return self.publish_task(USERS.namespace, task)
 
     def set_ssh_keys_with_task(self):
         """Return the SSH key configuration task.
 
-        :returns: object path of the SSH key configuration task
+        :returns: o SSH key configuration task
         """
-        task = SetSshKeysTask(
+        return SetSshKeysTask(
             sysroot=conf.target.system_root,
             ssh_key_data_list=self.ssh_keys
         )
-        return self.publish_task(USERS.namespace, task)
 
     def configure_root_password_ssh_login_with_task(self):
         """Return the root password SSH login configuration task.
 
-        :returns: object path of the root password SSH login configuration task
+        :returns: a root password SSH login configuration task
         """
-        task = ConfigureRootPasswordSSHLoginTask(
+        return ConfigureRootPasswordSSHLoginTask(
             sysroot=conf.target.system_root,
             password_allowed=self.root_password_ssh_login_allowed
         )
-        return self.publish_task(USERS.namespace, task)
 
     def install_with_tasks(self):
         """Return the installation tasks of this module.
 
-        :returns: list of object paths of installation tasks
+        :returns: list of tasks
         """
-        paths = [
+        return [
             self.configure_groups_with_task(),
             self.configure_users_with_task(),
             self.set_root_password_with_task(),
             self.set_ssh_keys_with_task(),
             self.configure_root_password_ssh_login_with_task()
         ]
-        return paths
 
     def _ksdata_to_user_data(self, user_ksdata):
         """Apply kickstart user command data to UserData instance.

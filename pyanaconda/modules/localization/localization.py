@@ -197,14 +197,8 @@ class LocalizationModule(KickstartModule):
     def install_with_tasks(self):
         """Return the installation tasks of this module.
 
-        :returns: list of object paths of installation tasks
+        :returns: list of installation tasks
         """
-        tasks = [
+        return [
             LanguageInstallationTask(sysroot=conf.target.system_root, lang=self.language)
         ]
-
-        paths = [
-            self.publish_task(LOCALIZATION.namespace, task) for task in tasks
-        ]
-
-        return paths

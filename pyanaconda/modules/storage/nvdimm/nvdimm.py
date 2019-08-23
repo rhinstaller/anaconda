@@ -199,9 +199,8 @@ class NVDIMMModule(KickstartBaseModule):
         :param namespace: a device name of a namespace (e.g. 'namespace0.0')
         :param mode: a new mode (one of 'sector', 'memory', 'dax')
         :param sector_size: a sector size for the sector mode
-        :return: a DBus path to a task
+        :return: a task
         """
         task = NVDIMMReconfigureTask(namespace, mode, sector_size)
         task.succeeded_signal.connect(lambda: self.update_action(namespace, mode, sector_size))
-        path = self.publish_task(NVDIMM.namespace, task)
-        return path
+        return task

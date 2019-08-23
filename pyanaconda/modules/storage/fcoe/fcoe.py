@@ -53,11 +53,9 @@ class FCOEModule(KickstartBaseModule):
         :param nic: a name of the network device
         :param dcb: Data Center Bridging awareness enabled
         :param auto_vlan: automatic VLAN discovery and setup enabled
-        :return: a DBus path to a task
+        :return: a task
         """
-        task = FCOEDiscoverTask(nic, dcb, auto_vlan)
-        path = self.publish_task(FCOE.namespace, task)
-        return path
+        return FCOEDiscoverTask(nic, dcb, auto_vlan)
 
     def write_configuration(self):
         """Write the configuration to sysroot."""

@@ -136,13 +136,10 @@ class SnapshotModule(KickstartBaseModule):
         required because the storage could be changed in post section.
 
         :param when: a type of the requests to use
-        :return: a DBus path to a task
+        :return: a task
         """
-        task = SnapshotCreateTask(
+        return SnapshotCreateTask(
             storage=self.storage,
             requests=self.get_requests(when),
             when=when
         )
-
-        path = self.publish_task(SNAPSHOT.namespace, task)
-        return path

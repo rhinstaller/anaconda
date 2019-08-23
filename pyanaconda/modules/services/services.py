@@ -248,9 +248,9 @@ class ServicesModule(KickstartModule):
     def install_with_tasks(self):
         """Return the installation tasks of this module.
 
-        :returns: list of object paths of installation tasks
+        :returns: list of installation tasks
         """
-        tasks = [
+        return [
             ConfigureInitialSetupTask(
                 sysroot=conf.target.system_root,
                 setup_on_boot=self.setup_on_boot
@@ -273,9 +273,3 @@ class ServicesModule(KickstartModule):
                 default_desktop=self.default_desktop
             ),
         ]
-
-        paths = [
-            self.publish_task(SERVICES.namespace, task) for task in tasks
-        ]
-
-        return paths

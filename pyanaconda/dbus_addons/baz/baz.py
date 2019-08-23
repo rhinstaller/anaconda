@@ -41,11 +41,11 @@ class Baz(KickstartModule):
 
     def install_with_tasks(self):
         """Return installation tasks."""
-        return [self.publish_task(BAZ.namespace, BazTask())]
+        return [BazTask()]
 
     def calculate_with_task(self):
         """Return a calculation task."""
-        return self.publish_task(BAZ.namespace, BazCalculationTask())
+        return BazCalculationTask()
 
 
 class BazTask(Task):

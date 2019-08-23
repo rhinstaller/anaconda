@@ -207,8 +207,7 @@ class SecurityModule(KickstartModule):
                                       realm_data=self.realm)
 
         realm_task.succeeded_signal.connect(lambda: self.handle_realm_discover_results(realm_task.get_result()))
-
-        return self.publish_task(SECURITY.namespace, realm_task)
+        return realm_task
 
     def join_realm_with_task(self):
         """Return the setup task for joining a realm."""
@@ -216,19 +215,13 @@ class SecurityModule(KickstartModule):
 
         # connect to realm-data-changed signal, so that the realm data in the realm-join task is always up to date
         self.realm_changed.connect(lambda: realm_task.set_realm_data(self.realm))
-
-        return self.publish_task(SECURITY.namespace, realm_task)
+        return realm_task
 
     def install_with_tasks(self):
         """Return the installation tasks of this module.
 
-        :returns: list of object paths of installation tasks
+        :returns: list of installation tasks
         """
-
-        tasks = [ConfigureSELinuxTask(sysroot=conf.target.system_root, selinux_mode=self.selinux)]
-
-        paths = [
-            self.publish_task(SECURITY.namespace, task) for task in tasks
+        return [
+            ConfigureSELinuxTask(sysroot=conf.target.system_root, selinux_mode=self.selinux)
         ]
-
-        return paths
