@@ -10,6 +10,7 @@ License: MIT
 
 """
 import inspect
+from collections import namedtuple
 from weakref import WeakKeyDictionary
 
 
@@ -30,6 +31,12 @@ class Signal(object):
     # The correct way to trigger a signal is therefore:
     #
     # my_signal.emit("foo")
+    #
+    # FIXME: Remove __call__ used by DBus objects.
+    #
+    def __call__(self, *args, **kwargs):
+        self.emit(*args, **kwargs)
+
     def emit(self, *args, **kargs):
         # Call handler functions
         for func in self._functions:
@@ -50,13 +57,16 @@ class Signal(object):
         else:
             self._functions.add(slot)
 
+        # FIXME: Remove the support for DBus objects.
+        return namedtuple("Subscription", "disconnect")(lambda: self.disconnect(slot))
+
     def disconnect(self, slot):
         if inspect.ismethod(slot):
             if slot.__self__ in self._methods:
-                self._methods[slot.__self__].remove(slot.__func__)
+                self._methods[slot.__self__].discard(slot.__func__)
         else:
             if slot in self._functions:
-                self._functions.remove(slot)
+                self._functions.discard(slot)
 
     def clear(self):
         self._functions.clear()
