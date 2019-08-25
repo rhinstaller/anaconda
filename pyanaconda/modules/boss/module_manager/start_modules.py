@@ -91,7 +91,7 @@ class StartModulesTask(Task):
         if not self._addons_enabled:
             return modules
 
-        dbus = self._message_bus.get_dbus_proxy()
+        dbus = self._message_bus.proxy
         names = dbus.ListActivatableNames()
         prefix = get_dbus_name(*ADDONS_NAMESPACE)
 
@@ -110,7 +110,7 @@ class StartModulesTask(Task):
 
     def _start_modules(self, module_observers):
         """Start the modules."""
-        dbus = self._message_bus.get_dbus_proxy()
+        dbus = self._message_bus.proxy
 
         for observer in module_observers:
             log.debug("Starting %s", observer)
