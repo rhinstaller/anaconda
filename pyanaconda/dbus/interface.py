@@ -27,15 +27,15 @@ import re
 
 from inspect import Parameter
 from typing import get_type_hints
-from pydbus.generic import signal
 
+from pyanaconda.core.signal import Signal
 from pyanaconda.dbus.typing import get_dbus_type
 from pyanaconda.dbus.xml import XMLGenerator
 
 __all__ = ["dbus_class", "dbus_interface", "dbus_signal"]
 
 
-class dbus_signal(signal):
+class dbus_signal(object):
     """DBus signal.
 
     Can be used as:
@@ -53,9 +53,63 @@ class dbus_signal(signal):
     If the signal is not defined by a method, it is expected to
     have no arguments and signal.definition is equal to None.
     """
-    def __init__(self, method=None):
-        super().__init__()
-        self.definition = method
+    def __init__(self, definition=None, factory=Signal):
+        """Create a signal descriptor.
+
+        :param definition: a definition of the emit function
+        :param factory: a signal factory
+        """
+        self.definition = definition
+        self.factory = factory
+        self.name = None
+
+    def __set_name__(self, owner, name):
+        """Set a name of the descriptor
+
+        The descriptor has been assigned to the specified name.
+        Generate a name of a private attribute that will be set
+        to a signal in the __get__ method.
+
+        For example: __dbus_signal_my_name
+
+        :param owner: the owning class
+        :param name: the descriptor name
+        """
+        if self.name is not None:
+            return
+
+        self.name = "__{}_{}".format(
+            type(self).__name__.lower(),
+            name.lower()
+        )
+
+    def __get__(self, instance, owner):
+        """Get a value of the descriptor.
+
+        If the descriptor is accessed as a class attribute,
+        return the descriptor.
+
+        If the descriptor is accessed as an instance attribute,
+        return a signal created by the signal factory.
+
+        :param instance: an instance of the owning class
+        :param owner: an owning class
+        :return: a value of the attribute
+        """
+        if instance is None:
+            return self
+
+        signal = getattr(instance, self.name, None)
+
+        if signal is None:
+            signal = self.factory()
+            setattr(instance, self.name, signal)
+
+        return signal
+
+    def __set__(self, instance, value):
+        """Set a value of the descriptor."""
+        raise AttributeError("Can't set DBus signal.")
 
 
 def dbus_interface(interface_name):
