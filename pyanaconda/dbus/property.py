@@ -125,7 +125,7 @@ class PropertiesChanges(object):
 class PropertiesInterface(ABC):
     """Standard DBus interface org.freedesktop.DBus.Properties.
 
-    DBus objects don't have to inherit this class, because pydbus provides
+    DBus objects don't have to inherit this class, because the DBus library provides
     support for this interface by default. This class only extends this support.
 
     Report the changed property:

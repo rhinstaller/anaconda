@@ -113,8 +113,8 @@ def get_variant_type(type_hint):
 def get_native(value):
     """Decompose a DBus value into a native Python object.
 
-    This function is useful for testing, when pydbus doesn't
-    decompose arguments and return values of DBus calls.
+    This function is useful for testing, when the DBus library
+    doesn't decompose arguments and return values of DBus calls.
 
     :param value: a DBus value
     :return: a native Python object
