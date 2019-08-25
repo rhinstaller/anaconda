@@ -24,7 +24,10 @@
 #
 
 from typing import Tuple, Dict, List, NewType, IO
-from pydbus import Variant
+
+import gi
+gi.require_version("GLib", "2.0")
+from gi.repository.GLib import Variant
 
 __all__ = ["Bool", "Double", "Str", "Int", "Byte", "Int16", "UInt16",
            "Int32", "UInt32", "Int64", "UInt64", "File", "ObjPath",
@@ -57,7 +60,7 @@ ObjPath = NewType('ObjPath', str)
 
 # Container types.
 # Use Tuple, Dict and List from typing.
-# Use Variant from pydbus and get_variant.
+# Use Variant from GLib and get_variant.
 # Use Structure instead of Dict[Str, Variant].
 Structure = Dict[Str, Variant]
 
