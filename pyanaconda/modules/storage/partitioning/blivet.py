@@ -23,6 +23,7 @@ from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.blivet_interface import \
     BlivetPartitioningInterface
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
@@ -38,9 +39,18 @@ class BlivetPartitioningModule(PartitioningModule):
         self._storage_handler = None
         self._request_handler = None
 
+    @property
+    def partitioning_method(self):
+        """Type of the partitioning method."""
+        return PartitioningMethod.BLIVET
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return BlivetPartitioningInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(BLIVET_PARTITIONING.object_path, BlivetPartitioningInterface(self))
+        DBus.publish_object(BLIVET_PARTITIONING.object_path, self.for_publication())
 
     @property
     def storage_handler(self):
@@ -82,12 +92,8 @@ class BlivetPartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Complete the scheduled partitioning."""
-        task = InteractivePartitioningTask(self.storage)
-        path = self.publish_task(BLIVET_PARTITIONING.namespace, task)
-        return path
+        return InteractivePartitioningTask(self.storage)
 
     def validate_with_task(self):
         """Validate the scheduled partitions."""
-        task = StorageValidateTask(self.storage)
-        path = self.publish_task(BLIVET_PARTITIONING.namespace, task)
-        return path
+        return StorageValidateTask(self.storage)

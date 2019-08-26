@@ -53,11 +53,9 @@ class ZFCPModule(KickstartBaseModule):
         :param device_number: a device number
         :param wwpn: a worldwide port name
         :param lun: an FCP LUN number
-        :return: a DBus path to a task
+        :return: a task
         """
-        task = ZFCPDiscoverTask(device_number, wwpn, lun)
-        path = self.publish_task(ZFCP.namespace, task)
-        return path
+        return ZFCPDiscoverTask(device_number, wwpn, lun)
 
     def write_configuration(self):
         """Write the configuration to sysroot."""

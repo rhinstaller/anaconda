@@ -21,6 +21,8 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.modules.common.containers import PartitioningContainer, TaskContainer
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 
 
 @dbus_interface(STORAGE.interface_name)
@@ -32,11 +34,32 @@ class StorageInterface(KickstartModuleInterface):
 
         :return: a path to a task
         """
-        return self.implementation.reset_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.reset_with_task()
+        )
+
+    def CreatePartitioning(self, method: Str) -> ObjPath:
+        """Create a new partitioning.
+
+        Allowed values:
+            AUTOMATIC
+            CUSTOM
+            MANUAL
+            INTERACTIVE
+            BLIVET
+
+        :param method: a partitioning method
+        :return: a path to a partitioning
+        """
+        return PartitioningContainer.to_object_path(
+            self.implementation.create_partitioning(PartitioningMethod(method))
+        )
 
     def ApplyPartitioning(self, partitioning: ObjPath):
         """Apply the partitioning.
 
         :param partitioning: a path to a partitioning
         """
-        self.implementation.apply_partitioning(partitioning)
+        self.implementation.apply_partitioning(
+            PartitioningContainer.from_object_path(partitioning)
+        )

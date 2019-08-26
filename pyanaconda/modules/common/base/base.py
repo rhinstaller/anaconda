@@ -26,7 +26,6 @@ from pyanaconda.core.event_loop import EventLoop
 from pyanaconda.core.timer import Timer
 from pyanaconda.core.util import setenv
 from pyanaconda.dbus import DBus
-from pyanaconda.modules.common.task import publish_task, TaskInterface
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.kickstart.specification import NoKickstartSpecification, \
     KickstartSpecificationHandler, KickstartSpecificationParser
@@ -63,19 +62,6 @@ class BaseModule(ABC):
         Nothing is published by default.
         """
         pass
-
-    def publish_task(self, namespace, task, interface=TaskInterface, message_bus=DBus):
-        """Publish a task.
-
-        :param namespace: a DBus namespace
-        :param task: an instance of task
-        :param interface: an interface class
-        :param message_bus: a message bus
-        :return: a DBus path of the published task
-        """
-        object_path = publish_task(message_bus, namespace, task, interface)
-        self._published_tasks[task] = object_path
-        return object_path
 
 
 class MainModule(BaseModule):

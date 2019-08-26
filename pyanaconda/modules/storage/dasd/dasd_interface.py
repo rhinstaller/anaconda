@@ -21,6 +21,7 @@ from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import DASD
+from pyanaconda.modules.common.containers import TaskContainer
 
 
 @dbus_interface(DASD.interface_name)
@@ -34,7 +35,9 @@ class DASDInterface(KickstartModuleInterfaceTemplate):
         :return: a path to a task
         :raise: DiscoveryError in a case of failure
         """
-        return self.implementation.discover_with_task(device_number)
+        return TaskContainer.to_object_path(
+            self.implementation.discover_with_task(device_number)
+        )
 
     def FormatWithTask(self, dasds: List[Str]) -> ObjPath:
         """Format DASDs.
@@ -42,4 +45,6 @@ class DASDInterface(KickstartModuleInterfaceTemplate):
         :param dasds: a list of disk names
         :return: a path to a task
         """
-        return self.implementation.format_with_task(dasds)
+        return TaskContainer.to_object_path(
+            self.implementation.format_with_task(dasds)
+        )

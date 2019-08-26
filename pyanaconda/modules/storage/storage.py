@@ -22,9 +22,8 @@ from blivet import arch
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING, \
-    CUSTOM_PARTITIONING, BLIVET_PARTITIONING, INTERACTIVE_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.checker import StorageCheckerModule
@@ -38,9 +37,8 @@ from pyanaconda.modules.storage.installation import MountFilesystemsTask, Activa
 from pyanaconda.modules.storage.iscsi import ISCSIModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.nvdimm import NVDIMMModule
-from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
-    ManualPartitioningModule, CustomPartitioningModule, BlivetPartitioningModule
-from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
+from pyanaconda.modules.storage.partitioning.factory import PartitioningFactory
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.snapshot import SnapshotModule
@@ -106,22 +104,21 @@ class StorageModule(KickstartModule):
             self._add_module(self._zfcp_module)
 
         # Initialize the partitioning modules.
-        self._partitioning_modules = {}
+        # TODO: Remove the static partitioning modules.
+        self._auto_part_module = self.create_partitioning(PartitioningMethod.AUTOMATIC)
+        self._add_module(self._auto_part_module)
 
-        self._auto_part_module = AutoPartitioningModule()
-        self._add_partitioning_module(AUTO_PARTITIONING.object_path, self._auto_part_module)
+        self._manual_part_module = self.create_partitioning(PartitioningMethod.MANUAL)
+        self._add_module(self._manual_part_module)
 
-        self._manual_part_module = ManualPartitioningModule()
-        self._add_partitioning_module(MANUAL_PARTITIONING.object_path, self._manual_part_module)
+        self._custom_part_module = self.create_partitioning(PartitioningMethod.CUSTOM)
+        self._add_module(self._custom_part_module)
 
-        self._custom_part_module = CustomPartitioningModule()
-        self._add_partitioning_module(CUSTOM_PARTITIONING.object_path, self._custom_part_module)
+        self._interactive_part_module = self.create_partitioning(PartitioningMethod.INTERACTIVE)
+        self._add_module(self._interactive_part_module)
 
-        self._interactive_part_module = InteractivePartitioningModule()
-        self._add_partitioning_module(INTERACTIVE_PARTITIONING.object_path,self._interactive_part_module)
-
-        self._blivet_part_module = BlivetPartitioningModule()
-        self._add_partitioning_module(BLIVET_PARTITIONING.object_path, self._blivet_part_module)
+        self._blivet_part_module = self.create_partitioning(PartitioningMethod.BLIVET)
+        self._add_module(self._blivet_part_module)
 
         # Connect modules to signals.
         self.storage_changed.connect(
@@ -147,30 +144,10 @@ class StorageModule(KickstartModule):
         """Add a base kickstart module."""
         self._modules.append(storage_module)
 
-    def _add_partitioning_module(self, object_path, partitioning_module):
-        """Add a partitioning module."""
-        # Add the module.
-        self._modules.append(partitioning_module)
-        self._partitioning_modules[object_path] = partitioning_module
-
-        # Update the module.
-        partitioning_module.on_storage_reset(
-            self._storage
-        )
-        partitioning_module.on_selected_disks_changed(
-            self._disk_selection_module.selected_disks
-        )
-
-        # Connect the callbacks to signals.
-        self.storage_changed.connect(
-            partitioning_module.on_storage_reset
-        )
-        self._disk_selection_module.selected_disks_changed.connect(
-            partitioning_module.on_selected_disks_changed
-        )
-
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(STORAGE.namespace)
+
         for kickstart_module in self._modules:
             kickstart_module.publish()
 
@@ -234,7 +211,7 @@ class StorageModule(KickstartModule):
         We will reset a copy of the current storage model
         and switch the models if the reset is successful.
 
-        :return: a DBus path to a task
+        :return: a task
         """
         # Copy the storage.
         storage = self.storage.copy()
@@ -248,23 +225,47 @@ class StorageModule(KickstartModule):
         # Create the task.
         task = StorageResetTask(storage)
         task.succeeded_signal.connect(lambda: self.set_storage(storage))
+        return task
 
-        # Publish the task.
-        path = self.publish_task(STORAGE.namespace, task)
-        return path
+    def create_partitioning(self, method: PartitioningMethod):
+        """Create a new partitioning.
 
-    def apply_partitioning(self, object_path):
+        Allowed values:
+            AUTOMATIC
+            CUSTOM
+            MANUAL
+            INTERACTIVE
+            BLIVET
+
+        :param PartitioningMethod method: a partitioning method
+        :return: a partitioning module
+        """
+        module = PartitioningFactory.create_partitioning(method)
+
+        # Update the module.
+        module.on_storage_reset(
+            self._storage
+        )
+        module.on_selected_disks_changed(
+            self._disk_selection_module.selected_disks
+        )
+
+        # Connect the callbacks to signals.
+        self.storage_changed.connect(
+            module.on_storage_reset
+        )
+        self._disk_selection_module.selected_disks_changed.connect(
+            module.on_selected_disks_changed
+        )
+
+        return module
+
+    def apply_partitioning(self, module):
         """Apply a partitioning.
 
-        :param object_path: an object path of a partitioning module
+        :param module: a partitioning module
         :raise: InvalidStorageError of the partitioning is not valid
         """
-        # Get the partitioning module.
-        module = self._partitioning_modules.get(object_path)
-
-        if not module:
-            raise ValueError("Unknown partitioning {}.".format(object_path))
-
         # Validate the partitioning.
         storage = module.storage
         task = StorageValidateTask(storage)
@@ -272,7 +273,7 @@ class StorageModule(KickstartModule):
 
         # Apply the partitioning.
         self.set_storage(storage.copy())
-        log.debug("Applied the partitioning from %s.", object_path)
+        log.debug("Applied the partitioning %s.", module)
 
     def collect_requirements(self):
         """Return installation requirements for this module.
@@ -298,36 +299,24 @@ class StorageModule(KickstartModule):
 
         FIXME: This is a simplified version of the storage installation.
 
-        :returns: list of object paths of installation tasks
+        :returns: list of installation tasks
         """
         storage = self.storage
 
-        tasks = [
+        return [
             ActivateFilesystemsTask(storage),
             MountFilesystemsTask(storage),
             WriteConfigurationTask(storage)
         ]
 
-        paths = [
-            self.publish_task(STORAGE.namespace, task) for task in tasks
-        ]
-
-        return paths
-
     def teardown_with_tasks(self):
         """Returns teardown tasks for this module.
 
-        :return: a list of DBus paths of the installation tasks
+        :return: a list installation tasks
         """
         storage = self.storage
 
-        tasks = [
+        return [
             UnmountFilesystemsTask(storage),
             TeardownDiskImagesTask(storage)
         ]
-
-        paths = [
-            self.publish_task(STORAGE.namespace, task) for task in tasks
-        ]
-
-        return paths

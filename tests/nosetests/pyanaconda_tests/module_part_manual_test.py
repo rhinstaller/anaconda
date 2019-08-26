@@ -46,6 +46,10 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         self.module = ManualPartitioningModule()
         self.interface = ManualPartitioningInterface(self.module)
 
+    def publication_test(self):
+        """Test the DBus representation."""
+        self.assertIsInstance(self.module.for_publication(), ManualPartitioningInterface)
+
     def _test_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,

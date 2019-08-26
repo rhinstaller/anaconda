@@ -23,10 +23,10 @@ from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
-from pyanaconda.modules.network.network_interface import NetworkInterface, \
-    NetworkInitializationTaskInterface
+from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, \
     update_network_hostname_data, update_network_data_with_default_device, DEFAULT_DEVICE_SPECIFICATION, \
     update_first_network_command_activate_value
@@ -98,6 +98,7 @@ class NetworkModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(NETWORK.namespace)
         self._firewall_module.publish()
 
         DBus.publish_object(NETWORK.object_path, NetworkInterface(self))
@@ -298,7 +299,7 @@ class NetworkModule(KickstartModule):
 
         :param onboot_ifaces: list of network interfaces which should have ONBOOT=yes
         :param overwrite: overwrite existing configuration
-        :return: a DBus path of an installation task
+        :return: an installation task
         """
         disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client, supported_wired_device_types)
         network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
@@ -324,8 +325,7 @@ class NetworkModule(KickstartModule):
         )
 
         task.succeeded_signal.connect(lambda: self.log_task_result(task, root_path=conf.target.system_root))
-        path = self.publish_task(NETWORK.namespace, task)
-        return path
+        return task
 
     def _should_apply_onboot_policy(self):
         """Should policy for ONBOOT of devices be applied?."""
@@ -423,11 +423,11 @@ class NetworkModule(KickstartModule):
         Don't enforce on slave devices for which having multiple connections can be
         valid (slave connection, regular device connection).
 
-        :returns: DBus path of the task consolidating the connections
+        :returns: a task consolidating the connections
         """
         task = ConsolidateInitramfsConnectionsTask(self.nm_client)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
+        return task
 
     def get_supported_devices(self):
         """Get information about existing supported devices on the system.
@@ -520,7 +520,7 @@ class NetworkModule(KickstartModule):
         * Activate configurations created in initramfs if --activate is True.
         * Create configurations for %pre kickstart commands and activate eventually.
 
-        :returns: DBus path of the task applying the kickstart
+        :returns: a task applying the kickstart
         """
         supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
         task = ApplyKickstartTask(self.nm_client,
@@ -529,7 +529,7 @@ class NetworkModule(KickstartModule):
                                   self.bootif,
                                   self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
+        return task
 
     def set_real_onboot_values_from_kickstart_with_task(self):
         """Update ifcfg ONBOOT values according to kickstart configuration.
@@ -541,7 +541,7 @@ class NetworkModule(KickstartModule):
         2) For kickstart applied in stage 2 we can't set the autoconnect
            setting of connection because the device would be activated immediately.
 
-        :returns: DBus path of the task setting the values
+        :returns: a task setting the values
         """
         supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
         task = SetRealOnbootValuesFromKickstartTask(self.nm_client,
@@ -550,7 +550,7 @@ class NetworkModule(KickstartModule):
                                                     self.bootif,
                                                     self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
+        return task
 
     def dump_missing_ifcfg_files_with_task(self):
         """Dump missing default ifcfg file for wired devices.
@@ -569,7 +569,7 @@ class NetworkModule(KickstartModule):
         The connection id (and consequently ifcfg file name) is set to device
         name.
 
-        :returns: DBus path of the task dumping the files
+        :returns: a task dumping the files
         """
         data = self.get_kickstart_handler()
         default_network_data = data.NetworkData(onboot=False, ipv6="auto")
@@ -577,7 +577,7 @@ class NetworkModule(KickstartModule):
                                          default_network_data,
                                          self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
+        return task
 
     def network_device_configuration_changed(self):
         if not self._device_configurations:

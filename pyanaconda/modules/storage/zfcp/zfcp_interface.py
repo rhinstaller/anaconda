@@ -21,6 +21,7 @@ from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import ZFCP
+from pyanaconda.modules.common.containers import TaskContainer
 
 
 @dbus_interface(ZFCP.interface_name)
@@ -42,7 +43,9 @@ class ZFCPInterface(KickstartModuleInterfaceTemplate):
         :param lun: an FCP LUN number
         :return: a DBus path to a task
         """
-        return self.implementation.discover_with_task(device_number, wwpn, lun)
+        return TaskContainer.to_object_path(
+            self.implementation.discover_with_task(device_number, wwpn, lun)
+        )
 
     def WriteConfiguration(self):
         """Write the configuration to sysroot.

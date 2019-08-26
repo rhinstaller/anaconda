@@ -23,6 +23,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
+from pyanaconda.modules.common.containers import TaskContainer
 
 
 @dbus_interface(LIVE_IMAGE_HANDLER.interface_name)
@@ -101,7 +102,9 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
 
         Check availability of the image and update required space
         """
-        return self.implementation.setup_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.setup_with_task()
+        )
 
     def PreInstallWithTask(self) -> ObjPath:
         """Set up installation source image
@@ -110,7 +113,9 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         * Check the checksum
         * Mount the image
         """
-        return self.implementation.pre_install_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.pre_install_with_task()
+        )
 
     def InstallWithTask(self) -> ObjPath:
         """Install the payload.
@@ -118,16 +123,18 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         * Copy the payload.
         * Create rescue images
         """
-        return self.implementation.install_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.install_with_task()
+        )
 
-    def PostInstallWithTask(self) -> ObjPath:
+    def PostInstallWithTasks(self) -> List[ObjPath]:
         """Do post installation tasks.
 
-        * [TODO] copy driver disk files (Payload)
         * [NO] check installation requirements were applied (Payload)
-        * Update BLS entries (LiveOSPayload)
         """
-        return self.implementation.post_install_with_task()
+        return TaskContainer.to_object_path_list(
+            self.implementation.post_install_with_tasks()
+        )
 
     def TeardownWithTask(self) -> ObjPath:
         """Tear down installation source image.
@@ -136,4 +143,6 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         * Clean up mount point directories
         * Remove downloaded image
         """
-        return self.implementation.teardown_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.teardown_with_task()
+        )

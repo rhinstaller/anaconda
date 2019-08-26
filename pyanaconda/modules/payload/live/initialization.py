@@ -66,11 +66,6 @@ class SetupInstallationSourceTask(Task):
         if rc != 0:
             raise SourceSetupError("Failed to mount the install tree")
 
-        # FIXME: Update kernel version outside of this task
-        #
-        # Grab the kernel version list now so it's available after umount
-        # self._update_kernel_version_list()
-
         # FIXME: This should be done by the module
         # source = os.statvfs(self._target_mount)
         # self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
@@ -421,6 +416,8 @@ class UpdateBLSConfigurationTask(Task):
         # Not using BLS configuration, skip it
         if os.path.exists(self._sysroot + "/usr/sbin/new-kernel-pkg"):
             return
+
+        # TODO: test if this is not a dir install
 
         # Remove any existing BLS entries, they will not match the new system's
         # machine-id or /boot mountpoint.

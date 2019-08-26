@@ -420,27 +420,23 @@ class BootloaderModule(KickstartBaseModule):
         FIXME: This is just a temporary method.
 
         :param kernel_versions: a list of kernel versions
-        :return: a path to a DBus task
+        :return: a task
         """
-        task = ConfigureBootloaderTask(
+        return ConfigureBootloaderTask(
             storage=self.storage,
             mode=self.bootloader_mode,
             kernel_versions=kernel_versions,
             sysroot=conf.target.system_root
         )
-        path = self.publish_task(BOOTLOADER.namespace, task)
-        return path
 
     def install_with_task(self):
         """Install the bootloader.
 
         FIXME: This is just a temporary method.
 
-        :return: a path to a DBus task
+        :return: a task
         """
-        task = InstallBootloaderTask(
+        return InstallBootloaderTask(
             storage=self.storage,
             mode=self.bootloader_mode
         )
-        path = self.publish_task(BOOTLOADER.namespace, task)
-        return path

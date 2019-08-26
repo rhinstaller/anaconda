@@ -20,13 +20,16 @@
 import os
 
 from pyanaconda.dbus import DBus
+
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import requests_session
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
+
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payload.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
     SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, \
@@ -209,7 +212,7 @@ class LiveImageHandlerModule(PayloadHandlerBase):
             self.requests_session
         )
         task.succeeded_signal.connect(lambda: self.set_required_space(task.get_result()))
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
+        return task
 
     def pre_install_with_task(self):
         """Set up installation source image
@@ -228,30 +231,31 @@ class LiveImageHandlerModule(PayloadHandlerBase):
             self.requests_session
         )
         task.succeeded_signal.connect(lambda: self.set_image_path(task.get_result()))
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
+        return task
 
-    def post_install_with_task(self):
+    def post_install_with_tasks(self):
         """Do post installation tasks."""
-        task = UpdateBLSConfigurationTask(
-            conf.target.system_root,
-            self.kernel_version_list
-        )
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
+        return [
+            UpdateBLSConfigurationTask(
+                conf.target.system_root,
+                self.kernel_version_list
+            ),
+            CopyDriverDisksFilesTask(conf.target.system_root)
+        ]
 
     def install_with_task(self):
         """Install the payload."""
         if url_target_is_tarfile(self._url):
-            task = InstallFromTarTask(
+            return InstallFromTarTask(
                 self.image_path,
                 conf.target.system_root,
                 self.kernel_version_list
             )
         else:
-            task = InstallFromImageTask(
+            return InstallFromImageTask(
                 conf.target.system_root,
                 self.kernel_version_list
             )
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
 
     def teardown_with_task(self):
         """Tear down installation source image.
@@ -260,9 +264,8 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         * Clean up mount point directories
         * Remove downloaded image
         """
-        task = TeardownInstallationSourceImageTask(
+        return TeardownInstallationSourceImageTask(
             self.image_path,
             self.url,
             INSTALL_TREE
         )
-        return self.publish_task(LIVE_IMAGE_HANDLER.namespace, task)
