@@ -20,6 +20,7 @@
 from pyanaconda.dbus import DBus
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.dbus.publishable import Publishable
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
@@ -32,7 +33,7 @@ log = get_module_logger(__name__)
 __all__ = ["DeviceTreeModule"]
 
 
-class DeviceTreeModule(KickstartBaseModule, DeviceTreeViewer, DeviceTreeHandler):
+class DeviceTreeModule(KickstartBaseModule, DeviceTreeViewer, DeviceTreeHandler, Publishable):
     """The device tree module."""
 
     def __init__(self):
@@ -54,6 +55,10 @@ class DeviceTreeModule(KickstartBaseModule, DeviceTreeViewer, DeviceTreeHandler)
         """Keep the instance of the current storage."""
         self._storage = storage
 
+    def for_publication(self):
+        """Return a DBus representation."""
+        return DeviceTreeInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(DEVICE_TREE.object_path, DeviceTreeInterface(self))
+        DBus.publish_object(DEVICE_TREE.object_path, self.for_publication())

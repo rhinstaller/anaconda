@@ -22,6 +22,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.localization.installation import LanguageInstallationTask
@@ -61,6 +62,7 @@ class LocalizationModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(LOCALIZATION.namespace)
         DBus.publish_object(LOCALIZATION.object_path, LocalizationInterface(self))
         DBus.register_service(LOCALIZATION.service_name)
 
@@ -195,14 +197,8 @@ class LocalizationModule(KickstartModule):
     def install_with_tasks(self):
         """Return the installation tasks of this module.
 
-        :returns: list of object paths of installation tasks
+        :returns: list of installation tasks
         """
-        tasks = [
+        return [
             LanguageInstallationTask(sysroot=conf.target.system_root, lang=self.language)
         ]
-
-        paths = [
-            self.publish_task(LOCALIZATION.namespace, task) for task in tasks
-        ]
-
-        return paths

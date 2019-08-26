@@ -17,12 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
+from pyanaconda.modules.common.containers import TaskContainer
 
 
 @dbus_interface(LIVE_OS_HANDLER.interface_name)
@@ -32,6 +33,7 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
     def connect_signals(self):
         super().connect_signals()
         self.watch_property("ImagePath", self.implementation.image_path_changed)
+        self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
 
     @property
     def ImagePath(self) -> Str:
@@ -49,6 +51,14 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         """
         self.implementation.set_image_path(image_path)
 
+    @property
+    def SpaceRequired(self) -> UInt64:
+        """Space required by the source image.
+
+        :return: required size in bytes
+        """
+        return self.implementation.space_required
+
     def DetectLiveOSImage(self) -> Str:
         """Try to find valid live os image.
 
@@ -58,8 +68,50 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
 
     def SetupInstallationSourceWithTask(self) -> ObjPath:
         """Setup installation source resources."""
-        return self.implementation.setup_installation_source_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.setup_installation_source_with_task()
+        )
 
     def TeardownInstallationSourceWithTask(self) -> ObjPath:
         """Teardown installation source resources."""
-        return self.implementation.teardown_installation_source_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.teardown_installation_source_with_task()
+        )
+
+    def PreInstallWithTask(self) -> ObjPath:
+        """Prepare installation source for the installation."""
+        return TaskContainer.to_object_path(
+            self.implementation.pre_install_with_task()
+        )
+
+    def InstallWithTask(self) -> ObjPath:
+        """Install the payload.
+
+        * Copy the payload.
+        * Create rescue images
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.install_with_task()
+        )
+
+    def PostInstallWithTasks(self) -> List[ObjPath]:
+        """Do post installation tasks.
+
+        * [NO] check installation requirements were applied (Payload)
+        """
+        return TaskContainer.to_object_path_list(
+            self.implementation.post_install_with_tasks()
+        )
+
+    def UpdateKernelVersionList(self):
+        """Update the list of kernel versions."""
+        self.implementation.update_kernel_version_list()
+
+    def GetKernelVersionList(self) -> List[Str]:
+        """Get the kernel versions list."""
+        return self.implementation.kernel_version_list
+
+    @dbus_signal
+    def KernelVersionListChanged(self, kernel_version_list: List[Str]):
+        """Signal kernel version list change."""
+        pass

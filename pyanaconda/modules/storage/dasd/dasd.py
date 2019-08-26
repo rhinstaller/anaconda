@@ -39,11 +39,9 @@ class DASDModule(KickstartBaseModule):
         """Discover a DASD.
 
         :param device_number: a device number
-        :return: a path to a task
+        :return: a task
         """
-        task = DASDDiscoverTask(device_number)
-        path = self.publish_task(DASD.namespace, task)
-        return path
+        return DASDDiscoverTask(device_number)
 
     def format_with_task(self, dasds):
         """Format specified DASD disks.
@@ -51,6 +49,4 @@ class DASDModule(KickstartBaseModule):
         :param dasds: a list of disk names
         :return: a DBus path to a task
         """
-        task = DASDFormatTask(dasds)
-        path = self.publish_task(DASD.namespace, task)
-        return path
+        return DASDFormatTask(dasds)

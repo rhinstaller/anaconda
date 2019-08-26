@@ -22,6 +22,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import FIREWALL
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.network.constants import FirewallMode
 
 
@@ -116,4 +117,6 @@ class FirewallInterface(KickstartModuleInterfaceTemplate):
 
         :return: a path to a DBus task
         """
-        return self.implementation.install_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.install_with_task()
+        )

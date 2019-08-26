@@ -41,11 +41,6 @@ shortProductName = productName.lower()          # pylint: disable=no-member
 if productName.count(" "):                      # pylint: disable=no-member
     shortProductName = ''.join(s[0] for s in shortProductName.split())
 
-# DriverDisc Paths
-DD_ALL = "/tmp/DD"
-DD_FIRMWARE = "/tmp/DD/lib/firmware"
-DD_RPMS = "/tmp/DD-*"
-
 TRANSLATIONS_UPDATE_DIR = "/tmp/updates/po"
 
 # The default virtio port.
@@ -391,3 +386,10 @@ FIREWALL_USE_SYSTEM_DEFAULTS = 2
 ISCSI_INTERFACE_UNSET = "none"
 ISCSI_INTERFACE_DEFAULT = "default"
 ISCSI_INTERFACE_IFACENAME = "bind"
+
+# Partitioning methods.
+PARTITIONING_METHOD_AUTOMATIC = "AUTOMATIC"
+PARTITIONING_METHOD_CUSTOM = "CUSTOM"
+PARTITIONING_METHOD_MANUAL = "MANUAL"
+PARTITIONING_METHOD_INTERACTIVE = "INTERACTIVE"
+PARTITIONING_METHOD_BLIVET = "BLIVET"

@@ -25,6 +25,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
@@ -45,12 +46,18 @@ class ManualPartitioningModule(PartitioningModule):
         self.requests_changed = Signal()
         self._requests = list()
 
+    @property
+    def partitioning_method(self):
+        """Type of the partitioning method."""
+        return PartitioningMethod.MANUAL
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return ManualPartitioningInterface(self)
+
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(
-            MANUAL_PARTITIONING.object_path,
-            ManualPartitioningInterface(self)
-        )
+        DBus.publish_object(MANUAL_PARTITIONING.object_path, self.for_publication())
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -198,12 +205,8 @@ class ManualPartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
-        task = ManualPartitioningTask(self.storage)
-        path = self.publish_task(MANUAL_PARTITIONING.namespace, task)
-        return path
+        return ManualPartitioningTask(self.storage)
 
     def validate_with_task(self):
         """Validate the scheduled partitions."""
-        task = StorageValidateTask(self.storage)
-        path = self.publish_task(MANUAL_PARTITIONING.namespace, task)
-        return path
+        return StorageValidateTask(self.storage)

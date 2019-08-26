@@ -27,7 +27,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import ISCSI
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.storage.iscsi.discover import ISCSIDiscoverTask, ISCSILoginTask
-from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface, ISCSIDiscoverTaskInterface
+from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface
 
 log = get_module_logger(__name__)
 
@@ -101,11 +101,9 @@ class ISCSIModule(KickstartBaseModule):
         :param portal: the portal information
         :param credentials: the iSCSI credentials
         :param interfaces_mode: required mode specified by IscsiInterfacesMode
-        :return: a DBus path to a task
+        :return: a task
         """
-        task = ISCSIDiscoverTask(portal, credentials, interfaces_mode)
-        path = self.publish_task(ISCSI.namespace, task, ISCSIDiscoverTaskInterface)
-        return path
+        return ISCSIDiscoverTask(portal, credentials, interfaces_mode)
 
     def login_with_task(self, portal, credentials, node):
         """Login into an iSCSI node discovered on a portal.
@@ -113,11 +111,9 @@ class ISCSIModule(KickstartBaseModule):
         :param portal: the portal information
         :param credentials: the iSCSI credentials
         :param node: the node information
-        :return: a DBus path to a task
+        :return: a task
         """
-        task = ISCSILoginTask(portal, credentials, node)
-        path = self.publish_task(ISCSI.namespace, task)
-        return path
+        return ISCSILoginTask(portal, credentials, node)
 
     def write_configuration(self):
         """Write the configuration to sysroot."""

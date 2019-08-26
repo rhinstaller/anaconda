@@ -41,6 +41,10 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         self.module = CustomPartitioningModule()
         self.interface = CustomPartitioningInterface(self.module)
 
+    def publication_test(self):
+        """Test the DBus representation."""
+        self.assertIsInstance(self.module.for_publication(), CustomPartitioningInterface)
+
     def data_test(self, ):
         """Test the data property."""
         with self.assertRaises(UnavailableDataError):

@@ -17,15 +17,23 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
+import os
+
 from unittest import TestCase
+from mock import patch
+from textwrap import dedent
+from tempfile import TemporaryDirectory
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
 
+from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
+    LIVE_IMAGE_HANDLER
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
 from pyanaconda.modules.payload.handler_factory import HandlerType
-from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
-    LIVE_IMAGE_HANDLER
+from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist, \
+    get_dir_size
+from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask
 
 
 class PayloadInterfaceTestCase(TestCase):
@@ -105,3 +113,80 @@ class PayloadInterfaceTestCase(TestCase):
         self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
                          LIVE_OS_HANDLER.object_path)
         self.assertEqual(publisher.call_count, 3)
+
+
+class PayloadSharedTasksTest(TestCase):
+
+    @patch('pyanaconda.modules.payload.base.initialization.write_module_blacklist')
+    @patch('pyanaconda.modules.payload.base.initialization.create_root_dir')
+    def prepare_system_for_install_task_test(self, create_root_dir_mock,
+                                             write_module_blacklist_mock):
+        """Test task prepare system for installation."""
+        # the dir won't be used because of mock
+        task = PrepareSystemForInstallationTask("/some/dir")
+
+        task.run()
+
+        create_root_dir_mock.assert_called_once()
+        write_module_blacklist_mock.assert_called_once()
+
+
+class PayloadSharedUtilsTest(TestCase):
+
+    def create_root_test(self):
+        """Test payload create root directory function."""
+        with TemporaryDirectory() as temp:
+            create_root_dir(temp)
+
+            root_dir = os.path.join(temp, "/root")
+
+            self.assertTrue(os.path.isdir(root_dir))
+
+    @patch('pyanaconda.modules.payload.base.utils.flags')
+    def write_module_blacklist_test(self, flags):
+        """Test write kernel module blacklist to the install root."""
+        with TemporaryDirectory() as temp:
+            flags.cmdline = {"modprobe.blacklist": "mod1 mod2 nonono_mod"}
+
+            write_module_blacklist(temp)
+
+            blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
+
+            self.assertTrue(os.path.isfile(blacklist_file))
+
+            with open(blacklist_file, "rt") as f:
+                expected_content = """
+                # Module blacklists written by anaconda
+                blacklist mod1
+                blacklist mod2
+                blacklist nonono_mod
+                """
+                self.assertEqual(dedent(expected_content).lstrip(), f.read())
+
+    @patch('pyanaconda.modules.payload.base.utils.flags')
+    def write_empty_module_blacklist_test(self, flags):
+        """Test write kernel module blacklist to the install root -- empty list."""
+        with TemporaryDirectory() as temp:
+            flags.cmdline = {}
+
+            write_module_blacklist(temp)
+
+            blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
+
+            self.assertFalse(os.path.isfile(blacklist_file))
+
+    def get_dir_size_test(self):
+        """Test the get_dir_size function."""
+
+        # dev null should have a size == 0
+        self.assertEqual(get_dir_size('/dev/null'), 0)
+
+        # incorrect path should also return 0
+        self.assertEqual(get_dir_size('/dev/null/foo'), 0)
+
+        # check if an int is always returned
+        self.assertIsInstance(get_dir_size('/dev/null'), int)
+        self.assertIsInstance(get_dir_size('/dev/null/foo'), int)
+
+        # TODO: mock some dirs and check if their size is
+        # computed correctly

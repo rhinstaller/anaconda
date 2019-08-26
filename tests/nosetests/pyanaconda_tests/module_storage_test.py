@@ -21,6 +21,13 @@ import logging
 import unittest
 from unittest.mock import patch, call, Mock
 
+from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, \
+    PARTITIONING_METHOD_INTERACTIVE
+from pyanaconda.dbus.container import DBusContainerError
+from pyanaconda.modules.common.containers import PartitioningContainer
+from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
+    ManualPartitioningModule
+from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
     patch_dbus_publish_object
 
@@ -28,7 +35,6 @@ from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
 from pyanaconda.modules.common.task import TaskInterface
@@ -83,8 +89,40 @@ class StorageInterfaceTestCase(unittest.TestCase):
         obj.implementation.succeeded_signal.emit()
         storage_changed_callback.assert_called_once()
 
+    @patch_dbus_publish_object
+    def create_partitioning_test(self, published):
+        """Test CreatePartitioning."""
+        PartitioningContainer._counter = 0
+
+        path = self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_AUTOMATIC)
+        self.assertEqual(path, "/org/fedoraproject/Anaconda/Modules/Storage/Partitioning/1")
+
+        published.assert_called_once()
+        published.reset_mock()
+
+        obj = PartitioningContainer.from_object_path(path)
+        self.assertIsInstance(obj, AutoPartitioningModule)
+
+        path = self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_MANUAL)
+        self.assertEqual(path, "/org/fedoraproject/Anaconda/Modules/Storage/Partitioning/2")
+
+        published.assert_called_once()
+        published.reset_mock()
+
+        obj = PartitioningContainer.from_object_path(path)
+        self.assertIsInstance(obj, ManualPartitioningModule)
+
+        path = self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_INTERACTIVE)
+        self.assertEqual(path, "/org/fedoraproject/Anaconda/Modules/Storage/Partitioning/3")
+
+        published.assert_called_once()
+
+        obj = PartitioningContainer.from_object_path(path)
+        self.assertIsInstance(obj, InteractivePartitioningModule)
+
+    @patch_dbus_publish_object
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
-    def apply_partitioning_test(self, storage_checker):
+    def apply_partitioning_test(self, storage_checker, published):
         """Test ApplyPartitioning."""
         storage_1 = Mock()
         storage_2 = storage_1.copy.return_value
@@ -97,10 +135,12 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.storage_module.storage, storage_1)
         self.assertEqual(self.storage_module._auto_part_module.storage, storage_2)
 
-        self.storage_interface.ApplyPartitioning(AUTO_PARTITIONING.object_path)
+        object_path = self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_AUTOMATIC)
+        self.storage_interface.ApplyPartitioning(object_path)
+
         self.assertEqual(self.storage_module.storage, storage_3)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(DBusContainerError):
             self.storage_interface.ApplyPartitioning(ObjPath("invalid"))
 
     def collect_requirements_test(self):

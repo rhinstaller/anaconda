@@ -20,17 +20,17 @@
 import unittest
 from unittest.mock import Mock
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
-
-from tests.nosetests.pyanaconda_tests import check_task_creation
-
-from pyanaconda.modules.storage.devicetree import DeviceTreeInterface
+from pyanaconda.core.constants import PARTITIONING_METHOD_INTERACTIVE
+from pyanaconda.modules.common.containers import DeviceTreeContainer
+from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
 from pyanaconda.modules.storage.partitioning.interactive_interface import \
     InteractivePartitioningInterface
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 
 class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
@@ -41,10 +41,18 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         self.module = InteractivePartitioningModule()
         self.interface = InteractivePartitioningInterface(self.module)
 
+    def publication_test(self):
+        """Test the DBus representation."""
+        self.assertIsInstance(self.module.for_publication(), InteractivePartitioningInterface)
+
+    def method_property_test(self):
+        """Test Method property."""
+        self.assertEqual(self.interface.PartitioningMethod, PARTITIONING_METHOD_INTERACTIVE)
+
     @patch_dbus_publish_object
     def get_device_tree_test(self, publisher):
         """Test GetDeviceTree."""
-        DeviceTreeInterface._tree_counter = 1
+        DeviceTreeContainer._counter = 0
         self.module.on_storage_reset(Mock())
 
         tree_path = self.interface.GetDeviceTree()

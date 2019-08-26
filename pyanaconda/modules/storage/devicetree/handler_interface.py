@@ -21,6 +21,7 @@ from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_HANDLER
+from pyanaconda.modules.common.containers import TaskContainer
 
 __all__ = ["DeviceTreeHandlerInterface"]
 
@@ -93,7 +94,9 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
 
         :return: a path to the task
         """
-        return self.implementation.find_devices_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.find_devices_with_task()
+        )
 
     def FindOpticalMedia(self) -> List[Str]:
         """Find all devices with mountable optical media.
@@ -116,7 +119,9 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
 
         :return: a path to the task
         """
-        return self.implementation.find_existing_systems_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.find_existing_systems_with_task()
+        )
 
     def MountExistingSystemWithTask(self, device_name: Str, read_only: Bool) -> ObjPath:
         """Mount existing GNU/Linux installation.
@@ -125,4 +130,6 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         :param read_only: mount the system in read-only mode
         :return: a path to the task
         """
-        return self.implementation.mount_existing_system_with_task(device_name, read_only)
+        return TaskContainer.to_object_path(
+            self.implementation.mount_existing_system_with_task(device_name, read_only)
+        )
