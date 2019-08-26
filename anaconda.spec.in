@@ -344,6 +344,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 26 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.11-1
+- Fix noverifyssl when downloading .treeinfo file (jkonecny)
+  Resolves: rhbz#1726156
+  Resolves: rhbz#1723811
+
 * Fri Aug 02 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.10-1
 - Do not try to mount cdrom source also if it has been mounted in dracut.
   (rvykydal)
