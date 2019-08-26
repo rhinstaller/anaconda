@@ -20,14 +20,14 @@
 from blivet.iscsi import iscsi, TargetInfo
 from blivet.safe_dbus import SafeDBusError
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.structures.iscsi import Portal, Credentials, Node
 from pyanaconda.modules.common.task import Task
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIDiscoverTaskInterface
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
@@ -50,6 +50,10 @@ class ISCSIDiscoverTask(Task):
     @property
     def name(self):
         return "Discover iSCSI nodes"
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return ISCSIDiscoverTaskInterface(self)
 
     def run(self):
         """Run the discovery."""

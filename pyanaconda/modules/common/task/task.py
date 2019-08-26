@@ -24,6 +24,8 @@ import traceback
 from abc import abstractmethod
 
 from pyanaconda.core.constants import THREAD_DBUS_TASK
+from pyanaconda.dbus.publishable import Publishable
+from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.result import ResultProvider
@@ -36,7 +38,7 @@ log = get_module_logger(__name__)
 __all__ = ['AbstractTask', 'Task']
 
 
-class AbstractTask(Runnable, Cancellable, ProgressReporter, ResultProvider):
+class AbstractTask(Runnable, Cancellable, Publishable, ProgressReporter, ResultProvider):
     """Abstract class for running a long-term task."""
 
     @property
@@ -49,6 +51,10 @@ class AbstractTask(Runnable, Cancellable, ProgressReporter, ResultProvider):
         :returns: string with the task name
         """
         return ""
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return TaskInterface(self)
 
 
 class Task(AbstractTask):

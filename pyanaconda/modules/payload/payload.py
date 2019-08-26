@@ -20,6 +20,7 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import PAYLOAD
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.errors.payload import HandlerNotSetError
 from pyanaconda.modules.payload.handler_factory import HandlerFactory
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
@@ -39,6 +40,7 @@ class PayloadModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(PAYLOAD.namespace)
         DBus.publish_object(PAYLOAD.object_path, PayloadInterface(self))
         DBus.register_service(PAYLOAD.service_name)
 

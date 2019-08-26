@@ -23,6 +23,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal, dbus_class
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo, \
     NetworkDeviceConfiguration
 from pyanaconda.modules.common.task import TaskInterface
@@ -132,7 +133,9 @@ class NetworkInterface(KickstartModuleInterface):
         :param overwrite: overwrite existing configuration
         :return: a DBus path of an installation task
         """
-        return self.implementation.install_network_with_task(onboot_ifaces, overwrite)
+        return TaskContainer.to_object_path(
+            self.implementation.install_network_with_task(onboot_ifaces, overwrite)
+        )
 
     def CreateDeviceConfigurations(self):
         """Create and populate the state of network devices configuration."""
@@ -184,7 +187,9 @@ class NetworkInterface(KickstartModuleInterface):
 
         :returns: DBus path of the task consolidating the connections
         """
-        return self.implementation.consolidate_initramfs_connections_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.consolidate_initramfs_connections_with_task()
+        )
 
     def ApplyKickstartWithTask(self) -> ObjPath:
         """Apply kickstart configuration which has not already been applied.
@@ -194,7 +199,9 @@ class NetworkInterface(KickstartModuleInterface):
 
         :returns: DBus path of the task applying the kickstart
         """
-        return self.implementation.apply_kickstart_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.apply_kickstart_with_task()
+        )
 
     def SetRealOnbootValuesFromKickstartWithTask(self) -> ObjPath:
         """Update ifcfg ONBOOT values according to kickstart configuration.
@@ -208,7 +215,9 @@ class NetworkInterface(KickstartModuleInterface):
 
         :returns: DBus path of the task setting the values
         """
-        return self.implementation.set_real_onboot_values_from_kickstart_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.set_real_onboot_values_from_kickstart_with_task()
+        )
 
     def DumpMissingIfcfgFilesWithTask(self) -> ObjPath:
         """Dump missing default ifcfg file for wired devices.
@@ -229,7 +238,9 @@ class NetworkInterface(KickstartModuleInterface):
 
         :returns: DBus path of the task dumping the files
         """
-        return self.implementation.dump_missing_ifcfg_files_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.dump_missing_ifcfg_files_with_task()
+        )
 
     def NetworkDeviceConfigurationChanged(self):
         """Inform module that network device configuration might have changed.

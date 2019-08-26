@@ -21,6 +21,7 @@ from pyanaconda.dbus.interface import dbus_interface, dbus_class
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import BAZ
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.task import TaskInterface
 
 
@@ -30,7 +31,9 @@ class BazInterface(KickstartModuleInterface):
 
     def CalculateWithTask(self) -> ObjPath:
         """Get a result with a task."""
-        return self.implementation.calculate_with_task()
+        return TaskContainer.to_object_path(
+            self.implementation.calculate_with_task()
+        )
 
 
 @dbus_class

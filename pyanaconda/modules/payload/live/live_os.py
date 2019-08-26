@@ -125,29 +125,22 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
     def setup_installation_source_with_task(self):
         """Setup installation source device."""
-        task = SetupInstallationSourceTask(self.image_path, INSTALL_TREE)
-
-        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+        return SetupInstallationSourceTask(self.image_path, INSTALL_TREE)
 
     def teardown_installation_source_with_task(self):
         """Teardown installation source device."""
-        task = TeardownInstallationSourceTask(INSTALL_TREE)
-
-        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+        return TeardownInstallationSourceTask(INSTALL_TREE)
 
     def pre_install_with_task(self):
         """Prepare intallation task."""
-        task = PrepareSystemForInstallationTask(conf.target.system_root)
-
-        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
+        return PrepareSystemForInstallationTask(conf.target.system_root)
 
     def install_with_task(self):
         """Install the payload."""
-        task = InstallFromImageTask(
+        return InstallFromImageTask(
             conf.target.system_root,
             self.kernel_version_list
         )
-        return self.publish_task(LIVE_OS_HANDLER.namespace, task)
 
     def post_install_with_tasks(self):
         """Perform post installation tasks.
@@ -155,16 +148,13 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         :returns: list of paths.
         :rtype: List
         """
-        tasks = [
+        return [
             UpdateBLSConfigurationTask(
                 conf.target.system_root,
                 self.kernel_version_list
             ),
             CopyDriverDisksFilesTask(conf.target.system_root)
         ]
-
-        paths = [self.publish_task(LIVE_OS_HANDLER.namespace, task) for task in tasks]
-        return paths
 
     def update_kernel_version_list(self):
         """Update list of kernel versions.

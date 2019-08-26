@@ -49,12 +49,8 @@ class InteractivePartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Complete the scheduled partitioning."""
-        task = InteractivePartitioningTask(self.storage)
-        path = self.publish_task(INTERACTIVE_PARTITIONING.namespace, task)
-        return path
+        return InteractivePartitioningTask(self.storage)
 
     def validate_with_task(self):
         """Validate the scheduled partitions."""
-        task = StorageValidateTask(self.storage)
-        path = self.publish_task(INTERACTIVE_PARTITIONING.namespace, task)
-        return path
+        return StorageValidateTask(self.storage)

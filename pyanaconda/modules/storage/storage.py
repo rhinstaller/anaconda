@@ -23,6 +23,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.checker import StorageCheckerModule
@@ -145,6 +146,8 @@ class StorageModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        TaskContainer.set_namespace(STORAGE.namespace)
+
         for kickstart_module in self._modules:
             kickstart_module.publish()
 
@@ -208,7 +211,7 @@ class StorageModule(KickstartModule):
         We will reset a copy of the current storage model
         and switch the models if the reset is successful.
 
-        :return: a DBus path to a task
+        :return: a task
         """
         # Copy the storage.
         storage = self.storage.copy()
@@ -222,10 +225,7 @@ class StorageModule(KickstartModule):
         # Create the task.
         task = StorageResetTask(storage)
         task.succeeded_signal.connect(lambda: self.set_storage(storage))
-
-        # Publish the task.
-        path = self.publish_task(STORAGE.namespace, task)
-        return path
+        return task
 
     def create_partitioning(self, method: PartitioningMethod):
         """Create a new partitioning.
@@ -299,36 +299,24 @@ class StorageModule(KickstartModule):
 
         FIXME: This is a simplified version of the storage installation.
 
-        :returns: list of object paths of installation tasks
+        :returns: list of installation tasks
         """
         storage = self.storage
 
-        tasks = [
+        return [
             ActivateFilesystemsTask(storage),
             MountFilesystemsTask(storage),
             WriteConfigurationTask(storage)
         ]
 
-        paths = [
-            self.publish_task(STORAGE.namespace, task) for task in tasks
-        ]
-
-        return paths
-
     def teardown_with_tasks(self):
         """Returns teardown tasks for this module.
 
-        :return: a list of DBus paths of the installation tasks
+        :return: a list installation tasks
         """
         storage = self.storage
 
-        tasks = [
+        return [
             UnmountFilesystemsTask(storage),
             TeardownDiskImagesTask(storage)
         ]
-
-        paths = [
-            self.publish_task(STORAGE.namespace, task) for task in tasks
-        ]
-
-        return paths

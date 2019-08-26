@@ -17,8 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pyanaconda.dbus.container import DBusContainer
-from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE
+from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, ANACONDA_NAMESPACE
 
+TaskContainer = DBusContainer(
+    namespace=ANACONDA_NAMESPACE,
+    basename="Task"
+)
 
 DeviceTreeContainer = DBusContainer(
     namespace=STORAGE_NAMESPACE,
