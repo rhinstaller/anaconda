@@ -30,6 +30,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import lowerASCII
+from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
@@ -335,6 +336,18 @@ def validate_mount_point(path, mount_points):
         return _("That mount point is invalid. Try something else?")
 
     return None
+
+
+def get_raid_level_by_name(name):
+    """Get the RAID level object for the given name.
+
+    :param name: a name of the RAID level
+    :return: an instance of RAIDLevel
+    """
+    if not name:
+        return None
+
+    return raid.get_raid_level(name)
 
 
 def validate_raid_level(raid_level, num_members):
@@ -669,6 +682,39 @@ def collect_device_types(device, disks):
     return sorted(filter(devicefactory.is_supported_device_type, supported_types))
 
 
+def get_device_factory_arguments(storage, request: DeviceFactoryRequest):
+    """Get the device factory arguments for the given request.
+
+    :param storage: an instance of Blivet
+    :param request: a device factory request
+    :return: a dictionary of device factory arguments
+    """
+    args = {
+        "device_type": request.device_type,
+        "device": storage.devicetree.get_device_by_name(request.device_spec),
+        "disks": [storage.devicetree.get_device_by_name(d) for d in request.disks],
+        "mountpoint": request.mount_point or None,
+        "fstype": request.format_type or None,
+        "label": request.label or None,
+        "luks_version": request.luks_version or None,
+        "device_name": request.device_name or None,
+        "size": Size(request.device_size) or None,
+        "raid_level": get_raid_level_by_name(request.device_raid_level),
+        "encrypted": request.device_encrypted,
+        "container_name": request.container_name or None,
+        "container_size": get_container_size_policy_by_number(request.container_size_policy),
+        "container_raid_level": get_raid_level_by_name(request.container_raid_level),
+        "container_encrypted": request.container_encrypted,
+    }
+
+    log.debug(
+        "Generated factory arguments: {\n%s\n}",
+        ",\n".join("{} = {}".format(name, repr(value)) for name, value in args.items())
+    )
+
+    return args
+
+
 def generate_device_info(storage, device):
     """Generate a device info for the given device.
 
@@ -963,6 +1009,27 @@ def get_container(storage, device_type, device=None):
     )
 
     return factory.get_container(device=device)
+
+
+def get_container_size_policy(container):
+    """Get a container size policy."""
+    size = getattr(container, "size_policy", container.size)
+
+    if size is None:
+        return devicefactory.SIZE_POLICY_AUTO
+
+    if size > 0:
+        return Size(size).get_bytes()
+
+    return size
+
+
+def get_container_size_policy_by_number(number):
+    """Get a container size policy by the given number."""
+    if number <= 0:
+        return number
+
+    return Size(number)
 
 
 def collect_containers(storage, device_type):
