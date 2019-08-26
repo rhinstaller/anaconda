@@ -135,7 +135,7 @@ def size_from_input(input_str, units=None):
 def device_type_from_autopart(autopart_type):
     """Get device type matching the given autopart type."""
 
-    return AUTOPART_DEVICE_TYPES.get(autopart_type, None)
+    return AUTOPART_DEVICE_TYPES.get(autopart_type, DEVICE_TYPE_LVM)
 
 
 def bound_size(size, device, old_size):

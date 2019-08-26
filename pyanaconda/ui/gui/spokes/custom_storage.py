@@ -49,7 +49,8 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTI
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
     StorageConfigurationError
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest, \
+    DeviceFactoryRequest
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
@@ -266,6 +267,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             storage=self._storage_playground,
             selection=self._disk_select_module.SelectedDisks
         )
+
+    def _get_selected_disk_names(self):
+        return [d.name for d in self._get_selected_disks()]
 
     def _get_unused_devices(self):
         return collect_unused_devices(self._storage_playground)
@@ -1455,22 +1459,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._back_already_clicked = False
 
         # Gather data about the added mount point.
-        dev_info = dict()
-        dev_info["mountpoint"] = dialog.mount_point
+        request = DeviceFactoryRequest()
+        request.mount_point = dialog.mount_point
 
         if dialog.size is None or dialog.size < Size("1 MB"):
-            dev_info["size"] = None
+            request.device_size = 0
         else:
-            dev_info["size"] = dialog.size
+            request.device_size = dialog.size.get_bytes()
 
-        dev_info["device_type"] = device_type_from_autopart(self._partitioning_scheme)
-        dev_info["disks"] = self._get_selected_disks()
+        request.device_type = device_type_from_autopart(self._partitioning_scheme)
+        request.disks = self._get_selected_disk_names()
 
         # Clear errors and try to add the mountpoint/device.
         self.clear_errors()
 
         try:
-            add_device(self._storage_playground, dev_info)
+            add_device(self._storage_playground, request)
         except StorageError as e:
             self.set_detailed_error(_("Failed to add new device."), e)
             self._do_refresh()

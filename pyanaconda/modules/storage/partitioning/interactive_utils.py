@@ -631,6 +631,12 @@ def get_device_raid_level(device):
     return None
 
 
+def get_device_raid_level_name(device):
+    """Get the RAID level name of the given device."""
+    raid_level = get_device_raid_level(device)
+    return raid_level.name if raid_level else ""
+
+
 def collect_file_system_types(device):
     """Collect supported file system types for the given device.
 
@@ -764,21 +770,21 @@ def generate_device_info(storage, device):
     return dev_info
 
 
-def add_device(storage, dev_info):
+def add_device(storage, request: DeviceFactoryRequest):
     """Add a device to the storage model.
 
     :param storage: an instance of Blivet
-    :param dev_info: a device info
+    :param request: a device factory request
     :raise: StorageError if the device cannot be created
     """
-    log.debug("Add device: %s", dev_info)
+    log.debug("Add device: %s", request)
 
     # Complete the device info.
-    _update_device_info(storage, dev_info)
+    _complete_device_factory_request(storage, request)
 
     try:
         # Trying to use a new container.
-        _add_device(storage, dev_info, use_existing_container=False)
+        _add_device(storage, request, use_existing_container=False)
         return
     except StorageError as e:
         # Keep the first error.
@@ -786,7 +792,7 @@ def add_device(storage, dev_info):
 
     try:
         # Trying to use an existing container.
-        _add_device(storage, dev_info, use_existing_container=True)
+        _add_device(storage, request, use_existing_container=True)
         return
     except StorageError:
         # Ignore the second error.
@@ -795,55 +801,54 @@ def add_device(storage, dev_info):
     raise error
 
 
-def _update_device_info(storage, dev_info):
-    """Update the device info.
+def _complete_device_factory_request(storage, request: DeviceFactoryRequest):
+    """Complete the device factory request.
 
     :param storage: an instance of Blivet
-    :param dev_info: a device info
+    :param request: a device factory request
     """
     # Set the defaults.
-    dev_info.setdefault("mountpoint", None)
-    dev_info.setdefault("device_type", devicefactory.DEVICE_TYPE_LVM)
-    dev_info.setdefault("encrypted", False)
-    dev_info.setdefault("luks_version", storage.default_luks_version)
+    if not request.luks_version:
+        request.luks_version = storage.default_luks_version
 
     # Set the file system type for the given mount point.
-    dev_info.setdefault("fstype", storage.get_fstype(dev_info["mountpoint"]))
+    if not request.format_type:
+        request.format_type = storage.get_fstype(request.mount_point)
 
     # Fix the mount point.
-    if lowerASCII(dev_info["mountpoint"]) in ("swap", "biosboot", "prepboot"):
-        dev_info["mountpoint"] = None
+    if lowerASCII(request.mount_point) in ("swap", "biosboot", "prepboot"):
+        request.mount_point = ""
 
     # We should create a partition in some cases.
     # These devices should never be encrypted.
-    if ((dev_info["mountpoint"] and dev_info["mountpoint"].startswith("/boot")) or
-            dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES):
-        dev_info["device_type"] = devicefactory.DEVICE_TYPE_PARTITION
-        dev_info["encrypted"] = False
+    if (request.mount_point.startswith("/boot") or
+            request.format_type in PARTITION_ONLY_FORMAT_TYPES):
+        request.device_type = devicefactory.DEVICE_TYPE_PARTITION
+        request.device_encrypted = False
 
     # We shouldn't create swap on a thinly provisioned volume.
-    if (dev_info["fstype"] == "swap" and
-            dev_info["device_type"] == devicefactory.DEVICE_TYPE_LVM_THINP):
-        dev_info["device_type"] = devicefactory.DEVICE_TYPE_LVM
+    if (request.format_type == "swap" and
+            request.device_type == devicefactory.DEVICE_TYPE_LVM_THINP):
+        request.device_type = devicefactory.DEVICE_TYPE_LVM
 
     # Encryption of thinly provisioned volumes isn't supported.
-    if dev_info["device_type"] == devicefactory.DEVICE_TYPE_LVM_THINP:
-        dev_info["encrypted"] = False
+    if request.device_type == devicefactory.DEVICE_TYPE_LVM_THINP:
+        request.device_encrypted = False
 
 
-def _add_device(storage, dev_info, use_existing_container=False):
+def _add_device(storage, request: DeviceFactoryRequest, use_existing_container=False):
     """Add a device to the storage model.
 
     :param storage: an instance of Blivet
-    :param dev_info: a device info
+    :param request: a device factory request
     :param use_existing_container: should we use an existing container?
     :raise: StorageError if the device cannot be created
     """
     # Create the device factory.
     factory = devicefactory.get_device_factory(
         storage,
-        device_type=dev_info["device_type"],
-        size=dev_info["size"],
+        device_type=request.device_type,
+        size=Size(request.device_size) if request.device_size else None
     )
 
     # Find a container.
@@ -857,21 +862,23 @@ def _add_device(storage, dev_info, use_existing_container=False):
     # Update the device info.
     if container:
         # Don't override user-initiated changes to a defined container.
-        dev_info["disks"] = container.disks
-        dev_info.update({
-            "container_encrypted": container.encrypted,
-            "container_raid_level": get_device_raid_level(container),
-            "container_size": getattr(container, "size_policy", container.size)})
+        request.disks = [d.name for d in container.disks]
+        request.container_encrypted = container.encrypted
+        request.container_raid_level = get_device_raid_level_name(container)
+        request.container_size_policy = get_container_size_policy(container)
 
         # The existing container has a name.
         if use_existing_container:
-            dev_info["container_name"] = container.name
+            request.container_name = container.name
 
         # The container is already encrypted
         if container.encrypted:
-            dev_info["encrypted"] = False
+            request.device_encrypted = False
 
     # Create the device.
+    dev_info = get_device_factory_arguments(storage, request)
+    log.debug("Creating device: %s", dev_info)
+
     try:
         storage.factory_device(**dev_info)
     except StorageError as e:
