@@ -127,12 +127,14 @@ class StartModulesTask(Task):
         """Callback for the StartServiceByName method."""
         self._callbacks.put(lambda: self._start_service_by_name_handler(*args, **kwargs))
 
-    def _start_service_by_name_handler(self, observer, returned, error):
+    def _start_service_by_name_handler(self, call, observer):
         """Handler for the StartServiceByName method."""
-        if error:
+        try:
+            returned = call()
+        except Exception as error:  # pylint: disable=broad-except
             raise UnavailableModuleError(
                 "Service {} has failed to start: {}".format(observer, error)
-            )
+            ) from error
 
         if returned != DBUS_START_REPLY_SUCCESS:
             log.warning("Service %s is already running.", observer)
