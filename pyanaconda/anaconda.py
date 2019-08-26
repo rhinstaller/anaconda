@@ -28,6 +28,7 @@ from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import constants
 from pyanaconda.dbus.launcher import AnacondaDBusLauncher
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
+from pyanaconda.payload.flatpak import FlatpakPayload
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -83,8 +84,12 @@ class Anaconda(object):
         # class.  If it doesn't give us one, fall back to the default.
         if not self._payload:
             if self.ksdata.ostreesetup.seen:
-                from pyanaconda.payload.rpmostreepayload import RPMOSTreePayload
-                klass = RPMOSTreePayload
+                if FlatpakPayload.is_available():
+                    from pyanaconda.payload.rpmostreepayload import RPMOSTreePayloadWithFlatpaks
+                    klass = RPMOSTreePayloadWithFlatpaks
+                else:
+                    from pyanaconda.payload.rpmostreepayload import RPMOSTreePayload
+                    klass = RPMOSTreePayload
             elif self.opts.liveinst:
                 from pyanaconda.payload.livepayload import LiveImagePayload
                 klass = LiveImagePayload

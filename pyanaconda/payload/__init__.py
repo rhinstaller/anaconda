@@ -111,12 +111,6 @@ class Payload(metaclass=ABCMeta):
         """Reset the instance, not including ksdata."""
         pass
 
-    def prepare_mount_targets(self):
-        """Run when physical storage is mounted, but other mount points may
-        not exist.  Used by the RPMOSTreePayload subclass.
-        """
-        pass
-
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
