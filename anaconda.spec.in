@@ -344,6 +344,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 27 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.43-1
+- Set the flag lvm_metadata_backup (#1673901) (vponcova)
+  Related: rhbz#1715344
+  Resolves: rhbz#1673901
+
 * Thu Aug 15 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.42-1
 - Require blivet with flags.protect_cdrom support (rvykydal)
   Resolves: rhbz#1715344
