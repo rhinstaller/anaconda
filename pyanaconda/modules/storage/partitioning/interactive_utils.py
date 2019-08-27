@@ -721,33 +721,33 @@ def get_device_factory_arguments(storage, request: DeviceFactoryRequest):
     return args
 
 
-def generate_device_info(storage, device):
+def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     """Generate a device info for the given device.
 
     :param storage: an instance of Blivet
     :param device: a device
-    :return: a device info
+    :return: a device factory request
     """
     device_type = devicefactory.get_device_type(device)
 
-    dev_info = dict()
-    dev_info["device"] = device
-    dev_info["name"] = getattr(device.raw_device, "lvname", device.raw_device.name)
-    dev_info["size"] = device.size
-    dev_info["device_type"] = device_type
-    dev_info["fstype"] = device.format.type
-    dev_info["encrypted"] = isinstance(device, LUKSDevice)
-    dev_info["luks_version"] = get_device_luks_version(device)
-    dev_info["label"] = getattr(device.format, "label", "")
-    dev_info["mountpoint"] = getattr(device.format, "mountpoint", None) or None
-    dev_info["raid_level"] = get_device_raid_level(device)
+    request = DeviceFactoryRequest()
+    request.device_spec = device.name
+    request.device_name = getattr(device.raw_device, "lvname", device.raw_device.name)
+    request.device_size = device.size.get_bytes()
+    request.device_type = device_type
+    request.format_type = device.format.type or ""
+    request.device_encrypted = isinstance(device, LUKSDevice)
+    request.luks_version = get_device_luks_version(device) or ""
+    request.label = getattr(device.format, "label", "") or ""
+    request.mount_point = getattr(device.format, "mountpoint", "") or ""
+    request.device_raid_level = get_device_raid_level_name(device)
 
     if hasattr(device, "req_disks") and not device.exists:
         disks = device.req_disks
     else:
         disks = device.disks
 
-    dev_info["disks"] = disks
+    request.disks = [d.name for d in disks]
 
     factory = devicefactory.get_device_factory(
         storage,
@@ -757,17 +757,12 @@ def generate_device_info(storage, device):
     container = factory.get_container()
 
     if container:
-        dev_info["container_name"] = container.name
-        dev_info["container_encrypted"] = container.encrypted
-        dev_info["container_raid_level"] = get_device_raid_level(container)
-        dev_info["container_size"] = getattr(container, "size_policy", container.size)
-    else:
-        dev_info["container_name"] = None
-        dev_info["container_encrypted"] = False
-        dev_info["container_raid_level"] = None
-        dev_info["container_size"] = devicefactory.SIZE_POLICY_AUTO
+        request.container_name = container.name
+        request.container_encrypted = container.encrypted
+        request.container_raid_level = get_device_raid_level_name(container)
+        request.container_size_policy = get_container_size_policy(container)
 
-    return dev_info
+    return request
 
 
 def add_device(storage, request: DeviceFactoryRequest):
