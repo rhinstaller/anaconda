@@ -368,35 +368,36 @@ def validate_raid_level(raid_level, num_members):
     return None
 
 
-def validate_device_info(storage, dev_info, reformat):
+def validate_device_factory_request(storage, request: DeviceFactoryRequest, reformat):
     """Validate the given device info.
 
     :param storage: an instance of Blivet
-    :param dev_info: a device info to validate
+    :param request: a device factory request to validate
     :param reformat: is reformatting enabled?
     :return: an error message
     """
-    device = dev_info["device"]
-    disks = dev_info["disks"]
-    device_type = dev_info["device_type"]
-    fs_type = dev_info["fstype"]
-    encrypted = dev_info["encrypted"]
-    raid_level = dev_info["raid_level"]
-    mount_point = dev_info["mountpoint"]
+    device = storage.devicetree.resolve_device(request.device_spec)
+    device_type = request.device_type
+    fs_type = request.format_type
+    encrypted = request.device_encrypted
+    raid_level = get_raid_level_by_name(request.device_raid_level)
+    mount_point = request.mount_point
+    label = request.label
+    num_disk = len(request.disks)
 
-    changed_label = dev_info["label"] != getattr(device.format, "label", "")
-    changed_fstype = dev_info["fstype"] != device.format.type
+    changed_label = label != getattr(device.format, "label", "")
+    changed_fstype = fs_type != device.format.type
 
     if changed_label or changed_fstype:
         error = validate_label(
-            dev_info["label"],
+            label,
             get_format(fs_type)
         )
         if error:
             return error
 
     is_format_mountable = get_format(fs_type).mountable
-    changed_mount_point = dev_info["mountpoint"] != getattr(device.format, "mountpoint", None)
+    changed_mount_point = mount_point != getattr(device.format, "mountpoint", "")
 
     if reformat and is_format_mountable and not mount_point:
         return _("Please enter a mount point.")
@@ -440,7 +441,7 @@ def validate_device_info(storage, dev_info, reformat):
     if raid_level is not None:
         error = validate_raid_level(
             raid_level,
-            len(disks)
+            num_disk
         )
         if error:
             return error
@@ -688,11 +689,12 @@ def collect_device_types(device, disks):
     return sorted(filter(devicefactory.is_supported_device_type, supported_types))
 
 
-def get_device_factory_arguments(storage, request: DeviceFactoryRequest):
+def get_device_factory_arguments(storage, request: DeviceFactoryRequest, subset=None):
     """Get the device factory arguments for the given request.
 
     :param storage: an instance of Blivet
     :param request: a device factory request
+    :param subset: a subset of argument names to return or None
     :return: a dictionary of device factory arguments
     """
     args = {
@@ -712,6 +714,9 @@ def get_device_factory_arguments(storage, request: DeviceFactoryRequest):
         "container_raid_level": get_raid_level_by_name(request.container_raid_level),
         "container_encrypted": request.container_encrypted,
     }
+
+    if subset:
+        args = {name: value for name, value in args.items() if name in subset}
 
     log.debug(
         "Generated factory arguments: {\n%s\n}",

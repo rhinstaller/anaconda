@@ -42,6 +42,7 @@ from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.dbus.structure import generate_dictionary_from_data, compare_data
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     SIZE_UNITS_DEFAULT, DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.i18n import _, N_, CP_, C_
@@ -59,7 +60,8 @@ from pyanaconda.modules.storage.partitioning.interactive_utils import collect_un
     get_device_luks_version, collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
     collect_containers, validate_label, suggest_device_name, get_new_root_name, \
-    generate_device_info, validate_device_info, get_supported_raid_levels
+    generate_device_factory_request, validate_device_factory_request, get_supported_raid_levels, \
+    get_device_factory_arguments
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -83,7 +85,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_en
     get_default_container_raid_level, AddDialog, ConfirmDeleteDialog, \
     DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
     NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
-    ui_storage_logger, ui_storage_logged
+    ui_storage_logger, ui_storage_logged, get_selected_raid_level_name
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
@@ -528,10 +530,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         for selector in page.members:
             update_selector_from_device(selector, selector.device)
 
-    def _replace_device(self, **kwargs):
+    def _replace_device(self, selector, request):
         """ Create a replacement device and update the device selector. """
-        selector = kwargs.pop("selector", None)
-        new_device = self._storage_playground.factory_device(**kwargs)
+        arguments = get_device_factory_arguments(self._storage_playground, request)
+        new_device = self._storage_playground.factory_device(**arguments)
 
         if selector:
             # update the selector with the new device and its size
@@ -561,13 +563,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._update_selectors()
         self._update_space_display()
 
-    def _try_replace_device(self, selector, removed_device, new_device_info,
-                            old_device_info):
+    def _try_replace_device(self, selector, removed_device, new_request, old_request):
         if removed_device:
             # we don't want to pass the device if we removed it
-            new_device_info["device"] = None
+            new_request.device_spec = ""
         try:
-            self._replace_device(selector=selector, **new_device_info)
+            self._replace_device(selector, new_request)
             return True
         except StorageError as e:
             log.error("factory_device failed: %s", e)
@@ -581,17 +582,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 # nothing more to do
                 return True
             else:
-                # we have removed the old device so we now have to re-create it
-                # the disks need to be updated since we've replaced all
-                # of the devices with copies in the devicefactory error
-                # handler
-                old_disk_names = (d.name for d in old_device_info["disks"])
-                old_device_info["disks"] = [
-                    self._storage_playground.devicetree.get_device_by_name(n)
-                    for n in old_disk_names
-                ]
                 try:
-                    self._replace_device(selector=selector, **old_device_info)
+                    self._replace_device(selector, old_request)
                     return True
                 except StorageError as e:
                     # failed to recover.
@@ -618,13 +610,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         return new_device, old_device
 
     @ui_storage_logged
-    def _do_reformat(self, selector, old_device_info, new_device_info):
+    def _do_reformat(self, selector, old_request, new_request):
         device = selector.device
-        mountpoint = new_device_info["mountpoint"]
-        label = new_device_info["label"]
-        encrypted = new_device_info["encrypted"]
-        luks_version = new_device_info["luks_version"]
-        fs_type = new_device_info["fstype"]
+        mountpoint = new_request.mount_point
+        label = new_request.label
+        encrypted = new_request.device_encrypted
+        luks_version = new_request.luks_version
+        fs_type = new_request.format_type
 
         self.clear_errors()
         #
@@ -632,11 +624,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         #
         old_device = None
 
-        if old_device_info["encrypted"] != new_device_info["encrypted"]:
+        if old_request.device_encrypted != new_request.device_encrypted:
             device, old_device = self._handle_encryption_change(
                 encrypted, luks_version, device, old_device, selector
             )
-        elif encrypted and old_device_info["luks_version"] != new_device_info["luks_version"]:
+        elif encrypted and old_request.luks_version != new_request.luks_version:
 
             device, old_device = self._handle_encryption_change(
                 False, luks_version, device, old_device, selector
@@ -713,15 +705,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # dictionaries for many, many pieces of information about the device and
         # requested changes, minimum required entropy for LUKS creation is
         # always the same
-        old_device_info = generate_device_info(self._storage_playground, device)
-        new_device_info = self._get_new_device_info(device, old_device_info)
+        old_request = generate_device_factory_request(self._storage_playground, device)
+        new_request = self._get_new_device_factory_request(device, old_request)
 
         # Log the results.
-        description = self._get_new_device_info_description(new_device_info, old_device_info)
+        description = self._get_new_request_description(new_request, old_request)
         log.debug("Device request: %s", description)
 
         # Validate the device info.
-        error = validate_device_info(self._storage_playground, new_device_info, reformat)
+        error = validate_device_factory_request(self._storage_playground, new_request, reformat)
         log.debug("validate device info: %s", error)
 
         if error:
@@ -734,200 +726,198 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.clear_errors()
 
         if not device.raw_device.exists:
-            self._change_device(selector, new_device_info, old_device_info)
+            self._change_device(selector, new_request, old_request)
         else:
             self._revert_device_reformat(selector, reformat)
-            self._change_device_size(selector, old_device_info, new_device_info)
-            self._change_device_format(selector, old_device_info, new_device_info, reformat)
-            self._change_device_name(selector, old_device_info, new_device_info)
+            self._change_device_size(selector, old_request, new_request)
+            self._change_device_format(selector, old_request, new_request, reformat)
+            self._change_device_name(selector, old_request, new_request)
 
         # Update UI.
         self._populate_right_side(selector)
         log.debug("leaving save_right_side")
 
-    def _get_new_device_info(self, device, old_device_info):
+    def _get_new_device_factory_request(self, device, old_request):
         log.info("ui: saving changes to device %s", device.name)
 
-        new_device_info = dict()
-        new_device_info["device"] = device
+        new_request = DeviceFactoryRequest()
+        new_request.device_spec = device.name
 
-        self._get_new_device_name(new_device_info, old_device_info)
-        self._get_new_device_size(new_device_info, old_device_info)
-        self._get_new_device_type(new_device_info, old_device_info)
-        self._get_new_device_fstype(new_device_info, old_device_info)
-        self._get_new_device_enctyption(new_device_info, old_device_info)
-        self._get_new_device_luks_version(new_device_info, old_device_info)
-        self._get_new_device_label(new_device_info, old_device_info)
-        self._get_new_device_mount_point(new_device_info, old_device_info)
-        self._get_new_device_raid_level(new_device_info, old_device_info)
-        self._get_new_device_for_btrfs(new_device_info, old_device_info)
-        self._get_new_device_disks(new_device_info, old_device_info)
-        self._get_new_device_container(new_device_info, old_device_info)
+        self._get_new_device_name(new_request, old_request)
+        self._get_new_device_size(new_request, old_request)
+        self._get_new_device_type(new_request, old_request)
+        self._get_new_device_fstype(new_request, old_request)
+        self._get_new_device_enctyption(new_request, old_request)
+        self._get_new_device_luks_version(new_request, old_request)
+        self._get_new_device_label(new_request, old_request)
+        self._get_new_device_mount_point(new_request, old_request)
+        self._get_new_device_raid_level(new_request, old_request)
+        self._get_new_device_for_btrfs(new_request, old_request)
+        self._get_new_device_disks(new_request, old_request)
+        self._get_new_device_container(new_request, old_request)
 
-        return new_device_info
+        return new_request
 
-    def _get_new_device_name(self, new_device_info, old_device_info):
+    def _get_new_device_name(self, new_request, old_request):
         if self._nameEntry.get_sensitive():
-            new_device_info["name"] = self._nameEntry.get_text()
+            new_request.device_name = self._nameEntry.get_text()
         else:
             # name entry insensitive means we don't control the name
-            new_device_info["name"] = None
-            old_device_info["name"] = None
+            new_request.device_name = ""
+            old_request.device_name = ""
 
-    def _get_new_device_size(self, new_device_info, old_device_info):
+    def _get_new_device_size(self, new_request, old_request):
         # If the size text hasn't changed at all from that displayed,
         # assume no change intended.
-        device = new_device_info["device"]
+        device = self._storage_playground.devicetree.resolve_device(new_request.device_spec)
         use_dev = device.raw_device
-        displayed_size = old_device_info["size"].human_readable(max_places=self.MAX_SIZE_PLACES)
 
-        if displayed_size == self._sizeEntry.get_text():
-            new_device_info["size"] = old_device_info["size"]
-        else:
-            new_device_info["size"] = get_size_from_entry(
+        size = Size(old_request.device_size)
+        displayed_size = size.human_readable(max_places=self.MAX_SIZE_PLACES)
+
+        if (displayed_size != self._sizeEntry.get_text()) \
+                and (use_dev.resizable or not use_dev.exists):
+            size = get_size_from_entry(
                 self._sizeEntry,
                 lower_bound=self.MIN_SIZE_ENTRY,
                 units=SIZE_UNITS_DEFAULT
             )
 
-        if not (use_dev.resizable or not use_dev.exists):
-            new_device_info["size"] = old_device_info["size"]
+        if size:
+            new_request.device_size = size.get_bytes()
 
-    def _get_new_device_type(self, new_device_info, old_device_info):
-        new_device_info["device_type"] = self._get_current_device_type()
+    def _get_new_device_type(self, new_request, old_request):
+        new_request.device_type = self._get_current_device_type()
 
-    def _get_new_device_fstype(self, new_device_info, old_device_info):
+    def _get_new_device_fstype(self, new_request, old_request):
         fs_type_index = self._fsCombo.get_active()
         fs_type_str = self._fsCombo.get_model()[fs_type_index][0]
         new_fs = get_format(fs_type_str)
-        new_device_info["fstype"] = new_fs.type
+        new_request.format_type = new_fs.type
 
-    def _get_new_device_enctyption(self, new_device_info, old_device_info):
-        new_device_info["encrypted"] = (self._encryptCheckbox.get_active()
+    def _get_new_device_enctyption(self, new_request, old_request):
+        new_request.device_encrypted = (self._encryptCheckbox.get_active()
                                         and self._encryptCheckbox.is_sensitive())
 
-    def _get_new_device_luks_version(self, new_device_info, old_device_info):
+    def _get_new_device_luks_version(self, new_request, old_request):
         luks_version_index = self._luksCombo.get_active()
         luks_version_str = self._luksCombo.get_model()[luks_version_index][0]
-        new_device_info["luks_version"] = luks_version_str if new_device_info["encrypted"] else None
 
-    def _get_new_device_label(self, new_device_info, old_device_info):
-        new_device_info["label"] = self._labelEntry.get_text()
+        if new_request.device_encrypted:
+            new_request.luks_version = luks_version_str
 
-    def _get_new_device_mount_point(self, new_device_info, old_device_info):
+    def _get_new_device_label(self, new_request, old_request):
+        new_request.label = self._labelEntry.get_text()
+
+    def _get_new_device_mount_point(self, new_request, old_request):
         if self._mountPointEntry.get_sensitive():
-            new_device_info["mountpoint"] = self._mountPointEntry.get_text() or None
-        else:
-            new_device_info["mountpoint"] = None
+            new_request.mount_point = self._mountPointEntry.get_text()
 
-    def _get_new_device_raid_level(self, new_device_info, old_device_info):
-        new_device_info["raid_level"] = get_selected_raid_level(self._raidLevelCombo)
+    def _get_new_device_raid_level(self, new_request, old_request):
+        new_request.device_raid_level = get_selected_raid_level_name(self._raidLevelCombo)
 
-    def _get_new_device_for_btrfs(self,  new_device_info, old_device_info):
+    def _get_new_device_for_btrfs(self,  new_request, old_request):
         # FIXME: Move this code to the new methods.
-        device = new_device_info["device"]
+        device = self._storage_playground.devicetree.resolve_device(new_request.device_spec)
         use_dev = device.raw_device
 
         # If the device is a btrfs volume, the only things we can set/update
         # are mountpoint and container-wide settings.
-        if new_device_info["device_type"] == DEVICE_TYPE_BTRFS and hasattr(use_dev, "subvolumes"):
-            new_device_info["size"] = Size(0)
-            old_device_info["size"] = Size(0)
+        if new_request.device_type == DEVICE_TYPE_BTRFS and hasattr(use_dev, "subvolumes"):
+            new_request.device_size = 0
+            old_request.device_size = 0
 
-            new_device_info["encrypted"] = False
-            old_device_info["encrypted"] = False
+            new_request.device_encrypted = False
+            old_request.device_encrypted = False
 
-            new_device_info["raid_level"] = None
-            old_device_info["raid_level"] = None
+            new_request.device_raid_level = ""
+            old_request.device_raid_level = ""
 
-    def _get_new_device_disks(self, new_device_info, old_device_info):
-        new_device_info["disks"] = self._device_disks[:]
+    def _get_new_device_disks(self, new_request, old_request):
+        new_request.disks = [d.name for d in self._device_disks]
 
-    def _get_new_device_container(self, new_device_info, old_device_info):
-        device = new_device_info["device"]
-
+    def _get_new_device_container(self, new_request, old_request):
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
+            names = ("device_type", "size", "disks", "encrypted", "luks_version", "raid_level")
+            arguments = get_device_factory_arguments(self._storage_playground, new_request, names)
+
             factory = devicefactory.get_device_factory(
                 self._storage_playground,
-                device_type=new_device_info["device_type"],
-                size=new_device_info["size"],
-                disks=device.disks,
-                encrypted=new_device_info["encrypted"],
-                luks_version=new_device_info["luks_version"],
-                raid_level=new_device_info["raid_level"],
+                **arguments
             )
 
         # Name
-        new_device_info["container_name"] = self._device_container_name
+        if self._device_container_name:
+            new_request.container_name = self._device_container_name
 
         # Encryption
-        new_device_info["container_encrypted"] = self._device_container_encrypted
+        if self._device_container_encrypted:
+            new_request.container_encrypted = True
 
         # Raid level
-        new_device_info["container_raid_level"] = self._device_container_raid_level
-        supported_raid_levels = get_supported_container_raid_levels(new_device_info["device_type"])
-        default_raid_level = get_default_container_raid_level(new_device_info["device_type"])
+        raid_level = self._device_container_raid_level
+        supported_raid_levels = get_supported_container_raid_levels(new_request.device_type)
+        default_raid_level = get_default_container_raid_level(new_request.device_type)
 
-        if new_device_info["container_raid_level"] not in supported_raid_levels:
-            new_device_info["container_raid_level"] = default_raid_level
+        if raid_level not in supported_raid_levels:
+            raid_level = default_raid_level
+
+        if raid_level:
+            new_request.container_raid_level = raid_level.name
 
         # Size
-        new_device_info["container_size"] = self._device_container_size
+        if not self._device_container_size:
+            new_request.container_size_policy = 0
+        elif self._device_container_size < 0:
+            new_request.container_size_policy = self._device_container_size
+        elif self._device_container_size > 0:
+            new_request.container_size_policy = self._device_container_size.get_bytes()
 
         # Disks
         container = factory.get_container()
 
-        if container and old_device_info["device_type"] != new_device_info["device_type"]:
+        if container and old_request.device_type != new_request.device_type:
             log.debug("overriding disk set with container's")
-            new_device_info["disks"] = container.disks[:]
+            new_request.disks = [d.name for d in container.disks]
 
-    def _get_new_device_info_description(self, new_device_info, old_device_info):
-        # FIXME: Remove this method once we replace dictionaries with structures.
+    def _get_new_request_description(self, new_request, old_request):
+        new_device_info = generate_dictionary_from_data(new_request)
+        old_device_info = generate_dictionary_from_data(old_request)
         attributes = []
 
         if new_device_info.keys() != old_device_info.keys():
             raise KeyError
 
         for key in new_device_info.keys():
-            if key == "device":
-                def prettify(device):
-                    return device.name
-            elif key == "disks":
-                def prettify(disks):
-                    return [disk.name for disk in disks]
-            else:
-                def prettify(value):
-                    return "''" if str(value) == "" else value
-
             if new_device_info[key] == old_device_info[key]:
                 attribute = "{} = {}".format(
-                    key, prettify(new_device_info[key])
+                    key, repr(new_device_info[key])
                 )
             else:
                 attribute = "{} = {} -> {}".format(
-                    key, prettify(old_device_info[key]), prettify(new_device_info[key])
+                    key, repr(old_device_info[key]), repr(new_device_info[key])
                 )
 
             attributes.append(attribute)
 
         return "\n".join(["{"] + attributes + ["}"])
 
-    def _change_device(self, selector, new_device_info, old_device_info):
+    def _change_device(self, selector, new_request, old_request):
         # If something has changed but the device does not exist,
         # there is no need to schedule actions on the device.
         # It is only necessary to create a new device object
         # which reflects the current choices.
         device = selector.device
 
-        if new_device_info == old_device_info:
+        if compare_data(new_request, old_request):
             log.debug("nothing changed for new device")
             return
 
         removed_device = (
-            (old_device_info["device_type"] != new_device_info["device_type"]) or
-            (old_device_info["container_name"] and
-             new_device_info["container_name"] != old_device_info["container_name"])
+            (old_request.device_type != new_request.device_type) or
+            (old_request.container_name and
+             new_request.container_name != old_request.container_name)
         )
 
         if removed_device:
@@ -940,7 +930,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         with ui_storage_logger():
             success = self._try_replace_device(
-                selector, removed_device, new_device_info, old_device_info
+                selector, removed_device, new_request, old_request
             )
 
         if not success:
@@ -958,16 +948,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not reformat:
             revert_reformat(self._storage_playground, device)
 
-    def _change_device_size(self, selector, old_device_info, new_device_info):
+    def _change_device_size(self, selector, old_request, new_request):
         device = selector.device
 
-        if new_device_info["size"] != old_device_info["size"]:
+        if new_request.device_size != old_request.device_size:
             try:
                 changed_size = resize_device(
                     self._storage_playground,
                     device,
-                    new_device_info["size"],
-                    old_device_info["size"]
+                    Size(new_request.device_size),
+                    Size(old_request.device_size)
                 )
             except StorageError as e:
                 self.set_detailed_warning(_("Device resize request failed."), e)
@@ -985,14 +975,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 # update size props of all btrfs devices' selectors
                 self._update_size_props()
 
-    def _change_device_format(self, selector, old_device_info, new_device_info, reformat):
+    def _change_device_format(self, selector, old_request, new_request, reformat):
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
         # encryption got toggled
         device = selector.device
-        changed_encryption = (old_device_info["encrypted"] != new_device_info["encrypted"])
-        changed_luks_version = (old_device_info["luks_version"] != new_device_info["luks_version"])
-        changed_fs_type = (old_device_info["fstype"] != new_device_info["fstype"])
+        changed_encryption = (old_request.device_encrypted != new_request.device_encrypted)
+        changed_luks_version = (old_request.luks_version != new_request.luks_version)
+        changed_fs_type = (old_request.format_type != new_request.format_type)
 
         do_reformat = (reformat and (changed_encryption or
                                      changed_luks_version or
@@ -1001,43 +991,43 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Handle reformat
         if do_reformat:
-            self._do_reformat(selector, old_device_info, new_device_info)
+            self._do_reformat(selector, old_request, new_request)
         else:
             # Set various attributes that do not require actions.
-            self._change_device_label(selector, old_device_info, new_device_info)
-            self._change_device_mount_point(selector, old_device_info, new_device_info)
+            self._change_device_label(selector, old_request, new_request)
+            self._change_device_mount_point(selector, old_request, new_request)
 
-    def _change_device_label(self, selector, old_device_info, new_device_info):
+    def _change_device_label(self, selector, old_request, new_request):
         device = selector.device
-        label = new_device_info["label"]
+        label = new_request.label
 
-        if old_device_info["label"] != label and hasattr(device.format, "label") and \
+        if old_request.label != label and hasattr(device.format, "label") and \
                 not validate_label(label, device.format):
             self.clear_errors()
             log.debug("updating label on %s to %s", device.name, label)
             device.format.label = label
 
-    def _change_device_mount_point(self, selector, old_device_info, new_device_info):
+    def _change_device_mount_point(self, selector, old_request, new_request):
         device = selector.device
-        mountpoint = new_device_info["mountpoint"]
+        mountpoint = new_request.mount_point
 
-        if mountpoint and old_device_info["mountpoint"] != mountpoint:
+        if mountpoint and old_request.mount_point != mountpoint:
             self.clear_errors()
             log.debug("updating mountpoint of %s to %s", device.name, mountpoint)
             device.format.mountpoint = mountpoint
-            if old_device_info["mountpoint"]:
+            if old_request.mount_point:
                 update_selector_from_device(selector, device)
             else:
                 # add an entry to the new page but do not remove any entries
                 # from other pages since we haven't altered the filesystem
                 self.add_new_selector(device)
 
-    def _change_device_name(self, selector, old_device_info, new_device_info):
+    def _change_device_name(self, selector, old_request, new_request):
         device = selector.device
         use_dev = device.raw_device
-        name = new_device_info["name"]
-        old_name = old_device_info["name"]
-        changed_name = new_device_info["name"] != old_device_info["name"]
+        name = new_request.device_name
+        old_name = old_request.device_name
+        changed_name = new_request.device_name != old_request.device_name
 
         if changed_name:
             self.clear_errors()
