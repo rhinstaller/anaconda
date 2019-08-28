@@ -199,6 +199,10 @@ class InstallTreeMetadata(object):
 
         return None
 
+    def get_treeinfo_for(self, variant_name):
+        """Return the productmd.Variant object for variant_name."""
+        return self._tree_info.variants[variant_name]
+
     def _read_variants(self):
         for variant_name in self._tree_info.variants:
             variant_object = self._tree_info.variants[variant_name]

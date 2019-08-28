@@ -1301,10 +1301,14 @@ class DNFPayload(payload.PackagePayload):
                 baseurl = self.get_addon_repo(ksrepo).baseurl
                 existing_urls.append(baseurl)
 
+            enabled_repositories_from_treeinfo = conf.payload.enabled_repositories_from_treeinfo
+
             for repo_md in self._install_tree_metadata.get_metadata_repos():
                 if repo_md.path not in existing_urls:
+                    repo_treeinfo = self._install_tree_metadata.get_treeinfo_for(repo_md.name)
+                    repo_enabled = repo_treeinfo.type in enabled_repositories_from_treeinfo
                     repo = RepoData(name=repo_md.name, baseurl=repo_md.path,
-                                    install=False, enabled=True)
+                                    install=False, enabled=repo_enabled)
                     repo.treeinfo_origin = True
                     self.add_repo(repo)
 
