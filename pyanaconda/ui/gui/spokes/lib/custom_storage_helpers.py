@@ -636,7 +636,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         # Set a default RAID level in the combo.
         for (i, row) in enumerate(self._raidLevelCombo.get_model()):
-            log.debug("container dialog: raid level %s", row[1])
             if row[1] == raid_level_name:
                 self._raidLevelCombo.set_active(i)
                 break

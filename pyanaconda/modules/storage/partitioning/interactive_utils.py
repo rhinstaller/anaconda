@@ -494,6 +494,8 @@ def resize_device(storage, device, new_size, old_size):
     :return: True if the device changed its size, otherwise False
     :raise: StorageError if we fail to schedule the device resize
     """
+    log.debug("Resizing device %s to %s.", device, new_size)
+
     # If a LUKS device is being displayed, adjust the size
     # to the appropriate size for the raw device.
     use_size = new_size
@@ -513,12 +515,12 @@ def resize_device(storage, device, new_size, old_size):
 
     if use_size == device.size or use_size == device.raw_device.size:
         # The size hasn't changed.
-        log.debug("canceled resize of device %s to %s", device.raw_device.name, use_size)
+        log.debug("Canceled resize of device %s to %s.", device.raw_device.name, use_size)
         return False
 
     if new_size == device.current_size or use_size == device.current_size:
         # The size has been set back to its original value.
-        log.debug("removing resize of device %s", device.raw_device.name)
+        log.debug("Removing resize of device %s.", device.raw_device.name)
 
         actions = storage.devicetree.actions.find(
             action_type="resize",
@@ -531,17 +533,20 @@ def resize_device(storage, device, new_size, old_size):
         return bool(actions)
     else:
         # the size has changed
-        log.debug("scheduling resize of device %s to %s", device.raw_device.name, use_size)
+        log.debug("Scheduling resize of device %s to %s.", device.raw_device.name, use_size)
 
         try:
             storage.resize_device(device.raw_device, use_size)
         except (StorageError, ValueError) as e:
-            log.error("failed to schedule device resize: %s", e)
+            log.error("Failed to schedule device resize: %s", e)
             device.raw_device.size = use_old_size
             raise StorageError(str(e)) from None
 
-        log.debug("new size: %s", device.raw_device.size)
-        log.debug("target size: %s", device.raw_device.target_size)
+        log.debug(
+            "Device %s has size: %s (target %s)",
+            device.raw_device.name,
+            device.raw_device.size, device.raw_device.target_size
+        )
         return True
 
 
@@ -555,11 +560,11 @@ def change_encryption(storage, device, encrypted, luks_version):
     :return: a LUKS device or a device slave
     """
     if not encrypted:
-        log.info("removing encryption from %s", device.name)
+        log.info("Removing encryption from %s.", device.name)
         storage.destroy_device(device)
         return device.slave
     else:
-        log.info("applying encryption to %s", device.name)
+        log.info("Applying encryption to %s.", device.name)
         new_fmt = get_format("luks", device=device.path, luks_version=luks_version)
         storage.format_device(device, new_fmt)
         luks_dev = LUKSDevice("luks-" + device.name, parents=[device])
@@ -577,7 +582,7 @@ def reformat_device(storage, device, fstype, mountpoint, label):
     :param label: a label
     :raise: StorageError if we fail to format the device
     """
-    log.info("scheduling reformat of %s as %s", device.name, fstype)
+    log.info("Scheduling reformat of %s as %s.", device.name, fstype)
 
     old_format = device.format
     new_format = get_format(
@@ -590,7 +595,7 @@ def reformat_device(storage, device, fstype, mountpoint, label):
     try:
         storage.format_device(device, new_format)
     except (StorageError, ValueError) as e:
-        log.error("failed to register device format action: %s", e)
+        log.error("Failed to register device format action: %s", e)
         device.format = old_format
         raise StorageError(str(e)) from None
 
@@ -877,7 +882,6 @@ def _add_device(storage, request: DeviceFactoryRequest, use_existing_container=F
 
     # Create the device.
     dev_info = get_device_factory_arguments(storage, request)
-    log.debug("Creating device: %s", dev_info)
 
     try:
         storage.factory_device(**dev_info)
@@ -895,6 +899,8 @@ def destroy_device(storage, device):
     :param storage: an instance of Blivet
     :param device: an instance of a device
     """
+    log.debug("Destroy device: %s", device.name)
+
     # Remove the device.
     if device.is_disk and device.partitioned and not device.format.supported:
         storage.recursive_remove(device)
@@ -965,6 +971,8 @@ def rename_container(storage, container, name):
     :param container: an instance of a container
     :param name: a new name of the container
     """
+    log.debug("Rename container %s to %s.", container.name, name)
+
     # Remove the names of the container and its child
     # devices from the list of already-used names.
     for device in [container] + container.children:
