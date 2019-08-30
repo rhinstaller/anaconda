@@ -35,6 +35,9 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_ldl' member"),
                               ]
 
+        # This will solve problems with C python extensions
+        self.loadAllExtensions = True
+
     @property
     def extraArgs(self):
         return ["--init-import", "y"]
