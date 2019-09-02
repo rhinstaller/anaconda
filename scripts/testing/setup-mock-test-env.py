@@ -256,7 +256,8 @@ def install_required_packages(mock_command, release=False):
 
 def install_required_pip_packages(mock_command):
     packages = get_required_pip_packages()
-    install_pip_packages_to_mock(mock_command, packages)
+    if packages:
+        install_pip_packages_to_mock(mock_command, packages)
 
 
 def create_dir_in_mock(mock_command, path):
