@@ -1246,9 +1246,9 @@ class DNFPayload(payload.PackagePayload):
 
             # fetch md for enabled repos
             enabled_repos = self.enabled_repos
-            for repo in self.addons:
-                if repo in enabled_repos:
-                    self._fetch_md(repo)
+            for repo_name in self.addons:
+                if repo_name in enabled_repos:
+                    self._fetch_md(repo_name)
 
     def _get_base_repo_location(self, install_tree_url):
         """Try to find base repository from the treeinfo file.
