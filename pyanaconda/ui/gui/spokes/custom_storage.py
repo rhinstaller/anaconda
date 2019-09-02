@@ -1088,8 +1088,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         """
         # Add the values.
         self._luksStore.clear()
-        for luks_version in crypto.LUKS_VERSIONS:
-            self._luksStore.append([luks_version])
+        for version in crypto.LUKS_VERSIONS:
+            self._luksStore.append([version])
 
         # Get the selected value.
         luks_version = luks_version or self.storage.default_luks_version
