@@ -33,6 +33,9 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'name_from_node' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'generate_backup_passphrase' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_ldl' member"),
+
+                                # TODO: Remove this when pylint start to support python 3.8 correctly
+                                FalsePositive(r"E1121.*: CheckValidity.checkGlade: Too many positional arguments for constructor call"),
                               ]
 
         # This will solve problems with C python extensions
