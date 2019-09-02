@@ -20,12 +20,13 @@
 
 import unittest
 from pyanaconda.dbus.interface import XMLGenerator
+from tests.nosetests.pyanaconda_tests import compare_xml
 
 
 class XMLGeneratorTestCase(unittest.TestCase):
 
     def _compare(self, element, xml):
-        self.assertEqual(XMLGenerator.element_to_xml(element), xml)
+        compare_xml(self, XMLGenerator.element_to_xml(element), xml)
 
     def node_test(self):
         """Test the node element."""
