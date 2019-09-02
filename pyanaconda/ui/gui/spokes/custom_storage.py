@@ -36,7 +36,7 @@ from gi.repository.AnacondaWidgets import MountpointSelector
 from blivet import devicefactory
 from blivet.devicefactory import DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, SIZE_POLICY_AUTO
 from blivet.devicelibs import raid, crypto
-from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
+from blivet.devices import MDRaidArrayDevice, LVMVolumeGroupDevice
 from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.size import Size
@@ -57,11 +57,11 @@ from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
 from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
-    get_device_luks_version, collect_file_system_types, collect_device_types, \
+    collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
     collect_containers, validate_label, suggest_device_name, get_new_root_name, \
     generate_device_factory_request, validate_device_factory_request, get_supported_raid_levels, \
-    get_device_factory_arguments
+    get_device_factory_arguments, get_raid_level_by_name, get_container_size_policy_by_number
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -1119,39 +1119,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         return device_type
 
-    def _update_container_info(self, use_dev):
-        if hasattr(use_dev, "vg"):
-            self._device_container_name = use_dev.vg.name
-            self._device_container_raid_level = get_device_raid_level(use_dev.vg)
-            self._device_container_encrypted = use_dev.vg.encrypted
-            self._device_container_size = use_dev.vg.size_policy
-        elif hasattr(use_dev, "volume") or hasattr(use_dev, "subvolumes"):
-            volume = getattr(use_dev, "volume", use_dev)
-            self._device_container_name = volume.name
-            self._device_container_raid_level = get_device_raid_level(volume)
-            self._device_container_encrypted = volume.encrypted
-            self._device_container_size = volume.size_policy
-        else:
-            self._device_container_name = None
-            self._device_container_raid_level = None
-            self._device_container_encrypted = False
-            self._device_container_size = SIZE_POLICY_AUTO
-
-        self._device_container_raid_level = \
-            self._device_container_raid_level or \
-            get_default_container_raid_level(devicefactory.get_device_type(use_dev))
-
-    def _setup_fstype_combo(self, device):
-        """ Setup the filesystem combo box.
-
-            :param device: blivet.devices.Device instance
-        """
-        default = device.format.name
-        types = collect_file_system_types(device)
+    def _setup_fstype_combo(self, device_type, device_format_type, format_types):
+        """Setup the filesystem combo box."""
+        default = get_format(device_format_type).name
 
         # Add all desired fileystem type names to the box, sorted alphabetically
         self._fsStore.clear()
-        for ty in types:
+        for ty in format_types:
             self._fsStore.append([ty])
 
         # set the active filesystem type
@@ -1159,24 +1133,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._fsCombo.set_active(idx)
 
         # do additional updating handled by other method
-        self._update_fstype_combo(devicefactory.get_device_type(device))
+        self._update_fstype_combo(device_type)
 
-    def _setup_device_type_combo(self, device):
+    def _setup_device_type_combo(self, device_type, device_types):
         """Set up device type combo."""
-        device_type = devicefactory.get_device_type(device)
-
-        # Collect the supported device types.
-        types = collect_device_types(device, self._get_selected_disks())
-
         # For existing unsupported device add the information in the UI.
-        if device_type not in types:
+        if device_type not in device_types:
             log.debug("Existing device with unsupported type %s found.", device_type)
             device_type = DEVICE_TYPE_UNSUPPORTED
-            types.append(device_type)
+            device_types.append(device_type)
 
         # Add values.
         self._typeStore.clear()
-        for dt in types:
+        for dt in device_types:
             self._typeStore.append([_(DEVICE_TEXT_MAP[dt]), dt])
 
         # Set the selected value.
@@ -1209,17 +1178,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._deviceDescLabel.set_text(devices_desc)
 
     def _populate_right_side(self, selector):
-        log.debug("Populating the right side for device: %s", selector.device.name)
-
         device = selector.device
         use_dev = device.raw_device
 
-        if hasattr(use_dev, "req_disks") and not use_dev.exists:
-            self._device_disks = use_dev.req_disks[:]
-        else:
-            self._device_disks = device.disks[:]
+        request = generate_device_factory_request(self._storage_playground, device)
+        description = self._get_new_request_description(request, request)
+        log.debug("Populating the right side for device %s: %s", device.name, description)
 
-        self._update_container_info(use_dev)
+        self._device_disks = [
+            self._storage_playground.devicetree.resolve_device(d) for d in request.disks
+        ]
+
+        self._device_container_name = request.container_name or None
+        self._device_container_raid_level = get_raid_level_by_name(request.container_raid_level)
+        self._device_container_encrypted = request.container_encrypted
+        self._device_container_size = get_container_size_policy_by_number(request.container_size_policy)
+
+        self._device_container_raid_level = \
+            self._device_container_raid_level or \
+            get_default_container_raid_level(request.device_type)
 
         self._selectedDeviceLabel.set_text(selector.props.name)
         desc = _(MOUNTPOINT_DESCRIPTIONS.get(selector.props.name, ""))
@@ -1227,33 +1204,27 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._set_devices_label()
 
-        self._device_name = getattr(use_dev, "lvname", use_dev.name)
+        self._device_name = request.device_name
         self._device_suggested_name = suggest_device_name(self._storage_playground, device)
         self._nameEntry.set_text(self._device_name)
 
-        self._mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
+        self._mountPointEntry.set_text(request.mount_point)
         fancy_set_sensitive(self._mountPointEntry, device.format.mountable)
 
-        if hasattr(device.format, "label"):
-            if device.format.label is None:
-                device.format.label = ""
-            self._labelEntry.set_text(device.format.label)
-        else:
-            self._labelEntry.set_text("")
+        self._labelEntry.set_text(request.label)
         fancy_set_sensitive(self._labelEntry, True)
 
-        self._sizeEntry.set_text(device.size.human_readable(max_places=self.MAX_SIZE_PLACES))
+        self._sizeEntry.set_text(
+            Size(request.device_size).human_readable(max_places=self.MAX_SIZE_PLACES))
 
         self._reformatCheckbox.set_active(not device.format.exists)
         fancy_set_sensitive(self._reformatCheckbox,
                             use_dev.exists and not use_dev.format_immutable)
 
-        self._encryptCheckbox.set_active(isinstance(device, LUKSDevice))
+        self._encryptCheckbox.set_active(request.device_encrypted)
         fancy_set_sensitive(self._encryptCheckbox, self._reformatCheckbox.get_active())
 
-        ancestors = use_dev.ancestors
-        ancestors.remove(use_dev)
-        if any(a.format.type == "luks" for a in ancestors):
+        if request.container_encrypted:
             # The encryption checkbutton should not be sensitive if there is
             # existing encryption below the leaf layer.
             fancy_set_sensitive(self._encryptCheckbox, False)
@@ -1262,11 +1233,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         else:
             self._encryptCheckbox.set_tooltip_text("")
 
+        # Collect the supported file system types.
+        format_types = collect_file_system_types(device)
+
         # Set up the filesystem type combo.
-        self._setup_fstype_combo(device)
+        self._setup_fstype_combo(request.device_type, request.format_type, format_types)
+
+        # Collect the supported device types.
+        device_types = collect_device_types(device, self._get_selected_disks())
 
         # Set up the device type combo.
-        self._setup_device_type_combo(device)
+        self._setup_device_type_combo(request.device_type, device_types)
 
         # Get the current device type.
         device_type = self._get_current_device_type()
@@ -1312,9 +1289,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 "This file system may not be resized."
             ))
 
-        self._populate_raid(get_device_raid_level(device))
+        self._populate_raid(get_raid_level_by_name(request.device_raid_level))
         self._populate_container(use_dev)
-        self._populate_luks(get_device_luks_version(device))
+        self._populate_luks(request.luks_version)
 
         # do this last to override the decision made by on_device_type_changed if necessary
         if use_dev.exists or use_dev.type == "btrfs volume":
