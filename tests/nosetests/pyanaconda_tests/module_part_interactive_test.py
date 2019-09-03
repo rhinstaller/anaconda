@@ -18,17 +18,29 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
+
+from blivet import devicefactory
+from blivet.devicelibs import raid
+from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LVMVolumeGroupDevice, \
+    LVMLogicalVolumeDevice
+from blivet.formats import get_format
+from blivet.size import Size
 
 from pyanaconda.core.constants import PARTITIONING_METHOD_INTERACTIVE
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.containers import DeviceTreeContainer
+from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
+from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
+from pyanaconda.modules.storage.partitioning import interactive_utils as utils
 from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
 from pyanaconda.modules.storage.partitioning.interactive_interface import \
     InteractivePartitioningInterface
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from pyanaconda.storage.initialization import create_storage
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
@@ -94,3 +106,180 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
+
+
+class InteractiveUtilsTestCase(unittest.TestCase):
+    """Test utilities for the interactive partitioning."""
+
+    def setUp(self):
+        self.maxDiff = None
+        self.storage = create_storage()
+
+    def _add_device(self, device):
+        """Add a device to the device tree."""
+        self.storage.devicetree._add_device(device)
+
+    @patch("blivet.devices.dm.blockdev")
+    def generate_device_factory_request_test(self, blockdev):
+        device = StorageDevice("dev1")
+        with self.assertRaises(UnsupportedDeviceError):
+            utils.generate_device_factory_request(self.storage, device)
+
+        disk = DiskDevice("dev2")
+
+        request = utils.generate_device_factory_request(self.storage, disk)
+        self.assertEqual(DeviceFactoryRequest.to_structure(request), {
+            "device-spec": get_variant(Str, "dev2"),
+            "disks": get_variant(List[Str], ["dev2"]),
+            "mount-point": get_variant(Str, ""),
+            "format-type": get_variant(Str, ""),
+            "label": get_variant(Str, ""),
+            "luks-version": get_variant(Str, ""),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_DISK),
+            "device-name": get_variant(Str, "dev2"),
+            "device-size": get_variant(UInt64, 0),
+            "device-encrypted": get_variant(Bool, False),
+            "device-raid-level": get_variant(Str, ""),
+            "container-name": get_variant(Str, ""),
+            "container-size-policy": get_variant(Int64, devicefactory.SIZE_POLICY_AUTO),
+            "container-encrypted": get_variant(Bool, False),
+            "container-raid-level": get_variant(Str, ""),
+        })
+
+        partition = PartitionDevice(
+            "dev3",
+            size=Size("5 GiB"),
+            parents=[disk],
+            fmt=get_format("ext4", mountpoint="/", label="root")
+        )
+
+        request = utils.generate_device_factory_request(self.storage, partition)
+        self.assertEqual(DeviceFactoryRequest.to_structure(request), {
+            "device-spec": get_variant(Str, "dev3"),
+            "disks": get_variant(List[Str], ["dev2"]),
+            "mount-point": get_variant(Str, "/"),
+            "format-type": get_variant(Str, "ext4"),
+            "label": get_variant(Str, "root"),
+            "luks-version": get_variant(Str, ""),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_PARTITION),
+            "device-name": get_variant(Str, "dev3"),
+            "device-size": get_variant(UInt64, Size("5 GiB").get_bytes()),
+            "device-encrypted": get_variant(Bool, False),
+            "device-raid-level": get_variant(Str, ""),
+            "container-name": get_variant(Str, ""),
+            "container-size-policy": get_variant(Int64, devicefactory.SIZE_POLICY_AUTO),
+            "container-encrypted": get_variant(Bool, False),
+            "container-raid-level": get_variant(Str, ""),
+        })
+
+        pv1 = StorageDevice(
+            "pv1",
+            size=Size("1025 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        pv2 = StorageDevice(
+            "pv2",
+            size=Size("513 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        vg = LVMVolumeGroupDevice(
+            "testvg",
+            parents=[pv1, pv2]
+        )
+        lv = LVMLogicalVolumeDevice(
+            "testlv",
+            size=Size("512 MiB"),
+            parents=[vg],
+            fmt=get_format("xfs"),
+            exists=False,
+            seg_type="raid1",
+            pvs=[pv1, pv2]
+        )
+
+        request = utils.generate_device_factory_request(self.storage, lv)
+        self.assertEqual(DeviceFactoryRequest.to_structure(request), {
+            "device-spec": get_variant(Str, "testvg-testlv"),
+            "disks": get_variant(List[Str], []),
+            "mount-point": get_variant(Str, ""),
+            "format-type": get_variant(Str, "xfs"),
+            "label": get_variant(Str, ""),
+            "luks-version": get_variant(Str, ""),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_LVM),
+            "device-name": get_variant(Str, "testlv"),
+            "device-size": get_variant(UInt64, Size("508 MiB").get_bytes()),
+            "device-encrypted": get_variant(Bool, False),
+            "device-raid-level": get_variant(Str, ""),
+            "container-name": get_variant(Str, "testvg"),
+            "container-size-policy": get_variant(Int64, Size("1.5 GiB")),
+            "container-encrypted": get_variant(Bool, False),
+            "container-raid-level": get_variant(Str, ""),
+        })
+
+    def get_device_factory_arguments_test(self):
+        """Test get_device_factory_arguments."""
+        dev1 = StorageDevice("dev1")
+        self._add_device(dev1)
+
+        dev2 = StorageDevice("dev2")
+        self._add_device(dev2)
+
+        dev3 = StorageDevice("dev3")
+        self._add_device(dev3)
+
+        request = DeviceFactoryRequest()
+        request.device_spec = "dev3"
+        request.disks = ["dev1", "dev2"]
+        request.device_name = "dev3"
+        request.device_type = devicefactory.DEVICE_TYPE_LVM_THINP
+        request.device_size = Size("10 GiB").get_bytes()
+        request.mount_point = "/"
+        request.format_type = "xfs"
+        request.label = "root"
+        request.device_encrypted = True
+        request.luks_version = "luks1"
+        request.device_raid_level = "raid1"
+
+        self.assertEqual(utils.get_device_factory_arguments(self.storage, request), {
+            "device": dev3,
+            "disks": [dev1, dev2],
+            "device_type": devicefactory.DEVICE_TYPE_LVM_THINP,
+            "device_name": "dev3",
+            "size": Size("10 GiB"),
+            "mountpoint": "/",
+            "fstype": "xfs",
+            "label": "root",
+            "encrypted": True,
+            "luks_version": "luks1",
+            "raid_level": raid.RAID1,
+            "container_name": None,
+            "container_size": devicefactory.SIZE_POLICY_AUTO,
+            "container_raid_level": None,
+            "container_encrypted": False
+        })
+
+        request = DeviceFactoryRequest()
+        request.device_spec = "dev3"
+        request.disks = ["dev1", "dev2"]
+        request.device_name = "dev3"
+        request.container_name = "container1"
+        request.container_size_policy = Size("10 GiB").get_bytes()
+        request.container_encrypted = True
+        request.container_raid_level = "raid1"
+
+        self.assertEqual(utils.get_device_factory_arguments(self.storage, request), {
+            "device": dev3,
+            "disks": [dev1, dev2],
+            "device_type": devicefactory.DEVICE_TYPE_LVM,
+            "device_name": "dev3",
+            "size": None,
+            "mountpoint": None,
+            "fstype": None,
+            "label": None,
+            "encrypted": False,
+            "luks_version": None,
+            "raid_level": None,
+            "container_name": "container1",
+            "container_size": Size("10 GiB"),
+            "container_raid_level": raid.RAID1,
+            "container_encrypted": True
+        })
