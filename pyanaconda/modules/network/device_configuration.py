@@ -22,11 +22,10 @@ import copy
 
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
 from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device
-from pyanaconda.modules.network.nm_client import get_iface_from_connection
+from pyanaconda.modules.network.nm_client import get_iface_from_connection, \
+    get_vlan_interface_name_from_connection
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
-from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 
 import gi
 gi.require_version("NM", "1.0")
@@ -301,25 +300,6 @@ class DeviceConfigurations(object):
                      device_type=device.get_device_type())
         return True
 
-    def _get_vlan_interface_name_from_connection(self, connection):
-        """Get vlan interface name from vlan connection.
-
-        If no interface name is specified in the connection settings, infer
-        the value as <PARENT_IFACE>.<VLAN_ID> - same as NetworkManager.
-        """
-        iface = connection.get_setting_connection().get_interface_name()
-        if not iface:
-            setting_vlan = connection.get_setting_vlan()
-            if setting_vlan:
-                vlanid = setting_vlan.get_id()
-                parent = setting_vlan.get_parent()
-                # if parent is specified by UUID
-                if len(parent) == NM_CONNECTION_UUID_LENGTH:
-                    parent = get_iface_from_connection(self.nm_client, parent)
-                if vlanid is not None and parent:
-                    iface = default_ks_vlan_interface_name(parent, vlanid)
-        return iface
-
     def _should_add_connection(self, connection):
         """Should the connection be added ?
 
@@ -411,7 +391,7 @@ class DeviceConfigurations(object):
         # Handle also vlan connections without interface-name specified
         if device_type == NM.DeviceType.VLAN:
             if not iface:
-                iface = self._get_vlan_interface_name_from_connection(connection)
+                iface = get_vlan_interface_name_from_connection(self.nm_client, connection)
                 log.debug("add_connection: interface name for vlan connection %s inferred: %s",
                           uuid, iface)
 

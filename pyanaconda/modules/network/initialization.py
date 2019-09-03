@@ -21,31 +21,17 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.network_interface import NetworkInitializationTaskInterface
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, add_connection_from_ksdata, \
-    update_iface_setting_values, bound_hwaddr_of_device
+    bound_hwaddr_of_device, get_connections_available_for_iface, update_connection_values
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
-    update_onboot_value, update_slaves_onboot_value
+    get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types
-from pyanaconda.core.configuration.anaconda import conf
-from functools import wraps
+from pyanaconda.modules.network.utils import guard_by_system_configuration
 
 log = get_module_logger(__name__)
 
 import gi
 gi.require_version("NM", "1.0")
 from gi.repository import NM
-
-
-def guard_by_system_configuration(return_value):
-    def wrap(function):
-        @wraps(function)
-        def wrapped(*args, **kwargs):
-            if not conf.system.can_configure_network:
-                log.debug("Network configuration is disabled on this system.")
-                return return_value
-            else:
-                return function(*args, **kwargs)
-        return wrapped
-    return wrap
 
 
 class ApplyKickstartTask(Task):
@@ -122,19 +108,24 @@ class ApplyKickstartTask(Task):
             # If there is no kickstart ifcfg from initramfs the command was added
             # in %pre section after switch root, so apply it now
             applied_devices.append(device_name)
+
+            connection = None
             if ifcfg_file:
+                connection = self._nm_client.get_connection_by_uuid(ifcfg_file.uuid)
+            if not connection:
+                connection = self._find_initramfs_connection_of_iface(device_name)
+
+            if connection:
                 # if the device was already configured in initramfs update the settings
-                con_uuid = ifcfg_file.uuid
-                log.debug("%s: pre kickstart - updating settings %s of device %s",
-                          self.name, con_uuid, device_name)
-                connection = self._nm_client.get_connection_by_uuid(con_uuid)
+                log.debug("%s: pre kickstart - updating connection %s of device %s",
+                          self.name, connection.get_uuid(), device_name)
                 update_connection_from_ksdata(self._nm_client, connection, network_data,
                                               device_name=device_name)
                 if network_data.activate:
                     device = self._nm_client.get_device_by_iface(device_name)
                     self._nm_client.activate_connection_async(connection, device, None, None)
                     log.debug("%s: pre kickstart - activating connection %s with device %s",
-                              self.name, con_uuid, device_name)
+                              self.name, connection.get_uuid(), device_name)
             else:
                 log.debug("%s: pre kickstart - adding connection for %s", self.name, device_name)
                 add_connection_from_ksdata(self._nm_client, network_data, device_name,
@@ -142,6 +133,17 @@ class ApplyKickstartTask(Task):
                                            ifname_option_values=self._ifname_option_values)
 
         return applied_devices
+
+    def _find_initramfs_connection_of_iface(self, iface):
+        device = self._nm_client.get_device_by_iface(iface)
+        if device:
+            cons = device.get_available_connections()
+            for con in cons:
+                if (con.get_interface_name() == iface and
+                    con.get_id() == iface):
+                    return con
+        return None
+
 
 
 class ConsolidateInitramfsConnectionsTask(Task):
@@ -297,40 +299,46 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                 master = network_data.device
                 devices_to_update.append(master)
 
+            cons_to_update = []
             for devname in devices_to_update:
-                if network_data.onboot:
-                    # We need to handle "no" -> "yes" change by changing ifcfg file instead of the NM connection
-                    # so the device does not get autoactivated (BZ #1261864)
-                    uuid = find_ifcfg_uuid_of_device(self._nm_client, devname) or ""
-                    if not update_onboot_value(uuid, network_data.onboot, root_path=""):
-                        continue
+                cons = get_connections_available_for_iface(self._nm_client, devname)
+                n_cons = len(cons)
+                con = None
+                if n_cons == 1:
+                    cons_to_update.append((devname, cons[0]))
                 else:
-                    n_cons = update_iface_setting_values(self._nm_client, devname,
-                        [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)])
-                    if n_cons != 1:
-                        log.debug("%s: %d connections found for %s", self.name, n_cons, devname)
-                        if n_cons > 1:
-                            # In case of multiple connections for a device, update ifcfg directly
-                            uuid = find_ifcfg_uuid_of_device(self._nm_client, devname) or ""
-                            if not update_onboot_value(uuid, network_data.onboot, root_path=""):
-                                continue
-
-                updated_devices.append(devname)
+                    log.debug("%s: %d connections found for %s", self.name, n_cons, devname)
+                    if n_cons > 1:
+                        ifcfg_uuid = find_ifcfg_uuid_of_device(self._nm_client, devname) or ""
+                        con = self._nm_client.get_connection_by_uuid(ifcfg_uuid)
+                        if con:
+                            cons_to_update.append((devname, con))
 
             # Handle slaves if there are any
             if network_data.bondslaves or network_data.teamslaves or network_data.bridgeslaves:
                 # Master can be identified by devname or uuid, try to find master uuid
-                uuid = None
+                master_uuid = None
                 device = self._nm_client.get_device_by_iface(master)
                 if device:
                     cons = device.get_available_connections()
                     n_cons = len(cons)
                     if n_cons == 1:
-                        uuid = cons[0].get_uuid()
+                        master_uuid = cons[0].get_uuid()
                     else:
                         log.debug("%s: %d connections found for %s", self.name, n_cons, master)
-                updated_slaves = update_slaves_onboot_value(self._nm_client, master, network_data.onboot, uuid=uuid)
-                updated_devices.extend(updated_slaves)
+
+                for name, con_uuid in get_master_slaves_from_ifcfgs(self._nm_client, master, uuid=master_uuid):
+                    con = self._nm_client.get_connection_by_uuid(con_uuid)
+                    cons_to_update.append((name, con))
+
+            for devname, con in cons_to_update:
+                log.debug("updating ONBOOT values of connection %s for device %s",
+                          con.get_uuid(), devname)
+                update_connection_values(
+                    con,
+                    [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)]
+                )
+                updated_devices.append(devname)
 
         return updated_devices
 

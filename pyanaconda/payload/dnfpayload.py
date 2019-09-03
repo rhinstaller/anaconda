@@ -410,26 +410,26 @@ class DNFPayload(payload.PackagePayload):
 
         log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
 
-    def _fetch_md(self, repo):
+    def _fetch_md(self, repo_name):
         """Download repo metadata
 
-        :param repo: name/id of repo to fetch
-        :type repo: str
+        :param repo_name: name/id of repo to fetch
+        :type repo_name: str
         :returns: None
         """
-        ksrepo = self._base.repos[repo]
-        ksrepo.enable()
+        repo = self._base.repos[repo_name]
+        repo.enable()
         try:
             # Load the metadata to verify that the repo is valid
-            ksrepo.load()
+            repo.load()
         except dnf.exceptions.RepoError as e:
-            ksrepo.disable()
-            log.debug("repo: '%s' - %s failed to load repomd", ksrepo.name,
-                      ksrepo.baseurl or ksrepo.mirrorlist or ksrepo.metalink)
+            repo.disable()
+            log.debug("repo: '%s' - %s failed to load repomd", repo.id,
+                     repo.baseurl or repo.mirrorlist or repo.metalink)
             raise MetadataError(e)
 
-        log.info("enabled repo: '%s' - %s and got repomd", ksrepo.name,
-                 ksrepo.baseurl or ksrepo.mirrorlist or ksrepo.metalink)
+        log.info("enabled repo: '%s' - %s and got repomd", repo.id,
+                 repo.baseurl or repo.mirrorlist or repo.metalink)
 
     def add_repo(self, ksrepo):
         """Add an enabled repo to dnf and kickstart repo lists.

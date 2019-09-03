@@ -25,9 +25,11 @@ from gi.repository import GLib
 from textwrap import dedent
 from mock import Mock, patch
 from functools import wraps
+from xml.etree import ElementTree
 
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.modules.common.task import TaskInterface
+from pyanaconda.dbus.xml import XMLGenerator
 
 
 class run_in_glib(object):
@@ -60,6 +62,24 @@ class run_in_glib(object):
             return self._result
 
         return create_loop
+
+
+def compare_xml(test, first_xml, second_xml):
+    """Compare two XML-formatted strings.
+
+    Python 3.8 changed the order of the attributes and introduced
+    the function canonicalize that should be used for testing.
+    """
+    # Prettify the XML.
+    first_xml = XMLGenerator.prettify_xml(first_xml)
+    second_xml = XMLGenerator.prettify_xml(second_xml)
+
+    # Normalize the XML attributes.
+    canonicalize = getattr(ElementTree, "canonicalize", lambda xml, *args, **kwargs: xml)
+    first_xml = canonicalize(first_xml, with_comments=True)
+    second_xml = canonicalize(second_xml, with_comments=True)
+
+    test.assertEqual(first_xml, second_xml)
 
 
 def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True, ks_tmp=None):

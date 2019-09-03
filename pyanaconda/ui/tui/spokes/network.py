@@ -180,6 +180,9 @@ class WiredTUIConfigurationData():
                 else:
                     log.error("IP address %s is not valid", ns)
 
+        s_con = connection.get_setting_connection()
+        s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, self.onboot)
+
     def __str__(self):
         return "WiredTUIConfigurationData ip:{} netmask:{} gateway:{} ipv6:{} ipv6gateway:{} " \
             "nameserver:{} onboot:{}".format(self.ip, self.netmask, self.gateway, self.ipv6,
@@ -348,18 +351,33 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                     connection = get_default_connection(iface, device_type)
                     connection_uuid = connection.get_uuid()
                     log.debug("adding default connection %s for %s", connection_uuid, iface)
-                    persistent = False
                     data = (iface, connection_uuid)
-                    self.nm_client.add_connection_async(connection, persistent, None,
-                                                        self._default_connection_added_cb, data)
+                    self.nm_client.add_connection2(
+                        connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
+                        (NM.SettingsAddConnection2Flags.TO_DISK |
+                         NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
+                        None,
+                        False,
+                        None,
+                        self._default_connection_added_cb,
+                        data
+                    )
                 return
         log.error("device configuration for %s not found", iface)
 
     def _default_connection_added_cb(self, client, result, data):
-        client.add_connection_finish(result)
         iface, connection_uuid = data
-        log.debug("added default connection %s for %s", connection_uuid, iface)
-        self._configure_connection(iface, connection_uuid)
+        try:
+            _connection, result = client.add_connection2_finish(result)
+        except Exception as e:  # pylint: disable=broad-except
+            msg = "adding default connection {} from {} failed: {}".format(
+                connection_uuid, iface, str(e))
+            log.error(msg)
+            self.errors.append(msg)
+            self.redraw()
+        else:
+            log.debug("added default connection %s for %s: %s", connection_uuid, iface, result)
+            self._configure_connection(iface, connection_uuid)
 
     def _configure_connection(self, iface, connection_uuid):
         connection = self.nm_client.get_connection_by_uuid(connection_uuid)
@@ -433,18 +451,9 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
         self._data = WiredTUIConfigurationData()
         self._data.set_from_connection(self._connection)
-        # ONBOOT workaround - changing autoconnect connection value would
-        # activate the device
-        self._data.onboot = self._get_onboot(self._connection_uuid)
 
         log.debug("Configure iface %s: connection %s -> %s", self._iface, self._connection_uuid,
                   self._data)
-
-    def _get_onboot(self, connection_uuid):
-        return self._network_module.GetConnectionOnbootValue(connection_uuid)
-
-    def _set_onboot(self, connection_uuid, onboot):
-        return self._network_module.SetConnectionOnbootValue(connection_uuid, onboot)
 
     def refresh(self, args=None):
         """ Refresh window. """
@@ -571,26 +580,31 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         """Apply changes to NM connection."""
         log.debug("updating connection %s:\n%s", self._connection_uuid,
                   self._connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
-        self._data.update_connection(self._connection)
 
-        # ONBOOT workaround
-        s_con = self._connection.get_setting_connection()
-        s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, False)
+        updated_connection = NM.SimpleConnection.new_clone(self._connection)
+        self._data.update_connection(updated_connection)
 
-        self._connection.commit_changes(True, None)
-        log.debug("updated connection %s:\n%s", self._connection_uuid,
-                  self._connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
+        # Commit the changes
+        self._connection.update2(
+            updated_connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
+            NM.SettingsUpdate2Flags.TO_DISK | NM.SettingsUpdate2Flags.BLOCK_AUTOCONNECT,
+            None,
+            None,
+            self._connection_updated_cb,
+            self._connection_uuid
+        )
 
-        # ONBOOT workaround
-        self._set_onboot(self._connection_uuid, self._data.onboot)
+    def _connection_updated_cb(self, connection, result, connection_uuid):
+        connection.update2_finish(result)
+        log.debug("updated connection %s:\n%s", connection_uuid,
+                  connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
-
-def get_default_connection(iface, device_type, autoconnect=False):
+def get_default_connection(iface, device_type):
     """Get default connection to be edited by the UI."""
     connection = NM.SimpleConnection.new()
     s_con = NM.SettingConnection.new()
     s_con.props.uuid = NM.utils_uuid_generate()
-    s_con.props.autoconnect = autoconnect
+    s_con.props.autoconnect = True
     s_con.props.id = iface
     s_con.props.interface_name = iface
     if device_type == NM.DeviceType.ETHERNET:
