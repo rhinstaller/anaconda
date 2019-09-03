@@ -277,7 +277,7 @@ class AddDialog(GUIObject):
         else:
             self._error = validate_mount_point(self.mount_point, self.mount_points)
 
-        self._warningLabel.set_text(self._error)
+        self._warningLabel.set_text(self._error or "")
         self.window.show_all()
         if self._error:
             return
