@@ -813,33 +813,3 @@ def init_geolocation(geoloc_option, options_override):
     """Initialize the geolocation singleton."""
     global geoloc
     geoloc = Geolocation(geoloc_option=geoloc_option, options_override=options_override)
-
-
-if __name__ == "__main__":
-    print("GeoIP directly started")
-
-    print("trying the default backend")
-    location_info = LocationInfo()
-    location_info.refresh()
-    print("  provider used: %s" % location_info._provider)
-    print("  territory code: %s" % location_info.result.territory_code)
-
-    print("trying the Fedora GeoIP backend")
-    location_info = LocationInfo(provider_id=
-                                 constants.GEOLOC_PROVIDER_FEDORA_GEOIP)
-    location_info.refresh()
-    print("  provider used: %s" % location_info._provider)
-    print("  territory code: %s" % location_info.result.territory_code)
-
-    print("trying the Google WiFi location backend")
-    location_info = LocationInfo(provider_id=
-                                 constants.GEOLOC_PROVIDER_GOOGLE_WIFI)
-    location_info.refresh()
-    print("  provider used: %s" % location_info._provider)
-    print("  territory code: %s" % location_info.result.territory_code)
-
-    print("trying the Hostip backend")
-    location_info = LocationInfo(provider_id=constants.GEOLOC_PROVIDER_HOSTIP)
-    location_info.refresh()
-    print("  provider used: %s" % location_info._provider)
-    print("  territory code: %s" % location_info.result.territory_code)
