@@ -52,6 +52,16 @@ class PayloadSection(Section):
         return self._get_option("enable_updates", bool)
 
     @property
+    def enabled_repositories_from_treeinfo(self):
+        """List of .treeinfo variant types to enable
+
+        This flag controls which .treeinfo variant repos Anaconda
+        will automatically enable.  For a list of valid types see
+        .treeinfo documentation.
+        """
+        return self._get_option("enabled_repositories_from_treeinfo", str).split()
+
+    @property
     def enable_closest_mirror(self):
         """Enable installation from the closest mirror.
 
