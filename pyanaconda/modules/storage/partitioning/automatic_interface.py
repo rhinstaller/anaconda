@@ -75,3 +75,21 @@ class AutoPartitioningInterface(PartitioningInterface):
         :param passphrase: a string with a passphrase
         """
         self.implementation.set_passphrase(passphrase)
+
+    def RemoveDevice(self, device_name: Str):
+        """Remove a device after removing its dependent devices.
+
+        If the device is protected, do nothing. If the device has
+        protected children, just remove the unprotected ones.
+
+        :param device_name: a name of the device
+        """
+        self.implementation.remove_device(device_name)
+
+    def ShrinkDevice(self, device_name: Str, size: UInt64):
+        """Shrink the size of the device.
+
+        :param device_name: a name of the device
+        :param size: a new size in bytes
+        """
+        self.implementation.shrink_device(device_name, size)

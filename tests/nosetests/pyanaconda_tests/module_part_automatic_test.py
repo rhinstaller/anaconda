@@ -20,6 +20,9 @@
 import unittest
 from unittest.mock import Mock, patch
 
+from blivet.devices import StorageDevice
+from blivet.formats import get_format
+from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.size import Size
 
 from pyanaconda.core.configuration.storage import PartitioningType
@@ -27,12 +30,11 @@ from pyanaconda.storage.partspec import PartSpec
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation
 
-from blivet.formats.luks import LUKS2PBKDFArgs
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError, ProtectedDeviceError
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
@@ -133,6 +135,86 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
         self.assertNotEqual(self.module.storage, storage)
         self.assertIsNotNone(self.module._storage_playground)
+
+    def remove_device_test(self):
+        """Test RemoveDevice."""
+        self.module.on_storage_reset(create_storage())
+
+        dev1 = StorageDevice(
+            "dev1",
+            exists=False,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        )
+        dev2 = StorageDevice(
+            "dev2",
+            exists=False,
+            parents=[dev1],
+            size=Size("6 GiB"),
+            fmt=get_format("ext4")
+        )
+        dev3 = StorageDevice(
+            "dev3",
+            exists=False,
+            parents=[dev1],
+            size=Size("9 GiB"),
+            fmt=get_format("ext4")
+        )
+
+        self.module.storage.devicetree._add_device(dev1)
+        self.module.storage.devicetree._add_device(dev2)
+        self.module.storage.devicetree._add_device(dev3)
+
+        dev1.protected = True
+        with self.assertRaises(ProtectedDeviceError):
+            self.interface.RemoveDevice("dev1")
+
+        self.assertIn(dev1, self.module.storage.devices)
+        self.assertIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+
+        dev1.protected = False
+        dev2.protected = True
+        self.interface.RemoveDevice("dev1")
+
+        self.assertIn(dev1, self.module.storage.devices)
+        self.assertIn(dev2, self.module.storage.devices)
+        self.assertNotIn(dev3, self.module.storage.devices)
+
+        dev2.protected = False
+        self.interface.RemoveDevice("dev1")
+
+        self.assertNotIn(dev1, self.module.storage.devices)
+        self.assertNotIn(dev2, self.module.storage.devices)
+        self.assertNotIn(dev3, self.module.storage.devices)
+
+    def shrink_device_test(self):
+        """Test ShrinkDevice."""
+        self.module.on_storage_reset(create_storage())
+
+        sda1 = StorageDevice(
+            "sda1",
+            exists=False,
+            size=Size("10 GiB"),
+            fmt=get_format("ext4")
+        )
+        self.module.storage.devicetree._add_device(sda1)
+
+        def resize_device(device, size):
+            device.size = size
+
+        self.module.storage.resize_device = resize_device
+
+        sda1.protected = True
+        with self.assertRaises(ProtectedDeviceError):
+            self.interface.ShrinkDevice("sda1", Size("3 GiB").get_bytes())
+
+        sda1.protected = False
+        self.interface.ShrinkDevice("sda1", Size("3 GiB").get_bytes())
+        self.assertEqual(sda1.size, Size("3 GiB"))
+
+        self.interface.ShrinkDevice("sda1", Size("5 GiB").get_bytes())
+        self.assertEqual(sda1.size, Size("3 GiB"))
 
     @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
