@@ -189,25 +189,25 @@ class BootloaderExecutor(object):
             raise KickstartParseError(_("Requested boot drive \"{}\" doesn't exist or cannot "
                                         "be used.").format(boot_drive))
 
-    def _find_drive_with_boot(self, storage, usable_disks):
-        """Find a drive with the /boot partition."""
-        # Find a device for /boot.
-        device = storage.mountpoints.get("/boot", None)
+    def _find_drive_with_stage1(self, storage, usable_disks):
+        """Find a drive with a valid stage1 device."""
+        # Search for valid stage1 devices.
+        for device in storage.devices:
+            if not storage.bootloader.is_valid_stage1_device(device):
+                continue
 
-        if not device:
-            log.debug("The /boot partition doesn't exist.")
-            return None
+            # Search for usable disks.
+            for disk in device.disks:
+                drive = disk.name
 
-        # Use a disk of the device.
-        if device.disks:
-            drive = device.disks[0].name
+                if drive not in usable_disks:
+                    continue
 
-            if drive in usable_disks:
-                log.debug("Found a boot drive: %s", drive)
+                log.debug("Found a drive with a valid stage1: %s", drive)
                 return drive
 
         # No usable disk found.
-        log.debug("No usable drive with /boot was found.")
+        log.debug("No usable drive with a valid stage1 was found.")
         return None
 
     def _get_boot_drive(self, storage, bootloader_proxy):
@@ -215,7 +215,7 @@ class BootloaderExecutor(object):
 
         When bootloader doesn't have --boot-drive parameter then use this logic as fallback:
         1) If present first valid disk from driveorder parameter
-        2) If present and usable, use disk where /boot partition is placed
+        2) If present and usable, use disk where a valid stage1 device is placed
         3) Use first disk from Blivet
         """
         boot_drive = bootloader_proxy.Drive
@@ -234,10 +234,10 @@ class BootloaderExecutor(object):
             log.debug("Use the first usable drive from the drive order.")
             return drive_order[0]
 
-        # Or find a disk with the /boot partition.
-        found_drive = self._find_drive_with_boot(storage, usable_disks_set)
+        # Or find a disk with a valid stage1 device.
+        found_drive = self._find_drive_with_stage1(storage, usable_disks_set)
         if found_drive:
-            log.debug("Use a usable drive with a /boot partition.")
+            log.debug("Use a usable drive with a valid stage1 device.")
             return found_drive
 
         # Or use the first usable drive.
