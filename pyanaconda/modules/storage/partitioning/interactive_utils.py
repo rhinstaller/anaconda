@@ -30,6 +30,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import lowerASCII
+from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
 from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.platform import platform
@@ -739,6 +740,9 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     :return: a device factory request
     """
     device_type = devicefactory.get_device_type(device)
+
+    if device_type is None:
+        raise UnsupportedDeviceError("Unsupported type of {}.".format(device.name))
 
     request = DeviceFactoryRequest()
     request.device_spec = device.name
