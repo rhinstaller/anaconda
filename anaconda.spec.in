@@ -321,6 +321,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 03 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.157-1
+- Handle exceptions without GTK (vponcova)
+  Resolves: rhbz#1712987
+
 * Fri Jun 14 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.156-1
 - Pass nosmt boot option to installed system (rvykydal)
   Resolves: rhbz#1718838
