@@ -20,8 +20,10 @@
 
 import os
 import glob
+from functools import wraps
 
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -110,3 +112,16 @@ def get_default_route_iface(family="inet"):
                 return None
 
     return None
+
+
+def guard_by_system_configuration(return_value):
+    def wrap(function):
+        @wraps(function)
+        def wrapped(*args, **kwargs):
+            if not conf.system.can_configure_network:
+                log.debug("Network configuration is disabled on this system.")
+                return return_value
+            else:
+                return function(*args, **kwargs)
+        return wrapped
+    return wrap
