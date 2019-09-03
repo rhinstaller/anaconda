@@ -114,7 +114,6 @@ Requires: openssh
 Requires: NetworkManager >= %{nmver}
 Requires: NetworkManager-libnm >= %{nmver}
 Requires: NetworkManager-team
-Requires: dhclient
 Requires: kbd
 Requires: chrony
 Requires: python3-ntplib
