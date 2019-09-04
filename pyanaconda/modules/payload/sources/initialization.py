@@ -26,7 +26,7 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
 
 
-class SetupInstallationSourceTask(Task):
+class SetUpInstallationSourceTask(Task):
     """Task to setup installation source."""
 
     def __init__(self, live_partition, target_mount):
@@ -36,7 +36,7 @@ class SetupInstallationSourceTask(Task):
 
     @property
     def name(self):
-        return "Setup Installation Source"
+        return "Set up Live OS Installation Source"
 
     def run(self):
         """Run live installation source setup."""

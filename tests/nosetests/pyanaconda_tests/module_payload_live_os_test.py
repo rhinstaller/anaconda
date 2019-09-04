@@ -35,7 +35,7 @@ from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import TeardownInstallationSourceTask, \
     UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.sources.initialization import SetupInstallationSourceTask
+from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
@@ -139,7 +139,7 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         """Test Live OS is able to create a setup installation source task."""
         task_path = self.live_os_interface.SetupInstallationSourceWithTask()
 
-        check_task_creation(self, task_path, publisher, SetupInstallationSourceTask)
+        check_task_creation(self, task_path, publisher, SetUpInstallationSourceTask)
 
     @patch_dbus_publish_object
     def prepare_system_for_installation_task_test(self, publisher):
@@ -213,7 +213,7 @@ class LiveOSHandlerTasksTestCase(unittest.TestCase):
 
         mount.return_value = 0
 
-        SetupInstallationSourceTask(
+        SetUpInstallationSourceTask(
             "/path/to/base/image",
             "/path/to/mount/source/image"
         ).run()
@@ -230,7 +230,7 @@ class LiveOSHandlerTasksTestCase(unittest.TestCase):
         device_tree.ResolveDevice.return_value = ""
 
         with self.assertRaises(SourceSetupError):
-            SetupInstallationSourceTask(
+            SetUpInstallationSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()
@@ -255,7 +255,7 @@ class LiveOSHandlerTasksTestCase(unittest.TestCase):
         mount.return_value = -20
 
         with self.assertRaises(SourceSetupError):
-            SetupInstallationSourceTask(
+            SetUpInstallationSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()

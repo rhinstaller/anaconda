@@ -35,7 +35,7 @@ from pyanaconda.modules.payload.base.utils import get_dir_size
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import TeardownInstallationSourceTask, \
     UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.sources.initialization import SetupInstallationSourceTask
+from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list
 
@@ -126,7 +126,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
     def setup_installation_source_with_task(self):
         """Setup installation source device."""
-        return SetupInstallationSourceTask(self.image_path, INSTALL_TREE)
+        return SetUpInstallationSourceTask(self.image_path, INSTALL_TREE)
 
     def teardown_installation_source_with_task(self):
         """Teardown installation source device."""
