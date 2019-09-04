@@ -188,3 +188,6 @@ ZFCP_LUN_NUMBER = re.compile(r'^(?:0x|)[0-9A-Fa-f]{1,16}$')
 # The WWPN is a 16 digit hexadecimal number prefixed with 0x,
 # for example 0x5005076303000104.
 ZFCP_WWPN_NUMBER = re.compile(r'^(?:0x|)[0-9A-Fa-f]{16}$')
+
+# IPv6 address in dracut IP option (including the square brackets)
+IPV6_ADDRESS_IN_DRACUT_IP_OPTION = re.compile(r'\[[^\]]+\]')
