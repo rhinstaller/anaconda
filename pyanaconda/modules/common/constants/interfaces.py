@@ -62,3 +62,8 @@ DNF_HANDLER = DBusInterfaceIdentifier(
 PAYLOAD_SOURCE = DBusInterfaceIdentifier(
     namespace=PAYLOAD_SOURCE_NAMESPACE
 )
+
+PAYLOAD_SOURCE_LIVE_OS = DBusInterfaceIdentifier(
+    namespace=PAYLOAD_SOURCE_NAMESPACE,
+    basename="LiveOS"
+)
