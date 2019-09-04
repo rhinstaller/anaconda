@@ -17,22 +17,34 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
+from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask
 
 
 class LiveOSSourceModule(PayloadSourceBase):
     """The Live OS source payload module."""
 
-    def __init__(self):
+    def __init__(self, image_path):
         super().__init__()
+        self._image_path = image_path
 
     def for_publication(self):
         """Get the interface used to publish this source."""
         return LiveOSSourceInterface(self)
 
     def set_up_with_tasks(self):
-        pass
+        """Set up the installation source for installation.
+
+        :return: list of tasks required for the source setup
+        :rtype: [Task]
+        """
+        task = SetUpInstallationSourceTask(self._image_path, INSTALL_TREE)
+
+        task.succeeded_signal.connect(lambda: self._set_is_ready(True))
+
+        return [task]
 
     def tear_down_with_tasks(self):
         pass
