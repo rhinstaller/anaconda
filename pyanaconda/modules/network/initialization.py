@@ -422,36 +422,45 @@ class DumpMissingIfcfgFilesTask(Task):
                 continue
 
             cons = device.get_available_connections()
+            log.debug("%s: %s connections found for device %s", self.name,
+                      [con.get_uuid() for con in cons], iface)
             n_cons = len(cons)
-            device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
 
-            if n_cons == 0:
-                log.debug("%s: creating default connection for %s", self.name, iface)
-                add_connection_from_ksdata(self._nm_client, self._default_network_data, iface, activate=False,
-                                           ifname_option_values=self._ifname_option_values)
-            elif n_cons == 1:
-                if device_is_slave:
-                    log.debug("%s: not creating default connection for slave device %s",
-                              self.name, iface)
+            device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
+            if device_is_slave:
+                log.debug("%s: not creating default connection for slave device %s",
+                          self.name, iface)
+                continue
+
+            con = self._select_persistent_connection_for_device(device, cons)
+
+            if not con:
+                log.debug("%s: none of the connections can be dumped as persistent",
+                          self.name)
+                if n_cons == 1:
+                    # TODO: Try to clone the persistent connection for the device
+                    # from the connection which should be a generic (not bound
+                    # to iface) connection created by NM in initramfs
+                    pass
+                elif n_cons > 1:
+                    log.warning("%s: unexpected number of connections, not dumping any",
+                                self.name)
                     continue
-                con = cons[0]
+
+            if con:
                 self._update_connection(con, iface)
                 log.debug("%s: dumping connection %s to ifcfg file for %s",
                           self.name, con.get_uuid(), iface)
                 con.commit_changes(True, None)
-            elif n_cons > 1:
-                if not device_is_slave:
-                    log.debug("%s: %d non-slave connections found for device %s",
-                              self.name, n_cons, iface)
-                    con = self._select_persistent_connection_for_device(device, cons)
-                    if not con:
-                        log.warning("%s: none of the connections %s can be dumped as persistent",
-                                    self.name, [con.get_uuid() for con in cons])
-                        continue
-                    self._update_connection(con, iface)
-                    log.debug("%s: dumping selected connection %s to ifcfg file for %s",
-                              self.name, con.get_uuid(), iface)
-                    con.commit_changes(True, None)
+            else:
+                log.debug("%s: creating default connection for %s", self.name, iface)
+                add_connection_from_ksdata(
+                    self._nm_client,
+                    self._default_network_data,
+                    iface,
+                    activate=False,
+                    ifname_option_values=self._ifname_option_values
+                )
 
             new_ifcfgs.append(iface)
 
