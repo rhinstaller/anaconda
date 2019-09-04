@@ -22,7 +22,8 @@ from pyanaconda.core import util
 from pyanaconda.modules.common.errors.installation import NetworkInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.network.nm_client import update_connection_values
+from pyanaconda.modules.network.nm_client import update_connection_values, \
+    commit_changes_with_autoconnection_blocked
 from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device
 from pyanaconda.modules.network.utils import guard_by_system_configuration
 
@@ -272,5 +273,6 @@ class ConfigureActivationOnBootTask(Task):
                     con,
                     [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, True)]
                 )
+                commit_changes_with_autoconnection_blocked(con)
             else:
                 log.warning("Configure ONBOOT: can't find ifcfg for %s", iface)
