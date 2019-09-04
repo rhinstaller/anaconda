@@ -95,3 +95,8 @@ BAZ_NAMESPACE = (
     *ADDONS_NAMESPACE,
     "Baz"
 )
+
+PAYLOAD_SOURCE_NAMESPACE = (
+    *PAYLOAD_NAMESPACE,
+    "Source"
+)
