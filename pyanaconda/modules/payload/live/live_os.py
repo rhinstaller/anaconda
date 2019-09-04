@@ -33,8 +33,9 @@ from pyanaconda.modules.payload.base.initialization import PrepareSystemForInsta
     CopyDriverDisksFilesTask
 from pyanaconda.modules.payload.base.utils import get_dir_size
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
-from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
-    TeardownInstallationSourceTask, UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.live.initialization import TeardownInstallationSourceTask, \
+    UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.sources.initialization import SetupInstallationSourceTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list
 

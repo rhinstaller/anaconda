@@ -21,9 +21,6 @@ import hashlib
 import glob
 from requests.exceptions import RequestException
 
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.live.utils import get_local_image_path_from_url, \
@@ -35,40 +32,6 @@ from pyanaconda.core.util import lowerASCII, execWithRedirect
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
-
-class SetupInstallationSourceTask(Task):
-    """Task to setup installation source."""
-
-    def __init__(self, live_partition, target_mount):
-        super().__init__()
-        self._live_partition = live_partition
-        self._target_mount = target_mount
-
-    @property
-    def name(self):
-        return "Setup Installation Source"
-
-    def run(self):
-        """Run live installation source setup."""
-        # Mount the live device and copy from it instead of the overlay at /
-        device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        device_name = device_tree.ResolveDevice(self._live_partition)
-        if not device_name:
-            raise SourceSetupError("Failed to find liveOS image!")
-
-        device_data = DeviceData.from_structure(device_tree.GetDeviceData(device_name))
-
-        if not stat.S_ISBLK(os.stat(device_data.path)[stat.ST_MODE]):
-            raise SourceSetupError("{} is not a valid block device".format(
-                self._live_partition))
-        rc = mount(device_data.path, self._target_mount, fstype="auto", options="ro")
-        if rc != 0:
-            raise SourceSetupError("Failed to mount the install tree")
-
-        # FIXME: This should be done by the module
-        # source = os.statvfs(self._target_mount)
-        # self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
 
 class TeardownInstallationSourceTask(Task):
