@@ -195,6 +195,12 @@ class ConsolidateInitramfsConnectionsTask(Task):
                           self.name, number_of_connections, iface)
                 continue
 
+            # Ignore devices with iBFT connections
+            if self._device_has_ibft_connection(device):
+                log.debug("%s: %d for %s - it is OK, device was configured from iBFT",
+                          self.name, number_of_connections, iface)
+                continue
+
             ifcfg_file = get_ifcfg_file_of_device(self._nm_client, iface)
             if not ifcfg_file:
                 log.debug("%s: %d for %s - no ifcfg file found",
@@ -232,6 +238,16 @@ class ConsolidateInitramfsConnectionsTask(Task):
                 return con
         return None
 
+    def _device_has_ibft_connection(self, device):
+        ac = device.get_active_connection()
+        if ac:
+            con = ac.get_connection()
+            if self._is_ibft_connection(con):
+                return True
+        return False
+
+    def _is_ibft_connection(self, con):
+        return con.get_id().startswith("iBFT Connection")
 
 class SetRealOnbootValuesFromKickstartTask(Task):
     """Task for setting of real ONBOOT values from kickstart."""
