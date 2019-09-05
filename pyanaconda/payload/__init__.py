@@ -116,7 +116,7 @@ class Payload(metaclass=ABCMeta):
     ###
     @property
     def addons(self):
-        """A list of addon repo identifiers."""
+        """A list of addon repo names."""
         return [r.name for r in self.data.repo.dataList()]
 
     @property
@@ -133,7 +133,7 @@ class Payload(metaclass=ABCMeta):
 
     @property
     def disabled_repos(self):
-        """A list of disabled repos."""
+        """A list of names of the disabled repos."""
         disabled = []
         for repo in self.addons:
             if not self.is_repo_enabled(repo):
@@ -143,7 +143,7 @@ class Payload(metaclass=ABCMeta):
 
     @property
     def enabled_repos(self):
-        """A list of enabled repos."""
+        """A list of names of the enabled repos."""
         enabled = []
         for repo in self.addons:
             if self.is_repo_enabled(repo):
