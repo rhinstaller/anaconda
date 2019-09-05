@@ -30,12 +30,13 @@ from requests.exceptions import RequestException
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import constants
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.kickstart import RepoData
 from pyanaconda.product import productName, productVersion
@@ -837,18 +838,19 @@ class DNFPayload(payload.PackagePayload):
 
     @property
     def space_required(self):
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
         size = self._space_required()
         download_size = self._download_space
         valid_points = _df_map()
         root_mpoint = conf.target.system_root
 
-        for (key, val) in payload_utils.get_mount_points():
+        for key in payload_utils.get_mount_points():
             new_key = key
             if key.endswith('/'):
                 new_key = key[:-1]
             # we can ignore swap
             if key.startswith('/') and ((root_mpoint + new_key) not in valid_points):
-                valid_points[root_mpoint + new_key] = val.format.free_space_estimate(val.size)
+                valid_points[root_mpoint + new_key] = device_tree.GetFileSystemFreeSpace([key])
 
         m_point = _pick_mpoint(valid_points, download_size, size, download_only=False)
         if not m_point or m_point == root_mpoint:
