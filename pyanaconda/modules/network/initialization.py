@@ -15,13 +15,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
 
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.network_interface import NetworkInitializationTaskInterface
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, add_connection_from_ksdata, \
-    bound_hwaddr_of_device, get_connections_available_for_iface, update_connection_values
+    bound_hwaddr_of_device, get_connections_available_for_iface, update_connection_values, \
+    commit_changes_with_autoconnection_blocked
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types
@@ -338,6 +340,7 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                     con,
                     [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)]
                 )
+                commit_changes_with_autoconnection_blocked(con)
                 updated_devices.append(devname)
 
         return updated_devices
@@ -422,37 +425,62 @@ class DumpMissingIfcfgFilesTask(Task):
                 continue
 
             cons = device.get_available_connections()
+            log.debug("%s: %s connections found for device %s", self.name,
+                      [con.get_uuid() for con in cons], iface)
             n_cons = len(cons)
-            device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
 
-            if n_cons == 0:
-                log.debug("%s: creating default connection for %s", self.name, iface)
-                add_connection_from_ksdata(self._nm_client, self._default_network_data, iface, activate=False,
-                                           ifname_option_values=self._ifname_option_values)
-            elif n_cons == 1:
-                if device_is_slave:
-                    log.debug("%s: not creating default connection for slave device %s",
-                              self.name, iface)
+            device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
+            if device_is_slave:
+                log.debug("%s: not creating default connection for slave device %s",
+                          self.name, iface)
+                continue
+
+            # Devices activated in initramfs should have ONBOOT=yes
+            has_initramfs_con = any(self._is_initramfs_connection(con, iface) for con in cons)
+            if has_initramfs_con:
+                log.debug("%s: device %s has initramfs connection", self.name, iface)
+
+            con = self._select_persistent_connection_for_device(device, cons)
+
+            if not con:
+                log.debug("%s: none of the connections can be dumped as persistent",
+                          self.name)
+                if n_cons == 1:
+                    # TODO: Try to clone the persistent connection for the device
+                    # from the connection which should be a generic (not bound
+                    # to iface) connection created by NM in initramfs
+                    pass
+                elif n_cons > 1:
+                    log.warning("%s: unexpected number of connections, not dumping any",
+                                self.name)
                     continue
-                con = cons[0]
+
+            if con:
                 self._update_connection(con, iface)
+                if has_initramfs_con:
+                    update_connection_values(
+                        con,
+                        [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, True)]
+                    )
                 log.debug("%s: dumping connection %s to ifcfg file for %s",
                           self.name, con.get_uuid(), iface)
                 con.commit_changes(True, None)
-            elif n_cons > 1:
-                if not device_is_slave:
-                    log.debug("%s: %d non-slave connections found for device %s",
-                              self.name, n_cons, iface)
-                    con = self._select_persistent_connection_for_device(device, cons)
-                    if not con:
-                        log.warning("%s: none of the connections %s can be dumped as persistent",
-                                    self.name, [con.get_uuid() for con in cons])
-                        continue
-                    self._update_connection(con, iface)
-                    log.debug("%s: dumping selected connection %s to ifcfg file for %s",
-                              self.name, con.get_uuid(), iface)
-                    con.commit_changes(True, None)
+            else:
+                log.debug("%s: creating default connection for %s", self.name, iface)
+                network_data = copy.deepcopy(self._default_network_data)
+                if has_initramfs_con:
+                    network_data.onboot = True
+                add_connection_from_ksdata(
+                    self._nm_client,
+                    network_data,
+                    iface,
+                    activate=False,
+                    ifname_option_values=self._ifname_option_values
+                )
 
             new_ifcfgs.append(iface)
 
         return new_ifcfgs
+
+    def _is_initramfs_connection(self, con, iface):
+        return con.get_id() in ["Wired Connection", iface]

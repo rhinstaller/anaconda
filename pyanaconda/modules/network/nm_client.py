@@ -834,7 +834,6 @@ def update_connection_values(connection, new_values):
         else:
             log.debug("setting '%s' not found while updating connection %s",
                       setting_name, connection.get_uuid())
-    commit_changes_with_autoconnection_blocked(connection)
     log.debug("updated connection %s:\n%s", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
