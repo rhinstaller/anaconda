@@ -23,53 +23,85 @@ import blivet.arch
 from distutils.version import LooseVersion
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.payload.errors import PayloadSetupError
 
 log = get_module_logger(__name__)
 
 
-def resolve_device(storage, dev_spec):
+def resolve_device(dev_spec):
     """Get the device matching the provided device specification.
 
-    :param storage: an instance of Blivet's storage
     :param str dev_spec: a string describing a block device
-    :return: an instance of a device or None
+    :return: a device name or None
     """
-    return storage.devicetree.resolve_device(dev_spec)
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    return device_tree.ResolveDevice(dev_spec) or None
 
 
-def setup_device(device):
+def get_device_path(device_name):
+    """Return a device path.
+
+    :param device_name: a device name
+    :return: a device path
+    """
+    if device_name is None:
+        return None
+
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    device_data = DeviceData.from_structure(device_tree.GetDeviceData(device_name))
+    return device_data.path
+
+
+def setup_device(device_name):
     """Open, or set up, a device.
 
-    :param device: an instance of a device
+    :param device_name: a device name
     """
-    device.setup()
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    device_tree.SetupDevice(device_name)
 
 
-def mount_device(device, mount_point):
+def mount_device(device_name, mount_point):
     """Mount a filesystem on the device.
 
-    :param device: an instance of a device
+    :param device_name: a device name
     :param str mount_point: a path to the mount point
     """
-    device.format.mount(mountpoint=mount_point)
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    device_tree.MountDevice(device_name, mount_point)
 
 
-def unmount_device(device, mount_point):
+def unmount_device(device_name, mount_point):
     """Unmount a filesystem on the device.
 
-    :param device: an instance of a device
+    FIXME: Always specify the mount point.
+
+    :param device_name: a device name
     :param str mount_point: a path to the mount point or None
     """
-    device.format.unmount(mountpoint=mount_point)
+    if not mount_point:
+        device_path = get_device_path(device_name)
+        mount_paths = get_mount_paths(device_path)
+
+        if not mount_paths:
+            return
+
+        mount_point = mount_paths[-1]
+
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    device_tree.UnmountDevice(device_name, mount_point)
 
 
-def teardown_device(device):
+def teardown_device(device_name):
     """Close, or tear down, a device.
 
-    :param device: an instance of a device
+    :param device_name: a device name
     """
-    device.teardown(recursive=True)
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    device_tree.TeardownDevice(device_name)
 
 
 def get_mount_device_path(mount_point):
