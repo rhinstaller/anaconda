@@ -52,14 +52,12 @@ USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 class Payload(metaclass=ABCMeta):
     """Payload is an abstract class for OS install delivery methods."""
-    def __init__(self, data, storage):
+    def __init__(self, data):
         """Initialize Payload class
 
         :param data: This param is a kickstart.AnacondaKSHandler class.
-        :param storage: an instance of Blivet's storage model
         """
         self.data = data
-        self.storage = storage
         self.tx_id = None
 
         self._install_tree_metadata = None
@@ -732,7 +730,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
     def _unmount_source_directory(self, mount_point):
         if os.path.ismount(mount_point):
             device_path = payload_utils.get_mount_device_path(mount_point)
-            device = payload_utils.resolve_device(self.storage, device_path)
+            device = payload_utils.resolve_device(device_path)
             if device:
                 payload_utils.teardown_device(device)
             else:
@@ -857,7 +855,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 # We don't setup an install_device here
                 # because we can't tear it down
 
-        iso_device = payload_utils.resolve_device(self.storage, dev_spec)
+        iso_device = payload_utils.resolve_device(dev_spec)
         if need_mount:
             if not iso_device:
                 raise PayloadSetupError("device for HDISO install %s does not exist" % dev_spec)
@@ -991,11 +989,11 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         # Check for valid optical media if we didn't boot from one
         if not verifyMedia(DRACUT_REPODIR):
-            self.install_device = find_optical_install_media(self.storage)
+            self.install_device = find_optical_install_media()
 
         # Only look at the dracut mount if we don't already have a cdrom
         if repo_device_path and not self.install_device:
-            self.install_device = payload_utils.resolve_device(self.storage, repo_device_path)
+            self.install_device = payload_utils.resolve_device(repo_device_path)
             url = "file://" + DRACUT_REPODIR
             if not method.method:
                 # See if this is a nfs mount
@@ -1021,7 +1019,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         return url
 
     def _setup_harddrive_addon_repo(self, ksrepo):
-        iso_device = payload_utils.resolve_device(self.storage, ksrepo.partition)
+        iso_device = payload_utils.resolve_device(ksrepo.partition)
         if not iso_device:
             raise PayloadSetupError("device for HDISO addon repo install %s does not exist" %
                                     ksrepo.partition)

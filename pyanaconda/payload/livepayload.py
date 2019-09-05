@@ -72,7 +72,7 @@ class LiveImagePayload(Payload):
         super().setup()
 
         # Mount the live device and copy from it instead of the overlay at /
-        osimg = payload_utils.resolve_device(self.storage, self.data.method.partition)
+        osimg = payload_utils.resolve_device(self.data.method.partition)
         if not osimg:
             raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
 
@@ -106,8 +106,9 @@ class LiveImagePayload(Payload):
         """Monitor the amount of disk space used on the target and source and
            update the hub's progress bar.
         """
-        mountpoints = self.storage.mountpoints.copy()
+        mountpoints = payload_utils.get_mount_points()
         last_pct = -1
+
         while self.pct < 100:
             dest_size = 0
             for mnt in mountpoints:

@@ -104,6 +104,15 @@ def teardown_device(device_name):
     device_tree.TeardownDevice(device_name)
 
 
+def get_mount_points():
+    """Get mount points in the device tree.
+
+    :return: a dictionary of mount points and device names
+    """
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    return device_tree.GetMountPoints()
+
+
 def get_mount_device_path(mount_point):
     """Given a mount point, return the device node path mounted there.
 
