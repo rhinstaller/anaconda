@@ -1661,28 +1661,3 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def _update_hostname(self):
         self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
-
-
-def test():
-    win = Gtk.Window()
-    win.connect("delete-event", Gtk.main_quit)
-
-    builder = Gtk.Builder()
-    import os
-    ui_file_path = os.environ.get('UIPATH')+'spokes/network.glade'
-    builder.add_from_file(ui_file_path)
-
-    network_module = NETWORK.get_proxy()
-    nmclient = NM.Client.new(None)
-
-    n = NetworkControlBox(builder, nmclient, network_module)
-    n.initialize()
-    n.refresh()
-
-    n.vbox.reparent(win)
-
-    win.show_all()
-    Gtk.main()
-
-if __name__ == "__main__":
-    test()

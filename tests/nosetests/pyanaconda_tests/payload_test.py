@@ -438,7 +438,7 @@ class FlatpakTest(unittest.TestCase):
 
         flatpak.initialize_with_system_path()
 
-        self._installation.list_remote_refs_sync.return_value = [
+        mock_ref_list = [
             RefMock(name="org.space.coolapp", kind=RefKind.APP, arch="x86_64", branch="stable"),
             RefMock(name="com.prop.notcoolapp", kind=RefKind.APP, arch="i386", branch="f36"),
             RefMock(name="org.space.coolruntime", kind=RefKind.RUNTIME, arch="x86_64",
@@ -447,22 +447,24 @@ class FlatpakTest(unittest.TestCase):
                     branch="f36")
         ]
 
+        self._installation.list_remote_refs_sync.return_value = mock_ref_list
+
         flatpak.install_all()
 
         expected_calls = [call.connect("new_operation", flatpak._operation_started_callback),
                           call.connect("operation_done", flatpak._operation_stopped_callback),
                           call.connect("operation_error", flatpak._operation_error_callback),
                           call.add_install(FlatpakPayload.LOCAL_REMOTE_NAME,
-                                           "app/org.space.coolapp/x86_64/stable",
+                                           mock_ref_list[0].format_ref(),
                                            None),
                           call.add_install(FlatpakPayload.LOCAL_REMOTE_NAME,
-                                           "app/com.prop.notcoolapp/i386/f36",
+                                           mock_ref_list[1].format_ref(),
                                            None),
                           call.add_install(FlatpakPayload.LOCAL_REMOTE_NAME,
-                                           "runtime/org.space.coolruntime/x86_64/stable",
+                                           mock_ref_list[2].format_ref(),
                                            None),
                           call.add_install(FlatpakPayload.LOCAL_REMOTE_NAME,
-                                           "runtime/com.prop.notcoolruntime/i386/f36",
+                                           mock_ref_list[3].format_ref(),
                                            None),
                           call.run()]
 
@@ -526,17 +528,18 @@ class FlatpakTest(unittest.TestCase):
         install_path_mock.get_path.return_value = install_path
         self._installation.get_path.return_value = install_path_mock
 
-        self._installation.list_installed_refs.return_value = [
+        ref_mock_list = [
             RefMock(name="org.space.coolapp", kind=RefKind.APP, arch="x86_64", branch="stable"),
             RefMock(name="org.space.coolruntime", kind=RefKind.RUNTIME, arch="x86_64",
                     branch="stable")
         ]
 
+        self._installation.list_installed_refs.return_value = ref_mock_list
+
         flatpak.initialize_with_system_path()
         flatpak.replace_installed_refs_remote("cylon_officer")
 
-        expected_refs = ["app/org.space.coolapp/x86_64/stable",
-                         "runtime/org.space.coolruntime/x86_64/stable"]
+        expected_refs = list(map(lambda x: x.format_ref(), ref_mock_list))
 
         open_calls = []
 
@@ -575,3 +578,9 @@ class RefMock(object):
 
     def get_installed_size(self):
         return self._installed_size
+
+    def format_ref(self):
+        return "{}/{}/{}/{}".format("app" if self._kind is RefKind.APP else "runtime",
+                                    self._name,
+                                    self._arch,
+                                    self._branch)

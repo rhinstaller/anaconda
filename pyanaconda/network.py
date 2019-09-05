@@ -34,7 +34,8 @@ import ipaddress
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
-from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
+    IPV6_ADDRESS_IN_DRACUT_IP_OPTION
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 from pyanaconda.modules.common.task import sync_run_task
@@ -223,6 +224,10 @@ def hostname_from_cmdline(kernel_arguments):
     # ens3:dhcp 10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none
     if ipopts:
         for ipopt in ipopts.split(" "):
+            if ipopt.startswith("["):
+                # Replace ipv6 addresses with empty string, example of ipv6 config:
+                # [fd00:10:100::84:5]::[fd00:10:100::86:49]:80:myhostname:ens9:none
+                ipopt = IPV6_ADDRESS_IN_DRACUT_IP_OPTION.sub('', ipopt)
             try:
                 hostname = ipopt.split(':')[4]
             except IndexError:

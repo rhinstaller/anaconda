@@ -32,7 +32,7 @@ from pyanaconda.payload.errors import FlatpakInstallError
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
 
-from gi.repository.Flatpak import Transaction, Installation, Remote, RefKind, \
+from gi.repository.Flatpak import Transaction, Installation, Remote, \
     TransactionOperationType, TransactionErrorDetails
 from gi.repository.Gio import File
 
@@ -284,12 +284,8 @@ class BaseRefsList(ABC):
         """
         result = []
         for ref in self.refs:
-            kind_type = "app" if ref.get_kind() is RefKind.APP else "runtime"
             # create ref string in format "runtime/org.example.app/x86_64/f30"
-            result.append(kind_type + "/" +
-                          ref.get_name() + "/" +
-                          ref.get_arch() + "/" +
-                          ref.get_branch())
+            result.append(ref.format_ref())
 
         return result
 
