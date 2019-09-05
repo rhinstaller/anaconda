@@ -41,6 +41,8 @@ from pyanaconda.kickstart import RepoData
 from pyanaconda.product import productName, productVersion
 from pyanaconda.payload.errors import MetadataError, NoSuchGroup, DependencyError, \
     PayloadInstallError, PayloadSetupError, PayloadError
+from pyanaconda.payload import utils as payload_utils
+
 
 import pyanaconda.errors as errors
 import pyanaconda.localization
@@ -836,14 +838,11 @@ class DNFPayload(payload.PackagePayload):
     @property
     def space_required(self):
         size = self._space_required()
-        if not self.storage:
-            log.warning("Payload doesn't have storage")
-            return size
-
         download_size = self._download_space
         valid_points = _df_map()
         root_mpoint = conf.target.system_root
-        for (key, val) in self.storage.mountpoints.items():
+
+        for (key, val) in payload_utils.get_mount_points():
             new_key = key
             if key.endswith('/'):
                 new_key = key[:-1]
