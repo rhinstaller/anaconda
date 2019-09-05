@@ -139,7 +139,7 @@ class Accordion(Gtk.Box):
             self._activate_selector(s, False, False)
         self._active_selectors.clear()
         self._current_selector = None
-        log.debug("Accordion: unselecting all items")
+        log.debug("Unselecting all items.")
 
     def select(self, selector):
         """ Select one item. Remove selection from all other items
@@ -153,7 +153,7 @@ class Accordion(Gtk.Box):
         self._current_selector = selector
         self._last_selected = selector
         self._activate_selector(selector, activate=True, show_arrow=True)
-        log.debug("Accordion: select %s device", selector.device)
+        log.debug("Select device: %s", selector.device.name)
 
     def _select_with_shift(self, clicked_selector):
         # No items selected, only select this one
@@ -204,7 +204,7 @@ class Accordion(Gtk.Box):
                 self._activate_selector(s, activate=True, show_arrow=False)
             else:
                 self._activate_selector(s, activate=True, show_arrow=True)
-            log.debug("Device %s appended to selection", s.device)
+            log.debug("Append device %s to the selection.", s.device.name)
 
         if len(selectors) == 1:
             self._last_selected = selectors[-1]
@@ -213,7 +213,7 @@ class Accordion(Gtk.Box):
             self._current_selector = None
         else:
             self._current_selector = self._active_selectors[0]
-        log.debug("Accordion: selected items %s; added items %s",
+        log.debug("Selected items %s; added items %s",
                   len(self._active_selectors), len(selectors))
 
     def remove_selection(self, selectors):
@@ -229,14 +229,14 @@ class Accordion(Gtk.Box):
             if s in self._active_selectors:
                 self._activate_selector(s, activate=False, show_arrow=False)
                 self._active_selectors.remove(s)
-                log.debug("Device %s removed from selection", s)
+                log.debug("Device %s is removed from the selection.", s)
 
         if len(self._active_selectors) == 1:
             self._current_selector = self._active_selectors[0]
             self._current_selector.props.show_arrow = True
         else:
             self._current_selector = None
-        log.debug("Accordion: selected items %s; removed items %s",
+        log.debug("Selected items %s; removed items %s",
                   len(self._active_selectors), len(selectors))
 
     @property

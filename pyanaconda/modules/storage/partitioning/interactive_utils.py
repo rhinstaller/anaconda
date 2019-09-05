@@ -30,6 +30,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import lowerASCII
+from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
+from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
@@ -337,6 +339,18 @@ def validate_mount_point(path, mount_points):
     return None
 
 
+def get_raid_level_by_name(name):
+    """Get the RAID level object for the given name.
+
+    :param name: a name of the RAID level
+    :return: an instance of RAIDLevel
+    """
+    if not name:
+        return None
+
+    return raid.get_raid_level(name)
+
+
 def validate_raid_level(raid_level, num_members):
     """Validate the given raid level.
 
@@ -355,35 +369,36 @@ def validate_raid_level(raid_level, num_members):
     return None
 
 
-def validate_device_info(storage, dev_info, reformat):
+def validate_device_factory_request(storage, request: DeviceFactoryRequest, reformat):
     """Validate the given device info.
 
     :param storage: an instance of Blivet
-    :param dev_info: a device info to validate
+    :param request: a device factory request to validate
     :param reformat: is reformatting enabled?
     :return: an error message
     """
-    device = dev_info["device"]
-    disks = dev_info["disks"]
-    device_type = dev_info["device_type"]
-    fs_type = dev_info["fstype"]
-    encrypted = dev_info["encrypted"]
-    raid_level = dev_info["raid_level"]
-    mount_point = dev_info["mountpoint"]
+    device = storage.devicetree.resolve_device(request.device_spec)
+    device_type = request.device_type
+    fs_type = request.format_type
+    encrypted = request.device_encrypted
+    raid_level = get_raid_level_by_name(request.device_raid_level)
+    mount_point = request.mount_point
+    label = request.label
+    num_disk = len(request.disks)
 
-    changed_label = dev_info["label"] != getattr(device.format, "label", "")
-    changed_fstype = dev_info["fstype"] != device.format.type
+    changed_label = label != getattr(device.format, "label", "")
+    changed_fstype = fs_type != device.format.type
 
     if changed_label or changed_fstype:
         error = validate_label(
-            dev_info["label"],
+            label,
             get_format(fs_type)
         )
         if error:
             return error
 
     is_format_mountable = get_format(fs_type).mountable
-    changed_mount_point = dev_info["mountpoint"] != getattr(device.format, "mountpoint", None)
+    changed_mount_point = mount_point != getattr(device.format, "mountpoint", "")
 
     if reformat and is_format_mountable and not mount_point:
         return _("Please enter a mount point.")
@@ -427,7 +442,7 @@ def validate_device_info(storage, dev_info, reformat):
     if raid_level is not None:
         error = validate_raid_level(
             raid_level,
-            len(disks)
+            num_disk
         )
         if error:
             return error
@@ -480,6 +495,8 @@ def resize_device(storage, device, new_size, old_size):
     :return: True if the device changed its size, otherwise False
     :raise: StorageError if we fail to schedule the device resize
     """
+    log.debug("Resizing device %s to %s.", device, new_size)
+
     # If a LUKS device is being displayed, adjust the size
     # to the appropriate size for the raw device.
     use_size = new_size
@@ -499,12 +516,12 @@ def resize_device(storage, device, new_size, old_size):
 
     if use_size == device.size or use_size == device.raw_device.size:
         # The size hasn't changed.
-        log.debug("canceled resize of device %s to %s", device.raw_device.name, use_size)
+        log.debug("Canceled resize of device %s to %s.", device.raw_device.name, use_size)
         return False
 
     if new_size == device.current_size or use_size == device.current_size:
         # The size has been set back to its original value.
-        log.debug("removing resize of device %s", device.raw_device.name)
+        log.debug("Removing resize of device %s.", device.raw_device.name)
 
         actions = storage.devicetree.actions.find(
             action_type="resize",
@@ -517,17 +534,20 @@ def resize_device(storage, device, new_size, old_size):
         return bool(actions)
     else:
         # the size has changed
-        log.debug("scheduling resize of device %s to %s", device.raw_device.name, use_size)
+        log.debug("Scheduling resize of device %s to %s.", device.raw_device.name, use_size)
 
         try:
             storage.resize_device(device.raw_device, use_size)
         except (StorageError, ValueError) as e:
-            log.error("failed to schedule device resize: %s", e)
+            log.error("Failed to schedule device resize: %s", e)
             device.raw_device.size = use_old_size
             raise StorageError(str(e)) from None
 
-        log.debug("new size: %s", device.raw_device.size)
-        log.debug("target size: %s", device.raw_device.target_size)
+        log.debug(
+            "Device %s has size: %s (target %s)",
+            device.raw_device.name,
+            device.raw_device.size, device.raw_device.target_size
+        )
         return True
 
 
@@ -541,11 +561,11 @@ def change_encryption(storage, device, encrypted, luks_version):
     :return: a LUKS device or a device slave
     """
     if not encrypted:
-        log.info("removing encryption from %s", device.name)
+        log.info("Removing encryption from %s.", device.name)
         storage.destroy_device(device)
         return device.slave
     else:
-        log.info("applying encryption to %s", device.name)
+        log.info("Applying encryption to %s.", device.name)
         new_fmt = get_format("luks", device=device.path, luks_version=luks_version)
         storage.format_device(device, new_fmt)
         luks_dev = LUKSDevice("luks-" + device.name, parents=[device])
@@ -563,7 +583,7 @@ def reformat_device(storage, device, fstype, mountpoint, label):
     :param label: a label
     :raise: StorageError if we fail to format the device
     """
-    log.info("scheduling reformat of %s as %s", device.name, fstype)
+    log.info("Scheduling reformat of %s as %s.", device.name, fstype)
 
     old_format = device.format
     new_format = get_format(
@@ -576,7 +596,7 @@ def reformat_device(storage, device, fstype, mountpoint, label):
     try:
         storage.format_device(device, new_format)
     except (StorageError, ValueError) as e:
-        log.error("failed to register device format action: %s", e)
+        log.error("Failed to register device format action: %s", e)
         device.format = old_format
         raise StorageError(str(e)) from None
 
@@ -616,6 +636,12 @@ def get_device_raid_level(device):
         return get_device_raid_level(device.parents[0])
 
     return None
+
+
+def get_device_raid_level_name(device):
+    """Get the RAID level name of the given device."""
+    raid_level = get_device_raid_level(device)
+    return raid_level.name if raid_level else ""
 
 
 def collect_file_system_types(device):
@@ -669,33 +695,73 @@ def collect_device_types(device, disks):
     return sorted(filter(devicefactory.is_supported_device_type, supported_types))
 
 
-def generate_device_info(storage, device):
+def get_device_factory_arguments(storage, request: DeviceFactoryRequest, subset=None):
+    """Get the device factory arguments for the given request.
+
+    :param storage: an instance of Blivet
+    :param request: a device factory request
+    :param subset: a subset of argument names to return or None
+    :return: a dictionary of device factory arguments
+    """
+    args = {
+        "device_type": request.device_type,
+        "device": storage.devicetree.get_device_by_name(request.device_spec),
+        "disks": [storage.devicetree.get_device_by_name(d) for d in request.disks],
+        "mountpoint": request.mount_point or None,
+        "fstype": request.format_type or None,
+        "label": request.label or None,
+        "luks_version": request.luks_version or None,
+        "device_name": request.device_name or None,
+        "size": Size(request.device_size) or None,
+        "raid_level": get_raid_level_by_name(request.device_raid_level),
+        "encrypted": request.device_encrypted,
+        "container_name": request.container_name or None,
+        "container_size": get_container_size_policy_by_number(request.container_size_policy),
+        "container_raid_level": get_raid_level_by_name(request.container_raid_level),
+        "container_encrypted": request.container_encrypted,
+    }
+
+    if subset:
+        args = {name: value for name, value in args.items() if name in subset}
+
+    log.debug(
+        "Generated factory arguments: {\n%s\n}",
+        ",\n".join("{} = {}".format(name, repr(value)) for name, value in args.items())
+    )
+
+    return args
+
+
+def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     """Generate a device info for the given device.
 
     :param storage: an instance of Blivet
     :param device: a device
-    :return: a device info
+    :return: a device factory request
     """
     device_type = devicefactory.get_device_type(device)
 
-    dev_info = dict()
-    dev_info["device"] = device
-    dev_info["name"] = getattr(device.raw_device, "lvname", device.raw_device.name)
-    dev_info["size"] = device.size
-    dev_info["device_type"] = device_type
-    dev_info["fstype"] = device.format.type
-    dev_info["encrypted"] = isinstance(device, LUKSDevice)
-    dev_info["luks_version"] = get_device_luks_version(device)
-    dev_info["label"] = getattr(device.format, "label", "")
-    dev_info["mountpoint"] = getattr(device.format, "mountpoint", None) or None
-    dev_info["raid_level"] = get_device_raid_level(device)
+    if device_type is None:
+        raise UnsupportedDeviceError("Unsupported type of {}.".format(device.name))
+
+    request = DeviceFactoryRequest()
+    request.device_spec = device.name
+    request.device_name = getattr(device.raw_device, "lvname", device.raw_device.name)
+    request.device_size = device.size.get_bytes()
+    request.device_type = device_type
+    request.format_type = device.format.type or ""
+    request.device_encrypted = isinstance(device, LUKSDevice)
+    request.luks_version = get_device_luks_version(device) or ""
+    request.label = getattr(device.format, "label", "") or ""
+    request.mount_point = getattr(device.format, "mountpoint", "") or ""
+    request.device_raid_level = get_device_raid_level_name(device)
 
     if hasattr(device, "req_disks") and not device.exists:
         disks = device.req_disks
     else:
         disks = device.disks
 
-    dev_info["disks"] = disks
+    request.disks = [d.name for d in disks]
 
     factory = devicefactory.get_device_factory(
         storage,
@@ -705,34 +771,29 @@ def generate_device_info(storage, device):
     container = factory.get_container()
 
     if container:
-        dev_info["container_name"] = container.name
-        dev_info["container_encrypted"] = container.encrypted
-        dev_info["container_raid_level"] = get_device_raid_level(container)
-        dev_info["container_size"] = getattr(container, "size_policy", container.size)
-    else:
-        dev_info["container_name"] = None
-        dev_info["container_encrypted"] = False
-        dev_info["container_raid_level"] = None
-        dev_info["container_size"] = devicefactory.SIZE_POLICY_AUTO
+        request.container_name = container.name
+        request.container_encrypted = container.encrypted
+        request.container_raid_level = get_device_raid_level_name(container)
+        request.container_size_policy = get_container_size_policy(container)
 
-    return dev_info
+    return request
 
 
-def add_device(storage, dev_info):
+def add_device(storage, request: DeviceFactoryRequest):
     """Add a device to the storage model.
 
     :param storage: an instance of Blivet
-    :param dev_info: a device info
+    :param request: a device factory request
     :raise: StorageError if the device cannot be created
     """
-    log.debug("Add device: %s", dev_info)
+    log.debug("Add device: %s", request)
 
     # Complete the device info.
-    _update_device_info(storage, dev_info)
+    _complete_device_factory_request(storage, request)
 
     try:
         # Trying to use a new container.
-        _add_device(storage, dev_info, use_existing_container=False)
+        _add_device(storage, request, use_existing_container=False)
         return
     except StorageError as e:
         # Keep the first error.
@@ -740,7 +801,7 @@ def add_device(storage, dev_info):
 
     try:
         # Trying to use an existing container.
-        _add_device(storage, dev_info, use_existing_container=True)
+        _add_device(storage, request, use_existing_container=True)
         return
     except StorageError:
         # Ignore the second error.
@@ -749,55 +810,54 @@ def add_device(storage, dev_info):
     raise error
 
 
-def _update_device_info(storage, dev_info):
-    """Update the device info.
+def _complete_device_factory_request(storage, request: DeviceFactoryRequest):
+    """Complete the device factory request.
 
     :param storage: an instance of Blivet
-    :param dev_info: a device info
+    :param request: a device factory request
     """
     # Set the defaults.
-    dev_info.setdefault("mountpoint", None)
-    dev_info.setdefault("device_type", devicefactory.DEVICE_TYPE_LVM)
-    dev_info.setdefault("encrypted", False)
-    dev_info.setdefault("luks_version", storage.default_luks_version)
+    if not request.luks_version:
+        request.luks_version = storage.default_luks_version
 
     # Set the file system type for the given mount point.
-    dev_info.setdefault("fstype", storage.get_fstype(dev_info["mountpoint"]))
+    if not request.format_type:
+        request.format_type = storage.get_fstype(request.mount_point)
 
     # Fix the mount point.
-    if lowerASCII(dev_info["mountpoint"]) in ("swap", "biosboot", "prepboot"):
-        dev_info["mountpoint"] = None
+    if lowerASCII(request.mount_point) in ("swap", "biosboot", "prepboot"):
+        request.mount_point = ""
 
     # We should create a partition in some cases.
     # These devices should never be encrypted.
-    if ((dev_info["mountpoint"] and dev_info["mountpoint"].startswith("/boot")) or
-            dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES):
-        dev_info["device_type"] = devicefactory.DEVICE_TYPE_PARTITION
-        dev_info["encrypted"] = False
+    if (request.mount_point.startswith("/boot") or
+            request.format_type in PARTITION_ONLY_FORMAT_TYPES):
+        request.device_type = devicefactory.DEVICE_TYPE_PARTITION
+        request.device_encrypted = False
 
     # We shouldn't create swap on a thinly provisioned volume.
-    if (dev_info["fstype"] == "swap" and
-            dev_info["device_type"] == devicefactory.DEVICE_TYPE_LVM_THINP):
-        dev_info["device_type"] = devicefactory.DEVICE_TYPE_LVM
+    if (request.format_type == "swap" and
+            request.device_type == devicefactory.DEVICE_TYPE_LVM_THINP):
+        request.device_type = devicefactory.DEVICE_TYPE_LVM
 
     # Encryption of thinly provisioned volumes isn't supported.
-    if dev_info["device_type"] == devicefactory.DEVICE_TYPE_LVM_THINP:
-        dev_info["encrypted"] = False
+    if request.device_type == devicefactory.DEVICE_TYPE_LVM_THINP:
+        request.device_encrypted = False
 
 
-def _add_device(storage, dev_info, use_existing_container=False):
+def _add_device(storage, request: DeviceFactoryRequest, use_existing_container=False):
     """Add a device to the storage model.
 
     :param storage: an instance of Blivet
-    :param dev_info: a device info
+    :param request: a device factory request
     :param use_existing_container: should we use an existing container?
     :raise: StorageError if the device cannot be created
     """
     # Create the device factory.
     factory = devicefactory.get_device_factory(
         storage,
-        device_type=dev_info["device_type"],
-        size=dev_info["size"],
+        device_type=request.device_type,
+        size=Size(request.device_size) if request.device_size else None
     )
 
     # Find a container.
@@ -811,21 +871,22 @@ def _add_device(storage, dev_info, use_existing_container=False):
     # Update the device info.
     if container:
         # Don't override user-initiated changes to a defined container.
-        dev_info["disks"] = container.disks
-        dev_info.update({
-            "container_encrypted": container.encrypted,
-            "container_raid_level": get_device_raid_level(container),
-            "container_size": getattr(container, "size_policy", container.size)})
+        request.disks = [d.name for d in container.disks]
+        request.container_encrypted = container.encrypted
+        request.container_raid_level = get_device_raid_level_name(container)
+        request.container_size_policy = get_container_size_policy(container)
 
         # The existing container has a name.
         if use_existing_container:
-            dev_info["container_name"] = container.name
+            request.container_name = container.name
 
         # The container is already encrypted
         if container.encrypted:
-            dev_info["encrypted"] = False
+            request.device_encrypted = False
 
     # Create the device.
+    dev_info = get_device_factory_arguments(storage, request)
+
     try:
         storage.factory_device(**dev_info)
     except StorageError as e:
@@ -842,6 +903,8 @@ def destroy_device(storage, device):
     :param storage: an instance of Blivet
     :param device: an instance of a device
     """
+    log.debug("Destroy device: %s", device.name)
+
     # Remove the device.
     if device.is_disk and device.partitioned and not device.format.supported:
         storage.recursive_remove(device)
@@ -912,6 +975,8 @@ def rename_container(storage, container, name):
     :param container: an instance of a container
     :param name: a new name of the container
     """
+    log.debug("Rename container %s to %s.", container.name, name)
+
     # Remove the names of the container and its child
     # devices from the list of already-used names.
     for device in [container] + container.children:
@@ -963,6 +1028,27 @@ def get_container(storage, device_type, device=None):
     )
 
     return factory.get_container(device=device)
+
+
+def get_container_size_policy(container):
+    """Get a container size policy."""
+    size = getattr(container, "size_policy", container.size)
+
+    if size is None:
+        return devicefactory.SIZE_POLICY_AUTO
+
+    if size > 0:
+        return Size(size).get_bytes()
+
+    return size
+
+
+def get_container_size_policy_by_number(number):
+    """Get a container size policy by the given number."""
+    if number <= 0:
+        return number
+
+    return Size(number)
 
 
 def collect_containers(storage, device_type):

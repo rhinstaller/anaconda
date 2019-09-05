@@ -121,6 +121,11 @@ def get_selected_raid_level(raid_level_combo):
         return raid.get_raid_level(selected_level)
 
 
+def get_selected_raid_level_name(raid_level_combo):
+    raid_level = get_selected_raid_level(raid_level_combo)
+    return raid_level.name if raid_level else ""
+
+
 def get_raid_level_selection(raid_level):
     """ Returns a string corresponding to the RAID level.
 
@@ -631,7 +636,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         # Set a default RAID level in the combo.
         for (i, row) in enumerate(self._raidLevelCombo.get_model()):
-            log.debug("container dialog: raid level %s", row[1])
             if row[1] == raid_level_name:
                 self._raidLevelCombo.set_active(i)
                 break
