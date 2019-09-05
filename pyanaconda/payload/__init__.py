@@ -441,7 +441,7 @@ class Payload(metaclass=ABCMeta):
     @staticmethod
     def _setup_device(device, mountpoint):
         """Prepare an install CD/DVD for use as a package source."""
-        log.info("setting up device %s and mounting on %s", device.name, mountpoint)
+        log.info("setting up device %s and mounting on %s", device, mountpoint)
         # Is there a symlink involved?  If so, let's get the actual path.
         # This is to catch /run/install/isodir vs. /mnt/install/isodir, for
         # instance.
@@ -451,7 +451,7 @@ class Payload(metaclass=ABCMeta):
         if mount_device_path:
             log.warning("%s is already mounted on %s", mount_device_path, mountpoint)
 
-            if mount_device_path == device.path:
+            if mount_device_path == payload_utils.get_device_path(device):
                 return
             else:
                 payload_utils.unmount(real_mountpoint)
@@ -687,16 +687,18 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
         # nfs: umount INSTALL_TREE
         # nfsiso: umount INSTALL_TREE, umount ISO_DIR
+        install_device_path = payload_utils.get_device_path(self.install_device)
+
         if os.path.ismount(INSTALL_TREE):
             if self.install_device and \
-               payload_utils.get_mount_device_path(INSTALL_TREE) == self.install_device.path:
+               payload_utils.get_mount_device_path(INSTALL_TREE) == install_device_path:
                 payload_utils.teardown_device(self.install_device)
             else:
                 payload_utils.unmount(INSTALL_TREE, raise_exc=True)
 
         if os.path.ismount(ISO_DIR):
             if self.install_device and \
-               payload_utils.get_mount_device_path(ISO_DIR) == self.install_device.path:
+               payload_utils.get_mount_device_path(ISO_DIR) == install_device_path:
                 payload_utils.teardown_device(self.install_device)
             # The below code will fail when nfsiso is the stage2 source
             # But if we don't do this we may not be able to switch from
@@ -737,11 +739,13 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 payload_utils.unmount(mount_point, raise_exc=True)
 
     def _device_is_mounted_as_source(self, device):
-        device_mounts = payload_utils.get_mount_paths(device.path)
+        device_path = payload_utils.get_device_path(device)
+        device_mounts = payload_utils.get_mount_paths(device_path)
         return INSTALL_TREE in device_mounts or DRACUT_REPODIR in device_mounts
 
     def _setup_media(self, device):
         method = self.data.method
+
         if method.method == "harddrive":
             try:
                 method.dir = self._find_and_mount_iso(device, ISO_DIR, method.dir, INSTALL_TREE)

@@ -76,12 +76,13 @@ class LiveImagePayload(Payload):
         if not osimg:
             raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
 
-        if not stat.S_ISBLK(os.stat(osimg.path)[stat.ST_MODE]):
+        osimg_path = payload_utils.get_device_path(osimg)
+        if not stat.S_ISBLK(os.stat(osimg_path)[stat.ST_MODE]):
             exn = PayloadSetupError("%s is not a valid block device" %
                                     (self.data.method.partition,))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
-        rc = payload_utils.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
+        rc = payload_utils.mount(osimg_path, INSTALL_TREE, fstype="auto", options="ro")
         if rc != 0:
             raise PayloadInstallError("Failed to mount the install tree")
 
