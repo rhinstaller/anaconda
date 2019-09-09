@@ -25,7 +25,7 @@ from blivet.formats.disklabel import DiskLabel
 from blivet.size import Size
 from ordered_set import OrderedSet
 
-from pyanaconda.network import ibft_iface, iface_for_host_ip
+from pyanaconda.network import iface_for_host_ip
 from pyanaconda import platform
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.bootloader.image import LinuxBootLoaderImage
@@ -782,19 +782,21 @@ class BootLoader(object):
                 if isinstance(dep, NetworkStorageDevice):
                     network_proxy = NETWORK.get_proxy()
                     network_args = []
+                    ibft = False
+                    nic = ""
                     if isinstance(dep, blivet.devices.iScsiDiskDevice):
                         if dep.iface == "default" or ":" in dep.iface:
                             node = _get_iscsi_node_from_device(dep)
                             if iscsi_proxy.IsNodeFromIbft(Node.to_structure(node)):
-                                nic = ibft_iface()
+                                ibft = True
                             else:
                                 nic = iface_for_host_ip(dep.host_address)
                         else:
                             nic = iscsi_proxy.GetInterface(dep.iface)
                     else:
                         nic = dep.nic
-                    if nic:
-                        network_args = network_proxy.GetDracutArguments(nic, dep.host_address, "")
+                    if nic or ibft:
+                        network_args = network_proxy.GetDracutArguments(nic, dep.host_address, "", ibft)
 
                     self.boot_args.update(network_args)
                     self.dracut_args.update(network_args)

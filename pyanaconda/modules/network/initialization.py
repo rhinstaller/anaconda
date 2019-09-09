@@ -23,7 +23,7 @@ from pyanaconda.modules.network.network_interface import NetworkInitializationTa
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, add_connection_from_ksdata, \
     bound_hwaddr_of_device, get_connections_available_for_iface, update_connection_values, \
-    commit_changes_with_autoconnection_blocked
+    commit_changes_with_autoconnection_blocked, is_ibft_connection
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types
@@ -242,12 +242,10 @@ class ConsolidateInitramfsConnectionsTask(Task):
         ac = device.get_active_connection()
         if ac:
             con = ac.get_connection()
-            if self._is_ibft_connection(con):
+            if is_ibft_connection(con):
                 return True
         return False
 
-    def _is_ibft_connection(self, con):
-        return con.get_id().startswith("iBFT Connection")
 
 class SetRealOnbootValuesFromKickstartTask(Task):
     """Task for setting of real ONBOOT values from kickstart."""
