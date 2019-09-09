@@ -275,6 +275,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         device = self.nm_client.get_device_by_iface(devname)
         if device:
+            addr_str = dnss_str = gateway_str = netmask_str = ""
             ipv4config = device.get_ip4_config()
             if ipv4config:
                 addresses = ipv4config.get_addresses()
@@ -285,8 +286,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                     netmask_str = network.prefix_to_netmask(prefix)
                 gateway_str = ipv4config.get_gateway() or ''
                 dnss_str = ",".join(ipv4config.get_nameservers())
-            else:
-                addr_str = dnss_str = gateway_str = netmask_str = ""
             msg += _(" IPv4 Address: %(addr)s Netmask: %(netmask)s Gateway: %(gateway)s\n") % \
                 {"addr": addr_str, "netmask": netmask_str, "gateway": gateway_str}
             msg += _(" DNS: %s\n") % dnss_str
