@@ -321,6 +321,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 10 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.158-1
+- network: use DEVICETYPE for team when updating virtual slaves ifcfgs
+  (rvykydal)
+  Resolves: rhbz#1680606
+- dracut/parse-kickstart: Set DEVICETYPE instead of TYPE in a team master ifcfg file
+  (ptalbert)
+  Resolves: rhbz#1680606
+
 * Tue Sep 03 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.157-1
 - Handle exceptions without GTK (vponcova)
   Resolves: rhbz#1712987
