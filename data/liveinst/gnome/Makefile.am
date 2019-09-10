@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 welcomedir              = $(datadir)/$(PACKAGE_NAME)/gnome
-dist_welcome_DATA       = install-button.png fedora-welcome.desktop
+dist_welcome_DATA       = fedora-welcome.desktop
 dist_welcome_SCRIPTS    = fedora-welcome.js
 
 MAINTAINERCLEANFILES = Makefile.in
