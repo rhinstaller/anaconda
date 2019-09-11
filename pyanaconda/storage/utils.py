@@ -49,7 +49,9 @@ from pyanaconda.core.i18n import N_, _, P_
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM, DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM, \
+    DISK_INITIALIZATION, DEVICE_TREE
+from pyanaconda.modules.common.structures.storage import DeviceData
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -495,9 +497,9 @@ def filter_disks_by_names(disks, names):
 
     :param disks: a list of disks
     :param names: a list of disk names
-    :return: a list of filtered disks
+    :return: a list of filtered disk names
     """
-    return [d for d in disks if d.name in names]
+    return list(filter(lambda name: name in disks, names))
 
 
 def is_local_disk(disk):
@@ -522,22 +524,24 @@ def is_local_disk(disk):
 def apply_disk_selection(storage, selected_names):
     """Apply the disks selection.
 
+    FIXME: Remove the storage argument.
+
     :param storage: blivet.Blivet instance
     :param selected_names: a list of selected disk names
     """
-    # Get the selected disks.
-    selected_disks = filter_disks_by_names(storage.disks, selected_names)
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
-    # Get names of their ancestors.
-    ancestor_names = [
-        ancestor.name
-        for disk in selected_disks for ancestor in disk.ancestors
-        if ancestor.is_disk and ancestor.name not in selected_names
-    ]
+    # Get disks.
+    disks = set(device_tree.GetDisks())
+    selected_disks = filter_disks_by_names(disks, selected_names)
+
+    # Get ancestors.
+    ancestors_names = device_tree.GetAncestors(selected_disks)
+    ancestors_disks = filter_disks_by_names(disks, ancestors_names)
 
     # Set the disks to select.
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    disk_select_proxy.SetSelectedDisks(selected_names + ancestor_names)
+    disk_select_proxy.SetSelectedDisks(selected_names + ancestors_disks)
 
     # Set the drives to clear.
     disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
@@ -599,16 +603,24 @@ def get_required_device_size(required_space, format_class=None):
     return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
 
 
-def get_disks_summary(storage, selected):
+def get_disks_summary(storage, disks):
     """Get a summary of the selected disks
 
+    FIXME: Remove the storage argument.
+
     :param storage: an instance of the storage
-    :param selected: a list of selected disks
+    :param disks: a list of names of selected disks
     :return: a string with a summary
     """
-    count = len(selected)
-    capacity = sum((disk.size for disk in selected), Size(0))
-    free_space = storage.get_disk_free_space(selected)
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+
+    data = DeviceData.from_structure_list([
+        device_tree.GetDeviceData(d) for d in disks
+    ])
+
+    count = len(disks)
+    capacity = Size(sum((disk.size for disk in data), 0))
+    free_space = Size(device_tree.GetDiskFreeSpace(disks))
 
     return P_(
         "{count} disk selected; {capacity} capacity; {free} free",
@@ -628,7 +640,6 @@ def mark_protected_device(storage, spec):
     if spec not in protected_devices:
         protected_devices.add(spec)
 
-    storage.protect_devices(protected_devices)
     disk_selection_proxy.SetProtectedDevices(protected_devices)
 
 
@@ -644,7 +655,6 @@ def unmark_protected_device(storage, spec):
     if spec in protected_devices:
         protected_devices.remove(spec)
 
-    storage.protect_devices(protected_devices)
     disk_selection_proxy.SetProtectedDevices(protected_devices)
 
 
