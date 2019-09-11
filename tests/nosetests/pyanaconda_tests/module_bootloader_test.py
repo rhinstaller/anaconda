@@ -21,6 +21,11 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
+from blivet.devices import BTRFSDevice, DiskDevice
+from blivet.formats import get_format
+from blivet.size import Size
+
+from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation
 
@@ -41,7 +46,7 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
-    InstallBootloaderTask, FixZIPLBootloaderTask
+    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):
@@ -204,6 +209,19 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._storage, storage)
 
     @patch_dbus_publish_object
+    def fix_btrfs_with_task_test(self, publisher):
+        """Test FixBTRFSWithTask."""
+        storage = Mock()
+        version = "4.17.7-200.fc28.x86_64"
+
+        self.bootloader_module.on_storage_reset(storage)
+        task_path = self.bootloader_interface.FixBTRFSWithTask([version])
+
+        obj = check_task_creation(self, task_path, publisher, FixBTRFSBootloaderTask)
+        self.assertEqual(obj.implementation._storage, storage)
+        self.assertEqual(obj.implementation._versions, [version])
+
+    @patch_dbus_publish_object
     def fix_zipl_with_task_test(self, publisher):
         """Test FixZIPLWithTask."""
         storage = Mock()
@@ -257,6 +275,50 @@ class BootloaderTasksTestCase(unittest.TestCase):
         InstallBootloaderTask(storage, BootloaderMode.ENABLED).run()
         bootloader.set_boot_args.assert_called_once()
         bootloader.write.assert_called_once()
+
+    @patch('pyanaconda.modules.storage.bootloader.installation.conf')
+    @patch('pyanaconda.modules.storage.bootloader.installation.ConfigureBootloaderTask')
+    @patch('pyanaconda.modules.storage.bootloader.installation.InstallBootloaderTask')
+    def fix_btrfs_test(self, configure, install, conf):
+        """Test the final configuration of the boot loader."""
+        storage = create_storage()
+        sysroot = "/tmp/sysroot"
+        version = "4.17.7-200.fc28.x86_64"
+
+        conf.target.is_directory = True
+        FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
+        configure.assert_not_called()
+        install.assert_not_called()
+
+        conf.target.is_directory = False
+        FixBTRFSBootloaderTask(storage, BootloaderMode.DISABLED, [version], sysroot).run()
+        configure.assert_not_called()
+        install.assert_not_called()
+
+        conf.target.is_directory = False
+        FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
+        configure.assert_not_called()
+        install.assert_not_called()
+
+        dev1 = DiskDevice(
+            "dev1",
+            fmt=get_format("disklabel"),
+            size=Size("10 GiB")
+        )
+        storage.devicetree._add_device(dev1)
+
+        dev2 = BTRFSDevice(
+            "dev1",
+            fmt=get_format("btrfs", mountpoint="/"),
+            size=Size("5 GiB"),
+            parents=[dev1]
+        )
+        storage.devicetree._add_device(dev2)
+
+        conf.target.is_directory = False
+        FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
+        configure.called_once_with(storage, BootloaderMode.ENABLED, [version], sysroot)
+        install.called_once_with(storage, BootloaderMode.ENABLED)
 
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
     @patch("pyanaconda.modules.storage.bootloader.installation.arch.is_s390")
