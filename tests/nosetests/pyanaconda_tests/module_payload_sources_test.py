@@ -24,7 +24,48 @@ from mock import Mock, patch
 from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask
+
+
+class LiveOSSourceTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.live_os_source_module = LiveOSSourceModule("/mock/image/path")
+
+    def set_up_with_tasks_test(self):
+        """Test Live OS Source set up call."""
+        task_classes = [
+            SetUpInstallationSourceTask
+        ]
+
+        # task will not be public so it won't be published
+        tasks = self.live_os_source_module.set_up_with_tasks()
+
+        # Check the number of the tasks
+        task_number = len(task_classes)
+        self.assertEqual(task_number, len(tasks))
+
+        for i in range(task_number):
+            self.assertIsInstance(tasks[i], task_classes[i])
+
+    def set_up_with_tasks_ready_state_test(self):
+        """Test Live OS Source ready state for set up."""
+        callback = Mock()
+        self.live_os_source_module.is_ready_changed.connect(callback)
+
+        self.assertFalse(self.live_os_source_module.is_ready)
+
+        tasks = self.live_os_source_module.set_up_with_tasks()
+
+        # tasks were created but not run
+        self.assertFalse(self.live_os_source_module.is_ready)
+        callback.assert_not_called()
+
+        tasks[-1].succeeded_signal.emit()
+
+        self.assertTrue(self.live_os_source_module.is_ready)
+        callback.assert_called_once()
 
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
