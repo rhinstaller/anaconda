@@ -173,8 +173,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """Test InstallWithTask."""
         task_classes = [
             ActivateFilesystemsTask,
-            MountFilesystemsTask,
-            WriteConfigurationTask
+            MountFilesystemsTask
         ]
 
         task_paths = self.storage_interface.InstallWithTasks()
@@ -190,6 +189,12 @@ class StorageInterfaceTestCase(unittest.TestCase):
             self.assertEqual(object_path, task_paths[i])
             self.assertIsInstance(obj, TaskInterface)
             self.assertIsInstance(obj.implementation, task_classes[i])
+
+    @patch_dbus_publish_object
+    def write_configuration_with_task_test(self, publisher):
+        """Test WriteConfigurationWithTask."""
+        task_path = self.storage_interface.WriteConfigurationWithTask()
+        check_task_creation(self, task_path, publisher, WriteConfigurationTask)
 
     @patch_dbus_publish_object
     def teardown_with_tasks_test(self, publisher):

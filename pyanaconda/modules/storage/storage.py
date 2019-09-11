@@ -297,17 +297,23 @@ class StorageModule(KickstartModule):
     def install_with_tasks(self):
         """Returns installation tasks of this module.
 
-        FIXME: This is a simplified version of the storage installation.
-
         :returns: list of installation tasks
         """
         storage = self.storage
 
         return [
             ActivateFilesystemsTask(storage),
-            MountFilesystemsTask(storage),
-            WriteConfigurationTask(storage)
+            MountFilesystemsTask(storage)
         ]
+
+    def write_configuration_with_task(self):
+        """Write the storage configuration with a task.
+
+        FIXME: This is a temporary workaround.
+
+        :return: an installation task
+        """
+        return WriteConfigurationTask(self.storage)
 
     def teardown_with_tasks(self):
         """Returns teardown tasks for this module.
