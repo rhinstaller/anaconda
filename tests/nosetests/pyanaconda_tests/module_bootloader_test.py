@@ -19,7 +19,7 @@
 #
 import tempfile
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation
@@ -41,7 +41,7 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
-    InstallBootloaderTask
+    InstallBootloaderTask, FixZIPLBootloaderTask
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):
@@ -203,6 +203,17 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(obj.implementation._storage, storage)
 
+    @patch_dbus_publish_object
+    def fix_zipl_with_task_test(self, publisher):
+        """Test FixZIPLWithTask."""
+        storage = Mock()
+
+        self.bootloader_module.on_storage_reset(storage)
+        task_path = self.bootloader_interface.FixZIPLWithTask()
+
+        obj = check_task_creation(self, task_path, publisher, FixZIPLBootloaderTask)
+        self.assertEqual(obj.implementation._mode, self.bootloader_module.bootloader_mode)
+
 
 class BootloaderTasksTestCase(unittest.TestCase):
     """Test tasks for the boot loader."""
@@ -246,6 +257,31 @@ class BootloaderTasksTestCase(unittest.TestCase):
         InstallBootloaderTask(storage, BootloaderMode.ENABLED).run()
         bootloader.set_boot_args.assert_called_once()
         bootloader.write.assert_called_once()
+
+    @patch('pyanaconda.modules.storage.bootloader.installation.conf')
+    @patch("pyanaconda.modules.storage.bootloader.installation.arch.is_s390")
+    @patch("pyanaconda.modules.storage.bootloader.installation.execInSysroot")
+    def fix_zipl_test(self, execute, is_s390, conf):
+        """Test the installation task for the ZIPL fix."""
+        is_s390.return_value = False
+        conf.target.is_directory = False
+        FixZIPLBootloaderTask(BootloaderMode.ENABLED).run()
+        execute.assert_not_called()
+
+        is_s390.return_value = True
+        conf.target.is_directory = True
+        FixZIPLBootloaderTask(BootloaderMode.ENABLED).run()
+        execute.assert_not_called()
+
+        is_s390.return_value = True
+        conf.target.is_directory = False
+        FixZIPLBootloaderTask(BootloaderMode.DISABLED).run()
+        execute.assert_not_called()
+
+        is_s390.return_value = True
+        conf.target.is_directory = False
+        FixZIPLBootloaderTask(BootloaderMode.ENABLED).run()
+        execute.assert_called_once_with("zipl", [])
 
 
 class BootloaderClassTestCase(unittest.TestCase):

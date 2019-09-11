@@ -35,7 +35,7 @@ from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
-    InstallBootloaderTask
+    InstallBootloaderTask, FixZIPLBootloaderTask
 from pyanaconda.modules.storage.constants import BootloaderMode, BootloaderType
 
 log = get_module_logger(__name__)
@@ -437,6 +437,18 @@ class BootloaderModule(KickstartBaseModule):
         :return: a task
         """
         return InstallBootloaderTask(
+            storage=self.storage,
+            mode=self.bootloader_mode
+        )
+
+    def fix_zipl_with_task(self):
+        """Fix the ZIPL bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :return: a task
+        """
+        return FixZIPLBootloaderTask(
             storage=self.storage,
             mode=self.bootloader_mode
         )

@@ -17,6 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import arch
+
+from pyanaconda.core.util import execInSysroot
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -27,7 +30,7 @@ from pyanaconda.modules.common.task import Task
 log = get_module_logger(__name__)
 
 
-__all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask"]
+__all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask", "FixZIPLBootloaderTask"]
 
 
 class ConfigureBootloaderTask(Task):
@@ -90,3 +93,36 @@ class InstallBootloaderTask(Task):
             return
 
         install_boot_loader(storage=self._storage)
+
+
+class FixZIPLBootloaderTask(Task):
+    """Installation task fixing the ZIPL bootloader.
+
+    Invoking zipl should be the last thing done on a s390x installation (see #1652727).
+    """
+
+    def __init__(self, storage, mode):
+        """Create a new task."""
+        super().__init__()
+        self._storage = storage
+        self._mode = mode
+
+    @property
+    def name(self):
+        return "Rerun zipl"
+
+    def run(self):
+        """Run the task."""
+        if not arch.is_s390():
+            log.debug("ZIPL can be run only on s390x.")
+            return
+
+        if conf.target.is_directory:
+            log.debug("The bootloader installation is disabled for dir installations.")
+            return
+
+        if self._mode == BootloaderMode.DISABLED:
+            log.debug("The bootloader installation is disabled.")
+            return
+
+        execInSysroot("zipl", [])
