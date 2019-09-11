@@ -15,72 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.devices import NVDIMMNamespaceDevice
-
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, \
-    DISK_INITIALIZATION, MANUAL_PARTITIONING, NVDIMM
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.storage.partitioning.base import PartitioningModule
-from pyanaconda.modules.storage.disk_initialization.initialization import DiskInitializationModule
 
 log = get_module_logger(__name__)
 
-__all__ = ["update_storage_ksdata", "reset_custom_storage_data"]
-
-
-def update_storage_ksdata(storage, ksdata):
-    """Update kickstart data to reflect the current storage configuration.
-
-    FIXME: This is a temporary workaround for UI.
-
-    :param storage: an instance of the storage
-    :param ksdata: an instance of kickstart data
-    """
-    if not ksdata or not storage.mountpoints:
-        return
-
-    _update_clearpart(storage)
-    _update_custom_storage(storage, ksdata)
-    _update_nvdimm_data(storage)
-
-
-def _update_clearpart(storage):
-    """Update data for clearpart.
-
-    :param storage: an instance of the storage
-    """
-    disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-
-    if disk_init_proxy.InitializationMode == CLEAR_PARTITIONS_NONE:
-        # FIXME: This is an ugly temporary workaround for UI.
-        mode, drives, devices = DiskInitializationModule._find_cleared_devices(storage)
-
-        disk_init_proxy.SetInitializationMode(mode.value)
-        disk_init_proxy.SetDrivesToClear(drives)
-        disk_init_proxy.SetDevicesToClear(devices)
-
-
-def _update_custom_storage(storage, ksdata):
-    """Update kickstart data for custom storage.
-
-    :param storage: an instance of the storage
-    :param ksdata: an instance of kickstart data
-    """
-    auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-    manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
-
-    # Clear out whatever was there before.
-    reset_custom_storage_data(ksdata)
-
-    # Check if the custom partitioning was used.
-    if auto_part_proxy.Enabled or manual_part_proxy.Enabled:
-        log.debug("Custom partitioning is disabled.")
-        return
-
-    # FIXME: This is an ugly temporary workaround for UI.
-    PartitioningModule._setup_kickstart_from_storage(ksdata, storage)
+__all__ = ["reset_custom_storage_data"]
 
 
 def reset_custom_storage_data(ksdata):
@@ -90,17 +29,3 @@ def reset_custom_storage_data(ksdata):
     """
     for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
         ksdata.resetCommand(command)
-
-
-def _update_nvdimm_data(storage):
-    """Update kickstart data for NVDIMM.
-
-    FIXME: Move the logic to the iSCSI DBus module.
-
-    :param storage: an instance of the storage
-    """
-    nvdimm_proxy = STORAGE.get_proxy(NVDIMM)
-    nvdimm_proxy.SetNamespacesToUse([
-        d.devname for d in storage.disks
-        if isinstance(d, NVDIMMNamespaceDevice)
-    ])
