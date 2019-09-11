@@ -28,29 +28,7 @@ from pyanaconda.product import productName
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["write_boot_loader", "configure_boot_loader", "install_boot_loader"]
-
-
-def write_boot_loader(storage, payload):
-    """Write bootloader configuration to disk.
-
-    FIXME: A temporary workaround for UI.
-
-    When we get here, the bootloader will already have a default linux
-    image. We only have to add images for the non-default kernels and
-    adjust the default to reflect whatever the default variant is.
-    """
-    # Configure the boot loader.
-    if not payload.handles_bootloader_configuration:
-        configure_boot_loader(
-            sysroot=conf.target.system_root,
-            storage=storage,
-            kernel_versions=payload.kernel_version_list
-        )
-
-    # Install the boot loader.
-    if not storage.bootloader.skip_bootloader:
-        install_boot_loader(storage)
+__all__ = ["configure_boot_loader", "install_boot_loader"]
 
 
 def configure_boot_loader(sysroot, storage, kernel_versions):

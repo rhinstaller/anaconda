@@ -17,21 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from blivet import callbacks, arch
-from blivet.devices import BTRFSDevice
-
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
     LOCALIZATION, TIMEZONE, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
-from pyanaconda.storage.kickstart import update_storage_ksdata
-from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
-from pyanaconda.bootloader.installation import write_boot_loader
 from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda import flags
@@ -40,7 +31,6 @@ from pyanaconda import timezone
 from pyanaconda import network
 from pyanaconda.core.i18n import N_
 from pyanaconda.threading import threadMgr
-from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.installation_tasks import Task, TaskQueue
@@ -150,18 +140,15 @@ def _prepare_configuration(storage, payload, ksdata):
     # This works around 2 problems, /boot on BTRFS and BTRFS installations where the initrd is
     # recreated after the first writeBootLoader call. This reruns it after the new initrd has
     # been created, fixing the kernel root and subvol args and adding the missing initrd entry.
-    boot_on_btrfs = isinstance(storage.mountpoints.get("/"), BTRFSDevice)
-
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-    bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
 
-    if isinstance(payload, LiveImagePayload) and boot_on_btrfs and bootloader_enabled:
-        generate_initramfs.append(Task("Write BTRFS bootloader fix", write_boot_loader, (storage, payload)))
+    if isinstance(payload, LiveImagePayload):
+        btrfs_task = bootloader_proxy.FixBTRFSWithTask(payload.kernel_version_list)
+        generate_initramfs.append_dbus_tasks(STORAGE, [btrfs_task])
 
     # Invoking zipl should be the last thing done on a s390x installation (see #1652727).
-    if arch.is_s390() and not conf.target.is_directory and bootloader_enabled:
-        generate_initramfs.append(Task("Rerun zipl", lambda: util.execInSysroot("zipl", [])))
-
+    zipl_task = bootloader_proxy.FixZIPLWithTask()
+    generate_initramfs.append_dbus_tasks(STORAGE, [zipl_task])
     configuration_queue.append(generate_initramfs)
 
     # realm join
@@ -205,10 +192,6 @@ def _prepare_installation(storage, payload, ksdata):
        The two main tasks for this are putting filesystems onto disks and
        installing packages onto those filesystems.
     """
-    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-    bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
-    can_install_bootloader = not conf.target.is_directory and bootloader_enabled
-
     installation_queue = TaskQueue("Installation queue")
     # connect progress reporting
     installation_queue.queue_started.connect(lambda x: progress_message(x.status_message))
@@ -252,32 +235,13 @@ def _prepare_installation(storage, payload, ksdata):
     # Depending on current payload the storage might be apparently configured
     # either before or after package/payload installation.
     # So let's have two task queues - early storage & late storage.
+    storage_proxy = STORAGE.get_proxy()
     early_storage = TaskQueue("Early storage configuration", N_("Configuring storage"))
+    early_storage.append_dbus_tasks(STORAGE, storage_proxy.InstallWithTasks())
 
-    # put custom storage info into ksdata
-    early_storage.append(Task("Insert custom storage to ksdata",
-                              task=update_storage_ksdata,
-                              task_args=(storage, ksdata)))
-
-    # callbacks for blivet
-    message_clbk = lambda clbk_data: progress_message(clbk_data.msg)
-    entropy_wait_clbk = lambda clbk_data: wait_for_entropy(clbk_data.msg,
-                                                           clbk_data.min_entropy, ksdata)
-    callbacks_reg = callbacks.create_new_callbacks_register(create_format_pre=message_clbk,
-                                                            resize_format_pre=message_clbk,
-                                                            wait_for_entropy=entropy_wait_clbk)
-    if not conf.target.is_directory:
-        early_storage.append(Task("Activate filesystems",
-                                  task=turn_on_filesystems,
-                                  task_args=(storage,),
-                                  task_kwargs={"callbacks": callbacks_reg}))
-
-    early_storage.append(Task("Mount filesystems", task=storage.mount_filesystems))
-
-    if payload.needs_storage_configuration and not conf.target.is_directory:
-        early_storage.append(Task("Write early storage",
-                                  task=write_storage_configuration,
-                                  task_args=(storage,)))
+    if payload.needs_storage_configuration:
+        conf_task = storage_proxy.WriteConfigurationWithTask()
+        early_storage.append_dbus_tasks(STORAGE, [conf_task])
 
     installation_queue.append(early_storage)
 
@@ -313,10 +277,6 @@ def _prepare_installation(storage, payload, ksdata):
         # anaconda requires storage packages in order to make sure the target
         # system is bootable and configurable, and some other packages in order
         # to finish setting up the system.
-        payload.requirements.add_packages(storage.packages, reason="storage")
-
-        if can_install_bootloader:
-            payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
         if kernel_arguments.is_enabled("fips"):
             payload.requirements.add_packages(['/usr/bin/fips-mode-setup'], reason="compliance")
 
@@ -326,7 +286,7 @@ def _prepare_installation(storage, payload, ksdata):
         # add package requirements from modules
         # - iterate over all modules we know have valid package requirements
         # - add any requirements found to the payload requirement tracking
-        modules_with_package_requirements = [SECURITY, NETWORK, TIMEZONE]
+        modules_with_package_requirements = [SECURITY, NETWORK, TIMEZONE, STORAGE]
         for module in modules_with_package_requirements:
             module_proxy = module.get_proxy()
             module_requirements = Requirement.from_structure_list(module_proxy.CollectRequirements())
@@ -343,19 +303,22 @@ def _prepare_installation(storage, payload, ksdata):
     installation_queue.append(payload_install)
 
     # for some payloads storage is configured after the payload is installed
-    if not payload.needs_storage_configuration and not conf.target.is_directory:
+    if not payload.needs_storage_configuration:
         late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
-        late_storage.append(Task("Write late storage",
-                                 task=write_storage_configuration,
-                                 task_args=(storage, )))
-
+        conf_task = storage_proxy.WriteConfigurationWithTask()
+        late_storage.append_dbus_tasks(STORAGE, [conf_task])
         installation_queue.append(late_storage)
 
     # Do bootloader.
-    if can_install_bootloader:
-        bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
-        bootloader_install.append(Task("Install bootloader", write_boot_loader, (storage, payload)))
-        installation_queue.append(bootloader_install)
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+    bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
+
+    if not payload.handles_bootloader_configuration:
+        boot_task = bootloader_proxy.ConfigureWithTask(payload.kernel_version_list)
+        bootloader_install.append_dbus_tasks(STORAGE, [boot_task])
+
+    bootloader_install.append_dbus_tasks(STORAGE, [bootloader_proxy.InstallWithTask()])
+    installation_queue.append(bootloader_install)
 
     post_install = TaskQueue("Post-installation setup tasks", (N_("Performing post-installation setup tasks")))
     post_install.append(Task("Run post-installation setup tasks", payload.post_install))
@@ -366,9 +329,8 @@ def _prepare_installation(storage, payload, ksdata):
 
     if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_POST_INSTALL):
         snapshot_creation = TaskQueue("Creating post installation snapshots", N_("Creating snapshots"))
-        snapshot_requests = ksdata.snapshot.get_requests(SNAPSHOT_WHEN_POST_INSTALL)
-        snapshot_task = SnapshotCreateTask(storage, snapshot_requests, SNAPSHOT_WHEN_POST_INSTALL)
-        snapshot_creation.append(Task("Create post-install snapshots", snapshot_task.run))
+        snapshot_task = snapshot_proxy.CreateWithTask(SNAPSHOT_WHEN_POST_INSTALL)
+        snapshot_creation.append_dbus_tasks(STORAGE, [snapshot_task])
         installation_queue.append(snapshot_creation)
 
     return installation_queue
