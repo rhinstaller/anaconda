@@ -26,7 +26,8 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
-from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask
+from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask, \
+    TearDownInstallationSourceTask
 
 
 class LiveOSSourceInterfaceTestCase(unittest.TestCase):
@@ -74,7 +75,23 @@ class LiveOSSourceTestCase(unittest.TestCase):
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
 
-    def set_up_with_tasks_ready_state_test(self):
+    def tear_down_with_tasks_test(self):
+        """Test Live OS Source ready state for tear down."""
+        task_classes = [
+            TearDownInstallationSourceTask
+        ]
+
+        # task will not be public so it won't be published
+        tasks = self.live_os_source_module.tear_down_with_tasks()
+
+        # check the number of tasks
+        task_number = len(task_classes)
+        self.assertEqual(task_number, len(tasks))
+
+        for i in range(task_number):
+            self.assertIsInstance(tasks[i], task_classes[i])
+
+    def ready_state_test(self):
         """Test Live OS Source ready state for set up."""
         callback = Mock()
         self.live_os_source_module.is_ready_changed.connect(callback)
@@ -90,6 +107,16 @@ class LiveOSSourceTestCase(unittest.TestCase):
         tasks[-1].succeeded_signal.emit()
 
         self.assertTrue(self.live_os_source_module.is_ready)
+        callback.assert_called_once()
+
+        # tear down task to remove ready state
+        callback.reset_mock()
+
+        tasks = self.live_os_source_module.tear_down_with_tasks()
+
+        tasks[-1].succeeded_signal.emit()
+
+        self.assertFalse(self.live_os_source_module.is_ready)
         callback.assert_called_once()
 
 
