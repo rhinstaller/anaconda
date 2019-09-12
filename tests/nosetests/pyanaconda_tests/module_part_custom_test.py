@@ -18,11 +18,14 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, PropertyMock, patch
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
+from blivet.devices import PartitionDevice
+from blivet.formats import get_format
+from blivet.size import Size
 
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, \
+    check_kickstart_interface, check_task_creation
 
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning import CustomPartitioningModule
@@ -31,6 +34,7 @@ from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPa
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
+from pyanaconda.storage.initialization import create_storage
 
 
 class CustomPartitioningInterfaceTestCase(unittest.TestCase):
@@ -99,3 +103,51 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         self.assertEqual(self.interface.RequiresPassphrase(), True)
         self.interface.SetPassphrase("123456")
         self.assertEqual(self.interface.RequiresPassphrase(), False)
+
+    @patch('pyanaconda.dbus.DBus.get_proxy')
+    @patch('pyanaconda.storage.osinstall.InstallerStorage.mountpoints', new_callable=PropertyMock)
+    def test_prepboot_bootloader_in_kickstart(self, mock_mountpoints, dbus):
+        """Test that a prepboot bootloader shows up in the ks data."""
+        # set up prepboot partition
+        bootloader_device_obj = PartitionDevice("test_partition_device")
+        bootloader_device_obj.size = Size('5 MiB')
+        bootloader_device_obj.format = get_format("prepboot")
+
+        # mountpoints must exist for update_ksdata to run
+        mock_mountpoints.values.return_value = []
+
+        # set up the storage
+        self.module.on_storage_reset(create_storage())
+        self.assertTrue(self.module.storage)
+
+        self.module.storage.bootloader.stage1_device = bootloader_device_obj
+
+        # initialize ksdata
+        ksdata = self.storage_module.get_kickstart_handler()
+        self.module.setup_kickstart(ksdata)
+
+        self.assertIn("part prepboot", str(ksdata))
+
+    @patch('pyanaconda.dbus.DBus.get_proxy')
+    @patch('pyanaconda.storage.osinstall.InstallerStorage.devices', new_callable=PropertyMock)
+    @patch('pyanaconda.storage.osinstall.InstallerStorage.mountpoints', new_callable=PropertyMock)
+    def test_biosboot_bootloader_in_kickstart(self, mock_mountpoints, mock_devices, dbus):
+        """Test that a biosboot bootloader shows up in the ks data."""
+        # set up biosboot partition
+        biosboot_device_obj = PartitionDevice("biosboot_partition_device")
+        biosboot_device_obj.size = Size('1MiB')
+        biosboot_device_obj.format = get_format("biosboot")
+
+        # mountpoints must exist for updateKSData to run
+        mock_devices.return_value = [biosboot_device_obj]
+        mock_mountpoints.values.return_value = []
+
+        # set up the storage
+        self.module.on_storage_reset(create_storage())
+        self.assertTrue(self.module.storage)
+
+        # initialize ksdata
+        ksdata = self.storage_module.get_kickstart_handler()
+        self.module.setup_kickstart(ksdata)
+
+        self.assertIn("part biosboot", str(ksdata))
