@@ -265,20 +265,8 @@ class Authselect(RemovedCommand):
         except RuntimeError as msg:
             authselect_log.error("Error running %s %s: %s", cmd, args, msg)
 
-# FIXME: We have to fix self.handler.autopart in the pykickstart project before replacing this by
-#        UselessCommand class. The self.handler.autopart won't be present, instead there will be
-#        self.handler.uselesscommand. Test handler.autopart availability before calling it.
-class AutoPart(RemovedCommand):
-    pass
-
-class BTRFS(COMMANDS.BTRFS):
-    pass
-
 # no overrides needed here
 Eula = COMMANDS.Eula
-
-class LogVol(COMMANDS.LogVol):
-    pass
 
 class Logging(COMMANDS.Logging):
     def execute(self):
@@ -342,14 +330,6 @@ class Network(COMMANDS.Network):
             if hostname != network.DEFAULT_HOSTNAME:
                 network_proxy.SetCurrentHostname(hostname)
 
-
-
-class Partition(COMMANDS.Partition):
-    pass
-
-class Raid(COMMANDS.Raid):
-    pass
-
 class RepoData(COMMANDS.RepoData):
 
     __mount_counter = 0
@@ -406,9 +386,6 @@ class RepoData(COMMANDS.RepoData):
 
     def is_harddrive_based(self):
         return self.partition is not None
-
-class ReqPart(COMMANDS.ReqPart):
-    pass
 
 class Timezone(RemovedCommand):
 
@@ -486,44 +463,6 @@ class Timezone(RemovedCommand):
                 except ntp.NTPconfigError as ntperr:
                     timezone_log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
 
-class VolGroup(COMMANDS.VolGroup):
-    pass
-
-class Snapshot(COMMANDS.Snapshot):
-    """The snapshot kickstart command.
-
-    The command will be parsed here and in the Storage module for now.
-    The data don't change, so it is ok, to use the Snapshot module
-    when we can.
-    """
-
-    def __str__(self):
-        # Provided by the Storage module.
-        return ""
-
-    def get_requests(self, when):
-        """Get a list of snapshot requests of the given type.
-
-        :param when: a type of the requests
-        :returns: a list of requests
-        """
-        return [request for request in self.dataList() if request.when == when]
-
-    def verify_requests(self, storage, constraints, report_error, report_warning):
-        """Verify the validity of snapshot requests for the given storage.
-
-        This is a callback for the storage checker.
-
-        :param storage: a storage to check
-        :param constraints: a dictionary of constraints
-        :param report_error: a function for error reporting
-        :param report_warning: a function for warning reporting
-        """
-        # FIXME: This is an ugly temporary workaround for UI.
-        from pyanaconda.modules.storage.snapshot import SnapshotModule
-        SnapshotModule.verify_requests(self, storage, constraints, report_error, report_warning)
-
-
 class Keyboard(RemovedCommand):
 
     def execute(self):
@@ -597,8 +536,8 @@ commandMap = {
     "auth": UselessCommand,
     "authconfig": UselessCommand,
     "authselect": Authselect,
-    "autopart": AutoPart,
-    "btrfs": BTRFS,
+    "autopart": UselessCommand,
+    "btrfs": UselessCommand,
     "bootloader": UselessCommand,
     "clearpart": UselessCommand,
     "eula": Eula,
@@ -612,24 +551,24 @@ commandMap = {
     "keyboard": Keyboard,
     "lang": UselessCommand,
     "logging": Logging,
-    "logvol": LogVol,
+    "logvol": UselessCommand,
     "mount": UselessCommand,
     "network": Network,
     "nvdimm": UselessCommand,
-    "part": Partition,
-    "partition": Partition,
-    "raid": Raid,
+    "part": UselessCommand,
+    "partition": UselessCommand,
+    "raid": UselessCommand,
     "realm": UselessCommand,
-    "reqpart": ReqPart,
+    "reqpart": UselessCommand,
     "rootpw": UselessCommand,
     "selinux": UselessCommand,
     "services": UselessCommand,
     "sshkey" : UselessCommand,
     "skipx": UselessCommand,
-    "snapshot": Snapshot,
+    "snapshot": UselessCommand,
     "timezone": Timezone,
     "user": UselessCommand,
-    "volgroup": VolGroup,
+    "volgroup": UselessCommand,
     "xconfig": UselessCommand,
     "zerombr": UselessCommand,
     "zfcp": UselessCommand,
