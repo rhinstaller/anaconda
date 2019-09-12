@@ -68,6 +68,10 @@ class StorageModule(KickstartModule):
         self._created_partitioning = []
         self.created_partitioning_changed = Signal()
 
+        # The applied partitioning module.
+        self._applied_partitioning = None
+        self.applied_partitioning_changed = Signal()
+
         # Initialize modules.
         self._modules = []
 
@@ -195,6 +199,9 @@ class StorageModule(KickstartModule):
         for kickstart_module in self._modules:
             kickstart_module.setup_kickstart(data)
 
+        if self.applied_partitioning:
+            self.applied_partitioning.setup_kickstart(data)
+
         return str(data)
 
     @property
@@ -305,6 +312,17 @@ class StorageModule(KickstartModule):
 
         # Apply the partitioning.
         self.set_storage(storage.copy())
+        self._set_applied_partitioning(module)
+
+    @property
+    def applied_partitioning(self):
+        """The applied partitioning."""
+        return self._applied_partitioning
+
+    def _set_applied_partitioning(self, module):
+        """Set the applied partitioning."""
+        self._applied_partitioning = module
+        self.applied_partitioning_changed.emit()
         log.debug("Applied the partitioning %s.", module)
 
     def collect_requirements(self):

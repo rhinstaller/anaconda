@@ -36,6 +36,9 @@ class StorageInterface(KickstartModuleInterface):
         self.watch_property(
             "CreatedPartitioning", self.implementation.created_partitioning_changed
         )
+        self.watch_property(
+            "AppliedPartitioning", self.implementation.applied_partitioning_changed
+        )
 
     def ResetWithTask(self) -> ObjPath:
         """Reset the storage model.
@@ -74,6 +77,7 @@ class StorageInterface(KickstartModuleInterface):
             self.implementation.created_partitioning
         )
 
+    @emits_properties_changed
     def ApplyPartitioning(self, partitioning: ObjPath):
         """Apply the partitioning.
 
@@ -82,6 +86,19 @@ class StorageInterface(KickstartModuleInterface):
         self.implementation.apply_partitioning(
             PartitioningContainer.from_object_path(partitioning)
         )
+
+    @property
+    def AppliedPartitioning(self) -> ObjPath:
+        """The applied partitioning.
+
+        :return: a DBus path or an empty string
+        """
+        partitioning = self.implementation.applied_partitioning
+
+        if not partitioning:
+            return ObjPath("")
+
+        return PartitioningContainer.to_object_path(partitioning)
 
     def WriteConfigurationWithTask(self) -> ObjPath:
         """Write the storage configuration with a task.
