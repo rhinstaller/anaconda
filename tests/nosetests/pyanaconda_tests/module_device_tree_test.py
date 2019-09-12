@@ -335,6 +335,21 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.ResolveDevice("dev1"), "dev1")
         self.assertEqual(self.interface.ResolveDevice("/dev/dev1"), "dev1")
 
+    def get_device_ancestors_test(self):
+        """Test GetDeviceAncestors."""
+        dev1 = StorageDevice("dev1")
+        self._add_device(dev1)
+
+        dev2 = StorageDevice("dev2", parents=[dev1])
+        self._add_device(dev2)
+
+        dev3 = StorageDevice("dev3", parents=[dev2])
+        self._add_device(dev3)
+
+        self.assertEqual(self.interface.GetDeviceAncestors("dev1"), [])
+        self.assertEqual(self.interface.GetDeviceAncestors("dev2"), ["dev1"])
+        self.assertEqual(self.interface.GetDeviceAncestors("dev3"), ["dev1", "dev2"])
+
     @patch.object(StorageDevice, "setup")
     def setup_device_test(self, setup):
         """Test SetupDevice."""
