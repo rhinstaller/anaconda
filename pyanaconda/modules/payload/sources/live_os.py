@@ -17,10 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+import stat
+
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 class LiveOSSourceModule(PayloadSourceBase):
@@ -50,4 +56,18 @@ class LiveOSSourceModule(PayloadSourceBase):
         pass
 
     def validate(self):
-        return True
+        """Test if the image exists on the given path.
+
+        :return: True if file on the path exists.
+        """
+        try:
+            res = stat.S_ISBLK(os.stat(self._image_path)[stat.ST_MODE])
+            if res:
+                log.debug("Live OS source is valid %s", self._image_path)
+                return True
+            else:
+                log.warning("Live OS source is not valid %s", self._image_path)
+        except FileNotFoundError:
+            log.warning("Live OS source is not available %s", self._image_path)
+
+        return False
