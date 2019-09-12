@@ -613,11 +613,10 @@ if __name__ == "__main__":
     else:
         min_ram = isys.MIN_RAM
 
-    from pyanaconda.storage.checker import storage_checker
-    storage_checker.set_constraint(constants.STORAGE_MIN_RAM, min_ram)
-
-    # Add a check for the snapshot requests.
-    storage_checker.add_check(ksdata.snapshot.verify_requests)
+    from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
+    from dasbus.typing import get_variant, Int
+    storage_checker = STORAGE.get_proxy(STORAGE_CHECKER)
+    storage_checker.SetConstraint(constants.STORAGE_MIN_RAM, get_variant(Int, min_ram))
 
     # Set the disk images.
     from pyanaconda.modules.common.constants.objects import DISK_SELECTION
