@@ -32,21 +32,7 @@ class ManualPartitioningInterface(PartitioningInterface):
     def connect_signals(self):
         """Connect the signals."""
         super().connect_signals()
-        self.watch_property("Enabled", self.implementation.enabled_changed)
         self.watch_property("Requests", self.implementation.requests_changed)
-
-    @property
-    def Enabled(self) -> Bool:
-        """Is the manual partitioning enabled?"""
-        return self.implementation.enabled
-
-    @emits_properties_changed
-    def SetEnabled(self, enabled: Bool):
-        """Is the manual partitioning enabled?
-
-        :param enabled: True if enabled, otherwise False
-        """
-        self.implementation.set_enabled(enabled)
 
     @property
     def Requests(self) -> List[Structure]:

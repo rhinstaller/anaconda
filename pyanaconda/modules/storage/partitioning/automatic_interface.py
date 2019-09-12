@@ -32,21 +32,7 @@ class AutoPartitioningInterface(PartitioningInterface):
     def connect_signals(self):
         """Connect the signals."""
         super().connect_signals()
-        self.watch_property("Enabled", self.implementation.enabled_changed)
         self.watch_property("Request", self.implementation.request_changed)
-
-    @property
-    def Enabled(self) -> Bool:
-        """Is the auto partitioning enabled?"""
-        return self.implementation.enabled
-
-    @emits_properties_changed
-    def SetEnabled(self, enabled: Bool):
-        """Is the auto partitioning enabled?
-
-        :param enabled: True if the autopartitioning is enabled, otherwise False
-        """
-        self.implementation.set_enabled(enabled)
 
     @property
     def Request(self) -> Structure:

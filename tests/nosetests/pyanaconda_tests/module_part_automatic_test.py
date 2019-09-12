@@ -65,13 +65,6 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), AutoPartitioningInterface)
 
-    def enabled_property_test(self):
-        """Test the property enabled."""
-        self._test_dbus_property(
-            "Enabled",
-            True
-        )
-
     def request_property_test(self):
         """Test the property request."""
         in_value = {
