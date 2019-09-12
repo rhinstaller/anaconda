@@ -63,7 +63,7 @@ class DiskInitializationConfig(object):
             if not self.initialize_labels or not device.is_disk:
                 return False
 
-            if not storage.empty_device(device):
+            if not self._is_device_empty(device):
                 return False
 
         if isinstance(device, PartitionDevice):
@@ -88,7 +88,7 @@ class DiskInitializationConfig(object):
                 # if initialization_mode is not CLEAR_PARTITIONS_ALL but we'll still be
                 # removing every partition from the disk, return True since we
                 # will want to be able to create a new disklabel on this disk
-                if not storage.empty_device(device):
+                if not self._is_device_empty(device):
                     return False
 
             # Never clear disks with hidden formats
@@ -101,7 +101,7 @@ class DiskInitializationConfig(object):
             # initialize disks as needed
             if (self.initialization_mode == CLEAR_PARTITIONS_LINUX and
                 not ((self.initialize_labels and
-                      storage.empty_device(device)) or
+                      self._is_device_empty(device)) or
                      (not device.partitioned and device.format.linux_native))):
                 return False
 
@@ -115,6 +115,13 @@ class DiskInitializationConfig(object):
             return False
 
         return True
+
+    def _is_device_empty(self, device):
+        """Is the given device empty?"""
+        if not device.partitioned:
+            return device.format.type is None
+
+        return all(isinstance(p, PartitionDevice) and p.is_magic for p in device.children)
 
     def can_initialize(self, storage, disk):
         """Can the given disk be initialized based on the config?

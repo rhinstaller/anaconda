@@ -294,16 +294,6 @@ class InstallerStorage(Blivet):
         # Update the list.
         self.protected_devices = protected_names
 
-    def empty_device(self, device):
-        empty = True
-        if device.partitioned:
-            partitions = device.children
-            empty = all([p.is_magic for p in partitions])
-        else:
-            empty = (device.format.type is None)
-
-        return empty
-
     @property
     def usable_disks(self):
         """Disks that can be used for the installation.
