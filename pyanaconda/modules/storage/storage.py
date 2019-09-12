@@ -64,6 +64,10 @@ class StorageModule(KickstartModule):
         self._storage = None
         self.storage_changed = Signal()
 
+        # The created partitioning modules.
+        self._created_partitioning = []
+        self.created_partitioning_changed = Signal()
+
         # Initialize modules.
         self._modules = []
 
@@ -121,6 +125,10 @@ class StorageModule(KickstartModule):
         self._blivet_part_module = self.create_partitioning(PartitioningMethod.BLIVET)
         self._add_module(self._blivet_part_module)
 
+        # Forget the static partitioning modules.
+        # TODO: Remove with the static partitioning modules.
+        self._created_partitioning = []
+
         # Connect modules to signals.
         self.storage_changed.connect(
             self._device_tree_module.on_storage_reset
@@ -171,6 +179,13 @@ class StorageModule(KickstartModule):
         # Set the default filesystem type.
         if data.autopart.autopart and data.autopart.fstype:
             self.storage.set_default_fstype(data.autopart.fstype)
+
+        # Create a new partitioning module.
+        partitioning_method = PartitioningFactory.get_method_for_kickstart(data)
+
+        if partitioning_method:
+            partitioning_module = self.create_partitioning(partitioning_method)
+            partitioning_module.process_kickstart(data)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -259,7 +274,20 @@ class StorageModule(KickstartModule):
             module.on_selected_disks_changed
         )
 
+        # Update the list of modules.
+        self._add_created_partitioning(module)
         return module
+
+    @property
+    def created_partitioning(self):
+        """List of all created partitioning modules."""
+        return self._created_partitioning
+
+    def _add_created_partitioning(self, module):
+        """Add a created partitioning module."""
+        self._created_partitioning.append(module)
+        self.created_partitioning_changed.emit(module)
+        log.debug("Created the partitioning %s.", module)
 
     def apply_partitioning(self, module):
         """Apply a partitioning.
