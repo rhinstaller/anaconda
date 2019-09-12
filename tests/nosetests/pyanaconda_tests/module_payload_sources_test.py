@@ -25,7 +25,32 @@ from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
+from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask
+
+
+class LiveOSSourceInterfaceTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.live_os_source_module = LiveOSSourceModule("/mock/image/path")
+        self.live_os_source_interface = LiveOSSourceInterface(self.live_os_source_module)
+
+    @patch("pyanaconda.modules.payload.sources.live_os.stat")
+    @patch("pyanaconda.modules.payload.sources.live_os.os.stat")
+    def validate_test(self, os_stat_mock, stat_mock):
+        """Test Live OS source validation call."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        os_stat_mock.return_value = {stat_mock.ST_MODE: "evil is near!"}
+
+        stat_mock.S_ISBLK = Mock()
+        stat_mock.S_ISBLK.return_value = True
+
+        self.assertTrue(self.live_os_source_interface.Validate())
+
+    def validate_failed_test(self):
+        """Test Live OS source failed validation call."""
+        self.assertFalse(self.live_os_source_interface.Validate())
 
 
 class LiveOSSourceTestCase(unittest.TestCase):
