@@ -62,7 +62,7 @@ from simpleline.render.adv_widgets import YesNoDialog
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["StorageSpoke", "PartTypeSpoke"]
+__all__ = ["StorageSpoke"]
 
 CLEARALL = N_("Use All Space")
 CLEARLINUX = N_("Replace Existing Linux system(s)")
