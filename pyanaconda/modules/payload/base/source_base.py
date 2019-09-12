@@ -83,3 +83,15 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         :rtype: list[task]
         """
         pass
+
+    @abstractmethod
+    def validate(self):
+        """Do a quick validation of the source.
+
+        This validation should be quick and only check if resources could be used. It doesn't mean
+        that the source could be used for the installation, it only tell you it can't be used.
+
+        :return: False if the source is not valid
+        :rtype: bool
+        """
+        pass

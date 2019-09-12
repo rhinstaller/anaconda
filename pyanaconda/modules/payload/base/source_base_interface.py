@@ -32,3 +32,11 @@ class PayloadSourceBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
     This object contains API shared by all the sources. Everything in this object has
     to be implemented by a source to be used.
     """
+
+    def Validate(self) -> Bool:
+        """Do a quick validation of the source.
+
+        This validation should be quick and only check if resources could be used. It doesn't mean
+        that the source could be used for the installation, it only tell you it can't be used.
+        """
+        return self.implementation.validate()

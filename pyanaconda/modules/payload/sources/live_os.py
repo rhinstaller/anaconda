@@ -48,3 +48,6 @@ class LiveOSSourceModule(PayloadSourceBase):
 
     def tear_down_with_tasks(self):
         pass
+
+    def validate(self):
+        return True
