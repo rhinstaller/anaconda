@@ -83,13 +83,6 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         path = self.interface.GetDeviceTree()
         check_dbus_object_creation(self, path, publisher, ResizableDeviceTreeModule)
 
-    def enabled_property_test(self):
-        """Test the property enabled."""
-        self._test_dbus_property(
-            "Enabled",
-            True
-        )
-
     def request_property_test(self):
         """Test the property request."""
         request = {

@@ -40,10 +40,6 @@ class ManualPartitioningModule(PartitioningModule):
     def __init__(self):
         """Initialize the module."""
         super().__init__()
-
-        self.enabled_changed = Signal()
-        self._enabled = False
-
         self.requests_changed = Signal()
         self._requests = list()
 
@@ -62,11 +58,6 @@ class ManualPartitioningModule(PartitioningModule):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        if not data.mount.seen:
-            self.set_requests(list())
-            self.set_enabled(False)
-            return
-
         requests = []
 
         for mount_data in data.mount.mount_points:
@@ -80,13 +71,9 @@ class ManualPartitioningModule(PartitioningModule):
             requests.append(request)
 
         self.set_requests(requests)
-        self.set_enabled(True)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        if not self.enabled:
-            return
-
         data_list = []
 
         for request in self.requests:
@@ -100,20 +87,6 @@ class ManualPartitioningModule(PartitioningModule):
             data_list.append(mount_data)
 
         data.mount.mount_points = data_list
-
-    @property
-    def enabled(self):
-        """Is the auto partitioning enabled?"""
-        return self._enabled
-
-    def set_enabled(self, enabled):
-        """Is the auto partitioning enabled?
-
-        :param enabled: a boolean value
-        """
-        self._enabled = enabled
-        self.enabled_changed.emit()
-        log.debug("Enabled is set to '%s'.", enabled)
 
     @property
     def requests(self):
