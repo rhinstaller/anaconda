@@ -22,6 +22,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.storage import DeviceData
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -37,19 +38,21 @@ class FileSystemSpaceChecker(object):
     def __init__(self, storage, payload):
         """Create a new FileSystemSpaceChecker object.
 
+           FIXME: Remove the storage attribute.
+
            Attributes:
 
            payload  -- An instance of a payload.Payload subclass.
            storage  -- An instance of storage.Storage.
         """
         self.payload = payload
-        self.storage = storage
+        self.device_tree = STORAGE.get_proxy(DEVICE_TREE)
         self.success = False
         self.error_message = ""
 
     def _calculate_free_space(self):
         """Calculate the available space."""
-        return self.storage.get_file_system_free_space()
+        return Size(self.device_tree.GetFileSystemFreeSpace(("/", "/usr")))
 
     def _calculate_needed_space(self):
         """Calculate the needed space."""
@@ -63,13 +66,17 @@ class FileSystemSpaceChecker(object):
         :param needed: a needed space
         :return: a deficit size or None
         """
-        device_tree_proxy = STORAGE.get_proxy(DEVICE_TREE)
+        root_name = self.device_tree.GetRootDevice()
 
-        if not self.storage.root_device:
+        if not root_name:
             return None
 
-        current = self.storage.root_device.size.get_bytes()
-        required = device_tree_proxy.GetRequiredDeviceSize(needed.get_bytes())
+        root_data = DeviceData.from_structure(
+            self.device_tree.GetDeviceData(root_name)
+        )
+
+        current = root_data.size
+        required = self.device_tree.GetRequiredDeviceSize(needed.get_bytes())
         return Size(required - current)
 
     def check(self):
