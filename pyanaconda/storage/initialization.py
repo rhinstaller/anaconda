@@ -29,7 +29,7 @@ from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, BOOTLOADER
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.storage.osinstall import InstallerStorage
@@ -152,21 +152,24 @@ def reset_storage(storage=None, scan_all=False, retry=True):
     storage_proxy.ResetPartitioning()
 
 
-def reset_bootloader(storage):
+def reset_bootloader(storage=None):
     """Reset the bootloader.
+
+    FIXME: Remove the storage argument.
 
     :param storage: an instance of the Blivet's storage object
     """
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     bootloader_proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-    storage.bootloader.reset()
 
 
-def select_all_disks_by_default(storage):
+def select_all_disks_by_default(storage=None):
     """Select all disks for the partitioning by default.
 
     It will select all disks for the partitioning if there are
     no disks selected. Kickstart uses all the disks by default.
+
+    FIXME: Remove the storage argument.
 
     :param storage: an instance of the Blivet's storage object
     :return: a list of selected disks
@@ -176,7 +179,12 @@ def select_all_disks_by_default(storage):
     ignored_disks = disk_select_proxy.IgnoredDisks
 
     if not selected_disks:
-        selected_disks = [d.name for d in storage.disks if d.name not in ignored_disks]
+        # Get all disks.
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        all_disks = device_tree.GetDisks()
+
+        # Select all disks.
+        selected_disks = [d for d in all_disks if d not in ignored_disks]
         disk_select_proxy.SetSelectedDisks(selected_disks)
         log.debug("Selecting all disks by default: %s", ",".join(selected_disks))
 
