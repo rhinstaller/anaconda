@@ -30,9 +30,9 @@ from pyanaconda.modules.payload.base.initialization import PrepareSystemForInsta
     CopyDriverDisksFilesTask
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
-from pyanaconda.modules.payload.live.initialization import TeardownInstallationSourceTask, \
-    UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask
+from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.sources.initialization import TearDownInstallationSourceTask, \
+    SetUpInstallationSourceTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
@@ -150,7 +150,7 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         """Test Live OS is able to create a teardown installation source task."""
         task_path = self.live_os_interface.TeardownInstallationSourceWithTask()
 
-        check_task_creation(self, task_path, publisher, TeardownInstallationSourceTask)
+        check_task_creation(self, task_path, publisher, TearDownInstallationSourceTask)
 
     @patch_dbus_publish_object
     def install_with_task_test(self, publisher):

@@ -18,12 +18,28 @@
 import os
 import stat
 
-from pyanaconda.payload.utils import mount
+from pyanaconda.payload.utils import mount, unmount
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
+
+
+class TearDownInstallationSourceTask(Task):
+    """Task to teardown installation source."""
+
+    def __init__(self, target_mount):
+        super().__init__()
+        self._target_mount = target_mount
+
+    @property
+    def name(self):
+        return "Teardown Installation Source"
+
+    def run(self):
+        """Run live installation source un-setup."""
+        unmount(self._target_mount)
 
 
 class SetUpInstallationSourceTask(Task):

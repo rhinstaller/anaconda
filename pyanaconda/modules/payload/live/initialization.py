@@ -34,22 +34,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class TeardownInstallationSourceTask(Task):
-    """Task to teardown installation source."""
-
-    def __init__(self, target_mount):
-        super().__init__()
-        self._target_mount = target_mount
-
-    @property
-    def name(self):
-        return "Teardown Installation Source"
-
-    def run(self):
-        """Run live installation source unsetup."""
-        unmount(self._target_mount)
-
-
 class CheckInstallationSourceImageTask(Task):
     """Task to check installation source image and get its size."""
 
