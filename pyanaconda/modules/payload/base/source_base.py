@@ -37,6 +37,16 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         self.is_ready_changed = Signal()
 
     @property
+    @abstractmethod
+    def kind(self):
+        """Get type of this source object.
+
+        :return: type of this source
+        :type: value of payload.base.constants.SourceType
+        """
+        pass
+
+    @property
     def is_ready(self):
         """This source is ready for the installation to start.
 

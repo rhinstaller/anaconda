@@ -21,6 +21,7 @@ import os
 import stat
 
 from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask, \
@@ -36,6 +37,11 @@ class LiveOSSourceModule(PayloadSourceBase):
     def __init__(self):
         super().__init__()
         self._image_path = ""
+
+    @property
+    def kind(self):
+        """Get type of this source."""
+        return SourceType.LIVE_OS_IMAGE
 
     @property
     def image_path(self):

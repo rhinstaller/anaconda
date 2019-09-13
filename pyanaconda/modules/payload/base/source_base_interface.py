@@ -33,6 +33,15 @@ class PayloadSourceBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
     to be implemented by a source to be used.
     """
 
+    @property
+    def Kind(self) -> Str:
+        """Get the type of this source.
+
+        Possible values are:
+         - LIVE_OS_IMAGE
+        """
+        return self.implementation.kind.value
+
     def Validate(self) -> Bool:
         """Do a quick validation of the source.
 
