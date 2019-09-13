@@ -61,6 +61,23 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         """Get list of sources supported by Live Image module."""
         return [SourceType.LIVE_OS_IMAGE]
 
+    def add_source(self, source):
+        """Add source to this payload.
+
+        This payload is specific that it can't have more than only one source attached. It will
+        instead replace the old source with the new one.
+
+        :param source: source object
+        :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
+        :raises: IncompatibleSourceError
+        """
+        if self.sources:
+            if source not in self.sources:
+                log.debug("Newly added source is replacing the original one.")
+                self.sources.clear()
+
+        super().add_source(source)
+
     def publish_handler(self):
         """Publish the handler."""
         DBus.publish_object(LIVE_OS_HANDLER.object_path, LiveOSHandlerInterface(self))
