@@ -24,7 +24,7 @@ from mock import patch, Mock
 from textwrap import dedent
 from tempfile import TemporaryDirectory
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
 
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
     LIVE_IMAGE_HANDLER
@@ -118,6 +118,19 @@ class PayloadInterfaceTestCase(TestCase):
         self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
                          LIVE_OS_HANDLER.object_path)
         self.assertEqual(publisher.call_count, 3)
+
+    @patch_dbus_publish_object
+    def create_live_os_source_test(self, publisher):
+        """Test creation of the Live OS source module."""
+        source_path = self.payload_interface.CreateSource(SourceType.LIVE_OS_IMAGE.value)
+
+        check_dbus_object_creation(self, source_path, publisher, LiveOSSourceModule)
+
+    @patch_dbus_publish_object
+    def create_invalid_source_test(self, publisher):
+        """Test creation of the not existing source."""
+        with self.assertRaises(ValueError):
+            self.payload_interface.CreateSource("NotASource")
 
 
 class PayloadSharedTasksTest(TestCase):
