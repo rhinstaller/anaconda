@@ -24,6 +24,7 @@ from mock import Mock, patch
 from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask, \
@@ -35,6 +36,10 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         self.live_os_source_module = LiveOSSourceModule()
         self.live_os_source_interface = LiveOSSourceInterface(self.live_os_source_module)
+
+    def kind_test(self):
+        """Test Live OS source has a correct kind specified."""
+        self.assertEqual(SourceType.LIVE_OS_IMAGE.value, self.live_os_source_interface.Kind)
 
     @patch("pyanaconda.modules.payload.sources.live_os.stat")
     @patch("pyanaconda.modules.payload.sources.live_os.os.stat")
@@ -58,6 +63,10 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
     def setUp(self):
         self.live_os_source_module = LiveOSSourceModule()
+
+    def kind_test(self):
+        """Test Live OS source module has a correct kind."""
+        self.assertEqual(SourceType.LIVE_OS_IMAGE, self.live_os_source_module.kind)
 
     def set_up_with_tasks_test(self):
         """Test Live OS Source set up call."""
