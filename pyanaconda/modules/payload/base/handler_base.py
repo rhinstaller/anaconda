@@ -19,7 +19,11 @@
 #
 from abc import ABCMeta, abstractmethod
 
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
@@ -28,6 +32,30 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
     This will contain all API specific to payload handlers which will be called
     by the base payload module.
     """
+    def __init__(self):
+        super().__init__()
+        self._sources = set()
+        self.sources_changed = Signal()
+
+    @property
+    def sources(self):
+        """Get list of sources attached to this payload handler.
+
+        :return: list of source objects attached to this handler
+        :rtype: set(instance of PayloadSourceBase class)
+        """
+        return self._sources
+
+    def add_source(self, source):
+        """Add source to the list of sources.
+
+        :param source: source object
+        :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
+        """
+        if source not in self._sources:
+            self._sources.add(source)
+            log.debug("New source was added.")
+            self.sources_changed.emit()
 
     @abstractmethod
     def publish_handler(self):
@@ -37,3 +65,11 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
         :rtype: string
         """
         pass
+
+    def attach_source(self, source):
+        """Attach source to this payload handler.
+
+        :param source: source object
+        :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
+        """
+        self.add_source(source)
