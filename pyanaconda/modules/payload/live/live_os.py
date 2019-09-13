@@ -28,6 +28,7 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithCapture
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
+from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask
@@ -54,6 +55,11 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
         self._kernel_version_list = []
         self.kernel_version_list_changed = Signal()
+
+    @property
+    def supported_source_kinds(self):
+        """Get list of sources supported by Live Image module."""
+        return [SourceType.LIVE_OS_IMAGE]
 
     def publish_handler(self):
         """Publish the handler."""

@@ -69,6 +69,12 @@ class LiveImageHandlerModule(PayloadHandlerBase):
 
         self._requests_session = None
 
+    @property
+    def supported_source_kinds(self):
+        """Get list of sources supported by Live Image module."""
+        # TODO: Add supported sources when implemented
+        return None
+
     def publish_handler(self):
         """Publish the handler."""
         DBus.publish_object(LIVE_IMAGE_HANDLER.object_path, LiveImageHandlerInterface(self))

@@ -20,6 +20,7 @@
 from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
 from pyanaconda.modules.common.base import KickstartBaseModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -38,6 +39,16 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
         self.sources_changed = Signal()
 
     @property
+    @abstractmethod
+    def supported_source_kinds(self):
+        """Get list of supported source types.
+
+        :return: list of supported source types
+        :rtype: [values from payload.base.constants.SourceType]
+        """
+        pass
+
+    @property
     def sources(self):
         """Get list of sources attached to this payload handler.
 
@@ -51,10 +62,16 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
 
         :param source: source object
         :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
+        :raises: IncompatibleSourceError
         """
+        # TODO: Add test for this when there will be public API
+        if source.kind not in self.supported_source_kinds:
+            raise IncompatibleSourceError("Source type {} is not supported by this handler."
+                                          .format(source.kind))
+
         if source not in self._sources:
             self._sources.add(source)
-            log.debug("New source was added.")
+            log.debug("New source %s was added.", source.kind)
             self.sources_changed.emit()
 
     @abstractmethod
