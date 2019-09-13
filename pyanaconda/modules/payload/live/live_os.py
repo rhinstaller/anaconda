@@ -24,6 +24,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
@@ -93,6 +94,18 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
         return None
 
+    def _check_source_availability(self, message):
+        """Test if source is available for this payload handler."""
+        if not self._image_source:
+            raise SourceSetupError(message)
+
+    def _check_source_readiness(self, message):
+        """Test if source is ready for the installation."""
+        self._check_source_availability(message)
+
+        if not self._image_source.is_ready:
+            raise SourceSetupError(message)
+
     @property
     def space_required(self):
         """Get space required for the source image.
@@ -109,18 +122,26 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
     def setup_installation_source_with_tasks(self):
         """Setup installation source."""
+        self._check_source_availability("Set up source failed - source is not set!")
+
         return self._image_source.set_up_with_tasks()
 
     def teardown_installation_source_with_tasks(self):
         """Teardown installation source device."""
+        self._check_source_availability("Tear down source failed - source is not set!")
+
         return self._image_source.tear_down_with_tasks()
 
     def pre_install_with_task(self):
         """Prepare intallation task."""
+        self._check_source_readiness("Source is not setup!")
+
         return PrepareSystemForInstallationTask(conf.target.system_root)
 
     def install_with_task(self):
         """Install the payload."""
+        self._check_source_readiness("Source is not setup!")
+
         return InstallFromImageTask(
             conf.target.system_root,
             self.kernel_version_list
