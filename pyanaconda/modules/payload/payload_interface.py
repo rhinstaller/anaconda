@@ -20,9 +20,9 @@
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.base import KickstartModuleInterface
-
+from pyanaconda.modules.common.containers import PayloadSourceContainer
+from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.payload.factory import HandlerType, SourceType
 
 
@@ -54,4 +54,7 @@ class PayloadInterface(KickstartModuleInterface):
         source_type could contain these values:
          - LIVE_OS_IMAGE
         """
-        return self.implementation.create_source(SourceType(source_type))
+
+        return PayloadSourceContainer.to_object_path(
+            self.implementation.create_source(SourceType(source_type))
+        )

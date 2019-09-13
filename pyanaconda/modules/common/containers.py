@@ -17,7 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pyanaconda.dbus.container import DBusContainer
-from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, ANACONDA_NAMESPACE
+from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, ANACONDA_NAMESPACE, \
+    PAYLOAD_NAMESPACE
 
 TaskContainer = DBusContainer(
     namespace=ANACONDA_NAMESPACE,
@@ -32,4 +33,9 @@ DeviceTreeContainer = DBusContainer(
 PartitioningContainer = DBusContainer(
     namespace=STORAGE_NAMESPACE,
     basename="Partitioning"
+)
+
+PayloadSourceContainer = DBusContainer(
+    namespace=PAYLOAD_NAMESPACE,
+    basename="Source"
 )
