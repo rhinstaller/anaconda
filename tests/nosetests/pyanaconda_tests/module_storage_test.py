@@ -22,8 +22,9 @@ import unittest
 from unittest.mock import patch, call, Mock
 
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, \
-    PARTITIONING_METHOD_INTERACTIVE
+    PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_CUSTOM
 from pyanaconda.dbus.container import DBusContainerError
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import PartitioningContainer
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
     ManualPartitioningModule
@@ -32,7 +33,7 @@ from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
 from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
-    patch_dbus_publish_object
+    patch_dbus_publish_object, check_dbus_property
 
 from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
@@ -75,6 +76,14 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """Set up the module."""
         self.storage_module = StorageModule()
         self.storage_interface = StorageInterface(self.storage_module)
+
+    def _test_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            STORAGE,
+            self.storage_interface,
+            *args, **kwargs
+        )
 
     def _test_dbus_partitioning(self, publisher, expected_method):
         publisher.assert_called_once()
@@ -137,6 +146,26 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         obj = PartitioningContainer.from_object_path(path)
         self.assertIsInstance(obj, InteractivePartitioningModule)
+
+    @patch_dbus_publish_object
+    def created_partitioning_test(self, publisher):
+        """Test the property CreatedPartitioning."""
+        PartitioningContainer._counter = 0
+
+        self._test_dbus_property(
+            "CreatedPartitioning",
+            in_value=PARTITIONING_METHOD_MANUAL,
+            out_value=["/org/fedoraproject/Anaconda/Modules/Storage/Partitioning/1"],
+            setter=self.storage_interface.CreatePartitioning
+        )
+
+        self._test_dbus_property(
+            "CreatedPartitioning",
+            in_value=PARTITIONING_METHOD_CUSTOM,
+            out_value=["/org/fedoraproject/Anaconda/Modules/Storage/Partitioning/1",
+                       "/org/fedoraproject/Anaconda/Modules/Storage/Partitioning/2"],
+            setter=self.storage_interface.CreatePartitioning
+        )
 
     @patch_dbus_publish_object
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
