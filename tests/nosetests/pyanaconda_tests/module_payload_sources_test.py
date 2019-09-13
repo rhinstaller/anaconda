@@ -33,7 +33,7 @@ from pyanaconda.modules.payload.sources.initialization import SetUpInstallationS
 class LiveOSSourceInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.live_os_source_module = LiveOSSourceModule("/mock/image/path")
+        self.live_os_source_module = LiveOSSourceModule()
         self.live_os_source_interface = LiveOSSourceInterface(self.live_os_source_module)
 
     @patch("pyanaconda.modules.payload.sources.live_os.stat")
@@ -57,7 +57,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
 class LiveOSSourceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.live_os_source_module = LiveOSSourceModule("/mock/image/path")
+        self.live_os_source_module = LiveOSSourceModule()
 
     def set_up_with_tasks_test(self):
         """Test Live OS Source set up call."""

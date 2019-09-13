@@ -33,8 +33,27 @@ log = get_module_logger(__name__)
 class LiveOSSourceModule(PayloadSourceBase):
     """The Live OS source payload module."""
 
-    def __init__(self, image_path):
+    def __init__(self):
         super().__init__()
+        self._image_path = ""
+
+    @property
+    def image_path(self):
+        """Path to the source live OS image.
+
+        This image will be used for the installation.
+
+        :rtype: str
+        """
+        return self._image_path
+
+    @image_path.setter
+    def image_path(self, image_path):
+        """Set path to the live os OS image.
+
+        :param image_path: path to the image
+        :type image_path: str
+        """
         self._image_path = image_path
 
     def for_publication(self):
