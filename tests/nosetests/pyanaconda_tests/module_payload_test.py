@@ -20,7 +20,7 @@
 import os
 
 from unittest import TestCase
-from mock import patch
+from mock import patch, Mock
 from textwrap import dedent
 from tempfile import TemporaryDirectory
 
@@ -30,7 +30,10 @@ from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS
     LIVE_IMAGE_HANDLER
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
-from pyanaconda.modules.payload.factory import HandlerType
+from pyanaconda.modules.payload.factory import HandlerType, HandlerFactory
+from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
+from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
+from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist, \
     get_dir_size
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask
@@ -190,3 +193,34 @@ class PayloadSharedUtilsTest(TestCase):
 
         # TODO: mock some dirs and check if their size is
         # computed correctly
+
+
+class FactoryTestCase(TestCase):
+
+    def create_handler_test(self):
+        """Test HandlerFactory create method."""
+        self.assertIsInstance(HandlerFactory.create(HandlerType.DNF),
+                              DNFHandlerModule)
+        self.assertIsInstance(HandlerFactory.create(HandlerType.LIVE_IMAGE),
+                              LiveImageHandlerModule)
+        self.assertIsInstance(HandlerFactory.create(HandlerType.LIVE_OS),
+                              LiveOSHandlerModule)
+
+    def create_handler_from_ks_test(self):
+        """Test HandlerFactory create from KS method."""
+        # Live OS can't be detected from the KS data so it is not tested here
+        data = Mock()
+        data.liveimg.seen = True
+        data.packages.seen = False
+
+        self.assertIsInstance(HandlerFactory.create_from_ks_data(data),
+                              LiveImageHandlerModule)
+
+        data.liveimg.seen = False
+        data.packages.seen = True
+        self.assertIsInstance(HandlerFactory.create_from_ks_data(data),
+                              DNFHandlerModule)
+
+        data.liveimg.seen = False
+        data.packages.seen = False
+        self.assertIsNone(HandlerFactory.create_from_ks_data(data))
