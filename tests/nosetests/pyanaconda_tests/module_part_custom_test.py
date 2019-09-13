@@ -84,7 +84,8 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
     def _process_kickstart(self, ks_in):
         check_kickstart_interface(self, self.storage_interface, ks_in)
 
-    def requires_passphrase_test(self):
+    @patch_dbus_publish_object
+    def requires_passphrase_test(self, publisher):
         """Test RequiresPassphrase."""
         self._process_kickstart("part /")
         self.assertEqual(self.interface.RequiresPassphrase(), False)

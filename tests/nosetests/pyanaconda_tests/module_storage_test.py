@@ -27,6 +27,8 @@ from pyanaconda.dbus.container import DBusContainerError
 from pyanaconda.modules.common.containers import PartitioningContainer
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
     ManualPartitioningModule
+from pyanaconda.modules.storage.partitioning.base import PartitioningModule
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
 from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
@@ -73,6 +75,21 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """Set up the module."""
         self.storage_module = StorageModule()
         self.storage_interface = StorageInterface(self.storage_module)
+
+    def _test_dbus_partitioning(self, publisher, expected_method):
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        partitioning_modules = self.storage_module.created_partitioning
+        self.assertEqual(len(partitioning_modules), 1, "Too many partitioning modules.")
+
+        partitioning_module = partitioning_modules[-1]
+        self.assertEqual(partitioning_module.partitioning_method, expected_method)
+
+        partitioning_path = self.storage_interface.CreatedPartitioning[-1]
+        self.assertEqual(partitioning_path, object_path)
+        self.assertIsInstance(obj.implementation, PartitioningModule)
+        self.assertEqual(partitioning_module, obj.implementation)
 
     @patch_dbus_publish_object
     def reset_with_task_test(self, publisher):
@@ -591,7 +608,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def autopart_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_kickstart_test(self, publisher):
         """Test the autopart command."""
         ks_in = """
         autopart
@@ -600,8 +618,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_type_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_type_kickstart_test(self, publisher):
         """Test the autopart command with the type option."""
         ks_in = """
         autopart --type=thinp
@@ -610,8 +630,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --type=thinp
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_fstype_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_fstype_kickstart_test(self, publisher):
         """Test the autopart command with the fstype option."""
         ks_in = """
         autopart --fstype=ext4
@@ -620,6 +642,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --fstype=ext4
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
         ks_in = """
         autopart --fstype=invalid
@@ -627,7 +650,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
-    def autopart_nopart_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_nopart_kickstart_test(self, publisher):
         """Test the autopart command with nohome, noboot and noswap options."""
         ks_in = """
         autopart --nohome --noboot --noswap
@@ -636,8 +660,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --nohome --noboot --noswap
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_encrypted_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_encrypted_kickstart_test(self, publisher):
         """Test the autopart command with the encrypted option."""
         ks_in = """
         autopart --encrypted
@@ -646,8 +672,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_cipher_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_cipher_kickstart_test(self, publisher):
         """Test the autopart command with the cipher option."""
         ks_in = """
         autopart --encrypted --cipher="aes-xts-plain64"
@@ -656,8 +684,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --cipher="aes-xts-plain64"
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_passphrase_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_passphrase_kickstart_test(self, publisher):
         """Test the autopart command with the passphrase option."""
         ks_in = """
         autopart --encrypted --passphrase="123456"
@@ -666,8 +696,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_escrowcert_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_escrowcert_kickstart_test(self, publisher):
         """Test the autopart command with the escrowcert option."""
         ks_in = """
         autopart --encrypted --escrowcert="file:///tmp/escrow.crt"
@@ -676,8 +708,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --escrowcert="file:///tmp/escrow.crt"
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_backuppassphrase_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_backuppassphrase_kickstart_test(self, publisher):
         """Test the autopart command with the backuppassphrase option."""
         ks_in = """
         autopart --encrypted --escrowcert="file:///tmp/escrow.crt" --backuppassphrase
@@ -686,8 +720,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --escrowcert="file:///tmp/escrow.crt" --backuppassphrase
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def mount_kickstart_test(self):
+    @patch_dbus_publish_object
+    def mount_kickstart_test(self, publisher):
         """Test the mount command."""
         ks_in = """
         mount /dev/sda1 /boot
@@ -697,8 +733,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         mount /dev/sda1 /boot
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
-    def mount_none_kickstart_test(self):
+    @patch_dbus_publish_object
+    def mount_none_kickstart_test(self, publisher):
         """Test the mount command with none."""
         ks_in = """
         mount /dev/sda1 none
@@ -708,8 +746,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         mount /dev/sda1 none
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
-    def mount_mountoptions_kickstart_test(self):
+    @patch_dbus_publish_object
+    def mount_mountoptions_kickstart_test(self, publisher):
         """Test the mount command with the mountoptions."""
         ks_in = """
         mount /dev/sda1 /boot --mountoptions="user"
@@ -719,8 +759,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         mount /dev/sda1 /boot --mountoptions="user"
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
-    def mount_reformat_kickstart_test(self):
+    @patch_dbus_publish_object
+    def mount_reformat_kickstart_test(self, publisher):
         """Test the mount command with the reformat option."""
         ks_in = """
         mount /dev/sda1 /boot --reformat
@@ -730,8 +772,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         mount /dev/sda1 /boot --reformat
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
-    def mount_mkfsoptions_kickstart_test(self):
+    @patch_dbus_publish_object
+    def mount_mkfsoptions_kickstart_test(self, publisher):
         """Test the mount command with the mkfsoptions."""
         ks_in = """
         mount /dev/sda1 /boot --reformat=xfs --mkfsoptions="-L BOOT"
@@ -741,8 +785,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         mount /dev/sda1 /boot --reformat=xfs --mkfsoptions="-L BOOT"
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
-    def mount_multiple_kickstart_test(self):
+    @patch_dbus_publish_object
+    def mount_multiple_kickstart_test(self, publisher):
         """Test multiple mount commands."""
         ks_in = """
         mount /dev/sda1 /boot
@@ -758,8 +804,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         mount /dev/sdb2 none
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
-    def autopart_luks_version_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_luks_version_kickstart_test(self, publisher):
         """Test the autopart command with the luks version option."""
         ks_in = """
         autopart --encrypted --luks-version=luks1
@@ -768,8 +816,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --luks-version=luks1
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_pbkdf_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_pbkdf_kickstart_test(self, publisher):
         """Test the autopart command with the pbkdf option."""
         ks_in = """
         autopart --encrypted --pbkdf=pbkdf2
@@ -778,8 +828,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --pbkdf=pbkdf2
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_pbkdf_memory_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_pbkdf_memory_kickstart_test(self, publisher):
         """Test the autopart command with the pbkdf memory option."""
         ks_in = """
         autopart --encrypted --pbkdf-memory=256
@@ -788,8 +840,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --pbkdf-memory=256
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_pbkdf_time_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_pbkdf_time_kickstart_test(self, publisher):
         """Test the autopart command with the pbkdf time option."""
         ks_in = """
         autopart --encrypted --pbkdf-time=100
@@ -798,8 +852,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --pbkdf-time=100
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
-    def autopart_pbkdf_iterations_kickstart_test(self):
+    @patch_dbus_publish_object
+    def autopart_pbkdf_iterations_kickstart_test(self, publisher):
         """Test the autopart command with the pbkdf iterations option."""
         ks_in = """
         autopart --encrypted --pbkdf-iterations=1000
@@ -808,6 +864,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --pbkdf-iterations=1000
         """
         self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch("pyanaconda.modules.storage.kickstart.fcoe")
     @patch("pyanaconda.modules.storage.kickstart.get_supported_devices")
