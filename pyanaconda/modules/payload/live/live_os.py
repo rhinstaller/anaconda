@@ -17,15 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-import stat
-
 from pyanaconda.dbus import DBus
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.core.util import execWithCapture
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.payload.base.constants import SourceType
@@ -112,31 +108,6 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         :rtype: int
         """
         return get_dir_size("/") * 1024
-
-    def detect_live_os_base_image(self):
-        """Detect live os image in the system."""
-        log.debug("Trying to detect live os base image automatically")
-        for block_device in ["/dev/mapper/live-base", "/dev/mapper/live-osimg-min"]:
-            try:
-                if stat.S_ISBLK(os.stat(block_device)[stat.ST_MODE]):
-                    log.debug("Detected live base image %s", block_device)
-                    return block_device
-            except FileNotFoundError:
-                pass
-
-        # Is it a squashfs+overlayfs base image?
-        if os.path.exists("/run/rootfsbase"):
-            try:
-                block_device = execWithCapture("findmnt",
-                                               ["-n", "-o", "SOURCE", "/run/rootfsbase"]).strip()
-                if block_device:
-                    log.debug("Detected live base image %s", block_device)
-                    return block_device
-            except (OSError, FileNotFoundError):
-                pass
-
-        log.debug("No live base image detected")
-        return ""
 
     def setup_installation_source_with_task(self):
         """Setup installation source device."""

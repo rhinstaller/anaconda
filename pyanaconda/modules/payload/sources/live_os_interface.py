@@ -47,3 +47,10 @@ class LiveOSSourceInterface(PayloadSourceBaseInterface):
         This image will be used as the installation source.
         """
         self.implementation.set_image_path(image_path)
+
+    def DetectLiveOSImage(self) -> Str:
+        """Try to find valid live os image.
+
+        :return: path to the base image
+        """
+        return self.implementation.detect_live_os_image()

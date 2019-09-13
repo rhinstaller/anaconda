@@ -22,6 +22,7 @@ import stat
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
@@ -68,6 +69,31 @@ class LiveOSSourceModule(PayloadSourceBase):
     def for_publication(self):
         """Get the interface used to publish this source."""
         return LiveOSSourceInterface(self)
+
+    def detect_live_os_image(self):
+        """Detect live os image in the system."""
+        log.debug("Trying to detect live os base image automatically")
+        for block_device in ["/dev/mapper/live-base", "/dev/mapper/live-osimg-min"]:
+            try:
+                if stat.S_ISBLK(os.stat(block_device)[stat.ST_MODE]):
+                    log.debug("Detected live base image %s", block_device)
+                    return block_device
+            except FileNotFoundError:
+                pass
+
+        # Is it a squashfs+overlayfs base image?
+        if os.path.exists("/run/rootfsbase"):
+            try:
+                block_device = execWithCapture("findmnt",
+                                               ["-n", "-o", "SOURCE", "/run/rootfsbase"]).strip()
+                if block_device:
+                    log.debug("Detected live base image %s", block_device)
+                    return block_device
+            except (OSError, FileNotFoundError):
+                pass
+
+        log.debug("No live base image detected")
+        return ""
 
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
