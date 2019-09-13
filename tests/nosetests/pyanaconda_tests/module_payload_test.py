@@ -30,7 +30,7 @@ from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS
     LIVE_IMAGE_HANDLER
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
-from pyanaconda.modules.payload.handler_factory import HandlerType
+from pyanaconda.modules.payload.factory import HandlerType
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist, \
     get_dir_size
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask
