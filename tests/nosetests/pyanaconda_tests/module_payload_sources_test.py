@@ -22,6 +22,7 @@ import unittest
 from mock import Mock, patch
 
 from pyanaconda.dbus.typing import get_native
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payload.base.constants import SourceType
@@ -37,9 +38,23 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         self.live_os_source_module = LiveOSSourceModule()
         self.live_os_source_interface = LiveOSSourceInterface(self.live_os_source_module)
 
+        self.callback = Mock()
+        self.live_os_source_interface.PropertiesChanged.connect(self.callback)
+
     def kind_test(self):
         """Test Live OS source has a correct kind specified."""
         self.assertEqual(SourceType.LIVE_OS_IMAGE.value, self.live_os_source_interface.Kind)
+
+    def image_path_empty_properties_test(self):
+        """Test Live OS handler image path property when not set."""
+        self.assertEqual(self.live_os_source_interface.ImagePath, "")
+
+    def image_path_properties_test(self):
+        """Test Live OS handler image path property is correctly set."""
+        self.live_os_source_interface.SetImagePath("/my/supper/image/path")
+        self.assertEqual(self.live_os_source_interface.ImagePath, "/my/supper/image/path")
+        self.callback.assert_called_once_with(
+            PAYLOAD_SOURCE_LIVE_OS.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
     @patch("pyanaconda.modules.payload.sources.live_os.stat")
     @patch("pyanaconda.modules.payload.sources.live_os.os.stat")

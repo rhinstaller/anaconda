@@ -24,7 +24,6 @@ from mock import Mock, patch
 from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
 
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask
@@ -33,6 +32,7 @@ from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInter
 from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.sources.initialization import TearDownInstallationSourceTask, \
     SetUpInstallationSourceTask
+from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
@@ -44,17 +44,6 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
 
         self.callback = Mock()
         self.live_os_interface.PropertiesChanged.connect(self.callback)
-
-    def image_path_empty_properties_test(self):
-        """Test Live OS handler image path property when not set."""
-        self.assertEqual(self.live_os_interface.ImagePath, "")
-
-    def image_path_properties_test(self):
-        """Test Live OS handler image path property is correctly set."""
-        self.live_os_interface.SetImagePath("/my/supper/image/path")
-        self.assertEqual(self.live_os_interface.ImagePath, "/my/supper/image/path")
-        self.callback.assert_called_once_with(
-            LIVE_OS_HANDLER.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
     @patch("pyanaconda.modules.payload.live.live_os.get_dir_size")
     def space_required_properties_test(self, get_dir_size_mock):
@@ -134,6 +123,11 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def setup_installation_source_task_test(self, publisher):
         """Test Live OS is able to create a setup installation source task."""
+        source = LiveOSSourceModule()
+        source.set_image_path("/test/path")
+
+        self.live_os_module.add_source(source)
+
         task_path = self.live_os_interface.SetupInstallationSourceWithTask()
 
         check_task_creation(self, task_path, publisher, SetUpInstallationSourceTask)
