@@ -74,6 +74,14 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
             log.debug("New source %s was added.", source.kind)
             self.sources_changed.emit()
 
+    def has_source(self):
+        """Check if any source is set.
+
+        :return: True if source object is set
+        :rtype: bool
+        """
+        return bool(self.sources)
+
     @abstractmethod
     def publish_handler(self):
         """Publish object on DBus and return its path.
