@@ -22,8 +22,9 @@ from enum import Enum, unique
 from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
 from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
+from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 
-__all__ = ["HandlerFactory", "HandlerType"]
+__all__ = ["HandlerFactory", "HandlerType", "SourceFactory", "SourceType"]
 
 
 @unique
@@ -32,6 +33,12 @@ class HandlerType(Enum):
     DNF = "DNF"
     LIVE_OS = "LIVE_OS"
     LIVE_IMAGE = "LIVE_IMAGE"
+
+
+@unique
+class SourceType(Enum):
+    """Type of the payload source."""
+    LIVE_OS_IMAGE = "LIVE_OS_IMAGE"
 
 
 class BaseFactory(ABC):
@@ -89,3 +96,12 @@ class HandlerFactory(BaseFactory):
             return LiveOSHandlerModule()
         elif object_type == HandlerType.DNF:
             return DNFHandlerModule()
+
+
+class SourceFactory(BaseFactory):
+    """Factory to create payload sources."""
+
+    @classmethod
+    def _create(cls, object_type):
+        if object_type == SourceType.LIVE_OS_IMAGE:
+            return LiveOSSourceModule()
