@@ -17,28 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 from abc import ABC, abstractclassmethod
-from enum import Enum, unique
 
+from pyanaconda.modules.payload.base.constants import HandlerType, SourceType
 from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
 from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 
-__all__ = ["HandlerFactory", "HandlerType", "SourceFactory", "SourceType"]
-
-
-@unique
-class HandlerType(Enum):
-    """Type of the payload handler."""
-    DNF = "DNF"
-    LIVE_OS = "LIVE_OS"
-    LIVE_IMAGE = "LIVE_IMAGE"
-
-
-@unique
-class SourceType(Enum):
-    """Type of the payload source."""
-    LIVE_OS_IMAGE = "LIVE_OS_IMAGE"
+__all__ = ["HandlerFactory", "SourceFactory"]
 
 
 class BaseFactory(ABC):

@@ -119,7 +119,7 @@ class PayloadModule(KickstartModule):
         """Create handler based on the passed type.
 
         :param handler_type: type of the desirable handler
-        :type handler_type: value of the payload.handler_factory.HandlerType enum
+        :type handler_type: value of the payload.base.constants.HandlerType enum
         """
         handler = HandlerFactory.create(handler_type)
         self._initialize_handler(handler)
@@ -129,6 +129,6 @@ class PayloadModule(KickstartModule):
         """Create source based on the passed type.
 
         :param source_type: type of the desirable source
-        :type source_type: value of the payload.factory.SourceType enum
+        :type source_type: value of the payload.base.constants.SourceType enum
         """
         return SourceFactory.create(source_type)

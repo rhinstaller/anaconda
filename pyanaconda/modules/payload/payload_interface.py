@@ -23,7 +23,7 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.common.constants.services import PAYLOAD
-from pyanaconda.modules.payload.factory import HandlerType, SourceType
+from pyanaconda.modules.payload.base.constants import HandlerType, SourceType
 
 
 @dbus_interface(PAYLOAD.interface_name)
