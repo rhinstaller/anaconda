@@ -23,7 +23,7 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.base import KickstartModuleInterface
 
-from pyanaconda.modules.payload.factory import HandlerType
+from pyanaconda.modules.payload.factory import HandlerType, SourceType
 
 
 @dbus_interface(PAYLOAD.interface_name)
@@ -47,3 +47,11 @@ class PayloadInterface(KickstartModuleInterface):
          - LIVE_IMAGE
         """
         return self.implementation.create_handler(HandlerType(handler_type))
+
+    def CreateSource(self, source_type: Str) -> ObjPath:
+        """Create payload source and publish it on a dbus.
+
+        source_type could contain these values:
+         - LIVE_OS_IMAGE
+        """
+        return self.implementation.create_source(SourceType(source_type))

@@ -22,7 +22,7 @@ from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.errors.payload import HandlerNotSetError
-from pyanaconda.modules.payload.factory import HandlerFactory
+from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 
@@ -124,3 +124,11 @@ class PayloadModule(KickstartModule):
         handler = HandlerFactory.create(handler_type)
         self._initialize_handler(handler)
         return self._payload_handler_path
+
+    def create_source(self, source_type):
+        """Create source based on the passed type.
+
+        :param source_type: type of the desirable source
+        :type source_type: value of the payload.factory.SourceType enum
+        """
+        return SourceFactory.create(source_type)
