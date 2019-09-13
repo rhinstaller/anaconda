@@ -50,9 +50,6 @@ class LiveOSHandlerModule(PayloadHandlerBase):
     def __init__(self):
         super().__init__()
 
-        self._image_path = ""
-        self.image_path_changed = Signal()
-
         self._kernel_version_list = []
         self.kernel_version_list_changed = Signal()
 
@@ -90,24 +87,17 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         """Setup the kickstart data."""
 
     @property
-    def image_path(self):
-        """Path to the source live OS image.
+    def _image_source(self):
+        """Get the attached source object.
 
-        This image will be used for the installation.
+        This is a shortcut for this handler because it only support one source at a time.
 
-        :rtype: str
+        :return: a source object
         """
-        return self._image_path
+        if self.sources:
+            return list(self.sources)[0]
 
-    def set_image_path(self, image_path):
-        """Set path to the live os OS image.
-
-        :param image_path: path to the image
-        :type image_path: str
-        """
-        self._image_path = image_path
-        self.image_path_changed.emit()
-        log.debug("LiveOS image path is set to '%s'", self._image_path)
+        return None
 
     @property
     def space_required(self):
@@ -150,7 +140,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
     def setup_installation_source_with_task(self):
         """Setup installation source device."""
-        return SetUpInstallationSourceTask(self.image_path, INSTALL_TREE)
+        return SetUpInstallationSourceTask(self._image_source.image_path, INSTALL_TREE)
 
     def teardown_installation_source_with_task(self):
         """Teardown installation source device."""

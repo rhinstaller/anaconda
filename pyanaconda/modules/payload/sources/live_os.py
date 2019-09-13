@@ -21,6 +21,7 @@ import os
 import stat
 
 from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
@@ -37,6 +38,7 @@ class LiveOSSourceModule(PayloadSourceBase):
     def __init__(self):
         super().__init__()
         self._image_path = ""
+        self.image_path_changed = Signal()
 
     @property
     def kind(self):
@@ -53,14 +55,15 @@ class LiveOSSourceModule(PayloadSourceBase):
         """
         return self._image_path
 
-    @image_path.setter
-    def image_path(self, image_path):
+    def set_image_path(self, image_path):
         """Set path to the live os OS image.
 
         :param image_path: path to the image
         :type image_path: str
         """
         self._image_path = image_path
+        self.image_path_changed.emit()
+        log.debug("LiveOS image path is set to '%s'", self._image_path)
 
     def for_publication(self):
         """Get the interface used to publish this source."""

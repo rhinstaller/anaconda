@@ -19,7 +19,6 @@
 #
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
@@ -32,24 +31,7 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
 
     def connect_signals(self):
         super().connect_signals()
-        self.watch_property("ImagePath", self.implementation.image_path_changed)
         self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
-
-    @property
-    def ImagePath(self) -> Str:
-        """Get the path to the Live OS base image.
-
-        This image will be used as the installation.
-        """
-        return self.implementation.image_path
-
-    @emits_properties_changed
-    def SetImagePath(self, image_path: Str):
-        """Set the path to the Live OS base image.
-
-        This image will be used as the installation source.
-        """
-        self.implementation.set_image_path(image_path)
 
     @property
     def SpaceRequired(self) -> UInt64:
