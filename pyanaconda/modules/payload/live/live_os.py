@@ -120,7 +120,8 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         # Is it a squashfs+overlayfs base image?
         if os.path.exists("/run/rootfsbase"):
             try:
-                block_device = execWithCapture("findmnt", ["-n", "-o", "SOURCE", "/run/rootfsbase"]).strip()
+                block_device = execWithCapture("findmnt",
+                                               ["-n", "-o", "SOURCE", "/run/rootfsbase"]).strip()
                 if block_device:
                     log.debug("Detected live base image %s", block_device)
                     return block_device
