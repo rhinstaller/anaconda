@@ -85,41 +85,6 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.assertListEqual(self.live_os_interface.GetKernelVersionList(), kernel_list)
         kernel_list_callback.assert_called_once_with(kernel_list)
 
-    @patch("pyanaconda.modules.payload.live.live_os.stat")
-    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
-    def detect_live_os_image_failed_block_device_test(self, os_stat_mock, stat_mock):
-        """Test Live OS image detection failed block device check."""
-        # we have to patch this even thought that result is used in another mock
-        # otherwise we will skip the whole sequence
-        os_stat_mock.return_value = {stat_mock.ST_MODE: "whatever"}
-
-        stat_mock.S_ISBLK = Mock()
-        stat_mock.S_ISBLK.return_value = False
-
-        self.assertEqual(self.live_os_interface.DetectLiveOSImage(), "")
-
-    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
-    def detect_live_os_image_failed_nothing_found_test(self, os_stat_mock):
-        """Test Live OS image detection failed missing file."""
-        # we have to patch this even thought that result is used in another mock
-        # otherwise we will skip the whole sequence
-        os_stat_mock.side_effect = FileNotFoundError()
-
-        self.assertEqual(self.live_os_interface.DetectLiveOSImage(), "")
-
-    @patch("pyanaconda.modules.payload.live.live_os.stat")
-    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
-    def detect_live_os_image_test(self, os_stat_mock, stat_mock):
-        """Test Live OS image detection."""
-        # we have to patch this even thought that result is used in another mock
-        # otherwise we will skip the whole sequence
-        stat_mock.S_ISBLK = Mock(return_value=True)
-
-        detected_image = self.live_os_interface.DetectLiveOSImage()
-        stat_mock.S_ISBLK.assert_called_once()
-
-        self.assertEqual(detected_image, "/dev/mapper/live-base")
-
     @patch_dbus_publish_object
     def setup_installation_source_task_test(self, publisher):
         """Test Live OS is able to create a setup installation source task."""

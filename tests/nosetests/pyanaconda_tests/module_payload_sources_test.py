@@ -58,6 +58,41 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payload.sources.live_os.stat")
     @patch("pyanaconda.modules.payload.sources.live_os.os.stat")
+    def detect_live_os_image_failed_block_device_test(self, os_stat_mock, stat_mock):
+        """Test Live OS image detection failed block device check."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        os_stat_mock.return_value = {stat_mock.ST_MODE: "whatever"}
+
+        stat_mock.S_ISBLK = Mock()
+        stat_mock.S_ISBLK.return_value = False
+
+        self.assertEqual(self.live_os_source_interface.DetectLiveOSImage(), "")
+
+    @patch("pyanaconda.modules.payload.sources.live_os.os.stat")
+    def detect_live_os_image_failed_nothing_found_test(self, os_stat_mock):
+        """Test Live OS image detection failed missing file."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        os_stat_mock.side_effect = FileNotFoundError()
+
+        self.assertEqual(self.live_os_source_interface.DetectLiveOSImage(), "")
+
+    @patch("pyanaconda.modules.payload.sources.live_os.stat")
+    @patch("pyanaconda.modules.payload.sources.live_os.os.stat")
+    def detect_live_os_image_test(self, os_stat_mock, stat_mock):
+        """Test Live OS image detection."""
+        # we have to patch this even thought that result is used in another mock
+        # otherwise we will skip the whole sequence
+        stat_mock.S_ISBLK = Mock(return_value=True)
+
+        detected_image = self.live_os_source_interface.DetectLiveOSImage()
+        stat_mock.S_ISBLK.assert_called_once()
+
+        self.assertEqual(detected_image, "/dev/mapper/live-base")
+
+    @patch("pyanaconda.modules.payload.sources.live_os.stat")
+    @patch("pyanaconda.modules.payload.sources.live_os.os.stat")
     def validate_test(self, os_stat_mock, stat_mock):
         """Test Live OS source validation call."""
         # we have to patch this even thought that result is used in another mock
