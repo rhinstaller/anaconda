@@ -28,15 +28,17 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
 
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
     LIVE_IMAGE_HANDLER
-from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payload import PayloadModule
-from pyanaconda.modules.payload.factory import HandlerType, HandlerFactory
-from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
-from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
-from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist, \
     get_dir_size
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask
+from pyanaconda.modules.payload.factory import HandlerType, HandlerFactory, SourceType, \
+    SourceFactory
+from pyanaconda.modules.payload.payload_interface import PayloadInterface
+from pyanaconda.modules.payload.payload import PayloadModule
+from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
+from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
+from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
+from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 
 
 class PayloadInterfaceTestCase(TestCase):
@@ -224,3 +226,8 @@ class FactoryTestCase(TestCase):
         data.liveimg.seen = False
         data.packages.seen = False
         self.assertIsNone(HandlerFactory.create_from_ks_data(data))
+
+    def create_source_test(self):
+        """Test SourceFactory create method."""
+        self.assertIsInstance(SourceFactory.create(SourceType.LIVE_OS_IMAGE),
+                              LiveOSSourceModule)
