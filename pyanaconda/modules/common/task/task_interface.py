@@ -21,7 +21,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal, dbus_class
-from pyanaconda.dbus.namespace import get_dbus_path
 from pyanaconda.modules.common.constants.interfaces import TASK
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
@@ -37,21 +36,6 @@ class TaskInterface(InterfaceTemplate):
 
     This class has only interface of the Task. Logic will be implemented by each module.
     """
-
-    _task_counter = 1
-
-    @staticmethod
-    def get_object_path(namespace):
-        """Get the unique object path in the given namespace.
-
-        This method is not thread safe for now.
-
-        :param namespace: a sequence of names
-        :return: a DBus path of a task
-        """
-        task_number = TaskInterface._task_counter
-        TaskInterface._task_counter += 1
-        return get_dbus_path(*namespace, "Tasks", str(task_number))
 
     def connect_signals(self):
         """Connect signals to the implementation."""
