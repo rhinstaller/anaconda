@@ -21,9 +21,9 @@
 import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.xml import XMLGenerator
 from pyanaconda.dbus.interface import DBusSpecification, DBusSpecificationError, dbus_interface, \
     dbus_class, dbus_signal
+from tests.nosetests.pyanaconda_tests import compare_xml
 
 
 class InterfaceGeneratorTestCase(unittest.TestCase):
@@ -35,8 +35,7 @@ class InterfaceGeneratorTestCase(unittest.TestCase):
     def _compare(self, cls, expected_xml):
         """Compare cls specification with the given xml."""
         generated_xml = cls.dbus  # pylint: disable=no-member
-        self.assertMultiLineEqual(XMLGenerator.prettify_xml(generated_xml),
-                                  XMLGenerator.prettify_xml(expected_xml))
+        compare_xml(self, generated_xml, expected_xml)
 
     def exportable_test(self):
         """Test if the given name should be exported."""

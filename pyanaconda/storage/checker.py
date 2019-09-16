@@ -316,6 +316,32 @@ def verify_mountpoints_on_linuxfs(storage, constraints, report_error, report_war
             report_error(_("The mount point %s must be on a linux file system.") % mountpoint)
 
 
+def verify_unlocked_devices_have_key(storage, constraints, report_error, report_warning):
+    """ Verify that existing unlocked LUKS devices have some way of obtaining a key.
+
+    Blivet doesn't remove decrypted devices after a teardown of unlocked LUKS devices
+    and later fails to set them up without a key, so report an error to prevent a
+    traceback during the installation.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    devices = [
+        d for d in storage.devices
+        if d.format.type == "luks"
+        and d.format.exists
+        and not d.format.has_key
+        and d.children
+    ]
+
+    for dev in devices:
+        report_error(_("The existing unlocked LUKS device {} cannot be used for "
+                       "the installation without an encryption key specified for "
+                       "this device. Please, rescan the storage.").format(dev.name))
+
+
 def verify_luks_devices_have_key(storage, constraints, report_error, report_warning):
     """ Verify that all non-existant LUKS devices have some way of obtaining a key.
 
@@ -590,6 +616,7 @@ class StorageChecker(object):
         self.add_check(verify_swap_uuid)
         self.add_check(verify_mountpoints_on_linuxfs)
         self.add_check(verify_mountpoints_on_root)
+        self.add_check(verify_unlocked_devices_have_key)
         self.add_check(verify_luks_devices_have_key)
         self.add_check(verify_luks2_memory_requirements)
         self.add_check(verify_mounted_partitions)

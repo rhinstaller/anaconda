@@ -524,7 +524,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
         cmd = "tar"
         # preserve: ACL's, xattrs, and SELinux context
-        args = ["--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
+        args = ["--numeric-owner", "--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
                 "--exclude", "dev/*", "--exclude", "proc/*", "--exclude", "tmp/*",
                 "--exclude", "sys/*", "--exclude", "run/*", "--exclude", "boot/*rescue*",
                 "--exclude", "boot/loader", "--exclude", "boot/efi/loader",

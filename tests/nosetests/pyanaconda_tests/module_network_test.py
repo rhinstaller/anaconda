@@ -33,7 +33,8 @@ from pyanaconda.modules.common.errors.installation import FirewallConfigurationE
 from pyanaconda.modules.network.network import NetworkModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.constants import FirewallMode
-from pyanaconda.modules.network.installation import NetworkInstallationTask
+from pyanaconda.modules.network.installation import NetworkInstallationTask, \
+    ConfigureActivationOnBootTask
 from pyanaconda.modules.network.firewall.firewall import FirewallModule
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
 from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
@@ -60,15 +61,6 @@ class MockedNMClient():
     def get_state(self):
         return self.state
 
-class MockedSimpleIfcfgFileGetter():
-    def __init__(self, values):
-        self.values = {}
-        for key, value in values:
-            self.values[key] = value
-    def get(self, key):
-        return self.values.get(key, "")
-    def read(self):
-        pass
 
 class NetworkInterfaceTestCase(unittest.TestCase):
     """Test DBus interface for the Network module."""
@@ -191,12 +183,9 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test LogConfigurationState."""
         self.network_interface.LogConfigurationState("message")
 
-    @patch('pyanaconda.modules.network.network.find_ifcfg_uuid_of_device',
-           return_value="mocked_uuid")
     @patch('pyanaconda.modules.network.network.devices_ignore_ipv6', return_value=True)
     @patch_dbus_publish_object
-    def install_network_with_task_test(self, devices_ignore_ipv6,
-                                       find_ifcfg_uuid_of_device, publisher):
+    def install_network_with_task_test(self, devices_ignore_ipv6, publisher):
         """Test InstallNetworkWithTask."""
         self.network_module._hostname = "my_hostname"
         self.network_module._disable_ipv6 = True
@@ -208,12 +197,8 @@ class NetworkInterfaceTestCase(unittest.TestCase):
                 ("ens5", "55:55:55:55:55:55", "55:55:55:55:55:55", NM.DeviceType.ETHERNET)
             ]
         )
-        self.network_module._should_apply_onboot_policy = Mock(return_value=True)
-        self.network_module._has_any_onboot_yes_device = Mock(return_value=False)
-        self.network_module._get_onboot_ifaces_by_policy = Mock(return_value=["ens4"])
 
         task_path = self.network_interface.InstallNetworkWithTask(
-            ["ens3"],
             False,
         )
 
@@ -222,10 +207,34 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._hostname, "my_hostname")
         self.assertEqual(obj.implementation._disable_ipv6, True)
         self.assertEqual(obj.implementation._overwrite, False)
-        self.assertEqual(obj.implementation._onboot_yes_uuids, ["mocked_uuid", "mocked_uuid"])
         self.assertEqual(obj.implementation._network_ifaces, ["ens3", "ens4", "ens5"])
 
-        self.assertSetEqual(set(self.network_module._onboot_yes_ifaces), set(["ens3", "ens4"]))
+        self.network_module.log_task_result = Mock()
+
+        obj.implementation.succeeded_signal.emit()
+        self.network_module.log_task_result.assert_called_once()
+
+    @patch('pyanaconda.modules.network.installation.update_connection_values')
+    @patch('pyanaconda.modules.network.installation.find_ifcfg_uuid_of_device')
+    @patch_dbus_publish_object
+    def configure_activation_on_boot_with_task_test(self, find_ifcfg_uuid_of_device,
+                                                    update_connection_values, publisher):
+        """Test ConfigureActivationOnBootWithTask."""
+        self.network_module.nm_client = Mock()
+        self.network_module._should_apply_onboot_policy = Mock(return_value=True)
+        self.network_module._has_any_onboot_yes_device = Mock(return_value=False)
+        self.network_module._get_onboot_ifaces_by_policy = Mock(return_value=["ens4"])
+
+        task_path = self.network_interface.ConfigureActivationOnBootWithTask(
+            ["ens3"],
+        )
+
+        obj = check_task_creation(self, task_path, publisher, ConfigureActivationOnBootTask)
+
+        self.assertEqual(
+            set(obj.implementation._onboot_ifaces),
+            set(["ens3", "ens4"])
+        )
 
         self.network_module.log_task_result = Mock()
 
@@ -366,37 +375,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
                 'hw-address': get_variant(Str, "33:33:33:33:33:33"),
                 'device-type': get_variant(Int, NM.DeviceType.TEAM)
             }
-        )
-
-    def set_connection_onboot_value_test(self):
-        """Test SetConnectionOnbootValue."""
-        self.network_interface.SetConnectionOnbootValue(
-            "ddc991d3-a495-4f24-9416-30a6fae01469",
-            False
-        )
-
-    @patch('pyanaconda.modules.network.network.get_ifcfg_file')
-    def get_connection_onboot_value_test(self, get_ifcfg_file):
-        """Test GetConnectionOnbootValue."""
-        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([('ONBOOT', "yes")])
-        self.assertEqual(
-            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
-            True
-        )
-        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([])
-        self.assertEqual(
-            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
-            True
-        )
-        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([('ONBOOT', "no")])
-        self.assertEqual(
-            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
-            False
-        )
-        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([('ONBOOT', "whatever")])
-        self.assertEqual(
-            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
-            True
         )
 
     def _mock_nm_active_connections(self, connection_specs):

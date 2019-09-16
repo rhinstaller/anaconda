@@ -819,10 +819,10 @@ class NetworkControlBox(GObject.GObject):
             ipv4cfg = ipv6cfg = None
 
         if ipv4cfg:
-            addr_str = ",".join("%s/%d" % (a.get_address(), a.get_prefix())
+            addr_str = " ".join("%s/%d" % (a.get_address(), a.get_prefix())
                                            for a in ipv4cfg.get_addresses())
             gateway_str = ipv4cfg.get_gateway()
-            dnss_str = ",".join(ipv4cfg.get_nameservers())
+            dnss_str = " ".join(ipv4cfg.get_nameservers())
         else:
             addr_str = dnss_str = gateway_str = None
         self._set_device_info_value(dt, "ipv4", addr_str)
@@ -831,7 +831,7 @@ class NetworkControlBox(GObject.GObject):
 
         addr6_str = ""
         if ipv6cfg:
-            addr6_str = ",".join("%s/%d" % (a.get_address(), a.get_prefix())
+            addr6_str = " ".join("%s/%d" % (a.get_address(), a.get_prefix())
                                             for a in ipv6cfg.get_addresses()
                                             # Do not display link-local addresses
                                             if not a.get_address().startswith("fe80:"))
@@ -1661,28 +1661,3 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def _update_hostname(self):
         self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
-
-
-def test():
-    win = Gtk.Window()
-    win.connect("delete-event", Gtk.main_quit)
-
-    builder = Gtk.Builder()
-    import os
-    ui_file_path = os.environ.get('UIPATH')+'spokes/network.glade'
-    builder.add_from_file(ui_file_path)
-
-    network_module = NETWORK.get_proxy()
-    nmclient = NM.Client.new(None)
-
-    n = NetworkControlBox(builder, nmclient, network_module)
-    n.initialize()
-    n.refresh()
-
-    n.vbox.reparent(win)
-
-    win.show_all()
-    Gtk.main()
-
-if __name__ == "__main__":
-    test()

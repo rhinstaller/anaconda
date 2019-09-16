@@ -118,7 +118,9 @@ const WelcomeWindow = new Lang.Class({
               buttonBox.destroy();
               this._label.destroy();
 
-              let image = new Gtk.Image({ file: '/usr/share/anaconda/gnome/install-button.png',
+              // provided by the 'fedora-logos' package
+              let image = new Gtk.Image({ icon_name: 'org.fedoraproject.AnacondaInstaller',
+                                          pixel_size: 256,
                                           halign: Gtk.Align.CENTER });
               mainGrid.add(image);
 

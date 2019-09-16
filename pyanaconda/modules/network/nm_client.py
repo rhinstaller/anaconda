@@ -23,7 +23,9 @@ gi.require_version("NM", "1.0")
 from gi.repository import NM
 
 import socket
+from queue import Queue
 from pykickstart.constants import BIND_TO_MAC
+from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, get_s390_settings, netmask2prefix
 
@@ -48,6 +50,29 @@ def get_iface_from_connection(nm_client, uuid):
             mac = wired_setting.get_mac_address()
             if mac:
                 iface = get_iface_from_hwaddr(nm_client, mac)
+    return iface
+
+
+def get_vlan_interface_name_from_connection(nm_client, connection):
+    """Get vlan interface name from vlan connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+
+    If no interface name is specified in the connection settings, infer the
+    value as <PARENT_IFACE>.<VLAN_ID> - same as NetworkManager.
+    """
+    iface = connection.get_setting_connection().get_interface_name()
+    if not iface:
+        setting_vlan = connection.get_setting_vlan()
+        if setting_vlan:
+            vlanid = setting_vlan.get_id()
+            parent = setting_vlan.get_parent()
+            # if parent is specified by UUID
+            if len(parent) == NM_CONNECTION_UUID_LENGTH:
+                parent = get_iface_from_connection(nm_client, parent)
+            if vlanid is not None and parent:
+                iface = default_ks_vlan_interface_name(parent, vlanid)
     return iface
 
 
@@ -309,20 +334,20 @@ def _update_wired_connection_with_s390_settings(connection, s390cfg):
         s_wired.props.s90_options = opts_dict
 
 
-def add_connection_from_ksdata(nm_client, network_data, device_name, activate=False, ifname_option_values=None):
-    """Add NM connection created from kickstart configuration.
+def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_option_values=None):
+    """Create NM connections from kickstart configuration.
 
     :param network_data: kickstart configuration
     :type network_data: pykickstart NetworkData
     :param device_name: name of the device to be configured by kickstart
     :type device_name: str
-    :param activate: activate the added connection
-    :type activate: bool
     :param ifname_option_values: list of ifname boot option values
     :type ifname_option_values: list(str)
+    :return: list of tuples (CONNECTION, NAME_OF_DEVICE_TO_BE_ACTIVATED)
+    :rtype: list((NM.RemoteConnection, str))
     """
     ifname_option_values = ifname_option_values or []
-    added_connections = []
+    connections = []
     device_to_activate = device_name
 
     con_uuid = NM.utils_uuid_generate()
@@ -334,10 +359,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
     s_con.props.uuid = con_uuid
     s_con.props.id = device_name
     s_con.props.interface_name = device_name
-    # HACK preventing NM to autoactivate the connection
-    # The real network --onboot value (ifcfg ONBOOT) will be set later by
-    # update_onboot
-    s_con.props.autoconnect = False
+    s_con.props.autoconnect = network_data.onboot
     con.add_setting(s_con)
 
     # type "bond"
@@ -347,7 +369,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
         for i, slave in enumerate(network_data.bondslaves.split(","), 1):
             slave_con = create_slave_connection('bond', i, slave, device_name)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            added_connections.append((slave_con, slave))
+            connections.append((slave_con, slave))
 
     # type "team"
     elif network_data.teamslaves:
@@ -359,7 +381,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
             slave_con = create_slave_connection('team', i, slave, device_name,
                                                 settings=[s_team_port])
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            added_connections.append((slave_con, slave))
+            connections.append((slave_con, slave))
 
     # type "vlan"
     elif network_data.vlanid:
@@ -373,7 +395,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
         for i, slave in enumerate(network_data.bridgeslaves.split(","), 1):
             slave_con = create_slave_connection('bridge', i, slave, device_name)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            added_connections.append((slave_con, slave))
+            connections.append((slave_con, slave))
 
     # type "infiniband"
     elif is_infiniband_device(nm_client, device_name):
@@ -394,17 +416,47 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
             s390cfg = get_s390_settings(device_name)
             _update_wired_connection_with_s390_settings(con, s390cfg)
 
-    added_connections.insert(0, (con, device_to_activate))
+    connections.insert(0, (con, device_to_activate))
 
-    for con, device_name in added_connections:
-        log.debug("add connection: %s for %s\n%s", con_uuid, device_name,
+    return connections
+
+
+def add_connection_from_ksdata(nm_client, network_data, device_name, activate=False,
+                               ifname_option_values=None):
+    """Add NM connection created from kickstart configuration.
+
+    :param network_data: kickstart configuration
+    :type network_data: pykickstart NetworkData
+    :param device_name: name of the device to be configured by kickstart
+    :type device_name: str
+    :param activate: activate the added connection
+    :type activate: bool
+    :param ifname_option_values: list of ifname boot option values
+    :type ifname_option_values: list(str)
+    """
+    connections = create_connections_from_ksdata(
+        nm_client,
+        network_data,
+        device_name,
+        ifname_option_values
+    )
+
+    for con, device_name in connections:
+        log.debug("add connection: %s for %s\n%s", con.get_uuid(), device_name,
                   con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
         device_to_activate = device_name if activate else None
-        nm_client.add_connection_async(con, True, None,
-                                       _connection_added_cb,
-                                       device_to_activate)
+        nm_client.add_connection2(
+            con.to_dbus(NM.ConnectionSerializationFlags.ALL),
+            (NM.SettingsAddConnection2Flags.TO_DISK |
+             NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
+            None,
+            False,
+            None,
+            _connection_added_cb,
+            device_to_activate
+        )
 
-    return added_connections
+    return connections
 
 
 def _connection_added_cb(client, result, device_to_activate=None):
@@ -414,7 +466,7 @@ def _connection_added_cb(client, result, device_to_activate=None):
                                 added connection.
     :type device_to_activate: str
     """
-    con = client.add_connection_finish(result)
+    con, result = client.add_connection2_finish(result)
     log.debug("connection %s added:\n%s", con.get_uuid(),
               con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
     if device_to_activate:
@@ -518,13 +570,12 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     # IP configuration
     update_connection_ip_settings_from_ksdata(connection, network_data)
 
-    # ONBOOT workaround so that the connection is not activated
     s_con = connection.get_setting_connection()
-    s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, False)
+    s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)
 
     bind_connection(nm_client, connection, network_data.bindto, device_name)
 
-    connection.commit_changes(True, None)
+    commit_changes_with_autoconnection_blocked(connection)
 
     log.debug("updated connection %s:\n%s", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
@@ -726,8 +777,7 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
             active_uuid = ac.get_uuid() if ac else None
             if uuid != active_uuid:
                 ifcfg_con = nm_client.get_connection_by_uuid(uuid)
-                # TODO make the API calls synchronous ?
-                nm_client.activate_connection_async(ifcfg_con, None, None, None)
+                activate_connection_sync(nm_client, ifcfg_con, None)
                 activated = True
     msg = "activated" if activated else "not activated"
     log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
@@ -735,37 +785,57 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
     return activated
 
 
-def update_iface_setting_values(nm_client, iface, new_values):
-    """Update settings of the connection for the interface.
+def get_connections_available_for_iface(nm_client, iface):
+    """Get all connections available for given interface.
 
-    The values will be applied only if a single applicable connection is found
-    for the iface (return value is 1).
-
-    :param iface: name of the device
+    :param iface: interface name
     :type iface: str
+    :return: list of all available connections
+    :rtype: list(NM.RemoteConnection)
+    """
+    cons = []
+    device = nm_client.get_device_by_iface(iface)
+    if device:
+        cons = device.get_available_connections()
+    else:
+        # Try also non-existing (not real) virtual devices
+        for device in nm_client.get_all_devices():
+            if not device.is_real() and device.get_iface() == iface:
+                cons = device.get_available_connections()
+                if cons:
+                    break
+        else:
+            # Getting available connections does not seem to work quite well for
+            # non-real team - try to look them up in all connections.
+            for con in nm_client.get_connections():
+                interface_name = con.get_interface_name()
+                if not interface_name and con.get_connection_type() == "vlan":
+                    interface_name = get_vlan_interface_name_from_connection(nm_client, con)
+                if interface_name == iface:
+                    cons.append(con)
+
+    return cons
+
+
+def update_connection_values(connection, new_values):
+    """Update setting values of a connection.
+
+    :param connection: existing NetworkManager connection to be updated
+    :type connection: NM.RemoteConnection
     :param new_values: list of properties to be updated
     :type new_values: [(SETTING_NAME, SETTING_PROPERTY, VALUE)]
-    :returns: number of applicable connections found
-    :rtype: int
     """
-    n_cons = 0
-    device = nm_client.get_device_by_iface(iface)
-    if not device:
-        return n_cons
-
-    cons = device.get_available_connections()
-    n_cons = len(cons)
-    if n_cons != 1:
-        return n_cons
-
-    con = cons[0]
     for setting_name, setting_property, value in new_values:
-        setting = con.get_setting_by_name(setting_name)
-        setting.set_property(setting_property, value)
-        log.debug("updating %s device setting '%s' '%s' to '%s'",
-                  iface, setting_name, setting_property, value)
-    con.commit_changes(True, None)
-    return n_cons
+        setting = connection.get_setting_by_name(setting_name)
+        if setting:
+            setting.set_property(setting_property, value)
+            log.debug("updating connection %s setting '%s' '%s' to '%s'",
+                      connection.get_uuid(), setting_name, setting_property, value)
+        else:
+            log.debug("setting '%s' not found while updating connection %s",
+                      setting_name, connection.get_uuid())
+    log.debug("updated connection %s:\n%s", connection.get_uuid(),
+              connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
 
 def devices_ignore_ipv6(nm_client, device_types):
@@ -796,3 +866,70 @@ def get_connections_dump(nm_client):
     for con in nm_client.get_connections():
         con_dumps.append(str(con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS)))
     return "\n".join(con_dumps)
+
+
+def commit_changes_with_autoconnection_blocked(connection, save_to_disk=True):
+    """Implementation of NM CommitChanges() method with blocked autoconnection.
+
+    Update2() API is used to implement the functionality (called synchronously).
+
+    Prevents autoactivation of the connection on its update which would happen
+    with CommitChanges if "autoconnect" is set True.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param save_to_disk: should the changes be written also to disk?
+    :type save_to_disk: bool
+    :return: on success result of the Update2() call, None of failure
+    :rtype: GVariant of type "a{sv}" or None
+    """
+    sync_queue = Queue()
+
+    def finish_callback(connection, result, sync_queue):
+        ret = connection.update2_finish(result)
+        sync_queue.put(ret)
+
+    flags = NM.SettingsUpdate2Flags.BLOCK_AUTOCONNECT
+    if save_to_disk:
+        flags |= NM.SettingsUpdate2Flags.TO_DISK
+
+    con2 = NM.SimpleConnection.new_clone(connection)
+    connection.update2(
+        con2.to_dbus(NM.ConnectionSerializationFlags.ALL),
+        flags,
+        None,
+        None,
+        finish_callback,
+        sync_queue
+    )
+
+    return sync_queue.get()
+
+
+def activate_connection_sync(nm_client, connection, device):
+    """Activate a connection synchronously.
+
+    Synchronous wrapper of ActivateConnection() NM method.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param device: the preferred device to apply the connection to
+                   None if not needed
+    :type device: NM.Device
+    """
+    sync_queue = Queue()
+
+    def finish_callback(nm_client, result, sync_queue):
+        ret = nm_client.activate_connection_finish(result)
+        sync_queue.put(ret)
+
+    nm_client.activate_connection_async(
+        connection,
+        device,
+        None,
+        None,
+        finish_callback,
+        sync_queue
+    )
+
+    return sync_queue.get()
