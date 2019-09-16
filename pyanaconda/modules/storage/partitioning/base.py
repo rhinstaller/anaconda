@@ -27,6 +27,7 @@ from pyanaconda.modules.common.base.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
+from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 
 log = get_module_logger(__name__)
 
@@ -93,20 +94,19 @@ class PartitioningModule(KickstartBaseModule, Publishable):
     def configure_with_task(self):
         """Schedule the partitioning actions.
 
-        :return: a DBus path to a task
+        :return: a task
         """
         pass
 
-    @abstractmethod
     def validate_with_task(self):
         """Validate the scheduled partitioning.
 
         Run sanity checks on the current storage model to
         verify if the partitioning is valid.
 
-        :return: a DBus path to a task
+        :return: a task
         """
-        pass
+        return StorageValidateTask(self.storage)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
