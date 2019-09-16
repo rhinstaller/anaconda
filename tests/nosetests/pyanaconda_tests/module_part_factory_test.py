@@ -19,6 +19,9 @@
 #
 import unittest
 
+from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, \
+    KickstartSpecificationParser
+from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
@@ -40,3 +43,50 @@ class PartitioningFactoryTestCase(unittest.TestCase):
         """Test failed create_partitioning."""
         with self.assertRaises(ValueError):
             PartitioningFactory.create_partitioning("INVALID")
+
+    def get_method_for_kickstart_test(self):
+        """Test get_method_for_kickstart."""
+        self._check_method(
+            PartitioningMethod.AUTOMATIC,
+            "autopart"
+        )
+        self._check_method(
+            PartitioningMethod.MANUAL,
+            "mount /dev/sda1 /"
+        )
+        self._check_method(
+            PartitioningMethod.CUSTOM,
+            "reqpart"
+        )
+        self._check_method(
+            PartitioningMethod.CUSTOM,
+            "part /"
+        )
+        self._check_method(
+            PartitioningMethod.CUSTOM,
+            "logvol / --name=root --vgname=fedora --size=4000"
+        )
+        self._check_method(
+            PartitioningMethod.CUSTOM,
+            "volgroup fedora pv.1 pv.2"
+        )
+        self._check_method(
+            PartitioningMethod.CUSTOM,
+            "raid / --level=1 --device=0 raid.01 raid.02"
+        )
+        self._check_method(
+            PartitioningMethod.CUSTOM,
+            "btrfs / --subvol --name=root fedora-btrfs"
+        )
+        self._check_method(
+            None,
+            ""
+        )
+
+    def _check_method(self, method, kickstart):
+        """Check the partitioning method of the given kickstart."""
+        specification = StorageKickstartSpecification
+        handler = KickstartSpecificationHandler(specification)
+        parser = KickstartSpecificationParser(handler, specification)
+        parser.readKickstartFromString(kickstart)
+        self.assertEqual(method, PartitioningFactory.get_method_for_kickstart(handler))
