@@ -114,21 +114,11 @@ class StorageModule(KickstartModule):
 
         # Initialize the partitioning modules.
         # TODO: Remove the static partitioning modules.
-        self._auto_part_module = self.create_partitioning(PartitioningMethod.AUTOMATIC)
-        self._add_module(self._auto_part_module)
-
-        self._manual_part_module = self.create_partitioning(PartitioningMethod.MANUAL)
-        self._add_module(self._manual_part_module)
-
-        self._custom_part_module = self.create_partitioning(PartitioningMethod.CUSTOM)
-        self._add_module(self._custom_part_module)
-
-        self._interactive_part_module = self.create_partitioning(PartitioningMethod.INTERACTIVE)
-        self._add_module(self._interactive_part_module)
-
-        self._blivet_part_module = self.create_partitioning(PartitioningMethod.BLIVET)
-        self._add_module(self._blivet_part_module)
-
+        self._add_module(self.create_partitioning(PartitioningMethod.AUTOMATIC))
+        self._add_module(self.create_partitioning(PartitioningMethod.MANUAL))
+        self._add_module(self.create_partitioning(PartitioningMethod.CUSTOM))
+        self._add_module(self.create_partitioning(PartitioningMethod.INTERACTIVE))
+        self._add_module(self.create_partitioning(PartitioningMethod.BLIVET))
         # Forget the static partitioning modules.
         # TODO: Remove with the static partitioning modules.
         self._created_partitioning = []

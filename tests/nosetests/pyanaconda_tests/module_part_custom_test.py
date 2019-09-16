@@ -24,15 +24,13 @@ from blivet.devices import PartitionDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, \
-    check_kickstart_interface, check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning import CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
 from pyanaconda.modules.storage.storage import StorageModule
-from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.storage.initialization import create_storage
 
 
@@ -75,14 +73,23 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
 
     def setUp(self):
         """Set up the module."""
-        self.storage_module = StorageModule()
-        self.storage_interface = StorageInterface(self.storage_module)
-
-        self.module = self.storage_module._custom_part_module
+        self.module = CustomPartitioningModule()
         self.interface = CustomPartitioningInterface(self.module)
 
     def _process_kickstart(self, ks_in):
-        check_kickstart_interface(self, self.storage_interface, ks_in)
+        """Process the kickstart."""
+        storage_module = StorageModule()
+        handler = storage_module.get_kickstart_handler()
+        parser = storage_module.get_kickstart_parser(handler)
+        parser.readKickstartFromString(ks_in)
+        self.module.process_kickstart(handler)
+
+    def _setup_kickstart(self):
+        """Set up the kickstart."""
+        storage_module = StorageModule()
+        handler = storage_module.get_kickstart_handler()
+        self.module.setup_kickstart(handler)
+        return handler
 
     @patch_dbus_publish_object
     def requires_passphrase_test(self, publisher):
@@ -113,9 +120,7 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         self.module.storage.bootloader.stage1_device = bootloader_device_obj
 
         # initialize ksdata
-        ksdata = self.storage_module.get_kickstart_handler()
-        self.module.setup_kickstart(ksdata)
-
+        ksdata = self._setup_kickstart()
         self.assertIn("part prepboot", str(ksdata))
 
     @patch('pyanaconda.dbus.DBus.get_proxy')
@@ -137,7 +142,5 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         self.assertTrue(self.module.storage)
 
         # initialize ksdata
-        ksdata = self.storage_module.get_kickstart_handler()
-        self.module.setup_kickstart(ksdata)
-
+        ksdata = self._setup_kickstart()
         self.assertIn("part biosboot", str(ksdata))

@@ -100,6 +100,24 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.assertIsInstance(obj.implementation, PartitioningModule)
         self.assertEqual(partitioning_module, obj.implementation)
 
+    def _apply_partitioning_when_created(self):
+        """Apply each partitioning emitted by created_partitioning_changed.
+
+        This helps with testing of parsing and generating kickstart with
+        check_kickstart_interface, because the partitioning created from
+        the kickstart data will be used to generate a new kickstart data.
+        """
+        def _apply_partitioning(module):
+            # Disable all static partitioning modules.
+            for m in self.storage_module._modules:
+                if isinstance(m, (AutoPartitioningModule, ManualPartitioningModule)):
+                    m.set_enabled(False)
+
+            # Apply the new dynamic partitioning module.
+            self.storage_module._set_applied_partitioning(module)
+
+        self.storage_module.created_partitioning_changed.connect(_apply_partitioning)
+
     @patch_dbus_publish_object
     def reset_with_task_test(self, publisher):
         """Test ResetWithTask."""
@@ -180,9 +198,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         self.storage_module.set_storage(storage_1)
         self.assertEqual(self.storage_module.storage, storage_1)
-        self.assertEqual(self.storage_module._auto_part_module.storage, storage_2)
 
         object_path = self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_AUTOMATIC)
+        partitioning = self.storage_module.created_partitioning[-1]
+        self.assertEqual(partitioning.storage, storage_2)
+
         self.storage_interface.ApplyPartitioning(object_path)
         self.assertEqual(self.storage_module.storage, storage_3)
 
@@ -664,6 +684,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -676,6 +697,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --type=thinp
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -688,6 +710,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --fstype=ext4
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -706,6 +729,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --nohome --noboot --noswap
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -718,6 +742,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -730,6 +755,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --cipher="aes-xts-plain64"
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -742,6 +768,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -754,6 +781,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --escrowcert="file:///tmp/escrow.crt"
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -766,6 +794,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --escrowcert="file:///tmp/escrow.crt" --backuppassphrase
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -779,6 +808,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 /boot
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
@@ -792,6 +822,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 none
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
@@ -805,6 +836,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 /boot --mountoptions="user"
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
@@ -818,6 +850,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 /boot --reformat
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
@@ -831,6 +864,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 /boot --reformat=xfs --mkfsoptions="-L BOOT"
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
@@ -850,6 +884,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         mount /dev/sdb1 /home
         mount /dev/sdb2 none
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
@@ -862,6 +897,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --luks-version=luks1
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -874,6 +910,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --pbkdf=pbkdf2
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -886,6 +923,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --pbkdf-memory=256
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -910,6 +948,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --pbkdf-iterations=1000
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
@@ -1223,6 +1262,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         reqpart
         """
         ks_out = ""
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
@@ -1233,6 +1273,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         part / --fstype=ext4 --size=3000
         """
         ks_out = ""
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
@@ -1243,6 +1284,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         logvol / --name=root --vgname=fedora --size=4000
         """
         ks_out = ""
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
@@ -1253,6 +1295,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         volgroup fedora pv.1 pv.2
         """
         ks_out = ""
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
@@ -1263,6 +1306,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         raid / --level=1 --device=0 raid.01 raid.02
         """
         ks_out = ""
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
@@ -1273,6 +1317,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         btrfs / --subvol --name=root fedora-btrfs
         """
         ks_out = ""
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
