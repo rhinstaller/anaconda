@@ -25,6 +25,7 @@ from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_cre
     patch_dbus_publish_object
 
 from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask
@@ -116,6 +117,21 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         check_task_creation(self, task_path, publisher, PrepareSystemForInstallationTask)
 
     @patch_dbus_publish_object
+    def prepare_system_for_installation_task_no_source_test(self, publisher):
+        """Test Live OS prepare installation task with no source fail."""
+        with self.assertRaises(SourceSetupError):
+            self.live_os_interface.PreInstallWithTask()
+
+    @patch_dbus_publish_object
+    def prepare_system_for_installation_task_source_not_ready_test(self, publisher):
+        """Test Live OS prepare installation task with a not ready source fail."""
+        source = LiveOSSourceModule()
+        self.live_os_module.attach_source(source)
+
+        with self.assertRaises(SourceSetupError):
+            self.live_os_interface.PreInstallWithTask()
+
+    @patch_dbus_publish_object
     def teardown_installation_source_task_test(self, publisher):
         """Test Live OS is able to create a teardown installation source task."""
         self._prepare_and_use_source()
@@ -132,6 +148,21 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         task_path = self.live_os_interface.InstallWithTask()
 
         check_task_creation(self, task_path, publisher, InstallFromImageTask)
+
+    @patch_dbus_publish_object
+    def install_with_task_no_source_test(self, publisher):
+        """Test Live OS install with tasks with no source fail."""
+        with self.assertRaises(SourceSetupError):
+            self.live_os_interface.InstallWithTask()
+
+    @patch_dbus_publish_object
+    def install_with_task_source_not_ready_test(self, publisher):
+        """Test Live OS installation task with a not ready source fail."""
+        source = LiveOSSourceModule()
+        self.live_os_module.attach_source(source)
+
+        with self.assertRaises(SourceSetupError):
+            self.live_os_interface.InstallWithTask()
 
     @patch_dbus_publish_object
     def post_install_with_tasks_test(self, publisher):
