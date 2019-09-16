@@ -351,6 +351,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 17 2019 Martin Kolman <mkolman@redhat.com> - 32.5-1
+- payload module: update live image tar payload options with --numeric-owner
+  (rvykydal)
+- payload module: add tests for live image payload interface (rvykydal)
+- Only partitions have the is_magic attribute (#1625154) (vponcova)
+- network gui: wrap multiple IP addresses in network spoke (#1593561)
+  (rvykydal)
+- Don't use update_storage_ksdata in tests (vponcova)
+- Verify existing unlocked LUKS devices without keys (#1624617) (vponcova)
+- network tui: fix addr_str referenced before assignment (#1731415) (rvykydal)
+- Fix the second screen of Welcome to Fedora (#1748203) (vponcova)
+- Add a space after the comma in the description (junjieyuanxiling)
+- Use numbers for user/group names when unpacking tar live image (356889)
+
 * Thu Sep 05 2019 Martin Kolman <mkolman@redhat.com> - 32.4-1
 - Add tests for the device factory requests (vponcova)
 - Raise an exception if the device type is unsupported (vponcova)
