@@ -819,10 +819,10 @@ class NetworkControlBox(GObject.GObject):
             ipv4cfg = ipv6cfg = None
 
         if ipv4cfg:
-            addr_str = ",".join("%s/%d" % (a.get_address(), a.get_prefix())
+            addr_str = " ".join("%s/%d" % (a.get_address(), a.get_prefix())
                                            for a in ipv4cfg.get_addresses())
             gateway_str = ipv4cfg.get_gateway()
-            dnss_str = ",".join(ipv4cfg.get_nameservers())
+            dnss_str = " ".join(ipv4cfg.get_nameservers())
         else:
             addr_str = dnss_str = gateway_str = None
         self._set_device_info_value(dt, "ipv4", addr_str)
@@ -831,7 +831,7 @@ class NetworkControlBox(GObject.GObject):
 
         addr6_str = ""
         if ipv6cfg:
-            addr6_str = ",".join("%s/%d" % (a.get_address(), a.get_prefix())
+            addr6_str = " ".join("%s/%d" % (a.get_address(), a.get_prefix())
                                             for a in ipv6cfg.get_addresses()
                                             # Do not display link-local addresses
                                             if not a.get_address().startswith("fe80:"))

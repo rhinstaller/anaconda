@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-DESCRIPTION = "Anaconda is the installation program used by Fedora," \
+DESCRIPTION = "Anaconda is the installation program used by Fedora, " \
               "Red Hat Enterprise Linux and some other distributions."
 
 import itertools

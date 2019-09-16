@@ -19,12 +19,22 @@
 #
 import unittest
 
-from mock import Mock
+from mock import Mock, patch
+
+from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadHandlerMixin
 
+from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
+from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
+    SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, \
+    TeardownInstallationSourceImageTask
+from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask
+from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
+
 
 
 class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
@@ -151,3 +161,99 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.live_image_interface.VerifySSL, True)
         self.callback.assert_called_once_with(
             LIVE_IMAGE_HANDLER.interface_name, {"VerifySSL": True}, [])
+
+    def default_required_space_test(self):
+        """Test Live Image RequiredSpace property."""
+        self.assertEqual(self.live_image_interface.RequiredSpace, 1024 * 1024 * 1024)
+
+    @patch("pyanaconda.modules.payload.live.live_image.get_kernel_version_list")
+    def empty_kernel_version_list_test(self, get_kernel_version_list):
+        """Test Live Image empty get kernel version list."""
+        self.assertEqual(self.live_image_interface.GetKernelVersionList(), [])
+
+        get_kernel_version_list.return_value = []
+        kernel_list_callback = Mock()
+
+        # pylint: disable=no-member
+        self.live_image_interface.KernelVersionListChanged.connect(kernel_list_callback)
+        self.live_image_interface.UpdateKernelVersionList()
+
+        get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
+
+        self.assertEqual(self.live_image_interface.GetKernelVersionList(), [])
+        kernel_list_callback.assert_called_once_with([])
+
+    @patch("pyanaconda.modules.payload.live.live_image.get_kernel_version_list")
+    def kernel_version_list_test(self, get_kernel_version_list):
+        """Test Live Image get kernel version list."""
+        kernel_list = ["kernel-abc", "magic-kernel.fc3000.x86_64", "sad-kernel"]
+        get_kernel_version_list.return_value = kernel_list
+        kernel_list_callback = Mock()
+
+        # pylint: disable=no-member
+        self.live_image_interface.KernelVersionListChanged.connect(kernel_list_callback)
+        self.live_image_interface.UpdateKernelVersionList()
+
+        get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
+
+        self.assertListEqual(self.live_image_interface.GetKernelVersionList(), kernel_list)
+        kernel_list_callback.assert_called_once_with(kernel_list)
+
+    @patch_dbus_publish_object
+    def check_installation_source_task_test(self, publisher):
+        """Test Live Image is able to create a check installation source task."""
+        task_path = self.live_image_interface.SetupWithTask()
+
+        check_task_creation(self, task_path, publisher, CheckInstallationSourceImageTask)
+
+    @patch_dbus_publish_object
+    def prepare_system_for_installation_task_test(self, publisher):
+        """Test Live Image is able to create a prepare installation task."""
+        task_path = self.live_image_interface.PreInstallWithTask()
+
+        check_task_creation(self, task_path, publisher, SetupInstallationSourceImageTask)
+
+    @patch("pyanaconda.modules.payload.live.live_image.url_target_is_tarfile", lambda x: True)
+    @patch_dbus_publish_object
+    def install_with_task_from_tar_test(self, publisher):
+        """Test Live Image install with tasks from tarfile."""
+        task_path = self.live_image_interface.InstallWithTask()
+
+        check_task_creation(self, task_path, publisher, InstallFromTarTask)
+
+    @patch("pyanaconda.modules.payload.live.live_image.url_target_is_tarfile", lambda x: False)
+    @patch_dbus_publish_object
+    def install_with_task_from_image_test(self, publisher):
+        """Test Live Image install with tasks from image."""
+        task_path = self.live_image_interface.InstallWithTask()
+
+        check_task_creation(self, task_path, publisher, InstallFromImageTask)
+
+    @patch_dbus_publish_object
+    def post_install_with_tasks_test(self, publisher):
+        """Test Live Image post installation configuration task."""
+        task_classes = [
+            UpdateBLSConfigurationTask,
+            CopyDriverDisksFilesTask
+        ]
+
+        task_paths = self.live_image_interface.PostInstallWithTasks()
+
+        # Check the number of installation tasks.
+        task_number = len(task_classes)
+        self.assertEqual(task_number, len(task_paths))
+        self.assertEqual(task_number, publisher.call_count)
+
+        # Check the tasks.
+        for i in range(task_number):
+            object_path, obj = publisher.call_args_list[i][0]
+            self.assertEqual(object_path, task_paths[i])
+            self.assertIsInstance(obj, TaskInterface)
+            self.assertIsInstance(obj.implementation, task_classes[i])
+
+    @patch_dbus_publish_object
+    def teardown_with_task_test(self, publisher):
+        """Test Live Image teardown task creation."""
+        task_path = self.live_image_interface.TeardownWithTask()
+
+        check_task_creation(self, task_path, publisher, TeardownInstallationSourceImageTask)
