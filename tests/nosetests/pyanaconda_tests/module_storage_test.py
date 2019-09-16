@@ -196,6 +196,24 @@ class StorageInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(InvalidStorageError):
             self.storage_interface.ApplyPartitioning(object_path)
 
+    @patch_dbus_publish_object
+    @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
+    def applied_partitioning_test(self, storage_checker, publisher):
+        """Test the property AppliedPartitioning."""
+        storage = Mock()
+
+        report = StorageCheckerReport()
+        storage_checker.check.return_value = report
+
+        self.storage_module.set_storage(storage)
+        self.assertEqual(self.storage_interface.AppliedPartitioning, "")
+
+        self._test_dbus_property(
+            "AppliedPartitioning",
+            in_value=self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_MANUAL),
+            setter=self.storage_interface.ApplyPartitioning
+        )
+
     def collect_requirements_test(self):
         """Test CollectRequirements."""
         storage = Mock()
