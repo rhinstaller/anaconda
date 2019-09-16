@@ -177,11 +177,32 @@ def check_task_creation(test, task_path, publisher, task_class):
     :param task_path: DBus path of the task
     :param publisher: Mock instance of the pyanaconda.dbus.DBus.publish_object
     :param task_class: class of the tested task
+
+    :return: instance of the task
     """
     obj = check_dbus_object_creation(test, task_path, publisher, task_class)
     test.assertIsInstance(obj, TaskInterface)
 
     return obj
+
+
+def check_task_creation_list(test, task_paths, publisher, task_classes):
+    """Check that the list of DBus task is correctly created.
+
+    :param test: instance of TestCase
+    :param task_paths: DBus paths of the tasks
+    :type task_paths: [str]
+    :param publisher: Mock instance of the pyanaconda.dbus.DBus.publish_object
+    :param task_classes: list of classes of the tested tasks; the order is important here
+
+    :return: list of instances of tasks
+    """
+    res = []
+
+    for i in range(len(task_paths)):
+        res.append(check_task_creation(test, task_paths[i], publisher, task_classes[i]))
+
+    return res
 
 
 def check_dbus_object_creation(test, path, publisher, klass):
