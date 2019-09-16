@@ -137,11 +137,17 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         object_path = self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_AUTOMATIC)
         self.storage_interface.ApplyPartitioning(object_path)
-
         self.assertEqual(self.storage_module.storage, storage_3)
 
         with self.assertRaises(DBusContainerError):
             self.storage_interface.ApplyPartitioning(ObjPath("invalid"))
+
+        report.add_warning("The partitioning might not be valid.")
+        self.storage_interface.ApplyPartitioning(object_path)
+
+        report.add_error("The partitioning is not valid.")
+        with self.assertRaises(InvalidStorageError):
+            self.storage_interface.ApplyPartitioning(object_path)
 
     def collect_requirements_test(self):
         """Test CollectRequirements."""
@@ -1483,7 +1489,10 @@ class StorageValidationTasksTestCase(unittest.TestCase):
         report = StorageCheckerReport()
         storage_checker.check.return_value = report
 
-        StorageValidateTask(storage).run()
+        report = StorageValidateTask(storage).run()
+        self.assertEqual(report.is_valid(), True)
+        self.assertEqual(report.error_messages, [])
+        self.assertEqual(report.warning_messages, [])
 
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
     def validation_failed_test(self, storage_checker):
@@ -1492,9 +1501,11 @@ class StorageValidationTasksTestCase(unittest.TestCase):
 
         report = StorageCheckerReport()
         report.add_error("Fake error.")
+        report.add_warning("Fake warning.")
+        report.add_warning("Fake another warning.")
         storage_checker.check.return_value = report
 
-        with self.assertRaises(InvalidStorageError) as cm:
-            StorageValidateTask(storage).run()
-
-        self.assertEqual(str(cm.exception), "Fake error.")
+        report = StorageValidateTask(storage).run()
+        self.assertEqual(report.is_valid(), False)
+        self.assertEqual(report.error_messages, ["Fake error."])
+        self.assertEqual(report.warning_messages, ["Fake warning.", "Fake another warning."])

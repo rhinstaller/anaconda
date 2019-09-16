@@ -104,6 +104,8 @@ class PartitioningModule(KickstartBaseModule, Publishable):
         Run sanity checks on the current storage model to
         verify if the partitioning is valid.
 
+        The result of the task is a validation report.
+
         :return: a task
         """
         return StorageValidateTask(self.storage)
