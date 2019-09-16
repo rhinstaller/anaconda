@@ -1216,17 +1216,65 @@ class StorageInterfaceTestCase(unittest.TestCase):
         with self.assertLogs(level=logging.WARN):
             self._test_kickstart(ks_in, ks_out)
 
-    @patch("pyanaconda.dbus.DBus.get_proxy")
-    def custom_partitioning_kickstart_test(self, proxy_getter):
-        """Smoke test for the custom partitioning."""
-        # Make sure that the storage model is created.
-        self.assertTrue(self.storage_module.storage)
+    @patch_dbus_publish_object
+    def reqpart_kickstart_test(self, publisher):
+        """Test the reqpart command."""
+        ks_in = """
+        reqpart
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
-        # Make sure that the storage playground is created.
-        self.assertTrue(self.storage_module._custom_part_module.storage)
+    @patch_dbus_publish_object
+    def partition_kickstart_test(self, publisher):
+        """Test the part command."""
+        ks_in = """
+        part / --fstype=ext4 --size=3000
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
-        # Try to get kickstart data.
-        self._test_kickstart("", "")
+    @patch_dbus_publish_object
+    def logvol_kickstart_test(self, publisher):
+        """Test the logvol command."""
+        ks_in = """
+        logvol / --name=root --vgname=fedora --size=4000
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+    @patch_dbus_publish_object
+    def volgroup_kickstart_test(self, publisher):
+        """Test the volgroup command."""
+        ks_in = """
+        volgroup fedora pv.1 pv.2
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+    @patch_dbus_publish_object
+    def raid_kickstart_test(self, publisher):
+        """Test the raid command."""
+        ks_in = """
+        raid / --level=1 --device=0 raid.01 raid.02
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+    @patch_dbus_publish_object
+    def btrfs_kickstart_test(self, publisher):
+        """Test the btrfs command."""
+        ks_in = """
+        btrfs / --subvol --name=root fedora-btrfs
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
+        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
 
 class StorageModuleTestCase(unittest.TestCase):
