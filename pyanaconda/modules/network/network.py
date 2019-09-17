@@ -33,9 +33,10 @@ from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, 
 from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, supported_device_types, \
     supported_wired_device_types
-from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump
-from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, get_dracut_arguments_from_ifcfg, \
-    get_kickstart_network_data, get_ifcfg_file, get_ifcfg_files_content
+from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump, \
+    get_dracut_arguments_from_connection, is_ibft_connection
+from pyanaconda.modules.network.ifcfg import get_kickstart_network_data, \
+    get_ifcfg_file, get_ifcfg_files_content
 from pyanaconda.modules.network.installation import NetworkInstallationTask, ConfigureActivationOnBootTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
@@ -584,7 +585,7 @@ class NetworkModule(KickstartModule):
             log.error("Got request to use DeviceConfigurations that has not been created yet")
         self._use_device_configurations = True
 
-    def get_dracut_arguments(self, iface, target_ip, hostname):
+    def get_dracut_arguments(self, iface, target_ip, hostname, ibft):
         """Get dracut arguments for the iface and iSCSI target.
 
         The dracut arguments would activate the iface in initramfs so that the
@@ -593,22 +594,50 @@ class NetworkModule(KickstartModule):
         :param iface: network interface used to connect to the target
         :param target_ip: IP of the iSCSI target
         :param hostname: static hostname to be configured
+        :param ibft: the device should be configured from iBFT
         """
+        log.debug("Getting dracut arguments for iface %s target %s (ibft==%s)",
+                  iface, target_ip, ibft)
         dracut_args = []
+
         if not self.nm_available:
-            log.debug("Dracut arguments can't be obtained, no NetworkManager available.")
+            log.debug("Get dracut arguments: can't be obtained, no NetworkManager available.")
             return dracut_args
 
-        if iface not in (device.get_iface() for device in self.nm_client.get_devices()):
-            log.error("get dracut arguments for %s: device not found", iface)
+        if iface and iface not in (device.get_iface() for device in self.nm_client.get_devices()):
+            log.error("Get dracut arguments for %s: device not found", iface)
             return dracut_args
 
-        ifcfg = get_ifcfg_file_of_device(self.nm_client, iface)
-        if not ifcfg:
-            log.error("get dracut arguments for %s: no ifcfg file found", iface)
+        connections = self.nm_client.get_connections()
+
+        target_connections = []
+        if ibft:
+            target_connections = [con for con in connections if is_ibft_connection(con)]
+        else:
+            for cfg in self._device_configurations.get_for_device(iface):
+                uuid = cfg.connection_uuid
+                if uuid:
+                    connection = self.nm_client.get_connection_by_uuid(uuid)
+                    if connection:
+                        target_connections.append(connection)
+
+        if target_connections:
+            if len(target_connections) > 1:
+                log.debug("Get dracut arguments: multiple connections found for traget %s: %s, taking the first one",
+                          [con.get_uuid() for con in target_connections], target_ip)
+            connection = target_connections[0]
+        else:
+            log.error("Get dracut arguments: can't find connection for target %s", target_ip)
             return dracut_args
 
-        dracut_args = list(get_dracut_arguments_from_ifcfg(self.nm_client, ifcfg, iface, target_ip, hostname))
+        dracut_args = list(get_dracut_arguments_from_connection(
+            self.nm_client,
+            connection,
+            iface,
+            target_ip,
+            hostname,
+            ibft
+        ))
         return dracut_args
 
     def _apply_boot_options(self, kernel_arguments):

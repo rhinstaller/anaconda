@@ -324,6 +324,8 @@ class DeviceConfigurations(object):
         elif is_libvirt_device(iface or ""):
             decline_reason = "libvirt special device connection"
 
+        # TODO we might want to remove the check if the devices are not renamed
+        # to ibftX in dracut (BZ #1749331)
         # Ignore devices configured via iBFT
         elif is_ibft_configured_device(iface or ""):
             decline_reason = "configured from iBFT"
