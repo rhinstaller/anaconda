@@ -15,16 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 import gi
-
 gi.require_version("GLib", "2.0")
-
 from gi.repository import GLib
 
 from textwrap import dedent
-from mock import Mock, patch
-from functools import wraps
+from unittest.mock import Mock, patch
 from xml.etree import ElementTree
 
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
@@ -192,12 +188,4 @@ def patch_dbus_publish_object(func):
 
     # TODO: Extend this to patch the whole DBus object and pass in a useful abstraction.
     """
-
-    @wraps(func)
-    def function_wrapper(*args, **kwargs):
-        with patch('pyanaconda.dbus.DBus.publish_object') as publisher:
-            # FIXME: Find a way how to add publisher on the same position as @patch
-            # Right now it's always the last
-            func(*args, publisher, **kwargs)
-
-    return function_wrapper
+    return patch('pyanaconda.dbus.DBus.publish_object')
