@@ -179,8 +179,7 @@ class KickstartModule(MainModule, KickstartBaseModule):
     @property
     def kickstart_addon_names(self):
         """Return a list of kickstart addon names."""
-        # TODO: We need to add support for addons.
-        return list()
+        return list(self.kickstart_specification.addons.keys())
 
     @property
     def kickstarted(self):

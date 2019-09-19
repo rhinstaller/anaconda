@@ -23,10 +23,13 @@ from textwrap import dedent
 from pykickstart.errors import KickstartParseError
 from pykickstart.commands.skipx import FC3_SkipX
 from pykickstart.commands.user import F24_User, F19_UserData
+from pykickstart.options import KSOptionParser
 from pykickstart.parser import Packages
 from pykickstart.sections import PackageSection
+from pykickstart.version import F30
 
 from pyanaconda import kickstart
+from pyanaconda.core.kickstart.addon import AddonData, AddonRegistry
 from pyanaconda.core.kickstart.specification import KickstartSpecification,\
     KickstartSpecificationHandler, KickstartSpecificationParser
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
@@ -37,6 +40,108 @@ from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
+
+
+class TestData1(AddonData):
+
+    def __init__(self):
+        super().__init__()
+        self.seen = False
+        self.foo = None
+        self.bar = False
+        self.lines = []
+
+    def handle_header(self, args, line_number=None):
+        # Create the argument parser.
+        op = KSOptionParser(
+            prog="%addon my_test_1",
+            version=F30,
+            description="My addon test 1."
+        )
+
+        op.add_argument(
+            "--foo",
+            type=int,
+            default=None,
+            version=F30,
+            help="Specify foo."
+        )
+
+        op.add_argument(
+            "--bar",
+            action="store_true",
+            default=False,
+            version=F30,
+            help="Specify bar."
+        )
+
+        # Parse the arguments.
+        ns = op.parse_args(args=args, lineno=line_number)
+
+        # Store the result of the parsing.
+        self.seen = True
+        self.foo = ns.foo
+        self.bar = ns.bar
+
+    def handle_line(self, line, line_number=None):
+        self.lines.append(line.strip())
+
+    def __str__(self):
+        if not self.seen:
+            return ""
+
+        section = "\n%addon my_test_1"
+
+        if self.foo is not None:
+            section += " --foo={}".format(self.foo)
+
+        if self.bar:
+            section += " --bar"
+
+        for line in self.lines:
+            section += "\n{}".format(line)
+
+        section += "\n%end\n"
+        return section
+
+
+class TestData2(AddonData):
+
+    def __init__(self):
+        super().__init__()
+        self.seen = False
+        self.args = []
+
+    def handle_header(self, args, line_number=None):
+        # Create the argument parser.
+        op = KSOptionParser(
+            prog="%addon my_test_2",
+            version=F30,
+            description="My addon test 2."
+        )
+
+        # Parse the arguments.
+        _, extra = op.parse_known_args(args=args, lineno=line_number)
+
+        # Store the result of the parsing.
+        self.seen = True
+        self.args = extra
+
+    def handle_line(self, line, line_number=None):
+        if line:
+            raise KickstartParseError(line, line_number)
+
+    def __str__(self):
+        if not self.seen:
+            return ""
+
+        section = "\n%addon my_test_2"
+
+        for arg in self.args:
+            section += " {}".format(arg)
+
+        section += "\n%end\n"
+        return section
 
 
 class KickstartSpecificationTestCase(unittest.TestCase):
@@ -90,11 +195,25 @@ class KickstartSpecificationTestCase(unittest.TestCase):
             "packages": Packages
         }
 
-    def parse_kickstart(self, specification, kickstart_input):
+    class SpecificationF(KickstartSpecification):
+
+        addons = {
+            "my_test_1": TestData1,
+            "my_test_2": TestData2
+        }
+
+    def setUp(self):
+        self.maxDiff = None
+
+    def parse_kickstart(self, specification, kickstart_input, kickstart_output=None):
         """Parse a kickstart string using the given specification."""
         handler = KickstartSpecificationHandler(specification)
         parser = KickstartSpecificationParser(handler, specification)
-        parser.readKickstartFromString(kickstart_input)
+        parser.readKickstartFromString(dedent(kickstart_input))
+
+        if kickstart_output is not None:
+            self.assertEqual(str(handler).strip(), dedent(kickstart_output).strip())
+
         return handler
 
     def empty_specification_test(self):
@@ -155,6 +274,111 @@ class KickstartSpecificationTestCase(unittest.TestCase):
 
         with self.assertRaises(KickstartParseError):
             self.parse_kickstart(specification, "xconfig")
+
+    def first_addon_specification_test(self):
+        specification = self.SpecificationF
+
+        ks_in = """
+        %addon my_test_1
+        %end
+        """
+        ks_out = """
+        %addon my_test_1
+        %end
+        """
+        handler = self.parse_kickstart(specification, ks_in, ks_out)
+        self.assertEqual(handler.addons.my_test_1.foo, None)
+        self.assertEqual(handler.addons.my_test_1.bar, False)
+        self.assertEqual(handler.addons.my_test_1.lines, [])
+
+        ks_in = """
+        %addon my_test_1 --foo=10 --bar
+        1
+        2
+        3
+        %end
+        """
+        ks_out = """
+        %addon my_test_1 --foo=10 --bar
+        1
+        2
+        3
+        %end
+        """
+        handler = self.parse_kickstart(specification, ks_in, ks_out)
+        self.assertEqual(handler.addons.my_test_1.foo, 10)
+        self.assertEqual(handler.addons.my_test_1.bar, True)
+        self.assertEqual(handler.addons.my_test_1.lines, ["1", "2", "3"])
+
+        with self.assertRaises(KickstartParseError):
+            self.parse_kickstart(specification, """
+            %addon my_test_1 --invalid-arg
+            %end
+            """)
+
+    def second_addon_specification_test(self):
+        specification = self.SpecificationF
+
+        ks_in = """
+        %addon my_test_2
+        %end
+        """
+        ks_out = """
+        %addon my_test_2
+        %end
+        """
+        handler = self.parse_kickstart(specification, ks_in, ks_out)
+        self.assertEqual(handler.addons.my_test_2.args, [])
+
+        ks_in = """
+        %addon my_test_2 --arg1 --arg2 --arg3
+        %end
+        """
+        ks_out = """
+        %addon my_test_2 --arg1 --arg2 --arg3
+        %end
+        """
+        handler = self.parse_kickstart(specification, ks_in, ks_out)
+        self.assertEqual(handler.addons.my_test_2.args, ["--arg1", "--arg2", "--arg3"])
+
+        with self.assertRaises(KickstartParseError):
+            self.parse_kickstart(specification, """
+            %addon my_test_2
+            Invalid line!
+            %end
+            """)
+
+    def addons_specification_test(self):
+        specification = self.SpecificationF
+
+        handler = self.parse_kickstart(specification, "", "")
+        self.assertIsInstance(handler.addons, AddonRegistry)
+        self.assertIsInstance(handler.addons.my_test_1, TestData1)
+        self.assertIsInstance(handler.addons.my_test_2, TestData2)
+
+        ks_in = """
+        %addon my_test_1 --foo=10 --bar
+        Line!
+        %end
+
+        %addon my_test_2 --arg1 --arg2
+        %end
+        """
+        ks_out = """
+        %addon my_test_1 --foo=10 --bar
+        Line!
+        %end
+
+        %addon my_test_2 --arg1 --arg2
+        %end
+        """
+        self.parse_kickstart(specification, ks_in, ks_out)
+
+        with self.assertRaises(KickstartParseError):
+            self.parse_kickstart(specification, """
+           %addon my_test_unknown
+           %end
+           """)
 
 
 class ModuleSpecificationsTestCase(unittest.TestCase):
