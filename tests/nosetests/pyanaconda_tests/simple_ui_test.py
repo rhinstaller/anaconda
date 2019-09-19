@@ -37,6 +37,12 @@ class SimpleUITestCase(unittest.TestCase):
         self.storage = Mock()
         self.payload = Mock()
 
+        # Mock the TimezoneMap hack.
+        sys.modules["gi.repository.TimezoneMap"] = Mock()
+
+    def tearDown(self):
+        sys.modules.pop("gi.repository.TimezoneMap")
+
     @property
     def paths(self):
         return self.interface.paths
@@ -101,15 +107,11 @@ class SimpleUITestCase(unittest.TestCase):
             ]
         })
 
-    @patch.dict('sys.modules')
     @patch("pyanaconda.ui.gui.Gtk.Builder")
     @patch("pyanaconda.ui.gui.meh")
     @patch("pyanaconda.ui.gui.MainWindow")
     @patch("pyanaconda.ui.gui.ANACONDA_WINDOW_GROUP")
     def gui_test(self, window_group, window, meh, builder):
-        # Mock the TimezoneMap hack.
-        sys.modules["gi.repository.TimezoneMap"] = Mock()
-
         # Create the interface.
         from pyanaconda.ui.gui import GraphicalUserInterface
         self.interface = GraphicalUserInterface(self.storage, self.payload)
