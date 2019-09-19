@@ -42,7 +42,7 @@ class LiveOSSourceModule(PayloadSourceBase):
         self.image_path_changed = Signal()
 
     @property
-    def kind(self):
+    def type(self):
         """Get type of this source."""
         return SourceType.LIVE_OS_IMAGE
 

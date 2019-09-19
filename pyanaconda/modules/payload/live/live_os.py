@@ -49,7 +49,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         self.kernel_version_list_changed = Signal()
 
     @property
-    def supported_source_kinds(self):
+    def supported_source_types(self):
         """Get list of sources supported by Live Image module."""
         return [SourceType.LIVE_OS_IMAGE]
 

@@ -38,7 +38,7 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def kind(self):
+    def type(self):
         """Get type of this source object.
 
         :return: type of this source

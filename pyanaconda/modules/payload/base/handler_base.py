@@ -40,7 +40,7 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def supported_source_kinds(self):
+    def supported_source_types(self):
         """Get list of supported source types.
 
         :return: list of supported source types
@@ -65,13 +65,13 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
         :raises: IncompatibleSourceError
         """
         # TODO: Add test for this when there will be public API
-        if source.kind not in self.supported_source_kinds:
+        if source.type not in self.supported_source_types:
             raise IncompatibleSourceError("Source type {} is not supported by this handler."
-                                          .format(source.kind))
+                                          .format(source.type))
 
         if source not in self._sources:
             self._sources.add(source)
-            log.debug("New source %s was added.", source.kind)
+            log.debug("New source %s was added.", source.type)
             self.sources_changed.emit()
 
     def has_source(self):

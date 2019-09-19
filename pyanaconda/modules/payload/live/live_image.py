@@ -70,7 +70,7 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         self._requests_session = None
 
     @property
-    def supported_source_kinds(self):
+    def supported_source_types(self):
         """Get list of sources supported by Live Image module."""
         # TODO: Add supported sources when implemented
         return None

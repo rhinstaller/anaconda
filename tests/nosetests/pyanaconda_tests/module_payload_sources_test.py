@@ -41,9 +41,9 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         self.callback = Mock()
         self.live_os_source_interface.PropertiesChanged.connect(self.callback)
 
-    def kind_test(self):
-        """Test Live OS source has a correct kind specified."""
-        self.assertEqual(SourceType.LIVE_OS_IMAGE.value, self.live_os_source_interface.Kind)
+    def type_test(self):
+        """Test Live OS source has a correct type specified."""
+        self.assertEqual(SourceType.LIVE_OS_IMAGE.value, self.live_os_source_interface.Type)
 
     def image_path_empty_properties_test(self):
         """Test Live OS handler image path property when not set."""
@@ -114,9 +114,9 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def setUp(self):
         self.live_os_source_module = LiveOSSourceModule()
 
-    def kind_test(self):
-        """Test Live OS source module has a correct kind."""
-        self.assertEqual(SourceType.LIVE_OS_IMAGE, self.live_os_source_module.kind)
+    def type_test(self):
+        """Test Live OS source module has a correct type."""
+        self.assertEqual(SourceType.LIVE_OS_IMAGE, self.live_os_source_module.type)
 
     def set_up_with_tasks_test(self):
         """Test Live OS Source set up call."""

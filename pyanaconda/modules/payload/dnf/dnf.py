@@ -35,7 +35,7 @@ class DNFHandlerModule(PayloadHandlerBase):
         self._packages_handler = PackagesHandlerModule()
 
     @property
-    def supported_source_kinds(self):
+    def supported_source_types(self):
         """Get list of sources supported by DNF module."""
         # TODO: Add supported sources when implemented
         return None
