@@ -77,7 +77,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.storage_module = StorageModule()
         self.storage_interface = StorageInterface(self.storage_module)
 
-    def _test_dbus_property(self, *args, **kwargs):
+    def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,
             STORAGE,
@@ -85,7 +85,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def _test_dbus_partitioning(self, publisher, expected_method):
+    def _check_dbus_partitioning(self, publisher, expected_method):
         publisher.assert_called_once()
         object_path, obj = publisher.call_args[0]
 
@@ -170,14 +170,14 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """Test the property CreatedPartitioning."""
         PartitioningContainer._counter = 0
 
-        self._test_dbus_property(
+        self._check_dbus_property(
             "CreatedPartitioning",
             in_value=PARTITIONING_METHOD_MANUAL,
             out_value=["/org/fedoraproject/Anaconda/Modules/Storage/Partitioning/1"],
             setter=self.storage_interface.CreatePartitioning
         )
 
-        self._test_dbus_property(
+        self._check_dbus_property(
             "CreatedPartitioning",
             in_value=PARTITIONING_METHOD_CUSTOM,
             out_value=["/org/fedoraproject/Anaconda/Modules/Storage/Partitioning/1",
@@ -228,7 +228,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.storage_module.set_storage(storage)
         self.assertEqual(self.storage_interface.AppliedPartitioning, "")
 
-        self._test_dbus_property(
+        self._check_dbus_property(
             "AppliedPartitioning",
             in_value=self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_MANUAL),
             setter=self.storage_interface.ApplyPartitioning
@@ -686,7 +686,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_type_kickstart_test(self, publisher):
@@ -699,7 +699,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_fstype_kickstart_test(self, publisher):
@@ -712,7 +712,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
         ks_in = """
         autopart --fstype=invalid
@@ -731,7 +731,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_encrypted_kickstart_test(self, publisher):
@@ -744,7 +744,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_cipher_kickstart_test(self, publisher):
@@ -757,7 +757,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_passphrase_kickstart_test(self, publisher):
@@ -770,7 +770,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_escrowcert_kickstart_test(self, publisher):
@@ -783,7 +783,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_backuppassphrase_kickstart_test(self, publisher):
@@ -796,7 +796,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def mount_kickstart_test(self, publisher):
@@ -810,7 +810,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
     @patch_dbus_publish_object
     def mount_none_kickstart_test(self, publisher):
@@ -824,7 +824,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
     @patch_dbus_publish_object
     def mount_mountoptions_kickstart_test(self, publisher):
@@ -838,7 +838,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
     @patch_dbus_publish_object
     def mount_reformat_kickstart_test(self, publisher):
@@ -852,7 +852,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
     @patch_dbus_publish_object
     def mount_mkfsoptions_kickstart_test(self, publisher):
@@ -866,7 +866,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
     @patch_dbus_publish_object
     def mount_multiple_kickstart_test(self, publisher):
@@ -886,7 +886,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
 
     @patch_dbus_publish_object
     def autopart_luks_version_kickstart_test(self, publisher):
@@ -899,7 +899,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_pbkdf_kickstart_test(self, publisher):
@@ -912,7 +912,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_pbkdf_memory_kickstart_test(self, publisher):
@@ -925,7 +925,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_pbkdf_time_kickstart_test(self, publisher):
@@ -937,7 +937,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         autopart --encrypted --pbkdf-time=100
         """
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
     def autopart_pbkdf_iterations_kickstart_test(self, publisher):
@@ -950,7 +950,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch("pyanaconda.modules.storage.kickstart.fcoe")
     @patch("pyanaconda.modules.storage.kickstart.get_supported_devices")
@@ -1264,7 +1264,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
     @patch_dbus_publish_object
     def partition_kickstart_test(self, publisher):
@@ -1275,7 +1275,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
     @patch_dbus_publish_object
     def logvol_kickstart_test(self, publisher):
@@ -1286,7 +1286,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
     @patch_dbus_publish_object
     def volgroup_kickstart_test(self, publisher):
@@ -1297,7 +1297,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
     @patch_dbus_publish_object
     def raid_kickstart_test(self, publisher):
@@ -1308,7 +1308,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
     @patch_dbus_publish_object
     def btrfs_kickstart_test(self, publisher):
@@ -1319,7 +1319,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
-        self._test_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
 
 class StorageModuleTestCase(unittest.TestCase):
