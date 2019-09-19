@@ -17,113 +17,93 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyanaconda.installclass import BaseInstallClass
-from pyanaconda.product import productName
-from pyanaconda import network
-from pyanaconda import nm
-from pyanaconda.kickstart import getAvailableDiskSpace
-from blivet.partspec import PartSpec
-from blivet.platform import platform
-from blivet.devicelibs import swap
-from blivet.size import Size
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
-from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 
-__all__ = ["OvirtBaseInstallClass", "RHEVInstallClass"]
+from blivet.size import Size
+from pyanaconda.core.constants import STORAGE_MIN_PARTITION_SIZES
+from pyanaconda.installclasses.centos import CentOSBaseInstallClass
+from pyanaconda.installclasses.rhel import RHELBaseInstallClass
+from pyanaconda.kickstart import getAvailableDiskSpace
+from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.platform import platform
+from pyanaconda.product import productName
+from pyanaconda.storage.autopart import swap_suggestion
+from pyanaconda.storage.partspec import PartSpec
+
+__all__ = ["OvirtInstallClass", "RHVInstallClass"]
 
 
-class OvirtBaseInstallClass(BaseInstallClass):
-    name = "oVirt Node Next"
-    sortPriority = 21000
-    hidden = not productName.startswith("oVirt")
-
-    efi_dir = "centos"
-    default_autopart_type = AUTOPART_TYPE_LVM_THINP
-
-    # there is a RHV branded help content variant
+class OvirtBaseClass:
     help_folder = "/usr/share/anaconda/help/rhv"
 
-    def configure(self, anaconda):
-        BaseInstallClass.configure(self, anaconda)
-
-    def setNetworkOnbootDefault(self, ksdata):
-        if any(nd.onboot for nd in ksdata.network.network if nd.device):
-            return
-        # choose the device used during installation
-        # (ie for majority of cases the one having the default route)
-        dev = network.default_route_device() or network.default_route_device(family="inet6")
-        if not dev:
-            return
-        # ignore wireless (its ifcfgs would need to be handled differently)
-        if nm.nm_device_type_is_wifi(dev):
-            return
-        network.update_onboot_value(dev, True, ksdata=ksdata)
+    def set_autopart_type(self):
+        from pyanaconda.ui.gui.spokes.lib import accordion
+        accordion.DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM_THINP
+        STORAGE.get_proxy(AUTO_PARTITIONING).SetType(AUTOPART_TYPE_LVM_THINP)
 
     def setDefaultPartitioning(self, storage):
-        autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
+        autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
                                  size=Size("6GiB"), thin=True,
                                  grow=True, lv=True),
                         PartSpec(mountpoint="/home",
-                                 fstype=storage.defaultFSType,
+                                 fstype=storage.default_fstype,
                                  size=Size("1GiB"), thin=True, lv=True),
                         PartSpec(mountpoint="/tmp",
-                                 fstype=storage.defaultFSType,
+                                 fstype=storage.default_fstype,
                                  size=Size("1GiB"), thin=True, lv=True),
                         PartSpec(mountpoint="/var",
-                                 fstype=storage.defaultFSType,
+                                 fstype=storage.default_fstype,
                                  size=Size("15GiB"), thin=True, lv=True),
                         PartSpec(mountpoint="/var/log",
-                                 fstype=storage.defaultFSType,
+                                 fstype=storage.default_fstype,
                                  size=Size("8GiB"), thin=True, lv=True),
                         PartSpec(mountpoint="/var/log/audit",
-                                 fstype=storage.defaultFSType,
+                                 fstype=storage.default_fstype,
                                  size=Size("2GiB"), thin=True, lv=True)]
 
-        bootreqs = platform.setDefaultPartitioning()
+        bootreqs = platform.set_default_partitioning()
         if bootreqs:
             autorequests.extend(bootreqs)
 
         disk_space = getAvailableDiskSpace(storage)
-        swp = swap.swapSuggestion(disk_space=disk_space)
+        swp = swap_suggestion(disk_space=disk_space)
         autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
                                      lv=True, encrypted=True))
 
         for autoreq in autorequests:
             if autoreq.fstype is None:
                 if autoreq.mountpoint == "/boot":
-                    autoreq.fstype = storage.defaultBootFSType
+                    autoreq.fstype = storage.default_boot_fstype
                     autoreq.size = Size("1GiB")
                 else:
-                    autoreq.fstype = storage.defaultFSType
+                    autoreq.fstype = storage.default_fstype
 
-        storage.autoPartitionRequests = autorequests
+        storage.autopart_requests = autorequests
 
     def setStorageChecker(self, storage_checker):
-        # / needs to be thin LV
-        storage_checker.add_constraint("root_device_types", {
-            DEVICE_TYPE_LVM_THINP
-        })
-
-        # /var must be on a separate LV or partition
-        storage_checker.update_constraint("must_not_be_on_root", {
-            '/var'
-        })
-
+        # TODO: add checks on root_device_types and must_not_be_on_root once
+        # those are added back to storage_utils
         # /var must be at least 10GB, /boot must be at least 1GB
-        storage_checker.update_constraint("req_partition_sizes", {
+        storage_checker.update_constraint(STORAGE_MIN_PARTITION_SIZES, {
             '/var': Size("10 GiB"),
             '/boot': Size("1 GiB")
         })
 
-    def __init__(self):
-        BaseInstallClass.__init__(self)
 
+class OvirtInstallClass(OvirtBaseClass, CentOSBaseInstallClass):
+    name = "oVirt Node Next"
+    hidden = not productName.startswith("oVirt")
+    sortPriority = 21000
 
-class RHEVInstallClass(OvirtBaseInstallClass):
+    def configure(self, anaconda):
+        CentOSBaseInstallClass.configure(self, anaconda)
+        self.set_autopart_type()
+
+class RHVInstallClass(OvirtBaseClass, RHELBaseInstallClass):
     name = "Red Hat Virtualization"
+    hidden = not productName.startswith(("RHV", "Red Hat Virtualization"))
 
-    hidden = not productName.startswith(
-        ("RHV", "Red Hat Virtualization")
-    )
-
-    efi_dir = "redhat"
+    def configure(self, anaconda):
+        RHELBaseInstallClass.configure(self, anaconda)
+        self.set_autopart_type()
