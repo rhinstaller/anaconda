@@ -118,20 +118,3 @@ class LiveOSSourceModule(PayloadSourceBase):
         task.succeeded_signal.connect(lambda: self._set_is_ready(False))
 
         return [task]
-
-    def validate(self):
-        """Test if the image exists on the given path.
-
-        :return: True if file on the path exists.
-        """
-        try:
-            res = stat.S_ISBLK(os.stat(self._image_path)[stat.ST_MODE])
-            if res:
-                log.debug("Live OS source is valid %s", self._image_path)
-                return True
-            else:
-                log.warning("Live OS source is not valid %s", self._image_path)
-        except FileNotFoundError:
-            log.warning("Live OS source is not available %s", self._image_path)
-
-        return False

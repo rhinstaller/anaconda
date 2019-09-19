@@ -41,11 +41,3 @@ class PayloadSourceBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
          - LIVE_OS_IMAGE
         """
         return self.implementation.type.value
-
-    def Validate(self) -> Bool:
-        """Do a quick validation of the source.
-
-        This validation should be quick and only check if resources could be used. It doesn't mean
-        that the source could be used for the installation, it only tell you it can't be used.
-        """
-        return self.implementation.validate()
