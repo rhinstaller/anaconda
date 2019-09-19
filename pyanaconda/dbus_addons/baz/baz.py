@@ -21,6 +21,7 @@ from time import sleep
 
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface, BazCalculationTaskInterface
+from pyanaconda.dbus_addons.baz.kickstart import BazKickstartSpecification
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import BAZ
 from pyanaconda.modules.common.containers import TaskContainer
@@ -33,11 +34,37 @@ log = get_module_logger(__name__)
 class Baz(KickstartModule):
     """The Baz module."""
 
+    def __init__(self):
+        super().__init__()
+        self._seen = False
+        self._foo = None
+        self._bar = False
+        self._lines = []
+
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(BAZ.namespace)
         DBus.publish_object(BAZ.object_path, BazInterface(self))
         DBus.register_service(BAZ.service_name)
+
+    @property
+    def kickstart_specification(self):
+        """Return the kickstart specification."""
+        return BazKickstartSpecification
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        self._seen = data.addons.my_example_baz.seen
+        self._foo = data.addons.my_example_baz.foo
+        self._bar = data.addons.my_example_baz.bar
+        self._lines = data.addons.my_example_baz.lines
+
+    def setup_kickstart(self, data):
+        """Set the given kickstart data."""
+        data.addons.my_example_baz.seen = self._seen
+        data.addons.my_example_baz.foo = self._foo
+        data.addons.my_example_baz.bar = self._bar
+        data.addons.my_example_baz.lines = self._lines
 
     def install_with_tasks(self):
         """Return installation tasks."""
