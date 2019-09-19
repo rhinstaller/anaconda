@@ -17,14 +17,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.errors.storage import InvalidStorageError
-from pyanaconda.modules.common.task.task import Task
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.structures.validation import ValidationReport
+from pyanaconda.modules.common.task.task import ValidationTask
 from pyanaconda.storage.checker import storage_checker
+
+log = get_module_logger(__name__)
 
 __all__ = ["StorageValidateTask"]
 
 
-class StorageValidateTask(Task):
+class StorageValidateTask(ValidationTask):
     """A task for validating a storage model."""
 
     def __init__(self, storage):
@@ -41,16 +44,25 @@ class StorageValidateTask(Task):
         return "Validate a storage model"
 
     def run(self):
-        """Run the validation."""
-        self._validate_storage(self._storage)
+        """Run the validation.
+
+        :return: a validation report
+        """
+        return self._validate_storage(self._storage)
 
     def _validate_storage(self, storage):
         """Validate the storage model.
 
         :param storage: an instance of Blivet
-        :raises: InvalidStorageError if the model is not valid
+        :return: a validation report
         """
-        report = storage_checker.check(storage)
+        result = storage_checker.check(storage)
 
-        if not report.success:
-            raise InvalidStorageError(" ".join(report.all_errors))
+        for message in result.info:
+            log.debug(message)
+
+        validation_report = ValidationReport()
+        validation_report.error_messages = result.errors
+        validation_report.warning_messages = result.warnings
+
+        return validation_report

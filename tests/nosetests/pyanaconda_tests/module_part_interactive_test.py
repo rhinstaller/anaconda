@@ -39,7 +39,6 @@ from pyanaconda.modules.storage.partitioning.interactive_interface import \
     InteractivePartitioningInterface
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.storage.initialization import create_storage
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
@@ -94,16 +93,6 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         task_path = self.interface.ConfigureWithTask()
 
         obj = check_task_creation(self, task_path, publisher, InteractivePartitioningTask)
-
-        self.assertEqual(obj.implementation._storage, self.module.storage)
-
-    @patch_dbus_publish_object
-    def validate_with_task_test(self, publisher):
-        """Test ValidateWithTask."""
-        self.module.on_storage_reset(Mock())
-        task_path = self.interface.ValidateWithTask()
-
-        obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
 

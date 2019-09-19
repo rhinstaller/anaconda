@@ -24,6 +24,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.errors.storage import InvalidStorageError
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.checker import StorageCheckerModule
@@ -269,7 +270,10 @@ class StorageModule(KickstartModule):
         # Validate the partitioning.
         storage = module.storage
         task = StorageValidateTask(storage)
-        task.run()
+        report = task.run()
+
+        if not report.is_valid():
+            raise InvalidStorageError(" ".join(report.error_messages))
 
         # Apply the partitioning.
         self.set_storage(storage.copy())

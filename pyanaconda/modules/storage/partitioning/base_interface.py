@@ -62,6 +62,8 @@ class PartitioningInterface(ModuleInterfaceTemplate):
         Run sanity checks on the current storage model to
         verify if the partitioning is valid.
 
+        The result of the task is a validation report.
+
         :return: a DBus path to a task
         """
         return TaskContainer.to_object_path(

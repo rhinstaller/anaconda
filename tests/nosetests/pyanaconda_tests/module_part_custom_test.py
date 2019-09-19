@@ -31,7 +31,6 @@ from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning import CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
-from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.storage.initialization import create_storage
@@ -67,16 +66,6 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         task_path = self.interface.ConfigureWithTask()
 
         obj = check_task_creation(self, task_path, publisher, CustomPartitioningTask)
-
-        self.assertEqual(obj.implementation._storage, self.module.storage)
-
-    @patch_dbus_publish_object
-    def validate_with_task_test(self, publisher):
-        """Test ValidateWithTask."""
-        self.module.on_storage_reset(Mock())
-        task_path = self.interface.ValidateWithTask()
-
-        obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
 

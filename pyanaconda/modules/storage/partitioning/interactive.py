@@ -26,7 +26,6 @@ from pyanaconda.modules.storage.partitioning.interactive_interface import \
     InteractivePartitioningInterface
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 
 log = get_module_logger(__name__)
 
@@ -50,7 +49,3 @@ class InteractivePartitioningModule(PartitioningModule):
     def configure_with_task(self):
         """Complete the scheduled partitioning."""
         return InteractivePartitioningTask(self.storage)
-
-    def validate_with_task(self):
-        """Validate the scheduled partitions."""
-        return StorageValidateTask(self.storage)

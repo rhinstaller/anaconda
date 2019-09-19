@@ -34,7 +34,6 @@ from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning import ManualPartitioningModule
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
-from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.storage.initialization import create_storage
 
 
@@ -300,15 +299,5 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         task_path = self.interface.ConfigureWithTask()
 
         obj = check_task_creation(self, task_path, publisher, ManualPartitioningTask)
-
-        self.assertEqual(obj.implementation._storage, self.module.storage)
-
-    @patch_dbus_publish_object
-    def validate_with_task_test(self, publisher):
-        """Test ValidateWithTask."""
-        self.module.on_storage_reset(Mock())
-        task_path = self.interface.ValidateWithTask()
-
-        obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
 
         self.assertEqual(obj.implementation._storage, self.module.storage)

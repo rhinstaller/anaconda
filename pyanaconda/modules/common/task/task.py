@@ -25,7 +25,7 @@ from abc import abstractmethod
 
 from pyanaconda.core.constants import THREAD_DBUS_TASK
 from pyanaconda.dbus.publishable import Publishable
-from pyanaconda.modules.common.task.task_interface import TaskInterface
+from pyanaconda.modules.common.task.task_interface import TaskInterface, ValidationTaskInterface
 from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.result import ResultProvider
@@ -35,7 +35,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ['AbstractTask', 'Task']
+__all__ = ['AbstractTask', 'Task', 'ValidationTask']
 
 
 class AbstractTask(Runnable, Cancellable, Publishable, ProgressReporter, ResultProvider):
@@ -142,3 +142,22 @@ class Task(AbstractTask):
             cls.__name__,
             cls._thread_counter
         )
+
+
+class ValidationTask(Task):
+    """Abstract class for running a validation task."""
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return ValidationTaskInterface(self)
+
+    @abstractmethod
+    def run(self):
+        """The validation implementation.
+
+        Run the validation and return an validation report
+        with error and warning messages.
+
+        :return: an instance of ValidationReport
+        """
+        return None

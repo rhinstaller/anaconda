@@ -25,7 +25,6 @@ from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
-from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 
 log = get_module_logger(__name__)
 
@@ -107,7 +106,3 @@ class CustomPartitioningModule(PartitioningModule):
     def configure_with_task(self):
         """Schedule the partitioning actions."""
         return CustomPartitioningTask(self.storage, self.data)
-
-    def validate_with_task(self):
-        """Validate the scheduled partitions."""
-        return StorageValidateTask(self.storage)

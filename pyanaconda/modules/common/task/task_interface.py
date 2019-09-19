@@ -20,14 +20,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface, dbus_signal
-from pyanaconda.dbus.namespace import get_dbus_path
+from pyanaconda.dbus.interface import dbus_interface, dbus_signal, dbus_class
 from pyanaconda.modules.common.constants.interfaces import TASK
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.task import NoResultError
+from pyanaconda.modules.common.structures.validation import ValidationReport
 
-__all__ = ['TaskInterface']
+__all__ = ['TaskInterface', 'ValidationTaskInterface']
 
 
 @dbus_interface(TASK.interface_name)
@@ -36,21 +36,6 @@ class TaskInterface(InterfaceTemplate):
 
     This class has only interface of the Task. Logic will be implemented by each module.
     """
-
-    _task_counter = 1
-
-    @staticmethod
-    def get_object_path(namespace):
-        """Get the unique object path in the given namespace.
-
-        This method is not thread safe for now.
-
-        :param namespace: a sequence of names
-        :return: a DBus path of a task
-        """
-        task_number = TaskInterface._task_counter
-        TaskInterface._task_counter += 1
-        return get_dbus_path(*namespace, "Tasks", str(task_number))
 
     def connect_signals(self):
         """Connect signals to the implementation."""
@@ -148,3 +133,19 @@ class TaskInterface(InterfaceTemplate):
         """
         result = self.implementation.get_result()
         return self.convert_result(result)
+
+
+@dbus_class
+class ValidationTaskInterface(TaskInterface):
+    """DBus interface for a validation task."""
+
+    @staticmethod
+    def convert_result(value) -> Variant:
+        """Convert the validation report.
+
+        Convert the validation report into a variant.
+
+        :param value: a validation report
+        :return: a variant with the structure
+        """
+        return get_variant(Structure, ValidationReport.to_structure(value))

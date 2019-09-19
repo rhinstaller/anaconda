@@ -26,6 +26,7 @@ from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.size import Size
 
 from pyanaconda.core.configuration.storage import PartitioningType
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.storage.partspec import PartSpec
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation
@@ -234,8 +235,32 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         task_path = self.interface.ValidateWithTask()
 
         obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
-
         self.assertEqual(obj.implementation._storage, self.module.storage)
+
+        report = ValidationReport()
+        report.error_messages = [
+            "Something is wrong.",
+            "Something is very wrong."
+        ]
+        report.warning_messages = [
+            "Something might be wrong."
+        ]
+        obj.implementation._set_result(report)
+
+        result = obj.GetResult()
+        expected_result = get_variant(Structure, {
+            "error-messages": get_variant(List[Str], [
+                "Something is wrong.",
+                "Something is very wrong."
+            ]),
+            "warning-messages": get_variant(List[Str], [
+                "Something might be wrong."
+            ])
+        })
+
+        self.assertIsInstance(result, Variant)
+        self.assertEqual(get_native(result), get_native(expected_result))
+        self.assertTrue(result.equal(expected_result))
 
 
 class AutomaticPartitioningTaskTestCase(unittest.TestCase):
