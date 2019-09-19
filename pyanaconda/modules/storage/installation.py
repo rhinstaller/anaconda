@@ -17,8 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
+
+log = get_module_logger(__name__)
+
 
 __all__ = ["ActivateFilesystemsTask", "MountFilesystemsTask", "WriteConfigurationTask"]
 
@@ -37,6 +42,11 @@ class ActivateFilesystemsTask(Task):
 
     def run(self):
         """Do the activation."""
+        if conf.target.is_directory:
+            log.debug("Don't activate file systems during "
+                      "the installation to a directory.")
+            return
+
         turn_on_filesystems(self._storage)
 
 
@@ -71,4 +81,9 @@ class WriteConfigurationTask(Task):
 
     def run(self):
         """Mount the filesystems."""
+        if conf.target.is_directory:
+            log.debug("Don't write the storage configuration "
+                      "during the installation to a directory.")
+            return
+
         write_storage_configuration(self._storage)

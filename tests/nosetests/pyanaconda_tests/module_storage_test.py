@@ -28,6 +28,7 @@ from pyanaconda.modules.common.containers import PartitioningContainer
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
     ManualPartitioningModule
 from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
+from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
     patch_dbus_publish_object
 
@@ -173,8 +174,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """Test InstallWithTask."""
         task_classes = [
             ActivateFilesystemsTask,
-            MountFilesystemsTask,
-            WriteConfigurationTask
+            MountFilesystemsTask
         ]
 
         task_paths = self.storage_interface.InstallWithTasks()
@@ -190,6 +190,12 @@ class StorageInterfaceTestCase(unittest.TestCase):
             self.assertEqual(object_path, task_paths[i])
             self.assertIsInstance(obj, TaskInterface)
             self.assertIsInstance(obj.implementation, task_classes[i])
+
+    @patch_dbus_publish_object
+    def write_configuration_with_task_test(self, publisher):
+        """Test WriteConfigurationWithTask."""
+        task_path = self.storage_interface.WriteConfigurationWithTask()
+        check_task_creation(self, task_path, publisher, WriteConfigurationTask)
 
     @patch_dbus_publish_object
     def teardown_with_tasks_test(self, publisher):
@@ -1146,6 +1152,42 @@ class StorageTasksTestCase(unittest.TestCase):
         task = StorageResetTask(storage)
         task.run()
         storage.reset.assert_called_once()
+
+    @patch("pyanaconda.modules.storage.installation.conf")
+    def activate_filesystems_test(self, patched_conf):
+        """Test ActivateFilesystemsTask."""
+        storage = create_storage()
+        storage._bootloader = Mock()
+        patched_conf.target.is_directory = False
+        ActivateFilesystemsTask(storage).run()
+
+        storage = Mock()
+        patched_conf.target.is_directory = True
+        ActivateFilesystemsTask(storage).run()
+        storage.assert_not_called()
+
+    @patch("pyanaconda.core.util.mkdirChain")
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def mount_filesystems_test(self, execute, mkdir):
+        """Test MountFilesystemsTask."""
+        storage = create_storage()
+        storage._bootloader = Mock()
+        execute.return_value = 0
+        MountFilesystemsTask(storage).run()
+
+    @patch("pyanaconda.modules.storage.installation.write_storage_configuration")
+    @patch("pyanaconda.modules.storage.installation.conf")
+    def write_configuration_test(self, patched_conf, write):
+        """Test WriteConfigurationTask."""
+        storage = Mock()
+
+        patched_conf.target.is_directory = True
+        WriteConfigurationTask(storage).run()
+        write.assert_not_called()
+
+        patched_conf.target.is_directory = False
+        WriteConfigurationTask(storage).run()
+        write.assert_called_once_with(storage)
 
 
 class DASDInterfaceTestCase(unittest.TestCase):

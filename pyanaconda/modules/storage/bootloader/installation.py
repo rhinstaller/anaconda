@@ -17,6 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import arch
+from blivet.devices import BTRFSDevice
+
+from pyanaconda.core.util import execInSysroot
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -27,7 +31,8 @@ from pyanaconda.modules.common.task import Task
 log = get_module_logger(__name__)
 
 
-__all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask"]
+__all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask", "FixBTRFSBootloaderTask",
+           "FixZIPLBootloaderTask"]
 
 
 class ConfigureBootloaderTask(Task):
@@ -90,3 +95,83 @@ class InstallBootloaderTask(Task):
             return
 
         install_boot_loader(storage=self._storage)
+
+
+class FixBTRFSBootloaderTask(Task):
+    """Installation task fixing the bootloader on BTRFS.
+
+    This works around 2 problems, /boot on BTRFS and BTRFS installations
+    where the initrd is recreated after the first writeBootLoader call.
+    This reruns it after the new initrd has been created, fixing the
+    kernel root and subvol args and adding the missing initrd entry.
+    """
+
+    def __init__(self, storage, mode, kernel_versions, sysroot):
+        """Create a new task."""
+        super().__init__()
+        self._storage = storage
+        self._mode = mode
+        self._versions = kernel_versions
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Fix the bootloader on BTRFS"
+
+    def run(self):
+        """Run the task."""
+        if conf.target.is_directory:
+            log.debug("The bootloader installation is disabled for dir installations.")
+            return
+
+        if self._mode == BootloaderMode.DISABLED:
+            log.debug("The bootloader installation is disabled.")
+            return
+
+        if not isinstance(self._storage.mountpoints.get("/"), BTRFSDevice):
+            log.debug("The bootloader is not on BTRFS.")
+            return
+
+        ConfigureBootloaderTask(
+            self._storage,
+            self._mode,
+            self._versions,
+            self._sysroot
+        ).run()
+
+        InstallBootloaderTask(
+            self._storage,
+            self._mode
+        ).run()
+
+
+class FixZIPLBootloaderTask(Task):
+    """Installation task fixing the ZIPL bootloader.
+
+    Invoking zipl should be the last thing done on a s390x installation (see #1652727).
+    """
+
+    def __init__(self, mode):
+        """Create a new task."""
+        super().__init__()
+        self._mode = mode
+
+    @property
+    def name(self):
+        return "Rerun zipl"
+
+    def run(self):
+        """Run the task."""
+        if not arch.is_s390():
+            log.debug("ZIPL can be run only on s390x.")
+            return
+
+        if conf.target.is_directory:
+            log.debug("The bootloader installation is disabled for dir installations.")
+            return
+
+        if self._mode == BootloaderMode.DISABLED:
+            log.debug("The bootloader installation is disabled.")
+            return
+
+        execInSysroot("zipl", [])

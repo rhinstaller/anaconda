@@ -92,7 +92,6 @@ class SimpleUITestCase(unittest.TestCase):
             ],
             'SystemCategory': [
                 'NetworkSpoke',
-                'PartTypeSpoke',
                 'ShellSpoke',
                 'StorageSpoke'
             ],

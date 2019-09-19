@@ -281,3 +281,26 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         return TaskContainer.to_object_path(
             self.implementation.install_with_task()
         )
+
+    def FixBTRFSWithTask(self, kernel_versions: List[Str]) -> ObjPath:
+        """Configure the bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :param kernel_versions: a list of kernel versions
+        :return: a path to a DBus task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.fix_btrfs_with_task(kernel_versions)
+        )
+
+    def FixZIPLWithTask(self) -> ObjPath:
+        """Fix the ZIPL bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :return: a path to a DBus task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.fix_zipl_with_task()
+        )
