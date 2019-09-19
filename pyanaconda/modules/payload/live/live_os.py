@@ -24,7 +24,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
@@ -53,8 +53,8 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         """Get list of sources supported by Live Image module."""
         return [SourceType.LIVE_OS_IMAGE]
 
-    def add_source(self, source):
-        """Add source to this payload.
+    def set_sources(self, sources):
+        """Set new sources to this handler.
 
         This payload is specific that it can't have more than only one source attached. It will
         instead replace the old source with the new one.
@@ -63,12 +63,10 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
         :raises: IncompatibleSourceError
         """
-        if self.sources:
-            if source not in self.sources:
-                log.debug("Newly added source is replacing the original one.")
-                self.sources.clear()
+        if len(sources) > 1:
+            raise IncompatibleSourceError("You can set only one source for this payload type.")
 
-        super().add_source(source)
+        super().set_sources(sources)
 
     def publish_handler(self):
         """Publish the handler."""

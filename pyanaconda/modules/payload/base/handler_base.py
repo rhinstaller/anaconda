@@ -35,7 +35,7 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
     """
     def __init__(self):
         super().__init__()
-        self._sources = set()
+        self._sources = []
         self.sources_changed = Signal()
 
     @property
@@ -53,26 +53,26 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
         """Get list of sources attached to this payload handler.
 
         :return: list of source objects attached to this handler
-        :rtype: set(instance of PayloadSourceBase class)
+        :rtype: [instance of PayloadSourceBase class]
         """
         return self._sources
 
-    def add_source(self, source):
-        """Add source to the list of sources.
+    def set_sources(self, sources):
+        """Set a new list of sources to this payload handler.
 
-        :param source: source object
-        :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
-        :raises: IncompatibleSourceError
+        :param sources: set a new sources
+        :type sources: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
+        :raise: IncompatibleSourceError when source is not a supported type
         """
         # TODO: Add test for this when there will be public API
-        if source.type not in self.supported_source_types:
-            raise IncompatibleSourceError("Source type {} is not supported by this handler."
-                                          .format(source.type))
+        for source in sources:
+            if source.type not in self.supported_source_types:
+                raise IncompatibleSourceError("Source type {} is not supported by this handler."
+                                              .format(source.type))
 
-        if source not in self._sources:
-            self._sources.add(source)
-            log.debug("New source %s was added.", source.type)
-            self.sources_changed.emit()
+        self._sources = sources
+        log.debug("New sources %s was added.", sources)
+        self.sources_changed.emit()
 
     def has_source(self):
         """Check if any source is set.
@@ -90,11 +90,3 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
         :rtype: string
         """
         pass
-
-    def attach_source(self, source):
-        """Attach source to this payload handler.
-
-        :param source: source object
-        :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
-        """
-        self.add_source(source)

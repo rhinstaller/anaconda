@@ -52,7 +52,7 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         source.set_image_path("/test/path")
         source._is_ready = True
 
-        self.live_os_module.add_source(source)
+        self.live_os_module.set_sources([source])
 
         return source
 
@@ -126,7 +126,7 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
     def prepare_system_for_installation_task_source_not_ready_test(self, publisher):
         """Test Live OS prepare installation task with a not ready source fail."""
         source = LiveOSSourceModule()
-        self.live_os_module.attach_source(source)
+        self.live_os_module.set_sources([source])
 
         with self.assertRaises(SourceSetupError):
             self.live_os_interface.PreInstallWithTask()
@@ -159,7 +159,7 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
     def install_with_task_source_not_ready_test(self, publisher):
         """Test Live OS installation task with a not ready source fail."""
         source = LiveOSSourceModule()
-        self.live_os_module.attach_source(source)
+        self.live_os_module.set_sources([source])
 
         with self.assertRaises(SourceSetupError):
             self.live_os_interface.InstallWithTask()
