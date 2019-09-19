@@ -35,7 +35,7 @@ class TearDownInstallationSourceTask(Task):
 
     @property
     def name(self):
-        return "Teardown Installation Source"
+        return "Tear down Live OS Installation Source"
 
     def run(self):
         """Run live installation source un-setup."""
