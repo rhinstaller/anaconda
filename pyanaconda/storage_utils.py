@@ -43,13 +43,15 @@ from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet.devicefactory import is_supported_device_type
+from blivet.devicefactory import get_device_type
 
 from pyanaconda.core.i18n import _, N_
 from pyanaconda import isys
 from pyanaconda.core.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, \
     STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
     STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, \
-    STORAGE_MIN_RAM, STORAGE_LUKS2_MIN_RAM
+    STORAGE_MIN_RAM, STORAGE_LUKS2_MIN_RAM, STORAGE_ROOT_DEVICE_TYPES, \
+    STORAGE_REQ_PARTITION_SIZES, STORAGE_MUST_NOT_BE_ON_ROOT
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.platform import platform as _platform
 
@@ -188,6 +190,13 @@ def verify_root(storage, constraints, report_error, report_warning):
         if e:
             report_error(e)
 
+    if storage.root_device and constraints[STORAGE_ROOT_DEVICE_TYPES]:
+        device_type = get_device_type(storage.root_device)
+        device_types = constraints[STORAGE_ROOT_DEVICE_TYPES]
+        if device_type not in device_types:
+            report_error(_("Your root partition must be on a device of type: %s.")
+                         % ", ".join(DEVICE_TEXT_MAP[t] for t in device_types))
+
 
 def verify_s390_constraints(storage, constraints, report_error, report_warning):
     """ Verify constraints for s390x.
@@ -241,6 +250,12 @@ def verify_partition_sizes(storage, constraints, report_error, report_warning):
                              "for a normal %(productName)s install.")
                            % {'mount': mount, 'size': size,
                               'productName': productName})
+
+    for (mount, size) in constraints[STORAGE_REQ_PARTITION_SIZES].items():
+        if mount in filesystems and filesystems[mount].size < size:
+            report_error(_("Your %(mount)s partition size is lower "
+                           "than required %(size)s.")
+                         % {'mount': mount, 'size': size})
 
 
 def verify_partition_format_sizes(storage, constraints, report_error, report_warning):
@@ -406,6 +421,22 @@ def verify_mountpoints_on_root(storage, constraints, report_error, report_warnin
         if mountpoint in constraints[STORAGE_MUST_BE_ON_ROOT]:
             report_error(_("This mount point is invalid. The %s directory must "
                            "be on the / file system.") % mountpoint)
+
+
+def verify_mountpoints_not_on_root(storage, constraints, report_error, report_warning):
+    """ Verify mountpoints not on the root.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    filesystems = storage.mountpoints
+
+    for mountpoint in constraints[STORAGE_MUST_NOT_BE_ON_ROOT]:
+        if mountpoint not in filesystems:
+            report_error(_("Your %s must be on a separate partition or LV.")
+                         % mountpoint)
 
 
 def verify_mountpoints_on_linuxfs(storage, constraints, report_error, report_warning):
@@ -684,6 +715,9 @@ class StorageChecker(object):
             '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
         })
 
+        self.add_new_constraint(STORAGE_ROOT_DEVICE_TYPES, set())
+        self.add_new_constraint(STORAGE_REQ_PARTITION_SIZES, dict())
+        self.add_new_constraint(STORAGE_MUST_NOT_BE_ON_ROOT, set())
         self.add_new_constraint(STORAGE_SWAP_IS_RECOMMENDED, True)
         self.add_new_constraint(STORAGE_LUKS2_MIN_RAM, Size("128 MiB"))
 
@@ -700,6 +734,7 @@ class StorageChecker(object):
         self.add_check(verify_swap_uuid)
         self.add_check(verify_mountpoints_on_linuxfs)
         self.add_check(verify_mountpoints_on_root)
+        self.add_check(verify_mountpoints_not_on_root)
         self.add_check(verify_luks_devices_have_key)
         self.add_check(verify_luks2_memory_requirements)
         self.add_check(verify_mounted_partitions)
