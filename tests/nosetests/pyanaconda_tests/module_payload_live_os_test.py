@@ -123,15 +123,6 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
             self.live_os_interface.PreInstallWithTask()
 
     @patch_dbus_publish_object
-    def prepare_system_for_installation_task_source_not_ready_test(self, publisher):
-        """Test Live OS prepare installation task with a not ready source fail."""
-        source = LiveOSSourceModule()
-        self.live_os_module.set_sources([source])
-
-        with self.assertRaises(SourceSetupError):
-            self.live_os_interface.PreInstallWithTask()
-
-    @patch_dbus_publish_object
     def teardown_installation_source_task_test(self, publisher):
         """Test Live OS is able to create a teardown installation source task."""
         self._prepare_and_use_source()
@@ -152,15 +143,6 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def install_with_task_no_source_test(self, publisher):
         """Test Live OS install with tasks with no source fail."""
-        with self.assertRaises(SourceSetupError):
-            self.live_os_interface.InstallWithTask()
-
-    @patch_dbus_publish_object
-    def install_with_task_source_not_ready_test(self, publisher):
-        """Test Live OS installation task with a not ready source fail."""
-        source = LiveOSSourceModule()
-        self.live_os_module.set_sources([source])
-
         with self.assertRaises(SourceSetupError):
             self.live_os_interface.InstallWithTask()
 
