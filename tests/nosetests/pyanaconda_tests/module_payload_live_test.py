@@ -21,7 +21,7 @@ import os
 import stat
 import unittest
 
-from mock import patch, call
+from unittest.mock import patch, call, Mock
 from tempfile import TemporaryDirectory
 
 from pyanaconda.core.constants import INSTALL_TREE
@@ -187,9 +187,10 @@ class LiveTasksTestCase(unittest.TestCase):
         """Test installation from an image task."""
         dest_path = "/destination/path"
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        source = Mock()
         exec_with_redirect.return_value = 0
 
-        InstallFromImageTask(dest_path, kernel_version_list).run()
+        InstallFromImageTask(dest_path, kernel_version_list, source).run()
 
         expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
                                "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
@@ -207,11 +208,12 @@ class LiveTasksTestCase(unittest.TestCase):
         """Test installation from an image task with exception."""
         dest_path = "/destination/path"
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        source = Mock()
         exec_with_redirect.side_effect = OSError("mock exception")
 
         with self.assertLogs(level="ERROR") as cm:
             with self.assertRaises(InstallError):
-                InstallFromImageTask(dest_path, kernel_version_list).run()
+                InstallFromImageTask(dest_path, kernel_version_list, source).run()
 
             self.assertTrue(any(map(lambda x: "mock exception" in x, cm.output)))
 
@@ -231,11 +233,12 @@ class LiveTasksTestCase(unittest.TestCase):
         """Test installation from an image task with bad return code."""
         dest_path = "/destination/path"
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
+        source = Mock()
         exec_with_redirect.return_value = 11
 
         with self.assertLogs(level="INFO") as cm:
             with self.assertRaises(InstallError):
-                InstallFromImageTask(dest_path, kernel_version_list).run()
+                InstallFromImageTask(dest_path, kernel_version_list, source).run()
 
             self.assertTrue(any(map(lambda x: "exited with code 11" in x, cm.output)))
 
