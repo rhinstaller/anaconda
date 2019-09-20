@@ -20,17 +20,20 @@
 import os
 
 from unittest import TestCase
-from mock import patch, Mock
+from unittest.mock import patch, Mock, create_autospec, DEFAULT
 from textwrap import dedent
 from tempfile import TemporaryDirectory
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
-
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
     LIVE_IMAGE_HANDLER
+from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist, \
     get_dir_size
-from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask
+from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
+    SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
 from pyanaconda.modules.payload.base.constants import HandlerType, SourceType
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
@@ -147,6 +150,90 @@ class PayloadSharedTasksTest(TestCase):
 
         create_root_dir_mock.assert_called_once()
         write_module_blacklist_mock.assert_called_once()
+
+    def set_up_sources_task_test(self):
+        """Test task to set up installation sources."""
+        called_position = []
+
+        def save_position(name):
+            called_position.append(name)
+            return DEFAULT
+
+        set_up_task1 = create_autospec(Task)
+        set_up_task2 = create_autospec(Task)
+        set_up_task3 = create_autospec(Task)
+
+        set_up_task1.run.side_effect = lambda: save_position("task1")
+        set_up_task2.run.side_effect = lambda: save_position("task2")
+        set_up_task3.run.side_effect = lambda: save_position("task3")
+
+        source1 = create_autospec(PayloadSourceBase)
+        source2 = create_autospec(PayloadSourceBase)
+
+        source1.set_up_with_tasks.side_effect = lambda: save_position("source1")
+        source1.set_up_with_tasks.return_value = [set_up_task1, set_up_task2]
+        source2.set_up_with_tasks.side_effect = lambda: save_position("source2")
+        source2.set_up_with_tasks.return_value = [set_up_task3]
+
+        task = SetUpSourcesTask([source1, source2])
+
+        task.run()
+
+        source1.set_up_with_tasks.assert_called_once()
+        source2.set_up_with_tasks.assert_called_once()
+        set_up_task1.run.assert_called_once()
+        set_up_task2.run.assert_called_once()
+        set_up_task3.run.assert_called_once()
+        self.assertEqual(["source1", "task1", "task2", "source2", "task3"], called_position)
+
+    def set_up_sources_task_without_sources_test(self):
+        """Test task to set up installation sources without sources set."""
+        task = SetUpSourcesTask([])
+
+        with self.assertRaises(SourceSetupError):
+            task.run()
+
+    def tear_down_sources_task_test(self):
+        """Test task to tear down installation sources."""
+        called_position = []
+
+        def save_position(name):
+            called_position.append(name)
+            return DEFAULT
+
+        tear_down_task1 = create_autospec(Task)
+        tear_down_task2 = create_autospec(Task)
+        tear_down_task3 = create_autospec(Task)
+
+        tear_down_task1.run.side_effect = lambda: save_position("task1")
+        tear_down_task2.run.side_effect = lambda: save_position("task2")
+        tear_down_task3.run.side_effect = lambda: save_position("task3")
+
+        source1 = create_autospec(PayloadSourceBase)
+        source2 = create_autospec(PayloadSourceBase)
+
+        source1.tear_down_with_tasks.side_effect = lambda: save_position("source1")
+        source1.tear_down_with_tasks.return_value = [tear_down_task1, tear_down_task2]
+        source2.tear_down_with_tasks.side_effect = lambda: save_position("source2")
+        source2.tear_down_with_tasks.return_value = [tear_down_task3]
+
+        task = TearDownSourcesTask([source1, source2])
+
+        task.run()
+
+        source1.tear_down_with_tasks.assert_called_once()
+        source2.tear_down_with_tasks.assert_called_once()
+        tear_down_task1.run.assert_called_once()
+        tear_down_task2.run.assert_called_once()
+        tear_down_task3.run.assert_called_once()
+        self.assertEqual(["source1", "task1", "task2", "source2", "task3"], called_position)
+
+    def tear_down_sources_task_without_sources_test(self):
+        """Test task to tear down installation sources without sources set."""
+        task = TearDownSourcesTask([])
+
+        with self.assertRaises(SourceSetupError):
+            task.run()
 
 
 class PayloadSharedUtilsTest(TestCase):

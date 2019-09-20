@@ -21,19 +21,16 @@ import unittest
 
 from mock import Mock, patch
 
-from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
-    patch_dbus_publish_object
+from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask
+    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.sources.initialization import \
-    TearDownLiveOSSourceTask, SetUpLiveOSSourceTask
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
@@ -97,15 +94,13 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         kernel_list_callback.assert_called_once_with(kernel_list)
 
     @patch_dbus_publish_object
-    def setup_installation_source_task_test(self, publisher):
-        """Test Live OS is able to create a setup installation source task."""
+    def set_up_installation_sources_task_test(self, publisher):
+        """Test Live OS is able to create a set up installation sources task."""
         self._prepare_and_use_source()
 
-        task_paths = self.live_os_interface.SetupInstallationSourceWithTasks()
+        task_path = self.live_os_interface.SetUpSourcesWithTask()
 
-        # Live os has only one task now
-        self.assertEqual(len(task_paths), 1)
-        check_task_creation(self, task_paths[0], publisher, SetUpLiveOSSourceTask)
+        check_task_creation(self, task_path, publisher, SetUpSourcesTask)
 
     @patch_dbus_publish_object
     def prepare_system_for_installation_task_test(self, publisher):
@@ -123,13 +118,13 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
             self.live_os_interface.PreInstallWithTask()
 
     @patch_dbus_publish_object
-    def teardown_installation_source_task_test(self, publisher):
-        """Test Live OS is able to create a teardown installation source task."""
+    def tear_down_installation_source_task_test(self, publisher):
+        """Test Live OS is able to create a tear down installation sources task."""
         self._prepare_and_use_source()
 
-        task_path = self.live_os_interface.TeardownInstallationSourceWithTasks()
+        task_path = self.live_os_interface.TearDownSourcesWithTask()
 
-        check_task_creation_list(self, task_path, publisher, [TearDownLiveOSSourceTask])
+        check_task_creation(self, task_path, publisher, TearDownSourcesTask)
 
     @patch_dbus_publish_object
     def install_with_task_test(self, publisher):
