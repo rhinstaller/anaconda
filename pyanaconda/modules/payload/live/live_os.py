@@ -97,13 +97,6 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         if not self._image_source:
             raise SourceSetupError(message)
 
-    def _check_source_readiness(self, message):
-        """Test if source is ready for the installation."""
-        self._check_source_availability(message)
-
-        if not self._image_source.is_ready:
-            raise SourceSetupError(message)
-
     @property
     def space_required(self):
         """Get space required for the source image.
@@ -132,13 +125,13 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
     def pre_install_with_task(self):
         """Prepare intallation task."""
-        self._check_source_readiness("Source is not setup!")
+        self._check_source_availability("Pre install task failed - source is not available!")
 
         return PrepareSystemForInstallationTask(conf.target.system_root)
 
     def install_with_task(self):
         """Install the payload."""
-        self._check_source_readiness("Source is not setup!")
+        self._check_source_availability("Installation task failed - source is not available!")
 
         return InstallFromImageTask(
             conf.target.system_root,
