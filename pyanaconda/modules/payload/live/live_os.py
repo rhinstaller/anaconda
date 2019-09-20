@@ -28,7 +28,7 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError, Incompati
 from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask, SetUpSourcesTask
+    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payload.base.utils import get_dir_size
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
@@ -117,11 +117,11 @@ class LiveOSHandlerModule(PayloadHandlerBase):
 
         return SetUpSourcesTask(self._sources)
 
-    def teardown_installation_source_with_tasks(self):
-        """Teardown installation source device."""
+    def tear_down_sources_with_task(self):
+        """Tear down installation sources."""
         self._check_source_availability("Tear down source failed - source is not set!")
 
-        return self._image_source.tear_down_with_tasks()
+        return TearDownSourcesTask(self._sources)
 
     def pre_install_with_task(self):
         """Prepare intallation task."""
