@@ -19,6 +19,7 @@ import os
 import shutil
 from glob import glob
 
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist
 
@@ -102,3 +103,37 @@ class CopyDriverDisksFilesTask(Task):
                 log.error("failed to copy driver disk files: %s", e.strerror)
                 # XXX TODO: real error handling, as this is probably going to
                 #           prevent boot on some systems
+
+
+class SetUpSourcesTask(Task):
+    """Set up all the installation source of the payload."""
+
+    def __init__(self, sources):
+        """Create set up sources task.
+
+        The task will group all the sources set up tasks under this one.
+
+        :param sources: list of sources
+        :type sources: [instance of PayloadSourceBase class]
+        """
+        super().__init__()
+        self._sources = sources
+
+    @property
+    def name(self):
+        return "Set Up Installation Sources"
+
+    def run(self):
+        """Collect and call set up tasks for all the sources."""
+        if not self._sources:
+            raise SourceSetupError("No sources specified for set up!")
+
+        for source in self._sources:
+            tasks = source.set_up_with_tasks()
+            log.debug("Collected %s tasks from %s source",
+                      [task.name for task in tasks],
+                      source.type)
+
+            for task in tasks:
+                log.debug("Running task %s", task.name)
+                task.run()
