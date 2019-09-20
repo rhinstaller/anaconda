@@ -134,6 +134,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         self._check_source_availability("Installation task failed - source is not available!")
 
         return InstallFromImageTask(
+            self._image_source,
             conf.target.system_root,
             self.kernel_version_list
         )
