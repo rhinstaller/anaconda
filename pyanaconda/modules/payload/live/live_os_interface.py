@@ -41,10 +41,10 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.space_required
 
-    def SetupInstallationSourceWithTasks(self) -> List[ObjPath]:
-        """Setup installation source resources."""
-        return TaskContainer.to_object_path_list(
-            self.implementation.setup_installation_source_with_tasks()
+    def SetUpSourcesWithTask(self) -> ObjPath:
+        """Set up installation source."""
+        return TaskContainer.to_object_path(
+            self.implementation.set_up_sources_with_task()
         )
 
     def TeardownInstallationSourceWithTasks(self) -> List[ObjPath]:
