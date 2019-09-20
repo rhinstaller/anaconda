@@ -82,7 +82,6 @@ from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INI
     BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 
-from pykickstart.constants import AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
 import sys
@@ -667,7 +666,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self.autoPartType = self._auto_part_observer.proxy.Type
         if self.autoPartType == AUTOPART_TYPE_DEFAULT:
-            self.autoPartType = AUTOPART_TYPE_LVM
+            self.autoPartType = self.instclass.default_autopart_type
 
         self.encrypted = self._auto_part_observer.proxy.Encrypted
         self.passphrase = self._auto_part_observer.proxy.Passphrase

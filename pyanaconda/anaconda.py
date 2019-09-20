@@ -319,6 +319,9 @@ class Anaconda(object):
         if luks_version:
             storage.set_default_luks_version(luks_version)
 
+        # Set the default partitioning scheme.
+        storage.autopart_type = self.instClass.default_autopart_type
+
     def _load_plugin_s390(self):
         # Make sure s390 plugin is loaded.
         import gi

@@ -22,7 +22,6 @@
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
-from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.storage_utils import get_supported_autopart_choices
 
 import gi
@@ -509,7 +508,8 @@ class CreateNewPage(BasePage):
         packed into the Accordion first and then when the new installation
         is created, it will be removed and replaced with a Page for it.
     """
-    def __init__(self, title, createClickedCB, autopartTypeChangedCB, partitionsToReuse=True):
+    def __init__(self, title, createClickedCB, autopartTypeChangedCB, defaultType=None,
+                 partitionsToReuse=True):
         super().__init__(title)
 
         # Create a box where we store the "Here's how you create a new blah" info.
@@ -575,7 +575,7 @@ class CreateNewPage(BasePage):
         default = None
         for name, code in get_supported_autopart_choices():
             itr = store.append([_(name), code])
-            if code == DEFAULT_AUTOPART_TYPE:
+            if code == defaultType:
                 default = itr
 
         combo.set_margin_start(18)

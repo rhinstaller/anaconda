@@ -41,7 +41,7 @@ from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
-    DEFAULT_AUTOPART_TYPE, PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
+    PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
     BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, AUTOPART_TYPE_DEFAULT, SecretType, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT
@@ -50,7 +50,6 @@ from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage.osinstall import storage_initialize, select_all_disks_by_default
 
 from pykickstart.base import BaseData
-from pykickstart.constants import AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
 from simpleline.render.containers import ListColumnContainer
@@ -421,7 +420,7 @@ class StorageSpoke(NormalTUISpoke):
         self._disk_init_observer.proxy.SetDrivesToClear(self.selected_disks)
 
         if self.autopart and self._auto_part_observer.proxy.Type == AUTOPART_TYPE_DEFAULT:
-            self._auto_part_observer.proxy.SetType(AUTOPART_TYPE_LVM)
+            self._auto_part_observer.proxy.SetType(self.instclass.default_autopart_type)
 
         for disk in self.disks:
             if disk.name not in self.selected_disks and \
@@ -676,7 +675,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         pre_select = self._auto_part_proxy.Type
 
         if pre_select == AUTOPART_TYPE_DEFAULT:
-            pre_select = DEFAULT_AUTOPART_TYPE
+            pre_select = instclass.default_autopart_type
 
         supported_choices = get_supported_autopart_choices()
         if supported_choices:

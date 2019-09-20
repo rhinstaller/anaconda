@@ -26,6 +26,7 @@ import os
 import sys
 
 from blivet.size import Size
+from pykickstart.constants import AUTOPART_TYPE_LVM
 
 from pyanaconda.kickstart import getAvailableDiskSpace
 from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED, SETUP_ON_BOOT_DEFAULT
@@ -70,6 +71,9 @@ class BaseInstallClass(object):
 
     # Default version of LUKS.
     default_luks_version = None
+
+    # The default partitioning scheme to use for automatic partitioning.
+    default_autopart_type = AUTOPART_TYPE_LVM
 
     # help
     help_folder = "/usr/share/anaconda/help"
