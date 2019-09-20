@@ -137,3 +137,37 @@ class SetUpSourcesTask(Task):
             for task in tasks:
                 log.debug("Running task %s", task.name)
                 task.run()
+
+
+class TearDownSourcesTask(Task):
+    """Tear down all the installation sources of the payload handler."""
+
+    def __init__(self, sources):
+        """Create tear down sources task.
+
+        The task will group all the sources tear down tasks under this one.
+
+        :param sources: list of sources
+        :type sources: [instance of PayloadSourceBase class]
+        """
+        super().__init__()
+        self._sources = sources
+
+    @property
+    def name(self):
+        return "Tear Down Installation Sources"
+
+    def run(self):
+        """Collect and call tear down tasks for all the sources."""
+        if not self._sources:
+            raise SourceSetupError("No sources specified for tear down!")
+
+        for source in self._sources:
+            tasks = source.tear_down_with_tasks()
+            log.debug("Collected %s tasks from %s source",
+                      [task.name for task in tasks],
+                      source.type)
+
+            for task in tasks:
+                log.debug("Running task %s", task.name)
+                task.run()
