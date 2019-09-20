@@ -26,7 +26,7 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
 
 
-class TearDownInstallationSourceTask(Task):
+class TearDownLiveOSSourceTask(Task):
     """Task to teardown installation source."""
 
     def __init__(self, target_mount):
@@ -42,7 +42,7 @@ class TearDownInstallationSourceTask(Task):
         unmount(self._target_mount)
 
 
-class SetUpInstallationSourceTask(Task):
+class SetUpLiveOSSourceTask(Task):
     """Task to setup installation source."""
 
     def __init__(self, live_partition, target_mount):

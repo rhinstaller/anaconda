@@ -26,8 +26,8 @@ from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
-from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask, \
-    TearDownInstallationSourceTask
+from pyanaconda.modules.payload.sources.initialization import SetUpLiveOSSourceTask, \
+    TearDownLiveOSSourceTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -101,7 +101,7 @@ class LiveOSSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        task = SetUpInstallationSourceTask(self._image_path, INSTALL_TREE)
+        task = SetUpLiveOSSourceTask(self._image_path, INSTALL_TREE)
 
         task.succeeded_signal.connect(lambda: self._set_is_ready(True))
 
@@ -113,7 +113,7 @@ class LiveOSSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source clean-up
         :rtype: [Task]
         """
-        task = TearDownInstallationSourceTask(INSTALL_TREE)
+        task = TearDownLiveOSSourceTask(INSTALL_TREE)
 
         task.succeeded_signal.connect(lambda: self._set_is_ready(False))
 

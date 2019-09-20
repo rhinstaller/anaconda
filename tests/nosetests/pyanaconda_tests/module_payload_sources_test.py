@@ -28,8 +28,8 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
-from pyanaconda.modules.payload.sources.initialization import SetUpInstallationSourceTask, \
-    TearDownInstallationSourceTask
+from pyanaconda.modules.payload.sources.initialization import SetUpLiveOSSourceTask, \
+    TearDownLiveOSSourceTask
 
 
 class LiveOSSourceInterfaceTestCase(unittest.TestCase):
@@ -104,7 +104,7 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def set_up_with_tasks_test(self):
         """Test Live OS Source set up call."""
         task_classes = [
-            SetUpInstallationSourceTask
+            SetUpLiveOSSourceTask
         ]
 
         # task will not be public so it won't be published
@@ -120,7 +120,7 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def tear_down_with_tasks_test(self):
         """Test Live OS Source ready state for tear down."""
         task_classes = [
-            TearDownInstallationSourceTask
+            TearDownLiveOSSourceTask
         ]
 
         # task will not be public so it won't be published
@@ -183,7 +183,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
 
         mount.return_value = 0
 
-        SetUpInstallationSourceTask(
+        SetUpLiveOSSourceTask(
             "/path/to/base/image",
             "/path/to/mount/source/image"
         ).run()
@@ -200,7 +200,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device_tree.ResolveDevice.return_value = ""
 
         with self.assertRaises(SourceSetupError):
-            SetUpInstallationSourceTask(
+            SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()
@@ -225,7 +225,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         mount.return_value = -20
 
         with self.assertRaises(SourceSetupError):
-            SetUpInstallationSourceTask(
+            SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()

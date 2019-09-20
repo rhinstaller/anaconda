@@ -32,8 +32,8 @@ from pyanaconda.modules.payload.base.initialization import PrepareSystemForInsta
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.sources.initialization import TearDownInstallationSourceTask, \
-    SetUpInstallationSourceTask
+from pyanaconda.modules.payload.sources.initialization import \
+    TearDownLiveOSSourceTask, SetUpLiveOSSourceTask
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
@@ -105,7 +105,7 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
 
         # Live os has only one task now
         self.assertEqual(len(task_paths), 1)
-        check_task_creation(self, task_paths[0], publisher, SetUpInstallationSourceTask)
+        check_task_creation(self, task_paths[0], publisher, SetUpLiveOSSourceTask)
 
     @patch_dbus_publish_object
     def prepare_system_for_installation_task_test(self, publisher):
@@ -129,7 +129,7 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
 
         task_path = self.live_os_interface.TeardownInstallationSourceWithTasks()
 
-        check_task_creation_list(self, task_path, publisher, [TearDownInstallationSourceTask])
+        check_task_creation_list(self, task_path, publisher, [TearDownLiveOSSourceTask])
 
     @patch_dbus_publish_object
     def install_with_task_test(self, publisher):
