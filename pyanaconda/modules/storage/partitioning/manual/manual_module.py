@@ -20,9 +20,7 @@
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
@@ -51,10 +49,6 @@ class ManualPartitioningModule(PartitioningModule):
     def for_publication(self):
         """Return a DBus representation."""
         return ManualPartitioningInterface(self)
-
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(MANUAL_PARTITIONING.object_path, self.for_publication())
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

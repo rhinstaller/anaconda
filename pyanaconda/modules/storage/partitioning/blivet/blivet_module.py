@@ -18,8 +18,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.blivet.blivet_interface import \
     BlivetPartitioningInterface
@@ -46,10 +44,6 @@ class BlivetPartitioningModule(PartitioningModule):
     def for_publication(self):
         """Return a DBus representation."""
         return BlivetPartitioningInterface(self)
-
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(BLIVET_PARTITIONING.object_path, self.for_publication())
 
     @property
     def storage_handler(self):

@@ -21,9 +21,7 @@ import copy
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
-from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
     ResizableDeviceTreeModule
@@ -54,10 +52,6 @@ class AutoPartitioningModule(PartitioningModule):
     def for_publication(self):
         """Return a DBus representation."""
         return AutoPartitioningInterface(self)
-
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(AUTO_PARTITIONING.object_path, self.for_publication())
 
     def _create_device_tree(self):
         """Create the device tree module."""

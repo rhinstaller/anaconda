@@ -18,8 +18,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.common.constants.objects import CUSTOM_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
@@ -58,10 +56,6 @@ class CustomPartitioningModule(PartitioningModule):
     def for_publication(self):
         """Return a DBus representation."""
         return CustomPartitioningInterface(self)
-
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(CUSTOM_PARTITIONING.object_path, self.for_publication())
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

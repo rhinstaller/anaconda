@@ -18,8 +18,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.common.constants.objects import INTERACTIVE_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive.interactive_interface import \
@@ -43,10 +41,6 @@ class InteractivePartitioningModule(PartitioningModule):
     def for_publication(self):
         """Return a DBus representation."""
         return InteractivePartitioningInterface(self)
-
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(INTERACTIVE_PARTITIONING.object_path, self.for_publication())
 
     def _create_device_tree(self):
         """Create the device tree module."""
