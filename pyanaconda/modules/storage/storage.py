@@ -64,6 +64,14 @@ class StorageModule(KickstartModule):
         self._storage = None
         self.storage_changed = Signal()
 
+        # The created partitioning modules.
+        self._created_partitioning = []
+        self.created_partitioning_changed = Signal()
+
+        # The applied partitioning module.
+        self._applied_partitioning = None
+        self.applied_partitioning_changed = Signal()
+
         # Initialize modules.
         self._modules = []
 
@@ -106,20 +114,14 @@ class StorageModule(KickstartModule):
 
         # Initialize the partitioning modules.
         # TODO: Remove the static partitioning modules.
-        self._auto_part_module = self.create_partitioning(PartitioningMethod.AUTOMATIC)
-        self._add_module(self._auto_part_module)
-
-        self._manual_part_module = self.create_partitioning(PartitioningMethod.MANUAL)
-        self._add_module(self._manual_part_module)
-
-        self._custom_part_module = self.create_partitioning(PartitioningMethod.CUSTOM)
-        self._add_module(self._custom_part_module)
-
-        self._interactive_part_module = self.create_partitioning(PartitioningMethod.INTERACTIVE)
-        self._add_module(self._interactive_part_module)
-
-        self._blivet_part_module = self.create_partitioning(PartitioningMethod.BLIVET)
-        self._add_module(self._blivet_part_module)
+        self._add_module(self.create_partitioning(PartitioningMethod.AUTOMATIC))
+        self._add_module(self.create_partitioning(PartitioningMethod.MANUAL))
+        self._add_module(self.create_partitioning(PartitioningMethod.CUSTOM))
+        self._add_module(self.create_partitioning(PartitioningMethod.INTERACTIVE))
+        self._add_module(self.create_partitioning(PartitioningMethod.BLIVET))
+        # Forget the static partitioning modules.
+        # TODO: Remove with the static partitioning modules.
+        self._created_partitioning = []
 
         # Connect modules to signals.
         self.storage_changed.connect(
@@ -172,6 +174,13 @@ class StorageModule(KickstartModule):
         if data.autopart.autopart and data.autopart.fstype:
             self.storage.set_default_fstype(data.autopart.fstype)
 
+        # Create a new partitioning module.
+        partitioning_method = PartitioningFactory.get_method_for_kickstart(data)
+
+        if partitioning_method:
+            partitioning_module = self.create_partitioning(partitioning_method)
+            partitioning_module.process_kickstart(data)
+
     def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
@@ -179,6 +188,9 @@ class StorageModule(KickstartModule):
 
         for kickstart_module in self._modules:
             kickstart_module.setup_kickstart(data)
+
+        if self.applied_partitioning:
+            self.applied_partitioning.setup_kickstart(data)
 
         return str(data)
 
@@ -259,7 +271,20 @@ class StorageModule(KickstartModule):
             module.on_selected_disks_changed
         )
 
+        # Update the list of modules.
+        self._add_created_partitioning(module)
         return module
+
+    @property
+    def created_partitioning(self):
+        """List of all created partitioning modules."""
+        return self._created_partitioning
+
+    def _add_created_partitioning(self, module):
+        """Add a created partitioning module."""
+        self._created_partitioning.append(module)
+        self.created_partitioning_changed.emit(module)
+        log.debug("Created the partitioning %s.", module)
 
     def apply_partitioning(self, module):
         """Apply a partitioning.
@@ -277,6 +302,17 @@ class StorageModule(KickstartModule):
 
         # Apply the partitioning.
         self.set_storage(storage.copy())
+        self._set_applied_partitioning(module)
+
+    @property
+    def applied_partitioning(self):
+        """The applied partitioning."""
+        return self._applied_partitioning
+
+    def _set_applied_partitioning(self, module):
+        """Set the applied partitioning."""
+        self._applied_partitioning = module
+        self.applied_partitioning_changed.emit()
         log.debug("Applied the partitioning %s.", module)
 
     def collect_requirements(self):

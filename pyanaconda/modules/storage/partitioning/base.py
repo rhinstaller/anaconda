@@ -182,3 +182,7 @@ class PartitioningModule(KickstartBaseModule, Publishable):
 
             parent = getattr(data, list_attr)
             parent.dataList().append(device_data)
+
+    def __str__(self):
+        """Return the string representation."""
+        return str(self.partitioning_method.value)

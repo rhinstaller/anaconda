@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
@@ -29,6 +30,16 @@ from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 class StorageInterface(KickstartModuleInterface):
     """DBus interface for Storage module."""
 
+    def connect_signals(self):
+        """Connect the signals."""
+        super().connect_signals()
+        self.watch_property(
+            "CreatedPartitioning", self.implementation.created_partitioning_changed
+        )
+        self.watch_property(
+            "AppliedPartitioning", self.implementation.applied_partitioning_changed
+        )
+
     def ResetWithTask(self) -> ObjPath:
         """Reset the storage model.
 
@@ -38,6 +49,7 @@ class StorageInterface(KickstartModuleInterface):
             self.implementation.reset_with_task()
         )
 
+    @emits_properties_changed
     def CreatePartitioning(self, method: Str) -> ObjPath:
         """Create a new partitioning.
 
@@ -55,6 +67,17 @@ class StorageInterface(KickstartModuleInterface):
             self.implementation.create_partitioning(PartitioningMethod(method))
         )
 
+    @property
+    def CreatedPartitioning(self) -> List[ObjPath]:
+        """List of all created partitioning modules.
+
+        :return: a list of DBus paths
+        """
+        return PartitioningContainer.to_object_path_list(
+            self.implementation.created_partitioning
+        )
+
+    @emits_properties_changed
     def ApplyPartitioning(self, partitioning: ObjPath):
         """Apply the partitioning.
 
@@ -63,6 +86,19 @@ class StorageInterface(KickstartModuleInterface):
         self.implementation.apply_partitioning(
             PartitioningContainer.from_object_path(partitioning)
         )
+
+    @property
+    def AppliedPartitioning(self) -> ObjPath:
+        """The applied partitioning.
+
+        :return: a DBus path or an empty string
+        """
+        partitioning = self.implementation.applied_partitioning
+
+        if not partitioning:
+            return ObjPath("")
+
+        return PartitioningContainer.to_object_path(partitioning)
 
     def WriteConfigurationWithTask(self) -> ObjPath:
         """Write the storage configuration with a task.

@@ -59,8 +59,9 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         storage_module = StorageModule()
         self.assertIsNotNone(storage_module.storage)
 
-        # We should be able to access the Blivet module.
-        blivet_module = storage_module._blivet_part_module
+        # We should be able to create the Blivet module.
+        from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
+        blivet_module = storage_module.create_partitioning(PartitioningMethod.BLIVET)
         self.assertIsNotNone(blivet_module.storage)
 
         # Import the exception again.

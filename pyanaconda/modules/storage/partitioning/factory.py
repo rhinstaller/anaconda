@@ -54,3 +54,36 @@ class PartitioningFactory(object):
             return BlivetPartitioningModule()
 
         raise ValueError("Unknown partitioning method: {}".format(method))
+
+    @staticmethod
+    def get_method_for_kickstart(data):
+        """Get a partitioning method for the given kickstart data.
+
+        :param data: a kickstart data
+        :return: a partitioning method
+        """
+        if data.autopart.seen:
+            return PartitioningMethod.AUTOMATIC
+
+        if data.mount.seen:
+            return PartitioningMethod.MANUAL
+
+        if data.reqpart.seen:
+            return PartitioningMethod.CUSTOM
+
+        if data.partition.seen:
+            return PartitioningMethod.CUSTOM
+
+        if data.logvol.seen:
+            return PartitioningMethod.CUSTOM
+
+        if data.volgroup.seen:
+            return PartitioningMethod.CUSTOM
+
+        if data.raid.seen:
+            return PartitioningMethod.CUSTOM
+
+        if data.btrfs.seen:
+            return PartitioningMethod.CUSTOM
+
+        return None
