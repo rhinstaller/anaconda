@@ -23,9 +23,7 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
-from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError, ProtectedDeviceError
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
@@ -54,10 +52,6 @@ class AutoPartitioningModule(PartitioningModule):
     def for_publication(self):
         """Return a DBus representation."""
         return AutoPartitioningInterface(self)
-
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(AUTO_PARTITIONING.object_path, self.for_publication())
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
