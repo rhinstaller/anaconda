@@ -15,18 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest, \
-    MountPointRequest
-from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
-    AutomaticPartitioningTask
-from pyanaconda.modules.storage.partitioning.custom.custom_partitioning import \
-    CustomPartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
-    InteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.manual.manual_partitioning import \
-    ManualPartitioningTask
 
 __all__ = ["configure_storage"]
 
@@ -34,22 +22,10 @@ __all__ = ["configure_storage"]
 def configure_storage(storage, data=None, interactive=False):
     """Setup storage state from the kickstart data.
 
+    FIXME: Remove this function.
+
     :param storage: an instance of the Blivet's storage object
     :param data: an instance of kickstart data or None
     :param interactive: use a task for the interactive partitioning
     """
-    auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-    manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
-
-    if interactive:
-        task = InteractivePartitioningTask(storage)
-    elif auto_part_proxy.Enabled:
-        request = PartitioningRequest.from_structure(auto_part_proxy.Request)
-        task = AutomaticPartitioningTask(storage, request)
-    elif manual_part_proxy.Enabled:
-        requests = MountPointRequest.from_structure_list(manual_part_proxy.Requests)
-        task = ManualPartitioningTask(storage, requests)
-    else:
-        task = CustomPartitioningTask(storage, data)
-
-    task.run()
+    raise NotImplementedError("This function is not implemented.")
