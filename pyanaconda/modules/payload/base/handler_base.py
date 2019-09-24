@@ -20,7 +20,7 @@
 from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
+from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
 from pyanaconda.modules.common.base import KickstartBaseModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -60,15 +60,29 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
     def set_sources(self, sources):
         """Set a new list of sources to this payload handler.
 
+        Before setting the sources, please make sure the sources are not initialized otherwise
+        the SourceSetupError exception will be raised. Payload have to cleanup after itself.
+
+        ..NOTE:
+        The SourceSetupError is a reasonable effort to solve the race condition. However,
+        there is still a possibility that the task to initialize sources (`SetupSourcesWithTask()`)
+        was created with the old list but not run yet. In that case this check will not work and
+        the initialization task will run with the old list.
+
         :param sources: set a new sources
         :type sources: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
         :raise: IncompatibleSourceError when source is not a supported type
+                SourceSetupError when attached sources are initialized
         """
         # TODO: Add test for this when there will be public API
         for source in sources:
             if source.type not in self.supported_source_types:
                 raise IncompatibleSourceError("Source type {} is not supported by this handler."
                                               .format(source.type))
+
+        if any(source.is_ready for source in self.sources):
+            raise SourceSetupError("Can't change list of sources if there is at least one source "
+                                   "initialized! Please tear down the sources first.")
 
         self._sources = sources
         log.debug("New sources %s was added.", sources)
