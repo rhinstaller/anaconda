@@ -17,9 +17,10 @@
 #
 import os
 import shutil
+import traceback
 from glob import glob
 
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist
 
@@ -162,6 +163,8 @@ class TearDownSourcesTask(Task):
         if not self._sources:
             raise SourceSetupError("No sources specified for tear down!")
 
+        errors = []
+
         for source in self._sources:
             tasks = source.tear_down_with_tasks()
             log.debug("Collected %s tasks from %s source",
@@ -170,4 +173,13 @@ class TearDownSourcesTask(Task):
 
             for task in tasks:
                 log.debug("Running task %s", task.name)
-                task.run()
+                try:
+                    task.run()
+                except SourceTearDownError as e:
+                    message = "Task '{}' from source '{}' has failed, reason: {}".format(
+                        task.name, source.type, str(e))
+                    errors.append(message)
+                    log.error("%s\n%s", message, traceback.format_exc())
+
+        if errors:
+            raise SourceTearDownError("Sources tear down have failed", errors)
