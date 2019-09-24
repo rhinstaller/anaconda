@@ -548,6 +548,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             page = CreateNewPage(translated_new_install_name(),
                                  self.on_create_clicked,
                                  self._change_autopart_type,
+                                 defaultType=self.instclass.default_autopart_type,
                                  partitionsToReuse=bool(ui_roots) or bool(unused_devices))
             self._accordion.add_page(page, cb=self.on_page_clicked)
 

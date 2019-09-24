@@ -29,8 +29,6 @@ SELINUX_DEFAULT = -1
 # where to look for 3rd party addons
 ADDON_PATHS = ["/usr/share/anaconda/addons"]
 
-from pykickstart.constants import AUTOPART_TYPE_LVM
-
 # common string needs to be easy to change
 from pyanaconda import product
 productName = product.productName
@@ -250,10 +248,6 @@ SCREENSHOTS_TARGET_DIRECTORY = "/root/anaconda-screenshots"
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
 CMDLINE_LIST = ["addrepo"]
 
-# The default autopart type is lvm.
-# FIXME: Move this constant to the storage module.
-DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
-
 # Is the default autopart type selected?
 AUTOPART_TYPE_DEFAULT = -1
 
@@ -298,10 +292,14 @@ NTP_SERVER_QUERY = 2
 STORAGE_MIN_RAM = "min_ram"
 STORAGE_MIN_ROOT = "min_root"
 STORAGE_MIN_PARTITION_SIZES = "min_partition_sizes"
+STORAGE_REQ_PARTITION_SIZES = "req_partition_sizes"
 STORAGE_MUST_BE_ON_LINUXFS = "must_be_on_linuxfs"
 STORAGE_MUST_BE_ON_ROOT = "must_be_on_root"
+STORAGE_MUST_NOT_BE_ON_ROOT = "must_not_be_on_root"
+STORAGE_ROOT_DEVICE_TYPES = "root_device_types"
 STORAGE_SWAP_IS_RECOMMENDED = "swap_is_recommended"
 STORAGE_LUKS2_MIN_RAM = "luks2_min_ram"
+
 
 # Display modes
 class DisplayModes(Enum):
