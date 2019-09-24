@@ -344,6 +344,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 24 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.12-1
+- Add the install class for Red Hat Virtualization (vponcova)
+  Resolves: rhbz#1753316
+- Extend support for custom storage checking (vponcova)
+  Related: rhbz#1753316
+- Enable to define the autopart type in an install class (vponcova)
+  Related: rhbz#1753316
+
 * Mon Aug 26 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.11-1
 - Fix noverifyssl when downloading .treeinfo file (jkonecny)
   Resolves: rhbz#1726156
