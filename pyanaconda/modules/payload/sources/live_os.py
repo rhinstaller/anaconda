@@ -48,16 +48,16 @@ class LiveOSSourceModule(PayloadSourceBase):
 
     @property
     def image_path(self):
-        """Path to the source live OS image.
+        """Path to the live OS source image.
 
-        This image will be used for the installation.
+        This image will be used as the installation source.
 
         :rtype: str
         """
         return self._image_path
 
     def set_image_path(self, image_path):
-        """Set path to the live os OS image.
+        """Set path to the live OS source image.
 
         :param image_path: path to the image
         :type image_path: str
