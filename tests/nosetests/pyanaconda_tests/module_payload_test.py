@@ -27,7 +27,7 @@ from tempfile import TemporaryDirectory
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
     LIVE_IMAGE_HANDLER
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist, \
@@ -193,6 +193,29 @@ class PayloadSharedTasksTest(TestCase):
         with self.assertRaises(SourceSetupError):
             task.run()
 
+    def set_up_sources_task_with_exception_test(self):
+        """Test task to set up installation sources which raise exception."""
+        set_up_task1 = create_autospec(Task)
+        set_up_task2 = create_autospec(Task)
+        set_up_task3 = create_autospec(Task)
+
+        set_up_task2.run.side_effect = SourceSetupError("task2 error")
+
+        source1 = create_autospec(PayloadSourceBase)
+        source2 = create_autospec(PayloadSourceBase)
+
+        source1.set_up_with_tasks.return_value = [set_up_task1, set_up_task2]
+        source2.set_up_with_tasks.return_value = [set_up_task3]
+
+        task = SetUpSourcesTask([source1, source2])
+
+        with self.assertRaises(SourceSetupError):
+            task.run()
+
+        set_up_task1.run.assert_called_once()
+        set_up_task2.run.assert_called_once()
+        set_up_task3.run.assert_not_called()
+
     def tear_down_sources_task_test(self):
         """Test task to tear down installation sources."""
         called_position = []
@@ -234,6 +257,35 @@ class PayloadSharedTasksTest(TestCase):
 
         with self.assertRaises(SourceSetupError):
             task.run()
+
+    def tear_down_sources_task_error_processing_test(self):
+        """Test error processing task to tear down installation sources."""
+        tear_down_task1 = create_autospec(Task)
+        tear_down_task2 = create_autospec(Task)
+        tear_down_task3 = create_autospec(Task)
+
+        tear_down_task1.run.side_effect = SourceTearDownError("task1 error")
+        tear_down_task3.run.side_effect = SourceTearDownError("task3 error")
+
+        source1 = create_autospec(PayloadSourceBase)
+        source2 = create_autospec(PayloadSourceBase)
+
+        source1.tear_down_with_tasks.return_value = [tear_down_task1, tear_down_task2]
+        source2.tear_down_with_tasks.return_value = [tear_down_task3]
+
+        task = TearDownSourcesTask([source1, source2])
+
+        with self.assertLogs(level="ERROR") as cm:
+            with self.assertRaises(SourceTearDownError):
+                task.run()
+
+            self.assertTrue(any(map(lambda x: "task1 error" in x, cm.output)))
+            self.assertTrue(any(map(lambda x: "task3 error" in x, cm.output)))
+
+        # all the tasks should be tear down even when exception raised
+        tear_down_task1.run.assert_called_once()
+        tear_down_task2.run.assert_called_once()
+        tear_down_task3.run.assert_called_once()
 
 
 class PayloadSharedUtilsTest(TestCase):
