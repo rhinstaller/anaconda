@@ -39,7 +39,7 @@ class PayloadInterface(KickstartModuleInterface):
         return self.implementation.is_handler_set()
 
     def CreateHandler(self, handler_type: Str) -> ObjPath:
-        """Create payload handler and publish it on a dbus.
+        """Create payload handler and publish it on DBus.
 
         handler_type could contain these values:
          - DNF
@@ -49,7 +49,7 @@ class PayloadInterface(KickstartModuleInterface):
         return self.implementation.create_handler(HandlerType(handler_type))
 
     def CreateSource(self, source_type: Str) -> ObjPath:
-        """Create payload source and publish it on a dbus.
+        """Create payload source and publish it on DBus.
 
         source_type could contain these values:
          - LIVE_OS_IMAGE
