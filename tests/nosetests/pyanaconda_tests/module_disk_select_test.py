@@ -19,8 +19,14 @@
 #
 import unittest
 
+from blivet.devices import DiskDevice
+from blivet.formats import get_format
+from blivet.size import Size
+
+from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
 from pyanaconda.storage.initialization import create_storage
@@ -49,6 +55,74 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             "SelectedDisks",
             ["sda", "sdb"]
         )
+
+    def validate_selected_disks_test(self):
+        """Test ValidateSelectedDisks."""
+        storage = create_storage()
+        self.disk_selection_module.on_storage_reset(storage)
+
+        dev1 = DiskDevice(
+            "dev1",
+            exists=False,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        )
+        dev2 = DiskDevice(
+            "dev2",
+            exists=False,
+            parents=[dev1],
+            size=Size("6 GiB"),
+            fmt=get_format("disklabel")
+        )
+        dev3 = DiskDevice(
+            "dev3",
+            exists=False,
+            parents=[dev2],
+            size=Size("6 GiB"),
+            fmt=get_format("disklabel")
+        )
+        storage.devicetree._add_device(dev1)
+        storage.devicetree._add_device(dev2)
+        storage.devicetree._add_device(dev3)
+
+        report = ValidationReport.from_structure(get_native(
+            self.disk_selection_interface.ValidateSelectedDisks([])
+        ))
+
+        self.assertEqual(report.is_valid(), True)
+
+        report = ValidationReport.from_structure(get_native(
+            self.disk_selection_interface.ValidateSelectedDisks(["dev1"])
+        ))
+
+        self.assertEqual(report.is_valid(), False)
+        self.assertEqual(report.error_messages, [
+            "You selected disk dev1, which contains devices that also use "
+            "unselected disks dev2, dev3. You must select or de-select "
+            "these disks as a set."
+        ])
+        self.assertEqual(report.warning_messages, [])
+
+        report = ValidationReport.from_structure(get_native(
+            self.disk_selection_interface.ValidateSelectedDisks(["dev1", "dev2"])
+        ))
+
+        self.assertEqual(report.is_valid(), False)
+        self.assertEqual(report.error_messages, [
+            "You selected disk dev1, which contains devices that also "
+            "use unselected disk dev3. You must select or de-select "
+            "these disks as a set.",
+            "You selected disk dev2, which contains devices that also "
+            "use unselected disk dev3. You must select or de-select "
+            "these disks as a set."
+        ])
+        self.assertEqual(report.warning_messages, [])
+
+        report = ValidationReport.from_structure(get_native(
+            self.disk_selection_interface.ValidateSelectedDisks(["dev1", "dev2", "dev3"])
+        ))
+
+        self.assertEqual(report.is_valid(), True)
 
     def exclusive_disks_property_test(self):
         """Test the exclusive disks property."""

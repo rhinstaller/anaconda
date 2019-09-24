@@ -23,7 +23,9 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
+from pyanaconda.storage.utils import check_disk_selection
 
 log = get_module_logger(__name__)
 
@@ -97,6 +99,16 @@ class DiskSelectionModule(KickstartBaseModule):
         self._selected_disks = drives
         self.selected_disks_changed.emit(list(drives))
         log.debug("Selected disks are set to '%s'.", drives)
+
+    def validate_selected_disks(self, drives):
+        """Validate the list of selected disks.
+
+        :param drives: a list of drives names
+        :return: a validation report
+        """
+        report = ValidationReport()
+        report.error_messages = check_disk_selection(self.storage, drives)
+        return report
 
     @property
     def exclusive_disks(self):

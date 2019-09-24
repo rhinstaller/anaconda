@@ -22,6 +22,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
+from pyanaconda.modules.common.structures.validation import ValidationReport
 
 
 @dbus_interface(DISK_SELECTION.interface_name)
@@ -52,6 +53,16 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         :param drives: a list of drives names
         """
         self.implementation.set_selected_disks(drives)
+
+    def ValidateSelectedDisks(self, drives: List[Str]) -> Structure:
+        """Validate the list of selected disks.
+
+        :param drives: a list of drives names
+        :return: a validation report
+        """
+        return ValidationReport.to_structure(
+            self.implementation.validate_selected_disks(drives)
+        )
 
     @property
     def ExclusiveDisks(self) -> List[Str]:
