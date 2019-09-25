@@ -261,7 +261,7 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.network_device_configuration_changed()
 
-    def GetDracutArguments(self, iface: Str, target_ip: Str, hostname: Str) -> List[Str]:
+    def GetDracutArguments(self, iface: Str, target_ip: Str, hostname: Str, ibft: Bool) -> List[Str]:
         """Get dracut arguments for the iface and iSCSI target.
 
         The dracut arguments would activate the iface in initramfs so that the
@@ -270,8 +270,9 @@ class NetworkInterface(KickstartModuleInterface):
         :param iface: network interface used to connect to the target
         :param target_ip: IP of the iSCSI target
         :param hostname: static hostname to be configured
+        :param ibft: the device should be configured from iBFT
         """
-        return self.implementation.get_dracut_arguments(iface, target_ip, hostname)
+        return self.implementation.get_dracut_arguments(iface, target_ip, hostname, ibft)
 
     def LogConfigurationState(self, msg_header: Str):
         """Logs the state of network configuration.

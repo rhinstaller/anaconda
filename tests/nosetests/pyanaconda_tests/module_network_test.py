@@ -176,7 +176,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     def get_dracut_arguments_test(self):
         """Test GetDracutArguments."""
         self.assertListEqual(
-            self.network_interface.GetDracutArguments("ens3", "10.10.10.10", ""), []
+            self.network_interface.GetDracutArguments("ens3", "10.10.10.10", "", False), []
         )
 
     def log_configuration_state_test(self):
