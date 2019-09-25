@@ -204,4 +204,7 @@ class ManualPartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
-        return ManualPartitioningTask(self.storage)
+        return ManualPartitioningTask(
+            self.storage,
+            self.requests
+        )

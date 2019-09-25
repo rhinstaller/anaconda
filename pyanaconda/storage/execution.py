@@ -17,7 +17,8 @@
 #
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest, \
+    MountPointRequest
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
     AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
@@ -36,14 +37,16 @@ def configure_storage(storage, data=None, interactive=False):
     :param interactive: use a task for the interactive partitioning
     """
     auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+    manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 
     if interactive:
         task = InteractivePartitioningTask(storage)
     elif auto_part_proxy.Enabled:
         request = PartitioningRequest.from_structure(auto_part_proxy.Request)
         task = AutomaticPartitioningTask(storage, request)
-    elif STORAGE.get_proxy(MANUAL_PARTITIONING).Enabled:
-        task = ManualPartitioningTask(storage)
+    elif manual_part_proxy.Enabled:
+        requests = MountPointRequest.from_structure_list(manual_part_proxy.Requests)
+        task = ManualPartitioningTask(storage, requests)
     else:
         task = CustomPartitioningTask(storage, data)
 
