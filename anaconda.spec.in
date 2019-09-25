@@ -351,6 +351,37 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 25 2019 Martin Kolman <mkolman@redhat.com> - 32.6-1
+- Switch between layouts without confirmation (#1333984) (vponcova)
+- Remove the old and broken zram-stats script (#1561773) (mkolman)
+- Rename _test_dbus_partitioning and _test_dbus_property (vponcova)
+- Remove attributes for the static partitioning modules (vponcova)
+- Test the custom partitioning from kickstart (vponcova)
+- Test the property AppliedPartitioning (vponcova)
+- Test the property CreatedPartitioning (vponcova)
+- Test the dynamic partitioning modules (vponcova)
+- Test the partitioning factory with kickstart (vponcova)
+- Generate kickstart from the applied partitioning (vponcova)
+- Create a partitioning module for the kickstart data (vponcova)
+- Add tests for the storage installation tasks (vponcova)
+- Add the installation task for BTRFS (vponcova)
+- Add a simple import test for pyanaconda (vponcova)
+- Fix the implementation of patch_dbus_publish_object (vponcova)
+- Use the validation report for the storage validation (vponcova)
+- Remove get_object_path of TaskInterface (vponcova)
+- Add support for validation tasks (vponcova)
+- Move the partitioning validation to the base class (vponcova)
+- Add the installation task for ZIPL (vponcova)
+- Improve installation tasks of the Storage module (vponcova)
+- Don't initialize PartTypeSpoke from the Summary hub (vponcova)
+- Add DBus support for the device ancestors (vponcova)
+- Fix the DBus method GetUsableDisks (vponcova)
+- network: split function for generating dracut arguments (#1751189) (rvykydal)
+- network: generate dracut arguments from connections (#1751189) (rvykydal)
+- network: do not touch iBFT connections created in initramfs (#1751189)
+  (rvykydal)
+- Increase EFI System Partition (ESP) size to 200-600 MiB (javierm)
+
 * Tue Sep 17 2019 Martin Kolman <mkolman@redhat.com> - 32.5-1
 - payload module: update live image tar payload options with --numeric-owner
   (rvykydal)
