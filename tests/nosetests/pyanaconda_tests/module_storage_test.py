@@ -118,6 +118,18 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         self.storage_module.created_partitioning_changed.connect(_apply_partitioning)
 
+    def create_storage_test(self):
+        """Test the storage created by default."""
+        storage_changed_callback = Mock()
+        self.storage_module.storage_changed.connect(storage_changed_callback)
+
+        storage_reset_callback = Mock()
+        self.storage_module.storage_reset.connect(storage_reset_callback)
+
+        self.assertIsNotNone(self.storage_module.storage)
+        storage_changed_callback.assert_called_once()
+        storage_reset_callback.assert_not_called()
+
     @patch_dbus_publish_object
     def reset_with_task_test(self, publisher):
         """Test ResetWithTask."""
@@ -131,8 +143,12 @@ class StorageInterfaceTestCase(unittest.TestCase):
         storage_changed_callback = Mock()
         self.storage_module.storage_changed.connect(storage_changed_callback)
 
+        storage_reset_callback = Mock()
+        self.storage_module.storage_reset.connect(storage_reset_callback)
+
         obj.implementation.succeeded_signal.emit()
         storage_changed_callback.assert_called_once()
+        storage_reset_callback.assert_called_once()
 
     @patch_dbus_publish_object
     def create_partitioning_test(self, published):
