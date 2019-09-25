@@ -23,7 +23,7 @@ from pyanaconda.modules.network.network_interface import NetworkInitializationTa
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, add_connection_from_ksdata, \
     bound_hwaddr_of_device, get_connections_available_for_iface, update_connection_values, \
-    commit_changes_with_autoconnection_blocked
+    commit_changes_with_autoconnection_blocked, is_ibft_connection
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types
@@ -195,6 +195,12 @@ class ConsolidateInitramfsConnectionsTask(Task):
                           self.name, number_of_connections, iface)
                 continue
 
+            # Ignore devices with iBFT connections
+            if self._device_has_ibft_connection(device):
+                log.debug("%s: %d for %s - it is OK, device was configured from iBFT",
+                          self.name, number_of_connections, iface)
+                continue
+
             ifcfg_file = get_ifcfg_file_of_device(self._nm_client, iface)
             if not ifcfg_file:
                 log.debug("%s: %d for %s - no ifcfg file found",
@@ -231,6 +237,14 @@ class ConsolidateInitramfsConnectionsTask(Task):
             if con.get_interface_name() == iface:
                 return con
         return None
+
+    def _device_has_ibft_connection(self, device):
+        ac = device.get_active_connection()
+        if ac:
+            con = ac.get_connection()
+            if is_ibft_connection(con):
+                return True
+        return False
 
 
 class SetRealOnbootValuesFromKickstartTask(Task):

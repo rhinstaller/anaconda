@@ -194,22 +194,6 @@ def get_hostname():
     return hostname
 
 
-def ibft_iface():
-    """Find interface configured via iBFt."""
-    iface = ""
-    ipopts = flags.cmdline.get('ip')
-    # Examples (dhcp, static):
-    # ibft0:dhcp
-    # 10.34.102.244::10.34.102.54:255.255.255.0::ibft0:none
-    if ipopts:
-        for ipopt in ipopts.split(" "):
-            for item in ipopt.split(":"):
-                if item.startswith('ibft'):
-                    iface = item
-                    break
-    return iface
-
-
 def hostname_from_cmdline(kernel_arguments):
     """Get hostname defined by boot options.
 
