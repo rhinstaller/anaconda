@@ -52,9 +52,19 @@ class PartitioningTask(Task, metaclass=ABCMeta):
             self._run(self._storage)
         except (StorageError, KickstartParseError, ValueError) as e:
             log.error("Storage configuration has failed: %s", e)
+
+            # Reset the boot loader configuration.
+            # FIXME: Handle the boot loader reset in a better way.
+            self._storage.bootloader.reset()
+
             raise StorageConfigurationError(str(e)) from e
         except BootLoaderError as e:
             log.error("Bootloader configuration has failed: %s", e)
+
+            # Reset the boot loader configuration.
+            # FIXME: Handle the boot loader reset in a better way.
+            self._storage.bootloader.reset()
+
             raise BootloaderConfigurationError(str(e)) from e
 
     @abstractmethod
