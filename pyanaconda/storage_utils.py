@@ -519,6 +519,34 @@ def verify_mounted_partitions(storage, constraints, report_error, report_warning
                                "installation. Please unmount it and retry.") % part.path)
 
 
+def verify_lvm_block_sizes(storage, constraints, report_error, report_warning):
+    """ Verify block sizes of VGs on top of PVs.
+
+    LVM no longer allows creating VGs on top of PVs with different block sizes.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    for vg in storage.vgs:
+        if vg.exists:
+            continue
+
+        disks = set(pv.disk for pv in vg.pvs)
+        sector_sizes = set(d.format.sector_size for d in disks)
+
+        if len(sector_sizes) > 1:
+            report_error(_(
+                "The volume group {name} cannot be created. Disks "
+                "{disks} have inconsistent sector sizes ({sizes})."
+            ).format(
+                name=vg.name,
+                disks=", ".join(d.name for d in disks),
+                sizes=", ".join(str(s) for s in sector_sizes))
+            )
+
+
 class StorageCheckerReport(object):
     """Class for results of the storage checking."""
 
@@ -738,6 +766,7 @@ class StorageChecker(object):
         self.add_check(verify_luks_devices_have_key)
         self.add_check(verify_luks2_memory_requirements)
         self.add_check(verify_mounted_partitions)
+        self.add_check(verify_lvm_block_sizes)
 
 
 # Setup the storage checker.
