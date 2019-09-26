@@ -19,7 +19,7 @@
 #
 import logging
 import unittest
-from unittest.mock import patch, call, Mock
+from unittest.mock import patch, Mock
 
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, \
     PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_CUSTOM
@@ -42,10 +42,6 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.modules.storage.dasd import DASDModule
-from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
-from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
-from pyanaconda.modules.storage.dasd.format import DASDFormatTask
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
@@ -1407,60 +1403,6 @@ class StorageTasksTestCase(unittest.TestCase):
         patched_conf.target.is_directory = False
         WriteConfigurationTask(storage).run()
         write.assert_called_once_with(storage)
-
-
-class DASDInterfaceTestCase(unittest.TestCase):
-    """Test DBus interface of the DASD module."""
-
-    def setUp(self):
-        """Set up the module."""
-        self.dasd_module = DASDModule()
-        self.dasd_interface = DASDInterface(self.dasd_module)
-
-    @patch_dbus_publish_object
-    def discover_with_task_test(self, publisher):
-        """Test DiscoverWithTask."""
-        task_path = self.dasd_interface.DiscoverWithTask("0.0.A100")
-
-        obj = check_task_creation(self, task_path, publisher, DASDDiscoverTask)
-
-        self.assertEqual(obj.implementation._device_number, "0.0.A100")
-
-    @patch_dbus_publish_object
-    def format_with_task_test(self, publisher):
-        """Test the discover task."""
-        task_path = self.dasd_interface.FormatWithTask(["/dev/sda", "/dev/sdb"])
-
-        obj = check_task_creation(self, task_path, publisher, DASDFormatTask)
-
-        self.assertEqual(obj.implementation._dasds, ["/dev/sda", "/dev/sdb"])
-
-
-class DASDTasksTestCase(unittest.TestCase):
-    """Test DASD tasks."""
-
-    def discovery_fails_test(self):
-        """Test the failing discovery task."""
-        with self.assertRaises(StorageDiscoveryError):
-            DASDDiscoverTask("x.y.z").run()
-
-    @patch('pyanaconda.modules.storage.dasd.discover.blockdev')
-    def discovery_test(self, blockdev):
-        """Test the discovery task."""
-        DASDDiscoverTask("0.0.A100").run()
-        blockdev.s390.sanitize_dev_input.assert_called_once_with("0.0.A100")
-
-        sanitized_input = blockdev.s390.sanitize_dev_input.return_value
-        blockdev.s390.dasd_online.assert_called_once_with(sanitized_input)
-
-    @patch('pyanaconda.modules.storage.dasd.format.blockdev')
-    def format_test(self, blockdev):
-        """Test the format task."""
-        DASDFormatTask(["/dev/sda", "/dev/sdb"]).run()
-        blockdev.s390.dasd_format.assert_has_calls([
-            call("/dev/sda"),
-            call("/dev/sdb")
-        ])
 
 
 class ISCSIInterfaceTestCase(unittest.TestCase):
