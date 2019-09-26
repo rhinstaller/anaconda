@@ -21,13 +21,12 @@ from blivet import arch
 
 from pyanaconda.flags import flags
 from pyanaconda.core.signal import Signal
-from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.storage.initialization import reset_storage
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, DASD
+from pyanaconda.modules.common.constants.objects import DASD, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.modules.storage.dasd.format import FindFormattableDASDTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -36,17 +35,15 @@ log = get_module_logger(__name__)
 class DasdFormatting(object):
     """Class for formatting DASDs."""
 
-    def __init__(self, can_format_all=True):
+    def __init__(self):
         self._dasds = []
+
         self._report = Signal()
         self._report.connect(log.debug)
         self._last_message = ""
-        self._dasd_module = STORAGE.get_proxy(DASD)
-        self._init_module = STORAGE.get_proxy(DISK_INITIALIZATION)
 
-        if can_format_all:
-            self._init_module.SetFormatUnrecognizedEnabled(True)
-            self._init_module.SetFormatLDLEnabled(True)
+        self._dasd_module = STORAGE.get_proxy(DASD)
+        self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
     @staticmethod
     def is_supported():
@@ -71,18 +68,16 @@ class DasdFormatting(object):
         """Returns a string summary of DASDs to format."""
         return "\n".join(map(self.get_dasd_info, self.dasds))
 
-    def get_dasd_info(self, disk):
+    def get_dasd_info(self, disk_name):
         """Returns a string with description of a DASD."""
-        return "/dev/" + disk.name + " (" + disk.busid + ")"
-
-    def search_disks(self, disks):
-        """Search for a list of disks for DASDs to format."""
-        task = FindFormattableDASDTask(
-            disks,
-            self._init_module.FormatUnrecognizedEnabled,
-            self._init_module.FormatLDLEnabled
+        data = DeviceData.from_structure(
+            self._device_tree.GetDeviceData(disk_name)
         )
-        self._dasds = task.run()
+        return "{} ({})".format(data.path, data.attrs.get("busid"))
+
+    def search_disks(self, disk_names):
+        """Search for a list of disks for DASDs to format."""
+        self._dasds = self._dasd_module.FindUnformatted(disk_names)
 
     def should_run(self):
         """Should we run the formatting?"""
@@ -90,9 +85,7 @@ class DasdFormatting(object):
 
     def do_format(self):
         """Format with a remote task."""
-        disk_names = [disk.name for disk in self._dasds]
-        task_path = self._dasd_module.FormatWithTask(disk_names)
-
+        task_path = self._dasd_module.FormatWithTask(self._dasds)
         task_proxy = STORAGE.get_proxy(task_path)
         sync_run_task(task_proxy, callback=self._report_progress)
 
@@ -104,8 +97,10 @@ class DasdFormatting(object):
             self._last_message = msg
             self._report.emit(msg)
 
-    def run(self, storage, data):
+    def run(self, storage=None, data=None):
         """Format all found DASDs and update the storage.
+
+        FIXME: Remove the storage and data arguments.
 
         This method could be run in a separate thread.
         """
@@ -120,15 +115,10 @@ class DasdFormatting(object):
 
         # Update the storage.
         self.report.emit(_("Probing storage"))
-        reset_storage(storage)
-
-        # Update also the storage snapshot to reflect the changes.
-        if on_disk_storage.created:
-            on_disk_storage.dispose_snapshot()
-        on_disk_storage.create_snapshot(storage)
+        reset_storage()
 
     @staticmethod
-    def run_automatically(storage, data, callback=None):
+    def run_automatically(storage=None, data=None, disks=(), callback=None):
         """Run the DASD formatting automatically.
 
         This method could be run in a separate thread.
@@ -139,9 +129,7 @@ class DasdFormatting(object):
         if not DasdFormatting.is_supported():
             return
 
-        disks = storage.usable_disks
-
-        formatting = DasdFormatting(can_format_all=False)
+        formatting = DasdFormatting()
         formatting.search_disks(disks)
 
         if not formatting.should_run():
@@ -150,7 +138,7 @@ class DasdFormatting(object):
         if callback:
             formatting.report.connect(callback)
 
-        formatting.run(storage, data)
+        formatting.run()
 
         if callback:
             formatting.report.disconnect(callback)
