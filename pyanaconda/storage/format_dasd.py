@@ -17,11 +17,6 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-
-import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
-
 from blivet import arch
 
 from pyanaconda.flags import flags
@@ -32,6 +27,7 @@ from pyanaconda.storage.initialization import reset_storage
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, DASD
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.storage.dasd.format import FindFormattableDASDTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -40,17 +36,17 @@ log = get_module_logger(__name__)
 class DasdFormatting(object):
     """Class for formatting DASDs."""
 
-    def __init__(self):
+    def __init__(self, can_format_all=True):
         self._dasds = []
-
-        self._can_format_unformatted = True
-        self._can_format_ldl = True
-
         self._report = Signal()
         self._report.connect(log.debug)
         self._last_message = ""
-
         self._dasd_module = STORAGE.get_proxy(DASD)
+        self._init_module = STORAGE.get_proxy(DISK_INITIALIZATION)
+
+        if can_format_all:
+            self._init_module.SetFormatUnrecognizedEnabled(True)
+            self._init_module.SetFormatLDLEnabled(True)
 
     @staticmethod
     def is_supported():
@@ -79,58 +75,14 @@ class DasdFormatting(object):
         """Returns a string with description of a DASD."""
         return "/dev/" + disk.name + " (" + disk.busid + ")"
 
-    def _is_dasd(self, disk):
-        """Is it a DASD disk?"""
-        return disk.type == "dasd"
-
-    def _is_unformatted_dasd(self, disk):
-        """Is it an unformatted DASD?"""
-        return self._is_dasd(disk) and blockdev.s390.dasd_needs_format(disk.busid)
-
-    def _is_ldl_dasd(self, disk):
-        """Is it an LDL DASD?"""
-        return self._is_dasd(disk) and blockdev.s390.dasd_is_ldl(disk.name)
-
-    def _get_unformatted_dasds(self, disks):
-        """Returns a list of unformatted DASDs."""
-        result = []
-
-        if not self._can_format_unformatted:
-            log.debug("We are not allowed to format unformatted DASDs.")
-            return result
-
-        for disk in disks:
-            if self._is_unformatted_dasd(disk):
-                log.debug("Found unformatted DASD: %s", self.get_dasd_info(disk))
-                result.append(disk)
-
-        return result
-
-    def _get_ldl_dasds(self, disks):
-        """Returns a list of LDL DASDs."""
-        result = []
-
-        if not self._can_format_ldl:
-            log.debug("We are not allowed to format LDL DASDs.")
-            return result
-
-        for disk in disks:
-            if self._is_ldl_dasd(disk):
-                log.debug("Found LDL DASD: %s", self.get_dasd_info(disk))
-                result.append(disk)
-
-        return result
-
-    def update_restrictions(self):
-        """Update the restrictions."""
-        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-
-        self._can_format_unformatted = disk_init_proxy.FormatUnrecognizedEnabled
-        self._can_format_ldl = disk_init_proxy.FormatLDLEnabled
-
     def search_disks(self, disks):
         """Search for a list of disks for DASDs to format."""
-        self._dasds = list(set(self._get_unformatted_dasds(disks) + self._get_ldl_dasds(disks)))
+        task = FindFormattableDASDTask(
+            disks,
+            self._init_module.FormatUnrecognizedEnabled,
+            self._init_module.FormatLDLEnabled
+        )
+        self._dasds = task.run()
 
     def should_run(self):
         """Should we run the formatting?"""
@@ -189,8 +141,7 @@ class DasdFormatting(object):
 
         disks = storage.usable_disks
 
-        formatting = DasdFormatting()
-        formatting.update_restrictions()
+        formatting = DasdFormatting(can_format_all=False)
         formatting.search_disks(disks)
 
         if not formatting.should_run():

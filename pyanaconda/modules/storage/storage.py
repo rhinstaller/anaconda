@@ -110,6 +110,16 @@ class StorageModule(KickstartModule):
             self._dasd_module = DASDModule()
             self._add_module(self._dasd_module)
 
+            self.storage_changed.connect(
+                self._dasd_module.on_storage_reset
+            )
+            self._disk_init_module.format_unrecognized_enabled_changed.connect(
+                self._dasd_module.on_format_unrecognized_enabled_changed
+            )
+            self._disk_init_module.format_ldl_enabled_changed.connect(
+                self._dasd_module.on_format_ldl_enabled_changed
+            )
+
             self._zfcp_module = ZFCPModule()
             self._add_module(self._zfcp_module)
 

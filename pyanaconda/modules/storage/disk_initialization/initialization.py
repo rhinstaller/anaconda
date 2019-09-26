@@ -222,7 +222,7 @@ class DiskInitializationModule(KickstartBaseModule):
         :param value: True if allowed, otherwise False
         """
         self._format_unrecognized_enabled = value
-        self.format_unrecognized_enabled_changed.emit()
+        self.format_unrecognized_enabled_changed.emit(value)
         log.debug("Can format unrecognized is set to '%s'.", value)
 
     @property
@@ -250,7 +250,7 @@ class DiskInitializationModule(KickstartBaseModule):
         :param value: True if allowed, otherwise False
         """
         self._format_ldl_enabled = value
-        self.format_ldl_enabled_changed.emit()
+        self.format_ldl_enabled_changed.emit(value)
         log.debug("Can format LDL is set to '%s'.", value)
 
     @staticmethod

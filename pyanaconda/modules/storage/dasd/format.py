@@ -17,14 +17,86 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.common.task import Task
+from pyanaconda.anaconda_loggers import get_module_logger
+
 import gi
 gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
-from pyanaconda.modules.common.task import Task
-from pyanaconda.anaconda_loggers import get_module_logger
-
 log = get_module_logger(__name__)
+
+__all__ = ["FindFormattableDASDTask", "DASDFormatTask"]
+
+
+class FindFormattableDASDTask(Task):
+    """A task for finding DASDs for formatting."""
+
+    def __init__(self, disks, can_format_unformatted=False, can_format_ldl=False):
+        """Create a new task.
+
+        :param disks: a list of disks to search
+        :param can_format_unformatted: can we format unformatted?
+        :param can_format_ldl: can we format LDL?
+        """
+        super().__init__()
+        self._disks = disks
+        self._can_format_unformatted = can_format_unformatted
+        self._can_format_ldl = can_format_ldl
+
+    @property
+    def name(self):
+        """Name of the task."""
+        return "Finding DASDs for formatting"
+
+    def run(self):
+        """Run the task."""
+        return list(set(
+            self._get_unformatted_dasds(self._disks)
+            + self._get_ldl_dasds(self._disks)
+        ))
+
+    def _get_unformatted_dasds(self, disks):
+        """Returns a list of unformatted DASDs."""
+        result = []
+
+        if not self._can_format_unformatted:
+            log.debug("We are not allowed to format unformatted DASDs.")
+            return result
+
+        for disk in disks:
+            if self._is_unformatted_dasd(disk):
+                log.debug("Found unformatted DASD: %s (%s)", disk.path, disk.busid)
+                result.append(disk)
+
+        return result
+
+    def _is_unformatted_dasd(self, disk):
+        """Is it an unformatted DASD?"""
+        return self._is_dasd(disk) and blockdev.s390.dasd_needs_format(disk.busid)
+
+    def _is_dasd(self, disk):
+        """Is it a DASD disk?"""
+        return disk.type == "dasd"
+
+    def _get_ldl_dasds(self, disks):
+        """Returns a list of LDL DASDs."""
+        result = []
+
+        if not self._can_format_ldl:
+            log.debug("We are not allowed to format LDL DASDs.")
+            return result
+
+        for disk in disks:
+            if self._is_ldl_dasd(disk):
+                log.debug("Found LDL DASD: %s (%s)", disk.path, disk.busid)
+                result.append(disk)
+
+        return result
+
+    def _is_ldl_dasd(self, disk):
+        """Is it an LDL DASD?"""
+        return self._is_dasd(disk) and blockdev.s390.dasd_is_ldl(disk.name)
 
 
 class DASDFormatTask(Task):
