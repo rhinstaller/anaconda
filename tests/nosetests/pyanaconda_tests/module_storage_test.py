@@ -37,9 +37,7 @@ from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_ta
 
 from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, \
@@ -49,9 +47,6 @@ from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
-from pyanaconda.modules.storage.zfcp import ZFCPModule
-from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
-from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface
 from pyanaconda.storage.checker import StorageCheckerReport
 
 
@@ -1393,74 +1388,6 @@ class StorageTasksTestCase(unittest.TestCase):
         patched_conf.target.is_directory = False
         WriteConfigurationTask(storage).run()
         write.assert_called_once_with(storage)
-
-
-class ZFCPInterfaceTestCase(unittest.TestCase):
-    """Test DBus interface of the zFCP module."""
-
-    def setUp(self):
-        """Set up the module."""
-        self.zfcp_module = ZFCPModule()
-        self.zfcp_interface = ZFCPInterface(self.zfcp_module)
-
-    @patch_dbus_publish_object
-    def discover_with_task_test(self, publisher):
-        """Test the discover task."""
-        task_path = self.zfcp_interface.DiscoverWithTask(
-            "0.0.fc00",
-            "0x5105074308c212e9",
-            "0x401040a000000000"
-        )
-
-        obj = check_task_creation(self, task_path, publisher, ZFCPDiscoverTask)
-
-        self.assertEqual(obj.implementation._device_number, "0.0.fc00")
-        self.assertEqual(obj.implementation._wwpn, "0x5105074308c212e9")
-        self.assertEqual(obj.implementation._lun, "0x401040a000000000")
-
-    @patch('pyanaconda.modules.storage.zfcp.zfcp.zfcp')
-    def reload_module_test(self, zfcp):
-        """Test ReloadModule."""
-        self.zfcp_interface.ReloadModule()
-        zfcp.startup.assert_called_once_with()
-
-    @patch('pyanaconda.modules.storage.zfcp.zfcp.zfcp')
-    def write_configuration_test(self, zfcp):
-        """Test WriteConfiguration."""
-        self.zfcp_interface.WriteConfiguration()
-        zfcp.write.assert_called_once_with(conf.target.system_root)
-
-
-class ZFCPTasksTestCase(unittest.TestCase):
-    """Test zFCP tasks."""
-
-    def discovery_fails_test(self):
-        """Test the failing discovery task."""
-
-        with self.assertRaises(StorageDiscoveryError):
-            ZFCPDiscoverTask("", "", "").run()
-
-        with self.assertRaises(StorageDiscoveryError):
-            ZFCPDiscoverTask("0.0.fc00", "", "").run()
-
-        with self.assertRaises(StorageDiscoveryError):
-            ZFCPDiscoverTask("0.0.fc00", "0x5105074308c212e9", "").run()
-
-    @patch('pyanaconda.modules.storage.zfcp.discover.zfcp')
-    @patch('pyanaconda.modules.storage.zfcp.discover.blockdev')
-    def discovery_test(self, blockdev, zfcp):
-        """Test the discovery task."""
-        ZFCPDiscoverTask("0.0.fc00", "0x5105074308c212e9", "0x401040a000000000").run()
-
-        blockdev.s390.sanitize_dev_input.assert_called_once_with("0.0.fc00")
-        blockdev.s390.zfcp_sanitize_wwpn_input.assert_called_once_with("0x5105074308c212e9")
-        blockdev.s390.zfcp_sanitize_lun_input.assert_called_once_with("0x401040a000000000")
-
-        sanitized_dev = blockdev.s390.sanitize_dev_input.return_value
-        sanitized_wwpn = blockdev.s390.zfcp_sanitize_wwpn_input.return_value
-        sanitized_lun = blockdev.s390.zfcp_sanitize_lun_input.return_value
-
-        zfcp.add_fcp.assert_called_once_with(sanitized_dev, sanitized_wwpn, sanitized_lun)
 
 
 class StorageValidationTasksTestCase(unittest.TestCase):
