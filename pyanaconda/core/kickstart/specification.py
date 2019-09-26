@@ -21,6 +21,8 @@ from pykickstart.base import KickstartHandler
 from pykickstart.parser import KickstartParser
 from pykickstart.version import DEVEL
 
+from pyanaconda.core.kickstart.addon import AddonSection, AddonRegistry
+
 __all__ = ["KickstartSpecification", "NoKickstartSpecification",
            "KickstartSpecificationHandler", "KickstartSpecificationParser"]
 
@@ -47,7 +49,9 @@ class KickstartSpecification(object):
                     classes that represent them
     sections      - mapping of kickstart sections names to
                     classes that represent them
-    sections_data - mapping of kickstart sections data to
+    sections_data - mapping of kickstart sections data names to
+                    classes that represent them
+    addons        - mapping of kickstart addons names to
                     classes that represent them
 
     """
@@ -57,6 +61,7 @@ class KickstartSpecification(object):
     commands_data = {}
     sections = {}
     sections_data = {}
+    addons = {}
 
 
 class NoKickstartSpecification(KickstartSpecification):
@@ -69,7 +74,6 @@ class KickstartSpecificationHandler(KickstartHandler):
 
     def __init__(self, specification):
         super().__init__()
-
         self.version = specification.version
 
         for name, command in specification.commands.items():
@@ -81,13 +85,26 @@ class KickstartSpecificationHandler(KickstartHandler):
         for name, data in specification.sections_data.items():
             self.registerSectionData(name, data)
 
+        if specification.addons:
+            self.addons = AddonRegistry()
+
+        for name, data in specification.addons.items():
+            self.registerAddonData(name, data)
+
     def registerSectionData(self, name, data):
         """Register data used by a section."""
-        # Create a new attribute.
         obj = data()
         setattr(self, name, obj)
+        self._registerWriteOrder(obj)
 
-        # Write the section at the end of the output.
+    def registerAddonData(self, name, data):
+        """Register data used by %addon."""
+        obj = data()
+        setattr(self.addons, name, obj)
+        self._registerWriteOrder(obj)
+
+    def _registerWriteOrder(self, obj):
+        """Write the object at the end of the output."""
         write_priority = 0
 
         if self._writeOrder:
@@ -104,6 +121,9 @@ class KickstartSpecificationParser(KickstartParser):
 
         for section in specification.sections.values():
             self.registerSection(section(handler))
+
+        if specification.addons:
+            self.registerSection(AddonSection(handler))
 
     def setupSections(self):
         """Do not setup any default sections."""

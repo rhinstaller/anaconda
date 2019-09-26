@@ -76,6 +76,8 @@ class AddonRegistry(object):
        maintains the ids and data structures for loaded
        addons.
 
+       FIXME: This class is deprecated and should be removed.
+
        It acts as a proxy during kickstart save.
     """
 
@@ -115,6 +117,8 @@ class AddonData(object):
        3rd party data to kickstart. It is instantiated by
        kickstart parser and stored as ksdata.addons.<name>
        to be used in the user interfaces.
+
+       FIXME: This class is deprecated and should be removed.
 
        The mandatory method handle_line receives all lines
        from the corresponding addon section in kickstart and
@@ -180,6 +184,10 @@ class AddonData(object):
         pass
 
 class AddonSection(Section):
+    """The section parser for %addon.
+
+    FIXME: This class is deprecated and should be removed.
+    """
     sectionOpen = "%addon"
 
     def __init__(self, *args, **kwargs):
