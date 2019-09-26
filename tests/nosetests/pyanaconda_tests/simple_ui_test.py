@@ -22,6 +22,7 @@ import unittest
 
 from unittest.mock import Mock, patch
 from pyanaconda.ui.common import StandaloneSpoke
+from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
 
 
 class SimpleUITestCase(unittest.TestCase):
@@ -69,7 +70,8 @@ class SimpleUITestCase(unittest.TestCase):
         categories = self._get_categories(hub_class)
         return {c.__name__:  list(sorted(s.__name__ for s in categories[c])) for c in categories}
 
-    def tui_test(self):
+    @patch_dbus_get_proxy
+    def tui_test(self, proxy_getter):
         # Create the interface.
         from pyanaconda.ui.tui import TextUserInterface
         self.interface = TextUserInterface(self.storage, self.payload)
@@ -107,11 +109,12 @@ class SimpleUITestCase(unittest.TestCase):
             ]
         })
 
+    @patch_dbus_get_proxy
     @patch("pyanaconda.ui.gui.Gtk.Builder")
     @patch("pyanaconda.ui.gui.meh")
     @patch("pyanaconda.ui.gui.MainWindow")
     @patch("pyanaconda.ui.gui.ANACONDA_WINDOW_GROUP")
-    def gui_test(self, window_group, window, meh, builder):
+    def gui_test(self, window_group, window, meh, builder, proxy_getter):
         # Create the interface.
         from pyanaconda.ui.gui import GraphicalUserInterface
         self.interface = GraphicalUserInterface(self.storage, self.payload)

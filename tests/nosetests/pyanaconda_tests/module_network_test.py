@@ -183,8 +183,8 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test LogConfigurationState."""
         self.network_interface.LogConfigurationState("message")
 
-    @patch('pyanaconda.modules.network.network.devices_ignore_ipv6', return_value=True)
     @patch_dbus_publish_object
+    @patch('pyanaconda.modules.network.network.devices_ignore_ipv6', return_value=True)
     def install_network_with_task_test(self, devices_ignore_ipv6, publisher):
         """Test InstallNetworkWithTask."""
         self.network_module._hostname = "my_hostname"
@@ -214,9 +214,9 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         obj.implementation.succeeded_signal.emit()
         self.network_module.log_task_result.assert_called_once()
 
+    @patch_dbus_publish_object
     @patch('pyanaconda.modules.network.installation.update_connection_values')
     @patch('pyanaconda.modules.network.installation.find_ifcfg_uuid_of_device')
-    @patch_dbus_publish_object
     def configure_activation_on_boot_with_task_test(self, find_ifcfg_uuid_of_device,
                                                     update_connection_values, publisher):
         """Test ConfigureActivationOnBootWithTask."""

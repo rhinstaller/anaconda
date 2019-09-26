@@ -188,4 +188,12 @@ def patch_dbus_publish_object(func):
 
     # TODO: Extend this to patch the whole DBus object and pass in a useful abstraction.
     """
-    return patch('pyanaconda.dbus.DBus.publish_object')
+    return patch('pyanaconda.dbus.DBus.publish_object')(func)
+
+
+def patch_dbus_get_proxy(func):
+    """Patch DBus proxies.
+
+    This is a shortcut to avoid creating of DBus proxies using DBus.
+    """
+    return patch('pyanaconda.dbus.DBus.get_proxy')(func)
