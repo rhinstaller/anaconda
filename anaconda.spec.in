@@ -344,6 +344,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 27 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.13-1
+- Change the bases of the install classes for RHVH (vponcova)
+  Related: rhbz#1753316
+
 * Tue Sep 24 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.12-1
 - Add the install class for Red Hat Virtualization (vponcova)
   Resolves: rhbz#1753316
