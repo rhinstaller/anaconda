@@ -552,7 +552,7 @@ def check_disk_selection(storage, selected_disks):
             "these disks as a set.",
             len(missing)) % {
             "selected": selected.name,
-            "unselected": ",".join(missing)
+            "unselected": ", ".join(missing)
         })
 
     return errors
