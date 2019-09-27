@@ -71,6 +71,7 @@ class PartitioningModule(KickstartBaseModule, Publishable):
     def on_storage_reset(self, storage):
         """Keep the instance of the current storage."""
         self._current_storage = storage
+        self._storage_playground = None
 
     def on_selected_disks_changed(self, selection):
         """Keep the current disk selection."""

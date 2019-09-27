@@ -63,6 +63,7 @@ class StorageModule(KickstartModule):
         # The storage model.
         self._storage = None
         self.storage_changed = Signal()
+        self.storage_reset = Signal()
 
         # The created partitioning modules.
         self._created_partitioning = []
@@ -205,10 +206,14 @@ class StorageModule(KickstartModule):
 
         return self._storage
 
-    def set_storage(self, storage):
+    def set_storage(self, storage, reset=False):
         """Set the storage model."""
         self._storage = storage
         self.storage_changed.emit(storage)
+
+        if reset:
+            self.storage_reset.emit(storage)
+
         log.debug("The storage model has changed.")
 
     def on_protected_devices_changed(self, protected_devices):
@@ -237,7 +242,7 @@ class StorageModule(KickstartModule):
 
         # Create the task.
         task = StorageResetTask(storage)
-        task.succeeded_signal.connect(lambda: self.set_storage(storage))
+        task.succeeded_signal.connect(lambda: self.set_storage(storage, reset=True))
         return task
 
     def create_partitioning(self, method: PartitioningMethod):
@@ -264,7 +269,7 @@ class StorageModule(KickstartModule):
         )
 
         # Connect the callbacks to signals.
-        self.storage_changed.connect(
+        self.storage_reset.connect(
             module.on_storage_reset
         )
         self._disk_selection_module.selected_disks_changed.connect(
