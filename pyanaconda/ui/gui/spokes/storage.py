@@ -467,16 +467,16 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     @property
     def completed(self):
-        retval = (threadMgr.get(constants.THREAD_EXECUTE_STORAGE) is None and
-                  self.storage.root_device is not None and
-                  not self.errors)
-        return retval
+        return self.ready and not self.errors and self.storage.root_device
 
     @property
     def ready(self):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
-        return self._ready
+        return self._ready \
+            and not threadMgr.get(constants.THREAD_STORAGE) \
+            and not threadMgr.get(constants.THREAD_DASDFMT) \
+            and not threadMgr.get(constants.THREAD_EXECUTE_STORAGE)
 
     @property
     def showable(self):
@@ -485,8 +485,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     @property
     def status(self):
         """ A short string describing the current status of storage setup. """
-        if threadMgr.get(constants.THREAD_DASDFMT):
-            return _("Formatting DASDs")
+        if not self.ready:
+            return _("Processing...")
         elif flags.automatedInstall and not self.storage.root_device:
             return _("Kickstart insufficient")
         elif not self._disk_select_module.SelectedDisks:
