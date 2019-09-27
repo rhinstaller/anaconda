@@ -709,7 +709,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._url_type_combo_box = self.builder.get_object("urlTypeComboBox")
         self._url_type_label = self.builder.get_object("urlTypeLabel")
 
-        self._no_updates_checkbox = self.builder.get_object("noUpdatesCheckbox")
+        self._updates_radio_button = self.builder.get_object("updatesRadioButton")
 
         self._verify_iso_button = self.builder.get_object("verifyIsoButton")
 
@@ -1002,7 +1002,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 self.data.method.method = None
                 self._proxy_url = self.data.method.proxy
 
-        self._setup_no_updates()
+        self._setup_updates()
 
         # Setup the addon repos
         self._reset_repo_store()
@@ -1066,7 +1066,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         else:
             self._url_type_combo_box.set_active_id(URL_TYPE_URL)
 
-    def _setup_no_updates(self):
+    def _setup_updates(self):
         """ Setup the state of the No Updates checkbox.
 
             If closest mirror is not selected, check it.
@@ -1074,18 +1074,20 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             uncheck it.
         """
         self._updates_box.set_sensitive(self._mirror_active())
-        active = not self._mirror_active() or not self.payload.is_repo_enabled("updates")
-        self._no_updates_checkbox.set_active(active)
+        active = self._mirror_active() or self.payload.is_repo_enabled("updates")
+        self._updates_radio_button.set_active(active)
 
     @property
     def showable(self):
         return isinstance(self.payload, PackagePayload)
 
     def _mirror_active(self):
-        return self._protocol_combo_box.get_active_id() == PROTOCOL_MIRROR
+        return self._protocol_combo_box.get_active_id() == PROTOCOL_MIRROR and \
+            self._network_button.get_active()
+
 
     def _http_active(self):
-        return self._protocol_combo_box.get_active_id() in [PROTOCOL_HTTP, PROTOCOL_HTTPS]
+        return self._protocol_combo_box.get_active_id() in [PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_MIRROR]
 
     def _ftp_active(self):
         return self._protocol_combo_box.get_active_id() == PROTOCOL_FTP
@@ -1248,7 +1250,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if relatedBox:
             relatedBox.set_sensitive(enabled)
 
-        self._setup_no_updates()
+        self._setup_updates()
 
     def on_back_clicked(self, button):
         """If any input validation checks failed, keep the user on the screen.
@@ -1371,13 +1373,13 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._url_entry.set_sensitive(self._http_active() or self._ftp_active() or
                                       self._nfs_active())
 
-        # Only allow thse widgets to be shown if it makes sense for the
+        # Only allow these widgets to be shown if it makes sense for the
         # the currently selected protocol.
         self._proxy_button.set_sensitive(self._http_active() or self._mirror_active())
         self._nfs_opts_box.set_visible(self._nfs_active())
         self._url_type_combo_box.set_visible(self._http_active())
         self._url_type_label.set_visible(self._http_active())
-        self._setup_no_updates()
+        self._setup_updates()
 
         # Any changes to the protocol combo box also need to update the checks.
         # Emitting the urlEntry 'changed' signal will see if the entered URL
@@ -1626,9 +1628,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def _on_urlEtry_changed(self, editable):
         self._remove_url_prefix(editable, self._protocol_combo_box, self.on_urlEntry_changed)
 
-    def on_noUpdatesCheckbox_toggled(self, *args):
+    def on_updatesRadioButton_toggled(self, button):
         """Toggle the enable state of the updates repo."""
-        if self._no_updates_checkbox.get_active():
+        if self._updates_radio_button.get_active():
             self.payload.set_updates_enabled(False)
         else:
             self.payload.set_updates_enabled(True)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.19.0 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -918,30 +918,38 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="noUpdatesCheckbox">
-                                    <property name="visible">True</property>
+                                  <object class="GtkRadioButton" id="updatesRadioButton">
+                                    <property name="label" translatable="yes" context="GUI|Software Source">Install the _latest available software updates</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="margin_left">12</property>
-                                    <property name="margin_bottom">12</property>
                                     <property name="use_underline">True</property>
                                     <property name="xalign">0</property>
                                     <property name="draw_indicator">True</property>
-                                    <signal name="toggled" handler="on_noUpdatesCheckbox_toggled" swapped="no"/>
-                                    <child>
-                                      <object class="GtkLabel" id="label10">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes" context="GUI|Software Source">Don't install the latest available software _updates. Install the default versions provided by the installation source above.</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="wrap">True</property>
-                                      </object>
-                                    </child>
+                                    <signal name="toggled" handler="on_updatesRadioButton_toggled" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
                                     <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkRadioButton" id="noUpdatesRadioButton">
+                                    <property name="label" translatable="yes" context="GUI|Software Source">Install the _default versions provided by the installation source (above) only</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="margin_left">12</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="active">True</property>
+                                    <property name="draw_indicator">True</property>
+                                    <property name="group">updatesRadioButton</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
                                   </packing>
                                 </child>
                               </object>
