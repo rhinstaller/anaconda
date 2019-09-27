@@ -21,43 +21,22 @@ from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.size import Size
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
 
-from pyanaconda import network
-from pyanaconda import nm
 from pyanaconda.core.constants import STORAGE_ROOT_DEVICE_TYPES, STORAGE_MUST_NOT_BE_ON_ROOT, \
     STORAGE_REQ_PARTITION_SIZES
-from pyanaconda.installclass import BaseInstallClass
+from pyanaconda.installclasses.centos import CentOSBaseInstallClass
+from pyanaconda.installclasses.rhel import RHELBaseInstallClass
 from pyanaconda.kickstart import getAvailableDiskSpace
 from pyanaconda.platform import platform
 from pyanaconda.product import productName
 from pyanaconda.storage.autopart import swap_suggestion
 from pyanaconda.storage.partspec import PartSpec
 
-__all__ = ["OvirtBaseInstallClass", "RHEVInstallClass"]
+__all__ = ["OvirtInstallClass", "RHEVInstallClass"]
 
 
-class OvirtBaseInstallClass(BaseInstallClass):
-    name = "oVirt Node Next"
-    sortPriority = 21000
-    hidden = not productName.startswith("oVirt")
-
-    efi_dir = "centos"
+class OvirtBaseClass(object):
     default_autopart_type = AUTOPART_TYPE_LVM_THINP
-
-    # there is a RHV branded help content variant
     help_folder = "/usr/share/anaconda/help/rhv"
-
-    def setNetworkOnbootDefault(self, ksdata):
-        if any(nd.onboot for nd in ksdata.network.network if nd.device):
-            return
-        # choose the device used during installation
-        # (ie for majority of cases the one having the default route)
-        dev = network.default_route_device() or network.default_route_device(family="inet6")
-        if not dev:
-            return
-        # ignore wireless (its ifcfgs would need to be handled differently)
-        if nm.nm_device_type_is_wifi(dev):
-            return
-        network.update_onboot_value(dev, True, ksdata=ksdata)
 
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
@@ -115,15 +94,14 @@ class OvirtBaseInstallClass(BaseInstallClass):
             '/boot': Size("1 GiB")
         })
 
-    def __init__(self):
-        BaseInstallClass.__init__(self)
+
+class OvirtInstallClass(OvirtBaseClass, CentOSBaseInstallClass):
+    name = "oVirt Node Next"
+    hidden = not productName.startswith("oVirt")
 
 
-class RHEVInstallClass(OvirtBaseInstallClass):
+class RHEVInstallClass(OvirtBaseClass, RHELBaseInstallClass):
     name = "Red Hat Virtualization"
-
     hidden = not productName.startswith(
         ("RHV", "Red Hat Virtualization")
     )
-
-    efi_dir = "redhat"
