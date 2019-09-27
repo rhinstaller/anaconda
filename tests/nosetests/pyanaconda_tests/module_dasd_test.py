@@ -20,11 +20,17 @@
 import unittest
 from unittest.mock import patch, call
 
+from blivet.devices import DASDDevice
+from blivet.formats import get_format
+from blivet.size import Size
+
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError, UnknownDeviceError
 from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
 from pyanaconda.modules.storage.dasd.format import DASDFormatTask
+from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 
@@ -53,6 +59,48 @@ class DASDInterfaceTestCase(unittest.TestCase):
         obj = check_task_creation(self, task_path, publisher, DASDFormatTask)
 
         self.assertEqual(obj.implementation._dasds, ["/dev/sda", "/dev/sdb"])
+
+    @patch('pyanaconda.modules.storage.dasd.format.blockdev')
+    def find_formattable_test(self, blockdev):
+        """Test FindFormattable."""
+        with self.assertRaises(UnavailableStorageError):
+            self.dasd_interface.FindFormattable(["dev1"])
+
+        storage = create_storage()
+        self.dasd_module.on_storage_reset(storage)
+
+        with self.assertRaises(UnknownDeviceError):
+            self.dasd_interface.FindFormattable(["dev1"])
+
+        storage.devicetree._add_device(
+            DASDDevice(
+                "dev1",
+                fmt=get_format("ext4"),
+                size=Size("10 GiB"),
+                busid="0.0.0201",
+                opts={}
+            )
+        )
+
+        # The policy doesn't allow tp format anything.
+        self.assertEqual(self.dasd_interface.FindFormattable(["dev1"]), [])
+
+        # The policy allows to format unformatted, but there are none.
+        self.dasd_module.on_format_unrecognized_enabled_changed(True)
+        blockdev.s390.dasd_needs_format.return_value = False
+        self.assertEqual(self.dasd_interface.FindFormattable(["dev1"]), [])
+
+        # The policy allows to format LDL, but there are none.
+        self.dasd_module.on_format_unrecognized_enabled_changed(False)
+        self.dasd_module.on_format_ldl_enabled_changed(True)
+        blockdev.s390.dasd_is_ldl.return_value = False
+        self.assertEqual(self.dasd_interface.FindFormattable(["dev1"]), [])
+
+        # The policy allows to format all and there are all.
+        self.dasd_module.on_format_unrecognized_enabled_changed(True)
+        blockdev.s390.dasd_needs_format.return_value = True
+        blockdev.s390.dasd_is_ldl.return_value = True
+        self.assertEqual(self.dasd_interface.FindFormattable(["dev1"]), ["dev1"])
 
 
 class DASDTasksTestCase(unittest.TestCase):
