@@ -25,6 +25,9 @@ def init():
     This method should be imported and called from __main__.py of every
     Anaconda DBus module before any other import.
     """
+    import faulthandler
+    faulthandler.enable()
+
     import logging
     logging.basicConfig(level=logging.DEBUG)
 
