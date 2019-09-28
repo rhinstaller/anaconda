@@ -27,12 +27,12 @@ from typing import Tuple, Dict, List, NewType, IO
 
 import gi
 gi.require_version("GLib", "2.0")
-from gi.repository.GLib import Variant
+from gi.repository.GLib import Variant, VariantType
 
 __all__ = ["Bool", "Double", "Str", "Int", "Byte", "Int16", "UInt16",
            "Int32", "UInt32", "Int64", "UInt64", "File", "ObjPath",
-           "Tuple", "List", "Dict", "Variant", "Structure",
-           "get_variant", "get_native",
+           "Tuple", "List", "Dict", "Variant", "VariantType", "Structure",
+           "get_variant", "get_variant_type", "get_native",
            "is_base_type", "get_type_arguments"]
 
 # Basic types.
@@ -84,11 +84,30 @@ def get_variant(type_hint, value):
          v1 = get_variant(Bool, True)
          v2 = get_variant(List[Int], [1,2,3])
 
-    :param type_hint: a type hint
+    :param type_hint: a type hint or a type string
     :param value: a value of the variant
     :return: an instance of Variant
     """
-    return Variant(get_dbus_type(type_hint), value)
+    if type(type_hint) == str:
+        type_string = type_hint
+    else:
+        type_string = get_dbus_type(type_hint)
+
+    return Variant(type_string, value)
+
+
+def get_variant_type(type_hint):
+    """Return a type of a variant data type.
+
+    :param type_hint: a type hint or a type string
+    :return: an instance of VariantType
+    """
+    if type(type_hint) == str:
+        type_string = type_hint
+    else:
+        type_string = get_dbus_type(type_hint)
+
+    return VariantType.new(type_string)
 
 
 def get_native(value):
