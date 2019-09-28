@@ -25,7 +25,8 @@
 from abc import ABC
 from functools import wraps
 
-from pyanaconda.dbus.interface import dbus_signal, DBusSpecification
+from pyanaconda.dbus.interface import dbus_signal, get_xml
+from pyanaconda.dbus.specification import DBusSpecificationParser
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["emits_properties_changed", "PropertiesException", "PropertiesInterface"]
@@ -61,29 +62,22 @@ class PropertiesChanges(object):
     and their values, before they are emitted on DBus.
     """
 
-    def __init__(self, publishable):
+    def __init__(self, obj):
         """Create the cache.
 
-        :param publishable: an object with dbus property
+        :param obj: an object with dbus property
         """
         self._property_names = set()
-        self._publishable = publishable
-        self._mapping = self._get_properties_mapping(publishable)
+        self._object = obj
+        self._mapping = self._get_properties_mapping(obj)
 
-    def _get_properties_mapping(self, publishable):
+    def _get_properties_mapping(self, obj):
         """Returns a properties mapping of an DBus object.
 
-        :param publishable: an object with dbus property
+        :param obj: an object with dbus property
         :return: a map of properties and their interfaces
         """
-        specification = getattr(publishable, 'dbus', None)
-
-        if not specification:
-            raise PropertiesException("Object of type {} is not publishable."
-                                      .format(type(publishable).__name__))
-
-        generator = DBusSpecification()
-        return generator.generate_properties_mapping(specification)
+        return DBusSpecificationParser.generate_properties_mapping(get_xml(obj))
 
     def flush(self):
         """Flush the cache.
@@ -103,7 +97,7 @@ class PropertiesChanges(object):
         requests = {}
         for property_name in content:
             interface_name = self._mapping[property_name]
-            property_value = getattr(self._publishable, property_name)
+            property_value = getattr(self._object, property_name)
 
             requests.setdefault(interface_name, {})
             requests[interface_name][property_name] = property_value
