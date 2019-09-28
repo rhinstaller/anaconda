@@ -19,6 +19,9 @@
 #
 
 import unittest
+
+from typing import Set
+
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.typing import get_dbus_type
 
@@ -31,9 +34,23 @@ class DBusTypingTests(unittest.TestCase):
 
     def _compare(self, type_hint, expected_string):
         """Compare generated and expected types."""
+        # Generate a type string.
         dbus_type = get_dbus_type(type_hint)
         self.assertEqual(dbus_type, expected_string)
         self.assertTrue(GLib.VariantType.string_is_valid(dbus_type))
+
+        # Create a variant type from a type hint.
+        variant_type = get_variant_type(type_hint)
+        self.assertIsInstance(variant_type, GLib.VariantType)
+        self.assertEqual(variant_type.dup_string(), expected_string)
+
+        expected_type = GLib.VariantType.new(expected_string)
+        self.assertTrue(expected_type.equal(variant_type))
+
+        # Create a variant type from a type string.
+        variant_type = get_variant_type(expected_string)
+        self.assertIsInstance(variant_type, GLib.VariantType)
+        self.assertTrue(expected_type.equal(variant_type))
 
     def unknown_test(self):
         """Test the unknown type."""
@@ -63,6 +80,9 @@ class DBusTypingTests(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             get_dbus_type(Tuple[Int, Double, Dict[Tuple[Int, Int], Bool]])
+
+        with self.assertRaises(TypeError):
+            get_dbus_type(Set[Int])
 
     def simple_test(self):
         """Test simple types."""
@@ -181,6 +201,7 @@ class DBusTypingVariantTests(unittest.TestCase):
 
     def _test_variant(self, type_hint, expected_string, value):
         """Create a variant."""
+        # Create a variant from a type hint.
         v1 = get_variant(type_hint, value)
         self.assertTrue(isinstance(v1, Variant))
         self.assertEqual(v1.format_string, expected_string)  # pylint: disable=no-member
@@ -192,6 +213,11 @@ class DBusTypingVariantTests(unittest.TestCase):
         self.assertEqual(get_native(v1), value)
         self.assertEqual(get_native(v1), get_native(v2))
         self.assertEqual(get_native(value), value)
+
+        # Create a variant from a type string.
+        v3 = get_variant(expected_string, value)
+        self.assertTrue(isinstance(v3, Variant))
+        self.assertTrue(v2.equal(v3))
 
     def variant_invalid_test(self):
         """Test invalid variants."""
