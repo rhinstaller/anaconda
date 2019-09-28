@@ -64,7 +64,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
         (observer, ) = self._check_started_modules(task, service_names)
 
-        bus_proxy = self._message_bus.get_dbus_proxy()
+        bus_proxy = self._message_bus.proxy
         bus_proxy.StartServiceByName.assert_called_once_with(
             "org.fedoraproject.Anaconda.Modules.A",
             DBUS_FLAG_NONE,
@@ -95,7 +95,7 @@ class ModuleManagerTestCase(unittest.TestCase):
             "org.fedoraproject.Anaconda.Addons.C"
         ]
 
-        bus_proxy = self._message_bus.get_dbus_proxy()
+        bus_proxy = self._message_bus.proxy
         bus_proxy.ListActivatableNames.return_value = [
             *service_names,
             "org.fedoraproject.Anaconda.D",
