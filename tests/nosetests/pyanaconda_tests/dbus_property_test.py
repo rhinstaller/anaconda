@@ -22,9 +22,10 @@ import unittest
 from mock import Mock, call
 
 from pyanaconda.core.signal import Signal
-from pyanaconda.dbus.interface import DBusSpecification, DBusSpecificationError, dbus_interface
+from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.property import PropertiesInterface, emits_properties_changed, \
     PropertiesException
+from pyanaconda.dbus.specification import DBusSpecificationParser, DBusSpecificationError
 from pyanaconda.dbus.template import AdvancedInterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
@@ -55,8 +56,7 @@ class DBusPropertySpecificationTestCase(unittest.TestCase):
         </node>
         '''
 
-        generator = DBusSpecification()
-        mapping = generator.generate_properties_mapping(specification)
+        mapping = DBusSpecificationParser.generate_properties_mapping(specification)
         expected_mapping = {
             "A1": "A", "B1": "B", "C1": "C",
             "A2": "A", "B2": "B", "C2": "C",
@@ -83,10 +83,8 @@ class DBusPropertySpecificationTestCase(unittest.TestCase):
         </node>
         '''
 
-        generator = DBusSpecification()
-
         with self.assertRaises(DBusSpecificationError):
-            generator.generate_properties_mapping(specification)
+            DBusSpecificationParser.generate_properties_mapping(specification)
 
 
 class DBusPropertyTestCase(unittest.TestCase):
@@ -394,7 +392,7 @@ class DBusPropertyTestCase(unittest.TestCase):
 
     def invalid_class_test(self):
         """Test the properties interface with invalid class."""
-        with self.assertRaises(PropertiesException):
+        with self.assertRaises(DBusSpecificationError):
             self.Test6()
 
     @dbus_interface("I7")
