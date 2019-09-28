@@ -35,10 +35,13 @@ class ModuleManagerTestCase(unittest.TestCase):
     def _check_started_modules(self, task, service_names):
         """Check the started modules."""
 
+        def call():
+            return DBUS_START_REPLY_SUCCESS
+
         def fake_callbacks():
             for observer in task._module_observers:
                 observer._is_service_available = True
-                task._start_service_by_name_callback(observer, DBUS_START_REPLY_SUCCESS, None)
+                task._start_service_by_name_callback(call, observer)
                 task._service_available_callback(observer)
 
         task._callbacks.put(fake_callbacks)
@@ -112,9 +115,12 @@ class ModuleManagerTestCase(unittest.TestCase):
 
         task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
 
+        def call():
+            raise DBusError("Fake error!")
+
         def fake_callbacks():
             for observer in task._module_observers:
-                task._start_service_by_name_callback(observer, None, DBusError("Fake error!"))
+                task._start_service_by_name_callback(call, observer)
 
         task._callbacks.put(fake_callbacks)
 
