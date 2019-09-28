@@ -19,7 +19,8 @@
 #
 import unittest
 from unittest.mock import Mock
-from pydbus.proxy import ProxyObject
+
+from pyanaconda.dbus.client import ObjectProxy
 from pyanaconda.dbus.proxy import get_object_path
 
 
@@ -28,5 +29,8 @@ class DBusProxyTestCase(unittest.TestCase):
 
     def get_object_path_test(self):
         """Test get_object_path."""
-        proxy = ProxyObject(Mock(), "my.service", "/my/path")
+        proxy = ObjectProxy(Mock(), "my.service", "/my/path")
         self.assertEqual(get_object_path(proxy), "/my/path")
+
+        with self.assertRaises(TypeError):
+            get_object_path(None)

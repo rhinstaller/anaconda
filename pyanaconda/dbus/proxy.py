@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from pyanaconda.dbus.client import AbstractObjectProxy
 
 __all__ = ["get_object_path"]
 
@@ -26,4 +27,8 @@ def get_object_path(proxy):
     :param proxy: a DBus proxy
     :return: a DBus path
     """
-    return getattr(proxy, "_path")
+    if not isinstance(proxy, AbstractObjectProxy):
+        raise TypeError("Invalid type of proxy: {}".format(str(type(proxy))))
+
+    handler = getattr(proxy, "_handler")
+    return getattr(handler, "_object_path")
