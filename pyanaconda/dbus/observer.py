@@ -16,18 +16,79 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from functools import partial
+
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus.constants import DBUS_FLAG_NONE
 from pyanaconda.core.signal import Signal
 
-from pyanaconda.anaconda_loggers import get_module_logger
+import gi
+gi.require_version("Gio", "2.0")
+from gi.repository import Gio
+
 log = get_module_logger(__name__)
 
-__all__ = ["DBusObserverError", "DBusObserver"]
+__all__ = ["DBusObserverError", "DBusObserver", "GLibMonitoring"]
 
 
 class DBusObserverError(Exception):
     """Exception class for the DBus observers."""
     pass
+
+
+class GLibMonitoring(object):
+    """The low-level DBus monitoring library based on GLib."""
+
+    @classmethod
+    def watch_name(cls, connection, name, flags=DBUS_FLAG_NONE, name_appeared=None,
+                   name_vanished=None):
+        """Watch a service name on the DBus connection."""
+        name_appeared_closure = None
+        name_vanished_closure = None
+
+        if name_appeared:
+            name_appeared_closure = partial(
+                cls._name_appeared_callback,
+                user_data=(name_appeared, ())
+            )
+
+        if name_vanished:
+            name_vanished_closure = partial(
+                cls._name_vanished_callback,
+                user_data=(name_vanished, ())
+            )
+
+        registration_id = Gio.bus_watch_name_on_connection(
+            connection,
+            name,
+            flags,
+            name_appeared_closure,
+            name_vanished_closure
+        )
+        return partial(cls._unwatch_name, connection, registration_id)
+
+    @classmethod
+    def _name_appeared_callback(cls, connection, name, name_owner, user_data):
+        """Callback for watch_name.."""
+        # Prepare the user's callback.
+        callback, callback_args = user_data
+
+        # Call user's callback.
+        callback(name_owner, *callback_args)
+
+    @classmethod
+    def _name_vanished_callback(cls, connection, name, user_data):
+        """Callback for watch_name."""
+        # Prepare the user's callback.
+        callback, callback_args = user_data
+
+        # Call user's callback.
+        callback(*callback_args)
+
+    @classmethod
+    def _unwatch_name(cls, connection, registration_id):
+        """Stops watching a service name on the DBus connection."""
+        Gio.bus_unwatch_name(registration_id)
 
 
 class DBusObserver(object):
@@ -58,7 +119,7 @@ class DBusObserver(object):
     observer.disconnect()
     """
 
-    def __init__(self, message_bus, service_name):
+    def __init__(self, message_bus, service_name, monitoring=GLibMonitoring):
         """Creates an DBus service observer.
 
         :param message_bus: a message bus
@@ -71,7 +132,8 @@ class DBusObserver(object):
         self._service_available = Signal()
         self._service_unavailable = Signal()
 
-        self._watched_id = None
+        self._monitoring = monitoring
+        self._subscriptions = []
 
     @property
     def service_name(self):
@@ -122,19 +184,21 @@ class DBusObserver(object):
 
     def _watch(self):
         """Watch the service name on DBus."""
-        bus = self._message_bus.connection
-        num = bus.watch_name(self.service_name,
-                             DBUS_FLAG_NONE,
-                             self._service_name_appeared_callback,
-                             self._service_name_vanished_callback)
+        subscription = self._monitoring.watch_name(
+            self._message_bus.connection,
+            self.service_name,
+            DBUS_FLAG_NONE,
+            self._service_name_appeared_callback,
+            self._service_name_vanished_callback
+        )
 
-        self._watched_id = num
+        self._subscriptions.append(subscription)
 
     def _unwatch(self):
         """Stop to watch the service name on DBus."""
-        bus = self._message_bus.connection
-        bus.unwatch_name(self._watched_id)
-        self._watched_id = None
+        while self._subscriptions:
+            callback = self._subscriptions.pop()
+            callback()
 
     def _enable_service(self):
         """Enable the service."""
