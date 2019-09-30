@@ -213,12 +213,12 @@ class KickstartManagerTestCase(unittest.TestCase):
         m3_observer = self._get_module_observer("3", module3)
         m4_observer = self._get_module_observer("4", module4, available=False)
 
-        manager.module_observers = [
+        manager.on_module_observers_changed([
             m1_observer,
             m2_observer,
             m3_observer,
             m4_observer
-        ]
+        ])
 
         with self._create_ks_files(self._kickstart_include) as filename:
             manager.split(filename)

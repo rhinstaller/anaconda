@@ -35,27 +35,19 @@ log = get_module_logger(__name__)
 class Boss(MainModule):
     """The Boss module."""
 
-    def __init__(self, module_manager=None, install_manager=None, kickstart_manager=None):
+    def __init__(self):
         super().__init__()
-        self._module_manager = module_manager or ModuleManager()
-        self._install_manager = install_manager or InstallManager()
-        self._kickstart_manager = kickstart_manager or KickstartManager()
+        self._module_manager = ModuleManager()
+        self._kickstart_manager = KickstartManager()
+        self._install_manager = InstallManager()
 
-        self._setup_install_manager()
-        self._setup_kickstart_manager()
+        self._module_manager.module_observers_changed.connect(
+            self._kickstart_manager.on_module_observers_changed
+        )
 
-    def _setup_install_manager(self):
-        """Set up the install manager."""
-        # FIXME: the modules list must to be readable from inside of InstallManager when needed
-        # the modules needs to be passed to the InstallManager some other way
-        # basically we need to be able to load modules from everywhere when we need them
-        modules = self._module_manager.module_observers
-        self._install_manager.module_observers = modules
-
-    def _setup_kickstart_manager(self):
-        """Set up the kickstart manager."""
-        modules = self._module_manager.module_observers
-        self._kickstart_manager.module_observers = modules
+        self._module_manager.module_observers_changed.connect(
+            self._install_manager.on_module_observers_changed
+        )
 
     def publish(self):
         """Publish the boss."""

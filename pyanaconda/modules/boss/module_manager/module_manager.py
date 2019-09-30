@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
 from pyanaconda.dbus.namespace import get_dbus_name
@@ -31,6 +32,7 @@ class ModuleManager(object):
 
     def __init__(self):
         self._module_observers = []
+        self.module_observers_changed = Signal()
 
     @property
     def module_observers(self):
@@ -41,6 +43,7 @@ class ModuleManager(object):
         """Add a modules with the given service name."""
         observer = ModuleObserver(DBus, service_name, is_addon)
         self._module_observers.append(observer)
+        self.module_observers_changed.emit(self._module_observers)
 
     def add_addon_modules(self):
         """Add the addon modules."""

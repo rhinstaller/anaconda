@@ -42,14 +42,9 @@ class KickstartManager(object):
         """Get all module observers for kickstart distribution."""
         return self._module_observers
 
-    @module_observers.setter
-    def module_observers(self, modules):
-        """Set module observers for kickstart distribution.
-
-        :param modules: Module observers list
-        :type modules: list(ModuleObserver)
-        """
-        self._module_observers = modules
+    def on_module_observers_changed(self, observers):
+        """Set module observers for kickstart distribution."""
+        self._module_observers = list(observers)
 
     @property
     def elements(self):

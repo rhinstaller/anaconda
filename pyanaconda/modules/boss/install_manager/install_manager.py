@@ -35,14 +35,9 @@ class InstallManager(object):
         """Get all module observers which will be used for installation."""
         return self._module_observers
 
-    @module_observers.setter
-    def module_observers(self, modules):
-        """Set module observers which will be used for installation.
-
-        :param modules: Module observers list.
-        :type modules: list
-        """
-        self._module_observers = modules
+    def on_module_observers_changed(self, observers):
+        """Set module observers which will be used for installation."""
+        self._module_observers = list(observers)
 
     def install_system_with_task(self):
         """Install the system.
