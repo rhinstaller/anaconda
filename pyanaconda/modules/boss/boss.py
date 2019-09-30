@@ -19,7 +19,6 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.async_utils import run_in_loop
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
@@ -62,30 +61,14 @@ class Boss(MainModule):
         log.info("Start the main loop.")
         self._loop.run()
 
-    def start_modules(self):
-        """Start the given kickstart modules."""
-        for service_name in conf.anaconda.kickstart_modules:
-            log.debug("Add module %s.", service_name)
-            self._module_manager.add_module(service_name)
-
-        if conf.anaconda.addons_enabled:
-            log.debug("Addons are enabled.")
-            self._module_manager.add_addon_modules()
-
-        self._module_manager.start_modules()
+    def start_modules_with_task(self):
+        """Start the modules with the task."""
+        return self._module_manager.start_modules_with_task()
 
     def stop(self):
         """Stop all modules and then stop the boss."""
         self._module_manager.stop_modules()
         super().stop()
-
-    @property
-    def all_modules_available(self):
-        """Are all modules available?
-
-        FIXME: This is a temporary method.
-        """
-        return self._module_manager.check_modules_availability()
 
     @property
     def unprocessed_kickstart(self):

@@ -23,9 +23,7 @@
 #
 # Author(s):  Jiri Konecny <jkonecny@redhat.com>
 #
-
 import os
-import time
 from subprocess import TimeoutExpired
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -37,6 +35,8 @@ from pyanaconda.dbus.constants import DBUS_ANACONDA_SESSION_ADDRESS, DBUS_FLAG_N
 from pyanaconda.modules.common.constants.services import BOSS
 
 from pyanaconda.anaconda_loggers import get_anaconda_root_logger
+from pyanaconda.modules.common.task import sync_run_task
+
 log = get_anaconda_root_logger()
 
 __all__ = ["AnacondaDBusLauncher"]
@@ -57,13 +57,10 @@ class AnacondaDBusLauncher(object):
         """The address of the Anaconda DBus session."""
         return self._bus_address
 
-    def start(self, timeout=600):
+    def start(self):
         """Start DBus modules.
 
         Start the DBus session, the boss and the kickstart modules.
-
-        :param timeout: seconds to the launcher timeout
-        :raises TimeoutError if the launcher times out
         """
         self._write_temporary_config()
 
@@ -73,7 +70,6 @@ class AnacondaDBusLauncher(object):
 
         self._start_boss()
         self._start_modules()
-        self._wait_for_modules(timeout)
 
     def stop(self, timeout=20):
         """Stop the DBus modules.
@@ -179,20 +175,9 @@ class AnacondaDBusLauncher(object):
     def _start_modules(self):
         """Start the kickstart modules."""
         boss_proxy = BOSS.get_proxy()
-        boss_proxy.StartModules()
-
-    def _wait_for_modules(self, timeout):
-        """Wait for the modules to start."""
-        boss = BOSS.get_proxy()
-
-        while not boss.AllModulesAvailable and timeout > 0:
-            log.info("Waiting %d sec for modules to be started.", timeout)
-            time.sleep(1)
-            timeout = timeout - 1
-
-        if not timeout:
-            log.error("Waiting for modules to be started timed out.")
-            raise TimeoutError("Anaconda DBus modules failed to start on time.")
+        task_path = boss_proxy.StartModulesWithTask()
+        task_proxy = BOSS.get_proxy(task_path)
+        sync_run_task(task_proxy)
 
     def _stop_boss_and_modules(self):
         """Stop the boss and the kickstart modules."""

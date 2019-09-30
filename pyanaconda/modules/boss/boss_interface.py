@@ -29,14 +29,14 @@ from pyanaconda.modules.common.containers import TaskContainer
 class BossInterface(InterfaceTemplate):
     """DBus interface for the Boss."""
 
-    def StartModules(self):
-        """Start the kickstart modules."""
-        self.implementation.start_modules()
+    def StartModulesWithTask(self) -> ObjPath:
+        """Start modules with the task.
 
-    @property
-    def AllModulesAvailable(self) -> Bool:
-        """Returns true if all modules are available."""
-        return self.implementation.all_modules_available
+        :return: a DBus path of the task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.start_modules_with_task()
+        )
 
     @property
     def UnprocessedKickstart(self) -> Str:

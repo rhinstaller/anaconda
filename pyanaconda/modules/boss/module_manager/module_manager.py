@@ -16,12 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
-from pyanaconda.dbus.namespace import get_dbus_name
-from pyanaconda.modules.boss.module_manager import ModuleObserver
-from pyanaconda.modules.common.constants.namespaces import ADDONS_NAMESPACE
+from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -39,72 +37,22 @@ class ModuleManager(object):
         """Return the modules observers."""
         return self._module_observers
 
-    def add_module(self, service_name, is_addon=False):
-        """Add a modules with the given service name."""
-        observer = ModuleObserver(DBus, service_name, is_addon)
-        self._module_observers.append(observer)
+    def set_module_observers(self, observers):
+        """Set the module observers."""
+        self._module_observers = observers
         self.module_observers_changed.emit(self._module_observers)
 
-    def add_addon_modules(self):
-        """Add the addon modules."""
-        dbus = DBus.get_dbus_proxy()
-        names = dbus.ListActivatableNames()
-        prefix = get_dbus_name(*ADDONS_NAMESPACE)
-
-        for service_name in names:
-            if service_name.startswith(prefix):
-                self.add_module(service_name, is_addon=True)
-
-    def start_modules(self):
-        """Start anaconda modules (including addons)."""
-        log.debug("Start modules.")
-        dbus = DBus.get_dbus_proxy()
-
-        for observer in self.module_observers:
-            log.debug("Starting %s", observer)
-            dbus.StartServiceByName(observer.service_name,
-                                    DBUS_FLAG_NONE,
-                                    callback=self._start_modules_callback,
-                                    callback_args=(observer,))
-
-            # Watch the module.
-            observer.service_available.connect(self._process_module_is_available)
-            observer.service_unavailable.connect(self._process_module_is_unavailable)
-            observer.connect_once_available()
-
-    def _start_modules_callback(self, service, returned, error):
-        """Callback for start_modules."""
-        if error:
-            log.error("Service %s failed to start: %s", service, error)
-            return
-
-        if returned != DBUS_START_REPLY_SUCCESS:
-            log.warning("Service %s is already running.", service)
-        else:
-            log.debug("Service %s started successfully.", service)
-
-        if self.check_modules_availability():
-            log.info("All modules are ready now.")
-
-    def _process_module_is_available(self, observer):
-        """Process the service_available signal."""
-        log.debug("%s is available", observer)
-        observer.proxy.Ping()
-
-    def _process_module_is_unavailable(self, observer):
-        """Process the service_unavailable signal."""
-        log.debug("%s is unavailable", observer)
-
-    def check_modules_availability(self):
-        """Check if all modules are available.
-
-        :returns: True if all modules are available, otherwise False
-        """
-        for observer in self.module_observers:
-            if not observer.is_service_available:
-                return False
-
-        return True
+    def start_modules_with_task(self):
+        """Start modules with the task."""
+        task = StartModulesTask(
+            DBus,
+            conf.anaconda.kickstart_modules,
+            conf.anaconda.addons_enabled
+        )
+        task.succeeded_signal.connect(
+            lambda: self.set_module_observers(task.get_result())
+        )
+        return task
 
     def set_modules_locale(self, locale):
         """Set locale of all modules.
