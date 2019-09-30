@@ -20,7 +20,7 @@
 import unittest
 from mock import Mock
 
-from pyanaconda.dbus.observer import PropertiesCache, DBusObserverError, DBusObserver
+from pyanaconda.dbus.observer import DBusObserverError, DBusObserver
 from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
 
 
@@ -97,47 +97,6 @@ class DBusObserverTestCase(unittest.TestCase):
 
         with self.assertRaises(DBusObserverError):
             observer.proxy.DoSomething()
-
-    def cache_test(self):
-        """Test the properties cache."""
-
-        cache = PropertiesCache()
-        self.assertEqual(cache.properties, {})
-
-        with self.assertRaises(AttributeError):
-            getattr(cache, "a")
-
-        with self.assertRaises(AttributeError):
-            setattr(cache, "a", 1)
-
-        cache.update({"a": 1, "b": 2, "c": 3})
-        self.assertEqual(cache.properties, {"a": 1, "b": 2, "c": 3})
-        self.assertEqual(cache.a, 1)
-        self.assertEqual(cache.b, 2)
-        self.assertEqual(cache.c, 3)
-
-        with self.assertRaises(AttributeError):
-            setattr(cache, "a", 1)
-
-        cache.update({"a": 10, "b": 20})
-        self.assertEqual(cache.properties, {"a": 10, "b": 20, "c": 3})
-        self.assertEqual(cache.a, 10)
-        self.assertEqual(cache.b, 20)
-        self.assertEqual(cache.c, 3)
-
-        cache.update({"d": 4})
-        self.assertEqual(cache.properties, {"a": 10, "b": 20, "c": 3, "d": 4})
-        self.assertEqual(cache.a, 10)
-        self.assertEqual(cache.b, 20)
-        self.assertEqual(cache.c, 3)
-        self.assertEqual(cache.d, 4)
-
-        cache.update({"c": 30, "d": 40})
-        self.assertEqual(cache.properties, {"a": 10, "b": 20, "c": 30, "d": 40})
-        self.assertEqual(cache.a, 10)
-        self.assertEqual(cache.b, 20)
-        self.assertEqual(cache.c, 30)
-        self.assertEqual(cache.d, 40)
 
     def connect_test(self):
         """Test observer connect."""
