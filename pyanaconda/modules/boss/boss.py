@@ -21,7 +21,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus
-from pyanaconda.modules.boss.boss_interface import AnacondaBossInterface
+from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
@@ -52,9 +52,7 @@ class Boss(MainModule):
     def publish(self):
         """Publish the boss."""
         TaskContainer.set_namespace(BOSS.namespace)
-        DBus.publish_object(BOSS.object_path,
-                            AnacondaBossInterface(self))
-
+        DBus.publish_object(BOSS.object_path, BossInterface(self))
         DBus.register_service(BOSS.service_name)
 
     def run(self):
@@ -85,8 +83,7 @@ class Boss(MainModule):
     def all_modules_available(self):
         """Are all modules available?
 
-        FIXME: This is a temporary method, because it provides
-        an implementation to the AnacondaBossInterface.
+        FIXME: This is a temporary method.
         """
         return self._module_manager.check_modules_availability()
 
@@ -94,16 +91,14 @@ class Boss(MainModule):
     def unprocessed_kickstart(self):
         """Return an unprocessed part of a kickstart.
 
-        FIXME: This is a temporary method, because it provides
-        an implementation to the AnacondaBossInterface.
+        FIXME: This is a temporary method.
         """
         return self._kickstart_manager.unprocessed_kickstart
 
     def split_kickstart(self, path):
         """Split a kickstart file.
 
-        FIXME: This is a temporary method, because it provides
-        an implementation to the AnacondaBossInterface.
+        FIXME: This is a temporary method.
         """
         log.info("Splitting kickstart from %s.", path)
         self._kickstart_manager.split(path)
@@ -111,8 +106,7 @@ class Boss(MainModule):
     def distribute_kickstart(self):
         """Distribute a kickstart file.
 
-        FIXME: This is a temporary method, because it provides
-        an implementation to the AnacondaBossInterface.
+        FIXME: This is a temporary method.
         """
         log.info("Distributing kickstart.")
         return self._kickstart_manager.distribute()

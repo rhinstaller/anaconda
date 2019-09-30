@@ -17,18 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pyanaconda.dbus.identifier import DBusInterfaceIdentifier
-from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, BOSS_NAMESPACE, \
+from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, \
     MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE, DNF_NAMESPACE, \
     DEVICE_TREE_NAMESPACE
 
 
 KICKSTART_MODULE = DBusInterfaceIdentifier(
     namespace=MODULES_NAMESPACE
-)
-
-BOSS_ANACONDA = DBusInterfaceIdentifier(
-    namespace=BOSS_NAMESPACE,
-    basename="Anaconda"
 )
 
 USER = DBusInterfaceIdentifier(

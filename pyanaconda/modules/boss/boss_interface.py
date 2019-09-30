@@ -19,7 +19,6 @@
 #
 
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.modules.common.constants.interfaces import BOSS_ANACONDA
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
@@ -29,27 +28,6 @@ from pyanaconda.modules.common.containers import TaskContainer
 @dbus_interface(BOSS.interface_name)
 class BossInterface(InterfaceTemplate):
     """DBus interface for the Boss."""
-
-    def InstallSystemWithTask(self) -> ObjPath:
-        """Install the system.
-
-        :return: a DBus path of the main installation task
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.install_system_with_task()
-        )
-
-    def Quit(self):
-        """Stop all modules and then stop the boss."""
-        self.implementation.stop()
-
-
-@dbus_interface(BOSS_ANACONDA.interface_name)
-class AnacondaBossInterface(BossInterface):
-    """Temporary extension of the boss for anaconda.
-
-    Used for synchronization with anaconda during transition.
-    """
 
     def StartModules(self):
         """Start the kickstart modules."""
@@ -94,3 +72,16 @@ class AnacondaBossInterface(BossInterface):
         Examples: "cs_CZ.UTF-8", "fr_FR"
         """
         self.implementation.set_locale(locale)
+
+    def InstallSystemWithTask(self) -> ObjPath:
+        """Install the system.
+
+        :return: a DBus path of the main installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.install_system_with_task()
+        )
+
+    def Quit(self):
+        """Stop all modules and then stop the boss."""
+        self.implementation.stop()
