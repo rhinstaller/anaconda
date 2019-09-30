@@ -65,16 +65,10 @@ def distribute_kickstart(ks_path):
     print(RED + "distributing kickstart {}".format(tmpfile) + RESET)
     boss_object = test_dbus_connection.get_proxy(BOSS.service_name, BOSS.object_path)
     try:
-        boss_object.SplitKickstart(tmpfile)
+        errors = boss_object.ReadKickstartFile(tmpfile)
+        print("distribute_kickstart: ReadKickstartFile() errors: {}".format(errors))
     except SplitKickstartError as e:
-        print("distribute_kickstart: SplitKickstart() exception: {}".format(e))
-    else:
-        unprocessed_kickstart = boss_object.UnprocessedKickstart
-        print("distribute_kickstart: SplitKickstart({}):\n{}".format(tmpfile, unprocessed_kickstart))
-        errors = boss_object.DistributeKickstart()
-        print("distribute_kickstart: DistributeKickstart() errors: {}".format(errors))
-        unprocessed_kickstart = boss_object.UnprocessedKickstart
-        print("distribute_kickstart: DistributeKickstart() unprocessed:\n{}".format(unprocessed_kickstart))
+        print("distribute_kickstart: ReadKickstartFile() exception: {}".format(e))
     finally:
         os.unlink(tmpfile)
 

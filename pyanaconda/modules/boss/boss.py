@@ -62,29 +62,14 @@ class Boss(MainModule):
         self._module_manager.stop_modules()
         super().stop()
 
-    @property
-    def unprocessed_kickstart(self):
-        """Return an unprocessed part of a kickstart.
+    def read_kickstart_file(self, path):
+        """Read the specified kickstart file.
 
-        FIXME: This is a temporary method.
+        :param path: a path to a file
+        :returns: a list of errors
         """
-        return self._kickstart_manager.unprocessed_kickstart
-
-    def split_kickstart(self, path):
-        """Split a kickstart file.
-
-        FIXME: This is a temporary method.
-        """
-        log.info("Splitting kickstart from %s.", path)
-        self._kickstart_manager.split(path)
-
-    def distribute_kickstart(self):
-        """Distribute a kickstart file.
-
-        FIXME: This is a temporary method.
-        """
-        log.info("Distributing kickstart.")
-        return self._kickstart_manager.distribute()
+        log.info("Reading a kickstart file at %s.", path)
+        return self._kickstart_manager.read_kickstart_file(path)
 
     def install_system_with_task(self):
         """Install the system.

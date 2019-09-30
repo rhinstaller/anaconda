@@ -825,9 +825,7 @@ def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
             # Parse the kickstart file in DBus modules.
             if pass_to_boss:
                 boss = BOSS.get_proxy()
-
-                boss.SplitKickstart(f)
-                errors = boss.DistributeKickstart()
+                errors = boss.ReadKickstartFile(f)
 
                 if errors:
                     message = "\n\n".join("{error_message}".format_map(e) for e in errors)

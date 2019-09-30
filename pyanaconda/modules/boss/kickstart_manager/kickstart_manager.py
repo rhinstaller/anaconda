@@ -33,8 +33,6 @@ class KickstartManager(object):
     """Distributes kickstart to modules and collects it back."""
 
     def __init__(self):
-        self._kickstart_path = None
-        self._elements = None
         self._module_observers = []
 
     @property
@@ -46,31 +44,31 @@ class KickstartManager(object):
         """Set module observers for kickstart distribution."""
         self._module_observers = list(observers)
 
-    @property
-    def elements(self):
-        """Return all elements of split kickstart."""
-        return self._elements
+    def read_kickstart_file(self, path):
+        """Read the specified kickstart file.
 
-    @property
-    def unprocessed_kickstart(self):
-        """Return kickstart not processed by any module."""
-        return self._elements.get_kickstart_from_elements(self._elements.unprocessed_elements)
+        :param path: a path to a file
+        :returns: a list of errors
+        """
+        elements = self._split_to_elements(path)
+        errors = self._distribute_to_modules(elements)
+        return errors
 
-    def split(self, path):
+    def _split_to_elements(self, path):
         """Split the kickstart given by path into elements."""
-        self._elements = None
-        self._kickstart_path = path
         handler = makeVersion()
-        ksparser = SplitKickstartParser(handler, valid_sections=VALID_SECTIONS_ANACONDA)
+        parser = SplitKickstartParser(handler, valid_sections=VALID_SECTIONS_ANACONDA)
+
         try:
-            result = ksparser.split(path)
+            result = parser.split(path)
         except KickstartParseError as e:
             raise SplitKickstartSectionParsingError(e)
         except KickstartError as e:
             raise SplitKickstartMissingIncludeError(e)
-        self._elements = result
 
-    def distribute(self):
+        return result
+
+    def _distribute_to_modules(self, elements):
         """Distribute split kickstart to modules synchronously.
 
         :returns: list of (Line number, Message) errors reported by modules when
@@ -80,30 +78,37 @@ class KickstartManager(object):
         errors = []
 
         for observer in self._module_observers:
-
             if not observer.is_service_available:
-                log.warning("distribute kickstart: module %s not available", observer.service_name)
+                log.warning("Module %s not available!", observer.service_name)
                 continue
 
             commands = observer.proxy.KickstartCommands
             sections = observer.proxy.KickstartSections
             addons = observer.proxy.KickstartAddons
-            log.info("distribute kickstart: %s handles commands %s sections %s addons %s",
+
+            log.info("%s handles commands %s sections %s addons %s.",
                      observer.service_name, commands, sections, addons)
 
-            elements = self._elements.get_and_process_elements(commands=commands,
-                                                               sections=sections,
-                                                               addons=addons)
-            kickstart = self._elements.get_kickstart_from_elements(elements)
+            module_elements = elements.get_and_process_elements(
+                commands=commands,
+                sections=sections,
+                addons=addons
+            )
 
-            if not kickstart:
-                log.info("distribute kickstart: there are no data for %s", observer.service_name)
+            module_kickstart = elements.get_kickstart_from_elements(
+                module_elements
+            )
+
+            if not module_kickstart:
+                log.info("There are no kickstart data for %s.", observer.service_name)
                 continue
 
-            result = observer.proxy.ReadKickstart(kickstart)
+            result = observer.proxy.ReadKickstart(
+                module_kickstart
+            )
 
             if not result["success"]:
-                line_references = self._elements.get_references_from_elements(elements)
+                line_references = elements.get_references_from_elements(module_elements)
                 line_number, file_name = line_references[result["line_number"]]
                 result["line_number"] = line_number
                 result["file_name"] = file_name

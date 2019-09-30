@@ -38,26 +38,13 @@ class BossInterface(InterfaceTemplate):
             self.implementation.start_modules_with_task()
         )
 
-    @property
-    def UnprocessedKickstart(self) -> Str:
-        """Returns kickstart containing parts that are not handled by any module."""
-        return self.implementation.unprocessed_kickstart
+    def ReadKickstartFile(self, path: Str) -> List[Dict[Str, Variant]]:
+        """Read the specified kickstart file.
 
-    def SplitKickstart(self, path: Str):
-        """Splits the kickstart for modules.
-
-        :raises SplitKickstartError: if parsing fails
+        :param path: a path to a file
+        :returns: a list of errors
         """
-        self.implementation.split_kickstart(path)
-
-    def DistributeKickstart(self) -> List[Dict[Str, Variant]]:
-        """Distributes kickstart to modules synchronously.
-
-        Assumes all modules are started.
-
-        :returns: list of kickstart errors
-        """
-        results = self.implementation.distribute_kickstart()
+        results = self.implementation.read_kickstart_file(path)
 
         return [{
             "module_name": get_variant(Str, result["module_name"]),

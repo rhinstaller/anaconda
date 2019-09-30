@@ -221,15 +221,12 @@ class KickstartManagerTestCase(unittest.TestCase):
         ])
 
         with self._create_ks_files(self._kickstart_include) as filename:
-            manager.split(filename)
-
-        errors = manager.distribute()
+            errors = manager.read_kickstart_file(filename)
 
         self.assertEqual(module1.kickstart, self._m1_kickstart)
         self.assertEqual(module2.kickstart, self._m2_kickstart)
         self.assertEqual(module3.kickstart, self._m3_kickstart)
         self.assertEqual(module4.kickstart, "")
-        self.assertEqual(manager.unprocessed_kickstart, self._unprocessed_kickstart)
 
         expected_errors = [
             {
@@ -259,7 +256,7 @@ blah
 """.strip()
         manager = KickstartManager()
         with self._create_ks_files([("ks.mgr.test.unknown_sect.cfg", ks_content)]) as filename:
-            self.assertRaises(SplitKickstartSectionParsingError, manager.split, filename)
+            self.assertRaises(SplitKickstartSectionParsingError, manager._split_to_elements, filename)
 
     def missing_section_end_split_test(self):
         ks_content = """
@@ -269,7 +266,7 @@ blah
 """.strip()
         manager = KickstartManager()
         with self._create_ks_files([("ks.mgr.test.missing_end.cfg", ks_content)]) as filename:
-            self.assertRaises(SplitKickstartSectionParsingError, manager.split, filename)
+            self.assertRaises(SplitKickstartSectionParsingError, manager._split_to_elements, filename)
 
     def missing_include_split_test(self):
         ks_content = """
@@ -278,7 +275,7 @@ network --device=ens3
 """.strip()
         manager = KickstartManager()
         with self._create_ks_files([("ks.mgr.test.missing_include.cfg", ks_content)]) as filename:
-            self.assertRaises(SplitKickstartMissingIncludeError, manager.split, filename)
+            self.assertRaises(SplitKickstartMissingIncludeError, manager._split_to_elements, filename)
 
 
 class TestModule(object):
