@@ -19,13 +19,19 @@ import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
+import locale
+
 from textwrap import dedent
 from unittest.mock import Mock, patch
 from xml.etree import ElementTree
 
+from pyanaconda.core.constants import DEFAULT_LANG
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.dbus.xml import XMLGenerator
+
+# Set the default locale.
+locale.setlocale(locale.LC_ALL, DEFAULT_LANG)
 
 
 class run_in_glib(object):
