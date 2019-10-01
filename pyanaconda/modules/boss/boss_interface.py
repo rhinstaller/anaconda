@@ -48,6 +48,13 @@ class BossInterface(InterfaceTemplate):
             self.implementation.read_kickstart_file(path)
         )
 
+    def GenerateKickstart(self) -> Str:
+        """Return a kickstart representation of modules.
+
+        :return: a kickstart string
+        """
+        return self.implementation.generate_kickstart()
+
     def SetLocale(self, locale: Str):
         """Set locale of boss and all modules.
 

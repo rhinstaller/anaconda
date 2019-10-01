@@ -136,6 +136,26 @@ m3_kickstart = """
 %end
 """.lstrip()
 
+m123_kickstart = """
+network --device ens3
+network --device ens4 --activate
+network --device=ens51 --activate
+network --device=ens541 --activate
+network --device=ens55 --activate
+network --device=ens56 --activate
+network --hostname=PARSE_ERROR
+firewall --enabled
+
+%addon pony --fly=True
+%end
+
+%packages --ignoremissing
+@core
+@PARSE_ERROR
+@base
+%end
+""".strip()
+
 unprocessed_kickstart = """
 text
 %pre
@@ -179,6 +199,7 @@ class KickstartManagerTestCase(unittest.TestCase):
         self._m1_kickstart = m1_kickstart
         self._m2_kickstart = m2_kickstart
         self._m3_kickstart = m3_kickstart
+        self._m123_kickstart = m123_kickstart
 
     @contextmanager
     def _create_ks_files(self, kickstart):
@@ -242,6 +263,8 @@ class KickstartManagerTestCase(unittest.TestCase):
         self.assertEqual(error.line_number, 41)
         self.assertEqual(error.message, "Mocked parse error: \"PARSE_ERROR\" found")
 
+        self.assertEqual(manager.generate_kickstart(), self._m123_kickstart)
+
     def nothing_to_parse_test(self):
         ks_content = ""
         manager = KickstartManager()
@@ -250,6 +273,8 @@ class KickstartManagerTestCase(unittest.TestCase):
 
         self.assertEqual(report.is_valid(), True)
         self.assertEqual(len(report.get_messages()), 0)
+
+        self.assertEqual(manager.generate_kickstart(), "")
 
     def unknown_section_split_test(self):
         ks_content = """
@@ -355,3 +380,7 @@ class TestModule(object):
                 report.error_messages.append(data)
 
         return get_native(KickstartReport.to_structure(report))
+
+    def GenerateKickstart(self):
+        """Mock generating a kickstart."""
+        return self.kickstart

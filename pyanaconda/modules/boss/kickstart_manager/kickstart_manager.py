@@ -131,6 +131,46 @@ class KickstartManager(object):
             report.error_messages.extend(module_report.error_messages)
             report.warning_messages.extend(module_report.warning_messages)
 
-    def collect(self):
-        """Collect kickstarts from configured modules."""
-        pass
+    def generate_kickstart(self):
+        """Return a kickstart representation of modules.
+
+        :return: a kickstart string
+        """
+        kickstarts = self._generate_from_modules()
+        return self._merge_module_kickstarts(kickstarts)
+
+    def _generate_from_modules(self):
+        """Generate kickstart from modules.
+
+        :return: a map of module names and kickstart strings
+        """
+        result = {}
+
+        for observer in self._module_observers:
+            if not observer.is_service_available:
+                log.warning("Module %s not available!", observer.service_name)
+                continue
+
+            module_name = observer.service_name
+            module_kickstart = observer.proxy.GenerateKickstart()
+            result[module_name] = module_kickstart
+
+        return result
+
+    def _merge_module_kickstarts(self, module_kickstarts):
+        """Merge kickstart from modules
+
+        :param module_kickstarts: a map of modules names and kickstart strings
+        :return: a complete kickstart string
+        """
+        parts = []
+
+        for name in sorted(module_kickstarts):
+            part = module_kickstarts[name].strip()
+
+            if not part:
+                continue
+
+            parts.append(part)
+
+        return "\n\n".join(parts)
