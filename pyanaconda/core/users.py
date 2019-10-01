@@ -306,9 +306,7 @@ def create_user(username, password=False, is_crypted=False, lock=False,
 
     # resolve the optional arguments that need a default that can't be
     # reasonably set in the function signature
-    if homedir:
-        homedir = homedir
-    else:
+    if not homedir:
         homedir = "/home/" + username
 
     if groups is None:
