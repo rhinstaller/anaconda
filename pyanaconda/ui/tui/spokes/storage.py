@@ -112,13 +112,15 @@ class StorageSpoke(NormalTUISpoke):
 
     @property
     def completed(self):
-        return bool(self.storage.root_device and not self.errors)
+        return self.ready and not self.errors and self.storage.root_device
 
     @property
     def ready(self):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
-        return self._ready and not threadMgr.get(THREAD_STORAGE_WATCHER)
+        return self._ready \
+            and not threadMgr.get(THREAD_STORAGE) \
+            and not threadMgr.get(THREAD_STORAGE_WATCHER)
 
     @property
     def mandatory(self):
@@ -131,7 +133,9 @@ class StorageSpoke(NormalTUISpoke):
     @property
     def status(self):
         """ A short string describing the current status of storage setup. """
-        if flags.automatedInstall and not self.storage.root_device:
+        if not self.ready:
+            return _("Processing...")
+        elif flags.automatedInstall and not self.storage.root_device:
             return _("Kickstart insufficient")
         elif not self._disk_select_module.SelectedDisks:
             return _("No disks selected")

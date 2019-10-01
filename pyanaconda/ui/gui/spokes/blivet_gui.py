@@ -113,8 +113,6 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         self.button_reset = self.builder.get_object("resetAllButton")
         self.button_undo = self.builder.get_object("undoLastActionButton")
 
-        config.default_fstype = self._storage.default_fstype
-
         self.blivetgui = osinstall.BlivetGUIAnaconda(self.client, self, box)
 
         # this needs to be done when the spoke is already "realized"
@@ -141,6 +139,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         self._back_already_clicked = False
 
+        config.default_fstype = self._storage.default_fstype
         self._storage_playground = self.storage.copy()
         self.client.initialize(self._storage_playground)
         self.blivetgui.initialize()
