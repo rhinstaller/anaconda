@@ -34,6 +34,7 @@ class RPMTestCase(TestCase):
     def call_subprocess(self, cmd, cwd=None):
         """Call external command and return result."""
         print("Running command \"{}\"".format(" ".join(cmd)))
+        # pylint: disable=subprocess-run-check
         return subprocess.run(cmd, stdout=subprocess.PIPE, cwd=cwd)
 
     @property
