@@ -21,7 +21,7 @@
 import glob
 import os
 import os.path
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 
 import shlex
 import sys
@@ -41,7 +41,7 @@ from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
-    USERS, SERVICES, STORAGE, NETWORK
+    SERVICES, STORAGE, NETWORK
 from pyanaconda.modules.common.constants.objects import FCOE
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import sync_run_task
@@ -177,12 +177,11 @@ class RemovedCommand(KickstartCommand, metaclass=ABCMeta):
     access the DBus modules or moved on DBus.
     """
 
-    @abstractmethod
     def __str__(self):
         """Generate this part of a kickstart file from the module.
 
-        This method is required to be overridden, so we don't forget
-        to use DBus modules to generate their part of a kickstart file.
+        This method shouldn't be overridden, because we use DBus modules
+        to generate these parts of a kickstart file.
 
         Make sure that each DBus module is used only once.
         """
@@ -208,20 +207,12 @@ class UselessCommand(RemovedCommand):
     def __init_subclass__(cls, **kwargs):
         raise TypeError("It is not allowed to subclass the UselessCommand class.")
 
-    def __str__(self):
-        return ""
-
 
 class Authselect(RemovedCommand):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.packages = []
-
-    def __str__(self):
-        # The kickstart for this command is generated
-        # by Security module in the SELinux class.
-        return ""
 
     @property
     def fingerprint_supported(self):
@@ -274,25 +265,8 @@ class Authselect(RemovedCommand):
         except RuntimeError as msg:
             authselect_log.error("Error running %s %s: %s", cmd, args, msg)
 
-
-class AutoPart(RemovedCommand):
-
-    def __str__(self):
-        return ""
-
-
 class BTRFS(COMMANDS.BTRFS):
     pass
-
-class ClearPart(RemovedCommand):
-    def __str__(self):
-        storage_module_proxy = STORAGE.get_proxy()
-        return storage_module_proxy.GenerateKickstart()
-
-class Lang(RemovedCommand):
-    def __str__(self):
-        localization_proxy = LOCALIZATION.get_proxy()
-        return localization_proxy.GenerateKickstart()
 
 # no overrides needed here
 Eula = COMMANDS.Eula
@@ -318,19 +292,10 @@ class Logging(COMMANDS.Logging):
                 remote_server = "%s:%s" % (self.host, self.port)
             anaconda_logging.logger.updateRemote(remote_server)
 
-class Mount(RemovedCommand):
-
-    def __str__(self):
-        return ""
-
 class Network(COMMANDS.Network):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.packages = []
-
-    def __str__(self):
-        network_proxy = NETWORK.get_proxy()
-        return network_proxy.GenerateKickstart()
 
     def parse(self, args):
         nd = super().parse(args)
@@ -439,34 +404,11 @@ class RepoData(COMMANDS.RepoData):
 class ReqPart(COMMANDS.ReqPart):
     pass
 
-class RootPw(RemovedCommand):
-
-    def __str__(self):
-        users_proxy = USERS.get_proxy()
-        return users_proxy.GenerateKickstart()
-
-class SELinux(RemovedCommand):
-
-    def __str__(self):
-        security_proxy = SECURITY.get_proxy()
-        return security_proxy.GenerateKickstart()
-
-class Services(RemovedCommand):
-
-    def __str__(self):
-        services_proxy = SERVICES.get_proxy()
-        return services_proxy.GenerateKickstart()
-
-
 class Timezone(RemovedCommand):
 
     def __init__(self, *args):
         super().__init__(*args)
         self.packages = []
-
-    def __str__(self):
-        timezone_proxy = TIMEZONE.get_proxy()
-        return timezone_proxy.GenerateKickstart()
 
     def setup(self, ksdata):
         timezone_proxy = TIMEZONE.get_proxy()
@@ -578,11 +520,6 @@ class Snapshot(COMMANDS.Snapshot):
 
 class Keyboard(RemovedCommand):
 
-    def __str__(self):
-        # The kickstart for this command is generated
-        # by Localization module in the Lang class.
-        return ""
-
     def execute(self):
         localization_proxy = LOCALIZATION.get_proxy()
         keyboard.write_keyboard_config(localization_proxy, conf.target.system_root)
@@ -654,10 +591,10 @@ commandMap = {
     "auth": UselessCommand,
     "authconfig": UselessCommand,
     "authselect": Authselect,
-    "autopart": AutoPart,
+    "autopart": UselessCommand,
     "btrfs": BTRFS,
     "bootloader": UselessCommand,
-    "clearpart": ClearPart,
+    "clearpart": UselessCommand,
     "eula": Eula,
     "fcoe": UselessCommand,
     "firewall": UselessCommand,
@@ -667,10 +604,10 @@ commandMap = {
     "iscsi": UselessCommand,
     "iscsiname": UselessCommand,
     "keyboard": Keyboard,
-    "lang": Lang,
+    "lang": UselessCommand,
     "logging": Logging,
     "logvol": LogVol,
-    "mount": Mount,
+    "mount": UselessCommand,
     "network": Network,
     "nvdimm": UselessCommand,
     "part": Partition,
@@ -678,9 +615,9 @@ commandMap = {
     "raid": Raid,
     "realm": UselessCommand,
     "reqpart": ReqPart,
-    "rootpw": RootPw,
-    "selinux": SELinux,
-    "services": Services,
+    "rootpw": UselessCommand,
+    "selinux": UselessCommand,
+    "services": UselessCommand,
     "sshkey" : UselessCommand,
     "skipx": UselessCommand,
     "snapshot": Snapshot,
@@ -739,7 +676,10 @@ class AnacondaKSHandler(superclass):
         self.anaconda = AnacondaSectionHandler()
 
     def __str__(self):
-        return super().__str__() + "\n" + str(self.addons) + str(self.anaconda)
+        proxy = BOSS.get_proxy()
+        modules = proxy.GenerateKickstart().strip()
+        return super().__str__() + "\n" + modules + "\n\n" + str(self.addons) + str(self.anaconda)
+
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
