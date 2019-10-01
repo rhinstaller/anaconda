@@ -83,7 +83,7 @@ env["PYTHONPATH"] = OTHER_MODULES_PATH
 
 print("Running pylint on %s" % " ".join(pylint_names))
 try:
-    check_output(["./tests/pylint/runpylint.py"] + pylint_files, env=env)
+    check_output(["./tests/pylint/runpylint.py"] + pylint_files)
 except CalledProcessError as e:
     print(e.output.decode('utf-8'))
     sys.exit(1)

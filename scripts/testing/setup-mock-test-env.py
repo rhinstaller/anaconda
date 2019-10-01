@@ -108,9 +108,9 @@ def _call_subprocess(cmd, stdout_pipe=False):
     print("Running command {}".format(cmd))
 
     if stdout_pipe:
-        return subprocess.run(cmd, stdout=subprocess.PIPE)
+        return subprocess.run(cmd, stdout=subprocess.PIPE)  # pylint: disable=subprocess-run-check
     else:
-        return subprocess.run(cmd)
+        return subprocess.run(cmd)  # pylint: disable=subprocess-run-check
 
 
 def parse_args():
