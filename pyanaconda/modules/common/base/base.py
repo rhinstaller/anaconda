@@ -22,6 +22,8 @@ import os
 from abc import ABC
 from locale import setlocale, LC_ALL
 
+from pykickstart.errors import KickstartError
+
 from pyanaconda.core.event_loop import EventLoop
 from pyanaconda.core.timer import Timer
 from pyanaconda.core.util import setenv
@@ -29,6 +31,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.kickstart.specification import NoKickstartSpecification, \
     KickstartSpecificationHandler, KickstartSpecificationParser
+from pyanaconda.modules.common.structures.kickstart import KickstartReport, KickstartMessage
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -214,15 +217,23 @@ class KickstartModule(MainModule, KickstartBaseModule):
         sections that are defined by the kickstart specification.
 
         :param s: a kickstart string
-        :raises: instances of KickstartError
+        :return: a kickstart report
         """
         log.debug("Reading kickstart...")
-        handler = self.get_kickstart_handler()
-        parser = self.get_kickstart_parser(handler)
+        report = KickstartReport()
 
-        parser.readKickstartFromString(s)
-        self.process_kickstart(handler)
-        self.kickstarted = True
+        try:
+            handler = self.get_kickstart_handler()
+            parser = self.get_kickstart_parser(handler)
+            parser.readKickstartFromString(s)
+            self.process_kickstart(handler)
+        except KickstartError as e:
+            data = KickstartMessage.for_error(e)
+            report.error_messages.append(data)
+        else:
+            self.kickstarted = True
+
+        return report
 
     def generate_kickstart(self):
         """Return a kickstart representation of this module.

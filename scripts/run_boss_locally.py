@@ -16,7 +16,7 @@ from gi.repository import Gio
 
 from pyanaconda.dbus import DBusConnection
 from pyanaconda.modules.common.constants.services import BOSS
-from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import sync_run_task
 
 try:
@@ -65,10 +65,10 @@ def distribute_kickstart(ks_path):
     print(RED + "distributing kickstart {}".format(tmpfile) + RESET)
     boss_object = test_dbus_connection.get_proxy(BOSS.service_name, BOSS.object_path)
     try:
-        errors = boss_object.ReadKickstartFile(tmpfile)
-        print("distribute_kickstart: ReadKickstartFile() errors: {}".format(errors))
-    except SplitKickstartError as e:
-        print("distribute_kickstart: ReadKickstartFile() exception: {}".format(e))
+        report = KickstartReport.from_structure(
+            boss_object.ReadKickstartFile(tmpfile)
+        )
+        print("distribute_kickstart: ReadKickstartFile() errors: {}".format(str(report)))
     finally:
         os.unlink(tmpfile)
 

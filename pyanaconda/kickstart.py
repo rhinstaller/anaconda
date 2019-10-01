@@ -40,10 +40,10 @@ from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
 from pyanaconda.modules.common.constants.objects import FCOE
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
@@ -825,10 +825,11 @@ def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
             # Parse the kickstart file in DBus modules.
             if pass_to_boss:
                 boss = BOSS.get_proxy()
-                errors = boss.ReadKickstartFile(f)
-
-                if errors:
-                    message = "\n\n".join("{error_message}".format_map(e) for e in errors)
+                report = KickstartReport.from_structure(
+                    boss.ReadKickstartFile(f)
+                )
+                if not report.is_valid():
+                    message = "\n\n".join(map(str, report.error_messages))
                     raise KickstartError(message)
 
             # Parse the kickstart file in anaconda.
@@ -839,7 +840,7 @@ def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
                 raise KickstartError("Please modify your kickstart file to fix the warnings "
                                      "or remove the `ksstrict` option.")
 
-    except (KickstartError, SplitKickstartError) as e:
+    except KickstartError as e:
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
         parsing_log.error(e)

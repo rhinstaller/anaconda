@@ -66,7 +66,7 @@ class Boss(MainModule):
         """Read the specified kickstart file.
 
         :param path: a path to a file
-        :returns: a list of errors
+        :returns: a kickstart report
         """
         log.info("Reading a kickstart file at %s.", path)
         return self._kickstart_manager.read_kickstart_file(path)
