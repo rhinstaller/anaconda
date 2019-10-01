@@ -1445,7 +1445,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # (persistent NM / ifcfg configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
         self._network_module.SetHostname(self.network_control_box.hostname)
-        log.debug("apply ksdata %s", self.data.network)
 
         # if installation media or hdd aren't used and settings have changed
         # try if source is available
@@ -1597,8 +1596,6 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         # (persistent NM / ifcfg configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
         self._network_module.SetHostname(self.network_control_box.hostname)
-
-        log.debug("apply ksdata %s", self.data.network)
 
         self._now_available = self.completed
 

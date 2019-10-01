@@ -292,7 +292,7 @@ class Logging(COMMANDS.Logging):
                 remote_server = "%s:%s" % (self.host, self.port)
             anaconda_logging.logger.updateRemote(remote_server)
 
-class Network(COMMANDS.Network):
+class Network(RemovedCommand):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.packages = []
