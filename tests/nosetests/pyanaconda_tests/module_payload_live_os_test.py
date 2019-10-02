@@ -19,7 +19,7 @@
 #
 import unittest
 
-from mock import Mock, patch
+from unittest.mock import Mock, patch, create_autospec
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
 
@@ -28,6 +28,7 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
@@ -45,9 +46,10 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.live_os_interface.PropertiesChanged.connect(self.callback)
 
     def _prepare_and_use_source(self):
-        source = LiveOSSourceModule()
-        source.set_image_path("/test/path")
-        source._is_ready = True
+        source = create_autospec(LiveOSSourceModule())
+        source.image_path = "/test/path"
+        source.type = SourceType.LIVE_OS_IMAGE
+        source.is_ready.return_value = True
 
         self.live_os_module.set_sources([source])
 

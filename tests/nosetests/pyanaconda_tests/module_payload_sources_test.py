@@ -21,6 +21,7 @@ import unittest
 
 from mock import Mock, patch
 
+from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
@@ -133,33 +134,18 @@ class LiveOSSourceTestCase(unittest.TestCase):
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
 
-    def ready_state_test(self):
+    @patch("os.path.ismount")
+    def ready_state_test(self, ismount):
         """Test Live OS Source ready state for set up."""
-        callback = Mock()
-        self.live_os_source_module.is_ready_changed.connect(callback)
+        ismount.return_value = False
+        self.assertFalse(self.live_os_source_module.is_ready())
 
-        self.assertFalse(self.live_os_source_module.is_ready)
+        ismount.reset_mock()
+        ismount.return_value = True
 
-        tasks = self.live_os_source_module.set_up_with_tasks()
+        self.assertTrue(self.live_os_source_module.is_ready())
 
-        # tasks were created but not run
-        self.assertFalse(self.live_os_source_module.is_ready)
-        callback.assert_not_called()
-
-        tasks[-1].succeeded_signal.emit()
-
-        self.assertTrue(self.live_os_source_module.is_ready)
-        callback.assert_called_once()
-
-        # tear down task to remove ready state
-        callback.reset_mock()
-
-        tasks = self.live_os_source_module.tear_down_with_tasks()
-
-        tasks[-1].succeeded_signal.emit()
-
-        self.assertFalse(self.live_os_source_module.is_ready)
-        callback.assert_called_once()
+        ismount.assert_called_once_with(INSTALL_TREE)
 
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
