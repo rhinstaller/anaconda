@@ -57,15 +57,6 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         return self._is_ready
 
-    def _set_is_ready(self, value):
-        """Set if the source is ready to be used for the installation process.
-
-        :param value: True if the source is ready
-        :type value: bool
-        """
-        self._is_ready = value
-        self.is_ready_changed.emit()
-
     @abstractmethod
     def set_up_with_tasks(self):
         """Prepare this payload source.

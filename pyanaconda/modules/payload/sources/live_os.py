@@ -102,9 +102,6 @@ class LiveOSSourceModule(PayloadSourceBase):
         :rtype: [Task]
         """
         task = SetUpLiveOSSourceTask(self._image_path, INSTALL_TREE)
-
-        task.succeeded_signal.connect(lambda: self._set_is_ready(True))
-
         return [task]
 
     def tear_down_with_tasks(self):
@@ -114,7 +111,4 @@ class LiveOSSourceModule(PayloadSourceBase):
         :rtype: [Task]
         """
         task = TearDownLiveOSSourceTask(INSTALL_TREE)
-
-        task.succeeded_signal.connect(lambda: self._set_is_ready(False))
-
         return [task]
