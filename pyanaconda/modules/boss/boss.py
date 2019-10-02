@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
@@ -53,13 +52,6 @@ class Boss(MainModule):
         TaskContainer.set_namespace(BOSS.namespace)
         DBus.publish_object(BOSS.object_path, BossInterface(self))
         DBus.register_service(BOSS.service_name)
-
-    def run(self):
-        """Run the boss's loop."""
-        log.debug("Schedule publishing.")
-        run_in_loop(self.publish)
-        log.info("Start the main loop.")
-        self._loop.run()
 
     def start_modules_with_task(self):
         """Start the modules with the task."""
