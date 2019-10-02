@@ -80,7 +80,7 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
                 raise IncompatibleSourceError("Source type {} is not supported by this handler."
                                               .format(source.type))
 
-        if any(source.is_ready for source in self.sources):
+        if any(source.is_ready() for source in self.sources):
             raise SourceSetupError("Can't change list of sources if there is at least one source "
                                    "initialized! Please tear down the sources first.")
 

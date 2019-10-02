@@ -19,7 +19,6 @@
 #
 from abc import ABCMeta, abstractmethod
 
-from pyanaconda.core.signal import Signal
 from pyanaconda.dbus.publishable import Publishable
 from pyanaconda.modules.common.base import KickstartBaseModule
 
@@ -31,11 +30,6 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
     to be implemented by a source to be used.
     """
 
-    def __init__(self):
-        super().__init__()
-        self._is_ready = False
-        self.is_ready_changed = Signal()
-
     @property
     @abstractmethod
     def type(self):
@@ -46,7 +40,7 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         pass
 
-    @property
+    @abstractmethod
     def is_ready(self):
         """This source is ready for the installation to start.
 
@@ -55,7 +49,11 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
 
         :rtype: bool
         """
-        return self._is_ready
+        # TODO: Add needs_teardown property which will tell us if the source has to be cleaned up
+        # before removing the source from a payload handler. The is_ready will work for now but it
+        # will not work for for example HTTP source which is always ready. That source would cause
+        # troubles for the base handler set_sources method ready check.
+        pass
 
     @abstractmethod
     def set_up_with_tasks(self):

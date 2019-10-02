@@ -50,7 +50,7 @@ class InstallFromImageTask(Task):
         """Run installation of the payload from image."""
         # TODO: remove this check for None when Live Image payload will support sources
         # The None check is just a temporary hack that Live OS has source but Live Image don't
-        if self._source is not None and not self._source.is_ready:
+        if self._source is not None and not self._source.is_ready():
             raise InstallError("Source is not set up!")
 
         cmd = "rsync"
