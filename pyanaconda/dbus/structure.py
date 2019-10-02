@@ -20,7 +20,8 @@ import inspect
 from abc import ABC
 from typing import get_type_hints
 
-from pyanaconda.dbus.typing import get_variant, Structure, Dict, List
+from pyanaconda.dbus.typing import get_variant, Structure, Dict, List, get_type_arguments, \
+    is_base_type
 
 __all__ = ["DBusStructureError", "generate_string_from_data", "DBusData", "compare_data"]
 
@@ -103,6 +104,76 @@ class DBusField(object):
         :return: a variant
         """
         return get_variant(self.type_hint, self.get_data(obj))
+
+
+class DBusDataField(DBusField):
+    """Description of a data field in a DBus structure."""
+
+    def __init__(self, name, data_type, description=""):
+        """Create a description of the field.
+
+        :param name: a name of the field
+        :param data_type: a subclass of DBusData
+        :param description: a description
+        """
+        super().__init__(name, Structure, description)
+        self._data_type = data_type
+
+    @property
+    def data_type(self):
+        """Type of the data structure.
+
+        :return: a subclass of DBusData
+        """
+        return self._data_type
+
+    def set_data(self, obj, value):
+        """Set the data attribute."""
+        super().set_data(obj, self._data_type.from_structure(value))
+
+    def get_data(self, obj):
+        """Get the data attribute."""
+        return generate_dictionary_from_data(super().get_data(obj))
+
+    def get_data_variant(self, obj):
+        """Get a variant of the data attribute."""
+        value = self._data_type.to_structure(super().get_data(obj))
+        return get_variant(self._type_hint, value)
+
+
+class DBusDataListField(DBusField):
+    """Description of a data list field in a DBus structure."""
+
+    def __init__(self, name, data_type, description=""):
+        """Create a description of the field.
+
+        :param name: a name of the field
+        :param data_type: a subclass of DBusData
+        :param description: a description
+        """
+        super().__init__(name, List[Structure], description)
+        self._data_type = data_type
+
+    @property
+    def data_type(self):
+        """Type of the data structure.
+
+        :return: a subclass of DBusData
+        """
+        return self._data_type
+
+    def set_data(self, obj, value):
+        """Set the data attribute."""
+        super().set_data(obj, self._data_type.from_structure_list(value))
+
+    def get_data(self, obj):
+        """Get the data attribute."""
+        return list(map(generate_dictionary_from_data, super().get_data(obj)))
+
+    def get_data_variant(self, obj):
+        """Get a variant of the data attribute."""
+        value = self._data_type.to_structure_list(super().get_data(obj))
+        return get_variant(self._type_hint, value)
 
 
 class DBusData(ABC):
@@ -286,6 +357,15 @@ class DBusFieldFactory(object):
         :param member_hint: a type hint of the member
         :return: a new instance of DBus field
         """
+        if is_base_type(member_hint, DBusData):
+            return DBusDataField(field_name, member_hint)
+
+        if is_base_type(member_hint, List):
+            (arg_hint, ) = get_type_arguments(member_hint)
+
+            if is_base_type(arg_hint, DBusData):
+                return DBusDataListField(field_name, arg_hint)
+
         return DBusField(field_name, member_hint)
 
 
