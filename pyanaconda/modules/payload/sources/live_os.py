@@ -46,6 +46,11 @@ class LiveOSSourceModule(PayloadSourceBase):
         """Get type of this source."""
         return SourceType.LIVE_OS_IMAGE
 
+    def is_ready(self):
+        """This source is ready for the installation to start."""
+        # TODO: this should be check on a special directory for every source
+        return os.path.ismount(INSTALL_TREE)
+
     @property
     def image_path(self):
         """Path to the live OS source image.
