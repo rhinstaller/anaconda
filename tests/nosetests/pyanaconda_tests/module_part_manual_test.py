@@ -301,3 +301,4 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         obj = check_task_creation(self, task_path, publisher, ManualPartitioningTask)
 
         self.assertEqual(obj.implementation._storage, self.module.storage)
+        self.assertEqual(obj.implementation._requests, self.module.requests)

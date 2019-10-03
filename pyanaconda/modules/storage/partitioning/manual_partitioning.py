@@ -20,9 +20,6 @@ from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
     NonInteractivePartitioningTask
 
@@ -34,17 +31,23 @@ __all__ = ["ManualPartitioningTask"]
 class ManualPartitioningTask(NonInteractivePartitioningTask):
     """A task for the manual partitioning configuration."""
 
+    def __init__(self, storage, requests):
+        """Create a task.
+
+        :param storage: an instance of Blivet
+        :param requests: a list of requests
+        """
+        super().__init__(storage)
+        self._requests = requests
+
     def _configure_partitioning(self, storage):
         """Configure the partitioning.
 
         :param storage: an instance of Blivet
         """
         log.debug("Setting up the mount points.")
-        manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
-
-        # Set up mount points.
-        for mount_data in manual_part_proxy.Requests:
-            self._setup_mount_point(storage, MountPointRequest.from_structure(mount_data))
+        for mount_data in self._requests:
+            self._setup_mount_point(storage, mount_data)
 
     def _setup_mount_point(self, storage, mount_data):
         """Set up a mount point.
