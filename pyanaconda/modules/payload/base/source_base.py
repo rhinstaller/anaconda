@@ -45,7 +45,9 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """This source is ready for the installation to start.
 
         This method will not be part of the public API. There is no need for others than the
-        payload owner to see the status of the source.
+        payload owner to see the status of the source. It is also not really useful, in time when
+        user gets the ready state the state could be different because of the DBus parallelism.
+        In general we should not share state.
 
         :rtype: bool
         """
