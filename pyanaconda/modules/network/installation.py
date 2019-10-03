@@ -33,10 +33,67 @@ import gi
 gi.require_version("NM", "1.0")
 from gi.repository import NM
 
+
+class HostnameConfigurationTask(Task):
+    """Hostname configuration task."""
+
+    HOSTNAME_CONF_FILE_PATH = "/etc/hostname"
+
+    def __init__(self, sysroot, hostname, overwrite):
+        """Create a new task.
+
+        :param sysroot: a path to the root of installed system
+        :type sysroot: str
+        :param hostname: static hostname
+        :type hostname: str
+        :param overwrite: overwrite config files if they already exist
+        :type overwrite: bool
+        """
+        super().__init__()
+        self._sysroot = sysroot
+        self._hostname = hostname
+        self._overwrite = overwrite
+
+    @property
+    def name(self):
+        return "Configure hostname"
+
+    def run(self):
+        _write_config_file(
+            self._sysroot, self.HOSTNAME_CONF_FILE_PATH,
+            "{}\n".format(self._hostname),
+            "Cannot write hostname configuration file",
+            self._overwrite
+        )
+
+
+def _write_config_file(root, path, content, error_msg, overwrite):
+    """Write content into config file on the target system.
+
+    :param root: path to the root of the target system
+    :type root: str
+    :param path: config file path in target system root
+    :type path: str
+    :param content: content to be written into config file
+    :type content: str
+    :param error_msg: error message in case of failure
+    :type error_msg: str
+    :param overwrite: overwrite existing configuration file
+    :type overwrite: bool
+    """
+    fpath = os.path.normpath(root + path)
+    if os.path.isfile(fpath) and not overwrite:
+        return
+    try:
+        with open(fpath, "w") as fobj:
+            fobj.write(content)
+    except IOError as ioerr:
+        msg = "{}: {}".format(error_msg, ioerr.strerror)
+        raise NetworkInstallationError(msg)
+
 class NetworkInstallationTask(Task):
     """Installation task for the network configuration."""
 
-    HOSTNAME_CONF_FILE_PATH = "/etc/hostname"
     SYSCONF_NETWORK_FILE_PATH = "/etc/sysconfig/network"
     ANACONDA_SYSCTL_FILE_PATH = "/etc/sysctl.d/anaconda.conf"
     RESOLV_CONF_FILE_PATH = "/etc/resolv.conf"
@@ -53,14 +110,12 @@ MACAddress={}
 Name={}
 """.strip()
 
-    def __init__(self, sysroot, hostname, disable_ipv6, overwrite,
+    def __init__(self, sysroot, disable_ipv6, overwrite,
                  network_ifaces, ifname_option_values):
         """Create a new task.
 
         :param sysroot: a path to the root of installed system
         :type sysroot: str
-        :param hostname: static hostname
-        :type hostname: str
         :param disable_ipv6: disable ipv6 on target system
         :type disable_ipv6: bool
         :param overwrite: overwrite config files if they already exist
@@ -72,7 +127,6 @@ Name={}
         """
         super().__init__()
         self._sysroot = sysroot
-        self._hostname = hostname
         self._disable_ipv6 = disable_ipv6
         self._overwrite = overwrite
         self._network_ifaces = network_ifaces
@@ -83,7 +137,6 @@ Name={}
         return "Configure network"
 
     def run(self):
-        self._write_hostname(self._sysroot, self._hostname, self._overwrite)
         self._write_sysconfig_network(self._sysroot, self._overwrite)
         self._write_interface_rename_config(self._sysroot, self._ifname_option_values,
                                             self._overwrite)
@@ -93,21 +146,6 @@ Name={}
         self._copy_dhclient_config_files(self._sysroot, self._network_ifaces)
         self._copy_resolv_conf(self._sysroot, self._overwrite)
 
-    def _write_hostname(self, root, hostname, overwrite):
-        """Write static hostname to the target system configuration file.
-
-        :param root: path to the root of the target system
-        :type root: str
-        :param hostname: static hostname
-        :type hostname: str
-        :param overwrite: overwrite existing configuration file
-        :type overwrite: bool
-        """
-        return self._write_config_file(root, self.HOSTNAME_CONF_FILE_PATH,
-                                       "{}\n".format(hostname),
-                                       "Cannot write hostname configuration file",
-                                       overwrite)
-
     def _write_sysconfig_network(self, root, overwrite):
         """Write empty /etc/sysconfig/network target system configuration file.
 
@@ -116,11 +154,11 @@ Name={}
         :param overwrite: overwrite existing configuration file
         :type overwrite: bool
         """
-        return self._write_config_file(root, self.SYSCONF_NETWORK_FILE_PATH,
-                                       "# Created by anaconda\n",
-                                       "Cannot write {} configuration file".format(
-                                           self.SYSCONF_NETWORK_FILE_PATH),
-                                       overwrite)
+        return _write_config_file(root, self.SYSCONF_NETWORK_FILE_PATH,
+                                  "# Created by anaconda\n",
+                                  "Cannot write {} configuration file".format(
+                                      self.SYSCONF_NETWORK_FILE_PATH),
+                                  overwrite)
 
     def _write_interface_rename_config(self, root, ifname_option_values, overwrite):
         """Write systemd configuration .link file for interface renaming.
@@ -135,7 +173,7 @@ Name={}
             iface, mac = ifname_value.split(":", 1)
             content = self.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE.format(mac, iface)
             file_path = self.INTERFACE_RENAME_FILE_TEMPLATE.format(iface)
-            self._write_config_file(
+            _write_config_file(
                 root,
                 file_path,
                 content,
@@ -143,30 +181,6 @@ Name={}
                     file_path, ifname_value),
                 overwrite
             )
-
-    def _write_config_file(self, root, path, content, error_msg, overwrite):
-        """Write content into config file on the target system.
-
-        :param root: path to the root of the target system
-        :type root: str
-        :param path: config file path in target system root
-        :type path: str
-        :param content: content to be written into config file
-        :type content: str
-        :param error_msg: error message in case of failure
-        :type error_msg: str
-        :param overwrite: overwrite existing configuration file
-        :type overwrite: bool
-        """
-        fpath = os.path.normpath(root + path)
-        if os.path.isfile(fpath) and not overwrite:
-            return
-        try:
-            with open(fpath, "w") as fobj:
-                fobj.write(content)
-        except IOError as ioerr:
-            msg = "{}: {}".format(error_msg, ioerr.strerror)
-            raise NetworkInstallationError(msg)
 
     def _disable_ipv6_on_system(self, root):
         """Disable ipv6 on target system.
