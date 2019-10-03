@@ -236,7 +236,7 @@ class RepoMetadata(object):
         if self.relative_path == ".":
             return self._root_path
         else:
-            return os.path.join(self._root_path, self.relative_path)
+            return os.path.normpath(os.path.join(self._root_path, self.relative_path))
 
     def is_valid(self):
         """Quick check if the repo is a valid repository.
