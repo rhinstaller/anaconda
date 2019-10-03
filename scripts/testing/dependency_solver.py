@@ -37,11 +37,12 @@ TEST_DEPENDENCIES = ["e2fsprogs", "git", "bzip2", "cppcheck", "rpm-ostree", "pyk
                      "python3-lxml", "python3-pip", "python3-coverage",
 
                      # contains restorecon which was removed in Fedora 28 mock
-                     "policycoreutils",
-                     "python3-rpmfluff", "python3-dogtail", "python3-pocketlint"]
+                     "policycoreutils"
+                     # "python3-pocketlint"
+                     ]
 
 PIP_DEPENDENCIES = [
-                    # "rpmfluff", "dogtail", "pocketlint"
+                    "rpmfluff", "dogtail", "pocketlint"
                    ]
 
 RELEASE_DEPENDENCIES = ["python3-zanata-client"]
