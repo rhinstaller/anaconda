@@ -49,7 +49,9 @@ class LiveOSSourceModule(PayloadSourceBase):
     def is_ready(self):
         """This source is ready for the installation to start."""
         # TODO: this should be check on a special directory for every source
-        return os.path.ismount(INSTALL_TREE)
+        res = os.path.ismount(INSTALL_TREE)
+        log.debug("Source is set to %s ready state", res)
+        return res
 
     @property
     def image_path(self):
