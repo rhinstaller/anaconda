@@ -124,6 +124,58 @@ class DBusTypingTests(unittest.TestCase):
         self._compare(Dict[Str, Tuple[Int, Int, Double]], "a{s(iid)}")
         self._compare(Dict[Str, Tuple[Int, Int, Dict[Int, Str]]], "a{s(iia{is})}")
 
+    def base_type_test(self):
+        """Test the base type checks."""
+        self.assertEqual(is_base_type(Int, Int), True)
+        self.assertEqual(is_base_type(UInt16, UInt16), True)
+        self.assertEqual(is_base_type(Variant, Variant), True)
+
+        self.assertEqual(is_base_type(Int, Bool), False)
+        self.assertEqual(is_base_type(Bool, List), False)
+        self.assertEqual(is_base_type(UInt16, Dict), False)
+        self.assertEqual(is_base_type(UInt16, Int), False)
+        self.assertEqual(is_base_type(Variant, Tuple), False)
+
+        self.assertEqual(is_base_type(List[Int], List), True)
+        self.assertEqual(is_base_type(List[Bool], List), True)
+        self.assertEqual(is_base_type(List[Variant], List), True)
+
+        self.assertEqual(is_base_type(Tuple[Int], Tuple), True)
+        self.assertEqual(is_base_type(Tuple[Bool], Tuple), True)
+        self.assertEqual(is_base_type(Tuple[Variant], Tuple), True)
+
+        self.assertEqual(is_base_type(Dict[Str, Int], Dict), True)
+        self.assertEqual(is_base_type(Dict[Str, Bool], Dict), True)
+        self.assertEqual(is_base_type(Dict[Str, Variant], Dict), True)
+
+        self.assertEqual(is_base_type(List[Int], Tuple), False)
+        self.assertEqual(is_base_type(Tuple[Bool], Dict), False)
+        self.assertEqual(is_base_type(Dict[Str, Variant], List), False)
+
+    def base_class_test(self):
+        """Test the base class checks."""
+        class Data(object):
+            pass
+
+        class DataA(Data):
+            pass
+
+        class DataB(Data):
+            pass
+
+        self.assertEqual(is_base_type(Data, Data), True)
+        self.assertEqual(is_base_type(DataA, Data), True)
+        self.assertEqual(is_base_type(DataB, Data), True)
+
+        self.assertEqual(is_base_type(Data, DataA), False)
+        self.assertEqual(is_base_type(Data, DataB), False)
+        self.assertEqual(is_base_type(DataA, DataB), False)
+        self.assertEqual(is_base_type(DataB, DataA), False)
+
+        self.assertEqual(is_base_type(List[Data], List), True)
+        self.assertEqual(is_base_type(Tuple[DataA], Tuple), True)
+        self.assertEqual(is_base_type(Dict[Str, DataB], Dict), True)
+
 
 class DBusTypingVariantTests(unittest.TestCase):
 
