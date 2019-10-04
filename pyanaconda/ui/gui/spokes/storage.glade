@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.3 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -13,6 +13,9 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox5">
         <property name="can_focus">False</property>
@@ -214,9 +217,6 @@
       <action-widget response="0">need_space_cancel_button</action-widget>
       <action-widget response="3">need_space_reclaim_button</action-widget>
     </action-widgets>
-    <child>
-      <placeholder/>
-    </child>
     <child internal-child="accessible">
       <object class="AtkObject" id="need_space_dialog-atkobject">
         <property name="AtkObject::accessible-name" translatable="yes">Need Space</property>
@@ -231,6 +231,9 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox7">
         <property name="can_focus">False</property>
@@ -430,14 +433,110 @@
       <action-widget response="4">no_space_quit_button</action-widget>
       <action-widget response="0">no_space_cancel_button</action-widget>
     </action-widgets>
-    <child>
-      <placeholder/>
-    </child>
     <child internal-child="accessible">
       <object class="AtkObject" id="no_space_dialog-atkobject">
         <property name="AtkObject::accessible-name" translatable="yes">No Space</property>
       </object>
     </child>
+  </object>
+  <object class="GtkDialog" id="pick_advanced_dialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">6</property>
+    <property name="modal">True</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="type_hint">dialog</property>
+    <property name="decorated">False</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox8">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area8">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="use_filesystem_advanced_custom_button">
+                <property name="label" translatable="yes">Use _filesystem oriented method</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="use_blivet_advanced_button">
+                <property name="label" translatable="yes">Use _Blivet-GUI method</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="pick_advanced_method_title_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_bottom">6</property>
+            <property name="label" translatable="yes">INSTALLATION OPTIONS</property>
+            <property name="xalign">0</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="pick_advanced_method_desc_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Anaconda offers two different advanced partitioning methods.
+
+The anaconda-specific screen is based on manipulating a list of  mount points, and you can choose which device should these be on.
+
+The Blivet-GUI screen lets you manipulate the storage in a traditional way: You get a list of devices, manipulate the partitions and filesystems on these, and set mount points.</property>
+            <property name="wrap">True</property>
+            <property name="xalign">0</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="12">use_filesystem_advanced_custom_button</action-widget>
+      <action-widget response="13">use_blivet_advanced_button</action-widget>
+    </action-widgets>
   </object>
   <object class="GtkListStore" id="specialized_disk_store">
     <columns>
@@ -792,72 +891,6 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkBox" id="partitioningTypeBox">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="homogeneous">True</property>
-                                    <child>
-                                      <object class="GtkRadioButton" id="autopartRadioButton">
-                                        <property name="label" translatable="yes" context="GUI|Storage">A_utomatic</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="active">True</property>
-                                        <property name="draw_indicator">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkRadioButton" id="customRadioButton">
-                                        <property name="label" translatable="yes" context="GUI|Storage">_Custom</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="active">True</property>
-                                        <property name="draw_indicator">True</property>
-                                        <property name="group">autopartRadioButton</property>
-                                        <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkRadioButton" id="blivetguiRadioButton">
-                                        <property name="label" translatable="yes" context="GUI|Storage">Advanced Custom (_Blivet-GUI)</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="active">True</property>
-                                        <property name="draw_indicator">True</property>
-                                        <property name="group">autopartRadioButton</property>
-                                        <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">2</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
                                   <object class="GtkRevealer" id="reclaim_checkbox_revealer">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
@@ -971,6 +1004,20 @@
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">3</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckButton" id="autoPartCheckbox">
+                                    <property name="label" translatable="yes">Automatic configuration and partitioning</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="active">True</property>
+                                    <property name="draw_indicator">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">1</property>
                                   </packing>
                                 </child>
                                 <child>

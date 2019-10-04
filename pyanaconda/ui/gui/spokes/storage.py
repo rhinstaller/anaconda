@@ -107,6 +107,7 @@ class PartitioningMethod(Enum):
     AUTO = "auto"
     CUSTOM = "custom"
     BLIVET_GUI = "blivet-gui"
+    UNKNOWN_AUTOMATIC = "unknown"
 
 class InstallOptionsDialogBase(GUIObject):
     uiFile = "spokes/storage.glade"
@@ -256,7 +257,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
        .. inheritance-diagram:: StorageSpoke
           :parts: 3
     """
-    builderObjects = ["storageWindow", "addSpecializedImage"]
+    builderObjects = ["storageWindow", "addSpecializedImage", "pick_advanced_dialog"]
     mainWidgetName = "storageWindow"
     uiFile = "spokes/storage.glade"
     helpFile = "StorageSpoke.xml"
@@ -303,9 +304,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._last_clicked_overview = None
         self._cur_clicked_overview = None
 
-        self._auto_part_radio_button = self.builder.get_object("autopartRadioButton")
-        self._custom_part_radio_button = self.builder.get_object("customRadioButton")
-        self._blivet_gui_radio_button = self.builder.get_object("blivetguiRadioButton")
+        self._blivet_gui_available = False
+
+        self._auto_part_checkbox = self.builder.get_object("autoPartCheckbox")
         self._part_type_box = self.builder.get_object("partitioningTypeBox")
         self._encrypted_checkbox = self.builder.get_object("encryptionCheckbox")
         self._encryption_revealer = self.builder.get_object("encryption_revealer")
@@ -319,27 +320,25 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._main_box = self.builder.get_object("storageMainBox")
 
         # Connect the callbacks.
-        self._auto_part_radio_button.connect("toggled", self._method_radio_button_toggled)
-        self._custom_part_radio_button.connect("toggled", self._method_radio_button_toggled)
+        #self._auto_part_radio_button.connect("toggled", self._method_radio_button_toggled)
+        #self._custom_part_radio_button.connect("toggled", self._method_radio_button_toggled)
+        self._auto_part_checkbox.connect("toggled", self._method_automatic_checkbox_toggled)
 
         # hide radio buttons for spokes that have been marked as visited by the
         # user interaction config file
         if "CustomPartitioningSpoke" in conf.ui.hidden_spokes:
-            self._custom_part_radio_button.set_visible(False)
-            self._custom_part_radio_button.set_no_show_all(True)
+            self._auto_part_checkbox.set_visible(False)
+            self._auto_part_checkbox.set_no_show_all(True)
 
         self._enable_blivet_gui(conf.ui.blivet_gui_supported)
-        self._last_partitioning_method = self._get_selected_partitioning_method()
+        self._last_partitioning_method = PartitioningMethod.AUTO
+        self._selected_partitioning_method = PartitioningMethod.AUTO
 
     def _enable_blivet_gui(self, supported):
         if supported:
-            self._blivet_gui_radio_button.connect("toggled", self._method_radio_button_toggled)
-            if "BlivetGuiSpoke" in conf.ui.hidden_spokes:
-                self._blivet_gui_radio_button.set_visible(False)
-                self._blivet_gui_radio_button.set_no_show_all(True)
+            self._blivet_gui_available = True
         else:
             log.info("Blivet-GUI is not supported.")
-            self._part_type_box.remove(self._blivet_gui_radio_button)
 
     def _get_selected_partitioning_method(self):
         """Get the selected partitioning method.
@@ -347,37 +346,34 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         Return partitioning method according to which method selection
         radio button is currently active.
         """
-        if self._auto_part_radio_button.get_active():
+        if self._auto_part_checkbox.get_active():
             return PartitioningMethod.AUTO
-        elif self._custom_part_radio_button.get_active():
-            return PartitioningMethod.CUSTOM
         else:
-            return PartitioningMethod.BLIVET_GUI
+            return PartitioningMethod.UNKNOWN_AUTOMATIC
 
-    def _method_radio_button_toggled(self, radio_button):
-        """Triggered when one of the partitioning method radio buttons is toggled."""
-        # Run only for an active radio button.
-        if not radio_button.get_active():
-            return
+    #def _method_radio_button_toggled(self, radio_button):
+    def _method_automatic_checkbox_toggled(self, control):
+        """Triggered when the auto-partitioning checkbox is toggled."""
 
-        # Hide the encryption checkbox for Blivet GUI storage configuration,
-        # as Blivet GUI handles encryption per encrypted device, not globally.
-        # Hide it also for the interactive partitioning as CustomPartitioningSpoke
-        # provides support for encryption of mount points.
-        if self._get_selected_partitioning_method() != PartitioningMethod.AUTO:
+        # Get the current state
+        if self._auto_part_checkbox.get_active():
+            self._selected_partitioning_method = PartitioningMethod.AUTO
+        else:
+            self._selected_partitioning_method = PartitioningMethod.UNKNOWN_AUTOMATIC
+
+        # Show the encryption and reclaim checkboxes only for automatic
+        # partitioning, because interactive and Blivet GUI have their own
+        # places for this.
+        if self._selected_partitioning_method != PartitioningMethod.AUTO:
             self._encryption_revealer.set_reveal_child(False)
             self._encrypted_checkbox.set_active(False)
+            self._reclaim_revealer.set_reveal_child(False)
         else:
             self._encryption_revealer.set_reveal_child(True)
-
-        # Hide the reclaim space checkbox if automatic storage configuration is not used.
-        if self._get_selected_partitioning_method() == PartitioningMethod.AUTO:
             self._reclaim_revealer.set_reveal_child(True)
-        else:
-            self._reclaim_revealer.set_reveal_child(False)
 
         # is this a change from the last used method ?
-        method_changed = self._get_selected_partitioning_method() != self._last_partitioning_method
+        method_changed = self._selected_partitioning_method != self._last_partitioning_method
         # are there any actions planned ?
         actions_planned = self.storage.devicetree.actions.find()
         if actions_planned:
@@ -385,8 +381,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 # clear any existing messages from the info bar
                 # - this generally means various storage related error warnings
                 self.clear_info()
-                self.set_warning(_("Partitioning method changed - planned storage configuration "
-                                   "changes will be cancelled."))
+                #self.set_warning(_("Partitioning method changed - planned storage configuration "
+                #                   "changes will be cancelled."))
             else:
                 self.clear_info()
                 # reinstate any errors that should be shown to the user
@@ -921,6 +917,26 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         else:
             self._back_clicked = True
 
+        # Check if the automatic checkbox was checked, and if not, display
+        # a dialog asking for choice of advanced partitioning.
+        if self._selected_partitioning_method == PartitioningMethod.UNKNOWN_AUTOMATIC:
+            if not self._blivet_gui_available:
+                self._selected_partitioning_method = PartitioningMethod.CUSTOM
+            else:
+                # blivet is an option, so ask with a dialog
+                custom_part_dialog = self.builder.get_object("pick_advanced_dialog")
+                with self.main_window.enlightbox(custom_part_dialog):
+                    rc = custom_part_dialog.run()
+                    custom_part_dialog.hide()
+                if rc == 12:
+                    # user wants anaconda
+                    self._selected_partitioning_method = PartitioningMethod.CUSTOM
+                elif rc == 13:
+                    # user wants blivet-gui
+                    self._selected_partitioning_method = PartitioningMethod.BLIVET_GUI
+                else:
+                    pass
+
         # make sure the snapshot of unmodified on-disk-storage model is created
         if not on_disk_storage.created:
             on_disk_storage.create_snapshot(self.storage)
@@ -945,7 +961,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # switched from on to to the other and reset storage configuration to the "clean"
         # initial storage configuration snapshot in such a case.
         partitioning_method_changed = False
-        current_partitioning_method = self._get_selected_partitioning_method()
+        current_partitioning_method = self._selected_partitioning_method
         if self._last_partitioning_method != current_partitioning_method:
             log.info("Partitioning method changed from %s to %s.",
                      self._last_partitioning_method.value,
@@ -1021,14 +1037,16 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # 2) user wants to reclaim some more space => run the ResizeDialog
         # 3) we are just asked to do autopart => check free space and see if we need
         #                                        user to do anything more
-        self._auto_part_enabled = self._get_selected_partitioning_method() == PartitioningMethod.AUTO
+        self._auto_part_enabled = self._selected_partitioning_method == PartitioningMethod.AUTO
         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
         dialog = None
         if not self._auto_part_enabled:
-            if self._get_selected_partitioning_method() == PartitioningMethod.CUSTOM:
+            if self._selected_partitioning_method == PartitioningMethod.CUSTOM:
                 self.skipTo = "CustomPartitioningSpoke"
-            if self._get_selected_partitioning_method() == PartitioningMethod.BLIVET_GUI:
+            if self._selected_partitioning_method == PartitioningMethod.BLIVET_GUI:
                 self.skipTo = "BlivetGuiSpoke"
+            if self._selected_partitioning_method == PartitioningMethod.UNKNOWN_AUTOMATIC:
+                log.log("UNKNOWN partitioning method made it too far!")
         elif self._reclaim_checkbox.get_active():
             # HINT: change the logic of this 'if' statement if we are asked to
             # support "reclaim before custom partitioning"
