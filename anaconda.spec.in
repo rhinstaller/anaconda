@@ -351,6 +351,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 04 2019 Martin Kolman <mkolman@redhat.com> - 31.22.6-1
+- network: split configure hostname task out of network installation task
+  (#1757960) (rvykydal)
+
 * Wed Sep 25 2019 Martin Kolman <mkolman@redhat.com> - 31.22.5-1
 - Switch between layouts without confirmation (#1333984) (vponcova)
 - Remove the old and broken zram-stats script (#1561773) (mkolman)
