@@ -37,7 +37,8 @@ from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connec
     get_dracut_arguments_from_connection, is_ibft_connection
 from pyanaconda.modules.network.ifcfg import get_kickstart_network_data, \
     get_ifcfg_file, get_ifcfg_files_content
-from pyanaconda.modules.network.installation import NetworkInstallationTask, ConfigureActivationOnBootTask
+from pyanaconda.modules.network.installation import NetworkInstallationTask, \
+    ConfigureActivationOnBootTask, HostnameConfigurationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
     DumpMissingIfcfgFilesTask
@@ -326,7 +327,6 @@ class NetworkModule(KickstartModule):
 
         task = NetworkInstallationTask(
             conf.target.system_root,
-            self.hostname,
             disable_ipv6,
             overwrite,
             network_ifaces,
@@ -335,6 +335,18 @@ class NetworkModule(KickstartModule):
 
         task.succeeded_signal.connect(lambda: self.log_task_result(task, root_path=conf.target.system_root))
         return task
+
+    def configure_hostname_with_task(self, overwrite):
+        """Configure hostname with an installation task.
+
+        :param overwrite: overwrite existing configuration
+        :return: a DBus path of an installation task
+        """
+        return HostnameConfigurationTask(
+            conf.target.system_root,
+            self.hostname,
+            overwrite
+        )
 
     def _should_apply_onboot_policy(self):
         """Should policy for ONBOOT of devices be applied?."""
