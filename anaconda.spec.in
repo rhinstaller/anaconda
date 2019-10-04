@@ -351,6 +351,30 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 04 2019 Martin Kolman <mkolman@redhat.com> - 32.7-1
+- network: split configure hostname task out of network installation task
+  (#1757960) (rvykydal)
+- Switch to pypi pylint from RPM (jkonecny)
+- Allow to handle the return value of subprocess.run (vponcova)
+- Remove the unexpected keyword argument 'env' (vponcova)
+- Remove the assignment of the same variable to itself (vponcova)
+- Remove unused false positives (vponcova)
+- Improve updates repo configuration in GUI (#1670471) (mkolman)
+- Don't touch storage until it is ready (vponcova)
+- Run the manual partitioning task for the given requests (vponcova)
+- Set the locale for unit tests (vponcova)
+- Deprecate the current kickstart support for addons (vponcova)
+- Add kickstart support for the Baz module (vponcova)
+- Support the %%addon sections in the kickstart specification (vponcova)
+- Handle the bootloader reset in the partitioning task (vponcova)
+- Fix the DBus patching functions (vponcova)
+- Patch DBus proxies in GUI and TUI simple import tests (vponcova)
+- Add DBus method for validation of selected disks (vponcova)
+- Enable faulthandler in DBus modules (vponcova)
+- Reset the storage and the playground of partitioning modules (vponcova)
+- Add support for getting an object path of a DBus proxy (vponcova)
+- Remove pointless '../../' to clean up NFS mounts (riehecky)
+
 * Wed Sep 25 2019 Martin Kolman <mkolman@redhat.com> - 32.6-1
 - Switch between layouts without confirmation (#1333984) (vponcova)
 - Remove the old and broken zram-stats script (#1561773) (mkolman)
