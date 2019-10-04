@@ -20,6 +20,7 @@
 import unittest
 import tempfile
 import os
+import shutil
 from unittest.mock import patch, Mock
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
@@ -34,7 +35,7 @@ from pyanaconda.modules.network.network import NetworkModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.constants import FirewallMode
 from pyanaconda.modules.network.installation import NetworkInstallationTask, \
-    ConfigureActivationOnBootTask
+    ConfigureActivationOnBootTask, HostnameConfigurationTask
 from pyanaconda.modules.network.firewall.firewall import FirewallModule
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
 from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
@@ -187,7 +188,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def install_network_with_task_test(self, devices_ignore_ipv6, publisher):
         """Test InstallNetworkWithTask."""
-        self.network_module._hostname = "my_hostname"
         self.network_module._disable_ipv6 = True
         self.network_module.nm_client = Mock()
         self.__mock_nm_client_devices(
@@ -198,13 +198,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             ]
         )
 
-        task_path = self.network_interface.InstallNetworkWithTask(
-            False,
-        )
+        task_path = self.network_interface.InstallNetworkWithTask(False)
 
         obj = check_task_creation(self, task_path, publisher, NetworkInstallationTask)
 
-        self.assertEqual(obj.implementation._hostname, "my_hostname")
         self.assertEqual(obj.implementation._disable_ipv6, True)
         self.assertEqual(obj.implementation._overwrite, False)
         self.assertEqual(obj.implementation._network_ifaces, ["ens3", "ens4", "ens5"])
@@ -213,6 +210,18 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         obj.implementation.succeeded_signal.emit()
         self.network_module.log_task_result.assert_called_once()
+
+    @patch_dbus_publish_object
+    def configure_hostname_with_task_test(self, publisher):
+        """Test ConfigureHostnameWithTask."""
+        self.network_module._hostname = "my_hostname"
+
+        task_path = self.network_interface.ConfigureHostnameWithTask(False)
+
+        obj = check_task_creation(self, task_path, publisher, HostnameConfigurationTask)
+
+        self.assertEqual(obj.implementation._overwrite, False)
+        self.assertEqual(obj.implementation._hostname, "my_hostname")
 
     @patch('pyanaconda.modules.network.installation.update_connection_values')
     @patch('pyanaconda.modules.network.installation.find_ifcfg_uuid_of_device')
@@ -691,6 +700,33 @@ class FirewallInterfaceTestCase(unittest.TestCase):
             "DisabledServices",
             ["ldap", "ldaps", "ssh"],
         )
+
+
+class HostnameConfigurationTaskTestCase(unittest.TestCase):
+    """Test the Hostname configuration DBus Task."""
+
+    def hostname_config_task_test(self):
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            hostname_file_path = os.path.normpath(sysroot + HostnameConfigurationTask.HOSTNAME_CONF_FILE_PATH)
+            hostname_dir = os.path.dirname(hostname_file_path)
+            os.makedirs(hostname_dir)
+
+            hostname = "bla.bla"
+
+            task = HostnameConfigurationTask(
+                sysroot=sysroot,
+                hostname=hostname,
+                overwrite=True
+            )
+
+            task.run()
+
+            with open(hostname_file_path, "r") as f:
+                content = f.read()
+            self.assertEqual(content, "{}\n".format(hostname))
+
+            shutil.rmtree(hostname_dir)
 
 
 class FirewallConfigurationTaskTestCase(unittest.TestCase):

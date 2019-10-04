@@ -136,6 +136,17 @@ class NetworkInterface(KickstartModuleInterface):
             self.implementation.install_network_with_task(overwrite)
         )
 
+    def ConfigureHostnameWithTask(self, overwrite: Bool) -> ObjPath:
+        """Configure hostname with an installation task.
+
+        FIXME: does overwrite still apply?
+        :param overwrite: overwrite existing configuration
+        :return: a DBus path of an installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.configure_hostname_with_task(overwrite)
+        )
+
     def ConfigureActivationOnBootWithTask(self, onboot_ifaces: List[Str]) -> ObjPath:
         """Configure automatic activation of devices on system boot.
 

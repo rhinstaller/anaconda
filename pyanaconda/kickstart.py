@@ -362,6 +362,10 @@ class Network(COMMANDS.Network):
         task_proxy = NETWORK.get_proxy(task_path)
         sync_run_task(task_proxy)
 
+        task_path = network_proxy.ConfigureHostnameWithTask(overwrite)
+        task_proxy = NETWORK.get_proxy(task_path)
+        sync_run_task(task_proxy)
+
         if conf.system.can_change_hostname:
             hostname = network_proxy.Hostname
             if hostname != network.DEFAULT_HOSTNAME:
