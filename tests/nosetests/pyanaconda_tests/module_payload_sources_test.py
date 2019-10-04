@@ -57,6 +57,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_once_with(
             PAYLOAD_SOURCE_LIVE_OS.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
+    # TODO: Make detection method coverage better
     @patch("pyanaconda.modules.payload.sources.live_os.stat")
     @patch("pyanaconda.modules.payload.sources.live_os.os.stat")
     def detect_live_os_image_failed_block_device_test(self, os_stat_mock, stat_mock):
@@ -150,12 +151,21 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
 
+    def setup_install_source_task_name_test(self):
+        """Test Live OS Source setup installation source task name."""
+        task = SetUpLiveOSSourceTask(
+                "/path/to/base/image",
+                "/path/to/mount/source/image"
+            )
+
+        self.assertEqual(task.name, "Set up Live OS Installation Source")
+
     @patch("pyanaconda.modules.payload.sources.initialization.mount")
     @patch("pyanaconda.modules.payload.sources.initialization.stat")
     @patch("os.stat")
     @patch("pyanaconda.dbus.DBus.get_proxy")
-    def setup_install_source_task_test(self, proxy_getter, os_stat, stat, mount):
-        """Test Live OS Source setup installation source task."""
+    def setup_install_source_task_run_test(self, proxy_getter, os_stat, stat, mount):
+        """Test Live OS Source setup installation source task run."""
         device_tree = Mock()
         proxy_getter.return_value = device_tree
         device_tree.ResolveDevice = Mock()
@@ -185,7 +195,33 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device_tree.ResolveDevice = Mock()
         device_tree.ResolveDevice.return_value = ""
 
-        with self.assertRaises(SourceSetupError):
+        with self.assertRaises(SourceSetupError, msg="Failed to find liveOS image!"):
+            SetUpLiveOSSourceTask(
+                "/path/to/base/image",
+                "/path/to/mount/source/image"
+            ).run()
+
+    @patch("pyanaconda.modules.payload.sources.initialization.stat")
+    @patch("os.stat")
+    @patch("pyanaconda.dbus.DBus.get_proxy")
+    def setup_install_source_task_invalid_block_dev_test(self, proxy_getter, os_stat, stat_mock):
+        """Test Live OS Source setup installation source task with invalid block device error."""
+        device_tree = Mock()
+        proxy_getter.return_value = device_tree
+        device_tree.ResolveDevice = Mock()
+        device_tree.ResolveDevice.return_value = "resolvedDeviceName"
+
+        device = DeviceData()
+        device.path = "/resolved/path/to/base/image"
+
+        device_tree.GetDeviceData = Mock()
+        device_tree.GetDeviceData.return_value = get_native(DeviceData.to_structure(device))
+
+        stat_mock.S_ISBLK = Mock()
+        stat_mock.S_ISBLK.return_value = False
+
+        with self.assertRaises(SourceSetupError,
+                               msg="/path/to/base/image is not a valid block device"):
             SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
@@ -210,8 +246,27 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
 
         mount.return_value = -20
 
-        with self.assertRaises(SourceSetupError):
+        with self.assertRaises(SourceSetupError, msg="Failed to mount the install tree"):
             SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()
+
+    def tear_down_install_source_task_name_test(self):
+        """Test Live OS tear down installation source task name."""
+        task = TearDownLiveOSSourceTask(
+                "/path/to/mount/source/image"
+            )
+
+        self.assertEqual(task.name, "Tear down Live OS Installation Source")
+
+    @patch("pyanaconda.modules.payload.sources.initialization.unmount")
+    def tear_down_install_source_task_test(self, unmount):
+        """Test Live OS tear down installation source taks."""
+        path = "/path/to/test/image"
+
+        task = TearDownLiveOSSourceTask(path)
+
+        task.run()
+
+        unmount.assert_called_once_with(path)
