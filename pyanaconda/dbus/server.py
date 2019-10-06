@@ -315,12 +315,25 @@ class ServerObjectHandler(AbstractServerObjectHandler):
         :param signal_name: a DBus signal name
         :return: a disconnecting callback
         """
-        callback = partial(self._emit_signal, interface_name, signal_name)
+        callback = self._find_emitter(interface_name, signal_name)
         signal = self._find_handler(interface_name, signal_name)
         signal.connect(callback)
 
         disconnect = partial(signal.disconnect, callback)
         self._registrations.append(disconnect)
+
+    def _find_emitter(self, interface_name, signal_name):
+        """Find an emitter of a DBus signal.
+
+        :param interface_name: a DBus interface name
+        :param signal_name: a DBus signal name
+        :return: a callback
+        """
+        if interface_name == "org.freedesktop.DBus.Properties":
+            if signal_name == "PropertiesChanged":
+                return partial(self._emit_properties_changed)
+
+        return partial(self._emit_signal, interface_name, signal_name)
 
     def _emit_signal(self, interface_name, signal_name, *parameters):
         """Handle a DBus signal.
@@ -462,3 +475,23 @@ class ServerObjectHandler(AbstractServerObjectHandler):
         :return: a signal
         """
         return self._signal_factory()
+
+    def _emit_properties_changed(self, interface_name, changed_properties, invalid_properties):
+        """Emit the PropertiesChanged signal.
+
+        FIXME: This is a temporary workaround, because it should be handled by the signal.
+
+        :param interface_name: an interface name
+        :param changed_properties: a dictionary of changed properties
+        :param invalid_properties: a list of invalid properties
+        """
+        self._emit_signal(
+            "org.freedesktop.DBus.Properties",
+            "PropertiesChanged",
+            interface_name,
+            {
+                property_name: self._get_property(interface_name, property_name)
+                for property_name in changed_properties
+            },
+            invalid_properties
+        )
