@@ -223,6 +223,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._overwrite, False)
         self.assertEqual(obj.implementation._hostname, "my_hostname")
 
+    @patch_dbus_publish_object
     @patch('pyanaconda.modules.network.installation.update_connection_values')
     @patch('pyanaconda.modules.network.installation.find_ifcfg_uuid_of_device')
     def configure_activation_on_boot_with_task_test(self, find_ifcfg_uuid_of_device,
