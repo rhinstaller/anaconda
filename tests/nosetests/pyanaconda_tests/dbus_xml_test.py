@@ -129,18 +129,6 @@ class XMLParserTestCase(unittest.TestCase):
         interfaces = XMLParser.get_interfaces_from_node(element)
         self.assertEqual(interfaces.keys(), {"A", "B", "C"})
 
-    def get_properties_from_interface_test(self):
-        """Get properties from the interface."""
-        element = XMLParser.xml_to_element('''
-        <interface name="InterfaceName">
-            <property name="A" type="PropertyType" access="read" />
-            <property name="B" type="PropertyType" access="read" />
-            <property name="C" type="PropertyType" access="read" />
-        </interface>
-        ''')
-        properties = XMLParser.get_properties_from_interface(element)
-        self.assertEqual(properties.keys(), {"A", "B", "C"})
-
 
 class XMLGeneratorTestCase(unittest.TestCase):
 

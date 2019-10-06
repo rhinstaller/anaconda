@@ -23,10 +23,11 @@
 # https://dbus.freedesktop.org/doc/dbus-specification.html#introspection-format
 #
 from abc import ABC
+from collections import defaultdict
 from functools import wraps
 
 from pyanaconda.dbus.interface import dbus_signal, get_xml
-from pyanaconda.dbus.specification import DBusSpecificationParser
+from pyanaconda.dbus.specification import DBusSpecification, DBusSpecificationError
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["emits_properties_changed", "PropertiesException", "PropertiesInterface"]
@@ -65,19 +66,37 @@ class PropertiesChanges(object):
     def __init__(self, obj):
         """Create the cache.
 
-        :param obj: an object with dbus property
+        :param obj: an object with DBus properties
         """
-        self._property_names = set()
         self._object = obj
-        self._mapping = self._get_properties_mapping(obj)
+        self._properties_names = set()
+        self._properties_specs = self._find_properties_specs(obj)
 
-    def _get_properties_mapping(self, obj):
-        """Returns a properties mapping of an DBus object.
+    def _find_properties_specs(self, obj):
+        """Find specifications of DBus properties.
 
-        :param obj: an object with dbus property
-        :return: a map of properties and their interfaces
+        :param obj: an object with DBus properties
+        :return: a map of property names and their specifications
         """
-        return DBusSpecificationParser.generate_properties_mapping(get_xml(obj))
+        specification = DBusSpecification.from_xml(get_xml(obj))
+        properties_specs = {}
+
+        for member in specification.members:
+            if not isinstance(member, DBusSpecification.Property):
+                continue
+
+            if member.name in properties_specs:
+                raise DBusSpecificationError(
+                    "The property {} is defined in {} and {}.".format(
+                        member.name,
+                        member.interface_name,
+                        properties_specs[member.name].interface_name
+                    )
+                )
+
+            properties_specs[member.name] = member
+
+        return properties_specs
 
     def flush(self):
         """Flush the cache.
@@ -91,29 +110,29 @@ class PropertiesChanges(object):
 
         :return: a list of requests
         """
-        content = self._property_names
-        self._property_names = set()
+        content = self._properties_names
+        self._properties_names = set()
+        requests = defaultdict(dict)
 
-        requests = {}
         for property_name in content:
-            interface_name = self._mapping[property_name]
-            property_value = getattr(self._object, property_name)
+            member = self._properties_specs[property_name]
+            value = getattr(self._object, property_name)
 
-            requests.setdefault(interface_name, {})
-            requests[interface_name][property_name] = property_value
+            # FIXME: Return variants instead of values.
+            requests[member.interface_name][member.name] = value
 
         return requests.items()
 
     def check_property(self, property_name):
         """Check if the property name is valid."""
-        if property_name not in self._mapping:
+        if property_name not in self._properties_specs:
             raise PropertiesException("Unknown interface of property {}."
                                       .format(property_name))
 
     def update(self, property_name):
         """Update the cache."""
         self.check_property(property_name)
-        self._property_names.add(property_name)
+        self._properties_names.add(property_name)
 
 
 class PropertiesInterface(ABC):

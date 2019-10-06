@@ -89,16 +89,6 @@ class XMLParser(object):
 
         return interfaces
 
-    @staticmethod
-    def get_properties_from_interface(interface_element):
-        """Return a dictionary of properties defined in an interface element."""
-        properties = dict()
-
-        for element in interface_element.iterfind("property"):
-            properties[element.attrib["name"]] = element
-
-        return properties
-
 
 class XMLGenerator(XMLParser):
     """Class for generating XML."""
