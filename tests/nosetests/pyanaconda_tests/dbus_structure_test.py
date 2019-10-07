@@ -456,3 +456,79 @@ class DBusStructureTestCase(unittest.TestCase):
             generate_string_from_data({"x": 1})
 
         self.assertEqual(str(cm.exception), "Fields are not defined at '__dbus_fields__'.")
+
+    def nested_structure_test(self):
+        class SimpleData(DBusData):
+
+            def __init__(self):
+                self._x = 0
+
+            @property
+            def x(self) -> Int:
+                return self._x
+
+            @x.setter
+            def x(self, value):
+                self._x = value
+
+        class NestedData(DBusData):
+
+            def __init__(self):
+                self._attr = SimpleData()
+                self._list = []
+
+            @property
+            def attr(self) -> SimpleData:
+                return self._attr
+
+            @attr.setter
+            def attr(self, value):
+                self._attr = value
+
+            @property
+            def list(self) -> List[SimpleData]:
+                return self._list
+
+            @list.setter
+            def list(self, value):
+                self._list = value
+
+        data = NestedData()
+        expected = "NestedData(attr={'x': 0}, list=[])"
+        self.assertEqual(str(data), expected)
+        self.assertEqual(repr(data), expected)
+
+        data.attr.x = -1
+
+        for x in range(2):
+            item = SimpleData()
+            item.x = x
+            data.list.append(item)
+
+        expected = "NestedData(attr={'x': -1}, list=[{'x': 0}, {'x': 1}])"
+        self.assertEqual(str(data), expected)
+        self.assertEqual(repr(data), expected)
+
+        self.assertEqual(NestedData.to_structure(data), {
+            'attr': get_variant(Structure, {
+                'x': get_variant(Int, -1)
+            }),
+            'list': get_variant(List[Structure], [
+                {'x': get_variant(Int, 0)},
+                {'x': get_variant(Int, 1)}
+            ])
+        })
+
+        dictionary = {
+            'attr': {'x': 10},
+            'list': [{'x': 200}, {'x': 300}]
+        }
+
+        data = NestedData.from_structure(dictionary)
+        self.assertEqual(data.attr.x, 10)
+        self.assertEqual(len(data.list), 2)
+        self.assertEqual(data.list[0].x, 200)
+        self.assertEqual(data.list[1].x, 300)
+
+        structure = NestedData.to_structure(data)
+        self.assertEqual(get_native(structure), dictionary)

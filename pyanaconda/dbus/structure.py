@@ -20,7 +20,8 @@ import inspect
 from abc import ABC
 from typing import get_type_hints
 
-from pyanaconda.dbus.typing import get_variant, Structure, Dict, List
+from pyanaconda.dbus.typing import get_variant, Structure, Dict, List, get_type_arguments, \
+    is_base_type
 
 __all__ = ["DBusStructureError", "generate_string_from_data", "DBusData", "compare_data"]
 
@@ -105,6 +106,76 @@ class DBusField(object):
         return get_variant(self.type_hint, self.get_data(obj))
 
 
+class DBusDataField(DBusField):
+    """Description of a data field in a DBus structure."""
+
+    def __init__(self, name, data_type, description=""):
+        """Create a description of the field.
+
+        :param name: a name of the field
+        :param data_type: a subclass of DBusData
+        :param description: a description
+        """
+        super().__init__(name, Structure, description)
+        self._data_type = data_type
+
+    @property
+    def data_type(self):
+        """Type of the data structure.
+
+        :return: a subclass of DBusData
+        """
+        return self._data_type
+
+    def set_data(self, obj, value):
+        """Set the data attribute."""
+        super().set_data(obj, self._data_type.from_structure(value))
+
+    def get_data(self, obj):
+        """Get the data attribute."""
+        return generate_dictionary_from_data(super().get_data(obj))
+
+    def get_data_variant(self, obj):
+        """Get a variant of the data attribute."""
+        value = self._data_type.to_structure(super().get_data(obj))
+        return get_variant(self._type_hint, value)
+
+
+class DBusDataListField(DBusField):
+    """Description of a data list field in a DBus structure."""
+
+    def __init__(self, name, data_type, description=""):
+        """Create a description of the field.
+
+        :param name: a name of the field
+        :param data_type: a subclass of DBusData
+        :param description: a description
+        """
+        super().__init__(name, List[Structure], description)
+        self._data_type = data_type
+
+    @property
+    def data_type(self):
+        """Type of the data structure.
+
+        :return: a subclass of DBusData
+        """
+        return self._data_type
+
+    def set_data(self, obj, value):
+        """Set the data attribute."""
+        super().set_data(obj, self._data_type.from_structure_list(value))
+
+    def get_data(self, obj):
+        """Get the data attribute."""
+        return list(map(generate_dictionary_from_data, super().get_data(obj)))
+
+    def get_data_variant(self, obj):
+        """Get a variant of the data attribute."""
+        value = self._data_type.to_structure_list(super().get_data(obj))
+        return get_variant(self._type_hint, value)
+
+
 class DBusData(ABC):
     """Object representation of data in a DBus structure.
 
@@ -118,7 +189,7 @@ class DBusData(ABC):
         super().__init_subclass__(*args, **kwargs)
 
         # Generate the DBus fields from the members of the class cls.
-        setattr(cls, DBUS_FIELDS_ATTRIBUTE, generate_fields(cls))
+        setattr(cls, DBUS_FIELDS_ATTRIBUTE, DBusFieldFactory.generate_fields(cls))
 
     @classmethod
     def from_structure(cls, structure: Dict):
@@ -197,53 +268,105 @@ def get_fields(obj):
     return fields
 
 
-def generate_fields(cls):
-    """Generate DBus fields from properties of a class.
+class DBusFieldFactory(object):
+    """A DBus field factory."""
 
-    Properties of the class will be used to generate a map of a DBus
-    fields. The property should have a getter and a setter, otherwise
-    an error is raised. The type hint of the getter is used to define
-    the type of the DBus field.
+    @classmethod
+    def generate_fields(cls, data_class):
+        """Generate DBus fields from properties of a class.
 
-    :param cls: a data class
-    :return: a map of DBus fields
+        Properties of the class will be used to generate a map of a DBus
+        fields. The property should have a getter and a setter, otherwise
+        an error is raised. The type hint of the getter is used to define
+        the type of the DBus field.
 
-    :raise DBusStructureError: if the DBus fields cannot be generated
-    """
-    fields = {}
+        :param data_class: a data class
+        :return: a map of DBus fields
 
-    for member_name, member in inspect.getmembers(cls):
+        :raise DBusStructureError: if the DBus fields cannot be generated
+        """
+        fields = {}
 
+        for member_name, member in inspect.getmembers(data_class):
+            if not cls._is_field(member_name, member):
+                continue
+
+            name = cls._get_field_name(member_name)
+            type_hint = cls._get_member_hint(name, member)
+            fields[name] = cls._create_field(name, type_hint)
+
+        if not fields:
+            raise DBusStructureError("No fields found.")
+
+        return fields
+
+    @classmethod
+    def _is_field(cls, member_name, member):
+        """Is the member a representation of a DBus field?
+
+        :param member_name: a name of the class member
+        :param member: a class member
+        :return: True or False
+        """
         # Skip private members.
         if member_name.startswith("_"):
-            continue
+            return False
 
         # Skip all but properties.
         if not isinstance(member, property):
-            continue
+            return False
 
-        # Get the type hint.
-        name = member_name.replace('_', '-')
+        return True
 
+    @classmethod
+    def _get_field_name(cls, member_name):
+        """Get the name of the DBus field.
+
+        :param member_name: a name of the class member
+        :return: a name of the DBus field
+        """
+        return member_name.replace('_', '-')
+
+    @classmethod
+    def _get_member_hint(cls, field_name, member):
+        """Get the type hint of the member.
+
+        :param field_name: a name of the DBus field
+        :param member: a class member
+        :return: a type hint
+        """
         if not member.fset:
-            raise DBusStructureError("Field '{}' cannot be set.".format(name))
+            raise DBusStructureError("Field '{}' cannot be set.".format(field_name))
 
         if not member.fget:
-            raise DBusStructureError("Field '{}' cannot be get.".format(name))
+            raise DBusStructureError("Field '{}' cannot be get.".format(field_name))
 
         getter_type_hints = get_type_hints(member.fget)
         type_hint = getter_type_hints.get('return', None)
 
         if not type_hint:
-            raise DBusStructureError("Field '{}' has unknown type.".format(name))
+            raise DBusStructureError("Field '{}' has unknown type.".format(field_name))
 
-        # Create the field.
-        fields[name] = DBusField(name, type_hint)
+        return type_hint
 
-    if not fields:
-        raise DBusStructureError("No fields found.")
+    @classmethod
+    def _create_field(cls, field_name, member_hint):
+        """Create a representation of a DBus field.
 
-    return fields
+        :param field_name: a name of the field
+        :param member_hint: a type hint of the member
+        :return: a new instance of DBus field
+        """
+        if is_base_type(member_hint, DBusData):
+            return DBusDataField(field_name, member_hint)
+
+        if is_base_type(member_hint, List):
+            (arg_hint, ) = get_type_arguments(member_hint)
+
+            if is_base_type(arg_hint, DBusData):
+                return DBusDataListField(field_name, arg_hint)
+
+        return DBusField(field_name, member_hint)
 
 
 def generate_dictionary_from_data(obj):

@@ -29,7 +29,8 @@ from pydbus import Variant
 __all__ = ["Bool", "Double", "Str", "Int", "Byte", "Int16", "UInt16",
            "Int32", "UInt32", "Int64", "UInt64", "File", "ObjPath",
            "Tuple", "List", "Dict", "Variant", "Structure",
-           "get_variant", "get_native"]
+           "get_variant", "get_native",
+           "is_base_type", "get_type_arguments"]
 
 # Basic types.
 Bool = bool
@@ -111,6 +112,41 @@ def get_native(value):
     return value
 
 
+def is_base_type(type_hint, base_type):
+    """Is the given base type a base of the specified type hint?
+
+    For example, List is a base of the type hint List[Int] and
+    Int is a base of the type hint Int. A class is a base of
+    itself and of every subclass of this class.
+
+    :param type_hint: a type hint
+    :param base_type: a base type
+    :return: True or False
+    """
+    type_hint = getattr(type_hint, "__origin__", type_hint)
+
+    if type_hint == base_type:
+        return True
+
+    try:
+        return issubclass(type_hint, base_type)
+    except TypeError:
+        pass
+
+    return False
+
+
+def get_type_arguments(type_hint):
+    """Get the arguments of the type hint.
+
+    For example, Str and Int are arguments of the type hint Tuple(Str, Int).
+
+    :param type_hint: a type hint
+    :return: a type arguments
+    """
+    return getattr(type_hint, "__args__", ())
+
+
 class DBusType(object):
     """Class for transforming type hints to DBus types."""
 
@@ -181,17 +217,11 @@ class DBusType(object):
     @staticmethod
     def _get_container_base_type(type_hint):
         """Return a container base type."""
-        # Try to get the "origin" of the hint.
-        origin = getattr(type_hint, "__origin__", None)
-
-        if not origin:
-            return None
-
         # Return the container base type of the "origin" or None.
         # See: https://bugzilla.redhat.com/show_bug.cgi?id=1598574
-        for basetype in DBusType._container_type_mapping:
-            if issubclass(origin, basetype):
-                return basetype
+        for base_type in DBusType._container_type_mapping:
+            if is_base_type(type_hint, base_type):
+                return base_type
 
         return None
 
@@ -201,7 +231,7 @@ class DBusType(object):
         basetype = DBusType._get_container_base_type(type_hint)
 
         # Get the arguments of the container.
-        args = type_hint.__args__
+        args = get_type_arguments(type_hint)
 
         # Check the typing.
         if basetype == Dict:
@@ -218,7 +248,7 @@ class DBusType(object):
 
         :raises ValueError: for invalid type
         """
-        key, _ = type_hint.__args__
+        key, _ = get_type_arguments(type_hint)
 
         if DBusType._is_container_type(key) or key == Variant:
             raise TypeError("Dictionary key cannot be of type %s." % key)
