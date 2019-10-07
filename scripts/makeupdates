@@ -38,7 +38,7 @@ LIBEXEC_SCRIPTS = [
     "apply-updates"
 ]
 
-def getArchiveTag(configure, spec):
+def get_archive_tag(configure, spec):
     tag = ""
 
     with open(configure, "r") as f:
@@ -63,8 +63,8 @@ def getArchiveTag(configure, spec):
 
     return tag
 
-def getArchiveTagOffset(configure, spec, offset):
-    tag = getArchiveTag(configure, spec)
+def get_archive_tag_offset(configure, spec, offset):
+    tag = get_archive_tag(configure, spec)
 
     if not tag.count("-") >= 2:
         return tag
@@ -115,7 +115,7 @@ def get_req_tuple(pkg_tuple, version_request):
     name, _arch, epoch, version, release = pkg_tuple
     return (name, version_request, (epoch, version, release))
 
-def doGitDiff(tag, args=None):
+def do_git_diff(tag, args=None):
     if args is None:
         args=[]
     cmd = ['git', 'diff', '--name-status', tag] + args
@@ -131,7 +131,7 @@ def doGitDiff(tag, args=None):
     lines = output.split('\n')
     return lines
 
-def doGitContentDiff(tag, args=None):
+def do_git_content_diff(tag, args=None):
     if args is None:
         args = []
     cmd = ['git', 'diff', tag] + args
@@ -152,7 +152,7 @@ def create_RPM_cache_folder():
     if not os.path.exists(RPM_FOLDER_NAME):
         os.makedirs(RPM_FOLDER_NAME)
 
-def copyUpdatedFiles(tag, updates, cwd, builddir):
+def copy_updated_files(tag, updates, cwd, builddir):
     def install_to_dir(fname, relpath):
         sys.stdout.write("Including %s\n" % fname)
         outdir = os.path.join(updates, relpath)
@@ -186,7 +186,7 @@ def copyUpdatedFiles(tag, updates, cwd, builddir):
         tmpupdates = os.path.join(tmpupdates, "run/install/updates")
 
     try:
-        lines = doGitDiff(tag)
+        lines = do_git_diff(tag)
     except RuntimeError as e:
         print("ERROR: %s" % e)
         return
@@ -307,7 +307,7 @@ def copyUpdatedFiles(tag, updates, cwd, builddir):
 
 def _compilableChanged(tag, compilable):
     try:
-        lines = doGitDiff(tag, [compilable])
+        lines = do_git_diff(tag, [compilable])
     except RuntimeError as e:
         print("ERROR: %s" % e)
         return
@@ -330,17 +330,17 @@ def _compilableChanged(tag, compilable):
 
     return False
 
-def isysChanged(tag):
+def isys_changed(tag):
     return _compilableChanged(tag, 'pyanaconda/isys')
 
-def widgetsChanged(tag):
+def widgets_changed(tag):
     return _compilableChanged(tag, 'widgets')
 
-def auditdChanged(tag):
+def auditd_changed(tag):
     return _compilableChanged(tag, 'pyanaconda/isys/auditd.c') or \
             _compilableChanged(tag, 'pyanaconda/isys/auditd.h')
 
-def checkAutotools(srcdir, builddir):
+def check_autotools(srcdir, builddir):
     # Assumes that cwd is srcdir
     if not os.path.isfile(os.path.join(builddir, 'Makefile')):
         if not os.path.isfile('configure'):
@@ -349,11 +349,11 @@ def checkAutotools(srcdir, builddir):
         os.system(os.path.join(srcdir, 'configure') + ' --prefix=`rpm --eval %_prefix`')
         os.chdir(srcdir)
 
-def copyUpdatedIsys(updates, srcdir, builddir):
+def copy_updated_isys(updates, srcdir, builddir):
     os.chdir(srcdir)
-    print("copyUpdatedIsys BUILDDIR %s" % builddir)
+    print("copy_updated_isys BUILDDIR %s" % builddir)
 
-    checkAutotools(srcdir, builddir)
+    check_autotools(srcdir, builddir)
 
     os.system('make -C %s -j %d' % (builddir, multiprocessing.cpu_count()))
 
@@ -372,12 +372,12 @@ def copyUpdatedIsys(updates, srcdir, builddir):
     if os.path.isfile(isysmodule):
         shutil.copy2(isysmodule, tmpupdates)
 
-def copyUpdatedAuditd(updates, srcdir, builddir):
+def copy_updated_auditd(updates, srcdir, builddir):
     os.chdir(srcdir)
-    print("copyUpdatedIsys BUILLDIR %s" % builddir)
+    print("copy_updated_isys BUILLDIR %s" % builddir)
     auditdir = updates + '/usr/sbin'
 
-    checkAutotools(srcdir, builddir)
+    check_autotools(srcdir, builddir)
 
     os.system('make -C %s -j %d auditd' % (builddir + '/pyanaconda/isys', multiprocessing.cpu_count()))
 
@@ -389,7 +389,7 @@ def copyUpdatedAuditd(updates, srcdir, builddir):
     if os.path.isfile(auditd):
         shutil.copy2(auditd, auditdir)
 
-def copyUpdatedWidgets(updates, srcdir, builddir):
+def copy_updated_widgets(updates, srcdir, builddir):
     os.chdir(srcdir)
 
     if os.path.isdir("/usr/lib64"):
@@ -403,7 +403,7 @@ def copyUpdatedWidgets(updates, srcdir, builddir):
     if not os.path.isdir(updates + libdir + "girepository-1.0"):
         os.makedirs(updates + libdir + "girepository-1.0")
 
-    checkAutotools(srcdir, builddir)
+    check_autotools(srcdir, builddir)
 
     os.system('make -C %s' % builddir)
 
@@ -419,7 +419,7 @@ def copyUpdatedWidgets(updates, srcdir, builddir):
         if os.path.isfile(typelib):
             shutil.copy2(typelib, updates + libdir + "girepository-1.0")
 
-def copyTranslations(updates, srcdir, builddir):
+def copy_translations(updates, srcdir, builddir):
     localedir = "/usr/share/locale/"
 
     # Ensure all the message files are up to date
@@ -441,7 +441,7 @@ def copyTranslations(updates, srcdir, builddir):
                 shutil.copy2(srcdir + "/po/" + lang + ".mo",
                         updates + localedir + lang + "/LC_MESSAGES/anaconda.mo")
 
-def addRpms(updates_path, add_rpms):
+def add_rpms(updates_path, add_rpms):
     """Add content one or more RPM packages to the updates image
 
     :param updates_path: path to the updates image folder
@@ -468,7 +468,7 @@ def addRpms(updates_path, add_rpms):
         sys.stdout.write(cmd+"\n")
         os.system(cmd)
 
-def createUpdatesImage(cwd, updates):
+def create_updates_image(cwd, updates):
     os.chdir(updates)
     os.system("find . | cpio -c -o | pigz -9cv > %s/updates.img" % (cwd,))
     sys.stdout.write("updates.img ready\n")
@@ -521,9 +521,9 @@ def main():
     if not args.tag:
         # add a fake tag to the arguments to be consistent
         if args.offset < 1:
-            args.tag = getArchiveTag(configure, spec)
+            args.tag = get_archive_tag(configure, spec)
         else:
-            args.tag = getArchiveTagOffset(configure, spec, args.offset)
+            args.tag = get_archive_tag_offset(configure, spec, args.offset)
         sys.stdout.write("Using tag: %s\n" % args.tag)
 
     if args.builddir:
@@ -538,20 +538,20 @@ def main():
     if not os.path.isdir(updates):
         os.makedirs(updates)
 
-    copyUpdatedFiles(args.tag, updates, cwd, builddir)
+    copy_updated_files(args.tag, updates, cwd, builddir)
 
     if args.compile:
-        if isysChanged(args.tag):
-            copyUpdatedIsys(updates, cwd, builddir)
+        if isys_changed(args.tag):
+            copy_updated_isys(updates, cwd, builddir)
 
-        if widgetsChanged(args.tag):
-            copyUpdatedWidgets(updates, cwd, builddir)
+        if widgets_changed(args.tag):
+            copy_updated_widgets(updates, cwd, builddir)
 
-        if auditdChanged(args.tag):
-            copyUpdatedAuditd(updates, cwd, builddir)
+        if auditd_changed(args.tag):
+            copy_updated_auditd(updates, cwd, builddir)
 
     if args.po:
-        copyTranslations(updates, cwd, builddir)
+        copy_translations(updates, cwd, builddir)
 
     if args.add_rpms:
         args.add_rpms = list(set(args.add_rpms))
@@ -560,9 +560,9 @@ def main():
             print(os.path.basename(item))
 
     if args.add_rpms:
-        addRpms(updates, args.add_rpms)
+        add_rpms(updates, args.add_rpms)
 
-    createUpdatesImage(cwd, updates)
+    create_updates_image(cwd, updates)
 
     if not args.keep:
         shutil.rmtree(updates)
