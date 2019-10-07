@@ -27,6 +27,23 @@ class SourceSetupError(AnacondaError):
     pass
 
 
+@dbus_error("SourceTearDownError", namespace=PAYLOAD_NAMESPACE)
+class SourceTearDownError(AnacondaError):
+    """Error raised during the source tear down."""
+
+    def __init__(self, message, errors=None):
+        if errors:
+            message = message + "\n" + "\n".join(errors)
+
+        super().__init__(message)
+
+
+@dbus_error("IncompatibleSourceError", namespace=PAYLOAD_NAMESPACE)
+class IncompatibleSourceError(AnacondaError):
+    """Error raised when handler does not support given source."""
+    pass
+
+
 @dbus_error("InstallError", namespace=PAYLOAD_NAMESPACE)
 class InstallError(AnacondaError):
     """Error raised during payload installation."""

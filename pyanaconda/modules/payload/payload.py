@@ -22,7 +22,7 @@ from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.errors.payload import HandlerNotSetError
-from pyanaconda.modules.payload.handler_factory import HandlerFactory
+from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 
@@ -90,7 +90,7 @@ class PayloadModule(KickstartModule):
 
         # create handler if no handler is set already
         if not self.is_handler_set():
-            handler = HandlerFactory.create_handler_from_ks_data(data)
+            handler = HandlerFactory.create_from_ks_data(data)
             if not handler:
                 log.warning("No handler was created. Kickstart data passed in are lost.")
                 return
@@ -119,8 +119,16 @@ class PayloadModule(KickstartModule):
         """Create handler based on the passed type.
 
         :param handler_type: type of the desirable handler
-        :type handler_type: value of the payload.handler_factory.HandlerType enum
+        :type handler_type: value of the payload.base.constants.HandlerType enum
         """
-        handler = HandlerFactory.create_handler(handler_type)
+        handler = HandlerFactory.create(handler_type)
         self._initialize_handler(handler)
         return self._payload_handler_path
+
+    def create_source(self, source_type):
+        """Create source based on the passed type.
+
+        :param source_type: type of the desirable source
+        :type source_type: value of the payload.base.constants.SourceType enum
+        """
+        return SourceFactory.create(source_type)

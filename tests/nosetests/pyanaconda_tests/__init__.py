@@ -26,6 +26,7 @@ from unittest.mock import Mock, patch
 from xml.etree import ElementTree
 
 from pyanaconda.core.constants import DEFAULT_LANG
+from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.dbus.xml import XMLGenerator
@@ -176,13 +177,48 @@ def check_task_creation(test, task_path, publisher, task_class):
     :param task_path: DBus path of the task
     :param publisher: Mock instance of the pyanaconda.dbus.DBus.publish_object
     :param task_class: class of the tested task
+
+    :return: instance of the task
+    """
+    obj = check_dbus_object_creation(test, task_path, publisher, task_class)
+    test.assertIsInstance(obj, TaskInterface)
+
+    return obj
+
+
+def check_task_creation_list(test, task_paths, publisher, task_classes):
+    """Check that the list of DBus task is correctly created.
+
+    :param test: instance of TestCase
+    :param task_paths: DBus paths of the tasks
+    :type task_paths: [str]
+    :param publisher: Mock instance of the pyanaconda.dbus.DBus.publish_object
+    :param task_classes: list of classes of the tested tasks; the order is important here
+
+    :return: list of instances of tasks
+    """
+    res = []
+
+    for i in range(len(task_paths)):
+        res.append(check_task_creation(test, task_paths[i], publisher, task_classes[i]))
+
+    return res
+
+
+def check_dbus_object_creation(test, path, publisher, klass):
+    """Check that the custom DBus object is correctly created.
+
+    :param test: instance of TestCase
+    :param task: DBus path of the published object
+    :param publisher: Mock instance of the pyanaconda.dbus.DBus.publish_object
+    :param klass: class of the tested DBus object
     """
     publisher.assert_called_once()
     object_path, obj = publisher.call_args[0]
 
-    test.assertEqual(task_path, object_path)
-    test.assertIsInstance(obj, TaskInterface)
-    test.assertIsInstance(obj.implementation, task_class)
+    test.assertEqual(path, object_path)
+    test.assertIsInstance(obj.implementation, klass)
+    test.assertIsInstance(obj, InterfaceTemplate)
 
     return obj
 

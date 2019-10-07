@@ -19,22 +19,20 @@
 #
 import unittest
 
-from mock import Mock, patch
+from unittest.mock import Mock, patch, create_autospec
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
 
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.dbus.typing import get_native
-from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask
+    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
-from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
-    TeardownInstallationSourceTask, UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
@@ -47,16 +45,15 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.callback = Mock()
         self.live_os_interface.PropertiesChanged.connect(self.callback)
 
-    def image_path_empty_properties_test(self):
-        """Test Live OS handler image path property when not set."""
-        self.assertEqual(self.live_os_interface.ImagePath, "")
+    def _prepare_and_use_source(self):
+        source = create_autospec(LiveOSSourceModule())
+        source.image_path = "/test/path"
+        source.type = SourceType.LIVE_OS_IMAGE
+        source.is_ready.return_value = True
 
-    def image_path_properties_test(self):
-        """Test Live OS handler image path property is correctly set."""
-        self.live_os_interface.SetImagePath("/my/supper/image/path")
-        self.assertEqual(self.live_os_interface.ImagePath, "/my/supper/image/path")
-        self.callback.assert_called_once_with(
-            LIVE_OS_HANDLER.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
+        self.live_os_module.set_sources([source])
+
+        return source
 
     @patch("pyanaconda.modules.payload.live.live_os.get_dir_size")
     def space_required_properties_test(self, get_dir_size_mock):
@@ -98,68 +95,53 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.assertListEqual(self.live_os_interface.GetKernelVersionList(), kernel_list)
         kernel_list_callback.assert_called_once_with(kernel_list)
 
-    @patch("pyanaconda.modules.payload.live.live_os.stat")
-    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
-    def detect_live_os_image_failed_block_device_test(self, os_stat_mock, stat_mock):
-        """Test Live OS image detection failed block device check."""
-        # we have to patch this even thought that result is used in another mock
-        # otherwise we will skip the whole sequence
-        os_stat_mock.return_value = {stat_mock.ST_MODE: "whatever"}
-
-        stat_mock.S_ISBLK = Mock()
-        stat_mock.S_ISBLK.return_value = False
-
-        self.assertEqual(self.live_os_interface.DetectLiveOSImage(), "")
-
-    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
-    def detect_live_os_image_failed_nothing_found_test(self, os_stat_mock):
-        """Test Live OS image detection failed missing file."""
-        # we have to patch this even thought that result is used in another mock
-        # otherwise we will skip the whole sequence
-        os_stat_mock.side_effect = FileNotFoundError()
-
-        self.assertEqual(self.live_os_interface.DetectLiveOSImage(), "")
-
-    @patch("pyanaconda.modules.payload.live.live_os.stat")
-    @patch("pyanaconda.modules.payload.live.live_os.os.stat")
-    def detect_live_os_image_test(self, os_stat_mock, stat_mock):
-        """Test Live OS image detection."""
-        # we have to patch this even thought that result is used in another mock
-        # otherwise we will skip the whole sequence
-        stat_mock.S_ISBLK = Mock(return_value=True)
-
-        detected_image = self.live_os_interface.DetectLiveOSImage()
-        stat_mock.S_ISBLK.assert_called_once()
-
-        self.assertEqual(detected_image, "/dev/mapper/live-base")
-
     @patch_dbus_publish_object
-    def setup_installation_source_task_test(self, publisher):
-        """Test Live OS is able to create a setup installation source task."""
-        task_path = self.live_os_interface.SetupInstallationSourceWithTask()
+    def set_up_installation_sources_task_test(self, publisher):
+        """Test Live OS is able to create a set up installation sources task."""
+        self._prepare_and_use_source()
 
-        check_task_creation(self, task_path, publisher, SetupInstallationSourceTask)
+        task_path = self.live_os_interface.SetUpSourcesWithTask()
+
+        check_task_creation(self, task_path, publisher, SetUpSourcesTask)
 
     @patch_dbus_publish_object
     def prepare_system_for_installation_task_test(self, publisher):
         """Test Live OS is able to create a prepare installation task."""
+        self._prepare_and_use_source()
+
         task_path = self.live_os_interface.PreInstallWithTask()
 
         check_task_creation(self, task_path, publisher, PrepareSystemForInstallationTask)
 
     @patch_dbus_publish_object
-    def teardown_installation_source_task_test(self, publisher):
-        """Test Live OS is able to create a teardown installation source task."""
-        task_path = self.live_os_interface.TeardownInstallationSourceWithTask()
+    def prepare_system_for_installation_task_no_source_test(self, publisher):
+        """Test Live OS prepare installation task with no source fail."""
+        with self.assertRaises(SourceSetupError):
+            self.live_os_interface.PreInstallWithTask()
 
-        check_task_creation(self, task_path, publisher, TeardownInstallationSourceTask)
+    @patch_dbus_publish_object
+    def tear_down_installation_source_task_test(self, publisher):
+        """Test Live OS is able to create a tear down installation sources task."""
+        self._prepare_and_use_source()
+
+        task_path = self.live_os_interface.TearDownSourcesWithTask()
+
+        check_task_creation(self, task_path, publisher, TearDownSourcesTask)
 
     @patch_dbus_publish_object
     def install_with_task_test(self, publisher):
         """Test Live OS install with tasks."""
+        self._prepare_and_use_source()
+
         task_path = self.live_os_interface.InstallWithTask()
 
         check_task_creation(self, task_path, publisher, InstallFromImageTask)
+
+    @patch_dbus_publish_object
+    def install_with_task_no_source_test(self, publisher):
+        """Test Live OS install with tasks with no source fail."""
+        with self.assertRaises(SourceSetupError):
+            self.live_os_interface.InstallWithTask()
 
     @patch_dbus_publish_object
     def post_install_with_tasks_test(self, publisher):
@@ -182,79 +164,3 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
             self.assertEqual(object_path, task_paths[i])
             self.assertIsInstance(obj, TaskInterface)
             self.assertIsInstance(obj.implementation, task_classes[i])
-
-
-class LiveOSHandlerTasksTestCase(unittest.TestCase):
-
-    def setUp(self):
-        self.live_os_module = LiveOSHandlerModule()
-        self.live_os_interface = LiveOSHandlerInterface(self.live_os_module)
-
-        self.callback = Mock()
-        self.live_os_interface.PropertiesChanged.connect(self.callback)
-
-    @patch("pyanaconda.modules.payload.live.initialization.mount")
-    @patch("pyanaconda.modules.payload.live.initialization.stat")
-    @patch("os.stat")
-    @patch("pyanaconda.dbus.DBus.get_proxy")
-    def setup_install_source_task_test(self, proxy_getter, os_stat, stat, mount):
-        """Test Live OS setup installation source task."""
-        device_tree = Mock()
-        proxy_getter.return_value = device_tree
-        device_tree.ResolveDevice = Mock()
-        device_tree.ResolveDevice.return_value = "resolvedDeviceName"
-
-        device = DeviceData()
-        device.path = "/resolved/path/to/base/image"
-
-        device_tree.GetDeviceData = Mock()
-        device_tree.GetDeviceData.return_value = get_native(DeviceData.to_structure(device))
-
-        mount.return_value = 0
-
-        SetupInstallationSourceTask(
-            "/path/to/base/image",
-            "/path/to/mount/source/image"
-        ).run()
-
-        device_tree.ResolveDevice.assert_called_once_with("/path/to/base/image")
-        os_stat.assert_called_once_with("/resolved/path/to/base/image")
-
-    @patch("pyanaconda.dbus.DBus.get_proxy")
-    def setup_install_source_task_missing_image_test(self, proxy_getter):
-        """Test Live OS setup installation source task missing image error."""
-        device_tree = Mock()
-        proxy_getter.return_value = device_tree
-        device_tree.ResolveDevice = Mock()
-        device_tree.ResolveDevice.return_value = ""
-
-        with self.assertRaises(SourceSetupError):
-            SetupInstallationSourceTask(
-                "/path/to/base/image",
-                "/path/to/mount/source/image"
-            ).run()
-
-    @patch("pyanaconda.modules.payload.live.initialization.mount")
-    @patch("pyanaconda.modules.payload.live.initialization.stat")
-    @patch("os.stat")
-    @patch("pyanaconda.dbus.DBus.get_proxy")
-    def setup_install_source_task_failed_to_mount_test(self, proxy_getter, os_stat, stat, mount):
-        """Test Live OS setup installation source task mount error."""
-        device_tree = Mock()
-        proxy_getter.return_value = device_tree
-        device_tree.ResolveDevice = Mock()
-        device_tree.ResolveDevice.return_value = "resolvedDeviceName"
-
-        device = DeviceData()
-        device.path = "/resolved/path/to/base/image"
-
-        device_tree.GetDeviceData = Mock()
-        device_tree.GetDeviceData.return_value = get_native(DeviceData.to_structure(device))
-
-        mount.return_value = -20
-
-        with self.assertRaises(SourceSetupError):
-            SetupInstallationSourceTask(
-                "/path/to/base/image",
-                "/path/to/mount/source/image"
-            ).run()

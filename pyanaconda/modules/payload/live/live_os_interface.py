@@ -19,7 +19,6 @@
 #
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
@@ -32,24 +31,7 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
 
     def connect_signals(self):
         super().connect_signals()
-        self.watch_property("ImagePath", self.implementation.image_path_changed)
         self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
-
-    @property
-    def ImagePath(self) -> Str:
-        """Get the path to the Live OS base image.
-
-        This image will be used as the installation.
-        """
-        return self.implementation.image_path
-
-    @emits_properties_changed
-    def SetImagePath(self, image_path: Str):
-        """Set the path to the Live OS base image.
-
-        This image will be used as the installation source.
-        """
-        self.implementation.set_image_path(image_path)
 
     @property
     def SpaceRequired(self) -> UInt64:
@@ -59,23 +41,16 @@ class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.space_required
 
-    def DetectLiveOSImage(self) -> Str:
-        """Try to find valid live os image.
-
-        :return: path to the base image
-        """
-        return self.implementation.detect_live_os_base_image()
-
-    def SetupInstallationSourceWithTask(self) -> ObjPath:
-        """Setup installation source resources."""
+    def SetUpSourcesWithTask(self) -> ObjPath:
+        """Set up installation source."""
         return TaskContainer.to_object_path(
-            self.implementation.setup_installation_source_with_task()
+            self.implementation.set_up_sources_with_task()
         )
 
-    def TeardownInstallationSourceWithTask(self) -> ObjPath:
-        """Teardown installation source resources."""
+    def TearDownSourcesWithTask(self) -> ObjPath:
+        """Tear down installation sources."""
         return TaskContainer.to_object_path(
-            self.implementation.teardown_installation_source_with_task()
+            self.implementation.tear_down_sources_with_task()
         )
 
     def PreInstallWithTask(self) -> ObjPath:

@@ -20,10 +20,10 @@
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.base import KickstartModuleInterface
-
-from pyanaconda.modules.payload.handler_factory import HandlerType
+from pyanaconda.modules.common.containers import PayloadSourceContainer
+from pyanaconda.modules.common.constants.services import PAYLOAD
+from pyanaconda.modules.payload.base.constants import HandlerType, SourceType
 
 
 @dbus_interface(PAYLOAD.interface_name)
@@ -39,7 +39,7 @@ class PayloadInterface(KickstartModuleInterface):
         return self.implementation.is_handler_set()
 
     def CreateHandler(self, handler_type: Str) -> ObjPath:
-        """Create payload handler and publish it on a dbus.
+        """Create payload handler and publish it on DBus.
 
         handler_type could contain these values:
          - DNF
@@ -47,3 +47,14 @@ class PayloadInterface(KickstartModuleInterface):
          - LIVE_IMAGE
         """
         return self.implementation.create_handler(HandlerType(handler_type))
+
+    def CreateSource(self, source_type: Str) -> ObjPath:
+        """Create payload source and publish it on DBus.
+
+        source_type could contain these values:
+         - LIVE_OS_IMAGE
+        """
+
+        return PayloadSourceContainer.to_object_path(
+            self.implementation.create_source(SourceType(source_type))
+        )

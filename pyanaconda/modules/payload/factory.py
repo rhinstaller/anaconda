@@ -16,36 +16,44 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
-from enum import Enum, unique
+from abc import ABC, abstractclassmethod
 
+from pyanaconda.modules.payload.base.constants import HandlerType, SourceType
 from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
 from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
+from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
+
+__all__ = ["HandlerFactory", "SourceFactory"]
 
 
-@unique
-class HandlerType(Enum):
-    """Type of the payload handler."""
-    DNF = "DNF"
-    LIVE_OS = "LIVE_OS"
-    LIVE_IMAGE = "LIVE_IMAGE"
-
-
-class HandlerFactory(object):
-    """Factory to create payload handlers."""
+class BaseFactory(ABC):
+    """Factory to create payload objects."""
 
     @classmethod
-    def create_handler(cls, handler_type):
-        """Create handler of the given type.
+    def create(cls, handler_type):
+        """Create an object of the given type.
 
-        :param handler_type: value from the HandlerType enum
+        :param handler_type: value from the enum of given type
         """
-        handler = cls._create_handler(handler_type)
+        handler = cls._create(handler_type)
 
         return handler
 
+    @abstractclassmethod
+    def _create(cls, object_type):
+        """Return class from the type.
+
+        :rtype: class
+        """
+        pass
+
+
+class HandlerFactory(BaseFactory):
+    """Factory to create payload handlers."""
+
     @classmethod
-    def create_handler_from_ks_data(cls, data):
+    def create_from_ks_data(cls, data):
         """Create handler based on the KS data.
 
         :param data: kickstart data
@@ -55,7 +63,7 @@ class HandlerFactory(object):
         if handler_type is None:
             return None
 
-        return cls.create_handler(handler_type)
+        return cls.create(handler_type)
 
     @classmethod
     def _get_handler_type_from_ks(cls, data):
@@ -67,10 +75,19 @@ class HandlerFactory(object):
             return None
 
     @classmethod
-    def _create_handler(cls, handler_type):
-        if handler_type == HandlerType.LIVE_IMAGE:
+    def _create(cls, object_type):
+        if object_type == HandlerType.LIVE_IMAGE:
             return LiveImageHandlerModule()
-        elif handler_type == HandlerType.LIVE_OS:
+        elif object_type == HandlerType.LIVE_OS:
             return LiveOSHandlerModule()
-        elif handler_type == HandlerType.DNF:
+        elif object_type == HandlerType.DNF:
             return DNFHandlerModule()
+
+
+class SourceFactory(BaseFactory):
+    """Factory to create payload sources."""
+
+    @classmethod
+    def _create(cls, object_type):
+        if object_type == SourceType.LIVE_OS_IMAGE:
+            return LiveOSSourceModule()

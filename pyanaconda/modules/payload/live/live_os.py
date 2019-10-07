@@ -17,24 +17,21 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-import stat
-
 from pyanaconda.dbus import DBus
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.core.util import execWithCapture
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
+from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
+from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask
+    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payload.base.utils import get_dir_size
 from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
-from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceTask, \
-    TeardownInstallationSourceTask, UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list
 
@@ -48,11 +45,28 @@ class LiveOSHandlerModule(PayloadHandlerBase):
     def __init__(self):
         super().__init__()
 
-        self._image_path = ""
-        self.image_path_changed = Signal()
-
         self._kernel_version_list = []
         self.kernel_version_list_changed = Signal()
+
+    @property
+    def supported_source_types(self):
+        """Get list of sources supported by Live Image module."""
+        return [SourceType.LIVE_OS_IMAGE]
+
+    def set_sources(self, sources):
+        """Set new sources to this handler.
+
+        This payload is specific that it can't have more than only one source attached. It will
+        instead replace the old source with the new one.
+
+        :param source: source object
+        :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
+        :raises: IncompatibleSourceError
+        """
+        if len(sources) > 1:
+            raise IncompatibleSourceError("You can set only one source for this payload type.")
+
+        super().set_sources(sources)
 
     def publish_handler(self):
         """Publish the handler."""
@@ -66,24 +80,22 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         """Setup the kickstart data."""
 
     @property
-    def image_path(self):
-        """Path to the source live OS image.
+    def _image_source(self):
+        """Get the attached source object.
 
-        This image will be used for the installation.
+        This is a shortcut for this handler because it only support one source at a time.
 
-        :rtype: str
+        :return: a source object
         """
-        return self._image_path
+        if self.sources:
+            return list(self.sources)[0]
 
-    def set_image_path(self, image_path):
-        """Set path to the live os OS image.
+        return None
 
-        :param image_path: path to the image
-        :type image_path: str
-        """
-        self._image_path = image_path
-        self.image_path_changed.emit()
-        log.debug("LiveOS image path is set to '%s'", self._image_path)
+    def _check_source_availability(self, message):
+        """Test if source is available for this payload handler."""
+        if not self._image_source:
+            raise SourceSetupError(message)
 
     @property
     def space_required(self):
@@ -99,45 +111,30 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         """
         return get_dir_size("/") * 1024
 
-    def detect_live_os_base_image(self):
-        """Detect live os image in the system."""
-        log.debug("Trying to detect live os base image automatically")
-        for block_device in ["/dev/mapper/live-base", "/dev/mapper/live-osimg-min"]:
-            try:
-                if stat.S_ISBLK(os.stat(block_device)[stat.ST_MODE]):
-                    log.debug("Detected live base image %s", block_device)
-                    return block_device
-            except FileNotFoundError:
-                pass
+    def set_up_sources_with_task(self):
+        """Set up installation source."""
+        self._check_source_availability("Set up source failed - source is not set!")
 
-        # Is it a squashfs+overlayfs base image?
-        if os.path.exists("/run/rootfsbase"):
-            try:
-                block_device = execWithCapture("findmnt", ["-n", "-o", "SOURCE", "/run/rootfsbase"]).strip()
-                if block_device:
-                    log.debug("Detected live base image %s", block_device)
-                    return block_device
-            except (OSError, FileNotFoundError):
-                pass
+        return SetUpSourcesTask(self._sources)
 
-        log.debug("No live base image detected")
-        return ""
+    def tear_down_sources_with_task(self):
+        """Tear down installation sources."""
+        self._check_source_availability("Tear down source failed - source is not set!")
 
-    def setup_installation_source_with_task(self):
-        """Setup installation source device."""
-        return SetupInstallationSourceTask(self.image_path, INSTALL_TREE)
-
-    def teardown_installation_source_with_task(self):
-        """Teardown installation source device."""
-        return TeardownInstallationSourceTask(INSTALL_TREE)
+        return TearDownSourcesTask(self._sources)
 
     def pre_install_with_task(self):
         """Prepare intallation task."""
+        self._check_source_availability("Pre install task failed - source is not available!")
+
         return PrepareSystemForInstallationTask(conf.target.system_root)
 
     def install_with_task(self):
         """Install the payload."""
+        self._check_source_availability("Installation task failed - source is not available!")
+
         return InstallFromImageTask(
+            self._image_source,
             conf.target.system_root,
             self.kernel_version_list
         )
