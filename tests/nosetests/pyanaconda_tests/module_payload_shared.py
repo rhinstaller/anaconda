@@ -60,8 +60,7 @@ class PayloadHandlerMixin(object):
         :type expected_publish_calls: int
         """
         with patch('pyanaconda.dbus.DBus.publish_object') as publisher:
-
-            check_kickstart_interface(self, self.payload_interface, ks_in, ks_out)
+            check_kickstart_interface(self, self.payload_interface, ks_in, "", ks_tmp=ks_out)
 
             publisher.assert_called()
             self.assertEqual(publisher.call_count, expected_publish_calls)

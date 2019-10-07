@@ -123,9 +123,11 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
         test.assertEqual(interface.Kickstarted, False)
         callback.assert_not_called()
 
+    # Test the temporary kickstart.
     if ks_tmp is None:
-        ks_tmp = ks_out
+        return
 
+    ks_tmp = dedent(ks_tmp).strip()
     test.assertEqual(ks_tmp, interface.GenerateTemporaryKickstart().strip())
 
 
