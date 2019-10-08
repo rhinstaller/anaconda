@@ -381,6 +381,13 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
             net.device = "ksdev0" # we only get called once, so this is OK
             line.append("ifname=%s:%s" % (net.device, mac.lower()))
 
+    if net.device == "bootif":
+        if 'BOOTIF' in proc_cmdline:
+            bootif_mac = proc_cmdline["BOOTIF"][0][3:].replace("-", ":").upper()
+            net.device = find_devname(bootif_mac)
+        else:
+            net.device = None
+
     # NOTE: dracut currently only does ipv4 *or* ipv6, so only one ip=arg..
     if net.bootProto in (BOOTPROTO_DHCP, BOOTPROTO_BOOTP):
         autoconf="dhcp"
