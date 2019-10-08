@@ -51,6 +51,7 @@ class ZIPL(BootLoader):
     def __init__(self):
         super().__init__()
         self.stage1_name = None
+        self.secure = "auto"
 
     #
     # configuration
@@ -124,12 +125,18 @@ class ZIPL(BootLoader):
                 self.write_config_image(config, image, args)
 
     def write_config_header(self, config):
-        header = ("[defaultboot]\n"
-                  "defaultauto\n"
-                  "prompt=1\n"
-                  "timeout={}\n"
-                  "target=/boot\n")
-        config.write(header.format(self.timeout))
+        header = (
+            "[defaultboot]\n"
+            "defaultauto\n"
+            "prompt=1\n"
+            "timeout={}\n"
+            "target=/boot\n"
+            "secure={}\n"
+        )
+        config.write(header.format(
+            self.timeout,
+            self.secure
+        ))
 
         if self.use_bls and os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
             log.warning("BLS support disabled due new-kernel-pkg being present")

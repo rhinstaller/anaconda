@@ -72,6 +72,7 @@ class BootloaderExecutor(object):
         self._apply_location(storage, bootloader_proxy)
         self._apply_password(storage, bootloader_proxy)
         self._apply_timeout(storage, bootloader_proxy)
+        self._apply_zipl_secure_boot(storage, bootloader_proxy)
         self._apply_drive_order(storage, bootloader_proxy, dry_run=dry_run)
         self._apply_boot_drive(storage, bootloader_proxy, dry_run=dry_run)
 
@@ -115,6 +116,15 @@ class BootloaderExecutor(object):
         if timeout != BOOTLOADER_TIMEOUT_UNSET:
             log.debug("Applying bootloader timeout: %s", timeout)
             storage.bootloader.timeout = timeout
+
+    def _apply_zipl_secure_boot(self, storage, bootloader_proxy):
+        """Set up the ZIPL Secure Boot."""
+        if not blivet.arch.is_s390():
+            return
+
+        secure_boot = bootloader_proxy.ZIPLSecureBoot
+        log.debug("Applying ZIPL Secure Boot: %s", secure_boot)
+        storage.bootloader.secure = secure_boot
 
     def _is_usable_disk(self, d):
         """Is the disk usable for the bootloader?

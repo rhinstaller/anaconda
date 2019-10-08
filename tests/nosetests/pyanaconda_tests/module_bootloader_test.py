@@ -124,6 +124,13 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             25
         )
 
+    def secure_boot_property_test(self):
+        """Test the secure boot property."""
+        self._check_dbus_property(
+            "ZIPLSecureBoot",
+            "auto"
+        )
+
     def password_property_test(self):
         """Test the password property."""
         self._check_dbus_property(

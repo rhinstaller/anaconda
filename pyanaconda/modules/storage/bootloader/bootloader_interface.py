@@ -23,7 +23,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.storage.constants import BootloaderMode
+from pyanaconda.modules.storage.constants import BootloaderMode, ZIPLSecureBoot
 
 
 @dbus_interface(BOOTLOADER.interface_name)
@@ -41,6 +41,7 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("KeepBootOrder", self.implementation.keep_boot_order_changed)
         self.watch_property("ExtraArguments", self.implementation.extra_arguments_changed)
         self.watch_property("Timeout", self.implementation.timeout_changed)
+        self.watch_property("ZIPLSecureBoot", self.implementation.zipl_secure_boot_changed)
         self.watch_property("IsPasswordSet", self.implementation.password_is_set_changed)
 
     def GetDefaultType(self) -> Str:
@@ -191,6 +192,31 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         :param timeout: a number of seconds
         """
         self.implementation.set_timeout(timeout)
+
+    @property
+    def ZIPLSecureBoot(self) -> Str:
+        """The ZIPL Secure Boot for s390x."""
+        return self.implementation.zipl_secure_boot.value
+
+    @emits_properties_changed
+    def SetZIPLSecureBoot(self, value: Str):
+        """Set up the ZIPL Secure Boot for s390x.
+
+        Supported values:
+            0     Disable Secure Boot.
+            1     Enable Secure Boot (or fail if unsupported).
+            auto  Enable Secure Boot if supported.
+
+        Firmware will verify the integrity of the Linux kernel during
+        boot if the Secure Boot is enabled and configured on the machine.
+
+        Note: Secure Boot is not supported on IBM z14 and earlier models,
+        therefore choose to disable it if you intend to boot the installed
+        system on such models.
+
+        :param value: a string
+        """
+        self.implementation.set_zipl_secure_boot(ZIPLSecureBoot(value))
 
     @property
     def Password(self) -> Str:

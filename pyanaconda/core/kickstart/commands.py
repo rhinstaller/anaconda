@@ -85,6 +85,7 @@ from pykickstart.commands.volgroup import F21_VolGroup as VolGroup
 from pykickstart.commands.xconfig import F14_XConfig as XConfig
 from pykickstart.commands.zerombr import F9_ZeroMbr as ZeroMbr
 from pykickstart.commands.zfcp import F14_ZFCP as ZFCP
+from pykickstart.commands.zipl import F32_Zipl as Zipl
 
 # Supported kickstart data.
 from pykickstart.commands.btrfs import F23_BTRFSData as BTRFSData

@@ -49,3 +49,10 @@ class IscsiInterfacesMode(Enum):
     UNSET = ISCSI_INTERFACE_UNSET
     DEFAULT = ISCSI_INTERFACE_DEFAULT
     IFACENAME = ISCSI_INTERFACE_IFACENAME
+
+
+class ZIPLSecureBoot(Enum):
+    """The ZIPL Secure Boot options."""
+    DISABLED = "0"
+    ENABLED = "1"
+    AUTO = "auto"
