@@ -154,6 +154,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "volgroup": COMMANDS.VolGroup,
         "zerombr": COMMANDS.ZeroMbr,
         "zfcp": ZFCP,
+        "zipl": COMMANDS.Zipl
     }
 
     commands_data = {

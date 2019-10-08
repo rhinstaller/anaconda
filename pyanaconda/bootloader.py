@@ -2287,6 +2287,7 @@ class ZIPL(BootLoader):
     def __init__(self):
         super().__init__()
         self.stage1_name = None
+        self.secure = "auto"
 
     #
     # configuration
@@ -2357,12 +2358,18 @@ class ZIPL(BootLoader):
             self.update_bls_args(image, args)
 
     def write_config_header(self, config):
-        header = ("[defaultboot]\n"
-                  "defaultauto\n"
-                  "prompt=1\n"
-                  "timeout={}\n"
-                  "target=/boot\n")
-        config.write(header.format(self.timeout))
+        header = (
+            "[defaultboot]\n"
+            "defaultauto\n"
+            "prompt=1\n"
+            "timeout={}\n"
+            "target=/boot\n"
+            "secure={}\n"
+        )
+        config.write(header.format(
+            self.timeout,
+            self.secure
+        ))
 
     #
     # installation
