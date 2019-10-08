@@ -269,9 +269,6 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 # If no langs found, keep going
 %find_lang %{name} || :
 
-%ldconfig_scriptlets widgets
-
-
 
 # main package and install-env-deps are metapackages
 %files
