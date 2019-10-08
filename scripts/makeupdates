@@ -441,21 +441,21 @@ def copy_translations(updates, srcdir, builddir):
                 shutil.copy2(srcdir + "/po/" + lang + ".mo",
                         updates + localedir + lang + "/LC_MESSAGES/anaconda.mo")
 
-def add_rpms(updates_path, add_rpms):
+def add_rpms(updates_path, rpms):
     """Add content one or more RPM packages to the updates image
 
     :param updates_path: path to the updates image folder
     :type updates_path: string
-    :param add_rpms: list of paths to RPM files
-    :type add_rpms: list of strings
+    :param rpms: list of paths to RPM files
+    :type rpms: list of strings
     """
     # convert all the RPM paths to absolute paths, so that
     # relative paths can be used with -a/--add
-    add_rpms = map(os.path.abspath, add_rpms)
+    rpms = map(os.path.abspath, rpms)
 
     # resolve wildcards and also eliminate non-existing RPMs
     resolved_rpms = []
-    for rpm in add_rpms:
+    for rpm in rpms:
         resolved_path = glob.glob(rpm)
         if not(resolved_path):
             print("warning: requested rpm %s does not exist and can't be aded" % rpm)
