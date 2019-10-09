@@ -169,7 +169,7 @@ class Rescue(object):
                       <pyanaconda.kickstart.AnacondaKSScript>
 
     """
-    def __init__(self, storage, rescue_data=None, reboot=False, scripts=None):
+    def __init__(self, storage, rescue_data=None, reboot=False, scripts=None, rescue_nomount=True):
 
         self._storage = storage
         self._scripts = scripts
@@ -184,7 +184,7 @@ class Rescue(object):
 
         if rescue_data:
             self.automated = True
-            self.mount = not rescue_data.nomount
+            self.mount = (not rescue_data.nomount) and (not rescue_nomount)
             self.ro = rescue_data.romount
 
     def initialize(self):
@@ -576,13 +576,14 @@ def start_rescue_mode_ui(anaconda):
         ksdata_rescue = anaconda.ksdata.rescue
     scripts = anaconda.ksdata.scripts
     storage = anaconda.storage
+    rescue_nomount = anaconda.opts.rescue_nomount
     reboot = True
     if conf.target.is_image:
         reboot = False
     if flags.automatedInstall and anaconda.ksdata.reboot.action not in [KS_REBOOT, KS_SHUTDOWN]:
         reboot = False
 
-    rescue = Rescue(storage, ksdata_rescue, reboot, scripts)
+    rescue = Rescue(storage, ksdata_rescue, reboot, scripts, rescue_nomount)
     rescue.initialize()
 
     # We still want to choose from multiple roots, or unlock encrypted devices
