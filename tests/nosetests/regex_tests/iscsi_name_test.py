@@ -27,7 +27,8 @@ class iSCSIiqnnameRegexTestCase(unittest.TestCase):
                 'iqn.2014-15.c-om.example:iscsi',
                 'iqn.2014-15.c.om.example:iscsi',
                 'iqn.2014-15.com.example:...',
-                'iqn.2014-15.com.example:iscsi_@nything_except_colon_after_colon!'
+                'iqn.2014-15.com.example:iscsi_@nything_after_colon_including:!',
+                'iqn.2001-04.com.example:storage:diskarrays-sn-a8675309',
                 ]
 
         bad_tests = [
@@ -46,8 +47,8 @@ class iSCSIiqnnameRegexTestCase(unittest.TestCase):
                 'abciqn.2014-15.com.example:iscsi',
                 'iqn.2014-15.-.example:iscsi',
                 'iqn.2014-15.com&com.example:iscsi',
-                'iqn.2014-15.com.example:iscsi:doublecolon',
                 'iqn.2014-15..om.example:iscsi',
+                'iqn.2014-15.com.example:iscsi no space allowed',
                 ]
 
         if not regex_match(ISCSI_IQN_NAME_REGEX, good_tests, bad_tests):
