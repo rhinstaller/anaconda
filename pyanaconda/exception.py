@@ -321,7 +321,9 @@ def initExceptionHandling(anaconda):
 def lsblk_callback():
     """Callback to get info about block devices."""
 
-    return util.execWithCapture("lsblk", ["--perms", "--fs", "--bytes"])
+    options = "NAME,SIZE,OWNER,GROUP,MODE,FSTYPE,LABEL,UUID,PARTUUID,MOUNTPOINT"
+
+    return util.execWithCapture("lsblk", ["--bytes", "-o", options])
 
 
 def nmcli_dev_list_callback():
