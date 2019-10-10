@@ -106,6 +106,11 @@ class PayloadModule(KickstartModule):
     def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
+        return ""
+
+    def generate_temporary_kickstart(self):
+        """Return the kickstart string."""
+        log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
 
         try:

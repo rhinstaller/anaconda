@@ -28,8 +28,11 @@ from xml.etree import ElementTree
 from pyanaconda.core.constants import DEFAULT_LANG
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.dbus.xml import XMLGenerator
+from pyanaconda.dbus.typing import get_native
+
 
 # Set the default locale.
 locale.setlocale(locale.LC_ALL, DEFAULT_LANG)
@@ -101,16 +104,11 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
     # Read a kickstart,
     if ks_in is not None:
         ks_in = dedent(ks_in).strip()
-        result = {k: v.unpack() for k, v in interface.ReadKickstart(ks_in).items()}
+        result = KickstartReport.from_structure(get_native(interface.ReadKickstart(ks_in)))
+        test.assertEqual(ks_valid, result.is_valid())
 
-        if ks_valid:
-            test.assertEqual(result, {"success": True})
-        else:
-            test.assertIn("success", result)
-            test.assertEqual(result["success"], False)
-            test.assertIn("line_number", result)
-            test.assertIn("error_message", result)
-            return
+    if not ks_valid:
+        return
 
     if ks_out is None:
         return
@@ -126,9 +124,11 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
         test.assertEqual(interface.Kickstarted, False)
         callback.assert_not_called()
 
+    # Test the temporary kickstart.
     if ks_tmp is None:
-        ks_tmp = ks_out
+        return
 
+    ks_tmp = dedent(ks_tmp).strip()
     test.assertEqual(ks_tmp, interface.GenerateTemporaryKickstart().strip())
 
 

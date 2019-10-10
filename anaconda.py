@@ -421,7 +421,7 @@ if __name__ == "__main__":
     # start dbus session (if not already running) and run boss in it
     try:
         anaconda.dbus_launcher.start()
-    except TimeoutError as e:
+    except Exception as e:    # pylint: disable=broad-except
         stdout_log.error(str(e))
         anaconda.dbus_launcher.stop()
         util.ipmi_report(constants.IPMI_ABORTED)

@@ -17,18 +17,50 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.modules.common.constants.interfaces import BOSS_ANACONDA
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
 
 
 @dbus_interface(BOSS.interface_name)
 class BossInterface(InterfaceTemplate):
     """DBus interface for the Boss."""
+
+    def StartModulesWithTask(self) -> ObjPath:
+        """Start modules with the task.
+
+        :return: a DBus path of the task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.start_modules_with_task()
+        )
+
+    def ReadKickstartFile(self, path: Str) -> Structure:
+        """Read the specified kickstart file.
+
+        :param path: a path to a file
+        :returns: a structure with a kickstart report
+        """
+        return KickstartReport.to_structure(
+            self.implementation.read_kickstart_file(path)
+        )
+
+    def GenerateKickstart(self) -> Str:
+        """Return a kickstart representation of modules.
+
+        :return: a kickstart string
+        """
+        return self.implementation.generate_kickstart()
+
+    def SetLocale(self, locale: Str):
+        """Set locale of boss and all modules.
+
+        Examples: "cs_CZ.UTF-8", "fr_FR"
+        """
+        self.implementation.set_locale(locale)
 
     def InstallSystemWithTask(self) -> ObjPath:
         """Install the system.
@@ -42,55 +74,3 @@ class BossInterface(InterfaceTemplate):
     def Quit(self):
         """Stop all modules and then stop the boss."""
         self.implementation.stop()
-
-
-@dbus_interface(BOSS_ANACONDA.interface_name)
-class AnacondaBossInterface(BossInterface):
-    """Temporary extension of the boss for anaconda.
-
-    Used for synchronization with anaconda during transition.
-    """
-
-    def StartModules(self):
-        """Start the kickstart modules."""
-        self.implementation.start_modules()
-
-    @property
-    def AllModulesAvailable(self) -> Bool:
-        """Returns true if all modules are available."""
-        return self.implementation.all_modules_available
-
-    @property
-    def UnprocessedKickstart(self) -> Str:
-        """Returns kickstart containing parts that are not handled by any module."""
-        return self.implementation.unprocessed_kickstart
-
-    def SplitKickstart(self, path: Str):
-        """Splits the kickstart for modules.
-
-        :raises SplitKickstartError: if parsing fails
-        """
-        self.implementation.split_kickstart(path)
-
-    def DistributeKickstart(self) -> List[Dict[Str, Variant]]:
-        """Distributes kickstart to modules synchronously.
-
-        Assumes all modules are started.
-
-        :returns: list of kickstart errors
-        """
-        results = self.implementation.distribute_kickstart()
-
-        return [{
-            "module_name": get_variant(Str, result["module_name"]),
-            "file_name": get_variant(Str, result["file_name"]),
-            "line_number": get_variant(Int, result["line_number"]),
-            "error_message": get_variant(Str, result["error_message"])
-        } for result in results]
-
-    def SetLocale(self, locale: Str):
-        """Set locale of boss and all modules.
-
-        Examples: "cs_CZ.UTF-8", "fr_FR"
-        """
-        self.implementation.set_locale(locale)

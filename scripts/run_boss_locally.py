@@ -16,7 +16,8 @@ from gi.repository import Gio
 
 from pyanaconda.dbus import DBusConnection
 from pyanaconda.modules.common.constants.services import BOSS
-from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
+from pyanaconda.modules.common.task import sync_run_task
 
 try:
     from colorama import Fore, Style
@@ -54,7 +55,9 @@ def start_anaconda_services():
     bus_proxy.StartServiceByName(BOSS.service_name, 0)
 
     boss_proxy = test_dbus_connection.get_proxy(BOSS.service_name, BOSS.object_path)
-    boss_proxy.StartModules()
+    task_path = boss_proxy.StartModulesWithTask()
+    task_proxy = test_dbus_connection.get_proxy(BOSS.service_name, task_path)
+    sync_run_task(task_proxy)
 
 def distribute_kickstart(ks_path):
     tmpfile = tempfile.mktemp(suffix=".run_boss_locally.ks")
@@ -62,21 +65,10 @@ def distribute_kickstart(ks_path):
     print(RED + "distributing kickstart {}".format(tmpfile) + RESET)
     boss_object = test_dbus_connection.get_proxy(BOSS.service_name, BOSS.object_path)
     try:
-        boss_object.SplitKickstart(tmpfile)
-    except SplitKickstartError as e:
-        print("distribute_kickstart: SplitKickstart() exception: {}".format(e))
-    else:
-        unprocessed_kickstart = boss_object.UnprocessedKickstart
-        print("distribute_kickstart: SplitKickstart({}):\n{}".format(tmpfile, unprocessed_kickstart))
-        timeout = 10
-        while not boss_object.AllModulesAvailable and timeout > 0:
-            print("distribute_kickstart: waiting for modules to start")
-            time.sleep(1)
-            timeout = timeout - 1
-        errors = boss_object.DistributeKickstart()
-        print("distribute_kickstart: DistributeKickstart() errors: {}".format(errors))
-        unprocessed_kickstart = boss_object.UnprocessedKickstart
-        print("distribute_kickstart: DistributeKickstart() unprocessed:\n{}".format(unprocessed_kickstart))
+        report = KickstartReport.from_structure(
+            boss_object.ReadKickstartFile(tmpfile)
+        )
+        print("distribute_kickstart: ReadKickstartFile() errors: {}".format(str(report)))
     finally:
         os.unlink(tmpfile)
 

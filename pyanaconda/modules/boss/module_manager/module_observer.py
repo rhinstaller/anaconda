@@ -68,10 +68,6 @@ class ModuleObserver(DBusObserver):
         self._proxy = None
         super()._disable_service()
 
-    def __str__(self):
-        """Returns a string version of this object."""
-        return self._object_path
-
     def __repr__(self):
         """Returns a string representation."""
         return "{}({},{})".format(self.__class__.__name__,

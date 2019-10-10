@@ -29,7 +29,7 @@ class InstallManagerTestCase(unittest.TestCase):
     def install_with_no_modules_test(self):
         """Install with no modules."""
         install_manager = InstallManager()
-        install_manager.module_observers = []
+        install_manager.on_module_observers_changed([])
         main_task = install_manager.install_system_with_task()
         self.assertIsInstance(main_task, SystemInstallationTask)
         self.assertEqual(main_task._subtasks, [])
@@ -42,7 +42,7 @@ class InstallManagerTestCase(unittest.TestCase):
         observer.proxy.InstallWithTasks.return_value = []
 
         install_manager = InstallManager()
-        install_manager.module_observers = [observer]
+        install_manager.on_module_observers_changed([observer])
         main_task = install_manager.install_system_with_task()
 
         self.assertIsInstance(main_task, SystemInstallationTask)
@@ -61,7 +61,7 @@ class InstallManagerTestCase(unittest.TestCase):
         proxy_getter.return_value = task_proxy
 
         install_manager = InstallManager()
-        install_manager.module_observers = [observer]
+        install_manager.on_module_observers_changed([observer])
         main_task = install_manager.install_system_with_task()
 
         proxy_getter.assert_called_once_with("A", "/A/1")
@@ -92,7 +92,7 @@ class InstallManagerTestCase(unittest.TestCase):
         proxy_getter.return_value = task_proxy
 
         install_manager = InstallManager()
-        install_manager.module_observers = observers
+        install_manager.on_module_observers_changed(observers)
         main_task = install_manager.install_system_with_task()
 
         proxy_getter.assert_has_calls([

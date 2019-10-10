@@ -21,10 +21,10 @@ import os
 from contextlib import contextmanager
 from mock import Mock
 
+from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
-from pyanaconda.modules.common.errors.kickstart import SplitKickstartSectionParsingError, \
-    SplitKickstartMissingIncludeError
 from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
+from pyanaconda.modules.common.structures.kickstart import KickstartReport, KickstartMessage
 
 KICKSTART1 = """
 text
@@ -136,6 +136,26 @@ m3_kickstart = """
 %end
 """.lstrip()
 
+m123_kickstart = """
+network --device ens3
+network --device ens4 --activate
+network --device=ens51 --activate
+network --device=ens541 --activate
+network --device=ens55 --activate
+network --device=ens56 --activate
+network --hostname=PARSE_ERROR
+firewall --enabled
+
+%addon pony --fly=True
+%end
+
+%packages --ignoremissing
+@core
+@PARSE_ERROR
+@base
+%end
+""".strip()
+
 unprocessed_kickstart = """
 text
 %pre
@@ -179,7 +199,7 @@ class KickstartManagerTestCase(unittest.TestCase):
         self._m1_kickstart = m1_kickstart
         self._m2_kickstart = m2_kickstart
         self._m3_kickstart = m3_kickstart
-        self._unprocessed_kickstart = unprocessed_kickstart
+        self._m123_kickstart = m123_kickstart
 
     @contextmanager
     def _create_ks_files(self, kickstart):
@@ -213,42 +233,48 @@ class KickstartManagerTestCase(unittest.TestCase):
         m3_observer = self._get_module_observer("3", module3)
         m4_observer = self._get_module_observer("4", module4, available=False)
 
-        manager.module_observers = [
+        manager.on_module_observers_changed([
             m1_observer,
             m2_observer,
             m3_observer,
             m4_observer
-        ]
+        ])
 
         with self._create_ks_files(self._kickstart_include) as filename:
-            manager.split(filename)
-
-        errors = manager.distribute()
+            report = manager.read_kickstart_file(filename)
 
         self.assertEqual(module1.kickstart, self._m1_kickstart)
         self.assertEqual(module2.kickstart, self._m2_kickstart)
         self.assertEqual(module3.kickstart, self._m3_kickstart)
         self.assertEqual(module4.kickstart, "")
-        self.assertEqual(manager.unprocessed_kickstart, self._unprocessed_kickstart)
 
-        expected_errors = [
-            {
-                "success": False,
-                "error_message": "Mocked parse error: \"PARSE_ERROR\" found",
-                "line_number": 5,
-                "module_name": "1",
-                "file_name": "ks.manager.test.include1.cfg"
-            },
-            {
-                "success": False,
-                "error_message": "Mocked parse error: \"PARSE_ERROR\" found",
-                "line_number": 41,
-                "module_name": "3",
-                "file_name": "ks.manager.test.include.cfg"
-            }
-        ]
+        self.assertEqual(report.is_valid(), False)
+        self.assertEqual(len(report.get_messages()), 2)
 
-        self.assertEqual(errors, expected_errors)
+        error = report.get_messages()[0]
+        self.assertEqual(error.module_name, "1")
+        self.assertEqual(error.file_name, "ks.manager.test.include1.cfg")
+        self.assertEqual(error.line_number, 5)
+        self.assertEqual(error.message, "Mocked parse error: \"PARSE_ERROR\" found")
+
+        error = report.get_messages()[1]
+        self.assertEqual(error.module_name, "3")
+        self.assertEqual(error.file_name, "ks.manager.test.include.cfg")
+        self.assertEqual(error.line_number, 41)
+        self.assertEqual(error.message, "Mocked parse error: \"PARSE_ERROR\" found")
+
+        self.assertEqual(manager.generate_kickstart(), self._m123_kickstart)
+
+    def nothing_to_parse_test(self):
+        ks_content = ""
+        manager = KickstartManager()
+        with self._create_ks_files([("ks.mgr.test.empty.cfg", ks_content)]) as filename:
+            report = manager.read_kickstart_file(filename)
+
+        self.assertEqual(report.is_valid(), True)
+        self.assertEqual(len(report.get_messages()), 0)
+
+        self.assertEqual(manager.generate_kickstart(), "")
 
     def unknown_section_split_test(self):
         ks_content = """
@@ -259,7 +285,16 @@ blah
 """.strip()
         manager = KickstartManager()
         with self._create_ks_files([("ks.mgr.test.unknown_sect.cfg", ks_content)]) as filename:
-            self.assertRaises(SplitKickstartSectionParsingError, manager.split, filename)
+            report = manager.read_kickstart_file(filename)
+
+        self.assertEqual(report.is_valid(), False)
+        self.assertEqual(len(report.get_messages()), 1)
+
+        error = report.get_messages()[0]
+        self.assertEqual(error.module_name, "org.fedoraproject.Anaconda.Boss")
+        self.assertEqual(error.file_name, "ks.mgr.test.unknown_sect.cfg")
+        self.assertEqual(error.line_number, 2)
+        self.assertEqual(error.message, 'Unknown kickstart section: %unknown_section')
 
     def missing_section_end_split_test(self):
         ks_content = """
@@ -269,7 +304,16 @@ blah
 """.strip()
         manager = KickstartManager()
         with self._create_ks_files([("ks.mgr.test.missing_end.cfg", ks_content)]) as filename:
-            self.assertRaises(SplitKickstartSectionParsingError, manager.split, filename)
+            report = manager.read_kickstart_file(filename)
+
+        self.assertEqual(report.is_valid(), False)
+        self.assertEqual(len(report.get_messages()), 1)
+
+        error = report.get_messages()[0]
+        self.assertEqual(error.module_name, "org.fedoraproject.Anaconda.Boss")
+        self.assertEqual(error.file_name, "ks.mgr.test.missing_end.cfg")
+        self.assertEqual(error.line_number, 3)
+        self.assertEqual(error.message, 'Section %packages does not end with %end.')
 
     def missing_include_split_test(self):
         ks_content = """
@@ -278,7 +322,26 @@ network --device=ens3
 """.strip()
         manager = KickstartManager()
         with self._create_ks_files([("ks.mgr.test.missing_include.cfg", ks_content)]) as filename:
-            self.assertRaises(SplitKickstartMissingIncludeError, manager.split, filename)
+            report = manager.read_kickstart_file(filename)
+
+        self.assertEqual(report.is_valid(), False)
+        self.assertEqual(len(report.get_messages()), 1)
+
+        error = report.get_messages()[0]
+        self.assertEqual(
+            error.module_name, "org.fedoraproject.Anaconda.Boss"
+        )
+        self.assertEqual(
+            error.file_name, "ks.mgr.test.missing_include.cfg"
+        )
+        self.assertEqual(
+            error.line_number, 0
+        )
+        self.assertEqual(
+            error.message,
+            "Unable to open input kickstart file: Error opening file: "
+            "[Errno 2] No such file or directory: 'missing_include.cfg'"
+        )
 
 
 class TestModule(object):
@@ -307,13 +370,17 @@ class TestModule(object):
         Returns parse error if PARSE_ERROR string is found in kickstart.
         """
         self.kickstart = kickstart
+        report = KickstartReport()
 
         for lnum, line in enumerate(kickstart.splitlines(), 1):
             if "PARSE_ERROR" in line:
-                return {
-                    "success": False,
-                    "error_message": "Mocked parse error: \"PARSE_ERROR\" found",
-                    "line_number": lnum
-                }
+                data = KickstartMessage()
+                data.message = "Mocked parse error: \"PARSE_ERROR\" found"
+                data.line_number = lnum
+                report.error_messages.append(data)
 
-        return {"success": True}
+        return get_native(KickstartReport.to_structure(report))
+
+    def GenerateKickstart(self):
+        """Mock generating a kickstart."""
+        return self.kickstart

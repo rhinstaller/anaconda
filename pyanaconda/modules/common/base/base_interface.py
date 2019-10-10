@@ -17,14 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.errors import KickstartError
-
 from pyanaconda.modules.common.base.base_template import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.structures.requirement import Requirement
 
 
@@ -80,22 +79,15 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         self.implementation.kickstarted = kickstarted
 
     @emits_properties_changed
-    def ReadKickstart(self, kickstart: Str) -> Dict[Str, Variant]:
+    def ReadKickstart(self, kickstart: Str) -> Structure:
         """Read the kickstart string.
 
         :param kickstart: a kickstart string
-        :returns: a dictionary with a result
+        :returns: a structure with a kickstart report
         """
-        try:
+        return KickstartReport.to_structure(
             self.implementation.read_kickstart(kickstart)
-        except KickstartError as e:
-            return {
-                "success": get_variant(Bool, False),
-                "error_message": get_variant(Str, str(e.message)),
-                "line_number": get_variant(Int, e.lineno)
-            }
-
-        return {"success": get_variant(Bool, True)}
+        )
 
     def GenerateKickstart(self) -> Str:
         """Return a kickstart representation of the module
