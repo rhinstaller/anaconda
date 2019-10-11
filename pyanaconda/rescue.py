@@ -184,7 +184,7 @@ class Rescue(object):
 
         if rescue_data:
             self.automated = True
-            self.mount = (not rescue_data.nomount) and (not rescue_nomount)
+            self.mount = not (rescue_data.nomount or rescue_nomount)
             self.ro = rescue_data.romount
 
     def initialize(self):
