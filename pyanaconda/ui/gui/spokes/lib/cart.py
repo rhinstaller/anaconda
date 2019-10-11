@@ -16,6 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import arch
+
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.core.constants import BOOTLOADER_ENABLED, BOOTLOADER_LOCATION_MBR, \
     BOOTLOADER_DRIVE_UNSET, BOOTLOADER_SKIPPED
@@ -54,6 +56,10 @@ class SelectedDisksDialog(GUIObject):
         self._summary_label = self.builder.get_object("summary_label")
         self._set_button = self.builder.get_object("set_as_boot_button")
         self._remove_button = self.builder.get_object("remove_button")
+        self._secure_boot_box = self.builder.get_object("secure_boot_box")
+        self._secure_boot_combo = self.builder.get_object("secure_boot_combo")
+
+        self._initialize_zipl_secure_boot()
 
         self._update_disks()
         self._update_summary()
@@ -153,6 +159,10 @@ class SelectedDisksDialog(GUIObject):
         self._remove_button.set_sensitive(len(self._store) > 0)
 
     def on_close_clicked(self, button):
+        # Save the secure boot settings.
+        self._apply_zipl_secure_boot()
+
+        # Save the boot device setting, if something was selected.
         boot_device = None
 
         for row in self._store:
@@ -212,3 +222,18 @@ class SelectedDisksDialog(GUIObject):
             self._previous_boot_device = self._store[itr][NAME_COL]
 
         self._toggle_button_text(self._store[itr])
+
+    def _initialize_zipl_secure_boot(self):
+        if not arch.is_s390():
+            self._secure_boot_box.hide()
+            return
+
+        secure_boot = self._bootloader_module.ZIPLSecureBoot
+        self._secure_boot_combo.set_active_id(secure_boot)
+
+    def _apply_zipl_secure_boot(self):
+        if not arch.is_s390():
+            return
+
+        secure_boot = self._secure_boot_combo.get_active_id()
+        self._bootloader_module.SetZIPLSecureBoot(secure_boot)
