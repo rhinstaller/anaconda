@@ -202,14 +202,14 @@ class ErrorHandler(object):
     def _install_specs_handler(self, exn):
         broken_packages = exn.error_pkg_specs
         broken_groups_modules = exn.error_group_specs
-        module_debsolv_errors = exn.module_debsolv_errors
+        module_depsolv_errors = exn.module_depsolv_errors
 
         # We use the nice exception string representation
         # provided by DNF as the base of our error message.
         message = "{}\n\n".format(exn)
 
         # if we have at least one broken package, group or module we will abort the installation
-        if broken_packages or broken_groups_modules or module_debsolv_errors:
+        if broken_packages or broken_groups_modules or module_depsolv_errors:
             message = message + _("Some packages, groups or modules are broken, the installation "
                                   "will be aborted.")
             self.ui.showError(message)
