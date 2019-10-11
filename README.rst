@@ -28,3 +28,8 @@ I want to do an automated installation!
 ---------------------------------------
 
 Kickstart has you covered! Check out the docs at: https://pykickstart.readthedocs.io
+
+I want to follow the project!
+-----------------------------
+
+Subscribe to our blog website at: https://rhinstaller.wordpress.com
