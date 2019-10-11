@@ -82,7 +82,7 @@ ERROR_RETRY = 2
 
 
 ###
-### TOP-LEVEL ERROR HANDLING OBJECT
+# TOP-LEVEL ERROR HANDLING OBJECT
 ###
 
 class ErrorHandler(object):
@@ -210,7 +210,8 @@ class ErrorHandler(object):
 
         # if we have at least one broken package, group or module we will abort the installation
         if broken_packages or broken_groups_modules or module_debsolv_errors:
-            message = message + _("Some packages, groups or modules are broken, the installation will be aborted.")
+            message = message + _("Some packages, groups or modules are broken, the installation "
+                                  "will be aborted.")
             self.ui.showError(message)
             return ERROR_RAISE
         # "just" missing packages, groups or modules - we give the user an option to continue
@@ -229,7 +230,7 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def  _multiple_module_streams_specified(self, exn):
+    def _multiple_module_streams_specified(self, exn):
         message = _("Multiple streams have been specified for a single module. This is "
                     "a fatal error and installation will be aborted. The details "
                     "of this error are:\n\n%(exception)s") % \
@@ -319,7 +320,7 @@ class ErrorHandler(object):
                 "NoSuchGroup": self._noSuchGroupHandler,
                 "NoStreamSpecifiedException": self._no_module_stream_specified,
                 "InstallMoreStreamsException": self._multiple_module_streams_specified,
-                "MarkingErrors" : self._install_specs_handler,
+                "MarkingErrors": self._install_specs_handler,
                 "ScriptError": self._scriptErrorHandler,
                 "PayloadInstallError": self._payloadInstallHandler,
                 "DependencyError": self._dependencyErrorHandler,
