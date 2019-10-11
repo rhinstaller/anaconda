@@ -254,8 +254,8 @@ class ErrorHandler(object):
         return ERROR_RAISE
 
     def _dependencyErrorHandler(self, exn):
-        message = _("The following software marked for installation has errors.  "
-                    "This is likely caused by an error with\nyour installation source.")
+        message = _("The following software marked for installation has errors.\n"
+                    "This is likely caused by an error with your installation source.")
         details = str(exn)
 
         self.ui.showDetailedError(message, details)
