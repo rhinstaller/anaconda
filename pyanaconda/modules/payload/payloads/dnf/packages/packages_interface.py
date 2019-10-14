@@ -23,7 +23,7 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
-from pyanaconda.modules.payload.dnf.packages.constants import MultilibPolicy
+from pyanaconda.modules.payload.payloads.dnf.packages.constants import MultilibPolicy
 
 
 @dbus_interface(DNF_PACKAGES.interface_name)

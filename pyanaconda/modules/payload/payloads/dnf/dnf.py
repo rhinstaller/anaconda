@@ -20,8 +20,8 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
-from pyanaconda.modules.payload.dnf.dnf_interface import DNFHandlerInterface
-from pyanaconda.modules.payload.dnf.packages.packages import PackagesHandlerModule
+from pyanaconda.modules.payload.payloads.dnf.dnf_interface import DNFHandlerInterface
+from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesHandlerModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
