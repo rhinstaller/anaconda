@@ -17,7 +17,7 @@
 SUBDIRS = packages
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-dnf_moduledir = $(pkgpyexecdir)/modules/payload/dnf
+dnf_moduledir = $(pkgpyexecdir)/modules/payload/payloads/dnf
 dnf_module_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
