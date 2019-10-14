@@ -27,14 +27,14 @@ from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadHandle
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
-from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
-from pyanaconda.modules.payload.live.live_image_interface import LiveImageHandlerInterface
+from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
+from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
+    LiveImageHandlerInterface
 from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
     SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, \
     TeardownInstallationSourceImageTask
 from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
-
 
 
 class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
@@ -166,7 +166,7 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
         """Test Live Image RequiredSpace property."""
         self.assertEqual(self.live_image_interface.RequiredSpace, 1024 * 1024 * 1024)
 
-    @patch("pyanaconda.modules.payload.live.live_image.get_kernel_version_list")
+    @patch("pyanaconda.modules.payload.payloads.live_image.live_image.get_kernel_version_list")
     def empty_kernel_version_list_test(self, get_kernel_version_list):
         """Test Live Image empty get kernel version list."""
         self.assertEqual(self.live_image_interface.GetKernelVersionList(), [])
@@ -183,7 +183,7 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.live_image_interface.GetKernelVersionList(), [])
         kernel_list_callback.assert_called_once_with([])
 
-    @patch("pyanaconda.modules.payload.live.live_image.get_kernel_version_list")
+    @patch("pyanaconda.modules.payload.payloads.live_image.live_image.get_kernel_version_list")
     def kernel_version_list_test(self, get_kernel_version_list):
         """Test Live Image get kernel version list."""
         kernel_list = ["kernel-abc", "magic-kernel.fc3000.x86_64", "sad-kernel"]
@@ -213,7 +213,8 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
 
         check_task_creation(self, task_path, publisher, SetupInstallationSourceImageTask)
 
-    @patch("pyanaconda.modules.payload.live.live_image.url_target_is_tarfile", lambda x: True)
+    @patch("pyanaconda.modules.payload.payloads.live_image.live_image.url_target_is_tarfile",
+           lambda x: True)
     @patch_dbus_publish_object
     def install_with_task_from_tar_test(self, publisher):
         """Test Live Image install with tasks from tarfile."""
@@ -221,7 +222,8 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
 
         check_task_creation(self, task_path, publisher, InstallFromTarTask)
 
-    @patch("pyanaconda.modules.payload.live.live_image.url_target_is_tarfile", lambda x: False)
+    @patch("pyanaconda.modules.payload.payloads.live_image.live_image.url_target_is_tarfile",
+           lambda x: False)
     @patch_dbus_publish_object
     def install_with_task_from_image_test(self, publisher):
         """Test Live Image install with tasks from image."""
