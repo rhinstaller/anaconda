@@ -155,19 +155,6 @@ bumpver: po-pull
 	rm $(srcdir)/po/{main,extra}.pot
 	zanata push $(ZANATA_PUSH_ARGS)
 
-# Generate an updates.img based on the changed files since the release
-# was tagged.  Updates are copied to ./updates-img and then the image is
-# created.  By default, the updates subdirectory is removed after the
-# image is made, but if you want to keep it around, run:
-#     make updates.img KEEP=y
-updates:
-	@opts="-c" ; \
-	keep="$$(echo $(KEEP) | cut -c1 | tr [a-z] [A-Z])" ; \
-	if [ "$${keep}" = "Y" ]; then \
-		opts="$${opts} -k" ; \
-	fi ; \
-	( cd $(srcdir) && scripts/makeupdates $${opts} -b '$(abs_builddir)' )
-
 # GUI TESTING
 runglade:
 	ANACONDA_DATA=$(srcdir)/data \
