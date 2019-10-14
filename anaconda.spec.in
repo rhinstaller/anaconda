@@ -344,6 +344,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.1-1
+- Skip buildins when processing kernel boot args (jkonecny)
+  Resolves: rhbz#1637472
+- network: fix handling of ksdevice=bootif in initramfs (rvykydal)
+  Related: rhbz#1649359
+- Make sure we work with fresh data when trying to do netroot (vpodzime)
+  Resolves: rhbz#1649359
+- Make our manual triggering on network in dracut work (vpodzime)
+  Resolves: rhbz#1649359
+
 * Fri Sep 27 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.13-1
 - Change the bases of the install classes for RHVH (vponcova)
   Related: rhbz#1753316
