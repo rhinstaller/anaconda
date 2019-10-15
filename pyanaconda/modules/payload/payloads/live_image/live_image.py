@@ -37,9 +37,9 @@ from pyanaconda.modules.payload.payloads.live_image.live_image_interface import 
 from pyanaconda.modules.payload.payloads.live_image.initialization import \
     CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
     TeardownInstallationSourceImageTask
+from pyanaconda.modules.payload.payloads.live_image.installation import InstallFromTarTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list, \
     get_kernel_version_list_from_tar, url_target_is_tarfile
-from pyanaconda.modules.payload.live.installation import InstallFromTarTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
