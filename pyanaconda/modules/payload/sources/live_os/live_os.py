@@ -25,9 +25,10 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.payload.constants import SourceType
 from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
-from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
-from pyanaconda.modules.payload.sources.initialization import SetUpLiveOSSourceTask, \
-    TearDownLiveOSSourceTask
+from pyanaconda.modules.payload.sources.live_os.live_os_interface import \
+    LiveOSSourceInterface
+from pyanaconda.modules.payload.sources.live_os.initialization import \
+    SetUpLiveOSSourceTask, TearDownLiveOSSourceTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
