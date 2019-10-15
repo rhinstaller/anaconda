@@ -35,7 +35,7 @@ from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
-from pyanaconda.modules.payload.base.constants import HandlerType, SourceType
+from pyanaconda.modules.payload.constants import HandlerType, SourceType
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadService
 from pyanaconda.modules.payload.payloads.dnf.dnf import DNFHandlerModule

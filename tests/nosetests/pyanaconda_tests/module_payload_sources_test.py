@@ -26,7 +26,7 @@ from pyanaconda.dbus.typing import get_native
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.payload.base.constants import SourceType
+from pyanaconda.modules.payload.constants import SourceType
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payload.sources.initialization import SetUpLiveOSSourceTask, \

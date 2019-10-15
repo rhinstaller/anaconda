@@ -23,7 +23,7 @@ import stat
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithCapture
-from pyanaconda.modules.payload.base.constants import SourceType
+from pyanaconda.modules.payload.constants import SourceType
 from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.sources.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payload.sources.initialization import SetUpLiveOSSourceTask, \

@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 from abc import ABC, abstractclassmethod
 
-from pyanaconda.modules.payload.base.constants import HandlerType, SourceType
+from pyanaconda.modules.payload.constants import HandlerType, SourceType
 from pyanaconda.modules.payload.payloads.dnf.dnf import DNFHandlerModule
 from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
