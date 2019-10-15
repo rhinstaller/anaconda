@@ -23,15 +23,15 @@ from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
-from pyanaconda.modules.common.base import MainModule
+from pyanaconda.modules.common.base import Service
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.containers import TaskContainer
 
 log = get_module_logger(__name__)
 
 
-class Boss(MainModule):
-    """The Boss module."""
+class Boss(Service):
+    """The Boss service."""
 
     def __init__(self):
         super().__init__()

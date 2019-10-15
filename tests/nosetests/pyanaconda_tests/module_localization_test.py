@@ -29,7 +29,7 @@ from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_ta
 
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.installation import LanguageInstallationTask
-from pyanaconda.modules.localization.localization import LocalizationModule
+from pyanaconda.modules.localization.localization import LocalizationService
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 
 
@@ -39,7 +39,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the localization module."""
         # Set up the localization module.
-        self.localization_module = LocalizationModule()
+        self.localization_module = LocalizationService()
         self.localization_interface = LocalizationInterface(self.localization_module)
 
         # Connect to the properties changed signal.

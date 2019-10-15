@@ -53,10 +53,10 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         sys.modules['blivetgui'] = None
 
         # Import the StorageModule again.
-        from pyanaconda.modules.storage.storage import StorageModule
+        from pyanaconda.modules.storage.storage import StorageService
 
         # We should be able to create the Storage module
-        storage_module = StorageModule()
+        storage_module = StorageService()
         self.assertIsNotNone(storage_module.storage)
 
         # We should be able to create the Blivet module.

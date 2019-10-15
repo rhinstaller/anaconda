@@ -32,7 +32,7 @@ from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_db
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.modules.users.users import UsersModule
+from pyanaconda.modules.users.users import UsersService
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask
 from pyanaconda.dbus.typing import get_variant, List, Str, Int, Bool
@@ -45,7 +45,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the user module."""
         # Set up the users module.
-        self.users_module = UsersModule()
+        self.users_module = UsersService()
         self.users_interface = UsersInterface(self.users_module)
 
         # Connect to the properties changed signal.
@@ -1553,7 +1553,7 @@ class UsersModuleTasksTestCase(unittest.TestCase):
 
     def setUp(self):
         """Set up the users module."""
-        self.users_module = UsersModule()
+        self.users_module = UsersService()
         self.users_interface = UsersInterface(self.users_module)
 
         # Connect to the properties changed signal.

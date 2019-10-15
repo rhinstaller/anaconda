@@ -19,7 +19,7 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
@@ -29,8 +29,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class TimezoneModule(KickstartModule):
-    """The Timezone module."""
+class TimezoneService(KickstartService):
+    """The Timezone service."""
 
     def __init__(self):
         super().__init__()

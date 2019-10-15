@@ -22,7 +22,7 @@ from time import sleep
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface, BazCalculationTaskInterface
 from pyanaconda.dbus_addons.baz.kickstart import BazKickstartSpecification
-from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import BAZ
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.task import Task
@@ -31,8 +31,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class Baz(KickstartModule):
-    """The Baz module."""
+class Baz(KickstartService):
+    """The Baz service."""
 
     def __init__(self):
         super().__init__()

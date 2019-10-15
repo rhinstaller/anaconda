@@ -67,10 +67,10 @@ class BaseModule(ABC):
         pass
 
 
-class MainModule(BaseModule):
-    """Implementation of the main module.
+class Service(BaseModule):
+    """Implementation of a DBus service.
 
-    The main module is an owner of the main loop, so it is
+    The service is an owner of the main loop, so it is
     able to start and stop the application.
     """
 
@@ -84,14 +84,14 @@ class MainModule(BaseModule):
         return self._loop
 
     def run(self):
-        """Run the module's loop."""
-        log.debug("Publish the module.")
+        """Run the loop."""
+        log.debug("Publish the service.")
         self.publish()
         log.debug("Start the loop.")
         self._loop.run()
 
     def stop(self):
-        """Stop the module's loop."""
+        """Stop the loop."""
         DBus.disconnect()
         Timer().timeout_sec(1, self.loop.quit)
 
@@ -146,10 +146,10 @@ class KickstartBaseModule(BaseModule):
         return []
 
 
-class KickstartModule(MainModule, KickstartBaseModule):
-    """Implementation of a main kickstart module.
+class KickstartService(Service, KickstartBaseModule):
+    """Implementation of a DBus service with kickstart support.
 
-    The main kickstart module is able to parse and generate the given
+    The kickstart service is able to parse and generate the given
     kickstart string based on its kickstart specification.
     """
 

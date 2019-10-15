@@ -31,7 +31,7 @@ from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.constants.objects import FIREWALL
 from pyanaconda.modules.common.errors.installation import FirewallConfigurationError
-from pyanaconda.modules.network.network import NetworkModule
+from pyanaconda.modules.network.network import NetworkService
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.constants import FirewallMode
 from pyanaconda.modules.network.installation import NetworkInstallationTask, \
@@ -69,7 +69,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the network module."""
         # Set up the network module.
-        self.network_module = NetworkModule()
+        self.network_module = NetworkService()
         self.network_interface = NetworkInterface(self.network_module)
 
         # Connect to the properties changed signal.
@@ -998,7 +998,7 @@ class NetworkModuleTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the network module."""
         # Set up the network module.
-        self.network_module = NetworkModule()
+        self.network_module = NetworkService()
 
     def apply_boot_options_ksdevice_test(self):
         """Test _apply_boot_options function for 'ksdevice'."""

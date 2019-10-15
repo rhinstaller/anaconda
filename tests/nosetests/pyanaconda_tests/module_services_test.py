@@ -32,7 +32,7 @@ from pyanaconda.core.constants import SETUP_ON_BOOT_DISABLED, \
 from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda.modules.services.installation import ConfigurePostInstallationToolsTask
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.modules.services.services import ServicesModule
+from pyanaconda.modules.services.services import ServicesService
 from pyanaconda.modules.services.services_interface import ServicesInterface
 from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, \
@@ -45,7 +45,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the services module."""
         # Set up the services module.
-        self.services_module = ServicesModule()
+        self.services_module = ServicesService()
         self.services_interface = ServicesInterface(self.services_module)
 
         # Connect to the properties changed signal.
@@ -226,7 +226,7 @@ class ServicesTasksTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the services module."""
         # Set up the services module.
-        self.services_module = ServicesModule()
+        self.services_module = ServicesService()
         self.services_interface = ServicesInterface(self.services_module)
 
         # Connect to the properties changed signal.

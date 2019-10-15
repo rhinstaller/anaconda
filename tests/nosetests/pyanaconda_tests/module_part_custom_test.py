@@ -30,7 +30,7 @@ from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning import CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
-from pyanaconda.modules.storage.storage import StorageModule
+from pyanaconda.modules.storage.storage import StorageService
 from pyanaconda.storage.initialization import create_storage
 
 
@@ -78,7 +78,7 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
 
     def _process_kickstart(self, ks_in):
         """Process the kickstart."""
-        storage_module = StorageModule()
+        storage_module = StorageService()
         handler = storage_module.get_kickstart_handler()
         parser = storage_module.get_kickstart_parser(handler)
         parser.readKickstartFromString(ks_in)
@@ -86,7 +86,7 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
 
     def _setup_kickstart(self):
         """Set up the kickstart."""
-        storage_module = StorageModule()
+        storage_module = StorageService()
         handler = storage_module.get_kickstart_handler()
         self.module.setup_kickstart(handler)
         return handler
