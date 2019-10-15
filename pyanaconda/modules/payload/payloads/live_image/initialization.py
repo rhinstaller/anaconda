@@ -28,7 +28,7 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payload.live.utils import get_local_image_path_from_url, \
     get_proxies_from_option, url_target_is_tarfile
 from pyanaconda.modules.payload.live.initialization import DownloadProgress
-from pyanaconda.payload.utils import mount
+from pyanaconda.payload.utils import mount, unmount
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -259,3 +259,41 @@ class SetupInstallationSourceImageTask(Task):
 
         log.debug("Source image file path: %s", self._image_path)
         return self._image_path
+
+
+class TeardownInstallationSourceImageTask(Task):
+    """Task to tear down installation source image."""
+
+    def __init__(self, image_path, url, image_mount_point):
+        """Create a new task.
+
+        :param image_path: destination path for image download
+        :type image_path: str
+        :param url: installation source image url
+        :type url: str
+        :param image_mount_point: Mount point of the source image
+        :type image_mount_point: str
+        """
+        super().__init__()
+        self._image_path = image_path
+        self._url = url
+        self._image_mount_point = image_mount_point
+
+    @property
+    def name(self):
+        return "Tear down installation source image."""
+
+    def run(self):
+        """Run tear down of installation source image."""
+        if not url_target_is_tarfile(self._url):
+            unmount(self._image_mount_point, raise_exc=True)
+            # FIXME: Payload and LiveOS stuff
+            # FIXME: do we need a task for this?
+            if os.path.exists(IMAGE_DIR + "/LiveOS"):
+                # FIXME: catch and pass the exception
+                unmount(IMAGE_DIR, raise_exc=True)
+                os.rmdir(IMAGE_DIR)
+
+        if not get_local_image_path_from_url(self._url):
+            if os.path.exists(self._image_path):
+                os.unlink(self._image_path)
