@@ -29,13 +29,13 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
-from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask
+from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask, \
+    UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
     LiveImageHandlerInterface
 from pyanaconda.modules.payload.payloads.live_image.initialization import \
     CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
     TeardownInstallationSourceImageTask
-from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list, \
     get_kernel_version_list_from_tar, url_target_is_tarfile
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask

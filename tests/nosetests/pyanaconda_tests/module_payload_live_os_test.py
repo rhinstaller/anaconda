@@ -29,9 +29,9 @@ from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payload.base.constants import SourceType
+from pyanaconda.modules.payload.base.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.payloads.live_os.live_os_interface import LiveOSHandlerInterface
-from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 

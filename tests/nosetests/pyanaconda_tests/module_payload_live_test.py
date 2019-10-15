@@ -27,8 +27,8 @@ from tempfile import TemporaryDirectory
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.payload import InstallError
+from pyanaconda.modules.payload.base.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list, create_rescue_image
-from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
@@ -271,7 +271,7 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
         create_rescue_image_mock.assert_not_called()
 
-    @patch("pyanaconda.modules.payload.live.initialization.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.initialization.execWithRedirect")
     def update_bls_configuration_task_no_bls_system_test(self, exec_with_redirect):
         """Test update bls configuration task on no BLS system."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
@@ -284,7 +284,7 @@ class LiveTasksTestCase(unittest.TestCase):
             # nothing should be done when new-kernel-pkg is present
             exec_with_redirect.assert_not_called()
 
-    @patch("pyanaconda.modules.payload.live.initialization.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.initialization.execWithRedirect")
     def update_bls_configuration_task_old_entries_test(self, exec_with_redirect):
         """Test update bls configuration task with old bls entries."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
@@ -315,7 +315,7 @@ class LiveTasksTestCase(unittest.TestCase):
 
             exec_with_redirect.assert_has_calls(calls)
 
-    @patch("pyanaconda.modules.payload.live.initialization.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.initialization.execWithRedirect")
     def update_bls_configuration_task_no_old_entries_test(self, exec_with_redirect):
         """Test update bls configuration task without old bls entries."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]

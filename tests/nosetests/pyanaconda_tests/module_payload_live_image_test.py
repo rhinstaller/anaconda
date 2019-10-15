@@ -27,15 +27,15 @@ from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadHandle
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
+from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask, \
+    UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
 from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
     LiveImageHandlerInterface
 from pyanaconda.modules.payload.payloads.live_image.initialization import \
     CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
     TeardownInstallationSourceImageTask
-from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask
-from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
 
 
 class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
