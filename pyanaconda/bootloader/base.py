@@ -131,7 +131,6 @@ class BootLoader(object):
     config_file = None
     config_file_mode = 0o600
     can_dual_boot = False
-    can_update = False
     keep_boot_order = False
     keep_mbr = False
     image_label_attr = "label"
@@ -184,10 +183,7 @@ class BootLoader(object):
 
         # default image
         self._default_image = None
-
-        self._update_only = False
         self.skip_bootloader = False
-
         self.use_bls = True
 
         self.errors = []
@@ -692,17 +688,6 @@ class BootLoader(object):
     def timeout(self, seconds):
         self._timeout = seconds
 
-    @property
-    def update_only(self):
-        return self._update_only
-
-    @update_only.setter
-    def update_only(self, value):
-        if value and not self.can_update:
-            raise ValueError("this boot loader does not support updates")
-        elif self.can_update:
-            self._update_only = value
-
     def set_boot_args(self, storage):
         """Set up the boot command line."""
         self._set_storage_boot_args(storage)
@@ -916,10 +901,6 @@ class BootLoader(object):
         if self.skip_bootloader:
             return
 
-        if self.update_only:
-            self.update()
-            return
-
         self.write_config()
         os.sync()
         self.stage2_device.format.sync(root=conf.target.physical_root)
@@ -927,10 +908,6 @@ class BootLoader(object):
 
     def install(self, args=None):
         raise NotImplementedError()
-
-    def update(self):
-        """ Update an existing bootloader configuration. """
-        pass
 
 
 def get_interface_hw_address(iface):
