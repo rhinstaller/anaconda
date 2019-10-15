@@ -25,7 +25,7 @@ from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, IMAGE_DIR
 from pyanaconda.core.util import lowerASCII, execWithRedirect
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payload.live.utils import get_local_image_path_from_url, \
+from pyanaconda.modules.payload.payloads.live_image.utils import get_local_image_path_from_url, \
     get_proxies_from_option, url_target_is_tarfile
 from pyanaconda.payload.utils import mount, unmount
 
