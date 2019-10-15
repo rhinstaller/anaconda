@@ -21,24 +21,11 @@ import os
 import tarfile
 
 from pyanaconda.payload.utils import version_cmp
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import ProxyString, ProxyStringError, execWithRedirect
 from pyanaconda.core.constants import TAR_SUFFIX
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
-
-def get_kernel_version_list(root_path):
-    files = glob.glob(root_path + "/boot/vmlinuz-*")
-    files.extend(
-        glob.glob(root_path + "/boot/efi/EFI/{}/vmlinuz-*".format(conf.bootloader.efi_dir))
-    )
-
-    kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
-                                  if os.path.isfile(f) and "-rescue-" not in f),
-                                 key=functools.cmp_to_key(version_cmp))
-    return kernel_version_list
 
 
 def get_kernel_version_list_from_tar(tarfile_path):

@@ -29,7 +29,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.modules.payload.base.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
-from pyanaconda.modules.payload.live.utils import get_kernel_version_list, create_rescue_image
+from pyanaconda.modules.payload.base.utils import get_kernel_version_list
+from pyanaconda.modules.payload.live.utils import create_rescue_image
 
 
 class LiveUtilsTestCase(unittest.TestCase):
