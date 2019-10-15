@@ -30,9 +30,10 @@ from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
     LiveImageHandlerInterface
-from pyanaconda.modules.payload.live.initialization import CheckInstallationSourceImageTask, \
-    SetupInstallationSourceImageTask, UpdateBLSConfigurationTask, \
-    TeardownInstallationSourceImageTask
+from pyanaconda.modules.payload.payloads.live_image.initialization import \
+    CheckInstallationSourceImageTask
+from pyanaconda.modules.payload.live.initialization import SetupInstallationSourceImageTask, \
+    UpdateBLSConfigurationTask, TeardownInstallationSourceImageTask
 from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask
 from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
 
