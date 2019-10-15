@@ -30,10 +30,10 @@ from pyanaconda.modules.payload.base.initialization import PrepareSystemForInsta
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payload.base.constants import SourceType
 from pyanaconda.modules.payload.base.initialization import UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.base.installation import InstallFromImageTask
 from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.payloads.live_os.live_os_interface import LiveOSHandlerInterface
 from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
-from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
 class LiveOSHandlerInterfaceTestCase(unittest.TestCase):

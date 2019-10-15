@@ -29,7 +29,8 @@ from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.live.installation import InstallFromImageTask, InstallFromTarTask
+from pyanaconda.modules.payload.base.installation import InstallFromImageTask
+from pyanaconda.modules.payload.live.installation import InstallFromTarTask
 from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
     LiveImageHandlerInterface

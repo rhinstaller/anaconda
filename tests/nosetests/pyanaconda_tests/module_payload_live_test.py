@@ -28,8 +28,8 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.modules.payload.base.initialization import UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.base.installation import InstallFromImageTask
 from pyanaconda.modules.payload.live.utils import get_kernel_version_list, create_rescue_image
-from pyanaconda.modules.payload.live.installation import InstallFromImageTask
 
 
 class LiveUtilsTestCase(unittest.TestCase):
@@ -181,8 +181,8 @@ class LiveTasksTestCase(unittest.TestCase):
             for entry in bls_entries:
                 open(os.path.join(entries_path, entry), "wt").close()
 
-    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
-    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.base.installation.execWithRedirect")
     def install_image_task_test(self, exec_with_redirect, create_rescue_image_mock):
         """Test installation from an image task."""
         dest_path = "/destination/path"
@@ -201,8 +201,8 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
         create_rescue_image_mock.assert_called_once_with(dest_path, kernel_version_list)
 
-    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
-    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.base.installation.execWithRedirect")
     def install_image_task_source_unready_test(self, exec_with_redirect, create_rescue_image_mock):
         """Test installation from an image task when source is not ready."""
         dest_path = "/destination/path"
@@ -221,8 +221,8 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
         create_rescue_image_mock.assert_called_once_with(dest_path, kernel_version_list)
 
-    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
-    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.base.installation.execWithRedirect")
     def install_image_task_failed_exception_test(self, exec_with_redirect,
                                                  create_rescue_image_mock):
         """Test installation from an image task with exception."""
@@ -246,8 +246,8 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
         create_rescue_image_mock.assert_not_called()
 
-    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
-    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.base.installation.execWithRedirect")
     def install_image_task_failed_return_code_test(self, exec_with_redirect,
                                                    create_rescue_image_mock):
         """Test installation from an image task with bad return code."""
