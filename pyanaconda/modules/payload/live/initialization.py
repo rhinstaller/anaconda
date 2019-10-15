@@ -25,46 +25,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class DownloadProgress(object):
-    """Provide methods for download progress reporting."""
-
-    def __init__(self, url, size, report_callback):
-        """Create a progress object for given task.
-
-        :param url: url of the download
-        :type url: str
-        :param size: length of the file
-        :type size: int
-        :param report_callback: callback with progress message argument
-        :type task: callable taking str argument
-        """
-        self.report = report_callback
-        self.url = url
-        self.size = size
-        self._pct = -1
-
-    def update(self, bytes_read):
-        """Download update.
-
-        :param bytes_read: Bytes read so far
-        :type bytes_read:  int
-        """
-        if not bytes_read:
-            return
-        pct = min(100, int(100 * bytes_read / self.size))
-
-        if pct == self._pct:
-            return
-        self._pct = pct
-        self.report("Downloading image %(url)s (%(pct)d%%)" %
-                    {"url": self.url, "pct": pct})
-
-    def end(self):
-        """Download complete."""
-        self.report("Downloading image %(url)s (%(pct)d%%)" %
-                    {"url": self.url, "pct": 100})
-
-
 class UpdateBLSConfigurationTask(Task):
     """Task to update BLS configuration."""
 
