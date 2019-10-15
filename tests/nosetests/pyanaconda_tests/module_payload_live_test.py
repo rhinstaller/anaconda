@@ -29,8 +29,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.modules.payload.base.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
-from pyanaconda.modules.payload.base.utils import get_kernel_version_list
-from pyanaconda.modules.payload.live.utils import create_rescue_image
+from pyanaconda.modules.payload.base.utils import create_rescue_image, get_kernel_version_list
 
 
 class LiveUtilsTestCase(unittest.TestCase):
@@ -100,7 +99,7 @@ class LiveUtilsTestCase(unittest.TestCase):
 
             self.assertListEqual(kernel_list, self._kernel_test_valid_list)
 
-    @patch("pyanaconda.modules.payload.live.utils.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.utils.execWithRedirect")
     def create_rescue_image_with_new_kernel_pkg_test(self, exec_with_redirect):
         """Test creation of rescue image with kernel pkg."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
@@ -118,7 +117,7 @@ class LiveUtilsTestCase(unittest.TestCase):
 
             exec_with_redirect.assert_has_calls(calls)
 
-    @patch("pyanaconda.modules.payload.live.utils.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.utils.execWithRedirect")
     def create_rescue_image_without_machine_id_test(self, exec_with_redirect):
         """Test creation of rescue image without machine-id file."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
@@ -136,7 +135,7 @@ class LiveUtilsTestCase(unittest.TestCase):
 
             exec_with_redirect.assert_has_calls(calls)
 
-    @patch("pyanaconda.modules.payload.live.utils.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.utils.execWithRedirect")
     def create_rescue_image_with_postinst_scripts_test(self, exec_with_redirect):
         """Test creation of rescue image with postinst scripts."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]

@@ -22,7 +22,7 @@ import glob
 import os
 import stat
 
-from pyanaconda.core.util import mkdirChain
+from pyanaconda.core.util import mkdirChain, execWithRedirect
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.flags import flags
 from pyanaconda.payload.utils import version_cmp
@@ -104,3 +104,30 @@ def get_kernel_version_list(root_path):
                                   if os.path.isfile(f) and "-rescue-" not in f),
                                  key=functools.cmp_to_key(version_cmp))
     return kernel_version_list
+
+
+def create_rescue_image(root, kernel_version_list):
+    """Create the rescue initrd images for each kernel."""
+    # Always make sure the new system has a new machine-id, it won't boot without it
+    # (and nor will some of the subsequent commands like grub2-mkconfig and kernel-install)
+    log.info("Generating machine ID")
+    if os.path.exists(root + "/etc/machine-id"):
+        os.unlink(root + "/etc/machine-id")
+    execWithRedirect("systemd-machine-id-setup", [], root=root)
+
+    if os.path.exists(root + "/usr/sbin/new-kernel-pkg"):
+        use_nkp = True
+    else:
+        log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
+        use_nkp = False
+
+    for kernel in kernel_version_list:
+        log.info("Generating rescue image for %s", kernel)
+        if use_nkp:
+            execWithRedirect("new-kernel-pkg", ["--rpmposttrans", kernel], root=root)
+        else:
+            files = glob.glob(root + "/etc/kernel/postinst.d/*")
+            srlen = len(root)
+            files = sorted([f[srlen:] for f in files if os.access(f, os.X_OK)])
+            for file in files:
+                execWithRedirect(file, [kernel, "/boot/vmlinuz-%s" % kernel], root=root)

@@ -18,7 +18,7 @@
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.modules.payload.live.utils import create_rescue_image
+from pyanaconda.modules.payload.base.utils import create_rescue_image
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
