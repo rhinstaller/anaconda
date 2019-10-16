@@ -286,14 +286,6 @@ def setup_display(anaconda, options):
     # Should we try to start Xorg?
     want_x = anaconda.gui_mode and not (flags.preexisting_x11 or flags.usevnc)
 
-    # X on a headless (e.g. s390) system? Nonsense!
-    if want_x and blivet.arch.is_s390():
-        stdout_log.warning(_("Running on a headless system. Starting text mode."))
-        anaconda.display_mode = constants.DisplayModes.TUI
-        anaconda.gui_startup_failed = True
-        time.sleep(2)
-        want_x = False
-
     # Is Xorg is actually available?
     if want_x and not os.access("/usr/bin/Xorg", os.X_OK):
         stdout_log.warning(_("Graphical installation is not available. "
