@@ -21,9 +21,10 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DASD
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError, UnknownDeviceError
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
-from pyanaconda.modules.storage.dasd.format import DASDFormatTask
+from pyanaconda.modules.storage.dasd.format import DASDFormatTask, FindFormattableDASDTask
 
 log = get_module_logger(__name__)
 
@@ -31,9 +32,61 @@ log = get_module_logger(__name__)
 class DASDModule(KickstartBaseModule):
     """The DASD module."""
 
+    def __init__(self):
+        super().__init__()
+        self._storage = None
+        self._can_format_unformatted = False
+        self._can_format_ldl = False
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(DASD.object_path, DASDInterface(self))
+
+    @property
+    def storage(self):
+        """The storage model.
+
+        :return: an instance of Blivet
+        :raise: UnavailableStorageError if not available
+        """
+        if self._storage is None:
+            raise UnavailableStorageError()
+
+        return self._storage
+
+    def _get_device(self, name):
+        """Find a device by its name.
+
+        :param name: a name of the device
+        :return: an instance of the Blivet's device
+        :raise: UnknownDeviceError if no device is found
+        """
+        device = self.storage.devicetree.get_device_by_name(name, hidden=True)
+
+        if not device:
+            raise UnknownDeviceError(name)
+
+        return device
+
+    def _get_devices(self, names):
+        """Find devices by their names.
+
+        :param names: names of the devices
+        :return: a list of instances of the Blivet's device
+        """
+        return list(map(self._get_device, names))
+
+    def on_storage_reset(self, storage):
+        """Keep the instance of the current storage."""
+        self._storage = storage
+
+    def on_format_unrecognized_enabled_changed(self, value):
+        """Update the flag for formatting unformatted DASDs."""
+        self._can_format_unformatted = value
+
+    def on_format_ldl_enabled_changed(self, value):
+        """Update the flags for formatting LDL DASDs."""
+        self._can_format_ldl = value
 
     def discover_with_task(self, device_number):
         """Discover a DASD.
@@ -42,6 +95,21 @@ class DASDModule(KickstartBaseModule):
         :return: a task
         """
         return DASDDiscoverTask(device_number)
+
+    def find_formattable(self, disk_names):
+        """Find DASDs for formatting.
+
+        :param disk_names: a list of disk names to search
+        :return: a list of DASDs for formatting
+        """
+        task = FindFormattableDASDTask(
+            self._get_devices(disk_names),
+            self._can_format_unformatted,
+            self._can_format_ldl
+        )
+
+        found_disks = task.run()
+        return [d.name for d in found_disks]
 
     def format_with_task(self, dasds):
         """Format specified DASD disks.

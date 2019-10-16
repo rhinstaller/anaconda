@@ -39,6 +39,14 @@ class DASDInterface(KickstartModuleInterfaceTemplate):
             self.implementation.discover_with_task(device_number)
         )
 
+    def FindFormattable(self, disk_names: List[Str]) -> List[Str]:
+        """Find DASDs for formatting.
+
+        :param disk_names: a list of disk names to search
+        :return: a list of DASDs for formatting
+        """
+        return self.implementation.find_formattable(disk_names)
+
     def FormatWithTask(self, dasds: List[Str]) -> ObjPath:
         """Format DASDs.
 
