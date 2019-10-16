@@ -277,8 +277,8 @@ class BootloaderTasksTestCase(unittest.TestCase):
         bootloader.write.assert_called_once()
 
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
-    @patch('pyanaconda.modules.storage.bootloader.installation.ConfigureBootloaderTask')
     @patch('pyanaconda.modules.storage.bootloader.installation.InstallBootloaderTask')
+    @patch('pyanaconda.modules.storage.bootloader.installation.ConfigureBootloaderTask')
     def fix_btrfs_test(self, configure, install, conf):
         """Test the final configuration of the boot loader."""
         storage = create_storage()
@@ -317,8 +317,8 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
         conf.target.is_directory = False
         FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
-        configure.called_once_with(storage, BootloaderMode.ENABLED, [version], sysroot)
-        install.called_once_with(storage, BootloaderMode.ENABLED)
+        configure.assert_called_once_with(storage, BootloaderMode.ENABLED, [version], sysroot)
+        install.assert_called_once_with(storage, BootloaderMode.ENABLED)
 
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
     @patch("pyanaconda.modules.storage.bootloader.installation.arch.is_s390")
