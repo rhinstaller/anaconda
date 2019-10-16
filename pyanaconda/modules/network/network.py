@@ -22,7 +22,7 @@ from pyanaconda.core.configuration.network import NetworkOnBoot
 from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
@@ -53,8 +53,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class NetworkModule(KickstartModule):
-    """The Network module."""
+class NetworkService(KickstartService):
+    """The Network service."""
 
     def __init__(self):
         super().__init__()

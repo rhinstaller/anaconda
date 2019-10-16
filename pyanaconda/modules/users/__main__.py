@@ -1,6 +1,6 @@
 from pyanaconda.modules.common import init
 init()
 
-from pyanaconda.modules.users.users import UsersModule
-users_module = UsersModule()
-users_module.run()
+from pyanaconda.modules.users.users import UsersService
+service = UsersService()
+service.run()

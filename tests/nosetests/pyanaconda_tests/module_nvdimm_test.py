@@ -31,7 +31,7 @@ from pyanaconda.modules.common.errors.configuration import StorageConfigurationE
 from pyanaconda.modules.storage.nvdimm import NVDIMMModule
 from pyanaconda.modules.storage.nvdimm.nvdimm_interface import NVDIMMInterface
 from pyanaconda.modules.storage.nvdimm.reconfigure import NVDIMMReconfigureTask
-from pyanaconda.modules.storage.storage import StorageModule
+from pyanaconda.modules.storage.storage import StorageService
 from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE
 
 
@@ -101,7 +101,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
     """
 
     def setUp(self):
-        self.storage_module = StorageModule()
+        self.storage_module = StorageService()
         self.nvdimm_module = self.storage_module._nvdimm_module
         self.nvdimm_interface = NVDIMMInterface(self.nvdimm_module)
 

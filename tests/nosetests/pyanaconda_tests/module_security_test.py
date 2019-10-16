@@ -28,7 +28,7 @@ from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.dbus.typing import get_variant, Str, List, Bool
-from pyanaconda.modules.security.security import SecurityModule
+from pyanaconda.modules.security.security import SecurityService
 from pyanaconda.modules.security.security_interface import SecurityInterface
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
@@ -43,7 +43,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the security module."""
         # Set up the security module.
-        self.security_module = SecurityModule()
+        self.security_module = SecurityService()
         self.security_interface = SecurityInterface(self.security_module)
 
         # Connect to the properties changed signal.
@@ -362,7 +362,7 @@ class SecurityTasksTestCase(unittest.TestCase):
 
     def setUp(self):
         """Set up the security module."""
-        self.security_module = SecurityModule()
+        self.security_module = SecurityService()
         self.security_interface = SecurityInterface(self.security_module)
 
         # Connect to the properties changed signal.

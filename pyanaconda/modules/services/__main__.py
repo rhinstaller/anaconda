@@ -1,6 +1,6 @@
 from pyanaconda.modules.common import init
 init()
 
-from pyanaconda.modules.services.services import ServicesModule
-services_module = ServicesModule()
-services_module.run()
+from pyanaconda.modules.services.services import ServicesService
+service = ServicesService()
+service.run()

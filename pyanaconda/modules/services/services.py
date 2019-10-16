@@ -23,7 +23,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.services.constants import SetupOnBootAction
@@ -36,8 +36,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class ServicesModule(KickstartModule):
-    """The Services module."""
+class ServicesService(KickstartService):
+    """The Services service."""
 
     # list of systemd targets that we support as default targets
     SUPPORTED_SYSTEMD_TARGETS = [TEXT_ONLY_TARGET, GRAPHICAL_TARGET]

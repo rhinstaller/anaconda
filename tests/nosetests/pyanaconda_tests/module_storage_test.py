@@ -44,7 +44,7 @@ from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, \
     MountFilesystemsTask, WriteConfigurationTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
-from pyanaconda.modules.storage.storage import StorageModule
+from pyanaconda.modules.storage.storage import StorageService
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
 from pyanaconda.storage.checker import StorageCheckerReport
@@ -55,7 +55,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
         """Set up the module."""
-        self.storage_module = StorageModule()
+        self.storage_module = StorageService()
         self.storage_interface = StorageInterface(self.storage_module)
 
     def _check_dbus_property(self, *args, **kwargs):
@@ -1324,7 +1324,7 @@ class StorageModuleTestCase(unittest.TestCase):
 
     def setUp(self):
         """Set up the module."""
-        self.storage_module = StorageModule()
+        self.storage_module = StorageService()
 
     def on_protected_devices_test(self):
         """Test on_protected_devices_changed."""

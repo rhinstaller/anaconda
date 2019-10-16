@@ -22,7 +22,7 @@ from mock import patch
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payload import PayloadModule
+from pyanaconda.modules.payload.payload import PayloadService
 
 
 class PayloadHandlerMixin(object):
@@ -47,7 +47,7 @@ class PayloadHandlerMixin(object):
 
     def setup_payload(self):
         """Create main payload module and its interface."""
-        self.payload_module = PayloadModule()
+        self.payload_module = PayloadService()
         self.payload_interface = PayloadInterface(self.payload_module)
 
     def check_kickstart(self, ks_in, ks_out, expected_publish_calls=1):

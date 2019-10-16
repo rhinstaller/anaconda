@@ -37,7 +37,7 @@ from pyanaconda.modules.payload.base.initialization import PrepareSystemForInsta
 from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
 from pyanaconda.modules.payload.base.constants import HandlerType, SourceType
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payload import PayloadModule
+from pyanaconda.modules.payload.payload import PayloadService
 from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
 from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
@@ -48,7 +48,7 @@ class PayloadInterfaceTestCase(TestCase):
 
     def setUp(self):
         """Set up the payload module."""
-        self.payload_module = PayloadModule()
+        self.payload_module = PayloadService()
         self.payload_interface = PayloadInterface(self.payload_module)
 
     def kickstart_properties_test(self):

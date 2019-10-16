@@ -22,7 +22,7 @@ import shlex
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.realm import RealmData
@@ -37,8 +37,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class SecurityModule(KickstartModule):
-    """The Security module."""
+class SecurityService(KickstartService):
+    """The Security service."""
 
     def __init__(self):
         super().__init__()

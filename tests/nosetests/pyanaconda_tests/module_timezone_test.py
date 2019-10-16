@@ -21,7 +21,7 @@ import unittest
 from mock import Mock
 
 from pyanaconda.modules.common.constants.services import TIMEZONE
-from pyanaconda.modules.timezone.timezone import TimezoneModule
+from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
@@ -32,7 +32,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the timezone module."""
         # Set up the timezone module.
-        self.timezone_module = TimezoneModule()
+        self.timezone_module = TimezoneService()
         self.timezone_interface = TimezoneInterface(self.timezone_module)
 
         # Connect to the properties changed signal.

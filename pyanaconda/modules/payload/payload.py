@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.errors.payload import HandlerNotSetError
@@ -30,8 +30,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class PayloadModule(KickstartModule):
-    """The Payload module."""
+class PayloadService(KickstartService):
+    """The Payload service."""
 
     def __init__(self):
         super().__init__()
