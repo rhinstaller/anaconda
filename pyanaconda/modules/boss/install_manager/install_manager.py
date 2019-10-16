@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.modules.boss.install_manager.installation import SystemInstallationTask
+from pyanaconda.modules.common.task import DBusMetaTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -45,7 +45,7 @@ class InstallManager(object):
         :return: an instance of the main installation task
         """
         installation_tasks = self._collect_installation_tasks()
-        system_task = SystemInstallationTask(installation_tasks)
+        system_task = DBusMetaTask("Install the system", installation_tasks)
         return system_task
 
     def _collect_installation_tasks(self):

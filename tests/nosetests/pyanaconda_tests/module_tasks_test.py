@@ -21,10 +21,9 @@ from mock import Mock, call
 
 from pyanaconda.dbus.interface import dbus_class
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.boss.install_manager.installation import SystemInstallationTask
 from pyanaconda.modules.common.errors.task import NoResultError
 from pyanaconda.modules.common.task import Task, TaskInterface, sync_run_task, \
-    async_run_task
+    async_run_task, DBusMetaTask
 from tests.nosetests.pyanaconda_tests import run_in_glib
 
 
@@ -360,7 +359,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
     def install_with_no_tasks_test(self):
         """Install with no tasks."""
-        self._set_up_task(SystemInstallationTask([]))
+        self._set_up_task(DBusMetaTask("Task", []))
         self._check_steps(0)
         self._run_task()
         self._finish_task()
@@ -369,7 +368,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
     def install_with_one_task_test(self):
         """Install with one task."""
         self._set_up_task(
-            SystemInstallationTask([
+            DBusMetaTask("Task", [
                 TaskInterface(self.SimpleTask())
             ])
         )
@@ -382,7 +381,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
     def install_with_failing_task_test(self):
         """Install with one failing task."""
         self._set_up_task(
-            SystemInstallationTask([
+            DBusMetaTask("Task", [
                 TaskInterface(self.FailingTask())
             ])
         )
@@ -395,7 +394,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
     def install_with_canceled_task_test(self):
         """Install with one canceled task."""
         self._set_up_task(
-            SystemInstallationTask([
+            DBusMetaTask("Task", [
                 TaskInterface(self.CanceledTask())
             ])
         )
@@ -435,7 +434,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
     def install_with_three_tasks_test(self):
         """Install with three tasks."""
         self._set_up_task(
-            SystemInstallationTask([
+            DBusMetaTask("Task", [
                 TaskInterface(self.InstallationTaskA()),
                 TaskInterface(self.InstallationTaskB()),
                 TaskInterface(self.InstallationTaskC())
@@ -467,7 +466,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
     def install_with_incomplete_tasks_test(self):
         """Install with incomplete tasks."""
         self._set_up_task(
-            SystemInstallationTask([
+            DBusMetaTask("Task", [
                 TaskInterface(self.InstallationTaskA()),
                 TaskInterface(self.IncompleteTask()),
                 TaskInterface(self.InstallationTaskB()),
