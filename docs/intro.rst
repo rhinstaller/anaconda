@@ -22,3 +22,5 @@ partitioning program. Anaconda provides advanced debugging features such as
 remote logging, access to the python interactive debugger, and remote saving of
 exception dumps.
 
+For more news about Anaconda development and planned features you can follow
+`our blog <https://rhinstaller.wordpress.com>`_.

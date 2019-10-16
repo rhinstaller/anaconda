@@ -1,6 +1,11 @@
 Contribution guidelines
 =======================
 
+This guide describes rules for how to get your contributions into Anaconda. However, if you seek
+help with implementing changes in Anaconda, please follow our
+`blog series <https://rhinstaller.wordpress.com/2019/10/11/anaconda-debugging-and-testing-part-1/>`_ or
+an `addon guide <http://rhinstaller.github.io/anaconda-addon-development-guide/index.html>`_ to create Anaconda addon.
+
 How to Contribute to the Anaconda Installer (the short version)
 ----------------------------------------------------------------
 
