@@ -294,7 +294,7 @@ handled by `parse-kickstart`:
 
 Check the [kickstart documentation] for more info.
 
-[kickstart documentation]: https://github.com/rhinstaller/pykickstart/blob/master/docs/kickstart-docs.rst#driverdisk
+[kickstart documentation]: https://github.com/pykickstart/pykickstart/blob/master/docs/kickstart-docs.rst#driverdisk
 
 ## initqueue: `driver-updates@.service`
 
