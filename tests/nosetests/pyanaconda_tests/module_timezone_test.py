@@ -17,10 +17,15 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import os
+import tempfile
 import unittest
-from mock import Mock
+from shutil import copytree, copyfile
+from unittest.mock import patch, Mock
 
 from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
+from pyanaconda.modules.timezone.installation import ConfigureTimezoneTask
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
@@ -120,3 +125,134 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         timezone Europe/Prague --ntpservers=ntp.cesnet.cz
         """
         self._test_kickstart(ks_in, ks_out)
+
+
+class TimezoneTasksTestCase(unittest.TestCase):
+    """Test the D-Bus Timezone (Timezone and NTP) tasks."""
+
+    def timezone_task_success_test(self):
+        """Test the "full success" code paths in timezone D-Bus task."""
+        self._test_timezone_inputs(input_zone="Europe/Prague",
+                                   input_isutc=False,
+                                   make_adjtime=True,
+                                   make_zoneinfo=True,
+                                   expected_symlink="../usr/share/zoneinfo/Europe/Prague",
+                                   expected_adjtime_last_line="LOCAL")
+        self._test_timezone_inputs(input_zone="Africa/Bissau",
+                                   input_isutc=True,
+                                   make_adjtime=True,
+                                   make_zoneinfo=True,
+                                   expected_symlink="../usr/share/zoneinfo/Africa/Bissau",
+                                   expected_adjtime_last_line="UTC")
+        self._test_timezone_inputs(input_zone="Etc/GMT-12",
+                                   input_isutc=True,
+                                   make_adjtime=True,
+                                   make_zoneinfo=True,
+                                   expected_symlink="../usr/share/zoneinfo/Etc/GMT-12",
+                                   expected_adjtime_last_line="UTC")
+        self._test_timezone_inputs(input_zone="Etc/GMT+3",
+                                   input_isutc=True,
+                                   make_adjtime=False,
+                                   make_zoneinfo=True,
+                                   expected_symlink="../usr/share/zoneinfo/Etc/GMT+3",
+                                   expected_adjtime_last_line="UTC")
+
+    def timezone_task_correction_test(self):
+        """Test nonsensical time zone correction in timezone D-Bus task."""
+        self._test_timezone_inputs(input_zone="",
+                                   input_isutc=True,
+                                   make_adjtime=True,
+                                   make_zoneinfo=True,
+                                   expected_symlink="../usr/share/zoneinfo/America/New_York",
+                                   expected_adjtime_last_line="UTC")
+        self._test_timezone_inputs(input_zone="BahBlah",
+                                   input_isutc=True,
+                                   make_adjtime=True,
+                                   make_zoneinfo=True,
+                                   expected_symlink="../usr/share/zoneinfo/America/New_York",
+                                   expected_adjtime_last_line="UTC")
+        self._test_timezone_inputs(input_zone=None,
+                                   input_isutc=True,
+                                   make_adjtime=True,
+                                   make_zoneinfo=True,
+                                   expected_symlink="../usr/share/zoneinfo/America/New_York",
+                                   expected_adjtime_last_line="UTC")
+
+    @patch('pyanaconda.modules.timezone.installation.arch.is_s390', return_value=True)
+    def timezone_task_s390_test(self, mock_is_s390):
+        """Test skipping writing /etc/adjtime on s390"""
+        with tempfile.TemporaryDirectory() as sysroot:
+            self._setup_environment(sysroot, False, True)
+            self._execute_task(sysroot, "Africa/Bissau", False)
+            self._check_timezone_symlink(sysroot, "../usr/share/zoneinfo/Africa/Bissau")
+            self.assertFalse(os.path.exists(sysroot + "/etc/adjtime"))
+        mock_is_s390.assert_called_once()
+        # expected state: calling it only once in the check for architecture
+
+    def timezone_task_timezone_missing_test(self):
+        """Test failure when setting a valid but missing timezone."""
+        with tempfile.TemporaryDirectory() as sysroot:
+            self._setup_environment(sysroot, False, True)
+            os.remove(sysroot + "/usr/share/zoneinfo/Asia/Ulaanbaatar")
+            with self.assertLogs("anaconda.modules.timezone.installation", level="ERROR"):
+                self._execute_task(sysroot, "Asia/Ulaanbaatar", False)
+            self.assertFalse(os.path.exists(sysroot + "/etc/localtime"))
+
+    @patch("pyanaconda.modules.timezone.installation.os.symlink", side_effect=OSError)
+    def timezone_task_symlink_failure_test(self, mock_os_symlink):
+        """Test failure when symlinking the time zone."""
+        with tempfile.TemporaryDirectory() as sysroot:
+            self._setup_environment(sysroot, False, True)
+            with self.assertLogs("anaconda.modules.timezone.installation", level="ERROR"):
+                self._execute_task(sysroot, "Asia/Ulaanbaatar", False)
+            self.assertFalse(os.path.exists(sysroot + "/etc/localtime"))
+
+    @patch('pyanaconda.modules.timezone.installation.open', side_effect=OSError)
+    def timezone_task_write_adjtime_failure_test(self, mock_open):
+        """Test failure when writing the /etc/adjtime file."""
+        # Note the first open() in the target code should not fail due to mocking, but it would
+        # anyway due to /etc/adjtime missing from env. setup, so it's ok if it does.
+        with tempfile.TemporaryDirectory() as sysroot:
+            with self.assertRaises(TimezoneConfigurationError):
+                self._setup_environment(sysroot, False, True)
+                self._execute_task(sysroot, "Atlantic/Faroe", False)
+            self.assertFalse(os.path.exists(sysroot + "/etc/adjtime"))
+            self.assertTrue(os.path.exists(sysroot + "/etc/localtime"))
+
+    def _test_timezone_inputs(self, input_zone, input_isutc, make_adjtime, make_zoneinfo,
+                              expected_symlink, expected_adjtime_last_line):
+        with tempfile.TemporaryDirectory() as sysroot:
+            self._setup_environment(sysroot, make_adjtime, make_zoneinfo)
+            self._execute_task(sysroot, input_zone, input_isutc)
+            self._check_timezone_symlink(sysroot, expected_symlink)
+            self._check_utc_lastline(sysroot, expected_adjtime_last_line)
+
+    def _setup_environment(self, sysroot, make_adjtime, make_zoneinfo):
+        os.mkdir(sysroot + "/etc")
+        if make_adjtime:
+            copyfile("/etc/adjtime", sysroot + "/etc/adjtime")
+        if make_zoneinfo:
+            copytree("/usr/share/zoneinfo", sysroot + "/usr/share/zoneinfo")
+
+    def _execute_task(self, sysroot, timezone, is_utc):
+        task = ConfigureTimezoneTask(
+            sysroot=sysroot,
+            timezone=timezone,
+            is_utc=is_utc
+        )
+        task.run()
+
+    def _check_timezone_symlink(self, sysroot, expected_symlink):
+        """Check if the right timezone is set as the symlink."""
+        link_target = os.readlink(sysroot + "/etc/localtime")
+        self.assertEqual(expected_symlink, link_target)
+
+    def _check_utc_lastline(self, sysroot, expected_adjtime_last_line):
+        """Check that the UTC was saved"""
+        with open(os.path.normpath(sysroot + "/etc/adjtime"), "r") as fobj:
+            # Careful, this can die on huge files accidentally stuffed there instead.
+            lines = fobj.readlines()
+            # It must be last line because we write it so and nothing should have touched
+            # it in test environment.
+            last_line = lines[-1].strip()
+            self.assertEqual(expected_adjtime_last_line, last_line)
