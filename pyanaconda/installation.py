@@ -117,9 +117,10 @@ def _prepare_configuration(storage, payload, ksdata):
 
     # schedule network configuration (if required)
     if conf.system.provides_network_config:
+        overwrite = isinstance(payload, LiveImagePayload)
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
-                                   network.write_configuration, (payload, )))
+                                   network.write_configuration, (overwrite, )))
         configuration_queue.append(network_config)
 
     # add installation tasks for the Users DBus module
