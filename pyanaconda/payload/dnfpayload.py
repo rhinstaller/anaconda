@@ -57,7 +57,7 @@ import rpm
 from dnf.const import GROUP_PACKAGE_TYPES
 
 from blivet.size import Size
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE
 
 from pyanaconda.anaconda_loggers import get_packaging_logger, get_dnf_logger
 log = get_packaging_logger()
@@ -573,8 +573,10 @@ class DNFPayload(payload.PackagePayload):
 
         # feed it to DNF
         try:
+            # FIXME: Remove self._base.conf.strict workaround when bz1761518 is fixed
             # install_specs() returns a list of specs that appear to be missing
-            self._base.install_specs(install=include_list, exclude=exclude_list)
+            self._base.install_specs(install=include_list, exclude=exclude_list,
+                                     strict=self._base.conf.strict)
         except dnf.exceptions.MarkingErrors as e:
             log.debug("install_specs(): some packages, groups or modules "
                       " are missing or broken:\n%s", e)
@@ -695,6 +697,13 @@ class DNFPayload(payload.PackagePayload):
 
         if self.data.packages.retries is not None:
             config.retries = self.data.packages.retries
+
+        if self.data.packages.handleBroken == KS_BROKEN_IGNORE:
+            log.warning("\n*********************************************************************\n"
+                        "User has requested to skip broken packages. Using this option may result "
+                        "in an UNUSABLE system!\n"
+                        "*********************************************************************")
+            config.strict = False
 
         self._configure_proxy()
 
