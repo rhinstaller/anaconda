@@ -119,7 +119,7 @@ def _prepare_configuration(storage, payload, ksdata):
     if conf.system.provides_network_config:
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
-                                   ksdata.network.execute, (payload, )))
+                                   network.write_configuration, (payload, )))
         configuration_queue.append(network_config)
 
     # add installation tasks for the Users DBus module
