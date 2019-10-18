@@ -31,7 +31,7 @@ import warnings
 
 from contextlib import contextmanager
 
-from pyanaconda import keyboard, network, ntp, timezone
+from pyanaconda import network, ntp, timezone
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
@@ -40,7 +40,7 @@ from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
+from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, SECURITY, \
     SERVICES, STORAGE, NETWORK
 from pyanaconda.modules.common.constants.objects import FCOE
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
@@ -518,13 +518,6 @@ class Snapshot(COMMANDS.Snapshot):
         SnapshotModule.verify_requests(self, storage, constraints, report_error, report_warning)
 
 
-class Keyboard(RemovedCommand):
-
-    def execute(self):
-        localization_proxy = LOCALIZATION.get_proxy()
-        keyboard.write_keyboard_config(localization_proxy, conf.target.system_root)
-
-
 ###
 ### %anaconda Section
 ###
@@ -603,7 +596,7 @@ commandMap = {
     "ignoredisk": UselessCommand,
     "iscsi": UselessCommand,
     "iscsiname": UselessCommand,
-    "keyboard": Keyboard,
+    "keyboard": UselessCommand,
     "lang": UselessCommand,
     "logging": Logging,
     "logvol": LogVol,
