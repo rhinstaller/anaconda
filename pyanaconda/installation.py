@@ -37,6 +37,7 @@ from pyanaconda import flags
 from pyanaconda.core import util
 from pyanaconda import timezone
 from pyanaconda import network
+from pyanaconda import keyboard
 from pyanaconda.core.i18n import N_
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
@@ -100,7 +101,11 @@ def _prepare_configuration(storage, payload, ksdata):
     services_dbus_tasks = services_proxy.InstallWithTasks()
     os_config.append_dbus_tasks(SERVICES, services_dbus_tasks)
 
-    os_config.append(Task("Configure keyboard", ksdata.keyboard.execute))
+    # schedule keyboard configuration
+    localization_proxy = LOCALIZATION.get_proxy()
+    os_config.append(Task("Configure keyboard",
+                          keyboard.write_keyboard_config,
+                          (localization_proxy, conf.target.system_root)))
 
     # add installation tasks for the Timezone DBus module
     timezone_proxy = TIMEZONE.get_proxy()
@@ -108,7 +113,6 @@ def _prepare_configuration(storage, payload, ksdata):
     os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
 
     # add installation tasks for the Localization DBus module
-    localization_proxy = LOCALIZATION.get_proxy()
     localization_dbus_tasks = localization_proxy.InstallWithTasks()
     os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
 
