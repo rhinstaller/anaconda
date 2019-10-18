@@ -265,6 +265,12 @@ class Authselect(RemovedCommand):
         except RuntimeError as msg:
             authselect_log.error("Error running %s %s: %s", cmd, args, msg)
 
+# FIXME: We have to fix self.handler.autopart in the pykickstart project before replacing this by
+#        UselessCommand class. The self.handler.autopart won't be present, instead there will be
+#        self.handler.uselesscommand. Test handler.autopart availability before calling it.
+class AutoPart(RemovedCommand):
+    pass
+
 class BTRFS(COMMANDS.BTRFS):
     pass
 
@@ -591,7 +597,7 @@ commandMap = {
     "auth": UselessCommand,
     "authconfig": UselessCommand,
     "authselect": Authselect,
-    "autopart": UselessCommand,
+    "autopart": AutoPart,
     "btrfs": BTRFS,
     "bootloader": UselessCommand,
     "clearpart": UselessCommand,
