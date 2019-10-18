@@ -4,7 +4,7 @@ Anaconda Kickstart Documentation
 :Authors:
     Brian C. Lane <bcl@redhat.com>
 
-Anaconda uses `kickstart <https://github.com/rhinstaller/pykickstart>`_ to automate
+Anaconda uses `kickstart <https://github.com/pykickstart/pykickstart>`_ to automate
 installation and as a data store for the user interface. It also extends the kickstart
 commands `documented here <https://pykickstart.readthedocs.io/>`_
 by adding a new kickstart section named ``%anaconda`` where commands to control the behavior
