@@ -348,6 +348,23 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 18 2019 Martin Kolman <mkolman@redhat.com> - 32.10-1
+- Return back AutoPart kickstart command (#1761901) (jkonecny)
+- Update pyanaconda/exception.py (japokorn)
+- Fix links to a new pykickstart GitHub group (jkonecny)
+- Rename main modules to services (vponcova)
+- don't treat s390 as headless when selecting UI mode (dan)
+- Add link to the blog website to our README (jkonecny)
+- Add links on our blog to upstream documentation (jkonecny)
+- Add PARTUUID to lsblk_output log (japokorn)
+- Fix a unit test for a boot loader task (vponcova)
+- Test the DBus method FindFormattable (vponcova)
+- Add DBus method that finds DASDs for formatting (vponcova)
+- Move tests for the zFCP module (vponcova)
+- Move tests for the FCoE module (vponcova)
+- Move tests for the ISCSI module (vponcova)
+- Move tests for the DASD module (vponcova)
+
 * Tue Oct 15 2019 Martin Kolman <mkolman@redhat.com> - 32.9-1
 - Don't mark the network command as removed (vponcova)
 
