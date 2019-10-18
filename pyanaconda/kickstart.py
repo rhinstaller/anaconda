@@ -75,7 +75,6 @@ authselect_log = log.getChild("kickstart.authselect")
 user_log = log.getChild("kickstart.user")
 group_log = log.getChild("kickstart.group")
 iscsi_log = log.getChild("kickstart.iscsi")
-network_log = log.getChild("kickstart.network")
 timezone_log = log.getChild("kickstart.timezone")
 realm_log = log.getChild("kickstart.realm")
 firewall_log = log.getChild("kickstart.firewall")
@@ -295,20 +294,6 @@ class Logging(COMMANDS.Logging):
 class Network(COMMANDS.Network):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-    def parse(self, args):
-        nd = super().parse(args)
-        setting_only_hostname = nd.hostname and len(args) <= 2
-        if not setting_only_hostname:
-            if not nd.device:
-                ksdevice = flags.cmdline.get('ksdevice')
-                if ksdevice:
-                    network_log.info('setting %s from ksdevice for missing kickstart --device', ksdevice)
-                    nd.device = ksdevice
-                else:
-                    network_log.info('setting "link" for missing --device specification in kickstart')
-                    nd.device = "link"
-        return nd
 
     def execute(self, payload):
         fcoe_proxy = STORAGE.get_proxy(FCOE)
