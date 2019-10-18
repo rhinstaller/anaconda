@@ -58,7 +58,7 @@ class PackagesKSTestCase(unittest.TestCase):
         return PackagesInterface(packages_module)
 
     def _check_properties(self, nocore=False, multilib="best",
-                          langs=LANGUAGES_DEFAULT, ignore_missing=False):
+                          langs=LANGUAGES_DEFAULT, ignore_missing=False, ignore_broken=False):
         intf = self._get_packages_interface()
 
         self.assertEqual(self._expected_env, intf.Environment)
@@ -74,6 +74,7 @@ class PackagesKSTestCase(unittest.TestCase):
         else:
             self.assertEqual([], intf.Languages)
         self.assertEqual(ignore_missing, intf.MissingIgnored)
+        self.assertEqual(ignore_broken, intf.BrokenIgnored)
 
     @patch_dbus_publish_object
     def packages_section_empty_kickstart_test(self, publisher):
@@ -218,7 +219,7 @@ class PackagesKSTestCase(unittest.TestCase):
     def packages_section_complex_exclude_kickstart_test(self, publisher):
         """Test the packages section with complex exclude example."""
         ks_in = """
-        %packages --nocore --ignoremissing --instLangs=
+        %packages --nocore --ignoremissing --ignorebroken --instLangs=
         @^environment1
         @group1
         package1
@@ -229,7 +230,7 @@ class PackagesKSTestCase(unittest.TestCase):
         %end
         """
         ks_out = """
-        %packages --nocore --ignoremissing --instLangs=
+        %packages --nocore --ignoremissing --ignorebroken --instLangs=
         @^environment1
         @group1
         @group3
@@ -248,7 +249,8 @@ class PackagesKSTestCase(unittest.TestCase):
         self._expected_excluded_packages = ["package2"]
         self._expected_excluded_groups = ["group2"]
 
-        self._check_properties(nocore=True, ignore_missing=True, langs=LANGUAGES_NONE)
+        self._check_properties(nocore=True, ignore_missing=True, ignore_broken=True,
+                               langs=LANGUAGES_NONE)
 
 
 class PackagesInterfaceTestCase(unittest.TestCase):
@@ -343,6 +345,15 @@ class PackagesInterfaceTestCase(unittest.TestCase):
 
     def missing_ignored_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.MissingIgnored, False)
+
+    def broken_ignored_properties_test(self):
+        self.packages_interface.SetBrokenIgnored(True)
+        self.assertEqual(self.packages_interface.BrokenIgnored, True)
+        self.callback.assert_called_once_with(
+            PAYLOAD_PACKAGES.interface_name, {"BrokenIgnored": True}, [])
+
+    def broken_ignored_not_set_properties_test(self):
+        self.assertEqual(self.packages_interface.BrokenIgnored, False)
 
     def languages_properties_test(self):
         self.packages_interface.SetLanguages("en, es")
