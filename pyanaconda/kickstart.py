@@ -295,7 +295,6 @@ class Logging(COMMANDS.Logging):
 class Network(COMMANDS.Network):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.packages = []
 
     def parse(self, args):
         nd = super().parse(args)
