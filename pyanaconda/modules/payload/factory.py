@@ -19,10 +19,6 @@
 from abc import ABC, abstractclassmethod
 
 from pyanaconda.modules.payload.constants import HandlerType, SourceType
-from pyanaconda.modules.payload.payloads.dnf.dnf import DNFHandlerModule
-from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
-from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
-from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
 
 __all__ = ["HandlerFactory", "SourceFactory"]
 
@@ -77,10 +73,14 @@ class HandlerFactory(BaseFactory):
     @classmethod
     def _create(cls, object_type):
         if object_type == HandlerType.LIVE_IMAGE:
+            from pyanaconda.modules.payload.payloads.live_image.live_image import \
+                LiveImageHandlerModule
             return LiveImageHandlerModule()
         elif object_type == HandlerType.LIVE_OS:
+            from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
             return LiveOSHandlerModule()
         elif object_type == HandlerType.DNF:
+            from pyanaconda.modules.payload.payloads.dnf.dnf import DNFHandlerModule
             return DNFHandlerModule()
 
 
@@ -90,4 +90,5 @@ class SourceFactory(BaseFactory):
     @classmethod
     def _create(cls, object_type):
         if object_type == SourceType.LIVE_OS_IMAGE:
+            from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
             return LiveOSSourceModule()
