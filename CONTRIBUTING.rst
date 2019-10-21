@@ -111,6 +111,26 @@ Please note that there is a minimum review period of 24 hours for any patch. The
 
 All subsequent changes made to patches must be force-pushed to the PR branch before merging it into the main branch.
 
+Code conventions
+----------------
+
+It is important to have consistency across the codebase. This won't necessarily make your code work better, but it might help to make the codebase more understandable, easier to work with, and more pleasant to go through when doing a code review.
+
+In general we are trying to be as close as possible to `PEP8 <https://www.python.org/dev/peps/pep-0008/>`_ but also extending or modifying minor PEP8 rules when it seems suitable in the context of our project. See list of the conventions below:
+
+* Limit all lines to a maximum of 99 characters.
+* Format strings with `.format() <https://docs.python.org/3/library/stdtypes.html#str.format>`_ instead of `%` (https://pyformat.info/)
+    * Exception: Use `%` formatting in logging functions and pass the `%` as arguments. See `logging format interpolation <https://stackoverflow.com/questions/34619790/pylint-message-logging-format-interpolation>`_ for the reasons.
+* Follow docstring conventions. See `PEP257 <https://www.python.org/dev/peps/pep-0257>`_.
+* Use `Enum <https://docs.python.org/3/library/enum.html>`_ instead of constants is recommended.
+* Use `super()` instead of `super(ParentClass, self)`.
+* Use only absolute imports (instead of relative ones).
+* Use `ParentClass.method(self)` only in case of multiple inheritance.
+* Instance variables are preferred, class variables should be used only with a good reason.
+* Global instances and singletons should be used only with a good reason.
+* Never do wildcard (``from foo import *``) imports with the exception when all Anaconda developers agree on that.
+* Use `raise` & `return` in the doc string. Do not use `raises` or `returns`.
+
 Merging examples
 ----------------
 
