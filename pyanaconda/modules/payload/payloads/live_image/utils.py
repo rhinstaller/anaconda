@@ -15,30 +15,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import glob
 import functools
-import os
 import tarfile
 
 from pyanaconda.payload.utils import version_cmp
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.util import ProxyString, ProxyStringError, execWithRedirect
+from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core.constants import TAR_SUFFIX
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
-
-def get_kernel_version_list(root_path):
-    files = glob.glob(root_path + "/boot/vmlinuz-*")
-    files.extend(
-        glob.glob(root_path + "/boot/efi/EFI/{}/vmlinuz-*".format(conf.bootloader.efi_dir))
-    )
-
-    kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
-                                  if os.path.isfile(f) and "-rescue-" not in f),
-                                 key=functools.cmp_to_key(version_cmp))
-    return kernel_version_list
 
 
 def get_kernel_version_list_from_tar(tarfile_path):
@@ -74,30 +59,3 @@ def get_proxies_from_option(proxy_option):
 def url_target_is_tarfile(url):
     """Does the url point to a tarfile?"""
     return any(url.endswith(suffix) for suffix in TAR_SUFFIX)
-
-
-def create_rescue_image(root, kernel_version_list):
-    """Create the rescue initrd images for each kernel."""
-    # Always make sure the new system has a new machine-id, it won't boot without it
-    # (and nor will some of the subsequent commands like grub2-mkconfig and kernel-install)
-    log.info("Generating machine ID")
-    if os.path.exists(root + "/etc/machine-id"):
-        os.unlink(root + "/etc/machine-id")
-    execWithRedirect("systemd-machine-id-setup", [], root=root)
-
-    if os.path.exists(root + "/usr/sbin/new-kernel-pkg"):
-        use_nkp = True
-    else:
-        log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
-        use_nkp = False
-
-    for kernel in kernel_version_list:
-        log.info("Generating rescue image for %s", kernel)
-        if use_nkp:
-            execWithRedirect("new-kernel-pkg", ["--rpmposttrans", kernel], root=root)
-        else:
-            files = glob.glob(root + "/etc/kernel/postinst.d/*")
-            srlen = len(root)
-            files = sorted([f[srlen:] for f in files if os.access(f, os.X_OK)])
-            for file in files:
-                execWithRedirect(file, [kernel, "/boot/vmlinuz-%s" % kernel], root=root)

@@ -25,15 +25,13 @@ from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
-from pyanaconda.modules.payload.base.constants import SourceType
+from pyanaconda.modules.payload.constants import SourceType
 from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payload.base.utils import get_dir_size
-from pyanaconda.modules.payload.live.live_os_interface import LiveOSHandlerInterface
-from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.live.installation import InstallFromImageTask
-from pyanaconda.modules.payload.live.utils import get_kernel_version_list
+    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask, UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.base.installation import InstallFromImageTask
+from pyanaconda.modules.payload.base.utils import get_dir_size, get_kernel_version_list
+from pyanaconda.modules.payload.payloads.live_os.live_os_interface import LiveOSHandlerInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

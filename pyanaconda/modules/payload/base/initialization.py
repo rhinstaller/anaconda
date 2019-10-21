@@ -20,6 +20,7 @@ import shutil
 import traceback
 from glob import glob
 
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist
@@ -53,6 +54,49 @@ class PrepareSystemForInstallationTask(Task):
         """Create a root and write module blacklist."""
         create_root_dir(self._sysroot)
         write_module_blacklist(self._sysroot)
+
+
+class UpdateBLSConfigurationTask(Task):
+    """Task to update BLS configuration."""
+
+    def __init__(self, sysroot, kernel_version_list):
+        """Create a new task.
+
+        :param sysroot: a path to the root of the installed system
+        :type sysroot: str
+        :param kernel_version_list: list of kernel versions for updating of BLS configuration
+        :type krenel_version_list: list(str)
+        """
+        super().__init__()
+        self._sysroot = sysroot
+        self._kernel_version_list = kernel_version_list
+
+    @property
+    def name(self):
+        return "Update BLS configuration."""
+
+    def run(self):
+        """Run update of bls configuration."""
+        # Not using BLS configuration, skip it
+        if os.path.exists(self._sysroot + "/usr/sbin/new-kernel-pkg"):
+            return
+
+        # TODO: test if this is not a dir install
+
+        # Remove any existing BLS entries, they will not match the new system's
+        # machine-id or /boot mountpoint.
+        for file in glob(self._sysroot + "/boot/loader/entries/*.conf"):
+            log.info("Removing old BLS entry: %s", file)
+            os.unlink(file)
+
+        # Create new BLS entries for this system
+        for kernel in self._kernel_version_list:
+            log.info("Regenerating BLS info for %s", kernel)
+            execWithRedirect(
+                "kernel-install",
+                ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
+                root=self._sysroot
+            )
 
 
 # TODO: Can we remove this really old code which probably even doesn't work now?

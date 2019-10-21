@@ -18,11 +18,11 @@
 # Red Hat, Inc.
 from abc import ABC, abstractclassmethod
 
-from pyanaconda.modules.payload.base.constants import HandlerType, SourceType
-from pyanaconda.modules.payload.dnf.dnf import DNFHandlerModule
-from pyanaconda.modules.payload.live.live_image import LiveImageHandlerModule
-from pyanaconda.modules.payload.live.live_os import LiveOSHandlerModule
-from pyanaconda.modules.payload.sources.live_os import LiveOSSourceModule
+from pyanaconda.modules.payload.constants import HandlerType, SourceType
+from pyanaconda.modules.payload.payloads.dnf.dnf import DNFHandlerModule
+from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
+from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
+from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
 
 __all__ = ["HandlerFactory", "SourceFactory"]
 

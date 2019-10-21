@@ -15,20 +15,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import glob
+import hashlib
 import os
 import stat
-import hashlib
-import glob
 from requests.exceptions import RequestException
 
-from pyanaconda.modules.common.task import Task
+from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, IMAGE_DIR
+from pyanaconda.core.util import lowerASCII, execWithRedirect
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payload.live.utils import get_local_image_path_from_url, \
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payload.payloads.live_image.utils import get_local_image_path_from_url, \
     get_proxies_from_option, url_target_is_tarfile
 from pyanaconda.payload.utils import mount, unmount
-from pyanaconda.core.constants import IMAGE_DIR, NETWORK_CONNECTION_TIMEOUT
-
-from pyanaconda.core.util import lowerASCII, execWithRedirect
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -99,46 +98,6 @@ class CheckInstallationSourceImageTask(Task):
             size = self._check_remote_image(self._url, self._proxy)
         log.debug("Required space: %s", size)
         return size
-
-
-class DownloadProgress(object):
-    """Provide methods for download progress reporting."""
-
-    def __init__(self, url, size, report_callback):
-        """Create a progress object for given task.
-
-        :param url: url of the download
-        :type url: str
-        :param size: length of the file
-        :type size: int
-        :param report_callback: callback with progress message argument
-        :type task: callable taking str argument
-        """
-        self.report = report_callback
-        self.url = url
-        self.size = size
-        self._pct = -1
-
-    def update(self, bytes_read):
-        """Download update.
-
-        :param bytes_read: Bytes read so far
-        :type bytes_read:  int
-        """
-        if not bytes_read:
-            return
-        pct = min(100, int(100 * bytes_read / self.size))
-
-        if pct == self._pct:
-            return
-        self._pct = pct
-        self.report("Downloading image %(url)s (%(pct)d%%)" %
-                    {"url": self.url, "pct": pct})
-
-    def end(self):
-        """Download complete."""
-        self.report("Downloading image %(url)s (%(pct)d%%)" %
-                    {"url": self.url, "pct": 100})
 
 
 class SetupInstallationSourceImageTask(Task):
@@ -276,8 +235,8 @@ class SetupInstallationSourceImageTask(Task):
         # self._update_kernel_version_list()
 
         # FIXME: This should be done by the module
-        #source = os.statvfs(mount_point)
-        #self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
+        # # source = os.statvfs(mount_point)
+        # self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
     def run(self):
         """Run set up or installation source."""
@@ -288,8 +247,8 @@ class SetupInstallationSourceImageTask(Task):
             self._download_image(self._url, self._image_path, self._session)
 
         # TODO - do we use it at all in LiveImage
-        ## Used to make install progress % look correct
-        #self._adj_size = os.stat(self.image_path)[stat.ST_SIZE]
+        # Used to make install progress % look correct
+        # self._adj_size = os.stat(self.image_path)[stat.ST_SIZE]
 
         if self._checksum:
             self._check_image_sum(self._image_path, self._checksum)
@@ -327,7 +286,7 @@ class TeardownInstallationSourceImageTask(Task):
         """Run tear down of installation source image."""
         if not url_target_is_tarfile(self._url):
             unmount(self._image_mount_point, raise_exc=True)
-            #FIXME: Payload and LiveOS stuff
+            # FIXME: Payload and LiveOS stuff
             # FIXME: do we need a task for this?
             if os.path.exists(IMAGE_DIR + "/LiveOS"):
                 # FIXME: catch and pass the exception
@@ -339,44 +298,41 @@ class TeardownInstallationSourceImageTask(Task):
                 os.unlink(self._image_path)
 
 
-class UpdateBLSConfigurationTask(Task):
-    """Task to update BLS configuration."""
+class DownloadProgress(object):
+    """Provide methods for download progress reporting."""
 
-    def __init__(self, sysroot, kernel_version_list):
-        """Create a new task.
+    def __init__(self, url, size, report_callback):
+        """Create a progress object for given task.
 
-        :param sysroot: a path to the root of the installed system
-        :type sysroot: str
-        :param kernel_version_list: list of kernel versions for updating of BLS configuration
-        :type krenel_version_list: list(str)
+        :param url: url of the download
+        :type url: str
+        :param size: length of the file
+        :type size: int
+        :param report_callback: callback with progress message argument
+        :type task: callable taking str argument
         """
-        super().__init__()
-        self._sysroot = sysroot
-        self._kernel_version_list = kernel_version_list
+        self.report = report_callback
+        self.url = url
+        self.size = size
+        self._pct = -1
 
-    @property
-    def name(self):
-        return "Update BLS configuration."""
+    def update(self, bytes_read):
+        """Download update.
 
-    def run(self):
-        """Run update of bls configuration."""
-        # Not using BLS configuration, skip it
-        if os.path.exists(self._sysroot + "/usr/sbin/new-kernel-pkg"):
+        :param bytes_read: Bytes read so far
+        :type bytes_read:  int
+        """
+        if not bytes_read:
             return
+        pct = min(100, int(100 * bytes_read / self.size))
 
-        # TODO: test if this is not a dir install
+        if pct == self._pct:
+            return
+        self._pct = pct
+        self.report("Downloading image %(url)s (%(pct)d%%)" %
+                    {"url": self.url, "pct": pct})
 
-        # Remove any existing BLS entries, they will not match the new system's
-        # machine-id or /boot mountpoint.
-        for file in glob.glob(self._sysroot + "/boot/loader/entries/*.conf"):
-            log.info("Removing old BLS entry: %s", file)
-            os.unlink(file)
-
-        # Create new BLS entries for this system
-        for kernel in self._kernel_version_list:
-            log.info("Regenerating BLS info for %s", kernel)
-            execWithRedirect(
-                "kernel-install",
-                ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
-                root=self._sysroot
-            )
+    def end(self):
+        """Download complete."""
+        self.report("Downloading image %(url)s (%(pct)d%%)" %
+                    {"url": self.url, "pct": 100})

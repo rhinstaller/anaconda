@@ -17,67 +17,11 @@
 #
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import InstallError
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.modules.payload.live.utils import create_rescue_image
+from pyanaconda.modules.payload.base.utils import create_rescue_image
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
-
-class InstallFromImageTask(Task):
-    """Task to install the payload from image."""
-
-    def __init__(self, dest_path, kernel_version_list, source=None):
-        """Create a new task.
-
-        :param dest_path: installation destination root path
-        :type dest_path: str
-        :param kernel_version_list: list of kernel versions for rescue initrd images
-                                    to be created
-        :type krenel_version_list: list(str)
-        """
-        super().__init__()
-        self._source = source
-        self._dest_path = dest_path
-        self._kernel_version_list = kernel_version_list
-
-    @property
-    def name(self):
-        return "Install the payload from image"
-
-    def run(self):
-        """Run installation of the payload from image."""
-        # TODO: remove this check for None when Live Image payload will support sources
-        # The None check is just a temporary hack that Live OS has source but Live Image don't
-        if self._source is not None and not self._source.is_ready():
-            raise InstallError("Source is not set up!")
-
-        cmd = "rsync"
-        # preserve: permissions, owners, groups, ACL's, xattrs, times,
-        #           symlinks, hardlinks
-        # go recursively, include devices and special files, don't cross
-        # file system boundaries
-        # TODO: source will provide us source path instead of using constant here
-        args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
-                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
-                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", self._dest_path]
-        try:
-            rc = execWithRedirect(cmd, args)
-        except (OSError, RuntimeError) as e:
-            msg = None
-            err = str(e)
-            log.error(err)
-        else:
-            err = None
-            msg = "%s exited with code %d" % (cmd, rc)
-            log.info(msg)
-
-        if err or rc == 11:
-            raise InstallError(err or msg)
-
-        create_rescue_image(self._dest_path, self._kernel_version_list)
 
 
 class InstallFromTarTask(Task):

@@ -27,9 +27,9 @@ from tempfile import TemporaryDirectory
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.payload import InstallError
-from pyanaconda.modules.payload.live.utils import get_kernel_version_list, create_rescue_image
-from pyanaconda.modules.payload.live.initialization import UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.live.installation import InstallFromImageTask
+from pyanaconda.modules.payload.base.initialization import UpdateBLSConfigurationTask
+from pyanaconda.modules.payload.base.installation import InstallFromImageTask
+from pyanaconda.modules.payload.base.utils import create_rescue_image, get_kernel_version_list
 
 
 class LiveUtilsTestCase(unittest.TestCase):
@@ -99,7 +99,7 @@ class LiveUtilsTestCase(unittest.TestCase):
 
             self.assertListEqual(kernel_list, self._kernel_test_valid_list)
 
-    @patch("pyanaconda.modules.payload.live.utils.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.utils.execWithRedirect")
     def create_rescue_image_with_new_kernel_pkg_test(self, exec_with_redirect):
         """Test creation of rescue image with kernel pkg."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
@@ -117,7 +117,7 @@ class LiveUtilsTestCase(unittest.TestCase):
 
             exec_with_redirect.assert_has_calls(calls)
 
-    @patch("pyanaconda.modules.payload.live.utils.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.utils.execWithRedirect")
     def create_rescue_image_without_machine_id_test(self, exec_with_redirect):
         """Test creation of rescue image without machine-id file."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
@@ -135,7 +135,7 @@ class LiveUtilsTestCase(unittest.TestCase):
 
             exec_with_redirect.assert_has_calls(calls)
 
-    @patch("pyanaconda.modules.payload.live.utils.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.utils.execWithRedirect")
     def create_rescue_image_with_postinst_scripts_test(self, exec_with_redirect):
         """Test creation of rescue image with postinst scripts."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
@@ -181,8 +181,8 @@ class LiveTasksTestCase(unittest.TestCase):
             for entry in bls_entries:
                 open(os.path.join(entries_path, entry), "wt").close()
 
-    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
-    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.base.installation.execWithRedirect")
     def install_image_task_test(self, exec_with_redirect, create_rescue_image_mock):
         """Test installation from an image task."""
         dest_path = "/destination/path"
@@ -201,8 +201,8 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
         create_rescue_image_mock.assert_called_once_with(dest_path, kernel_version_list)
 
-    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
-    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.base.installation.execWithRedirect")
     def install_image_task_source_unready_test(self, exec_with_redirect, create_rescue_image_mock):
         """Test installation from an image task when source is not ready."""
         dest_path = "/destination/path"
@@ -221,8 +221,8 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
         create_rescue_image_mock.assert_called_once_with(dest_path, kernel_version_list)
 
-    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
-    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.base.installation.execWithRedirect")
     def install_image_task_failed_exception_test(self, exec_with_redirect,
                                                  create_rescue_image_mock):
         """Test installation from an image task with exception."""
@@ -246,8 +246,8 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
         create_rescue_image_mock.assert_not_called()
 
-    @patch("pyanaconda.modules.payload.live.installation.create_rescue_image")
-    @patch("pyanaconda.modules.payload.live.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.installation.create_rescue_image")
+    @patch("pyanaconda.modules.payload.base.installation.execWithRedirect")
     def install_image_task_failed_return_code_test(self, exec_with_redirect,
                                                    create_rescue_image_mock):
         """Test installation from an image task with bad return code."""
@@ -271,7 +271,7 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
         create_rescue_image_mock.assert_not_called()
 
-    @patch("pyanaconda.modules.payload.live.initialization.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.initialization.execWithRedirect")
     def update_bls_configuration_task_no_bls_system_test(self, exec_with_redirect):
         """Test update bls configuration task on no BLS system."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
@@ -284,7 +284,7 @@ class LiveTasksTestCase(unittest.TestCase):
             # nothing should be done when new-kernel-pkg is present
             exec_with_redirect.assert_not_called()
 
-    @patch("pyanaconda.modules.payload.live.initialization.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.initialization.execWithRedirect")
     def update_bls_configuration_task_old_entries_test(self, exec_with_redirect):
         """Test update bls configuration task with old bls entries."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
@@ -315,7 +315,7 @@ class LiveTasksTestCase(unittest.TestCase):
 
             exec_with_redirect.assert_has_calls(calls)
 
-    @patch("pyanaconda.modules.payload.live.initialization.execWithRedirect")
+    @patch("pyanaconda.modules.payload.base.initialization.execWithRedirect")
     def update_bls_configuration_task_no_old_entries_test(self, exec_with_redirect):
         """Test update bls configuration task without old bls entries."""
         kernel_version_list = ["kernel-v1.fc2000.x86_64", "kernel-sad-kernel"]
