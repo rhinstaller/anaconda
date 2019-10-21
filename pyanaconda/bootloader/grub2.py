@@ -108,7 +108,6 @@ class GRUB2(BootLoader):
 
     _device_map_file = "device.map"
     can_dual_boot = True
-    can_update = True
 
     stage2_is_valid_stage1 = True
     stage2_bootable = True
@@ -399,9 +398,6 @@ class GRUB2(BootLoader):
 
         return targets
 
-    def update(self):
-        self.install()
-
     def install(self, args=None):
         if args is None:
             args = []
@@ -429,10 +425,6 @@ class GRUB2(BootLoader):
     def write(self):
         """Write the bootloader configuration and install the bootloader."""
         if self.skip_bootloader:
-            return
-
-        if self.update_only:
-            self.update()
             return
 
         try:

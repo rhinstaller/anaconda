@@ -102,16 +102,9 @@ class EFIBase(object):
                     raise BootLoaderError("Failed to remove old efi boot entry. This is most "
                                           "likely a kernel or firmware bug.")
 
-    def update(self):
-        self.install()
-
     def write(self):
         """ Write the bootloader configuration and install the bootloader. """
         if self.skip_bootloader:  # pylint: disable=no-member
-            return
-
-        if self.update_only:  # pylint: disable=no-member
-            self.update()
             return
 
         try:
