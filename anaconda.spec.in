@@ -340,6 +340,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 21 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.2-1
+- Don't add more devices in boot-device NVRAM than the maximum allowed
+  (javierm)
+  Resolves: rhbz#1748756
+- Fix local repo files aren't enabled (jkonecny)
+  Resolves: rhbz#1641620
+- Remove ldconfig spec macros (jkonecny)
+  Resolves: rhbz#1700685
+- Don't try to format FBA DASD devices (mmatsuya)
+  Resolves: rhbz#1715303
+
 * Mon Oct 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.1-1
 - Skip buildins when processing kernel boot args (jkonecny)
   Resolves: rhbz#1637472
