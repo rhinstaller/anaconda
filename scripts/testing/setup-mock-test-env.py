@@ -314,7 +314,7 @@ def copy_result(mock_command, out_dir):
 
 
 def create_mock_command(mock_conf, uniqueext):
-    cmd = ['mock', '-r', mock_conf, ]
+    cmd = ['mock', '-r', mock_conf, '--enable-network']
 
     if uniqueext:
         cmd.append('--uniqueext')
