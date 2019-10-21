@@ -128,8 +128,9 @@ class ISCSIModule(KickstartBaseModule):
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        data.iscsiname.iscsiname = self.initiator
         data.iscsi.iscsi = self.generate_iscsi_data(data.IscsiData)
+        if data.iscsi.iscsi:
+            data.iscsiname.iscsiname = self.initiator
 
     def generate_iscsi_data(self, iscsi_data_class):
         """Generate kickstart data based on original kickstart and attached nodes.
