@@ -1,7 +1,7 @@
 #
-# Base object of all payload handlers.
+# Base object of all payloads.
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -27,10 +27,10 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
-    """Base class for all the payload handler modules.
+class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
+    """Base class for all the payload modules.
 
-    This will contain all API specific to payload handlers which will be called
+    This will contain all API specific to payload which will be called
     by the base payload module.
     """
     def __init__(self):
