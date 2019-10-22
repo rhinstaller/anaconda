@@ -341,12 +341,24 @@ run_kickstart() {
         udevadm trigger --action=change --subsystem-match=block
     fi
 
-    # net: re-run online hook
+    # net: re-run online hooks
     if [ "$do_net" ]; then
-        udevadm trigger --action=change --subsystem-match=net
-        for netif in $(online_netdevs); do
-            source_hook initqueue/online $netif
-        done
+        # If NetworkManager is used in initramfs
+        if [ -e $hookdir/cmdline/*-nm-config.sh ]; then
+            # Configure NM based on the cmdline now updated with kickstart.
+            # The configuration will be applied by the next run of NM
+            # via settled hook in *-nm-run.sh script which also calls the
+            # online hooks.
+            . $hookdir/cmdline/*-nm-config.sh
+        else
+            # make dracut create the net udev rules (based on the new cmdline)
+            . $hookdir/pre-udev/*-net-genrules.sh
+            udevadm control --reload
+            udevadm trigger --action=add --subsystem-match=net
+            for netif in $(online_netdevs); do
+                source_hook initqueue/online $netif
+            done
+        fi
     fi
 
     # and that's it - we're back to the mainloop.
