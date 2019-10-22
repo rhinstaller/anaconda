@@ -340,6 +340,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 22 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.3-1
+- Only attempt to open the ibm,max-boot-devices sysfs entry if it exists
+  (javierm)
+  Related: rhbz#1748756
+
 * Mon Oct 21 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.2-1
 - Don't add more devices in boot-device NVRAM than the maximum allowed
   (javierm)
