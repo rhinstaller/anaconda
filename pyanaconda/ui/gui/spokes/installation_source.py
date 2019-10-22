@@ -30,7 +30,8 @@ from pyanaconda.core import glib, constants
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_, CN_
-from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources
+from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
+    get_hdiso_source_info, get_hdiso_source_description
 from pyanaconda.core.util import ProxyString, ProxyStringError, cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
@@ -46,7 +47,9 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
-from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.storage.utils import device_matches
 from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
 
@@ -286,9 +289,9 @@ class MediaCheckDialog(GUIObject):
         self.progressBar.set_fraction(pct)
         return True
 
-    def run(self, devicePath):
+    def run(self, device_path):
         (retval, self._pid, _stdin, stdout, _stderr) = \
-            glib.spawn_async_with_pipes(None, ["checkisomd5", "--gauge", devicePath], [],
+            glib.spawn_async_with_pipes(None, ["checkisomd5", "--gauge", device_path], [],
                                         glib.SpawnFlags.DO_NOT_REAP_CHILD |
                                         glib.SpawnFlags.SEARCH_PATH,
                                         None, None)
@@ -349,9 +352,10 @@ class IsoChooser(GUIObject):
         self._chooser.connect("current-folder-changed", self.on_folder_changed)
         self._chooser.set_filename(constants.ISO_DIR + "/" + currentFile)
 
-    def run(self, dev):
+    def run(self, device_name):
         retval = None
-        mounts = payload_utils.get_mount_paths(dev.path)
+        device_path = payload_utils.get_device_path(device_name)
+        mounts = payload_utils.get_mount_paths(device_path)
         mountpoint = None
         # We have to check both ISO_DIR and the DRACUT_ISODIR because we
         # still reference both, even though /mnt/install is a symlink to
@@ -359,7 +363,7 @@ class IsoChooser(GUIObject):
         if constants.ISO_DIR not in mounts and constants.DRACUT_ISODIR not in mounts:
             # We're not mounted to either location, so do the mount
             mountpoint = constants.ISO_DIR
-            payload_utils.mount_device(dev, mountpoint)
+            payload_utils.mount_device(device_name, mountpoint)
 
         # If any directory was chosen, return that.  Otherwise, return None.
         rc = self.window.run()
@@ -369,7 +373,7 @@ class IsoChooser(GUIObject):
                 retval = f.replace(constants.ISO_DIR, "")
 
         if not mounts:
-            payload_utils.unmount_device(dev, mountpoint)
+            payload_utils.unmount_device(device_name, mountpoint)
 
         self.window.destroy()
         return retval
@@ -420,6 +424,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repo_store_lock = threading.Lock()
 
         self._network_module = NETWORK.get_proxy()
+        self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
         self._treeinfo_repos_already_disabled = False
 
@@ -461,21 +466,21 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # If the user didn't select a partition (not sure how that would
             # happen) or didn't choose a directory (more likely), then return
             # as if they never did anything.
-            part = self._get_selected_partition()
-            if not part or not self._current_iso_file:
+            partition = self._get_selected_partition()
+            if not partition or not self._current_iso_file:
                 return False
 
             self.data.method.method = "harddrive"
-            self.data.method.partition = part.name
+            self.data.method.partition = partition
             # The / gets stripped off by payload.ISO_image
             self.data.method.dir = "/" + self._current_iso_file
             if old_method == "harddrive" \
-               and payload_utils.resolve_device(self.storage, old_partition) == part \
+               and payload_utils.resolve_device(old_partition) == partition \
                and old_dir in [self._current_iso_file, "/" + self._current_iso_file]:
                 return False
 
             # Make sure anaconda doesn't touch this device.
-            mark_protected_device(part.name)
+            mark_protected_device(partition)
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
@@ -852,7 +857,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self.data.method.method == "cdrom":
             self._cdrom = self.payload.install_device
         elif not flags.automatedInstall:
-            self._cdrom = find_optical_install_media(self.storage)
+            self._cdrom = find_optical_install_media()
 
         if self._cdrom:
             self._show_autodetect_box_with_device(self._cdrom)
@@ -885,9 +890,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # report that the source spoke has been initialized
         self.initialize_done()
 
-    def _show_autodetect_box_with_device(self, device):
-        device_label = getattr(device.format, "label", "") or ""
-        self._show_autodetect_box(device.name, device_label)
+    def _show_autodetect_box_with_device(self, device_name):
+        device_data = DeviceData.from_structure(
+            self._device_tree.GetDeviceData(device_name)
+        )
+        device_label = device_data.attrs.get("label", "")
+        self._show_autodetect_box(device_name, device_label)
 
     def _show_autodetect_box(self, device_name, device_label):
         fire_gtk_action(self._autodetect_device_label.set_text, _("Device: %s") % device_name)
@@ -913,23 +921,20 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self.data.method.method == "harddrive":
             method_dev_name = self._get_harddrive_partition_name()
 
-        for dev in find_potential_hdiso_sources(self.storage):
-            # path model size format type uuid of format
-            dev_info = {"model": self._sanitize_model(dev.disk.model or ""),
-                        "path": dev.path,
-                        "size": dev.size,
-                        "format": dev.format.name or "",
-                        "label": dev.format.label or dev.format.uuid or ""
-                        }
+        for device_name in find_potential_hdiso_sources():
+            device_info = get_hdiso_source_info(self._device_tree, device_name)
 
             # With the label in here, the combo box can appear really long thus pushing
             # the "pick an image" and the "verify" buttons off the screen.
-            if dev_info["label"] != "":
-                dev_info["label"] = "\n" + dev_info["label"]
+            if device_info["label"] != "":
+                device_info["label"] = "\n" + device_info["label"]
 
-            store.append([dev, "%(model)s %(path)s (%(size)s) %(format)s %(label)s" % dev_info])
-            if self.data.method.method == "harddrive" and dev.name == method_dev_name:
+            device_desc = get_hdiso_source_description(device_info)
+            store.append([device_name, device_desc])
+
+            if self.data.method.method == "harddrive" and device_name == method_dev_name:
                 active = idx
+
             added = True
             idx += 1
 
@@ -1096,6 +1101,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         return self._protocol_combo_box.get_active_id() == PROTOCOL_NFS
 
     def _get_selected_partition(self):
+        """Get a name of the selected partition."""
         store = self.builder.get_object("partitionStore")
         combo = self.builder.get_object("isoPartitionCombo")
 
@@ -1104,9 +1110,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return None
         else:
             return store[selected][0]
-
-    def _sanitize_model(self, model):
-        return model.replace("_", " ")
 
     # Input checks
 
@@ -1313,11 +1316,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             dialog.refresh()
 
         with self.main_window.enlightbox(dialog.window):
-            f = dialog.run(self._get_selected_partition())
+            iso_file = dialog.run(self._get_selected_partition())
 
-        if f and f.endswith(".iso"):
-            self._current_iso_file = f
-            button.set_label(os.path.basename(f))
+        if iso_file and iso_file.endswith(".iso"):
+            self._current_iso_file = iso_file
+            button.set_label(os.path.basename(iso_file))
             button.set_use_underline(False)
             self._verify_iso_button.set_sensitive(True)
             self._disable_treeinfo_repositories()
@@ -1333,15 +1336,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._proxy_url = dialog.proxy_url
 
     def on_verify_iso_clicked(self, button):
-        p = self._get_selected_partition()
-        f = self._current_iso_file
+        partition = self._get_selected_partition()
+        iso_file = self._current_iso_file
 
-        if not p or not f:
+        if not partition or not iso_file:
             return
 
         dialog = MediaCheckDialog(self.data)
         with self.main_window.enlightbox(dialog.window):
-            mounts = payload_utils.get_mount_paths(p.path)
+            path = payload_utils.get_device_path(partition)
+            mounts = payload_utils.get_mount_paths(path)
             mountpoint = None
             # We have to check both ISO_DIR and the DRACUT_ISODIR because we
             # still reference both, even though /mnt/install is a symlink to
@@ -1349,11 +1353,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             if constants.ISO_DIR not in mounts and constants.DRACUT_ISODIR not in mounts:
                 # We're not mounted to either location, so do the mount
                 mountpoint = constants.ISO_DIR
-                payload_utils.mount_device(p, mountpoint)
-            dialog.run(constants.ISO_DIR + "/" + f)
+                payload_utils.mount_device(partition, mountpoint)
+            dialog.run(constants.ISO_DIR + "/" + iso_file)
 
             if not mounts:
-                payload_utils.unmount_device(p, mountpoint)
+                payload_utils.unmount_device(partition, mountpoint)
 
     def on_verify_media_clicked(self, button):
         if not self._cdrom:
@@ -1361,7 +1365,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         dialog = MediaCheckDialog(self.data)
         with self.main_window.enlightbox(dialog.window):
-            dialog.run("/dev/" + self._cdrom.name)
+            dialog.run("/dev/" + self._cdrom)
 
     def on_protocol_changed(self, combo):
         self._on_protocol_changed()
