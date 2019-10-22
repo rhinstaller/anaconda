@@ -469,7 +469,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # The / gets stripped off by payload.ISO_image
             self.data.method.dir = "/" + self._current_iso_file
             if old_method == "harddrive" \
-               and payload_utils.resolve_device(self.storage, old_partition) == part \
+               and payload_utils.resolve_device(old_partition) == part \
                and old_dir in [self._current_iso_file, "/" + self._current_iso_file]:
                 return False
 
@@ -851,7 +851,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self.data.method.method == "cdrom":
             self._cdrom = self.payload.install_device
         elif not flags.automatedInstall:
-            self._cdrom = find_optical_install_media(self.storage)
+            self._cdrom = find_optical_install_media()
 
         if self._cdrom:
             self._show_autodetect_box_with_device(self._cdrom)
@@ -912,7 +912,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self.data.method.method == "harddrive":
             method_dev_name = self._get_harddrive_partition_name()
 
-        for dev in find_potential_hdiso_sources(self.storage):
+        for dev in find_potential_hdiso_sources():
             # path model size format type uuid of format
             dev_info = {"model": self._sanitize_model(dev.disk.model or ""),
                         "path": dev.path,
