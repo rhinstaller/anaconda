@@ -58,7 +58,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         instead replace the old source with the new one.
 
         :param source: source object
-        :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
+        :type source: instance of pyanaconda.modules.payload.sources.source_base.PayloadSourceBase
         :raises: IncompatibleSourceError
         """
         if len(sources) > 1:
