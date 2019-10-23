@@ -22,10 +22,14 @@ from functools import partial
 from threading import Lock
 
 from pyanaconda.core.signal import Signal
-from pyanaconda.dbus.constants import DBUS_FLAG_NONE, DBUS_DEFAULT_TIMEOUT
+from pyanaconda.dbus.constants import DBUS_FLAG_NONE
 from pyanaconda.dbus.error import GLibErrorHandler
 from pyanaconda.dbus.specification import DBusSpecification, DBusSpecificationError
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+
+import gi
+gi.require_version("GLib", "2.0")
+from gi.repository import GLib
 
 __all__ = ["GLibClient", "AbstractClientObjectHandler", "ClientObjectHandler",
            "AbstractObjectProxy", "ObjectProxy", "InterfaceProxy"]
@@ -34,9 +38,12 @@ __all__ = ["GLibClient", "AbstractClientObjectHandler", "ClientObjectHandler",
 class GLibClient(object):
     """The low-level DBus client library based on GLib."""
 
+    # Infinite timeout of a DBus call
+    DBUS_TIMEOUT_NONE = GLib.MAXINT
+
     @classmethod
     def sync_call(cls, connection, service_name, object_path, interface_name, method_name,
-                  parameters, reply_type, flags=DBUS_FLAG_NONE, timeout=DBUS_DEFAULT_TIMEOUT):
+                  parameters, reply_type, flags=DBUS_FLAG_NONE, timeout=DBUS_TIMEOUT_NONE):
         """Synchronously call a DBus method.
 
         :return: a result of the DBus call
@@ -56,7 +63,7 @@ class GLibClient(object):
     @classmethod
     def async_call(cls, connection, service_name, object_path, interface_name, method_name,
                    parameters, reply_type, callback, callback_args=(), flags=DBUS_FLAG_NONE,
-                   timeout=DBUS_DEFAULT_TIMEOUT):
+                   timeout=DBUS_TIMEOUT_NONE):
         """Asynchronously call a DBus method."""
         connection.call(
             service_name,

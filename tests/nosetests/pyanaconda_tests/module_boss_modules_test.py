@@ -71,7 +71,7 @@ class ModuleManagerTestCase(unittest.TestCase):
             DBUS_FLAG_NONE,
             callback=task._start_service_by_name_callback,
             callback_args=(observer,),
-            timeout=600
+            timeout=600000
         )
 
         gio.bus_watch_name_on_connection.assert_called_once()

@@ -33,7 +33,14 @@ __all__ = ["StartModulesTask"]
 
 class StartModulesTask(Task):
 
-    def __init__(self, message_bus, module_names, addons_enabled, timeout=600):
+    def __init__(self, message_bus, module_names, addons_enabled, timeout=600000):
+        """Create a new task.
+
+        :param message_bus: a message bus
+        :param module_names: a list of DBus names of modules
+        :param addons_enabled: True to enable addons, otherwise False
+        :param timeout: a timeout of a DBus call in milliseconds
+        """
         super().__init__()
         self._message_bus = message_bus
         self._module_names = module_names

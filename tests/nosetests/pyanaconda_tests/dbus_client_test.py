@@ -23,7 +23,7 @@ from unittest.mock import Mock, patch
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus.client import ClientObjectHandler, ObjectProxy, GLibClient
-from pyanaconda.dbus.constants import DBUS_FLAG_NONE, DBUS_DEFAULT_TIMEOUT
+from pyanaconda.dbus.constants import DBUS_FLAG_NONE
 from pyanaconda.dbus.error import ErrorRegister
 from pyanaconda.dbus.specification import DBusSpecification
 from pyanaconda.dbus.typing import get_variant, get_variant_type, VariantType
@@ -226,7 +226,7 @@ class DBusClientTestCase(unittest.TestCase):
             parameters,
             reply_type,
             DBUS_FLAG_NONE,
-            DBUS_DEFAULT_TIMEOUT,
+            GLibClient.DBUS_TIMEOUT_NONE,
             None
         )
 
@@ -297,7 +297,7 @@ class DBusClientTestCase(unittest.TestCase):
             parameters,
             reply_type,
             DBUS_FLAG_NONE,
-            DBUS_DEFAULT_TIMEOUT,
+            GLibClient.DBUS_TIMEOUT_NONE,
             callback=GLibClient._async_call_finish,
             user_data=(self.handler._method_callback, (callback, callback_args))
         )
