@@ -31,7 +31,7 @@ import warnings
 
 from contextlib import contextmanager
 
-from pyanaconda import keyboard, network, ntp, timezone
+from pyanaconda import keyboard, ntp, timezone
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
@@ -41,10 +41,8 @@ from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
-    SERVICES, STORAGE, NETWORK
-from pyanaconda.modules.common.constants.objects import FCOE
+    SERVICES
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
-from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
@@ -75,7 +73,6 @@ authselect_log = log.getChild("kickstart.authselect")
 user_log = log.getChild("kickstart.user")
 group_log = log.getChild("kickstart.group")
 iscsi_log = log.getChild("kickstart.iscsi")
-network_log = log.getChild("kickstart.network")
 timezone_log = log.getChild("kickstart.timezone")
 realm_log = log.getChild("kickstart.realm")
 firewall_log = log.getChild("kickstart.firewall")
@@ -297,52 +294,6 @@ class Logging(COMMANDS.Logging):
             if self.port:
                 remote_server = "%s:%s" % (self.host, self.port)
             anaconda_logging.logger.updateRemote(remote_server)
-
-class Network(COMMANDS.Network):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.packages = []
-
-    def parse(self, args):
-        nd = super().parse(args)
-        setting_only_hostname = nd.hostname and len(args) <= 2
-        if not setting_only_hostname:
-            if not nd.device:
-                ksdevice = flags.cmdline.get('ksdevice')
-                if ksdevice:
-                    network_log.info('setting %s from ksdevice for missing kickstart --device', ksdevice)
-                    nd.device = ksdevice
-                else:
-                    network_log.info('setting "link" for missing --device specification in kickstart')
-                    nd.device = "link"
-        return nd
-
-    def execute(self, payload):
-        fcoe_proxy = STORAGE.get_proxy(FCOE)
-        fcoe_nics = fcoe_proxy.GetNics()
-        fcoe_ifaces = [dev.device_name for dev in network.get_supported_devices()
-                       if dev.device_name in fcoe_nics]
-        overwrite = network.can_overwrite_configuration(payload)
-        network_proxy = NETWORK.get_proxy()
-
-        task_path = network_proxy.ConfigureActivationOnBootWithTask(fcoe_ifaces)
-        task_proxy = NETWORK.get_proxy(task_path)
-        sync_run_task(task_proxy)
-
-        task_path = network_proxy.InstallNetworkWithTask(overwrite)
-        task_proxy = NETWORK.get_proxy(task_path)
-        sync_run_task(task_proxy)
-
-        task_path = network_proxy.ConfigureHostnameWithTask(overwrite)
-        task_proxy = NETWORK.get_proxy(task_path)
-        sync_run_task(task_proxy)
-
-        if conf.system.can_change_hostname:
-            hostname = network_proxy.Hostname
-            if hostname != network.DEFAULT_HOSTNAME:
-                network_proxy.SetCurrentHostname(hostname)
-
-
 
 class Partition(COMMANDS.Partition):
     pass
@@ -614,7 +565,7 @@ commandMap = {
     "logging": Logging,
     "logvol": LogVol,
     "mount": UselessCommand,
-    "network": Network,
+    "network": UselessCommand,
     "nvdimm": UselessCommand,
     "part": Partition,
     "partition": Partition,

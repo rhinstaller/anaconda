@@ -37,9 +37,9 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
     IPV6_ADDRESS_IN_DRACUT_IP_OPTION
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
+from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE, STORAGE
+from pyanaconda.modules.common.constants.objects import FCOE
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -52,11 +52,11 @@ network_connected_condition = threading.Condition()
 
 _nm_client = None
 
-__all__ = ["can_overwrite_configuration", "get_supported_devices",
-           "status_message", "wait_for_connectivity", "wait_for_connecting_NM_thread",
-           "wait_for_network_devices", "wait_for_connected_NM", "initialize_network",
-           "copy_resolv_conf_to_root", "get_hostname", "prefix_to_netmask", "netmask_to_prefix",
-           "get_first_ip_address", "is_valid_hostname", "check_ip_address", "get_nm_client"]
+__all__ = ["get_supported_devices", "status_message", "wait_for_connectivity",
+           "wait_for_connecting_NM_thread", "wait_for_network_devices", "wait_for_connected_NM",
+           "initialize_network", "copy_resolv_conf_to_root", "get_hostname", "prefix_to_netmask",
+           "netmask_to_prefix", "get_first_ip_address", "is_valid_hostname", "check_ip_address",
+           "get_nm_client", "write_configuration"]
 
 
 def get_nm_client():
@@ -294,6 +294,32 @@ def initialize_network():
     network_proxy.CreateDeviceConfigurations()
 
     log.debug("Initialization finished.")
+
+
+def write_configuration(overwrite=False):
+    """Install network configuration to target system."""
+    fcoe_proxy = STORAGE.get_proxy(FCOE)
+    fcoe_nics = fcoe_proxy.GetNics()
+    fcoe_ifaces = [dev.device_name for dev in get_supported_devices()
+                   if dev.device_name in fcoe_nics]
+    network_proxy = NETWORK.get_proxy()
+
+    task_path = network_proxy.ConfigureActivationOnBootWithTask(fcoe_ifaces)
+    task_proxy = NETWORK.get_proxy(task_path)
+    sync_run_task(task_proxy)
+
+    task_path = network_proxy.InstallNetworkWithTask(overwrite)
+    task_proxy = NETWORK.get_proxy(task_path)
+    sync_run_task(task_proxy)
+
+    task_path = network_proxy.ConfigureHostnameWithTask(overwrite)
+    task_proxy = NETWORK.get_proxy(task_path)
+    sync_run_task(task_proxy)
+
+    if conf.system.can_change_hostname:
+        hostname = network_proxy.Hostname
+        if hostname != DEFAULT_HOSTNAME:
+            network_proxy.SetCurrentHostname(hostname)
 
 
 def _set_ntp_servers_from_dhcp():
@@ -582,7 +608,3 @@ def is_libvirt_device(iface):
 
 def device_type_is_supported_wired(device_type):
     return device_type in [NM.DeviceType.ETHERNET, NM.DeviceType.INFINIBAND]
-
-
-def can_overwrite_configuration(payload):
-    return isinstance(payload, LiveImagePayload)
