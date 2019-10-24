@@ -22,12 +22,12 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
-from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface
 
 
 @dbus_interface(LIVE_IMAGE_HANDLER.interface_name)
-class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
+class LiveImageHandlerInterface(PayloadBaseInterface):
     """DBus interface for Live Image payload module."""
 
     def connect_signals(self):

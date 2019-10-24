@@ -21,12 +21,12 @@ from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
-from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface
 
 
 @dbus_interface(LIVE_OS_HANDLER.interface_name)
-class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
+class LiveOSHandlerInterface(PayloadBaseInterface):
     """DBus interface for Live OS payload module."""
 
     def connect_signals(self):
