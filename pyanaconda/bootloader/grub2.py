@@ -273,6 +273,13 @@ class GRUB2(BootLoader):
             log.warning("BLS support disabled due new-kernel-pkg being present")
             self.use_bls = False
 
+        hv_type_path = "/sys/hypervisor/type"
+        if self.use_bls and os.access(hv_type_path, os.F_OK):
+            with open(hv_type_path, "r") as fd:
+                if fd.readline().strip() == "xen":
+                    log.warning("BLS support disabled because is a Xen machine")
+                    self.use_bls = False
+
         if self.use_bls:
             defaults.write("GRUB_ENABLE_BLSCFG=true\n")
         defaults.close()
