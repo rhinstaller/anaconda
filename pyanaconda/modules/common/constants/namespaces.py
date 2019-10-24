@@ -96,6 +96,11 @@ BAZ_NAMESPACE = (
     "Baz"
 )
 
+PAYLOAD_BASE_NAMESPACE = (
+    *PAYLOAD_NAMESPACE,
+    "Base"
+)
+
 PAYLOAD_SOURCE_NAMESPACE = (
     *PAYLOAD_NAMESPACE,
     "Source"
