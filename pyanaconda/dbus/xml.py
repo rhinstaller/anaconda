@@ -25,18 +25,78 @@
 from xml.etree import ElementTree
 from xml.dom import minidom
 
+__all__ = ["XMLParser", "XMLGenerator"]
 
-class XMLGenerator(object):
-    """Class for creating XML and XML elements."""
+
+class XMLParser(object):
+    """Class for parsing XML."""
+
+    @staticmethod
+    def xml_to_element(xml):
+        return ElementTree.fromstring(xml)
+
+    @staticmethod
+    def is_member(member_node):
+        return member_node.tag in ("method", "signal", "property")
+
+    @staticmethod
+    def is_interface(member_node):
+        return member_node.tag == "interface"
+
+    @staticmethod
+    def is_signal(member_node):
+        return member_node.tag == "signal"
+
+    @staticmethod
+    def is_method(member_node):
+        return member_node.tag == "method"
+
+    @staticmethod
+    def is_property(member_node):
+        return member_node.tag == "property"
+
+    @staticmethod
+    def is_parameter(member_node):
+        return member_node.tag == "arg"
+
+    @staticmethod
+    def has_name(node, node_name):
+        return node.attrib.get("name", "") == node_name
+
+    @staticmethod
+    def get_name(node):
+        return node.attrib["name"]
+
+    @staticmethod
+    def get_type(node):
+        return node.attrib["type"]
+
+    @staticmethod
+    def get_access(node):
+        return node.attrib["access"]
+
+    @staticmethod
+    def get_direction(node):
+        return node.attrib["direction"]
+
+    @staticmethod
+    def get_interfaces_from_node(node_element):
+        """Return a dictionary of interfaces defined in a node element."""
+        interfaces = dict()
+
+        for element in node_element.iterfind("interface"):
+            interfaces[element.attrib["name"]] = element
+
+        return interfaces
+
+
+class XMLGenerator(XMLParser):
+    """Class for generating XML."""
 
     @staticmethod
     def element_to_xml(element):
         """Return XML of the element."""
         return ElementTree.tostring(element, method="xml", encoding="unicode")
-
-    @staticmethod
-    def xml_to_element(xml):
-        return ElementTree.fromstring(xml)
 
     @staticmethod
     def prettify_xml(xml):
@@ -57,42 +117,22 @@ class XMLGenerator(object):
         element.append(ElementTree.Comment(text=comment))
 
     @staticmethod
-    def get_node_element():
+    def create_node():
         """Create a node element called node."""
         return ElementTree.Element("node")
 
     @staticmethod
-    def get_interface_element(name):
+    def create_interface(name):
         """Create an interface element."""
         return ElementTree.Element("interface", {"name": name})
 
     @staticmethod
-    def get_interfaces_from_node(node_element):
-        """Return a dictionary of interfaces defined in a node element."""
-        interfaces = dict()
-
-        for element in node_element.iterfind("interface"):
-            interfaces[element.attrib["name"]] = element
-
-        return interfaces
-
-    @staticmethod
-    def get_properties_from_interface(interface_element):
-        """Return a dictionary of properties defined in an interface element."""
-        properties = dict()
-
-        for element in interface_element.iterfind("property"):
-            properties[element.attrib["name"]] = element
-
-        return properties
-
-    @staticmethod
-    def get_signal_element(name):
+    def create_signal(name):
         """Create a signal element."""
         return ElementTree.Element("signal", {"name": name})
 
     @staticmethod
-    def get_method_element(name):
+    def create_method(name):
         """Create a method element."""
         return ElementTree.Element("method", {"name": name})
 
@@ -117,11 +157,3 @@ class XMLGenerator(object):
             "access": access
         }
         return ElementTree.Element(tag, attr)
-
-    @staticmethod
-    def is_member(member_node):
-        return member_node.tag in ("method", "signal", "property")
-
-    @staticmethod
-    def has_name(node, node_name):
-        return node.attrib.get("name", "") == node_name

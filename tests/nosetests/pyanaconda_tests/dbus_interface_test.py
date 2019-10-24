@@ -21,20 +21,21 @@
 import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.interface import DBusSpecification, DBusSpecificationError, dbus_interface, \
-    dbus_class, dbus_signal
+from pyanaconda.dbus.interface import DBusSpecificationGenerator, DBusSpecificationError, \
+    dbus_interface, dbus_class, dbus_signal, get_xml
+
 from tests.nosetests.pyanaconda_tests import compare_xml
 
 
 class InterfaceGeneratorTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.generator = DBusSpecification()
+        self.generator = DBusSpecificationGenerator
         self.maxDiff = None
 
     def _compare(self, cls, expected_xml):
         """Compare cls specification with the given xml."""
-        generated_xml = cls.dbus  # pylint: disable=no-member
+        generated_xml = get_xml(cls)  # pylint: disable=no-member
         compare_xml(self, generated_xml, expected_xml)
 
     def exportable_test(self):

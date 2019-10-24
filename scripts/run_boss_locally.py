@@ -14,7 +14,7 @@ import shutil
 import argparse
 from gi.repository import Gio
 
-from pyanaconda.dbus import DBusConnection
+from pyanaconda.dbus import AddressedMessageBus
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import sync_run_task
@@ -51,7 +51,7 @@ EXEC_PATH = 'Exec=/usr/libexec/anaconda/start-module'
 
 def start_anaconda_services():
     print(RED + "starting Boss" + RESET)
-    bus_proxy = test_dbus_connection.get_dbus_proxy()
+    bus_proxy = test_dbus_connection.proxy
     bus_proxy.StartServiceByName(BOSS.service_name, 0)
 
     boss_proxy = test_dbus_connection.get_proxy(BOSS.service_name, BOSS.object_path)
@@ -114,7 +114,7 @@ try:
     test_dbus.up()
 
     # our custom bus is now running, connect to it
-    test_dbus_connection = DBusConnection(test_dbus.get_bus_address())
+    test_dbus_connection = AddressedMessageBus(test_dbus.get_bus_address())
 
     enter_word = GREEN + "enter" + RESET
     q_word = GREEN + "q" + RESET

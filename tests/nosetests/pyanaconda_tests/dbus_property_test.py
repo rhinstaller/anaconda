@@ -22,9 +22,10 @@ import unittest
 from mock import Mock, call
 
 from pyanaconda.core.signal import Signal
-from pyanaconda.dbus.interface import DBusSpecification, DBusSpecificationError, dbus_interface
+from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.property import PropertiesInterface, emits_properties_changed, \
-    PropertiesException
+    PropertiesException, PropertiesChanges
+from pyanaconda.dbus.specification import DBusSpecificationError
 from pyanaconda.dbus.template import AdvancedInterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
@@ -35,28 +36,32 @@ class DBusPropertySpecificationTestCase(unittest.TestCase):
     def properties_mapping_test(self):
         """Test properties mapping."""
 
-        specification = '''
-        <node>
-            <interface name="A">
-                <property name="A1" type="i" access="readwrite" />
-                <property name="A2" type="d" access="read" />
-                <property name="A3" type="s" access="write" />
-            </interface>
-            <interface name="B">
-                <property name="B1" type="i" access="readwrite" />
-                <property name="B2" type="d" access="read" />
-                <property name="B3" type="s" access="write" />
-            </interface>
-            <interface name="C">
-                <property name="C1" type="i" access="readwrite" />
-                <property name="C2" type="d" access="read" />
-                <property name="C3" type="s" access="write" />
-            </interface>
-        </node>
-        '''
+        class Interface(object):
+            __dbus_xml__ = '''
+            <node>
+                <interface name="A">
+                    <property name="A1" type="i" access="readwrite" />
+                    <property name="A2" type="d" access="read" />
+                    <property name="A3" type="s" access="write" />
+                </interface>
+                <interface name="B">
+                    <property name="B1" type="i" access="readwrite" />
+                    <property name="B2" type="d" access="read" />
+                    <property name="B3" type="s" access="write" />
+                </interface>
+                <interface name="C">
+                    <property name="C1" type="i" access="readwrite" />
+                    <property name="C2" type="d" access="read" />
+                    <property name="C3" type="s" access="write" />
+                </interface>
+            </node>
+            '''
 
-        generator = DBusSpecification()
-        mapping = generator.generate_properties_mapping(specification)
+        changes = PropertiesChanges(Interface())
+        mapping = {
+            member.name: member.interface_name
+            for member in changes._properties_specs.values()
+        }
         expected_mapping = {
             "A1": "A", "B1": "B", "C1": "C",
             "A2": "A", "B2": "B", "C2": "C",
@@ -68,25 +73,24 @@ class DBusPropertySpecificationTestCase(unittest.TestCase):
     def invalid_properties_mapping_test(self):
         """Test for invalid properties."""
 
-        specification = '''
-        <node>
-            <interface name="A">
-                <property name="A1" type="i" access="readwrite" />
-                <property name="A2" type="d" access="read" />
-                <property name="A3" type="s" access="write" />
-            </interface>
-            <interface name="B">
-                <property name="A1" type="i" access="readwrite" />
-                <property name="B2" type="d" access="read" />
-                <property name="B3" type="s" access="write" />
-            </interface>
-        </node>
-        '''
-
-        generator = DBusSpecification()
+        class Interface(object):
+            __dbus_xml__ = '''
+            <node>
+                <interface name="A">
+                    <property name="A1" type="i" access="readwrite" />
+                    <property name="A2" type="d" access="read" />
+                    <property name="A3" type="s" access="write" />
+                </interface>
+                <interface name="B">
+                    <property name="A1" type="i" access="readwrite" />
+                    <property name="B2" type="d" access="read" />
+                    <property name="B3" type="s" access="write" />
+                </interface>
+            </node>
+            '''
 
         with self.assertRaises(DBusSpecificationError):
-            generator.generate_properties_mapping(specification)
+            PropertiesChanges(Interface())
 
 
 class DBusPropertyTestCase(unittest.TestCase):
@@ -394,7 +398,7 @@ class DBusPropertyTestCase(unittest.TestCase):
 
     def invalid_class_test(self):
         """Test the properties interface with invalid class."""
-        with self.assertRaises(PropertiesException):
+        with self.assertRaises(DBusSpecificationError):
             self.Test6()
 
     @dbus_interface("I7")

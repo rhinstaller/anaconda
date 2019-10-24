@@ -169,7 +169,7 @@ class AnacondaDBusLauncher(object):
 
     def _start_boss(self):
         """Start the boss."""
-        bus_proxy = DBus.get_dbus_proxy()
+        bus_proxy = DBus.proxy
         bus_proxy.StartServiceByName(BOSS.service_name, DBUS_FLAG_NONE)
 
     def _start_modules(self):

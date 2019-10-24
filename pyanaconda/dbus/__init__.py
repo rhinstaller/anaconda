@@ -16,16 +16,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.connection import DBusConnection, DBusSystemConnection, \
-    DBusSessionConnection, DBusDefaultConnection
+from pyanaconda.dbus.connection import AddressedMessageBus, SystemMessageBus, \
+    SessionMessageBus, DefaultMessageBus
 
-__all__ = ["DBus", "SystemBus", "SessionBus", "DBusConnection"]
+__all__ = ["DBus", "SystemBus", "SessionBus", "AddressedMessageBus"]
 
 # Default bus. Anaconda uses this connection.
-DBus = DBusDefaultConnection()
+DBus = DefaultMessageBus()
 
 # System bus.
-SystemBus = DBusSystemConnection()
+SystemBus = SystemMessageBus()
 
 # Session bus.
-SessionBus = DBusSessionConnection()
+SessionBus = SessionMessageBus()

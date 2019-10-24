@@ -33,7 +33,14 @@ __all__ = ["StartModulesTask"]
 
 class StartModulesTask(Task):
 
-    def __init__(self, message_bus, module_names, addons_enabled, timeout=600):
+    def __init__(self, message_bus, module_names, addons_enabled, timeout=600000):
+        """Create a new task.
+
+        :param message_bus: a message bus
+        :param module_names: a list of DBus names of modules
+        :param addons_enabled: True to enable addons, otherwise False
+        :param timeout: a timeout of a DBus call in milliseconds
+        """
         super().__init__()
         self._message_bus = message_bus
         self._module_names = module_names
@@ -91,7 +98,7 @@ class StartModulesTask(Task):
         if not self._addons_enabled:
             return modules
 
-        dbus = self._message_bus.get_dbus_proxy()
+        dbus = self._message_bus.proxy
         names = dbus.ListActivatableNames()
         prefix = get_dbus_name(*ADDONS_NAMESPACE)
 
@@ -110,7 +117,7 @@ class StartModulesTask(Task):
 
     def _start_modules(self, module_observers):
         """Start the modules."""
-        dbus = self._message_bus.get_dbus_proxy()
+        dbus = self._message_bus.proxy
 
         for observer in module_observers:
             log.debug("Starting %s", observer)
@@ -127,12 +134,14 @@ class StartModulesTask(Task):
         """Callback for the StartServiceByName method."""
         self._callbacks.put(lambda: self._start_service_by_name_handler(*args, **kwargs))
 
-    def _start_service_by_name_handler(self, observer, returned, error):
+    def _start_service_by_name_handler(self, call, observer):
         """Handler for the StartServiceByName method."""
-        if error:
+        try:
+            returned = call()
+        except Exception as error:  # pylint: disable=broad-except
             raise UnavailableModuleError(
                 "Service {} has failed to start: {}".format(observer, error)
-            )
+            ) from error
 
         if returned != DBUS_START_REPLY_SUCCESS:
             log.warning("Service %s is already running.", observer)

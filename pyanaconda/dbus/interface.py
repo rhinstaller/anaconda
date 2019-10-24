@@ -27,15 +27,20 @@ import re
 
 from inspect import Parameter
 from typing import get_type_hints
-from pydbus.generic import signal
 
+from pyanaconda.core.signal import Signal
+from pyanaconda.dbus.specification import DBusSpecificationError, DBusSpecification
 from pyanaconda.dbus.typing import get_dbus_type
 from pyanaconda.dbus.xml import XMLGenerator
 
-__all__ = ["dbus_class", "dbus_interface", "dbus_signal"]
+__all__ = ["dbus_class", "dbus_interface", "dbus_signal", "get_xml"]
 
 
-class dbus_signal(signal):
+# Class attribute for the XML specification.
+DBUS_XML_ATTRIBUTE = "__dbus_xml__"
+
+
+class dbus_signal(object):
     """DBus signal.
 
     Can be used as:
@@ -53,9 +58,63 @@ class dbus_signal(signal):
     If the signal is not defined by a method, it is expected to
     have no arguments and signal.definition is equal to None.
     """
-    def __init__(self, method=None):
-        super().__init__()
-        self.definition = method
+    def __init__(self, definition=None, factory=Signal):
+        """Create a signal descriptor.
+
+        :param definition: a definition of the emit function
+        :param factory: a signal factory
+        """
+        self.definition = definition
+        self.factory = factory
+        self.name = None
+
+    def __set_name__(self, owner, name):
+        """Set a name of the descriptor
+
+        The descriptor has been assigned to the specified name.
+        Generate a name of a private attribute that will be set
+        to a signal in the __get__ method.
+
+        For example: __dbus_signal_my_name
+
+        :param owner: the owning class
+        :param name: the descriptor name
+        """
+        if self.name is not None:
+            return
+
+        self.name = "__{}_{}".format(
+            type(self).__name__.lower(),
+            name.lower()
+        )
+
+    def __get__(self, instance, owner):
+        """Get a value of the descriptor.
+
+        If the descriptor is accessed as a class attribute,
+        return the descriptor.
+
+        If the descriptor is accessed as an instance attribute,
+        return a signal created by the signal factory.
+
+        :param instance: an instance of the owning class
+        :param owner: an owning class
+        :return: a value of the attribute
+        """
+        if instance is None:
+            return self
+
+        signal = getattr(instance, self.name, None)
+
+        if signal is None:
+            signal = self.factory()
+            setattr(instance, self.name, signal)
+
+        return signal
+
+    def __set__(self, instance, value):
+        """Set a value of the descriptor."""
+        raise AttributeError("Can't set DBus signal.")
 
 
 def dbus_interface(interface_name):
@@ -72,11 +131,12 @@ def dbus_interface(interface_name):
     specification of the class.
 
     The XML specification is accessible as:
-        Interface.dbus
+        Interface.__dbus_xml__
     """
     def decorated(cls):
-        generator = DBusSpecification()
-        cls.dbus = generator.generate_specification(cls, interface_name)
+        generator = DBusSpecificationGenerator
+        xml = generator.generate_specification(cls, interface_name)
+        setattr(cls, DBUS_XML_ATTRIBUTE, xml)
         return cls
     return decorated
 
@@ -96,7 +156,7 @@ def dbus_class(cls):
     The DBus XML specification will be generated from
     implemented interfaces (inherited) and it will be
     accessible as:
-        Class.dbus
+        Class.__dbus_xml__
     """
     # Get the interface decorator without a name.
     decorated = dbus_interface(None)
@@ -104,198 +164,144 @@ def dbus_class(cls):
     return decorated(cls)
 
 
-class DBusSpecificationError(Exception):
-    pass
+def get_xml(obj):
+    """Return XML specification of an object.
+
+    :param obj: an object decorated with @dbus_interface or @dbus_class
+    :return: a string with XML specification
+    """
+    xml_specification = getattr(obj, DBUS_XML_ATTRIBUTE, None)
+
+    if xml_specification is None:
+        raise DBusSpecificationError(
+            "XML specification is not defined at '{}'.".format(DBUS_XML_ATTRIBUTE)
+        )
+
+    return xml_specification
 
 
-class DBusSpecification(object):
+class DBusSpecificationGenerator(object):
     """Class for generating DBus XML specification."""
 
-    DIRECTION_IN = "in"
-    DIRECTION_OUT = "out"
+    # The XML generator.
+    xml_generator = XMLGenerator
 
-    ACCESS_READ = "read"
-    ACCESS_WRITE = "write"
-    ACCESS_READWRITE = "readwrite"
-
-    RETURN_PARAMETER = "return"
-
+    # The pattern of a DBus member name.
     NAME_PATTERN = re.compile(r'[A-Z][A-Za-z0-9]*')
 
-    STANDARD_INTERFACES = """
-    <node>
-        <interface name="org.freedesktop.DBus.Introspectable">
-            <method name="Introspect">
-            <arg type="s" name="xml_data" direction="out"/>
-            </method>
-        </interface>
-        <interface name="org.freedesktop.DBus.Peer">
-            <method name="Ping"/>
-            <method name="GetMachineId">
-                <arg type="s" name="machine_uuid" direction="out"/>
-            </method>
-       </interface>
-        <interface name="org.freedesktop.DBus.Properties">
-            <method name="Get">
-                <arg type="s" name="interface_name" direction="in"/>
-                <arg type="s" name="property_name" direction="in"/>
-                <arg type="v" name="value" direction="out"/>
-            </method>
-            <method name="GetAll">
-                <arg type="s" name="interface_name" direction="in"/>
-                <arg type="a{sv}" name="properties" direction="out"/>
-            </method>
-            <method name="Set">
-                <arg type="s" name="interface_name" direction="in"/>
-                <arg type="s" name="property_name" direction="in"/>
-                <arg type="v" name="value" direction="in"/>
-            </method>
-            <signal name="PropertiesChanged">
-                <arg type="s" name="interface_name"/>
-                <arg type="a{sv}" name="changed_properties"/>
-                <arg type="as" name="invalidated_properties"/>
-            </signal>
-        </interface>
-    </node>
-    """
-
-    def __init__(self, xml_generator=XMLGenerator()):
-        self.xml_generator = xml_generator
-
-    def generate_specification(self, cls, interface_name=None):
+    @classmethod
+    def generate_specification(cls, interface_cls, interface_name=None):
         """Generates DBus XML specification for given class.
 
         If class defines a new interface, it will be added to
         the specification.
 
-        :param cls: class object to decorate
+        :param interface_cls: class object to decorate
         :param str interface_name: name of the interface defined by class
         :return str: DBus specification in XML
         """
         # Collect all interfaces that class inherits.
-        interfaces = self._collect_interfaces(cls)
+        interfaces = cls._collect_interfaces(interface_cls)
 
         # Generate a new interface.
         if interface_name:
-            all_interfaces = self._collect_standard_interfaces()
+            all_interfaces = cls._collect_standard_interfaces()
             all_interfaces.update(interfaces)
-            interface = self._generate_interface(cls, all_interfaces, interface_name)
+            interface = cls._generate_interface(interface_cls, all_interfaces, interface_name)
             interfaces[interface_name] = interface
 
         # Generate XML specification for the given class.
-        node = self._generate_node(cls, interfaces)
-        return self.xml_generator.element_to_xml(node)
+        node = cls._generate_node(interface_cls, interfaces)
+        return cls.xml_generator.element_to_xml(node)
 
-    def generate_properties_mapping(self, specification):
-        """Generates mapping of properties to interfaces.
-
-        The map can be used to detect the interface the property
-        belongs to. We assume that the specification cannot contain
-        interfaces with same property names.
-
-        :param specification: DBus specification in XML
-        :return: a mapping of property names to interface names
-        """
-        node = self.xml_generator.xml_to_element(specification)
-        interfaces = self.xml_generator.get_interfaces_from_node(node)
-
-        mapping = {}
-
-        for interface_name, element in interfaces.items():
-            properties = self.xml_generator.get_properties_from_interface(element)
-
-            for property_name in properties:
-                if property_name in mapping:
-                    msg = "Property {} from {} is already defined in {}.".format(
-                        property_name, interface_name, mapping[property_name]
-                    )
-                    raise DBusSpecificationError(msg)
-
-                mapping[property_name] = interface_name
-
-        return mapping
-
-    def _collect_standard_interfaces(self):
+    @classmethod
+    def _collect_standard_interfaces(cls):
         """Collect standard interfaces.
 
         Standard interfaces are implemented by default.
 
         :return: a dictionary of standard interfaces
         """
-        node = self.xml_generator.xml_to_element(self.STANDARD_INTERFACES)
-        return self.xml_generator.get_interfaces_from_node(node)
+        node = cls.xml_generator.xml_to_element(DBusSpecification.STANDARD_INTERFACES)
+        return cls.xml_generator.get_interfaces_from_node(node)
 
-    def _collect_interfaces(self, cls):
+    @classmethod
+    def _collect_interfaces(cls, interface_cls):
         """Collect interfaces implemented by the class.
 
         Returns a dictionary that maps interface names
         to interface elements.
 
-        :param cls: a class object
+        :param interface_cls: a class object
         :return: a dictionary of implemented interfaces
         """
         interfaces = dict()
 
-        # Visit cls and base classes in reversed order.
-        for member in reversed(inspect.getmro(cls)):
+        # Visit interface_cls and base classes in reversed order.
+        for member in reversed(inspect.getmro(interface_cls)):
             # Skip classes with no specification.
-            if not getattr(member, "dbus", None):
+            member_xml = getattr(member, DBUS_XML_ATTRIBUTE, None)
+            if not member_xml:
                 continue
 
             # Update found interfaces.
-            node = self.xml_generator.xml_to_element(member.dbus)
-            node_interfaces = self.xml_generator.get_interfaces_from_node(node)
+            node = cls.xml_generator.xml_to_element(member_xml)
+            node_interfaces = cls.xml_generator.get_interfaces_from_node(node)
             interfaces.update(node_interfaces)
 
         return interfaces
 
-    def _generate_interface(self, cls, interfaces, interface_name):
+    @classmethod
+    def _generate_interface(cls, interface_cls, interfaces, interface_name):
         """Generate interface defined by given class.
 
-        :param cls: a class object that defines the interface
+        :param interface_cls: a class object that defines the interface
         :param interfaces: a dictionary of implemented interfaces
         :param interface_name: a name of the new interface
         :return: an new interface element
 
         :raises DBusSpecificationError: if a class member cannot be exported
         """
-        interface = self.xml_generator.get_interface_element(interface_name)
+        interface = cls.xml_generator.create_interface(interface_name)
 
         # Search class members.
-        for member_name, member in inspect.getmembers(cls):
+        for member_name, member in inspect.getmembers(interface_cls):
             # Check it the name is exportable.
-            if not self._is_exportable(member_name):
+            if not cls._is_exportable(member_name):
                 continue
 
             # Skip names already defined in implemented interfaces.
-            if self._is_defined(interfaces, member_name):
+            if cls._is_defined(interfaces, member_name):
                 continue
 
             # Generate XML element for exportable member.
-            if self._is_signal(member):
-                element = self._generate_signal(member, member_name)
-            elif self._is_property(member):
-                element = self._generate_property(member, member_name)
-            elif self._is_method(member):
-                element = self._generate_method(member, member_name)
+            if cls._is_signal(member):
+                element = cls._generate_signal(member, member_name)
+            elif cls._is_property(member):
+                element = cls._generate_property(member, member_name)
+            elif cls._is_method(member):
+                element = cls._generate_method(member, member_name)
             else:
-                raise DBusSpecificationError("%s.%s cannot be exported."
-                                             % (cls.__name__, member_name))
+                raise DBusSpecificationError("{}.{} cannot be exported.".format(
+                    interface_cls.__name__, member_name
+                ))
 
             # Add generated element to the interface.
-            self.xml_generator.add_child(interface, element)
+            cls.xml_generator.add_child(interface, element)
 
         return interface
 
-    def _is_exportable(self, member_name):
+    @classmethod
+    def _is_exportable(cls, member_name):
         """Is the name of a class member exportable?
 
         The name is exportable if it follows the DBus specification.
         Only CamelCase names are allowed.
         """
-        return bool(self.NAME_PATTERN.fullmatch(member_name))
+        return bool(cls.NAME_PATTERN.fullmatch(member_name))
 
-    def _is_defined(self, interfaces, member_name):
+    @classmethod
+    def _is_defined(cls, interfaces, member_name):
         """Is the member name defined in given interfaces?
 
         :param interfaces: a dictionary of interfaces
@@ -305,21 +311,23 @@ class DBusSpecification(object):
         for interface in interfaces.values():
             for member in interface:
                 # Is it a signal, a property or a method?
-                if not self.xml_generator.is_member(member):
+                if not cls.xml_generator.is_member(member):
                     continue
                 # Does it have the same name?
-                if not self.xml_generator.has_name(member, member_name):
+                if not cls.xml_generator.has_name(member, member_name):
                     continue
                 # The member is already defined.
                 return True
 
         return False
 
-    def _is_signal(self, member):
+    @classmethod
+    def _is_signal(cls, member):
         """Is the class member a DBus signal?"""
         return isinstance(member, dbus_signal)
 
-    def _generate_signal(self, member, member_name):
+    @classmethod
+    def _generate_signal(cls, member, member_name):
         """Generate signal defined by a class member.
 
         :param member: a dbus_signal object.
@@ -328,25 +336,26 @@ class DBusSpecification(object):
 
         raises DBusSpecificationError: if signal has defined return type
         """
-        element = self.xml_generator.get_signal_element(member_name)
+        element = cls.xml_generator.create_signal(member_name)
         method = member.definition
 
         if not method:
             return element
 
-        for name, type_hint, direction in self._iterate_parameters(method):
+        for name, type_hint, direction in cls._iterate_parameters(method):
             # Only input parameters can be defined.
-            if direction == self.DIRECTION_OUT:
+            if direction == DBusSpecification.DIRECTION_OUT:
                 raise DBusSpecificationError("Signal %s has defined return type." % member_name)
 
             # All parameters are exported as output parameters (see specification).
-            direction = self.DIRECTION_OUT
-            parameter = self.xml_generator.create_parameter(name, get_dbus_type(type_hint), direction)
-            self.xml_generator.add_child(element, parameter)
+            direction = DBusSpecification.DIRECTION_OUT
+            parameter = cls.xml_generator.create_parameter(name, get_dbus_type(type_hint), direction)
+            cls.xml_generator.add_child(element, parameter)
 
         return element
 
-    def _iterate_parameters(self, member):
+    @classmethod
+    def _iterate_parameters(cls, member):
         """Iterate over method parameters.
 
         For every parameter returns its name, a type hint and a direction.
@@ -362,7 +371,7 @@ class DBusSpecification(object):
         # Get method signature.
         signature = inspect.signature(member)
 
-        # Iterate over method parameters, skip self.
+        # Iterate over method parameters, skip cls.
         for name in list(signature.parameters)[1:]:
             # Check the kind of the parameter
             if signature.parameters[name].kind != Parameter.POSITIONAL_OR_KEYWORD:
@@ -372,7 +381,7 @@ class DBusSpecification(object):
             if name not in type_hints:
                 raise DBusSpecificationError("Parameter %s doesn't have defined type." % name)
 
-            yield name, type_hints[name], self.DIRECTION_IN
+            yield name, type_hints[name], DBusSpecification.DIRECTION_IN
 
         # Is the return type defined?
         if signature.return_annotation is signature.empty:
@@ -382,13 +391,19 @@ class DBusSpecification(object):
         if signature.return_annotation is None:
             return
 
-        yield self.RETURN_PARAMETER, signature.return_annotation, self.DIRECTION_OUT
+        yield (
+            DBusSpecification.RETURN_PARAMETER,
+            signature.return_annotation,
+            DBusSpecification.DIRECTION_OUT
+        )
 
-    def _is_property(self, member):
+    @classmethod
+    def _is_property(cls, member):
         """Is the class member a DBus property?"""
         return isinstance(member, property)
 
-    def _generate_property(self, member, member_name):
+    @classmethod
+    def _generate_property(cls, member, member_name):
         """Generate DBus property defined by class member.
 
         :param member: a property object
@@ -403,34 +418,35 @@ class DBusSpecification(object):
         try:
             # Process the setter.
             if member.fset:
-                [(_, type_hint, _)] = self._iterate_parameters(member.fset)
-                access = self.ACCESS_WRITE
+                [(_, type_hint, _)] = cls._iterate_parameters(member.fset)
+                access = DBusSpecification.ACCESS_WRITE
 
             # Process the getter.
             if member.fget:
-                [(_, type_hint, _)] = self._iterate_parameters(member.fget)
-                access = self.ACCESS_READ
+                [(_, type_hint, _)] = cls._iterate_parameters(member.fget)
+                access = DBusSpecification.ACCESS_READ
 
         except ValueError:
             raise DBusSpecificationError("Property %s has invalid parameters." % member_name)
 
         # Property has both.
         if member.fget and member.fset:
-            access = self.ACCESS_READWRITE
+            access = DBusSpecification.ACCESS_READWRITE
 
         if access is None:
             raise DBusSpecificationError("Property %s is not accessible." % member_name)
 
-        return self.xml_generator.create_property(member_name, get_dbus_type(type_hint), access)
+        return cls.xml_generator.create_property(member_name, get_dbus_type(type_hint), access)
 
-    def _is_method(self, member):
+    @classmethod
+    def _is_method(cls, member):
         """Is the class member a DBus method?
 
         Ignore the difference between instance method and class method.
 
         For example:
             class Foo(object):
-                def bar(self, x):
+                def bar(cls, x):
                     pass
 
             inspect.isfunction(Foo.bar) # True
@@ -444,38 +460,40 @@ class DBusSpecification(object):
         """
         return inspect.ismethod(member) or inspect.isfunction(member)
 
-    def _generate_method(self, member, member_name):
+    @classmethod
+    def _generate_method(cls, member, member_name):
         """Generate method defined by given class member.
 
         :param member: a method object
         :param member_name: a name of the method
         :return: a method element
         """
-        method = self.xml_generator.get_method_element(member_name)
+        method = cls.xml_generator.create_method(member_name)
 
         # Process the parameters.
-        for name, type_hint, direction in self._iterate_parameters(member):
+        for name, type_hint, direction in cls._iterate_parameters(member):
             # Create the parameter element.
-            parameter = self.xml_generator.create_parameter(name, get_dbus_type(type_hint), direction)
+            parameter = cls.xml_generator.create_parameter(name, get_dbus_type(type_hint), direction)
             # Add the element to the method element.
-            self.xml_generator.add_child(method, parameter)
+            cls.xml_generator.add_child(method, parameter)
 
         return method
 
-    def _generate_node(self, cls, interfaces):
+    @classmethod
+    def _generate_node(cls, interface_cls, interfaces):
         """Generate node element that specifies the given class.
 
-        :param cls: a class object
+        :param interface_cls: a class object
         :param interfaces: a dictionary of interfaces
         :return: a node element
         """
-        node = self.xml_generator.get_node_element()
+        node = cls.xml_generator.create_node()
 
         # Add comment about specified class.
-        self.xml_generator.add_comment(node, "Specifies %s" % cls.__name__)
+        cls.xml_generator.add_comment(node, "Specifies %s" % interface_cls.__name__)
 
         # Add interfaces sorted by their names.
         for interface_name in sorted(interfaces.keys()):
-            self.xml_generator.add_child(node, interfaces[interface_name])
+            cls.xml_generator.add_child(node, interfaces[interface_name])
 
         return node

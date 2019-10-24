@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from pyanaconda.dbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
 from pyanaconda.modules.boss.module_manager import ModuleManager
@@ -35,10 +35,13 @@ class ModuleManagerTestCase(unittest.TestCase):
     def _check_started_modules(self, task, service_names):
         """Check the started modules."""
 
+        def call():
+            return DBUS_START_REPLY_SUCCESS
+
         def fake_callbacks():
             for observer in task._module_observers:
                 observer._is_service_available = True
-                task._start_service_by_name_callback(observer, DBUS_START_REPLY_SUCCESS, None)
+                task._start_service_by_name_callback(call, observer)
                 task._service_available_callback(observer)
 
         task._callbacks.put(fake_callbacks)
@@ -52,8 +55,9 @@ class ModuleManagerTestCase(unittest.TestCase):
         task = StartModulesTask(self._message_bus, [], addons_enabled=False)
         self._check_started_modules(task, [])
 
-    def start_one_module_test(self):
-        """Start some modules."""
+    @patch("pyanaconda.dbus.observer.Gio")
+    def start_one_module_test(self, gio):
+        """Start one module."""
         service_names = [
             "org.fedoraproject.Anaconda.Modules.A"
         ]
@@ -61,20 +65,21 @@ class ModuleManagerTestCase(unittest.TestCase):
         task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
         (observer, ) = self._check_started_modules(task, service_names)
 
-        bus_proxy = self._message_bus.get_dbus_proxy()
+        bus_proxy = self._message_bus.proxy
         bus_proxy.StartServiceByName.assert_called_once_with(
             "org.fedoraproject.Anaconda.Modules.A",
             DBUS_FLAG_NONE,
             callback=task._start_service_by_name_callback,
             callback_args=(observer,),
-            timeout=600
+            timeout=600000
         )
 
-        self._message_bus.connection.watch_name.assert_called_once()
+        gio.bus_watch_name_on_connection.assert_called_once()
         observer.proxy.Ping.assert_called_once_with()
 
-    def start_modules_test(self):
-        """Start some modules."""
+    @patch("pyanaconda.dbus.observer.Gio")
+    def start_modules_test(self, gio):
+        """Start modules."""
         service_names = [
             "org.fedoraproject.Anaconda.Modules.A",
             "org.fedoraproject.Anaconda.Modules.B",
@@ -84,15 +89,16 @@ class ModuleManagerTestCase(unittest.TestCase):
         task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
         self._check_started_modules(task, service_names)
 
-    def start_addons_test(self):
-        """Start some modules."""
+    @patch("pyanaconda.dbus.observer.Gio")
+    def start_addons_test(self, gio):
+        """Start addons."""
         service_names = [
             "org.fedoraproject.Anaconda.Addons.A",
             "org.fedoraproject.Anaconda.Addons.B",
             "org.fedoraproject.Anaconda.Addons.C"
         ]
 
-        bus_proxy = self._message_bus.get_dbus_proxy()
+        bus_proxy = self._message_bus.proxy
         bus_proxy.ListActivatableNames.return_value = [
             *service_names,
             "org.fedoraproject.Anaconda.D",
@@ -112,9 +118,12 @@ class ModuleManagerTestCase(unittest.TestCase):
 
         task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
 
+        def call():
+            raise DBusError("Fake error!")
+
         def fake_callbacks():
             for observer in task._module_observers:
-                task._start_service_by_name_callback(observer, None, DBusError("Fake error!"))
+                task._start_service_by_name_callback(call, observer)
 
         task._callbacks.put(fake_callbacks)
 

@@ -18,9 +18,10 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from mock import Mock
+from unittest.mock import patch, Mock
 
-from pyanaconda.dbus.observer import PropertiesCache, DBusObserverError, DBusObserver
+from pyanaconda.dbus.constants import DBUS_FLAG_NONE
+from pyanaconda.dbus.observer import DBusObserverError, DBusObserver
 from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
 
 
@@ -92,97 +93,66 @@ class DBusObserverTestCase(unittest.TestCase):
         self.assertIsNotNone(observer._proxy)
 
         # Service unavailable.
+
         self._make_service_unavailable(observer)
         self.assertIsNone(observer._proxy)
 
         with self.assertRaises(DBusObserverError):
             observer.proxy.DoSomething()
 
-    def cache_test(self):
-        """Test the properties cache."""
-
-        cache = PropertiesCache()
-        self.assertEqual(cache.properties, {})
-
-        with self.assertRaises(AttributeError):
-            getattr(cache, "a")
-
-        with self.assertRaises(AttributeError):
-            setattr(cache, "a", 1)
-
-        cache.update({"a": 1, "b": 2, "c": 3})
-        self.assertEqual(cache.properties, {"a": 1, "b": 2, "c": 3})
-        self.assertEqual(cache.a, 1)
-        self.assertEqual(cache.b, 2)
-        self.assertEqual(cache.c, 3)
-
-        with self.assertRaises(AttributeError):
-            setattr(cache, "a", 1)
-
-        cache.update({"a": 10, "b": 20})
-        self.assertEqual(cache.properties, {"a": 10, "b": 20, "c": 3})
-        self.assertEqual(cache.a, 10)
-        self.assertEqual(cache.b, 20)
-        self.assertEqual(cache.c, 3)
-
-        cache.update({"d": 4})
-        self.assertEqual(cache.properties, {"a": 10, "b": 20, "c": 3, "d": 4})
-        self.assertEqual(cache.a, 10)
-        self.assertEqual(cache.b, 20)
-        self.assertEqual(cache.c, 3)
-        self.assertEqual(cache.d, 4)
-
-        cache.update({"c": 30, "d": 40})
-        self.assertEqual(cache.properties, {"a": 10, "b": 20, "c": 30, "d": 40})
-        self.assertEqual(cache.a, 10)
-        self.assertEqual(cache.b, 20)
-        self.assertEqual(cache.c, 30)
-        self.assertEqual(cache.d, 40)
-
-    def connect_test(self):
-        """Test observer connect."""
+    @patch("pyanaconda.dbus.observer.Gio")
+    def connect_test(self, gio):
+        """Test Gio support for watching names."""
         dbus = Mock()
-        observer = DBusObserver(dbus, "SERVICE")
+        observer = DBusObserver(dbus, "my.service")
         self._setup_observer(observer)
 
+        # Connect the observer.
         observer.connect_once_available()
 
-        dbus.connection.watch_name.assert_called_once()
+        # Check the call.
+        gio.bus_watch_name_on_connection.assert_called_once()
+        args, kwargs = gio.bus_watch_name_on_connection.call_args
+
+        self.assertEqual(len(args), 5)
+        self.assertEqual(len(kwargs), 0)
+        self.assertEqual(args[0], dbus.connection)
+        self.assertEqual(args[1], "my.service")
+        self.assertEqual(args[2], DBUS_FLAG_NONE)
+
+        name_appeared_closure = args[3]
+        self.assertTrue(callable(name_appeared_closure))
+
+        name_vanished_closure = args[4]
+        self.assertTrue(callable(name_vanished_closure))
+
+        # Check the subscription.
+        subscription_id = gio.bus_watch_name_on_connection.return_value
+        self.assertEqual(len(observer._subscriptions), 1)
+
+        # Check the observer.
         self.assertFalse(observer.is_service_available)
         observer._service_available.emit.assert_not_called()  # pylint: disable=no-member
         observer._service_unavailable.emit.assert_not_called()  # pylint: disable=no-member
 
-        self._make_service_available(observer)
+        # Call the name appeared closure.
+        name_appeared_closure(dbus.connection, "my.service", "name.owner")
+        self._test_if_service_available(observer)
 
-        observer.disconnect()
-        dbus.connection.unwatch_name.assert_called_once()
+        # Call the name vanished closure.
+        name_vanished_closure(dbus.connection, "my.service")
         self._test_if_service_unavailable(observer)
 
-    def connect_advanced_test(self):
-        """Advanced test for observer connect."""
-        dbus = Mock()
-        observer = DBusObserver(dbus, "SERVICE")
-        self._setup_observer(observer)
+        # Call the name appeared closure again.
+        name_appeared_closure(dbus.connection, "my.service", "name.owner")
+        self._test_if_service_available(observer)
 
-        observer.connect_once_available()
-
-        dbus.connection.watch_name.assert_called_once()
-        self.assertFalse(observer.is_service_available)
-        observer._service_available.emit.assert_not_called()  # pylint: disable=no-member
-        observer._service_unavailable.emit.assert_not_called()  # pylint: disable=no-member
-
-        self._make_service_available(observer)
-
-        observer._service_name_appeared_callback()
-        self.assertTrue(observer.is_service_available)
-        observer._service_available.emit.assert_not_called()  # pylint: disable=no-member
-        observer._service_unavailable.emit.assert_not_called()  # pylint: disable=no-member
-
-        observer._service_name_vanished_callback()
-        self._test_if_service_unavailable(observer)
-
+        # Disconnect the observer.
         observer.disconnect()
-        dbus.connection.unwatch_name.assert_called_once()
-        self.assertFalse(observer.is_service_available)
-        observer._service_available.emit.assert_not_called()  # pylint: disable=no-member
-        observer._service_unavailable.emit.assert_not_called()  # pylint: disable=no-member
+
+        gio.bus_unwatch_name.assert_called_once_with(
+            subscription_id
+        )
+
+        self._test_if_service_unavailable(observer)
+        self.assertEqual(observer._subscriptions, [])

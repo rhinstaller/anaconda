@@ -21,6 +21,7 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"^E1101.*: Geocoder._reverse_geocode_nominatim: Instance of 'LookupDict' has no 'ok' member"),
                                 FalsePositive(r"^E1101.*: Instance of 'Namespace' has no '.*' member$"),
                                 FalsePositive(r"^W0107.*: Unnecessary pass statement$"),
+                                FalsePositive(r"^E0237.*: DBusTestCase.*: Assigning to attribute '.*' not defined in class slots$"),
 
                                 # TODO: BlockDev introspection needs to be added to pylint to handle these
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_needs_format' member"),
