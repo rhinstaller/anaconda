@@ -74,7 +74,7 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         :raise: IncompatibleSourceError when source is not a supported type
                 SourceSetupError when attached sources are initialized
         """
-        # TODO: Add test for this when there will be public API
+        # TODO: Add test for this when there will be unsupported source implemented
         for source in sources:
             if source.type not in self.supported_source_types:
                 raise IncompatibleSourceError("Source type {} is not supported by this handler."

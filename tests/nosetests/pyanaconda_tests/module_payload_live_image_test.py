@@ -22,7 +22,8 @@ import unittest
 from mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
+    SourceSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.task.task_interface import TaskInterface
@@ -132,8 +133,18 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
         self.live_image_module = LiveImageHandlerModule()
         self.live_image_interface = LiveImageHandlerInterface(self.live_image_module)
 
+        self.source_tests = SourceSharedTest(self,
+                                             payload=self.live_image_module,
+                                             payload_intf=self.live_image_interface)
+
         self.callback = Mock()
         self.live_image_interface.PropertiesChanged.connect(self.callback)
+
+    # TODO: Add set_source and supported_sources like in Live OS payload when source is available
+
+    def sources_empty_test(self):
+        """Test sources Live Image API for emptiness."""
+        self.source_tests.check_empty_sources()
 
     def default_url_test(self):
         self.assertEqual(self.live_image_interface.Url, "")
