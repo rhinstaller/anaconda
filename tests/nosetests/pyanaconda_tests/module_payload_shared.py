@@ -17,7 +17,6 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
-from abc import abstractmethod
 from mock import patch
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
@@ -25,30 +24,18 @@ from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadService
 
 
-class PayloadHandlerMixin(object):
+class PayloadSharedTest(object):
 
-    @abstractmethod
-    def assertEqual(self, first, second, msg=None):
-        """Required implementation from the TestCase class.
+    def __init__(self, test, payload_service, payload_service_intf):
+        """Setup shared payload test object for common payload testing.
 
-        This method will be implemented by TestCase class, which should be parent of the
-        class using this mixin.
+        :param test: instance of TestCase
+        :param payload_service: main payload service module
+        :param payload_service_intf: main payload service interface
         """
-        pass
-
-    @abstractmethod
-    def assertIn(self, member, container, msg=None):
-        """Required implementation from the TestCase class.
-
-        This method will be implemented by TestCase class, which should be parent of the
-        class using this mixin.
-        """
-        pass
-
-    def setup_payload(self):
-        """Create main payload module and its interface."""
-        self.payload_module = PayloadService()
-        self.payload_interface = PayloadInterface(self.payload_module)
+        self._test = test
+        self.payload_service = PayloadService()
+        self.payload_service_interface = PayloadInterface(self.payload_service)
 
     def check_kickstart(self, ks_in, ks_out, expected_publish_calls=1):
         """Test kickstart processing.
@@ -60,11 +47,13 @@ class PayloadHandlerMixin(object):
         :type expected_publish_calls: int
         """
         with patch('pyanaconda.dbus.DBus.publish_object') as publisher:
-            check_kickstart_interface(self, self.payload_interface, ks_in, "", ks_tmp=ks_out)
+            check_kickstart_interface(self._test,
+                                      self.payload_service_interface,
+                                      ks_in, "", ks_tmp=ks_out)
 
             publisher.assert_called()
-            self.assertEqual(publisher.call_count, expected_publish_calls)
+            self._test.assertEqual(publisher.call_count, expected_publish_calls)
 
     def get_payload_handler(self):
         """Get payload handler created."""
-        return self.payload_module.payload_handler
+        return self.payload_service.payload_handler

@@ -22,7 +22,7 @@ import unittest
 from mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadHandlerMixin
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.task.task_interface import TaskInterface
@@ -30,6 +30,8 @@ from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
+from pyanaconda.modules.payload.payload import PayloadService
+from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
     LiveImageHandlerInterface
@@ -39,13 +41,18 @@ from pyanaconda.modules.payload.payloads.live_image.initialization import \
 from pyanaconda.modules.payload.payloads.live_image.installation import InstallFromTarTask
 
 
-class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
+class LiveImageHandlerKSTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.setup_payload()
+        self.payload_module = PayloadService()
+        self.payload_module_interface = PayloadInterface(self.payload_module)
+
+        self.shared_tests = PayloadSharedTest(self,
+                                              self.payload_module,
+                                              self.payload_module_interface)
 
     def _check_properties(self, url, proxy="", checksum="", verifyssl=True):
-        handler = self.get_payload_handler()
+        handler = self.shared_tests.get_payload_handler()
 
         self.assertIsInstance(handler, LiveImageHandlerModule)
         intf = LiveImageHandlerInterface(handler)
@@ -64,7 +71,7 @@ class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         # Use live disk image installation
         liveimg --url="http://my/super/path"
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(url="http://my/super/path")
 
     def liveimg_proxy_kickstart_test(self):
@@ -76,7 +83,7 @@ class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         # Use live disk image installation
         liveimg --url="http://my/super/path" --proxy="http://ultimate/proxy"
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(url="http://my/super/path", proxy="http://ultimate/proxy")
 
     def liveimg_checksum_kickstart_test(self):
@@ -88,7 +95,7 @@ class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         # Use live disk image installation
         liveimg --url="http://my/super/path" --checksum="BATBATBATMAN!"
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(url="http://my/super/path", checksum="BATBATBATMAN!")
 
     def liveimg_noverifyssl_kickstart_test(self):
@@ -100,7 +107,7 @@ class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         # Use live disk image installation
         liveimg --url="http://my/super/path" --noverifyssl
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(url="http://my/super/path", verifyssl=False)
 
     def liveimg_complex_kickstart_test(self):
@@ -112,7 +119,7 @@ class LiveImageHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         # Use live disk image installation
         liveimg --url="http://my/super/path" --proxy="http://NO!!!!!" --noverifyssl --checksum="ABCDEFG"
         """
-        self.check_kickstart(ks_in, ks_out)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(url="http://my/super/path",
                                proxy="http://NO!!!!!",
                                verifyssl=False,
