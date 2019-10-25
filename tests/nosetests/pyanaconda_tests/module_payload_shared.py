@@ -17,11 +17,14 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
-from mock import patch
+from unittest.mock import patch, create_autospec
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
+from pyanaconda.modules.common.containers import PayloadSourceContainer
+from pyanaconda.modules.payload.constants import SourceType
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadService
+from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
 
 
 class PayloadSharedTest(object):
@@ -57,3 +60,68 @@ class PayloadSharedTest(object):
     def get_payload_handler(self):
         """Get payload handler created."""
         return self.payload_service.payload_handler
+
+
+class SourceSharedTest(object):
+
+    def __init__(self, test, payload, payload_intf):
+        """Setup shared payload source test object for common payload testing.
+
+        :param test: instance of TestCase
+        :param payload: payload module
+        :type payload: instance of PayloadBase class
+        :param payload_intf: payload module interface
+        :type payload_intf: instance of PayloadBaseInterface class
+        """
+        self._test = test
+        self.payload = payload
+        self.payload_interface = payload_intf
+
+    @staticmethod
+    def prepare_source(source_type):
+        """Prepare mock objects which will present given source.
+
+        :param SourceType source: Enum describing the source type
+        """
+        if source_type == SourceType.LIVE_OS_IMAGE:
+            source = create_autospec(LiveOSSourceModule)
+            source.image_path = "/test/path"
+
+        source.type = source_type
+        source.is_ready.return_value = True
+
+        return source
+
+    def set_sources(self, sources):
+        """Set sources list to payload object.
+
+        This will not call DBus API.
+
+        :param sources: list of source objects to be set
+        """
+        self.payload.set_sources(sources)
+
+    def check_empty_sources(self):
+        """Default check for payload with no sources set."""
+        self._test.assertEqual([], self.payload_interface.Sources)
+        self._test.assertFalse(self.payload_interface.HasSource())
+
+    def check_set_sources(self, test_sources, exception=None):
+        """Default check to set sources.
+
+        :param test_sources: list of sources for emptiness failed check
+        :param exception: exception class which will be raised for the given sources
+        """
+        paths = PayloadSourceContainer.to_object_path_list(test_sources)
+
+        if exception:
+            with self._test.assertRaises(exception):
+                self.payload_interface.SetSources(paths)
+
+            self._test.assertEqual(self.payload_interface.Sources, [])
+            self._test.assertFalse(self.payload_interface.HasSource())
+        else:
+            self.payload_interface.SetSources(paths)
+
+            self._test.assertEqual(self.payload_interface.Sources, paths)
+            self._test.assertTrue(self.payload_interface.HasSource())
