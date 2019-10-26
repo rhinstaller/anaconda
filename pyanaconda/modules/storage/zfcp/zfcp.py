@@ -20,7 +20,7 @@
 from blivet.zfcp import zfcp
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import ZFCP

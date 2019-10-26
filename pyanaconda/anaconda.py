@@ -26,7 +26,7 @@ import threading
 from pyanaconda import addons
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import constants
-from pyanaconda.dbus.launcher import AnacondaDBusLauncher
+from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.payload.flatpak import FlatpakPayload
 

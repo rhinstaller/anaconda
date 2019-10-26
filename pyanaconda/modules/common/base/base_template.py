@@ -17,10 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.template import AdvancedInterfaceTemplate
+
+from dasbus.template import InterfaceTemplate
+
+__all__ = ["InterfaceTemplate", "ModuleInterfaceTemplate", "KickstartModuleInterfaceTemplate"]
 
 
-class ModuleInterfaceTemplate(AdvancedInterfaceTemplate):
+class ModuleInterfaceTemplate(InterfaceTemplate):
     """The DBus interface template for a module.
 
     The template should be used to create DBus interfaces

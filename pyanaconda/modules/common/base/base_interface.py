@@ -19,9 +19,9 @@
 #
 from pyanaconda.modules.common.base.base_template import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
-from pyanaconda.dbus.property import emits_properties_changed
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.interface import dbus_interface
+from dasbus.property import emits_properties_changed
+from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.interface import dbus_interface
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.structures.requirement import Requirement

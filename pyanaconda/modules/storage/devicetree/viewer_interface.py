@@ -17,9 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.template import InterfaceTemplate
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.interface import dbus_interface
+from pyanaconda.modules.common.base.base_template import InterfaceTemplate
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_VIEWER
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
     DeviceFormatData, OSData

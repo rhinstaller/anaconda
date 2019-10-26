@@ -20,7 +20,7 @@ import inspect
 from abc import ABC
 from typing import get_type_hints
 
-from pyanaconda.dbus.typing import get_variant, Structure, Dict, List, get_type_arguments, \
+from dasbus.typing import get_variant, Structure, Dict, List, get_type_arguments, \
     is_base_type
 
 __all__ = ["DBusStructureError", "generate_string_from_data", "DBusData", "compare_data"]

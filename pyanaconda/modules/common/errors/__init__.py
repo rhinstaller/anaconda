@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pykickstart.errors import KickstartError
-from pyanaconda.dbus.error import dbus_error_by_default, dbus_error
+from dasbus.error import dbus_error_by_default, dbus_error
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
 
 

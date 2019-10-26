@@ -21,10 +21,10 @@ from functools import partial
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.signal import Signal
-from pyanaconda.dbus.error import GLibErrorHandler
-from pyanaconda.dbus.interface import get_xml
-from pyanaconda.dbus.specification import DBusSpecification, DBusSpecificationError
-from pyanaconda.dbus.typing import get_variant
+from dasbus.error import GLibErrorHandler
+from dasbus.interface import get_xml
+from dasbus.specification import DBusSpecification, DBusSpecificationError
+from dasbus.typing import get_variant
 
 import gi
 gi.require_version("Gio", "2.0")

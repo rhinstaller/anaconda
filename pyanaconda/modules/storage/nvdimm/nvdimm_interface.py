@@ -17,8 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.interface import dbus_interface
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import NVDIMM
 from pyanaconda.modules.common.containers import TaskContainer

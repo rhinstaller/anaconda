@@ -18,8 +18,8 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.interface import dbus_interface
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 

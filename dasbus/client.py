@@ -22,10 +22,10 @@ from functools import partial
 from threading import Lock
 
 from pyanaconda.core.signal import Signal
-from pyanaconda.dbus.constants import DBUS_FLAG_NONE
-from pyanaconda.dbus.error import GLibErrorHandler
-from pyanaconda.dbus.specification import DBusSpecification, DBusSpecificationError
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.constants import DBUS_FLAG_NONE
+from dasbus.error import GLibErrorHandler
+from dasbus.specification import DBusSpecification, DBusSpecificationError
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 import gi
 gi.require_version("GLib", "2.0")

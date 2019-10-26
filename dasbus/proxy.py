@@ -1,7 +1,7 @@
 #
-# DBus module.
+# Support for object proxies
 #
-# Copyright (C) 2017  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2019  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,16 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.connection import AddressedMessageBus, SystemMessageBus, \
-    SessionMessageBus, DefaultMessageBus
+from dasbus.client import AbstractObjectProxy
 
-__all__ = ["DBus", "SystemBus", "SessionBus", "AddressedMessageBus"]
+__all__ = ["get_object_path"]
 
-# Default bus. Anaconda uses this connection.
-DBus = DefaultMessageBus()
 
-# System bus.
-SystemBus = SystemMessageBus()
+def get_object_path(proxy):
+    """Get an object path of the remote DBus object.
 
-# Session bus.
-SessionBus = SessionMessageBus()
+    :param proxy: a DBus proxy
+    :return: a DBus path
+    """
+    if not isinstance(proxy, AbstractObjectProxy):
+        raise TypeError("Invalid type of proxy: {}".format(str(type(proxy))))
+
+    handler = getattr(proxy, "_handler")
+    return getattr(handler, "_object_path")

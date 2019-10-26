@@ -15,8 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus.namespace import get_namespace_from_name, get_dbus_path
-from pyanaconda.dbus.observer import DBusObserver, DBusObserverError
+from dasbus.namespace import get_namespace_from_name, get_dbus_path
+from dasbus.observer import DBusObserver, DBusObserverError
 
 log = get_module_logger(__name__)
 

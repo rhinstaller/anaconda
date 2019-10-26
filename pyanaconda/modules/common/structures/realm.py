@@ -16,8 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.structure import DBusData
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.structure import DBusData
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["RealmData"]
 

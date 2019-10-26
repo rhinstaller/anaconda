@@ -19,8 +19,8 @@
 from queue import SimpleQueue
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus.constants import DBUS_FLAG_NONE, DBUS_START_REPLY_SUCCESS
-from pyanaconda.dbus.namespace import get_dbus_name
+from dasbus.constants import DBUS_FLAG_NONE, DBUS_START_REPLY_SUCCESS
+from dasbus.namespace import get_dbus_name
 from pyanaconda.modules.boss.module_manager import ModuleObserver
 from pyanaconda.modules.common.constants.namespaces import ADDONS_NAMESPACE
 from pyanaconda.modules.common.errors.module import UnavailableModuleError

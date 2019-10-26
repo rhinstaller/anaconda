@@ -42,7 +42,7 @@ from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus.structure import generate_dictionary_from_data, compare_data
+from dasbus.structure import generate_dictionary_from_data, compare_data
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     SIZE_UNITS_DEFAULT, DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.i18n import _, N_, CP_, C_

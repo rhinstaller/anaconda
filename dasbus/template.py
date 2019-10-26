@@ -1,5 +1,5 @@
 #
-# template.py: Templates for DBus objects.
+# Templates for DBus interfaces
 #
 # Copyright (C) 2017  Red Hat, Inc.  All rights reserved.
 #
@@ -18,13 +18,13 @@
 #
 from abc import ABC
 
-from pyanaconda.dbus.property import PropertiesInterface
+from dasbus.property import PropertiesInterface
 
-__all__ = ["InterfaceTemplate", "AdvancedInterfaceTemplate"]
+__all__ = ["BasicInterfaceTemplate", "InterfaceTemplate"]
 
 
-class InterfaceTemplate(ABC):
-    """Template for DBus interface.
+class BasicInterfaceTemplate(ABC):
+    """Basic template for a DBus interface.
 
     This template uses a software design pattern called proxy.
 
@@ -41,7 +41,7 @@ class InterfaceTemplate(ABC):
     Example:
 
     @dbus_interface("org.myproject.X")
-    class InterfaceX(InterfaceTemplate):
+    class InterfaceX(BasicInterfaceTemplate):
         def DoSomething(self) -> Str:
             return self.implementation.do_something()
 
@@ -82,8 +82,8 @@ class InterfaceTemplate(ABC):
         pass
 
 
-class AdvancedInterfaceTemplate(InterfaceTemplate, PropertiesInterface):
-    """Advanced template for DBus interface.
+class InterfaceTemplate(BasicInterfaceTemplate, PropertiesInterface):
+    """Template for a DBus interface.
 
     The interface provides the support for the standard interface
     org.freedesktop.DBus.Properties.
@@ -108,7 +108,7 @@ class AdvancedInterfaceTemplate(InterfaceTemplate, PropertiesInterface):
 
     def __init__(self, implementation):
         PropertiesInterface.__init__(self)
-        InterfaceTemplate.__init__(self, implementation)
+        BasicInterfaceTemplate.__init__(self, implementation)
 
     def watch_property(self, property_name, signal):
         """Watch a DBus property.

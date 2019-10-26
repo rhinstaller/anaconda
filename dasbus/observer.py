@@ -19,7 +19,7 @@
 from functools import partial
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus.constants import DBUS_FLAG_NONE
+from dasbus.constants import DBUS_FLAG_NONE
 from pyanaconda.core.signal import Signal
 
 import gi

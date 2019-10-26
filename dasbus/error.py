@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.namespace import get_dbus_name
+from dasbus.namespace import get_dbus_name
 
 import gi
 gi.require_version("Gio", "2.0")

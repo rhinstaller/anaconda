@@ -17,10 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
+from dasbus.interface import dbus_interface
 from pyanaconda.modules.common.constants.services import BOSS
-from pyanaconda.dbus.template import InterfaceTemplate
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.modules.common.base.base_template import InterfaceTemplate
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 

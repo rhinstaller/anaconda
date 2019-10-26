@@ -17,8 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.structure import DBusData
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.structure import DBusData
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["Requirement"]
 

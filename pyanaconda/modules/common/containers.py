@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.container import DBusContainer
+from dasbus.container import DBusContainer
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, ANACONDA_NAMESPACE, \
     PAYLOAD_NAMESPACE
 

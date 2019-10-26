@@ -17,10 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus.publishable import Publishable
+from dasbus.publishable import Publishable
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError

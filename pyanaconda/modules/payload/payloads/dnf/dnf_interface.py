@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
+from dasbus.interface import dbus_interface
 
 from pyanaconda.modules.common.constants.interfaces import DNF_HANDLER
 from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface

@@ -24,7 +24,7 @@
 #
 from collections import namedtuple
 
-from pyanaconda.dbus.xml import XMLParser
+from dasbus.xml import XMLParser
 
 __all__ = ["DBusSpecificationError", "DBusSpecification", "DBusSpecificationParser"]
 

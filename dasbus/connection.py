@@ -16,16 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-import os
 import threading
 from abc import ABC, abstractmethod
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE
-from pyanaconda.dbus.client import ObjectProxy
-from pyanaconda.dbus.constants import DBUS_ANACONDA_SESSION_ADDRESS, DBUS_STARTER_ADDRESS, \
-    DBUS_NAME_FLAG_ALLOW_REPLACEMENT, DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER
-from pyanaconda.dbus.server import ServerObjectHandler
+from dasbus.client import ObjectProxy
+from dasbus.constants import DBUS_NAME_FLAG_ALLOW_REPLACEMENT, DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER
+from dasbus.server import ServerObjectHandler
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -34,7 +31,7 @@ from gi.repository import Gio
 log = get_module_logger(__name__)
 
 __all__ = ["GLibConnection", "MessageBus", "SystemMessageBus", "SessionMessageBus",
-           "AddressedMessageBus", "AnacondaMessageBus", "DefaultMessageBus"]
+           "AddressedMessageBus"]
 
 
 class GLibConnection(object):
@@ -292,46 +289,3 @@ class AddressedMessageBus(MessageBus):
         """Get a connection to a bus at the specified address."""
         log.info("Connecting to a bus at %s.", self._address)
         return self._provider.get_addressed_bus_connection(self._address)
-
-
-class AnacondaMessageBus(MessageBus):
-    """Representation of an Anaconda bus connection."""
-
-    @property
-    def address(self):
-        """The bus address."""
-        return self._find_bus_address()
-
-    def _get_connection(self):
-        """Get a connection to a bus at the specified address."""
-        bus_address = self._find_bus_address()
-
-        log.info("Connecting to the Anaconda bus at %s.", bus_address)
-        return self._provider.get_addressed_bus_connection(bus_address)
-
-    def _find_bus_address(self):
-        """Get the address of the Anaconda bus."""
-        if DBUS_ANACONDA_SESSION_ADDRESS in os.environ:
-            return os.environ.get(DBUS_ANACONDA_SESSION_ADDRESS)
-
-        if os.path.exists(ANACONDA_BUS_ADDR_FILE):
-            with open(ANACONDA_BUS_ADDR_FILE, 'rt') as f:
-                return f.read().strip()
-
-        raise ConnectionError("Can't find Anaconda bus address!")
-
-
-class DefaultMessageBus(AnacondaMessageBus):
-    """Representation of a default bus connection."""
-
-    def _find_bus_address(self):
-        """Get the address of the default bus.
-
-        Connect to the bus specified by the environmental variable
-        DBUS_STARTER_ADDRESS. If it is not specified, connect to
-        the Anaconda bus.
-        """
-        if DBUS_STARTER_ADDRESS in os.environ:
-            return os.environ.get(DBUS_STARTER_ADDRESS)
-
-        return super()._find_bus_address()

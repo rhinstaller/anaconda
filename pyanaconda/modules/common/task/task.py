@@ -24,7 +24,7 @@ import traceback
 from abc import abstractmethod
 
 from pyanaconda.core.constants import THREAD_DBUS_TASK
-from pyanaconda.dbus.publishable import Publishable
+from dasbus.publishable import Publishable
 from pyanaconda.modules.common.task.task_interface import TaskInterface, ValidationTaskInterface
 from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.modules.common.task.progress import ProgressReporter

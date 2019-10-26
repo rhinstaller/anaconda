@@ -1,7 +1,7 @@
 #
-# Support for object proxies
+# DBus constants.
 #
-# Copyright (C) 2019  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2017  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,19 +16,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.client import AbstractObjectProxy
 
-__all__ = ["get_object_path"]
+# Status codes.
+DBUS_START_REPLY_SUCCESS = 1
 
+# No flags are set.
+DBUS_FLAG_NONE = 0
 
-def get_object_path(proxy):
-    """Get an object path of the remote DBus object.
+# System environment variable holding the DBus session address.
+DBUS_STARTER_ADDRESS = "DBUS_STARTER_ADDRESS"
 
-    :param proxy: a DBus proxy
-    :return: a DBus path
-    """
-    if not isinstance(proxy, AbstractObjectProxy):
-        raise TypeError("Invalid type of proxy: {}".format(str(type(proxy))))
+# Return values of org.freedesktop.DBus.RequestName.
+DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER = 1
+DBUS_REQUEST_NAME_REPLY_IN_QUEUE = 2
+DBUS_REQUEST_NAME_REPLY_EXISTS = 3
+DBUS_REQUEST_NAME_REPLY_ALREADY_OWNER = 4
 
-    handler = getattr(proxy, "_handler")
-    return getattr(handler, "_object_path")
+# Flags of org.freedesktop.DBus.RequestName.
+DBUS_NAME_FLAG_ALLOW_REPLACEMENT = 0x1
+DBUS_NAME_FLAG_REPLACE_EXISTING = 0x2
+DBUS_NAME_FLAG_DO_NOT_QUEUE = 0x3

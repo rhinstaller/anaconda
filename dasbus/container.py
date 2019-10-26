@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.namespace import get_dbus_path
-from pyanaconda.dbus.publishable import Publishable
-from pyanaconda.dbus.typing import ObjPath, List
+from pyanaconda.core.dbus import DBus
+from dasbus.namespace import get_dbus_path
+from dasbus.publishable import Publishable
+from dasbus.typing import ObjPath, List
 
 __all__ = ["DBusContainerError", "DBusContainer"]
 

@@ -16,8 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.namespace import get_dbus_path, get_dbus_name
+from pyanaconda.core.dbus import DBus
+from dasbus.namespace import get_dbus_path, get_dbus_name
 
 __all__ = ['DBusInterfaceIdentifier', 'DBusObjectIdentifier', 'DBusServiceIdentifier']
 

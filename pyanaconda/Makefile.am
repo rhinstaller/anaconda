@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = isys ui payload storage dbus modules dbus_addons core bootloader
+SUBDIRS = isys ui payload storage modules dbus_addons core bootloader
 
 MAINTAINERCLEANFILES = Makefile.in
 
