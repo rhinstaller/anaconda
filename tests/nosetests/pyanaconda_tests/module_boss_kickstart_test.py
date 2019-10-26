@@ -21,7 +21,7 @@ import os
 from contextlib import contextmanager
 from mock import Mock
 
-from pyanaconda.dbus.typing import get_native
+from dasbus.typing import get_native
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
 from pyanaconda.modules.common.structures.kickstart import KickstartReport, KickstartMessage

@@ -17,14 +17,12 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-
 import unittest
 
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.interface import DBusSpecificationGenerator, DBusSpecificationError, \
+from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.server.interface import DBusSpecificationGenerator, DBusSpecificationError, \
     dbus_interface, dbus_class, dbus_signal, get_xml
-
-from tests.nosetests.pyanaconda_tests import compare_xml
+from dasbus.xml import XMLGenerator
 
 
 class InterfaceGeneratorTestCase(unittest.TestCase):
@@ -36,7 +34,11 @@ class InterfaceGeneratorTestCase(unittest.TestCase):
     def _compare(self, cls, expected_xml):
         """Compare cls specification with the given xml."""
         generated_xml = get_xml(cls)  # pylint: disable=no-member
-        compare_xml(self, generated_xml, expected_xml)
+
+        self.assertEqual(
+            XMLGenerator.prettify_xml(generated_xml),
+            XMLGenerator.prettify_xml(expected_xml)
+        )
 
     def exportable_test(self):
         """Test if the given name should be exported."""

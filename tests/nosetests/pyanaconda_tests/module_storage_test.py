@@ -23,7 +23,7 @@ from unittest.mock import patch, Mock
 
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, \
     PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_CUSTOM
-from pyanaconda.dbus.container import DBusContainerError
+from dasbus.server.container import DBusContainerError
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import PartitioningContainer
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
@@ -33,11 +33,11 @@ from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
 from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
-    patch_dbus_publish_object, check_dbus_property
+    patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy
 
 from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, \
@@ -969,7 +969,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.storage.iscsi.iscsi.iscsi")
     @patch("pyanaconda.modules.storage.kickstart.iscsi")
-    @patch("pyanaconda.dbus.DBus.get_proxy")
+    @patch_dbus_get_proxy
     @patch("pyanaconda.modules.storage.kickstart.wait_for_network_devices")
     def iscsi_kickstart_test(self, wait_for_network_devices, proxy_getter, iscsi, module_iscsi):
         """Test the iscsi command."""
@@ -988,7 +988,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.storage.iscsi.iscsi.iscsi")
     @patch("pyanaconda.modules.storage.kickstart.iscsi")
-    @patch("pyanaconda.dbus.DBus.get_proxy")
+    @patch_dbus_get_proxy
     @patch("pyanaconda.modules.storage.kickstart.wait_for_network_devices")
     def iscsi_kickstart_with_ui_test(self, wait_for_network_devices, proxy_getter, kickstart_iscsi, iscsi):
         """Test the iscsi command taking targets attached in GUI into account."""

@@ -35,7 +35,7 @@ from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.users.users import UsersService
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask
-from pyanaconda.dbus.typing import get_variant, List, Str, Int, Bool
+from dasbus.typing import get_variant, List, Str, Int, Bool
 from pyanaconda.ui.lib.users import get_user_list, set_user_list
 
 

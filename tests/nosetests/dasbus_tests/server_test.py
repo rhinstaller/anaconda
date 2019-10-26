@@ -21,11 +21,11 @@ import unittest
 from textwrap import dedent
 from unittest.mock import Mock, patch
 
-from pyanaconda.core.signal import Signal
-from pyanaconda.dbus.error import ErrorRegister
-from pyanaconda.dbus.server import ServerObjectHandler, GLibServer
-from pyanaconda.dbus.specification import DBusSpecificationError
-from pyanaconda.dbus.typing import get_variant
+from dasbus.error import ErrorRegister
+from dasbus.server.handler import ServerObjectHandler, GLibServer
+from dasbus.signal import Signal
+from dasbus.specification import DBusSpecificationError
+from dasbus.typing import get_variant
 
 
 class DBusServerTestCase(unittest.TestCase):
@@ -91,7 +91,7 @@ class DBusServerTestCase(unittest.TestCase):
         self.handler.disconnect_object()
         self.message_bus.connection.unregister_object.assert_called()
 
-    @patch("pyanaconda.dbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
+    @patch("dasbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
     def method_test(self, register):
         """Test the method publishing."""
         self._publish_object("""

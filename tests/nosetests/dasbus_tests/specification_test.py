@@ -17,10 +17,9 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-
 import unittest
 
-from pyanaconda.dbus.specification import DBusSpecificationParser, DBusSpecification, \
+from dasbus.specification import DBusSpecificationParser, DBusSpecification, \
     DBusSpecificationError
 
 

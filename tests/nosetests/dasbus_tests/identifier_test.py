@@ -20,7 +20,7 @@
 import unittest
 from mock import Mock
 
-from pyanaconda.dbus.identifier import DBusInterfaceIdentifier, DBusObjectIdentifier, \
+from dasbus.identifier import DBusInterfaceIdentifier, DBusObjectIdentifier, \
     DBusServiceIdentifier, DBusBaseIdentifier
 
 
@@ -109,8 +109,10 @@ class DBusIdentifierTestCase(unittest.TestCase):
 
     def service_test(self):
         """Test the DBus service object."""
+        bus = Mock()
         service = DBusServiceIdentifier(
-            namespace=("a", "b", "c")
+            namespace=("a", "b", "c"),
+            message_bus=bus
         )
         self.assert_namespace(service, ("a", "b", "c"))
         self.assert_interface(service, "a.b.c")
@@ -121,7 +123,8 @@ class DBusIdentifierTestCase(unittest.TestCase):
             namespace=("a", "b", "c"),
             service_version=3,
             interface_version=5,
-            object_version=7
+            object_version=7,
+            message_bus=bus
         )
         self.assert_namespace(service, ("a", "b", "c"))
         self.assert_interface(service, "a.b.c5")
@@ -133,7 +136,8 @@ class DBusIdentifierTestCase(unittest.TestCase):
             namespace=("a", "b", "c"),
             service_version=3,
             interface_version=5,
-            object_version=7
+            object_version=7,
+            message_bus=bus
         )
         self.assert_namespace(service, ("a", "b", "c", "d"))
         self.assert_interface(service, "a.b.c.d5")

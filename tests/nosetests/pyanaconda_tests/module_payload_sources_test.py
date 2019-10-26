@@ -19,10 +19,10 @@
 #
 import unittest
 
-from mock import Mock, patch
+from unittest.mock import Mock, patch
 
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.dbus.typing import get_native
+from dasbus.typing import get_native
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
@@ -31,6 +31,7 @@ from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModul
 from pyanaconda.modules.payload.sources.live_os.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payload.sources.live_os.initialization import SetUpLiveOSSourceTask, \
     TearDownLiveOSSourceTask
+from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
 
 
 class LiveOSSourceInterfaceTestCase(unittest.TestCase):
@@ -163,7 +164,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payload.sources.live_os.initialization.mount")
     @patch("pyanaconda.modules.payload.sources.live_os.initialization.stat")
     @patch("os.stat")
-    @patch("pyanaconda.dbus.DBus.get_proxy")
+    @patch_dbus_get_proxy
     def setup_install_source_task_run_test(self, proxy_getter, os_stat, stat, mount):
         """Test Live OS Source setup installation source task run."""
         device_tree = Mock()
@@ -187,7 +188,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device_tree.ResolveDevice.assert_called_once_with("/path/to/base/image")
         os_stat.assert_called_once_with("/resolved/path/to/base/image")
 
-    @patch("pyanaconda.dbus.DBus.get_proxy")
+    @patch_dbus_get_proxy
     def setup_install_source_task_missing_image_test(self, proxy_getter):
         """Test Live OS Source setup installation source task missing image error."""
         device_tree = Mock()
@@ -203,7 +204,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payload.sources.live_os.initialization.stat")
     @patch("os.stat")
-    @patch("pyanaconda.dbus.DBus.get_proxy")
+    @patch_dbus_get_proxy
     def setup_install_source_task_invalid_block_dev_test(self, proxy_getter, os_stat, stat_mock):
         """Test Live OS Source setup installation source task with invalid block device error."""
         device_tree = Mock()
@@ -230,7 +231,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payload.sources.live_os.initialization.mount")
     @patch("pyanaconda.modules.payload.sources.live_os.initialization.stat")
     @patch("os.stat")
-    @patch("pyanaconda.dbus.DBus.get_proxy")
+    @patch_dbus_get_proxy
     def setup_install_source_task_failed_to_mount_test(self, proxy_getter, os_stat, stat, mount):
         """Test Live OS Source setup installation source task mount error."""
         device_tree = Mock()

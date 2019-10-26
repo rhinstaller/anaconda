@@ -49,7 +49,7 @@ class PayloadSharedTest(object):
         :param expected_publish_calls: how many times times the publisher should be called
         :type expected_publish_calls: int
         """
-        with patch('pyanaconda.dbus.DBus.publish_object') as publisher:
+        with patch('pyanaconda.core.dbus.DBus.publish_object') as publisher:
             check_kickstart_interface(self._test,
                                       self.payload_service_interface,
                                       ks_in, "", ks_tmp=ks_out)

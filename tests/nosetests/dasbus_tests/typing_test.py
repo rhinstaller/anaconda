@@ -22,8 +22,8 @@ import unittest
 
 from typing import Set
 
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.typing import get_dbus_type
+from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.typing import get_dbus_type
 
 import gi
 gi.require_version("GLib", "2.0")

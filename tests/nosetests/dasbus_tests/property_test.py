@@ -21,13 +21,13 @@ import unittest
 
 from mock import Mock, call
 
-from pyanaconda.core.signal import Signal
-from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.property import PropertiesInterface, emits_properties_changed, \
+from dasbus.server.interface import dbus_interface
+from dasbus.server.property import PropertiesInterface, emits_properties_changed, \
     PropertiesException, PropertiesChanges
-from pyanaconda.dbus.specification import DBusSpecificationError
-from pyanaconda.dbus.template import AdvancedInterfaceTemplate
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.signal import Signal
+from dasbus.specification import DBusSpecificationError
+from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.server.template import InterfaceTemplate
 
 
 class DBusPropertySpecificationTestCase(unittest.TestCase):
@@ -206,7 +206,7 @@ class DBusPropertyTestCase(unittest.TestCase):
         callback.assert_called_once_with("I2", {"A": 200}, [])
 
     @dbus_interface("I3")
-    class Test3(AdvancedInterfaceTemplate):
+    class Test3(InterfaceTemplate):
 
         def connect_signals(self):
             super().connect_signals()
@@ -305,7 +305,7 @@ class DBusPropertyTestCase(unittest.TestCase):
         callback.assert_not_called()
 
     @dbus_interface("I4")
-    class Test4(AdvancedInterfaceTemplate):
+    class Test4(InterfaceTemplate):
 
         def connect_signals(self):
             super().connect_signals()
@@ -413,7 +413,7 @@ class DBusPropertyTestCase(unittest.TestCase):
             test7.report_changed_property("A")
 
     @dbus_interface("I8")
-    class Test8(AdvancedInterfaceTemplate):
+    class Test8(InterfaceTemplate):
         pass
 
     class Test8Implementation(object):

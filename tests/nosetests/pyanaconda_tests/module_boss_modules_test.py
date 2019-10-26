@@ -18,7 +18,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from pyanaconda.dbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
+from dasbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 from pyanaconda.modules.common.errors import DBusError
@@ -55,7 +55,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         task = StartModulesTask(self._message_bus, [], addons_enabled=False)
         self._check_started_modules(task, [])
 
-    @patch("pyanaconda.dbus.observer.Gio")
+    @patch("dasbus.client.observer.Gio")
     def start_one_module_test(self, gio):
         """Start one module."""
         service_names = [
@@ -77,7 +77,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         gio.bus_watch_name_on_connection.assert_called_once()
         observer.proxy.Ping.assert_called_once_with()
 
-    @patch("pyanaconda.dbus.observer.Gio")
+    @patch("dasbus.client.observer.Gio")
     def start_modules_test(self, gio):
         """Start modules."""
         service_names = [
@@ -89,7 +89,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
         self._check_started_modules(task, service_names)
 
-    @patch("pyanaconda.dbus.observer.Gio")
+    @patch("dasbus.client.observer.Gio")
     def start_addons_test(self, gio):
         """Start addons."""
         service_names = [

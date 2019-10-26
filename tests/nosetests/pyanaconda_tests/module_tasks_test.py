@@ -17,10 +17,10 @@
 #
 import unittest
 from time import sleep
-from mock import Mock, call
+from unittest.mock import Mock, call
 
-from pyanaconda.dbus.interface import dbus_class
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.server.interface import dbus_class
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.task import NoResultError
 from pyanaconda.modules.common.task import Task, TaskInterface, sync_run_task, \
     async_run_task, DBusMetaTask

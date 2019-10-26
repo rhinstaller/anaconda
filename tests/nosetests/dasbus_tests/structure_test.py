@@ -19,8 +19,8 @@
 #
 import unittest
 
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.structure import DBusData, DBusStructureError, generate_string_from_data, \
+from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.structure import DBusData, DBusStructureError, generate_string_from_data, \
     compare_data
 
 

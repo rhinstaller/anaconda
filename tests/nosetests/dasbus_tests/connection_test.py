@@ -17,16 +17,14 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-import tempfile
 import unittest
 from collections import defaultdict
 from unittest.mock import Mock, patch
 
-from pyanaconda.dbus.connection import MessageBus, SystemMessageBus, SessionMessageBus, \
-    AddressedMessageBus, AnacondaMessageBus, DefaultMessageBus
-from pyanaconda.dbus.constants import DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER, \
-    DBUS_NAME_FLAG_ALLOW_REPLACEMENT, DBUS_REQUEST_NAME_REPLY_ALREADY_OWNER, \
-    DBUS_ANACONDA_SESSION_ADDRESS, DBUS_STARTER_ADDRESS
+from dasbus.connection import MessageBus, SystemMessageBus, SessionMessageBus, \
+    AddressedMessageBus
+from dasbus.constants import DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER, \
+    DBUS_NAME_FLAG_ALLOW_REPLACEMENT, DBUS_REQUEST_NAME_REPLY_ALREADY_OWNER
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -199,7 +197,7 @@ class DBusConnectionTestCase(unittest.TestCase):
         # Do nothing by default.
         self.message_bus.disconnect()
 
-    @patch("pyanaconda.dbus.connection.Gio.bus_get_sync")
+    @patch("dasbus.connection.Gio.bus_get_sync")
     def system_bus_test(self, getter):
         """Test the system bus."""
         message_bus = SystemMessageBus()
@@ -209,7 +207,7 @@ class DBusConnectionTestCase(unittest.TestCase):
             None
         )
 
-    @patch("pyanaconda.dbus.connection.Gio.bus_get_sync")
+    @patch("dasbus.connection.Gio.bus_get_sync")
     def session_bus_test(self, getter):
         """Test the session bus."""
         message_bus = SessionMessageBus()
@@ -232,40 +230,8 @@ class DBusConnectionTestCase(unittest.TestCase):
             None
         )
 
-    def _check_anaconda_connection(self, message_bus, getter):
-        with self.assertRaises(ConnectionError):
-            self._check_addressed_connection(message_bus, getter, "ADDRESS")
-
-        with tempfile.NamedTemporaryFile("w") as f:
-            f.write("ADDRESS")
-            f.flush()
-
-            with patch("pyanaconda.dbus.connection.ANACONDA_BUS_ADDR_FILE", f.name):
-                self._check_addressed_connection(message_bus, getter, "ADDRESS")
-
-        with patch.dict("os.environ") as environment:
-            environment[DBUS_ANACONDA_SESSION_ADDRESS] = "ADDRESS"
-            self._check_addressed_connection(message_bus, getter, "ADDRESS")
-
-    @patch("pyanaconda.dbus.connection.Gio.DBusConnection.new_for_address_sync")
+    @patch("dasbus.connection.Gio.DBusConnection.new_for_address_sync")
     def addressed_bus_test(self, getter):
         """Test the addressed bus."""
         message_bus = AddressedMessageBus("ADDRESS")
         self._check_addressed_connection(message_bus, getter, "ADDRESS")
-
-    @patch("pyanaconda.dbus.connection.Gio.DBusConnection.new_for_address_sync")
-    def anaconda_bus_test(self, getter):
-        """Test the anaconda bus."""
-        message_bus = AnacondaMessageBus()
-        self._check_anaconda_connection(message_bus, getter)
-
-    @patch("pyanaconda.dbus.connection.Gio.DBusConnection.new_for_address_sync")
-    def default_bus_test(self, getter):
-        """Test the default bus."""
-        message_bus = DefaultMessageBus()
-
-        with patch.dict("os.environ") as environment:
-            environment[DBUS_STARTER_ADDRESS] = "ADDRESS"
-            self._check_addressed_connection(message_bus, getter, "ADDRESS")
-
-        self._check_anaconda_connection(message_bus, getter)

@@ -20,9 +20,9 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from pyanaconda.dbus.client import GLibClient
-from pyanaconda.dbus.error import ErrorRegister, GLibErrorHandler
-from pyanaconda.dbus.server import GLibServer
+from dasbus.error import ErrorRegister, GLibErrorHandler
+from dasbus.client.handler import GLibClient
+from dasbus.server.handler import GLibServer
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -99,7 +99,7 @@ class DBusErrorTestCase(unittest.TestCase):
             "GDBus.Error:org.test.ErrorX: My error message"
         )
 
-    @patch("pyanaconda.dbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
+    @patch("dasbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
     def create_exception_test(self, register):
         """Test the exception."""
         domain = Gio.DBusError.quark()
@@ -114,7 +114,7 @@ class DBusErrorTestCase(unittest.TestCase):
         self.assertEqual(getattr(e, "dbus_domain"), domain)
         self.assertEqual(getattr(e, "dbus_code"), 666)
 
-    @patch("pyanaconda.dbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
+    @patch("dasbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
     def is_name_registered_test(self, register):
         """Test the registered name."""
         h = GLibErrorHandler()
@@ -123,7 +123,7 @@ class DBusErrorTestCase(unittest.TestCase):
         self.assertEqual(h._is_name_registered("org.test.ErrorA"), True)
         self.assertEqual(h._is_name_registered("org.test.ErrorB"), False)
 
-    @patch("pyanaconda.dbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
+    @patch("dasbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
     def handle_server_error_test(self, register):
         """Test the server error handler."""
         h = GLibErrorHandler()
@@ -133,7 +133,7 @@ class DBusErrorTestCase(unittest.TestCase):
         h.handle_server_error(GLibServer, invocation, ExceptionA("My message"))
         invocation.return_dbus_error.assert_called_once_with("org.test.ErrorA", "My message")
 
-    @patch("pyanaconda.dbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
+    @patch("dasbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
     def handle_client_error_test(self, register):
         """Test the client error handler."""
         h = GLibErrorHandler()

@@ -28,7 +28,7 @@ from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.core.constants import PARTITIONING_METHOD_INTERACTIVE
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.containers import DeviceTreeContainer
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
 from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest

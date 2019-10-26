@@ -20,8 +20,8 @@
 import unittest
 from unittest.mock import Mock
 
-from pyanaconda.core.signal import Signal
-from pyanaconda.dbus.interface import dbus_signal
+from dasbus.server.interface import dbus_signal
+from dasbus.signal import Signal
 
 
 class DBusSignalTestCase(unittest.TestCase):
@@ -73,13 +73,18 @@ class DBusSignalTestCase(unittest.TestCase):
 
         interface = Interface()
         callback = Mock()
-        subscription = interface.Signal.connect(callback)  # pylint: disable=no-member
+        interface.Signal.connect(callback)  # pylint: disable=no-member
 
         interface.Signal()
         callback.assert_called_once_with()
         callback.reset_mock()
 
-        subscription.disconnect()
+        interface.Signal.disconnect(callback)  # pylint: disable=no-member
+        interface.Signal()
+        callback.assert_not_called()
+
+        interface.Signal.connect(callback)  # pylint: disable=no-member
+        interface.Signal.disconnect()  # pylint: disable=no-member
         interface.Signal()
         callback.assert_not_called()
 

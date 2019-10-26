@@ -18,7 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from pyanaconda.dbus.namespace import get_dbus_name, get_dbus_path, get_namespace_from_name
+from dasbus.namespace import get_dbus_name, get_dbus_path, get_namespace_from_name
 
 
 class DBusNamespaceTestCase(unittest.TestCase):

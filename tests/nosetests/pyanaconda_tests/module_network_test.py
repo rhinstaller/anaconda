@@ -40,7 +40,7 @@ from pyanaconda.modules.network.firewall.firewall import FirewallModule
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
 from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
 from pyanaconda.modules.network.kickstart import DEFAULT_DEVICE_SPECIFICATION
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     SetRealOnbootValuesFromKickstartTask, DumpMissingIfcfgFilesTask, \
     ConsolidateInitramfsConnectionsTask

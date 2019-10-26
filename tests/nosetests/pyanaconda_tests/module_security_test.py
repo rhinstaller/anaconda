@@ -27,7 +27,7 @@ from pykickstart.constants import SELINUX_ENFORCING, SELINUX_PERMISSIVE
 from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.dbus.typing import get_variant, Str, List, Bool
+from dasbus.typing import get_variant, Str, List, Bool
 from pyanaconda.modules.security.security import SecurityService
 from pyanaconda.modules.security.security_interface import SecurityInterface
 from pyanaconda.modules.security.constants import SELinuxMode

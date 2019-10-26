@@ -21,12 +21,13 @@ import unittest
 from textwrap import dedent
 from unittest.mock import Mock, patch
 
-from pyanaconda.core.signal import Signal
-from pyanaconda.dbus.client import ClientObjectHandler, ObjectProxy, GLibClient
-from pyanaconda.dbus.constants import DBUS_FLAG_NONE
-from pyanaconda.dbus.error import ErrorRegister
-from pyanaconda.dbus.specification import DBusSpecification
-from pyanaconda.dbus.typing import get_variant, get_variant_type, VariantType
+from dasbus.client.handler import ClientObjectHandler, GLibClient
+from dasbus.client.proxy import ObjectProxy, disconnect_proxy
+from dasbus.constants import DBUS_FLAG_NONE
+from dasbus.error import ErrorRegister
+from dasbus.signal import Signal
+from dasbus.specification import DBusSpecification
+from dasbus.typing import get_variant, get_variant_type, VariantType
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -124,7 +125,7 @@ class DBusClientTestCase(unittest.TestCase):
             self.handler.specification.members
         )
 
-    @patch("pyanaconda.dbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
+    @patch("dasbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
     def method_test(self, register):
         """Test the method proxy."""
         self._create_proxy("""
@@ -232,7 +233,7 @@ class DBusClientTestCase(unittest.TestCase):
 
         self.connection.call_sync.reset_mock()
 
-    @patch("pyanaconda.dbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
+    @patch("dasbus.error.GLibErrorHandler.register", new_callable=ErrorRegister)
     def async_method_test(self, register):
         """Test asynchronous calls of a method proxy."""
         self._create_proxy("""
@@ -398,11 +399,11 @@ class DBusClientTestCase(unittest.TestCase):
 
         self._check_signal("Interface", "Signal1", self.proxy.Signal1.emit)
         self._emit_signal(self.NO_REPLY, self.proxy.Signal1.emit)
-        self.assertEqual(len(self.handler._subscriptions), 1)
+        self.assertEqual(len(self.handler._subscriptions), 2)
 
         self._check_signal("Interface", "Signal2", self.proxy.Signal2.emit)
         self._emit_signal(get_variant("(is)", (1, "Test")), self.proxy.Signal2.emit)
-        self.assertEqual(len(self.handler._subscriptions), 2)
+        self.assertEqual(len(self.handler._subscriptions), 4)
 
         with self.assertRaises(AttributeError):
             self.fail(self.proxy.SignalInvalid)
@@ -410,9 +411,14 @@ class DBusClientTestCase(unittest.TestCase):
         with self.assertRaises(AttributeError):
             self.proxy.Signal1 = self.handler._signal_factory()
 
-        del self.proxy.Signal1
-        self.connection.signal_unsubscribe.assert_called_once()
-        self.assertEqual(self.handler._subscriptions["Interface", "Signal1"], [])
+        self.proxy.Signal1.connect(Mock())
+        self.proxy.Signal2.connect(Mock())
+
+        disconnect_proxy(self.proxy)
+        self.assertEqual(self.connection.signal_unsubscribe.call_count, 2)
+        self.assertEqual(self.handler._subscriptions, [])
+        self.assertEqual(self.proxy.Signal1._callbacks, [])
+        self.assertEqual(self.proxy.Signal2._callbacks, [])
 
     def _check_signal(self, interface_name, signal_name, signal_callback):
         """Check the DBus signal subscription."""

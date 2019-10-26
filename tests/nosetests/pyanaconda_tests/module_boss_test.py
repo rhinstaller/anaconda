@@ -20,7 +20,7 @@ import unittest
 from unittest.mock import Mock
 
 from pyanaconda.core.constants import DEFAULT_LANG
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask

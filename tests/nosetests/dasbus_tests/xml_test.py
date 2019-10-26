@@ -17,10 +17,8 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-
 import unittest
-from pyanaconda.dbus.xml import XMLParser, XMLGenerator
-from tests.nosetests.pyanaconda_tests import compare_xml
+from dasbus.xml import XMLParser, XMLGenerator
 
 
 class XMLParserTestCase(unittest.TestCase):
@@ -133,7 +131,10 @@ class XMLParserTestCase(unittest.TestCase):
 class XMLGeneratorTestCase(unittest.TestCase):
 
     def _compare(self, element, xml):
-        compare_xml(self, XMLGenerator.element_to_xml(element), xml)
+        self.assertEqual(
+            XMLGenerator.prettify_xml(XMLGenerator.element_to_xml(element)),
+            XMLGenerator.prettify_xml(xml)
+        )
 
     def node_test(self):
         """Test the node element."""
