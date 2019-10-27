@@ -100,12 +100,23 @@ class XMLGenerator(XMLParser):
 
     @staticmethod
     def prettify_xml(xml):
-        """Return pretty printed XML."""
+        """Return pretty printed normalized XML.
+
+        Python 3.8 changed the order of the attributes and introduced
+        the function canonicalize that should be used to normalize XML.
+        """
         # Remove newlines and extra whitespaces,
         xml_line = "".join([line.strip() for line in xml.splitlines()])
 
         # Generate pretty xml.
-        return minidom.parseString(xml_line).toprettyxml(indent="  ")
+        xml = minidom.parseString(xml_line).toprettyxml(indent="  ")
+
+        # Normalize attributes.
+        canonicalize = getattr(
+            ElementTree, "canonicalize", lambda xml, *args, **kwargs: xml
+        )
+
+        return canonicalize(xml, with_comments=True)
 
     @staticmethod
     def add_child(parent_element, child_element):
