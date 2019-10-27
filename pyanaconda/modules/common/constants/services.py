@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.core.dbus import SystemBus
+from pyanaconda.core.dbus import SystemBus, DBus
 from dasbus.identifier import DBusServiceIdentifier
 from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, TIMEZONE_NAMESPACE, \
     NETWORK_NAMESPACE, LOCALIZATION_NAMESPACE, SECURITY_NAMESPACE, USERS_NAMESPACE, BAZ_NAMESPACE, \
@@ -25,43 +25,53 @@ from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, TIMEZ
 # Anaconda services.
 
 BOSS = DBusServiceIdentifier(
-    namespace=BOSS_NAMESPACE
+    namespace=BOSS_NAMESPACE,
+    message_bus=DBus
 )
 
 BAZ = DBusServiceIdentifier(
-    namespace=BAZ_NAMESPACE
+    namespace=BAZ_NAMESPACE,
+    message_bus=DBus
 )
 
 TIMEZONE = DBusServiceIdentifier(
-    namespace=TIMEZONE_NAMESPACE
+    namespace=TIMEZONE_NAMESPACE,
+    message_bus=DBus
 )
 
 NETWORK = DBusServiceIdentifier(
-    namespace=NETWORK_NAMESPACE
+    namespace=NETWORK_NAMESPACE,
+    message_bus=DBus
 )
 
 LOCALIZATION = DBusServiceIdentifier(
-    namespace=LOCALIZATION_NAMESPACE
+    namespace=LOCALIZATION_NAMESPACE,
+    message_bus=DBus
 )
 
 SECURITY = DBusServiceIdentifier(
-    namespace=SECURITY_NAMESPACE
+    namespace=SECURITY_NAMESPACE,
+    message_bus=DBus
 )
 
 USERS = DBusServiceIdentifier(
-    namespace=USERS_NAMESPACE
+    namespace=USERS_NAMESPACE,
+    message_bus=DBus
 )
 
 PAYLOAD = DBusServiceIdentifier(
-    namespace=PAYLOAD_NAMESPACE
+    namespace=PAYLOAD_NAMESPACE,
+    message_bus=DBus
 )
 
 STORAGE = DBusServiceIdentifier(
-    namespace=STORAGE_NAMESPACE
+    namespace=STORAGE_NAMESPACE,
+    message_bus=DBus
 )
 
 SERVICES = DBusServiceIdentifier(
-    namespace=SERVICES_NAMESPACE
+    namespace=SERVICES_NAMESPACE,
+    message_bus=DBus
 )
 
 # System services.

@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.core.dbus import DBus
 from dasbus.namespace import get_dbus_path, get_dbus_name
 
 __all__ = ['DBusInterfaceIdentifier', 'DBusObjectIdentifier', 'DBusServiceIdentifier']
@@ -109,16 +108,16 @@ class DBusObjectIdentifier(DBusInterfaceIdentifier):
 class DBusServiceIdentifier(DBusObjectIdentifier):
     """Identifier of a DBus service."""
 
-    def __init__(self, namespace, basename=None, interface_version=None, object_version=None,
-                 service_version=None, message_bus=DBus):
+    def __init__(self, message_bus, namespace, basename=None, interface_version=None,
+                 object_version=None, service_version=None):
         """Describe a DBus service.
 
+        :param message_bus: a message bus
         :param namespace: a sequence of strings
         :param basename: a string with the base name or None
         :param interface_version: a version of the DBus interface
         :param object_version: a version of the DBus object
         :param service_version: a version of the DBus service
-        :param message_bus: a message bus
         """
         super().__init__(namespace, basename=basename,
                          interface_version=interface_version,

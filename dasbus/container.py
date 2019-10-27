@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.core.dbus import DBus
 from dasbus.namespace import get_dbus_path
 from dasbus.publishable import Publishable
 from dasbus.typing import ObjPath, List
@@ -40,7 +39,11 @@ class DBusContainer(object):
     Example:
 
     # Create a container of tasks.
-    container = DBusContainer(ANACONDA_NAMESPACE, "Task")
+    container = DBusContainer(
+        namespace=("my", "project"),
+        basename="Task",
+        message_bus=DBus
+    )
 
     # Publish a task.
     path = container.to_object_path(MyTask())
@@ -50,16 +53,20 @@ class DBusContainer(object):
 
     """
 
-    def __init__(self, namespace, basename, message_bus=DBus):
+    def __init__(self, message_bus, namespace, basename=None):
         """Create a new container.
 
+        :param message_bus: a message bus
         :param namespace: a sequence of names
         :param basename: a string with the base name
-        :param message_bus: a message bus
         """
         self._message_bus = message_bus
-        self._namespace = namespace
-        self._basename = basename
+
+        if basename:
+            namespace = (*namespace, basename)
+
+        self._namespace = namespace[:-1]
+        self._basename = namespace[-1]
 
         self._container = {}
         self._published = set()
