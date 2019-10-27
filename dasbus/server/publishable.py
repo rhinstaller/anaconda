@@ -1,5 +1,5 @@
 #
-# Support for publishable Python objects
+# Server support for publishable Python objects
 #
 # Copyright (C) 2019  Red Hat, Inc.  All rights reserved.
 #

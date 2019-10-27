@@ -19,7 +19,7 @@
 #
 from abc import ABCMeta, abstractmethod
 
-from dasbus.publishable import Publishable
+from dasbus.server.publishable import Publishable
 from pyanaconda.modules.common.base import KickstartBaseModule
 
 

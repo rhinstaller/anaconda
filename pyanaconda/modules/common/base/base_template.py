@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 
-from dasbus.template import InterfaceTemplate
+from dasbus.server.template import InterfaceTemplate
 
 __all__ = ["InterfaceTemplate", "ModuleInterfaceTemplate", "KickstartModuleInterfaceTemplate"]
 

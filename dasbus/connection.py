@@ -1,5 +1,5 @@
 #
-# Representation of DBus connection.
+# Representation of DBus connections
 #
 # Copyright (C) 2018  Red Hat, Inc.  All rights reserved.
 #
@@ -20,9 +20,10 @@ import logging
 import threading
 from abc import ABC, abstractmethod
 
-from dasbus.client import ObjectProxy
-from dasbus.constants import DBUS_NAME_FLAG_ALLOW_REPLACEMENT, DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER
-from dasbus.server import ServerObjectHandler
+from dasbus.constants import DBUS_NAME_FLAG_ALLOW_REPLACEMENT, \
+    DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER
+from dasbus.client.proxy import ObjectProxy
+from dasbus.server.handler import ServerObjectHandler
 
 import gi
 gi.require_version("Gio", "2.0")

@@ -1,5 +1,5 @@
 #
-# interface.py:  support for generating XML with interface description
+# Server support for DBus interfaces
 #
 # Copyright (C) 2017
 # Red Hat, Inc.  All rights reserved.

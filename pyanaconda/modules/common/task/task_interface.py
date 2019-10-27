@@ -20,7 +20,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.interface import dbus_interface, dbus_signal, dbus_class
+from dasbus.server.interface import dbus_interface, dbus_signal, dbus_class
 from pyanaconda.modules.common.constants.interfaces import TASK
 from pyanaconda.modules.common.base.base_template import InterfaceTemplate
 from dasbus.typing import *  # pylint: disable=wildcard-import

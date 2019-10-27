@@ -1,5 +1,5 @@
 #
-# Identification of DBus objects, interfaces and services.
+# Identification of DBus objects, interfaces and services
 #
 # Copyright (C) 2018  Red Hat, Inc.  All rights reserved.
 #

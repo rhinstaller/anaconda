@@ -17,10 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.property import emits_properties_changed
+from dasbus.server.property import emits_properties_changed
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from dasbus.interface import dbus_interface
+from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.containers import PartitioningContainer, TaskContainer
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod

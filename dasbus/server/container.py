@@ -1,5 +1,5 @@
 #
-# Support for object containers
+# Server support for DBus containers
 #
 # Copyright (C) 2019  Red Hat, Inc.  All rights reserved.
 #
@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from dasbus.namespace import get_dbus_path
-from dasbus.publishable import Publishable
+from dasbus.server.publishable import Publishable
 from dasbus.typing import ObjPath, List
 
 __all__ = ["DBusContainerError", "DBusContainer"]

@@ -16,7 +16,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from dasbus.namespace import get_namespace_from_name, get_dbus_path
-from dasbus.observer import DBusObserver, DBusObserverError
+from dasbus.client.observer import DBusObserver, DBusObserverError
 
 log = get_module_logger(__name__)
 

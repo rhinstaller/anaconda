@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.interface import dbus_class
+from dasbus.server.interface import dbus_class
 from pyanaconda.modules.storage.devicetree.handler_interface import DeviceTreeHandlerInterface
 from pyanaconda.modules.storage.devicetree.viewer_interface import DeviceTreeViewerInterface
 

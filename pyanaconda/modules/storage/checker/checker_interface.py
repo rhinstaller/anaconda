@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.interface import dbus_interface
+from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base.base_template import InterfaceTemplate
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER

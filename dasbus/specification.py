@@ -1,5 +1,5 @@
 #
-# Support for DBus XML specification.
+# Support for DBus XML specifications
 #
 # Copyright (C) 2019
 # Red Hat, Inc.  All rights reserved.

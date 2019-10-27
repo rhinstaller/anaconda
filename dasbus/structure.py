@@ -1,5 +1,5 @@
 #
-# DBus structures.
+# Support for DBus structures
 #
 # Copyright (C) 2018  Red Hat, Inc.  All rights reserved.
 #

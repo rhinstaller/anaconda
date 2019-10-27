@@ -19,10 +19,10 @@
 #
 
 from pyanaconda.modules.common.constants.services import NETWORK
-from dasbus.property import emits_properties_changed
+from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from dasbus.interface import dbus_interface, dbus_signal, dbus_class
+from dasbus.server.interface import dbus_interface, dbus_signal, dbus_class
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo, \
     NetworkDeviceConfiguration

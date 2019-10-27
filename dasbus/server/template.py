@@ -18,7 +18,7 @@
 #
 from abc import ABC
 
-from dasbus.property import PropertiesInterface
+from dasbus.server.property import PropertiesInterface
 
 __all__ = ["BasicInterfaceTemplate", "InterfaceTemplate"]
 

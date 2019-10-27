@@ -22,7 +22,7 @@ from functools import partial
 
 from dasbus.signal import Signal
 from dasbus.error import GLibErrorHandler
-from dasbus.interface import get_xml
+from dasbus.server.interface import get_xml
 from dasbus.specification import DBusSpecification, DBusSpecificationError
 from dasbus.typing import get_variant
 

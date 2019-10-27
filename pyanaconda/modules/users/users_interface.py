@@ -19,14 +19,14 @@
 #
 
 from pyanaconda.modules.common.constants.services import USERS
-from dasbus.property import emits_properties_changed
+from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.common.structures.sshkey import SshKeyData
-from dasbus.interface import dbus_interface
+from dasbus.server.interface import dbus_interface
 
 
 @dbus_interface(USERS.interface_name)

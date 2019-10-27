@@ -1,5 +1,5 @@
 #
-# Representation of a signal.
+# Representation of a signal
 #
 # Copyright (C) 2019  Red Hat, Inc.  All rights reserved.
 #

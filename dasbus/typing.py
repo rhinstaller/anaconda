@@ -1,5 +1,5 @@
 #
-# typing.py:  specified DBus types and their string representation
+# Support for DBus types
 #
 # Copyright (C) 2017
 # Red Hat, Inc.  All rights reserved.

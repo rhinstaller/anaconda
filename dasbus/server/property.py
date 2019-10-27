@@ -1,5 +1,5 @@
 #
-# Support for DBus properties
+# Server support for DBus properties
 #
 # Copyright (C) 2017
 # Red Hat, Inc.  All rights reserved.
@@ -26,7 +26,7 @@ from abc import ABC
 from collections import defaultdict
 from functools import wraps
 
-from dasbus.interface import dbus_signal, get_xml
+from dasbus.server.interface import dbus_signal, get_xml
 from dasbus.specification import DBusSpecification, DBusSpecificationError
 from dasbus.typing import *  # pylint: disable=wildcard-import
 

@@ -22,7 +22,7 @@ from abc import abstractmethod, abstractproperty
 from blivet.devices import PartitionDevice, TmpFSDevice, LVMLogicalVolumeDevice, \
     LVMVolumeGroupDevice, MDRaidArrayDevice, BTRFSDevice
 
-from dasbus.publishable import Publishable
+from dasbus.server.publishable import Publishable
 from pyanaconda.modules.common.base.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.anaconda_loggers import get_module_logger

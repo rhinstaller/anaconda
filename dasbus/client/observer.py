@@ -1,5 +1,5 @@
 #
-# Observers of remote DBus objects.
+# Client support for DBus observers
 #
 # Copyright (C) 2017  Red Hat, Inc.  All rights reserved.
 #

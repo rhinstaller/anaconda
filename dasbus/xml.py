@@ -1,5 +1,5 @@
 #
-# xml.py:  support for generating XML with interface description
+# Support for XML representation
 #
 # Copyright (C) 2017
 # Red Hat, Inc.  All rights reserved.

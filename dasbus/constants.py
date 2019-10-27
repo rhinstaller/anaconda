@@ -1,5 +1,5 @@
 #
-# DBus constants.
+# DBus constants
 #
 # Copyright (C) 2017  Red Hat, Inc.  All rights reserved.
 #
