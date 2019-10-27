@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from abc import ABC, abstractmethod
-from collections import defaultdict
 from functools import partial
 from threading import Lock
 
@@ -32,7 +31,8 @@ gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
 __all__ = ["GLibClient", "AbstractClientObjectHandler", "ClientObjectHandler",
-           "AbstractObjectProxy", "ObjectProxy", "InterfaceProxy"]
+           "AbstractObjectProxy", "ObjectProxy", "InterfaceProxy", "get_object_path",
+           "disconnect_proxy"]
 
 
 class GLibClient(object):
@@ -161,6 +161,22 @@ class AbstractClientObjectHandler(ABC):
         self._specification = None
 
     @property
+    def service_name(self):
+        """DBus service name.
+
+        :return: a DBus name
+        """
+        return self._service_name
+
+    @property
+    def object_path(self):
+        """DBus object path.
+
+        :return: a DBus path
+        """
+        return self._object_path
+
+    @property
     def specification(self):
         """DBus specification."""
         if not self._specification:
@@ -243,11 +259,11 @@ class AbstractClientObjectHandler(ABC):
         pass
 
     @abstractmethod
-    def destroy_member(self, interface_name, member_name):
-        """Destroy a member of the DBus object.
+    def disconnect_members(self):
+        """Disconnect members of the DBus object.
 
-        :param interface_name: a name of the interface
-        :param member_name: a name of the member
+        Unsubscribe from DBus signals and disconnect all
+        registered callbacks of the proxy signals.
         """
         pass
 
@@ -270,7 +286,7 @@ class ClientObjectHandler(AbstractClientObjectHandler):
         self._client = client
         self._signal_factory = signal_factory
         self._error_handler = error_handler
-        self._subscriptions = defaultdict(list)
+        self._subscriptions = []
 
     def _get_specification(self):
         """Introspect the DBus object."""
@@ -299,9 +315,9 @@ class ClientObjectHandler(AbstractClientObjectHandler):
             callback_args=(signal.emit,)
         )
 
-        # Keep the subscription.
-        key = (signal_spec.interface_name, signal_spec.name)
-        self._subscriptions[key].append(unsubscribe)
+        # Keep the subscriptions.
+        self._subscriptions.append(unsubscribe)
+        self._subscriptions.append(signal.disconnect)
 
         return signal
 
@@ -425,17 +441,10 @@ class ClientObjectHandler(AbstractClientObjectHandler):
 
         return self._error_handler.handle_client_error(self._client, error)
 
-    def destroy_member(self, interface_name, member_name):
-        """Destroy a member of the DBus object.
-
-        :param interface_name: a name of the interface
-        :param member_name: a name of the member
-        """
-        spec = self._find_member_spec(interface_name, member_name)
-        key = (spec.interface_name, spec.name)
-
-        while self._subscriptions.get(key):
-            callback = self._subscriptions[key].pop()
+    def disconnect_members(self):
+        """Disconnect members of the DBus object."""
+        while self._subscriptions:
+            callback = self._subscriptions.pop()
             callback()
 
 
@@ -551,24 +560,6 @@ class AbstractObjectProxy(ABC):
             self._members[key] = member
             return member
 
-    def _delete_member(self, *key):
-        """Delete a member of the DBus object.
-
-        This method is thread-safe.
-
-        :param key: a member key
-        """
-        with self._lock:
-            try:
-                self._handler.destroy_member(*key)
-            except DBusSpecificationError as e:
-                raise AttributeError(str(e)) from None
-
-            try:
-                del self._members[key]
-            except KeyError:
-                pass
-
     def __getattr__(self, name):
         """Get the attribute.
 
@@ -601,20 +592,6 @@ class AbstractObjectProxy(ABC):
         raise AttributeError(
             "Can't set {}.{}.".format(member.interface_name, member.name)
         )
-
-    def __delattr__(self, name):
-        """Delete the attribute.
-
-        Unsubscribe if the attribute represents a DBus signal
-        and delete the attribute from the proxy.
-
-        :param name:
-        :return:
-        """
-        if name in self._locals:
-            return super().__delattr__(name)
-
-        self._delete_member(self._get_interface(name), name)
 
 
 class ObjectProxy(AbstractObjectProxy):
@@ -679,3 +656,34 @@ class InterfaceProxy(AbstractObjectProxy):
     def _get_interface(self, member_name):
         """Get the DBus interface of the member."""
         return self._interface_name
+
+
+def get_object_handler(proxy) -> AbstractClientObjectHandler:
+    """Get an object handler of the DBus proxy.
+
+    :param proxy: a DBus proxy
+    :return: a DBus proxy handler
+    """
+    if not isinstance(proxy, AbstractObjectProxy):
+        raise TypeError("Invalid type of proxy: {}".format(str(type(proxy))))
+
+    return getattr(proxy, "_handler")
+
+
+def get_object_path(proxy):
+    """Get an object path of the remote DBus object.
+
+    :param proxy: a DBus proxy
+    :return: a DBus path
+    """
+    handler = get_object_handler(proxy)
+    return handler.object_path
+
+
+def disconnect_proxy(proxy):
+    """Disconnect the DBus proxy from the remote object.
+
+    :param proxy: a DBus proxy
+    """
+    handler = get_object_handler(proxy)
+    handler.disconnect_members()
