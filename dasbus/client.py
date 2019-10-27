@@ -21,7 +21,7 @@ from collections import defaultdict
 from functools import partial
 from threading import Lock
 
-from pyanaconda.core.signal import Signal
+from dasbus.signal import Signal
 from dasbus.constants import DBUS_FLAG_NONE
 from dasbus.error import GLibErrorHandler
 from dasbus.specification import DBusSpecification, DBusSpecificationError

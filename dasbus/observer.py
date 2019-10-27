@@ -20,7 +20,7 @@ import logging
 from functools import partial
 
 from dasbus.constants import DBUS_FLAG_NONE
-from pyanaconda.core.signal import Signal
+from dasbus.signal import Signal
 
 import gi
 gi.require_version("Gio", "2.0")

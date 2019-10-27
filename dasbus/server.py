@@ -20,7 +20,7 @@ import logging
 from abc import ABC, abstractmethod
 from functools import partial
 
-from pyanaconda.core.signal import Signal
+from dasbus.signal import Signal
 from dasbus.error import GLibErrorHandler
 from dasbus.interface import get_xml
 from dasbus.specification import DBusSpecification, DBusSpecificationError

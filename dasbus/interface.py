@@ -28,7 +28,7 @@ import re
 from inspect import Parameter
 from typing import get_type_hints
 
-from pyanaconda.core.signal import Signal
+from dasbus.signal import Signal
 from dasbus.specification import DBusSpecificationError, DBusSpecification
 from dasbus.typing import get_dbus_type
 from dasbus.xml import XMLGenerator
