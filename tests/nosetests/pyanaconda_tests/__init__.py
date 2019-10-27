@@ -78,7 +78,7 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
     :param ks_valid: True if the input kickstart is valid, otherwise False
     :param ks_tmp: string with the temporary output kickstart
     """
-    callback = Mock()
+    callback = PropertiesChangedCallback()
     interface.PropertiesChanged.connect(callback)
 
     # Read a kickstart,
@@ -112,6 +112,17 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
     test.assertEqual(ks_tmp, interface.GenerateTemporaryKickstart().strip())
 
 
+class PropertiesChangedCallback(Mock):
+    """Mocked callback for the DBus signal PropertiesChanged.
+
+    The arguments of the call are unpacked into native values.
+    """
+    def __call__(self, interface, changed, invalid):  # pylint: disable=arguments-differ
+        return super().__call__(
+            interface, {k: v.unpack() for k, v in changed.items()}, invalid
+        )
+
+
 def check_dbus_property(test, interface_id, interface, property_name,
                         in_value, out_value=None, getter=None, setter=None, changed=None):
     """Check DBus property.
@@ -126,7 +137,7 @@ def check_dbus_property(test, interface_id, interface, property_name,
     :param setter: a property setter or None
     :param changed: a dictionary of changed properties or None
     """
-    callback = Mock()
+    callback = PropertiesChangedCallback()
     interface.PropertiesChanged.connect(callback)
 
     if out_value is None:
@@ -141,7 +152,7 @@ def check_dbus_property(test, interface_id, interface, property_name,
     if not changed:
         changed = {property_name: out_value}
 
-    callback.assert_called_once_with(interface_id.interface_name, changed, [])
+    callback.assert_called_once_with(interface_id.interface_name, get_native(changed), [])
 
     # Get the property.
     if not getter:

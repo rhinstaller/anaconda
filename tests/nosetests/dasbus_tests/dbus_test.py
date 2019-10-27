@@ -91,7 +91,11 @@ class ExampleInterface(object):
     @Value.setter
     def Value(self, value: Int):
         self._values.append(value)
-        self.PropertiesChanged("my.testing.Example", {"Value": value}, ["Name"])
+        self.PropertiesChanged(
+            "my.testing.Example",
+            {"Value": get_variant(Int, value)},
+            ["Name"]
+        )
 
     def _set_secret(self, secret: Str):
         self._secrets.append(secret)

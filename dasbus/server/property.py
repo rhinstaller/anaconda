@@ -115,11 +115,15 @@ class PropertiesChanges(object):
         requests = defaultdict(dict)
 
         for property_name in content:
+            # Find the property specification.
             member = self._properties_specs[property_name]
-            value = getattr(self._object, property_name)
 
-            # FIXME: Return variants instead of values.
-            requests[member.interface_name][member.name] = value
+            # Get the property value.
+            value = getattr(self._object, property_name)
+            variant = get_variant(member.type, value)
+
+            # Create a request.
+            requests[member.interface_name][member.name] = variant
 
         return requests.items()
 

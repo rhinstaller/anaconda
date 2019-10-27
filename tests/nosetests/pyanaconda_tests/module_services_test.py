@@ -22,9 +22,10 @@ import tempfile
 import unittest
 from textwrap import dedent
 
-from mock import Mock, patch
+from mock import patch
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface, \
+    PropertiesChangedCallback
 
 from pyanaconda.core.constants import SETUP_ON_BOOT_DISABLED, \
     SETUP_ON_BOOT_RECONFIG, SETUP_ON_BOOT_ENABLED, SETUP_ON_BOOT_DEFAULT, \
@@ -49,7 +50,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         self.services_interface = ServicesInterface(self.services_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.services_interface.PropertiesChanged.connect(self.callback)
 
     def kickstart_properties_test(self):
@@ -230,7 +231,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.services_interface = ServicesInterface(self.services_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.services_interface.PropertiesChanged.connect(self.callback)
 
     @patch('pyanaconda.modules.services.installation.get_anaconda_version_string')

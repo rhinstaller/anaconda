@@ -119,18 +119,25 @@ class DBusPropertyTestCase(unittest.TestCase):
 
         test1.report_changed_property("A")
         test1.flush_changes()
-        callback.assert_called_once_with("I1", {"A": 1}, [])
+        callback.assert_called_once_with("I1", {
+            "A": get_variant(Int, 1)
+        }, [])
         callback.reset_mock()
 
         test1.report_changed_property("B")
         test1.flush_changes()
-        callback.assert_called_once_with("I1", {"B": 2}, [])
+        callback.assert_called_once_with("I1", {
+            "B": get_variant(Int, 2)
+        }, [])
         callback.reset_mock()
 
         test1.report_changed_property("B")
         test1.report_changed_property("A")
         test1.flush_changes()
-        callback.assert_called_once_with("I1", {"A": 1, "B": 2}, [])
+        callback.assert_called_once_with("I1", {
+            "A": get_variant(Int, 1),
+            "B": get_variant(Int, 2)
+        }, [])
         callback.reset_mock()
 
     @dbus_interface("I2")
@@ -182,12 +189,16 @@ class DBusPropertyTestCase(unittest.TestCase):
 
         test2.SetA(10)
         self.assertEqual(test2.A, 10)
-        callback.assert_called_once_with("I2", {"A": 10}, [])
+        callback.assert_called_once_with("I2", {
+            "A": get_variant(Int, 10)
+        }, [])
         callback.reset_mock()
 
         test2.SetA(1000)
         self.assertEqual(test2.A, 1000)
-        callback.assert_called_once_with("I2", {"A": 1000}, [])
+        callback.assert_called_once_with("I2", {
+            "A": get_variant(Int, 1000)
+        }, [])
         callback.reset_mock()
 
         test2.SetADirectly(20)
@@ -203,7 +214,9 @@ class DBusPropertyTestCase(unittest.TestCase):
         callback.assert_not_called()
 
         test2.flush_changes()
-        callback.assert_called_once_with("I2", {"A": 200}, [])
+        callback.assert_called_once_with("I2", {
+            "A": get_variant(Int, 200)
+        }, [])
 
     @dbus_interface("I3")
     class Test3(InterfaceTemplate):
@@ -279,12 +292,16 @@ class DBusPropertyTestCase(unittest.TestCase):
 
         test3.SetA(10)
         self.assertEqual(test3.A, 10)
-        callback.assert_called_once_with("I3", {"A": 10}, [])
+        callback.assert_called_once_with("I3", {
+            "A": get_variant(Int, 10)
+        }, [])
         callback.reset_mock()
 
         test3.B = 20
         self.assertEqual(test3.B, 20)
-        callback.assert_called_once_with("I3", {"B": 20}, [])
+        callback.assert_called_once_with("I3", {
+            "B": get_variant(Int, 20)
+        }, [])
         callback.reset_mock()
 
         test3implementation.do_external_changes(100, 200)
@@ -293,7 +310,10 @@ class DBusPropertyTestCase(unittest.TestCase):
         callback.assert_not_called()
 
         test3implementation.module_properties_changed.emit()
-        callback.assert_called_once_with("I3", {"A": 100, "B": 200}, [])
+        callback.assert_called_once_with("I3", {
+            "A": get_variant(Int, 100),
+            "B": get_variant(Int, 200)
+        }, [])
         callback.reset_mock()
 
         test3implementation.do_secret_changes(1000, 2000)
@@ -356,20 +376,24 @@ class DBusPropertyTestCase(unittest.TestCase):
 
         test5.SetA(10)
         self.assertEqual(test5.A, 10)
-        callback.assert_called_once_with("I4", {"A": 10}, [])
+        callback.assert_called_once_with("I4", {
+            "A": get_variant(Int, 10)
+        }, [])
         callback.reset_mock()
 
         test5.B = 20
         self.assertEqual(test5.B, 20)
-        callback.assert_called_once_with("I5", {"B": 20}, [])
+        callback.assert_called_once_with("I5", {
+            "B": get_variant(Int, 20)
+        }, [])
         callback.reset_mock()
 
         test5.DoChanges(1, 2)
         self.assertEqual(test5.A, 1)
         self.assertEqual(test5.B, 2)
         callback.assert_has_calls([
-            call("I4", {"A": 1}, []),
-            call("I5", {"B": 2}, [])
+            call("I4", {"A": get_variant(Int, 1)}, []),
+            call("I5", {"B": get_variant(Int, 2)}, [])
         ], any_order=True)
         callback.reset_mock()
 
@@ -380,8 +404,8 @@ class DBusPropertyTestCase(unittest.TestCase):
 
         test5implementation.module_properties_changed.emit()
         callback.assert_has_calls([
-            call("I4", {"A": 100}, []),
-            call("I5", {"B": 200}, [])
+            call("I4", {"A": get_variant(Int, 100)}, []),
+            call("I5", {"B": get_variant(Int, 200)}, [])
         ], any_order=True)
         callback.reset_mock()
 

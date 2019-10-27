@@ -24,7 +24,7 @@ import shutil
 from unittest.mock import patch, Mock
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_kickstart_interface, check_task_creation
+    check_kickstart_interface, check_task_creation, PropertiesChangedCallback
 
 from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
         FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
@@ -73,7 +73,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_interface = NetworkInterface(self.network_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.network_interface.PropertiesChanged.connect(self.callback)
 
     def kickstart_properties_test(self):
@@ -594,7 +594,7 @@ class FirewallInterfaceTestCase(unittest.TestCase):
         self.firewall_interface = FirewallInterface(self.firewall_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.firewall_interface.PropertiesChanged.connect(self.callback)
 
     def _test_dbus_property(self, *args, **kwargs):
@@ -738,7 +738,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         self.firewall_interface = FirewallInterface(self.firewall_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.firewall_interface.PropertiesChanged.connect(self.callback)
 
     @patch_dbus_publish_object

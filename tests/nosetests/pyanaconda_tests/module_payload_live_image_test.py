@@ -22,7 +22,7 @@ import unittest
 from mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
-    patch_dbus_publish_object
+    patch_dbus_publish_object, PropertiesChangedCallback
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
     SourceSharedTest
 
@@ -138,7 +138,7 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
                                              payload=self.live_image_module,
                                              payload_intf=self.live_image_interface)
 
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.live_image_interface.PropertiesChanged.connect(self.callback)
 
     # TODO: Add set_source and supported_sources like in Live OS payload when source is available

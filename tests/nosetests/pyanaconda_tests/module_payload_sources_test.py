@@ -31,7 +31,7 @@ from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModul
 from pyanaconda.modules.payload.sources.live_os.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payload.sources.live_os.initialization import SetUpLiveOSSourceTask, \
     TearDownLiveOSSourceTask
-from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
+from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesChangedCallback
 
 
 class LiveOSSourceInterfaceTestCase(unittest.TestCase):
@@ -40,7 +40,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         self.live_os_source_module = LiveOSSourceModule()
         self.live_os_source_interface = LiveOSSourceInterface(self.live_os_source_module)
 
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.live_os_source_interface.PropertiesChanged.connect(self.callback)
 
     def type_test(self):
