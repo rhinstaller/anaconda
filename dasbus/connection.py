@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+import logging
 import threading
 from abc import ABC, abstractmethod
 
-from pyanaconda.anaconda_loggers import get_module_logger
 from dasbus.client import ObjectProxy
 from dasbus.constants import DBUS_NAME_FLAG_ALLOW_REPLACEMENT, DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER
 from dasbus.server import ServerObjectHandler
@@ -28,7 +28,7 @@ import gi
 gi.require_version("Gio", "2.0")
 from gi.repository import Gio
 
-log = get_module_logger(__name__)
+log = logging.getLogger(__name__)
 
 __all__ = ["GLibConnection", "MessageBus", "SystemMessageBus", "SessionMessageBus",
            "AddressedMessageBus"]
