@@ -57,7 +57,8 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         """Test the Timezone property."""
         self.timezone_interface.SetTimezone("Europe/Prague")
         self.assertEqual(self.timezone_interface.Timezone, "Europe/Prague")
-        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'Timezone': 'Europe/Prague'}, [])
+        self.callback.assert_called_once_with(
+            TIMEZONE.interface_name, {'Timezone': 'Europe/Prague'}, [])
 
     def utc_property_test(self):
         """Test the IsUtc property."""
@@ -75,7 +76,8 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         """Test the NTPServers property."""
         self.timezone_interface.SetNTPServers(["ntp.cesnet.cz"])
         self.assertEqual(self.timezone_interface.NTPServers, ["ntp.cesnet.cz"])
-        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'NTPServers': ["ntp.cesnet.cz"]}, [])
+        self.callback.assert_called_once_with(
+            TIMEZONE.interface_name, {'NTPServers': ["ntp.cesnet.cz"]}, [])
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.timezone_interface, ks_in, ks_out)
