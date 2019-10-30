@@ -31,7 +31,7 @@ import warnings
 
 from contextlib import contextmanager
 
-from pyanaconda import keyboard, ntp, timezone
+from pyanaconda import keyboard
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
@@ -398,44 +398,6 @@ class Timezone(RemovedCommand):
                 enabled_services.append(NTP_SERVICE)
                 services_proxy.SetEnabledServices(enabled_services)
 
-    def execute(self):
-        # get the DBus proxies
-        timezone_proxy = TIMEZONE.get_proxy()
-
-        # write out timezone configuration
-        kickstart_timezone = timezone_proxy.Timezone
-
-        if not timezone.is_valid_timezone(kickstart_timezone):
-            # this should never happen, but for pity's sake
-            timezone_log.warning("Timezone %s set in kickstart is not valid, falling "
-                                 "back to default (America/New_York).", kickstart_timezone)
-            timezone_proxy.SetTimezone("America/New_York")
-
-        timezone.write_timezone_config(timezone_proxy, conf.target.system_root)
-
-        # write out NTP configuration (if set) and --nontp is not used
-        kickstart_ntp_servers = timezone_proxy.NTPServers
-
-        if timezone_proxy.NTPEnabled and kickstart_ntp_servers:
-            chronyd_conf_path = os.path.normpath(conf.target.system_root + ntp.NTP_CONFIG_FILE)
-            pools, servers = ntp.internal_to_pools_and_servers(kickstart_ntp_servers)
-            if os.path.exists(chronyd_conf_path):
-                timezone_log.debug("Modifying installed chrony configuration")
-                try:
-                    ntp.save_servers_to_config(pools, servers, conf_file_path=chronyd_conf_path)
-                except ntp.NTPconfigError as ntperr:
-                    timezone_log.warning("Failed to save NTP configuration: %s", ntperr)
-            # use chrony conf file from installation environment when
-            # chrony is not installed (chrony conf file is missing)
-            else:
-                timezone_log.debug("Creating chrony configuration based on the "
-                                   "configuration from installation environment")
-                try:
-                    ntp.save_servers_to_config(pools, servers,
-                                               conf_file_path=ntp.NTP_CONFIG_FILE,
-                                               out_file_path=chronyd_conf_path)
-                except ntp.NTPconfigError as ntperr:
-                    timezone_log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
 
 class VolGroup(COMMANDS.VolGroup):
     pass

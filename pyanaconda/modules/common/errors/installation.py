@@ -44,7 +44,14 @@ class NetworkInstallationError(InstallationError):
     """Exception for the network installation errors."""
     pass
 
+
 @dbus_error("FirewallConfigurationError", namespace=ANACONDA_NAMESPACE)
 class FirewallConfigurationError(InstallationError):
     """Exception for the firewall configuration errors."""
+    pass
+
+
+@dbus_error("TimezoneConfigurationError", namespace=ANACONDA_NAMESPACE)
+class TimezoneConfigurationError(InstallationError):
+    """Exception for the timezone configuration errors."""
     pass

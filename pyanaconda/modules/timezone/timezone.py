@@ -17,13 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus import DBus
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
+from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
+from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
+from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -121,3 +123,21 @@ class TimezoneService(KickstartService):
         self._ntp_servers = list(servers)
         self.ntp_servers_changed.emit()
         log.debug("NTP servers are set to %s.", servers)
+
+    def install_with_tasks(self):
+        """Return the installation tasks of this module.
+
+        :return: list of installation tasks
+        """
+        return [
+            ConfigureTimezoneTask(
+                sysroot=conf.target.system_root,
+                timezone=self.timezone,
+                is_utc=self.is_utc
+            ),
+            ConfigureNTPTask(
+                sysroot=conf.target.system_root,
+                ntp_enabled=self.ntp_enabled,
+                ntp_servers=self.ntp_servers
+            )
+        ]
