@@ -25,11 +25,12 @@ from unittest.mock import patch, Mock
 
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
+from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.ntp import NTP_CONFIG_FILE, NTPconfigError
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object
 
 
 class TimezoneInterfaceTestCase(unittest.TestCase):
@@ -126,6 +127,63 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         timezone Europe/Prague --ntpservers=ntp.cesnet.cz
         """
         self._test_kickstart(ks_in, ks_out)
+
+    @patch_dbus_publish_object
+    def install_with_tasks_default_test(self, publisher):
+        """Test install tasks - module in default state."""
+        tasks = self.timezone_interface.InstallWithTasks()
+        timezone_task_path = tasks[0]
+        ntp_task_path = tasks[1]
+
+        publisher.assert_called()
+
+        # timezone configuration
+        timezone_object_path = publisher.call_args_list[0][0][0]
+        tz_obj = publisher.call_args_list[0][0][1]
+        self.assertEqual(timezone_task_path, timezone_object_path)
+        self.assertIsInstance(tz_obj, TaskInterface)
+        self.assertIsInstance(tz_obj.implementation, ConfigureTimezoneTask)
+        self.assertEqual(tz_obj.implementation._timezone, "America/New_York")
+        self.assertEqual(tz_obj.implementation._is_utc, False)
+
+        # NTP configuration
+        ntp_object_path = publisher.call_args_list[1][0][0]
+        ntp_obj = publisher.call_args_list[1][0][1]
+        self.assertEqual(ntp_task_path, ntp_object_path)
+        self.assertIsInstance(ntp_obj, TaskInterface)
+        self.assertIsInstance(ntp_obj.implementation, ConfigureNTPTask)
+        self.assertEqual(ntp_obj.implementation._ntp_enabled, True)
+
+    @patch_dbus_publish_object
+    def install_with_tasks_configured_test(self, publisher):
+        """Test install tasks - module in configured state."""
+
+        self.timezone_interface.SetNTPEnabled(False)
+        self.timezone_interface.SetIsUTC(True)
+        self.timezone_interface.SetTimezone("Asia/Tokyo")
+
+        tasks = self.timezone_interface.InstallWithTasks()
+        timezone_task_path = tasks[0]
+        ntp_task_path = tasks[1]
+
+        publisher.assert_called()
+
+        # timezone configuration
+        timezone_object_path = publisher.call_args_list[0][0][0]
+        tz_obj = publisher.call_args_list[0][0][1]
+        self.assertEqual(timezone_task_path, timezone_object_path)
+        self.assertIsInstance(tz_obj, TaskInterface)
+        self.assertIsInstance(tz_obj.implementation, ConfigureTimezoneTask)
+        self.assertEqual(tz_obj.implementation._timezone, "Asia/Tokyo")
+        self.assertEqual(tz_obj.implementation._is_utc, True)
+
+        # NTP configuration
+        ntp_object_path = publisher.call_args_list[1][0][0]
+        ntp_obj = publisher.call_args_list[1][0][1]
+        self.assertEqual(ntp_task_path, ntp_object_path)
+        self.assertIsInstance(ntp_obj, TaskInterface)
+        self.assertIsInstance(ntp_obj.implementation, ConfigureNTPTask)
+        self.assertEqual(ntp_obj.implementation._ntp_enabled, False)
 
 
 class TimezoneTasksTestCase(unittest.TestCase):
