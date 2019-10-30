@@ -21,7 +21,6 @@ from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
-from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface
 
 
@@ -32,18 +31,6 @@ class LiveOSHandlerInterface(PayloadBaseInterface):
     def connect_signals(self):
         super().connect_signals()
         self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
-
-    def SetUpSourcesWithTask(self) -> ObjPath:
-        """Set up installation source."""
-        return TaskContainer.to_object_path(
-            self.implementation.set_up_sources_with_task()
-        )
-
-    def TearDownSourcesWithTask(self) -> ObjPath:
-        """Tear down installation sources."""
-        return TaskContainer.to_object_path(
-            self.implementation.tear_down_sources_with_task()
-        )
 
     def UpdateKernelVersionList(self):
         """Update the list of kernel versions."""

@@ -110,3 +110,15 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
         return TaskContainer.to_object_path_list(
             self.implementation.post_install_with_tasks()
         )
+
+    def SetUpSourcesWithTask(self) -> ObjPath:
+        """Set up installation sources."""
+        return TaskContainer.to_object_path(
+            self.implementation.set_up_sources_with_task()
+        )
+
+    def TearDownSourcesWithTask(self) -> ObjPath:
+        """Tear down installation sources."""
+        return TaskContainer.to_object_path(
+            self.implementation.tear_down_sources_with_task()
+        )

@@ -270,3 +270,13 @@ class LiveImageHandlerModule(PayloadBase):
             self.url,
             INSTALL_TREE
         )
+
+    def set_up_sources_with_task(self):
+        """Set up installation sources."""
+        # TODO: Replace SetupInstallationSourceImageTask with SetUpSourcesTask here
+        pass
+
+    def tear_down_sources_with_task(self):
+        """Tear down installation sources."""
+        # TODO: Replace TeardownInstallationSourceImageTask with TearDownSourcesTask here
+        pass

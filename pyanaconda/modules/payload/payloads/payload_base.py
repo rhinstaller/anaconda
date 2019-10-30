@@ -147,3 +147,13 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         :return: list of tasks
         """
         pass
+
+    @abstractmethod
+    def set_up_sources_with_task(self):
+        """Set up installation sources."""
+        pass
+
+    @abstractmethod
+    def tear_down_sources_with_task(self):
+        """Tear down installation sources."""
+        pass
