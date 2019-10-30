@@ -182,8 +182,11 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_once_with(
             LIVE_IMAGE_HANDLER.interface_name, {"VerifySSL": True}, [])
 
-    def default_required_space_test(self):
-        """Test Live Image RequiredSpace property."""
+    def default_space_required_test(self):
+        """Test Live Image RequiredSpace property.
+
+        # TODO: Add a real test for required space property
+        """
         self.assertEqual(self.live_image_interface.RequiredSpace, 1024 * 1024 * 1024)
 
     @patch("pyanaconda.modules.payload.payloads.live_image.live_image.get_kernel_version_list")

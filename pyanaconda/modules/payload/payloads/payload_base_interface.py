@@ -37,6 +37,15 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
     def connect_signals(self):
         super().connect_signals()
         self.watch_property("Sources", self.implementation.sources_changed)
+        self.watch_property("RequiredSpace", self.implementation.required_space_changed)
+
+    @property
+    def RequiredSpace(self) -> UInt64:
+        """Required space by the source image.
+
+        :return: required size in bytes
+        """
+        return self.implementation.required_space
 
     @property
     def SupportedSourceTypes(self) -> List[Str]:

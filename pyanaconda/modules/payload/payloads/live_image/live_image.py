@@ -63,15 +63,14 @@ class LiveImageHandlerModule(PayloadBase):
         self._verifyssl = True
         self.verifyssl_changed = Signal()
 
-        self._required_space = 1024 * 1024 * 1024
-        self.required_space_changed = Signal()
-
         self._kernel_version_list = []
         self.kernel_version_list_changed = Signal()
 
         self._image_path = conf.target.system_root + "/disk.img"
 
         self._requests_session = None
+
+        self.set_required_space(1024 * 1024 * 1024)
 
     @property
     def supported_source_types(self):
@@ -156,20 +155,6 @@ class LiveImageHandlerModule(PayloadBase):
         self._verifyssl = verifyssl
         self.verifyssl_changed.emit()
         log.debug("Liveimg ssl verification is set to '%s'", self._verifyssl)
-
-    @property
-    def required_space(self):
-        """Get space required for the source image.
-
-        :rtype: int
-        """
-        return self._required_space
-
-    def set_required_space(self, required_space):
-        """Set space required for the source image."""
-        self._required_space = required_space
-        self.required_space_changed.emit()
-        log.debug("Space required for source image is set to '%s'", self._required_space)
 
     @property
     def image_path(self):

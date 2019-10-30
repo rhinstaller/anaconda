@@ -38,6 +38,25 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         self._sources = []
         self.sources_changed = Signal()
 
+        self._required_space = 0
+        self.required_space_changed = Signal()
+
+    @property
+    def required_space(self):
+        """Get required space by payload for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        return self._required_space
+
+    def set_required_space(self, required_space):
+        """Set space required for the installation."""
+        self._required_space = required_space
+        self.required_space_changed.emit()
+        log.debug("Space required for installation '%s'", self._required_space)
+        self.module_properties_changed.emit()
+
     @property
     @abstractmethod
     def supported_source_types(self):

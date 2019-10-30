@@ -36,7 +36,6 @@ class LiveImageHandlerInterface(PayloadBaseInterface):
         self.watch_property("Proxy", self.implementation.proxy_changed)
         self.watch_property("Checksum", self.implementation.checksum_changed)
         self.watch_property("VerifySSL", self.implementation.verifyssl_changed)
-        self.watch_property("RequiredSpace", self.implementation.required_space_changed)
         self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
 
     @property
@@ -78,11 +77,6 @@ class LiveImageHandlerInterface(PayloadBaseInterface):
     def SetVerifySSL(self, verify_ssl: Bool):
         """Set if the ssl verification should be enabled."""
         self.implementation.set_verifyssl(verify_ssl)
-
-    @property
-    def RequiredSpace(self) -> UInt64:
-        """Space required by the source image."""
-        return self.implementation.required_space
 
     def UpdateKernelVersionList(self):
         """Update the list of kernel versions."""

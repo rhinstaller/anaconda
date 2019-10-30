@@ -33,14 +33,6 @@ class LiveOSHandlerInterface(PayloadBaseInterface):
         super().connect_signals()
         self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
 
-    @property
-    def SpaceRequired(self) -> UInt64:
-        """Space required by the source image.
-
-        :return: required size in bytes
-        """
-        return self.implementation.space_required
-
     def SetUpSourcesWithTask(self) -> ObjPath:
         """Set up installation source."""
         return TaskContainer.to_object_path(

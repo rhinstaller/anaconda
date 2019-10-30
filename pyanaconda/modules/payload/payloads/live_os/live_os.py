@@ -95,31 +95,28 @@ class LiveOSHandlerModule(PayloadBase):
         if not self._image_source:
             raise SourceSetupError(message)
 
-    @property
-    def space_required(self):
-        """Get space required for the source image.
-
-        TODO: Add missing check if source is ready. Until then you shouldn't call this when
-        source is not ready.
-
-        TODO: This is not that fast as I thought (a few seconds). Caching or task?
-
-        :return: required size in bytes
-        :rtype: int
-        """
+    @staticmethod
+    def _get_required_space():
+        # TODO: This is not that fast as I thought (a few seconds). Caching or solved in task?
         return get_dir_size("/") * 1024
 
     def set_up_sources_with_task(self):
-        """Set up installation source."""
+        """Set up installation sources."""
         self._check_source_availability("Set up source failed - source is not set!")
 
-        return SetUpSourcesTask(self._sources)
+        task = SetUpSourcesTask(self._sources)
+        task.succeeded_signal.connect(lambda: self.set_required_space(self._get_required_space()))
+
+        return task
 
     def tear_down_sources_with_task(self):
         """Tear down installation sources."""
         self._check_source_availability("Tear down source failed - source is not set!")
 
-        return TearDownSourcesTask(self._sources)
+        task = TearDownSourcesTask(self._sources)
+        task.stopped_signal.connect(lambda: self.set_required_space(0))
+
+        return task
 
     def pre_install_with_task(self):
         """Prepare intallation task."""

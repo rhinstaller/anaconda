@@ -25,6 +25,7 @@ from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_pub
 from tests.nosetests.pyanaconda_tests.module_payload_shared import SourceSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_BASE
 from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
@@ -102,11 +103,29 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
             self.live_os_interface.SetSources([path2])
 
     @patch("pyanaconda.modules.payload.payloads.live_os.live_os.get_dir_size")
-    def space_required_properties_test(self, get_dir_size_mock):
-        """Test Live OS SpaceRequired property."""
-        get_dir_size_mock.return_value = 2
+    @patch_dbus_publish_object
+    def required_space_properties_test(self, publisher, get_dir_size_mock):
+        """Test Live OS RequiredSpace property."""
+        self.assertEqual(self.live_os_interface.RequiredSpace, 0)
 
-        self.assertEqual(self.live_os_interface.SpaceRequired, 2048)
+        get_dir_size_mock.return_value = 2
+        self._prepare_and_use_source()
+        task = self.live_os_module.set_up_sources_with_task()
+        task.succeeded_signal.emit()
+        self.assertEqual(self.live_os_interface.RequiredSpace, 2048)
+        object_path, _ = publisher.call_args[0]
+        self.callback.assert_called_once_with(
+            PAYLOAD_BASE.interface_name,
+            {"RequiredSpace": 2048,
+             "Sources": [object_path]}, [])
+
+        self.callback.reset_mock()
+        task = self.live_os_module.tear_down_sources_with_task()
+        task.stopped_signal.emit()
+        self.assertEqual(self.live_os_interface.RequiredSpace, 0)
+        self.callback.assert_called_once_with(
+            PAYLOAD_BASE.interface_name,
+            {"RequiredSpace": 0},  [])
 
     @patch("pyanaconda.modules.payload.payloads.live_os.live_os.get_kernel_version_list")
     def empty_kernel_version_list_test(self, get_kernel_version_list):
