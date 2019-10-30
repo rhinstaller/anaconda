@@ -23,7 +23,7 @@ from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_BASE
-from pyanaconda.modules.common.containers import PayloadSourceContainer
+from pyanaconda.modules.common.containers import PayloadSourceContainer, TaskContainer
 
 
 @dbus_interface(PAYLOAD_BASE.interface_name)
@@ -83,3 +83,30 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
     def HasSource(self) -> Bool:
         """Check if any source is attached to this payload."""
         return self.implementation.has_source()
+
+    def PreInstallWithTasks(self) -> List[ObjPath]:
+        """Execute preparation steps.
+
+        FIXME: Temporary -- installation methods will be provided only by the main service
+        """
+        return TaskContainer.to_object_path_list(
+            self.implementation.pre_install_with_tasks()
+        )
+
+    def InstallWithTasks(self) -> List[ObjPath]:
+        """Install the payload.
+
+        FIXME: Temporary -- installation methods will be provided only by the main service
+        """
+        return TaskContainer.to_object_path_list(
+            self.implementation.install_with_tasks()
+        )
+
+    def PostInstallWithTasks(self) -> List[ObjPath]:
+        """Execute post installation steps.
+
+        FIXME: Temporary -- installation methods will be provided only by the main service
+        """
+        return TaskContainer.to_object_path_list(
+            self.implementation.post_install_with_tasks()
+        )

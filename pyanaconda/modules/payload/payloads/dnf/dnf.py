@@ -54,3 +54,27 @@ class DNFHandlerModule(PayloadBase):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         self._packages_handler.setup_kickstart(data)
+
+    def pre_install_with_tasks(self):
+        """Execute preparation steps.
+
+        :return: list of tasks
+        """
+        # TODO: Implement this method
+        pass
+
+    def install_with_tasks(self):
+        """Install the payload.
+
+        :return: list of tasks
+        """
+        # TODO: Implement this method
+        pass
+
+    def post_install_with_tasks(self):
+        """Execute post installation steps.
+
+        :return: list of tasks
+        """
+        # TODO: Implement this method
+        pass

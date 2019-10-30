@@ -118,24 +118,24 @@ class LiveOSHandlerModule(PayloadBase):
 
         return task
 
-    def pre_install_with_task(self):
-        """Prepare intallation task."""
+    def pre_install_with_tasks(self):
+        """Execute preparation steps."""
         self._check_source_availability("Pre install task failed - source is not available!")
 
-        return PrepareSystemForInstallationTask(conf.target.system_root)
+        return [PrepareSystemForInstallationTask(conf.target.system_root)]
 
-    def install_with_task(self):
+    def install_with_tasks(self):
         """Install the payload."""
         self._check_source_availability("Installation task failed - source is not available!")
 
-        return InstallFromImageTask(
+        return [InstallFromImageTask(
             self._image_source,
             conf.target.system_root,
             self.kernel_version_list
-        )
+        )]
 
     def post_install_with_tasks(self):
-        """Perform post installation tasks.
+        """Execute post installation steps.
 
         :returns: list of paths.
         :rtype: List

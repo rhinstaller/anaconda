@@ -209,8 +209,8 @@ class LiveImageHandlerModule(PayloadBase):
         task.succeeded_signal.connect(lambda: self.set_required_space(task.get_result()))
         return task
 
-    def pre_install_with_task(self):
-        """Set up installation source image
+    def pre_install_with_tasks(self):
+        """Execute preparation steps.
 
         * Download the image
         * Check the checksum
@@ -226,10 +226,14 @@ class LiveImageHandlerModule(PayloadBase):
             self.requests_session
         )
         task.succeeded_signal.connect(lambda: self.set_image_path(task.get_result()))
-        return task
+        return [task]
 
     def post_install_with_tasks(self):
-        """Do post installation tasks."""
+        """Execute post installation steps.
+
+        * Update bootloader BLS configuration
+        * Copy Driver Disk files to the resulting system
+        """
         return [
             UpdateBLSConfigurationTask(
                 conf.target.system_root,
@@ -238,19 +242,21 @@ class LiveImageHandlerModule(PayloadBase):
             CopyDriverDisksFilesTask(conf.target.system_root)
         ]
 
-    def install_with_task(self):
+    def install_with_tasks(self):
         """Install the payload."""
         if url_target_is_tarfile(self._url):
-            return InstallFromTarTask(
+            task = InstallFromTarTask(
                 self.image_path,
                 conf.target.system_root,
                 self.kernel_version_list
             )
         else:
-            return InstallFromImageTask(
+            task = InstallFromImageTask(
                 conf.target.system_root,
                 self.kernel_version_list
             )
+
+        return [task]
 
     def teardown_with_task(self):
         """Tear down installation source image.

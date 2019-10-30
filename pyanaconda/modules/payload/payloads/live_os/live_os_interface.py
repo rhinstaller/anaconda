@@ -45,31 +45,6 @@ class LiveOSHandlerInterface(PayloadBaseInterface):
             self.implementation.tear_down_sources_with_task()
         )
 
-    def PreInstallWithTask(self) -> ObjPath:
-        """Prepare installation source for the installation."""
-        return TaskContainer.to_object_path(
-            self.implementation.pre_install_with_task()
-        )
-
-    def InstallWithTask(self) -> ObjPath:
-        """Install the payload.
-
-        * Copy the payload.
-        * Create rescue images
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.install_with_task()
-        )
-
-    def PostInstallWithTasks(self) -> List[ObjPath]:
-        """Do post installation tasks.
-
-        * [NO] check installation requirements were applied (Payload)
-        """
-        return TaskContainer.to_object_path_list(
-            self.implementation.post_install_with_tasks()
-        )
-
     def UpdateKernelVersionList(self):
         """Update the list of kernel versions."""
         self.implementation.update_kernel_version_list()

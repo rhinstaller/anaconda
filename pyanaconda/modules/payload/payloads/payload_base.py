@@ -123,3 +123,27 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         :rtype: string
         """
         pass
+
+    @abstractmethod
+    def pre_install_with_tasks(self):
+        """Execute preparation steps.
+
+        :return: list of tasks
+        """
+        pass
+
+    @abstractmethod
+    def install_with_tasks(self):
+        """Install the payload.
+
+        :return: list of tasks
+        """
+        pass
+
+    @abstractmethod
+    def post_install_with_tasks(self):
+        """Execute post installation steps.
+
+        :return: list of tasks
+        """
+        pass

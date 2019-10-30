@@ -21,7 +21,8 @@ import unittest
 
 from mock import Mock, patch
 
-from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
+from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
+    patch_dbus_publish_object
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
     SourceSharedTest
 
@@ -232,27 +233,27 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def prepare_system_for_installation_task_test(self, publisher):
         """Test Live Image is able to create a prepare installation task."""
-        task_path = self.live_image_interface.PreInstallWithTask()
+        task_path = self.live_image_interface.PreInstallWithTasks()
 
-        check_task_creation(self, task_path, publisher, SetupInstallationSourceImageTask)
+        check_task_creation_list(self, task_path, publisher, [SetupInstallationSourceImageTask])
 
     @patch("pyanaconda.modules.payload.payloads.live_image.live_image.url_target_is_tarfile",
            lambda x: True)
     @patch_dbus_publish_object
     def install_with_task_from_tar_test(self, publisher):
         """Test Live Image install with tasks from tarfile."""
-        task_path = self.live_image_interface.InstallWithTask()
+        task_path = self.live_image_interface.InstallWithTasks()
 
-        check_task_creation(self, task_path, publisher, InstallFromTarTask)
+        check_task_creation_list(self, task_path, publisher, [InstallFromTarTask])
 
     @patch("pyanaconda.modules.payload.payloads.live_image.live_image.url_target_is_tarfile",
            lambda x: False)
     @patch_dbus_publish_object
     def install_with_task_from_image_test(self, publisher):
         """Test Live Image install with tasks from image."""
-        task_path = self.live_image_interface.InstallWithTask()
+        task_path = self.live_image_interface.InstallWithTasks()
 
-        check_task_creation(self, task_path, publisher, InstallFromImageTask)
+        check_task_creation_list(self, task_path, publisher, [InstallFromImageTask])
 
     @patch_dbus_publish_object
     def post_install_with_tasks_test(self, publisher):

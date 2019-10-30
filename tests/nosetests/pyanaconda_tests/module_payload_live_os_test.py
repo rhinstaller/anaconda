@@ -21,7 +21,8 @@ import unittest
 
 from unittest.mock import Mock, patch
 
-from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
+from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
+    patch_dbus_publish_object
 from tests.nosetests.pyanaconda_tests.module_payload_shared import SourceSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
@@ -174,15 +175,15 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         """Test Live OS is able to create a prepare installation task."""
         self._prepare_and_use_source()
 
-        task_path = self.live_os_interface.PreInstallWithTask()
+        task_path = self.live_os_interface.PreInstallWithTasks()
 
-        check_task_creation(self, task_path, publisher, PrepareSystemForInstallationTask)
+        check_task_creation_list(self, task_path, publisher, [PrepareSystemForInstallationTask])
 
     @patch_dbus_publish_object
     def prepare_system_for_installation_task_no_source_test(self, publisher):
         """Test Live OS prepare installation task with no source fail."""
         with self.assertRaises(SourceSetupError):
-            self.live_os_interface.PreInstallWithTask()
+            self.live_os_interface.PreInstallWithTasks()
 
     @patch_dbus_publish_object
     def tear_down_installation_source_task_test(self, publisher):
@@ -198,15 +199,15 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         """Test Live OS install with tasks."""
         self._prepare_and_use_source()
 
-        task_path = self.live_os_interface.InstallWithTask()
+        task_path = self.live_os_interface.InstallWithTasks()
 
-        check_task_creation(self, task_path, publisher, InstallFromImageTask)
+        check_task_creation_list(self, task_path, publisher, [InstallFromImageTask])
 
     @patch_dbus_publish_object
     def install_with_task_no_source_test(self, publisher):
         """Test Live OS install with tasks with no source fail."""
         with self.assertRaises(SourceSetupError):
-            self.live_os_interface.InstallWithTask()
+            self.live_os_interface.InstallWithTasks()
 
     @patch_dbus_publish_object
     def post_install_with_tasks_test(self, publisher):
