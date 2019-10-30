@@ -25,9 +25,10 @@ from unittest.mock import patch, Mock
 
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
-from pyanaconda.modules.timezone.installation import ConfigureTimezoneTask
+from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
+from pyanaconda.ntp import NTP_CONFIG_FILE, NTPconfigError
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
@@ -128,7 +129,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
 
 
 class TimezoneTasksTestCase(unittest.TestCase):
-    """Test the D-Bus Timezone (Timezone and NTP) tasks."""
+    """Test the D-Bus Timezone (Timezone only) tasks."""
 
     def timezone_task_success_test(self):
         """Test the "full success" code paths in timezone D-Bus task."""
@@ -256,3 +257,59 @@ class TimezoneTasksTestCase(unittest.TestCase):
             # it in test environment.
             last_line = lines[-1].strip()
             self.assertEqual(expected_adjtime_last_line, last_line)
+
+
+class NTPTasksTestCase(unittest.TestCase):
+    """Test the D-Bus NTP tasks from the Timezone module."""
+
+    def ntp_task_success_test(self):
+        """Test the success cases for NTP setup D-Bus task."""
+        self._test_ntp_inputs(False, False, ["unique.ntp.server", "another.unique.server"])
+        self._test_ntp_inputs(False, True, ["unique.ntp.server", "another.unique.server"])
+
+    def ntp_overwrite_test(self):
+        """Test overwriting existing config for NTP setup D-Bus task."""
+        self._test_ntp_inputs(True, True, ["unique.ntp.server", "another.unique.server"])
+        self._test_ntp_inputs(True, False, ["unique.ntp.server", "another.unique.server"])
+
+    def ntp_save_failure_test(self):
+        """Test failure when saving NTP config in D-Bus task."""
+        # pylint: disable=no-value-for-parameter
+        self._test_ntp_exception(True)
+        self._test_ntp_exception(False)
+
+    @patch("pyanaconda.modules.timezone.installation.ntp.save_servers_to_config",
+           side_effect=NTPconfigError)
+    def _test_ntp_exception(self, make_chronyd, mock_save):
+        with tempfile.TemporaryDirectory() as sysroot:
+            self._setup_environment(sysroot, make_chronyd)
+            with self.assertLogs("anaconda.modules.timezone.installation", level="WARNING"):
+                self._execute_task(sysroot, True, ["ntp.example.com"])
+
+    def _test_ntp_inputs(self, make_chronyd, ntp_enabled, ntp_servers):
+        with tempfile.TemporaryDirectory() as sysroot:
+            self._setup_environment(sysroot, make_chronyd)
+            self._execute_task(sysroot, ntp_enabled, ntp_servers)
+            self._validate_ntp_config(sysroot, make_chronyd, ntp_enabled, ntp_servers)
+
+    def _setup_environment(self, sysroot, make_chronyd):
+        os.mkdir(sysroot + "/etc")
+        if make_chronyd:
+            copyfile(NTP_CONFIG_FILE, sysroot + NTP_CONFIG_FILE)
+
+    def _execute_task(self, sysroot, ntp_enabled, ntp_servers):
+        task = ConfigureNTPTask(
+            sysroot=sysroot,
+            ntp_enabled=ntp_enabled,
+            ntp_servers=ntp_servers
+        )
+        task.run()
+
+    def _validate_ntp_config(self, sysroot, was_present, was_enabled, expected_servers):
+        if was_enabled:
+            with open(sysroot + NTP_CONFIG_FILE) as fobj:
+                all_lines = "\n".join(fobj.readlines())
+                for server in expected_servers:
+                    self.assertIn(server, all_lines)
+        elif not was_present:
+            self.assertFalse(os.path.exists(sysroot + NTP_CONFIG_FILE))
