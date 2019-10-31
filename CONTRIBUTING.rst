@@ -194,3 +194,22 @@ Then you are done.
 
 If the pull request has been opened for the ``f25-devel`` branch, then you also need to merge the ``f25-devel``
 branch back to ``master`` once you merge your pull request (see "Merging the Fedora devel branch back to the master branch" above).
+
+Pure community features
+-----------------------
+
+The pure community features are features which are part of the Anaconda code base but they are maintained and extended mainly by the community. These features are not a priority for the Anaconda project.
+
+In case of issues in pure community features, the Anaconda team will provide only sanity checking. It is the responsibility of the community (maintainers of the feature) to provide fix for the issue. If the issue will have bigger impact on other parts of the Anaconda project or if it will block a release or another priority feature and the fix won't be provided in a reasonable time the Anaconda team reserves the rights to remove or disable this feature from the Anaconda code base.
+
+Below is a list of pure community features, their community maintainers, and maintainers contact information:
+
+/boot on btrfs subvolume
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Origin: https://github.com/rhinstaller/anaconda/pull/1375
+* Bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=1418336
+* Maintainer: Neal Gompa <ngompa13@gmail.com>
+* Description:
+
+``Enable boot of the installed system from a BTRFS subvolume.``
