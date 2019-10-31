@@ -187,9 +187,9 @@ Below is a list of pure community features, their community maintainers, and mai
 /boot on btrfs subvolume
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-- Origin: https://github.com/rhinstaller/anaconda/pull/1375
-- Bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=1418336
-- Maintainer:
-- Description:
+* Origin: https://github.com/rhinstaller/anaconda/pull/1375
+* Bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=1418336
+* Maintainer: Neal Gompa <ngompa13@gmail.com>
+* Description:
 
 ``Enable boot of the installed system from a BTRFS subvolume.``
