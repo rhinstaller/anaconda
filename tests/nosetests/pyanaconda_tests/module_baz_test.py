@@ -17,9 +17,10 @@
 #
 import unittest
 
-from pyanaconda.dbus_addons.baz.baz import Baz
+from pyanaconda.dbus_addons.baz.baz import Baz, BazConfigurationTask, BazInstallationTask
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object, \
+    check_task_creation_list
 
 
 class BazInterfaceTestCase(unittest.TestCase):
@@ -58,3 +59,21 @@ class BazInterfaceTestCase(unittest.TestCase):
         %end
         """
         self._test_kickstart(ks_in, ks_out)
+
+    @patch_dbus_publish_object
+    def configure_with_tasks_test(self, publisher):
+        """Test ConfigureWithTasks."""
+        task_classes = [BazConfigurationTask]
+        task_paths = self.interface.ConfigureWithTasks()
+        task_proxies = check_task_creation_list(self, task_paths, publisher, task_classes)
+        self.assertEqual(len(task_proxies), 1)
+        self.assertEqual(task_proxies[0].implementation.name, "Configure Baz")
+
+    @patch_dbus_publish_object
+    def install_with_tasks_test(self, publisher):
+        """Test InstallWithTasks."""
+        task_classes = [BazInstallationTask]
+        task_paths = self.interface.InstallWithTasks()
+        task_proxies = check_task_creation_list(self, task_paths, publisher, task_classes)
+        self.assertEqual(len(task_proxies), 1)
+        self.assertEqual(task_proxies[0].implementation.name, "Install Baz")
