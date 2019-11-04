@@ -70,7 +70,10 @@ class LiveImageHandlerModule(PayloadBase):
 
         self._requests_session = None
 
-        self.set_required_space(1024 * 1024 * 1024)
+    @property
+    def default_required_space(self):
+        """Get 1G as default when the value is not known."""
+        return 1024 * 1024 * 1024
 
     @property
     def supported_source_types(self):
