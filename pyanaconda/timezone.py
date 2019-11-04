@@ -22,7 +22,6 @@ configuration, valid timezones recognition etc.
 
 """
 
-import os
 import pytz
 import langtable
 from collections import OrderedDict
@@ -84,59 +83,6 @@ def time_initialize(timezone_proxy, storage):
 
     util.execWithRedirect(cmd, args)
 
-def write_timezone_config(timezone_proxy, root):
-    """
-    Write timezone configuration for the system specified by root.
-
-    :param timezone_proxy: DBus proxy of the timezone module
-    :param root: path to the root
-    :raise: TimezoneConfigError
-
-    """
-
-    # we want to create a relative symlink
-    tz_file = "/usr/share/zoneinfo/" + timezone_proxy.Timezone
-    rooted_tz_file = os.path.normpath(root + tz_file)
-    relative_path = os.path.normpath("../" + tz_file)
-    link_path = os.path.normpath(root + "/etc/localtime")
-
-    if not os.access(rooted_tz_file, os.R_OK):
-        log.error("Timezone to be linked (%s) doesn't exist", rooted_tz_file)
-    else:
-        try:
-            # os.symlink fails if link_path exists, so try to remove it first
-            os.remove(link_path)
-        except OSError:
-            pass
-
-        try:
-            os.symlink(relative_path, link_path)
-        except OSError as oserr:
-            log.error("Error when symlinking timezone (from %s): %s",
-                      rooted_tz_file, oserr.strerror)
-
-    if arch.is_s390():
-        # there is no HW clock on s390(x)
-        return
-
-    try:
-        fobj = open(os.path.normpath(root + "/etc/adjtime"), "r")
-        lines = fobj.readlines()
-        fobj.close()
-    except IOError:
-        lines = ["0.0 0 0.0\n", "0\n"]
-
-    try:
-        with open(os.path.normpath(root + "/etc/adjtime"), "w") as fobj:
-            fobj.write(lines[0])
-            fobj.write(lines[1])
-            if timezone_proxy.IsUTC:
-                fobj.write("UTC\n")
-            else:
-                fobj.write("LOCAL\n")
-    except IOError as ioerr:
-        msg = "Error while writing /etc/adjtime file: %s" % ioerr.strerror
-        raise TimezoneConfigError(msg)
 
 def save_hw_clock(timezone_proxy=None):
     """
