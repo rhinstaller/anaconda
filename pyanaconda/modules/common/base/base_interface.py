@@ -132,8 +132,21 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.set_locale(locale)
 
+    def ConfigureWithTasks(self) -> List[ObjPath]:
+        """Configure the runtime environment.
+
+        Note: Addons should use it instead of the setup method.
+
+        :returns: a list of object paths of installation tasks
+        """
+        return TaskContainer.to_object_path_list(
+            self.implementation.configure_with_tasks()
+        )
+
     def InstallWithTasks(self) -> List[ObjPath]:
         """Returns installation tasks of this module.
+
+        Note: Addons should use it instead of the execute method.
 
         :returns: list of object paths of installation tasks
         """
