@@ -79,10 +79,21 @@ class Boss(Service):
         log.info("Generating kickstart data...")
         return self._kickstart_manager.generate_kickstart()
 
+    def configure_runtime_with_task(self):
+        """Configure the runtime environment.
+
+        FIXME: This method temporarily uses only addons.
+
+        :return: a task
+        """
+        return self._install_manager.configure_runtime_with_task()
+
     def install_system_with_task(self):
         """Install the system.
 
-        :return: the main installation task
+        FIXME: This method temporarily uses only addons.
+
+        :return: a task
         """
         return self._install_manager.install_system_with_task()
 

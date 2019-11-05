@@ -62,10 +62,23 @@ class BossInterface(InterfaceTemplate):
         """
         self.implementation.set_locale(locale)
 
+    def ConfigureRuntimeWithTask(self) -> ObjPath:
+        """Configure the runtime environment.
+
+        FIXME: This method temporarily uses only addons.
+
+        :return: a DBus path a task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.configure_runtime_with_task()
+        )
+
     def InstallSystemWithTask(self) -> ObjPath:
         """Install the system.
 
-        :return: a DBus path of the main installation task
+        FIXME: This method temporarily uses only addons.
+
+        :return: a DBus path of a task
         """
         return TaskContainer.to_object_path(
             self.implementation.install_system_with_task()

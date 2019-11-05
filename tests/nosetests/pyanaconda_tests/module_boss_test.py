@@ -24,6 +24,7 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
+from pyanaconda.modules.common.task import DBusMetaTask
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 
@@ -67,6 +68,22 @@ class BossInterfaceTestCase(unittest.TestCase):
     def set_locale_test(self):
         """Test SetLocale."""
         self.assertEqual(self.interface.SetLocale(DEFAULT_LANG), None)
+
+    @patch_dbus_publish_object
+    def configure_runtime_with_task_test(self, publisher):
+        """Test ConfigureRuntimeWithTask."""
+        task_path = self.interface.ConfigureRuntimeWithTask()
+        task_proxy = check_task_creation(self, task_path, publisher, DBusMetaTask)
+        self.assertEqual(task_proxy.implementation._name, "Configure the runtime system")
+        self.assertEqual(task_proxy.implementation._subtasks, [])
+
+    @patch_dbus_publish_object
+    def install_system_with_task_test(self, publisher):
+        """Test InstallSystemWithTask."""
+        task_path = self.interface.InstallSystemWithTask()
+        task_proxy = check_task_creation(self, task_path, publisher, DBusMetaTask)
+        self.assertEqual(task_proxy.implementation._name, "Install the system")
+        self.assertEqual(task_proxy.implementation._subtasks, [])
 
     def quit_test(self):
         """Test Quit."""

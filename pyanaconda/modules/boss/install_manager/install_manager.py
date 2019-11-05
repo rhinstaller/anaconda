@@ -39,18 +39,34 @@ class InstallManager(object):
         """Set module observers which will be used for installation."""
         self._module_observers = list(observers)
 
+    def configure_runtime_with_task(self):
+        """Configure the runtime environment.
+
+        FIXME: This is a temporary method for addons.
+
+        :return: an instance of the main configuration task
+        """
+        configuration_tasks = self._collect_tasks(lambda proxy: proxy.ConfigureWithTasks())
+        system_task = DBusMetaTask("Configure the runtime system", configuration_tasks)
+        return system_task
+
     def install_system_with_task(self):
         """Install the system.
 
+        FIXME: This method temporarily uses only addons.
+
         :return: an instance of the main installation task
         """
-        installation_tasks = self._collect_installation_tasks()
+        installation_tasks = self._collect_tasks(lambda proxy: proxy.InstallWithTasks())
         system_task = DBusMetaTask("Install the system", installation_tasks)
         return system_task
 
-    def _collect_installation_tasks(self):
+    def _collect_tasks(self, collector):
         """Collect installation tasks from modules.
 
+        FIXME: This method temporarily uses only addons.
+
+        :param collector: a function that returns a list of task paths for a proxy
         :return: a list of tasks proxies
         """
         tasks = []
@@ -66,8 +82,12 @@ class InstallManager(object):
                 log.error("Module %s is not available!", observer.service_name)
                 continue
 
+            # FIXME: Enable for all modules.
+            if not observer.is_addon:
+                continue
+
             service_name = observer.service_name
-            task_paths = observer.proxy.InstallWithTasks()
+            task_paths = collector(observer.proxy)
 
             for object_path in task_paths:
                 log.debug("Getting task %s from module %s", object_path, service_name)
