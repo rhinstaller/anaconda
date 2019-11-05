@@ -18,7 +18,8 @@
 
 from pyanaconda import timezone
 import unittest
-import mock
+from unittest.mock import patch, Mock
+
 
 class TimezonesListings(unittest.TestCase):
     def string_timezones_test(self):
@@ -36,6 +37,7 @@ class TimezonesListings(unittest.TestCase):
             for zone in zones:
                 self.assertTrue(timezone.is_valid_timezone(region + "/" + zone))
 
+
 class TerritoryTimezones(unittest.TestCase):
     def string_valid_territory_zone_test(self):
         """Check if the returned value is string for a valid territory."""
@@ -48,25 +50,19 @@ class TerritoryTimezones(unittest.TestCase):
 
         self.assertIsNone(timezone.get_preferred_timezone("nonexistent"))
 
+
 class s390HWclock(unittest.TestCase):
-    def setUp(self):
-        self.arch_mock = mock.Mock()
-        self.arch_mock.is_s390.return_value = True
-        self.util_mock = mock.Mock()
 
-        # pylint: disable=no-member
-        timezone.save_hw_clock.__globals__["arch"] = self.arch_mock
-        # pylint: disable=no-member
-        timezone.save_hw_clock.__globals__["util"] = self.util_mock
-
-    def s390_save_hw_clock_test(self):
+    @patch('pyanaconda.timezone.arch.is_s390', return_value=True)
+    @patch('pyanaconda.timezone.util.execWithRedirect')
+    def s390_save_hw_clock_test(self, exec_mock, s390_mock):
         """Check that save_hw_clock does nothing on s390."""
+        timezone.save_hw_clock(Mock())
+        self.assertFalse(exec_mock.called)
 
-        timezone.save_hw_clock(mock.Mock())
-        self.assertFalse(self.util_mock.execWithRedirect.called)
-
-    def s390_time_initialize_test(self):
+    @patch('pyanaconda.timezone.arch.is_s390', return_value=True)
+    @patch('pyanaconda.timezone.util.execWithRedirect')
+    def s390_time_initialize_test(self, exec_mock, s390_mock):
         """Check that time_initialize doesn't call hwclock on s390."""
-
-        timezone.time_initialize(mock.Mock(), mock.Mock())
-        self.assertFalse(self.util_mock.execWithRedirect.called)
+        timezone.time_initialize(Mock(), Mock())
+        self.assertFalse(exec_mock.called)
