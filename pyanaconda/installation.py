@@ -25,7 +25,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
-    LOCALIZATION, TIMEZONE
+    LOCALIZATION, TIMEZONE, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
@@ -139,6 +139,10 @@ def _prepare_configuration(storage, payload, ksdata):
     # there is no longer a User class & addons should no longer need it
     # FIXME: drop user class parameter from the API & all known addons
     addon_config.append(Task("Configure Anaconda addons", ksdata.addons.execute, (storage, ksdata, None, payload)))
+
+    boss_proxy = BOSS.get_proxy()
+    addon_config.append_dbus_tasks(BOSS, [boss_proxy.InstallSystemWithTask()])
+
     configuration_queue.append(addon_config)
 
     # Initramfs generation
@@ -240,6 +244,10 @@ def _prepare_installation(storage, payload, ksdata):
     # setup the installation environment
     setup_environment = TaskQueue("Installation environment setup", N_("Setting up the installation environment"))
     setup_environment.append(Task("Setup addons", ksdata.addons.setup, (storage, ksdata, payload)))
+
+    boss_proxy = BOSS.get_proxy()
+    setup_environment.append_dbus_tasks(BOSS, [boss_proxy.ConfigureRuntimeWithTask()])
+
     installation_queue.append(setup_environment)
 
     # Do partitioning.
