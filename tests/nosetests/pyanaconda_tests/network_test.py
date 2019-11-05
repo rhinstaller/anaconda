@@ -52,6 +52,9 @@ class NetworkTests(unittest.TestCase):
 
         self.assertFalse(network.is_valid_hostname("Lennart's Laptop")[0])
 
+        self.assertFalse(network.is_valid_hostname("own.hostname.cannot.end.in.dot.",
+                                                   local=True)[0])
+
     def prefix2netmask2prefix_test(self):
         lore = [
                 (0, "0.0.0.0"),

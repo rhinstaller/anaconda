@@ -418,7 +418,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         # (persistent NM / ifcfg configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
 
-        (valid, error) = network.is_valid_hostname(self.hostname)
+        (valid, error) = network.is_valid_hostname(self.hostname, local=True)
         if valid:
             self._network_module.SetHostname(self.hostname)
         else:
