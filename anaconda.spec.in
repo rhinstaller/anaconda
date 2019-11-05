@@ -347,6 +347,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 05 2019 Martin Kolman <mkolman@redhat.com> - 32.13-1
+- Clean up ancient timezone tests (vslavik)
+- Add missing quotation mark to tmux.conf (jkonecny)
+- Fix too long lines in timezone module tests for PEP8 compliance (vslavik)
+- Add timezone interface tests for creation of timezone and NTP tasks (vslavik)
+- Add tests for the NTP D-Bus task (timezone module) (vslavik)
+- Add tests for the timezone D-Bus task (timezone module) (vslavik)
+- Move timezone and NTP from execute() to D-Bus configuration tasks (vslavik)
+- Add Neal Gompa as community feature maintainer (jkonecny)
+- Add pure community features documentation (jkonecny)
+
 * Tue Oct 29 2019 Martin Kolman <mkolman@redhat.com> - 32.12-1
 - Add a temporary hack to fix installations on ppc64le and aarch64 (#1764666)
   (mkolman)
