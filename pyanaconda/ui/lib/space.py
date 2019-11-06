@@ -35,10 +35,8 @@ class FileSystemSpaceChecker(object):
        therefore moving this step up out of both the storage and software
        spokes.
     """
-    def __init__(self, storage, payload):
+    def __init__(self, payload):
         """Create a new FileSystemSpaceChecker object.
-
-           FIXME: Remove the storage attribute.
 
            Attributes:
 
