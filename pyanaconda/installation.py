@@ -69,7 +69,7 @@ def _writeKS(ksdata):
         f.write(str(ksdata))
 
 
-def _prepare_configuration(storage, payload, ksdata):
+def _prepare_configuration(payload, ksdata):
     """Configure the installed system."""
 
     configuration_queue = TaskQueue("Configuration queue")
@@ -124,9 +124,14 @@ def _prepare_configuration(storage, payload, ksdata):
 
     # Anaconda addon configuration
     addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
+
     # there is no longer a User class & addons should no longer need it
     # FIXME: drop user class parameter from the API & all known addons
-    addon_config.append(Task("Configure Anaconda addons", ksdata.addons.execute, (storage, ksdata, None, payload)))
+    addon_config.append(Task(
+        "Configure Anaconda addons",
+        ksdata.addons.execute,
+        (None, ksdata, None, payload)
+    ))
 
     boss_proxy = BOSS.get_proxy()
     addon_config.append_dbus_tasks(BOSS, [boss_proxy.InstallSystemWithTask()])
@@ -186,7 +191,7 @@ def _prepare_configuration(storage, payload, ksdata):
     return configuration_queue
 
 
-def _prepare_installation(storage, payload, ksdata):
+def _prepare_installation(payload, ksdata):
     """Perform an installation.  This method takes the ksdata as prepared by
        the UI (the first hub, in graphical mode) and applies it to the disk.
        The two main tasks for this are putting filesystems onto disks and
@@ -224,7 +229,11 @@ def _prepare_installation(storage, payload, ksdata):
 
     # setup the installation environment
     setup_environment = TaskQueue("Installation environment setup", N_("Setting up the installation environment"))
-    setup_environment.append(Task("Setup addons", ksdata.addons.setup, (storage, ksdata, payload)))
+    setup_environment.append(Task(
+        "Setup addons",
+        ksdata.addons.setup,
+        (None, ksdata, payload)
+    ))
 
     boss_proxy = BOSS.get_proxy()
     setup_environment.append_dbus_tasks(BOSS, [boss_proxy.ConfigureRuntimeWithTask()])
@@ -336,11 +345,11 @@ def _prepare_installation(storage, payload, ksdata):
     return installation_queue
 
 
-def run_installation(storage, payload, ksdata):
+def run_installation(payload, ksdata):
     """Run the complete installation."""
     queue = TaskQueue("Complete installation queue")
-    queue.append(_prepare_installation(storage, payload, ksdata))
-    queue.append(_prepare_configuration(storage, payload, ksdata))
+    queue.append(_prepare_installation(payload, ksdata))
+    queue.append(_prepare_configuration(payload, ksdata))
 
     # notify progress tracking about the number of steps
     progress_init(queue.task_count)

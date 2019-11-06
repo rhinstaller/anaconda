@@ -181,7 +181,7 @@ class ProgressSpoke(StandaloneSpoke):
         threadMgr.add(AnacondaThread(
             name=THREAD_INSTALL,
             target=run_installation,
-            args=(self.storage, self.payload, self.data))
+            args=(self.payload, self.data))
         )
 
         log.debug("The installation has started.")
