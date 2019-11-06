@@ -97,10 +97,8 @@ class DasdFormatting(object):
             self._last_message = msg
             self._report.emit(msg)
 
-    def run(self, storage=None, data=None):
+    def run(self):
         """Format all found DASDs and update the storage.
-
-        FIXME: Remove the storage and data arguments.
 
         This method could be run in a separate thread.
         """
@@ -118,7 +116,7 @@ class DasdFormatting(object):
         reset_storage()
 
     @staticmethod
-    def run_automatically(storage=None, data=None, disks=(), callback=None):
+    def run_automatically(disks=(), callback=None):
         """Run the DASD formatting automatically.
 
         This method could be run in a separate thread.

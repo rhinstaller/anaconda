@@ -717,7 +717,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         threadMgr.wait(constants.THREAD_STORAGE)
 
         # Automatically format DASDs if allowed.
-        DasdFormatting.run_automatically(self.storage, self.data, self._show_dasdfmt_report)
+        DasdFormatting.run_automatically(self._show_dasdfmt_report)
 
         # Update the selected disks.
         if flags.automatedInstall:
@@ -852,7 +852,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             apply_disk_selection(self.storage, self._selected_disks)
 
             # Run the dialog.
-            dialog = DasdFormatDialog(self.data, self.storage, dasd_formatting)
+            dialog = DasdFormatDialog(self.data, dasd_formatting)
             ignoreEscape(dialog.window)
             rc = self.run_lightbox_dialog(dialog)
 

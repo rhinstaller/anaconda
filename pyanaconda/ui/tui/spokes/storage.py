@@ -328,7 +328,7 @@ class StorageSpoke(NormalTUISpoke):
 
         # Do the DASD formatting.
         dasd_formatting.report.connect(self._show_dasdfmt_report)
-        dasd_formatting.run(self.storage, self.data)
+        dasd_formatting.run()
         dasd_formatting.report.disconnect(self._show_dasdfmt_report)
 
         self.update_disks()
