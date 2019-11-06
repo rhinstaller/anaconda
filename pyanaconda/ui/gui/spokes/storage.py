@@ -1171,7 +1171,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     # This callback is for the button that has anaconda go back and rescan the
     # disks to pick up whatever changes the user made outside our control.
     def on_refresh_clicked(self, *args):
-        dialog = RefreshDialog(self.data, self.storage)
+        dialog = RefreshDialog(self.data)
         ignoreEscape(dialog.window)
         with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
