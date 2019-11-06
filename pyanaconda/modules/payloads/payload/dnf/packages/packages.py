@@ -19,9 +19,10 @@
 #
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
-from pyanaconda.modules.common.errors import InvalidValueError
+from pyanaconda.modules.common.errors import InvalidValueError, UnsupportedValueError
 from pyanaconda.modules.payloads.payload.dnf.packages.constants import MultilibPolicy, \
     TIMEOUT_UNSET, RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 from pyanaconda.modules.payloads.payload.dnf.packages.packages_interface import \
@@ -80,7 +81,10 @@ class PackagesModule(KickstartBaseModule):
         DBus.publish_object(PAYLOAD_PACKAGES.object_path, PackagesInterface(self))
 
     def process_kickstart(self, data):
-        """Process the kickstart data."""
+        """Process the kickstart data.
+
+        :raise: KickstartParseError
+        """
         packages = data.packages
 
         self.set_core_group_enabled(not packages.nocore)
@@ -377,7 +381,13 @@ class PackagesModule(KickstartBaseModule):
 
         :param missing_ignored: True if broken packages should be ignored.
         :type missing_ignored: bool
+        :raise: UnsupportedValueError if ignorebroken is disabled on this product.
         """
+        if not conf.payload.enable_ignore_broken_packages:
+            raise UnsupportedValueError(
+                "The ignore broken packages feature is not supported on this product"
+            )
+
         self._broken_ignored = broken_ignored
         self.broken_ignored_changed.emit()
         log.debug("Ignore broken is set to %s.", broken_ignored)

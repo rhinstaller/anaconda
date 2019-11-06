@@ -159,7 +159,10 @@ class PackagesInterface(KickstartModuleInterfaceTemplate):
 
     @emits_properties_changed
     def SetBrokenIgnored(self, broken_ignored: Bool):
-        """Set if the broken packages should be ignored."""
+        """Set if the broken packages should be ignored.
+
+        :raise: UnsupportedValueError if this feature is not supported on this product.
+        """
         self.implementation.set_broken_ignored(broken_ignored)
 
     @property
