@@ -38,7 +38,7 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         self._sources = []
         self.sources_changed = Signal()
 
-        self._required_space = 0
+        self._required_space = None
         self.required_space_changed = Signal()
 
     @property
@@ -48,14 +48,34 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         :return: required size in bytes
         :rtype: int
         """
-        return self._required_space
+        if self._required_space:
+            return self._required_space
+        else:
+            return self.default_required_space
 
     def set_required_space(self, required_space):
-        """Set space required for the installation."""
+        """Set space required for the installation.
+
+        :param required_space: space required to make installation of this payload successful,
+                               use None if space is not known
+        :type required_space: int or None if not known
+        """
+        if not required_space:
+            log.debug("Required space is not known, using reasonable default.")
+
         self._required_space = required_space
         self.required_space_changed.emit()
-        log.debug("Space required for installation '%s'", self._required_space)
+        log.debug("Space required for installation '%s'", self.required_space)
         self.module_properties_changed.emit()
+
+    @property
+    def default_required_space(self):
+        """Get reasonable guess for required space when the real value is not known.
+
+        :return: reasonable default required space
+        :rtype: int
+        """
+        return 0
 
     @property
     @abstractmethod
