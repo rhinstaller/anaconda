@@ -32,6 +32,7 @@ from pyanaconda.modules.common.structures.storage import DeviceFormatData, Devic
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.ui.categories.system import SystemCategory
+from pyanaconda.ui.lib.storage import find_partitioning
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_autopart_choices, filter_disks_by_names, \
@@ -98,19 +99,8 @@ class StorageSpoke(NormalTUISpoke):
         # of disks that can be included in the install.
         self._available_disks = []
 
-        # Find a partitioning to use or create a new one.
-        object_paths = self._storage_module.CreatedPartitioning
-
-        if object_paths:
-            # Choose the last created partitioning.
-            object_path = object_paths[-1]
-        else:
-            # Or create the automatic partitioning.
-            object_path = self._storage_module.CreatePartitioning(
-                PARTITIONING_METHOD_AUTOMATIC
-            )
-
-        self._partitioning = STORAGE.get_proxy(object_path)
+        # Find a partitioning to use.
+        self._partitioning = find_partitioning()
 
         self._ready = False
         self._select_all = False
