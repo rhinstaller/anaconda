@@ -349,11 +349,26 @@ run_kickstart() {
     if [ "$do_net" ]; then
         # If NetworkManager is used in initramfs
         if [ -e $hookdir/cmdline/*-nm-config.sh ]; then
-            # Configure NM based on the cmdline now updated with kickstart.
-            # The configuration will be applied by the next run of NM
-            # via settled hook in *-nm-run.sh script which also calls the
-            # online hooks.
-            . $hookdir/cmdline/*-nm-config.sh
+            # First try to re-run online hooks on any online device.
+            # We don't want to reconfigure the network by applying kickstart config
+            # so use existing network connections if there are any.
+            # Based on nm-run.sh
+            for _i in /sys/class/net/*/
+            do
+                state=/run/NetworkManager/devices/$(cat $_i/ifindex)
+                grep -q connection-uuid= $state 2>/dev/null || continue
+                nm_connected_device_found="yes"
+                ifname=$(basename $_i)
+                source_hook initqueue/online $ifname
+            done
+
+            if [ "${nm_connected_device_found}" != "yes" ]; then
+                # Configure NM based on the cmdline now updated with kickstart.
+                # The configuration will be applied by the next run of NM
+                # via settled hook in *-nm-run.sh script which also calls the
+                # online hooks.
+                . $hookdir/cmdline/*-nm-config.sh
+            fi
         else
             # make dracut create the net udev rules (based on the new cmdline)
             . $hookdir/pre-udev/*-net-genrules.sh
