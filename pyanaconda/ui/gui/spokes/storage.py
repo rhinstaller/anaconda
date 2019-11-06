@@ -76,7 +76,7 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED,
 from pyanaconda.storage.initialization import reset_storage, select_all_disks_by_default, \
     reset_bootloader
 from pyanaconda.storage.snapshot import on_disk_storage
-from pyanaconda.storage.format_dasd import DasdFormatting
+from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
     BootloaderConfigurationError
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \

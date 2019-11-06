@@ -116,7 +116,7 @@ class DasdFormatting(object):
         reset_storage()
 
     @staticmethod
-    def run_automatically(disks=(), callback=None):
+    def run_automatically(disks, callback=None):
         """Run the DASD formatting automatically.
 
         This method could be run in a separate thread.

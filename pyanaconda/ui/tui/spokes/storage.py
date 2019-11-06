@@ -37,7 +37,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_autopart_choices, filter_disks_by_names, \
     apply_disk_selection, get_disks_summary
-from pyanaconda.storage.format_dasd import DasdFormatting
+from pyanaconda.ui.lib.format_dasd import DasdFormatting
 
 from blivet.size import Size
 from pyanaconda.flags import flags
