@@ -73,8 +73,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
     PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET
-from pyanaconda.storage.initialization import reset_storage, select_all_disks_by_default, \
-    reset_bootloader
+from pyanaconda.ui.lib.storage import reset_storage, reset_bootloader, select_all_disks_by_default
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \

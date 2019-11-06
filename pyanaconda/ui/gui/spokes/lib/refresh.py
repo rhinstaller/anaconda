@@ -21,7 +21,7 @@ from pyanaconda.core.timer import Timer
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.core import constants
-from pyanaconda.storage.initialization import reset_storage
+from pyanaconda.ui.lib.storage import reset_storage
 
 __all__ = ["RefreshDialog"]
 

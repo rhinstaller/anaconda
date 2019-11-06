@@ -67,7 +67,7 @@ from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
 from pyanaconda.storage.execution import configure_storage
-from pyanaconda.storage.initialization import reset_bootloader
+from pyanaconda.ui.lib.storage import reset_bootloader
 from pyanaconda.storage.root import find_existing_installations
 from pyanaconda.storage.utils import DEVICE_TEXT_MAP, MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, \
     CONTAINER_DEVICE_TYPES, device_type_from_autopart, filter_unsupported_disklabel_devices, \

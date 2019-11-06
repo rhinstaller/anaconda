@@ -32,7 +32,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE
 from pyanaconda.core.i18n import _, CN_, C_
-from pyanaconda.storage.initialization import reset_bootloader
+from pyanaconda.ui.lib.storage import reset_bootloader
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.threading import threadMgr

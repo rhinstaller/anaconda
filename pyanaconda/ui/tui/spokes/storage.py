@@ -32,7 +32,8 @@ from pyanaconda.modules.common.structures.storage import DeviceFormatData, Devic
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.lib.storage import find_partitioning
+from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, reset_bootloader, \
+    select_all_disks_by_default
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_autopart_choices, filter_disks_by_names, \
@@ -49,8 +50,6 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     BOOTLOADER_LOCATION_MBR, SecretType, WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED, \
     PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_MANUAL
 from pyanaconda.core.i18n import _, N_, C_
-from pyanaconda.storage.initialization import reset_bootloader, reset_storage, \
-    select_all_disks_by_default
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState

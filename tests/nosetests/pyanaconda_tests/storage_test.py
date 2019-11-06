@@ -6,7 +6,7 @@ from blivet import util
 from blivet.size import Size
 
 from pyanaconda.storage.osinstall import InstallerStorage
-from pyanaconda.storage.initialization import reset_storage
+from pyanaconda.ui.lib.storage import reset_storage
 
 
 @unittest.skip("not working")

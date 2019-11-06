@@ -23,7 +23,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.storage.initialization import reset_storage
+from pyanaconda.ui.lib.storage import reset_storage
 from pyanaconda.modules.common.constants.objects import DASD, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.task import sync_run_task

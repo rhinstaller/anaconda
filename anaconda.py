@@ -652,7 +652,8 @@ if __name__ == "__main__":
     from pyanaconda.timezone import time_initialize
 
     if not conf.target.is_directory:
-        from pyanaconda.storage.initialization import reset_storage
+        from pyanaconda.ui.lib.storage import reset_storage
+
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
                                      target=reset_storage))
 
