@@ -37,9 +37,8 @@ class ZFCPDialog(GUIObject):
     mainWidgetName = "zfcpDialog"
     uiFile = "spokes/advstorage/zfcp.glade"
 
-    def __init__(self, data, storage):
+    def __init__(self, data):
         super().__init__(data)
-        self._storage = storage
         self._update_devicetree = False
         self._zfcp_proxy = STORAGE.get_proxy(ZFCP)
 

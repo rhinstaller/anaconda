@@ -16,14 +16,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.static_data import nvdimm
 from pykickstart.constants import NVDIMM_MODE_SECTOR
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.constants.objects import NVDIMM
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
-from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.ui.gui import GUIObject
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -47,10 +45,10 @@ class NVDIMMDialog(GUIObject):
     mainWidgetName = "nvdimmDialog"
     uiFile = "spokes/advstorage/nvdimm.glade"
 
-    def __init__(self, data, storage, namespaces):
+    def __init__(self, data, namespaces):
         GUIObject.__init__(self, data)
-        self._storage = storage
         self._namespaces = namespaces
+        self._storage_proxy = STORAGE.get_proxy()
         self._nvdimm_proxy = STORAGE.get_proxy(NVDIMM)
 
         self._startButton = self.builder.get_object("startButton")
@@ -148,28 +146,25 @@ class NVDIMMDialog(GUIObject):
         # Update the widgets.
         self._conditionNotebook.set_current_page(PAGE_RESULT_SUCCESS)
 
-        # Update the namespaces info.
-        nvdimm.update_namespaces_info()
-
         # Get the task.
-        task = ScanDevicesTask(self._storage)
-        task.stopped_signal.connect(lambda: self.repopulate_finished(task))
+        task_path = self._storage_proxy.ScanDevicesWithTask()
+        task_proxy = STORAGE.get_proxy(task_path)
 
         # Start the task.
-        task.start()
+        async_run_task(task_proxy, self.repopulate_finished)
 
         self._repopulateSpinner.start()
 
-    def repopulate_finished(self, task):
+    def repopulate_finished(self, task_proxy):
         """Callback for repopulate_storage.
 
-        :param task: an instance of the task
+        :param task_proxy: an instance of the task proxy
         """
         # Stop the spinner.
         self._repopulateSpinner.stop()
 
         # Finish the task. The failures are fatal.
-        task.finish()
+        task_proxy.Finish()
 
         # Set up the UI.
         self._repopulateLabel.set_text(_("Rescanning disks finished."))

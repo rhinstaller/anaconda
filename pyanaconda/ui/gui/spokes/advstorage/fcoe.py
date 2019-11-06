@@ -40,9 +40,8 @@ class FCoEDialog(GUIObject):
     mainWidgetName = "fcoeDialog"
     uiFile = "spokes/advstorage/fcoe.glade"
 
-    def __init__(self, data, storage):
+    def __init__(self, data):
         super().__init__(data)
-        self._storage = storage
         self._update_devicetree = False
         self._fcoe_proxy = STORAGE.get_proxy(FCOE)
 

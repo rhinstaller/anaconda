@@ -37,9 +37,8 @@ class DASDDialog(GUIObject):
     mainWidgetName = "dasdDialog"
     uiFile = "spokes/advstorage/dasd.glade"
 
-    def __init__(self, data, storage):
+    def __init__(self, data):
         super().__init__(data)
-        self._storage = storage
         self._update_devicetree = False
         self._dasd_proxy = STORAGE.get_proxy(DASD)
 

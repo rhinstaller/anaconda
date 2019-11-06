@@ -721,24 +721,24 @@ class FilterSpoke(NormalSpoke):
         self.refresh()
 
     def on_add_iscsi_clicked(self, widget, *args):
-        dialog = ISCSIDialog(self.data, self.storage)
+        dialog = ISCSIDialog(self.data)
         self._run_dialog_and_refresh(dialog)
 
     def on_add_fcoe_clicked(self, widget, *args):
-        dialog = FCoEDialog(self.data, self.storage)
+        dialog = FCoEDialog(self.data)
         self._run_dialog_and_refresh(dialog)
 
     def on_add_zfcp_clicked(self, widget, *args):
-        dialog = ZFCPDialog(self.data, self.storage)
+        dialog = ZFCPDialog(self.data)
         self._run_dialog_and_refresh(dialog)
 
     def on_add_dasd_clicked(self, widget, *args):
-        dialog = DASDDialog(self.data, self.storage)
+        dialog = DASDDialog(self.data)
         self._run_dialog_and_refresh(dialog)
 
     def on_reconfigure_nvdimm_clicked(self, widget, *args):
         namespaces = self._pages[PAGE_NVDIMM].get_selected_namespaces()
-        dialog = NVDIMMDialog(self.data, self.storage, namespaces)
+        dialog = NVDIMMDialog(self.data, namespaces)
         self._run_dialog_and_refresh(dialog)
 
     def _run_dialog_and_refresh(self, dialog):

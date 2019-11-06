@@ -52,9 +52,8 @@ class ISCSIDialog(GUIObject):
     mainWidgetName = "iscsiDialog"
     uiFile = "spokes/advstorage/iscsi.glade"
 
-    def __init__(self, data, storage):
+    def __init__(self, data):
         super().__init__(data)
-        self._storage = storage
         self._discovered_nodes = []
         self._update_devicetree = False
 
