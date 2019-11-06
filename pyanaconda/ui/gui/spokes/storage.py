@@ -44,8 +44,7 @@ gi.require_version("AnacondaWidgets", "3.3")
 from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.storage.utils import filter_disks_by_names, is_local_disk, apply_disk_selection, \
-    check_disk_selection, get_disks_summary, suggest_swap_size, setup_passphrase
+from pyanaconda.storage.utils import filter_disks_by_names, is_local_disk, check_disk_selection, get_disks_summary, suggest_swap_size, setup_passphrase
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -73,7 +72,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
     PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET
-from pyanaconda.ui.lib.storage import reset_storage, reset_bootloader, select_all_disks_by_default
+from pyanaconda.ui.lib.storage import reset_storage, reset_bootloader, select_all_disks_by_default, \
+    apply_disk_selection
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
@@ -391,7 +391,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 self._check_problems()
 
     def apply(self):
-        apply_disk_selection(self.storage, self._selected_disks)
+        apply_disk_selection(self._selected_disks)
         self._auto_part_module.SetEnabled(self._auto_part_enabled)
 
         self._auto_part_module.SetRequest(
@@ -728,7 +728,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # if there's only one disk, select it by default
         if len(self._available_disks) == 1 and not self._selected_disks:
-            apply_disk_selection(self.storage, [self._available_disks[0].name])
+            apply_disk_selection([self._available_disks[0].name])
 
         # do not set ready in automated install before execute is run
         if flags.automatedInstall:
@@ -848,7 +848,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         if dasd_formatting.should_run():
             # We want to apply current selection before running dasdfmt to
             # prevent this information from being lost afterward
-            apply_disk_selection(self.storage, self._selected_disks)
+            apply_disk_selection(self._selected_disks)
 
             # Run the dialog.
             dialog = DasdFormatDialog(self.data, dasd_formatting)
@@ -1085,7 +1085,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # However, we do want to apply current selections so the disk cart off
         # the filter spoke will display the correct information.
-        apply_disk_selection(self.storage, self._selected_disks)
+        apply_disk_selection(self._selected_disks)
 
         self.skipTo = "FilterSpoke"
         NormalSpoke.on_back_clicked(self, button)

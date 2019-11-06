@@ -50,7 +50,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM, \
-    DISK_INITIALIZATION, DEVICE_TREE
+    DEVICE_TREE
 from pyanaconda.modules.common.structures.storage import DeviceData
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
@@ -519,33 +519,6 @@ def is_local_disk(disk):
         and not isinstance(disk, iScsiDiskDevice) \
         and not isinstance(disk, FcoeDiskDevice) \
         and disk.type not in ("zfcp", "nvdimm")
-
-
-def apply_disk_selection(storage, selected_names):
-    """Apply the disks selection.
-
-    FIXME: Remove the storage argument.
-
-    :param storage: blivet.Blivet instance
-    :param selected_names: a list of selected disk names
-    """
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
-
-    # Get disks.
-    disks = set(device_tree.GetDisks())
-    selected_disks = filter_disks_by_names(disks, selected_names)
-
-    # Get ancestors.
-    ancestors_names = device_tree.GetAncestors(selected_disks)
-    ancestors_disks = filter_disks_by_names(disks, ancestors_names)
-
-    # Set the disks to select.
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    disk_select_proxy.SetSelectedDisks(selected_names + ancestors_disks)
-
-    # Set the drives to clear.
-    disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-    disk_init_proxy.SetDrivesToClear(selected_names)
 
 
 def check_disk_selection(storage, selected_disks):

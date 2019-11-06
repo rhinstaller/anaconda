@@ -33,11 +33,11 @@ from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, reset_bootloader, \
-    select_all_disks_by_default
+    select_all_disks_by_default, apply_disk_selection
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_autopart_choices, filter_disks_by_names, \
-    apply_disk_selection, get_disks_summary
+    get_disks_summary
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 
 from blivet.size import Size
@@ -273,7 +273,7 @@ class StorageSpoke(NormalTUISpoke):
                         if dasd_formatting.should_run():
                             # We want to apply current selection before running dasdfmt to
                             # prevent this information from being lost afterward
-                            apply_disk_selection(self.storage, self._selected_disks)
+                            apply_disk_selection(self._selected_disks)
 
                             # Run the dialog.
                             self.run_dasdfmt_dialog(dasd_formatting)
@@ -373,7 +373,7 @@ class StorageSpoke(NormalTUISpoke):
         if boot_drive and boot_drive not in self._selected_disks:
             reset_bootloader()
 
-        apply_disk_selection(self.storage, self._selected_disks)
+        apply_disk_selection(self._selected_disks)
 
     def execute(self):
         try:
