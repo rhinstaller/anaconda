@@ -20,7 +20,7 @@ from pyanaconda.modules.common.constants.objects import ZFCP
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.task import async_run_task
-from pyanaconda.storage.utils import try_populate_devicetree
+from pyanaconda.ui.lib.storage import try_populate_devicetree
 from pyanaconda.ui.gui import GUIObject
 
 __all__ = ["ZFCPDialog"]
@@ -67,7 +67,7 @@ class ZFCPDialog(GUIObject):
         # We need to call this to get the device nodes to show up
         # in our devicetree.
         if self._update_devicetree:
-            try_populate_devicetree(self._storage.devicetree)
+            try_populate_devicetree()
         return rc
 
     def _set_configure_sensitive(self, sensitivity):

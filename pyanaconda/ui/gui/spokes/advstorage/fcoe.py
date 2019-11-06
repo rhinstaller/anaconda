@@ -22,7 +22,7 @@ from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.storage.utils import try_populate_devicetree
+from pyanaconda.ui.lib.storage import try_populate_devicetree
 
 import gi
 gi.require_version("NM", "1.0")
@@ -72,7 +72,7 @@ class FCoEDialog(GUIObject):
         self.window.destroy()
 
         if self._update_devicetree:
-            try_populate_devicetree(self._storage.devicetree)
+            try_populate_devicetree()
 
         return rc
 

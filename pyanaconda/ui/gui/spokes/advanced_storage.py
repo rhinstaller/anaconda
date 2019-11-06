@@ -23,8 +23,8 @@ from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, Multipat
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import CN_, CP_
-from pyanaconda.storage.utils import try_populate_devicetree, filter_disks_by_names
-from pyanaconda.ui.lib.storage import apply_disk_selection
+from pyanaconda.storage.utils import filter_disks_by_names
+from pyanaconda.ui.lib.storage import apply_disk_selection, try_populate_devicetree
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, FCOE, ISCSI, DASD
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -717,7 +717,7 @@ class FilterSpoke(NormalSpoke):
 
     @timed_action(delay=50, threshold=100)
     def on_refresh_clicked(self, widget, *args):
-        try_populate_devicetree(self.storage.devicetree)
+        try_populate_devicetree()
         self.refresh()
 
     def on_add_iscsi_clicked(self, widget, *args):

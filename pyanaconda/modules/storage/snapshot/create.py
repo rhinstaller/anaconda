@@ -22,7 +22,6 @@ from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.task.task import Task
 from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
-from pyanaconda.storage.utils import try_populate_devicetree
 
 log = get_module_logger(__name__)
 
@@ -60,13 +59,18 @@ class SnapshotCreateTask(Task):
         :param when: when the snapshots are created
         """
         if when == SNAPSHOT_WHEN_POST_INSTALL:
-            try_populate_devicetree(storage.devicetree)
+            self._populate_devicetree(storage)
 
         for request in requests:
             self._create_snapshot(storage, request)
 
         if when == SNAPSHOT_WHEN_PRE_INSTALL:
-            try_populate_devicetree(storage.devicetree)
+            self._populate_devicetree(storage)
+
+    def _populate_devicetree(self, storage):
+        """Populate a device tree of the given storage."""
+        storage.devicetree.populate()
+        storage.devicetree.teardown_all()
 
     def _create_snapshot(self, storage, request):
         """Create the ThinLV snapshot.

@@ -556,12 +556,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.FindMountablePartitions(), ["dev2"])
 
-    @patch("pyanaconda.storage.utils.try_populate_devicetree")
     @patch.object(LUKS, "setup")
     @patch.object(LUKSDevice, "teardown")
     @patch.object(LUKSDevice, "setup")
-    def unlock_device_test(self, device_setup, device_teardown, format_setup, populate):
+    def unlock_device_test(self, device_setup, device_teardown, format_setup):
         """Test UnlockDevice."""
+        self.storage.devicetree.populate = Mock()
+        self.storage.devicetree.teardown_all = Mock()
+
         dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
         self._add_device(dev1)
 
@@ -572,8 +574,9 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         device_setup.assert_called_once()
         format_setup.assert_called_once()
-        populate.assert_called_once()
         device_teardown.assert_not_called()
+        self.storage.devicetree.populate.assert_called_once()
+        self.storage.devicetree.teardown_all.assert_called_once()
         self.assertTrue(dev2.format.has_key)
 
         device_setup.side_effect = StorageError("Fake error")

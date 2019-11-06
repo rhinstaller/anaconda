@@ -29,7 +29,7 @@ from pyanaconda.core.constants import ISCSI_INTERFACE_UNSET, ISCSI_INTERFACE_DEF
     ISCSI_INTERFACE_IFACENAME
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
-from pyanaconda.storage.utils import try_populate_devicetree
+from pyanaconda.ui.lib.storage import try_populate_devicetree
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
 from pyanaconda.network import check_ip_address
@@ -105,7 +105,7 @@ class ISCSIDialog(GUIObject):
         self.window.destroy()
 
         if self._update_devicetree:
-            try_populate_devicetree(self._storage.devicetree)
+            try_populate_devicetree()
 
         return rc
 

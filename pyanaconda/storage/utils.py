@@ -47,7 +47,6 @@ from pykickstart.errors import KickstartError
 from pyanaconda.core import util
 from pyanaconda.core.i18n import N_, _, P_
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM
 
@@ -179,32 +178,6 @@ def bound_size(size, device, old_size):
             size = min_size
 
     return size
-
-
-def try_populate_devicetree(devicetree):
-    """
-    Try to populate the given devicetree while catching errors and dealing with
-    some special ones in a nice way (giving user chance to do something about
-    them).
-
-    :param devicetree: devicetree to try to populate
-    :type devicetree: :class:`blivet.devicetree.DeviceTree`
-
-    """
-
-    while True:
-        try:
-            devicetree.populate()
-            devicetree.teardown_all()
-        except StorageError as e:
-            if errorHandler.cb(e) == ERROR_RAISE:
-                raise
-            else:
-                continue
-        else:
-            break
-
-    return
 
 
 def filter_unsupported_disklabel_devices(devices):
@@ -718,7 +691,8 @@ def unlock_device(storage, device, passphrase):
         time.sleep(2)
 
         # Update the device tree.
-        try_populate_devicetree(storage.devicetree)
+        storage.devicetree.populate()
+        storage.devicetree.teardown_all()
 
         return True
 
