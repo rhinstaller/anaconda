@@ -321,14 +321,18 @@ run_kickstart() {
     . $hookdir/cmdline/*parse-livenet.sh
     . $hookdir/cmdline/*parse-anaconda-dd.sh
 
-    # Figure out whether we need to retry disk/net stuff
+    # Kickstart network configuration (which might even be empty) should be
+    # applied to get installer image or driver disks only if the tasks haven't
+    # already been performed using network configuration by boot options. This
+    # is ensured by the .done files checking.
+
     case "$root" in
-        anaconda-net:*)   do_net=1 ;;
+        anaconda-net:*)   [ ! -f /tmp/anaconda_netroot.done ] && do_net=1 ;;
         anaconda-hmc)     do_disk=1 ;;
         anaconda-disk:*)  do_disk=1 ;;
         anaconda-auto-cd) do_disk=1 ;;
     esac
-    [ -f /tmp/dd_net ] && do_net=1
+    [ -f /tmp/dd_net ] && [ ! -f /tmp/dd_net.done ] && do_net=1
     [ -f /tmp/dd_disk ] && do_disk=1
 
     # disk: replay udev events to trigger actions
