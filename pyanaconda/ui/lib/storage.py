@@ -16,9 +16,11 @@
 # Red Hat, Inc.
 #
 from blivet.errors import StorageError
+from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, BOOTLOADER_DRIVE_UNSET
+from pyanaconda.core.i18n import P_
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, BOOTLOADER, DEVICE_TREE, \
     DISK_INITIALIZATION
@@ -139,3 +141,21 @@ def apply_disk_selection(selected_names):
     # Set the drives to clear.
     disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
     disk_init_proxy.SetDrivesToClear(selected_names)
+
+
+def get_disks_summary(disks):
+    """Get a summary of the selected disks
+
+    :param disks: a list of names of selected disks
+    :return: a string with a summary
+    """
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+
+    count = len(disks)
+    capacity = Size(device_tree.GetDiskTotalSpace(disks))
+    free_space = Size(device_tree.GetDiskFreeSpace(disks))
+
+    return P_(
+        "{count} disk selected; {capacity} capacity; {free} free",
+        "{count} disks selected; {capacity} capacity; {free} free",
+        count).format(count=count, capacity=capacity, free=free_space)

@@ -49,9 +49,7 @@ from pyanaconda.core.i18n import N_, _, P_
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM, \
-    DEVICE_TREE
-from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -574,31 +572,6 @@ def get_required_device_size(required_space, format_class=None):
 
     device_size = format_class.get_required_size(required_space)
     return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
-
-
-def get_disks_summary(storage, disks):
-    """Get a summary of the selected disks
-
-    FIXME: Remove the storage argument.
-
-    :param storage: an instance of the storage
-    :param disks: a list of names of selected disks
-    :return: a string with a summary
-    """
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
-
-    data = DeviceData.from_structure_list([
-        device_tree.GetDeviceData(d) for d in disks
-    ])
-
-    count = len(disks)
-    capacity = Size(sum((disk.size for disk in data), 0))
-    free_space = Size(device_tree.GetDiskFreeSpace(disks))
-
-    return P_(
-        "{count} disk selected; {capacity} capacity; {free} free",
-        "{count} disks selected; {capacity} capacity; {free} free",
-        count).format(count=count, capacity=capacity, free=free_space)
 
 
 def mark_protected_device(storage, spec):

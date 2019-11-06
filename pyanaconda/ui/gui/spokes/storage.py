@@ -44,7 +44,8 @@ gi.require_version("AnacondaWidgets", "3.3")
 from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.storage.utils import filter_disks_by_names, is_local_disk, check_disk_selection, get_disks_summary, suggest_swap_size, setup_passphrase
+from pyanaconda.storage.utils import filter_disks_by_names, is_local_disk, check_disk_selection, \
+    suggest_swap_size, setup_passphrase
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -73,7 +74,7 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED,
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
     PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET
 from pyanaconda.ui.lib.storage import reset_storage, reset_bootloader, select_all_disks_by_default, \
-    apply_disk_selection
+    apply_disk_selection, get_disks_summary
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
@@ -746,7 +747,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def _update_summary(self):
         """ Update the summary based on the UI. """
         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
-        summary = get_disks_summary(self.storage, disks)
+        summary = get_disks_summary(disks)
 
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)

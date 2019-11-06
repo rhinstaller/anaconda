@@ -33,11 +33,10 @@ from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, reset_bootloader, \
-    select_all_disks_by_default, apply_disk_selection
+    select_all_disks_by_default, apply_disk_selection, get_disks_summary
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
-from pyanaconda.storage.utils import get_supported_autopart_choices, filter_disks_by_names, \
-    get_disks_summary
+from pyanaconda.storage.utils import get_supported_autopart_choices, filter_disks_by_names
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 
 from blivet.size import Size
@@ -162,7 +161,7 @@ class StorageSpoke(NormalTUISpoke):
             summary = _(WARNING_NO_DISKS_SELECTED)
         else:
             disks = filter_disks_by_names(self._available_disks, self._selected_disks)
-            summary = get_disks_summary(self.storage, disks)
+            summary = get_disks_summary(disks)
 
         # Append storage errors to the summary
         if self.errors or self.warnings:
