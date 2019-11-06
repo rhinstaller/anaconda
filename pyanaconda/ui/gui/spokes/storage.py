@@ -401,7 +401,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         boot_drive = self._bootloader_module.Drive
         if boot_drive and boot_drive not in self._selected_disks:
-            reset_bootloader(self.storage)
+            reset_bootloader()
 
         self._disk_init_module.SetInitializeLabelsEnabled(True)
 
@@ -442,12 +442,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         except StorageConfigurationError as e:
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-            reset_bootloader(self.storage)
-            reset_storage(self.storage, scan_all=True)
+            reset_bootloader()
+            reset_storage(scan_all=True)
         except BootloaderConfigurationError as e:
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-            reset_bootloader(self.storage)
+            reset_bootloader()
         except Exception as e:
             log.error("unexpected storage error: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
@@ -721,7 +721,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Update the selected disks.
         if flags.automatedInstall:
-            self._selected_disks = select_all_disks_by_default(self.storage)
+            self._selected_disks = select_all_disks_by_default()
 
         # Continue with initializing.
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))

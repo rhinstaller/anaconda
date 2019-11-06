@@ -1008,7 +1008,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             configure_storage(self.storage, interactive=True)
         except BootloaderConfigurationError as e:
             bootloader_errors = str(e).split("\n")
-            reset_bootloader(self.storage)
+            reset_bootloader()
 
         StorageCheckHandler.check_storage(self)
 

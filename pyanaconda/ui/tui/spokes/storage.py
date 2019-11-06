@@ -372,7 +372,7 @@ class StorageSpoke(NormalTUISpoke):
         boot_drive = self._bootloader_module.Drive
 
         if boot_drive and boot_drive not in self._selected_disks:
-            reset_bootloader(self.storage)
+            reset_bootloader()
 
         apply_disk_selection(self.storage, self._selected_disks)
 
@@ -385,12 +385,12 @@ class StorageSpoke(NormalTUISpoke):
         except StorageConfigurationError as e:
             print(_("Storage configuration failed: %s") % e)
             self.errors = [str(e)]
-            reset_bootloader(self.storage)
-            reset_storage(self.storage, scan_all=True)
+            reset_bootloader()
+            reset_storage(scan_all=True)
         except BootloaderConfigurationError as e:
             print(_("Boot loader configuration failed: %s") % e)
             self.errors = [str(e)]
-            reset_bootloader(self.storage)
+            reset_bootloader()
         else:
             print(_("Checking storage configuration..."))
             task_path = self._partitioning.ValidateWithTask()
@@ -439,7 +439,7 @@ class StorageSpoke(NormalTUISpoke):
 
         # Update the selected disks.
         if flags.automatedInstall:
-            self._selected_disks = select_all_disks_by_default(self.storage)
+            self._selected_disks = select_all_disks_by_default()
 
         # Update disk list.
         self.update_disks()
@@ -561,7 +561,7 @@ class PartTypeSpoke(NormalTUISpoke):
 
         # else
         print(_("Reverting previous configuration. This may take a moment..."))
-        reset_storage(self.storage, scan_all=True)
+        reset_storage(scan_all=True)
 
     def input(self, args, key):
         """Grab the choice and update things"""
@@ -775,7 +775,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
             return
 
         print(_("Scanning disks. This may take a moment..."))
-        reset_storage(self.storage, scan_all=True)
+        reset_storage(scan_all=True)
 
         # Forget the mount point requests.
         self._partitioning.SetRequests([])

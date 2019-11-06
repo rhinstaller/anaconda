@@ -113,10 +113,8 @@ def load_plugin_s390():
     blockdev.reinit([plugin], reload=False)
 
 
-def reset_storage(storage=None, scan_all=False, retry=True):
+def reset_storage(scan_all=False, retry=True):
     """Reset the storage model.
-
-    FIXME: Remove the storage argument.
 
     :param scan_all: should we scan all devices in the system?
     :param retry: should we allow to retry the reset?
@@ -152,26 +150,18 @@ def reset_storage(storage=None, scan_all=False, retry=True):
     storage_proxy.ResetPartitioning()
 
 
-def reset_bootloader(storage=None):
-    """Reset the bootloader.
-
-    FIXME: Remove the storage argument.
-
-    :param storage: an instance of the Blivet's storage object
-    """
+def reset_bootloader():
+    """Reset the bootloader."""
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     bootloader_proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
 
 
-def select_all_disks_by_default(storage=None):
+def select_all_disks_by_default():
     """Select all disks for the partitioning by default.
 
     It will select all disks for the partitioning if there are
     no disks selected. Kickstart uses all the disks by default.
 
-    FIXME: Remove the storage argument.
-
-    :param storage: an instance of the Blivet's storage object
     :return: a list of selected disks
     """
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
