@@ -47,7 +47,8 @@ from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.storage.utils import device_matches, mark_protected_device, unmark_protected_device
+from pyanaconda.storage.utils import device_matches
+from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -474,7 +475,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 return False
 
             # Make sure anaconda doesn't touch this device.
-            mark_protected_device(self.storage, part.name)
+            mark_protected_device(part.name)
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
@@ -567,7 +568,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 self._iso_chooser_button.set_label(self._orig_iso_chooser_button)
                 self._iso_chooser_button.set_use_underline(True)
 
-            unmark_protected_device(self.storage, old_partition)
+            unmark_protected_device(old_partition)
 
         self._proxy_change = False
         self._updates_change = False

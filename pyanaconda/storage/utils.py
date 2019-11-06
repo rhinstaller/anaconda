@@ -574,36 +574,6 @@ def get_required_device_size(required_space, format_class=None):
     return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
 
 
-def mark_protected_device(storage, spec):
-    """Mark a device as protected.
-
-    :param storage: an instance of the storage
-    :param spec: a specification of the device
-    """
-    disk_selection_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    protected_devices = disk_selection_proxy.ProtectedDevices
-
-    if spec not in protected_devices:
-        protected_devices.add(spec)
-
-    disk_selection_proxy.SetProtectedDevices(protected_devices)
-
-
-def unmark_protected_device(storage, spec):
-    """Unmark a device as protected.
-
-    :param storage: an instance of the storage
-    :param spec: a specification of the device
-    """
-    disk_selection_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    protected_devices = disk_selection_proxy.ProtectedDevices
-
-    if spec in protected_devices:
-        protected_devices.remove(spec)
-
-    disk_selection_proxy.SetProtectedDevices(protected_devices)
-
-
 def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
     """Suggest the size of the swap partition that will be created.
 
