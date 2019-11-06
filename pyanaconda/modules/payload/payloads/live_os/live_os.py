@@ -98,7 +98,14 @@ class LiveOSHandlerModule(PayloadBase):
     @staticmethod
     def _get_required_space():
         # TODO: This is not that fast as I thought (a few seconds). Caching or solved in task?
-        return get_dir_size("/") * 1024
+        size = get_dir_size("/") * 1024
+
+        # we don't know the size -- this should not happen
+        if size == 0:
+            log.debug("Space required is not known. This should not happen!")
+            return None
+        else:
+            return size
 
     def set_up_sources_with_task(self):
         """Set up installation sources."""
