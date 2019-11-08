@@ -94,10 +94,11 @@ def check_ip_address(address, version=None):
         return False
 
 
-def is_valid_hostname(hostname):
+def is_valid_hostname(hostname, local=False):
     """Check if the given string is (syntactically) a valid hostname.
 
-    :param hostname: a string to check
+    :param str hostname: a string to check
+    :param bool local: is the hostname static (for this system) or not (on the network)
     :returns: a pair containing boolean value (valid or invalid) and
               an error message (if applicable)
     :rtype: (bool, str)
@@ -107,6 +108,9 @@ def is_valid_hostname(hostname):
 
     if len(hostname) > 255:
         return (False, _("Host name must be 255 or fewer characters in length."))
+
+    if local and hostname[-1] == ".":
+        return (False, _("Local host name must not end with period '.'."))
 
     if not re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', hostname):
         return (False, _("Host names can only contain the characters 'a-z', "
