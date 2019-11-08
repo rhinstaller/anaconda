@@ -26,12 +26,12 @@ from abc import ABCMeta
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, INSTALL_TREE, ISO_DIR
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
-from pyanaconda.flags import flags
 
 from pyanaconda import isys
 from pyanaconda.payload.image import findFirstIsoImage, mountImage, find_optical_install_media,\
     verifyMedia, verify_valid_installtree
 from pyanaconda.core import util
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup
@@ -551,7 +551,7 @@ class Payload(metaclass=ABCMeta):
 
                 # if the installation is running in fips mode then make sure
                 # fips is also correctly enabled in the installed system
-                if flags.cmdline.get("fips") == "1":
+                if kernel_arguments.get("fips") == "1":
                     # We use the --no-bootcfg option as we don't want fips-mode-setup to
                     # modify the bootloader configuration.
                     # Anaconda already does everything needed & it would require grubby to

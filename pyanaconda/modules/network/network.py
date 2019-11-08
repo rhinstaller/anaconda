@@ -19,9 +19,9 @@
 #
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.network import NetworkOnBoot
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -93,7 +93,7 @@ class NetworkService(KickstartService):
         self._bootif = None
         self._ifname_option_values = []
         self._disable_ipv6 = False
-        self._apply_boot_options(flags.cmdline)
+        self._apply_boot_options(kernel_arguments)
 
     def publish(self):
         """Publish the module."""

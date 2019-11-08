@@ -32,8 +32,8 @@ import threading
 import re
 import ipaddress
 
-from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
     IPV6_ADDRESS_IN_DRACUT_IP_OPTION
 from pyanaconda.core.configuration.anaconda import conf
@@ -285,7 +285,7 @@ def initialize_network():
     run_network_initialization_task(network_proxy.SetRealOnbootValuesFromKickstartWithTask())
 
     if network_proxy.Hostname == DEFAULT_HOSTNAME:
-        bootopts_hostname = hostname_from_cmdline(flags.cmdline)
+        bootopts_hostname = hostname_from_cmdline(kernel_arguments)
         if bootopts_hostname:
             log.debug("Updating host name from boot options: %s", bootopts_hostname)
             network_proxy.SetHostname(bootopts_hostname)

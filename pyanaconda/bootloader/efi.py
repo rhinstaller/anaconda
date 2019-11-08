@@ -21,8 +21,8 @@ import re
 from pyanaconda.bootloader.base import BootLoaderError
 from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core import util
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.flags import flags
 from pyanaconda.product import productName
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -43,7 +43,7 @@ class EFIBase(object):
             log.info("Skipping efibootmgr for image/directory install.")
             return ""
 
-        if "noefi" in flags.cmdline:
+        if "noefi" in kernel_arguments:
             log.info("Skipping efibootmgr for noefi")
             return ""
 
