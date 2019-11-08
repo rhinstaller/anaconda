@@ -19,11 +19,16 @@
 #
 import unittest
 
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, PropertiesChangedCallback
+from unittest.mock import patch, create_autospec
 
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, PropertiesChangedCallback
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
+
+from dasbus.typing import *  # pylint: disable=wildcard-import
+
+from pyanaconda.core.configuration.payload import PayloadSection
 from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
-from pyanaconda.modules.common.errors import InvalidValueError
+from pyanaconda.modules.common.errors import InvalidValueError, UnsupportedValueError
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payload.dnf.packages.packages import PackagesModule
@@ -252,6 +257,25 @@ class PackagesKSTestCase(unittest.TestCase):
         self._check_properties(nocore=True, ignore_missing=True, ignore_broken=True,
                                langs=LANGUAGES_NONE)
 
+    @patch("pyanaconda.modules.payloads.kickstart.conf")
+    @patch_dbus_publish_object
+    def packages_section_with_disabled_ignore_broken_test(self, publisher, conf):
+        """Test if disabled ignore broken will fail as expected."""
+        ks_in = """
+        %packages --ignorebroken
+        %end
+        """
+
+        conf.payload = create_autospec(PayloadSection)
+        conf.payload.enable_ignore_broken_packages = False
+
+        report = self.shared_tests.check_kickstart(ks_in=ks_in, ks_out=None, ks_valid=False)
+
+        self.assertEqual(len(report.error_messages), 1)
+        ks_message = report.error_messages[0]
+        self.assertEqual(ks_message.message,
+                         "The %packages --ignorebroken feature is not supported on your product!")
+
 
 class PackagesInterfaceTestCase(unittest.TestCase):
 
@@ -354,6 +378,17 @@ class PackagesInterfaceTestCase(unittest.TestCase):
 
     def broken_ignored_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.BrokenIgnored, False)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.packages.packages.conf")
+    def broken_ignored_disabled_properties_test(self, conf):
+        conf.payload = create_autospec(PayloadSection)
+        conf.payload.enable_ignore_broken_packages = False
+
+        with self.assertRaises(UnsupportedValueError):
+            self.packages_interface.SetBrokenIgnored(True)
+
+        self.assertEqual(self.packages_interface.BrokenIgnored, False)
+        self.callback.assert_not_called()
 
     def languages_properties_test(self):
         self.packages_interface.SetLanguages("en, es")

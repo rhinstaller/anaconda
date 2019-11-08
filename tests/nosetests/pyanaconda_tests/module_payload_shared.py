@@ -40,7 +40,7 @@ class PayloadSharedTest(object):
         self.payload_service = PayloadsService()
         self.payload_service_interface = PayloadsInterface(self.payload_service)
 
-    def check_kickstart(self, ks_in, ks_out, expected_publish_calls=1):
+    def check_kickstart(self, ks_in, ks_out, ks_valid=True, expected_publish_calls=1):
         """Test kickstart processing.
 
         :param test_obj: TestCase object (probably self)
@@ -50,12 +50,15 @@ class PayloadSharedTest(object):
         :type expected_publish_calls: int
         """
         with patch('pyanaconda.core.dbus.DBus.publish_object') as publisher:
-            check_kickstart_interface(self._test,
-                                      self.payload_service_interface,
-                                      ks_in, "", ks_tmp=ks_out)
+            result = check_kickstart_interface(self._test,
+                                               self.payload_service_interface,
+                                               ks_in, "", ks_valid, ks_tmp=ks_out)
 
-            publisher.assert_called()
-            self._test.assertEqual(publisher.call_count, expected_publish_calls)
+            if ks_valid:
+                publisher.assert_called()
+                self._test.assertEqual(publisher.call_count, expected_publish_calls)
+
+            return result
 
     def get_payload(self):
         """Get payload created."""
