@@ -143,3 +143,6 @@ class KernelArguments(OrderedDict):
             elif a == 'no' + arg:
                 result = False  # XXX: should noarg=off -> True?
         return result
+
+
+kernel_arguments = KernelArguments.from_defaults()
