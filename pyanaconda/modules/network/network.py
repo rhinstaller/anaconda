@@ -662,9 +662,9 @@ class NetworkService(KickstartService):
         if 'ksdevice' in kernel_args:
             self.default_device_specification = kernel_args.get('ksdevice')
         if 'BOOTIF' in kernel_args:
-            self.bootif = kernel_args['BOOTIF'][3:].replace("-", ":").upper()
+            self.bootif = kernel_args.get('BOOTIF')[3:].replace("-", ":").upper()
         if 'ifname' in kernel_args:
-            self.ifname_option_values = kernel_args.get("ifname", "").split()
+            self.ifname_option_values = kernel_args.get("ifname").split()
         if 'noipv6' in kernel_args:
             self.disable_ipv6 = True
 

@@ -49,7 +49,7 @@ def write_module_blacklist(sysroot):
     mkdirChain(os.path.join(sysroot, "etc/modprobe.d"))
     with open(os.path.join(sysroot, "etc/modprobe.d/anaconda-blacklist.conf"), "w") as f:
         f.write("# Module blacklists written by anaconda\n")
-        for module in kernel_arguments["modprobe.blacklist"].split():
+        for module in kernel_arguments.get("modprobe.blacklist").split():
             f.write("blacklist %s\n" % module)
 
 

@@ -21,12 +21,17 @@ import glob
 from collections import OrderedDict
 from pyanaconda.core.constants import CMDLINE_APPEND, CMDLINE_LIST, CMDLINE_FILES
 
+__all__ = ['KernelArguments', 'kernel_arguments']
 
-class KernelArguments(OrderedDict):
+
+class KernelArguments():
     """The kernel arguments.
 
     Hold boot arguments as an OrderedDict.
     """
+
+    def __init__(self):
+        self._data = OrderedDict()
 
     @classmethod
     def from_defaults(cls):
@@ -110,17 +115,17 @@ class KernelArguments(OrderedDict):
                 val = None
 
             # Some duplicate args create a space separated string
-            if key in CMDLINE_APPEND and self.get(key, None):
+            if key in CMDLINE_APPEND and self._data.get(key, None):
                 if val:
-                    self[key] = self[key] + " " + val
+                    self._data[key] = self._data[key] + " " + val
             # Some arguments can contain spaces so adding them in one string is not that helpful
             elif key in CMDLINE_LIST:
                 if val:
-                    if not self.get(key, None):
-                        self[key] = []
-                    self[key].append(val)
+                    if not self._data.get(key, None):
+                        self._data[key] = []
+                    self._data[key].append(val)
             else:
-                self[key] = val
+                self._data[key] = val
 
     def getbool(self, arg, default=False):
         """Return the boolean value of the given argument.
@@ -134,15 +139,36 @@ class KernelArguments(OrderedDict):
         :return: a boolean value of the argument
         """
         result = default
-        for a in self:
+        for a in self._data:
             if a == arg:
-                if self[arg] in ("0", "off", "no"):
+                if self._data[arg] in ("0", "off", "no"):
                     result = False
                 else:
                     result = True
             elif a == 'no' + arg:
                 result = False  # XXX: should noarg=off -> True?
         return result
+
+    def get(self, arg, default=None):
+        """Return the value of the given argument.
+
+        Propagates the call verbatim to the underlying dictionary.
+        """
+        return self._data.get(arg, default)
+
+    def __contains__(self, arg):
+        """Check for presence of an argument.
+
+        Propagates the call verbatim to the underlying dictionary.
+        """
+        return arg in self._data
+
+    def items(self):
+        """Return an iterator over all arguments.
+
+        Propagates the call verbatim to the underlying dictionary.
+        """
+        return self._data.items()
 
 
 kernel_arguments = KernelArguments.from_defaults()
