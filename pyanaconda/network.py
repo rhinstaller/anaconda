@@ -198,16 +198,16 @@ def get_hostname():
     return hostname
 
 
-def hostname_from_cmdline(kernel_arguments):
+def hostname_from_cmdline(kernel_args):
     """Get hostname defined by boot options.
 
-    :param kernel_arguments: structure holding installer boot options
-    :type kernel_arguments: KernelArguments
+    :param kernel_args: structure holding installer boot options
+    :type kernel_args: KernelArguments
     """
     # legacy hostname= option
-    hostname = kernel_arguments.get('hostname', "")
+    hostname = kernel_args.get('hostname', "")
     # ip= option
-    ipopts = kernel_arguments.get('ip')
+    ipopts = kernel_args.get('ip')
     # Example (2 options):
     # ens3:dhcp 10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none
     if ipopts:
