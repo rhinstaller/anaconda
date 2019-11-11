@@ -39,12 +39,12 @@ class Signal(object):
 
     def emit(self, *args, **kargs):
         # Call handler functions
-        for func in self._functions:
+        for func in self._functions.copy():
             func(*args, **kargs)
 
         # Call handler methods
-        for obj, funcs in self._methods.items():
-            for func in funcs:
+        for obj, funcs in self._methods.copy().items():
+            for func in funcs.copy():
                 func(obj, *args, **kargs)
 
     def connect(self, slot):

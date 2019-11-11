@@ -19,8 +19,10 @@ from time import sleep
 
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.common.task.task import Task, AbstractTask
+from pyanaconda.modules.common.task.meta import DBusMetaTask
 
-__all__ = ["sync_run_task", "async_run_task", "AbstractTask", "Task", "TaskInterface"]
+__all__ = ["sync_run_task", "async_run_task", "AbstractTask", "Task", "TaskInterface",
+           "DBusMetaTask"]
 
 
 def sync_run_task(task_proxy, callback=None):

@@ -20,7 +20,7 @@ import unittest
 from mock import Mock, patch, call
 
 from pyanaconda.modules.boss.install_manager import InstallManager
-from pyanaconda.modules.boss.install_manager.installation import SystemInstallationTask
+from pyanaconda.modules.common.task import DBusMetaTask
 
 
 class InstallManagerTestCase(unittest.TestCase):
@@ -31,7 +31,8 @@ class InstallManagerTestCase(unittest.TestCase):
         install_manager = InstallManager()
         install_manager.on_module_observers_changed([])
         main_task = install_manager.install_system_with_task()
-        self.assertIsInstance(main_task, SystemInstallationTask)
+        self.assertIsInstance(main_task, DBusMetaTask)
+        self.assertEqual(main_task.name, "Install the system")
         self.assertEqual(main_task._subtasks, [])
 
     def install_with_no_tasks_test(self):
@@ -45,7 +46,8 @@ class InstallManagerTestCase(unittest.TestCase):
         install_manager.on_module_observers_changed([observer])
         main_task = install_manager.install_system_with_task()
 
-        self.assertIsInstance(main_task, SystemInstallationTask)
+        self.assertIsInstance(main_task, DBusMetaTask)
+        self.assertEqual(main_task.name, "Install the system")
         self.assertEqual(main_task._subtasks, [])
 
     @patch('pyanaconda.dbus.DBus.get_proxy')
@@ -65,7 +67,8 @@ class InstallManagerTestCase(unittest.TestCase):
         main_task = install_manager.install_system_with_task()
 
         proxy_getter.assert_called_once_with("A", "/A/1")
-        self.assertIsInstance(main_task, SystemInstallationTask)
+        self.assertIsInstance(main_task, DBusMetaTask)
+        self.assertEqual(main_task.name, "Install the system")
         self.assertEqual(main_task._subtasks, [task_proxy])
 
     @patch('pyanaconda.dbus.DBus.get_proxy')
@@ -100,5 +103,42 @@ class InstallManagerTestCase(unittest.TestCase):
             call("B", "/B/1"),
             call("B", "/B/2")
         ])
-        self.assertIsInstance(main_task, SystemInstallationTask)
+        self.assertIsInstance(main_task, DBusMetaTask)
+        self.assertEqual(main_task.name, "Install the system")
+        self.assertEqual(main_task._subtasks, [task_proxy, task_proxy, task_proxy])
+
+    @patch('pyanaconda.dbus.DBus.get_proxy')
+    def configure_runtime_test(self, proxy_getter):
+        """Configure the runtime system with three tasks."""
+        observers = []
+
+        observer = Mock()
+        observer.is_service_available = True
+        observer.service_name = "A"
+        observer.proxy.ConfigureWithTasks.return_value = ["/A/1"]
+
+        observers.append(observer)
+
+        observer = Mock()
+        observer.is_service_available = True
+        observer.service_name = "B"
+        observer.proxy.ConfigureWithTasks.return_value = ["/B/1", "/B/2"]
+
+        observers.append(observer)
+
+        task_proxy = Mock()
+        task_proxy.Steps = 1
+        proxy_getter.return_value = task_proxy
+
+        install_manager = InstallManager()
+        install_manager.on_module_observers_changed(observers)
+        main_task = install_manager.configure_runtime_with_task()
+
+        proxy_getter.assert_has_calls([
+            call("A", "/A/1"),
+            call("B", "/B/1"),
+            call("B", "/B/2")
+        ])
+        self.assertIsInstance(main_task, DBusMetaTask)
+        self.assertEqual(main_task.name, "Configure the runtime system")
         self.assertEqual(main_task._subtasks, [task_proxy, task_proxy, task_proxy])

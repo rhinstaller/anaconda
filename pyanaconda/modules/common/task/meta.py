@@ -1,6 +1,4 @@
 #
-# The main installation task
-#
 # Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -17,19 +15,26 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.task import AbstractTask
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ['SystemInstallationTask']
+__all__ = ['DBusMetaTask']
 
 
-class SystemInstallationTask(AbstractTask):
+class DBusMetaTask(AbstractTask):
+    """A task that runs DBus tasks."""
 
-    def __init__(self, installation_tasks):
+    def __init__(self, name, tasks):
+        """Create a new meta task.
+
+        :param name: a name of the meta task
+        :param tasks: a list of proxies to DBus tasks
+        """
         super().__init__()
-        self._subtasks = installation_tasks
+        self._name = name
+        self._subtasks = tasks
         self._current_subtask = None
         self._subscriptions = []
         self._total_steps = self._count_steps()
@@ -37,7 +42,8 @@ class SystemInstallationTask(AbstractTask):
 
     @property
     def name(self):
-        return "Install the system"
+        """Name of the meta task."""
+        return self._name
 
     @property
     def steps(self):
@@ -50,26 +56,26 @@ class SystemInstallationTask(AbstractTask):
 
     @property
     def is_running(self):
-        """Is the installation running?"""
+        """Is the meta task running?"""
         return bool(self._current_subtask and self._current_subtask.IsRunning)
 
     def start(self):
-        """Start the installation."""
-        log.info("Installation has started.")
+        """Start the meta task."""
+        log.info("'%s' has started.", self.name)
         self._task_started_callback()
         self._task_run_callback()
 
     def _task_run_callback(self):
-        """Start the next installation task."""
+        """Start the next task."""
         self._disconnect_all()
 
         if self.check_cancel():
-            log.info("Installation is canceled.")
+            log.info("'%s' is canceled.", self.name)
             self._task_stopped_callback()
             return
 
         if not self._subtasks:
-            log.info("Installation is complete.")
+            log.info("'%s' is complete.", self.name)
             self._task_succeeded_callback()
             self._task_stopped_callback()
             return
@@ -116,17 +122,17 @@ class SystemInstallationTask(AbstractTask):
         self.report_progress(msg, step_number=self._finished_steps + step)
 
     def cancel(self):
-        """Cancel the installation."""
+        """Cancel the meta task."""
         super().cancel()
 
         if self._current_subtask:
             self._current_subtask.Cancel()
 
     def finish(self):
-        """Finish the installation.
+        """Finish the meta task.
 
-        If the installation failed, we should raise an error
-        from the last running installation task.
+        If the meta task failed, we should raise an error
+        from the last running task.
         """
         if self._current_subtask:
             self._current_subtask.Finish()

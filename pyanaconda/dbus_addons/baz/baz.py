@@ -66,35 +66,39 @@ class Baz(KickstartService):
         data.addons.my_example_baz.bar = self._bar
         data.addons.my_example_baz.lines = self._lines
 
+    def configure_with_tasks(self):
+        """Return configuration tasks."""
+        return [BazConfigurationTask()]
+
     def install_with_tasks(self):
         """Return installation tasks."""
-        return [BazTask()]
+        return [BazInstallationTask()]
 
     def calculate_with_task(self):
         """Return a calculation task."""
         return BazCalculationTask()
 
 
-class BazTask(Task):
-    """The Baz task."""
+class BazConfigurationTask(Task):
+    """The Baz configuration task."""
 
     @property
     def name(self):
         return "Configure Baz"
 
+    def run(self):
+        pass
+
+
+class BazInstallationTask(Task):
+    """The Baz installation task."""
+
     @property
-    def steps(self):
-        return 5
+    def name(self):
+        return "Install Baz"
 
     def run(self):
-        self.report_progress("Working..", step_size=1)
-        sleep(5)
-
-        self.report_progress("Taking a nap...", step_size=1)
-        sleep(5)
-
-        self.report_progress("Finishing...", step_size=1)
-        sleep(5)
+        pass
 
 
 class BazCalculationTask(Task):

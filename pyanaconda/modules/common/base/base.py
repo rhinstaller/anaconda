@@ -256,8 +256,19 @@ class KickstartService(Service, KickstartBaseModule):
         """
         return self.generate_kickstart()
 
+    def configure_with_tasks(self):
+        """Configure the runtime environment.
+
+        Note: Addons should use it instead of the setup method.
+
+        :return: a list of DBus paths of the installation tasks
+        """
+        return []
+
     def install_with_tasks(self):
         """Return installation tasks of this module.
+
+        Note: Addons should use it instead of the execute method.
 
         :return: a list of DBus paths of the installation tasks
         """
