@@ -321,14 +321,18 @@ run_kickstart() {
     . $hookdir/cmdline/*parse-livenet.sh
     . $hookdir/cmdline/*parse-anaconda-dd.sh
 
-    # Figure out whether we need to retry disk/net stuff
+    # Kickstart network configuration (which might even be empty) should be
+    # applied to get installer image or driver disks only if the tasks haven't
+    # already been performed using network configuration by boot options. This
+    # is ensured by the .done files checking.
+
     case "$root" in
-        anaconda-net:*)   do_net=1 ;;
+        anaconda-net:*)   [ ! -f /tmp/anaconda_netroot.done ] && do_net=1 ;;
         anaconda-hmc)     do_disk=1 ;;
         anaconda-disk:*)  do_disk=1 ;;
         anaconda-auto-cd) do_disk=1 ;;
     esac
-    [ -f /tmp/dd_net ] && do_net=1
+    [ -f /tmp/dd_net ] && [ ! -f /tmp/dd_net.done ] && do_net=1
     [ -f /tmp/dd_disk ] && do_disk=1
 
     # disk: replay udev events to trigger actions
@@ -345,11 +349,26 @@ run_kickstart() {
     if [ "$do_net" ]; then
         # If NetworkManager is used in initramfs
         if [ -e $hookdir/cmdline/*-nm-config.sh ]; then
-            # Configure NM based on the cmdline now updated with kickstart.
-            # The configuration will be applied by the next run of NM
-            # via settled hook in *-nm-run.sh script which also calls the
-            # online hooks.
-            . $hookdir/cmdline/*-nm-config.sh
+            # First try to re-run online hooks on any online device.
+            # We don't want to reconfigure the network by applying kickstart config
+            # so use existing network connections if there are any.
+            # Based on nm-run.sh
+            for _i in /sys/class/net/*/
+            do
+                state=/run/NetworkManager/devices/$(cat $_i/ifindex)
+                grep -q connection-uuid= $state 2>/dev/null || continue
+                nm_connected_device_found="yes"
+                ifname=$(basename $_i)
+                source_hook initqueue/online $ifname
+            done
+
+            if [ "${nm_connected_device_found}" != "yes" ]; then
+                # Configure NM based on the cmdline now updated with kickstart.
+                # The configuration will be applied by the next run of NM
+                # via settled hook in *-nm-run.sh script which also calls the
+                # online hooks.
+                . $hookdir/cmdline/*-nm-config.sh
+            fi
         else
             # make dracut create the net udev rules (based on the new cmdline)
             . $hookdir/pre-udev/*-net-genrules.sh

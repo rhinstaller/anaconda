@@ -88,3 +88,5 @@ case $repo in
         return 1
     ;;
 esac
+
+echo "$netif" >> /tmp/anaconda_netroot.done # mark it done
