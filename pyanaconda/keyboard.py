@@ -160,7 +160,6 @@ def write_keyboard_config(localization_proxy, root, convert=True):
     :param root: path to the root of the installed system
     :param convert: whether to convert specified values to get the missing
                     ones
-    :param weight: weight (prefix) of the xorg.conf file written out
 
     """
 
