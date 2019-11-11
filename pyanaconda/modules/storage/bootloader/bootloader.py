@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.constants import SECURE_BOOT_AUTO, SECURE_BOOT_ENABLED, SECURE_BOOT_DISABLED
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import BOOTLOADER_LOCATION_DEFAULT, BOOTLOADER_TIMEOUT_UNSET, \
     BOOTLOADER_LOCATION_MBR, BOOTLOADER_LOCATION_PARTITION
@@ -25,7 +27,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
-from pyanaconda.modules.storage.constants import BootloaderMode, BootloaderType
+from pyanaconda.modules.storage.constants import BootloaderMode, BootloaderType, ZIPLSecureBoot
 
 log = get_module_logger(__name__)
 
@@ -63,6 +65,9 @@ class BootloaderModule(KickstartBaseModule):
 
         self.timeout_changed = Signal()
         self._timeout = BOOTLOADER_TIMEOUT_UNSET
+
+        self.zipl_secure_boot_changed = Signal()
+        self._zipl_secure_boot = None
 
         self.password_is_set_changed = Signal()
         self._password = ""
@@ -114,6 +119,13 @@ class BootloaderModule(KickstartBaseModule):
         if data.bootloader.password:
             self.set_password(data.bootloader.password, data.bootloader.isCrypted)
 
+        if data.zipl.secure_boot == SECURE_BOOT_ENABLED:
+            self.set_zipl_secure_boot(ZIPLSecureBoot.ENABLED)
+        elif data.zipl.secure_boot == SECURE_BOOT_DISABLED:
+            self.set_zipl_secure_boot(ZIPLSecureBoot.DISABLED)
+        elif data.zipl.secure_boot == SECURE_BOOT_AUTO:
+            self.set_zipl_secure_boot(ZIPLSecureBoot.AUTO)
+
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
 
@@ -149,6 +161,13 @@ class BootloaderModule(KickstartBaseModule):
 
         data.bootloader.password = self.password
         data.bootloader.isCrypted = self.password_is_encrypted
+
+        if self._zipl_secure_boot == ZIPLSecureBoot.ENABLED:
+            data.zipl.secure_boot = SECURE_BOOT_ENABLED
+        elif self._zipl_secure_boot == ZIPLSecureBoot.DISABLED:
+            data.zipl.secure_boot = SECURE_BOOT_DISABLED
+        elif self._zipl_secure_boot == ZIPLSecureBoot.AUTO:
+            data.zipl.secure_boot = SECURE_BOOT_AUTO
 
         return data
 
@@ -280,6 +299,26 @@ class BootloaderModule(KickstartBaseModule):
         self._timeout = timeout
         self.timeout_changed.emit()
         log.debug("Timeout is set to '%s'.", timeout)
+
+    @property
+    def zipl_secure_boot(self):
+        """The ZIPL Secure Boot for s390x.
+
+        :return: an instance of ZIPLSecureBoot
+        """
+        if self._zipl_secure_boot is None:
+            return ZIPLSecureBoot.AUTO
+
+        return self._zipl_secure_boot
+
+    def set_zipl_secure_boot(self, value):
+        """Set up the ZIPL Secure Boot for s390x.
+
+        :param value: an instance of ZIPLSecureBoot
+        """
+        self._zipl_secure_boot = value
+        self.zipl_secure_boot_changed.emit()
+        log.debug("ZIPL Secure Boot is set to '%s'.", value)
 
     @property
     def password(self):

@@ -16,6 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import arch
+
 from pyanaconda.core.constants import BOOTLOADER_ENABLED, BOOTLOADER_LOCATION_MBR, \
     BOOTLOADER_DRIVE_UNSET, BOOTLOADER_SKIPPED
 from pyanaconda.core.i18n import C_, P_
@@ -50,11 +52,17 @@ class SelectedDisksDialog(GUIObject):
         self._set_button = self.builder.get_object("set_as_boot_button")
         self._remove_button = self.builder.get_object("remove_button")
 
+        self._secure_boot_box = self.builder.get_object("secure_boot_box")
+        self._secure_boot_combo = self.builder.get_object("secure_boot_combo")
+
         self._bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
     # pylint: disable=arguments-differ
     def initialize(self, disks, free, showRemove=True, setBoot=True):
         self._previousID = None
+
+        # Initialize the secure boot settings.
+        self._initialize_zipl_secure_boot()
 
         for disk in disks:
             self._store.append([False,
@@ -164,6 +172,9 @@ class SelectedDisksDialog(GUIObject):
         self._remove_button.set_sensitive(len(self._store) > 0)
 
     def on_close_clicked(self, button):
+        # Save the secure boot settings.
+        self._apply_zipl_secure_boot()
+
         # Save the boot device setting, if something was selected.
         for row in self._store:
             if row[IS_BOOT_COL]:
@@ -217,3 +228,18 @@ class SelectedDisksDialog(GUIObject):
             self._previousID = self._store[itr][ID_COL]
 
         self._toggle_button_text(self._store[itr])
+
+    def _initialize_zipl_secure_boot(self):
+        if not arch.is_s390():
+            self._secure_boot_box.hide()
+            return
+
+        secure_boot = self._bootloader_proxy.ZIPLSecureBoot
+        self._secure_boot_combo.set_active_id(secure_boot)
+
+    def _apply_zipl_secure_boot(self):
+        if not arch.is_s390():
+            return
+
+        secure_boot = self._secure_boot_combo.get_active_id()
+        self._bootloader_proxy.SetZIPLSecureBoot(secure_boot)

@@ -61,3 +61,10 @@ class InitializationMode(Enum):
     CLEAR_ALL = CLEAR_PARTITIONS_ALL
     CLEAR_LIST = CLEAR_PARTITIONS_LIST
     CLEAR_LINUX = CLEAR_PARTITIONS_LINUX
+
+
+class ZIPLSecureBoot(Enum):
+    """The ZIPL Secure Boot options."""
+    DISABLED = "0"
+    ENABLED = "1"
+    AUTO = "auto"
