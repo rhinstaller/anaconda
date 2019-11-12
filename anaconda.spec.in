@@ -347,6 +347,35 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 12 2019 Martin Kolman <mkolman@redhat.com> - 32.14-1
+- network: restrict applying of config from ks in initramfs with NM (#1768791)
+  (rvykydal)
+- network: try to apply kickstart in initramfs only if neeeded (#1768791)
+  (rvykydal)
+- Use default required space solution for LiveOS payload (jkonecny)
+- Fix Live Image module required value default (jkonecny)
+- Add defaults to payload required space base (jkonecny)
+- Move set up and tear down sources to payload base (jkonecny)
+- Move installation task API to base payload (jkonecny)
+- Move SpaceRequired API to payload base (jkonecny)
+- Add tests payload shared API for sources handling (jkonecny)
+- Add payload shared test API for sources (jkonecny)
+- Tweak payload_shared test class (jkonecny)
+- Use payload base interface for existing payloads (jkonecny)
+- Add payload base interface implementation (jkonecny)
+- Move payload base to payloads folder (jkonecny)
+- Move source base classes to payload.sources (jkonecny)
+- Add names to the network tests (vslavik)
+- Forbid trailing period (dot) in hostname (#1648107) (vslavik)
+- Remove the enum PartitioningMethod from the Storage spoke in GUI (vponcova)
+- Collections of callbacks in signals can be changed during emitting (vponcova)
+- Run the installation tasks of the DBus addons (vponcova)
+- Add DBus support for installation tasks for addons in the Boss (vponcova)
+- Provide fake installation tasks for the Baz addon (vponcova)
+- Add DBus support for installation tasks for addons (vponcova)
+- Add support for running DBus tasks in one task (vponcova)
+- Don't enable BLS for Xen machines (javierm)
+
 * Tue Nov 05 2019 Martin Kolman <mkolman@redhat.com> - 32.13-1
 - Clean up ancient timezone tests (vslavik)
 - Add missing quotation mark to tmux.conf (jkonecny)
