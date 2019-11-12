@@ -23,13 +23,14 @@ import unittest
 
 from textwrap import dedent
 
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
-    patch_dbus_publish_object, PropertiesChangedCallback
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object, \
+        PropertiesChangedCallback
 
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.installation import LanguageInstallationTask
 from pyanaconda.modules.localization.localization import LocalizationService
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
+from pyanaconda.modules.common.task import TaskInterface
 
 
 class LocalizationInterfaceTestCase(unittest.TestCase):
@@ -132,9 +133,17 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
     def install_language_with_task_test(self, publisher):
         """Test InstallLanguageWithTask."""
         self.localization_interface.SetLanguage("cs_CZ.UTF-8")
-        task_path = self.localization_interface.InstallWithTasks()[0]
+        tasks = self.localization_interface.InstallWithTasks()
+        language_installation_task_path = tasks[0]
 
-        obj = check_task_creation(self, task_path, publisher, LanguageInstallationTask)
+        publisher.assert_called()
+
+        object_path = publisher.call_args_list[0][0][0]
+        obj = publisher.call_args_list[0][0][1]
+
+        self.assertEqual(language_installation_task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, LanguageInstallationTask)
         self.assertEqual(obj.implementation._lang, "cs_CZ.UTF-8")
 
     def _test_kickstart(self, ks_in, ks_out):

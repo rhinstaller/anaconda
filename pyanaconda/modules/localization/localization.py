@@ -25,7 +25,8 @@ from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
-from pyanaconda.modules.localization.installation import LanguageInstallationTask
+from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
+    KeyboardInstallationTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -200,5 +201,14 @@ class LocalizationService(KickstartService):
         :returns: list of installation tasks
         """
         return [
-            LanguageInstallationTask(sysroot=conf.target.system_root, lang=self.language)
+            LanguageInstallationTask(
+                sysroot=conf.target.system_root,
+                lang=self.language
+            ),
+            KeyboardInstallationTask(
+                sysroot=conf.target.system_root,
+                x_layouts=self.x_layouts,
+                switch_options=self.switch_options,
+                vc_keymap=self.vc_keymap
+            )
         ]
