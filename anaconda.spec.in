@@ -340,6 +340,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 12 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.4-1
+- Add UI support for the ZIPL Secure boot (vponcova)
+  Related: rhbz#1659400
+- Add DBus support for the ZIPL Secure Boot (vponcova)
+  Resolves: rhbz#1659400
+- Don't mention new-kernel-pkg anymore in /etc/sysconfig/kernel (javierm)
+  Resolves: rhbz#1747382
+- Don't print warnings for new-kernel-pkg not being present (javierm)
+  Related: rhbz#1747382
+
 * Tue Oct 22 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.3-1
 - Only attempt to open the ibm,max-boot-devices sysfs entry if it exists
   (javierm)
