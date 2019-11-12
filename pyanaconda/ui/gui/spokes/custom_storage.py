@@ -1063,14 +1063,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if not self._do_check():
                 return
 
-        self._storage_playground.devicetree.actions.prune()
-        self._storage_playground.devicetree.actions.sort()
-        actions = self._storage_playground.devicetree.actions.find()
+        dialog = ActionSummaryDialog(self.data, self._device_tree)
+        dialog.refresh()
 
-        if actions:
-            dialog = ActionSummaryDialog(self.data, actions)
-            dialog.refresh()
-
+        if dialog.actions:
             with self.main_window.enlightbox(dialog.window):
                 rc = dialog.run()
 
