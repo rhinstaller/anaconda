@@ -1278,8 +1278,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def on_summary_clicked(self, button):
         disks = self._get_selected_disks()
-        dialog = SelectedDisksDialog(self.data, self.storage, disks, show_remove=False,
-                                     set_boot=False)
+        dialog = SelectedDisksDialog(self.data, disks, show_remove=False, set_boot=False)
 
         with self.main_window.enlightbox(dialog.window):
             dialog.refresh()

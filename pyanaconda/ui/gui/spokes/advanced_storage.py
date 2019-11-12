@@ -676,7 +676,7 @@ class FilterSpoke(NormalSpoke):
             self._disks, self._selected_disks
         )
         dialog = SelectedDisksDialog(
-            self.data, self.storage, disks, show_remove=False, set_boot=False
+            self.data, disks, show_remove=False, set_boot=False
         )
 
         with self.main_window.enlightbox(dialog.window):

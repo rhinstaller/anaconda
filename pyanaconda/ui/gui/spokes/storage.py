@@ -787,13 +787,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def on_summary_clicked(self, button):
         # show the selected disks dialog
         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
-        dialog = SelectedDisksDialog(self.data, self.storage, disks)
+        dialog = SelectedDisksDialog(self.data, disks)
         dialog.refresh()
 
         self.run_lightbox_dialog(dialog)
 
         # update selected disks since some may have been removed
-        self._selected_disks = [d.name for d in dialog.disks]
+        self._selected_disks = list(dialog.disks)
 
         # update the UI to reflect changes to self.selected_disks
         for overview in self.local_overviews + self.advanced_overviews:
