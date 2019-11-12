@@ -28,7 +28,7 @@ from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
 from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
@@ -46,7 +46,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveImageHandlerModule(PayloadHandlerBase):
+class LiveImageHandlerModule(PayloadBase):
     """The Live Image payload module."""
 
     def __init__(self):
@@ -63,15 +63,17 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         self._verifyssl = True
         self.verifyssl_changed = Signal()
 
-        self._required_space = 1024 * 1024 * 1024
-        self.required_space_changed = Signal()
-
         self._kernel_version_list = []
         self.kernel_version_list_changed = Signal()
 
         self._image_path = conf.target.system_root + "/disk.img"
 
         self._requests_session = None
+
+    @property
+    def default_required_space(self):
+        """Get 1G as default when the value is not known."""
+        return 1024 * 1024 * 1024
 
     @property
     def supported_source_types(self):
@@ -158,20 +160,6 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         log.debug("Liveimg ssl verification is set to '%s'", self._verifyssl)
 
     @property
-    def required_space(self):
-        """Get space required for the source image.
-
-        :rtype: int
-        """
-        return self._required_space
-
-    def set_required_space(self, required_space):
-        """Set space required for the source image."""
-        self._required_space = required_space
-        self.required_space_changed.emit()
-        log.debug("Space required for source image is set to '%s'", self._required_space)
-
-    @property
     def image_path(self):
         """Get source image file path.
 
@@ -224,8 +212,8 @@ class LiveImageHandlerModule(PayloadHandlerBase):
         task.succeeded_signal.connect(lambda: self.set_required_space(task.get_result()))
         return task
 
-    def pre_install_with_task(self):
-        """Set up installation source image
+    def pre_install_with_tasks(self):
+        """Execute preparation steps.
 
         * Download the image
         * Check the checksum
@@ -241,10 +229,14 @@ class LiveImageHandlerModule(PayloadHandlerBase):
             self.requests_session
         )
         task.succeeded_signal.connect(lambda: self.set_image_path(task.get_result()))
-        return task
+        return [task]
 
     def post_install_with_tasks(self):
-        """Do post installation tasks."""
+        """Execute post installation steps.
+
+        * Update bootloader BLS configuration
+        * Copy Driver Disk files to the resulting system
+        """
         return [
             UpdateBLSConfigurationTask(
                 conf.target.system_root,
@@ -253,19 +245,21 @@ class LiveImageHandlerModule(PayloadHandlerBase):
             CopyDriverDisksFilesTask(conf.target.system_root)
         ]
 
-    def install_with_task(self):
+    def install_with_tasks(self):
         """Install the payload."""
         if url_target_is_tarfile(self._url):
-            return InstallFromTarTask(
+            task = InstallFromTarTask(
                 self.image_path,
                 conf.target.system_root,
                 self.kernel_version_list
             )
         else:
-            return InstallFromImageTask(
+            task = InstallFromImageTask(
                 conf.target.system_root,
                 self.kernel_version_list
             )
+
+        return [task]
 
     def teardown_with_task(self):
         """Tear down installation source image.
@@ -279,3 +273,13 @@ class LiveImageHandlerModule(PayloadHandlerBase):
             self.url,
             INSTALL_TREE
         )
+
+    def set_up_sources_with_task(self):
+        """Set up installation sources."""
+        # TODO: Replace SetupInstallationSourceImageTask with SetUpSourcesTask here
+        pass
+
+    def tear_down_sources_with_task(self):
+        """Tear down installation sources."""
+        # TODO: Replace TeardownInstallationSourceImageTask with TearDownSourcesTask here
+        pass

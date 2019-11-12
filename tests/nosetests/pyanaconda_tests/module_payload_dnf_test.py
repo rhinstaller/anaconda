@@ -22,21 +22,27 @@ import unittest
 from mock import Mock
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
-
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
+from pyanaconda.modules.payload.payload import PayloadService
+from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesHandlerModule
 from pyanaconda.modules.payload.payloads.dnf.packages.packages_interface import \
     PackagesHandlerInterface
 from pyanaconda.modules.payload.payloads.dnf.packages.constants import TIMEOUT_UNSET, \
     RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadHandlerMixin
 
 
-class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
+class PackagesHandlerKSTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.setup_payload()
+        self.payload_module = PayloadService()
+        self.payload_module_interface = PayloadInterface(self.payload_module)
+
+        self.shared_tests = PayloadSharedTest(self,
+                                              self.payload_module,
+                                              self.payload_module_interface)
 
         # test variables
         self._expected_env = ""
@@ -46,7 +52,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
         self._expected_excluded_groups = []
 
     def _get_packages_interface(self):
-        payload_handler = self.get_payload_handler()
+        payload_handler = self.shared_tests.get_payload_handler()
         packages_handler = payload_handler._packages_handler
 
         self.assertIsInstance(packages_handler, PackagesHandlerModule)
@@ -82,7 +88,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
         self._check_properties()
 
     @patch_dbus_publish_object
@@ -107,7 +113,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
 
         self._expected_env = "environment"
         self._expected_packages = ["package"]
@@ -152,7 +158,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
 
         self._expected_env = "environment2"
         self._expected_packages = ["package1", "package2"]
@@ -171,7 +177,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
         self._check_properties(nocore=True)
 
     @patch_dbus_publish_object
@@ -187,7 +193,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
         self._check_properties(nocore=True, multilib="all", langs="en_US.UTF-8")
 
     @patch_dbus_publish_object
@@ -204,7 +210,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
 
         self._expected_excluded_packages = ["vim"]
         self._check_properties()
@@ -235,7 +241,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase, PayloadHandlerMixin):
 
         %end
         """
-        self.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
 
         self._expected_env = "environment1"
         self._expected_packages = ["package1", "package3"]

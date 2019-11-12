@@ -22,12 +22,12 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
-from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface
 
 
 @dbus_interface(LIVE_IMAGE_HANDLER.interface_name)
-class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
+class LiveImageHandlerInterface(PayloadBaseInterface):
     """DBus interface for Live Image payload module."""
 
     def connect_signals(self):
@@ -36,7 +36,6 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("Proxy", self.implementation.proxy_changed)
         self.watch_property("Checksum", self.implementation.checksum_changed)
         self.watch_property("VerifySSL", self.implementation.verifyssl_changed)
-        self.watch_property("RequiredSpace", self.implementation.required_space_changed)
         self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
 
     @property
@@ -79,11 +78,6 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         """Set if the ssl verification should be enabled."""
         self.implementation.set_verifyssl(verify_ssl)
 
-    @property
-    def RequiredSpace(self) -> UInt64:
-        """Space required by the source image."""
-        return self.implementation.required_space
-
     def UpdateKernelVersionList(self):
         """Update the list of kernel versions."""
         self.implementation.update_kernel_version_list()
@@ -104,36 +98,6 @@ class LiveImageHandlerInterface(KickstartModuleInterfaceTemplate):
         """
         return TaskContainer.to_object_path(
             self.implementation.setup_with_task()
-        )
-
-    def PreInstallWithTask(self) -> ObjPath:
-        """Set up installation source image
-
-        * Download the image
-        * Check the checksum
-        * Mount the image
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.pre_install_with_task()
-        )
-
-    def InstallWithTask(self) -> ObjPath:
-        """Install the payload.
-
-        * Copy the payload.
-        * Create rescue images
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.install_with_task()
-        )
-
-    def PostInstallWithTasks(self) -> List[ObjPath]:
-        """Do post installation tasks.
-
-        * [NO] check installation requirements were applied (Payload)
-        """
-        return TaskContainer.to_object_path_list(
-            self.implementation.post_install_with_tasks()
         )
 
     def TeardownWithTask(self) -> ObjPath:

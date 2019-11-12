@@ -21,62 +21,16 @@ from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
-from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
-from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface
 
 
 @dbus_interface(LIVE_OS_HANDLER.interface_name)
-class LiveOSHandlerInterface(KickstartModuleInterfaceTemplate):
+class LiveOSHandlerInterface(PayloadBaseInterface):
     """DBus interface for Live OS payload module."""
 
     def connect_signals(self):
         super().connect_signals()
         self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
-
-    @property
-    def SpaceRequired(self) -> UInt64:
-        """Space required by the source image.
-
-        :return: required size in bytes
-        """
-        return self.implementation.space_required
-
-    def SetUpSourcesWithTask(self) -> ObjPath:
-        """Set up installation source."""
-        return TaskContainer.to_object_path(
-            self.implementation.set_up_sources_with_task()
-        )
-
-    def TearDownSourcesWithTask(self) -> ObjPath:
-        """Tear down installation sources."""
-        return TaskContainer.to_object_path(
-            self.implementation.tear_down_sources_with_task()
-        )
-
-    def PreInstallWithTask(self) -> ObjPath:
-        """Prepare installation source for the installation."""
-        return TaskContainer.to_object_path(
-            self.implementation.pre_install_with_task()
-        )
-
-    def InstallWithTask(self) -> ObjPath:
-        """Install the payload.
-
-        * Copy the payload.
-        * Create rescue images
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.install_with_task()
-        )
-
-    def PostInstallWithTasks(self) -> List[ObjPath]:
-        """Do post installation tasks.
-
-        * [NO] check installation requirements were applied (Payload)
-        """
-        return TaskContainer.to_object_path_list(
-            self.implementation.post_install_with_tasks()
-        )
 
     def UpdateKernelVersionList(self):
         """Update the list of kernel versions."""

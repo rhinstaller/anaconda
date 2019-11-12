@@ -19,12 +19,16 @@
 #
 import unittest
 
-from unittest.mock import Mock, patch, create_autospec
+from unittest.mock import Mock, patch
 
-from tests.nosetests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object
+from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
+    patch_dbus_publish_object
+from tests.nosetests.pyanaconda_tests.module_payload_shared import SourceSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_BASE
+from pyanaconda.modules.common.containers import PayloadSourceContainer
+from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
@@ -33,7 +37,6 @@ from pyanaconda.modules.payload.base.initialization import UpdateBLSConfiguratio
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
 from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.payloads.live_os.live_os_interface import LiveOSHandlerInterface
-from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
 
 
 class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
@@ -42,25 +45,88 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         self.live_os_module = LiveOSHandlerModule()
         self.live_os_interface = LiveOSHandlerInterface(self.live_os_module)
 
+        self.source_tests = SourceSharedTest(self,
+                                             payload=self.live_os_module,
+                                             payload_intf=self.live_os_interface)
+
         self.callback = Mock()
         self.live_os_interface.PropertiesChanged.connect(self.callback)
 
-    def _prepare_and_use_source(self):
-        source = create_autospec(LiveOSSourceModule())
-        source.image_path = "/test/path"
-        source.type = SourceType.LIVE_OS_IMAGE
-        source.is_ready.return_value = True
+    def _prepare_source(self):
+        return self.source_tests.prepare_source(SourceType.LIVE_OS_IMAGE)
 
-        self.live_os_module.set_sources([source])
+    def _prepare_and_use_source(self):
+        source = self._prepare_source()
+        self.source_tests.set_sources([source])
 
         return source
 
-    @patch("pyanaconda.modules.payload.payloads.live_os.live_os.get_dir_size")
-    def space_required_properties_test(self, get_dir_size_mock):
-        """Test Live OS SpaceRequired property."""
-        get_dir_size_mock.return_value = 2
+    def supported_sources_test(self):
+        """Test LiveOS supported sources API."""
+        self.assertEqual(
+            [SourceType.LIVE_OS_IMAGE.value],
+            self.live_os_interface.SupportedSourceTypes)
 
-        self.assertEqual(self.live_os_interface.SpaceRequired, 2048)
+    def sources_empty_test(self):
+        """Test sources LiveOS API for emptiness."""
+        self.source_tests.check_empty_sources()
+
+    @patch_dbus_publish_object
+    def set_source_test(self, publisher):
+        """Test if set source API of LiveOS payload."""
+        sources = [self._prepare_source()]
+
+        self.source_tests.check_set_sources(sources)
+
+    @patch_dbus_publish_object
+    def set_multiple_sources_fail_test(self, publisher):
+        """Test LiveOS payload can't set multiple sources."""
+        paths = [
+            self._prepare_source(),
+            self._prepare_source()
+        ]
+
+        self.source_tests.check_set_sources(paths, exception=IncompatibleSourceError)
+
+    @patch_dbus_publish_object
+    def set_when_initialized_source_fail_test(self, publisher):
+        """Test LiveOS payload can't set new sources if the old ones are initialized."""
+        source1 = self._prepare_source()
+        source2 = self._prepare_source()
+
+        path = PayloadSourceContainer.to_object_path(source1)
+        path2 = PayloadSourceContainer.to_object_path(source2)
+
+        self.live_os_interface.SetSources([path])
+        source1.is_ready.return_value = True
+
+        with self.assertRaises(SourceSetupError):
+            self.live_os_interface.SetSources([path2])
+
+    @patch("pyanaconda.modules.payload.payloads.live_os.live_os.get_dir_size")
+    @patch_dbus_publish_object
+    def required_space_properties_test(self, publisher, get_dir_size_mock):
+        """Test Live OS RequiredSpace property."""
+        self.assertEqual(self.live_os_interface.RequiredSpace, 0)
+
+        get_dir_size_mock.return_value = 2
+        self._prepare_and_use_source()
+        task = self.live_os_module.set_up_sources_with_task()
+        task.succeeded_signal.emit()
+        self.assertEqual(self.live_os_interface.RequiredSpace, 2048)
+        object_path, _ = publisher.call_args[0]
+        self.callback.assert_called_once_with(
+            PAYLOAD_BASE.interface_name,
+            {"RequiredSpace": 2048,
+             "Sources": [object_path]}, [])
+
+        self.callback.reset_mock()
+        task = self.live_os_module.tear_down_sources_with_task()
+        task.stopped_signal.emit()
+        self.assertEqual(self.live_os_interface.RequiredSpace, 0)
+        self.callback.assert_called_once_with(
+            PAYLOAD_BASE.interface_name,
+            {"RequiredSpace": 0},  [])
 
     @patch("pyanaconda.modules.payload.payloads.live_os.live_os.get_kernel_version_list")
     def empty_kernel_version_list_test(self, get_kernel_version_list):
@@ -109,15 +175,15 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         """Test Live OS is able to create a prepare installation task."""
         self._prepare_and_use_source()
 
-        task_path = self.live_os_interface.PreInstallWithTask()
+        task_path = self.live_os_interface.PreInstallWithTasks()
 
-        check_task_creation(self, task_path, publisher, PrepareSystemForInstallationTask)
+        check_task_creation_list(self, task_path, publisher, [PrepareSystemForInstallationTask])
 
     @patch_dbus_publish_object
     def prepare_system_for_installation_task_no_source_test(self, publisher):
         """Test Live OS prepare installation task with no source fail."""
         with self.assertRaises(SourceSetupError):
-            self.live_os_interface.PreInstallWithTask()
+            self.live_os_interface.PreInstallWithTasks()
 
     @patch_dbus_publish_object
     def tear_down_installation_source_task_test(self, publisher):
@@ -133,15 +199,15 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
         """Test Live OS install with tasks."""
         self._prepare_and_use_source()
 
-        task_path = self.live_os_interface.InstallWithTask()
+        task_path = self.live_os_interface.InstallWithTasks()
 
-        check_task_creation(self, task_path, publisher, InstallFromImageTask)
+        check_task_creation_list(self, task_path, publisher, [InstallFromImageTask])
 
     @patch_dbus_publish_object
     def install_with_task_no_source_test(self, publisher):
         """Test Live OS install with tasks with no source fail."""
         with self.assertRaises(SourceSetupError):
-            self.live_os_interface.InstallWithTask()
+            self.live_os_interface.InstallWithTasks()
 
     @patch_dbus_publish_object
     def post_install_with_tasks_test(self, publisher):

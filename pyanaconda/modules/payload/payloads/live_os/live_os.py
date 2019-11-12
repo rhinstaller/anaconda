@@ -26,7 +26,7 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.payload.constants import SourceType
-from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask, UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
@@ -37,7 +37,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveOSHandlerModule(PayloadHandlerBase):
+class LiveOSHandlerModule(PayloadBase):
     """The Live OS payload module."""
 
     def __init__(self):
@@ -58,7 +58,7 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         instead replace the old source with the new one.
 
         :param source: source object
-        :type source: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
+        :type source: instance of pyanaconda.modules.payload.sources.source_base.PayloadSourceBase
         :raises: IncompatibleSourceError
         """
         if len(sources) > 1:
@@ -95,50 +95,54 @@ class LiveOSHandlerModule(PayloadHandlerBase):
         if not self._image_source:
             raise SourceSetupError(message)
 
-    @property
-    def space_required(self):
-        """Get space required for the source image.
+    @staticmethod
+    def _get_required_space():
+        # TODO: This is not that fast as I thought (a few seconds). Caching or solved in task?
+        size = get_dir_size("/") * 1024
 
-        TODO: Add missing check if source is ready. Until then you shouldn't call this when
-        source is not ready.
-
-        TODO: This is not that fast as I thought (a few seconds). Caching or task?
-
-        :return: required size in bytes
-        :rtype: int
-        """
-        return get_dir_size("/") * 1024
+        # we don't know the size -- this should not happen
+        if size == 0:
+            log.debug("Space required is not known. This should not happen!")
+            return None
+        else:
+            return size
 
     def set_up_sources_with_task(self):
-        """Set up installation source."""
+        """Set up installation sources."""
         self._check_source_availability("Set up source failed - source is not set!")
 
-        return SetUpSourcesTask(self._sources)
+        task = SetUpSourcesTask(self._sources)
+        task.succeeded_signal.connect(lambda: self.set_required_space(self._get_required_space()))
+
+        return task
 
     def tear_down_sources_with_task(self):
         """Tear down installation sources."""
         self._check_source_availability("Tear down source failed - source is not set!")
 
-        return TearDownSourcesTask(self._sources)
+        task = TearDownSourcesTask(self._sources)
+        task.stopped_signal.connect(lambda: self.set_required_space(0))
 
-    def pre_install_with_task(self):
-        """Prepare intallation task."""
+        return task
+
+    def pre_install_with_tasks(self):
+        """Execute preparation steps."""
         self._check_source_availability("Pre install task failed - source is not available!")
 
-        return PrepareSystemForInstallationTask(conf.target.system_root)
+        return [PrepareSystemForInstallationTask(conf.target.system_root)]
 
-    def install_with_task(self):
+    def install_with_tasks(self):
         """Install the payload."""
         self._check_source_availability("Installation task failed - source is not available!")
 
-        return InstallFromImageTask(
+        return [InstallFromImageTask(
             self._image_source,
             conf.target.system_root,
             self.kernel_version_list
-        )
+        )]
 
     def post_install_with_tasks(self):
-        """Perform post installation tasks.
+        """Execute post installation steps.
 
         :returns: list of paths.
         :rtype: List

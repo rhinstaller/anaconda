@@ -19,7 +19,7 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
-from pyanaconda.modules.payload.base.handler_base import PayloadHandlerBase
+from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
 from pyanaconda.modules.payload.payloads.dnf.dnf_interface import DNFHandlerInterface
 from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesHandlerModule
 
@@ -27,7 +27,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class DNFHandlerModule(PayloadHandlerBase):
+class DNFHandlerModule(PayloadBase):
     """The DNF payload module."""
 
     def __init__(self):
@@ -54,3 +54,37 @@ class DNFHandlerModule(PayloadHandlerBase):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         self._packages_handler.setup_kickstart(data)
+
+    def pre_install_with_tasks(self):
+        """Execute preparation steps.
+
+        :return: list of tasks
+        """
+        # TODO: Implement this method
+        pass
+
+    def install_with_tasks(self):
+        """Install the payload.
+
+        :return: list of tasks
+        """
+        # TODO: Implement this method
+        pass
+
+    def post_install_with_tasks(self):
+        """Execute post installation steps.
+
+        :return: list of tasks
+        """
+        # TODO: Implement this method
+        pass
+
+    def set_up_sources_with_task(self):
+        """Set up installation sources."""
+        # TODO: Implement this method
+        pass
+
+    def tear_down_sources_with_task(self):
+        """Tear down installation sources."""
+        # TODO: Implement this method
+        pass

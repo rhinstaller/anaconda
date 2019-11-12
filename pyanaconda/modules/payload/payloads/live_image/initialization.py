@@ -87,8 +87,8 @@ class CheckInstallationSourceImageTask(Task):
     def run(self):
         """Run installation source image check.
 
-        :returns: space required for the image in bytes
-        :rtype: int
+        :returns: space required for the image in bytes if not known return None
+        :rtype: int or None
         """
         size = 0
         local_image_path = get_local_image_path_from_url(self._url)
@@ -96,8 +96,14 @@ class CheckInstallationSourceImageTask(Task):
             size = self._check_local_image(local_image_path)
         else:
             size = self._check_remote_image(self._url, self._proxy)
-        log.debug("Required space: %s", size)
-        return size
+
+        # size <= 0 means that we don't know size
+        if size <= 0:
+            log.debug("Required space: Not known")
+            return None
+        else:
+            log.debug("Required space: %s", size)
+            return size
 
 
 class SetupInstallationSourceImageTask(Task):

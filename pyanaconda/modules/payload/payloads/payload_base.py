@@ -1,7 +1,7 @@
 #
-# Base object of all payload handlers.
+# Base object of all payloads.
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -27,16 +27,55 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
-    """Base class for all the payload handler modules.
+class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
+    """Base class for all the payload modules.
 
-    This will contain all API specific to payload handlers which will be called
+    This will contain all API specific to payload which will be called
     by the base payload module.
     """
     def __init__(self):
         super().__init__()
         self._sources = []
         self.sources_changed = Signal()
+
+        self._required_space = None
+        self.required_space_changed = Signal()
+
+    @property
+    def required_space(self):
+        """Get required space by payload for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        if self._required_space:
+            return self._required_space
+        else:
+            return self.default_required_space
+
+    def set_required_space(self, required_space):
+        """Set space required for the installation.
+
+        :param required_space: space required to make installation of this payload successful,
+                               use None if space is not known
+        :type required_space: int or None if not known
+        """
+        if not required_space:
+            log.debug("Required space is not known, using reasonable default.")
+
+        self._required_space = required_space
+        self.required_space_changed.emit()
+        log.debug("Space required for installation '%s'", self.required_space)
+        self.module_properties_changed.emit()
+
+    @property
+    def default_required_space(self):
+        """Get reasonable guess for required space when the real value is not known.
+
+        :return: reasonable default required space
+        :rtype: int
+        """
+        return 0
 
     @property
     @abstractmethod
@@ -70,11 +109,11 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
         the initialization task will run with the old list.
 
         :param sources: set a new sources
-        :type sources: instance of pyanaconda.modules.payload.base.source_base.PayloadSourceBase
+        :type sources: instance of pyanaconda.modules.payload.sources.source_base.PayloadSourceBase
         :raise: IncompatibleSourceError when source is not a supported type
                 SourceSetupError when attached sources are initialized
         """
-        # TODO: Add test for this when there will be public API
+        # TODO: Add test for this when there will be unsupported source implemented
         for source in sources:
             if source.type not in self.supported_source_types:
                 raise IncompatibleSourceError("Source type {} is not supported by this handler."
@@ -103,4 +142,38 @@ class PayloadHandlerBase(KickstartBaseModule, metaclass=ABCMeta):
         :returns: path to this handler
         :rtype: string
         """
+        pass
+
+    @abstractmethod
+    def pre_install_with_tasks(self):
+        """Execute preparation steps.
+
+        :return: list of tasks
+        """
+        pass
+
+    @abstractmethod
+    def install_with_tasks(self):
+        """Install the payload.
+
+        :return: list of tasks
+        """
+        pass
+
+    @abstractmethod
+    def post_install_with_tasks(self):
+        """Execute post installation steps.
+
+        :return: list of tasks
+        """
+        pass
+
+    @abstractmethod
+    def set_up_sources_with_task(self):
+        """Set up installation sources."""
+        pass
+
+    @abstractmethod
+    def tear_down_sources_with_task(self):
+        """Tear down installation sources."""
         pass

@@ -29,7 +29,7 @@ from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS
     LIVE_IMAGE_HANDLER
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payload.base.source_base import PayloadSourceBase
+from pyanaconda.modules.payload.sources.source_base import PayloadSourceBase
 from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist, \
     get_dir_size
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
