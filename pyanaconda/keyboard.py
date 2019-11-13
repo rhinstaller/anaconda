@@ -150,7 +150,7 @@ def populate_missing_items(localization_proxy=None):
         c_lay_vars = localed.convert_keymap(vc_keymap)
         localization_proxy.SetXLayouts(c_lay_vars)
 
-def write_keyboard_config(localization_proxy, root, convert=True):
+def write_keyboard_config(localization_proxy, root):
     """
     Function that writes files with layouts configuration to
     $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf and
@@ -162,10 +162,6 @@ def write_keyboard_config(localization_proxy, root, convert=True):
                     ones
 
     """
-
-    if convert:
-        populate_missing_items(localization_proxy)
-
     xconf_dir = "/etc/X11/xorg.conf.d"
     xconf_file = "00-keyboard.conf"
     xconf_file_path = os.path.normpath(xconf_dir + "/" + xconf_file)
@@ -331,7 +327,7 @@ def activate_keyboard(localization_proxy):
 
     if x_layouts:
         # write out keyboard configuration for the X session
-        write_keyboard_config(localization_proxy, root="/", convert=False)
+        write_keyboard_config(localization_proxy, root="/")
 
 def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
     """

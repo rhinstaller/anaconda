@@ -103,6 +103,9 @@ def _prepare_configuration(storage, payload, ksdata):
 
     # schedule keyboard configuration
     localization_proxy = LOCALIZATION.get_proxy()
+    os_config.append(Task("Convert missing keyboard values",
+                          keyboard.populate_missing_items,
+                          (localization_proxy)))
     os_config.append(Task("Configure keyboard",
                           keyboard.write_keyboard_config,
                           (localization_proxy, conf.target.system_root)))
