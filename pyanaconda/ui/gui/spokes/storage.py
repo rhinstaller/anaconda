@@ -891,8 +891,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
             # respect disk selection and other choices in the ReclaimDialog
             self.apply()
-            resize_dialog = ResizeDialog(self.data, self.storage, self.payload)
-            resize_dialog.refresh(disks)
+            resize_dialog = ResizeDialog(self.data, self.payload, self._partitioning, disks)
+            resize_dialog.refresh()
 
             return self._run_dialogs(disks, start_with=resize_dialog)
         else:
@@ -1027,8 +1027,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
             # respect disk selection and other choices in the ReclaimDialog
             self.apply()
-            dialog = ResizeDialog(self.data, self.storage, self.payload)
-            dialog.refresh(disks)
+            dialog = ResizeDialog(self.data, self.payload, self._partitioning, disks)
+            dialog.refresh()
         else:
             dialog = self._check_space_and_get_dialog(disks)
 
