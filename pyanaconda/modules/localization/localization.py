@@ -27,6 +27,7 @@ from pyanaconda.modules.localization.localization_interface import LocalizationI
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
     KeyboardInstallationTask
+from pyanaconda.modules.localization.runtime import ConvertMissingKeyboardConfigurationTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -212,3 +213,22 @@ class LocalizationService(KickstartService):
                 vc_keymap=self.vc_keymap
             )
         ]
+
+    def convert_missing_keyboard_configuration_with_task(self):
+        """Get missing keyboard configuration by conversion.
+
+        :returns: a task converting the configuration
+        """
+        task = ConvertMissingKeyboardConfigurationTask(
+            keyboard=self.keyboard,
+            x_layouts=self.x_layouts,
+            vc_keymap=self.vc_keymap,
+        )
+        task.succeeded_signal.connect(lambda: self.update_settings_from_task(task.get_result()))
+        return task
+
+    def update_settings_from_task(self, result):
+        """Update settings from task result."""
+        x_layouts, vc_keymap = result
+        self.set_vc_keymap(vc_keymap)
+        self.set_x_layouts(x_layouts)

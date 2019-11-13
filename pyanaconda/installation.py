@@ -37,7 +37,6 @@ from pyanaconda import flags
 from pyanaconda.core import util
 from pyanaconda import timezone
 from pyanaconda import network
-from pyanaconda import keyboard
 from pyanaconda.core.i18n import N_
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
@@ -108,9 +107,8 @@ def _prepare_configuration(storage, payload, ksdata):
 
     # get missing keyboard values
     localization_proxy = LOCALIZATION.get_proxy()
-    os_config.append(Task("Convert missing keyboard values",
-                          keyboard.populate_missing_items,
-                          (localization_proxy)))
+    convert_task = localization_proxy.ConvertMissingKeyboardConfigurationWithTask()
+    os_config.append_dbus_tasks(LOCALIZATION, [convert_task])
 
     # add installation tasks for the Localization DBus module
     localization_dbus_tasks = localization_proxy.InstallWithTasks()

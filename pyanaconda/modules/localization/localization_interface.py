@@ -22,6 +22,7 @@ from pyanaconda.modules.common.constants.services import LOCALIZATION
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
+from pyanaconda.modules.common.containers import TaskContainer
 from dasbus.server.interface import dbus_interface
 
 
@@ -164,3 +165,12 @@ class LocalizationInterface(KickstartModuleInterface):
         :return: True if keyboard command was seen in kickstart, otherwise False
         """
         return self.implementation.keyboard_seen
+
+    def ConvertMissingKeyboardConfigurationWithTask(self) -> ObjPath:
+        """Get missing keyboard configuration by conversion.
+
+        :return: DBus path of the task converting the configuration
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.convert_missing_keyboard_configuration_with_task()
+        )

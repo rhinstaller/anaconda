@@ -119,36 +119,16 @@ def normalize_layout_variant(layout_str):
 
 def populate_missing_items(localization_proxy=None):
     """
-    Function that populates keyboard.vc_keymap and keyboard.x_layouts if they
-    are missing. By invoking LocaledWrapper's methods this function READS AND
+    Function that populates virtual console keymap and X layouts if they
+    are missing. By invoking systemd-localed methods this function READS AND
     WRITES CONFIGURATION FILES (but tries to keep their content unchanged).
 
     :param localization_proxy: DBus proxy of the localization module or None
 
     """
-
-    localed = LocaledWrapper()
-
-    vc_keymap = localization_proxy.VirtualConsoleKeymap
-    x_layouts = localization_proxy.XLayouts
-    keyboard = localization_proxy.Keyboard
-
-    new_vc_keymap = ""
-    if keyboard and not (vc_keymap or x_layouts):
-        # we were given just a value in the old format, use it as a vc_keymap
-        new_vc_keymap = keyboard
-    elif not vc_keymap and x_layouts:
-        new_vc_keymap = localed.convert_layouts(x_layouts)
-    elif not vc_keymap:
-        new_vc_keymap = DEFAULT_KEYBOARD
-
-    if new_vc_keymap:
-        localization_proxy.SetVirtualConsoleKeymap(new_vc_keymap)
-        vc_keymap = new_vc_keymap
-
-    if not x_layouts:
-        c_lay_vars = localed.convert_keymap(vc_keymap)
-        localization_proxy.SetXLayouts(c_lay_vars)
+    task_path = localization_proxy.ConvertMissingKeyboardConfigurationWithTask()
+    task_proxy = LOCALIZATION.get_proxy(task_path)
+    sync_run_task(task_proxy)
 
 def write_keyboard_config(localization_proxy, root):
     """
