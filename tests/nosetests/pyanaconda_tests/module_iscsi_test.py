@@ -28,7 +28,8 @@ from pyanaconda.modules.storage.iscsi import ISCSIModule
 from pyanaconda.modules.storage.iscsi.discover import ISCSIDiscoverTask, ISCSILoginTask
 from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface, \
     ISCSIDiscoverTaskInterface
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
+    PropertiesChangedCallback
 
 
 class ISCSIInterfaceTestCase(unittest.TestCase):
@@ -57,7 +58,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self._node.net_ifacename = "ens3"
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.iscsi_interface.PropertiesChanged.connect(self.callback)
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')

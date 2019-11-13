@@ -22,10 +22,9 @@ import tempfile
 import unittest
 
 from textwrap import dedent
-from mock import Mock
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
-    patch_dbus_publish_object
+    patch_dbus_publish_object, PropertiesChangedCallback
 
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.installation import LanguageInstallationTask
@@ -43,7 +42,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.localization_interface = LocalizationInterface(self.localization_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.localization_interface.PropertiesChanged.connect(self.callback)
 
     def kickstart_properties_test(self):

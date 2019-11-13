@@ -23,15 +23,13 @@ import locale
 
 from textwrap import dedent
 from unittest.mock import Mock, patch
-from xml.etree import ElementTree
 
 from pyanaconda.core.constants import DEFAULT_LANG
-from pyanaconda.dbus.template import InterfaceTemplate
+from dasbus.server.template import BasicInterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.dbus.xml import XMLGenerator
-from pyanaconda.dbus.typing import get_native
+from dasbus.typing import get_native
 
 
 # Set the default locale.
@@ -70,24 +68,6 @@ class run_in_glib(object):
         return create_loop
 
 
-def compare_xml(test, first_xml, second_xml):
-    """Compare two XML-formatted strings.
-
-    Python 3.8 changed the order of the attributes and introduced
-    the function canonicalize that should be used for testing.
-    """
-    # Prettify the XML.
-    first_xml = XMLGenerator.prettify_xml(first_xml)
-    second_xml = XMLGenerator.prettify_xml(second_xml)
-
-    # Normalize the XML attributes.
-    canonicalize = getattr(ElementTree, "canonicalize", lambda xml, *args, **kwargs: xml)
-    first_xml = canonicalize(first_xml, with_comments=True)
-    second_xml = canonicalize(second_xml, with_comments=True)
-
-    test.assertEqual(first_xml, second_xml)
-
-
 def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True, ks_tmp=None):
     """Test the parsing and generating of a kickstart module.
 
@@ -98,7 +78,7 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
     :param ks_valid: True if the input kickstart is valid, otherwise False
     :param ks_tmp: string with the temporary output kickstart
     """
-    callback = Mock()
+    callback = PropertiesChangedCallback()
     interface.PropertiesChanged.connect(callback)
 
     # Read a kickstart,
@@ -132,6 +112,17 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
     test.assertEqual(ks_tmp, interface.GenerateTemporaryKickstart().strip())
 
 
+class PropertiesChangedCallback(Mock):
+    """Mocked callback for the DBus signal PropertiesChanged.
+
+    The arguments of the call are unpacked into native values.
+    """
+    def __call__(self, interface, changed, invalid):  # pylint: disable=arguments-differ
+        return super().__call__(
+            interface, {k: v.unpack() for k, v in changed.items()}, invalid
+        )
+
+
 def check_dbus_property(test, interface_id, interface, property_name,
                         in_value, out_value=None, getter=None, setter=None, changed=None):
     """Check DBus property.
@@ -146,7 +137,7 @@ def check_dbus_property(test, interface_id, interface, property_name,
     :param setter: a property setter or None
     :param changed: a dictionary of changed properties or None
     """
-    callback = Mock()
+    callback = PropertiesChangedCallback()
     interface.PropertiesChanged.connect(callback)
 
     if out_value is None:
@@ -161,7 +152,7 @@ def check_dbus_property(test, interface_id, interface, property_name,
     if not changed:
         changed = {property_name: out_value}
 
-    callback.assert_called_once_with(interface_id.interface_name, changed, [])
+    callback.assert_called_once_with(interface_id.interface_name, get_native(changed), [])
 
     # Get the property.
     if not getter:
@@ -175,7 +166,7 @@ def check_task_creation(test, task_path, publisher, task_class):
 
     :param test: instance of TestCase
     :param task_path: DBus path of the task
-    :param publisher: Mock instance of the pyanaconda.dbus.DBus.publish_object
+    :param publisher: Mock instance of the publish_object method
     :param task_class: class of the tested task
 
     :return: instance of the task
@@ -192,7 +183,7 @@ def check_task_creation_list(test, task_paths, publisher, task_classes):
     :param test: instance of TestCase
     :param task_paths: DBus paths of the tasks
     :type task_paths: [str]
-    :param publisher: Mock instance of the pyanaconda.dbus.DBus.publish_object
+    :param publisher: Mock instance of the publish_object method
     :param task_classes: list of classes of the tested tasks; the order is important here
 
     :return: list of instances of tasks
@@ -210,7 +201,7 @@ def check_dbus_object_creation(test, path, publisher, klass):
 
     :param test: instance of TestCase
     :param task: DBus path of the published object
-    :param publisher: Mock instance of the pyanaconda.dbus.DBus.publish_object
+    :param publisher: Mock instance of the publish_object method
     :param klass: class of the tested DBus object
     """
     publisher.assert_called_once()
@@ -218,7 +209,7 @@ def check_dbus_object_creation(test, path, publisher, klass):
 
     test.assertEqual(path, object_path)
     test.assertIsInstance(obj.implementation, klass)
-    test.assertIsInstance(obj, InterfaceTemplate)
+    test.assertIsInstance(obj, BasicInterfaceTemplate)
 
     return obj
 
@@ -230,7 +221,7 @@ def patch_dbus_publish_object(func):
 
     # TODO: Extend this to patch the whole DBus object and pass in a useful abstraction.
     """
-    return patch('pyanaconda.dbus.DBus.publish_object')(func)
+    return patch('pyanaconda.core.dbus.DBus.publish_object')(func)
 
 
 def patch_dbus_get_proxy(func):
@@ -238,4 +229,4 @@ def patch_dbus_get_proxy(func):
 
     This is a shortcut to avoid creating of DBus proxies using DBus.
     """
-    return patch('pyanaconda.dbus.DBus.get_proxy')(func)
+    return patch('pyanaconda.core.dbus.DBus.get_proxy')(func)

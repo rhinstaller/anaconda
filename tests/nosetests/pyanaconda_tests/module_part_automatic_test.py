@@ -33,7 +33,7 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_db
 
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
 
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError, ProtectedDeviceError
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest

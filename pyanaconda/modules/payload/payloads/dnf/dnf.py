@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
 from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
 from pyanaconda.modules.payload.payloads.dnf.dnf_interface import DNFHandlerInterface

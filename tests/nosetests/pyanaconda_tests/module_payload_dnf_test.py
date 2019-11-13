@@ -19,10 +19,9 @@
 #
 import unittest
 
-from mock import Mock
-
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, PropertiesChangedCallback
+
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.payload.payload import PayloadService
@@ -258,7 +257,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_module = PackagesHandlerModule()
         self.packages_interface = PackagesHandlerInterface(self.packages_module)
 
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.packages_interface.PropertiesChanged.connect(self.callback)
 
     def core_group_enabled_properties_test(self):

@@ -27,7 +27,7 @@ from pykickstart.errors import KickstartError
 from pyanaconda.core.event_loop import EventLoop
 from pyanaconda.core.timer import Timer
 from pyanaconda.core.util import setenv
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.kickstart.specification import NoKickstartSpecification, \
     KickstartSpecificationHandler, KickstartSpecificationParser

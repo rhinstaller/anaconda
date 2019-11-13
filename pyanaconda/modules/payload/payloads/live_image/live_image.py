@@ -19,7 +19,7 @@
 #
 import os
 
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import requests_session

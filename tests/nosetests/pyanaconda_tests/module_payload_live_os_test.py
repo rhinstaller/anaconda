@@ -22,7 +22,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
-    patch_dbus_publish_object
+    patch_dbus_publish_object, PropertiesChangedCallback
 from tests.nosetests.pyanaconda_tests.module_payload_shared import SourceSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
@@ -49,7 +49,7 @@ class LiveOSHandlerInterfaceTestCase(unittest.TestCase):
                                              payload=self.live_os_module,
                                              payload_intf=self.live_os_interface)
 
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.live_os_interface.PropertiesChanged.connect(self.callback)
 
     def _prepare_source(self):

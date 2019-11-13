@@ -15,12 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 import unittest
-from mock import Mock, patch, call
+from mock import Mock, call
 
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.common.task import DBusMetaTask
+from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
 
 
 class InstallManagerTestCase(unittest.TestCase):
@@ -50,7 +50,7 @@ class InstallManagerTestCase(unittest.TestCase):
         self.assertEqual(main_task.name, "Install the system")
         self.assertEqual(main_task._subtasks, [])
 
-    @patch('pyanaconda.dbus.DBus.get_proxy')
+    @patch_dbus_get_proxy
     def install_one_task_test(self, proxy_getter):
         """Install with one task."""
         observer = Mock()
@@ -71,7 +71,7 @@ class InstallManagerTestCase(unittest.TestCase):
         self.assertEqual(main_task.name, "Install the system")
         self.assertEqual(main_task._subtasks, [task_proxy])
 
-    @patch('pyanaconda.dbus.DBus.get_proxy')
+    @patch_dbus_get_proxy
     def install_three_tasks_test(self, proxy_getter):
         """Install with three tasks."""
         observers = []
@@ -107,7 +107,7 @@ class InstallManagerTestCase(unittest.TestCase):
         self.assertEqual(main_task.name, "Install the system")
         self.assertEqual(main_task._subtasks, [task_proxy, task_proxy, task_proxy])
 
-    @patch('pyanaconda.dbus.DBus.get_proxy')
+    @patch_dbus_get_proxy
     def configure_runtime_test(self, proxy_getter):
         """Configure the runtime system with three tasks."""
         observers = []

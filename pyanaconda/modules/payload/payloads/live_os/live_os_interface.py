@@ -17,8 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface, dbus_signal
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.server.interface import dbus_interface, dbus_signal
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
 from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface

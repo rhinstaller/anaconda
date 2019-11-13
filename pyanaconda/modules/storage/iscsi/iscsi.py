@@ -22,7 +22,7 @@ from blivet.iscsi import iscsi
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import ISCSI
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode

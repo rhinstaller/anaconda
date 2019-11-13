@@ -16,26 +16,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.container import DBusContainer
-from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, ANACONDA_NAMESPACE, \
-    PAYLOAD_NAMESPACE
+from dasbus.server.container import DBusContainer
+from pyanaconda.core.dbus import DBus
+from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, \
+    DEVICE_TREE_NAMESPACE, PARTITIONING_NAMESPACE, PAYLOAD_SOURCE_NAMESPACE
 
 TaskContainer = DBusContainer(
     namespace=ANACONDA_NAMESPACE,
-    basename="Task"
+    basename="Task",
+    message_bus=DBus
 )
 
 DeviceTreeContainer = DBusContainer(
-    namespace=STORAGE_NAMESPACE,
-    basename="DeviceTree"
+    namespace=DEVICE_TREE_NAMESPACE,
+    message_bus=DBus
 )
 
 PartitioningContainer = DBusContainer(
-    namespace=STORAGE_NAMESPACE,
-    basename="Partitioning"
+    namespace=PARTITIONING_NAMESPACE,
+    message_bus=DBus
 )
 
 PayloadSourceContainer = DBusContainer(
-    namespace=PAYLOAD_NAMESPACE,
-    basename="Source"
+    namespace=PAYLOAD_SOURCE_NAMESPACE,
+    message_bus=DBus
 )

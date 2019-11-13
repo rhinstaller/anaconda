@@ -27,7 +27,8 @@ import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object, \
+    PropertiesChangedCallback
 
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
@@ -35,7 +36,7 @@ from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.users.users import UsersService
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask
-from pyanaconda.dbus.typing import get_variant, List, Str, Int, Bool
+from dasbus.typing import get_variant, List, Str, Int, Bool
 from pyanaconda.ui.lib.users import get_user_list, set_user_list
 
 
@@ -49,7 +50,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface = UsersInterface(self.users_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.users_interface.PropertiesChanged.connect(self.callback)
 
     def kickstart_properties_test(self):
@@ -1557,7 +1558,7 @@ class UsersModuleTasksTestCase(unittest.TestCase):
         self.users_interface = UsersInterface(self.users_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.users_interface.PropertiesChanged.connect(self.callback)
 
     @patch_dbus_publish_object

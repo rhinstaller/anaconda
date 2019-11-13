@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.objects import INTERACTIVE_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod

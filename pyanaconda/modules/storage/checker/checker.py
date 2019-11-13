@@ -19,7 +19,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface

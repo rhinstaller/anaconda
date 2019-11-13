@@ -23,7 +23,7 @@ from blivet.devices import DiskDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
-from pyanaconda.dbus.typing import get_native
+from dasbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.validation import ValidationReport

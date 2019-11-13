@@ -25,7 +25,7 @@ from blivet.static_data import nvdimm
 
 from pykickstart.constants import NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
 
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import NVDIMM

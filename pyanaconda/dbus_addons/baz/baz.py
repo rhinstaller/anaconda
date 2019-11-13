@@ -19,7 +19,7 @@
 #
 from time import sleep
 
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface, BazCalculationTaskInterface
 from pyanaconda.dbus_addons.baz.kickstart import BazKickstartSpecification
 from pyanaconda.modules.common.base import KickstartService

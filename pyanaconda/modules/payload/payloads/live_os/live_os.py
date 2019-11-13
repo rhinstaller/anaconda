@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal

@@ -21,7 +21,7 @@ from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE, CLEAR
     CLEARPART_TYPE_LINUX
 
 from pyanaconda.core.signal import Signal
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError

@@ -21,7 +21,7 @@ import os
 import tempfile
 import unittest
 from shutil import copytree, copyfile
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
@@ -30,7 +30,8 @@ from pyanaconda.modules.timezone.installation import ConfigureNTPTask, Configure
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.ntp import NTP_CONFIG_FILE, NTPconfigError
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, \
+    patch_dbus_publish_object, PropertiesChangedCallback
 
 
 class TimezoneInterfaceTestCase(unittest.TestCase):
@@ -43,7 +44,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self.timezone_interface = TimezoneInterface(self.timezone_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.timezone_interface.PropertiesChanged.connect(self.callback)
 
     def kickstart_properties_test(self):

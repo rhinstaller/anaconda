@@ -20,7 +20,7 @@
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest

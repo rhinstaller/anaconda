@@ -19,7 +19,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.signal import Signal
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError

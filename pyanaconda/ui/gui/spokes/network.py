@@ -367,8 +367,9 @@ class NetworkControlBox(GObject.GObject):
 
 
         self._load_device_configurations()
-        self._dev_cfg_subscription = self._network_module.DeviceConfigurationChanged.connect(
-            self.on_device_configurations_changed)
+        self._network_module.DeviceConfigurationChanged.connect(
+            self.on_device_configurations_changed
+        )
 
         # select the first device
         treeview = self.builder.get_object("treeview_devices")
@@ -1172,7 +1173,9 @@ class NetworkControlBox(GObject.GObject):
             for config in self._get_ip_configs(device):
                 _try_disconnect(config, self.on_config_changed)
 
-        self._dev_cfg_subscription.disconnect()
+        self._network_module.DeviceConfigurationChanged.disconnect(
+            self.on_device_configurations_changed
+        )
 
     def _get_ip_configs(self, device):
         out = []

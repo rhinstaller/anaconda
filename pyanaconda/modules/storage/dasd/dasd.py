@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DASD
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError, UnknownDeviceError

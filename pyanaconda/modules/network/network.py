@@ -19,7 +19,7 @@
 #
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.network import NetworkOnBoot
-from pyanaconda.dbus import DBus, SystemBus
+from pyanaconda.core.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartService

@@ -31,7 +31,7 @@ from blivet.formats.fs import FS
 from blivet.formats.luks import LUKS
 from blivet.size import Size
 
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface

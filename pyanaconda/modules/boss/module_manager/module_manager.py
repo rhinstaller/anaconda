@@ -18,7 +18,7 @@
 #
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 
 from pyanaconda.anaconda_loggers import get_module_logger

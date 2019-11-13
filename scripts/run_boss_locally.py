@@ -14,7 +14,7 @@ import shutil
 import argparse
 from gi.repository import Gio
 
-from pyanaconda.dbus import AddressedMessageBus
+from dasbus.connection import AddressedMessageBus
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import sync_run_task

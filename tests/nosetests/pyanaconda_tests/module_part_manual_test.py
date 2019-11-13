@@ -28,7 +28,7 @@ from blivet.devices import StorageDevice, DiskDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
-from pyanaconda.dbus.typing import get_variant, Str, Bool
+from dasbus.typing import get_variant, Str, Bool
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning import ManualPartitioningModule

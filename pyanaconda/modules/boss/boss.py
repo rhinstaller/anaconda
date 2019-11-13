@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager import InstallManager

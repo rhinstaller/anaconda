@@ -36,7 +36,6 @@ class DBusMetaTask(AbstractTask):
         self._name = name
         self._subtasks = tasks
         self._current_subtask = None
-        self._subscriptions = []
         self._total_steps = self._count_steps()
         self._finished_steps = 0
 
@@ -67,7 +66,8 @@ class DBusMetaTask(AbstractTask):
 
     def _task_run_callback(self):
         """Start the next task."""
-        self._disconnect_all()
+        if self._current_subtask:
+            self._disconnect(self._current_subtask)
 
         if self.check_cancel():
             log.info("'%s' is canceled.", self.name)
@@ -86,23 +86,17 @@ class DBusMetaTask(AbstractTask):
 
     def _connect(self, subtask):
         """Connect to signals of the current task."""
-        s = subtask.Started.connect(self._subtask_started_callback)
-        self._subscriptions.append(s)
+        subtask.Started.connect(self._subtask_started_callback)
+        subtask.Failed.connect(self._subtask_failed_callback)
+        subtask.Stopped.connect(self._subtask_stopped_callback)
+        subtask.ProgressChanged.connect(self._subtask_progress_changed)
 
-        s = subtask.Failed.connect(self._subtask_failed_callback)
-        self._subscriptions.append(s)
-
-        s = subtask.Stopped.connect(self._subtask_stopped_callback)
-        self._subscriptions.append(s)
-
-        s = subtask.ProgressChanged.connect(self._subtask_progress_changed)
-        self._subscriptions.append(s)
-
-    def _disconnect_all(self):
-        """Disconnect from all signals of the previous task."""
-        while self._subscriptions:
-            s = self._subscriptions.pop(0)
-            s.disconnect()
+    def _disconnect(self, subtask):
+        """Disconnect from signals of the previous task."""
+        subtask.Started.disconnect()
+        subtask.Failed.disconnect()
+        subtask.Stopped.disconnect()
+        subtask.ProgressChanged.disconnect()
 
     def _subtask_started_callback(self):
         log.info("'%s' has started.", self._current_subtask.Name)

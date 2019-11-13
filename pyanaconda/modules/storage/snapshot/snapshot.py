@@ -22,7 +22,7 @@ from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL, CLEARPART_TYPE_ALL,
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus import DBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import SNAPSHOT
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError

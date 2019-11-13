@@ -20,21 +20,21 @@
 import unittest
 import tempfile
 import os
-from mock import Mock, patch
+from mock import patch
 
 from pykickstart.constants import SELINUX_ENFORCING, SELINUX_PERMISSIVE
 
 from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.dbus.typing import get_variant, Str, List, Bool
+from dasbus.typing import get_variant, Str, List, Bool, get_native
 from pyanaconda.modules.security.security import SecurityService
 from pyanaconda.modules.security.security_interface import SecurityInterface
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
         RealmDiscoverTask, RealmJoinTask
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface, \
-        check_task_creation
+    check_task_creation, PropertiesChangedCallback
 
 
 class SecurityInterfaceTestCase(unittest.TestCase):
@@ -47,7 +47,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.security_interface = SecurityInterface(self.security_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.security_interface.PropertiesChanged.connect(self.callback)
 
     def kickstart_properties_test(self):
@@ -95,7 +95,9 @@ class SecurityInterfaceTestCase(unittest.TestCase):
 
         self.security_interface.SetRealm(realm_in)
         self.assertEqual(realm_out, self.security_interface.Realm)
-        self.callback.assert_called_once_with(SECURITY.interface_name, {'Realm': realm_out}, [])
+        self.callback.assert_called_once_with(SECURITY.interface_name, {
+            'Realm': get_native(realm_out)
+        }, [])
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.security_interface, ks_in, ks_out)
@@ -366,7 +368,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         self.security_interface = SecurityInterface(self.security_module)
 
         # Connect to the properties changed signal.
-        self.callback = Mock()
+        self.callback = PropertiesChangedCallback()
         self.security_interface.PropertiesChanged.connect(self.callback)
 
     def configure_selinux_task_disable_test(self):

@@ -24,7 +24,8 @@ from blivet.devices import PartitionDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
+    patch_dbus_get_proxy
 
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning import CustomPartitioningModule
@@ -101,7 +102,7 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         self.interface.SetPassphrase("123456")
         self.assertEqual(self.interface.RequiresPassphrase(), False)
 
-    @patch('pyanaconda.dbus.DBus.get_proxy')
+    @patch_dbus_get_proxy
     @patch('pyanaconda.storage.osinstall.InstallerStorage.mountpoints', new_callable=PropertyMock)
     def test_prepboot_bootloader_in_kickstart(self, mock_mountpoints, dbus):
         """Test that a prepboot bootloader shows up in the ks data."""
@@ -123,7 +124,7 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         ksdata = self._setup_kickstart()
         self.assertIn("part prepboot", str(ksdata))
 
-    @patch('pyanaconda.dbus.DBus.get_proxy')
+    @patch_dbus_get_proxy
     @patch('pyanaconda.storage.osinstall.InstallerStorage.devices', new_callable=PropertyMock)
     @patch('pyanaconda.storage.osinstall.InstallerStorage.mountpoints', new_callable=PropertyMock)
     def test_biosboot_bootloader_in_kickstart(self, mock_mountpoints, mock_devices, dbus):
