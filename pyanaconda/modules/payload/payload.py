@@ -21,7 +21,7 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.common.errors.payload import HandlerNotSetError
+from pyanaconda.modules.common.errors.payload import PayloadNotSetError
 from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
@@ -58,7 +58,7 @@ class PayloadService(KickstartService):
         There are a few types of handler e.g.: DNF, LiveImage...
         """
         if self._payload is None:
-            raise HandlerNotSetError()
+            raise PayloadNotSetError()
         else:
             return self._payload
 
@@ -115,7 +115,7 @@ class PayloadService(KickstartService):
 
         try:
             self.payload_handler.setup_kickstart(data)
-        except HandlerNotSetError:
+        except PayloadNotSetError:
             log.warning("Generating kickstart data without payload set - data will be empty!")
 
         return str(data)
