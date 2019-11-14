@@ -74,8 +74,8 @@ class PayloadService(KickstartService):
         """
         return self._payload is not None
 
-    def get_active_handler_path(self):
-        """Get path of the active payload handler.
+    def get_active_payload_path(self):
+        """Get path of the active payload.
 
         :rtype: str
         """

@@ -59,7 +59,7 @@ class PayloadInterfaceTestCase(TestCase):
 
     def no_handler_set_test(self):
         """Test empty string is returned when no handler is set."""
-        self.assertEqual(self.payload_interface.GetActiveHandlerPath(), "")
+        self.assertEqual(self.payload_interface.GetActivePayloadPath(), "")
 
     def generate_kickstart_without_handler_test(self):
         """Test kickstart parsing without handler set."""
@@ -84,7 +84,7 @@ class PayloadInterfaceTestCase(TestCase):
     def create_dnf_handler_test(self, publisher):
         """Test creation and publishing of the DNF handler module."""
         self.payload_interface.CreateHandler(PayloadType.DNF.value)
-        self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
+        self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          PAYLOAD_DEFAULT.object_path)
         # here the publisher is called twice because the Packages section is also published
         self.assertEqual(publisher.call_count, 2)
@@ -93,7 +93,7 @@ class PayloadInterfaceTestCase(TestCase):
     def create_live_os_handler_test(self, publisher):
         """Test creation and publishing of the Live OS handler module."""
         self.payload_interface.CreateHandler(PayloadType.LIVE_OS.value)
-        self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
+        self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          LIVE_OS_HANDLER.object_path)
         publisher.assert_called_once()
 
@@ -101,7 +101,7 @@ class PayloadInterfaceTestCase(TestCase):
     def create_live_image_handler_test(self, publisher):
         """Test creation and publishing of the Live image handler module."""
         self.payload_interface.CreateHandler(PayloadType.LIVE_IMAGE.value)
-        self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
+        self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          LIVE_IMAGE_HANDLER.object_path)
         publisher.assert_called_once()
 
@@ -118,7 +118,7 @@ class PayloadInterfaceTestCase(TestCase):
         self.payload_interface.CreateHandler(PayloadType.LIVE_OS.value)
 
         # The last one should win
-        self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
+        self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          LIVE_OS_HANDLER.object_path)
         self.assertEqual(publisher.call_count, 3)
 

@@ -30,9 +30,9 @@ from pyanaconda.modules.payload.constants import PayloadType, SourceType
 class PayloadInterface(KickstartModuleInterface):
     """DBus interface for Payload module."""
 
-    def GetActiveHandlerPath(self) -> ObjPath:
+    def GetActivePayloadPath(self) -> ObjPath:
         """Get path to the payload which is used now."""
-        return self.implementation.get_active_handler_path()
+        return self.implementation.get_active_payload_path()
 
     def IsPayloadSet(self) -> Bool:
         """Test if any payload is set and used."""
