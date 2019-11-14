@@ -22,7 +22,8 @@ from pyanaconda.modules.common.errors.installation import LanguageInstallationEr
     KeyboardInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.core.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
-from pyanaconda.keyboard import LocaledWrapper, InvalidLayoutVariantSpec
+from pyanaconda.keyboard import InvalidLayoutVariantSpec
+from pyanaconda.modules.localization.localed import LocaledWrapper
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)

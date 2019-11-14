@@ -19,7 +19,7 @@ from pyanaconda.core.util import execWithRedirect
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.keyboard import LocaledWrapper
+from pyanaconda.modules.localization.localed import LocaledWrapper
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.localization.installation import write_x_configuration, \
     write_vc_configuration
