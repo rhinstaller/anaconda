@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 from abc import ABC, abstractclassmethod
 
-from pyanaconda.modules.payload.constants import HandlerType, SourceType
+from pyanaconda.modules.payload.constants import PayloadType, SourceType
 
 __all__ = ["HandlerFactory", "SourceFactory"]
 
@@ -64,22 +64,22 @@ class HandlerFactory(BaseFactory):
     @classmethod
     def _get_type_from_ks(cls, data):
         if data.liveimg.seen:
-            return HandlerType.LIVE_IMAGE
+            return PayloadType.LIVE_IMAGE
         elif data.packages.seen:
-            return HandlerType.DNF
+            return PayloadType.DNF
         else:
             return None
 
     @classmethod
     def _create(cls, object_type):
-        if object_type == HandlerType.LIVE_IMAGE:
+        if object_type == PayloadType.LIVE_IMAGE:
             from pyanaconda.modules.payload.payloads.live_image.live_image import \
                 LiveImageHandlerModule
             return LiveImageHandlerModule()
-        elif object_type == HandlerType.LIVE_OS:
+        elif object_type == PayloadType.LIVE_OS:
             from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
             return LiveOSHandlerModule()
-        elif object_type == HandlerType.DNF:
+        elif object_type == PayloadType.DNF:
             from pyanaconda.modules.payload.payloads.dnf.dnf import DNFHandlerModule
             return DNFHandlerModule()
 

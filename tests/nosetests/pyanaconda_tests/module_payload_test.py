@@ -35,7 +35,7 @@ from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
-from pyanaconda.modules.payload.constants import HandlerType, SourceType
+from pyanaconda.modules.payload.constants import PayloadType, SourceType
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadService
 from pyanaconda.modules.payload.payloads.dnf.dnf import DNFHandlerModule
@@ -77,13 +77,13 @@ class PayloadInterfaceTestCase(TestCase):
         """Test IsHandlerSet API."""
         self.assertFalse(self.payload_interface.IsHandlerSet())
 
-        self.payload_interface.CreateHandler(HandlerType.DNF.value)
+        self.payload_interface.CreateHandler(PayloadType.DNF.value)
         self.assertTrue(self.payload_interface.IsHandlerSet())
 
     @patch_dbus_publish_object
     def create_dnf_handler_test(self, publisher):
         """Test creation and publishing of the DNF handler module."""
-        self.payload_interface.CreateHandler(HandlerType.DNF.value)
+        self.payload_interface.CreateHandler(PayloadType.DNF.value)
         self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
                          PAYLOAD_DEFAULT.object_path)
         # here the publisher is called twice because the Packages section is also published
@@ -92,7 +92,7 @@ class PayloadInterfaceTestCase(TestCase):
     @patch_dbus_publish_object
     def create_live_os_handler_test(self, publisher):
         """Test creation and publishing of the Live OS handler module."""
-        self.payload_interface.CreateHandler(HandlerType.LIVE_OS.value)
+        self.payload_interface.CreateHandler(PayloadType.LIVE_OS.value)
         self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
                          LIVE_OS_HANDLER.object_path)
         publisher.assert_called_once()
@@ -100,7 +100,7 @@ class PayloadInterfaceTestCase(TestCase):
     @patch_dbus_publish_object
     def create_live_image_handler_test(self, publisher):
         """Test creation and publishing of the Live image handler module."""
-        self.payload_interface.CreateHandler(HandlerType.LIVE_IMAGE.value)
+        self.payload_interface.CreateHandler(PayloadType.LIVE_IMAGE.value)
         self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
                          LIVE_IMAGE_HANDLER.object_path)
         publisher.assert_called_once()
@@ -114,8 +114,8 @@ class PayloadInterfaceTestCase(TestCase):
     @patch_dbus_publish_object
     def create_multiple_handlers_test(self, publisher):
         """Test creating two handlers."""
-        self.payload_interface.CreateHandler(HandlerType.DNF.value)
-        self.payload_interface.CreateHandler(HandlerType.LIVE_OS.value)
+        self.payload_interface.CreateHandler(PayloadType.DNF.value)
+        self.payload_interface.CreateHandler(PayloadType.LIVE_OS.value)
 
         # The last one should win
         self.assertEqual(self.payload_interface.GetActiveHandlerPath(),
@@ -353,11 +353,11 @@ class FactoryTestCase(TestCase):
 
     def create_handler_test(self):
         """Test HandlerFactory create method."""
-        self.assertIsInstance(HandlerFactory.create(HandlerType.DNF),
+        self.assertIsInstance(HandlerFactory.create(PayloadType.DNF),
                               DNFHandlerModule)
-        self.assertIsInstance(HandlerFactory.create(HandlerType.LIVE_IMAGE),
+        self.assertIsInstance(HandlerFactory.create(PayloadType.LIVE_IMAGE),
                               LiveImageHandlerModule)
-        self.assertIsInstance(HandlerFactory.create(HandlerType.LIVE_OS),
+        self.assertIsInstance(HandlerFactory.create(PayloadType.LIVE_OS),
                               LiveOSHandlerModule)
 
     def create_handler_from_ks_test(self):

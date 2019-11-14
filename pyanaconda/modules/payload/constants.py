@@ -20,8 +20,8 @@ from enum import Enum, unique
 
 
 @unique
-class HandlerType(Enum):
-    """Type of the payload handler."""
+class PayloadType(Enum):
+    """Type of the payload."""
     DNF = "DNF"
     LIVE_OS = "LIVE_OS"
     LIVE_IMAGE = "LIVE_IMAGE"

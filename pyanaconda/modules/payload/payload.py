@@ -124,7 +124,7 @@ class PayloadService(KickstartService):
         """Create handler based on the passed type.
 
         :param payload_type: type of the desirable handler
-        :type payload_type: value of the payload.base.constants.HandlerType enum
+        :type payload_type: value of the payload.base.constants.PayloadType enum
         """
         payload = HandlerFactory.create(payload_type)
         self._initialize_payload(payload)
