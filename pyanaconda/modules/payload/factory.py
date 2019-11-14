@@ -27,12 +27,12 @@ class BaseFactory(ABC):
     """Factory to create payload objects."""
 
     @classmethod
-    def create(cls, handler_type):
+    def create(cls, object_type):
         """Create an object of the given type.
 
-        :param handler_type: value from the enum of given type
+        :param object_type: value from the enum of given type
         """
-        handler = cls._create(handler_type)
+        handler = cls._create(object_type)
 
         return handler
 
@@ -46,23 +46,23 @@ class BaseFactory(ABC):
 
 
 class HandlerFactory(BaseFactory):
-    """Factory to create payload handlers."""
+    """Factory to create payloads."""
 
     @classmethod
     def create_from_ks_data(cls, data):
-        """Create handler based on the KS data.
+        """Create payload based on the KS data.
 
         :param data: kickstart data
         """
-        handler_type = cls._get_handler_type_from_ks(data)
+        payload_type = cls._get_type_from_ks(data)
 
-        if handler_type is None:
+        if payload_type is None:
             return None
 
-        return cls.create(handler_type)
+        return cls.create(payload_type)
 
     @classmethod
-    def _get_handler_type_from_ks(cls, data):
+    def _get_type_from_ks(cls, data):
         if data.liveimg.seen:
             return HandlerType.LIVE_IMAGE
         elif data.packages.seen:
