@@ -50,20 +50,20 @@ class PayloadService(KickstartService):
         return PayloadKickstartSpecification
 
     @property
-    def payload_handler(self):
-        """Get payload handler.
+    def payload(self):
+        """Get payload.
 
-        Handlers are handling the installation process.
+        Payloads are handling the installation process.
 
-        There are a few types of handler e.g.: DNF, LiveImage...
+        There are a few types of payloads e.g.: DNF, LiveImage...
         """
         if self._payload is None:
             raise PayloadNotSetError()
         else:
             return self._payload
 
-    def set_payload_handler(self, payload):
-        """Set payload handler."""
+    def set_payload(self, payload):
+        """Set payload."""
         self._payload = payload
         log.debug("Payload %s used.", payload.__class__.__name__)
 
@@ -101,7 +101,7 @@ class PayloadService(KickstartService):
 
     def _initialize_payload(self, payload):
         self._payload_path = payload.publish_handler()
-        self.set_payload_handler(payload)
+        self.set_payload(payload)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -114,7 +114,7 @@ class PayloadService(KickstartService):
         data = self.get_kickstart_handler()
 
         try:
-            self.payload_handler.setup_kickstart(data)
+            self.payload.setup_kickstart(data)
         except PayloadNotSetError:
             log.warning("Generating kickstart data without payload set - data will be empty!")
 

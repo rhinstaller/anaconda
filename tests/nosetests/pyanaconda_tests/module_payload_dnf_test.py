@@ -51,8 +51,8 @@ class PackagesHandlerKSTestCase(unittest.TestCase):
         self._expected_excluded_groups = []
 
     def _get_packages_interface(self):
-        payload_handler = self.shared_tests.get_payload_handler()
-        packages_handler = payload_handler._packages_handler
+        payload = self.shared_tests.get_payload()
+        packages_handler = payload._packages_handler
 
         self.assertIsInstance(packages_handler, PackagesHandlerModule)
         return PackagesHandlerInterface(packages_handler)

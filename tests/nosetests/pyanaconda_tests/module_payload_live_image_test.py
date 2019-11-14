@@ -54,7 +54,7 @@ class LiveImageHandlerKSTestCase(unittest.TestCase):
                                               self.payload_module_interface)
 
     def _check_properties(self, url, proxy="", checksum="", verifyssl=True):
-        handler = self.shared_tests.get_payload_handler()
+        handler = self.shared_tests.get_payload()
 
         self.assertIsInstance(handler, LiveImageHandlerModule)
         intf = LiveImageHandlerInterface(handler)
