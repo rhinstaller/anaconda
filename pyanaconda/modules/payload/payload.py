@@ -67,8 +67,8 @@ class PayloadService(KickstartService):
         self._payload = payload
         log.debug("Payload %s used.", payload.__class__.__name__)
 
-    def is_handler_set(self):
-        """Test if any handler is created and used.
+    def is_payload_set(self):
+        """Test if any payload is created and used.
 
         :rtype: bool
         """
@@ -89,7 +89,7 @@ class PayloadService(KickstartService):
         log.debug("Processing kickstart data...")
 
         # create payload if no payload is set already
-        if not self.is_handler_set():
+        if not self.is_payload_set():
             payload = PayloadFactory.create_from_ks_data(data)
             if not payload:
                 log.warning("No payload was created. Kickstart data passed in are lost.")

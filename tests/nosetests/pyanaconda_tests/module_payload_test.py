@@ -73,12 +73,12 @@ class PayloadInterfaceTestCase(TestCase):
             self.assertTrue(any(map(lambda x: "No payload was created" in x, log.output)))
 
     @patch_dbus_publish_object
-    def is_handler_set_test(self, publisher):
-        """Test IsHandlerSet API."""
-        self.assertFalse(self.payload_interface.IsHandlerSet())
+    def is_payload_set_test(self, publisher):
+        """Test IsPayloadSet API."""
+        self.assertFalse(self.payload_interface.IsPayloadSet())
 
         self.payload_interface.CreateHandler(PayloadType.DNF.value)
-        self.assertTrue(self.payload_interface.IsHandlerSet())
+        self.assertTrue(self.payload_interface.IsPayloadSet())
 
     @patch_dbus_publish_object
     def create_dnf_handler_test(self, publisher):

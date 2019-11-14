@@ -34,9 +34,9 @@ class PayloadInterface(KickstartModuleInterface):
         """Get path to the payload which is used now."""
         return self.implementation.get_active_handler_path()
 
-    def IsHandlerSet(self) -> Bool:
-        """Test if any handler is set and used."""
-        return self.implementation.is_handler_set()
+    def IsPayloadSet(self) -> Bool:
+        """Test if any payload is set and used."""
+        return self.implementation.is_payload_set()
 
     def CreateHandler(self, handler_type: Str) -> ObjPath:
         """Create payload handler and publish it on DBus.
