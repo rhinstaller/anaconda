@@ -65,7 +65,7 @@ class PayloadService(KickstartService):
     def set_payload_handler(self, payload):
         """Set payload handler."""
         self._payload = payload
-        log.debug("Payload handler %s used.", payload.__class__.__name__)
+        log.debug("Payload %s used.", payload.__class__.__name__)
 
     def is_handler_set(self):
         """Test if any handler is created and used.
@@ -92,7 +92,7 @@ class PayloadService(KickstartService):
         if not self.is_handler_set():
             payload = HandlerFactory.create_from_ks_data(data)
             if not payload:
-                log.warning("No handler was created. Kickstart data passed in are lost.")
+                log.warning("No payload was created. Kickstart data passed in are lost.")
                 return
 
         payload.process_kickstart(data)
@@ -116,7 +116,7 @@ class PayloadService(KickstartService):
         try:
             self.payload_handler.setup_kickstart(data)
         except HandlerNotSetError:
-            log.warning("Generating kickstart data without set handler - data will be empty!")
+            log.warning("Generating kickstart data without payload set - data will be empty!")
 
         return str(data)
 

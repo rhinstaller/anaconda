@@ -70,7 +70,7 @@ class PayloadInterfaceTestCase(TestCase):
         with self.assertLogs('anaconda.modules.payload.payload', level="WARNING") as log:
             self.payload_interface.ReadKickstart("")
 
-            self.assertTrue(any(map(lambda x: "No handler was created" in x, log.output)))
+            self.assertTrue(any(map(lambda x: "No payload was created" in x, log.output)))
 
     @patch_dbus_publish_object
     def is_handler_set_test(self, publisher):
