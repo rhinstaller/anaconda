@@ -27,7 +27,8 @@ from pyanaconda.modules.localization.localization_interface import LocalizationI
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
     KeyboardInstallationTask
-from pyanaconda.modules.localization.runtime import ConvertMissingKeyboardConfigurationTask
+from pyanaconda.modules.localization.runtime import ConvertMissingKeyboardConfigurationTask, \
+    ApplyKeyboardTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -232,3 +233,17 @@ class LocalizationService(KickstartService):
         x_layouts, vc_keymap = result
         self.set_vc_keymap(vc_keymap)
         self.set_x_layouts(x_layouts)
+
+    def apply_keyboard_with_task(self):
+        """Apply keyboard configuration to the current system.
+
+        :returns: a task applying the configuration
+        """
+        task = ApplyKeyboardTask(
+            keyboard=self.keyboard,
+            x_layouts=self.x_layouts,
+            vc_keymap=self.vc_keymap,
+            switch_options=self.switch_options
+        )
+        task.succeeded_signal.connect(lambda: self.update_settings_from_task(task.get_result()))
+        return task

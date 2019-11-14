@@ -23,17 +23,16 @@ mutually converting X layouts and VConsole keymaps.
 
 """
 
-import os
 import re
-import shutil
 import langtable
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError, Variant
-from pyanaconda.core import util
 from pyanaconda import safe_dbus
 from pyanaconda import localization
-from pyanaconda.core.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
+from pyanaconda.core.constants import DEFAULT_KEYBOARD
+from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -130,126 +129,6 @@ def populate_missing_items(localization_proxy=None):
     task_proxy = LOCALIZATION.get_proxy(task_path)
     sync_run_task(task_proxy)
 
-def write_keyboard_config(localization_proxy, root):
-    """
-    Function that writes files with layouts configuration to
-    $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf and
-    $root/etc/vconsole.conf.
-
-    :param localization_proxy: DBus proxy of the localization module or None
-    :param root: path to the root of the installed system
-    :param convert: whether to convert specified values to get the missing
-                    ones
-
-    """
-    xconf_dir = "/etc/X11/xorg.conf.d"
-    xconf_file = "00-keyboard.conf"
-    xconf_file_path = os.path.normpath(xconf_dir + "/" + xconf_file)
-
-    vcconf_dir = os.path.normpath(root + "/etc")
-    vcconf_file = "vconsole.conf"
-
-    errors = []
-
-    try:
-        if not os.path.isdir(xconf_dir):
-            os.makedirs(xconf_dir)
-
-    except OSError:
-        errors.append("Cannot create directory xorg.conf.d")
-
-    x_layouts = localization_proxy.XLayouts
-    switch_options = localization_proxy.LayoutSwitchOptions
-    vc_keymap = localization_proxy.VirtualConsoleKeymap
-
-    if x_layouts:
-        localed_wrapper = LocaledWrapper()
-
-        if root != "/":
-            # writing to a different root, we need to save these values, so that
-            # we can restore them when we have the file written out
-            layouts_variants = localed_wrapper.layouts_variants
-            options = localed_wrapper.options
-
-            # set systemd-localed's layouts, variants and switch options, which
-            # also generates a new conf file
-            localed_wrapper.set_layouts(x_layouts,
-                                        switch_options)
-
-            # make sure the right directory exists under the given root
-            rooted_xconf_dir = os.path.normpath(root + "/" + xconf_dir)
-            try:
-                if not os.path.isdir(rooted_xconf_dir):
-                    os.makedirs(rooted_xconf_dir)
-            except OSError:
-                errors.append("Cannot create directory xorg.conf.d")
-
-            # copy the file to the chroot
-            try:
-                shutil.copy2(xconf_file_path,
-                             os.path.normpath(root + "/" + xconf_file_path))
-            except IOError:
-                # The file may not exist (eg. text install) so don't raise
-                pass
-
-            # restore the original values
-            localed_wrapper.set_layouts(layouts_variants,
-                                        options)
-        else:
-            try:
-                # just let systemd-localed write out the conf file
-                localed_wrapper.set_layouts(x_layouts,
-                                            switch_options)
-            except InvalidLayoutVariantSpec as ilvs:
-                # some weird value appeared as a requested X layout
-                log.error("Failed to write out config file: %s", ilvs)
-
-                # try default
-                x_layouts = [DEFAULT_KEYBOARD]
-                localed_wrapper.set_layouts(x_layouts,
-                                            switch_options)
-
-    if vc_keymap:
-        try:
-            with open(os.path.join(vcconf_dir, vcconf_file), "w") as fobj:
-                fobj.write('KEYMAP="%s"\n' % vc_keymap)
-
-                # systemd now defaults to a font that cannot display non-ascii
-                # characters, so we have to tell it to use a better one
-                fobj.write('FONT="%s"\n' % DEFAULT_VC_FONT)
-        except IOError:
-            errors.append("Cannot write vconsole configuration file")
-
-    if errors:
-        raise KeyboardConfigError("\n".join(errors))
-
-def _try_to_load_keymap(keymap):
-    """
-    Method that tries to load keymap and returns boolean indicating if it was
-    successfull or not. It can be used to test if given string is VConsole
-    keymap or not, but in case it is given valid keymap, IT REALLY LOADS IT!.
-
-    :type keymap: string
-    :raise KeyboardConfigError: if loadkeys command is not available
-    :return: True if given string was a valid keymap and thus was loaded,
-             False otherwise
-
-    """
-
-    # BUG: systemd-localed should be able to tell us if we are trying to
-    #      activate invalid keymap. Then we will be able to get rid of this
-    #      fuction
-
-    ret = 0
-
-    try:
-        ret = util.execWithRedirect("loadkeys", [keymap])
-    except OSError as oserr:
-        msg = "'loadkeys' command not available (%s)" % oserr.strerror
-        raise KeyboardConfigError(msg)
-
-    return ret == 0
-
 def activate_keyboard(localization_proxy):
     """
     Try to setup VConsole keymap and X11 layouts as specified in kickstart.
@@ -257,57 +136,9 @@ def activate_keyboard(localization_proxy):
     :param localization_proxy: DBus proxy of the localization module or None
 
     """
-
-    localed = LocaledWrapper()
-    c_lays_vars = []
-    c_keymap = ""
-
-    keyboard = localization_proxy.Keyboard
-    vc_keymap = localization_proxy.VirtualConsoleKeymap
-    x_layouts = localization_proxy.XLayouts
-
-    if keyboard and not (vc_keymap or x_layouts):
-        # we were give only one value in old format of the keyboard command
-        # try to guess if we were given VConsole keymap or X11 layout
-        is_keymap = _try_to_load_keymap(keyboard)
-
-        if is_keymap:
-            vc_keymap = keyboard
-        else:
-            x_layouts.append(keyboard)
-
-    if vc_keymap:
-        valid_keymap = _try_to_load_keymap(vc_keymap)
-        if not valid_keymap:
-            log.error("'%s' is not a valid VConsole keymap, not loading",
-                      vc_keymap)
-            vc_keymap = None
-        else:
-            # activate VConsole keymap and get converted layout and variant
-            c_lays_vars = localed.set_and_convert_keymap(vc_keymap)
-
-    if not x_layouts:
-        if c_lays_vars:
-            # suggested by systemd-localed for a requested VConsole keymap
-            x_layouts += c_lays_vars
-        elif vc_keymap:
-            # nothing suggested by systemd-localed, but we may try to use the
-            # same string for both VConsole keymap and X layout (will fail
-            # safely if it doesn't work)
-            x_layouts.append(vc_keymap)
-
-    if x_layouts:
-        c_keymap = localed.set_and_convert_layouts(x_layouts)
-
-        if not vc_keymap:
-            vc_keymap = c_keymap
-
-    localization_proxy.SetVirtualConsoleKeymap(vc_keymap)
-    localization_proxy.SetXLayouts(x_layouts)
-
-    if x_layouts:
-        # write out keyboard configuration for the X session
-        write_keyboard_config(localization_proxy, root="/")
+    task_path = localization_proxy.ApplyKeyboardWithTask()
+    task_proxy = LOCALIZATION.get_proxy(task_path)
+    sync_run_task(task_proxy)
 
 def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
     """

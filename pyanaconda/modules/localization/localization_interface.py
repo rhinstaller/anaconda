@@ -174,3 +174,12 @@ class LocalizationInterface(KickstartModuleInterface):
         return TaskContainer.to_object_path(
             self.implementation.convert_missing_keyboard_configuration_with_task()
         )
+
+    def ApplyKeyboardWithTask(self) -> ObjPath:
+        """Apply keyboard configuration to the current system.
+
+        :return: DBus path of the task applying the configuration
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.apply_keyboard_with_task()
+        )

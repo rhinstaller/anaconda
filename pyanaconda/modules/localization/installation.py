@@ -27,6 +27,11 @@ from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
 
+X_CONF_DIR = "/etc/X11/xorg.conf.d"
+X_CONF_FILE_NAME = "00-keyboard.conf"
+VC_CONF_FILE_PATH = "/etc/vconsole.conf"
+
+
 class LanguageInstallationTask(Task):
     """Installation task for the language configuration."""
 
@@ -69,10 +74,6 @@ class LanguageInstallationTask(Task):
 class KeyboardInstallationTask(Task):
     """Installation task for the keyboard configuration."""
 
-    X_CONF_DIR = "/etc/X11/xorg.conf.d"
-    X_CONF_FILE_NAME = "00-keyboard.conf"
-    VC_CONF_FILE_PATH = "/etc/vconsole.conf"
-
     def __init__(self, sysroot, x_layouts, switch_options, vc_keymap):
         """Create a new task,
 
@@ -97,102 +98,101 @@ class KeyboardInstallationTask(Task):
 
     def run(self):
         if self._x_layouts:
-            self._write_x_configuration(
+            write_x_configuration(
                 self._x_layouts,
                 self._switch_options,
                 self._sysroot
             )
         if self._vc_keymap:
-            self._write_vc_configuration(
+            write_vc_configuration(
                 self._vc_keymap,
                 self._sysroot
             )
 
-    def _write_x_configuration(self, x_layouts, switch_options, root):
-        """Write X keyboard layout configuration to the configuration files.
 
-        :param x_layouts: list of x layout specifications
-        :type x_layouts: list(str)
-        :param switch_options: list of options for layout switching
-        :type switch_options: list(str)
-        :param root: root path of the configured system
-        :type root: str
-        """
-        localed_wrapper = LocaledWrapper()
-        xconf_file_path = os.path.normpath(self.X_CONF_DIR + "/" + self.X_CONF_FILE_NAME)
-        errors = []
+def write_x_configuration(x_layouts, switch_options, root):
+    """Write X keyboard layout configuration to the configuration files.
 
+    :param x_layouts: list of x layout specifications
+    :type x_layouts: list(str)
+    :param switch_options: list of options for layout switching
+    :type switch_options: list(str)
+    :param root: root path of the configured system
+    :type root: str
+    """
+
+    localed_wrapper = LocaledWrapper()
+    xconf_file_path = os.path.normpath(X_CONF_DIR + "/" + X_CONF_FILE_NAME)
+    errors = []
+
+    try:
+        if not os.path.isdir(X_CONF_DIR):
+            os.makedirs(X_CONF_DIR)
+    except OSError:
+        errors.append("Cannot create directory {}".format(X_CONF_DIR))
+
+    if root != "/":
+        # writing to a different root, we need to save these values, so that
+        # we can restore them when we have the file written out
+        layouts_variants = localed_wrapper.layouts_variants
+        options = localed_wrapper.options
+
+        # set systemd-localed's layouts, variants and switch options, which
+        # also generates a new conf file
+        localed_wrapper.set_layouts(x_layouts, switch_options)
+
+        # make sure the right directory exists under the given root
+        rooted_xconf_dir = os.path.normpath(root + "/" + X_CONF_DIR)
         try:
-            if not os.path.isdir(self.X_CONF_DIR):
-                os.makedirs(self.X_CONF_DIR)
+            if not os.path.isdir(rooted_xconf_dir):
+                os.makedirs(rooted_xconf_dir)
         except OSError:
-            errors.append("Cannot create directory {}".format(self.X_CONF_DIR))
+            errors.append("Cannot create directory {}".format(rooted_xconf_dir))
 
-        if root != "/":
-            # writing to a different root, we need to save these values, so that
-            # we can restore them when we have the file written out
-            layouts_variants = localed_wrapper.layouts_variants
-            options = localed_wrapper.options
-
-            # set systemd-localed's layouts, variants and switch options, which
-            # also generates a new conf file
-            localed_wrapper.set_layouts(x_layouts,
-                                        switch_options)
-
-            # make sure the right directory exists under the given root
-            rooted_xconf_dir = os.path.normpath(root + "/" + self.X_CONF_DIR)
-            try:
-                if not os.path.isdir(rooted_xconf_dir):
-                    os.makedirs(rooted_xconf_dir)
-            except OSError:
-                errors.append("Cannot create directory {}".format(rooted_xconf_dir))
-
-            # copy the file to the chroot
-            try:
-                shutil.copy2(xconf_file_path, os.path.normpath(root + "/" + xconf_file_path))
-            except IOError:
-                # The file may not exist (eg. text install) so don't raise
-                pass
-
-            # restore the original values
-            localed_wrapper.set_layouts(layouts_variants,
-                                        options)
-        else:
-            try:
-                # just let systemd-localed write out the conf file
-                localed_wrapper.set_layouts(x_layouts,
-                                            switch_options)
-            except InvalidLayoutVariantSpec as ilvs:
-                # some weird value appeared as a requested X layout
-                log.error("Failed to write out config file: %s, using default %s",
-                          ilvs, DEFAULT_KEYBOARD)
-
-                # try default
-                x_layouts = [DEFAULT_KEYBOARD]
-                localed_wrapper.set_layouts(x_layouts,
-                                            switch_options)
-
-        if errors:
-            raise KeyboardInstallationError("\n".join(errors))
-
-    def _write_vc_configuration(self, vc_keymap, root):
-        """Write virtual console keyboard mapping configuration.
-
-        :param vc_keymap: virtual console keyboard mapping name
-        :type vc_keymap: str
-        :param root: root path of the configured system
-        :type root: str
-        """
+        # copy the file to the chroot
         try:
-            fpath = os.path.normpath(root + self.VC_CONF_FILE_PATH)
-
-            with open(fpath, "w") as fobj:
-                fobj.write('KEYMAP="%s"\n' % vc_keymap)
-
-                # systemd now defaults to a font that cannot display non-ascii
-                # characters, so we have to tell it to use a better one
-                fobj.write('FONT="%s"\n' % DEFAULT_VC_FONT)
-
+            shutil.copy2(xconf_file_path, os.path.normpath(root + "/" + xconf_file_path))
         except IOError as ioerr:
-            msg = "Cannot write vconsole configuration file: {}".format(ioerr.strerror)
-            raise KeyboardInstallationError(msg)
+            log.debug("Cannot copy X layouts configuration %s file to target system: %s.",
+                      xconf_file_path, ioerr.strerror)
+
+        # restore the original values
+        localed_wrapper.set_layouts(layouts_variants, options)
+    else:
+        try:
+            # just let systemd-localed write out the conf file
+            localed_wrapper.set_layouts(x_layouts, switch_options)
+        except InvalidLayoutVariantSpec as ilvs:
+            # some weird value appeared as a requested X layout
+            log.error("Failed to write out config file: %s, using default %s",
+                      ilvs, DEFAULT_KEYBOARD)
+
+            # try default
+            x_layouts = [DEFAULT_KEYBOARD]
+            localed_wrapper.set_layouts(x_layouts, switch_options)
+
+    if errors:
+        raise KeyboardInstallationError("\n".join(errors))
+
+
+def write_vc_configuration(vc_keymap, root):
+    """Write virtual console keyboard mapping configuration.
+
+    :param vc_keymap: virtual console keyboard mapping name
+    :type vc_keymap: str
+    :param root: root path of the configured system
+    :type root: str
+    """
+    try:
+        fpath = os.path.normpath(root + VC_CONF_FILE_PATH)
+
+        with open(fpath, "w") as fobj:
+            fobj.write('KEYMAP="%s"\n' % vc_keymap)
+
+            # systemd now defaults to a font that cannot display non-ascii
+            # characters, so we have to tell it to use a better one
+            fobj.write('FONT="%s"\n' % DEFAULT_VC_FONT)
+
+    except IOError as ioerr:
+        msg = "Cannot write vconsole configuration file: {}".format(ioerr.strerror)
+        raise KeyboardInstallationError(msg)
