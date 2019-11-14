@@ -41,7 +41,8 @@ if __name__ == "__main__":
 
 from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, \
     DD_RPMS, INSTALL_TREE, ISO_DIR, THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
-    THREAD_WAIT_FOR_CONNECTING_NM, PayloadRequirementType, GRAPHICAL_TARGET, TEXT_ONLY_TARGET
+    THREAD_WAIT_FOR_CONNECTING_NM, THREAD_SUBSCRIPTION, PayloadRequirementType, \
+    GRAPHICAL_TARGET, TEXT_ONLY_TARGET
 from pyanaconda.modules.common.constants.services import SERVICES
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
@@ -1744,6 +1745,9 @@ class PayloadManager(object):
         # FIXME: condition for cases where we don't want network
         # (set and use payload.needsNetwork ?)
         threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
+
+        # Wait for subscription
+        threadMgr.wait(THREAD_SUBSCRIPTION)
 
         payload.setup(storage, instClass)
 
