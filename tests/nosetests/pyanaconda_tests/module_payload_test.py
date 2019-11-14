@@ -77,13 +77,13 @@ class PayloadInterfaceTestCase(TestCase):
         """Test IsPayloadSet API."""
         self.assertFalse(self.payload_interface.IsPayloadSet())
 
-        self.payload_interface.CreateHandler(PayloadType.DNF.value)
+        self.payload_interface.CreatePayload(PayloadType.DNF.value)
         self.assertTrue(self.payload_interface.IsPayloadSet())
 
     @patch_dbus_publish_object
     def create_dnf_handler_test(self, publisher):
         """Test creation and publishing of the DNF handler module."""
-        self.payload_interface.CreateHandler(PayloadType.DNF.value)
+        self.payload_interface.CreatePayload(PayloadType.DNF.value)
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          PAYLOAD_DEFAULT.object_path)
         # here the publisher is called twice because the Packages section is also published
@@ -92,7 +92,7 @@ class PayloadInterfaceTestCase(TestCase):
     @patch_dbus_publish_object
     def create_live_os_handler_test(self, publisher):
         """Test creation and publishing of the Live OS handler module."""
-        self.payload_interface.CreateHandler(PayloadType.LIVE_OS.value)
+        self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          LIVE_OS_HANDLER.object_path)
         publisher.assert_called_once()
@@ -100,7 +100,7 @@ class PayloadInterfaceTestCase(TestCase):
     @patch_dbus_publish_object
     def create_live_image_handler_test(self, publisher):
         """Test creation and publishing of the Live image handler module."""
-        self.payload_interface.CreateHandler(PayloadType.LIVE_IMAGE.value)
+        self.payload_interface.CreatePayload(PayloadType.LIVE_IMAGE.value)
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          LIVE_IMAGE_HANDLER.object_path)
         publisher.assert_called_once()
@@ -109,13 +109,13 @@ class PayloadInterfaceTestCase(TestCase):
     def create_invalid_handler_test(self, publisher):
         """Test creation of the not existing handler."""
         with self.assertRaises(ValueError):
-            self.payload_interface.CreateHandler("NotAHandler")
+            self.payload_interface.CreatePayload("NotAHandler")
 
     @patch_dbus_publish_object
     def create_multiple_handlers_test(self, publisher):
         """Test creating two handlers."""
-        self.payload_interface.CreateHandler(PayloadType.DNF.value)
-        self.payload_interface.CreateHandler(PayloadType.LIVE_OS.value)
+        self.payload_interface.CreatePayload(PayloadType.DNF.value)
+        self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
 
         # The last one should win
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
@@ -351,7 +351,7 @@ class PayloadSharedUtilsTest(TestCase):
 
 class FactoryTestCase(TestCase):
 
-    def create_handler_test(self):
+    def create_payload_test(self):
         """Test PayloadFactory create method."""
         self.assertIsInstance(PayloadFactory.create(PayloadType.DNF),
                               DNFHandlerModule)
@@ -360,7 +360,7 @@ class FactoryTestCase(TestCase):
         self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_OS),
                               LiveOSHandlerModule)
 
-    def create_handler_from_ks_test(self):
+    def create_payload_from_ks_test(self):
         """Test PayloadFactory create from KS method."""
         # Live OS can't be detected from the KS data so it is not tested here
         data = Mock()

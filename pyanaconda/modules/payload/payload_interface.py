@@ -38,15 +38,15 @@ class PayloadInterface(KickstartModuleInterface):
         """Test if any payload is set and used."""
         return self.implementation.is_payload_set()
 
-    def CreateHandler(self, handler_type: Str) -> ObjPath:
-        """Create payload handler and publish it on DBus.
+    def CreatePayload(self, payload_type: Str) -> ObjPath:
+        """Create payload and publish it on DBus.
 
-        handler_type could contain these values:
+        payload_type could contain these values:
          - DNF
          - LIVE_OS
          - LIVE_IMAGE
         """
-        return self.implementation.create_handler(PayloadType(handler_type))
+        return self.implementation.create_payload(PayloadType(payload_type))
 
     def CreateSource(self, source_type: Str) -> ObjPath:
         """Create payload source and publish it on DBus.

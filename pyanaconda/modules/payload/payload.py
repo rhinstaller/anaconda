@@ -120,10 +120,10 @@ class PayloadService(KickstartService):
 
         return str(data)
 
-    def create_handler(self, payload_type):
-        """Create handler based on the passed type.
+    def create_payload(self, payload_type):
+        """Create payload based on the passed type.
 
-        :param payload_type: type of the desirable handler
+        :param payload_type: type of the desirable payload
         :type payload_type: value of the payload.base.constants.PayloadType enum
         """
         payload = PayloadFactory.create(payload_type)
