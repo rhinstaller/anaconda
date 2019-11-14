@@ -49,7 +49,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fan
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
-from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.constants.services import NETWORK, PAYLOAD
 from pyanaconda.storage_utils import device_matches
 
 from blivet.util import get_mount_device, get_mount_paths
@@ -405,6 +405,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
 
+        self._payload_module = PAYLOAD.get_observer()
+        self._payload_module.connect()
+
         self._treeinfo_repos_already_disabled = False
 
     def apply(self):
@@ -619,11 +622,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         return method_changed or update_payload_repos or self._error
 
     @property
+    def cdn_used_as_installation_source(self):
+        return self._cdnButton.get_active()
+
+    @property
     def completed(self):
         """ WARNING: This can be called before _initialize is done, make sure that it
             doesn't access things that are not setup (eg. payload.*) until it is ready
         """
-        if flags.automatedInstall and self.ready and not self.payload.baseRepo:
+        if self.cdn_used_as_installation_source:
+            return True
+        elif flags.automatedInstall and self.ready and not self.payload.baseRepo:
             return False
         else:
             return not self._error and self.ready and (self.data.method.method or self.payload.baseRepo)
@@ -641,6 +650,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     @property
     def status(self):
+        if self.cdn_used_as_installation_source:
+            return _("Red Hat CDN")
         if threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
             return _("Checking software dependencies...")
         elif not self.ready:
@@ -684,6 +695,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._autodetectBox = self.builder.get_object("autodetectBox")
         self._autodetectDeviceLabel = self.builder.get_object("autodetectDeviceLabel")
         self._autodetectLabel = self.builder.get_object("autodetectLabel")
+        self._cdnButton = self.builder.get_object("cdnRadioButton")
         self._hmcButton = self.builder.get_object("hmcRadioButton")
         self._isoButton = self.builder.get_object("isoRadioButton")
         self._isoBox = self.builder.get_object("isoBox")
@@ -754,6 +766,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # want to let me pass in user data.
         # See also: https://bugzilla.gnome.org/show_bug.cgi?id=727919
         self._autodetectButton.connect("toggled", self.on_source_toggled, self._autodetectBox)
+        self._cdnButton.connect("toggled", self.on_source_toggled, None)
         self._hmcButton.connect("toggled", self.on_source_toggled, None)
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
@@ -775,6 +788,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_group_md)
         payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
         payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+
+        # default to Red Hat CDN if no method has been specified
+        if not self.data.method.method:
+            self._cdnButton.set_active(True)
+            self._update_CDN_usage()
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.
@@ -937,7 +955,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # something different later, we can change it.
         self._protocolComboBox.set_active_id(PROTOCOL_MIRROR)
 
-        if self.data.method.method == "url":
+        if self._payload_module.proxy.RedHatCDNEnabled:
+            # prevent the Red Hat CDN from being overrun by method ad refresh time,
+            # if CDN was set as installation source before
+            self._cdnButton.set_active(True)
+        elif self.data.method.method == "url":
             self._networkButton.set_active(True)
 
             proto = self.data.method.url or self.data.method.mirrorlist or self.data.method.metalink
@@ -981,15 +1003,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._hmcButton.set_active(True)
         else:
             # No method was given in advance, so now we need to make a sensible
-            # guess.  Go with autodetected media if that was provided, and then
-            # fall back to closest mirror.
+            # guess.  Try to autodetect media if that was provided, and then
+            # fall back to Red Hat CDN.
             if not self._autodetectButton.get_no_show_all():
                 self._autodetectButton.set_active(True)
                 self.data.method.method = "cdrom"
             else:
-                self._networkButton.set_active(True)
+                self._cdnButton.set_active(True)
                 self.data.method.method = None
-                self._proxyUrl = self.data.method.proxy
+                self._update_CDN_usage()
 
         self._setup_no_updates()
 
@@ -1061,6 +1083,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._updatesBox.set_sensitive(self._mirror_active())
         active = not self._mirror_active() or not self.payload.isRepoEnabled("updates")
         self._noUpdatesCheckbox.set_active(active)
+
+    def _update_CDN_usage(self):
+        """Notify Payload module and Subscription spoke about possible CDN usage change."""
+        # first set CDN enabled data in Payload module
+        self._payload_module.proxy.SetRedHatCDNEnabled(self.cdn_used_as_installation_source)
+
+        # notify Subscription spoke about possible change
+        hubQ.send_ready("SubscriptionSpoke", False)
 
     @property
     def showable(self):
@@ -1234,6 +1264,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             relatedBox.set_sensitive(enabled)
 
         self._setup_no_updates()
+
+        self._update_CDN_usage()
 
     def on_back_clicked(self, button):
         """If any input validation checks failed, keep the user on the screen.
