@@ -1,5 +1,5 @@
 #
-# Factory class to create payload handlers.
+# Factory class to create payloads.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -20,7 +20,7 @@ from abc import ABC, abstractclassmethod
 
 from pyanaconda.modules.payload.constants import PayloadType, SourceType
 
-__all__ = ["HandlerFactory", "SourceFactory"]
+__all__ = ["PayloadFactory", "SourceFactory"]
 
 
 class BaseFactory(ABC):
@@ -32,9 +32,9 @@ class BaseFactory(ABC):
 
         :param object_type: value from the enum of given type
         """
-        handler = cls._create(object_type)
+        obj = cls._create(object_type)
 
-        return handler
+        return obj
 
     @abstractclassmethod
     def _create(cls, object_type):
@@ -45,7 +45,7 @@ class BaseFactory(ABC):
         pass
 
 
-class HandlerFactory(BaseFactory):
+class PayloadFactory(BaseFactory):
     """Factory to create payloads."""
 
     @classmethod

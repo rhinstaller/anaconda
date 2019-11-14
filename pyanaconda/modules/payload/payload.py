@@ -22,7 +22,7 @@ from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.errors.payload import PayloadNotSetError
-from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
+from pyanaconda.modules.payload.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 
@@ -90,7 +90,7 @@ class PayloadService(KickstartService):
 
         # create payload if no payload is set already
         if not self.is_handler_set():
-            payload = HandlerFactory.create_from_ks_data(data)
+            payload = PayloadFactory.create_from_ks_data(data)
             if not payload:
                 log.warning("No payload was created. Kickstart data passed in are lost.")
                 return
@@ -126,7 +126,7 @@ class PayloadService(KickstartService):
         :param payload_type: type of the desirable handler
         :type payload_type: value of the payload.base.constants.PayloadType enum
         """
-        payload = HandlerFactory.create(payload_type)
+        payload = PayloadFactory.create(payload_type)
         self._initialize_payload(payload)
         return self._payload_path
 

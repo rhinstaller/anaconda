@@ -34,7 +34,7 @@ from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_
     get_dir_size
 from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
     SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
+from pyanaconda.modules.payload.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payload.constants import PayloadType, SourceType
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadService
@@ -352,32 +352,32 @@ class PayloadSharedUtilsTest(TestCase):
 class FactoryTestCase(TestCase):
 
     def create_handler_test(self):
-        """Test HandlerFactory create method."""
-        self.assertIsInstance(HandlerFactory.create(PayloadType.DNF),
+        """Test PayloadFactory create method."""
+        self.assertIsInstance(PayloadFactory.create(PayloadType.DNF),
                               DNFHandlerModule)
-        self.assertIsInstance(HandlerFactory.create(PayloadType.LIVE_IMAGE),
+        self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_IMAGE),
                               LiveImageHandlerModule)
-        self.assertIsInstance(HandlerFactory.create(PayloadType.LIVE_OS),
+        self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_OS),
                               LiveOSHandlerModule)
 
     def create_handler_from_ks_test(self):
-        """Test HandlerFactory create from KS method."""
+        """Test PayloadFactory create from KS method."""
         # Live OS can't be detected from the KS data so it is not tested here
         data = Mock()
         data.liveimg.seen = True
         data.packages.seen = False
 
-        self.assertIsInstance(HandlerFactory.create_from_ks_data(data),
+        self.assertIsInstance(PayloadFactory.create_from_ks_data(data),
                               LiveImageHandlerModule)
 
         data.liveimg.seen = False
         data.packages.seen = True
-        self.assertIsInstance(HandlerFactory.create_from_ks_data(data),
+        self.assertIsInstance(PayloadFactory.create_from_ks_data(data),
                               DNFHandlerModule)
 
         data.liveimg.seen = False
         data.packages.seen = False
-        self.assertIsNone(HandlerFactory.create_from_ks_data(data))
+        self.assertIsNone(PayloadFactory.create_from_ks_data(data))
 
     def create_source_test(self):
         """Test SourceFactory create method."""
