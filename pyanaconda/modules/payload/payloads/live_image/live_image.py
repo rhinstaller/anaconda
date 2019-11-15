@@ -34,7 +34,7 @@ from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesT
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
 from pyanaconda.modules.payload.base.utils import get_kernel_version_list
 from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
-    LiveImageHandlerInterface
+    LiveImageInterface
 from pyanaconda.modules.payload.payloads.live_image.initialization import \
     CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
     TeardownInstallationSourceImageTask
@@ -46,7 +46,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveImageHandlerModule(PayloadBase):
+class LiveImageModule(PayloadBase):
     """The Live Image payload module."""
 
     def __init__(self):
@@ -83,7 +83,7 @@ class LiveImageHandlerModule(PayloadBase):
 
     def publish_payload(self):
         """Publish the payload."""
-        DBus.publish_object(LIVE_IMAGE_HANDLER.object_path, LiveImageHandlerInterface(self))
+        DBus.publish_object(LIVE_IMAGE_HANDLER.object_path, LiveImageInterface(self))
         return LIVE_IMAGE_HANDLER.object_path
 
     def process_kickstart(self, data):

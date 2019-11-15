@@ -34,9 +34,9 @@ from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesT
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
 from pyanaconda.modules.payload.payload import PayloadService
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
+from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
-    LiveImageHandlerInterface
+    LiveImageInterface
 from pyanaconda.modules.payload.payloads.live_image.initialization import \
     CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
     TeardownInstallationSourceImageTask
@@ -56,8 +56,8 @@ class LiveImageHandlerKSTestCase(unittest.TestCase):
     def _check_properties(self, url, proxy="", checksum="", verifyssl=True):
         handler = self.shared_tests.get_payload()
 
-        self.assertIsInstance(handler, LiveImageHandlerModule)
-        intf = LiveImageHandlerInterface(handler)
+        self.assertIsInstance(handler, LiveImageModule)
+        intf = LiveImageInterface(handler)
 
         self.assertEqual(intf.Url, url)
         self.assertEqual(intf.Proxy, proxy)
@@ -128,11 +128,11 @@ class LiveImageHandlerKSTestCase(unittest.TestCase):
                                checksum="ABCDEFG")
 
 
-class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
+class LiveImageInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.live_image_module = LiveImageHandlerModule()
-        self.live_image_interface = LiveImageHandlerInterface(self.live_image_module)
+        self.live_image_module = LiveImageModule()
+        self.live_image_interface = LiveImageInterface(self.live_image_module)
 
         self.source_tests = SourceSharedTest(self,
                                              payload=self.live_image_module,

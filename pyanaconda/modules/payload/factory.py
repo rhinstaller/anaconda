@@ -74,8 +74,8 @@ class PayloadFactory(BaseFactory):
     def _create(cls, object_type):
         if object_type == PayloadType.LIVE_IMAGE:
             from pyanaconda.modules.payload.payloads.live_image.live_image import \
-                LiveImageHandlerModule
-            return LiveImageHandlerModule()
+                LiveImageModule
+            return LiveImageModule()
         elif object_type == PayloadType.LIVE_OS:
             from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
             return LiveOSHandlerModule()

@@ -39,7 +39,7 @@ from pyanaconda.modules.payload.constants import PayloadType, SourceType
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadService
 from pyanaconda.modules.payload.payloads.dnf.dnf import DNFModule
-from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
+from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
 
@@ -356,7 +356,7 @@ class FactoryTestCase(TestCase):
         self.assertIsInstance(PayloadFactory.create(PayloadType.DNF),
                               DNFModule)
         self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_IMAGE),
-                              LiveImageHandlerModule)
+                              LiveImageModule)
         self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_OS),
                               LiveOSHandlerModule)
 
@@ -367,7 +367,7 @@ class FactoryTestCase(TestCase):
         data.liveimg.seen = True
         data.packages.seen = False
 
-        self.assertIsInstance(PayloadFactory.create_from_ks_data(data), LiveImageHandlerModule)
+        self.assertIsInstance(PayloadFactory.create_from_ks_data(data), LiveImageModule)
 
         data.liveimg.seen = False
         data.packages.seen = True

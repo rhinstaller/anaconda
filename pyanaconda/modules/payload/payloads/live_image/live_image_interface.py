@@ -27,7 +27,7 @@ from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBa
 
 
 @dbus_interface(LIVE_IMAGE_HANDLER.interface_name)
-class LiveImageHandlerInterface(PayloadBaseInterface):
+class LiveImageInterface(PayloadBaseInterface):
     """DBus interface for Live Image payload module."""
 
     def connect_signals(self):
@@ -92,7 +92,7 @@ class LiveImageHandlerInterface(PayloadBaseInterface):
         pass
 
     def SetupWithTask(self) -> ObjPath:
-        """Setup the handler.
+        """Setup the payload.
 
         Check availability of the image and update required space
         """
