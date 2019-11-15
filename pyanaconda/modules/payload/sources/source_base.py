@@ -52,9 +52,9 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         :rtype: bool
         """
         # TODO: Add needs_teardown property which will tell us if the source has to be cleaned up
-        # before removing the source from a payload handler. The is_ready will work for now but it
+        # before removing the source from a payload. The is_ready will work for now but it
         # will not work for for example HTTP source which is always ready. That source would cause
-        # troubles for the base handler set_sources method ready check.
+        # troubles for the base payload set_sources method ready check.
         pass
 
     @abstractmethod
