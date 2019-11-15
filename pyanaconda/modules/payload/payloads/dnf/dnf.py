@@ -40,8 +40,8 @@ class DNFHandlerModule(PayloadBase):
         # TODO: Add supported sources when implemented
         return None
 
-    def publish_handler(self):
-        """Publish the handler."""
+    def publish_payload(self):
+        """Publish the payload."""
         self._packages_handler.publish()
 
         DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFHandlerInterface(self))

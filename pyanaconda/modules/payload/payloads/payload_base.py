@@ -136,10 +136,10 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         return bool(self.sources)
 
     @abstractmethod
-    def publish_handler(self):
+    def publish_payload(self):
         """Publish object on DBus and return its path.
 
-        :returns: path to this handler
+        :returns: path to this payload
         :rtype: string
         """
         pass

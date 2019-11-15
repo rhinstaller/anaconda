@@ -66,8 +66,8 @@ class LiveOSHandlerModule(PayloadBase):
 
         super().set_sources(sources)
 
-    def publish_handler(self):
-        """Publish the handler."""
+    def publish_payload(self):
+        """Publish the payload."""
         DBus.publish_object(LIVE_OS_HANDLER.object_path, LiveOSHandlerInterface(self))
         return LIVE_OS_HANDLER.object_path
 

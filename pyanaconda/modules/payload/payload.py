@@ -100,7 +100,7 @@ class PayloadService(KickstartService):
         self._initialize_payload(payload)
 
     def _initialize_payload(self, payload):
-        self._payload_path = payload.publish_handler()
+        self._payload_path = payload.publish_payload()
         self.set_payload(payload)
 
     def generate_kickstart(self):

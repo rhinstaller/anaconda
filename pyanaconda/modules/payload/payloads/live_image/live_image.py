@@ -81,8 +81,8 @@ class LiveImageHandlerModule(PayloadBase):
         # TODO: Add supported sources when implemented
         return None
 
-    def publish_handler(self):
-        """Publish the handler."""
+    def publish_payload(self):
+        """Publish the payload."""
         DBus.publish_object(LIVE_IMAGE_HANDLER.object_path, LiveImageHandlerInterface(self))
         return LIVE_IMAGE_HANDLER.object_path
 
