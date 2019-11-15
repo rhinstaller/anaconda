@@ -25,7 +25,7 @@ from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBa
 
 
 @dbus_interface(LIVE_OS_HANDLER.interface_name)
-class LiveOSHandlerInterface(PayloadBaseInterface):
+class LiveOSInterface(PayloadBaseInterface):
     """DBus interface for Live OS payload module."""
 
     def connect_signals(self):

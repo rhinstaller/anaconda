@@ -77,8 +77,8 @@ class PayloadFactory(BaseFactory):
                 LiveImageModule
             return LiveImageModule()
         elif object_type == PayloadType.LIVE_OS:
-            from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
-            return LiveOSHandlerModule()
+            from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSModule
+            return LiveOSModule()
         elif object_type == PayloadType.DNF:
             from pyanaconda.modules.payload.payloads.dnf.dnf import DNFModule
             return DNFModule()

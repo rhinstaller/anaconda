@@ -40,7 +40,7 @@ from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadService
 from pyanaconda.modules.payload.payloads.dnf.dnf import DNFModule
 from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageModule
-from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
+from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSModule
 from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
 
 
@@ -353,12 +353,9 @@ class FactoryTestCase(TestCase):
 
     def create_payload_test(self):
         """Test PayloadFactory create method."""
-        self.assertIsInstance(PayloadFactory.create(PayloadType.DNF),
-                              DNFModule)
-        self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_IMAGE),
-                              LiveImageModule)
-        self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_OS),
-                              LiveOSHandlerModule)
+        self.assertIsInstance(PayloadFactory.create(PayloadType.DNF), DNFModule)
+        self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_IMAGE), LiveImageModule)
+        self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_OS), LiveOSModule)
 
     def create_payload_from_ks_test(self):
         """Test PayloadFactory create from KS method."""
