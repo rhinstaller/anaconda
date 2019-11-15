@@ -26,9 +26,9 @@ from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.payload.payload import PayloadService
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesHandlerModule
+from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesModule
 from pyanaconda.modules.payload.payloads.dnf.packages.packages_interface import \
-    PackagesHandlerInterface
+    PackagesInterface
 from pyanaconda.modules.payload.payloads.dnf.packages.constants import TIMEOUT_UNSET, \
     RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 
@@ -54,8 +54,8 @@ class PackagesHandlerKSTestCase(unittest.TestCase):
         payload = self.shared_tests.get_payload()
         packages_handler = payload._packages_handler
 
-        self.assertIsInstance(packages_handler, PackagesHandlerModule)
-        return PackagesHandlerInterface(packages_handler)
+        self.assertIsInstance(packages_handler, PackagesModule)
+        return PackagesInterface(packages_handler)
 
     def _check_properties(self, nocore=False, multilib="best",
                           langs=LANGUAGES_DEFAULT, ignore_missing=False):
@@ -251,11 +251,11 @@ class PackagesHandlerKSTestCase(unittest.TestCase):
         self._check_properties(nocore=True, ignore_missing=True, langs=LANGUAGES_NONE)
 
 
-class PackagesHandlerInterfaceTestCase(unittest.TestCase):
+class PackagesInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.packages_module = PackagesHandlerModule()
-        self.packages_interface = PackagesHandlerInterface(self.packages_module)
+        self.packages_module = PackagesModule()
+        self.packages_interface = PackagesInterface(self.packages_module)
 
         self.callback = PropertiesChangedCallback()
         self.packages_interface.PropertiesChanged.connect(self.callback)

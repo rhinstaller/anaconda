@@ -21,7 +21,7 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
 from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
 from pyanaconda.modules.payload.payloads.dnf.dnf_interface import DNFHandlerInterface
-from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesHandlerModule
+from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -32,7 +32,7 @@ class DNFHandlerModule(PayloadBase):
 
     def __init__(self):
         super().__init__()
-        self._packages_handler = PackagesHandlerModule()
+        self._packages_handler = PackagesModule()
 
     @property
     def supported_source_types(self):

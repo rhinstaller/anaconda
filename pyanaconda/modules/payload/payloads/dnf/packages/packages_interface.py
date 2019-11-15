@@ -27,7 +27,7 @@ from pyanaconda.modules.payload.payloads.dnf.packages.constants import MultilibP
 
 
 @dbus_interface(DNF_PACKAGES.interface_name)
-class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
+class PackagesInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for DNF packages sub-module."""
 
     def connect_signals(self):
