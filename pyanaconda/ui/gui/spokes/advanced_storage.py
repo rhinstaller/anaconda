@@ -16,12 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-import gi
-gi.require_version("Gtk", "3.0")
-
-from gi.repository import Gtk
-
 from collections import namedtuple
 
 from blivet import arch
@@ -48,6 +42,10 @@ from pyanaconda.ui.gui.spokes.advstorage.nvdimm import NVDIMMDialog
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.categories.system import SystemCategory
 
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
+
 __all__ = ["FilterSpoke"]
 
 PAGE_SEARCH = 0
@@ -56,11 +54,14 @@ PAGE_OTHER = 2
 PAGE_NVDIMM = 3
 PAGE_Z = 4
 
-DiskStoreRow = namedtuple("DiskStoreRow", ["visible", "selected", "mutable",
-                                           "name", "type", "model", "capacity",
-                                           "vendor", "interconnect", "serial",
-                                           "wwid", "paths", "port", "target",
-                                           "lun", "ccw", "wwpn", "namespace", "mode"])
+DiskStoreRow = namedtuple("DiskStoreRow", [
+    "visible", "selected", "mutable",
+    "name", "type", "model", "capacity",
+    "vendor", "interconnect", "serial",
+    "wwid", "paths", "port", "target",
+    "lun", "ccw", "wwpn", "namespace", "mode"
+])
+
 
 class FilterPage(object):
     """A FilterPage is the logic behind one of the notebook tabs on the filter
@@ -77,25 +78,41 @@ class FilterPage(object):
        more specialized type of page.  Only one instance of each subclass should
        ever be created.
     """
-    def __init__(self, storage, builder):
+    # Default value of a type combo.
+    SEARCH_TYPE_NONE = 'None'
+
+    def __init__(self, storage, builder, model_name, combo_name):
         """Create a new FilterPage instance.
 
-           Instance attributes:
-
-           builder      -- A reference to the Gtk.Builder instance containing
-                           this page's UI elements.
-           filterActive -- Whether the user has chosen to filter results down
-                           on this page.  If set, visible_func should take the
-                           filter UI elements into account.
-           storage      -- An instance of a blivet object.
+        :param storage: an instance of the storage object
+        :param builder: a instance of the Gtk.Builder
+        :param model_name: a name of the filter model
+        :param combo_name: a name of the type combo
         """
-        self.builder = builder
-        self.storage = storage
-        self.model = None
+        self._builder = builder
+        self._storage = storage
+        self._is_active = False
 
-        self.filterActive = False
+        self._model = self._builder.get_object(model_name)
+        self._model.set_visible_func(self.visible_func)
 
-    def ismember(self, device):
+        self._combo = self._builder.get_object(combo_name)
+
+    @property
+    def model(self):
+        """The model."""
+        return self._model
+
+    @property
+    def is_active(self):
+        """Is the filter active?"""
+        return self._is_active
+
+    @is_active.setter
+    def is_active(self, value):
+        self._is_active = value
+
+    def is_member(self, device):
         """Does device belong on this page?  This function should taken into
            account what kind of thing device is.  It should not be concerned
            with any sort of filtering settings.  It only determines whether
@@ -103,7 +120,7 @@ class FilterPage(object):
         """
         return True
 
-    def setup(self, store, selectedNames, disks):
+    def setup(self, store, selected_names, disks):
         """Do whatever setup of the UI is necessary before this page can be
            displayed.  This function is called every time the filter spoke
            is revisited, and thus must first do any cleanup that is necessary.
@@ -111,38 +128,20 @@ class FilterPage(object):
            The setup function is passed a reference to the master store, a list
            of names of disks the user has selected (either from a previous visit
            or via kickstart), and a list of all disk objects that belong on this
-           page as determined from the ismember method.
+           page as determined from the is_member method.
 
            At the least, this method should add all the disks to the store.  It
            may also need to populate combos and other lists as appropriate.
         """
         pass
 
-    def clear(self):
-        """Blank out any filtering-related fields on this page and return them
-           to their defaults.  This is called when the Clear button is clicked.
-        """
-        pass
+    def _setup_combo(self, combo, items):
+        """Populate a given GtkComboBoxText instance with a list of items.
 
-    def visible_func(self, model, itr, *args):
-        """This method is called for every row (disk) in the store, in order to
-           determine if it should be displayed on this page or not.  This method
-           should take into account whether filterActive is set, perhaps whether
-           something in pyanaconda.flags is setup, and other settings to make
-           a final decision.  Because filtering can be complicated, many pages
-           will want to farm this decision out to another method.
-
-           The return value is a boolean indicating whether the row is visible
-           or not.
-        """
-        return True
-
-    def setupCombo(self, combo, items):
-        """Populate a given GtkComboBoxText instance with a list of items.  The
-           combo will first be cleared, so this method is suitable for calling
-           repeatedly. The first item in the list will be empty to allow the
-           combo box criterion to be cleared. The first non-empty item in the
-           list will be selected by default.
+        The combo will first be cleared, so this method is suitable for calling
+        repeatedly. The first item in the list will be empty to allow the combo
+        box criterion to be cleared. The first non-empty item in the list will
+        be selected by default.
         """
         combo.remove_all()
         combo.append_text('')
@@ -153,72 +152,107 @@ class FilterPage(object):
         if items:
             combo.set_active(1)
 
-    def _long_identifier(self, disk):
+    def _setup_search_type(self):
+        """Set up the default search type."""
+        self._combo.set_active_id(self.SEARCH_TYPE_NONE)
+        self._combo.emit("changed")
+
+    def clear(self):
+        """Blank out any filtering-related fields on this page and return them
+           to their defaults.  This is called when the Clear button is clicked.
+        """
+        pass
+
+    def visible_func(self, model, itr, *args):
+        """This method is called for every row (disk) in the store, in order to
+           determine if it should be displayed on this page or not.  This method
+           should take into account whether is_active is set, perhaps whether
+           something in pyanaconda.flags is setup, and other settings to make
+           a final decision.  Because filtering can be complicated, many pages
+           will want to farm this decision out to another method.
+
+           The return value is a boolean indicating whether the row is visible
+           or not.
+        """
+        if not self._is_active:
+            return True
+
+        row = DiskStoreRow(*model[itr])
+        device = self._storage.devicetree.get_device_by_name(row.name, hidden=True)
+
+        if not self.is_member(device):
+            return False
+
+        filter_by = self._combo.get_active_id()
+        if filter_by == self.SEARCH_TYPE_NONE:
+            return True
+
+        return self._filter_func(filter_by, device)
+
+    def _filter_func(self, filter_by, device):
+        """Filter a row by the specified filter."""
+        return True
+
+    def _get_long_identifier(self, disk):
         # For iSCSI devices, we want the long ip-address:port-iscsi-tgtname-lun-XX
         # identifier, but blivet doesn't expose that in any useful way and I don't
         # want to go asking udev.  Instead, we dig around in the deviceLinks and
         # default to the name if we can't figure anything else out.
         for link in disk.device_links:
             if "by-path" in link:
-                lastSlash = link.rindex("/")+1
-                return link[lastSlash:]
+                last_slash = link.rindex("/") + 1
+                return link[last_slash:]
 
         return disk.name
 
+
 class SearchPage(FilterPage):
     # Match these to searchTypeCombo ids in glade
-    SEARCH_TYPE_NONE = 'None'
     SEARCH_TYPE_PORT_TARGET_LUN = 'PTL'
     SEARCH_TYPE_WWID = 'WWID'
 
     def __init__(self, storage, builder):
-        super().__init__(storage, builder)
-        self.model = self.builder.get_object("searchModel")
-        self.model.set_visible_func(self.visible_func)
+        super().__init__(storage, builder, "searchModel", "searchTypeCombo")
+        self._lun_entry = self._builder.get_object("searchLUNEntry")
+        self._wwid_entry = self._builder.get_object("searchWWIDEntry")
+        self._port_combo = self._builder.get_object("searchPortCombo")
+        self._target_entry = self._builder.get_object("searchTargetEntry")
 
-        self._lunEntry = self.builder.get_object("searchLUNEntry")
-        self._wwidEntry = self.builder.get_object("searchWWIDEntry")
-
-        self._combo = self.builder.get_object("searchTypeCombo")
-        self._portCombo = self.builder.get_object("searchPortCombo")
-        self._targetEntry = self.builder.get_object("searchTargetEntry")
-
-    def setup(self, store, selectedNames, disks):
-        self._combo.set_active_id(self.SEARCH_TYPE_NONE)
-        self._combo.emit("changed")
-
+    def setup(self, store, selected_names, disks):
         ports = []
+
         for disk in disks:
             if hasattr(disk, "port") and disk.port is not None:
                 ports.append(str(disk.port))
 
-        self.setupCombo(self._portCombo, ports)
+        self._setup_combo(self._port_combo, ports)
+        self._setup_search_type()
 
     def clear(self):
-        self._lunEntry.set_text("")
-        self._portCombo.set_active(0)
-        self._targetEntry.set_text("")
-        self._wwidEntry.set_text("")
+        self._lun_entry.set_text("")
+        self._port_combo.set_active(0)
+        self._target_entry.set_text("")
+        self._wwid_entry.set_text("")
 
     def _port_equal(self, device):
-        active = self._portCombo.get_active_text()
+        active = self._port_combo.get_active_text()
         if active:
             if hasattr(device, "port"):
                 return device.port == int(active)
             else:
                 return False
-        else:
-            return True
+
+        return True
 
     def _target_equal(self, device):
-        active = self._targetEntry.get_text().strip()
+        active = self._target_entry.get_text().strip()
         if active:
             return active in getattr(device, "initiator", "")
-        else:
-            return True
+
+        return True
 
     def _lun_equal(self, device):
-        active = self._lunEntry.get_text().strip()
+        active = self._lun_entry.get_text().strip()
         if active:
             if hasattr(device, "lun"):
                 try:
@@ -230,334 +264,281 @@ class SearchPage(FilterPage):
         else:
             return True
 
-    def _filter_func(self, device):
-        if not self.filterActive:
-            return True
+    def _filter_func(self, filter_by, device):
+        if filter_by == self.SEARCH_TYPE_PORT_TARGET_LUN:
+            return self._port_equal(device) \
+                   and self._target_equal(device) \
+                   and self._lun_equal(device)
 
-        filterBy = self._combo.get_active_id()
+        if filter_by == self.SEARCH_TYPE_WWID:
+            return self._wwid_entry.get_text() \
+                   in getattr(device, "wwn", self._get_long_identifier(device))
 
-        if filterBy == self.SEARCH_TYPE_NONE:
-            return True
-        elif filterBy == self.SEARCH_TYPE_PORT_TARGET_LUN:
-            return self._port_equal(device) and self._target_equal(device) and self._lun_equal(device)
-        elif filterBy == self.SEARCH_TYPE_WWID:
-            return self._wwidEntry.get_text() in getattr(device, "wwn", self._long_identifier(device))
+        return False
 
-    def visible_func(self, model, itr, *args):
-        obj = DiskStoreRow(*model[itr])
-        device = self.storage.devicetree.get_device_by_name(obj.name, hidden=True)
-        return self._filter_func(device)
 
 class MultipathPage(FilterPage):
     # Match these to multipathTypeCombo ids in glade
-    SEARCH_TYPE_NONE = 'None'
     SEARCH_TYPE_VENDOR = 'Vendor'
     SEARCH_TYPE_INTERCONNECT = 'Interconnect'
     SEARCH_TYPE_WWID = 'WWID'
 
     def __init__(self, storage, builder):
-        super().__init__(storage, builder)
-        self.model = self.builder.get_object("multipathModel")
-        self.model.set_visible_func(self.visible_func)
+        super().__init__(storage, builder, "multipathModel", "multipathTypeCombo")
+        self._ic_combo = self._builder.get_object("multipathInterconnectCombo")
+        self._vendor_combo = self._builder.get_object("multipathVendorCombo")
+        self._wwid_entry = self._builder.get_object("multipathWWIDEntry")
 
-        self._combo = self.builder.get_object("multipathTypeCombo")
-        self._icCombo = self.builder.get_object("multipathInterconnectCombo")
-        self._vendorCombo = self.builder.get_object("multipathVendorCombo")
-        self._wwidEntry = self.builder.get_object("multipathWWIDEntry")
-
-    def ismember(self, device):
+    def is_member(self, device):
         return isinstance(device, MultipathDevice)
 
-    def setup(self, store, selectedNames, disks):
+    def setup(self, store, selected_names, disks):
         vendors = []
         interconnects = []
 
         for disk in disks:
             paths = [d.name for d in disk.parents]
-            selected = disk.name in selectedNames
+            selected = disk.name in selected_names
 
-            store.append([True, selected, not disk.protected,
-                          disk.name, "", disk.model, str(disk.size),
-                          disk.vendor, disk.bus, disk.serial,
-                          disk.wwn, "\n".join(paths), "", "",
-                          "", "", "", "", ""])
-            if not disk.vendor in vendors:
+            store.append([
+                True, selected, not disk.protected,
+                disk.name, "", disk.model, str(disk.size),
+                disk.vendor, disk.bus, disk.serial,
+                disk.wwn, "\n".join(paths), "", "",
+                "", "", "", "", ""
+            ])
+
+            if disk.vendor not in vendors:
                 vendors.append(disk.vendor)
 
-            if not disk.bus in interconnects:
+            if disk.bus not in interconnects:
                 interconnects.append(disk.bus)
 
-        self._combo.set_active_id(self.SEARCH_TYPE_NONE)
-        self._combo.emit("changed")
-
-        self.setupCombo(self._vendorCombo, vendors)
-        self.setupCombo(self._icCombo, interconnects)
+        self._setup_combo(self._vendor_combo, vendors)
+        self._setup_combo(self._ic_combo, interconnects)
+        self._setup_search_type()
 
     def clear(self):
-        self._icCombo.set_active(0)
-        self._vendorCombo.set_active(0)
-        self._wwidEntry.set_text("")
+        self._ic_combo.set_active(0)
+        self._vendor_combo.set_active(0)
+        self._wwid_entry.set_text("")
 
-    def _filter_func(self, device):
-        if not self.filterActive:
-            return True
+    def _filter_func(self, filter_by, device):
+        if filter_by == self.SEARCH_TYPE_VENDOR:
+            return device.vendor == self._vendor_combo.get_active_text()
 
-        filterBy = self._combo.get_active_id()
+        if filter_by == self.SEARCH_TYPE_INTERCONNECT:
+            return device.bus == self._ic_combo.get_active_text()
 
-        if filterBy == self.SEARCH_TYPE_NONE:
-            return True
-        elif filterBy == self.SEARCH_TYPE_VENDOR:
-            return device.vendor == self._vendorCombo.get_active_text()
-        elif filterBy == self.SEARCH_TYPE_INTERCONNECT:
-            return device.bus == self._icCombo.get_active_text()
-        elif filterBy == self.SEARCH_TYPE_WWID:
-            return self._wwidEntry.get_text() in device.wwn
+        if filter_by == self.SEARCH_TYPE_WWID:
+            return self._wwid_entry.get_text() in device.wwn
+
+        return False
 
     def visible_func(self, model, itr, *args):
         if not flags.mpath:
             return False
 
-        obj = DiskStoreRow(*model[itr])
-        device = self.storage.devicetree.get_device_by_name(obj.name, hidden=True)
-        return self.ismember(device) and self._filter_func(device)
+        return super().visible_func(model, itr, *args)
+
 
 class OtherPage(FilterPage):
     # Match these to otherTypeCombo ids in glade
-    SEARCH_TYPE_NONE = 'None'
     SEARCH_TYPE_VENDOR = 'Vendor'
     SEARCH_TYPE_INTERCONNECT = 'Interconnect'
     SEARCH_TYPE_ID = 'ID'
 
     def __init__(self, storage, builder):
-        super().__init__(storage, builder)
-        self.model = self.builder.get_object("otherModel")
-        self.model.set_visible_func(self.visible_func)
+        super().__init__(storage, builder, "otherModel", "otherTypeCombo")
+        self._ic_combo = self._builder.get_object("otherInterconnectCombo")
+        self._id_entry = self._builder.get_object("otherIDEntry")
+        self._vendor_combo = self._builder.get_object("otherVendorCombo")
 
-        self._combo = self.builder.get_object("otherTypeCombo")
-        self._icCombo = self.builder.get_object("otherInterconnectCombo")
-        self._idEntry = self.builder.get_object("otherIDEntry")
-        self._vendorCombo = self.builder.get_object("otherVendorCombo")
-
-    def ismember(self, device):
+    def is_member(self, device):
         return isinstance(device, iScsiDiskDevice) or isinstance(device, FcoeDiskDevice)
 
-    def setup(self, store, selectedNames, disks):
+    def setup(self, store, selected_names, disks):
         vendors = []
         interconnects = []
 
         for disk in disks:
             paths = [d.name for d in disk.parents]
-            selected = disk.name in selectedNames
+            selected = disk.name in selected_names
 
             port = getattr(disk, "port", "")
             lun = str(getattr(disk, "lun", ""))
             target = getattr(disk, "target", "")
 
-            store.append([True, selected, not disk.protected,
-                          disk.name, "", disk.model, str(disk.size),
-                          disk.vendor, disk.bus, disk.serial,
-                          self._long_identifier(disk), "\n".join(paths), port, target,
-                          lun, "", "", "", ""])
+            store.append([
+                True, selected, not disk.protected,
+                disk.name, "", disk.model, str(disk.size),
+                disk.vendor, disk.bus, disk.serial,
+                self._get_long_identifier(disk), "\n".join(paths), port, target,
+                lun, "", "", "", ""
+            ])
 
-            if not disk.vendor in vendors:
+            if disk.vendor not in vendors:
                 vendors.append(disk.vendor)
 
-            if not disk.bus in interconnects:
+            if disk.bus not in interconnects:
                 interconnects.append(disk.bus)
 
-        self._combo.set_active_id(self.SEARCH_TYPE_NONE)
-        self._combo.emit("changed")
-
-        self.setupCombo(self._vendorCombo, vendors)
-        self.setupCombo(self._icCombo, interconnects)
+        self._setup_combo(self._vendor_combo, vendors)
+        self._setup_combo(self._ic_combo, interconnects)
+        self._setup_search_type()
 
     def clear(self):
-        self._icCombo.set_active(0)
-        self._idEntry.set_text("")
-        self._vendorCombo.set_active(0)
+        self._ic_combo.set_active(0)
+        self._id_entry.set_text("")
+        self._vendor_combo.set_active(0)
 
-    def _filter_func(self, device):
-        if not self.filterActive:
-            return True
+    def _filter_func(self, filter_by, device):
+        if filter_by == self.SEARCH_TYPE_VENDOR:
+            return device.vendor == self._vendor_combo.get_active_text()
 
-        filterBy = self._combo.get_active_id()
+        if filter_by == self.SEARCH_TYPE_INTERCONNECT:
+            return device.bus == self._ic_combo.get_active_text()
 
-        if filterBy == self.SEARCH_TYPE_NONE:
-            return True
-        elif filterBy == self.SEARCH_TYPE_VENDOR:
-            return device.vendor == self._vendorCombo.get_active_text()
-        elif filterBy == self.SEARCH_TYPE_INTERCONNECT:
-            return device.bus == self._icCombo.get_active_text()
-        elif filterBy == self.SEARCH_TYPE_ID:
+        if filter_by == self.SEARCH_TYPE_ID:
             for link in device.device_links:
                 if "by-path" in link:
-                    return self._idEntry.get_text().strip() in link
+                    return self._id_entry.get_text().strip() in link
 
-            return False
+        return False
 
-    def visible_func(self, model, itr, *args):
-        obj = DiskStoreRow(*model[itr])
-        device = self.storage.devicetree.get_device_by_name(obj.name, hidden=True)
-        return self.ismember(device) and self._filter_func(device)
 
 class ZPage(FilterPage):
     # Match these to zTypeCombo ids in glade
-    SEARCH_TYPE_NONE = 'None'
     SEARCH_TYPE_CCW = 'CCW'
     SEARCH_TYPE_WWPN = 'WWPN'
     SEARCH_TYPE_LUN = 'LUN'
 
     def __init__(self, storage, builder):
-        super().__init__(storage, builder)
-        self.model = self.builder.get_object("zModel")
-        self.model.set_visible_func(self.visible_func)
-
-        self._ccwEntry = self.builder.get_object("zCCWEntry")
-        self._wwpnEntry = self.builder.get_object("zWWPNEntry")
-        self._lunEntry = self.builder.get_object("zLUNEntry")
-        self._combo = self.builder.get_object("zTypeCombo")
-
-        self._isS390 = arch.is_s390()
+        super().__init__(storage, builder, "zModel", "zTypeCombo")
+        self._ccw_entry = self._builder.get_object("zCCWEntry")
+        self._wwpn_entry = self._builder.get_object("zWWPNEntry")
+        self._lun_entry = self._builder.get_object("zLUNEntry")
 
     def clear(self):
-        self._lunEntry.set_text("")
-        self._ccwEntry.set_text("")
-        self._wwpnEntry.set_text("")
+        self._lun_entry.set_text("")
+        self._ccw_entry.set_text("")
+        self._wwpn_entry.set_text("")
 
-    def ismember(self, device):
+    def is_member(self, device):
         return isinstance(device, ZFCPDiskDevice) or isinstance(device, DASDDevice)
 
-    def setup(self, store, selectedNames, disks):
+    def setup(self, store, selected_names, disks):
         """ Set up our Z-page, but only if we're running on s390x. """
-        if not self._isS390:
+        if not arch.is_s390():
             return
-        else:
-            ccws = []
-            wwpns = []
-            luns = []
 
-            self._combo.set_active_id(self.SEARCH_TYPE_NONE)
-            self._combo.emit("changed")
+        ccws = []
+        wwpns = []
+        luns = []
 
-            for disk in disks:
-                paths = [d.name for d in disk.parents]
-                selected = disk.name in selectedNames
+        for disk in disks:
+            paths = [d.name for d in disk.parents]
+            selected = disk.name in selected_names
 
-                if getattr(disk, "type") == "zfcp":
-                    # remember to store all of the zfcp-related junk so we can
-                    # see it in the UI
-                    if not disk.fcp_lun in luns:
-                        luns.append(disk.fcp_lun)
-                    if not disk.wwpn in wwpns:
-                        wwpns.append(disk.wwpn)
-                    if not disk.hba_id in ccws:
-                        ccws.append(disk.hba_id)
+            if getattr(disk, "type") != "zfcp":
+                continue
 
-                    # now add it to our store
-                    store.append([True, selected, not disk.protected,
-                                  disk.name, "", disk.model, str(disk.size),
-                                  disk.vendor, disk.bus, disk.serial, "", "\n".join(paths),
-                                  "", "", disk.fcp_lun, disk.hba_id, disk.wwpn, "", ""])
+            # remember to store all of the zfcp-related junk so we can
+            # see it in the UI
+            if disk.fcp_lun not in luns:
+                luns.append(disk.fcp_lun)
+            if disk.wwpn not in wwpns:
+                wwpns.append(disk.wwpn)
+            if disk.hba_id not in ccws:
+                ccws.append(disk.hba_id)
 
-    def _filter_func(self, device):
-        if not self.filterActive:
-            return True
+            store.append([
+                True, selected, not disk.protected,
+                disk.name, "", disk.model, str(disk.size),
+                disk.vendor, disk.bus, disk.serial, "", "\n".join(paths),
+                "", "", disk.fcp_lun, disk.hba_id, disk.wwpn, "", ""
+            ])
 
-        filterBy = self._combo.get_active_id()
+        self._setup_search_type()
 
-        if filterBy == self.SEARCH_TYPE_NONE:
-            return True
-        elif filterBy == self.SEARCH_TYPE_CCW:
-            return self._ccwEntry.get_text() in device.hba_id
-        elif filterBy == self.SEARCH_TYPE_WWPN:
-            return self._wwpnEntry.get_text() in device.wwpn
-        elif filterBy == self.SEARCH_TYPE_LUN:
-            return self._lunEntry.get_text() in device.fcp_lun
+    def _filter_func(self, filter_by, device):
+        if filter_by == self.SEARCH_TYPE_CCW:
+            return self._ccw_entry.get_text() in device.hba_id
+
+        if filter_by == self.SEARCH_TYPE_WWPN:
+            return self._wwpn_entry.get_text() in device.wwpn
+
+        if filter_by == self.SEARCH_TYPE_LUN:
+            return self._lun_entry.get_text() in device.fcp_lun
 
         return False
 
-    def visible_func(self, model, itr, *args):
-        obj = DiskStoreRow(*model[itr])
-        device = self.storage.devicetree.get_device_by_name(obj.name, hidden=True)
-        return self.ismember(device) and self._filter_func(device)
 
 class NvdimmPage(FilterPage):
     # Match these to nvdimmTypeCombo ids in glade
-    SEARCH_TYPE_NONE = 'None'
     SEARCH_TYPE_NAMESPACE = 'Namespace'
     SEARCH_TYPE_MODE = 'Mode'
 
     def __init__(self, storage, builder):
-        FilterPage.__init__(self, storage, builder)
-        self.model = self.builder.get_object("nvdimmModel")
-        self.treeview = self.builder.get_object("nvdimmTreeView")
-        self.model.set_visible_func(self.visible_func)
+        super().__init__(storage, builder, "nvdimmModel", "nvdimmTypeCombo")
+        self._tree_view = self._builder.get_object("nvdimmTreeView")
+        self._mode_combo = self._builder.get_object("nvdimmModeCombo")
+        self._namespace_entry = self._builder.get_object("nvdimmNamespaceEntry")
 
-        self._combo = self.builder.get_object("nvdimmTypeCombo")
-        self._modeCombo = self.builder.get_object("nvdimmModeCombo")
-        self._namespaceEntry = self.builder.get_object("nvdimmNamespaceEntry")
-
-    def ismember(self, device):
+    def is_member(self, device):
         return isinstance(device, NVDIMMNamespaceDevice)
 
-    def setup(self, store, selectedNames, disks):
+    def setup(self, store, selected_names, disks):
         modes = []
 
         for disk in disks:
             paths = [d.name for d in disk.parents]
-            selected = disk.name in selectedNames
+            selected = disk.name in selected_names
             mutable = not disk.protected
 
             if disk.mode != "sector":
                 mutable = False
                 selected = False
 
-            store.append([True, selected, mutable,
-                          disk.name, "", disk.model, str(disk.size),
-                          disk.vendor, disk.bus, disk.serial,
-                          self._long_identifier(disk), "\n".join(paths), "", "",
-                          "", "", "", disk.devname, disk.mode])
+            store.append([
+                True, selected, mutable,
+                disk.name, "", disk.model, str(disk.size),
+                disk.vendor, disk.bus, disk.serial,
+                self._get_long_identifier(disk), "\n".join(paths), "", "",
+                "", "", "", disk.devname, disk.mode
+            ])
 
-            if not disk.mode in modes:
+            if disk.mode not in modes:
                 modes.append(disk.mode)
 
-        self._combo.set_active_id(self.SEARCH_TYPE_NONE)
-        self._combo.emit("changed")
-
-        self.setupCombo(self._modeCombo, modes)
+        self._setup_combo(self._mode_combo, modes)
+        self._setup_search_type()
 
     def clear(self):
-        self._modeCombo.set_active(0)
-        self._namespaceEntry.set_text("")
+        self._mode_combo.set_active(0)
+        self._namespace_entry.set_text("")
 
-    def _filter_func(self, device):
-        if not self.filterActive:
-            return True
+    def _filter_func(self, filter_by, device):
+        if filter_by == self.SEARCH_TYPE_MODE:
+            return device.mode == self._mode_combo.get_active_text()
 
-        filterBy = self._combo.get_active_id()
-
-        if filterBy == self.SEARCH_TYPE_NONE:
-            return True
-        elif filterBy == self.SEARCH_TYPE_MODE:
-            return device.mode == self._modeCombo.get_active_text()
-        elif filterBy == self.SEARCH_TYPE_NAMESPACE:
-            ns = self._namespaceEntry.get_text().strip()
+        if filter_by == self.SEARCH_TYPE_NAMESPACE:
+            ns = self._namespace_entry.get_text().strip()
             return device.devname == ns
 
-    def visible_func(self, model, itr, *args):
-        obj = DiskStoreRow(*model[itr])
-        device = self.storage.devicetree.get_device_by_name(obj.name, hidden=True)
-        return self.ismember(device) and self._filter_func(device)
+        return False
 
     def get_selected_namespaces(self):
         namespaces = []
-        selection = self.treeview.get_selection()
-        store, pathlist = selection.get_selected_rows()
-        for path in pathlist:
+        selection = self._tree_view.get_selection()
+        store, path_list = selection.get_selected_rows()
+
+        for path in path_list:
             store_row = DiskStoreRow(*store[store.get_iter(path)])
             namespaces.append(store_row.namespace)
 
         return namespaces
+
 
 class FilterSpoke(NormalSpoke):
     """
@@ -578,11 +559,16 @@ class FilterSpoke(NormalSpoke):
         super().__init__(*args)
         self.applyOnSkip = True
 
-        self.ancestors = []
-        self.disks = []
-        self.selected_disks = []
+        self._pages = {}
+        self._ancestors = []
+        self._disks = []
+        self._selected_disks = []
 
-        self._reconfigureNVDIMMButton = self.builder.get_object("reconfigureNVDIMMButton")
+        self._disk_selection = STORAGE.get_proxy(DISK_SELECTION)
+
+        self._notebook = self.builder.get_object("advancedNotebook")
+        self._store = self.builder.get_object("diskStore")
+        self._reconfigure_nvdimm_button = self.builder.get_object("reconfigureNVDIMMButton")
 
     @property
     def indirect(self):
@@ -594,7 +580,7 @@ class FilterSpoke(NormalSpoke):
         return None
 
     def apply(self):
-        apply_disk_selection(self.storage, self.selected_disks)
+        apply_disk_selection(self.storage, self._selected_disks)
 
         # some disks may have been added in this spoke, we need to recreate the
         # snapshot of on-disk storage
@@ -606,15 +592,13 @@ class FilterSpoke(NormalSpoke):
         super().initialize()
         self.initialize_start()
 
-        self.pages = {
+        self._pages = {
             PAGE_SEARCH: SearchPage(self.storage, self.builder),
             PAGE_MULTIPATH: MultipathPage(self.storage, self.builder),
             PAGE_OTHER: OtherPage(self.storage, self.builder),
             PAGE_NVDIMM: NvdimmPage(self.storage, self.builder),
             PAGE_Z: ZPage(self.storage, self.builder),
         }
-
-        self._notebook = self.builder.get_object("advancedNotebook")
 
         if not arch.is_s390():
             self._notebook.remove_page(-1)
@@ -627,10 +611,8 @@ class FilterSpoke(NormalSpoke):
         if not iscsi.available:
             self.builder.get_object("addISCSIButton").destroy()
 
-        self._store = self.builder.get_object("diskStore")
-
         # The button is sensitive only on NVDIMM page
-        self._reconfigureNVDIMMButton.set_sensitive(False)
+        self._reconfigure_nvdimm_button.set_sensitive(False)
 
         # report that we are done
         self.initialize_done()
@@ -642,65 +624,53 @@ class FilterSpoke(NormalSpoke):
 
     def refresh(self):
         super().refresh()
+        self._disks = self.storage.usable_disks
+        self._selected_disks = self._disk_selection.SelectedDisks
 
-        self.disks = self.storage.usable_disks
-
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        self.selected_disks = disk_select_proxy.SelectedDisks
-
-        self.ancestors = [d.name for disk in self.disks for d in self._real_ancestors(disk)]
-
-        self._store.clear()
-
-        allDisks = []
-        multipathDisks = []
-        otherDisks = []
-        nvdimmDisks = []
-        zDisks = []
+        self._ancestors = [
+            d.name for disk in self._disks
+            for d in self._real_ancestors(disk)
+        ]
 
         # Now all all the non-local disks to the store.  Everything has been set up
         # ahead of time, so there's no need to configure anything.  We first make
         # these lists of disks, then call setup on each individual page.  This is
         # because there could be page-specific setup to do that requires a complete
         # view of all the disks on that page.
-        for disk in self.disks:
-            if self.pages[PAGE_MULTIPATH].ismember(disk):
-                multipathDisks.append(disk)
-            elif self.pages[PAGE_OTHER].ismember(disk):
-                otherDisks.append(disk)
-            elif self.pages[PAGE_NVDIMM].ismember(disk):
-                nvdimmDisks.append(disk)
-            elif self.pages[PAGE_Z].ismember(disk):
-                zDisks.append(disk)
+        self._store.clear()
 
-            allDisks.append(disk)
-
-        self.pages[PAGE_SEARCH].setup(self._store, self.selected_disks, allDisks)
-        self.pages[PAGE_MULTIPATH].setup(self._store, self.selected_disks, multipathDisks)
-        self.pages[PAGE_OTHER].setup(self._store, self.selected_disks, otherDisks)
-        self.pages[PAGE_NVDIMM].setup(self._store, self.selected_disks, nvdimmDisks)
-        self.pages[PAGE_Z].setup(self._store, self.selected_disks, zDisks)
+        for page in self._pages.values():
+            page.setup(
+                self._store,
+                self._selected_disks,
+                list(filter(page.is_member, self._disks)),
+            )
 
         self._update_summary()
 
     def _update_summary(self):
-        summaryButton = self.builder.get_object("summary_button")
+        summary_button = self.builder.get_object("summary_button")
         label = self.builder.get_object("summary_button_label")
 
         # We need to remove ancestor devices from the count.  Otherwise, we'll
         # end up in a situation where selecting one multipath device could
         # potentially show three devices selected (mpatha, sda, sdb for instance).
-        count = len([disk for disk in self.selected_disks if disk not in self.ancestors])
+        count = len([
+            disk for disk in self._selected_disks
+            if disk not in self._ancestors
+        ])
 
-        summary = CP_("GUI|Installation Destination|Filter",
-                     "%d _storage device selected",
-                     "%d _storage devices selected",
-                     count) % count
+        summary = CP_(
+            "GUI|Installation Destination|Filter",
+            "{} _storage device selected",
+            "{} _storage devices selected",
+            count
+        ).format(count)
 
         label.set_text(summary)
         label.set_use_underline(True)
 
-        summaryButton.set_visible(count > 0)
+        summary_button.set_visible(count > 0)
         label.set_sensitive(count > 0)
 
     def on_back_clicked(self, button):
@@ -708,8 +678,12 @@ class FilterSpoke(NormalSpoke):
         super().on_back_clicked(button)
 
     def on_summary_clicked(self, button):
-        disks = filter_disks_by_names(self.disks, self.selected_disks)
-        dialog = SelectedDisksDialog(self.data, self.storage, disks, show_remove=False, set_boot=False)
+        disks = filter_disks_by_names(
+            self._disks, self._selected_disks
+        )
+        dialog = SelectedDisksDialog(
+            self.data, self.storage, disks, show_remove=False, set_boot=False
+        )
 
         with self.main_window.enlightbox(dialog.window):
             dialog.refresh()
@@ -718,32 +692,32 @@ class FilterSpoke(NormalSpoke):
     @timed_action(delay=1200, busy_cursor=False)
     def on_filter_changed(self, *args):
         n = self._notebook.get_current_page()
-        self.pages[n].filterActive = True
-        self.pages[n].model.refilter()
+        self._pages[n].is_active = True
+        self._pages[n].model.refilter()
 
     def on_clear_icon_clicked(self, entry, icon_pos, event):
         if icon_pos == Gtk.EntryIconPosition.SECONDARY:
             entry.set_text("")
 
-    def on_page_switched(self, notebook, newPage, newPageNum, *args):
-        self.pages[newPageNum].model.refilter()
-        notebook.get_nth_page(newPageNum).show_all()
-        self._reconfigureNVDIMMButton.set_sensitive(newPageNum == 3)
+    def on_page_switched(self, notebook, new_page, new_page_num, *args):
+        self._pages[new_page_num].model.refilter()
+        notebook.get_nth_page(new_page_num).show_all()
+        self._reconfigure_nvdimm_button.set_sensitive(new_page_num == 3)
 
     def on_row_toggled(self, button, path):
         if not path:
             return
 
         page_index = self._notebook.get_current_page()
-        filter_model = self.pages[page_index].model
+        filter_model = self._pages[page_index].model
         model_itr = filter_model.get_iter(path)
         itr = filter_model.convert_iter_to_child_iter(model_itr)
         self._store[itr][1] = not self._store[itr][1]
 
-        if self._store[itr][1] and self._store[itr][3] not in self.selected_disks:
-            self.selected_disks.append(self._store[itr][3])
-        elif not self._store[itr][1] and self._store[itr][3] in self.selected_disks:
-            self.selected_disks.remove(self._store[itr][3])
+        if self._store[itr][1] and self._store[itr][3] not in self._selected_disks:
+            self._selected_disks.append(self._store[itr][3])
+        elif not self._store[itr][1] and self._store[itr][3] in self._selected_disks:
+            self._selected_disks.remove(self._store[itr][3])
 
         self._update_summary()
 
@@ -754,52 +728,27 @@ class FilterSpoke(NormalSpoke):
 
     def on_add_iscsi_clicked(self, widget, *args):
         dialog = ISCSIDialog(self.data, self.storage)
-
-        with self.main_window.enlightbox(dialog.window):
-            dialog.refresh()
-            dialog.run()
-
-        # We now need to refresh so any new disks picked up by adding advanced
-        # storage are displayed in the UI.
-        self.refresh()
+        self._run_dialog_and_refresh(dialog)
 
     def on_add_fcoe_clicked(self, widget, *args):
         dialog = FCoEDialog(self.data, self.storage)
-
-        with self.main_window.enlightbox(dialog.window):
-            dialog.refresh()
-            dialog.run()
-
-        # We now need to refresh so any new disks picked up by adding advanced
-        # storage are displayed in the UI.
-        self.refresh()
+        self._run_dialog_and_refresh(dialog)
 
     def on_add_zfcp_clicked(self, widget, *args):
         dialog = ZFCPDialog(self.data, self.storage)
-
-        with self.main_window.enlightbox(dialog.window):
-            dialog.refresh()
-            dialog.run()
-
-        # We now need to refresh so any new disks picked up by adding advanced
-        # storage are displayed in the UI.
-        self.refresh()
+        self._run_dialog_and_refresh(dialog)
 
     def on_add_dasd_clicked(self, widget, *args):
         dialog = DASDDialog(self.data, self.storage)
-
-        with self.main_window.enlightbox(dialog.window):
-            dialog.refresh()
-            dialog.run()
-
-        # We now need to refresh so any new disks picked up by adding advanced
-        # storage are displayed in the UI.
-        self.refresh()
+        self._run_dialog_and_refresh(dialog)
 
     def on_reconfigure_nvdimm_clicked(self, widget, *args):
-        namespaces = self.pages[PAGE_NVDIMM].get_selected_namespaces()
+        namespaces = self._pages[PAGE_NVDIMM].get_selected_namespaces()
         dialog = NVDIMMDialog(self.data, self.storage, namespaces)
+        self._run_dialog_and_refresh(dialog)
 
+    def _run_dialog_and_refresh(self, dialog):
+        # Run the dialog.
         with self.main_window.enlightbox(dialog.window):
             dialog.refresh()
             dialog.run()
@@ -808,57 +757,22 @@ class FilterSpoke(NormalSpoke):
         # storage are displayed in the UI.
         self.refresh()
 
-    ##
-    ## SEARCH TAB SIGNAL HANDLERS
-    ##
     def on_search_type_changed(self, combo):
-        ndx = combo.get_active()
+        self._set_notebook_page("searchTypeNotebook", combo.get_active())
 
-        notebook = self.builder.get_object("searchTypeNotebook")
-
-        notebook.set_current_page(ndx)
-        self.on_filter_changed()
-
-    ##
-    ## MULTIPATH TAB SIGNAL HANDLERS
-    ##
     def on_multipath_type_changed(self, combo):
-        ndx = combo.get_active()
+        self._set_notebook_page("multipathTypeNotebook", combo.get_active())
 
-        notebook = self.builder.get_object("multipathTypeNotebook")
-
-        notebook.set_current_page(ndx)
-        self.on_filter_changed()
-
-    ##
-    ## OTHER TAB SIGNAL HANDLERS
-    ##
     def on_other_type_combo_changed(self, combo):
-        ndx = combo.get_active()
+        self._set_notebook_page("otherTypeNotebook", combo.get_active())
 
-        notebook = self.builder.get_object("otherTypeNotebook")
-
-        notebook.set_current_page(ndx)
-        self.on_filter_changed()
-
-    ##
-    ## NVDIMM TAB SIGNAL HANDLERS
-    ##
     def on_nvdimm_type_combo_changed(self, combo):
-        ndx = combo.get_active()
+        self._set_notebook_page("nvdimmTypeNotebook", combo.get_active())
 
-        notebook = self.builder.get_object("nvdimmTypeNotebook")
-
-        notebook.set_current_page(ndx)
-        self.on_filter_changed()
-
-    ##
-    ## Z TAB SIGNAL HANDLERS
-    ##
     def on_z_type_combo_changed(self, combo):
-        ndx = combo.get_active()
+        self._set_notebook_page("zTypeNotebook", combo.get_active())
 
-        notebook = self.builder.get_object("zTypeNotebook")
-
-        notebook.set_current_page(ndx)
+    def _set_notebook_page(self, notebook_name, page_index):
+        notebook = self.builder.get_object(notebook_name)
+        notebook.set_current_page(page_index)
         self.on_filter_changed()
