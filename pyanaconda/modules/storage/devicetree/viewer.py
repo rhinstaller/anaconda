@@ -91,6 +91,24 @@ class DeviceTreeViewer(ABC):
 
         # Collect the device data.
         data = DeviceData()
+        self._set_device_data(device, data)
+
+        # Collect the specialized data.
+        if device.type == "dasd":
+            self._set_device_data_dasd(device, data)
+        elif device.type == "iscsi":
+            self._set_device_data_iscsi(device, data)
+        elif device.type == "nvdimm":
+            self._set_device_data_nvdimm(device, data)
+        elif device.type == "zfcp":
+            self._set_device_data_zfcp(device, data)
+
+        # Prune the attributes.
+        data.attrs = self._prune_attributes(data.attrs)
+        return data
+
+    def _set_device_data(self, device, data):
+        """Set data for a device of any type."""
         data.type = device.type
         data.name = device.name
         data.path = device.path
@@ -98,15 +116,37 @@ class DeviceTreeViewer(ABC):
         data.parents = [d.name for d in device.parents]
         data.is_disk = device.is_disk
 
-        # Get the device description.
         # FIXME: We should generate the description from the device data.
         data.description = getattr(device, "description", "")
 
-        # Collect the additional attributes.
-        attrs = self._get_attributes(device, DeviceData.SUPPORTED_ATTRIBUTES)
-        data.attrs = attrs
+        data.attrs["serial"] = self._get_attribute(device, "serial")
+        data.attrs["vendor"] = self._get_attribute(device, "vendor")
+        data.attrs["model"] = self._get_attribute(device, "model")
+        data.attrs["bus"] = self._get_attribute(device, "bus")
+        data.attrs["wwn"] = self._get_attribute(device, "wwn")
+        data.attrs["uuid"] = self._get_attribute(device, "uuid")
 
-        return data
+    def _set_device_data_dasd(self, device, data):
+        """Set data for a DASD device."""
+        data.attrs["bus-id"] = self._get_attribute(device, "busid")
+
+    def _set_device_data_iscsi(self, device, data):
+        """Set data for an iSCSI device."""
+        data.attrs["port"] = self._get_attribute(device, "port")
+        data.attrs["initiator"] = self._get_attribute(device, "initiator")
+        data.attrs["lun"] = self._get_attribute(device, "lun")
+        data.attrs["target"] = self._get_attribute(device, "target")
+
+    def _set_device_data_nvdimm(self, device, data):
+        """Set data for an NVDIMM device."""
+        data.attrs["mode"] = self._get_attribute(device, "mode")
+        data.attrs["namespace"] = self._get_attribute(device, "devname")
+
+    def _set_device_data_zfcp(self, device, data):
+        """Set data for a ZFCP device."""
+        data.attrs["fcp-lun"] = self._get_attribute(device, "fcp_lun")
+        data.attrs["wwpn"] = self._get_attribute(device, "wwpn")
+        data.attrs["hba-id"] = self._get_attribute(device, "hba_id")
 
     def get_format_data(self, device_name):
         """Get the device format data.
@@ -141,9 +181,11 @@ class DeviceTreeViewer(ABC):
         data.description = fmt.name or ""
 
         # Collect the additional attributes.
-        attrs = self._get_attributes(fmt, DeviceFormatData.SUPPORTED_ATTRIBUTES)
-        data.attrs = attrs
+        data.attrs["uuid"] = self._get_attribute(fmt, "uuid")
+        data.attrs["label"] = self._get_attribute(fmt, "label")
 
+        # Prune the attributes.
+        data.attrs = self._prune_attributes(data.attrs)
         return data
 
     def _get_device(self, name):
@@ -168,29 +210,36 @@ class DeviceTreeViewer(ABC):
         """
         return list(map(self._get_device, names))
 
-    def _get_attributes(self, obj, names):
-        """Get the attributes of the given object.
+    def _get_attribute(self, obj, name):
+        """Get the attribute of the given object.
+
+        If the attribute doesn't exist or it is not set,
+        return None. Otherwise, return a string representation
+        of the attribute value.
 
         :param obj: an object
-        :param names: names of the supported attributes
-        :return: a dictionary of attributes
+        :param name: an attribute name
+        :return: a string or None
         """
-        attrs = {}
+        try:
+            value = getattr(obj, name)
+        except AttributeError:
+            # Skip if the attribute doesn't exist.
+            return None
 
-        for name in names:
-            try:
-                value = getattr(obj, name)
-            except AttributeError:
-                # Skip if the attribute doesn't exist.
-                continue
+        if value in (None, ""):
+            # Skip it the attribute is not set.
+            return None
 
-            if not value:
-                # Skip it the attribute is not set.
-                continue
+        return str(value)
 
-            attrs[name] = str(value)
+    def _prune_attributes(self, attrs):
+        """Prune the unset values of attributes.
 
-        return attrs
+        :param attrs: a dictionary of attributes
+        :return: a pruned dictionary of attributes
+        """
+        return {k: v for k, v in attrs.items() if v is not None}
 
     def get_actions(self):
         """Get the device actions.

@@ -25,23 +25,6 @@ __all__ = ["DeviceData", "DeviceFormatData", "DeviceActionData"]
 class DeviceData(DBusData):
     """Device data."""
 
-    SUPPORTED_ATTRIBUTES = [
-        "serial",
-        "vendor",
-        "model",
-        "bus",
-        "wwn",
-        "uuid",
-
-        # DASD
-        "busid",
-
-        # ZFCP
-        "fcp_lun",
-        "wwpn",
-        "hba_id"
-    ]
-
     def __init__(self):
         self._type = ""
         self._name = ""
@@ -129,7 +112,33 @@ class DeviceData(DBusData):
         """Additional attributes.
 
         The supported attributes are defined by
-        the list SUPPORTED_ATTRIBUTES.
+        the lists below.
+
+        Attributes for all types:
+            serial
+            vendor
+            model
+            bus
+            wwn
+            uuid
+
+        Attributes for DASD:
+            bus-id
+
+        Attributes for iSCSI:
+            port
+            initiator
+            lun
+            target
+
+        Attributes for NVDIMM:
+            mode
+            namespace
+
+        Attributes for ZFCP:
+            fcp-lun
+            wwpn
+            hba-id
 
         :return: a dictionary of attributes
         """
@@ -156,11 +165,6 @@ class DeviceData(DBusData):
 
 class DeviceFormatData(DBusData):
     """Device format data."""
-
-    SUPPORTED_ATTRIBUTES = [
-        "uuid",
-        "label"
-    ]
 
     def __init__(self):
         self._type = ""
@@ -194,7 +198,11 @@ class DeviceFormatData(DBusData):
         """Additional attributes.
 
         The supported attributes are defined by
-        the list SUPPORTED_ATTRIBUTES.
+        the list below.
+
+        Attributes for all types:
+            uuid
+            label
 
         :return: a dictionary of attributes
         """
