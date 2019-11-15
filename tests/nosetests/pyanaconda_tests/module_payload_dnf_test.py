@@ -52,7 +52,7 @@ class PackagesHandlerKSTestCase(unittest.TestCase):
 
     def _get_packages_interface(self):
         payload = self.shared_tests.get_payload()
-        packages_handler = payload._packages_handler
+        packages_handler = payload._packages_module
 
         self.assertIsInstance(packages_handler, PackagesModule)
         return PackagesInterface(packages_handler)

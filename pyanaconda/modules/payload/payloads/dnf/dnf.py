@@ -32,7 +32,7 @@ class DNFHandlerModule(PayloadBase):
 
     def __init__(self):
         super().__init__()
-        self._packages_handler = PackagesModule()
+        self._packages_module = PackagesModule()
 
     @property
     def supported_source_types(self):
@@ -42,18 +42,18 @@ class DNFHandlerModule(PayloadBase):
 
     def publish_payload(self):
         """Publish the payload."""
-        self._packages_handler.publish()
+        self._packages_module.publish()
 
         DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFHandlerInterface(self))
         return PAYLOAD_DEFAULT.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        self._packages_handler.process_kickstart(data)
+        self._packages_module.process_kickstart(data)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        self._packages_handler.setup_kickstart(data)
+        self._packages_module.setup_kickstart(data)
 
     def pre_install_with_tasks(self):
         """Execute preparation steps.
