@@ -38,7 +38,7 @@ from pyanaconda.modules.payload.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payload.constants import PayloadType, SourceType
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadService
-from pyanaconda.modules.payload.payloads.dnf.dnf import DNFHandlerModule
+from pyanaconda.modules.payload.payloads.dnf.dnf import DNFModule
 from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
 from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
 from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
@@ -354,7 +354,7 @@ class FactoryTestCase(TestCase):
     def create_payload_test(self):
         """Test PayloadFactory create method."""
         self.assertIsInstance(PayloadFactory.create(PayloadType.DNF),
-                              DNFHandlerModule)
+                              DNFModule)
         self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_IMAGE),
                               LiveImageHandlerModule)
         self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_OS),
@@ -367,13 +367,11 @@ class FactoryTestCase(TestCase):
         data.liveimg.seen = True
         data.packages.seen = False
 
-        self.assertIsInstance(PayloadFactory.create_from_ks_data(data),
-                              LiveImageHandlerModule)
+        self.assertIsInstance(PayloadFactory.create_from_ks_data(data), LiveImageHandlerModule)
 
         data.liveimg.seen = False
         data.packages.seen = True
-        self.assertIsInstance(PayloadFactory.create_from_ks_data(data),
-                              DNFHandlerModule)
+        self.assertIsInstance(PayloadFactory.create_from_ks_data(data), DNFModule)
 
         data.liveimg.seen = False
         data.packages.seen = False

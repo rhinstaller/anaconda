@@ -20,14 +20,14 @@
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
 from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
-from pyanaconda.modules.payload.payloads.dnf.dnf_interface import DNFHandlerInterface
+from pyanaconda.modules.payload.payloads.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class DNFHandlerModule(PayloadBase):
+class DNFModule(PayloadBase):
     """The DNF payload module."""
 
     def __init__(self):
@@ -44,7 +44,7 @@ class DNFHandlerModule(PayloadBase):
         """Publish the payload."""
         self._packages_module.publish()
 
-        DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFHandlerInterface(self))
+        DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFInterface(self))
         return PAYLOAD_DEFAULT.object_path
 
     def process_kickstart(self, data):

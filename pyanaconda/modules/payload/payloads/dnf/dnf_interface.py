@@ -24,5 +24,5 @@ from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBa
 
 
 @dbus_interface(DNF_HANDLER.interface_name)
-class DNFHandlerInterface(PayloadBaseInterface):
+class DNFInterface(PayloadBaseInterface):
     """DBus interface for DNF payload module."""
