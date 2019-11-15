@@ -57,16 +57,16 @@ class PayloadInterfaceTestCase(TestCase):
         self.assertEqual(self.payload_interface.KickstartSections, ["packages"])
         self.assertEqual(self.payload_interface.KickstartAddons, [])
 
-    def no_handler_set_test(self):
-        """Test empty string is returned when no handler is set."""
+    def no_payload_set_test(self):
+        """Test empty string is returned when no payload is set."""
         self.assertEqual(self.payload_interface.GetActivePayloadPath(), "")
 
-    def generate_kickstart_without_handler_test(self):
-        """Test kickstart parsing without handler set."""
+    def generate_kickstart_without_payload_test(self):
+        """Test kickstart parsing without payload set."""
         self.assertEqual(self.payload_interface.GenerateKickstart(), "")
 
-    def process_kickstart_with_no_handler_test(self):
-        """Test kickstart processing when no handler set or created based on KS data."""
+    def process_kickstart_with_no_payload_test(self):
+        """Test kickstart processing when no payload set or created based on KS data."""
         with self.assertLogs('anaconda.modules.payload.payload', level="WARNING") as log:
             self.payload_interface.ReadKickstart("")
 
@@ -81,8 +81,8 @@ class PayloadInterfaceTestCase(TestCase):
         self.assertTrue(self.payload_interface.IsPayloadSet())
 
     @patch_dbus_publish_object
-    def create_dnf_handler_test(self, publisher):
-        """Test creation and publishing of the DNF handler module."""
+    def create_dnf_payload_test(self, publisher):
+        """Test creation and publishing of the DNF payload module."""
         self.payload_interface.CreatePayload(PayloadType.DNF.value)
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          PAYLOAD_DEFAULT.object_path)
@@ -90,30 +90,30 @@ class PayloadInterfaceTestCase(TestCase):
         self.assertEqual(publisher.call_count, 2)
 
     @patch_dbus_publish_object
-    def create_live_os_handler_test(self, publisher):
-        """Test creation and publishing of the Live OS handler module."""
+    def create_live_os_payload_test(self, publisher):
+        """Test creation and publishing of the Live OS payload module."""
         self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          LIVE_OS_HANDLER.object_path)
         publisher.assert_called_once()
 
     @patch_dbus_publish_object
-    def create_live_image_handler_test(self, publisher):
-        """Test creation and publishing of the Live image handler module."""
+    def create_live_image_payload_test(self, publisher):
+        """Test creation and publishing of the Live image payload module."""
         self.payload_interface.CreatePayload(PayloadType.LIVE_IMAGE.value)
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
                          LIVE_IMAGE_HANDLER.object_path)
         publisher.assert_called_once()
 
     @patch_dbus_publish_object
-    def create_invalid_handler_test(self, publisher):
-        """Test creation of the not existing handler."""
+    def create_invalid_payload_test(self, publisher):
+        """Test creation of the not existing payload."""
         with self.assertRaises(ValueError):
-            self.payload_interface.CreatePayload("NotAHandler")
+            self.payload_interface.CreatePayload("NotAPayload")
 
     @patch_dbus_publish_object
-    def create_multiple_handlers_test(self, publisher):
-        """Test creating two handlers."""
+    def create_multiple_payloads_test(self, publisher):
+        """Test creating two payloads."""
         self.payload_interface.CreatePayload(PayloadType.DNF.value)
         self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
 

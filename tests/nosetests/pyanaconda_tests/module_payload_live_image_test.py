@@ -43,7 +43,7 @@ from pyanaconda.modules.payload.payloads.live_image.initialization import \
 from pyanaconda.modules.payload.payloads.live_image.installation import InstallFromTarTask
 
 
-class LiveImageHandlerKSTestCase(unittest.TestCase):
+class LiveImageKSTestCase(unittest.TestCase):
 
     def setUp(self):
         self.payload_module = PayloadService()
@@ -54,10 +54,10 @@ class LiveImageHandlerKSTestCase(unittest.TestCase):
                                               self.payload_module_interface)
 
     def _check_properties(self, url, proxy="", checksum="", verifyssl=True):
-        handler = self.shared_tests.get_payload()
+        payload = self.shared_tests.get_payload()
 
-        self.assertIsInstance(handler, LiveImageModule)
-        intf = LiveImageInterface(handler)
+        self.assertIsInstance(payload, LiveImageModule)
+        intf = LiveImageInterface(payload)
 
         self.assertEqual(intf.Url, url)
         self.assertEqual(intf.Proxy, proxy)

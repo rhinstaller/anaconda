@@ -33,7 +33,7 @@ from pyanaconda.modules.payload.payloads.dnf.packages.constants import TIMEOUT_U
     RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 
 
-class PackagesHandlerKSTestCase(unittest.TestCase):
+class PackagesKSTestCase(unittest.TestCase):
 
     def setUp(self):
         self.payload_module = PayloadService()
@@ -52,10 +52,10 @@ class PackagesHandlerKSTestCase(unittest.TestCase):
 
     def _get_packages_interface(self):
         payload = self.shared_tests.get_payload()
-        packages_handler = payload._packages_module
+        packages_module = payload._packages_module
 
-        self.assertIsInstance(packages_handler, PackagesModule)
-        return PackagesInterface(packages_handler)
+        self.assertIsInstance(packages_module, PackagesModule)
+        return PackagesInterface(packages_module)
 
     def _check_properties(self, nocore=False, multilib="best",
                           langs=LANGUAGES_DEFAULT, ignore_missing=False):
