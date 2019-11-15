@@ -26,7 +26,7 @@ from pyanaconda.core.util import requests_session
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
 
-from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
+from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
 from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask, \
@@ -83,8 +83,8 @@ class LiveImageModule(PayloadBase):
 
     def publish_payload(self):
         """Publish the payload."""
-        DBus.publish_object(LIVE_IMAGE_HANDLER.object_path, LiveImageInterface(self))
-        return LIVE_IMAGE_HANDLER.object_path
+        DBus.publish_object(PAYLOAD_LIVE_IMAGE.object_path, LiveImageInterface(self))
+        return PAYLOAD_LIVE_IMAGE.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

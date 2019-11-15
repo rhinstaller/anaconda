@@ -25,8 +25,8 @@ from textwrap import dedent
 from tempfile import TemporaryDirectory
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
-from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, LIVE_OS_HANDLER, \
-    LIVE_IMAGE_HANDLER
+from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, PAYLOAD_LIVE_OS, \
+    PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payload.sources.source_base import PayloadSourceBase
@@ -94,7 +94,7 @@ class PayloadInterfaceTestCase(TestCase):
         """Test creation and publishing of the Live OS payload module."""
         self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
-                         LIVE_OS_HANDLER.object_path)
+                         PAYLOAD_LIVE_OS.object_path)
         publisher.assert_called_once()
 
     @patch_dbus_publish_object
@@ -102,7 +102,7 @@ class PayloadInterfaceTestCase(TestCase):
         """Test creation and publishing of the Live image payload module."""
         self.payload_interface.CreatePayload(PayloadType.LIVE_IMAGE.value)
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
-                         LIVE_IMAGE_HANDLER.object_path)
+                         PAYLOAD_LIVE_IMAGE.object_path)
         publisher.assert_called_once()
 
     @patch_dbus_publish_object
@@ -119,7 +119,7 @@ class PayloadInterfaceTestCase(TestCase):
 
         # The last one should win
         self.assertEqual(self.payload_interface.GetActivePayloadPath(),
-                         LIVE_OS_HANDLER.object_path)
+                         PAYLOAD_LIVE_OS.object_path)
         self.assertEqual(publisher.call_count, 3)
 
     @patch_dbus_publish_object

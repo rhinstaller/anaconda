@@ -19,10 +19,10 @@
 #
 from dasbus.server.interface import dbus_interface
 
-from pyanaconda.modules.common.constants.interfaces import DNF_HANDLER
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
 from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface
 
 
-@dbus_interface(DNF_HANDLER.interface_name)
+@dbus_interface(PAYLOAD_DNF.interface_name)
 class DNFInterface(PayloadBaseInterface):
     """DBus interface for DNF payload module."""

@@ -21,12 +21,12 @@ from dasbus.server.interface import dbus_interface, dbus_signal
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.server.property import emits_properties_changed
 
-from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
+from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface
 
 
-@dbus_interface(LIVE_IMAGE_HANDLER.interface_name)
+@dbus_interface(PAYLOAD_LIVE_IMAGE.interface_name)
 class LiveImageInterface(PayloadBaseInterface):
     """DBus interface for Live Image payload module."""
 

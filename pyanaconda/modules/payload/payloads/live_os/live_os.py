@@ -23,7 +23,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 
-from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
+from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.payload.constants import SourceType
 from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
@@ -68,8 +68,8 @@ class LiveOSModule(PayloadBase):
 
     def publish_payload(self):
         """Publish the payload."""
-        DBus.publish_object(LIVE_OS_HANDLER.object_path, LiveOSInterface(self))
-        return LIVE_OS_HANDLER.object_path
+        DBus.publish_object(PAYLOAD_LIVE_OS.object_path, LiveOSInterface(self))
+        return PAYLOAD_LIVE_OS.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

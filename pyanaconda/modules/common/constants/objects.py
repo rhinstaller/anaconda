@@ -116,17 +116,17 @@ PAYLOAD_DEFAULT = DBusObjectIdentifier(
     basename="Default"
 )
 
-DNF_PACKAGES = DBusObjectIdentifier(
+PAYLOAD_PACKAGES = DBusObjectIdentifier(
     namespace=DNF_NAMESPACE,
     basename="Packages"
 )
 
-LIVE_IMAGE_HANDLER = DBusObjectIdentifier(
+PAYLOAD_LIVE_IMAGE = DBusObjectIdentifier(
     namespace=PAYLOAD_NAMESPACE,
     basename="LiveImage"
 )
 
-LIVE_OS_HANDLER = DBusObjectIdentifier(
+PAYLOAD_LIVE_OS = DBusObjectIdentifier(
     namespace=PAYLOAD_NAMESPACE,
     basename="LiveOS"
 )

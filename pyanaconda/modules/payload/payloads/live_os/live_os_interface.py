@@ -20,11 +20,11 @@
 from dasbus.server.interface import dbus_interface, dbus_signal
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
+from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_OS
 from pyanaconda.modules.payload.payloads.payload_base_interface import PayloadBaseInterface
 
 
-@dbus_interface(LIVE_OS_HANDLER.interface_name)
+@dbus_interface(PAYLOAD_LIVE_OS.interface_name)
 class LiveOSInterface(PayloadBaseInterface):
     """DBus interface for Live OS payload module."""
 

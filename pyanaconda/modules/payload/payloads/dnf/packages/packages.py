@@ -20,7 +20,7 @@
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
+from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.payload.payloads.dnf.packages.constants import MultilibPolicy, \
     TIMEOUT_UNSET, RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
@@ -74,7 +74,7 @@ class PackagesModule(KickstartBaseModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(DNF_PACKAGES.object_path, PackagesInterface(self))
+        DBus.publish_object(PAYLOAD_PACKAGES.object_path, PackagesInterface(self))
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
