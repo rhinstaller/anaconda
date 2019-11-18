@@ -90,12 +90,12 @@ tag:
 
 po-pull:
 	which $(ZANATA_CLIENT_BIN) &>/dev/null || ( echo "need to install zanata python client package"; exit 1 )
-	( cd $(srcdir) && zanata pull $(ZANATA_PULL_ARGS) )
+	( cd $(srcdir) && $(ZANATA_CLIENT_BIN) pull $(ZANATA_PULL_ARGS) )
 
 po-push:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 	rm $(srcdir)/po/{main,extra}.pot
-	zanata push $(ZANATA_PUSH_ARGS)
+	$(ZANATA_CLIENT_BIN) push $(ZANATA_PUSH_ARGS)
 
 po-all:
 	$(MAKE) po-push
@@ -153,7 +153,7 @@ bumpver: po-pull
 	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update && \
 	rm $(srcdir)/po/{main,extra}.pot
-	zanata push $(ZANATA_PUSH_ARGS)
+	$(ZANATA_CLIENT_BIN) push $(ZANATA_PUSH_ARGS)
 
 # GUI TESTING
 runglade:
