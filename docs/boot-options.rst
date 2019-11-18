@@ -810,10 +810,10 @@ Since Fedora 19 the Anaconda installer supports third-party extensions called
 *addons*. The *addons* can support their own set of boot options which should be
 documented in their documentation or submitted here.
 
-.. inst.kdump:
+.. inst.kdump_addon:
 
-inst.kdump
-++++++++++
+inst.kdump_addon
+++++++++++++++++
 
 ``inst.kdump_addon=on/off``
 
