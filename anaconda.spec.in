@@ -106,6 +106,7 @@ Requires: python3-systemd
 Requires: python3-pydbus
 Requires: python3-productmd
 Requires: python3-syspurpose
+Requires: subscription-manager >= 1.26
 
 # pwquality only "recommends" the dictionaries it needs to do anything useful,
 # which is apparently great for containers but unhelpful for the rest of us
