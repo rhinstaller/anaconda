@@ -348,6 +348,22 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 18 2019 Martin Kolman <mkolman@redhat.com> - 32.15-1
+- Fix wrong kdump boot option in boot options docs (vslavik)
+- Remove unused pylint false positive (jkonecny)
+- Remove the DBus library (vponcova)
+- Remove the extra support for PropertiesChanged (vponcova)
+- Normalize the pretty XML output (vponcova)
+- Update the unit tests (vponcova)
+- Reorganize the DBus library (vponcova)
+- Remove signal subscriptions from anaconda (vponcova)
+- Add support for disconnection of a DBus proxy (vponcova)
+- Clean up the anaconda's signal (vponcova)
+- Remove the anaconda's DBus from the DBus library (vponcova)
+- Remove the anaconda's signal from the DBus library (vponcova)
+- Remove the anaconda's logger from DBus library (vponcova)
+- Create the DBus library (vponcova)
+
 * Tue Nov 12 2019 Martin Kolman <mkolman@redhat.com> - 32.14-1
 - network: restrict applying of config from ks in initramfs with NM (#1768791)
   (rvykydal)
