@@ -36,20 +36,20 @@ from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInst
     SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
-from pyanaconda.modules.payloads.payload_interface import PayloadInterface
-from pyanaconda.modules.payloads.payload import PayloadService
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
 from pyanaconda.modules.payloads.sources.live_os.live_os import LiveOSSourceModule
 
 
-class PayloadInterfaceTestCase(TestCase):
+class PayloadsInterfaceTestCase(TestCase):
 
     def setUp(self):
         """Set up the payload module."""
-        self.payload_module = PayloadService()
-        self.payload_interface = PayloadInterface(self.payload_module)
+        self.payload_module = PayloadsService()
+        self.payload_interface = PayloadsInterface(self.payload_module)
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
@@ -67,7 +67,7 @@ class PayloadInterfaceTestCase(TestCase):
 
     def process_kickstart_with_no_payload_test(self):
         """Test kickstart processing when no payload set or created based on KS data."""
-        with self.assertLogs('anaconda.modules.payloads.payload', level="WARNING") as log:
+        with self.assertLogs('anaconda.modules.payloads.payloads', level="WARNING") as log:
             self.payload_interface.ReadKickstart("")
 
             self.assertTrue(any(map(lambda x: "No payload was created" in x, log.output)))

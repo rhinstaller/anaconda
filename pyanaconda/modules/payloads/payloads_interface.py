@@ -27,7 +27,7 @@ from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 
 
 @dbus_interface(PAYLOADS.interface_name)
-class PayloadInterface(KickstartModuleInterface):
+class PayloadsInterface(KickstartModuleInterface):
     """DBus interface for Payload module."""
 
     def GetActivePayloadPath(self) -> ObjPath:

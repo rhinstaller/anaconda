@@ -24,13 +24,13 @@ from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.errors.payload import PayloadNotSetError
 from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
-from pyanaconda.modules.payloads.payload_interface import PayloadInterface
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class PayloadService(KickstartService):
+class PayloadsService(KickstartService):
     """The Payload service."""
 
     def __init__(self):
@@ -41,7 +41,7 @@ class PayloadService(KickstartService):
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(PAYLOADS.namespace)
-        DBus.publish_object(PAYLOADS.object_path, PayloadInterface(self))
+        DBus.publish_object(PAYLOADS.object_path, PayloadsInterface(self))
         DBus.register_service(PAYLOADS.service_name)
 
     @property

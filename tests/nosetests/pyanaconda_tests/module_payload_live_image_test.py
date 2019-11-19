@@ -32,8 +32,8 @@ from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
-from pyanaconda.modules.payloads.payload import PayloadService
-from pyanaconda.modules.payloads.payload_interface import PayloadInterface
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
     LiveImageInterface
@@ -46,8 +46,8 @@ from pyanaconda.modules.payloads.payload.live_image.installation import InstallF
 class LiveImageKSTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.payload_module = PayloadService()
-        self.payload_module_interface = PayloadInterface(self.payload_module)
+        self.payload_module = PayloadsService()
+        self.payload_module_interface = PayloadsInterface(self.payload_module)
 
         self.shared_tests = PayloadSharedTest(self,
                                               self.payload_module,

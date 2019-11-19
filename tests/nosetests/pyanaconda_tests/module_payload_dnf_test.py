@@ -24,8 +24,8 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, Properti
 
 from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
-from pyanaconda.modules.payloads.payload import PayloadService
-from pyanaconda.modules.payloads.payload_interface import PayloadInterface
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payload.dnf.packages.packages import PackagesModule
 from pyanaconda.modules.payloads.payload.dnf.packages.packages_interface import \
     PackagesInterface
@@ -36,8 +36,8 @@ from pyanaconda.modules.payloads.payload.dnf.packages.constants import TIMEOUT_U
 class PackagesKSTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.payload_module = PayloadService()
-        self.payload_module_interface = PayloadInterface(self.payload_module)
+        self.payload_module = PayloadsService()
+        self.payload_module_interface = PayloadsInterface(self.payload_module)
 
         self.shared_tests = PayloadSharedTest(self,
                                               self.payload_module,
