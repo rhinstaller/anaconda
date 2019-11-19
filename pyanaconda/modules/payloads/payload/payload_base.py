@@ -109,7 +109,7 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         the initialization task will run with the old list.
 
         :param sources: set a new sources
-        :type sources: instance of pyanaconda.modules.payloads.sources.source_base.PayloadSourceBase
+        :type sources: instance of pyanaconda.modules.payloads.source.source_base.PayloadSourceBase
         :raise: IncompatibleSourceError when source is not a supported type
                 SourceSetupError when attached sources are initialized
         """

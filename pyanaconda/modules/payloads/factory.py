@@ -90,5 +90,5 @@ class SourceFactory(BaseFactory):
     @classmethod
     def _create(cls, object_type):
         if object_type == SourceType.LIVE_OS_IMAGE:
-            from pyanaconda.modules.payloads.sources.live_os.live_os import LiveOSSourceModule
+            from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
             return LiveOSSourceModule()

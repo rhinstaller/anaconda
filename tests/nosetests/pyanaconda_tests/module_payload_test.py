@@ -29,7 +29,7 @@ from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, PAYLOAD
     PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.sources.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_blacklist, \
     get_dir_size
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
@@ -41,7 +41,7 @@ from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
-from pyanaconda.modules.payloads.sources.live_os.live_os import LiveOSSourceModule
+from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 
 
 class PayloadsInterfaceTestCase(TestCase):

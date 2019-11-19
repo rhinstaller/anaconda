@@ -24,7 +24,7 @@ from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
-from pyanaconda.modules.payloads.sources.live_os.live_os import LiveOSSourceModule
+from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 
 
 class PayloadSharedTest(object):
