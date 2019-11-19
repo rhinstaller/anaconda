@@ -66,7 +66,7 @@ class BaseModule(ABC):
         """
         pass
 
-    def publish_task(self, namespace, task, message_bus=DBus):
+    def publish_task(self, namespace, task, interface=None, message_bus=DBus):
         """Publish a task.
 
         :param namespace: a DBus namespace
@@ -74,7 +74,7 @@ class BaseModule(ABC):
         :param message_bus: a message bus
         :return: a DBus path of the published task
         """
-        object_path = publish_task(message_bus, namespace, task)
+        object_path = publish_task(message_bus, namespace, task, interface)
         self._published_tasks[task] = object_path
         return object_path
 
