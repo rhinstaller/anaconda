@@ -21,10 +21,10 @@ from unittest.mock import patch, create_autospec
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 from pyanaconda.modules.common.containers import PayloadSourceContainer
-from pyanaconda.modules.payload.constants import SourceType
-from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payload import PayloadService
-from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
+from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.payload_interface import PayloadInterface
+from pyanaconda.modules.payloads.payload import PayloadService
+from pyanaconda.modules.payloads.sources.live_os.live_os import LiveOSSourceModule
 
 
 class PayloadSharedTest(object):

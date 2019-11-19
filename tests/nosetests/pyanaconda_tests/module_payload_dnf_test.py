@@ -24,12 +24,12 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, Properti
 
 from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
-from pyanaconda.modules.payload.payload import PayloadService
-from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesModule
-from pyanaconda.modules.payload.payloads.dnf.packages.packages_interface import \
+from pyanaconda.modules.payloads.payload import PayloadService
+from pyanaconda.modules.payloads.payload_interface import PayloadInterface
+from pyanaconda.modules.payloads.payloads.dnf.packages.packages import PackagesModule
+from pyanaconda.modules.payloads.payloads.dnf.packages.packages_interface import \
     PackagesInterface
-from pyanaconda.modules.payload.payloads.dnf.packages.constants import TIMEOUT_UNSET, \
+from pyanaconda.modules.payloads.payloads.dnf.packages.constants import TIMEOUT_UNSET, \
     RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 
 

@@ -224,7 +224,7 @@ class LiveImagePayload(Payload):
 
     @property
     def space_required(self):
-        from pyanaconda.modules.payload.base.utils import get_dir_size
+        from pyanaconda.modules.payloads.base.utils import get_dir_size
         return Size(get_dir_size("/") * 1024)
 
     def _update_kernel_version_list(self):

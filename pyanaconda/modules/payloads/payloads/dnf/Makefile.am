@@ -1,6 +1,5 @@
-# modules/Makefile.am for anaconda
 #
-# Copyright (C) 2017  Red Hat, Inc.
+# Copyright (C) 2019  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,10 +14,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = common boss timezone network localization security users payloads storage services
+SUBDIRS = packages
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modulesdir = $(pkgpyexecdir)/modules
-modules_PYTHON = $(srcdir)/*.py
+dnf_moduledir = $(pkgpyexecdir)/modules/payloads/payloads/dnf
+dnf_module_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

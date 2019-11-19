@@ -30,13 +30,13 @@ from pyanaconda.modules.common.constants.interfaces import PAYLOAD_BASE
 from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
-from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
+from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payload.constants import SourceType
-from pyanaconda.modules.payload.base.initialization import UpdateBLSConfigurationTask
-from pyanaconda.modules.payload.base.installation import InstallFromImageTask
-from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSModule
-from pyanaconda.modules.payload.payloads.live_os.live_os_interface import LiveOSInterface
+from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.base.initialization import UpdateBLSConfigurationTask
+from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
+from pyanaconda.modules.payloads.payloads.live_os.live_os import LiveOSModule
+from pyanaconda.modules.payloads.payloads.live_os.live_os_interface import LiveOSInterface
 
 
 class LiveOSInterfaceTestCase(unittest.TestCase):
@@ -103,7 +103,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(SourceSetupError):
             self.live_os_interface.SetSources([path2])
 
-    @patch("pyanaconda.modules.payload.payloads.live_os.live_os.get_dir_size")
+    @patch("pyanaconda.modules.payloads.payloads.live_os.live_os.get_dir_size")
     @patch_dbus_publish_object
     def required_space_properties_test(self, publisher, get_dir_size_mock):
         """Test Live OS RequiredSpace property."""
@@ -128,7 +128,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
             PAYLOAD_BASE.interface_name,
             {"RequiredSpace": 0},  [])
 
-    @patch("pyanaconda.modules.payload.payloads.live_os.live_os.get_kernel_version_list")
+    @patch("pyanaconda.modules.payloads.payloads.live_os.live_os.get_kernel_version_list")
     def empty_kernel_version_list_test(self, get_kernel_version_list):
         """Test Live OS empty get kernel version list."""
         self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
@@ -145,7 +145,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
         kernel_list_callback.assert_called_once_with([])
 
-    @patch("pyanaconda.modules.payload.payloads.live_os.live_os.get_kernel_version_list")
+    @patch("pyanaconda.modules.payloads.payloads.live_os.live_os.get_kernel_version_list")
     def kernel_version_list_test(self, get_kernel_version_list):
         """Test Live OS get kernel version list."""
         kernel_list = ["kernel-abc", "magic-kernel.fc3000.x86_64", "sad-kernel"]

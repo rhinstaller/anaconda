@@ -34,7 +34,7 @@ from pyanaconda.core.kickstart.specification import KickstartSpecification,\
     KickstartSpecificationHandler, KickstartSpecificationParser
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
-from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
+from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
