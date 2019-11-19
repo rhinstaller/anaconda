@@ -18,13 +18,19 @@
 from blivet.errors import StorageError
 from blivet.size import Size
 
+from dasbus.typing import unwrap_variant
+from dasbus.client.proxy import get_object_path
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, BOOTLOADER_DRIVE_UNSET
-from pyanaconda.core.i18n import P_
+from pyanaconda.core.i18n import P_, _
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, BOOTLOADER, DEVICE_TREE, \
     DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
+    BootloaderConfigurationError
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.storage.utils import filter_disks_by_names
 
@@ -210,3 +216,44 @@ def try_populate_devicetree():
                 continue
         else:
             break
+
+
+def apply_partitioning(partitioning, show_message):
+    """Apply the given partitioning.
+
+    :param partitioning: a DBus proxy of a partitioning
+    :param show_message: a callback for showing a message
+    :return: an instance of ValidationReport
+    """
+    report = ValidationReport()
+
+    try:
+        show_message(_("Saving storage configuration..."))
+        task_path = partitioning.ConfigureWithTask()
+        task_proxy = STORAGE.get_proxy(task_path)
+        sync_run_task(task_proxy)
+    except StorageConfigurationError as e:
+        show_message(_("Failed to save storage configuration"))
+        report.error_messages.append(str(e))
+        reset_bootloader()
+        reset_storage(scan_all=True)
+    except BootloaderConfigurationError as e:
+        show_message(_("Failed to save boot loader configuration"))
+        report.error_messages.append(str(e))
+        reset_bootloader()
+    else:
+        show_message(_("Checking storage configuration..."))
+        task_path = partitioning.ValidateWithTask()
+        task_proxy = STORAGE.get_proxy(task_path)
+        sync_run_task(task_proxy)
+
+        result = unwrap_variant(task_proxy.GetResult())
+        report = ValidationReport.from_structure(result)
+
+        if report.is_valid():
+            storage_proxy = STORAGE.get_proxy()
+            storage_proxy.ApplyPartitioning(
+                get_object_path(partitioning)
+            )
+
+    return report

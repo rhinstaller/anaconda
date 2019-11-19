@@ -19,21 +19,17 @@
 
 from collections import OrderedDict
 
-from dasbus.client.proxy import get_object_path
 from pyanaconda.input_checking import get_policy
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest, \
     PartitioningRequest
-from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
-    BootloaderConfigurationError
 from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, reset_bootloader, \
-    select_all_disks_by_default, apply_disk_selection, get_disks_summary
+    select_all_disks_by_default, apply_disk_selection, get_disks_summary, apply_partitioning
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_autopart_choices, filter_disks_by_names
@@ -375,39 +371,11 @@ class StorageSpoke(NormalTUISpoke):
         apply_disk_selection(self._selected_disks)
 
     def execute(self):
-        try:
-            print(_("Generating updated storage configuration"))
-            task_path = self._partitioning.ConfigureWithTask()
-            task_proxy = STORAGE.get_proxy(task_path)
-            sync_run_task(task_proxy)
-        except StorageConfigurationError as e:
-            print(_("Storage configuration failed: %s") % e)
-            self.errors = [str(e)]
-            reset_bootloader()
-            reset_storage(scan_all=True)
-        except BootloaderConfigurationError as e:
-            print(_("Boot loader configuration failed: %s") % e)
-            self.errors = [str(e)]
-            reset_bootloader()
-        else:
-            print(_("Checking storage configuration..."))
-            task_path = self._partitioning.ValidateWithTask()
-            task_proxy = STORAGE.get_proxy(task_path)
-            sync_run_task(task_proxy)
-            report = ValidationReport.from_structure(
-                task_proxy.GetResult()
-            )
-
-            print("\n".join(report.get_messages()))
-            self.errors = report.error_messages
-            self.warnings = report.warning_messages
-
-            if report.is_valid():
-                self._storage_module.ApplyPartitioning(
-                    get_object_path(self._partitioning)
-                )
-        finally:
-            self._ready = True
+        report = apply_partitioning(self._partitioning, print)
+        print("\n".join(report.get_messages()))
+        self.errors = list(report.error_messages)
+        self.warnings = list(report.warning_messages)
+        self._ready = True
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
