@@ -19,7 +19,7 @@
 from dasbus.server.container import DBusContainer
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, \
-    DEVICE_TREE_NAMESPACE, PARTITIONING_NAMESPACE, PAYLOAD_SOURCE_NAMESPACE
+    DEVICE_TREE_NAMESPACE, PARTITIONING_NAMESPACE, PAYLOAD_SOURCE_NAMESPACE, PAYLOAD_BASE_NAMESPACE
 
 TaskContainer = DBusContainer(
     namespace=ANACONDA_NAMESPACE,
@@ -34,6 +34,11 @@ DeviceTreeContainer = DBusContainer(
 
 PartitioningContainer = DBusContainer(
     namespace=PARTITIONING_NAMESPACE,
+    message_bus=DBus
+)
+
+PayloadContainer = DBusContainer(
+    namespace=PAYLOAD_BASE_NAMESPACE,
     message_bus=DBus
 )
 
