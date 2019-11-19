@@ -28,18 +28,18 @@ from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payloads.payloads.payload_base import PayloadBase
+from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.base.utils import get_kernel_version_list
-from pyanaconda.modules.payloads.payloads.live_image.live_image_interface import \
+from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
     LiveImageInterface
-from pyanaconda.modules.payloads.payloads.live_image.initialization import \
+from pyanaconda.modules.payloads.payload.live_image.initialization import \
     CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
     TeardownInstallationSourceImageTask
-from pyanaconda.modules.payloads.payloads.live_image.installation import InstallFromTarTask
-from pyanaconda.modules.payloads.payloads.live_image.utils import \
+from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromTarTask
+from pyanaconda.modules.payloads.payload.live_image.utils import \
     get_kernel_version_list_from_tar, url_target_is_tarfile
 
 from pyanaconda.anaconda_loggers import get_module_logger

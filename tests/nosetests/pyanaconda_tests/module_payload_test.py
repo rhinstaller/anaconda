@@ -38,9 +38,9 @@ from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload_interface import PayloadInterface
 from pyanaconda.modules.payloads.payload import PayloadService
-from pyanaconda.modules.payloads.payloads.dnf.dnf import DNFModule
-from pyanaconda.modules.payloads.payloads.live_image.live_image import LiveImageModule
-from pyanaconda.modules.payloads.payloads.live_os.live_os import LiveOSModule
+from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
+from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
+from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
 from pyanaconda.modules.payloads.sources.live_os.live_os import LiveOSSourceModule
 
 

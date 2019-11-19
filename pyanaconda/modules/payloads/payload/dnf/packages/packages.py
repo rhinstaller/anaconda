@@ -22,9 +22,9 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
-from pyanaconda.modules.payloads.payloads.dnf.packages.constants import MultilibPolicy, \
+from pyanaconda.modules.payloads.payload.dnf.packages.constants import MultilibPolicy, \
     TIMEOUT_UNSET, RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
-from pyanaconda.modules.payloads.payloads.dnf.packages.packages_interface import \
+from pyanaconda.modules.payloads.payload.dnf.packages.packages_interface import \
     PackagesInterface
 
 from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, GROUP_DEFAULT

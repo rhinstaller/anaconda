@@ -73,14 +73,14 @@ class PayloadFactory(BaseFactory):
     @classmethod
     def _create(cls, object_type):
         if object_type == PayloadType.LIVE_IMAGE:
-            from pyanaconda.modules.payloads.payloads.live_image.live_image import \
+            from pyanaconda.modules.payloads.payload.live_image.live_image import \
                 LiveImageModule
             return LiveImageModule()
         elif object_type == PayloadType.LIVE_OS:
-            from pyanaconda.modules.payloads.payloads.live_os.live_os import LiveOSModule
+            from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
             return LiveOSModule()
         elif object_type == PayloadType.DNF:
-            from pyanaconda.modules.payloads.payloads.dnf.dnf import DNFModule
+            from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
             return DNFModule()
 
 

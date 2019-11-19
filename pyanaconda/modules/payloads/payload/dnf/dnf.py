@@ -19,9 +19,9 @@
 #
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
-from pyanaconda.modules.payloads.payloads.payload_base import PayloadBase
-from pyanaconda.modules.payloads.payloads.dnf.dnf_interface import DNFInterface
-from pyanaconda.modules.payloads.payloads.dnf.packages.packages import PackagesModule
+from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
+from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
+from pyanaconda.modules.payloads.payload.dnf.packages.packages import PackagesModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
