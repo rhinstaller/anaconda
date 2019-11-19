@@ -304,7 +304,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                 services.LOCALIZATION,
                 services.SECURITY,
                 services.USERS,
-                services.PAYLOAD,
+                services.PAYLOADS,
                 services.STORAGE,
                 services.SERVICES
             ))

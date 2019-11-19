@@ -59,7 +59,7 @@ USERS = DBusServiceIdentifier(
     message_bus=DBus
 )
 
-PAYLOAD = DBusServiceIdentifier(
+PAYLOADS = DBusServiceIdentifier(
     namespace=PAYLOADS_NAMESPACE,
     message_bus=DBus
 )
