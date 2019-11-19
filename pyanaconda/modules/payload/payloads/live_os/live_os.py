@@ -23,7 +23,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 
-from pyanaconda.modules.common.constants.objects import LIVE_OS_HANDLER
+from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.payload.constants import SourceType
 from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
@@ -31,13 +31,13 @@ from pyanaconda.modules.payload.base.initialization import PrepareSystemForInsta
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask, UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
 from pyanaconda.modules.payload.base.utils import get_dir_size, get_kernel_version_list
-from pyanaconda.modules.payload.payloads.live_os.live_os_interface import LiveOSHandlerInterface
+from pyanaconda.modules.payload.payloads.live_os.live_os_interface import LiveOSInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveOSHandlerModule(PayloadBase):
+class LiveOSModule(PayloadBase):
     """The Live OS payload module."""
 
     def __init__(self):
@@ -52,7 +52,7 @@ class LiveOSHandlerModule(PayloadBase):
         return [SourceType.LIVE_OS_IMAGE]
 
     def set_sources(self, sources):
-        """Set new sources to this handler.
+        """Set new sources to this payload.
 
         This payload is specific that it can't have more than only one source attached. It will
         instead replace the old source with the new one.
@@ -66,10 +66,10 @@ class LiveOSHandlerModule(PayloadBase):
 
         super().set_sources(sources)
 
-    def publish_handler(self):
-        """Publish the handler."""
-        DBus.publish_object(LIVE_OS_HANDLER.object_path, LiveOSHandlerInterface(self))
-        return LIVE_OS_HANDLER.object_path
+    def publish_payload(self):
+        """Publish the payload."""
+        DBus.publish_object(PAYLOAD_LIVE_OS.object_path, LiveOSInterface(self))
+        return PAYLOAD_LIVE_OS.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -81,7 +81,7 @@ class LiveOSHandlerModule(PayloadBase):
     def _image_source(self):
         """Get the attached source object.
 
-        This is a shortcut for this handler because it only support one source at a time.
+        This is a shortcut for this payload because it only support one source at a time.
 
         :return: a source object
         """
@@ -91,7 +91,7 @@ class LiveOSHandlerModule(PayloadBase):
         return None
 
     def _check_source_availability(self, message):
-        """Test if source is available for this payload handler."""
+        """Test if source is available for this payload."""
         if not self._image_source:
             raise SourceSetupError(message)
 

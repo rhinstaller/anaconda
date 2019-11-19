@@ -50,7 +50,7 @@ DEVICE_TREE_HANDLER = DBusInterfaceIdentifier(
     basename="Handler"
 )
 
-DNF_HANDLER = DBusInterfaceIdentifier(
+PAYLOAD_DNF = DBusInterfaceIdentifier(
     namespace=DNF_NAMESPACE
 )
 

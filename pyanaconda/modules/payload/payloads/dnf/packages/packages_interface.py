@@ -21,13 +21,13 @@ from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
+from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.payload.payloads.dnf.packages.constants import MultilibPolicy
 
 
-@dbus_interface(DNF_PACKAGES.interface_name)
-class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
+@dbus_interface(PAYLOAD_PACKAGES.interface_name)
+class PackagesInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for DNF packages sub-module."""
 
     def connect_signals(self):

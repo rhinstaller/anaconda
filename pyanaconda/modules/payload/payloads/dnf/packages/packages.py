@@ -20,12 +20,12 @@
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
+from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.payload.payloads.dnf.packages.constants import MultilibPolicy, \
     TIMEOUT_UNSET, RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 from pyanaconda.modules.payload.payloads.dnf.packages.packages_interface import \
-    PackagesHandlerInterface
+    PackagesInterface
 
 from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, GROUP_DEFAULT
 from pykickstart.parser import Group
@@ -34,7 +34,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class PackagesHandlerModule(KickstartBaseModule):
+class PackagesModule(KickstartBaseModule):
     """The DNF sub-module for packages section."""
 
     def __init__(self):
@@ -74,7 +74,7 @@ class PackagesHandlerModule(KickstartBaseModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(DNF_PACKAGES.object_path, PackagesHandlerInterface(self))
+        DBus.publish_object(PAYLOAD_PACKAGES.object_path, PackagesInterface(self))
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

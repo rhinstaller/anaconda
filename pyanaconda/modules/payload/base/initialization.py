@@ -185,7 +185,7 @@ class SetUpSourcesTask(Task):
 
 
 class TearDownSourcesTask(Task):
-    """Tear down all the installation sources of the payload handler."""
+    """Tear down all the installation sources of the payload."""
 
     def __init__(self, sources):
         """Create tear down sources task.

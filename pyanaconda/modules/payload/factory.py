@@ -1,5 +1,5 @@
 #
-# Factory class to create payload handlers.
+# Factory class to create payloads.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -18,23 +18,23 @@
 # Red Hat, Inc.
 from abc import ABC, abstractclassmethod
 
-from pyanaconda.modules.payload.constants import HandlerType, SourceType
+from pyanaconda.modules.payload.constants import PayloadType, SourceType
 
-__all__ = ["HandlerFactory", "SourceFactory"]
+__all__ = ["PayloadFactory", "SourceFactory"]
 
 
 class BaseFactory(ABC):
     """Factory to create payload objects."""
 
     @classmethod
-    def create(cls, handler_type):
+    def create(cls, object_type):
         """Create an object of the given type.
 
-        :param handler_type: value from the enum of given type
+        :param object_type: value from the enum of given type
         """
-        handler = cls._create(handler_type)
+        obj = cls._create(object_type)
 
-        return handler
+        return obj
 
     @abstractclassmethod
     def _create(cls, object_type):
@@ -45,43 +45,43 @@ class BaseFactory(ABC):
         pass
 
 
-class HandlerFactory(BaseFactory):
-    """Factory to create payload handlers."""
+class PayloadFactory(BaseFactory):
+    """Factory to create payloads."""
 
     @classmethod
     def create_from_ks_data(cls, data):
-        """Create handler based on the KS data.
+        """Create payload based on the KS data.
 
         :param data: kickstart data
         """
-        handler_type = cls._get_handler_type_from_ks(data)
+        payload_type = cls._get_type_from_ks(data)
 
-        if handler_type is None:
+        if payload_type is None:
             return None
 
-        return cls.create(handler_type)
+        return cls.create(payload_type)
 
     @classmethod
-    def _get_handler_type_from_ks(cls, data):
+    def _get_type_from_ks(cls, data):
         if data.liveimg.seen:
-            return HandlerType.LIVE_IMAGE
+            return PayloadType.LIVE_IMAGE
         elif data.packages.seen:
-            return HandlerType.DNF
+            return PayloadType.DNF
         else:
             return None
 
     @classmethod
     def _create(cls, object_type):
-        if object_type == HandlerType.LIVE_IMAGE:
+        if object_type == PayloadType.LIVE_IMAGE:
             from pyanaconda.modules.payload.payloads.live_image.live_image import \
-                LiveImageHandlerModule
-            return LiveImageHandlerModule()
-        elif object_type == HandlerType.LIVE_OS:
-            from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSHandlerModule
-            return LiveOSHandlerModule()
-        elif object_type == HandlerType.DNF:
-            from pyanaconda.modules.payload.payloads.dnf.dnf import DNFHandlerModule
-            return DNFHandlerModule()
+                LiveImageModule
+            return LiveImageModule()
+        elif object_type == PayloadType.LIVE_OS:
+            from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSModule
+            return LiveOSModule()
+        elif object_type == PayloadType.DNF:
+            from pyanaconda.modules.payload.payloads.dnf.dnf import DNFModule
+            return DNFModule()
 
 
 class SourceFactory(BaseFactory):

@@ -48,11 +48,11 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         self.assertEqual(SourceType.LIVE_OS_IMAGE.value, self.live_os_source_interface.Type)
 
     def image_path_empty_properties_test(self):
-        """Test Live OS handler image path property when not set."""
+        """Test Live OS payload image path property when not set."""
         self.assertEqual(self.live_os_source_interface.ImagePath, "")
 
     def image_path_properties_test(self):
-        """Test Live OS handler image path property is correctly set."""
+        """Test Live OS payload image path property is correctly set."""
         self.live_os_source_interface.SetImagePath("/my/supper/image/path")
         self.assertEqual(self.live_os_source_interface.ImagePath, "/my/supper/image/path")
         self.callback.assert_called_once_with(

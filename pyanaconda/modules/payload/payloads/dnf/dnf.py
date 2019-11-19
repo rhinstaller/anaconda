@@ -20,19 +20,19 @@
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
 from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
-from pyanaconda.modules.payload.payloads.dnf.dnf_interface import DNFHandlerInterface
-from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesHandlerModule
+from pyanaconda.modules.payload.payloads.dnf.dnf_interface import DNFInterface
+from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class DNFHandlerModule(PayloadBase):
+class DNFModule(PayloadBase):
     """The DNF payload module."""
 
     def __init__(self):
         super().__init__()
-        self._packages_handler = PackagesHandlerModule()
+        self._packages_module = PackagesModule()
 
     @property
     def supported_source_types(self):
@@ -40,20 +40,20 @@ class DNFHandlerModule(PayloadBase):
         # TODO: Add supported sources when implemented
         return None
 
-    def publish_handler(self):
-        """Publish the handler."""
-        self._packages_handler.publish()
+    def publish_payload(self):
+        """Publish the payload."""
+        self._packages_module.publish()
 
-        DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFHandlerInterface(self))
+        DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFInterface(self))
         return PAYLOAD_DEFAULT.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        self._packages_handler.process_kickstart(data)
+        self._packages_module.process_kickstart(data)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        self._packages_handler.setup_kickstart(data)
+        self._packages_module.setup_kickstart(data)
 
     def pre_install_with_tasks(self):
         """Execute preparation steps.

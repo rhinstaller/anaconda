@@ -23,30 +23,30 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.common.constants.services import PAYLOAD
-from pyanaconda.modules.payload.constants import HandlerType, SourceType
+from pyanaconda.modules.payload.constants import PayloadType, SourceType
 
 
 @dbus_interface(PAYLOAD.interface_name)
 class PayloadInterface(KickstartModuleInterface):
     """DBus interface for Payload module."""
 
-    def GetActiveHandlerPath(self) -> ObjPath:
+    def GetActivePayloadPath(self) -> ObjPath:
         """Get path to the payload which is used now."""
-        return self.implementation.get_active_handler_path()
+        return self.implementation.get_active_payload_path()
 
-    def IsHandlerSet(self) -> Bool:
-        """Test if any handler is set and used."""
-        return self.implementation.is_handler_set()
+    def IsPayloadSet(self) -> Bool:
+        """Test if any payload is set and used."""
+        return self.implementation.is_payload_set()
 
-    def CreateHandler(self, handler_type: Str) -> ObjPath:
-        """Create payload handler and publish it on DBus.
+    def CreatePayload(self, payload_type: Str) -> ObjPath:
+        """Create payload and publish it on DBus.
 
-        handler_type could contain these values:
+        payload_type could contain these values:
          - DNF
          - LIVE_OS
          - LIVE_IMAGE
         """
-        return self.implementation.create_handler(HandlerType(handler_type))
+        return self.implementation.create_payload(PayloadType(payload_type))
 
     def CreateSource(self, source_type: Str) -> ObjPath:
         """Create payload source and publish it on DBus.

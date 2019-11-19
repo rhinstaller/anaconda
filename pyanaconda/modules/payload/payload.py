@@ -21,8 +21,8 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.common.errors.payload import HandlerNotSetError
-from pyanaconda.modules.payload.factory import HandlerFactory, SourceFactory
+from pyanaconda.modules.common.errors.payload import PayloadNotSetError
+from pyanaconda.modules.payload.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 
@@ -35,8 +35,8 @@ class PayloadService(KickstartService):
 
     def __init__(self):
         super().__init__()
-        self._payload_handler = None
-        self._payload_handler_path = None
+        self._payload = None
+        self._payload_path = None
 
     def publish(self):
         """Publish the module."""
@@ -50,37 +50,37 @@ class PayloadService(KickstartService):
         return PayloadKickstartSpecification
 
     @property
-    def payload_handler(self):
-        """Get payload handler.
+    def payload(self):
+        """Get payload.
 
-        Handlers are handling the installation process.
+        Payloads are handling the installation process.
 
-        There are a few types of handler e.g.: DNF, LiveImage...
+        There are a few types of payloads e.g.: DNF, LiveImage...
         """
-        if self._payload_handler is None:
-            raise HandlerNotSetError()
+        if self._payload is None:
+            raise PayloadNotSetError()
         else:
-            return self._payload_handler
+            return self._payload
 
-    def set_payload_handler(self, payload_handler):
-        """Set payload handler."""
-        self._payload_handler = payload_handler
-        log.debug("Payload handler %s used.", payload_handler.__class__.__name__)
+    def set_payload(self, payload):
+        """Set payload."""
+        self._payload = payload
+        log.debug("Payload %s used.", payload.__class__.__name__)
 
-    def is_handler_set(self):
-        """Test if any handler is created and used.
+    def is_payload_set(self):
+        """Test if any payload is created and used.
 
         :rtype: bool
         """
-        return self._payload_handler is not None
+        return self._payload is not None
 
-    def get_active_handler_path(self):
-        """Get path of the active payload handler.
+    def get_active_payload_path(self):
+        """Get path of the active payload.
 
         :rtype: str
         """
-        if self._payload_handler_path:
-            return self._payload_handler_path
+        if self._payload_path:
+            return self._payload_path
 
         return ""
 
@@ -88,20 +88,20 @@ class PayloadService(KickstartService):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
 
-        # create handler if no handler is set already
-        if not self.is_handler_set():
-            handler = HandlerFactory.create_from_ks_data(data)
-            if not handler:
-                log.warning("No handler was created. Kickstart data passed in are lost.")
+        # create payload if no payload is set already
+        if not self.is_payload_set():
+            payload = PayloadFactory.create_from_ks_data(data)
+            if not payload:
+                log.warning("No payload was created. Kickstart data passed in are lost.")
                 return
 
-        handler.process_kickstart(data)
+        payload.process_kickstart(data)
 
-        self._initialize_handler(handler)
+        self._initialize_payload(payload)
 
-    def _initialize_handler(self, handler):
-        self._payload_handler_path = handler.publish_handler()
-        self.set_payload_handler(handler)
+    def _initialize_payload(self, payload):
+        self._payload_path = payload.publish_payload()
+        self.set_payload(payload)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -114,21 +114,21 @@ class PayloadService(KickstartService):
         data = self.get_kickstart_handler()
 
         try:
-            self.payload_handler.setup_kickstart(data)
-        except HandlerNotSetError:
-            log.warning("Generating kickstart data without set handler - data will be empty!")
+            self.payload.setup_kickstart(data)
+        except PayloadNotSetError:
+            log.warning("Generating kickstart data without payload set - data will be empty!")
 
         return str(data)
 
-    def create_handler(self, handler_type):
-        """Create handler based on the passed type.
+    def create_payload(self, payload_type):
+        """Create payload based on the passed type.
 
-        :param handler_type: type of the desirable handler
-        :type handler_type: value of the payload.base.constants.HandlerType enum
+        :param payload_type: type of the desirable payload
+        :type payload_type: value of the payload.base.constants.PayloadType enum
         """
-        handler = HandlerFactory.create(handler_type)
-        self._initialize_handler(handler)
-        return self._payload_handler_path
+        payload = PayloadFactory.create(payload_type)
+        self._initialize_payload(payload)
+        return self._payload_path
 
     def create_source(self, source_type):
         """Create source based on the passed type.

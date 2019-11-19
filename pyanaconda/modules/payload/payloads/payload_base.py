@@ -89,15 +89,15 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
 
     @property
     def sources(self):
-        """Get list of sources attached to this payload handler.
+        """Get list of sources attached to this payload.
 
-        :return: list of source objects attached to this handler
+        :return: list of source objects attached to this payload
         :rtype: [instance of PayloadSourceBase class]
         """
         return self._sources
 
     def set_sources(self, sources):
-        """Set a new list of sources to this payload handler.
+        """Set a new list of sources to this payload.
 
         Before setting the sources, please make sure the sources are not initialized otherwise
         the SourceSetupError exception will be raised. Payload have to cleanup after itself.
@@ -116,7 +116,7 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         # TODO: Add test for this when there will be unsupported source implemented
         for source in sources:
             if source.type not in self.supported_source_types:
-                raise IncompatibleSourceError("Source type {} is not supported by this handler."
+                raise IncompatibleSourceError("Source type {} is not supported by this payload."
                                               .format(source.type))
 
         if any(source.is_ready() for source in self.sources):
@@ -136,10 +136,10 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         return bool(self.sources)
 
     @abstractmethod
-    def publish_handler(self):
+    def publish_payload(self):
         """Publish object on DBus and return its path.
 
-        :returns: path to this handler
+        :returns: path to this payload
         :rtype: string
         """
         pass

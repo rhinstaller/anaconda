@@ -1,5 +1,5 @@
 #
-# Code shared between all the handlers.
+# Code shared between all the payloads.
 #
 # Copyright (C) 2019 Red Hat, Inc.
 #

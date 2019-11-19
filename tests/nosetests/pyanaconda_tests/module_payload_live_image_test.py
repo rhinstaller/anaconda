@@ -28,22 +28,22 @@ from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadShared
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.task.task_interface import TaskInterface
-from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
+from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
 from pyanaconda.modules.payload.payload import PayloadService
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageHandlerModule
+from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
-    LiveImageHandlerInterface
+    LiveImageInterface
 from pyanaconda.modules.payload.payloads.live_image.initialization import \
     CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
     TeardownInstallationSourceImageTask
 from pyanaconda.modules.payload.payloads.live_image.installation import InstallFromTarTask
 
 
-class LiveImageHandlerKSTestCase(unittest.TestCase):
+class LiveImageKSTestCase(unittest.TestCase):
 
     def setUp(self):
         self.payload_module = PayloadService()
@@ -54,10 +54,10 @@ class LiveImageHandlerKSTestCase(unittest.TestCase):
                                               self.payload_module_interface)
 
     def _check_properties(self, url, proxy="", checksum="", verifyssl=True):
-        handler = self.shared_tests.get_payload_handler()
+        payload = self.shared_tests.get_payload()
 
-        self.assertIsInstance(handler, LiveImageHandlerModule)
-        intf = LiveImageHandlerInterface(handler)
+        self.assertIsInstance(payload, LiveImageModule)
+        intf = LiveImageInterface(payload)
 
         self.assertEqual(intf.Url, url)
         self.assertEqual(intf.Proxy, proxy)
@@ -128,11 +128,11 @@ class LiveImageHandlerKSTestCase(unittest.TestCase):
                                checksum="ABCDEFG")
 
 
-class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
+class LiveImageInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.live_image_module = LiveImageHandlerModule()
-        self.live_image_interface = LiveImageHandlerInterface(self.live_image_module)
+        self.live_image_module = LiveImageModule()
+        self.live_image_interface = LiveImageInterface(self.live_image_module)
 
         self.source_tests = SourceSharedTest(self,
                                              payload=self.live_image_module,
@@ -154,7 +154,7 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
         self.live_image_interface.SetUrl("http://OUCH!")
         self.assertEqual(self.live_image_interface.Url, "http://OUCH!")
         self.callback.assert_called_once_with(
-            LIVE_IMAGE_HANDLER.interface_name, {"Url": "http://OUCH!"}, [])
+            PAYLOAD_LIVE_IMAGE.interface_name, {"Url": "http://OUCH!"}, [])
 
     def default_proxy_test(self):
         self.assertEqual(self.live_image_interface.Proxy, "")
@@ -163,7 +163,7 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
         self.live_image_interface.SetProxy("http://YAYKS!")
         self.assertEqual(self.live_image_interface.Proxy, "http://YAYKS!")
         self.callback.assert_called_once_with(
-            LIVE_IMAGE_HANDLER.interface_name, {"Proxy": "http://YAYKS!"}, [])
+            PAYLOAD_LIVE_IMAGE.interface_name, {"Proxy": "http://YAYKS!"}, [])
 
     def default_checksum_test(self):
         self.assertEqual(self.live_image_interface.Checksum, "")
@@ -172,7 +172,7 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
         self.live_image_interface.SetChecksum("ABC1234")
         self.assertEqual(self.live_image_interface.Checksum, "ABC1234")
         self.callback.assert_called_once_with(
-            LIVE_IMAGE_HANDLER.interface_name, {"Checksum": "ABC1234"}, [])
+            PAYLOAD_LIVE_IMAGE.interface_name, {"Checksum": "ABC1234"}, [])
 
     def default_verifyssl_test(self):
         self.assertTrue(self.live_image_interface.VerifySSL)
@@ -181,7 +181,7 @@ class LiveImageHandlerInterfaceTestCase(unittest.TestCase):
         self.live_image_interface.SetVerifySSL(True)
         self.assertEqual(self.live_image_interface.VerifySSL, True)
         self.callback.assert_called_once_with(
-            LIVE_IMAGE_HANDLER.interface_name, {"VerifySSL": True}, [])
+            PAYLOAD_LIVE_IMAGE.interface_name, {"VerifySSL": True}, [])
 
     def default_space_required_test(self):
         """Test Live Image RequiredSpace property.

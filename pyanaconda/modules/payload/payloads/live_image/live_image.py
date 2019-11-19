@@ -26,7 +26,7 @@ from pyanaconda.core.util import requests_session
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
 
-from pyanaconda.modules.common.constants.objects import LIVE_IMAGE_HANDLER
+from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payload.payloads.payload_base import PayloadBase
 from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesTask, \
@@ -34,7 +34,7 @@ from pyanaconda.modules.payload.base.initialization import CopyDriverDisksFilesT
 from pyanaconda.modules.payload.base.installation import InstallFromImageTask
 from pyanaconda.modules.payload.base.utils import get_kernel_version_list
 from pyanaconda.modules.payload.payloads.live_image.live_image_interface import \
-    LiveImageHandlerInterface
+    LiveImageInterface
 from pyanaconda.modules.payload.payloads.live_image.initialization import \
     CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
     TeardownInstallationSourceImageTask
@@ -46,7 +46,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveImageHandlerModule(PayloadBase):
+class LiveImageModule(PayloadBase):
     """The Live Image payload module."""
 
     def __init__(self):
@@ -81,10 +81,10 @@ class LiveImageHandlerModule(PayloadBase):
         # TODO: Add supported sources when implemented
         return None
 
-    def publish_handler(self):
-        """Publish the handler."""
-        DBus.publish_object(LIVE_IMAGE_HANDLER.object_path, LiveImageHandlerInterface(self))
-        return LIVE_IMAGE_HANDLER.object_path
+    def publish_payload(self):
+        """Publish the payload."""
+        DBus.publish_object(PAYLOAD_LIVE_IMAGE.object_path, LiveImageInterface(self))
+        return PAYLOAD_LIVE_IMAGE.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

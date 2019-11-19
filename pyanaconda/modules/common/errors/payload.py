@@ -1,5 +1,5 @@
 #
-# DBus errors related to the payload module and handlers.
+# DBus errors related to the payload modules.
 #
 # Copyright (C) 2019  Red Hat, Inc.  All rights reserved.
 #
@@ -40,7 +40,7 @@ class SourceTearDownError(AnacondaError):
 
 @dbus_error("IncompatibleSourceError", namespace=PAYLOAD_NAMESPACE)
 class IncompatibleSourceError(AnacondaError):
-    """Error raised when handler does not support given source."""
+    """Error raised when payload does not support given source."""
     pass
 
 
@@ -50,7 +50,7 @@ class InstallError(AnacondaError):
     pass
 
 
-@dbus_error("HandlerNotSetError", namespace=PAYLOAD_NAMESPACE)
-class HandlerNotSetError(AnacondaError):
-    """Payload handler is not set."""
+@dbus_error("PayloadNotSetError", namespace=PAYLOAD_NAMESPACE)
+class PayloadNotSetError(AnacondaError):
+    """Payload is not set."""
     pass

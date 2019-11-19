@@ -22,18 +22,18 @@ import unittest
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, PropertiesChangedCallback
 
-from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
+from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.payload.payload import PayloadService
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesHandlerModule
+from pyanaconda.modules.payload.payloads.dnf.packages.packages import PackagesModule
 from pyanaconda.modules.payload.payloads.dnf.packages.packages_interface import \
-    PackagesHandlerInterface
+    PackagesInterface
 from pyanaconda.modules.payload.payloads.dnf.packages.constants import TIMEOUT_UNSET, \
     RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 
 
-class PackagesHandlerKSTestCase(unittest.TestCase):
+class PackagesKSTestCase(unittest.TestCase):
 
     def setUp(self):
         self.payload_module = PayloadService()
@@ -51,11 +51,11 @@ class PackagesHandlerKSTestCase(unittest.TestCase):
         self._expected_excluded_groups = []
 
     def _get_packages_interface(self):
-        payload_handler = self.shared_tests.get_payload_handler()
-        packages_handler = payload_handler._packages_handler
+        payload = self.shared_tests.get_payload()
+        packages_module = payload._packages_module
 
-        self.assertIsInstance(packages_handler, PackagesHandlerModule)
-        return PackagesHandlerInterface(packages_handler)
+        self.assertIsInstance(packages_module, PackagesModule)
+        return PackagesInterface(packages_module)
 
     def _check_properties(self, nocore=False, multilib="best",
                           langs=LANGUAGES_DEFAULT, ignore_missing=False):
@@ -251,11 +251,11 @@ class PackagesHandlerKSTestCase(unittest.TestCase):
         self._check_properties(nocore=True, ignore_missing=True, langs=LANGUAGES_NONE)
 
 
-class PackagesHandlerInterfaceTestCase(unittest.TestCase):
+class PackagesInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.packages_module = PackagesHandlerModule()
-        self.packages_interface = PackagesHandlerInterface(self.packages_module)
+        self.packages_module = PackagesModule()
+        self.packages_interface = PackagesInterface(self.packages_module)
 
         self.callback = PropertiesChangedCallback()
         self.packages_interface.PropertiesChanged.connect(self.callback)
@@ -264,7 +264,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetCoreGroupEnabled(True)
         self.assertEqual(self.packages_interface.CoreGroupEnabled, True)
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"CoreGroupEnabled": True}, [])
+            PAYLOAD_PACKAGES.interface_name, {"CoreGroupEnabled": True}, [])
 
     def core_group_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.CoreGroupEnabled, True)
@@ -276,7 +276,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetEnvironment("TestEnv")
         self.assertEqual(self.packages_interface.Environment, "TestEnv")
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"Environment": "TestEnv"}, [])
+            PAYLOAD_PACKAGES.interface_name, {"Environment": "TestEnv"}, [])
 
     def environment_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.Environment, "")
@@ -285,7 +285,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetGroups(["group1", "group2"])
         self.assertEqual(self.packages_interface.Groups, ["group1", "group2"])
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"Groups": ["group1", "group2"]}, [])
+            PAYLOAD_PACKAGES.interface_name, {"Groups": ["group1", "group2"]}, [])
 
     def groups_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.Groups, [])
@@ -294,7 +294,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetPackages(["package1", "package2"])
         self.assertEqual(self.packages_interface.Packages, ["package1", "package2"])
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"Packages": ["package1", "package2"]}, [])
+            PAYLOAD_PACKAGES.interface_name, {"Packages": ["package1", "package2"]}, [])
 
     def packages_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.Packages, [])
@@ -303,7 +303,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetExcludedGroups(["group1", "group2"])
         self.assertEqual(self.packages_interface.ExcludedGroups, ["group1", "group2"])
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"ExcludedGroups": ["group1", "group2"]}, [])
+            PAYLOAD_PACKAGES.interface_name, {"ExcludedGroups": ["group1", "group2"]}, [])
 
     def excluded_groups_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.ExcludedGroups, [])
@@ -312,7 +312,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetExcludedPackages(["package1", "package2"])
         self.assertEqual(self.packages_interface.ExcludedPackages, ["package1", "package2"])
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"ExcludedPackages": ["package1", "package2"]}, [])
+            PAYLOAD_PACKAGES.interface_name, {"ExcludedPackages": ["package1", "package2"]}, [])
 
     def excluded_packages_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.ExcludedPackages, [])
@@ -321,7 +321,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetDocsExcluded(True)
         self.assertEqual(self.packages_interface.DocsExcluded, True)
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"DocsExcluded": True}, [])
+            PAYLOAD_PACKAGES.interface_name, {"DocsExcluded": True}, [])
 
     def docs_excluded_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.DocsExcluded, False)
@@ -330,7 +330,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetWeakdepsExcluded(True)
         self.assertEqual(self.packages_interface.WeakdepsExcluded, True)
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"WeakdepsExcluded": True}, [])
+            PAYLOAD_PACKAGES.interface_name, {"WeakdepsExcluded": True}, [])
 
     def weakdeps_excluded_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.WeakdepsExcluded, False)
@@ -339,7 +339,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetMissingIgnored(True)
         self.assertEqual(self.packages_interface.MissingIgnored, True)
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"MissingIgnored": True}, [])
+            PAYLOAD_PACKAGES.interface_name, {"MissingIgnored": True}, [])
 
     def missing_ignored_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.MissingIgnored, False)
@@ -348,7 +348,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetLanguages("en, es")
         self.assertEqual(self.packages_interface.Languages, "en, es")
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"Languages": "en, es"}, [])
+            PAYLOAD_PACKAGES.interface_name, {"Languages": "en, es"}, [])
 
     def languages_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.Languages, LANGUAGES_DEFAULT)
@@ -361,7 +361,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetMultilibPolicy('all')
         self.assertEqual(self.packages_interface.MultilibPolicy, 'all')
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"MultilibPolicy": 'all'}, [])
+            PAYLOAD_PACKAGES.interface_name, {"MultilibPolicy": 'all'}, [])
 
     def multilib_policy_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.MultilibPolicy, 'best')
@@ -370,7 +370,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetTimeout(60)
         self.assertEqual(self.packages_interface.Timeout, 60)
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"Timeout": 60}, [])
+            PAYLOAD_PACKAGES.interface_name, {"Timeout": 60}, [])
 
     def timeout_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.Timeout, TIMEOUT_UNSET)
@@ -379,7 +379,7 @@ class PackagesHandlerInterfaceTestCase(unittest.TestCase):
         self.packages_interface.SetRetries(30)
         self.assertEqual(self.packages_interface.Retries, 30)
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"Retries": 30}, [])
+            PAYLOAD_PACKAGES.interface_name, {"Retries": 30}, [])
 
     def retries_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.Retries, RETRIES_UNSET)

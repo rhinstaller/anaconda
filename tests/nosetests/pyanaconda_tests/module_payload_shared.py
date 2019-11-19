@@ -57,9 +57,9 @@ class PayloadSharedTest(object):
             publisher.assert_called()
             self._test.assertEqual(publisher.call_count, expected_publish_calls)
 
-    def get_payload_handler(self):
-        """Get payload handler created."""
-        return self.payload_service.payload_handler
+    def get_payload(self):
+        """Get payload created."""
+        return self.payload_service.payload
 
 
 class SourceSharedTest(object):
