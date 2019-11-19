@@ -139,7 +139,9 @@ class DracutHardDrive(HardDrive, DracutArgsMixin):
         if self.biospart:
             return "inst.repo=bd:%s:%s" % (self.partition, self.dir)
         else:
-            return "inst.repo=hd:%s:%s" % (self.partition, self.dir)
+            args = "inst.repo=hd:%s:%s" % (self.partition, self.dir)
+            # Escape spaces
+            return args.replace(" ", "\\x20")
 
 class DracutHmc(Hmc, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
@@ -196,7 +198,9 @@ class DracutDriverDisk(DriverDisk, DracutArgsMixin):
             elif dd.biospart:
                 dd_args.append("inst.dd=bd:%s" % dd.biospart)
 
-        return "\n".join(dd_args)
+        args = "\n".join(dd_args)
+        # Escape spaces
+        return args.replace(" ", "\\x20")
 
 class DracutNetwork(Network, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
