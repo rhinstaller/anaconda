@@ -26,7 +26,7 @@ from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_cre
 from tests.nosetests.pyanaconda_tests.module_payload_shared import SourceSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.modules.common.constants.interfaces import PAYLOAD_BASE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD
 from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
@@ -116,7 +116,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.live_os_interface.RequiredSpace, 2048)
         object_path, _ = publisher.call_args[0]
         self.callback.assert_called_once_with(
-            PAYLOAD_BASE.interface_name,
+            PAYLOAD.interface_name,
             {"RequiredSpace": 2048,
              "Sources": [object_path]}, [])
 
@@ -125,7 +125,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         task.stopped_signal.emit()
         self.assertEqual(self.live_os_interface.RequiredSpace, 0)
         self.callback.assert_called_once_with(
-            PAYLOAD_BASE.interface_name,
+            PAYLOAD.interface_name,
             {"RequiredSpace": 0},  [])
 
     @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")

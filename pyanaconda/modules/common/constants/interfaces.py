@@ -19,7 +19,7 @@
 from dasbus.identifier import DBusInterfaceIdentifier
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, \
     MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE, \
-    DEVICE_TREE_NAMESPACE, PAYLOAD_BASE_NAMESPACE, PAYLOAD_SOURCE_NAMESPACE
+    DEVICE_TREE_NAMESPACE, PAYLOAD_NAMESPACE, SOURCE_NAMESPACE
 
 
 KICKSTART_MODULE = DBusInterfaceIdentifier(
@@ -61,19 +61,19 @@ DEVICE_TREE_SCHEDULER = DBusInterfaceIdentifier(
 )
 
 PAYLOAD_DNF = DBusInterfaceIdentifier(
-    namespace=PAYLOAD_BASE_NAMESPACE,
+    namespace=PAYLOAD_NAMESPACE,
     basename="DNF"
 )
 
-PAYLOAD_BASE = DBusInterfaceIdentifier(
-    namespace=PAYLOAD_BASE_NAMESPACE
+PAYLOAD = DBusInterfaceIdentifier(
+    namespace=PAYLOAD_NAMESPACE
 )
 
 PAYLOAD_SOURCE = DBusInterfaceIdentifier(
-    namespace=PAYLOAD_SOURCE_NAMESPACE
+    namespace=SOURCE_NAMESPACE
 )
 
 PAYLOAD_SOURCE_LIVE_OS = DBusInterfaceIdentifier(
-    namespace=PAYLOAD_SOURCE_NAMESPACE,
+    namespace=SOURCE_NAMESPACE,
     basename="LiveOS"
 )

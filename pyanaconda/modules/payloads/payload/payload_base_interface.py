@@ -22,11 +22,11 @@ from abc import ABCMeta
 from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate
-from pyanaconda.modules.common.constants.interfaces import PAYLOAD_BASE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD
 from pyanaconda.modules.common.containers import PayloadSourceContainer, TaskContainer
 
 
-@dbus_interface(PAYLOAD_BASE.interface_name)
+@dbus_interface(PAYLOAD.interface_name)
 class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
     """Base class for all the payload module interfaces.
 
