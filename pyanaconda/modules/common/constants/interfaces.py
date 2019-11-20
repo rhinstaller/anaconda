@@ -18,7 +18,7 @@
 #
 from dasbus.identifier import DBusInterfaceIdentifier
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, \
-    MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE, DNF_NAMESPACE, \
+    MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE, \
     DEVICE_TREE_NAMESPACE, PAYLOAD_BASE_NAMESPACE, PAYLOAD_SOURCE_NAMESPACE
 
 
@@ -61,7 +61,8 @@ DEVICE_TREE_SCHEDULER = DBusInterfaceIdentifier(
 )
 
 PAYLOAD_DNF = DBusInterfaceIdentifier(
-    namespace=DNF_NAMESPACE
+    namespace=PAYLOAD_BASE_NAMESPACE,
+    basename="DNF"
 )
 
 PAYLOAD_BASE = DBusInterfaceIdentifier(

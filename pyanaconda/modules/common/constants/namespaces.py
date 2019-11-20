@@ -91,11 +91,6 @@ PAYLOADS_NAMESPACE = (
     "Payloads"
 )
 
-DNF_NAMESPACE = (
-    *PAYLOADS_NAMESPACE,
-    "DNF"
-)
-
 PAYLOAD_BASE_NAMESPACE = (
     *PAYLOADS_NAMESPACE,
     "Payload"
