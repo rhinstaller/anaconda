@@ -831,7 +831,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
 
             storage.create_device(request)
             if volgroup_data.reserved_space:
-                request.reserved_space = volgroup_data.reserved_space
+                request.reserved_space = Size("{:d} MiB".format(volgroup_data.reserved_space))
             elif volgroup_data.reserved_percent:
                 request.reserved_percent = volgroup_data.reserved_percent
 
