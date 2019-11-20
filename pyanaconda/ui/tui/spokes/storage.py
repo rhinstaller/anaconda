@@ -79,6 +79,8 @@ class StorageSpoke(NormalTUISpoke):
         super().__init__(data, storage, payload)
         self.title = N_("Installation Destination")
         self._container = None
+        self._ready = False
+        self._select_all = False
 
         self._storage_module = STORAGE.get_proxy()
         self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
@@ -86,18 +88,10 @@ class StorageSpoke(NormalTUISpoke):
         self._disk_init_module = STORAGE.get_proxy(DISK_INITIALIZATION)
         self._disk_select_module = STORAGE.get_proxy(DISK_SELECTION)
 
-        self._selected_disks = self._disk_select_module.SelectedDisks
-
-        # This list gets set up once in initialize and should not be modified
-        # except perhaps to add advanced devices. It will remain the full list
-        # of disks that can be included in the install.
         self._available_disks = []
-
-        # Find a partitioning to use.
+        self._selected_disks = []
         self._partitioning = find_partitioning()
 
-        self._ready = False
-        self._select_all = False
         self.errors = []
         self.warnings = []
 
@@ -165,29 +159,34 @@ class StorageSpoke(NormalTUISpoke):
 
         return summary
 
-    def refresh(self, args=None):
-        super().refresh(args)
+    def setup(self, args=None):
+        """Set up the spoke right before it is used."""
+        super().setup(args)
 
         # Join the initialization thread to block on it
         # This print is foul.  Need a better message display
         print(_(PAYLOAD_STATUS_PROBING_STORAGE))
         threadMgr.wait(THREAD_STORAGE_WATCHER)
 
-        if not any(d in self._device_tree.GetDisks() for d in self._available_disks):
-            # something happened to the storage (probably reset), need to
-            # reinitialize the list of disks
-            self.update_disks()
+        self._available_disks = self._disk_select_module.GetUsableDisks()
+        self._selected_disks = self._disk_select_module.SelectedDisks
 
-        # synchronize our local data store with the global ksdata
-        # Commment out because there is no way to select a disk right
-        # now without putting it in ksdata.  Seems wrong?
-        # self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        # Get the available selected disks.
+        self._selected_disks = filter_disks_by_names(self._available_disks, self._selected_disks)
+
+        return True
+
+    def refresh(self, args=None):
+        """Prepare the content of the screen."""
+        super().refresh(args)
+        threadMgr.wait(THREAD_STORAGE_WATCHER)
+
+        # Get the available partitioning.
         object_path = self._storage_module.CreatedPartitioning[-1]
         self._partitioning = STORAGE.get_proxy(object_path)
 
+        # Create a new container.
         self._container = ListColumnContainer(1, spacing=1)
-
-        message = self._update_summary()
 
         # loop through the disks and present them.
         for disk_name in self._available_disks:
@@ -202,7 +201,7 @@ class StorageSpoke(NormalTUISpoke):
             self._container.add(c, self._select_all_disks_callback)
 
         self.window.add_with_separator(self._container)
-        self.window.add_with_separator(TextWidget(message))
+        self.window.add_with_separator(TextWidget(self._update_summary()))
 
     def _select_all_disks_callback(self, data):
         """ Mark all disks as selected for use in partitioning. """
@@ -325,8 +324,6 @@ class StorageSpoke(NormalTUISpoke):
         dasd_formatting.run()
         dasd_formatting.report.disconnect(self._show_dasdfmt_report)
 
-        self.update_disks()
-
     def _show_dasdfmt_report(self, msg):
         print(msg, flush=True)
 
@@ -388,9 +385,6 @@ class StorageSpoke(NormalTUISpoke):
         threadMgr.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
 
-        self._selected_disks = self._disk_select_module.SelectedDisks
-        # Probably need something here to track which disks are selected?
-
     def _initialize(self):
         """
         Secondary initialize so wait for the storage thread to complete before
@@ -405,24 +399,13 @@ class StorageSpoke(NormalTUISpoke):
 
         # Update the selected disks.
         if flags.automatedInstall:
-            self._selected_disks = select_all_disks_by_default()
-
-        # Update disk list.
-        self.update_disks()
+            select_all_disks_by_default()
 
         # Storage is ready.
         self._ready = True
 
         # Report that the storage spoke has been initialized.
         self.initialize_done()
-
-    def update_disks(self):
-        threadMgr.wait(THREAD_STORAGE)
-        self._available_disks = self._disk_select_module.GetUsableDisks()
-
-        # if only one disk is available, go ahead and mark it as selected
-        if len(self._available_disks) == 1:
-            self._update_disk_list(self._available_disks[0])
 
 
 class PartTypeSpoke(NormalTUISpoke):
