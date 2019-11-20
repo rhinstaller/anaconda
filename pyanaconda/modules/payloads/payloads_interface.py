@@ -54,7 +54,6 @@ class PayloadsInterface(KickstartModuleInterface):
         source_type could contain these values:
          - LIVE_OS_IMAGE
         """
-
         return PayloadSourceContainer.to_object_path(
             self.implementation.create_source(SourceType(source_type))
         )
