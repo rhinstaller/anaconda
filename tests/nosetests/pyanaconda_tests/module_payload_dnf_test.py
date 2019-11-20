@@ -32,11 +32,10 @@ from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError, UnsupportedValueError
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
-from pyanaconda.modules.payloads.payload.dnf.packages.packages import PackagesModule
-from pyanaconda.modules.payloads.payload.dnf.packages.packages_interface import \
-    PackagesInterface
-from pyanaconda.modules.payloads.payload.dnf.packages.constants import TIMEOUT_UNSET, \
-    RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
+from pyanaconda.modules.payloads.packages.packages import PackagesModule
+from pyanaconda.modules.payloads.packages.packages_interface import PackagesInterface
+from pyanaconda.modules.payloads.packages.constants import TIMEOUT_UNSET, RETRIES_UNSET, \
+    LANGUAGES_DEFAULT, LANGUAGES_NONE
 
 
 class PackagesKSTestCase(unittest.TestCase):
@@ -357,7 +356,7 @@ class PackagesInterfaceTestCase(unittest.TestCase):
     def broken_ignored_not_set_properties_test(self):
         self.assertEqual(self.packages_interface.BrokenIgnored, False)
 
-    @patch("pyanaconda.modules.payloads.payload.dnf.packages.packages.conf")
+    @patch("pyanaconda.modules.payloads.packages.packages.conf")
     def broken_ignored_disabled_properties_test(self, conf):
         conf.payload = create_autospec(PayloadSection)
         conf.payload.enable_ignore_broken_packages = False

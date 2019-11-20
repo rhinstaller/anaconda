@@ -23,12 +23,12 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
-from pyanaconda.modules.payloads.payload.dnf.packages.constants import MultilibPolicy
+from pyanaconda.modules.payloads.packages.constants import MultilibPolicy
 
 
 @dbus_interface(PAYLOAD_PACKAGES.interface_name)
 class PackagesInterface(KickstartModuleInterfaceTemplate):
-    """DBus interface for DNF packages sub-module."""
+    """DBus interface for packages module."""
 
     def connect_signals(self):
         super().connect_signals()

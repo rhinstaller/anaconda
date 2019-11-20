@@ -19,7 +19,7 @@
 from dasbus.identifier import DBusObjectIdentifier
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
     PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, \
-    PAYLOADS_NAMESPACE, DNF_NAMESPACE
+    PAYLOADS_NAMESPACE
 
 # Storage objects.
 
@@ -117,7 +117,7 @@ PAYLOAD_DEFAULT = DBusObjectIdentifier(
 )
 
 PAYLOAD_PACKAGES = DBusObjectIdentifier(
-    namespace=DNF_NAMESPACE,
+    namespace=PAYLOADS_NAMESPACE,
     basename="Packages"
 )
 
