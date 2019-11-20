@@ -2271,7 +2271,7 @@ class VolGroupData(COMMANDS.VolGroupData):
 
             storage.create_device(request)
             if self.reserved_space:
-                request.reserved_space = self.reserved_space
+                request.reserved_space = Size("{:d} MiB".format(self.reserved_space))
             elif self.reserved_percent:
                 request.reserved_percent = self.reserved_percent
 
