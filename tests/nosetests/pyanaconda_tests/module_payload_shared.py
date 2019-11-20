@@ -21,10 +21,10 @@ from unittest.mock import patch, create_autospec
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 from pyanaconda.modules.common.containers import PayloadSourceContainer
-from pyanaconda.modules.payload.constants import SourceType
-from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payload import PayloadService
-from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
+from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 
 
 class PayloadSharedTest(object):
@@ -37,8 +37,8 @@ class PayloadSharedTest(object):
         :param payload_service_intf: main payload service interface
         """
         self._test = test
-        self.payload_service = PayloadService()
-        self.payload_service_interface = PayloadInterface(self.payload_service)
+        self.payload_service = PayloadsService()
+        self.payload_service_interface = PayloadsInterface(self.payload_service)
 
     def check_kickstart(self, ks_in, ks_out, expected_publish_calls=1):
         """Test kickstart processing.

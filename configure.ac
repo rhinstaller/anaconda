@@ -177,15 +177,15 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/network/firewall/Makefile
                  pyanaconda/modules/localization/Makefile
                  pyanaconda/modules/users/Makefile
-                 pyanaconda/modules/payload/Makefile
-                 pyanaconda/modules/payload/payloads/Makefile
-                 pyanaconda/modules/payload/payloads/dnf/Makefile
-                 pyanaconda/modules/payload/payloads/dnf/packages/Makefile
-                 pyanaconda/modules/payload/payloads/live_os/Makefile
-                 pyanaconda/modules/payload/payloads/live_image/Makefile
-                 pyanaconda/modules/payload/base/Makefile
-                 pyanaconda/modules/payload/sources/Makefile
-                 pyanaconda/modules/payload/sources/live_os/Makefile
+                 pyanaconda/modules/payloads/Makefile
+                 pyanaconda/modules/payloads/payload/Makefile
+                 pyanaconda/modules/payloads/payload/dnf/Makefile
+                 pyanaconda/modules/payloads/payload/dnf/packages/Makefile
+                 pyanaconda/modules/payloads/payload/live_os/Makefile
+                 pyanaconda/modules/payloads/payload/live_image/Makefile
+                 pyanaconda/modules/payloads/base/Makefile
+                 pyanaconda/modules/payloads/source/Makefile
+                 pyanaconda/modules/payloads/source/live_os/Makefile
                  pyanaconda/modules/storage/Makefile
                  pyanaconda/modules/storage/bootloader/Makefile
                  pyanaconda/modules/storage/checker/Makefile

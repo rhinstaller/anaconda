@@ -17,17 +17,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from dasbus.error import dbus_error
-from pyanaconda.modules.common.constants.namespaces import PAYLOAD_NAMESPACE
+from pyanaconda.modules.common.constants.namespaces import PAYLOADS_NAMESPACE
 from pyanaconda.modules.common.errors import AnacondaError
 
 
-@dbus_error("SourceSetupError", namespace=PAYLOAD_NAMESPACE)
+@dbus_error("SourceSetupError", namespace=PAYLOADS_NAMESPACE)
 class SourceSetupError(AnacondaError):
     """Error raised during the source setup."""
     pass
 
 
-@dbus_error("SourceTearDownError", namespace=PAYLOAD_NAMESPACE)
+@dbus_error("SourceTearDownError", namespace=PAYLOADS_NAMESPACE)
 class SourceTearDownError(AnacondaError):
     """Error raised during the source tear down."""
 
@@ -38,19 +38,19 @@ class SourceTearDownError(AnacondaError):
         super().__init__(message)
 
 
-@dbus_error("IncompatibleSourceError", namespace=PAYLOAD_NAMESPACE)
+@dbus_error("IncompatibleSourceError", namespace=PAYLOADS_NAMESPACE)
 class IncompatibleSourceError(AnacondaError):
     """Error raised when payload does not support given source."""
     pass
 
 
-@dbus_error("InstallError", namespace=PAYLOAD_NAMESPACE)
+@dbus_error("InstallError", namespace=PAYLOADS_NAMESPACE)
 class InstallError(AnacondaError):
     """Error raised during payload installation."""
     pass
 
 
-@dbus_error("PayloadNotSetError", namespace=PAYLOAD_NAMESPACE)
+@dbus_error("PayloadNotSetError", namespace=PAYLOADS_NAMESPACE)
 class PayloadNotSetError(AnacondaError):
     """Payload is not set."""
     pass

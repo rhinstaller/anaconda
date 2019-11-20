@@ -19,7 +19,7 @@
 from dasbus.identifier import DBusObjectIdentifier
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
     PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, \
-    PAYLOAD_NAMESPACE, DNF_NAMESPACE
+    PAYLOADS_NAMESPACE, DNF_NAMESPACE
 
 # Storage objects.
 
@@ -112,7 +112,7 @@ FIREWALL = DBusObjectIdentifier(
 # Payload objects.
 
 PAYLOAD_DEFAULT = DBusObjectIdentifier(
-    namespace=PAYLOAD_NAMESPACE,
+    namespace=PAYLOADS_NAMESPACE,
     basename="Default"
 )
 
@@ -122,11 +122,11 @@ PAYLOAD_PACKAGES = DBusObjectIdentifier(
 )
 
 PAYLOAD_LIVE_IMAGE = DBusObjectIdentifier(
-    namespace=PAYLOAD_NAMESPACE,
+    namespace=PAYLOADS_NAMESPACE,
     basename="LiveImage"
 )
 
 PAYLOAD_LIVE_OS = DBusObjectIdentifier(
-    namespace=PAYLOAD_NAMESPACE,
+    namespace=PAYLOADS_NAMESPACE,
     basename="LiveOS"
 )

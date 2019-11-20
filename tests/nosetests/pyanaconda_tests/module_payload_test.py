@@ -29,27 +29,27 @@ from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, PAYLOAD
     PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payload.sources.source_base import PayloadSourceBase
-from pyanaconda.modules.payload.base.utils import create_root_dir, write_module_blacklist, \
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_blacklist, \
     get_dir_size
-from pyanaconda.modules.payload.base.initialization import PrepareSystemForInstallationTask, \
+from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payload.factory import PayloadFactory, SourceFactory
-from pyanaconda.modules.payload.constants import PayloadType, SourceType
-from pyanaconda.modules.payload.payload_interface import PayloadInterface
-from pyanaconda.modules.payload.payload import PayloadService
-from pyanaconda.modules.payload.payloads.dnf.dnf import DNFModule
-from pyanaconda.modules.payload.payloads.live_image.live_image import LiveImageModule
-from pyanaconda.modules.payload.payloads.live_os.live_os import LiveOSModule
-from pyanaconda.modules.payload.sources.live_os.live_os import LiveOSSourceModule
+from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
+from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
+from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
+from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 
 
-class PayloadInterfaceTestCase(TestCase):
+class PayloadsInterfaceTestCase(TestCase):
 
     def setUp(self):
         """Set up the payload module."""
-        self.payload_module = PayloadService()
-        self.payload_interface = PayloadInterface(self.payload_module)
+        self.payload_module = PayloadsService()
+        self.payload_interface = PayloadsInterface(self.payload_module)
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
@@ -67,7 +67,7 @@ class PayloadInterfaceTestCase(TestCase):
 
     def process_kickstart_with_no_payload_test(self):
         """Test kickstart processing when no payload set or created based on KS data."""
-        with self.assertLogs('anaconda.modules.payload.payload', level="WARNING") as log:
+        with self.assertLogs('anaconda.modules.payloads.payloads', level="WARNING") as log:
             self.payload_interface.ReadKickstart("")
 
             self.assertTrue(any(map(lambda x: "No payload was created" in x, log.output)))
@@ -138,8 +138,8 @@ class PayloadInterfaceTestCase(TestCase):
 
 class PayloadSharedTasksTest(TestCase):
 
-    @patch('pyanaconda.modules.payload.base.initialization.write_module_blacklist')
-    @patch('pyanaconda.modules.payload.base.initialization.create_root_dir')
+    @patch('pyanaconda.modules.payloads.base.initialization.write_module_blacklist')
+    @patch('pyanaconda.modules.payloads.base.initialization.create_root_dir')
     def prepare_system_for_install_task_test(self, create_root_dir_mock,
                                              write_module_blacklist_mock):
         """Test task prepare system for installation."""
@@ -299,7 +299,7 @@ class PayloadSharedUtilsTest(TestCase):
 
             self.assertTrue(os.path.isdir(root_dir))
 
-    @patch('pyanaconda.modules.payload.base.utils.flags')
+    @patch('pyanaconda.modules.payloads.base.utils.flags')
     def write_module_blacklist_test(self, flags):
         """Test write kernel module blacklist to the install root."""
         with TemporaryDirectory() as temp:
@@ -320,7 +320,7 @@ class PayloadSharedUtilsTest(TestCase):
                 """
                 self.assertEqual(dedent(expected_content).lstrip(), f.read())
 
-    @patch('pyanaconda.modules.payload.base.utils.flags')
+    @patch('pyanaconda.modules.payloads.base.utils.flags')
     def write_empty_module_blacklist_test(self, flags):
         """Test write kernel module blacklist to the install root -- empty list."""
         with TemporaryDirectory() as temp:
