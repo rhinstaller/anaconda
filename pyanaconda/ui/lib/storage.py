@@ -125,10 +125,11 @@ def select_all_disks_by_default():
     return selected_disks
 
 
-def apply_disk_selection(selected_names):
+def apply_disk_selection(selected_names, reset_boot_drive=False):
     """Apply the disks selection.
 
     :param selected_names: a list of selected disk names
+    :param reset_boot_drive: reset the boot drive if it is not selected
     """
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
@@ -147,6 +148,15 @@ def apply_disk_selection(selected_names):
     # Set the drives to clear.
     disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
     disk_init_proxy.SetDrivesToClear(selected_names)
+
+    # Reset the boot drive if it is not selected.
+    # FIXME: Move this logic the Storage module?
+    if reset_boot_drive:
+        boot_loader = STORAGE.get_proxy(BOOTLOADER)
+        boot_drive = boot_loader.Drive
+
+        if boot_drive and boot_drive not in selected_names:
+            reset_bootloader()
 
 
 def get_disks_summary(disks):

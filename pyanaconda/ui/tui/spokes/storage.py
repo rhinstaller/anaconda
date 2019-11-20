@@ -28,7 +28,7 @@ from pyanaconda.modules.common.structures.partitioning import MountPointRequest,
 from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, reset_bootloader, \
+from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, \
     select_all_disks_by_default, apply_disk_selection, get_disks_summary, apply_partitioning
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
@@ -360,12 +360,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def apply(self):
         self._bootloader_module.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
-        boot_drive = self._bootloader_module.Drive
-
-        if boot_drive and boot_drive not in self._selected_disks:
-            reset_bootloader()
-
-        apply_disk_selection(self._selected_disks)
+        apply_disk_selection(self._selected_disks, reset_boot_drive=True)
 
     def execute(self):
         report = apply_partitioning(self._partitioning, print)
