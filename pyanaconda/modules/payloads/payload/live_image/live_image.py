@@ -19,14 +19,13 @@
 #
 import os
 
-from pyanaconda.core.dbus import DBus
+from dasbus.server.publishable import Publishable
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import requests_session
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
 
-from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFilesTask, \
@@ -46,7 +45,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveImageModule(PayloadBase):
+class LiveImageModule(PayloadBase, Publishable):
     """The Live Image payload module."""
 
     def __init__(self):
@@ -81,10 +80,9 @@ class LiveImageModule(PayloadBase):
         # TODO: Add supported sources when implemented
         return None
 
-    def publish_payload(self):
-        """Publish the payload."""
-        DBus.publish_object(PAYLOAD_LIVE_IMAGE.object_path, LiveImageInterface(self))
-        return PAYLOAD_LIVE_IMAGE.object_path
+    def for_publication(self):
+        """Get the interface used to publish this source."""
+        return LiveImageInterface(self)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
