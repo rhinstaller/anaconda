@@ -29,7 +29,8 @@ from pyanaconda.modules.common.structures.storage import DeviceFormatData, Devic
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, \
-    select_all_disks_by_default, apply_disk_selection, get_disks_summary, apply_partitioning
+    select_all_disks_by_default, apply_disk_selection, get_disks_summary, apply_partitioning, \
+    create_partitioning
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_autopart_choices, filter_disks_by_names
@@ -483,9 +484,7 @@ class PartTypeSpoke(NormalTUISpoke):
         )
 
         if self._orig_part_method != self._part_method:
-            self._partitioning = STORAGE.get_proxy(
-                self._storage_module.CreatePartitioning(self._part_method)
-            )
+            self._partitioning = create_partitioning(self._part_method)
 
     def _ensure_init_storage(self):
         """
