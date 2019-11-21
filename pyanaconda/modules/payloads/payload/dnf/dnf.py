@@ -17,8 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
+from dasbus.server.publishable import Publishable
+
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.packages.packages import PackagesModule
@@ -27,7 +27,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class DNFModule(PayloadBase):
+class DNFModule(PayloadBase, Publishable):
     """The DNF payload module."""
 
     def __init__(self):
@@ -40,10 +40,9 @@ class DNFModule(PayloadBase):
         # TODO: Add supported sources when implemented
         return None
 
-    def publish_payload(self):
-        """Publish the payload."""
-        DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFInterface(self))
-        return PAYLOAD_DEFAULT.object_path
+    def for_publication(self):
+        """Get the interface used to publish this source."""
+        return DNFInterface(self)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

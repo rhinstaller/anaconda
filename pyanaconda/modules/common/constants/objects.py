@@ -111,11 +111,6 @@ FIREWALL = DBusObjectIdentifier(
 
 # Payload objects.
 
-PAYLOAD_DEFAULT = DBusObjectIdentifier(
-    namespace=PAYLOADS_NAMESPACE,
-    basename="Default"
-)
-
 PAYLOAD_PACKAGES = DBusObjectIdentifier(
     namespace=PAYLOADS_NAMESPACE,
     basename="Packages"
