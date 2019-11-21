@@ -165,10 +165,11 @@ class ApplyKeyboardTask(Task):
                 x_layouts.append(vc_keymap)
 
         if x_layouts:
-            c_keymap = localed.set_and_convert_layouts(x_layouts)
-
             if not vc_keymap:
+                c_keymap = localed.set_and_convert_layouts(x_layouts)
                 vc_keymap = c_keymap
+            else:
+                localed.set_layouts(x_layouts)
 
             # write out keyboard configuration for the X session
             write_x_configuration(x_layouts, self._switch_options, root="/")
