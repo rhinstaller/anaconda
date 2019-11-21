@@ -21,7 +21,7 @@ from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.modules.common.containers import PayloadSourceContainer
+from pyanaconda.modules.common.containers import PayloadSourceContainer, PayloadContainer
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 
@@ -46,7 +46,9 @@ class PayloadsInterface(KickstartModuleInterface):
          - LIVE_OS
          - LIVE_IMAGE
         """
-        return self.implementation.create_payload(PayloadType(payload_type))
+        return PayloadContainer.to_object_path(
+            self.implementation.create_payload(PayloadType(payload_type))
+        )
 
     def CreateSource(self, source_type: Str) -> ObjPath:
         """Create payload source and publish it on DBus.
