@@ -42,6 +42,11 @@ PayloadContainer = DBusContainer(
     message_bus=DBus
 )
 
+PayloadContainer = DBusContainer(
+    namespace=PAYLOAD_NAMESPACE,
+    message_bus=DBus
+)
+
 PayloadSourceContainer = DBusContainer(
     namespace=SOURCE_NAMESPACE,
     message_bus=DBus
