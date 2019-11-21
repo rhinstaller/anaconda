@@ -115,13 +115,3 @@ PAYLOAD_PACKAGES = DBusObjectIdentifier(
     namespace=PAYLOADS_NAMESPACE,
     basename="Packages"
 )
-
-PAYLOAD_LIVE_IMAGE = DBusObjectIdentifier(
-    namespace=PAYLOADS_NAMESPACE,
-    basename="LiveImage"
-)
-
-PAYLOAD_LIVE_OS = DBusObjectIdentifier(
-    namespace=PAYLOADS_NAMESPACE,
-    basename="LiveOS"
-)

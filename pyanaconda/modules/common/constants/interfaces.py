@@ -60,13 +60,23 @@ DEVICE_TREE_SCHEDULER = DBusInterfaceIdentifier(
     basename="Scheduler"
 )
 
+PAYLOAD = DBusInterfaceIdentifier(
+    namespace=PAYLOAD_NAMESPACE
+)
+
 PAYLOAD_DNF = DBusInterfaceIdentifier(
     namespace=PAYLOAD_NAMESPACE,
     basename="DNF"
 )
 
-PAYLOAD = DBusInterfaceIdentifier(
-    namespace=PAYLOAD_NAMESPACE
+PAYLOAD_LIVE_IMAGE = DBusInterfaceIdentifier(
+    namespace=PAYLOAD_NAMESPACE,
+    basename="LiveImage"
+)
+
+PAYLOAD_LIVE_OS = DBusInterfaceIdentifier(
+    namespace=PAYLOAD_NAMESPACE,
+    basename="LiveOS"
 )
 
 PAYLOAD_SOURCE = DBusInterfaceIdentifier(

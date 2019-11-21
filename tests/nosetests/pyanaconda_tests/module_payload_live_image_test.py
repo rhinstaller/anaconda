@@ -28,7 +28,7 @@ from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadShared
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.task.task_interface import TaskInterface
-from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask

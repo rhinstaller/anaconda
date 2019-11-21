@@ -25,8 +25,7 @@ from textwrap import dedent
 from tempfile import TemporaryDirectory
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
-from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT, PAYLOAD_LIVE_OS, \
-    PAYLOAD_LIVE_IMAGE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_LIVE_OS, PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase

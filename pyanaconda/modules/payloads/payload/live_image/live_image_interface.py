@@ -21,7 +21,7 @@ from dasbus.server.interface import dbus_interface, dbus_signal
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.server.property import emits_properties_changed
 
-from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
 
