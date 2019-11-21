@@ -42,8 +42,6 @@ class DNFModule(PayloadBase):
 
     def publish_payload(self):
         """Publish the payload."""
-        self._packages_module.publish()
-
         DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFInterface(self))
         return PAYLOAD_DEFAULT.object_path
 
