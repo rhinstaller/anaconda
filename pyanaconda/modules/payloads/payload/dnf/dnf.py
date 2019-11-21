@@ -21,7 +21,6 @@ from dasbus.server.publishable import Publishable
 
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
-from pyanaconda.modules.payloads.packages.packages import PackagesModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -29,10 +28,6 @@ log = get_module_logger(__name__)
 
 class DNFModule(PayloadBase, Publishable):
     """The DNF payload module."""
-
-    def __init__(self):
-        super().__init__()
-        self._packages_module = PackagesModule()
 
     @property
     def supported_source_types(self):
@@ -46,11 +41,11 @@ class DNFModule(PayloadBase, Publishable):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        self._packages_module.process_kickstart(data)
+        pass
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        self._packages_module.setup_kickstart(data)
+        pass
 
     def pre_install_with_tasks(self):
         """Execute preparation steps.

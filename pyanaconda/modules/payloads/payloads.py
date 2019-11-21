@@ -105,6 +105,8 @@ class PayloadsService(KickstartService):
 
         payload.process_kickstart(data)
 
+        self._packages.process_kickstart(data)
+
         self.set_payload(payload)
         PayloadContainer.to_object_path(payload)
 
@@ -122,6 +124,8 @@ class PayloadsService(KickstartService):
             self.payload.setup_kickstart(data)
         except PayloadNotSetError:
             log.warning("Generating kickstart data without payload set - data will be empty!")
+
+        self._packages.setup_kickstart(data)
 
         return str(data)
 
