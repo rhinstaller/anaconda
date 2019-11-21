@@ -20,7 +20,7 @@
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.containers import TaskContainer, PayloadContainer
 from pyanaconda.modules.common.errors.payload import PayloadNotSetError
 from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
@@ -60,6 +60,9 @@ class PayloadsService(KickstartService):
         """Get payload.
 
         Payloads are handling the installation process.
+
+        FIXME: Replace this solution by something extensible for multiple payload support.
+               Could it be SetPayloads() and using this list to set order of payload installation?
 
         There are a few types of payloads e.g.: DNF, LiveImage...
         """
@@ -103,10 +106,8 @@ class PayloadsService(KickstartService):
 
         payload.process_kickstart(data)
 
-        self._initialize_payload(payload)
-
-    def _initialize_payload(self, payload):
         self.set_payload(payload)
+        PayloadContainer.to_object_path(payload)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -132,8 +133,8 @@ class PayloadsService(KickstartService):
         :type payload_type: value of the payload.base.constants.PayloadType enum
         """
         payload = PayloadFactory.create(payload_type)
-        self._initialize_payload(payload)
-        return self._payload_path
+        self.set_payload(payload)
+        return payload
 
     def create_source(self, source_type):
         """Create source based on the passed type.
