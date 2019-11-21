@@ -56,8 +56,7 @@ class PackagesKSTestCase(unittest.TestCase):
         self._expected_excluded_groups = []
 
     def _get_packages_interface(self):
-        payload = self.shared_tests.get_payload()
-        packages_module = payload._packages_module
+        packages_module = self.payload_module._packages
 
         self.assertIsInstance(packages_module, PackagesModule)
         return PackagesInterface(packages_module)
@@ -93,7 +92,7 @@ class PackagesKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
         self._check_properties()
 
     @patch_dbus_publish_object
@@ -118,7 +117,7 @@ class PackagesKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
 
         self._expected_env = "environment"
         self._expected_packages = ["package"]
@@ -163,7 +162,7 @@ class PackagesKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
 
         self._expected_env = "environment2"
         self._expected_packages = ["package1", "package2"]
@@ -182,7 +181,7 @@ class PackagesKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(nocore=True)
 
     @patch_dbus_publish_object
@@ -198,7 +197,7 @@ class PackagesKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(nocore=True, multilib="all", langs="en_US.UTF-8")
 
     @patch_dbus_publish_object
@@ -215,7 +214,7 @@ class PackagesKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
 
         self._expected_excluded_packages = ["vim"]
         self._check_properties()
@@ -246,7 +245,7 @@ class PackagesKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=2)
+        self.shared_tests.check_kickstart(ks_in, ks_out)
 
         self._expected_env = "environment1"
         self._expected_packages = ["package1", "package3"]
