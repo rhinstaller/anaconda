@@ -16,12 +16,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.size import Size
-
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
@@ -30,7 +27,8 @@ from pyanaconda.payload import PackagePayload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
-from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources
+from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
+    get_hdiso_source_info, get_hdiso_source_description
 
 from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.core.constants import THREAD_STORAGE_WATCHER
@@ -407,28 +405,12 @@ class SelectDeviceSpoke(NormalTUISpoke):
 
     def _get_mountable_devices(self):
         disks = []
-        fstring = "%(model)s %(path)s (%(size)s MB) %(format)s %(label)s"
-        for device_name in find_potential_hdiso_sources():
-            # Get the device data.
-            device_data = DeviceData.from_structure(
-                self._device_tree.GetDeviceData(device_name)
-            )
-            format_data = DeviceFormatData.from_structure(
-                self._device_tree.GetFormatData(device_name)
-            )
-            disk_data = DeviceData.from_structure(
-                self._device_tree.GetDeviceData(device_data.parents[0])
-            )
 
-            # Generate the device info.
-            dev_info = {
-                "model": disk_data.attrs.get("model", "").replace("_", " "),
-                "path": device_data.path,
-                "size": Size(device_data.size),
-                "format": format_data.description,
-                "label": format_data.attrs.get("label") or format_data.attrs.get("uuid") or ""
-            }
-            disks.append([device_name, fstring % dev_info])
+        for device_name in find_potential_hdiso_sources():
+            device_info = get_hdiso_source_info(self._device_tree, device_name)
+            device_desc = get_hdiso_source_description(device_info)
+            disks.append([device_name, device_desc])
+
         return disks
 
     def refresh(self, args=None):

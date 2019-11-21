@@ -22,17 +22,19 @@ import os.path
 import stat
 import tempfile
 
+import blivet.util
+import blivet.arch
+
+from blivet.size import Size
+from blivet.errors import FSError
+
 from pyanaconda import isys
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
-
-import blivet.util
-import blivet.arch
-
-from blivet.errors import FSError
 
 from productmd.discinfo import DiscInfo
 
@@ -232,6 +234,43 @@ def find_potential_hdiso_sources():
     """
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
     return device_tree.FindMountablePartitions()
+
+
+def get_hdiso_source_info(device_tree, device_name):
+    """Get info about a potential HDISO source.
+
+    :param device_tree: a proxy of a device tree
+    :param device_name: a device name
+    :return: a dictionary with a device info
+    """
+    device_data = DeviceData.from_structure(
+        device_tree.GetDeviceData(device_name)
+    )
+
+    format_data = DeviceFormatData.from_structure(
+        device_tree.GetFormatData(device_name)
+    )
+
+    disk_data = DeviceData.from_structure(
+        device_tree.GetDeviceData(device_data.parents[0])
+    )
+
+    return {
+        "model": disk_data.attrs.get("model", "").replace("_", " "),
+        "path": device_data.path,
+        "size": Size(device_data.size),
+        "format": format_data.description,
+        "label": format_data.attrs.get("label") or format_data.attrs.get("uuid") or ""
+    }
+
+
+def get_hdiso_source_description(device_info):
+    """Get a description of a potential HDISO source.
+
+    :param device_info: a dictionary with a device info
+    :return: a string with a device description
+    """
+    return "{model} {path} ({size}) {format} {label}".format(**device_info)
 
 
 def verifyMedia(tree, timestamp=None):
