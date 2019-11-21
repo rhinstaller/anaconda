@@ -257,3 +257,24 @@ def apply_partitioning(partitioning, show_message):
             )
 
     return report
+
+
+def is_local_disk(device_type):
+    """Is the disk local?
+
+    A local disk doesn't require any additional setup unlike
+    the advanced storage.
+
+    While technically local disks, zFCP and NVDIMM devices are
+    specialized storage and should not be considered local.
+
+    :param device_type: a device type
+    :return: True or False
+    """
+    return device_type not in (
+        "dm-multipath",
+        "iscsi",
+        "fcoe",
+        "zfcp",
+        "nvdimm"
+    )
