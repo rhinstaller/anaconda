@@ -26,6 +26,7 @@ from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.packages.packages import PackagesModule
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -125,7 +126,9 @@ class PayloadsService(KickstartService):
         except PayloadNotSetError:
             log.warning("Generating kickstart data without payload set - data will be empty!")
 
-        self._packages.setup_kickstart(data)
+        # generate packages section only for DNF module
+        if isinstance(self.payload, DNFModule):
+            self._packages.setup_kickstart(data)
 
         return str(data)
 
