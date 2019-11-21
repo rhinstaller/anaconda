@@ -37,7 +37,6 @@ class PayloadsService(KickstartService):
     def __init__(self):
         super().__init__()
         self._payload = None
-        self._payload_path = None
 
         self._packages = PackagesModule()
 
@@ -83,15 +82,15 @@ class PayloadsService(KickstartService):
         """
         return self._payload is not None
 
-    def get_active_payload_path(self):
-        """Get path of the active payload.
+    def get_active_payload(self):
+        """Get active payload.
 
-        :rtype: str
+        FIXME: Merge get_active_payload and payload property. They are doing the same.
+
+        :rtype: instance of active payload
+        :raise: PayloadNotSetError if no payload is set
         """
-        if self._payload_path:
-            return self._payload_path
-
-        return ""
+        return self.payload
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
