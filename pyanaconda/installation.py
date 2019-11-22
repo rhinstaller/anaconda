@@ -107,7 +107,7 @@ def _prepare_configuration(storage, payload, ksdata):
 
     # get missing keyboard values
     localization_proxy = LOCALIZATION.get_proxy()
-    convert_task = localization_proxy.ConvertMissingKeyboardConfigurationWithTask()
+    convert_task = localization_proxy.PopulateMissingKeyboardConfigurationWithTask()
     os_config.append_dbus_tasks(LOCALIZATION, [convert_task])
 
     # add installation tasks for the Localization DBus module

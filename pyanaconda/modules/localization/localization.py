@@ -20,6 +20,7 @@
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.constants import DEFAULT_KEYBOARD
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
@@ -28,7 +29,7 @@ from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpeci
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
     KeyboardInstallationTask
 from pyanaconda.modules.localization.runtime import ConvertMissingKeyboardConfigurationTask, \
-    ApplyKeyboardTask
+    ApplyKeyboardTask, AssignGenericKeyboardSettingTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -48,7 +49,6 @@ class LocalizationService(KickstartService):
         self.language_seen_changed = Signal()
         self._language_seen = False
 
-        self.keyboard_changed = Signal()
         self._keyboard = ""
 
         self.vc_keymap_changed = Signal()
@@ -85,12 +85,14 @@ class LocalizationService(KickstartService):
         self.set_language_seen(data.lang.seen)
 
         # keyboard
-        self.set_keyboard(data.keyboard._keyboard)
+        self._keyboard = data.keyboard._keyboard
         self.set_vc_keymap(data.keyboard.vc_keymap)
         self.set_x_layouts(data.keyboard.x_layouts)
         self.set_switch_options(data.keyboard.switch_options)
 
         self.set_keyboard_seen(data.keyboard.seen)
+
+        self.set_from_generic_keyboard_setting(self._keyboard)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -102,7 +104,7 @@ class LocalizationService(KickstartService):
         data.lang.addsupport = self.language_support
 
         # keyboard
-        data.keyboard._keyboard = self.keyboard
+        data.keyboard._keyboard = self._keyboard
         data.keyboard.vc_keymap = self.vc_keymap
         data.keyboard.x_layouts = self.x_layouts
         data.keyboard.switch_options = self.switch_options
@@ -141,17 +143,6 @@ class LocalizationService(KickstartService):
         self._language_seen = seen
         self.language_seen_changed.emit()
         log.debug("Language seen set to %s.", seen)
-
-    @property
-    def keyboard(self):
-        """Return keyboard."""
-        return self._keyboard
-
-    def set_keyboard(self, keyboard):
-        """Set the keyboard."""
-        self._keyboard = keyboard
-        self.keyboard_changed.emit()
-        log.debug("Keyboard is set to %s.", keyboard)
 
     @property
     def vc_keymap(self):
@@ -215,13 +206,15 @@ class LocalizationService(KickstartService):
             )
         ]
 
-    def convert_missing_keyboard_configuration_with_task(self):
+    def populate_missing_keyboard_configuration_with_task(self):
         """Get missing keyboard configuration by conversion.
 
         :returns: a task converting the configuration
         """
+        if not self.x_layouts and not self.vc_keymap:
+            self.vc_keymap = DEFAULT_KEYBOARD
+
         task = ConvertMissingKeyboardConfigurationTask(
-            keyboard=self.keyboard,
             x_layouts=self.x_layouts,
             vc_keymap=self.vc_keymap,
         )
@@ -240,10 +233,26 @@ class LocalizationService(KickstartService):
         :returns: a task applying the configuration
         """
         task = ApplyKeyboardTask(
-            keyboard=self.keyboard,
             x_layouts=self.x_layouts,
             vc_keymap=self.vc_keymap,
             switch_options=self.switch_options
         )
         task.succeeded_signal.connect(lambda: self.update_settings_from_task(task.get_result()))
         return task
+
+    def set_from_generic_keyboard_setting(self, keyboard):
+        """Set keyboard from generic keyboard setting
+
+        :param keyboard:
+        """
+        log.debug("Setting keyboard from generic setting value '%s'.", keyboard)
+        if self.vc_keymap or self.x_layouts:
+            log.debug("Ignoring generic keyboard setting as we have a specific one.")
+            return
+
+        task = AssignGenericKeyboardSettingTask(
+            keyboard=keyboard
+        )
+        x_layouts, vc_keymap = task.run()
+        self.set_vc_keymap(vc_keymap)
+        self.set_x_layouts(x_layouts)

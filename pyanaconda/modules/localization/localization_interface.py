@@ -35,7 +35,6 @@ class LocalizationInterface(KickstartModuleInterface):
         self.watch_property("Language", self.implementation.language_changed)
         self.watch_property("LanguageSupport", self.implementation.language_support_changed)
         self.watch_property("LanguageKickstarted", self.implementation.language_seen_changed)
-        self.watch_property("Keyboard", self.implementation.keyboard_changed)
         self.watch_property("VirtualConsoleKeymap", self.implementation.vc_keymap_changed)
         self.watch_property("XLayouts", self.implementation.x_layouts_changed)
         self.watch_property("LayoutSwitchOptions", self.implementation.switch_options_changed)
@@ -92,14 +91,6 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         self.implementation.set_language_seen(language_seen)
 
-    # TODO MOD - remove this when we get logic for inferring what we are
-    # getting and the other option value (localed proxy) into the module?
-    @property
-    def Keyboard(self) -> Str:
-        """Generic system keyboard specification."""
-        return self.implementation.keyboard
-
-    @emits_properties_changed
     def SetKeyboard(self, keyboard: Str):
         """Set the system keyboard type in generic way.
 
@@ -109,7 +100,7 @@ class LocalizationInterface(KickstartModuleInterface):
 
         :param keyboard: system keyboard specification
         """
-        self.implementation.set_keyboard(keyboard)
+        self.implementation.set_from_generic_keyboard_setting(keyboard)
 
     @property
     def VirtualConsoleKeymap(self) -> Str:
@@ -166,13 +157,23 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         return self.implementation.keyboard_seen
 
-    def ConvertMissingKeyboardConfigurationWithTask(self) -> ObjPath:
-        """Get missing keyboard configuration by conversion.
+    @emits_properties_changed
+    def SetKeyboardKickstarted(self, keyboard_seen: Bool):
+        """Set if keyboard should be considered as coming from kickstart
 
-        :return: DBus path of the task converting the configuration
+        :param bool keyboard_seen: if keyboard should be considered as coming from kickstart
+        """
+        self.implementation.set_keyboard_seen(keyboard_seen)
+
+    def PopulateMissingKeyboardConfigurationWithTask(self) -> ObjPath:
+        """Pouplate missing keyboard configuration.
+
+        The configuration is populated by conversion and/or default values.
+
+        :return: DBus path of the task populating the configuration
         """
         return TaskContainer.to_object_path(
-            self.implementation.convert_missing_keyboard_configuration_with_task()
+            self.implementation.populate_missing_keyboard_configuration_with_task()
         )
 
     def ApplyKeyboardWithTask(self) -> ObjPath:

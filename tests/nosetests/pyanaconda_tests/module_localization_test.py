@@ -65,12 +65,6 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.localization_interface.LanguageSupport, ["fr_FR"])
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageSupport': ["fr_FR"]}, [])
 
-    def keyboard_property_test(self):
-        """Test the Keyboard property."""
-        self.localization_interface.SetKeyboard("cz")
-        self.assertEqual(self.localization_interface.Keyboard, "cz")
-        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'Keyboard': 'cz'}, [])
-
     def vc_keymap_property_test(self):
         """Test the VirtualConsoleKeymap property."""
         self.localization_interface.SetVirtualConsoleKeymap("cz")
@@ -201,7 +195,9 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         """
         ks_out = """
         # Keyboard layouts
-        keyboard 'us'
+        # old format: keyboard us
+        # new format:
+        keyboard --vckeymap=us
         """
         self._test_kickstart(ks_in, ks_out)
 

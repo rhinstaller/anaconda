@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.core.constants import DEFAULT_KEYBOARD
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.localization.localed import LocaledWrapper
@@ -27,21 +27,55 @@ from pyanaconda.modules.localization.installation import write_x_configuration, 
 log = get_module_logger(__name__)
 
 
-class ConvertMissingKeyboardConfigurationTask(Task):
-    """Task for getting missing keyboard settings by conversion."""
+class AssignGenericKeyboardSettingTask(Task):
+    """Task for assignment of generic keyboard specification to a specific configuration."""
 
-    def __init__(self, keyboard, x_layouts, vc_keymap):
+    def __init__(self, keyboard):
         """Create a new task.
 
         :param keyboard: generic system keyboard specification
         :type keyboard: str
+        """
+        super().__init__()
+        self._keyboard = keyboard
+
+    @property
+    def name(self):
+        return "Assign generic keyboard setting value."
+
+    def run(self):
+        """Run assignment of generic keyboard setting value.
+
+        :returns: tuple of X layouts and VC keyboard settings
+        :rtype: (list(str), str))
+        """
+        x_layouts = []
+        vc_keymap = ""
+
+        if conf.system.can_activate_keyboard:
+            is_keymap = try_to_load_keymap(self._keyboard)
+            if is_keymap:
+                vc_keymap = self._keyboard
+            else:
+                x_layouts.append(self._keyboard)
+        else:
+            vc_keymap = self._keyboard
+
+        return x_layouts, vc_keymap
+
+
+class ConvertMissingKeyboardConfigurationTask(Task):
+    """Task for getting missing keyboard settings by conversion."""
+
+    def __init__(self, x_layouts, vc_keymap):
+        """Create a new task.
+
         :param x_layouts: list of x layout specifications
         :type x_layouts: list(str)
         :param vc_keymap: virtual console keyboard mapping name
         :type vc_keymap: str
         """
         super().__init__()
-        self._keyboard = keyboard
         self._x_layouts = x_layouts
         self._vc_keymap = vc_keymap
 
@@ -59,18 +93,8 @@ class ConvertMissingKeyboardConfigurationTask(Task):
         vc_keymap = self._vc_keymap
         x_layouts = self._x_layouts
 
-        new_vc_keymap = ""
-        if self._keyboard and not (vc_keymap or x_layouts):
-            # we were given just a value in the old format, use it as a vc_keymap
-            new_vc_keymap = self._keyboard
-        elif not vc_keymap and x_layouts:
-            new_vc_keymap = localed.convert_layouts(x_layouts)
-        elif not vc_keymap:
-            new_vc_keymap = DEFAULT_KEYBOARD
-
-        if new_vc_keymap:
-            vc_keymap = new_vc_keymap
-
+        if not vc_keymap:
+            vc_keymap = localed.convert_layouts(x_layouts)
         if not x_layouts:
             x_layouts = localed.convert_keymap(vc_keymap)
 
@@ -80,11 +104,9 @@ class ConvertMissingKeyboardConfigurationTask(Task):
 class ApplyKeyboardTask(Task):
     """Task for applying keyboard settings to current system."""
 
-    def __init__(self, keyboard, x_layouts, vc_keymap, switch_options):
+    def __init__(self, x_layouts, vc_keymap, switch_options):
         """Create a new task.
 
-        :param keyboard: generic system keyboard specification
-        :type keyboard: str
         :param x_layouts: list of x layout specifications
         :type x_layouts: list(str)
         :param vc_keymap: virtual console keyboard mapping name
@@ -93,7 +115,6 @@ class ApplyKeyboardTask(Task):
         :type switch_options: list(str)
         """
         super().__init__()
-        self._keyboard = keyboard
         self._x_layouts = x_layouts
         self._vc_keymap = vc_keymap
         self._switch_options = switch_options
@@ -102,51 +123,18 @@ class ApplyKeyboardTask(Task):
     def name(self):
         return "Apply keyboard configuration."
 
-    def _try_to_load_keymap(self, keymap):
-        """
-        Method that tries to load keymap and returns boolean indicating if it was
-        successfull or not. It can be used to test if given string is VConsole
-        keymap or not, but in case it is given valid keymap, IT REALLY LOADS IT!.
-
-        :type keymap: string
-        :raise KeyboardConfigurationError: if loadkeys command is not available
-        :return: True if given string was a valid keymap and thus was loaded,
-                 False otherwise
-        """
-        # BUG: systemd-localed should be able to tell us if we are trying to
-        #      activate invalid keymap. Then we will be able to get rid of this
-        #      fuction
-
-        ret = 0
-        try:
-            ret = execWithRedirect("loadkeys", [keymap])
-        except OSError as oserr:
-            msg = "'loadkeys' command not available (%s)" % oserr.strerror
-            raise KeyboardConfigurationError(msg)
-        return ret == 0
-
     def run(self):
         """Run application of keyboard settings.
 
         :returns: tuple of X layouts and VC keyboard settings
         :rtype: (list(str), str))
         """
-        localed = LocaledWrapper()
         vc_keymap = self._vc_keymap
         x_layouts = self._x_layouts
-
-        if self._keyboard and not (vc_keymap or x_layouts):
-            # we were given only one value in old format of the keyboard command
-            # try to guess if we were given VConsole keymap or X11 layout
-            is_keymap = self._try_to_load_keymap(self._keyboard)
-
-            if is_keymap:
-                vc_keymap = self._keyboard
-            else:
-                x_layouts.append(self._keyboard)
+        localed = LocaledWrapper()
 
         if vc_keymap:
-            valid_keymap = self._try_to_load_keymap(vc_keymap)
+            valid_keymap = try_to_load_keymap(vc_keymap)
             if not valid_keymap:
                 log.error("'%s' is not a valid VConsole keymap, not loading", vc_keymap)
                 vc_keymap = None
@@ -177,3 +165,27 @@ class ApplyKeyboardTask(Task):
             write_vc_configuration(vc_keymap, root="/")
 
         return x_layouts, vc_keymap
+
+
+def try_to_load_keymap(keymap):
+    """
+    Method that tries to load keymap and returns boolean indicating if it was
+    successfull or not. It can be used to test if given string is VConsole
+    keymap or not, but in case it is given valid keymap, IT REALLY LOADS IT!.
+
+    :type keymap: string
+    :raise KeyboardConfigurationError: if loadkeys command is not available
+    :return: True if given string was a valid keymap and thus was loaded,
+                False otherwise
+    """
+    # BUG: systemd-localed should be able to tell us if we are trying to
+    #      activate invalid keymap. Then we will be able to get rid of this
+    #      fuction
+
+    ret = 0
+    try:
+        ret = execWithRedirect("loadkeys", [keymap])
+    except OSError as oserr:
+        msg = "'loadkeys' command not available (%s)" % oserr.strerror
+        raise KeyboardConfigurationError(msg)
+    return ret == 0

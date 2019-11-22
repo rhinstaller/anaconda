@@ -117,7 +117,7 @@ def populate_missing_items(localization_proxy=None):
     :param localization_proxy: DBus proxy of the localization module or None
 
     """
-    task_path = localization_proxy.ConvertMissingKeyboardConfigurationWithTask()
+    task_path = localization_proxy.PopulateMissingKeyboardConfigurationWithTask()
     task_proxy = LOCALIZATION.get_proxy(task_path)
     sync_run_task(task_proxy)
 
