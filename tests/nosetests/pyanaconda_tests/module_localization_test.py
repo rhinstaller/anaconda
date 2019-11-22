@@ -195,8 +195,6 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         """
         ks_out = """
         # Keyboard layouts
-        # old format: keyboard us
-        # new format:
         keyboard --vckeymap=us
         """
         self._test_kickstart(ks_in, ks_out)
@@ -219,8 +217,6 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         """
         ks_out = """
         # Keyboard layouts
-        # old format: keyboard en
-        # new format:
         keyboard --xlayouts='cz (qwerty)','en'
         """
         self._test_kickstart(ks_in, ks_out)

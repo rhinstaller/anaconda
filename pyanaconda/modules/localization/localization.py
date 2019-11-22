@@ -49,8 +49,6 @@ class LocalizationService(KickstartService):
         self.language_seen_changed = Signal()
         self._language_seen = False
 
-        self._keyboard = ""
-
         self.vc_keymap_changed = Signal()
         self._vc_keymap = ""
 
@@ -85,14 +83,14 @@ class LocalizationService(KickstartService):
         self.set_language_seen(data.lang.seen)
 
         # keyboard
-        self._keyboard = data.keyboard._keyboard
         self.set_vc_keymap(data.keyboard.vc_keymap)
         self.set_x_layouts(data.keyboard.x_layouts)
         self.set_switch_options(data.keyboard.switch_options)
 
+        self.set_from_generic_keyboard_setting(data.keyboard._keyboard)
+
         self.set_keyboard_seen(data.keyboard.seen)
 
-        self.set_from_generic_keyboard_setting(self._keyboard)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -104,7 +102,6 @@ class LocalizationService(KickstartService):
         data.lang.addsupport = self.language_support
 
         # keyboard
-        data.keyboard._keyboard = self._keyboard
         data.keyboard.vc_keymap = self.vc_keymap
         data.keyboard.x_layouts = self.x_layouts
         data.keyboard.switch_options = self.switch_options
