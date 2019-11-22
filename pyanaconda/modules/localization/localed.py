@@ -153,8 +153,10 @@ class LocaledWrapper(object):
 
         # hack around systemd's lack of functionality -- no function to just
         # convert without changing keyboard configuration
+        orig_layouts_variants = self.layouts_variants
         orig_keymap = self.keymap
         ret = self.set_and_convert_keymap(keymap)
+        self.set_layouts(orig_layouts_variants)
         self.set_keymap(orig_keymap)
 
         return ret
@@ -241,7 +243,9 @@ class LocaledWrapper(object):
         # hack around systemd's lack of functionality -- no function to just
         # convert without changing keyboard configuration
         orig_layouts_variants = self.layouts_variants
+        orig_keymap = self.keymap
         ret = self.set_and_convert_layouts(layouts_variants)
         self.set_layouts(orig_layouts_variants)
+        self.set_keymap(orig_keymap)
 
         return ret
