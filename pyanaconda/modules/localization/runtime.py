@@ -168,6 +168,7 @@ class ApplyKeyboardTask(Task):
             localed.set_layouts(x_layouts, self._switch_options)
 
             # FIXME: is this really needed?
+            # Only because of configuration of the FONT, if at all.
             write_vc_configuration(vc_keymap, root="/")
 
         return x_layouts, vc_keymap
