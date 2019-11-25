@@ -126,9 +126,18 @@ class ApplyKeyboardTask(Task):
     def run(self):
         """Run application of keyboard settings.
 
-        :returns: tuple of X layouts and VC keyboard settings
+        :returns: tuple of X layouts and VC keyboard settings after application
         :rtype: (list(str), str))
         """
+        if not conf.system.can_activate_keyboard:
+            log.debug("Activating of keyboard configuration is disabled on this system.")
+            return self._x_layouts, self._vc_keymap
+
+        if not self._vc_keymap and not self._x_layouts:
+            log.debug("Not applying keyboard configuration:"
+                      "neither VConsole not X Layouts are set.")
+            return self._x_layouts, self._vc_keymap
+
         vc_keymap = self._vc_keymap
         x_layouts = self._x_layouts
         localed = LocaledWrapper()
