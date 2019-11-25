@@ -64,7 +64,6 @@ from pyanaconda.storage.kickstart import reset_custom_storage_data
 
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice, NVDIMMNamespaceDevice
-from blivet.formats.disklabel import DiskLabel
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -853,21 +852,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         return rc
 
     def _check_space_and_get_dialog(self, disks):
-        # Figure out if the existing disk labels will work on this platform
-        # you need to have at least one of the platform's labels in order for
-        # any of the free space to be useful.
-        disk_labels = set(disk.format.label_type for disk in disks
-                              if hasattr(disk.format, "label_type"))
-        platform_labels = set(DiskLabel.get_platform_label_types())
-        if disk_labels and platform_labels.isdisjoint(disk_labels):
-            disk_free = 0
-            fs_free = 0
-            log.debug("Need disklabel: %s have: %s", ", ".join(platform_labels),
-                                                     ", ".join(disk_labels))
-        else:
-            disk_free = self.storage.get_disk_free_space(disks)
-            fs_free = self.storage.get_disk_reclaimable_space(disks)
-
+        disk_free = self.storage.get_disk_free_space(disks)
+        fs_free = self.storage.get_disk_reclaimable_space(disks)
         disks_size = sum((d.size for d in disks), Size(0))
         sw_space = self.payload.space_required
         auto_swap = suggest_swap_size()

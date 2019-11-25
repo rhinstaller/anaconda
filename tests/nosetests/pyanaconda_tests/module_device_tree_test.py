@@ -19,7 +19,7 @@
 #
 import tempfile
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, PropertyMock
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
@@ -284,48 +284,72 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertLess(total_size, Size("10 GiB").get_bytes())
         self.assertGreater(total_size, Size("8 GiB").get_bytes())
 
-    def get_disk_free_space_test(self):
+    @patch("blivet.formats.disklabel.DiskLabel.free", new_callable=PropertyMock)
+    @patch("blivet.formats.disklabel.DiskLabel.get_platform_label_types")
+    def get_disk_free_space_test(self, label_types, free):
         """Test GetDiskFreeSpace."""
+        label_types.return_value = ["msdos", "gpt"]
+        free.return_value = Size("4 GiB")
+
         self._add_device(DiskDevice(
             "dev1",
+            fmt=get_format("disklabel", label_type="msdos"),
             size=Size("5 GiB"))
         )
 
         self._add_device(DiskDevice(
             "dev2",
+            fmt=get_format("disklabel", label_type="gpt"),
             size=Size("5 GiB"))
         )
+
+        self._add_device(DiskDevice(
+            "dev3",
+            fmt=get_format("disklabel", label_type="dasd"),
+            size=Size("5 GiB")
+        ))
 
         total_size = self.interface.GetDiskFreeSpace([])
         self.assertEqual(total_size, 0)
 
-        total_size = self.interface.GetDiskFreeSpace(["dev1", "dev2"])
-        self.assertEqual(total_size, Size("10 GiB").get_bytes())
+        total_size = self.interface.GetDiskFreeSpace(["dev1", "dev2", "dev3"])
+        self.assertEqual(total_size, Size("8 GiB").get_bytes())
 
         with self.assertRaises(UnknownDeviceError):
-            self.interface.GetDiskFreeSpace(["dev1", "dev2", "dev3"])
+            self.interface.GetDiskFreeSpace(["dev1", "dev2", "devX"])
 
-    def get_disk_reclaimable_space_test(self):
+    @patch("blivet.formats.disklabel.DiskLabel.get_platform_label_types")
+    def get_disk_reclaimable_space_test(self, label_types):
         """Test GetDiskReclaimableSpace."""
+        label_types.return_value = ["msdos", "gpt"]
+
         self._add_device(DiskDevice(
             "dev1",
+            fmt=get_format("disklabel", label_type="msdos"),
             size=Size("5 GiB"))
         )
 
         self._add_device(DiskDevice(
             "dev2",
+            fmt=get_format("disklabel", label_type="gpt"),
             size=Size("5 GiB"))
         )
+
+        self._add_device(DiskDevice(
+            "dev3",
+            fmt=get_format("disklabel", label_type="dasd"),
+            size=Size("5 GiB")
+        ))
 
         total_size = self.interface.GetDiskReclaimableSpace([])
         self.assertEqual(total_size, 0)
 
         # FIXME: Test on devices with a reclaimable space.
-        total_size = self.interface.GetDiskReclaimableSpace(["dev1", "dev2"])
+        total_size = self.interface.GetDiskReclaimableSpace(["dev1", "dev2", "dev3"])
         self.assertEqual(total_size, 0)
 
         with self.assertRaises(UnknownDeviceError):
-            self.interface.GetDiskReclaimableSpace(["dev1", "dev2", "dev3"])
+            self.interface.GetDiskReclaimableSpace(["dev1", "dev2", "devX"])
 
     def resolve_device_test(self):
         """Test ResolveDevice."""
