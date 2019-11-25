@@ -20,9 +20,10 @@ from dasbus.structure import DBusData
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["GroupData"]
+__all__ = ["GROUP_GID_NOT_SET", "GroupData"]
 
 GROUP_GID_NOT_SET = -1
+
 
 class GroupData(DBusData):
     """Group data."""
