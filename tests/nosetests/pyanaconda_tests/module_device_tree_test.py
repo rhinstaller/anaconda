@@ -137,6 +137,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'path': get_variant(Str, '/dev/dev1'),
             'size': get_variant(UInt64, Size("10 MiB").get_bytes()),
             'is-disk': get_variant(Bool, True),
+            'removable': get_variant(Bool, False),
             'parents': get_variant(List[Str], []),
             'attrs': get_variant(Dict[Str, Str], {
                 "serial": "SERIAL_ID",

@@ -97,6 +97,7 @@ class DeviceTreeViewer(ABC):
         data.size = device.size.get_bytes()
         data.parents = [d.name for d in device.parents]
         data.is_disk = device.is_disk
+        data.removable = device.removable
 
         # Get the device description.
         # FIXME: We should generate the description from the device data.
