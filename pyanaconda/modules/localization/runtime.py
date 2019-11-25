@@ -21,8 +21,7 @@ from pyanaconda.modules.common.errors.configuration import KeyboardConfiguration
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.localization.localed import LocaledWrapper
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.localization.installation import write_x_configuration, \
-    write_vc_configuration
+from pyanaconda.modules.localization.installation import write_vc_configuration
 
 log = get_module_logger(__name__)
 
@@ -165,11 +164,9 @@ class ApplyKeyboardTask(Task):
             if not vc_keymap:
                 c_keymap = localed.set_and_convert_layouts(x_layouts)
                 vc_keymap = c_keymap
-            else:
-                localed.set_layouts(x_layouts)
 
-            # write out keyboard configuration for the X session
-            write_x_configuration(x_layouts, self._switch_options, root="/")
+            localed.set_layouts(x_layouts, self._switch_options)
+
             # FIXME: is this really needed?
             write_vc_configuration(vc_keymap, root="/")
 

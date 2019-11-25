@@ -114,6 +114,7 @@ class KeyboardInstallationTask(Task):
 def write_x_configuration(x_layouts, switch_options, root):
     """Write X keyboard layout configuration to the configuration files.
 
+    FIXME: only root != '/' branch is actually used
     :param x_layouts: list of x layout specifications
     :type x_layouts: list(str)
     :param switch_options: list of options for layout switching
