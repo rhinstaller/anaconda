@@ -335,8 +335,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.ResolveDevice("dev1"), "dev1")
         self.assertEqual(self.interface.ResolveDevice("/dev/dev1"), "dev1")
 
-    def get_device_ancestors_test(self):
-        """Test GetDeviceAncestors."""
+    def get_ancestors_test(self):
+        """Test GetAncestors."""
         dev1 = StorageDevice("dev1")
         self._add_device(dev1)
 
@@ -346,9 +346,17 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         dev3 = StorageDevice("dev3", parents=[dev2])
         self._add_device(dev3)
 
-        self.assertEqual(self.interface.GetDeviceAncestors("dev1"), [])
-        self.assertEqual(self.interface.GetDeviceAncestors("dev2"), ["dev1"])
-        self.assertEqual(self.interface.GetDeviceAncestors("dev3"), ["dev1", "dev2"])
+        dev4 = StorageDevice("dev4")
+        self._add_device(dev4)
+
+        dev5 = StorageDevice("dev5", parents=[dev4])
+        self._add_device(dev5)
+
+        self.assertEqual(self.interface.GetAncestors(["dev1"]), [])
+        self.assertEqual(self.interface.GetAncestors(["dev2"]), ["dev1"])
+        self.assertEqual(self.interface.GetAncestors(["dev3"]), ["dev1", "dev2"])
+        self.assertEqual(self.interface.GetAncestors(["dev2", "dev3"]), ["dev1", "dev2"])
+        self.assertEqual(self.interface.GetAncestors(["dev2", "dev5"]), ["dev1", "dev4"])
 
     @patch.object(StorageDevice, "setup")
     def setup_device_test(self, setup):
