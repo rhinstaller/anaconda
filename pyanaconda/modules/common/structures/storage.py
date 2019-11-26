@@ -224,7 +224,7 @@ class DeviceActionData(DBusData):
 
     def __init__(self):
         self._action_type = ""
-        self._action_object = ""
+        self._object_type = ""
         self._device_name = ""
         self._description = ""
 
@@ -245,7 +245,7 @@ class DeviceActionData(DBusData):
         self._action_type = name
 
     @property
-    def action_object(self) -> Str:
+    def object_type(self) -> Str:
         """A type of the action object.
 
         For example:
@@ -253,11 +253,11 @@ class DeviceActionData(DBusData):
 
         :return: a string with the type
         """
-        return self._action_object
+        return self._object_type
 
-    @action_object.setter
-    def action_object(self, name: Str):
-        self._action_object = name
+    @object_type.setter
+    def object_type(self, name: Str):
+        self._object_type = name
 
     @property
     def device_name(self) -> Str:
