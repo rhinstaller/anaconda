@@ -32,20 +32,24 @@ __all__ = ["StartModulesTask"]
 
 
 class StartModulesTask(Task):
+    """A task for starting DBus modules.
 
-    def __init__(self, message_bus, module_names, addons_enabled, timeout=600000):
+    The timeout service_start_timeout from the Anaconda bus
+    configuration file is applied by default when the DBus
+    method StartServiceByName is called.
+    """
+
+    def __init__(self, message_bus, module_names, addons_enabled):
         """Create a new task.
 
         :param message_bus: a message bus
         :param module_names: a list of DBus names of modules
         :param addons_enabled: True to enable addons, otherwise False
-        :param timeout: a timeout of a DBus call in milliseconds
         """
         super().__init__()
         self._message_bus = message_bus
         self._module_names = module_names
         self._addons_enabled = addons_enabled
-        self._service_timeout = timeout
         self._module_observers = []
         self._callbacks = SimpleQueue()
 
@@ -65,7 +69,7 @@ class StartModulesTask(Task):
         # All modules are unavailable now.
         unavailable = set(self._module_observers)
 
-        # Asynchronously start the modules with a timeout.
+        # Asynchronously start the modules.
         self._start_modules(self._module_observers)
 
         # Process callbacks of the asynchronous calls until all modules
@@ -126,8 +130,7 @@ class StartModulesTask(Task):
                 observer.service_name,
                 DBUS_FLAG_NONE,
                 callback=self._start_service_by_name_callback,
-                callback_args=(observer,),
-                timeout=self._service_timeout
+                callback_args=(observer,)
             )
 
     def _start_service_by_name_callback(self, *args, **kwargs):
