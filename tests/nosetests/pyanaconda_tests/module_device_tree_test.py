@@ -290,7 +290,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetActions(), [{
             'action-type': get_variant(Str, 'destroy'),
-            'action-object': get_variant(Str, 'device'),
+            'object-type': get_variant(Str, 'device'),
             'device-name': get_variant(Str, 'dev1'),
             'description': get_variant(Str, 'destroy device'),
         }])

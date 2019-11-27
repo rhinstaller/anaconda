@@ -266,7 +266,7 @@ class DeviceTreeViewer(ABC):
         """
         data = DeviceActionData()
         data.action_type = action.type_string.lower()
-        data.action_object = action.object_string.lower()
+        data.object_type = action.object_string.lower()
         data.device_name = action.device.name
         data.description = action.type_desc
         return data
