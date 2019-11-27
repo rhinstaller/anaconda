@@ -21,10 +21,11 @@ from dasbus.structure import DBusData
 from dasbus.structure import generate_string_from_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["UserData"]
+__all__ = ["USER_GID_NOT_SET", "USER_UID_NOT_SET", "UserData"]
 
 USER_GID_NOT_SET = -1
 USER_UID_NOT_SET = -1
+
 
 class UserData(DBusData):
     """User data."""

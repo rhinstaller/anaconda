@@ -19,7 +19,7 @@
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["NetworkDeviceConfiguration"]
+__all__ = ["NetworkDeviceConfiguration", "NetworkDeviceInfo"]
 
 
 class NetworkDeviceConfiguration(DBusData):
