@@ -24,7 +24,7 @@ from unittest.mock import patch, Mock
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
-    LUKSDevice
+    LUKSDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
 from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.formats.fs import FS
@@ -168,7 +168,55 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         data = self.interface.GetDeviceData("dev1")
         self.assertEqual(data['type'], get_variant(Str, 'dasd'))
-        self.assertEqual(data['attrs'], get_variant(Dict[Str, Str], {"busid": "0.0.0201"}))
+        self.assertEqual(data['attrs'], get_variant(Dict[Str, Str], {
+            "bus-id": "0.0.0201"
+        }))
+
+    def get_iscsi_device_data_test(self):
+        """Test GetDeviceData for iSCSI."""
+        self._add_device(iScsiDiskDevice(
+            "dev1",
+            fmt=get_format("disklabel"),
+            size=Size("10 GiB"),
+            port="3260",
+            initiator="iqn.1994-05.com.redhat:blabla",
+            lun="0",
+            target="iqn.2014-08.com.example:t1",
+            node=None,
+            ibft=None,
+            nic=None,
+            offload=None,
+            name=None,
+            address=None,
+            iface=None
+        ))
+
+        data = self.interface.GetDeviceData("dev1")
+        self.assertEqual(data['type'], get_variant(Str, 'iscsi'))
+        self.assertEqual(data['attrs'], get_variant(Dict[Str, Str], {
+            "port": "3260",
+            "initiator": "iqn.1994-05.com.redhat:blabla",
+            "lun": "0",
+            "target": "iqn.2014-08.com.example:t1"
+        }))
+
+    def get_nvdimm_device_data_test(self):
+        """Test GetDeviceData for NVDIMM."""
+        self._add_device(NVDIMMNamespaceDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB"),
+            mode="sector",
+            devname="namespace0.0",
+            sector_size=512
+        ))
+
+        data = self.interface.GetDeviceData("dev1")
+        self.assertEqual(data['type'], get_variant(Str, 'nvdimm'))
+        self.assertEqual(data['attrs'], get_variant(Dict[Str, Str], {
+            "mode": "sector",
+            "namespace": "namespace0.0"
+        }))
 
     def get_zfcp_device_data_test(self):
         """Test GetDeviceData for zFCP."""
@@ -184,9 +232,9 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         data = self.interface.GetDeviceData("dev1")
         self.assertEqual(data['type'], get_variant(Str, 'zfcp'))
         self.assertEqual(data['attrs'], get_variant(Dict[Str, Str], {
-            "fcp_lun": "0x5719000000000000",
+            "fcp-lun": "0x5719000000000000",
             "wwpn": "0x5005076300c18154",
-            "hba_id": "0.0.010a"
+            "hba-id": "0.0.010a"
         }))
 
     def get_format_data_test(self):
