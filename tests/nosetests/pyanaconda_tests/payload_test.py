@@ -26,7 +26,7 @@ import shutil
 import gi
 
 from tempfile import TemporaryDirectory
-from mock import patch, Mock, call
+from unittest.mock import patch, Mock, call
 
 from blivet.size import Size
 

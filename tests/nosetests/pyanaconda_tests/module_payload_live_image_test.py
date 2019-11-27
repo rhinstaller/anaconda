@@ -19,7 +19,7 @@
 #
 import unittest
 
-from mock import Mock, patch
+from unittest.mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
     patch_dbus_publish_object, PropertiesChangedCallback

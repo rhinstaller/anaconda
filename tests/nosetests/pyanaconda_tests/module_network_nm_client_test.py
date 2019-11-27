@@ -18,7 +18,7 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
-from mock import Mock, patch
+from unittest.mock import Mock, patch
 
 from pyanaconda.modules.network.nm_client import get_slaves_from_connections, \
     get_dracut_arguments_from_connection

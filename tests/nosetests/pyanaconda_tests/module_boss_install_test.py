@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 import unittest
-from mock import Mock, call
+from unittest.mock import Mock, call
 
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.common.task import DBusMetaTask

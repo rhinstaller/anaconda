@@ -20,7 +20,7 @@
 import unittest
 import tempfile
 import os
-from mock import patch
+from unittest.mock import patch
 
 from pykickstart.constants import SELINUX_ENFORCING, SELINUX_PERMISSIVE
 

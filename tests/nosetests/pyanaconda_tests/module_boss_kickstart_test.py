@@ -19,7 +19,7 @@
 import unittest
 import os
 from contextlib import contextmanager
-from mock import Mock
+from unittest.mock import Mock
 
 from dasbus.typing import get_native
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
