@@ -40,13 +40,13 @@ class StorageInterface(KickstartModuleInterface):
             "AppliedPartitioning", self.implementation.applied_partitioning_changed
         )
 
-    def ResetWithTask(self) -> ObjPath:
-        """Reset the storage model.
+    def ScanDevicesWithTask(self) -> ObjPath:
+        """Scan all devices with a task.
 
         :return: a path to a task
         """
         return TaskContainer.to_object_path(
-            self.implementation.reset_with_task()
+            self.implementation.scan_devices_with_task()
         )
 
     @emits_properties_changed

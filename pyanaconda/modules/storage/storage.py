@@ -41,7 +41,7 @@ from pyanaconda.modules.storage.nvdimm import NVDIMMModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.factory import PartitioningFactory
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.modules.storage.reset import StorageResetTask
+from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
@@ -233,8 +233,8 @@ class StorageService(KickstartService):
 
         self.storage.protect_devices(protected_devices)
 
-    def reset_with_task(self):
-        """Reset the storage model.
+    def scan_devices_with_task(self):
+        """Scan all devices with a task.
 
         We will reset a copy of the current storage model
         and switch the models if the reset is successful.
@@ -251,7 +251,7 @@ class StorageService(KickstartService):
         storage.disk_images = self._disk_selection_module.disk_images
 
         # Create the task.
-        task = StorageResetTask(storage)
+        task = ScanDevicesTask(storage)
         task.succeeded_signal.connect(lambda: self.set_storage(storage, reset=True))
         return task
 

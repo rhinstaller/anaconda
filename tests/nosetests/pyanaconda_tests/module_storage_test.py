@@ -45,7 +45,7 @@ from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, \
     MountFilesystemsTask, WriteConfigurationTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.modules.storage.reset import StorageResetTask
+from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.modules.storage.storage import StorageService
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
@@ -114,11 +114,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
         storage_reset_callback.assert_not_called()
 
     @patch_dbus_publish_object
-    def reset_with_task_test(self, publisher):
-        """Test ResetWithTask."""
-        task_path = self.storage_interface.ResetWithTask()
+    def scan_devices_with_task_test(self, publisher):
+        """Test ScanDevicesWithTask."""
+        task_path = self.storage_interface.ScanDevicesWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, StorageResetTask)
+        obj = check_task_creation(self, task_path, publisher, ScanDevicesTask)
 
         self.assertIsNotNone(obj.implementation._storage)
 
@@ -1354,7 +1354,7 @@ class StorageTasksTestCase(unittest.TestCase):
     def reset_test(self):
         """Test the reset."""
         storage = Mock()
-        task = StorageResetTask(storage)
+        task = ScanDevicesTask(storage)
         task.run()
         storage.reset.assert_called_once()
 

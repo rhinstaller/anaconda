@@ -23,7 +23,7 @@ from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.constants.objects import NVDIMM
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
-from pyanaconda.modules.storage.reset import StorageResetTask
+from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.ui.gui import GUIObject
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -152,7 +152,7 @@ class NVDIMMDialog(GUIObject):
         nvdimm.update_namespaces_info()
 
         # Get the task.
-        task = StorageResetTask(self._storage)
+        task = ScanDevicesTask(self._storage)
         task.stopped_signal.connect(lambda: self.repopulate_finished(task))
 
         # Start the task.
