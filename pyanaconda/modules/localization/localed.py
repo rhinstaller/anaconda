@@ -73,7 +73,7 @@ class LocaledWrapper(object):
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Layout property")
-            return [""]
+            return []
 
         try:
             variants = safe_dbus.get_property_sync(LOCALED_SERVICE,
@@ -89,10 +89,18 @@ class LocaledWrapper(object):
 
         # returned GVariants are unpacked to tuples with single elements
         # containing comma-separated values
-        layouts = layouts[0].split(",")
+        layouts_str = layouts[0]
+        if layouts_str:
+            layouts = layouts_str.split(",")
+        else:
+            layouts = []
 
         if variants:
-            variants = variants[0].split(",")
+            variants_str = variants[0]
+            if variants_str:
+                variants = variants_str.split(",")
+            else:
+                variants = []
 
         # if there are more layouts than variants, empty strings should be appended
         diff = len(layouts) - len(variants)
