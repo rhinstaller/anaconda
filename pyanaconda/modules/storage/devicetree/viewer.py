@@ -290,17 +290,24 @@ class DeviceTreeViewer(ABC):
 
         return device.name
 
-    def get_device_ancestors(self, device_name):
-        """Get all ancestors of the specified device.
+    def get_ancestors(self, device_names):
+        """Collect ancestors of the specified devices.
 
-        The specified device is not part of the list.
+        Ancestors of a device don't include the device itself.
         The list is sorted by names of the devices.
 
-        :param device_name: a device name
+        :param device_names: a list of device names
         :return: a list of device names
         """
-        device = self._get_device(device_name)
-        return list(sorted(ancestor.name for ancestor in device.ancestors if ancestor != device))
+        devices = self._get_devices(device_names)
+        ancestors = set()
+
+        for device in devices:
+            for ancestor in device.ancestors:
+                if ancestor != device:
+                    ancestors.add(ancestor.name)
+
+        return sorted(ancestors)
 
     def get_supported_file_systems(self):
         """Get the supported types of filesystems.

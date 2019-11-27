@@ -109,13 +109,16 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return self.implementation.resolve_device(dev_spec)
 
-    def GetDeviceAncestors(self, device_name: Str) -> List[Str]:
-        """Get all ancestors of the specified device.
+    def GetAncestors(self, device_names: List[Str]) -> List[Str]:
+        """Collect ancestors of the specified devices.
 
-        :param device_name: a device name
+        Ancestors of a device don't include the device itself.
+        The list is sorted by names of the devices.
+
+        :param device_names: a list of device names
         :return: a list of device names
         """
-        return self.implementation.get_device_ancestors(device_name)
+        return self.implementation.get_ancestors(device_names)
 
     def GetSupportedFileSystems(self) -> List[Str]:
         """Get the supported types of filesystems.
