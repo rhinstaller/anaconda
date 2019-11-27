@@ -100,6 +100,18 @@ class StorageInterface(KickstartModuleInterface):
 
         return PartitioningContainer.to_object_path(partitioning)
 
+    @emits_properties_changed
+    def ResetPartitioning(self):
+        """Reset the scheduled partitioning.
+
+        Reset the applied partitioning and reset the storage models of all
+        partitioning modules to the latest model of the system’s storage
+        configuration.
+
+        This method will not rescan the system.
+        """
+        self.implementation.reset_partitioning()
+
     def WriteConfigurationWithTask(self) -> ObjPath:
         """Write the storage configuration with a task.
 

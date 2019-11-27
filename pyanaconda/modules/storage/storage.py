@@ -61,9 +61,9 @@ class StorageService(KickstartService):
         enable_installer_mode()
 
         # The storage model.
-        self._storage = None
+        self._current_storage = None
+        self._storage_playground = None
         self.storage_changed = Signal()
-        self.storage_reset = Signal()
 
         # The created partitioning modules.
         self._created_partitioning = []
@@ -72,6 +72,7 @@ class StorageService(KickstartService):
         # The applied partitioning module.
         self._applied_partitioning = None
         self.applied_partitioning_changed = Signal()
+        self.partitioning_reset = Signal()
 
         # Initialize modules.
         self._modules = []
@@ -211,24 +212,43 @@ class StorageService(KickstartService):
 
         :return: an instance of Blivet
         """
-        if not self._storage:
-            self.set_storage(create_storage())
+        if self._storage_playground:
+            return self._storage_playground
 
-        return self._storage
+        if not self._current_storage:
+            self._set_storage(create_storage())
 
-    def set_storage(self, storage, reset=False):
-        """Set the storage model."""
-        self._storage = storage
+        return self._current_storage
+
+    def _set_storage(self, storage):
+        """Set the current storage model.
+
+        :param storage: a storage
+        """
+        self._current_storage = storage
+
+        if self._storage_playground:
+            return
+
         self.storage_changed.emit(storage)
+        log.debug("The storage model has changed.")
 
-        if reset:
-            self.storage_reset.emit(storage)
+    def _set_storage_playground(self, storage):
+        """Set the storage playground.
 
+        :param storage: a storage or None
+        """
+        self._storage_playground = storage
+
+        if storage is None:
+            storage = self.storage
+
+        self.storage_changed.emit(storage)
         log.debug("The storage model has changed.")
 
     def on_protected_devices_changed(self, protected_devices):
         """Update the protected devices in the storage model."""
-        if not self._storage:
+        if not self._current_storage:
             return
 
         self.storage.protect_devices(protected_devices)
@@ -252,7 +272,7 @@ class StorageService(KickstartService):
 
         # Create the task.
         task = ScanDevicesTask(storage)
-        task.succeeded_signal.connect(lambda: self.set_storage(storage, reset=True))
+        task.succeeded_signal.connect(lambda: self._set_storage(storage))
         return task
 
     def create_partitioning(self, method: PartitioningMethod):
@@ -272,15 +292,18 @@ class StorageService(KickstartService):
 
         # Update the module.
         module.on_storage_reset(
-            self._storage
+            self._current_storage
         )
         module.on_selected_disks_changed(
             self._disk_selection_module.selected_disks
         )
 
         # Connect the callbacks to signals.
-        self.storage_reset.connect(
+        self.storage_changed.connect(
             module.on_storage_reset
+        )
+        self.partitioning_reset.connect(
+            module.on_partitioning_reset
         )
         self._disk_selection_module.selected_disks_changed.connect(
             module.on_selected_disks_changed
@@ -308,7 +331,7 @@ class StorageService(KickstartService):
         :raise: InvalidStorageError of the partitioning is not valid
         """
         # Validate the partitioning.
-        storage = module.storage
+        storage = module.storage.copy()
         task = StorageValidateTask(storage)
         report = task.run()
 
@@ -316,7 +339,7 @@ class StorageService(KickstartService):
             raise InvalidStorageError(" ".join(report.error_messages))
 
         # Apply the partitioning.
-        self.set_storage(storage.copy())
+        self._set_storage_playground(storage)
         self._set_applied_partitioning(module)
 
     @property
@@ -325,10 +348,23 @@ class StorageService(KickstartService):
         return self._applied_partitioning
 
     def _set_applied_partitioning(self, module):
-        """Set the applied partitioning."""
+        """Set the applied partitioning.
+
+        :param module: a partitioning module or None
+        """
         self._applied_partitioning = module
         self.applied_partitioning_changed.emit()
-        log.debug("Applied the partitioning %s.", module)
+
+        if module is None:
+            module = "NONE"
+
+        log.debug("The partitioning %s is applied.", module)
+
+    def reset_partitioning(self):
+        """Reset the partitioning."""
+        self._set_storage_playground(None)
+        self._set_applied_partitioning(None)
+        self.partitioning_reset.emit()
 
     def collect_requirements(self):
         """Return installation requirements for this module.

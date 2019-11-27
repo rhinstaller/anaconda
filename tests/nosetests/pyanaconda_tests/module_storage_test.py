@@ -107,7 +107,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.storage_module.storage_changed.connect(storage_changed_callback)
 
         storage_reset_callback = Mock()
-        self.storage_module.storage_reset.connect(storage_reset_callback)
+        self.storage_module.partitioning_reset.connect(storage_reset_callback)
 
         self.assertIsNotNone(self.storage_module.storage)
         storage_changed_callback.assert_called_once()
@@ -126,12 +126,12 @@ class StorageInterfaceTestCase(unittest.TestCase):
         storage_changed_callback = Mock()
         self.storage_module.storage_changed.connect(storage_changed_callback)
 
-        storage_reset_callback = Mock()
-        self.storage_module.storage_reset.connect(storage_reset_callback)
+        partitioning_reset_callback = Mock()
+        self.storage_module.partitioning_reset.connect(partitioning_reset_callback)
 
         obj.implementation.succeeded_signal.emit()
         storage_changed_callback.assert_called_once()
-        storage_reset_callback.assert_called_once()
+        partitioning_reset_callback.assert_not_called()
 
     @patch_dbus_publish_object
     def create_partitioning_test(self, published):
@@ -195,7 +195,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         report = StorageCheckerReport()
         storage_checker.check.return_value = report
 
-        self.storage_module.set_storage(storage_1)
+        self.storage_module._set_storage(storage_1)
         self.assertEqual(self.storage_module.storage, storage_1)
 
         object_path = self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_AUTOMATIC)
@@ -224,7 +224,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         report = StorageCheckerReport()
         storage_checker.check.return_value = report
 
-        self.storage_module.set_storage(storage)
+        self.storage_module._set_storage(storage)
         self.assertEqual(self.storage_interface.AppliedPartitioning, "")
 
         self._check_dbus_property(
@@ -233,13 +233,45 @@ class StorageInterfaceTestCase(unittest.TestCase):
             setter=self.storage_interface.ApplyPartitioning
         )
 
+    @patch_dbus_publish_object
+    @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
+    def reset_partitioning_test(self, storage_checker, published):
+        """Test ResetPartitioning."""
+        storage_1 = Mock()
+        storage_2 = storage_1.copy.return_value
+        storage_3 = storage_2.copy.return_value
+
+        report = StorageCheckerReport()
+        storage_checker.check.return_value = report
+
+        self.storage_module._set_storage(storage_1)
+        self.assertEqual(self.storage_module.storage, storage_1)
+
+        partitioning = self.storage_interface.CreatePartitioning(
+            PARTITIONING_METHOD_AUTOMATIC
+        )
+        partitioning_module = self.storage_module.created_partitioning[-1]
+        self.assertEqual(partitioning_module.storage, storage_2)
+
+        self.storage_interface.ApplyPartitioning(partitioning)
+        self.assertEqual(self.storage_interface.AppliedPartitioning, partitioning)
+        self.assertEqual(self.storage_module.storage, storage_3)
+
+        storage_4 = Mock()
+        storage_1.copy.return_value = storage_4
+
+        self.storage_interface.ResetPartitioning()
+        self.assertEqual(self.storage_interface.AppliedPartitioning, "")
+        self.assertEqual(self.storage_module.storage, storage_1)
+        self.assertEqual(partitioning_module.storage, storage_4)
+
     def collect_requirements_test(self):
         """Test CollectRequirements."""
         storage = Mock()
         storage.bootloader = GRUB2()
         storage.packages = ["lvm2"]
 
-        self.storage_module.set_storage(storage)
+        self.storage_module._set_storage(storage)
         self.assertEqual(self.storage_interface.CollectRequirements(), [
             {
                 "type": get_variant(Str, "package"),
@@ -1334,7 +1366,7 @@ class StorageModuleTestCase(unittest.TestCase):
     def on_protected_devices_test(self):
         """Test on_protected_devices_changed."""
         # Don't fail without the storage.
-        self.assertIsNone(self.storage_module._storage)
+        self.assertIsNone(self.storage_module._storage_playground)
         self.storage_module._disk_selection_module.set_protected_devices(["a"])
 
         # Create the storage.
