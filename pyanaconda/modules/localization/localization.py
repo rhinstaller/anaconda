@@ -215,10 +215,10 @@ class LocalizationService(KickstartService):
             x_layouts=self.x_layouts,
             vc_keymap=self.vc_keymap,
         )
-        task.succeeded_signal.connect(lambda: self.update_settings_from_task(task.get_result()))
+        task.succeeded_signal.connect(lambda: self._update_settings_from_task(task.get_result()))
         return task
 
-    def update_settings_from_task(self, result):
+    def _update_settings_from_task(self, result):
         """Update settings from task result."""
         x_layouts, vc_keymap = result
         self.set_vc_keymap(vc_keymap)
@@ -234,7 +234,7 @@ class LocalizationService(KickstartService):
             vc_keymap=self.vc_keymap,
             switch_options=self.switch_options
         )
-        task.succeeded_signal.connect(lambda: self.update_settings_from_task(task.get_result()))
+        task.succeeded_signal.connect(lambda: self._update_settings_from_task(task.get_result()))
         return task
 
     def set_from_generic_keyboard_setting(self, keyboard):
@@ -250,6 +250,5 @@ class LocalizationService(KickstartService):
         task = AssignGenericKeyboardSettingTask(
             keyboard=keyboard
         )
-        x_layouts, vc_keymap = task.run()
-        self.set_vc_keymap(vc_keymap)
-        self.set_x_layouts(x_layouts)
+        result = task.run()
+        self._update_settings_from_task(result)
