@@ -112,7 +112,7 @@ class DiskInitializationModuleTestCase(unittest.TestCase):
             self.assertIsNotNone(self.disk_init_module.storage)
 
         storage = Mock()
-        self.disk_init_module.on_storage_reset(storage)
+        self.disk_init_module.on_storage_changed(storage)
         self.assertEqual(self.disk_init_module.storage, storage)
 
     def setup_kickstart_test(self):
@@ -120,7 +120,7 @@ class DiskInitializationModuleTestCase(unittest.TestCase):
         storage = create_storage()
         data = Mock()
 
-        self.disk_init_module.on_storage_reset(storage)
+        self.disk_init_module.on_storage_changed(storage)
         self.disk_init_module.set_initialization_mode(InitializationMode.CLEAR_NONE)
         self.disk_init_module.setup_kickstart(data)
 

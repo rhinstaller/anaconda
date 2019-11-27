@@ -67,7 +67,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
             self.dasd_interface.FindFormattable(["dev1"])
 
         storage = create_storage()
-        self.dasd_module.on_storage_reset(storage)
+        self.dasd_module.on_storage_changed(storage)
 
         with self.assertRaises(UnknownDeviceError):
             self.dasd_interface.FindFormattable(["dev1"])

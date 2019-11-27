@@ -64,7 +64,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
     def get_device_tree_test(self, publisher):
         """Test GetDeviceTree."""
         DeviceTreeContainer._counter = 0
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
 
         tree_path = self.interface.GetDeviceTree()
 
@@ -89,7 +89,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         task_path = self.interface.ConfigureWithTask()
 
         obj = check_task_creation(self, task_path, publisher, InteractivePartitioningTask)

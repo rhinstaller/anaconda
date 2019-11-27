@@ -50,7 +50,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.interface = DeviceTreeInterface(self.module)
 
         # Set the storage.
-        self.module.on_storage_reset(create_storage())
+        self.module.on_storage_changed(create_storage())
 
     def publication_test(self):
         """Check the DBus representation."""

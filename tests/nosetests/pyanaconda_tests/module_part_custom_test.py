@@ -60,7 +60,7 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         self.module.process_kickstart(Mock())
         task_path = self.interface.ConfigureWithTask()
 
@@ -115,7 +115,7 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         mock_mountpoints.values.return_value = []
 
         # set up the storage
-        self.module.on_storage_reset(create_storage())
+        self.module.on_storage_changed(create_storage())
         self.assertTrue(self.module.storage)
 
         self.module.storage.bootloader.stage1_device = bootloader_device_obj
@@ -139,7 +139,7 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         mock_mountpoints.values.return_value = []
 
         # set up the storage
-        self.module.on_storage_reset(create_storage())
+        self.module.on_storage_changed(create_storage())
         self.assertTrue(self.module.storage)
 
         # initialize ksdata

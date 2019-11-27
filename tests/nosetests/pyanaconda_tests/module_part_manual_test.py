@@ -171,12 +171,12 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
     def gather_no_requests_test(self):
         """Test GatherRequests with no devices."""
-        self.module.on_storage_reset(create_storage())
+        self.module.on_storage_changed(create_storage())
         self.assertEqual(self.interface.GatherRequests(), [])
 
     def gather_unusable_requests_test(self):
         """Test GatherRequests with unusable devices."""
-        self.module.on_storage_reset(create_storage())
+        self.module.on_storage_changed(create_storage())
 
         # Add device with no size.
         self._add_device(StorageDevice(
@@ -207,7 +207,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
     def gather_requests_test(self):
         """Test GatherRequests."""
-        self.module.on_storage_reset(create_storage())
+        self.module.on_storage_changed(create_storage())
 
         self._add_device(StorageDevice(
             "dev1",
@@ -242,7 +242,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
     def gather_requests_combination_test(self):
         """Test GatherRequests with user requests."""
-        self.module.on_storage_reset(create_storage())
+        self.module.on_storage_changed(create_storage())
 
         # Add devices dev1 and dev2.
         self._add_device(StorageDevice(
@@ -295,7 +295,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         task_path = self.interface.ConfigureWithTask()
 
         obj = check_task_creation(self, task_path, publisher, ManualPartitioningTask)

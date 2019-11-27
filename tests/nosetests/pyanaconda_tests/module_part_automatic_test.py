@@ -129,7 +129,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
                 self.fail("The storage shouldn't be available.")
 
         storage = Mock()
-        self.module.on_storage_reset(storage)
+        self.module.on_storage_changed(storage)
 
         self.assertEqual(self.module._current_storage, storage)
         self.assertIsNone(self.module._storage_playground)
@@ -139,7 +139,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
     def remove_device_test(self):
         """Test RemoveDevice."""
-        self.module.on_storage_reset(create_storage())
+        self.module.on_storage_changed(create_storage())
 
         dev1 = StorageDevice(
             "dev1",
@@ -191,7 +191,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
     def shrink_device_test(self):
         """Test ShrinkDevice."""
-        self.module.on_storage_reset(create_storage())
+        self.module.on_storage_changed(create_storage())
 
         sda1 = StorageDevice(
             "sda1",
@@ -220,7 +220,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         task_path = self.interface.ConfigureWithTask()
 
         obj = check_task_creation(self, task_path, publisher, AutomaticPartitioningTask)
@@ -231,7 +231,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def validate_with_task_test(self, publisher):
         """Test ValidateWithTask."""
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         task_path = self.interface.ValidateWithTask()
 
         obj = check_task_creation(self, task_path, publisher, StorageValidateTask)

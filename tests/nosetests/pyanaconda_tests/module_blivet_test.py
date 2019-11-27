@@ -80,19 +80,19 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
 
     def storage_handler_test(self):
         """Test the storage_handler property."""
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         self.assertIsNotNone(self.module.storage_handler)
         self.assertEqual(self.module.storage, self.module.storage_handler.storage)
 
     def request_handler_test(self):
         """Test the request_handler property."""
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         self.assertIsNotNone(self.module.request_handler)
         self.assertEqual(self.module.storage_handler, self.module.request_handler.blivet_utils)
 
     def send_request_test(self):
         """Test SendRequest."""
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         request = pickle.dumps(("call", "get_disks", []))
 
         answer = self.interface.SendRequest(request)
@@ -104,7 +104,7 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         task_path = self.interface.ConfigureWithTask()
 
         obj = check_task_creation(self, task_path, publisher, InteractivePartitioningTask)

@@ -112,7 +112,7 @@ class StorageService(KickstartService):
             self._add_module(self._dasd_module)
 
             self.storage_changed.connect(
-                self._dasd_module.on_storage_reset
+                self._dasd_module.on_storage_changed
             )
             self._disk_init_module.format_unrecognized_enabled_changed.connect(
                 self._dasd_module.on_format_unrecognized_enabled_changed
@@ -137,19 +137,19 @@ class StorageService(KickstartService):
 
         # Connect modules to signals.
         self.storage_changed.connect(
-            self._device_tree_module.on_storage_reset
+            self._device_tree_module.on_storage_changed
         )
         self.storage_changed.connect(
-            self._disk_init_module.on_storage_reset
+            self._disk_init_module.on_storage_changed
         )
         self.storage_changed.connect(
-            self._disk_selection_module.on_storage_reset
+            self._disk_selection_module.on_storage_changed
         )
         self.storage_changed.connect(
-            self._snapshot_module.on_storage_reset
+            self._snapshot_module.on_storage_changed
         )
         self.storage_changed.connect(
-            self._bootloader_module.on_storage_reset
+            self._bootloader_module.on_storage_changed
         )
         self._disk_selection_module.protected_devices_changed.connect(
             self.on_protected_devices_changed
@@ -291,7 +291,7 @@ class StorageService(KickstartService):
         module = PartitioningFactory.create_partitioning(method)
 
         # Update the module.
-        module.on_storage_reset(
+        module.on_storage_changed(
             self._current_storage
         )
         module.on_selected_disks_changed(
@@ -300,7 +300,7 @@ class StorageService(KickstartService):
 
         # Connect the callbacks to signals.
         self.storage_changed.connect(
-            module.on_storage_reset
+            module.on_storage_changed
         )
         self.partitioning_reset.connect(
             module.on_partitioning_reset
