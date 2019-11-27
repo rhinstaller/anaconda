@@ -86,7 +86,8 @@ class LocalizationService(KickstartService):
         self.set_x_layouts(data.keyboard.x_layouts)
         self.set_switch_options(data.keyboard.switch_options)
 
-        self.set_from_generic_keyboard_setting(data.keyboard._keyboard)
+        if data.keyboard._keyboard:
+            self.set_from_generic_keyboard_setting(data.keyboard._keyboard)
 
         self.set_keyboard_seen(data.keyboard.seen)
 
