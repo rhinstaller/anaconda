@@ -32,6 +32,7 @@ class DeviceData(DBusData):
         self._size = 0
         self._parents = []
         self._is_disk = False
+        self._removable = False
         self._attrs = {}
         self._description = ""
 
@@ -94,6 +95,15 @@ class DeviceData(DBusData):
     @is_disk.setter
     def is_disk(self, is_disk: Bool):
         self._is_disk = is_disk
+
+    @property
+    def removable(self) -> Bool:
+        """Is this device removable?"""
+        return self._removable
+
+    @removable.setter
+    def removable(self, value: Bool):
+        self._removable = value
 
     @property
     def parents(self) -> List[Str]:
