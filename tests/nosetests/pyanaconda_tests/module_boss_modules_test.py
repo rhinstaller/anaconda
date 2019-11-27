@@ -70,8 +70,7 @@ class ModuleManagerTestCase(unittest.TestCase):
             "org.fedoraproject.Anaconda.Modules.A",
             DBUS_FLAG_NONE,
             callback=task._start_service_by_name_callback,
-            callback_args=(observer,),
-            timeout=600000
+            callback_args=(observer,)
         )
 
         gio.bus_watch_name_on_connection.assert_called_once()
