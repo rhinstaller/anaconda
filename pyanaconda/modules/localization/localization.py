@@ -20,7 +20,6 @@
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.constants import DEFAULT_KEYBOARD
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
@@ -28,7 +27,7 @@ from pyanaconda.modules.localization.localization_interface import LocalizationI
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
     KeyboardInstallationTask
-from pyanaconda.modules.localization.runtime import ConvertMissingKeyboardConfigurationTask, \
+from pyanaconda.modules.localization.runtime import GetMissingKeyboardConfigurationTask, \
     ApplyKeyboardTask, AssignGenericKeyboardSettingTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -204,14 +203,13 @@ class LocalizationService(KickstartService):
         ]
 
     def populate_missing_keyboard_configuration_with_task(self):
-        """Get missing keyboard configuration by conversion.
+        """Populate missing keyboard configuration.
 
-        :returns: a task converting the configuration
+        The configuration is populated by conversion and/or default values.
+
+        :returns: a task getting missing keyboard configuration
         """
-        if not self.x_layouts and not self.vc_keymap:
-            self.vc_keymap = DEFAULT_KEYBOARD
-
-        task = ConvertMissingKeyboardConfigurationTask(
+        task = GetMissingKeyboardConfigurationTask(
             x_layouts=self.x_layouts,
             vc_keymap=self.vc_keymap,
         )

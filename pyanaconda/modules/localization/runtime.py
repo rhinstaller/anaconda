@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.util import execWithRedirect
+from pyanaconda.core.constants import DEFAULT_KEYBOARD
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.task import Task
@@ -63,8 +64,8 @@ class AssignGenericKeyboardSettingTask(Task):
         return x_layouts, vc_keymap
 
 
-class ConvertMissingKeyboardConfigurationTask(Task):
-    """Task for getting missing keyboard settings by conversion."""
+class GetMissingKeyboardConfigurationTask(Task):
+    """Task for getting missing keyboard settings by conversion and default values."""
 
     def __init__(self, x_layouts, vc_keymap):
         """Create a new task.
@@ -80,10 +81,10 @@ class ConvertMissingKeyboardConfigurationTask(Task):
 
     @property
     def name(self):
-        return "Convert missing keyboard settings."
+        return "Get missing keyboard settings."
 
     def run(self):
-        """Run conversion of missing keyboard settings.
+        """Run getting of missing keyboard settings.
 
         :returns: tuple of X layouts and VC keyboard settings
         :rtype: (list(str), str))
@@ -91,6 +92,10 @@ class ConvertMissingKeyboardConfigurationTask(Task):
         localed = LocaledWrapper()
         vc_keymap = self._vc_keymap
         x_layouts = self._x_layouts
+
+        if not vc_keymap and not x_layouts:
+            log.debug("Using default value %s for virtual console keymap.", DEFAULT_KEYBOARD)
+            vc_keymap = DEFAULT_KEYBOARD
 
         if not vc_keymap:
             vc_keymap = localed.convert_layouts(x_layouts)
