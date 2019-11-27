@@ -204,6 +204,9 @@ class DeviceFormatData(DBusData):
             uuid
             label
 
+        Attributes for file systems:
+            mount-point
+
         :return: a dictionary of attributes
         """
         return self._attrs

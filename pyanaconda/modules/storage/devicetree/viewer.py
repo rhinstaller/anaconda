@@ -183,6 +183,7 @@ class DeviceTreeViewer(ABC):
         # Collect the additional attributes.
         data.attrs["uuid"] = self._get_attribute(fmt, "uuid")
         data.attrs["label"] = self._get_attribute(fmt, "label")
+        data.attrs["mount-point"] = self._get_attribute(fmt, "mountpoint")
 
         # Prune the attributes.
         data.attrs = self._prune_attributes(data.attrs)

@@ -239,9 +239,17 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
     def get_format_data_test(self):
         """Test GetFormatData."""
-        fmt1 = get_format("ext4", uuid="1234-56-7890", label="LABEL")
-        dev1 = StorageDevice("dev1", fmt=fmt1, size=Size("10 GiB"))
-
+        fmt1 = get_format(
+            "ext4",
+            uuid="1234-56-7890",
+            label="LABEL",
+            mountpoint="/home"
+        )
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=fmt1,
+            size=Size("10 GiB")
+        )
         self._add_device(dev1)
 
         self.assertEqual(self.interface.GetFormatData("dev1"), {
@@ -250,13 +258,20 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'attrs': get_variant(Dict[Str, Str], {
                 "uuid": "1234-56-7890",
                 "label": "LABEL",
+                "mount-point": "/home"
             }),
             'description': get_variant(Str, 'ext4'),
         })
 
-        fmt2 = get_format("luks")
-        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=fmt2, size=Size("10 GiB"))
-
+        fmt2 = get_format(
+            "luks"
+        )
+        dev2 = LUKSDevice(
+            "dev2",
+            parents=[dev1],
+            fmt=fmt2,
+            size=Size("10 GiB")
+        )
         self._add_device(dev2)
 
         self.assertEqual(self.interface.GetFormatData("dev2"), {
