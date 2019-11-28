@@ -88,15 +88,18 @@ class StorageInterface(KickstartModuleInterface):
         )
 
     @property
-    def AppliedPartitioning(self) -> ObjPath:
+    def AppliedPartitioning(self) -> Str:
         """The applied partitioning.
+
+        An empty string is not a valid object path, so
+        the return type has to be a string in this case.
 
         :return: a DBus path or an empty string
         """
         partitioning = self.implementation.applied_partitioning
 
         if not partitioning:
-            return ObjPath("")
+            return ""
 
         return PartitioningContainer.to_object_path(partitioning)
 
