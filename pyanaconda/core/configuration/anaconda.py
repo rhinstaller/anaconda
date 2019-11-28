@@ -19,7 +19,7 @@
 #
 import os
 
-from pyanaconda.core.configuration.bootloader import BootloaderSection
+from pyanaconda.core.configuration.bootloader import BootloaderSection, BootloaderType
 from pyanaconda.core.configuration.license import LicenseSection
 from pyanaconda.core.configuration.network import NetworkSection
 from pyanaconda.core.configuration.payload import PayloadSection
@@ -241,6 +241,10 @@ class AnacondaConfiguration(Configuration):
 
         :param opts: a namespace of options
         """
+        # Set the bootloader type.
+        if opts.extlinux:
+            self.bootloader._set_option("type", BootloaderType.EXTLINUX.value)
+
         # Set the boot loader flags.
         self.bootloader._set_option("nonibft_iscsi_boot", opts.nonibftiscsiboot)
 

@@ -17,11 +17,31 @@
 #
 #  Author(s):  Vendula Poncova <vponcova@redhat.com>
 #
+from enum import Enum
 from pyanaconda.core.configuration.base import Section
+
+
+class BootloaderType(Enum):
+    """Type of the bootloader."""
+    DEFAULT = "DEFAULT"
+    EXTLINUX = "EXTLINUX"
 
 
 class BootloaderSection(Section):
     """The Bootloader section."""
+
+    @property
+    def type(self):
+        """Type of the bootloader.
+
+        Supported values:
+
+            DEFAULT   Choose the type by platform.
+            EXTLINUX  Use extlinux as the bootloader.
+
+        :return: an instance of BootloaderType
+        """
+        return self._get_option("type", BootloaderType)
 
     @property
     def efi_dir(self):
