@@ -158,15 +158,20 @@ class DeviceData(DBusData):
         Attributes for DASD:
             bus-id
 
+        Attributes for FCoE:
+            path-id
+
         Attributes for iSCSI:
             port
             initiator
             lun
             target
+            path-id
 
         Attributes for NVDIMM:
             mode
             namespace
+            path-id
 
         Attributes for ZFCP:
             fcp-lun
