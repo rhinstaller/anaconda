@@ -29,7 +29,7 @@ from blivet.size import Size
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
 from pyanaconda.core import util
-from pyanaconda.bootloader import get_bootloader
+from pyanaconda.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName
 from pyanaconda.storage.fsset import FSSet
@@ -58,7 +58,7 @@ class InstallerStorage(Blivet):
     @property
     def bootloader(self):
         if self._bootloader is None:
-            self._bootloader = get_bootloader()
+            self._bootloader = BootLoaderFactory.create_boot_loader()
 
         return self._bootloader
 

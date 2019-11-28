@@ -16,83 +16,135 @@
 # Red Hat, Inc.
 #
 from pyanaconda.bootloader.base import BootLoaderError
-from pyanaconda.core.constants import BOOTLOADER_TYPE_EXTLINUX
-from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda import platform
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["get_bootloader", "get_bootloader_class", "BootLoaderError"]
+__all__ = ["BootLoaderError", "BootLoaderFactory"]
 
 
-def get_bootloader_class(platform_class=None):
-    """Get the bootloader class for the given platform.
+class BootLoaderFactory(object):
+    """The boot loader factory."""
 
-    We will use the current platform by default.
+    # The default boot loader class.
+    _default_class = None
 
-    :param platform_class: a type of a platform or None
-    :return: a type of a bootloader
-    """
-    # Get the type of the current platform.
-    if not platform_class:
-        platform_class = platform.platform.__class__
+    @classmethod
+    def create_boot_loader(cls):
+        """Create a boot loader.
 
-    # Get the type of the bootloader.
-    if platform_class is platform.X86:
-        from pyanaconda.bootloader.grub2 import GRUB2
-        return GRUB2
+        :return: an instance of a boot loader class
+        """
+        boot_loader_class = cls.get_class()
+        boot_loader_instance = boot_loader_class()
 
-    if platform_class is platform.EFI:
-        from pyanaconda.bootloader.efi import EFIGRUB
-        return EFIGRUB
+        log.info("Created the boot loader %s.", boot_loader_class.__name__)
+        return boot_loader_instance
 
-    if platform_class is platform.MacEFI:
-        from pyanaconda.bootloader.efi import MacEFIGRUB
-        return MacEFIGRUB
+    @classmethod
+    def get_class(cls):
+        """Get the boot loader class.
 
-    if platform_class is platform.PPC:
-        from pyanaconda.bootloader.grub2 import GRUB2
-        return GRUB2
+        :return: a boot loader class
+        """
+        return cls.get_default_class() \
+            or cls.get_class_by_platform() \
+            or cls.get_generic_class()
 
-    if platform_class is platform.IPSeriesPPC:
-        from pyanaconda.bootloader.grub2 import IPSeriesGRUB2
-        return IPSeriesGRUB2
+    @classmethod
+    def set_default_class(cls, default_class):
+        """Set the default boot loader class.
 
-    if platform_class is platform.PowerNV:
-        from pyanaconda.bootloader.grub2 import PowerNVGRUB2
-        return PowerNVGRUB2
+        :param default_class: a boot loader class or None
+        """
+        cls._default_class = default_class
 
-    if platform_class is platform.S390:
-        from pyanaconda.bootloader.zipl import ZIPL
-        return ZIPL
+    @classmethod
+    def get_default_class(cls):
+        """Get the default boot loader class.
 
-    if platform_class is platform.Aarch64EFI:
-        from pyanaconda.bootloader.efi import Aarch64EFIGRUB
-        return Aarch64EFIGRUB
+        :return: a boot loader class or None
+        """
+        return cls._default_class
 
-    if platform_class is platform.ARM:
-        from pyanaconda.bootloader.extlinux import EXTLINUX
-        return EXTLINUX
+    @classmethod
+    def get_generic_class(cls):
+        """Get the generic boot loader class.
 
-    if platform_class is platform.ArmEFI:
-        from pyanaconda.bootloader.efi import ArmEFIGRUB
-        return ArmEFIGRUB
+        :return: a boot loader class
+        """
+        from pyanaconda.bootloader.base import BootLoader
+        return BootLoader
 
-    from pyanaconda.bootloader.base import BootLoader
-    return BootLoader
+    @classmethod
+    def get_class_by_name(cls, name):
+        """Get the boot loader class for the given name.
 
+        Supported values:
+            EXTLINUX
 
-def get_bootloader():
-    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-    platform_name = platform.platform.__class__.__name__
+        :param name: a boot loader name or None
+        :return: a boot loader class or None
+        """
+        if name == "EXTLINUX":
+            from pyanaconda.bootloader.extlinux import EXTLINUX
+            return EXTLINUX
 
-    if bootloader_proxy.BootloaderType == BOOTLOADER_TYPE_EXTLINUX:
-        from pyanaconda.bootloader.extlinux import EXTLINUX
-        cls = EXTLINUX
-    else:
-        cls = get_bootloader_class()
+        return None
 
-    log.info("bootloader %s on %s platform", cls.__name__, platform_name)
-    return cls()
+    @classmethod
+    def get_class_by_platform(cls, platform_class=None):
+        """Get the boot loader class for the given platform.
+
+        We will use the current platform by default.
+
+        :param platform_class: a type of a platform or None
+        :return: a boot loader class or None
+        """
+        # Get the type of the current platform.
+        if not platform_class:
+            platform_class = platform.platform.__class__
+
+        # Get the type of the bootloader.
+        if platform_class is platform.X86:
+            from pyanaconda.bootloader.grub2 import GRUB2
+            return GRUB2
+
+        if platform_class is platform.EFI:
+            from pyanaconda.bootloader.efi import EFIGRUB
+            return EFIGRUB
+
+        if platform_class is platform.MacEFI:
+            from pyanaconda.bootloader.efi import MacEFIGRUB
+            return MacEFIGRUB
+
+        if platform_class is platform.PPC:
+            from pyanaconda.bootloader.grub2 import GRUB2
+            return GRUB2
+
+        if platform_class is platform.IPSeriesPPC:
+            from pyanaconda.bootloader.grub2 import IPSeriesGRUB2
+            return IPSeriesGRUB2
+
+        if platform_class is platform.PowerNV:
+            from pyanaconda.bootloader.grub2 import PowerNVGRUB2
+            return PowerNVGRUB2
+
+        if platform_class is platform.S390:
+            from pyanaconda.bootloader.zipl import ZIPL
+            return ZIPL
+
+        if platform_class is platform.Aarch64EFI:
+            from pyanaconda.bootloader.efi import Aarch64EFIGRUB
+            return Aarch64EFIGRUB
+
+        if platform_class is platform.ARM:
+            from pyanaconda.bootloader.extlinux import EXTLINUX
+            return EXTLINUX
+
+        if platform_class is platform.ArmEFI:
+            from pyanaconda.bootloader.efi import ArmEFIGRUB
+            return ArmEFIGRUB
+
+        return None
