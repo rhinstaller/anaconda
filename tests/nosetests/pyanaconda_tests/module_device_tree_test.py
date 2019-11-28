@@ -25,14 +25,14 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_ta
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
     LUKSDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
-from blivet.errors import StorageError
+from blivet.errors import StorageError, FSError
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.formats.luks import LUKS
 from blivet.size import Size
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.errors.storage import UnknownDeviceError
+from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
@@ -432,6 +432,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             self.interface.MountDevice("dev1", d)
             mount.assert_called_once_with(mountpoint=d)
 
+        mount.side_effect = FSError("Fake error.")
+        with self.assertRaises(MountFilesystemError) as cm:
+            self.interface.MountDevice("dev1", "/path")
+
+        self.assertEqual(
+            str(cm.exception), "Failed to mount dev1 at /path: Fake error."
+        )
+
     @patch.object(FS, "unmount")
     def unmount_device_test(self, unmount):
         """Test UnmountDevice."""
@@ -440,6 +448,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             self.interface.UnmountDevice("dev1", d)
             unmount.assert_called_once_with(mountpoint=d)
+
+        unmount.side_effect = FSError("Fake error.")
+        with self.assertRaises(MountFilesystemError) as cm:
+            self.interface.UnmountDevice("dev1", "/path")
+
+        self.assertEqual(
+            str(cm.exception), "Failed to unmount dev1 from /path: Fake error."
+        )
 
     def find_install_media_test(self):
         """Test FindInstallMedia."""

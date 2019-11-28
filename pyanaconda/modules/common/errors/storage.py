@@ -61,3 +61,9 @@ class UnknownDeviceError(AnacondaError):
 class ProtectedDeviceError(AnacondaError):
     """The device is protected."""
     pass
+
+
+@dbus_error("MountFilesystemError", namespace=STORAGE_NAMESPACE)
+class MountFilesystemError(AnacondaError):
+    """Failed to un/mount a filesystem."""
+    pass
