@@ -21,6 +21,8 @@ import logging
 import unittest
 from unittest.mock import patch, Mock
 
+from pyanaconda.bootloader import BootLoaderFactory
+from pyanaconda.bootloader.extlinux import EXTLINUX
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, \
     PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_CUSTOM
 from dasbus.server.container import DBusContainerError
@@ -33,7 +35,7 @@ from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
 from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
-    patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy
+    patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy, reset_boot_loader_factory
 
 from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.bootloader.zipl import ZIPL
@@ -528,8 +530,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    @patch("pyanaconda.modules.storage.bootloader.bootloader.get_bootloader_class")
-    def bootloader_partition_kickstart_test(self, getter):
+    @reset_boot_loader_factory()
+    def bootloader_partition_kickstart_test(self):
         """Test the bootloader command with the partition option."""
         ks_in = """
         bootloader --location=partition
@@ -538,10 +540,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # System bootloader configuration
         bootloader --location=partition
         """
-        getter.return_value = ZIPL
+        BootLoaderFactory.set_default_class(ZIPL)
         self._test_kickstart(ks_in, ks_out)
 
-        getter.return_value = IPSeriesGRUB2
+        BootLoaderFactory.set_default_class(IPSeriesGRUB2)
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
     def bootloader_append_kickstart_test(self):
@@ -566,8 +568,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    @patch("pyanaconda.modules.storage.bootloader.bootloader.get_bootloader_class")
-    def bootloader_encrypted_password_kickstart_test(self, getter):
+    @reset_boot_loader_factory()
+    def bootloader_encrypted_password_kickstart_test(self):
         """Test the bootloader command with the encrypted password option."""
         ks_in = """
         bootloader --password="12345" --iscrypted
@@ -576,14 +578,14 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # System bootloader configuration
         bootloader --location=mbr --password="12345" --iscrypted
         """
-        getter.return_value = ZIPL
+        BootLoaderFactory.set_default_class(ZIPL)
         self._test_kickstart(ks_in, ks_out)
 
-        getter.return_value = GRUB2
+        BootLoaderFactory.set_default_class(GRUB2)
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
-    @patch("pyanaconda.modules.storage.bootloader.bootloader.get_bootloader_class")
-    def bootloader_encrypted_grub2_kickstart_test(self, getter):
+    @reset_boot_loader_factory()
+    def bootloader_encrypted_grub2_kickstart_test(self):
         """Test the bootloader command with encrypted GRUB2."""
         ks_in = """
         bootloader --password="grub.pbkdf2.12345" --iscrypted
@@ -592,7 +594,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # System bootloader configuration
         bootloader --location=mbr --password="grub.pbkdf2.12345" --iscrypted
         """
-        getter.return_value = GRUB2
+        BootLoaderFactory.set_default_class(GRUB2)
         self._test_kickstart(ks_in, ks_out)
 
     def bootloader_driveorder_kickstart_test(self):
@@ -617,6 +619,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    @reset_boot_loader_factory()
     def bootloader_md5pass_kickstart_test(self):
         """Test the bootloader command with the md5pass option."""
         ks_in = """
@@ -650,6 +653,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    @reset_boot_loader_factory()
     def bootloader_extlinux_kickstart_test(self):
         """Test the bootloader command with the extlinux option."""
         ks_in = """
@@ -660,6 +664,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         bootloader --location=mbr --extlinux
         """
         self._test_kickstart(ks_in, ks_out)
+        self.assertEqual(BootLoaderFactory.get_default_class(), EXTLINUX)
 
     def bootloader_nombr_kickstart_test(self):
         """Test the bootloader command with the nombr option."""

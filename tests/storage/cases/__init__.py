@@ -137,13 +137,6 @@ class TestCaseComponent(object):
         """
         self._storage = InstallerStorage()
 
-        # blivet only sets up the bootloader in installer_mode.  We don't
-        # want installer_mode, though, because that involves running lots
-        # of programs on the host and setting up all sorts of other things.
-        # Thus, we set it up manually.
-        from pyanaconda.bootloader import get_bootloader
-        self._storage._bootloader = get_bootloader()
-
         for (name, size) in self.disksToCreate:
             self._disks[name] = blivet.util.create_sparse_tempfile(name, size)
             self._storage.disk_images[name] = self._disks[name]
@@ -291,10 +284,6 @@ class ReusingTestCaseComponent(TestCaseComponent):
 
     def setupDisks(self, ksdata):
         self._storage = InstallerStorage()
-
-        # See comment in super class's method.
-        from pyanaconda.bootloader import get_bootloader
-        self._storage._bootloader = get_bootloader()
 
         for component in self._reusedComponents:
             self._disks.update(component._disks)

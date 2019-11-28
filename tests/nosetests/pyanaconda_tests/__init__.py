@@ -21,6 +21,7 @@ from gi.repository import GLib
 
 import locale
 
+from contextlib import ContextDecorator
 from textwrap import dedent
 from unittest.mock import Mock, patch
 
@@ -230,3 +231,23 @@ def patch_dbus_get_proxy(func):
     This is a shortcut to avoid creating of DBus proxies using DBus.
     """
     return patch('pyanaconda.core.dbus.DBus.get_proxy')(func)
+
+
+class reset_boot_loader_factory(ContextDecorator):
+    """Reset the boot loader factory.
+
+    Use this decorator to reset the boot loader factory
+    for the unit tests that could modify it.
+    """
+    def __init__(self, default_type=None):
+        self._default_type = default_type
+
+    def __enter__(self):
+        from pyanaconda.bootloader import BootLoaderFactory
+        BootLoaderFactory.set_default_class(self._default_type)
+        return self
+
+    def __exit__(self, *exc):
+        from pyanaconda.bootloader import BootLoaderFactory
+        BootLoaderFactory.set_default_class(None)
+        return False

@@ -27,10 +27,10 @@ from blivet.size import Size
 
 from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_task_creation
+    check_task_creation, reset_boot_loader_factory
 
 from pyanaconda import platform
-from pyanaconda.bootloader import get_bootloader_class
+from pyanaconda.bootloader import BootLoaderFactory
 from pyanaconda.bootloader.base import BootLoader
 from pyanaconda.bootloader.efi import EFIGRUB, MacEFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
 from pyanaconda.bootloader.extlinux import EXTLINUX
@@ -40,8 +40,7 @@ from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.bootloader.image import LinuxBootLoaderImage
-from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_TYPE_EXTLINUX, \
-    BOOTLOADER_LOCATION_PARTITION
+from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
@@ -65,18 +64,15 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
+    def get_default_type_test(self):
+        """Test GetDefaultType."""
+        self.assertEqual(self.bootloader_interface.GetDefaultType(), "DEFAULT")
+
     def bootloader_mode_property_test(self):
         """Test the bootloader mode property."""
         self._test_dbus_property(
             "BootloaderMode",
             BOOTLOADER_SKIPPED
-        )
-
-    def bootloader_type_property_test(self):
-        """Test the bootloader type property."""
-        self._test_dbus_property(
-            "BootloaderType",
-            BOOTLOADER_TYPE_EXTLINUX
         )
 
     def preferred_location_property_test(self):
@@ -346,13 +342,46 @@ class BootloaderTasksTestCase(unittest.TestCase):
         execute.assert_called_once_with("zipl", [])
 
 
-class BootloaderClassTestCase(unittest.TestCase):
-    """Test the bootloader classes."""
+class BootLoaderFactoryTestCase(unittest.TestCase):
+    """Test the boot loader factory."""
 
-    def get_bootloader_class_test(self):
-        """Test get_bootloader_class."""
+    def create_boot_loader_test(self):
+        """Test create_boot_loader."""
+        boot_loader = BootLoaderFactory.create_boot_loader()
+        self.assertIsNotNone(boot_loader)
+        self.assertIsInstance(boot_loader, BootLoader)
 
-        bootloader_by_platform = {
+    def get_generic_class_test(self):
+        """Test get_generic_class."""
+        cls = BootLoaderFactory.get_generic_class()
+        self.assertEqual(cls, BootLoader)
+
+    @reset_boot_loader_factory()
+    def get_default_class_test(self):
+        """Test get_default_class."""
+        cls = BootLoaderFactory.get_default_class()
+        self.assertEqual(cls, None)
+
+        BootLoaderFactory.set_default_class(EXTLINUX)
+        cls = BootLoaderFactory.get_default_class()
+        self.assertEqual(cls, EXTLINUX)
+
+    def get_class_by_name_test(self):
+        """Test get_class_by_name."""
+        cls = BootLoaderFactory.get_class_by_name("EXTLINUX")
+        self.assertEqual(cls, EXTLINUX)
+
+        cls = BootLoaderFactory.get_class_by_name("DEFAULT")
+        self.assertEqual(cls, None)
+
+    def get_class_by_platform_test(self):
+        """Test get_class_by_platform."""
+        # Test unknown platform.
+        cls = BootLoaderFactory.get_class_by_platform(Mock())
+        self.assertEqual(cls, None)
+
+        # Test known platforms.
+        boot_loader_by_platform = {
             platform.X86: GRUB2,
             platform.EFI: EFIGRUB,
             platform.MacEFI: MacEFIGRUB,
@@ -362,15 +391,14 @@ class BootloaderClassTestCase(unittest.TestCase):
             platform.S390: ZIPL,
             platform.Aarch64EFI: Aarch64EFIGRUB,
             platform.ARM: EXTLINUX,
-            platform.ArmEFI: ArmEFIGRUB,
-            Mock(): BootLoader
+            platform.ArmEFI: ArmEFIGRUB
         }
 
-        for platform_type, bootloader_type in bootloader_by_platform.items():
-            # Get the bootloader class.
-            cls = get_bootloader_class(platform_type)
-            self.assertEqual(cls, bootloader_type)
+        for platform_type, boot_loader_class in boot_loader_by_platform.items():
+            # Get the boot loader class.
+            cls = BootLoaderFactory.get_class_by_platform(platform_type)
+            self.assertEqual(cls, boot_loader_class)
 
-            # Get the bootloader instance.
+            # Get the boot loader instance.
             obj = cls()
             self.assertIsInstance(obj, BootLoader)
