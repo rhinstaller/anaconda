@@ -489,7 +489,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             converted_vc_keymap=[],
             load_keymap_result=load_keymap_result,
             result_x_layouts=[],
-            result_vc_keymap=None,
+            result_vc_keymap="",
         )
 
     @patch("pyanaconda.modules.localization.runtime.LocaledWrapper")

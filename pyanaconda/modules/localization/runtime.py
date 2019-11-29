@@ -151,7 +151,7 @@ class ApplyKeyboardTask(Task):
             valid_keymap = try_to_load_keymap(vc_keymap)
             if not valid_keymap:
                 log.error("'%s' is not a valid VConsole keymap, not loading", vc_keymap)
-                vc_keymap = None
+                vc_keymap = ""
             else:
                 # activate VConsole keymap and get converted layout and variant
                 x_layouts_from_conversion = localed.set_and_convert_keymap(vc_keymap)
