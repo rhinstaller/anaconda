@@ -145,6 +145,7 @@ class ApplyKeyboardTask(Task):
         vc_keymap = self._vc_keymap
         x_layouts = self._x_layouts
         localed = LocaledWrapper()
+        x_layouts_from_conversion = None
 
         if vc_keymap:
             valid_keymap = try_to_load_keymap(vc_keymap)
@@ -153,12 +154,12 @@ class ApplyKeyboardTask(Task):
                 vc_keymap = None
             else:
                 # activate VConsole keymap and get converted layout and variant
-                c_lays_vars = localed.set_and_convert_keymap(vc_keymap)
+                x_layouts_from_conversion = localed.set_and_convert_keymap(vc_keymap)
 
         if not x_layouts:
-            if c_lays_vars:
+            if x_layouts_from_conversion:
                 # suggested by systemd-localed for a requested VConsole keymap
-                x_layouts += c_lays_vars
+                x_layouts += x_layouts_from_conversion
             elif vc_keymap:
                 # nothing suggested by systemd-localed, but we may try to use the
                 # same string for both VConsole keymap and X layout (will fail
@@ -167,8 +168,7 @@ class ApplyKeyboardTask(Task):
 
         if x_layouts:
             if not vc_keymap:
-                c_keymap = localed.set_and_convert_layouts(x_layouts)
-                vc_keymap = c_keymap
+                vc_keymap = localed.set_and_convert_layouts(x_layouts)
 
             localed.set_layouts(x_layouts, self._switch_options)
 
