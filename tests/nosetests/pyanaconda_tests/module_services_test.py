@@ -22,7 +22,7 @@ import tempfile
 import unittest
 from textwrap import dedent
 
-from mock import patch
+from unittest.mock import patch
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface, \
     PropertiesChangedCallback
