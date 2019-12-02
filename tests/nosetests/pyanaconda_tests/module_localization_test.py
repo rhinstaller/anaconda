@@ -20,7 +20,7 @@
 import os
 import tempfile
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, call
 
 from textwrap import dedent
 
@@ -32,7 +32,8 @@ from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.errors.installation import KeyboardInstallationError
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
-    KeyboardInstallationTask, write_vc_configuration, VC_CONF_FILE_PATH
+    KeyboardInstallationTask, write_vc_configuration, VC_CONF_FILE_PATH, write_x_configuration, \
+    X_CONF_DIR, X_CONF_FILE_NAME
 from pyanaconda.modules.localization.localization import LocalizationService
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.runtime import GetMissingKeyboardConfigurationTask, \
@@ -657,3 +658,102 @@ class LocalizationTasksTestCase(unittest.TestCase):
                     f.read(),
                     'KEYMAP="{}"\nFONT="{}"\n'.format(vc_keymap, DEFAULT_VC_FONT)
                 )
+
+    def write_x_configuration_test(self):
+        """Test write_x_configuration_test."""
+        localed_wrapper = Mock()
+        runtime_x_layouts = ["us (euro)"]
+        runtime_options = []
+        configured_x_layouts = ["cz (qwerty)"]
+        configured_options = ["grp:alt_shift_toggle"]
+        localed_wrapper.layouts_variants = runtime_x_layouts
+        localed_wrapper.options = runtime_options
+
+        def create_config(conf_dir):
+            conf_file_path = os.path.join(conf_dir, X_CONF_FILE_NAME)
+            if not os.path.exists(conf_file_path):
+                os.mknod(conf_file_path)
+
+        with tempfile.TemporaryDirectory() as mocked_root:
+            root = os.path.join(mocked_root, "mnt/sysimage")
+            os.makedirs(root)
+            x_conf_dir_path = os.path.normpath(mocked_root + "/" + X_CONF_DIR)
+            localed_wrapper.set_layouts.side_effect = lambda x, y: create_config(x_conf_dir_path)
+            write_x_configuration(
+                localed_wrapper,
+                configured_x_layouts,
+                configured_options,
+                x_conf_dir_path,
+                root
+            )
+            localed_wrapper.set_layouts.assert_has_calls([
+                call(configured_x_layouts, configured_options),
+                call(runtime_x_layouts, runtime_options),
+            ])
+
+    @patch("pyanaconda.modules.localization.installation.write_x_configuration")
+    @patch("pyanaconda.modules.localization.installation.write_vc_configuration")
+    @patch("pyanaconda.modules.localization.installation.LocaledWrapper")
+    def keyboard_installation_task_test(self, mocked_localed_class, write_vc_mock, write_x_mock):
+        localed = Mock()
+        mocked_localed_class.return_value = localed
+        sysroot = "/mnt/sysimage"
+        x_layouts = ["cz (qwerty)"]
+        switch_options = ["grp:alt_shift_toggle"]
+        vc_keymap = "us"
+
+        task = KeyboardInstallationTask(
+            sysroot=sysroot,
+            x_layouts=x_layouts,
+            switch_options=switch_options,
+            vc_keymap=vc_keymap
+        )
+        task.run()
+        write_x_mock.assert_called_once_with(
+            localed,
+            x_layouts,
+            switch_options,
+            X_CONF_DIR,
+            sysroot
+        )
+        write_vc_mock.assert_called_once_with(
+            vc_keymap,
+            sysroot
+        )
+
+        x_layouts = ["cz (qwerty)"]
+        vc_keymap = ""
+        write_x_mock.reset_mock()
+        write_vc_mock.reset_mock()
+        task = KeyboardInstallationTask(
+            sysroot=sysroot,
+            x_layouts=x_layouts,
+            switch_options=switch_options,
+            vc_keymap=vc_keymap
+        )
+        task.run()
+        write_x_mock.assert_called_once_with(
+            localed,
+            x_layouts,
+            switch_options,
+            X_CONF_DIR,
+            sysroot
+        )
+        write_vc_mock.assert_not_called()
+
+        x_layouts = []
+        vc_keymap = "us"
+        write_x_mock.reset_mock()
+        write_vc_mock.reset_mock()
+        task = KeyboardInstallationTask(
+            sysroot=sysroot,
+            x_layouts=x_layouts,
+            switch_options=switch_options,
+            vc_keymap=vc_keymap
+        )
+        task.run()
+        write_x_mock.assert_not_called()
+        write_vc_mock.assert_called_once_with(
+            vc_keymap,
+            sysroot
+        )

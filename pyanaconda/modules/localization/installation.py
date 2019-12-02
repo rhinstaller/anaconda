@@ -21,8 +21,7 @@ import shutil
 from pyanaconda.modules.common.errors.installation import LanguageInstallationError, \
     KeyboardInstallationError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.core.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
-from pyanaconda.keyboard import InvalidLayoutVariantSpec
+from pyanaconda.core.constants import DEFAULT_VC_FONT
 from pyanaconda.modules.localization.localed import LocaledWrapper
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -99,9 +98,12 @@ class KeyboardInstallationTask(Task):
 
     def run(self):
         if self._x_layouts:
+            localed_wrapper = LocaledWrapper()
             write_x_configuration(
+                localed_wrapper,
                 self._x_layouts,
                 self._switch_options,
+                X_CONF_DIR,
                 self._sysroot
             )
         if self._vc_keymap:
@@ -111,67 +113,59 @@ class KeyboardInstallationTask(Task):
             )
 
 
-def write_x_configuration(x_layouts, switch_options, root):
+def write_x_configuration(localed_wrapper, x_layouts, switch_options, x_conf_dir_path, root):
     """Write X keyboard layout configuration to the configuration files.
 
-    FIXME: only root != '/' branch is actually used
-    :param x_layouts: list of x layout specifications
+    :param localed_wrapper: instance of systemd-localed service wrapper
+    :type localed_wrapper: LocaledWrapper
+    :param x_layouts: list of X layout specifications
     :type x_layouts: list(str)
     :param switch_options: list of options for layout switching
     :type switch_options: list(str)
+    :param x_conf_dir_path: path to directory holding X Layouts configuration
+    :type x_conf_dir_path: str
     :param root: root path of the configured system
     :type root: str
     """
 
-    localed_wrapper = LocaledWrapper()
-    xconf_file_path = os.path.normpath(X_CONF_DIR + "/" + X_CONF_FILE_NAME)
     errors = []
-
     try:
-        if not os.path.isdir(X_CONF_DIR):
-            os.makedirs(X_CONF_DIR)
+        if not os.path.isdir(x_conf_dir_path):
+            os.makedirs(x_conf_dir_path)
     except OSError:
-        errors.append("Cannot create directory {}".format(X_CONF_DIR))
+        # Non-fatal, systemd-localed may create the directory on its own.
+        log.debug("Cannot create X Layouts configuration directory %s", x_conf_dir_path)
 
     if root != "/":
-        # writing to a different root, we need to save these values, so that
-        # we can restore them when we have the file written out
-        layouts_variants = localed_wrapper.layouts_variants
-        options = localed_wrapper.options
+        # Writing to a different root, we need to save these values, so that
+        # we can restore them when we have the file written out.
+        saved_layouts_variants = localed_wrapper.layouts_variants
+        saved_options = localed_wrapper.options
 
-        # set systemd-localed's layouts, variants and switch options, which
-        # also generates a new conf file
-        localed_wrapper.set_layouts(x_layouts, switch_options)
+    # Set systemd-localed's layouts, variants and switch options, which
+    # also generates a new conf file.
+    localed_wrapper.set_layouts(x_layouts, switch_options)
 
-        # make sure the right directory exists under the given root
-        rooted_xconf_dir = os.path.normpath(root + "/" + X_CONF_DIR)
+    if root != "/":
+        # Make sure the target directory exists under the given root.
+        rooted_xconf_dir = os.path.normpath(root + "/" + x_conf_dir_path)
         try:
             if not os.path.isdir(rooted_xconf_dir):
                 os.makedirs(rooted_xconf_dir)
         except OSError:
             errors.append("Cannot create directory {}".format(rooted_xconf_dir))
 
-        # copy the file to the chroot
+        # Copy the file to the chroot.
+        xconf_file_path = os.path.normpath(x_conf_dir_path + "/" + X_CONF_FILE_NAME)
+        rooted_xconf_file_path = os.path.normpath(root + "/" + xconf_file_path)
         try:
-            shutil.copy2(xconf_file_path, os.path.normpath(root + "/" + xconf_file_path))
+            shutil.copy2(xconf_file_path, rooted_xconf_file_path)
         except IOError as ioerr:
-            log.debug("Cannot copy X layouts configuration %s file to target system: %s.",
+            log.error("Cannot copy X layouts configuration file %s to target system: %s.",
                       xconf_file_path, ioerr.strerror)
 
-        # restore the original values
-        localed_wrapper.set_layouts(layouts_variants, options)
-    else:
-        try:
-            # just let systemd-localed write out the conf file
-            localed_wrapper.set_layouts(x_layouts, switch_options)
-        except InvalidLayoutVariantSpec as ilvs:
-            # some weird value appeared as a requested X layout
-            log.error("Failed to write out config file: %s, using default %s",
-                      ilvs, DEFAULT_KEYBOARD)
-
-            # try default
-            x_layouts = [DEFAULT_KEYBOARD]
-            localed_wrapper.set_layouts(x_layouts, switch_options)
+        # Restore the original values.
+        localed_wrapper.set_layouts(saved_layouts_variants, saved_options)
 
     if errors:
         raise KeyboardInstallationError("\n".join(errors))
