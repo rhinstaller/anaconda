@@ -40,13 +40,13 @@ class StorageInterface(KickstartModuleInterface):
             "AppliedPartitioning", self.implementation.applied_partitioning_changed
         )
 
-    def ResetWithTask(self) -> ObjPath:
-        """Reset the storage model.
+    def ScanDevicesWithTask(self) -> ObjPath:
+        """Scan all devices with a task.
 
         :return: a path to a task
         """
         return TaskContainer.to_object_path(
-            self.implementation.reset_with_task()
+            self.implementation.scan_devices_with_task()
         )
 
     @emits_properties_changed
@@ -88,17 +88,32 @@ class StorageInterface(KickstartModuleInterface):
         )
 
     @property
-    def AppliedPartitioning(self) -> ObjPath:
+    def AppliedPartitioning(self) -> Str:
         """The applied partitioning.
+
+        An empty string is not a valid object path, so
+        the return type has to be a string in this case.
 
         :return: a DBus path or an empty string
         """
         partitioning = self.implementation.applied_partitioning
 
         if not partitioning:
-            return ObjPath("")
+            return ""
 
         return PartitioningContainer.to_object_path(partitioning)
+
+    @emits_properties_changed
+    def ResetPartitioning(self):
+        """Reset the scheduled partitioning.
+
+        Reset the applied partitioning and reset the storage models of all
+        partitioning modules to the latest model of the system’s storage
+        configuration.
+
+        This method will not rescan the system.
+        """
+        self.implementation.reset_partitioning()
 
     def WriteConfigurationWithTask(self) -> ObjPath:
         """Write the storage configuration with a task.

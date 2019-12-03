@@ -139,7 +139,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             self.bootloader_interface.IsEFI()
 
         storage = Mock()
-        self.bootloader_module.on_storage_reset(storage)
+        self.bootloader_module.on_storage_changed(storage)
 
         storage.bootloader = GRUB2()
         self.assertEqual(self.bootloader_interface.IsEFI(), False)
@@ -153,7 +153,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             self.bootloader_interface.GetArguments()
 
         storage = Mock()
-        self.bootloader_module.on_storage_reset(storage)
+        self.bootloader_module.on_storage_changed(storage)
 
         storage.bootloader = GRUB2()
         storage.bootloader.boot_args.update(["x=1", "y=2"])
@@ -170,7 +170,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         storage = Mock()
         storage.devices = [device]
 
-        self.bootloader_module.on_storage_reset(storage)
+        self.bootloader_module.on_storage_changed(storage)
 
         storage.bootloader.has_windows.return_value = False
         self.assertEqual(self.bootloader_interface.DetectWindows(), False)
@@ -184,7 +184,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         storage = Mock()
         version = "4.17.7-200.fc28.x86_64"
 
-        self.bootloader_module.on_storage_reset(storage)
+        self.bootloader_module.on_storage_changed(storage)
         task_path = self.bootloader_interface.ConfigureWithTask([version])
 
         obj = check_task_creation(self, task_path, publisher, ConfigureBootloaderTask)
@@ -197,7 +197,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         """Test InstallWithTask."""
         storage = Mock()
 
-        self.bootloader_module.on_storage_reset(storage)
+        self.bootloader_module.on_storage_changed(storage)
         task_path = self.bootloader_interface.InstallWithTask()
 
         obj = check_task_creation(self, task_path, publisher, InstallBootloaderTask)
@@ -210,7 +210,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         storage = Mock()
         version = "4.17.7-200.fc28.x86_64"
 
-        self.bootloader_module.on_storage_reset(storage)
+        self.bootloader_module.on_storage_changed(storage)
         task_path = self.bootloader_interface.FixBTRFSWithTask([version])
 
         obj = check_task_creation(self, task_path, publisher, FixBTRFSBootloaderTask)
@@ -222,7 +222,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         """Test FixZIPLWithTask."""
         storage = Mock()
 
-        self.bootloader_module.on_storage_reset(storage)
+        self.bootloader_module.on_storage_changed(storage)
         task_path = self.bootloader_interface.FixZIPLWithTask()
 
         obj = check_task_creation(self, task_path, publisher, FixZIPLBootloaderTask)

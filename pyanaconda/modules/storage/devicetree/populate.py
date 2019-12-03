@@ -35,7 +35,7 @@ class FindDevicesTask(Task):
 
     @property
     def name(self):
-        return "Find devices"
+        return "Find new devices"
 
     def run(self):
         """Run the task."""

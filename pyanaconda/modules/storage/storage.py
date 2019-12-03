@@ -41,7 +41,7 @@ from pyanaconda.modules.storage.nvdimm import NVDIMMModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.factory import PartitioningFactory
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.modules.storage.reset import StorageResetTask
+from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
@@ -61,9 +61,9 @@ class StorageService(KickstartService):
         enable_installer_mode()
 
         # The storage model.
-        self._storage = None
+        self._current_storage = None
+        self._storage_playground = None
         self.storage_changed = Signal()
-        self.storage_reset = Signal()
 
         # The created partitioning modules.
         self._created_partitioning = []
@@ -72,6 +72,7 @@ class StorageService(KickstartService):
         # The applied partitioning module.
         self._applied_partitioning = None
         self.applied_partitioning_changed = Signal()
+        self.partitioning_reset = Signal()
 
         # Initialize modules.
         self._modules = []
@@ -111,7 +112,7 @@ class StorageService(KickstartService):
             self._add_module(self._dasd_module)
 
             self.storage_changed.connect(
-                self._dasd_module.on_storage_reset
+                self._dasd_module.on_storage_changed
             )
             self._disk_init_module.format_unrecognized_enabled_changed.connect(
                 self._dasd_module.on_format_unrecognized_enabled_changed
@@ -136,19 +137,19 @@ class StorageService(KickstartService):
 
         # Connect modules to signals.
         self.storage_changed.connect(
-            self._device_tree_module.on_storage_reset
+            self._device_tree_module.on_storage_changed
         )
         self.storage_changed.connect(
-            self._disk_init_module.on_storage_reset
+            self._disk_init_module.on_storage_changed
         )
         self.storage_changed.connect(
-            self._disk_selection_module.on_storage_reset
+            self._disk_selection_module.on_storage_changed
         )
         self.storage_changed.connect(
-            self._snapshot_module.on_storage_reset
+            self._snapshot_module.on_storage_changed
         )
         self.storage_changed.connect(
-            self._bootloader_module.on_storage_reset
+            self._bootloader_module.on_storage_changed
         )
         self._disk_selection_module.protected_devices_changed.connect(
             self.on_protected_devices_changed
@@ -211,30 +212,57 @@ class StorageService(KickstartService):
 
         :return: an instance of Blivet
         """
-        if not self._storage:
-            self.set_storage(create_storage())
+        if self._storage_playground:
+            return self._storage_playground
 
-        return self._storage
+        if not self._current_storage:
+            self._set_storage(create_storage())
 
-    def set_storage(self, storage, reset=False):
-        """Set the storage model."""
-        self._storage = storage
+        return self._current_storage
+
+    def _set_storage(self, storage):
+        """Set the current storage model.
+
+        The current storage is the latest model of
+        the system’s storage configuration created
+        by scanning all devices.
+
+        :param storage: a storage
+        """
+        self._current_storage = storage
+
+        if self._storage_playground:
+            return
+
         self.storage_changed.emit(storage)
+        log.debug("The storage model has changed.")
 
-        if reset:
-            self.storage_reset.emit(storage)
+    def _set_storage_playground(self, storage):
+        """Set the storage playground.
 
+        The storage playground is a model of a valid
+        partitioned storage configuration, that can be
+        used for an installation.
+
+        :param storage: a storage or None
+        """
+        self._storage_playground = storage
+
+        if storage is None:
+            storage = self.storage
+
+        self.storage_changed.emit(storage)
         log.debug("The storage model has changed.")
 
     def on_protected_devices_changed(self, protected_devices):
         """Update the protected devices in the storage model."""
-        if not self._storage:
+        if not self._current_storage:
             return
 
         self.storage.protect_devices(protected_devices)
 
-    def reset_with_task(self):
-        """Reset the storage model.
+    def scan_devices_with_task(self):
+        """Scan all devices with a task.
 
         We will reset a copy of the current storage model
         and switch the models if the reset is successful.
@@ -251,8 +279,8 @@ class StorageService(KickstartService):
         storage.disk_images = self._disk_selection_module.disk_images
 
         # Create the task.
-        task = StorageResetTask(storage)
-        task.succeeded_signal.connect(lambda: self.set_storage(storage, reset=True))
+        task = ScanDevicesTask(storage)
+        task.succeeded_signal.connect(lambda: self._set_storage(storage))
         return task
 
     def create_partitioning(self, method: PartitioningMethod):
@@ -271,16 +299,19 @@ class StorageService(KickstartService):
         module = PartitioningFactory.create_partitioning(method)
 
         # Update the module.
-        module.on_storage_reset(
-            self._storage
+        module.on_storage_changed(
+            self._current_storage
         )
         module.on_selected_disks_changed(
             self._disk_selection_module.selected_disks
         )
 
         # Connect the callbacks to signals.
-        self.storage_reset.connect(
-            module.on_storage_reset
+        self.storage_changed.connect(
+            module.on_storage_changed
+        )
+        self.partitioning_reset.connect(
+            module.on_partitioning_reset
         )
         self._disk_selection_module.selected_disks_changed.connect(
             module.on_selected_disks_changed
@@ -308,7 +339,7 @@ class StorageService(KickstartService):
         :raise: InvalidStorageError of the partitioning is not valid
         """
         # Validate the partitioning.
-        storage = module.storage
+        storage = module.storage.copy()
         task = StorageValidateTask(storage)
         report = task.run()
 
@@ -316,7 +347,7 @@ class StorageService(KickstartService):
             raise InvalidStorageError(" ".join(report.error_messages))
 
         # Apply the partitioning.
-        self.set_storage(storage.copy())
+        self._set_storage_playground(storage)
         self._set_applied_partitioning(module)
 
     @property
@@ -325,10 +356,23 @@ class StorageService(KickstartService):
         return self._applied_partitioning
 
     def _set_applied_partitioning(self, module):
-        """Set the applied partitioning."""
+        """Set the applied partitioning.
+
+        :param module: a partitioning module or None
+        """
         self._applied_partitioning = module
         self.applied_partitioning_changed.emit()
-        log.debug("Applied the partitioning %s.", module)
+
+        if module is None:
+            module = "NONE"
+
+        log.debug("The partitioning %s is applied.", module)
+
+    def reset_partitioning(self):
+        """Reset the partitioning."""
+        self._set_storage_playground(None)
+        self._set_applied_partitioning(None)
+        self.partitioning_reset.emit()
 
     def collect_requirements(self):
         """Return installation requirements for this module.

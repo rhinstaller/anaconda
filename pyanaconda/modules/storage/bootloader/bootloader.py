@@ -92,7 +92,7 @@ class BootloaderModule(KickstartBaseModule):
 
         return self._current_storage
 
-    def on_storage_reset(self, storage):
+    def on_storage_changed(self, storage):
         """Keep the instance of the current storage."""
         self._current_storage = storage
 

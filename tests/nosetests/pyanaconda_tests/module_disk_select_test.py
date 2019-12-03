@@ -59,7 +59,7 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
     def validate_selected_disks_test(self):
         """Test ValidateSelectedDisks."""
         storage = create_storage()
-        self.disk_selection_module.on_storage_reset(storage)
+        self.disk_selection_module.on_storage_changed(storage)
 
         dev1 = DiskDevice(
             "dev1",
@@ -160,5 +160,5 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(UnavailableStorageError):
             self.disk_selection_interface.GetUsableDisks()
 
-        self.disk_selection_module.on_storage_reset(create_storage())
+        self.disk_selection_module.on_storage_changed(create_storage())
         self.assertEqual(self.disk_selection_interface.GetUsableDisks(), [])

@@ -64,7 +64,7 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(UnavailableStorageError):
             self.interface.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)
 
-        self.module.on_storage_reset(Mock())
+        self.module.on_storage_changed(Mock())
         task_path = self.interface.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)
 
         obj = check_task_creation(self, task_path, publisher, SnapshotCreateTask)

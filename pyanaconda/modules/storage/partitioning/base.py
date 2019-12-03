@@ -68,9 +68,12 @@ class PartitioningModule(KickstartBaseModule, Publishable):
 
         return self._storage_playground
 
-    def on_storage_reset(self, storage):
-        """Keep the instance of the current storage."""
+    def on_storage_changed(self, storage):
+        """Update the current storage."""
         self._current_storage = storage
+
+    def on_partitioning_reset(self):
+        """Drop the storage playground."""
         self._storage_playground = None
 
     def on_selected_disks_changed(self, selection):
@@ -86,7 +89,7 @@ class PartitioningModule(KickstartBaseModule, Publishable):
 
         if not module:
             module = DeviceTreeModule()
-            module.on_storage_reset(self.storage)
+            module.on_storage_changed(self.storage)
             self._device_tree_module = module
 
         return module

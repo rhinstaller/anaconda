@@ -51,7 +51,7 @@ class DeviceTreeModule(KickstartBaseModule, DeviceTreeViewer, DeviceTreeHandler,
 
         return self._storage
 
-    def on_storage_reset(self, storage):
+    def on_storage_changed(self, storage):
         """Keep the instance of the current storage."""
         self._storage = storage
 

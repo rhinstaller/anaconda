@@ -25,11 +25,14 @@ from blivet.zfcp import zfcp
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 
+__all__ = ["ScanDevicesTask"]
 
-class StorageResetTask(Task):
-    """A task for resetting the model of the storage.
+
+class ScanDevicesTask(Task):
+    """A task for scanning all devices.
 
     Scan the system’s storage configuration and store it in the tree.
+    This task will reset the given instance of Blivet.
     """
 
     def __init__(self, storage):
@@ -42,7 +45,7 @@ class StorageResetTask(Task):
 
     @property
     def name(self):
-        return "Reset the model of the storage"
+        return "Scan all devices"
 
     def run(self):
         """Run the task."""

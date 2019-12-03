@@ -76,7 +76,7 @@ class DASDModule(KickstartBaseModule):
         """
         return list(map(self._get_device, names))
 
-    def on_storage_reset(self, storage):
+    def on_storage_changed(self, storage):
         """Keep the instance of the current storage."""
         self._storage = storage
 
