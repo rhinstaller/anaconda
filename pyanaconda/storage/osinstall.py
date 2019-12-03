@@ -25,6 +25,7 @@ import os
 from blivet.blivet import Blivet
 from blivet.devices import BTRFSSubVolumeDevice
 from blivet.formats import get_format
+from blivet.formats.disklabel import DiskLabel
 from blivet.size import Size
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
@@ -171,6 +172,9 @@ class InstallerStorage(Blivet):
         if disks is None:
             disks = self.disks
 
+        # Get a list of disks with supported disk labels.
+        disks = self._skip_unsupported_disk_labels(disks)
+
         # Get the dictionary of free spaces for each disk.
         snapshot = self.get_free_space(disks)
 
@@ -190,11 +194,31 @@ class InstallerStorage(Blivet):
         if disks is None:
             disks = self.disks
 
+        # Get a list of disks with supported disk labels.
+        disks = self._skip_unsupported_disk_labels(disks)
+
         # Get the dictionary of free spaces for each disk.
         snapshot = self.get_free_space(disks)
 
         # Calculate the total reclaimable free space.
         return sum((fs_free for disk_free, fs_free in snapshot.values()), Size(0))
+
+    def _skip_unsupported_disk_labels(self, disks):
+        """Get a list of disks with supported disk labels.
+
+        Skip disks with disk labels that are not supported
+        on this platform.
+
+        :param disks: a list of disks
+        :return: a list of disks with supported disk labels
+        """
+        label_types = set(DiskLabel.get_platform_label_types())
+
+        def is_supported(disk):
+            return disk.format.type == "disklabel" \
+                and disk.format.label_type in label_types
+
+        return list(filter(is_supported, disks))
 
     def reset(self, cleanup_only=False):
         """ Reset storage configuration to reflect actual system state.
