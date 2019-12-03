@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.3 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -13,6 +13,9 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox5">
         <property name="can_focus">False</property>
@@ -214,9 +217,6 @@
       <action-widget response="0">need_space_cancel_button</action-widget>
       <action-widget response="3">need_space_reclaim_button</action-widget>
     </action-widgets>
-    <child>
-      <placeholder/>
-    </child>
     <child internal-child="accessible">
       <object class="AtkObject" id="need_space_dialog-atkobject">
         <property name="AtkObject::accessible-name" translatable="yes">Need Space</property>
@@ -231,6 +231,9 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox7">
         <property name="can_focus">False</property>
@@ -430,9 +433,6 @@
       <action-widget response="4">no_space_quit_button</action-widget>
       <action-widget response="0">no_space_cancel_button</action-widget>
     </action-widgets>
-    <child>
-      <placeholder/>
-    </child>
     <child internal-child="accessible">
       <object class="AtkObject" id="no_space_dialog-atkobject">
         <property name="AtkObject::accessible-name" translatable="yes">No Space</property>
@@ -766,16 +766,13 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkGrid" id="other_options_grid">
+                              <object class="GtkBox" id="other_options_box">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="margin_left">18</property>
-                                <property name="margin_right">18</property>
-                                <property name="vexpand">False</property>
-                                <property name="row_spacing">3</property>
-                                <property name="column_spacing">12</property>
+                                <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="GtkLabel" id="label10">
+                                  <object class="GtkLabel" id="label1">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Storage Configuration</property>
@@ -786,26 +783,26 @@
                                     </attributes>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">0</property>
-                                    <property name="width">3</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkBox" id="partitioningTypeBox">
+                                  <object class="GtkBox" id="box3">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="homogeneous">True</property>
+                                    <property name="spacing">6</property>
                                     <child>
-                                      <object class="GtkRadioButton" id="autopartRadioButton">
-                                        <property name="label" translatable="yes" context="GUI|Storage">A_utomatic</property>
+                                      <object class="GtkRadioButton" id="customRadioButton">
+                                        <property name="label" translatable="yes" context="GUI|Storage">_Custom</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
+                                        <property name="halign">start</property>
                                         <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="active">True</property>
                                         <property name="draw_indicator">True</property>
+                                        <property name="group">autopartRadioButton</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -814,17 +811,14 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkRadioButton" id="customRadioButton">
-                                        <property name="label" translatable="yes" context="GUI|Storage">_Custom</property>
+                                      <object class="GtkLabel" id="label12">
                                         <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="active">True</property>
-                                        <property name="draw_indicator">True</property>
-                                        <property name="group">autopartRadioButton</property>
-                                        <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes" context="GUI|Storage">You'll define settings next.</property>
+                                        <attributes>
+                                          <attribute name="style" value="italic"/>
+                                          <attribute name="foreground" value="#88888a8a8585"/>
+                                        </attributes>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -832,76 +826,52 @@
                                         <property name="position">1</property>
                                       </packing>
                                     </child>
-                                    <child>
-                                      <object class="GtkRadioButton" id="blivetguiRadioButton">
-                                        <property name="label" translatable="yes" context="GUI|Storage">Advanced Custom (_Blivet-GUI)</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="active">True</property>
-                                        <property name="draw_indicator">True</property>
-                                        <property name="group">autopartRadioButton</property>
-                                        <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">2</property>
-                                      </packing>
-                                    </child>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">1</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkRevealer" id="reclaim_checkbox_revealer">
+                                  <object class="GtkRadioButton" id="autopartRadioButton">
+                                    <property name="label" translatable="yes" context="GUI|Storage">A_utomatic</property>
                                     <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="transition_type">crossfade</property>
-                                    <property name="reveal_child">True</property>
-                                    <child>
-                                      <object class="GtkCheckButton" id="reclaimCheckbox">
-                                        <property name="label" translatable="yes" context="GUI|Storage">I would like to _make additional space available.</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="draw_indicator">True</property>
-                                      </object>
-                                    </child>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="active">True</property>
+                                    <property name="draw_indicator">True</property>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">2</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkRevealer" id="encryption_revealer">
+                                  <object class="GtkRevealer" id="auto_revealer">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="transition_type">crossfade</property>
+                                    <property name="transition_type">none</property>
                                     <property name="reveal_child">True</property>
                                     <child>
-                                      <object class="GtkBox" id="encryptionBox">
+                                      <object class="GtkBox">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="orientation">vertical</property>
-                                        <property name="spacing">3</property>
                                         <child>
-                                          <object class="GtkLabel" id="label11">
+                                          <object class="GtkCheckButton" id="reclaimCheckbox">
+                                            <property name="label" translatable="yes" context="GUI|Storage">I would like to _make additional space available.</property>
                                             <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="margin_top">3</property>
-                                            <property name="label" translatable="yes">Encryption</property>
-                                            <property name="xalign">0</property>
-                                            <attributes>
-                                              <attribute name="weight" value="bold"/>
-                                            </attributes>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="halign">start</property>
+                                            <property name="margin_left">16</property>
+                                            <property name="margin_top">4</property>
+                                            <property name="use_underline">True</property>
+                                            <property name="draw_indicator">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -910,27 +880,21 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkBox" id="box1">
+                                          <object class="GtkBox" id="box2">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="spacing">6</property>
                                             <child>
                                               <object class="GtkCheckButton" id="encryptionCheckbox">
+                                                <property name="label" translatable="yes" context="GUI|Storage">_Encrypt my data</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">True</property>
                                                 <property name="receives_default">False</property>
-                                                <property name="margin_top">3</property>
+                                                <property name="halign">start</property>
+                                                <property name="margin_left">16</property>
+                                                <property name="margin_top">4</property>
                                                 <property name="use_underline">True</property>
-                                                <property name="xalign">0</property>
                                                 <property name="draw_indicator">True</property>
-                                                <child>
-                                                  <object class="GtkLabel" id="label13">
-                                                    <property name="visible">True</property>
-                                                    <property name="can_focus">False</property>
-                                                    <property name="label" translatable="yes" context="GUI|Storage">_Encrypt my data.</property>
-                                                    <property name="use_underline">True</property>
-                                                  </object>
-                                                </child>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -939,7 +903,7 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkLabel" id="label3">
+                                              <object class="GtkLabel" id="label9">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="margin_top">3</property>
@@ -955,9 +919,6 @@
                                                 <property name="position">1</property>
                                               </packing>
                                             </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -969,32 +930,10 @@
                                     </child>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">3</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">3</property>
                                   </packing>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child internal-child="accessible">
-                                  <object class="AtkObject" id="other_options_grid-atkobject">
-                                    <property name="AtkObject::accessible-name" translatable="yes">Storage Options</property>
-                                  </object>
                                 </child>
                               </object>
                               <packing>
