@@ -223,6 +223,10 @@ class StorageService(KickstartService):
     def _set_storage(self, storage):
         """Set the current storage model.
 
+        The current storage is the latest model of
+        the system’s storage configuration created
+        by scanning all devices.
+
         :param storage: a storage
         """
         self._current_storage = storage
@@ -235,6 +239,10 @@ class StorageService(KickstartService):
 
     def _set_storage_playground(self, storage):
         """Set the storage playground.
+
+        The storage playground is a model of a valid
+        partitioned storage configuration, that can be
+        used for an installation.
 
         :param storage: a storage or None
         """
