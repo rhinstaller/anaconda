@@ -448,9 +448,6 @@ if __name__ == "__main__":
     from pyanaconda.modules.common.constants.objects import BOOTLOADER
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
-    if opts.extlinux:
-        bootloader_proxy.SetBootloaderType(constants.BOOTLOADER_TYPE_EXTLINUX)
-
     if opts.leavebootorder:
         bootloader_proxy.SetKeepBootOrder(True)
 

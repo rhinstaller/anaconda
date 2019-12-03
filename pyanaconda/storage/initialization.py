@@ -26,6 +26,7 @@ from blivet.flags import flags as blivet_flags
 from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_logging import program_log_lock
+from pyanaconda.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET, STORAGE_SWAP_IS_RECOMMENDED
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
@@ -112,6 +113,12 @@ def set_storage_defaults_from_kickstart(storage):
 
     if "swap" in request.excluded_mount_points:
         storage_checker.set_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)
+
+    # Set up the bootloader.
+    boot_loader_proxy = STORAGE.get_proxy(BOOTLOADER)
+    default_type = boot_loader_proxy.GetDefaultType()
+    default_class = BootLoaderFactory.get_class_by_name(default_type)
+    BootLoaderFactory.set_default_class(default_class)
 
 
 def load_plugin_s390():

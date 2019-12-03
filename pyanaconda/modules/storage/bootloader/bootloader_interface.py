@@ -23,7 +23,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.storage.constants import BootloaderMode, BootloaderType
+from pyanaconda.modules.storage.constants import BootloaderMode
 
 
 @dbus_interface(BOOTLOADER.interface_name)
@@ -34,7 +34,6 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """Connect the signals."""
         super().connect_signals()
         self.watch_property("BootloaderMode", self.implementation.bootloader_mode_changed)
-        self.watch_property("BootloaderType", self.implementation.bootloader_type_changed)
         self.watch_property("PreferredLocation", self.implementation.preferred_location_changed)
         self.watch_property("Drive", self.implementation.drive_changed)
         self.watch_property("DriveOrder", self.implementation.drive_order_changed)
@@ -43,6 +42,15 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("ExtraArguments", self.implementation.extra_arguments_changed)
         self.watch_property("Timeout", self.implementation.timeout_changed)
         self.watch_property("IsPasswordSet", self.implementation.password_is_set_changed)
+
+    def GetDefaultType(self) -> Str:
+        """Get the default type of the boot loader.
+
+        FIXME: This is a temporary workaround for UI.
+
+        :return: a name of a boot loader type
+        """
+        return self.implementation.get_default_type().value
 
     @property
     def BootloaderMode(self) -> Int:
@@ -67,26 +75,6 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         :param mode: a number of the mode
         """
         self.implementation.set_bootloader_mode(BootloaderMode(mode))
-
-    @property
-    def BootloaderType(self) -> Str:
-        """The type of the bootloader."""
-        return self.implementation.bootloader_type.value
-
-    @emits_properties_changed
-    def SetBootloaderType(self, bootloader_type: Str):
-        """Set the type of the bootloader.
-
-        Supported types:
-            DEFAULT   Use the default bootloader.
-            EXTLINUX  Use the extlinux bootloader.
-
-        The EXTLINUX option only works on machines that are supported
-        by extlinux.
-
-        :param bootloader_type: a string with a type
-        """
-        self.implementation.set_bootloader_type(BootloaderType(bootloader_type))
 
     @property
     def PreferredLocation(self) -> Str:

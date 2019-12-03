@@ -20,10 +20,11 @@
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.bootloader import get_bootloader_class
+from pyanaconda.bootloader import BootLoaderFactory
 from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.configuration.bootloader import BootloaderType
 from pyanaconda.core.constants import BOOTLOADER_LOCATION_DEFAULT, BOOTLOADER_TIMEOUT_UNSET, \
     BOOTLOADER_LOCATION_MBR, BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.core.i18n import _
@@ -36,7 +37,7 @@ from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
     InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask
-from pyanaconda.modules.storage.constants import BootloaderMode, BootloaderType
+from pyanaconda.modules.storage.constants import BootloaderMode
 
 log = get_module_logger(__name__)
 
@@ -52,8 +53,8 @@ class BootloaderModule(KickstartBaseModule):
         self.bootloader_mode_changed = Signal()
         self._bootloader_mode = BootloaderMode.ENABLED
 
-        self.bootloader_type_changed = Signal()
-        self._bootloader_type = BootloaderType.DEFAULT
+        self._default_type = BootloaderType.DEFAULT
+        self.set_default_type(conf.bootloader.type)
 
         self.preferred_location_changed = Signal()
         self._preferred_location = BOOTLOADER_LOCATION_DEFAULT
@@ -121,7 +122,7 @@ class BootloaderModule(KickstartBaseModule):
             self.set_preferred_location(BOOTLOADER_LOCATION_PARTITION)
 
         if data.bootloader.extlinux:
-            self.set_bootloader_type(BootloaderType.EXTLINUX)
+            self.set_default_type(BootloaderType.EXTLINUX)
 
         if data.bootloader.bootDrive:
             self.set_drive(data.bootloader.bootDrive)
@@ -150,11 +151,8 @@ class BootloaderModule(KickstartBaseModule):
 
         :raise: KickstartParseError if not valid
         """
-        # Skip other types of the bootloader.
-        if self.bootloader_type is not BootloaderType.DEFAULT:
-            return
-
-        if not issubclass(get_bootloader_class(), GRUB2):
+        # Skip other types of the boot loader.
+        if not issubclass(BootLoaderFactory.get_class(), GRUB2):
             return
 
         # Check the location support.
@@ -171,8 +169,7 @@ class BootloaderModule(KickstartBaseModule):
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-
-        if self.bootloader_type == BootloaderType.EXTLINUX:
+        if self.get_default_type() == BootloaderType.EXTLINUX:
             data.bootloader.extlinux = True
 
         if self.bootloader_mode == BootloaderMode.DISABLED:
@@ -221,19 +218,27 @@ class BootloaderModule(KickstartBaseModule):
         self.bootloader_mode_changed.emit()
         log.debug("Bootloader mode is set to '%s'.", mode)
 
-    @property
-    def bootloader_type(self):
-        """The type of the bootloader."""
-        return self._bootloader_type
+    def get_default_type(self):
+        """Get the default type of the boot loader.
 
-    def set_bootloader_type(self, bootloader_type):
-        """Set the type of the bootloader.
+        FIXME: This is a temporary workaround for UI.
 
-        :param bootloader_type: an instance of BootloaderType
+        :return: an instance of BootloaderType
         """
-        self._bootloader_type = bootloader_type
-        self.bootloader_type_changed.emit()
-        log.debug("Bootloader type is set to '%s'.", bootloader_type)
+        return self._default_type
+
+    def set_default_type(self, default_type):
+        """Set the default type of the boot loader.
+
+        :param default_type: an instance of BootloaderType
+        """
+        # Set up the bootloader factory.
+        cls = BootLoaderFactory.get_class_by_name(default_type.value)
+        BootLoaderFactory.set_default_class(cls)
+
+        # Set up the property.
+        self._default_type = default_type
+        log.debug("The default type is set to '%s'.", default_type)
 
     @property
     def preferred_location(self):
