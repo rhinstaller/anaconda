@@ -49,6 +49,7 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
 
         :param device_name: a name of the device
         :param mount_point: a path to the mount point
+        :raise: MountFilesystemError if mount fails
         """
         self.implementation.mount_device(device_name, mount_point)
 
@@ -57,6 +58,7 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
 
         :param device_name: a name of the device
         :param mount_point: a path to the mount point
+        :raise: MountFilesystemError if unmount fails
         """
         self.implementation.unmount_device(device_name, mount_point)
 

@@ -19,8 +19,9 @@
 #
 from abc import abstractmethod, ABC
 
+from blivet.errors import FSError
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.errors.storage import UnknownDeviceError
+from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
     MountExistingSystemTask
@@ -75,18 +76,36 @@ class DeviceTreeHandler(ABC):
 
         :param device_name: a name of the device
         :param mount_point: a path to the mount point
+        :raise: MountFilesystemError if mount fails
         """
         device = self._get_device(device_name)
-        device.format.mount(mountpoint=mount_point)
+        try:
+            device.format.mount(mountpoint=mount_point)
+        except FSError as e:
+            msg = "Failed to mount {} at {}: {}". format(
+                device_name,
+                mount_point,
+                str(e)
+            )
+            raise MountFilesystemError(msg) from None
 
     def unmount_device(self, device_name, mount_point):
         """Unmount a filesystem on the device.
 
         :param device_name: a name of the device
         :param mount_point: a path to the mount point
+        :raise: MountFilesystemError if unmount fails
         """
         device = self._get_device(device_name)
-        device.format.unmount(mountpoint=mount_point)
+        try:
+            device.format.unmount(mountpoint=mount_point)
+        except FSError as e:
+            msg = "Failed to unmount {} from {}: {}". format(
+                device_name,
+                mount_point,
+                str(e)
+            )
+            raise MountFilesystemError(msg) from None
 
     def unlock_device(self, device_name, passphrase):
         """Unlock a device.
