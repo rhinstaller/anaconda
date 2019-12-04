@@ -170,6 +170,20 @@ class AutoPartitioningModule(PartitioningModule):
         request.passphrase = passphrase
         self.set_request(request)
 
+    def _get_device(self, name):
+        """Find a device by its name.
+
+        :param name: a name of the device
+        :return: an instance of the Blivet's device
+        :raise: UnknownDeviceError if no device is found
+        """
+        device = self.storage.devicetree.get_device_by_name(name, hidden=True)
+
+        if not device:
+            raise UnknownDeviceError(name)
+
+        return device
+
     def remove_device(self, device_name):
         """Remove a device after removing its dependent devices.
 
@@ -178,10 +192,7 @@ class AutoPartitioningModule(PartitioningModule):
 
         :param device_name: a name of the device
         """
-        device = self.storage.devicetree.get_device_by_name(device_name)
-
-        if not device:
-            raise UnknownDeviceError(device_name)
+        device = self._get_device(device_name)
 
         if device.protected:
             raise ProtectedDeviceError(device_name)
@@ -206,10 +217,7 @@ class AutoPartitioningModule(PartitioningModule):
         :param size: a new size in bytes
         """
         size = Size(size)
-        device = self.storage.devicetree.get_device_by_name(device_name)
-
-        if not device:
-            raise UnknownDeviceError(device_name)
+        device = self._get_device(device_name)
 
         if device.protected:
             raise ProtectedDeviceError(device_name)
@@ -223,6 +231,15 @@ class AutoPartitioningModule(PartitioningModule):
         log.debug("Shrinking a size of %s to %s.", device_name, size)
         aligned_size = device.align_target_size(size)
         self.storage.resize_device(device, aligned_size)
+
+    def get_device_size_limits(self, device_name):
+        """Get size limits of the given device.
+
+        :param device_name: a name of the device
+        :return: a tuple of min and max sizes in bytes
+        """
+        device = self._get_device(device_name)
+        return device.min_size.get_bytes(), device.max_size.get_bytes()
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""

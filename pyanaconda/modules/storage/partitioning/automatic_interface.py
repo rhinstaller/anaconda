@@ -93,3 +93,11 @@ class AutoPartitioningInterface(PartitioningInterface):
         :param size: a new size in bytes
         """
         self.implementation.shrink_device(device_name, size)
+
+    def GetDeviceSizeLimits(self, device_name: Str) -> Tuple[UInt64, UInt64]:
+        """Get size limits of the given device.
+
+        :param device_name: a name of the device
+        :return: a tuple of min and max sizes in bytes
+        """
+        return self.implementation.get_device_size_limits(device_name)

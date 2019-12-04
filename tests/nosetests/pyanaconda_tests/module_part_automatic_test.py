@@ -53,6 +53,15 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.module = AutoPartitioningModule()
         self.interface = AutoPartitioningInterface(self.module)
 
+    @property
+    def storage(self):
+        """Get the storage object."""
+        return self.module.storage
+
+    def _add_device(self, device):
+        """Add a device to the device tree."""
+        self.storage.devicetree._add_device(device)
+
     def _test_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,
@@ -216,6 +225,19 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
         self.interface.ShrinkDevice("sda1", Size("5 GiB").get_bytes())
         self.assertEqual(sda1.size, Size("3 GiB"))
+
+    def get_device_size_limits_test(self):
+        """Test GetDeviceSizeLimits."""
+        self.module.on_storage_changed(create_storage())
+        self._add_device(StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 MiB")
+        ))
+
+        min_size, max_size = self.interface.GetDeviceSizeLimits("dev1")
+        self.assertEqual(min_size, 0)
+        self.assertEqual(max_size, 0)
 
     @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
