@@ -35,6 +35,7 @@ from pyanaconda.modules.localization.installation import LanguageInstallationTas
     KeyboardInstallationTask, write_vc_configuration, VC_CONF_FILE_PATH, write_x_configuration, \
     X_CONF_DIR, X_CONF_FILE_NAME
 from pyanaconda.modules.localization.localization import LocalizationService
+from pyanaconda.modules.localization.localed import get_missing_keyboard_configuration
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.runtime import GetMissingKeyboardConfigurationTask, \
     ApplyKeyboardTask, AssignGenericKeyboardSettingTask, try_to_load_keymap
@@ -493,33 +494,45 @@ class LocalizationTasksTestCase(unittest.TestCase):
             result_vc_keymap="",
         )
 
+    @patch("pyanaconda.modules.localization.runtime.get_missing_keyboard_configuration")
     @patch("pyanaconda.modules.localization.runtime.LocaledWrapper")
     def _get_missing_keyboard_configuration_task_test(self,
-                                                      mocked_localed_class,
-                                                      x_layouts,
-                                                      converted_x_layouts,
-                                                      vc_keymap,
-                                                      converted_vc_keymap,
-                                                      result_x_layouts,
-                                                      result_vc_keymap):
-        localed = Mock()
-        mocked_localed_class.return_value = localed
+                                                      mocked_localed_wrapper_class,
+                                                      get_missing_mock):
+        x_layouts_result = "[cz (qwerty)]"
+        vc_keymap_result = "cz-qwerty"
+        get_missing_mock.return_value = (x_layouts_result, vc_keymap_result)
 
+        task = GetMissingKeyboardConfigurationTask(
+            x_layouts="[cz (qwerty)]",
+            vc_keymap="",
+        )
+        result = task.run()
+        self.assertEqual(result, (x_layouts_result, vc_keymap_result))
+
+    def _get_missing_keyboard_configuration_test(self,
+                                                 x_layouts,
+                                                 converted_x_layouts,
+                                                 vc_keymap,
+                                                 converted_vc_keymap,
+                                                 result_x_layouts,
+                                                 result_vc_keymap):
+        localed = Mock()
         localed.convert_keymap.return_value = converted_vc_keymap
         localed.convert_layouts.return_value = converted_x_layouts
 
-        task = GetMissingKeyboardConfigurationTask(
-            x_layouts=x_layouts,
-            vc_keymap=vc_keymap,
+        result = get_missing_keyboard_configuration(
+            localed,
+            x_layouts,
+            vc_keymap
         )
-        result = task.run()
         self.assertEqual(result, (result_x_layouts, result_vc_keymap))
 
-    def get_missing_keyboard_configuration_task_test(self):
-        """Test the GetMissingKayboardConfigurationTask."""
+    def get_missing_keyboard_configuration_test(self):
+        """Test the get_missing_keyboard_configuration."""
         # No value available
         # pylint: disable=no-value-for-parameter
-        self._get_missing_keyboard_configuration_task_test(
+        self._get_missing_keyboard_configuration_test(
             x_layouts=[],
             converted_x_layouts="",
             vc_keymap="",
@@ -528,7 +541,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             result_vc_keymap=DEFAULT_KEYBOARD,
         )
         # Both values available
-        self._get_missing_keyboard_configuration_task_test(
+        self._get_missing_keyboard_configuration_test(
             x_layouts=["cz (qwerty)"],
             converted_x_layouts="cz-qwerty",
             vc_keymap="us",
@@ -537,7 +550,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             result_vc_keymap="us",
         )
         # Only X laylouts available
-        self._get_missing_keyboard_configuration_task_test(
+        self._get_missing_keyboard_configuration_test(
             x_layouts=["cz (qwerty)"],
             converted_x_layouts="cz-qwerty",
             vc_keymap="",
@@ -546,7 +559,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             result_vc_keymap="cz-qwerty",
         )
         # Only virtual console keymap available
-        self._get_missing_keyboard_configuration_task_test(
+        self._get_missing_keyboard_configuration_test(
             x_layouts=[],
             converted_x_layouts="",
             vc_keymap="us",
@@ -691,10 +704,12 @@ class LocalizationTasksTestCase(unittest.TestCase):
                 call(runtime_x_layouts, runtime_options),
             ])
 
+    @patch("pyanaconda.modules.localization.installation.get_missing_keyboard_configuration")
     @patch("pyanaconda.modules.localization.installation.write_x_configuration")
     @patch("pyanaconda.modules.localization.installation.write_vc_configuration")
     @patch("pyanaconda.modules.localization.installation.LocaledWrapper")
-    def keyboard_installation_task_test(self, mocked_localed_class, write_vc_mock, write_x_mock):
+    def keyboard_installation_task_test(self, mocked_localed_class, write_vc_mock, write_x_mock,
+                                        get_missing_mock):
         localed = Mock()
         mocked_localed_class.return_value = localed
         sysroot = "/mnt/sysimage"
@@ -709,6 +724,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             vc_keymap=vc_keymap
         )
         task.run()
+        get_missing_mock.assert_not_called()
         write_x_mock.assert_called_once_with(
             localed,
             x_layouts,
@@ -723,8 +739,11 @@ class LocalizationTasksTestCase(unittest.TestCase):
 
         x_layouts = ["cz (qwerty)"]
         vc_keymap = ""
+        vc_keymap_from_conversion = "cz-qwerty"
         write_x_mock.reset_mock()
         write_vc_mock.reset_mock()
+        get_missing_mock.reset_mock()
+        get_missing_mock.return_value = (x_layouts, vc_keymap_from_conversion)
         task = KeyboardInstallationTask(
             sysroot=sysroot,
             x_layouts=x_layouts,
@@ -732,6 +751,11 @@ class LocalizationTasksTestCase(unittest.TestCase):
             vc_keymap=vc_keymap
         )
         task.run()
+        get_missing_mock.assert_called_once_with(
+            localed,
+            x_layouts,
+            vc_keymap
+        )
         write_x_mock.assert_called_once_with(
             localed,
             x_layouts,
@@ -739,12 +763,18 @@ class LocalizationTasksTestCase(unittest.TestCase):
             X_CONF_DIR,
             sysroot
         )
-        write_vc_mock.assert_not_called()
+        write_vc_mock.assert_called_once_with(
+            vc_keymap_from_conversion,
+            sysroot
+        )
 
         x_layouts = []
+        x_layouts_from_conversion = ["us"]
         vc_keymap = "us"
         write_x_mock.reset_mock()
         write_vc_mock.reset_mock()
+        get_missing_mock.reset_mock()
+        get_missing_mock.return_value = (x_layouts_from_conversion, vc_keymap)
         task = KeyboardInstallationTask(
             sysroot=sysroot,
             x_layouts=x_layouts,
@@ -752,8 +782,51 @@ class LocalizationTasksTestCase(unittest.TestCase):
             vc_keymap=vc_keymap
         )
         task.run()
-        write_x_mock.assert_not_called()
+        get_missing_mock.assert_called_once_with(
+            localed,
+            x_layouts,
+            vc_keymap
+        )
+        write_x_mock.assert_called_once_with(
+            localed,
+            x_layouts_from_conversion,
+            switch_options,
+            X_CONF_DIR,
+            sysroot
+        )
         write_vc_mock.assert_called_once_with(
             vc_keymap,
+            sysroot
+        )
+
+        x_layouts = []
+        vc_keymap = ""
+        vc_keymap_default = DEFAULT_KEYBOARD
+        x_layouts_from_conversion = [DEFAULT_KEYBOARD]
+        write_x_mock.reset_mock()
+        write_vc_mock.reset_mock()
+        get_missing_mock.reset_mock()
+        get_missing_mock.return_value = (x_layouts_from_conversion, vc_keymap_default)
+        task = KeyboardInstallationTask(
+            sysroot=sysroot,
+            x_layouts=x_layouts,
+            switch_options=switch_options,
+            vc_keymap=vc_keymap
+        )
+        task.run()
+        get_missing_mock.assert_called_once_with(
+            localed,
+            x_layouts,
+            vc_keymap
+        )
+        write_x_mock.assert_called_once_with(
+            localed,
+            x_layouts_from_conversion,
+            switch_options,
+            X_CONF_DIR,
+            sysroot
+        )
+        write_vc_mock.assert_called_once_with(
+            vc_keymap_default,
             sysroot
         )

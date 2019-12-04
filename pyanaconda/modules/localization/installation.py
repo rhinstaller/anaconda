@@ -22,7 +22,8 @@ from pyanaconda.modules.common.errors.installation import LanguageInstallationEr
     KeyboardInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.core.constants import DEFAULT_VC_FONT
-from pyanaconda.modules.localization.localed import LocaledWrapper
+from pyanaconda.modules.localization.localed import LocaledWrapper, \
+    get_missing_keyboard_configuration
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -97,18 +98,29 @@ class KeyboardInstallationTask(Task):
         return "Configure keyboard"
 
     def run(self):
-        if self._x_layouts:
-            localed_wrapper = LocaledWrapper()
-            write_x_configuration(
+        localed_wrapper = LocaledWrapper()
+
+        x_layouts = self._x_layouts
+        vc_keymap = self._vc_keymap
+
+        if not self._x_layouts or not self._vc_keymap:
+            x_layouts, vc_keymap = get_missing_keyboard_configuration(
                 localed_wrapper,
                 self._x_layouts,
+                self._vc_keymap
+            )
+
+        if x_layouts:
+            write_x_configuration(
+                localed_wrapper,
+                x_layouts,
                 self._switch_options,
                 X_CONF_DIR,
                 self._sysroot
             )
-        if self._vc_keymap:
+        if vc_keymap:
             write_vc_configuration(
-                self._vc_keymap,
+                vc_keymap,
                 self._sysroot
             )
 
