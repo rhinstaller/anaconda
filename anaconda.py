@@ -473,15 +473,11 @@ if __name__ == "__main__":
     from pyanaconda.modules.common.constants.services import LOCALIZATION
     localization_proxy = LOCALIZATION.get_proxy()
 
-    configured = any((localization_proxy.Keyboard,
-                      localization_proxy.VirtualConsoleKeymap,
-                      localization_proxy.XLayouts))
-
-    if opts.keymap and not configured:
+    if opts.keymap and not localization_proxy.KeyboardKickstarted:
         localization_proxy.SetKeyboard(opts.keymap)
-        configured = True
+        localization_proxy.SetKeyboardKickstarted(True)
 
-    if configured:
+    if localization_proxy.KeyboardKickstarted:
         if conf.system.can_activate_keyboard:
             keyboard.activate_keyboard(localization_proxy)
         else:

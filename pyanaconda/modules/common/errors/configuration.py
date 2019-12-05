@@ -43,3 +43,9 @@ class StorageConfigurationError(ConfigurationError):
 class BootloaderConfigurationError(ConfigurationError):
     """Exception for bootloader configuration errors."""
     pass
+
+
+@dbus_error("KeyboardConfigurationError", namespace=ANACONDA_NAMESPACE)
+class KeyboardConfigurationError(ConfigurationError):
+    """Exception for keyboard configuration errors."""
+    pass

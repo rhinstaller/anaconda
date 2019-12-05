@@ -100,15 +100,17 @@ def _prepare_configuration(storage, payload, ksdata):
     services_dbus_tasks = services_proxy.InstallWithTasks()
     os_config.append_dbus_tasks(SERVICES, services_dbus_tasks)
 
-    os_config.append(Task("Configure keyboard", ksdata.keyboard.execute))
-
     # add installation tasks for the Timezone DBus module
     timezone_proxy = TIMEZONE.get_proxy()
     timezone_dbus_tasks = timezone_proxy.InstallWithTasks()
     os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
 
-    # add installation tasks for the Localization DBus module
+    # get missing keyboard values
     localization_proxy = LOCALIZATION.get_proxy()
+    convert_task = localization_proxy.PopulateMissingKeyboardConfigurationWithTask()
+    os_config.append_dbus_tasks(LOCALIZATION, [convert_task])
+
+    # add installation tasks for the Localization DBus module
     localization_dbus_tasks = localization_proxy.InstallWithTasks()
     os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
 

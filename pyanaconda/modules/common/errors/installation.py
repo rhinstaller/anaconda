@@ -39,6 +39,12 @@ class LanguageInstallationError(InstallationError):
     pass
 
 
+@dbus_error("KeyboardInstallationError", namespace=ANACONDA_NAMESPACE)
+class KeyboardInstallationError(InstallationError):
+    """Exception for the keyboard installation errors."""
+    pass
+
+
 @dbus_error("NetworkInstallationError", namespace=ANACONDA_NAMESPACE)
 class NetworkInstallationError(InstallationError):
     """Exception for the network installation errors."""
