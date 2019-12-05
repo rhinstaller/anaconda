@@ -94,6 +94,22 @@ class AutoPartitioningInterface(PartitioningInterface):
         """
         self.implementation.shrink_device(device_name, size)
 
+    def IsDevicePartitioned(self, device_name: Str) -> Bool:
+        """Is the specified device partitioned?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        return self.implementation.is_device_partitioned(device_name)
+
+    def GetDevicePartitions(self, device_name: Str) -> List[Str]:
+        """Get partitions of the specified device.
+
+        :param device_name: a name of the device
+        :return: a list of device names
+        """
+        return self.implementation.get_device_partitions(device_name)
+
     def GetDeviceSizeLimits(self, device_name: Str) -> Tuple[UInt64, UInt64]:
         """Get size limits of the given device.
 

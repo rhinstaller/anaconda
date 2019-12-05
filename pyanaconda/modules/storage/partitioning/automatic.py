@@ -19,6 +19,7 @@
 #
 import copy
 
+from blivet.devices import PartitionDevice
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -231,6 +232,36 @@ class AutoPartitioningModule(PartitioningModule):
         log.debug("Shrinking a size of %s to %s.", device_name, size)
         aligned_size = device.align_target_size(size)
         self.storage.resize_device(device, aligned_size)
+
+    def is_device_partitioned(self, device_name):
+        """Is the specified device partitioned?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        device = self._get_device(device_name)
+        return self._is_device_partitioned(device)
+
+    def _is_device_partitioned(self, device):
+        """Is the specified device partitioned?"""
+        return device.is_disk and device.partitioned and device.format.supported
+
+    def get_device_partitions(self, device_name):
+        """Get partitions of the specified device.
+
+        :param device_name: a name of the device
+        :return: a list of device names
+        """
+        device = self._get_device(device_name)
+
+        if not self._is_device_partitioned(device):
+            return []
+
+        return [
+            d.name for d in device.children
+            if isinstance(d, PartitionDevice)
+            and not (d.is_extended and d.format.logical_partitions)
+        ]
 
     def get_device_size_limits(self, device_name):
         """Get size limits of the given device.

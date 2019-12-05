@@ -20,7 +20,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from blivet.devices import StorageDevice
+from blivet.devices import StorageDevice, DiskDevice, PartitionDevice
 from blivet.formats import get_format
 from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.size import Size
@@ -225,6 +225,44 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
         self.interface.ShrinkDevice("sda1", Size("5 GiB").get_bytes())
         self.assertEqual(sda1.size, Size("3 GiB"))
+
+    def is_device_partitioned_test(self):
+        """Test IsDevicePartitioned."""
+        self.module.on_storage_changed(create_storage())
+        self._add_device(DiskDevice(
+            "dev1"
+        ))
+        self._add_device(DiskDevice(
+            "dev2",
+            fmt=get_format("disklabel")
+        ))
+
+        self.assertEqual(self.interface.IsDevicePartitioned("dev1"), False)
+        self.assertEqual(self.interface.IsDevicePartitioned("dev2"), True)
+
+    def get_device_partitions_test(self):
+        """Test GetDevicePartitions."""
+        self.module.on_storage_changed(create_storage())
+        dev1 = DiskDevice(
+            "dev1"
+        )
+        self._add_device(dev1)
+
+        dev2 = DiskDevice(
+            "dev2",
+            fmt=get_format("disklabel")
+        )
+        self._add_device(dev2)
+
+        dev3 = PartitionDevice(
+            "dev3"
+        )
+        dev2.add_child(dev3)
+        self._add_device(dev3)
+
+        self.assertEqual(self.interface.GetDevicePartitions("dev1"), [])
+        self.assertEqual(self.interface.GetDevicePartitions("dev2"), ["dev3"])
+        self.assertEqual(self.interface.GetDevicePartitions("dev3"), [])
 
     def get_device_size_limits_test(self):
         """Test GetDeviceSizeLimits."""
