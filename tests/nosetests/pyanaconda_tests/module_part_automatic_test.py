@@ -264,6 +264,14 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.GetDevicePartitions("dev2"), ["dev3"])
         self.assertEqual(self.interface.GetDevicePartitions("dev3"), [])
 
+    def is_device_resizable_test(self):
+        """Test IsDeviceResizable."""
+        self.module.on_storage_changed(create_storage())
+        self._add_device(StorageDevice(
+            "dev1"
+        ))
+        self.assertEqual(self.interface.IsDeviceResizable("dev1"), False)
+
     def get_device_size_limits_test(self):
         """Test GetDeviceSizeLimits."""
         self.module.on_storage_changed(create_storage())

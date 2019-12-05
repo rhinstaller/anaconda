@@ -263,6 +263,15 @@ class AutoPartitioningModule(PartitioningModule):
             and not (d.is_extended and d.format.logical_partitions)
         ]
 
+    def is_device_resizable(self, device_name):
+        """Is the specified device resizable?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        device = self._get_device(device_name)
+        return device.resizable
+
     def get_device_size_limits(self, device_name):
         """Get size limits of the given device.
 
