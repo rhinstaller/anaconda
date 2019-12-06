@@ -39,7 +39,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.subscription_interface.KickstartCommands, ["syspurpose"])
+        self.assertEqual(self.subscription_interface.KickstartCommands, ["syspurpose", "rhsm"])
         self.assertEqual(self.subscription_interface.KickstartSections, [])
         self.assertEqual(self.subscription_interface.KickstartAddons, [])
         self.callback.assert_not_called()
