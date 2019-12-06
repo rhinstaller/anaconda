@@ -15,8 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda import safe_dbus
-from pyanaconda.core.glib import GError, Variant
+from pyanaconda.core.dbus import SystemBus
+from pyanaconda.modules.common.constants.services import LOCALED
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.keyboard import join_layout_variant, parse_layout_variant
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
@@ -30,208 +30,167 @@ LOCALED_IFACE = "org.freedesktop.locale1"
 
 
 class LocaledWrapper(object):
-    """
-    Class wrapping systemd-localed daemon functionality. By using safe_dbus
-    module it tries to prevent failures related to threads and main loops.
-    """
+    """Class wrapping systemd-localed daemon functionality."""
 
     def __init__(self):
-        try:
-            self._connection = safe_dbus.get_new_system_connection()
-        except GError as e:
-            if conf.system.provides_system_bus:
-                raise
+        self._localed_proxy = None
 
-            log.error("Failed to get safe_dbus connection: %s", e)
-            self._connection = None
+        if not conf.system.provides_system_bus:
+            log.debug("Not using localed service: "
+                      "system does not provide system bus according to configuration.")
+            return
+
+        if not SystemBus.check_connection():
+            log.debug("Not using localed service: "
+                      "system bus connection check failed.")
+            return
+
+        self._localed_proxy = LOCALED.get_proxy()
 
     @property
     def keymap(self):
-        try:
-            keymap = safe_dbus.get_property_sync(LOCALED_SERVICE,
-                                                 LOCALED_OBJECT_PATH,
-                                                 LOCALED_IFACE,
-                                                 "VConsoleKeymap",
-                                                 self._connection)
-        except (safe_dbus.DBusPropertyError, safe_dbus.DBusCallError):
-            # no value for the property
-            log.error("Failed to get the value for the systemd-localed's "
-                      "VConsoleKeymap property")
+        """Get current VConsole keymap.
+
+        :return: VConsole keymap specification
+        :rtype: string
+        """
+        if not self._localed_proxy:
             return ""
 
-        # returned GVariant is unpacked to a tuple with a single element
-        return keymap[0]
+        return self._localed_proxy.VConsoleKeymap
 
     @property
     def layouts_variants(self):
-        try:
-            layouts = safe_dbus.get_property_sync(LOCALED_SERVICE,
-                                                  LOCALED_OBJECT_PATH,
-                                                  LOCALED_IFACE,
-                                                  "X11Layout",
-                                                  self._connection)
-        except (safe_dbus.DBusPropertyError, safe_dbus.DBusCallError):
-            # no value for the property
-            log.error("Failed to get the value for the systemd-localed's "
-                      "X11Layout property")
+        """Get current X11 layouts with variants.
+
+        :return: a list of "layout (variant)" or "layout" layout specifications
+        :rtype: list(str)
+        """
+        if not self._localed_proxy:
             return []
 
-        try:
-            variants = safe_dbus.get_property_sync(LOCALED_SERVICE,
-                                                   LOCALED_OBJECT_PATH,
-                                                   LOCALED_IFACE,
-                                                   "X11Variant",
-                                                   self._connection)
-        except (safe_dbus.DBusPropertyError, safe_dbus.DBusCallError):
-            # no value for the property
-            log.error("Failed to get the value for the systemd-localed's "
-                      "X11Variant property")
-            variants = []
+        layouts = self._localed_proxy.X11Layout
+        variants = self._localed_proxy.X11Variant
 
-        # returned GVariants are unpacked to tuples with single elements
-        # containing comma-separated values
-        layouts_str = layouts[0]
-        if layouts_str:
-            layouts = layouts_str.split(",")
-        else:
-            layouts = []
-
-        if variants:
-            variants_str = variants[0]
-            if variants_str:
-                variants = variants_str.split(",")
-            else:
-                variants = []
+        layouts = layouts.split(",") if layouts else []
+        variants = variants.split(",") if variants else []
 
         # if there are more layouts than variants, empty strings should be appended
         diff = len(layouts) - len(variants)
         variants.extend(diff * [""])
+
         return [join_layout_variant(layout, variant) for layout, variant in zip(layouts, variants)]
 
     @property
     def options(self):
-        try:
-            options = safe_dbus.get_property_sync(LOCALED_SERVICE,
-                                                  LOCALED_OBJECT_PATH,
-                                                  LOCALED_IFACE,
-                                                  "X11Options",
-                                                  self._connection)
-        except (safe_dbus.DBusPropertyError, safe_dbus.DBusCallError):
-            # no value for the property
-            log.error("Failed to get the value for the systemd-localed's "
-                      "X11Options property")
-            return ""
+        """Get current X11 options.
 
-        # returned GVariant is unpacked to a tuple with options
-        return options
+        :return: a list of X11 options
+        :rtype: list(str)
+        """
+        if not self._localed_proxy:
+            return []
+
+        options = self._localed_proxy.X11Options
+
+        return options.split(",") if options else []
 
     def set_keymap(self, keymap, convert=False):
-        """
-        Method that sets VConsole keymap via systemd-localed's DBus API.
+        """Set current VConsole keymap.
 
         :param keymap: VConsole keymap that should be set
         :type keymap: str
-        :param convert: whether the keymap should be converted to a X11 layout
-                        (see set_and_convert_keymap)
+        :param convert: whether the keymap should be converted and set as X11 layout
         :type convert: bool
         """
+        if not self._localed_proxy:
+            return ""
 
-        # args: keymap, keymap_toggle, convert, user_interaction
-        # where convert indicates whether the keymap should be converted
-        # to X11 layout and user_interaction indicates whether PolicyKit
-        # should ask for credentials or not
-        args = Variant('(ssbb)', (keymap, "", convert, False))
-
-        try:
-            safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
-                                "SetVConsoleKeyboard", args, self._connection)
-        except safe_dbus.DBusCallError as e:
-            log.error("Failed to set keymap: %s", e)
+        self._localed_proxy.SetVConsoleKeyboard(keymap, "", convert, False)
 
     def convert_keymap(self, keymap):
-        """
-        Method that returns X11 layouts and variants that (systemd-localed
-        thinks) match given keymap best.
+        """Get X11 layouts and variants by converting VConsole keymap.
+
+        NOTE: Systemd-localed performs the conversion. Current VConsole keymap
+        and X11 layouts are set temporarily to the converted values in the
+        process of conversion.
 
         :param keymap: VConsole keymap
         :type keymap: str
-        :return: X11 layouts and variants that (systemd-localed thinks) match
-                 given keymap best
-        :rtype: a list of strings
+        :return: a list of "layout (variant)" or "layout" layout specifications
+                 obtained by conversion of VConsole keymap
+        :rtype: list(str)
         """
+        if not self._localed_proxy:
+            return []
 
         # hack around systemd's lack of functionality -- no function to just
         # convert without changing keyboard configuration
         orig_layouts_variants = self.layouts_variants
         orig_keymap = self.keymap
-        ret = self.set_and_convert_keymap(keymap)
+        converted_layouts = self.set_and_convert_keymap(keymap)
         self.set_layouts(orig_layouts_variants)
         self.set_keymap(orig_keymap)
 
-        return ret
+        return converted_layouts
 
     def set_and_convert_keymap(self, keymap):
-        """
-        Method that sets VConsole keymap and returns X11 layouts and
-        variants that (systemd-localed thinks) match given keymap best.
+        """Set VConsole keymap and set and get converted X11 layouts.
 
+        :param keymap: VConsole keymap
+        :type keymap: str
         :return: a list of "layout (variant)" or "layout" layout specifications
-        :rtype: a list of strings
+                 obtained by conversion from VConsole keymap
+        :rtype: list(str)
         """
         self.set_keymap(keymap, convert=True)
-        return list(self.layouts_variants)
+
+        return self.layouts_variants
 
     def set_layouts(self, layouts_variants, options=None, convert=False):
-        """
-        Method that sets X11 layouts and variants (for later X sessions) via
-        systemd-localed's DBus API.
+        """Set X11 layouts.
 
-        :param layout_variant: list of 'layout (variant)' or 'layout'
-                               specifications of layouts and variants
-        :type layout_variant: list of strings
+        :param layouts_variants: list of 'layout (variant)' or 'layout'
+                                 specifications of layouts and variants
+        :type layouts_variants: list(str)
         :param options: list of X11 options that should be set
-        :type options: list of strings
-        :param convert: whether the keymap should be converted to a X11 layout
-                        (see set_and_convert_keymap)
+        :type options: list(str)
+        :param convert: whether the layouts should be converted to a VConsole keymap
+                        (see set_and_convert_layouts)
         :type convert: bool
         """
+        if not self._localed_proxy:
+            return
 
         layouts = []
         variants = []
 
-        for layout_variant in (nonempty for nonempty in layouts_variants
-                               if nonempty):
+        for layout_variant in (nonempty for nonempty in layouts_variants if nonempty):
             (layout, variant) = parse_layout_variant(layout_variant)
             layouts.append(layout)
             variants.append(variant)
 
         layouts_str = ",".join(layouts)
         variants_str = ",".join(variants)
-        if options:
-            opts_str = ",".join(options)
-        else:
-            opts_str = ""
+        options_str = ",".join(options) if options else ""
 
-        # args: layout, model, variant, options, convert, user_interaction
-        # where convert indicates whether the keymap should be converted
-        # to X11 layout and user_interaction indicates whether PolicyKit
-        # should ask for credentials or not
-        args = Variant("(ssssbb)", (layouts_str, "", variants_str, opts_str,
-                                    convert, False))
-        try:
-            safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
-                                "SetX11Keyboard", args, self._connection)
-        except safe_dbus.DBusCallError as e:
-            log.error("Failed to set layouts: %s", e)
+        self._localed_proxy.SetX11Keyboard(
+            layouts_str,
+            "",
+            variants_str,
+            options_str,
+            convert,
+            False
+        )
 
     def set_and_convert_layouts(self, layouts_variants):
-        """
-        Method that sets X11 layout and variant (for later X sessions)
-        and returns VConsole keymap that (systemd-localed thinks) matches
-        given layout and variant best.
+        """Set X11 layouts and set and get converted VConsole keymap.
 
-        :return: a keymap matching layout and variant best
-        :rtype: string
+        :param layouts_variants: list of 'layout (variant)' or 'layout'
+                                 specifications of layouts and variants
+        :type layouts_variants: list(str)
+        :return: a VConsole keymap obtained by conversion from X11 layouts
+        :rtype: str
         """
 
         self.set_layouts(layouts_variants, convert=True)
@@ -239,15 +198,20 @@ class LocaledWrapper(object):
         return self.keymap
 
     def convert_layouts(self, layouts_variants):
-        """
-        Method that returns VConsole keymap that (systemd-localed thinks)
-        matches given layout and variant best.
+        """Get VConsole keymap by converting X11 layouts and variants.
 
-        :param layout_variant: 'layout (variant)' or 'layout' specification
-        :type layout_variant: str
-        :return: a keymap matching layout and variant best
-        :rtype: string
+        NOTE: Systemd-localed performs the conversion. Current VConsole keymap
+        and X11 layouts are set temporarily to the converted values in the
+        process of conversion.
+
+        :param layouts_variants: list of 'layout (variant)' or 'layout'
+                                 specifications of layouts and variants
+        :type layouts_variants: list(str)
+        :return: a VConsole keymap obtained by conversion from X11 layouts
+        :rtype: str
         """
+        if not self._localed_proxy:
+            return ""
 
         # hack around systemd's lack of functionality -- no function to just
         # convert without changing keyboard configuration
