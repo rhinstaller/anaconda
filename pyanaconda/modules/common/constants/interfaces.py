@@ -50,6 +50,11 @@ DEVICE_TREE_HANDLER = DBusInterfaceIdentifier(
     basename="Handler"
 )
 
+DEVICE_TREE_RESIZABLE = DBusInterfaceIdentifier(
+    namespace=DEVICE_TREE_NAMESPACE,
+    basename="Resizable"
+)
+
 PAYLOAD_DNF = DBusInterfaceIdentifier(
     namespace=DNF_NAMESPACE
 )

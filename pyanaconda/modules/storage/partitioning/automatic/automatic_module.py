@@ -19,16 +19,14 @@
 #
 import copy
 
-from blivet.devices import PartitionDevice
-from blivet.size import Size
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
-from pyanaconda.modules.common.errors.storage import UnknownDeviceError, ProtectedDeviceError
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
+    ResizableDeviceTreeModule
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic.automatic_interface import \
     AutoPartitioningInterface
@@ -63,6 +61,10 @@ class AutoPartitioningModule(PartitioningModule):
     def publish(self):
         """Publish the module."""
         DBus.publish_object(AUTO_PARTITIONING.object_path, self.for_publication())
+
+    def _create_device_tree(self):
+        """Create the device tree module."""
+        return ResizableDeviceTreeModule()
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -171,116 +173,6 @@ class AutoPartitioningModule(PartitioningModule):
         request = copy.deepcopy(self.request)
         request.passphrase = passphrase
         self.set_request(request)
-
-    def _get_device(self, name):
-        """Find a device by its name.
-
-        :param name: a name of the device
-        :return: an instance of the Blivet's device
-        :raise: UnknownDeviceError if no device is found
-        """
-        device = self.storage.devicetree.get_device_by_name(name, hidden=True)
-
-        if not device:
-            raise UnknownDeviceError(name)
-
-        return device
-
-    def remove_device(self, device_name):
-        """Remove a device after removing its dependent devices.
-
-        If the device is protected, do nothing. If the device has
-        protected children, just remove the unprotected ones.
-
-        :param device_name: a name of the device
-        """
-        device = self._get_device(device_name)
-
-        if device.protected:
-            raise ProtectedDeviceError(device_name)
-
-        # Only remove unprotected children if any protected.
-        if any(d.protected for d in device.children):
-            log.debug("Removing unprotected children of %s.", device_name)
-
-            for child in (d for d in device.children if not d.protected):
-                self.storage.recursive_remove(child)
-
-            return
-
-        # No protected children, remove the device
-        log.debug("Removing device %s.", device_name)
-        self.storage.recursive_remove(device)
-
-    def shrink_device(self, device_name, size):
-        """Shrink the size of the device.
-
-        :param device_name: a name of the device
-        :param size: a new size in bytes
-        """
-        size = Size(size)
-        device = self._get_device(device_name)
-
-        if device.protected:
-            raise ProtectedDeviceError(device_name)
-
-        # The device size is small enough.
-        if device.size <= size:
-            log.debug("The size of %s is already %s.", device_name, device.size)
-            return
-
-        # Resize the device.
-        log.debug("Shrinking a size of %s to %s.", device_name, size)
-        aligned_size = device.align_target_size(size)
-        self.storage.resize_device(device, aligned_size)
-
-    def is_device_partitioned(self, device_name):
-        """Is the specified device partitioned?
-
-        :param device_name: a name of the device
-        :return: True or False
-        """
-        device = self._get_device(device_name)
-        return self._is_device_partitioned(device)
-
-    def _is_device_partitioned(self, device):
-        """Is the specified device partitioned?"""
-        return device.is_disk and device.partitioned and device.format.supported
-
-    def get_device_partitions(self, device_name):
-        """Get partitions of the specified device.
-
-        :param device_name: a name of the device
-        :return: a list of device names
-        """
-        device = self._get_device(device_name)
-
-        if not self._is_device_partitioned(device):
-            return []
-
-        return [
-            d.name for d in device.children
-            if isinstance(d, PartitionDevice)
-            and not (d.is_extended and d.format.logical_partitions)
-        ]
-
-    def is_device_resizable(self, device_name):
-        """Is the specified device resizable?
-
-        :param device_name: a name of the device
-        :return: True or False
-        """
-        device = self._get_device(device_name)
-        return device.resizable
-
-    def get_device_size_limits(self, device_name):
-        """Get size limits of the given device.
-
-        :param device_name: a name of the device
-        :return: a tuple of min and max sizes in bytes
-        """
-        device = self._get_device(device_name)
-        return device.min_size.get_bytes(), device.max_size.get_bytes()
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
