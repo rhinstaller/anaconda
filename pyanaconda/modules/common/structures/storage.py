@@ -32,6 +32,7 @@ class DeviceData(DBusData):
         self._size = 0
         self._parents = []
         self._is_disk = False
+        self._protected = False
         self._removable = False
         self._attrs = {}
         self._description = ""
@@ -95,6 +96,15 @@ class DeviceData(DBusData):
     @is_disk.setter
     def is_disk(self, is_disk: Bool):
         self._is_disk = is_disk
+
+    @property
+    def protected(self) -> Bool:
+        """Is this device protected?"""
+        return self._protected
+
+    @protected.setter
+    def protected(self, value):
+        self._protected = value
 
     @property
     def removable(self) -> Bool:
