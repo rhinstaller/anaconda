@@ -115,12 +115,14 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.generate_temporary_kickstart()
 
-    def InstallWithTasks(self) -> List[ObjPath]:
+    def InstallWithTasks(self, sysroot:Str) -> List[ObjPath]:
         """Returns installation tasks of this module.
+
+        :param str sysroot: system root
 
         :returns: list of object paths of installation tasks.
         """
-        return self.implementation.install_with_tasks()
+        return self.implementation.install_with_tasks(sysroot)
 
     def SetLocale(self, locale: Str):
         """Set the locale for the module.

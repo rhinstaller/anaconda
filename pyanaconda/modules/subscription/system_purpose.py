@@ -104,6 +104,7 @@ def give_the_system_purpose(sysroot, role, sla, usage, addons):
     :type usage: str or None
     :param list addons: any additional layered products or features
     """
+
     if role or sla or usage or addons:
         syspurpose_sysroot_path = os.path.join(sysroot, "usr/sbin/syspurpose")
         if os.path.exists(syspurpose_sysroot_path):
@@ -115,21 +116,21 @@ def give_the_system_purpose(sysroot, role, sla, usage, addons):
             # values passed to arguments are all properly quoted.
             if role:
                 args = ["set-role", '{}'.format(role)]
-                util.execInSysroot("syspurpose", args)
+                util.execWithRedirect("syspurpose", args, root=sysroot)
 
             if sla:
                 args = ["set-sla", '{}'.format(sla)]
-                util.execInSysroot("syspurpose", args)
+                util.execWithRedirect("syspurpose", args, root=sysroot)
 
             if usage:
                 args = ["set-usage", '{}'.format(usage)]
-                util.execInSysroot("syspurpose", args)
+                util.execWithRedirect("syspurpose", args, root=sysroot)
 
             if addons:
                 args = ["add", 'addons']
                 for addon in addons:
                     args.append('{}'.format(addon))
-                util.execInSysroot("syspurpose", args)
+                util.execWithRedirect("syspurpose", args, root=sysroot)
         else:
             log.error("the syspurpose tool is missing, cannot set system purpose")
     else:

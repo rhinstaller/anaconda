@@ -18,7 +18,7 @@
 #
 from pyanaconda.dbus.identifier import DBusObjectIdentifier
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
-    PARTITIONING_NAMESPACE
+    PARTITIONING_NAMESPACE, RHSM_NAMESPACE
 
 
 BOOTLOADER = DBusObjectIdentifier(
@@ -59,4 +59,42 @@ ZFCP = DBusObjectIdentifier(
 FIREWALL = DBusObjectIdentifier(
     namespace=NETWORK_NAMESPACE,
     basename="Firewall"
+)
+
+## System services ##
+
+# Subscription #
+RHSM_CONFIG = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Config"
+)
+
+RHSM_REGISTER_SERVER = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="RegisterServer"
+)
+
+RHSM_REGISTER = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Register"
+)
+
+RHSM_UNREGISTER = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Unregister"
+)
+
+RHSM_ATTACH = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Attach"
+)
+
+RHSM_ENTITLEMENT = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Entitlement"
+)
+
+RHSM_SYSPURPOSE = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Syspurpose"
 )

@@ -254,7 +254,7 @@ class KickstartModule(MainModule, KickstartBaseModule):
         """
         return self.generate_kickstart()
 
-    def install_with_tasks(self):
+    def install_with_tasks(self, sysroot):
         """Return installation tasks of this module.
 
         :return: a list of DBus paths of the installation tasks

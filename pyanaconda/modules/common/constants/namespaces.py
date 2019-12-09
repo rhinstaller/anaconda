@@ -90,3 +90,9 @@ BAZ_NAMESPACE = (
     *ADDONS_NAMESPACE,
     "Baz"
 )
+
+## System service namespaces ##
+
+RHSM_NAMESPACE = (
+    "com", "redhat", "RHSM1"
+)
