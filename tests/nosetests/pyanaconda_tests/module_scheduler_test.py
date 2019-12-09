@@ -93,3 +93,10 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             fmt=get_format("disklabel")
         ))
         self.assertEqual(self.interface.GetPartitioned(), ["dev1", "dev2"])
+
+    def collect_new_devices_test(self):
+        """Test CollectNewDevices."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/boot")))
+        self._add_device(StorageDevice("dev2", fmt=get_format("ext4", mountpoint="/")))
+        self._add_device(StorageDevice("dev3", fmt=get_format("swap")))
+        self.assertEqual(self.interface.CollectNewDevices("dev1"), ["dev1", "dev2", "dev3"])

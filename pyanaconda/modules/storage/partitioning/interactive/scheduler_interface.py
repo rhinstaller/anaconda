@@ -53,3 +53,13 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         :return: a list of device names
         """
         return self.implementation.get_partitioned()
+
+    def CollectNewDevices(self, boot_drive: Str) -> List[Str]:
+        """Get all new devices in the device tree.
+
+        FIXME: Remove the boot drive option.
+
+        :param boot_drive: a name of the boot drive
+        :return: a list of device names
+        """
+        return self.implementation.collect_new_devices(boot_drive)
