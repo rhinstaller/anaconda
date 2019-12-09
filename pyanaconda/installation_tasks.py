@@ -20,10 +20,17 @@
 from threading import RLock
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import synchronized
+from pyanaconda import errors
+from pyanaconda.progress import progressQ
 import time
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+def _failure_limbo():
+    progressQ.send_quit(1)
+    while True:
+        time.sleep(10000)
 
 class BaseTask(object):
     """A base class for Task and TaskQueue.
@@ -435,7 +442,15 @@ class Task(BaseTask):
         related machinery.
         """
         if self._task:
-            self._task(*self._task_args, **self._task_kwargs)
+            try:
+                self._task(*self._task_args, **self._task_kwargs)
+            except Exception as e:  # pylint: disable=broad-except
+                # If an exception is raised when processing the task, run the exception through
+                # the error handler and raise it back if it does not match any of the exceptions
+                # we can handle.
+                if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
+                    log.error("Installation failed: %r", e)
+                    _failure_limbo()
         else:
             log.error("Task %s callable not set.", self.name)
 

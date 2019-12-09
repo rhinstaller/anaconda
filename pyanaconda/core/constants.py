@@ -122,6 +122,7 @@ THREAD_NTP_SERVER_CHECK = "AnaNTPserver"
 THREAD_DBUS_TASK = "AnaTaskThread"
 THREAD_NVDIMM_RECONFIGURE = "AnaNVDIMMReconfigureThread"
 THREAD_NVDIMM_REPOPULATE = "AnaNVDIMMRepopulateThread"
+THREAD_SUBSCRIPTION = "AnaSubscriptionThread"
 
 # Geolocation constants
 
@@ -389,3 +390,8 @@ MOUNT_POINT_FORMAT = "format"
 MOUNT_POINT_REFORMAT = "reformat"
 MOUNT_POINT_FORMAT_OPTIONS = "format-options"
 MOUNT_POINT_MOUNT_OPTIONS = "mount-options"
+
+# Authentication methods for subscription
+RHSM_AUTH_NOT_SELECTED = -1
+RHSM_AUTH_USERNAME_PASSWORD = 0
+RHSM_AUTH_ORG_KEY = 1
