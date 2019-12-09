@@ -55,6 +55,11 @@ DEVICE_TREE_RESIZABLE = DBusInterfaceIdentifier(
     basename="Resizable"
 )
 
+DEVICE_TREE_SCHEDULER = DBusInterfaceIdentifier(
+    namespace=DEVICE_TREE_NAMESPACE,
+    basename="Scheduler"
+)
+
 PAYLOAD_DNF = DBusInterfaceIdentifier(
     namespace=DNF_NAMESPACE
 )

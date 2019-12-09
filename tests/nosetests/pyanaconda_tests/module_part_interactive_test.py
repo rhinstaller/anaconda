@@ -40,9 +40,12 @@ from pyanaconda.modules.storage.partitioning.interactive.interactive_interface i
     InteractivePartitioningInterface
 from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractivePartitioningTask
+from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
+    DeviceTreeSchedulerModule
 from pyanaconda.storage.initialization import create_storage
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
+    check_dbus_object_creation
 
 
 class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
@@ -56,6 +59,13 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
     def publication_test(self):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), InteractivePartitioningInterface)
+
+    @patch_dbus_publish_object
+    def device_tree_test(self, publisher):
+        """Test the device tree."""
+        self.module.on_storage_changed(Mock())
+        path = self.interface.GetDeviceTree()
+        check_dbus_object_creation(self, path, publisher, DeviceTreeSchedulerModule)
 
     def method_property_test(self):
         """Test Method property."""

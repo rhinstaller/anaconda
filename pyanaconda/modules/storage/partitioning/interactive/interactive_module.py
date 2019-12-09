@@ -26,6 +26,8 @@ from pyanaconda.modules.storage.partitioning.interactive.interactive_interface i
     InteractivePartitioningInterface
 from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractivePartitioningTask
+from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
+    DeviceTreeSchedulerModule
 
 log = get_module_logger(__name__)
 
@@ -45,6 +47,10 @@ class InteractivePartitioningModule(PartitioningModule):
     def publish(self):
         """Publish the module."""
         DBus.publish_object(INTERACTIVE_PARTITIONING.object_path, self.for_publication())
+
+    def _create_device_tree(self):
+        """Create the device tree module."""
+        return DeviceTreeSchedulerModule()
 
     def configure_with_task(self):
         """Complete the scheduled partitioning."""
