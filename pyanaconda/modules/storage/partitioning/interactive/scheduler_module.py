@@ -50,3 +50,10 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         root = utils.create_new_root(self.storage, boot_drive)
         return self._get_os_data(root)
+
+    def get_partitioned(self):
+        """Get all partitioned devices in the device tree.
+
+        :return: a list of device names
+        """
+        return [d.name for d in self.storage.partitioned]

@@ -46,3 +46,10 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         return OSData.to_structure(
             self.implementation.generate_system_data(boot_drive)
         )
+
+    def GetPartitioned(self) -> List[Str]:
+        """Get all partitioned devices in the device tree.
+
+        :return: a list of device names
+        """
+        return self.implementation.get_partitioned()

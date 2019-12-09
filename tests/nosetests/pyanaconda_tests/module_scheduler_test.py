@@ -19,8 +19,9 @@
 #
 import unittest
 
-from blivet.devices import StorageDevice
+from blivet.devices import StorageDevice, DiskDevice
 from blivet.formats import get_format
+from blivet.size import Size
 from dasbus.typing import get_native
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
@@ -70,3 +71,25 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'os-name': 'New anaconda bluesky Installation',
             'swap-devices': ['dev3']
         })
+
+    def get_partitioned_test(self):
+        """Test GetPartitioned."""
+        self._add_device(DiskDevice(
+            "dev1",
+            exists=True,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        ))
+        self._add_device(DiskDevice(
+            "dev2",
+            exists=True,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        ))
+        self._add_device(StorageDevice(
+            "dev3",
+            exists=True,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        ))
+        self.assertEqual(self.interface.GetPartitioned(), ["dev1", "dev2"])
