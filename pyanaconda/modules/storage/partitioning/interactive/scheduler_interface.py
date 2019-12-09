@@ -70,3 +70,13 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         :return: a list of device names
         """
         return self.implementation.collect_unused_devices()
+
+    def CollectBootLoaderDevices(self, boot_drive: Str):
+        """Collect the boot loader devices.
+
+        FIXME: Remove the boot drive option.
+
+        :param boot_drive: a name of the boot drive
+        :return: a list of device names
+        """
+        return self.implementation.collect_boot_loader_devices(boot_drive)

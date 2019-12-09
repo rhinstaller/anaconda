@@ -129,3 +129,10 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev4)
 
         self.assertEqual(self.interface.CollectUnusedDevices(), ["dev2", "dev3"])
+
+    def collect_boot_loader_devices_test(self):
+        """Test CollectBootLoaderDevices."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("biosboot")))
+        self._add_device(StorageDevice("dev2", fmt=get_format("prepboot")))
+        self._add_device(StorageDevice("dev3", fmt=get_format("ext4")))
+        self.assertEqual(self.interface.CollectBootLoaderDevices(""), ["dev1", "dev2"])

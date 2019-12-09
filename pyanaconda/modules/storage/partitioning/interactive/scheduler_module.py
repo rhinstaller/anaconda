@@ -74,3 +74,13 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a list of device names
         """
         return [d.name for d in utils.collect_unused_devices(self.storage)]
+
+    def collect_boot_loader_devices(self, boot_drive):
+        """Collect the boot loader devices.
+
+        FIXME: Remove the boot drive option.
+
+        :param boot_drive: a name of the boot drive
+        :return: a list of device names
+        """
+        return [d.name for d in utils.collect_bootloader_devices(self.storage, boot_drive)]
