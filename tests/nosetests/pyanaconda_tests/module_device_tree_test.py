@@ -140,6 +140,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'protected': get_variant(Bool, False),
             'removable': get_variant(Bool, False),
             'parents': get_variant(List[Str], []),
+            'children': get_variant(List[Str], []),
             'attrs': get_variant(Dict[Str, Str], {
                 "serial": "SERIAL_ID",
                 "vendor": "VENDOR_ID",
