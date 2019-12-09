@@ -63,3 +63,10 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         :return: a list of device names
         """
         return self.implementation.collect_new_devices(boot_drive)
+
+    def CollectUnusedDevices(self) -> List[Str]:
+        """Collect all devices that are not used in existing or new installations.
+
+        :return: a list of device names
+        """
+        return self.implementation.collect_unused_devices()

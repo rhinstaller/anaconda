@@ -100,3 +100,32 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(StorageDevice("dev2", fmt=get_format("ext4", mountpoint="/")))
         self._add_device(StorageDevice("dev3", fmt=get_format("swap")))
         self.assertEqual(self.interface.CollectNewDevices("dev1"), ["dev1", "dev2", "dev3"])
+
+    def collect_unused_devices_test(self):
+        """Test CollectUnusedDevices."""
+        dev1 = DiskDevice(
+            "dev1",
+            fmt=get_format("disklabel")
+        )
+        dev2 = StorageDevice(
+            "dev2",
+            parents=[dev1],
+            fmt=get_format("ext4")
+        )
+        dev3 = StorageDevice(
+            "dev3",
+            parents=[dev1],
+            fmt=get_format("ext4")
+        )
+        dev4 = StorageDevice(
+            "dev4",
+            parents=[dev1],
+            fmt=get_format("ext4", mountpoint="/")
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+        self._add_device(dev3)
+        self._add_device(dev4)
+
+        self.assertEqual(self.interface.CollectUnusedDevices(), ["dev2", "dev3"])

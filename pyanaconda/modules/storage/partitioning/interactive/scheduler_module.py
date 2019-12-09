@@ -67,3 +67,10 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a list of device names
         """
         return [d.name for d in utils.collect_new_devices(self.storage, boot_drive)]
+
+    def collect_unused_devices(self):
+        """Collect all devices that are not used in existing or new installations.
+
+        :return: a list of device names
+        """
+        return [d.name for d in utils.collect_unused_devices(self.storage)]
