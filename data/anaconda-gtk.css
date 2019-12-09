@@ -139,3 +139,11 @@ AnacondaLayoutIndicator {
     background-color: #fdfdfd;
     color: black;
 }
+
+/* Fix the cpu-hogging spinner in progress spoke. This works by overriding the css property
+"animation-timing-function". The default Adwaita value "linear" requests infinitely fine-grained
+progress of the animation, so the component redraws every time it can. Using "steps(N)" makes the
+animation have only N discrete states with no interpolation, so there are effectively N intervals
+where the look is constant. This reduces redraws significantly and saves the CPU. See rhbz#1204242
+for measurements. */
+spinner { animation-timing-function: steps(24); }
