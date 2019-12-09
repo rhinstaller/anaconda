@@ -20,6 +20,7 @@
 from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_SCHEDULER
+from pyanaconda.modules.common.structures.storage import OSData
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 
 __all__ = ["DeviceTreeSchedulerInterface"]
@@ -35,3 +36,13 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         :return: a translated string
         """
         return self.implementation.generate_system_name()
+
+    def GenerateSystemData(self, boot_drive: Str) -> Structure:
+        """Generate the new installation data.
+
+        :param boot_drive: a name of the boot drive
+        :return: a structure with data about the new installation
+        """
+        return OSData.to_structure(
+            self.implementation.generate_system_data(boot_drive)
+        )

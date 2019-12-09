@@ -41,3 +41,12 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a translated string
         """
         return utils.get_new_root_name()
+
+    def generate_system_data(self, boot_drive):
+        """Generate the new installation data.
+
+        :param boot_drive: a name of the boot drive
+        :return: an instance of OSData
+        """
+        root = utils.create_new_root(self.storage, boot_drive)
+        return self._get_os_data(root)

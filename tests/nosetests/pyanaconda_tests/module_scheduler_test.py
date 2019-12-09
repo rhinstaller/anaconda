@@ -19,10 +19,14 @@
 #
 import unittest
 
+from blivet.devices import StorageDevice
+from blivet.formats import get_format
+from dasbus.typing import get_native
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
     DeviceTreeSchedulerModule
+from pyanaconda.storage.initialization import create_storage
 
 
 class DeviceTreeSchedulerTestCase(unittest.TestCase):
@@ -32,6 +36,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         """Set up the module."""
         self.module = DeviceTreeSchedulerModule()
         self.interface = DeviceTreeSchedulerInterface(self.module)
+        self.module.on_storage_changed(create_storage())
 
     @property
     def storage(self):
@@ -52,3 +57,16 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             self.interface.GenerateSystemName(),
             "New anaconda bluesky Installation"
         )
+
+    def generate_system_data_test(self):
+        """Test GenerateSystemData."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/boot")))
+        self._add_device(StorageDevice("dev2", fmt=get_format("ext4", mountpoint="/")))
+        self._add_device(StorageDevice("dev3", fmt=get_format("swap")))
+
+        os_data = self.interface.GenerateSystemData("dev1")
+        self.assertEqual(get_native(os_data), {
+            'mount-points': {'/boot': 'dev1', '/': 'dev2'},
+            'os-name': 'New anaconda bluesky Installation',
+            'swap-devices': ['dev3']
+        })
