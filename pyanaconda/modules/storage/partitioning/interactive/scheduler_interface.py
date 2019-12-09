@@ -28,3 +28,10 @@ __all__ = ["DeviceTreeSchedulerInterface"]
 @dbus_interface(DEVICE_TREE_SCHEDULER.interface_name)
 class DeviceTreeSchedulerInterface(DeviceTreeInterface):
     """DBus interface for the device tree scheduler."""
+
+    def GenerateSystemName(self) -> Str:
+        """Generate a name of the new installation.
+
+        :return: a translated string
+        """
+        return self.implementation.generate_system_name()

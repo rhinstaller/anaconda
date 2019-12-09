@@ -21,6 +21,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
+from pyanaconda.modules.storage.partitioning.interactive import utils
 
 log = get_module_logger(__name__)
 
@@ -33,3 +34,10 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
     def for_publication(self):
         """Return a DBus representation."""
         return DeviceTreeSchedulerInterface(self)
+
+    def generate_system_name(self):
+        """Generate a name of the new installation.
+
+        :return: a translated string
+        """
+        return utils.get_new_root_name()

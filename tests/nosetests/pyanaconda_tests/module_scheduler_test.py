@@ -45,3 +45,10 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
     def publication_test(self):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), DeviceTreeSchedulerInterface)
+
+    def generate_system_name_test(self):
+        """Test GenerateSystemName."""
+        self.assertEqual(
+            self.interface.GenerateSystemName(),
+            "New anaconda bluesky Installation"
+        )
