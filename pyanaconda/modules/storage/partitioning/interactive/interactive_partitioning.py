@@ -18,7 +18,7 @@
 from blivet.devicefactory import SIZE_POLICY_AUTO
 
 from pyanaconda.bootloader.execution import setup_bootloader
-from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
+from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
     AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask
 

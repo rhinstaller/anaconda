@@ -23,9 +23,9 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.storage import PartitioningType
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
+from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
     NonInteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.schedule import get_candidate_disks, \
+from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
     schedule_implicit_partitions, schedule_volumes, schedule_partitions
 from pyanaconda.platform import platform
 from pyanaconda.storage.partspec import PartSpec

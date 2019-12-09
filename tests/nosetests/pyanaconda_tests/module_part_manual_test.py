@@ -31,9 +31,11 @@ from blivet.size import Size
 from dasbus.typing import get_variant, Str, Bool
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest
-from pyanaconda.modules.storage.partitioning import ManualPartitioningModule
-from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
-from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
+from pyanaconda.modules.storage.partitioning.manual.manual_module import ManualPartitioningModule
+from pyanaconda.modules.storage.partitioning.manual.manual_interface import \
+    ManualPartitioningInterface
+from pyanaconda.modules.storage.partitioning.manual.manual_partitioning import \
+    ManualPartitioningTask
 from pyanaconda.storage.initialization import create_storage
 
 

@@ -31,9 +31,9 @@ from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
+from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
     NonInteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.schedule import get_candidate_disks, \
+from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
     schedule_partitions
 from pyanaconda.platform import platform
 from pyanaconda.storage.utils import suggest_swap_size, get_pbkdf_args, lookup_alias

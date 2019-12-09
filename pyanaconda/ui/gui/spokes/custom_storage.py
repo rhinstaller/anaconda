@@ -52,9 +52,9 @@ from pyanaconda.modules.common.errors.configuration import BootloaderConfigurati
     StorageConfigurationError
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest, \
     DeviceFactoryRequest
-from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractiveAutoPartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive_utils import collect_unused_devices, \
+from pyanaconda.modules.storage.partitioning.interactive.utils import collect_unused_devices, \
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     collect_file_system_types, collect_device_types, \

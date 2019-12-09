@@ -19,12 +19,14 @@ from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUA
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest, \
     MountPointRequest
-from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
+from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
     AutomaticPartitioningTask
-from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+from pyanaconda.modules.storage.partitioning.custom.custom_partitioning import \
+    CustomPartitioningTask
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
+from pyanaconda.modules.storage.partitioning.manual.manual_partitioning import \
+    ManualPartitioningTask
 
 __all__ = ["configure_storage"]
 

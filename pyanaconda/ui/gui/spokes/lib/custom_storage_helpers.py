@@ -36,7 +36,7 @@ from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.util import lowerASCII
-from pyanaconda.modules.storage.partitioning.interactive_utils import collect_mount_points, \
+from pyanaconda.modules.storage.partitioning.interactive.utils import collect_mount_points, \
     validate_mount_point, validate_raid_level
 from pyanaconda.storage.utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck

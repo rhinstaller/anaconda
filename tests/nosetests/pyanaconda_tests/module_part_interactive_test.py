@@ -33,11 +33,12 @@ from pyanaconda.modules.common.containers import DeviceTreeContainer
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
 from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
-from pyanaconda.modules.storage.partitioning import interactive_utils as utils
-from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
-from pyanaconda.modules.storage.partitioning.interactive_interface import \
+from pyanaconda.modules.storage.partitioning.interactive.interactive_module import \
+    InteractivePartitioningModule
+from pyanaconda.modules.storage.partitioning.interactive import utils
+from pyanaconda.modules.storage.partitioning.interactive.interactive_interface import \
     InteractivePartitioningInterface
-from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractivePartitioningTask
 from pyanaconda.storage.initialization import create_storage
 

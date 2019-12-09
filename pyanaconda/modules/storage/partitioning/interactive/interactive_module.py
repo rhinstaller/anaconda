@@ -22,9 +22,9 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.objects import INTERACTIVE_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
-from pyanaconda.modules.storage.partitioning.interactive_interface import \
+from pyanaconda.modules.storage.partitioning.interactive.interactive_interface import \
     InteractivePartitioningInterface
-from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractivePartitioningTask
 
 log = get_module_logger(__name__)

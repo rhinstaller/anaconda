@@ -23,8 +23,10 @@ from pyanaconda.modules.common.constants.objects import CUSTOM_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
-from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
-from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
+from pyanaconda.modules.storage.partitioning.custom.custom_interface import \
+    CustomPartitioningInterface
+from pyanaconda.modules.storage.partitioning.custom.custom_partitioning import \
+    CustomPartitioningTask
 
 log = get_module_logger(__name__)
 

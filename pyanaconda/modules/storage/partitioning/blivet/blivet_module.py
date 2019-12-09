@@ -21,10 +21,10 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
-from pyanaconda.modules.storage.partitioning.blivet_interface import \
+from pyanaconda.modules.storage.partitioning.blivet.blivet_interface import \
     BlivetPartitioningInterface
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
-from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractivePartitioningTask
 
 log = get_module_logger(__name__)
@@ -59,7 +59,8 @@ class BlivetPartitioningModule(PartitioningModule):
         :raises UnsupportedPartitioningError: if the handler cannot be created
         """
         if not self._storage_handler:
-            from pyanaconda.modules.storage.partitioning.blivet_handler import BlivetStorageHandler
+            from pyanaconda.modules.storage.partitioning.blivet.blivet_handler import \
+                BlivetStorageHandler
             self._storage_handler = BlivetStorageHandler()
 
         # Make sure that the handler always uses the current storage.
@@ -74,7 +75,8 @@ class BlivetPartitioningModule(PartitioningModule):
         :raises UnsupportedPartitioningError: if the handler cannot be created
         """
         if not self._request_handler:
-            from pyanaconda.modules.storage.partitioning.blivet_handler import BlivetRequestHandler
+            from pyanaconda.modules.storage.partitioning.blivet.blivet_handler import \
+                BlivetRequestHandler
             self._request_handler = BlivetRequestHandler()
 
         # Make sure that the handler always uses the current storage handler.

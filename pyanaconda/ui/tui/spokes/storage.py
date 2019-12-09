@@ -381,7 +381,8 @@ class StorageSpoke(NormalTUISpoke):
 
         FIXME: This is a temporary workaround.
         """
-        from pyanaconda.modules.storage.partitioning.custom import CustomPartitioningModule
+        from pyanaconda.modules.storage.partitioning.custom.custom_module import \
+            CustomPartitioningModule
         return CustomPartitioningModule._find_data_without_passphrase(self)
 
     def _set_data_without_passphrase(self, passphrase):
@@ -389,7 +390,8 @@ class StorageSpoke(NormalTUISpoke):
 
         FIXME: This is a temporary workaround.
         """
-        from pyanaconda.modules.storage.partitioning.custom import CustomPartitioningModule
+        from pyanaconda.modules.storage.partitioning.custom.custom_module import \
+            CustomPartitioningModule
         return CustomPartitioningModule._set_data_without_passphrase(self, passphrase)
 
     def apply(self):
