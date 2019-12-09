@@ -164,6 +164,14 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return self.implementation.get_disk_reclaimable_space(disk_names)
 
+    def GetDiskTotalSpace(self, disk_names: List[Str]) -> UInt64:
+        """Get total space on the given disks.
+
+        :param disk_names: a list of disk names
+        :return: a total size in bytes
+        """
+        return self.implementation.get_disk_total_space(disk_names)
+
     def GetFstabSpec(self, name: Str) -> Str:
         """Get the device specifier for use in /etc/fstab.
 

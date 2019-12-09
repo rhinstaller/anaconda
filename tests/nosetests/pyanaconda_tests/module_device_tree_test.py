@@ -417,6 +417,26 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(UnknownDeviceError):
             self.interface.GetDiskReclaimableSpace(["dev1", "dev2", "devX"])
 
+    def get_disk_total_space_test(self):
+        """Test GetDiskTotalSpace."""
+        self._add_device(DiskDevice(
+            "dev1",
+            size=Size("5 GiB"))
+        )
+
+        self._add_device(DiskDevice(
+            "dev2",
+            size=Size("5 GiB"))
+        )
+
+        self._add_device(DiskDevice(
+            "dev3",
+            size=Size("5 GiB")
+        ))
+
+        total_size = self.interface.GetDiskTotalSpace(["dev1", "dev2"])
+        self.assertEqual(total_size, Size("10 GiB").get_bytes())
+
     def resolve_device_test(self):
         """Test ResolveDevice."""
         self._add_device(DiskDevice("dev1"))
