@@ -384,6 +384,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
         x_layouts = ["cz (qwerty)"]
         vc_keymap = "us"
         task = ApplyKeyboardTask(
+            localed_wrapper=Mock(),
             x_layouts=x_layouts,
             vc_keymap=vc_keymap,
             switch_options="grp:alt_shift_toggle"
@@ -398,6 +399,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
         x_layouts = []
         vc_keymap = ""
         task = ApplyKeyboardTask(
+            localed_wrapper=Mock(),
             x_layouts=x_layouts,
             vc_keymap=vc_keymap,
             switch_options="grp:alt_shift_toggle"
@@ -408,9 +410,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.localization.runtime.write_vc_configuration")
     @patch("pyanaconda.modules.localization.runtime.conf")
     @patch("pyanaconda.modules.localization.runtime.try_to_load_keymap")
-    @patch("pyanaconda.modules.localization.runtime.LocaledWrapper")
     def _apply_keyboard_task_test(self,
-                                  mocked_localed_class,
                                   mocked_load_keymap,
                                   mocked_conf,
                                   mocked_write_conf,
@@ -421,16 +421,16 @@ class LocalizationTasksTestCase(unittest.TestCase):
                                   load_keymap_result,
                                   result_x_layouts,
                                   result_vc_keymap):
-        localed = Mock()
-        mocked_localed_class.return_value = localed
+        mocked_localed = Mock()
         mocked_conf.system.can_activate_keyboard = True
         mocked_load_keymap.return_value = load_keymap_result
 
-        localed.set_and_convert_keymap.return_value = converted_vc_keymap
-        localed.set_and_convert_layouts.return_value = converted_x_layouts
+        mocked_localed.set_and_convert_keymap.return_value = converted_vc_keymap
+        mocked_localed.set_and_convert_layouts.return_value = converted_x_layouts
 
         switch_options = "grp:alt_shift_toggle"
         task = ApplyKeyboardTask(
+            localed_wrapper=mocked_localed,
             x_layouts=x_layouts,
             vc_keymap=vc_keymap,
             switch_options=switch_options
@@ -496,15 +496,14 @@ class LocalizationTasksTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.localization.runtime.get_missing_keyboard_configuration")
-    @patch("pyanaconda.modules.localization.runtime.LocaledWrapper")
-    def _get_missing_keyboard_configuration_task_test(self,
-                                                      mocked_localed_wrapper_class,
-                                                      get_missing_mock):
+    def _get_missing_keyboard_configuration_task_test(self, get_missing_mock):
         x_layouts_result = "[cz (qwerty)]"
         vc_keymap_result = "cz-qwerty"
         get_missing_mock.return_value = (x_layouts_result, vc_keymap_result)
+        mocked_localed = Mock()
 
         task = GetMissingKeyboardConfigurationTask(
+            localed_wrapper=mocked_localed,
             x_layouts="[cz (qwerty)]",
             vc_keymap="",
         )
@@ -571,9 +570,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.localization.runtime.conf")
     @patch("pyanaconda.modules.localization.runtime.try_to_load_keymap")
-    @patch("pyanaconda.modules.localization.runtime.LocaledWrapper")
     def _assign_generic_keyboard_setting_task_test(self,
-                                                   mocked_localed_class,
                                                    mocked_load_keymap,
                                                    mocked_conf,
                                                    can_activate_keyboard,
@@ -581,8 +578,6 @@ class LocalizationTasksTestCase(unittest.TestCase):
                                                    load_keymap_result,
                                                    result_x_layouts,
                                                    result_vc_keymap):
-        localed = Mock()
-        mocked_localed_class.return_value = localed
         mocked_conf.system.can_activate_keyboard = can_activate_keyboard
         mocked_load_keymap.return_value = load_keymap_result
         task = AssignGenericKeyboardSettingTask(
@@ -708,17 +703,15 @@ class LocalizationTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.localization.installation.get_missing_keyboard_configuration")
     @patch("pyanaconda.modules.localization.installation.write_x_configuration")
     @patch("pyanaconda.modules.localization.installation.write_vc_configuration")
-    @patch("pyanaconda.modules.localization.installation.LocaledWrapper")
-    def keyboard_installation_task_test(self, mocked_localed_class, write_vc_mock, write_x_mock,
-                                        get_missing_mock):
+    def keyboard_installation_task_test(self, write_vc_mock, write_x_mock, get_missing_mock):
         localed = Mock()
-        mocked_localed_class.return_value = localed
         sysroot = "/mnt/sysimage"
         x_layouts = ["cz (qwerty)"]
         switch_options = ["grp:alt_shift_toggle"]
         vc_keymap = "us"
 
         task = KeyboardInstallationTask(
+            localed_wrapper=localed,
             sysroot=sysroot,
             x_layouts=x_layouts,
             switch_options=switch_options,
@@ -746,6 +739,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
         get_missing_mock.reset_mock()
         get_missing_mock.return_value = (x_layouts, vc_keymap_from_conversion)
         task = KeyboardInstallationTask(
+            localed_wrapper=localed,
             sysroot=sysroot,
             x_layouts=x_layouts,
             switch_options=switch_options,
@@ -777,6 +771,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
         get_missing_mock.reset_mock()
         get_missing_mock.return_value = (x_layouts_from_conversion, vc_keymap)
         task = KeyboardInstallationTask(
+            localed_wrapper=localed,
             sysroot=sysroot,
             x_layouts=x_layouts,
             switch_options=switch_options,
@@ -809,6 +804,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
         get_missing_mock.reset_mock()
         get_missing_mock.return_value = (x_layouts_from_conversion, vc_keymap_default)
         task = KeyboardInstallationTask(
+            localed_wrapper=localed,
             sysroot=sysroot,
             x_layouts=x_layouts,
             switch_options=switch_options,

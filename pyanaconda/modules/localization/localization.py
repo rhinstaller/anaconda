@@ -29,6 +29,7 @@ from pyanaconda.modules.localization.installation import LanguageInstallationTas
     KeyboardInstallationTask
 from pyanaconda.modules.localization.runtime import GetMissingKeyboardConfigurationTask, \
     ApplyKeyboardTask, AssignGenericKeyboardSettingTask
+from pyanaconda.modules.localization.localed import LocaledWrapper
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -59,6 +60,8 @@ class LocalizationService(KickstartService):
 
         self.keyboard_seen_changed = Signal()
         self._keyboard_seen = False
+
+        self._localed_wrapper = None
 
     def publish(self):
         """Publish the module."""
@@ -185,6 +188,12 @@ class LocalizationService(KickstartService):
         self.keyboard_seen_changed.emit()
         log.debug("keyboard command considered seen in kicksatart: %s.", keyboard_seen)
 
+    @property
+    def localed_wrapper(self):
+        if not self._localed_wrapper:
+            self._localed_wrapper = LocaledWrapper()
+        return self._localed_wrapper
+
     def install_with_tasks(self):
         """Return the installation tasks of this module.
 
@@ -197,6 +206,7 @@ class LocalizationService(KickstartService):
             ),
             KeyboardInstallationTask(
                 sysroot=conf.target.system_root,
+                localed_wrapper=self.localed_wrapper,
                 x_layouts=self.x_layouts,
                 switch_options=self.switch_options,
                 vc_keymap=self.vc_keymap
@@ -211,6 +221,7 @@ class LocalizationService(KickstartService):
         :returns: a task getting missing keyboard configuration
         """
         task = GetMissingKeyboardConfigurationTask(
+            localed_wrapper=self.localed_wrapper,
             x_layouts=self.x_layouts,
             vc_keymap=self.vc_keymap,
         )
@@ -229,6 +240,7 @@ class LocalizationService(KickstartService):
         :returns: a task applying the configuration
         """
         task = ApplyKeyboardTask(
+            localed_wrapper=self.localed_wrapper,
             x_layouts=self.x_layouts,
             vc_keymap=self.vc_keymap,
             switch_options=self.switch_options
