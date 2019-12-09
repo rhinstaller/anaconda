@@ -80,3 +80,12 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         :return: a list of device names
         """
         return self.implementation.collect_boot_loader_devices(boot_drive)
+
+    def CollectSupportedSystems(self) -> List[Structure]:
+        """Collect supported existing or new installations.
+
+        :return: a list of data about found installations
+        """
+        return OSData.to_structure_list(
+            self.implementation.collect_supported_systems()
+        )

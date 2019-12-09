@@ -84,3 +84,10 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a list of device names
         """
         return [d.name for d in utils.collect_bootloader_devices(self.storage, boot_drive)]
+
+    def collect_supported_systems(self):
+        """Collect supported existing or new installations.
+
+        :return: a list of data about found installations
+        """
+        return list(map(self._get_os_data, utils.collect_roots(self.storage)))

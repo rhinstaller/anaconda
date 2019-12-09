@@ -18,9 +18,11 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from unittest.mock import patch
 
 from blivet.devices import StorageDevice, DiskDevice
 from blivet.formats import get_format
+from blivet.formats.fs import FS
 from blivet.size import Size
 from dasbus.typing import get_native
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
@@ -28,6 +30,7 @@ from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface imp
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
     DeviceTreeSchedulerModule
 from pyanaconda.storage.initialization import create_storage
+from pyanaconda.storage.root import Root
 
 
 class DeviceTreeSchedulerTestCase(unittest.TestCase):
@@ -136,3 +139,38 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(StorageDevice("dev2", fmt=get_format("prepboot")))
         self._add_device(StorageDevice("dev3", fmt=get_format("ext4")))
         self.assertEqual(self.interface.CollectBootLoaderDevices(""), ["dev1", "dev2"])
+
+    @patch.object(FS, "update_size_info")
+    def collect_supported_systems_test(self, update_size_info):
+        """Test CollectSupportedSystems."""
+        dev1 = DiskDevice(
+            "dev1",
+            fmt=get_format("disklabel")
+        )
+        dev2 = StorageDevice(
+            "dev2",
+            parents=[dev1],
+            fmt=get_format("ext4", mountpoint="/", exists=True),
+        )
+        dev3 = StorageDevice(
+            "dev3",
+            parents=[dev1],
+            fmt=get_format("swap", exists=True)
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+        self._add_device(dev3)
+
+        self.storage.roots = [Root(
+            name="My Linux",
+            mounts={"/": dev2},
+            swaps=[dev3]
+        )]
+
+        os_data_list = self.interface.CollectSupportedSystems()
+        self.assertEqual(get_native(os_data_list), [{
+            'os-name': 'My Linux',
+            'mount-points': {'/': 'dev2'},
+            'swap-devices': ['dev3']
+        }])
