@@ -341,6 +341,44 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 10 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.5-1
+- Adjust unit tests (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Extend list of false positives in the style guide (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Subscription support - changes in GUI (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Extend the anaconda-gtk.css (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Subscription support - changes in installation payload (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Subscription support - changes in DBus modules (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Subscription support - changes outside of DBus modules (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Add temporary subscription scheduling module (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Add basic CDN support to Payload DBus module (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Add support for custom interface for DBus Tasks (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Backport locale support for modules (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Add subscription manager as an Anaconda dependency (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+
 * Tue Nov 12 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.4-1
 - Add UI support for the ZIPL Secure boot (vponcova)
   Related: rhbz#1659400
