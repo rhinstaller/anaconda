@@ -174,3 +174,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'mount-points': {'/': 'dev2'},
             'swap-devices': ['dev3']
         }])
+
+    def get_default_file_system_test(self):
+        """Test GetDefaultFileSystem."""
+        self.assertEqual(self.interface.GetDefaultFileSystem(), "ext4")

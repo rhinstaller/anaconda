@@ -30,6 +30,13 @@ __all__ = ["DeviceTreeSchedulerInterface"]
 class DeviceTreeSchedulerInterface(DeviceTreeInterface):
     """DBus interface for the device tree scheduler."""
 
+    def GetDefaultFileSystem(self) -> Str:
+        """Get the default type of a filesystem.
+
+        :return: a filesystem name
+        """
+        return self.implementation.get_default_file_system()
+
     def GenerateSystemName(self) -> Str:
         """Generate a name of the new installation.
 

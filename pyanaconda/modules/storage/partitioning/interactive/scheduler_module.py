@@ -35,6 +35,13 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """Return a DBus representation."""
         return DeviceTreeSchedulerInterface(self)
 
+    def get_default_file_system(self):
+        """Get the default type of a filesystem.
+
+        :return: a filesystem name
+        """
+        return self.storage.default_fstype
+
     def generate_system_name(self):
         """Generate a name of the new installation.
 
