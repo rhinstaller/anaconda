@@ -310,6 +310,28 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
+    def _insightsConnectErrorHandler(self, exn):
+        message = _("Failed to connect the system to Red Hat Insights.\n\n"
+                    "Would you like to ignore this and continue with "
+                    "installation?")
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
+    def _insightsClientMissingErrorHandler(self, exn):
+        message = _("The insights-client utility needed to connect the system "
+                    "to Red Hat Insights is not installed on the target system. "
+                    "If you want to connect the system to Red Hat Insights "
+                    "please make sure the insights-client package gets installed.\n\n"
+                    "Would you like to ignore this and continue with installation?")
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
     def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -350,8 +372,14 @@ class ErrorHandler(object):
                 "PasswordCryptError": self._passwordCryptErrorHandler,
                 "ZIPLError": self._ziplErrorHandler}
 
+        _dbus_map = {
+                "org.fedoraproject.Anaconda.InsightsConnectError" : self._insightsConnectErrorHandler,
+                "org.fedoraproject.Anaconda.InsightsClientMissingError" : self._insightsClientMissingErrorHandler}
+
         if exn.__class__.__name__ in _map:
             rc = _map[exn.__class__.__name__](exn)
+        elif getattr(exn, "dbus_name") and exn.dbus_name in _dbus_map:
+            rc = _dbus_map[exn.dbus_name](exn)
 
         return rc
 

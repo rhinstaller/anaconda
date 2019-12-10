@@ -30,6 +30,8 @@ import io
 from pyanaconda.core import constants
 from pyanaconda.core.util import upcase_first_letter, setenv, execWithRedirect
 
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
@@ -296,6 +298,10 @@ def setup_locale(locale, localization_proxy=None, text_mode=False):
         sys.stdin = io.TextIOWrapper(sys.stdin.detach())
         sys.stdout = io.TextIOWrapper(sys.stdout.detach())
         sys.stderr = io.TextIOWrapper(sys.stderr.detach())
+
+    # Set locale for the Subscription DBus module. We do this just for the Subscription
+    # module as other modules don't need to translate strings at the moment.
+    SUBSCRIPTION.get_proxy().SetLocale(locale)
 
     return locale
 

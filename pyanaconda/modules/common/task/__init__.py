@@ -24,7 +24,7 @@ __all__ = ["publish_task", "sync_run_task", "async_run_task", "AbstractTask", "T
            "TaskInterface"]
 
 
-def publish_task(message_bus, namespace, task_instance):
+def publish_task(message_bus, namespace, task_instance, interface=None):
     """Publish a task on the given message bus.
 
     :param message_bus: a message bus
@@ -32,7 +32,10 @@ def publish_task(message_bus, namespace, task_instance):
     :param task_instance: an instance of a Task
     :return: a DBus path of the published task
     """
-    publishable = TaskInterface(task_instance)
+    if interface is None:
+        interface = TaskInterface
+
+    publishable = interface(task_instance)
     object_path = TaskInterface.get_object_path(namespace)
     message_bus.publish_object(object_path, publishable)
     return object_path

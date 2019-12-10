@@ -46,7 +46,9 @@ expected_badness = {'pyanaconda/bootloader.py':    {'mountpoint': 1,   # format 
                                                     'bootloader': 1},  # format string specifier
                     'pyanaconda/network.py':       {'vlan': 1},        # format string specifier
                     'pyanaconda/rescue.py':        {'mountpoint': 1},  # format string specifier
-                    'pyanaconda/startup_utils.py': {'HOSTNAME': 1}}    # ssh to install@HOSTNAME
+                    'pyanaconda/startup_utils.py': {'HOSTNAME': 1},   # ssh to install@HOSTNAME
+                    # hostname:port placeholder for proxy URL entry
+                    'pyanaconda/ui/gui/spokes/subscription.glade': {'hostname': 1}}
 
 # Use polib to parse anaconda.pot
 try:

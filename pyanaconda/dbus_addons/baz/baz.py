@@ -37,7 +37,7 @@ class Baz(KickstartModule):
         DBus.publish_object(BAZ.object_path, BazInterface(self))
         DBus.register_service(BAZ.service_name)
 
-    def install_with_tasks(self):
+    def install_with_tasks(self, sysroot):
         """Return installation tasks."""
         return [self.publish_task(BAZ.namespace, BazTask())]
 

@@ -20,7 +20,7 @@ from pyanaconda.dbus import SystemBus
 from pyanaconda.dbus.identifier import DBusServiceIdentifier
 from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, TIMEZONE_NAMESPACE, \
     NETWORK_NAMESPACE, LOCALIZATION_NAMESPACE, SECURITY_NAMESPACE, USERS_NAMESPACE, BAZ_NAMESPACE, \
-    PAYLOAD_NAMESPACE, STORAGE_NAMESPACE, SERVICES_NAMESPACE, SUBSCRIPTION_NAMESPACE
+    PAYLOAD_NAMESPACE, STORAGE_NAMESPACE, SERVICES_NAMESPACE, SUBSCRIPTION_NAMESPACE, RHSM_NAMESPACE
 
 # Anaconda services.
 
@@ -75,6 +75,11 @@ HOSTNAME = DBusServiceIdentifier(
     service_version=1,
     object_version=1,
     interface_version=1,
+    message_bus=SystemBus
+)
+
+RHSM = DBusServiceIdentifier(
+    namespace=RHSM_NAMESPACE,
     message_bus=SystemBus
 )
 

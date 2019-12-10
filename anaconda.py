@@ -710,6 +710,7 @@ if __name__ == "__main__":
 
     from pyanaconda.payload import payloadMgr
     from pyanaconda.timezone import time_initialize
+    from pyanaconda.subscription import subscribe
 
     if not flags.dirInstall:
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storage_initialize,
@@ -724,6 +725,22 @@ if __name__ == "__main__":
                                      args=(timezone_proxy,
                                            anaconda.storage,
                                            anaconda.bootloader)))
+
+    # Start the subscription handling thread if the Subscription DBus module
+    # provides enough authentication data.
+    # - as kickstart only supports org + key authetication & nothing
+    #   else currently talks to the Subsciption DBus module,
+    #   we only check if organization id & at least one activation
+    #   key are available
+    from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+    subscription_proxy = SUBSCRIPTION.get_proxy()
+
+    org_set = bool(subscription_proxy.Organization)
+    key_set = subscription_proxy.IsActivationKeySet
+
+    if org_set and key_set:
+        threadMgr.add(AnacondaThread(name=constants.THREAD_SUBSCRIPTION,
+                                     target=subscribe))
 
     if flags.rescue_mode:
         rescue.start_rescue_mode_ui(anaconda)

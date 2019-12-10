@@ -27,7 +27,7 @@ from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import constants
 from pyanaconda.core import util
-from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.constants.services import LOCALIZATION, SUBSCRIPTION
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.kickstart import RepoData
 
@@ -820,10 +820,18 @@ class DNFPayload(payload.PackagePayload):
     def baseRepo(self):
         # is any locking needed here?
         repo_names = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS
+        subscription_proxy = SUBSCRIPTION.get_proxy()
         with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                if repo.id in repo_names:
+            if subscription_proxy.IsSubscriptionAttached:
+                # If we have a subscription attached, any of the enabled repos
+                # should be fine as the base repo.
+                for repo in self._base.repos.iter_enabled():
                     return repo.id
+            else:
+                for repo in self._base.repos.iter_enabled():
+                    if repo.id in repo_names:
+                        return repo.id
+
         return None
 
     @property
@@ -1228,7 +1236,9 @@ class DNFPayload(payload.PackagePayload):
         # We need to check this again separately in case method.method was unset above.
         if not method.method:
             # If this is a kickstart install, just return now
-            if flags.automatedInstall:
+
+            subscription_proxy = SUBSCRIPTION.get_proxy()
+            if flags.automatedInstall and not subscription_proxy.IsSubscriptionAttached:
                 return
 
             # Otherwise, fall back to the default repos that we disabled above

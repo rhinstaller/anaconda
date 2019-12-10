@@ -18,8 +18,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+from locale import setlocale, LC_ALL
+
 from abc import ABC
 
+from pyanaconda.core.util import setenv
 from pyanaconda.core.event_loop import EventLoop
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.timer import Timer
@@ -62,7 +66,7 @@ class BaseModule(ABC):
         """
         pass
 
-    def publish_task(self, namespace, task, message_bus=DBus):
+    def publish_task(self, namespace, task, interface=None, message_bus=DBus):
         """Publish a task.
 
         :param namespace: a DBus namespace
@@ -70,7 +74,7 @@ class BaseModule(ABC):
         :param message_bus: a message bus
         :return: a DBus path of the published task
         """
-        object_path = publish_task(message_bus, namespace, task)
+        object_path = publish_task(message_bus, namespace, task, interface)
         self._published_tasks[task] = object_path
         return object_path
 
@@ -102,6 +106,26 @@ class MainModule(BaseModule):
         """Stop the module's loop."""
         DBus.disconnect()
         Timer().timeout_sec(1, self.loop.quit)
+
+    def set_locale(self, locale):
+        """Set the locale for the module.
+
+        This function modifies the process environment, which is not thread-safe.
+        It should be called before any threads are run.
+
+        We cannot get around setting $LANG. Python's gettext implementation
+        differs from C in that consults only the environment for the current
+        language and not the data set via setlocale. If we want translations
+        from python modules to work, something needs to be set in the
+        environment when the language changes.
+
+        :param str locale: locale to set
+        """
+        os.environ["LANG"] = locale  # pylint: disable=environment-modify
+        setlocale(LC_ALL, locale)
+        # Set locale for child processes
+        setenv("LANG", locale)
+        log.debug("Locale is set to %s.", locale)
 
 
 class KickstartBaseModule(BaseModule):
@@ -230,7 +254,7 @@ class KickstartModule(MainModule, KickstartBaseModule):
         """
         return self.generate_kickstart()
 
-    def install_with_tasks(self):
+    def install_with_tasks(self, sysroot):
         """Return installation tasks of this module.
 
         :return: a list of DBus paths of the installation tasks

@@ -25,6 +25,7 @@ from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, \
     MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE, SUBSCRIPTION
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.storage.osinstall import turn_on_filesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
@@ -334,12 +335,20 @@ def doInstall(storage, payload, ksdata, instClass):
         payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
         payload.preInstall()
 
-        # check if we need the syspurpose package needed for system purpose support
         subscription_proxy = SUBSCRIPTION.get_proxy()
-        if subscription_proxy.IsSystemPurposeSet:
-            # at least one value has been set, so we need the utility being installed in the target system
-            # chroot so we can call it
+        # check if we need the syspurpose package needed for system purpose support
+        if subscription_proxy.IsSystemPurposeSet and not subscription_proxy.IsSystemPurposeApplied:
+            # The system purpose installation task (which needs the syspurpose utility to be installed) runs:
+            # - if system purpose configuration has been requested
+            # - but system purpose has not been applied during the installation
+            # Only in such a case it will run on the target system and needs the syspurpose utility to be available.
             payload.requirements.add_packages(["python3-syspurpose"], reason="system purpose", strong=False)
+
+        # check if we need the insights-client package needed for connecting to insights
+        if subscription_proxy.InsightsEnabled:
+            # establishing a connection to Red Hat Insights has been requested and we need the insights-client
+            # package to be present in the target system chroot for that
+            payload.requirements.add_packages(["insights-client"], reason="Red Hat insights", strong=False)
 
     pre_install.append(Task("Find additional packages & run preInstall()", run_pre_install))
     installation_queue.append(pre_install)
@@ -352,6 +361,17 @@ def doInstall(storage, payload, ksdata, instClass):
     late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
     late_storage.append(Task("Write late storage", payload.writeStorageLate))
     installation_queue.append(late_storage)
+
+    # add installation tasks for the Subscription DBus module
+    subscription_config = TaskQueue("Subscription configuration", N_("Configuring Red Hat subscription"))
+    # TODO: move system purpose configuration here as well ?
+    subscription_proxy = SUBSCRIPTION.get_proxy()
+    subscription_dbus_tasks = subscription_proxy.InstallWithTasks(util.getSysroot())
+    # add one Task instance per DBUS task
+    for dbus_task in subscription_dbus_tasks:
+        task_proxy = SUBSCRIPTION.get_proxy(dbus_task)
+        subscription_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+    installation_queue.append(subscription_config)
 
     # Do bootloader.
     if can_install_bootloader:

@@ -1,7 +1,7 @@
 #
-# Kickstart handler for subscription module.
+# Private constants for the subscription module.
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,12 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
+from enum import IntEnum, unique
 
-class SubscriptionKickstartSpecification(KickstartSpecification):
+from pyanaconda.core.constants import RHSM_AUTH_USERNAME_PASSWORD, RHSM_AUTH_ORG_KEY, \
+        RHSM_AUTH_NOT_SELECTED
 
-    version = VERSION
-    commands = {
-        "syspurpose": COMMANDS.Syspurpose,
-        "rhsm": COMMANDS.RHSM
-    }
+
+@unique
+class AuthenticationMethod(IntEnum):
+    """Authentication method for subscription purposes."""
+    NOT_SELECTED = RHSM_AUTH_NOT_SELECTED
+    LOGIN_PASSWORD = RHSM_AUTH_USERNAME_PASSWORD
+    ORG_KEY = RHSM_AUTH_ORG_KEY

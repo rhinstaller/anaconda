@@ -37,3 +37,21 @@ class InstallationNotRunning(InstallationError):
 class LanguageInstallationError(InstallationError):
     """Exception for the language installation errors."""
     pass
+
+
+@dbus_error("SubscriptionTokenTransferError", namespace=ANACONDA_NAMESPACE)
+class SubscriptionTokenTransferError(InstallationError):
+    """Exception for errors during subscription token transfer."""
+    pass
+
+
+@dbus_error("InsightsClientMissingError", namespace=ANACONDA_NAMESPACE)
+class InsightsClientMissingError(InstallationError):
+    """Exception for missing Red Hat Insights utility."""
+    pass
+
+
+@dbus_error("InsightsConnectError", namespace=ANACONDA_NAMESPACE)
+class InsightsConnectError(InstallationError):
+    """Exception for error when connecting to Red Hat Insights."""
+    pass

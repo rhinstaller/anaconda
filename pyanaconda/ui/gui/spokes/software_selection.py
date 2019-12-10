@@ -36,6 +36,8 @@ from pyanaconda.ui.gui.utils import blockedHandler, escape_markup
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.categories.software import SoftwareCategory
 
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION, PAYLOAD
+
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
@@ -111,6 +113,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # list with no radio buttons ticked
         self._fakeRadio = Gtk.RadioButton(group=None)
         self._fakeRadio.set_active(True)
+
+        self._subscription_proxy = SUBSCRIPTION.get_proxy()
+        self._payload_proxy = PAYLOAD.get_proxy()
 
 
     # Payload event handlers
@@ -238,18 +243,22 @@ class SoftwareSelectionSpoke(NormalSpoke):
                               not threadMgr.get(constants.THREAD_PAYLOAD) and
                               not self._errorMsgs and self.txid_valid)
 
+
+
         # * we should always check processingDone before checking the other variables,
         #   as they might be inconsistent until processing is finished
         # * we can't let the installation proceed until a valid environment has been set
         if processingDone:
+            subscribed = self._subscription_proxy.IsSubscriptionAttached
             if self.environment is not None:
                 # if we have environment it needs to be valid
                 return self.environment_valid
             # if we don't have environment we need to at least have the %packages
-            # section in kickstart
-            elif self._kickstarted:
+            # section in kickstart or a subscribed system
+            # (CDN repos seem to be currently missing comps)
+            elif self._kickstarted or subscribed:
                 return True
-            # no environment and no %packages section -> manual intervention is needed
+            # no environment, no %packages section & system not subscribed -> manual intervention is needed
             else:
                 return False
         else:
@@ -293,6 +302,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def status(self):
         if self._errorMsgs:
             return _("Error checking software selection")
+
+        cdn_source = self._payload_proxy.RedHatCDNEnabled
+        subscribed = self._subscription_proxy.IsSubscriptionAttached
+
+        if cdn_source and not subscribed:
+            return _("Red Hat CDN requires registration")
 
         if not self.ready:
             return _("Installation source not set up")

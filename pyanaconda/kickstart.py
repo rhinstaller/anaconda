@@ -110,6 +110,7 @@ authselect_log = log.getChild("kickstart.authselect")
 bootloader_log = log.getChild("kickstart.bootloader")
 user_log = log.getChild("kickstart.user")
 group_log = log.getChild("kickstart.group")
+rhsm_log = log.getChild("kickstart.rhsm")
 clearpart_log = log.getChild("kickstart.clearpart")
 autopart_log = log.getChild("kickstart.autopart")
 logvol_log = log.getChild("kickstart.logvol")
@@ -980,9 +981,11 @@ class Syspurpose(RemovedCommand):
 
     def execute(self, *args, **kwargs):
         subscription_proxy = SUBSCRIPTION.get_proxy()
-        task_path = subscription_proxy.SetSystemPurposeWithTask(util.getSysroot())
-        task_proxy = SUBSCRIPTION.get_proxy(task_path)
-        sync_run_task(task_proxy)
+        if subscription_proxy.IsSystemPurposeSet and not subscription_proxy.IsSystemPurposeApplied:
+            # only run the task if we have system purpose data to apply & it has not yet been applied
+            task_path = subscription_proxy.SetSystemPurposeWithTask(util.getSysroot())
+            task_proxy = SUBSCRIPTION.get_proxy(task_path)
+            sync_run_task(task_proxy)
 
 # no overrides needed here
 Eula = COMMANDS.Eula
@@ -2196,6 +2199,12 @@ class User(COMMANDS.User):
             except ValueError as e:
                 user_log.warning(str(e))
 
+class RHSM(RemovedCommand):
+
+    def __str__(self):
+        subscription_proxy = SUBSCRIPTION.get_proxy()
+        return subscription_proxy.GenerateKickstart()
+
 class VolGroup(COMMANDS.VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
@@ -2572,6 +2581,7 @@ commandMap = {
     "part": Partition,
     "partition": Partition,
     "raid": Raid,
+    "rhsm" : RHSM,
     "realm": Realm,
     "reqpart": ReqPart,
     "rootpw": RootPw,

@@ -20,8 +20,27 @@
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.property import emits_properties_changed
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 
 @dbus_interface(PAYLOAD.interface_name)
 class PayloadInterface(KickstartModuleInterface):
     """DBus interface for Payload module."""
+
+    def connect_signals(self):
+        super().connect_signals()
+        self.watch_property("RedHatCDNEnabled", self.implementation.red_hat_cdn_enabled_changed)
+
+    @property
+    def RedHatCDNEnabled(self) -> Bool:
+        """Report if the Red Hat CDN is enabled as the installation source."""
+        return self.implementation.red_hat_cdn_enabled
+
+    @emits_properties_changed
+    def SetRedHatCDNEnabled(self, cdn_enabled: Bool):
+        """Set if Red Hat CDN is enabled as installation source.
+
+        :param bool cdn_enabled: True if CDN is the installation source, False otherwise
+        """
+        self.implementation.set_red_hat_cdn_enabled(cdn_enabled)

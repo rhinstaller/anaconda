@@ -23,12 +23,20 @@ from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 
+from pyanaconda.core.signal import Signal
+
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
 class PayloadModule(KickstartModule):
     """The Payload module."""
+
+    def __init__(self):
+        super().__init__()
+
+        self._red_hat_cdn_enabled = False
+        self.red_hat_cdn_enabled_changed = Signal()
 
     def publish(self):
         """Publish the module."""
@@ -49,3 +57,11 @@ class PayloadModule(KickstartModule):
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
         return str(data)
+
+    @property
+    def red_hat_cdn_enabled(self):
+        return self._red_hat_cdn_enabled
+
+    def set_red_hat_cdn_enabled(self, enabled):
+        self._red_hat_cdn_enabled = enabled
+        self.red_hat_cdn_enabled_changed.emit()
