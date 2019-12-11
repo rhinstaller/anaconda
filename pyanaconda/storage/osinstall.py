@@ -206,8 +206,8 @@ class InstallerStorage(Blivet):
     def _skip_unsupported_disk_labels(self, disks):
         """Get a list of disks with supported disk labels.
 
-        Skip disks with disk labels that are not supported
-        on this platform.
+        Skip initialized disks with disk labels that are
+        not supported on this platform.
 
         :param disks: a list of disks
         :return: a list of disks with supported disk labels
@@ -215,6 +215,9 @@ class InstallerStorage(Blivet):
         label_types = set(DiskLabel.get_platform_label_types())
 
         def is_supported(disk):
+            if disk.format.type is None:
+                return True
+
             return disk.format.type == "disklabel" \
                 and disk.format.label_type in label_types
 
