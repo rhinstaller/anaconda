@@ -114,6 +114,7 @@ class DeviceTreeViewer(ABC):
         data.path = device.path
         data.size = device.size.get_bytes()
         data.parents = [d.name for d in device.parents]
+        data.children = [d.name for d in device.children]
         data.is_disk = device.is_disk
         data.protected = device.protected
         data.removable = device.removable

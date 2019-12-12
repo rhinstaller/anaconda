@@ -31,6 +31,7 @@ class DeviceData(DBusData):
         self._path = ""
         self._size = 0
         self._parents = []
+        self._children = []
         self._is_disk = False
         self._protected = False
         self._removable = False
@@ -126,6 +127,18 @@ class DeviceData(DBusData):
     @parents.setter
     def parents(self, names):
         self._parents = names
+
+    @property
+    def children(self) -> List[Str]:
+        """Children of the device.
+
+        :return: a list of device names
+        """
+        return self._children
+
+    @children.setter
+    def children(self, value):
+        self._children = value
 
     @property
     def attrs(self) -> Dict[Str, Str]:
