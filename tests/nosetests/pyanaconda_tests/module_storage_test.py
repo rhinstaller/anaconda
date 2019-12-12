@@ -28,11 +28,13 @@ from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONIN
 from dasbus.server.container import DBusContainerError
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import PartitioningContainer
-from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
-    ManualPartitioningModule
+from pyanaconda.modules.storage.partitioning.automatic.automatic_module import \
+    AutoPartitioningModule
+from pyanaconda.modules.storage.partitioning.manual.manual_module import ManualPartitioningModule
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
-from pyanaconda.modules.storage.partitioning.interactive import InteractivePartitioningModule
+from pyanaconda.modules.storage.partitioning.interactive.interactive_module import \
+    InteractivePartitioningModule
 from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
     patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy, reset_boot_loader_factory

@@ -30,9 +30,10 @@ from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError, ProtectedDeviceError
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
-from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
+from pyanaconda.modules.storage.partitioning.automatic.automatic_interface import \
+    AutoPartitioningInterface
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
-from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
+from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
     AutomaticPartitioningTask
 
 log = get_module_logger(__name__)

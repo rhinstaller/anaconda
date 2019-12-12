@@ -28,9 +28,11 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_ta
     patch_dbus_get_proxy
 
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
-from pyanaconda.modules.storage.partitioning import CustomPartitioningModule
-from pyanaconda.modules.storage.partitioning.custom_interface import CustomPartitioningInterface
-from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
+from pyanaconda.modules.storage.partitioning.custom.custom_module import CustomPartitioningModule
+from pyanaconda.modules.storage.partitioning.custom.custom_interface import \
+    CustomPartitioningInterface
+from pyanaconda.modules.storage.partitioning.custom.custom_partitioning import \
+    CustomPartitioningTask
 from pyanaconda.modules.storage.storage import StorageService
 from pyanaconda.storage.initialization import create_storage
 

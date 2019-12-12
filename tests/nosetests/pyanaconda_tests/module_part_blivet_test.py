@@ -26,10 +26,10 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_ta
 
 from blivetgui.communication.proxy_utils import ProxyID
 
-from pyanaconda.modules.storage.partitioning import BlivetPartitioningModule
-from pyanaconda.modules.storage.partitioning.blivet_interface import \
+from pyanaconda.modules.storage.partitioning.blivet.blivet_module import BlivetPartitioningModule
+from pyanaconda.modules.storage.partitioning.blivet.blivet_interface import \
     BlivetPartitioningInterface
-from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractivePartitioningTask
 
 

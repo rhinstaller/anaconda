@@ -29,7 +29,8 @@ from gi.repository import Gdk, Gtk
 from pyanaconda.core.i18n import _, C_, N_, P_
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
+from pyanaconda.modules.storage.partitioning.automatic.automatic_module import \
+    AutoPartitioningModule
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup, timed_action
 from blivet.size import Size

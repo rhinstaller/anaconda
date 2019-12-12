@@ -197,6 +197,11 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/storage/iscsi/Makefile
                  pyanaconda/modules/storage/nvdimm/Makefile
                  pyanaconda/modules/storage/partitioning/Makefile
+                 pyanaconda/modules/storage/partitioning/automatic/Makefile
+                 pyanaconda/modules/storage/partitioning/blivet/Makefile
+                 pyanaconda/modules/storage/partitioning/custom/Makefile
+                 pyanaconda/modules/storage/partitioning/interactive/Makefile
+                 pyanaconda/modules/storage/partitioning/manual/Makefile
                  pyanaconda/modules/storage/snapshot/Makefile
                  pyanaconda/modules/storage/zfcp/Makefile
                  pyanaconda/modules/services/Makefile
