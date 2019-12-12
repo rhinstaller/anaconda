@@ -442,6 +442,16 @@ class ResizeDialog(GUIObject):
         self._update_reclaim_button(self._selected_reclaimable_space)
         self._update_action_buttons(selected_row)
 
+    def _get_device(self, name):
+        """Find a device by its name.
+
+        FIXME: This method is necessary for the hack below.
+
+        :param name: a name of the device
+        :return: an instance of the Blivet's device
+        """
+        return self.storage.devicetree.get_device_by_name(name)
+
     def _schedule_actions(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
 
