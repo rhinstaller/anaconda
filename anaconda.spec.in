@@ -348,6 +348,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Dec 12 2019 Martin Kolman <mkolman@redhat.com> - 32.17-1
+- Calculate the space on uninitialized disks (#1782449) (vponcova)
+- Define a method required by _schedule_actions (#1782463) (vponcova)
+- Split the partitioning code (vponcova)
+- Add the attribute children to the device data (vponcova)
+
 * Tue Dec 10 2019 Martin Kolman <mkolman@redhat.com> - 32.16-1
 - Add a DBus method for checking resizable devices (vponcova)
 - Add DBus methods for partitioned devices (vponcova)
