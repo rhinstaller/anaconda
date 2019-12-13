@@ -127,6 +127,21 @@ class KernelArguments():
             else:
                 self._data[key] = val
 
+    def is_enabled(self, arg):
+        """Return boolean value for the given argument.
+
+        Rules:
+        - 0, off, not present -> False
+        - the rest -> True
+        """
+        # None is stored when arg is present but had no value when parsing.
+        # So the "miss" value must be something else.
+        val = self._data.get(arg, False)
+        if val in ["0", "off", False]:
+            return False
+        else:
+            return True
+
     def getbool(self, arg, default=False):
         """Return the boolean value of the given argument.
 

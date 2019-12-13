@@ -319,7 +319,7 @@ def _prepare_installation(storage, payload, ksdata):
 
         if can_install_bootloader:
             payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
-        if kernel_arguments.getbool("fips"):
+        if kernel_arguments.is_enabled("fips"):
             payload.requirements.add_packages(['/usr/bin/fips-mode-setup'], reason="compliance")
 
         payload.requirements.add_groups(payload.language_groups(), reason="language groups")

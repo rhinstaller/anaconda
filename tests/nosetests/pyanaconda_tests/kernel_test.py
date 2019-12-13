@@ -58,6 +58,19 @@ class KernelArgumentsTests(unittest.TestCase):
         self.assertFalse(ka.getbool("nobody"))  # full name incl. the "no" prefix, value is 0
         self.assertFalse(ka.get("body"))  # no-prefix and has a value
 
+        # test the is_enabled() method
+        self.assertTrue(ka.is_enabled("blah"))  # present
+        self.assertTrue(ka.is_enabled("foo"))  # any value
+        self.assertTrue(ka.is_enabled("bar"))  # 1 = any value
+        self.assertFalse(ka.is_enabled("baz"))  # 0
+        self.assertTrue(ka.is_enabled("nowhere"))  # present
+        self.assertTrue(ka.is_enabled("nothing"))  # present
+        self.assertFalse(ka.is_enabled("beep"))  # off
+        self.assertTrue(ka.is_enabled("derp"))  # no = any value
+        self.assertFalse(ka.is_enabled("nobody"))  # 0
+        self.assertFalse(ka.is_enabled("thing"))  # not present
+        self.assertFalse(ka.is_enabled("where"))  # not present
+
     def real_parsing_and_adding_test(self):
         """Test file spec handling in KernelArguments."""
 

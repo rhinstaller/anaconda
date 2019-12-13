@@ -193,10 +193,7 @@ class Geolocation(object):
                 geolocation_enabled = False
 
         # and also check if geolocation was not disabled by boot or command like option
-        if not kernel_arguments.getbool('geoloc', True):
-            # kernel_arguments.getbool is used as it handles values such as
-            # 0, no, off and also nogeoloc as False
-            # and other values or geoloc not being present as True
+        if not kernel_arguments.is_enabled('geoloc'):
             geolocation_enabled = False
 
         # log the result
@@ -218,7 +215,7 @@ class Geolocation(object):
                 log.info("Geolocation is disabled for image or directory installation.")
             elif flags.automatedInstall:
                 log.info("Geolocation is disabled due to automated kickstart based installation.")
-            if not kernel_arguments.getbool('geoloc', True):
+            if not kernel_arguments.is_enabled('geoloc'):
                 log.info("Geolocation is disabled by the geoloc option.")
 
     def refresh(self):
