@@ -825,7 +825,7 @@ class SubscriptionModule(KickstartModule):
         # set data to RHSM
         log.debug("setting HTTP proxy data to RHSM")
         self.rhsm_config_proxy.Set("server.proxy_hostname", get_variant(Str, hostname), "")
-        self.rhsm_config_proxy.Set("server.proxy_port", get_variant(Str, port_string, ""))
+        self.rhsm_config_proxy.Set("server.proxy_port", get_variant(Str, port_string), "")
         self.rhsm_config_proxy.Set("server.proxy_user", get_variant(Str, username), "")
         self.rhsm_config_proxy.Set("server.proxy_password", get_variant(Str, password), "")
 
