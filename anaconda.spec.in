@@ -341,6 +341,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Dec 13 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.6-1
+- Fix RHSM HTTP proxy setup (mkolman)
+  Related: rhbz#1748281
+- Fix text color on info bars (mkolman)
+  Resolves: rhbz#1782174
+
 * Tue Dec 10 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.5-1
 - Adjust unit tests (mkolman)
   Resolves: rhbz#1748281
