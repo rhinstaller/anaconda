@@ -19,8 +19,7 @@ from pyanaconda.core.util import execWithRedirect
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.localization.localed import LocaledWrapper, \
-    get_missing_keyboard_configuration
+from pyanaconda.modules.localization.localed import get_missing_keyboard_configuration
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.localization.installation import write_vc_configuration
 
@@ -67,15 +66,18 @@ class AssignGenericKeyboardSettingTask(Task):
 class GetMissingKeyboardConfigurationTask(Task):
     """Task for getting missing keyboard settings by conversion and default values."""
 
-    def __init__(self, x_layouts, vc_keymap):
+    def __init__(self, localed_wrapper, x_layouts, vc_keymap):
         """Create a new task.
 
+        :param localed_wrapper: instance of systemd-localed service wrapper
+        :type localed_wrapper: LocaledWrapper
         :param x_layouts: list of x layout specifications
         :type x_layouts: list(str)
         :param vc_keymap: virtual console keyboard mapping name
         :type vc_keymap: str
         """
         super().__init__()
+        self._localed_wrapper = localed_wrapper
         self._x_layouts = x_layouts
         self._vc_keymap = vc_keymap
 
@@ -89,16 +91,17 @@ class GetMissingKeyboardConfigurationTask(Task):
         :returns: tuple of X layouts and VC keyboard settings
         :rtype: (list(str), str))
         """
-        localed_wrapper = LocaledWrapper()
-        return get_missing_keyboard_configuration(localed_wrapper, self._x_layouts, self._vc_keymap)
+        return get_missing_keyboard_configuration(self._localed_wrapper, self._x_layouts, self._vc_keymap)
 
 
 class ApplyKeyboardTask(Task):
     """Task for applying keyboard settings to current system."""
 
-    def __init__(self, x_layouts, vc_keymap, switch_options):
+    def __init__(self, localed_wrapper, x_layouts, vc_keymap, switch_options):
         """Create a new task.
 
+        :param localed_wrapper: instance of systemd-localed service wrapper
+        :type localed_wrapper: LocaledWrapper
         :param x_layouts: list of x layout specifications
         :type x_layouts: list(str)
         :param vc_keymap: virtual console keyboard mapping name
@@ -107,6 +110,7 @@ class ApplyKeyboardTask(Task):
         :type switch_options: list(str)
         """
         super().__init__()
+        self._localed_wrapper = localed_wrapper
         self._x_layouts = x_layouts
         self._vc_keymap = vc_keymap
         self._switch_options = switch_options
@@ -132,7 +136,6 @@ class ApplyKeyboardTask(Task):
 
         vc_keymap = self._vc_keymap
         x_layouts = self._x_layouts
-        localed = LocaledWrapper()
         x_layouts_from_conversion = None
 
         if vc_keymap:
@@ -142,7 +145,7 @@ class ApplyKeyboardTask(Task):
                 vc_keymap = ""
             else:
                 # activate VConsole keymap and get converted layout and variant
-                x_layouts_from_conversion = localed.set_and_convert_keymap(vc_keymap)
+                x_layouts_from_conversion = self._localed_wrapper.set_and_convert_keymap(vc_keymap)
 
         if not x_layouts:
             if x_layouts_from_conversion:
@@ -156,9 +159,9 @@ class ApplyKeyboardTask(Task):
 
         if x_layouts:
             if not vc_keymap:
-                vc_keymap = localed.set_and_convert_layouts(x_layouts)
+                vc_keymap = self._localed_wrapper.set_and_convert_layouts(x_layouts)
 
-            localed.set_layouts(x_layouts, self._switch_options)
+            self._localed_wrapper.set_layouts(x_layouts, self._switch_options)
 
             # FIXME: is this really needed?
             # Only because of configuration of the FONT, if at all.

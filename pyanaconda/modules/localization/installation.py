@@ -22,8 +22,7 @@ from pyanaconda.modules.common.errors.installation import LanguageInstallationEr
     KeyboardInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.core.constants import DEFAULT_VC_FONT
-from pyanaconda.modules.localization.localed import LocaledWrapper, \
-    get_missing_keyboard_configuration
+from pyanaconda.modules.localization.localed import get_missing_keyboard_configuration
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -75,9 +74,11 @@ class LanguageInstallationTask(Task):
 class KeyboardInstallationTask(Task):
     """Installation task for the keyboard configuration."""
 
-    def __init__(self, sysroot, x_layouts, switch_options, vc_keymap):
+    def __init__(self, sysroot, localed_wrapper, x_layouts, switch_options, vc_keymap):
         """Create a new task,
 
+        :param localed_wrapper: instance of systemd-localed service wrapper
+        :type localed_wrapper: LocaledWrapper
         :param sysroot: a path to the root of the installed system
         :type sysroot: str
         :param x_layouts: list of x layout specifications
@@ -89,6 +90,7 @@ class KeyboardInstallationTask(Task):
         """
         super().__init__()
         self._sysroot = sysroot
+        self._localed_wrapper = localed_wrapper
         self._x_layouts = x_layouts
         self._switch_options = switch_options
         self._vc_keymap = vc_keymap
@@ -98,21 +100,19 @@ class KeyboardInstallationTask(Task):
         return "Configure keyboard"
 
     def run(self):
-        localed_wrapper = LocaledWrapper()
-
         x_layouts = self._x_layouts
         vc_keymap = self._vc_keymap
 
         if not self._x_layouts or not self._vc_keymap:
             x_layouts, vc_keymap = get_missing_keyboard_configuration(
-                localed_wrapper,
+                self._localed_wrapper,
                 self._x_layouts,
                 self._vc_keymap
             )
 
         if x_layouts:
             write_x_configuration(
-                localed_wrapper,
+                self._localed_wrapper,
                 x_layouts,
                 self._switch_options,
                 X_CONF_DIR,

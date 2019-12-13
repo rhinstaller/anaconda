@@ -83,3 +83,11 @@ HOSTNAME = DBusServiceIdentifier(
     interface_version=1,
     message_bus=SystemBus
 )
+
+LOCALED = DBusServiceIdentifier(
+    namespace=("org", "freedesktop", "locale"),
+    service_version=1,
+    object_version=1,
+    interface_version=1,
+    message_bus=SystemBus
+)
