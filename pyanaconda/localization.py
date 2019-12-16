@@ -51,6 +51,23 @@ class InvalidLocaleSpec(LocalizationConfigError):
 
     pass
 
+def is_valid_langcode(langcode):
+    """Check if the given locale has a language specified.
+
+    :return: whether the language or locale is valid
+    :rtype: bool
+    """
+    parsed = langtable.parse_locale(langcode)
+    return bool(parsed.language)
+
+def raise_on_invalid_locale(arg):
+    """Helper to abort when a locale is not valid.
+
+    :raise: InvalidLocaleSpec
+    """
+    if not is_valid_langcode(arg):
+        raise InvalidLocaleSpec("'{}' is not a valid locale".format(arg))
+
 def parse_langcode(langcode):
     """
     For a given langcode (e.g. 'SR_RS.UTF-8@latin') returns a dictionary
@@ -290,43 +307,31 @@ def set_modules_locale(locale):
 
 
 def get_english_name(locale):
-    """
-    Function returning english name for the given locale.
+    """Function returning english name for the given locale.
 
     :param locale: locale to return english name for
     :type locale: str
     :return: english name for the locale or empty string if unknown
     :rtype: st
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
-
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
     """
-
-    parts = parse_langcode(locale)
-    if "language" not in parts:
-        raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
+    raise_on_invalid_locale(locale)
 
     name = langtable.language_name(languageId=locale, languageIdQuery="en")
-
     return upcase_first_letter(name)
 
 def get_native_name(locale):
-    """
-    Function returning native name for the given locale.
+    """Function returning native name for the given locale.
 
     :param locale: locale to return native name for
     :type locale: str
     :return: english name for the locale or empty string if unknown
     :rtype: st
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
-
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
     """
-
-    parts = parse_langcode(locale)
-    if "language" not in parts:
-        raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
+    raise_on_invalid_locale(locale)
 
     name = langtable.language_name(languageId=locale)
-
     return upcase_first_letter(name)
 
 def get_available_translations(localedir=None):
@@ -362,20 +367,15 @@ def get_available_translations(localedir=None):
             yield lang
 
 def get_language_locales(lang):
-    """
-    Function returning all locales available for the given language.
+    """Function returning all locales available for the given language.
 
     :param lang: language to get available locales for
     :type lang: str
     :return: a list of available locales
     :rtype: list of strings
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
-
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
     """
-
-    parts = parse_langcode(lang)
-    if "language" not in parts:
-        raise InvalidLocaleSpec("'%s' is not a valid language" % lang)
+    raise_on_invalid_locale(lang)
 
     return langtable.list_locales(languageId=lang)
 
@@ -395,92 +395,69 @@ def get_territory_locales(territory):
     return langtable.list_locales(territoryId=territory)
 
 def get_locale_keyboards(locale):
-    """
-    Function returning preferred keyboard layouts for the given locale.
+    """Function returning preferred keyboard layouts for the given locale.
 
-    :param locale: locale string (see LANGCODE_RE)
+    :param locale: locale string
     :type locale: str
     :return: list of preferred keyboard layouts
     :rtype: list of strings
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
-
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
     """
-
-    parts = parse_langcode(locale)
-    if "language" not in parts:
-        raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
+    raise_on_invalid_locale(locale)
 
     return langtable.list_keyboards(languageId=locale)
 
 def get_locale_timezones(locale):
-    """
-    Function returning preferred timezones for the given locale.
+    """Function returning preferred timezones for the given locale.
 
-    :param locale: locale string (see LANGCODE_RE)
+    :param locale: locale string
     :type locale: str
     :return: list of preferred timezones
     :rtype: list of strings
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
-
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
     """
-
-    parts = parse_langcode(locale)
-    if "language" not in parts:
-        raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
+    raise_on_invalid_locale(locale)
 
     return langtable.list_timezones(languageId=locale)
 
 def get_locale_console_fonts(locale):
-    """
-    Function returning preferred console fonts for the given locale.
+    """Function returning preferred console fonts for the given locale.
 
-    :param str locale: locale string (see LANGCODE_RE)
+    :param str locale: locale string
     :return: list of preferred console fonts
     :rtype: list of strings
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
-
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
     """
-
-    parts = parse_langcode(locale)
-    if "language" not in parts:
-        raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
+    raise_on_invalid_locale(locale)
 
     return langtable.list_consolefonts(languageId=locale)
 
 def get_locale_scripts(locale):
-    """
-    Function returning preferred scripts (writing systems) for the given locale.
+    """Function returning preferred scripts (writing systems) for the given locale.
 
-    :param locale: locale string (see LANGCODE_RE)
+    :param locale: locale string
     :type locale: str
     :return: list of preferred scripts
     :rtype: list of strings
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
-
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
     """
-
-    parts = parse_langcode(locale)
-    if "language" not in parts:
-        raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
+    raise_on_invalid_locale(locale)
 
     return langtable.list_scripts(languageId=locale)
 
 def get_xlated_timezone(tz_spec_part):
-    """
-    Function returning translated name of a region, city or complete timezone
+    """Function returning translated name of a region, city or complete timezone
     name according to the current value of the $LANG variable.
 
     :param tz_spec_part: a region, city or complete timezone name
     :type tz_spec_part: str
     :return: translated name of the given region, city or timezone
     :rtype: str
-
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
     """
-
     locale = os.environ.get("LANG", constants.DEFAULT_LANG)
-    parts = parse_langcode(locale)
-    if "language" not in parts:
-        raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
+
+    raise_on_invalid_locale(locale)
 
     xlated = langtable.timezone_name(tz_spec_part, languageIdQuery=locale)
     return xlated
