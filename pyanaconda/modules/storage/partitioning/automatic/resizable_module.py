@@ -21,10 +21,10 @@ from blivet.devices import PartitionDevice
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.errors.storage import ProtectedDeviceError
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.partitioning.automatic.resizable_interface import \
     ResizableDeviceTreeInterface
+from pyanaconda.modules.storage.partitioning.automatic.utils import shrink_device, remove_device
 
 log = get_module_logger(__name__)
 
@@ -95,19 +95,7 @@ class ResizableDeviceTreeModule(DeviceTreeModule):
         """
         size = Size(size)
         device = self._get_device(device_name)
-
-        if device.protected:
-            raise ProtectedDeviceError(device_name)
-
-        # The device size is small enough.
-        if device.size <= size:
-            log.debug("The size of %s is already %s.", device_name, device.size)
-            return
-
-        # Resize the device.
-        log.debug("Shrinking a size of %s to %s.", device_name, size)
-        aligned_size = device.align_target_size(size)
-        self.storage.resize_device(device, aligned_size)
+        shrink_device(self.storage, device, size)
 
     def remove_device(self, device_name):
         """Remove a device after removing its dependent devices.
@@ -118,19 +106,4 @@ class ResizableDeviceTreeModule(DeviceTreeModule):
         :param device_name: a name of the device
         """
         device = self._get_device(device_name)
-
-        if device.protected:
-            raise ProtectedDeviceError(device_name)
-
-        # Only remove unprotected children if any protected.
-        if any(d.protected for d in device.children):
-            log.debug("Removing unprotected children of %s.", device_name)
-
-            for child in (d for d in device.children if not d.protected):
-                self.storage.recursive_remove(child)
-
-            return
-
-        # No protected children, remove the device
-        log.debug("Removing device %s.", device_name)
-        self.storage.recursive_remove(device)
+        remove_device(self.storage, device)

@@ -29,10 +29,9 @@ from gi.repository import Gdk, Gtk
 from pyanaconda.core.i18n import _, C_, N_, P_
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.storage.partitioning.automatic.automatic_module import \
-    AutoPartitioningModule
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup, timed_action
+from pyanaconda.modules.storage.partitioning.automatic.utils import shrink_device, remove_device
 from blivet.size import Size
 
 __all__ = ["ResizeDialog"]
@@ -442,16 +441,6 @@ class ResizeDialog(GUIObject):
         self._update_reclaim_button(self._selected_reclaimable_space)
         self._update_action_buttons(selected_row)
 
-    def _get_device(self, name):
-        """Find a device by its name.
-
-        FIXME: This method is necessary for the hack below.
-
-        :param name: a name of the device
-        :return: an instance of the Blivet's device
-        """
-        return self.storage.devicetree.get_device_by_name(name)
-
     def _schedule_actions(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
 
@@ -464,11 +453,11 @@ class ResizeDialog(GUIObject):
         if obj.action == _(PRESERVE):
             pass
         elif obj.action == _(SHRINK):
-            # FIXME: This is an ugly temporary workaround for UI.
-            AutoPartitioningModule.shrink_device(self, obj.name, obj.target)
+            device = self.storage.devicetree.get_device_by_name(obj.name)
+            shrink_device(self.storage, device, Size(obj.target))
         elif obj.action == _(DELETE):
-            # FIXME: This is an ugly temporary workaround for UI.
-            AutoPartitioningModule.remove_device(self, obj.name)
+            device = self.storage.devicetree.get_device_by_name(obj.name)
+            remove_device(self.storage, device)
 
         return False
 
