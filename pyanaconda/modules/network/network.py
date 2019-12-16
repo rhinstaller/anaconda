@@ -19,9 +19,9 @@
 #
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.network import NetworkOnBoot
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -93,7 +93,7 @@ class NetworkService(KickstartService):
         self._bootif = None
         self._ifname_option_values = []
         self._disable_ipv6 = False
-        self._apply_boot_options(flags.cmdline)
+        self._apply_boot_options(kernel_arguments)
 
     def publish(self):
         """Publish the module."""
@@ -652,20 +652,20 @@ class NetworkService(KickstartService):
         ))
         return dracut_args
 
-    def _apply_boot_options(self, kernel_arguments):
+    def _apply_boot_options(self, kernel_args):
         """Apply boot options to the module.
 
-        :param kernel_arguments: structure holding installer boot options
-        :type kernel_arguments: KernelArguments
+        :param kernel_args: structure holding installer boot options
+        :type kernel_args: KernelArguments
         """
-        log.debug("Applying boot options %s", kernel_arguments)
-        if 'ksdevice' in kernel_arguments:
-            self.default_device_specification = kernel_arguments.get('ksdevice')
-        if 'BOOTIF' in kernel_arguments:
-            self.bootif = kernel_arguments['BOOTIF'][3:].replace("-", ":").upper()
-        if 'ifname' in kernel_arguments:
-            self.ifname_option_values = kernel_arguments.get("ifname", "").split()
-        if 'noipv6' in kernel_arguments:
+        log.debug("Applying boot options %s", kernel_args)
+        if 'ksdevice' in kernel_args:
+            self.default_device_specification = kernel_args.get('ksdevice')
+        if 'BOOTIF' in kernel_args:
+            self.bootif = kernel_args.get('BOOTIF')[3:].replace("-", ":").upper()
+        if 'ifname' in kernel_args:
+            self.ifname_option_values = kernel_args.get("ifname").split()
+        if 'noipv6' in kernel_args:
             self.disable_ipv6 = True
 
     def log_task_result(self, task, check_result=False, root_path=""):

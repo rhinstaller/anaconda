@@ -30,9 +30,9 @@ from pyanaconda import platform
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core import util
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import FCOE, ISCSI
 from pyanaconda.modules.common.structures.iscsi import Node
 from pyanaconda.modules.common.constants.services import STORAGE, NETWORK
@@ -701,7 +701,7 @@ class BootLoader(object):
 
         # FIPS
         boot_device = storage.mountpoints.get("/boot")
-        if flags.cmdline.get("fips") == "1" and boot_device:
+        if kernel_arguments.get("fips") == "1" and boot_device:
             self.boot_args.add("boot=%s" % self.stage2_device.fstab_spec)
 
         # Storage
@@ -806,10 +806,10 @@ class BootLoader(object):
     def _preserve_some_boot_args(self):
         """Preserve some of the boot args."""
         for opt in conf.bootloader.preserved_arguments:
-            if opt not in flags.cmdline:
+            if opt not in kernel_arguments:
                 continue
 
-            arg = flags.cmdline.get(opt)
+            arg = kernel_arguments.get(opt)
             new_arg = opt
             if arg:
                 new_arg += "=%s" % arg
@@ -854,7 +854,7 @@ class BootLoader(object):
 
     def _set_console(self):
         """ Set console options based on boot arguments. """
-        console = flags.cmdline.get("console", "")
+        console = kernel_arguments.get("console", "")
         console = os.path.basename(console)
         self.console, _x, self.console_options = console.partition(",")
 

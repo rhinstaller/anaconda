@@ -23,6 +23,7 @@ from blivet.devices import BTRFSDevice
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
     LOCALIZATION, TIMEZONE, BOSS
@@ -316,7 +317,7 @@ def _prepare_installation(storage, payload, ksdata):
 
         if can_install_bootloader:
             payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
-        if flags.flags.cmdline.getbool("fips"):
+        if kernel_arguments.is_enabled("fips"):
             payload.requirements.add_packages(['/usr/bin/fips-mode-setup'], reason="compliance")
 
         payload.requirements.add_groups(payload.language_groups(), reason="language groups")

@@ -22,9 +22,9 @@ import glob
 import os
 import stat
 
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.util import mkdirChain, execWithRedirect
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.flags import flags
 from pyanaconda.payload.utils import version_cmp
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -43,13 +43,13 @@ def write_module_blacklist(sysroot):
     /etc/modprobe.d/anaconda-blacklist.conf so that modules will
     continue to be blacklisted when the system boots.
     """
-    if "modprobe.blacklist" not in flags.cmdline:
+    if "modprobe.blacklist" not in kernel_arguments:
         return
 
     mkdirChain(os.path.join(sysroot, "etc/modprobe.d"))
     with open(os.path.join(sysroot, "etc/modprobe.d/anaconda-blacklist.conf"), "w") as f:
         f.write("# Module blacklists written by anaconda\n")
-        for module in flags.cmdline["modprobe.blacklist"].split():
+        for module in kernel_arguments.get("modprobe.blacklist").split():
             f.write("blacklist %s\n" % module)
 
 

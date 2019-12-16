@@ -39,7 +39,7 @@ def exitHandler(rebootData, storage):
     if flags.usevnc:
         vnc.shutdownServer()
 
-    if "nokill" in flags.cmdline:
+    if "nokill" in kernel_arguments:
         util.vtActivate(1)
         print("anaconda halting due to nokill flag.")
         print("The system will be rebooted when you press Ctrl-Alt-Delete.")
@@ -248,7 +248,8 @@ if __name__ == "__main__":
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags
-    (opts, depr) = parse_arguments(boot_cmdline=flags.cmdline)
+    from pyanaconda.core.kernel import kernel_arguments
+    (opts, depr) = parse_arguments(boot_cmdline=kernel_arguments)
 
     from pyanaconda.core.configuration.anaconda import conf
     conf.set_from_opts(opts)
@@ -284,7 +285,7 @@ if __name__ == "__main__":
     # see if we're on s390x and if we've got an ssh connection
     uname = os.uname()
     if uname[4] == 's390x':
-        if 'TMUX' not in os.environ and 'ks' not in flags.cmdline and conf.target.is_hardware:
+        if 'TMUX' not in os.environ and 'ks' not in kernel_arguments and conf.target.is_hardware:
             startup_utils.prompt_for_ssh()
             sys.exit(0)
 
@@ -293,7 +294,7 @@ if __name__ == "__main__":
         log.info("Using updates in /tmp/updates/ from %s", opts.updateSrc)
 
     # TODO: uncomment this when we're sure that we're doing the right thing
-    # with flags.cmdline *everywhere* it appears...
+    # with kernel_arguments *everywhere* it appears...
     #for arg in depr:
     #    stdout_log.warn("Boot argument '%s' is deprecated. "
     #                   "In the future, use 'inst.%s'.", arg, arg)

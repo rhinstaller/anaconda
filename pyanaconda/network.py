@@ -32,8 +32,8 @@ import threading
 import re
 import ipaddress
 
-from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
     IPV6_ADDRESS_IN_DRACUT_IP_OPTION
 from pyanaconda.core.configuration.anaconda import conf
@@ -198,16 +198,16 @@ def get_hostname():
     return hostname
 
 
-def hostname_from_cmdline(kernel_arguments):
+def hostname_from_cmdline(kernel_args):
     """Get hostname defined by boot options.
 
-    :param kernel_arguments: structure holding installer boot options
-    :type kernel_arguments: KernelArguments
+    :param kernel_args: structure holding installer boot options
+    :type kernel_args: KernelArguments
     """
     # legacy hostname= option
-    hostname = kernel_arguments.get('hostname', "")
+    hostname = kernel_args.get('hostname', "")
     # ip= option
-    ipopts = kernel_arguments.get('ip')
+    ipopts = kernel_args.get('ip')
     # Example (2 options):
     # ens3:dhcp 10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none
     if ipopts:
@@ -285,7 +285,7 @@ def initialize_network():
     run_network_initialization_task(network_proxy.SetRealOnbootValuesFromKickstartWithTask())
 
     if network_proxy.Hostname == DEFAULT_HOSTNAME:
-        bootopts_hostname = hostname_from_cmdline(flags.cmdline)
+        bootopts_hostname = hostname_from_cmdline(kernel_arguments)
         if bootopts_hostname:
             log.debug("Updating host name from boot options: %s", bootopts_hostname)
             network_proxy.SetHostname(bootopts_hostname)
