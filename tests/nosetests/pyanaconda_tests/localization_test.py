@@ -21,68 +21,6 @@ from pyanaconda.core.util import execWithCaptureBinary
 import locale as locale_mod
 import unittest
 
-class ParsingTests(unittest.TestCase):
-    def invalid_langcodes_test(self):
-        """Should return None for invalid langcodes."""
-
-        # None
-        parts = localization.parse_langcode(None)
-        self.assertIsNone(parts)
-
-        # nonsense
-        parts = localization.parse_langcode("*_&!")
-        self.assertIsNone(parts)
-
-        # no language
-        parts = localization.parse_langcode("_CZ")
-        self.assertIsNone(parts)
-
-    def parsing_test(self):
-        """Should correctly parse valid langcodes."""
-
-        parts = localization.parse_langcode("cs")
-        self.assertIn("language", parts)
-        self.assertEqual(parts["language"], "cs")
-
-        parts = localization.parse_langcode("cs_CZ")
-        self.assertIn("language", parts)
-        self.assertIn("territory", parts)
-        self.assertEqual(parts["language"], "cs")
-        self.assertEqual(parts["territory"], "CZ")
-
-        parts = localization.parse_langcode("cs_CZ.UTF-8")
-        self.assertIn("language", parts)
-        self.assertIn("territory", parts)
-        self.assertIn("encoding", parts)
-        self.assertEqual(parts["language"], "cs")
-        self.assertEqual(parts["territory"], "CZ")
-        self.assertEqual(parts["encoding"], "UTF-8")
-
-        parts = localization.parse_langcode("cs_CZ.UTF-8@latin")
-        self.assertIn("language", parts)
-        self.assertIn("territory", parts)
-        self.assertIn("encoding", parts)
-        self.assertIn("script", parts)
-        self.assertEqual(parts["language"], "cs")
-        self.assertEqual(parts["territory"], "CZ")
-        self.assertEqual(parts["encoding"], "UTF-8")
-        self.assertEqual(parts["script"], "latin")
-
-        parts = localization.parse_langcode("cs.UTF-8@latin")
-        self.assertIn("language", parts)
-        self.assertIn("encoding", parts)
-        self.assertIn("script", parts)
-        self.assertEqual(parts["language"], "cs")
-        self.assertEqual(parts["encoding"], "UTF-8")
-        self.assertEqual(parts["script"], "latin")
-
-        parts = localization.parse_langcode("cs_CZ@latin")
-        self.assertIn("language", parts)
-        self.assertIn("territory", parts)
-        self.assertIn("script", parts)
-        self.assertEqual(parts["language"], "cs")
-        self.assertEqual(parts["territory"], "CZ")
-        self.assertEqual(parts["script"], "latin")
 
 class LangcodeLocaleMatchingTests(unittest.TestCase):
     def langcode_matches_locale_test(self):

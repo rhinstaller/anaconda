@@ -35,12 +35,6 @@ log = get_module_logger(__name__)
 
 SCRIPTS_SUPPORTED_BY_CONSOLE = {'Latn', 'Cyrl', 'Grek'}
 
-#e.g. 'SR_RS.UTF-8@latin'
-LANGCODE_RE = re.compile(r'(?P<language>[A-Za-z]+)'
-                         r'(_(?P<territory>[A-Za-z]+))?'
-                         r'(\.(?P<encoding>[-A-Za-z0-9]+))?'
-                         r'(@(?P<script>[-A-Za-z0-9]+))?')
-
 class LocalizationConfigError(Exception):
     """Exception class for localization configuration related problems"""
 
@@ -71,29 +65,6 @@ def raise_on_invalid_locale(arg):
 def get_language_id(locale):
     """Return language id without territory or anything else."""
     return langtable.parse_locale(locale).language
-
-def parse_langcode(langcode):
-    """
-    For a given langcode (e.g. 'SR_RS.UTF-8@latin') returns a dictionary
-    with the following keys and example values:
-
-    'language' : 'SR'
-    'territory' : 'RS'
-    'encoding' : 'UTF-8'
-    'script' : 'latin'
-
-    or None if the given string doesn't match the LANGCODE_RE.
-
-    """
-
-    if not langcode:
-        return None
-
-    match = LANGCODE_RE.match(langcode)
-    if match:
-        return match.groupdict()
-    else:
-        return None
 
 def is_supported_locale(locale):
     """
