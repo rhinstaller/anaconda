@@ -105,7 +105,7 @@ def is_supported_locale(locale):
     :type locale: str
     :return: whether the given locale is supported or not
     :rtype: bool
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
 
     """
 
@@ -122,7 +122,7 @@ def locale_supported_in_console(locale):
     :param str locale: locale to test
     :return: whether the given locale is supported by the console or not
     :rtype: bool
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
 
     """
 
