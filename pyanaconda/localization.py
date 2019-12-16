@@ -305,10 +305,7 @@ def get_english_name(locale):
     if "language" not in parts:
         raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
 
-    name = langtable.language_name(languageId=parts["language"],
-                                   territoryId=parts.get("territory", ""),
-                                   scriptId=parts.get("script", ""),
-                                   languageIdQuery="en")
+    name = langtable.language_name(languageId=locale, languageIdQuery="en")
 
     return upcase_first_letter(name)
 
@@ -328,12 +325,7 @@ def get_native_name(locale):
     if "language" not in parts:
         raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
 
-    name = langtable.language_name(languageId=parts["language"],
-                                   territoryId=parts.get("territory", ""),
-                                   scriptId=parts.get("script", ""),
-                                   languageIdQuery=parts["language"],
-                                   territoryIdQuery=parts.get("territory", ""),
-                                   scriptIdQuery=parts.get("script", ""))
+    name = langtable.language_name(languageId=locale)
 
     return upcase_first_letter(name)
 
@@ -385,9 +377,7 @@ def get_language_locales(lang):
     if "language" not in parts:
         raise InvalidLocaleSpec("'%s' is not a valid language" % lang)
 
-    return langtable.list_locales(languageId=parts["language"],
-                                  territoryId=parts.get("territory", ""),
-                                  scriptId=parts.get("script", ""))
+    return langtable.list_locales(languageId=lang)
 
 def get_territory_locales(territory):
     """
@@ -420,9 +410,7 @@ def get_locale_keyboards(locale):
     if "language" not in parts:
         raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
 
-    return langtable.list_keyboards(languageId=parts["language"],
-                                    territoryId=parts.get("territory", ""),
-                                    scriptId=parts.get("script", ""))
+    return langtable.list_keyboards(languageId=locale)
 
 def get_locale_timezones(locale):
     """
@@ -440,9 +428,7 @@ def get_locale_timezones(locale):
     if "language" not in parts:
         raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
 
-    return langtable.list_timezones(languageId=parts["language"],
-                                    territoryId=parts.get("territory", ""),
-                                    scriptId=parts.get("script", ""))
+    return langtable.list_timezones(languageId=locale)
 
 def get_locale_console_fonts(locale):
     """
@@ -459,9 +445,7 @@ def get_locale_console_fonts(locale):
     if "language" not in parts:
         raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
 
-    return langtable.list_consolefonts(languageId=parts["language"],
-                                       territoryId=parts.get("territory", ""),
-                                       scriptId=parts.get("script", ""))
+    return langtable.list_consolefonts(languageId=locale)
 
 def get_locale_scripts(locale):
     """
@@ -479,9 +463,7 @@ def get_locale_scripts(locale):
     if "language" not in parts:
         raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
 
-    return langtable.list_scripts(languageId=parts["language"],
-                                  territoryId=parts.get("territory", ""),
-                                  scriptId=parts.get("script", ""))
+    return langtable.list_scripts(languageId=locale)
 
 def get_xlated_timezone(tz_spec_part):
     """
@@ -500,9 +482,7 @@ def get_xlated_timezone(tz_spec_part):
     if "language" not in parts:
         raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
 
-    xlated = langtable.timezone_name(tz_spec_part, languageIdQuery=parts["language"],
-                                     territoryIdQuery=parts.get("territory", ""),
-                                     scriptIdQuery=parts.get("script", ""))
+    xlated = langtable.timezone_name(tz_spec_part, languageIdQuery=locale)
     return xlated
 
 def get_firmware_language(text_mode=False):
