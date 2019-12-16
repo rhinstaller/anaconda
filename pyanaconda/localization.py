@@ -68,6 +68,10 @@ def raise_on_invalid_locale(arg):
     if not is_valid_langcode(arg):
         raise InvalidLocaleSpec("'{}' is not a valid locale".format(arg))
 
+def get_language_id(locale):
+    """Return language id without territory or anything else."""
+    return langtable.parse_locale(locale).language
+
 def parse_langcode(langcode):
     """
     For a given langcode (e.g. 'SR_RS.UTF-8@latin') returns a dictionary
@@ -355,8 +359,7 @@ def get_available_translations(localedir=None):
     langs = set()
 
     for trans in trans_gen:
-        parts = parse_langcode(trans)
-        lang = parts.get("language", "")
+        lang = get_language_id(trans)
         if lang and lang not in langs:
             langs.add(lang)
             # check if there are any locales for the language

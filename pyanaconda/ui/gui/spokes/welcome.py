@@ -159,7 +159,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         store = filter_store.get_model()
 
         # get language codes for the locales
-        langs = [localization.parse_langcode(locale)['language'] for locale in locales]
+        langs = [localization.get_language_id(locale) for locale in locales]
 
         # check which of the geolocated languages have translations
         # and store the iterators for those languages in a dictionary
@@ -190,8 +190,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             else:
                 # we don't have translation for this language,
                 # so dump all locales for it
-                locales = [l for l in locales
-                           if localization.parse_langcode(l)['language'] != lang]
+                locales = [l for l in locales if localization.get_language_id(l) != lang]
 
         # And then we add a separator after the selected best language
         # and any additional languages (that have translations) from geoip
