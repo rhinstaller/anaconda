@@ -441,7 +441,8 @@ def get_firmware_language(text_mode=False):
 
     try:
         n = "/sys/firmware/efi/efivars/PlatformLang-8be4df61-93ca-11d2-aa0d-00e098032b8c"
-        d = open(n, 'r').read()
+        with open(n, 'r') as f:
+            d = f.read()
     except IOError:
         return None
 
@@ -629,11 +630,11 @@ def setup_locale_environment(locale=None, text_mode=False, prefer_environment=Fa
 
     # parse the locale using langtable
     if locale:
-        env_langs = get_language_locales(locale)
-        if env_langs:
-            # the first langauge is the best match
+        try:
+            env_langs = get_language_locales(locale)
+            # the first language is the best match
             locale = env_langs[0]
-        else:
+        except (InvalidLocaleSpec, IndexError):
             log.error("Invalid locale '%s' given on command line, kickstart or environment", locale)
             locale = None
 
