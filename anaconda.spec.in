@@ -40,6 +40,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define rpmver 4.10.0
 %define simplelinever 1.1-1
 %define utillinuxver 2.15.1
+%define dasbusver 0.2
 
 BuildRequires: audit-libs-devel
 BuildRequires: libtool
@@ -99,7 +100,7 @@ Requires: python3-dbus
 Requires: python3-pwquality
 Requires: python3-systemd
 Requires: python3-productmd
-Requires: python3-dasbus
+Requires: python3-dasbus >= %{dasbusver}
 Requires: flatpak-libs
 
 # pwquality only "recommends" the dictionaries it needs to do anything useful,
