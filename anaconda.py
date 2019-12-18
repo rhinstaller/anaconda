@@ -666,11 +666,6 @@ if __name__ == "__main__":
     else:
         startup_utils.clean_pstore()
 
-    # only install interactive exception handler in interactive modes
-    if ksdata.displaymode.displayMode != pykickstart_constants.DISPLAY_MODE_CMDLINE or flags.debug:
-        from pyanaconda import exception
-        anaconda.mehConfig = exception.initExceptionHandling(anaconda)
-
     # add our own additional signal handlers
     signal.signal(signal.SIGUSR1, lambda signum, frame:
                   exception.test_exception_handling())
