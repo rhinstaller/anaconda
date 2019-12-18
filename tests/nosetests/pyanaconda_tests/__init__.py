@@ -162,19 +162,18 @@ def check_dbus_property(test, interface_id, interface, property_name,
     test.assertEqual(getter(), out_value)
 
 
-def check_task_creation(test, task_path, publisher, task_class):
+def check_task_creation(test, task_path, publisher, task_class, index=0):
     """Check that the DBus task is correctly created.
 
     :param test: instance of TestCase
     :param task_path: DBus path of the task
     :param publisher: Mock instance of the publish_object method
     :param task_class: class of the tested task
-
+    :param index: an index of the published object
     :return: instance of the task
     """
-    obj = check_dbus_object_creation(test, task_path, publisher, task_class)
+    obj = check_dbus_object_creation(test, task_path, publisher, task_class, index)
     test.assertIsInstance(obj, TaskInterface)
-
     return obj
 
 
@@ -189,29 +188,37 @@ def check_task_creation_list(test, task_paths, publisher, task_classes):
 
     :return: list of instances of tasks
     """
-    res = []
+    task_proxies = []
+    task_count = len(task_paths)
 
-    for i in range(len(task_paths)):
-        res.append(check_task_creation(test, task_paths[i], publisher, task_classes[i]))
+    # Check the number of published tasks.
+    test.assertEqual(task_count, publisher.call_count)
+    test.assertEqual(task_count, len(task_classes))
 
-    return res
+    # Check each published task.
+    for i in range(task_count):
+        task_proxy = check_task_creation(test, task_paths[i], publisher, task_classes[i], i)
+        task_proxies.append(task_proxy)
+
+    return task_proxies
 
 
-def check_dbus_object_creation(test, path, publisher, klass):
+def check_dbus_object_creation(test, path, publisher, klass, index=0):
     """Check that the custom DBus object is correctly created.
 
     :param test: instance of TestCase
-    :param task: DBus path of the published object
+    :param path: DBus path of the published object
     :param publisher: Mock instance of the publish_object method
     :param klass: class of the tested DBus object
+    :param index: an index of the published object
     """
-    publisher.assert_called_once()
-    object_path, obj = publisher.call_args[0]
+    # A valid index of a call should be less than the number of calls.
+    test.assertLess(index, publisher.call_count)
+    object_path, obj = publisher.call_args_list[index][0]
 
     test.assertEqual(path, object_path)
     test.assertIsInstance(obj.implementation, klass)
     test.assertIsInstance(obj, BasicInterfaceTemplate)
-
     return obj
 
 
