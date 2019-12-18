@@ -21,7 +21,6 @@ import os
 from contextlib import contextmanager
 from unittest.mock import Mock
 
-from dasbus.typing import get_native
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
 from pyanaconda.modules.common.structures.kickstart import KickstartReport, KickstartMessage
@@ -379,7 +378,7 @@ class TestModule(object):
                 data.line_number = lnum
                 report.error_messages.append(data)
 
-        return get_native(KickstartReport.to_structure(report))
+        return KickstartReport.to_structure(report)
 
     def GenerateKickstart(self):
         """Mock generating a kickstart."""

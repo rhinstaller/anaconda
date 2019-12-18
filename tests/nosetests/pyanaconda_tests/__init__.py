@@ -85,7 +85,9 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
     # Read a kickstart,
     if ks_in is not None:
         ks_in = dedent(ks_in).strip()
-        result = KickstartReport.from_structure(get_native(interface.ReadKickstart(ks_in)))
+        result = KickstartReport.from_structure(
+            interface.ReadKickstart(ks_in)
+        )
         test.assertEqual(ks_valid, result.is_valid())
 
     if not ks_valid:

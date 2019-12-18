@@ -23,19 +23,16 @@ import unittest
 from textwrap import dedent
 from unittest.mock import Mock
 
-import gi
-gi.require_version("GLib", "2.0")
-from gi.repository import GLib
-
+from dasbus.structure import compare_data
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object, \
-    PropertiesChangedCallback
+    PropertiesChangedCallback, check_dbus_property, check_task_creation_list, check_task_creation
 
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
-from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.users.users import UsersService
 from pyanaconda.modules.users.users_interface import UsersInterface
-from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask
+from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask, \
+    CreateGroupsTask, CreateUsersTask, SetRootPasswordTask, SetSshKeysTask
 from dasbus.typing import get_variant, List, Str, Int, Bool
 from pyanaconda.ui.lib.users import get_user_list, set_user_list
 
@@ -55,34 +52,119 @@ class UsersInterfaceTestCase(unittest.TestCase):
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.users_interface.KickstartCommands, ["rootpw", "user", "group", "sshkey"])
+        self.assertEqual(self.users_interface.KickstartCommands,
+                         ["rootpw", "user", "group", "sshkey"])
         self.assertEqual(self.users_interface.KickstartSections, [])
         self.assertEqual(self.users_interface.KickstartAddons, [])
         self.callback.assert_not_called()
 
+    def _check_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            USERS,
+            self.users_interface,
+            *args, **kwargs
+        )
+
     def default_property_values_test(self):
         """Test the default user module values are as expected."""
+        self.assertEqual(self.users_interface.Users, [])
+        self.assertEqual(self.users_interface.Groups, [])
+        self.assertEqual(self.users_interface.SshKeys, [])
+        self.assertEqual(self.users_interface.RootPassword, "")
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.IsRootPasswordCrypted, False)
         self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, False)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+
+    def users_property_test(self):
+        """Test the Users property."""
+        user_1 = {
+            "name": get_variant(Str, "user1"),
+            "uid": get_variant(Int, 123),
+            "groups": get_variant(List[Str], ["foo", "bar"]),
+            "gid": get_variant(Int, 321),
+            "homedir": get_variant(Str, "user1_home"),
+            "password": get_variant(Str, "swordfish"),
+            "is-crypted": get_variant(Bool, False),
+            "lock": get_variant(Bool, False),
+            "shell": get_variant(Str, "zsh"),
+            "gecos": get_variant(Str, "some stuff"),
+        }
+        user_2 = {
+            "name": get_variant(Str, "user2"),
+            "uid": get_variant(Int, 456),
+            "groups": get_variant(List[Str], ["baz", "bar"]),
+            "gid": get_variant(Int, 654),
+            "homedir": get_variant(Str, "user2_home"),
+            "password": get_variant(Str, "laksdjaskldjhasjhd"),
+            "is-crypted": get_variant(Bool, True),
+            "lock": get_variant(Bool, False),
+            "shell": get_variant(Str, "csh"),
+            "gecos": get_variant(Str, "some other stuff"),
+        }
+        self._check_dbus_property(
+            "Users",
+            [user_1, user_2]
+        )
+
+    def groups_property_test(self):
+        """Test the Groups property."""
+        group_1 = {
+            "name": get_variant(Str, "group1"),
+            "gid": get_variant(Int, 321),
+        }
+        group_2 = {
+            "name": get_variant(Str, "group2"),
+            "gid": get_variant(Int, 654),
+        }
+        self._check_dbus_property(
+            "Groups",
+            [group_1, group_2]
+        )
+
+    def ssh_keys_property_test(self):
+        """Test the SshKeys property."""
+        key_1 = {
+            "key": get_variant(Str, "aaa"),
+            "username": get_variant(Str, "user1"),
+        }
+        key_2 = {
+            "key": get_variant(Str, "bbb"),
+            "username": get_variant(Str, "user2"),
+        }
+        self._check_dbus_property(
+            "SshKeys",
+            [key_1, key_2]
+        )
 
     def set_crypted_roopw_test(self):
         """Test if setting crypted root password works correctly."""
         self.users_interface.SetCryptedRootPassword("abcef")
+
+        self.assertEqual(self.users_interface.RootPassword, "abcef")
+        self.assertEqual(self.users_interface.IsRootPasswordCrypted, True)
         self.assertEqual(self.users_interface.IsRootPasswordSet, True)
-        # root password is locked by default
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
 
     def set_crypted_roopw_and_unlock_test(self):
         """Test if setting crypted root password & unlocking it from kickstart works correctly."""
         self.users_interface.SetCryptedRootPassword("abcef")
+
         self.assertEqual(self.users_interface.IsRootPasswordSet, True)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+
+        # this should not be a valid admin user for interactive install
+        self.assertFalse(self.users_interface.CheckAdminUserExists())
+
         # root password is locked by default and remains locked even after a password is set
         # and needs to be unlocked via another DBus API call
         self.users_interface.SetRootAccountLocked(False)
+
         self.assertEqual(self.users_interface.IsRootPasswordSet, True)
         self.assertEqual(self.users_interface.IsRootAccountLocked, False)
         self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
@@ -90,54 +172,23 @@ class UsersInterfaceTestCase(unittest.TestCase):
     def lock_root_account_test(self):
         """Test if root account can be locked via DBus correctly."""
         self.users_interface.SetRootAccountLocked(True)
+
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootAccountLocked': True}, [])
-
-    def allow_root_password_ssh_login_test(self):
-        """Test if root password SSH login can be allowed."""
-        self.users_interface.SetRootPasswordSSHLoginAllowed(True)
-        self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, True)
-        self.callback.assert_called_once_with(USERS.interface_name, {'RootPasswordSSHLoginAllowed': True}, [])
-
-    def ks_set_plaintext_roopw_test(self):
-        """Test if setting plaintext root password from kickstart works correctly."""
-        # at the moment a plaintext password can be set only via kickstart
-        self.users_interface.ReadKickstart("rootpw --plaintext abcedf")
-        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, False)
-
-    def ks_set_crypted_roopw_test(self):
-        """Test if setting crypted root password from kickstart works correctly."""
-        self.users_interface.ReadKickstart("rootpw --iscrypted abcedf")
-        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, False)
-
-    def ks_lock_root_account_test(self):
-        """Test if locking the root account from kickstart works correctly."""
-        self.users_interface.ReadKickstart("rootpw --lock")
-        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
-
-    def ks_lock_dbus_unlock_root_account_test(self):
-        """Test locking root from kickstart and unlocking with DBus."""
-        self.users_interface.ReadKickstart("rootpw --lock")
-        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
-        self.users_interface.SetRootAccountLocked(False)
-        self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
-        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, False)
 
     def clear_rootpw_test(self):
         """Test clearing of the root password."""
         # set the password to something
         self.users_interface.SetCryptedRootPassword("abcef")
+
         self.assertEqual(self.users_interface.IsRootPasswordSet, True)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+
         # clear it
         self.users_interface.ClearRootPassword()
+
         # check if it looks cleared
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
@@ -149,211 +200,47 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # set the password to something
         self.users_interface.SetCryptedRootPassword("abcef")
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+
         self.users_interface.SetRootAccountLocked(False)
         self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
+
         self.assertEqual(self.users_interface.IsRootPasswordSet, True)
         self.assertEqual(self.users_interface.IsRootAccountLocked, False)
+
         # clear it
         self.users_interface.ClearRootPassword()
+
         # check if it looks cleared
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
-        self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False, 'IsRootAccountLocked' : True}, [])
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False,
+                                                                'IsRootAccountLocked': True}, [])
 
-    def rootpw_can_be_changed_test(self):
-        """Test rootpw is not marked as mutable without kickstart."""
-        # if no rootpw showed in input kickstart it should be marked as mutable
-        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+    def allow_root_password_ssh_login_test(self):
+        """Test if root password SSH login can be allowed."""
+        self.users_interface.SetRootPasswordSSHLoginAllowed(True)
+        self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, True)
+        self.callback.assert_called_once_with(USERS.interface_name, {'RootPasswordSSHLoginAllowed': True}, [])
 
-    def rootpw_cant_be_changed_test(self):
-        """Test rootpw is marked as immutable with kickstart."""
-        # if rootpw shows up in the kickstart is should be reported as immutable
-        self.users_interface.ReadKickstart("rootpw abcef")
-        self.assertEqual(self.users_interface.CanChangeRootPassword, False)
-
-    def no_users_property_test(self):
-        """Test the users property with no users."""
-        self.assertEqual(self.users_interface.Users, [])
-        self.callback.assert_not_called()
-
-    def basic_users_test(self):
-        """Test that user data can be set and read again."""
-        user1 = {
-                "name" : "user1",
-                "uid" : 123,
-                "groups" : ["foo", "bar"],
-                "gid" : 321,
-                "homedir" : "user1_home",
-                "password" : "swordfish",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "zsh",
-                "gecos" : "some stuff",
-        }
-        user2 = {
-                "name" : "user2",
-                "uid" : 456,
-                "groups" : ["baz", "bar"],
-                "gid" : 654,
-                "homedir" : "user2_home",
-                "password" : "laksdjaskldjhasjhd",
-                "is-crypted" : True,
-                "lock" : False,
-                "shell" : "csh",
-                "gecos" : "some other stuff",
-        }
-
-        user_list_in = [user1, user2]
-        # set the users list via API
-        self.users_interface.SetUsers(user_list_in)
-
-        # retrieve the users list via API and validate the returned data
-        users_list_out = self.users_interface.Users
-
-        # construct the expected result
-        user1_out = {
-                    "name" : get_variant(Str, "user1"),
-                    "uid" : get_variant(Int, 123),
-                    "groups" : get_variant(List[Str], ["foo", "bar"]),
-                    "gid" : get_variant(Int, 321),
-                    "homedir" : get_variant(Str, "user1_home"),
-                    "password" : get_variant(Str, "swordfish"),
-                    "is-crypted" : get_variant(Bool, False),
-                    "lock" : get_variant(Bool, False),
-                    "shell" : get_variant(Str, "zsh"),
-                    "gecos" : get_variant(Str, "some stuff"),
-        }
-        user2_out = {
-                    "name" : get_variant(Str, "user2"),
-                    "uid" : get_variant(Int, 456),
-                    "groups" : get_variant(List[Str], ["baz", "bar"]),
-                    "gid" : get_variant(Int, 654),
-                    "homedir" : get_variant(Str, "user2_home"),
-                    "password" : get_variant(Str, "laksdjaskldjhasjhd"),
-                    "is-crypted" : get_variant(Bool, True),
-                    "lock" : get_variant(Bool, False),
-                    "shell" : get_variant(Str, "csh"),
-                    "gecos" : get_variant(Str, "some other stuff"),
-        }
-
-        # check the output os the same as the expected result & in correct order
-        self.assertEqual(users_list_out[0], user1_out)
-        self.assertEqual(users_list_out[1], user2_out)
-
-    def users_clear_test(self):
-        """Test that user data can be se and then cleared."""
-        user1 = {
-                "name" : "user1",
-                "uid" : 123,
-                "groups" : ["foo", "bar"],
-                "gid" : 321,
-                "homedir" : "user1_home",
-                "password" : "swordfish",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "zsh",
-                "gecos" : "some stuff",
-        }
-        user2 = {
-                "name" : "user2",
-                "uid" : 456,
-                "groups" : ["baz", "bar"],
-                "gid" : 654,
-                "homedir" : "user2_home",
-                "password" : "laksdjaskldjhasjhd",
-                "is-crypted" : True,
-                "lock" : False,
-                "shell" : "csh",
-                "gecos" : "some other stuff",
-        }
-        user_list_in = [user1, user2]
-        # set the users list via API
-        self.users_interface.SetUsers(user_list_in)
-
-        # check the list is nonempty
-        self.assertEqual(len(self.users_interface.Users), 2)
-
-        # set an empty user list next
-        self.users_interface.SetUsers([])
-
-        # retrieve the users list via API and validate it is empty
-        self.assertEqual(self.users_interface.Users, [])
-
-    def users_modify_test(self):
-        """Test that user data can be overwritten in place."""
-        user1 = {
-                "name" : "user1",
-                "uid" : 123,
-                "groups" : ["foo", "bar"],
-                "gid" : 321,
-                "homedir" : "user1_home",
-                "password" : "swordfish",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "zsh",
-                "gecos" : "some stuff",
-        }
-        user_list_in = [user1]
-        # set the users list via API
-        self.users_interface.SetUsers(user_list_in)
-        # check content is correct
-        user1_out = {
-                    "name" : get_variant(Str, "user1"),
-                    "uid" : get_variant(Int, 123),
-                    "groups" : get_variant(List[Str], ["foo", "bar"]),
-                    "gid" : get_variant(Int, 321),
-                    "homedir" : get_variant(Str, "user1_home"),
-                    "password" : get_variant(Str, "swordfish"),
-                    "is-crypted" : get_variant(Bool, False),
-                    "lock" : get_variant(Bool, False),
-                    "shell" : get_variant(Str, "zsh"),
-                    "gecos" : get_variant(Str, "some stuff"),
-        }
-        self.assertEqual(self.users_interface.Users[0], user1_out)
-        # replace the user data by changed user data
-        userG = {
-                "name" : "Gandalf",
-                "uid" : 5,
-                "groups" : ["wizzards", "vallar"],
-                "gid" : 1,
-                "homedir" : "behind_the_sea",
-                "password" : "mellon",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "gsh",
-                "gecos" : "Run you fools!",
-        }
-        self.users_interface.SetUsers([userG])
-        # check we get the changed data
-        userG_out = {
-                "name" : get_variant(Str, "Gandalf"),
-                "uid" : get_variant(Int, 5),
-                "groups" : get_variant(List[Str], ["wizzards", "vallar"]),
-                "gid" : get_variant(Int, 1),
-                "homedir" : get_variant(Str, "behind_the_sea"),
-                "password" : get_variant(Str, "mellon"),
-                "is-crypted" : get_variant(Bool, False),
-                "lock" : get_variant(Bool, False),
-                "shell" : get_variant(Str, "gsh"),
-                "gecos" : get_variant(Str, "Run you fools!"),
-        }
-        self.assertEqual(self.users_interface.Users[0], userG_out)
+        self.callback.reset_mock()
+        self.users_interface.SetRootPasswordSSHLoginAllowed(False)
+        self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, False)
+        self.callback.assert_called_once_with(USERS.interface_name, {'RootPasswordSSHLoginAllowed': False}, [])
 
     def admin_user_detection_1_test(self):
         """Test that admin user detection works correctly - 3 admins."""
         # 2 admin users, unlocked root
-        user1 = {
-                "name" : "user1",
-                "groups" : ["foo", "wheel", "bar"],
-                "lock" : False,
-        }
-        user2 = {
-                "name" : "user2",
-                "groups" : ["baz", "bar", "wheel"],
-                "lock" : False,
-        }
-        user_list_in = [user1, user2]
-        self.users_interface.SetUsers(user_list_in)
+        user1 = UserData()
+        user1.name = "user1"
+        user1.groups = ["foo", "wheel", "bar"]
+        user1.lock = False
+
+        user2 = UserData()
+        user2.name = "user2"
+        user2.groups = ["baz", "bar", "wheel"]
+        user2.lock = False
+
+        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
         self.users_interface.SetCryptedRootPassword("abc")
         self.users_interface.SetRootAccountLocked(False)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
@@ -361,18 +248,17 @@ class UsersInterfaceTestCase(unittest.TestCase):
     def admin_user_detection_2_test(self):
         """Test that admin user detection works correctly - 0 admins (case 1)."""
         # 2 locked admin users, locked root
-        user1 = {
-                "name" : "user1",
-                "groups" : ["foo", "wheel", "bar"],
-                "lock" : True,
-        }
-        user2 = {
-                "name" : "user2",
-                "groups" : ["baz", "bar", "wheel"],
-                "lock" : True,
-        }
-        user_list_in = [user1, user2]
-        self.users_interface.SetUsers(user_list_in)
+        user1 = UserData()
+        user1.name = "user1"
+        user1.groups = ["foo", "wheel", "bar"]
+        user1.lock = True
+
+        user2 = UserData()
+        user2.name = "user2"
+        user2.groups = ["baz", "bar", "wheel"]
+        user2.lock = True
+
+        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
         self.users_interface.SetCryptedRootPassword("abc")
         self.users_interface.SetRootAccountLocked(True)
         self.assertFalse(self.users_interface.CheckAdminUserExists())
@@ -380,18 +266,17 @@ class UsersInterfaceTestCase(unittest.TestCase):
     def admin_user_detection_3_test(self):
         """Test that admin user detection works correctly - 1 admin (case 2)."""
         # 2 locked admin users, unlocked root
-        user1 = {
-                "name" : "user1",
-                "groups" : ["foo", "wheel", "bar"],
-                "lock" : True,
-        }
-        user2 = {
-                "name" : "user2",
-                "groups" : ["baz", "bar", "wheel"],
-                "lock" : True,
-        }
-        user_list_in = [user1, user2]
-        self.users_interface.SetUsers(user_list_in)
+        user1 = UserData()
+        user1.name = "user1"
+        user1.groups = ["foo", "wheel", "bar"]
+        user1.lock = True
+
+        user2 = UserData()
+        user2.name = "user2"
+        user2.groups = ["baz", "bar", "wheel"]
+        user2.lock = True
+
+        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
         self.users_interface.SetCryptedRootPassword("abc")
         self.users_interface.SetRootAccountLocked(False)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
@@ -399,38 +284,35 @@ class UsersInterfaceTestCase(unittest.TestCase):
     def admin_user_detection_4_test(self):
         """Test that admin user detection works correctly - 1 admin (case 3)."""
         # 1 locked admin user, 1 unlocked admin user, locked root
-        user1 = {
-                "name" : "user1",
-                "groups" : ["foo", "wheel", "bar"],
-                "lock" : False,
-        }
-        user2 = {
-                "name" : "user2",
-                "groups" : ["baz", "bar", "wheel"],
-                "lock" : True,
-        }
-        user_list_in = [user1, user2]
-        self.users_interface.SetUsers(user_list_in)
+        user1 = UserData()
+        user1.name = "user1"
+        user1.groups = ["foo", "wheel", "bar"]
+        user1.lock = False
+
+        user2 = UserData()
+        user2.name = "user2"
+        user2.groups = ["baz", "bar", "wheel"]
+        user2.lock = True
+
+        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
         self.users_interface.SetCryptedRootPassword("abc")
         self.users_interface.SetRootAccountLocked(True)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-
     def admin_user_detection_5_test(self):
         """Test that admin user detection works correctly - 1 admin (case 4)."""
         # 1 user, 1 unlocked admin user, locked root
-        user1 = {
-                "name" : "user1",
-                "groups" : ["foo", "bar"],
-                "lock" : False,
-        }
-        user2 = {
-                "name" : "user2",
-                "groups" : ["baz", "bar", "wheel"],
-                "lock" : False,
-        }
-        user_list_in = [user1, user2]
-        self.users_interface.SetUsers(user_list_in)
+        user1 = UserData()
+        user1.name = "user1"
+        user1.groups = ["foo", "bar"]
+        user1.lock = False
+
+        user2 = UserData()
+        user2.name = "user2"
+        user2.groups = ["baz", "bar", "wheel"]
+        user2.lock = False
+
+        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
         self.users_interface.SetCryptedRootPassword("abc")
         self.users_interface.SetRootAccountLocked(True)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
@@ -438,475 +320,60 @@ class UsersInterfaceTestCase(unittest.TestCase):
     def admin_user_detection_6_test(self):
         """Test that admin user detection works correctly - 1 admin (case 5)."""
         # 2 users, unlocked root
-        user1 = {
-                "name" : "user1",
-                "groups" : ["foo", "bar"],
-                "lock" : False,
-        }
-        user2 = {
-                "name" : "user2",
-                "groups" : ["baz", "bar"],
-                "lock" : False,
-        }
-        user_list_in = [user1, user2]
-        self.users_interface.SetUsers(user_list_in)
+        user1 = UserData()
+        user1.name = "user1"
+        user1.groups = ["foo", "bar"]
+        user1.lock = False
+
+        user2 = UserData()
+        user2.name = "user2"
+        user2.groups = ["baz", "bar"]
+        user2.lock = False
+
+        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
         self.users_interface.SetCryptedRootPassword("abc")
         self.users_interface.SetRootAccountLocked(False)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-    def admin_user_kickstart_locked_nopw_root_test(self):
-        """Test that locked root without password is OK for kickstart install."""
-        self.users_interface.ReadKickstart("rootpw --lock")
-        # password should be marked as not set, locked and immutable
-        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
-        self.assertEqual(self.users_interface.CanChangeRootPassword, False)
-        # but this should still be a valid admin user from kickstart PoV
-        self.assertTrue(self.users_interface.CheckAdminUserExists())
+    def _test_kickstart(self, ks_in, ks_out, ks_tmp=None):
+        check_kickstart_interface(self, self.users_interface, ks_in, ks_out, ks_tmp=ks_tmp)
 
-    def admin_user_kickstart_locked_pw_root_test(self):
-        """Test that locked root with password is OK for kickstart install."""
-        self.users_interface.ReadKickstart("rootpw abcdef --lock")
-        # password should be marked as set, locked and immutable
-        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
-        self.assertEqual(self.users_interface.CanChangeRootPassword, False)
-        # but this should still be a valid admin user from kickstart PoV
-        self.assertTrue(self.users_interface.CheckAdminUserExists())
+    def no_kickstart_test(self):
+        """Test with no kickstart."""
+        ks_in = None
+        ks_out = """
+        #Root password
+        rootpw --lock
+        """
+        self._test_kickstart(ks_in, ks_out)
 
-    def admin_user_kickstart_no_rootpw_test(self):
-        """Test that no rootpw in kickstart results in no valid admin users."""
-        # just some language selection, no rootpw command in kickstart
-        self.users_interface.ReadKickstart("lang en_US.UTF-8")
-        # password should be marked as not set, locked and mutable
-        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
-        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
-        # not a valid admin user from kickstart PoV
-        self.assertFalse(self.users_interface.CheckAdminUserExists())
-
-    def admin_user_kickstart_no_rootpw_user_no_wheel_test(self):
-        """Test that no rootpw + non-wheel user in results in no valid admin users."""
-        # just a non-wheel user in kickstart
-        self.users_interface.ReadKickstart("user --name=user1 --password=abcedf")
-        # password should be marked as not set, locked and mutable
-        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
-        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
-        # no a valid admin user exists from kickstart PoV
-        self.assertFalse(self.users_interface.CheckAdminUserExists())
-
-    def admin_user_kickstart_no_rootpw_wheel_user_test(self):
-        """Test that no rootpw + wheel user in results in valid admin user."""
-        # just a non-wheel user in kickstart
-        self.users_interface.ReadKickstart("user --name=user1 --password=abcedf --groups=wheel")
-        # password should be marked as not set, locked and mutable
-        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
-        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
-        # provides a valid admin user exists from kickstart PoV
-        self.assertTrue(self.users_interface.CheckAdminUserExists())
-
-    def admin_user_interactive_locked_nopw_root_test(self):
-        """Test that locked root without password is not OK for interactive install."""
         # root password should be empty and locked by default, but mutable
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+
         # this should not be considered a valid admin user for interactive install
         self.assertFalse(self.users_interface.CheckAdminUserExists())
 
-    def admin_user_interactive_locked_pw_root_test(self):
-        """Test that locked root with password is not OK for interactive install."""
-        # set a password and then lock the root account
-        self.users_interface.SetCryptedRootPassword("cryptedfoo")
-        self.users_interface.SetRootAccountLocked(True)
-        # password should be marked as set, locked and mutable
-        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
+    def kickstart_empty_test(self):
+        """Test with empty string."""
+        ks_in = ""
+        ks_out = """
+        #Root password
+        rootpw --lock
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        # password should be marked as not set, locked and mutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.assertEqual(self.users_interface.CanChangeRootPassword, True)
-        # this should not be a valid admin user for interactive install
+
+        # not a valid admin user from kickstart PoV
         self.assertFalse(self.users_interface.CheckAdminUserExists())
 
-    def users_type_test(self):
-        """Test that type checking works correctly when setting user data."""
-        with self.assertRaises(TypeError):
-            user = {"name" : 1}
-            self.users_interface.SetUsers([user])
-
-        with self.assertRaises(TypeError):
-            user = {"uid" : "abc"}
-            self.users_interface.SetUsers([user])
-
-        # TODO: should we prevent <0 uid/gid from being set ?
-        user = {"uid" : -500}
-        self.users_interface.SetUsers([user])
-        output = self.users_interface.Users[0]
-        self.assertEqual(get_variant(Int, -500), output["uid"])
-
-        # TODO: looks like the Int type accepts floating point numbers ?
-        #       (which are definitely not a valid uid/gid)
-        #       - the result seems converted to Int:
-        #       0.75 -> 0
-        #       1.75 -> 1
-
-        user = {"uid" : 1.75}
-        self.users_interface.SetUsers([user])
-        output = self.users_interface.Users[0]
-        self.assertEqual(get_variant(Int, 1), output["uid"])
-
-        with self.assertRaises(TypeError):
-            user = {"gid" : "abc"}
-            self.users_interface.SetUsers([user])
-
-        with self.assertRaises(TypeError):
-            user = {"groups" : [1, 2, 3]}
-            self.users_interface.SetUsers([user])
-
-        with self.assertRaises(TypeError):
-            user = {"homedir" : True}
-            self.users_interface.SetUsers([user])
-
-        with self.assertRaises(TypeError):
-            user = {"password" : None}
-            self.users_interface.SetUsers([user])
-
-        # TODO: looks like Bool also accepts almost anything,
-        #       but converts it into a True/False value on output
-        #       - None is still rejected though
-        user = {"is-crypted" : "yes"}
-        self.users_interface.SetUsers([user])
-        output = self.users_interface.Users[0]
-        self.assertEqual(get_variant(Bool, True), output["is-crypted"])
-
-        user = {"lock" : "secure"}
-        self.users_interface.SetUsers([user])
-        output = self.users_interface.Users[0]
-        self.assertEqual(get_variant(Bool, True), output["lock"])
-
-        user = {"lock" : 1}
-        self.users_interface.SetUsers([user])
-        output = self.users_interface.Users[0]
-        self.assertEqual(get_variant(Bool, True), output["lock"])
-
-        user = {"lock" : 0}
-        self.users_interface.SetUsers([user])
-        output = self.users_interface.Users[0]
-        self.assertEqual(get_variant(Bool, False), output["lock"])
-
-        user = {"lock" : ""}
-        self.users_interface.SetUsers([user])
-        output = self.users_interface.Users[0]
-        self.assertEqual(get_variant(Bool, False), output["lock"])
-
-        user = {"lock" : []}
-        self.users_interface.SetUsers([user])
-        output = self.users_interface.Users[0]
-        self.assertEqual(get_variant(Bool, False), output["lock"])
-
-        with self.assertRaises(TypeError):
-            user = {"shell" : True}
-            self.users_interface.SetUsers([user])
-
-        with self.assertRaises(TypeError):
-            user = {"gecos" : -1}
-            self.users_interface.SetUsers([user])
-
-    def users_kickstart_output_test(self):
-        """Check if user data values set via DBus API are valid in the output kickstart."""
-        user1 = {
-                "name" : "user1",
-                "uid" : 123,
-                "groups" : ["foo", "bar"],
-                "gid" : 321,
-                "homedir" : "user1_home",
-                "password" : "swordfish",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "zsh",
-                "gecos" : "some stuff",
-        }
-        user2 = {
-                "name" : "user2",
-                "uid" : 456,
-                "groups" : ["baz", "bar"],
-                "gid" : 654,
-                "homedir" : "user2_home",
-                "password" : "laksdjaskldjhasjhd",
-                "is-crypted" : True,
-                "lock" : False,
-                "shell" : "csh",
-                "gecos" : "some other stuff",
-        }
-
-        user_list_in = [user1, user2]
-        # set the users list via API
-        self.users_interface.SetUsers(user_list_in)
-        # also set some other atributes of the users module DBus API
-        self.users_interface.SetCryptedRootPassword("abcdef")
-        self.users_interface.SetRootAccountLocked(True)
-
-        # validate the resulting kickstart
-        ksdata = self.users_interface.GenerateKickstart()
-        self.maxDiff = None
-        expected_kickstart = """# Root password
-rootpw --iscrypted --lock abcdef
-user --groups=foo,bar --homedir=user1_home --name=user1 --password=swordfish --shell=zsh --uid=123 --gecos="some stuff" --gid=321
-user --groups=baz,bar --homedir=user2_home --name=user2 --password=laksdjaskldjhasjhd --iscrypted --shell=csh --uid=456 --gecos="some other stuff" --gid=654
-"""
-        self.assertEqual(str(ksdata), expected_kickstart)
-
-    def no_groups_property_test(self):
-        """Test the groups property with no groups."""
-        self.assertEqual(self.users_interface.Groups, [])
-        self.callback.assert_not_called()
-
-    def basic_groups_test(self):
-        """Test that the group data can be set and read again."""
-        group1 = {
-                "name" : "group1",
-                "gid" : 321,
-        }
-        group2 = {
-                "name" : "group2",
-                "gid" : 654,
-        }
-
-        group_list_in = [group1, group2]
-        # set the groups list via API
-        self.users_interface.SetGroups(group_list_in)
-
-        # retrieve the group list via API and validate the returned data
-        group_list_out = self.users_interface.Groups
-
-        # construct the expected result
-        group1_out = {
-                    "name" : get_variant(Str, "group1"),
-                    "gid" : get_variant(Int, 321),
-        }
-        group2_out = {
-                    "name" : get_variant(Str, "group2"),
-                    "gid" : get_variant(Int, 654),
-        }
-
-        # check the output os the same as the expected result & in correct order
-        self.assertEqual(group_list_out[0], group1_out)
-        self.assertEqual(group_list_out[1], group2_out)
-
-    def groups_clear_test(self):
-        """Test that we can set group data and then clear it again."""
-        group1 = {
-                "name" : "group1",
-                "gid" : 321,
-        }
-        group2 = {
-                "name" : "group2",
-                "gid" : 654,
-        }
-        group_list_in = [group1, group2]
-        # set the group list via API
-        self.users_interface.SetGroups(group_list_in)
-
-        # check the list is nonempty
-        self.assertEqual(len(self.users_interface.Groups), 2)
-
-        # set an empty group list next
-        self.users_interface.SetGroups([])
-
-        # retrieve the groups list via API and validate it is empty
-        self.assertEqual(self.users_interface.Groups, [])
-
-    def groups_modify_test(self):
-        """Test that group data can be overwritten in place."""
-        group = {
-                "name" : "group1",
-                "gid" : 321,
-        }
-        group_list_in = [group]
-        # set the groups list via API
-        self.users_interface.SetGroups(group_list_in)
-        # check content is correct
-        group_out = {
-                    "name" : get_variant(Str, "group1"),
-                    "gid" : get_variant(Int, 321),
-        }
-        self.assertEqual(self.users_interface.Groups[0], group_out)
-        # replace the group data by changed user data
-        different_group = {
-                "name" : "different",
-                "gid" : 1337,
-        }
-        self.users_interface.SetGroups([different_group])
-        # check we get the changed data
-        different_group_out = {
-                "name" : get_variant(Str, "different"),
-                "gid" : get_variant(Int, 1337),
-        }
-        self.assertEqual(self.users_interface.Groups[0], different_group_out)
-
-    def group_kickstart_output_test(self):
-        """Check if group data values set via DBus API are valid in the output kickstart."""
-        group1 = {
-                "name" : "group1",
-                "gid" : 321,
-        }
-        group2 = {
-                "name" : "group2",
-                "gid" : 654,
-        }
-        # lets try a gid-less group as well
-        group3 = {
-                "name" : "group3",
-        }
-
-        group_list_in = [group1, group2, group3]
-        # set the group list via API
-        self.users_interface.SetGroups(group_list_in)
-        # also set some other atributes of the users module DBus API
-        self.users_interface.SetCryptedRootPassword("abcdef")
-        self.users_interface.SetRootAccountLocked(True)
-
-        # validate the resulting kickstart
-        ksdata = self.users_interface.GenerateKickstart()
-        self.maxDiff = None
-        expected_kickstart = """group --name=group1 --gid=321
-group --name=group2 --gid=654
-group --name=group3
-# Root password
-rootpw --iscrypted --lock abcdef
-"""
-        self.assertEqual(str(ksdata), expected_kickstart)
-
-    def no_ssh_keys_property_test(self):
-        """Test the SSH keys property with no ssh keys."""
-        self.assertEqual(self.users_interface.SshKeys, [])
-        self.callback.assert_not_called()
-
-    def basic_ssh_keys_test(self):
-        """Test that the SSH key data can be set and read again."""
-        key1 = {
-                "key" : "aaa",
-                "username" : "user1",
-        }
-        key2 = {
-                "key" : "bbb",
-                "username" : "user2",
-        }
-
-        key_list_in = [key1, key2]
-        # set the SSH key list via API
-        self.users_interface.SetSshKeys(key_list_in)
-
-        # retrieve the SSH key list via API and validate the returned data
-        key_list_out = self.users_interface.SshKeys
-
-        # construct the expected result
-        key1_out = {
-                    "key" : get_variant(Str, "aaa"),
-                    "username" : get_variant(Str, "user1"),
-        }
-        key2_out = {
-                    "key" : get_variant(Str, "bbb"),
-                    "username" : get_variant(Str, "user2"),
-        }
-
-        # check the output is the same as the expected result & in correct order
-        self.assertEqual(key_list_out[0], key1_out)
-        self.assertEqual(key_list_out[1], key2_out)
-
-    def ssh_keys_clear_test(self):
-        """Test that we can set SSH key data and then clear it again."""
-        key1 = {
-                "key" : "aaa",
-                "username" : "user1",
-        }
-        key2 = {
-                "key" : "bbb",
-                "username" : "user2",
-        }
-        key_list_in = [key1, key2]
-        # set the SSH key list via API
-        self.users_interface.SetSshKeys(key_list_in)
-
-        # check the list is nonempty
-        self.assertEqual(len(self.users_interface.SshKeys), 2)
-
-        # set an empty SSH key list next
-        self.users_interface.SetSshKeys([])
-
-        # retrieve the groups list via API and validate it is empty
-        self.assertEqual(self.users_interface.Groups, [])
-
-    def ssh_keys_modify_test(self):
-        """Test that SSH key data can be overwritten in place."""
-        key = {
-                "key" : "aaa",
-                "username" : "user1",
-        }
-        key_list_in = [key]
-        # set the SSH key list via API
-        self.users_interface.SetSshKeys(key_list_in)
-        # check content is correct
-        key_out = {
-                    "key" : get_variant(Str, "aaa"),
-                    "username" : get_variant(Str, "user1"),
-        }
-        self.assertEqual(self.users_interface.SshKeys[0], key_out)
-        # replace the SSH key data by changed user data
-        different_key = {
-                "key" : "nanananana",
-                "username" : "batman",
-        }
-        self.users_interface.SetSshKeys([different_key])
-        # check we get the changed data
-        different_key_out = {
-                "key" : get_variant(Str, "nanananana"),
-                "username" : get_variant(Str, "batman"),
-        }
-        self.assertEqual(self.users_interface.SshKeys[0], different_key_out)
-
-    def ssh_keys_kickstart_output_test(self):
-        """Check if SSH key data values set via DBus API are valid in the output kickstart."""
-        key1 = {
-                "key" : "aaa",
-                "username" : "user1",
-        }
-        key2 = {
-                "key" : "bbb",
-                "username" : "user2",
-        }
-        # lets try a username-less key as well
-        key3 = {
-                "key" : "ccc",
-                "username" : "user3",
-        }
-
-        key_list_in = [key1, key2, key3]
-        # set the SSH key list via API
-        self.users_interface.SetSshKeys(key_list_in)
-        # also set some other atributes of the users module DBus API
-        self.users_interface.SetCryptedRootPassword("abcdef")
-        self.users_interface.SetRootAccountLocked(True)
-
-        # validate the resulting kickstart
-        ksdata = self.users_interface.GenerateKickstart()
-        self.maxDiff = None
-        expected_kickstart = """\
-# Root password
-rootpw --iscrypted --lock abcdef
-sshkey --username=user1 "aaa"
-sshkey --username=user2 "bbb"
-sshkey --username=user3 "ccc"
-"""
-        self.assertEqual(str(ksdata), expected_kickstart)
-
-    def _test_kickstart(self, ks_in, ks_out, ks_tmp=None):
-        check_kickstart_interface(self, self.users_interface, ks_in, ks_out, ks_tmp=ks_tmp)
-
-    def kickstart_set_plain_rootpw_test(self):
-        """Test the setting plaintext root password via kickstart."""
-
-        # the --plaintext option is assumed by default
+    def kickstart_set_rootpw_test(self):
+        """Test the setting root password via kickstart."""
         ks_in = """
         rootpw abcdef
         """
@@ -916,7 +383,16 @@ sshkey --username=user3 "ccc"
         """
         self._test_kickstart(ks_in, ks_out)
 
-        # but check if the result is the same if it's actually used
+        # if rootpw shows up in the kickstart is should be reported as immutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, False)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, False)
+
+        # but this should still be a valid admin user from kickstart PoV
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def kickstart_set_plain_rootpw_test(self):
+        """Test the setting plaintext root password via kickstart."""
         ks_in = """
         rootpw --plaintext abcdef
         """
@@ -937,6 +413,9 @@ sshkey --username=user3 "ccc"
         """
         self._test_kickstart(ks_in, ks_out)
 
+        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, False)
+
     def kickstart_lock_root_account_test(self):
         """Test locking the root account via kickstart."""
         ks_in = """
@@ -948,8 +427,75 @@ sshkey --username=user3 "ccc"
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_users_test(self):
+        # password should be marked as not set, locked and immutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, False)
+
+        # but this should still be a valid admin user from kickstart PoV
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def kickstart_lock_root_account_with_password_test(self):
+        """Test locking the root account with a password via kickstart."""
+        ks_in = """
+        rootpw abcdef --lock
+        """
+        ks_out = """
+        # Root password
+        rootpw --lock --plaintext abcdef
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        # password should be marked as set, locked and immutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, False)
+
+        # but this should still be a valid admin user from kickstart PoV
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def kickstart_user_test(self):
         """Test kickstart user input and output."""
+        ks_in = """
+        user --name=user1 --password=abcedf
+        """
+        ks_out = """
+        #Root password
+        rootpw --lock
+        user --name=user1 --password=abcedf
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        # password should be marked as not set, locked and mutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+
+        # no a valid admin user exists from kickstart PoV
+        self.assertFalse(self.users_interface.CheckAdminUserExists())
+
+    def kickstart_user_admin_test(self):
+        """Test kickstart admin user input and output."""
+        ks_in = """
+        user --groups=wheel --name=user1 --password=abcedf
+        """
+        ks_out = """
+        #Root password
+        rootpw --lock
+        user --groups=wheel --name=user1 --password=abcedf
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        # password should be marked as not set, locked and mutable
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.assertEqual(self.users_interface.CanChangeRootPassword, True)
+
+        # provides a valid admin user exists from kickstart PoV
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def kickstart_users_test(self):
+        """Test kickstart users input and output."""
         ks_in = """
         user --name=user1 --homedir=user1_home --password=foo --shell=ksh --uid=123 --gecos=baz --gid=345 --groups=a,b,c,d --plaintext
         user --name=user2 --homedir=user2_home --password=asasas --shell=csh --uid=321 --gecos=bar --gid=543 --groups=wheel,mockuser --iscrypted
@@ -964,33 +510,72 @@ sshkey --username=user3 "ccc"
         """
         self._test_kickstart(ks_in, ks_out)
 
+    def kickstart_groups_test(self):
+        """Test kickstart groups input and output."""
+        ks_in = """
+        group --name=group1 --gid=321
+        group --name=group2 --gid=654
+        group --name=group3
+        """
+        ks_out = """
+        group --name=group1 --gid=321
+        group --name=group2 --gid=654
+        group --name=group3
+        #Root password
+        rootpw --lock
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_ssh_keys_test(self):
+        """Test kickstart ssh keys input and output."""
+        ks_in = """
+        sshkey --username=user1 "aaa"
+        sshkey --username=user2 "bbb"
+        sshkey --username=user3 "ccc"
+        """
+        ks_out = """
+        #Root password
+        rootpw --lock
+        sshkey --username=user1 "aaa"
+        sshkey --username=user2 "bbb"
+        sshkey --username=user3 "ccc"
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    @patch_dbus_publish_object
+    def install_with_tasks_test(self, publisher):
+        """Test InstallWithTasks."""
+        task_classes = [
+            CreateGroupsTask,
+            CreateUsersTask,
+            SetRootPasswordTask,
+            SetSshKeysTask,
+            ConfigureRootPasswordSSHLoginTask
+        ]
+        task_paths = self.users_interface.InstallWithTasks()
+        check_task_creation_list(self, task_paths, publisher, task_classes)
+
+    @patch_dbus_publish_object
+    def configure_groups_with_task_test(self, publisher):
+        """Test ConfigureGroupsWithTask."""
+        task_path = self.users_interface.ConfigureGroupsWithTask()
+        check_task_creation(self, task_path, publisher, CreateGroupsTask)
+
+    @patch_dbus_publish_object
+    def configure_users_with_task_test(self, publisher):
+        """Test ConfigureUsersWithTask."""
+        task_path = self.users_interface.ConfigureUsersWithTask()
+        check_task_creation(self, task_path, publisher, CreateUsersTask)
+
+    @patch_dbus_publish_object
+    def set_root_password_with_task_test(self, publisher):
+        """Test SetRootPasswordWithTask."""
+        task_path = self.users_interface.SetRootPasswordWithTask()
+        check_task_creation(self, task_path, publisher, SetRootPasswordTask)
+
 
 class UsersDataTestCase(unittest.TestCase):
     """Test the UserData data holder class."""
-
-    def set_property_test(self):
-        """Test UserData properties can be set and read again."""
-        user_data = UserData()
-        user_data.name = "foo"
-        user_data.password = "abc"
-        user_data.is_crypted = False
-        user_data.uid = 2
-        user_data.gid = 1
-        user_data.homedir = "/home/bar"
-        user_data.groups = ["mockuser", "wheel"]
-        user_data.gecos = "some stuff"
-        user_data.lock = False
-        user_data.shell = "zsh"
-        self.assertEqual(user_data.name, "foo")
-        self.assertEqual(user_data.password, "abc")
-        self.assertEqual(user_data.is_crypted, False)
-        self.assertEqual(user_data.uid, 2)
-        self.assertEqual(user_data.gid, 1)
-        self.assertEqual(user_data.homedir, "/home/bar")
-        self.assertEqual(user_data.groups, ["mockuser", "wheel"])
-        self.assertEqual(user_data.gecos, "some stuff")
-        self.assertEqual(user_data.lock, False)
-        self.assertEqual(user_data.shell, "zsh")
 
     def eq_test(self):
         """Test that the __eq__() method works correctly for UserData instances."""
@@ -1033,42 +618,6 @@ class UsersDataTestCase(unittest.TestCase):
         user_data_b.homedir = "/bar"
 
         self.assertTrue(user_data_a == user_data_b)
-
-    def i_in_list_test(self):
-        """Check if __eq__() works correctly also for lists."""
-        user_data_x = UserData()
-        user_data_x.name = "foo"
-
-        user_data_y = UserData()
-        user_data_y.name = "bar"
-
-        user_data_z = UserData()
-        user_data_z.name = "foo"
-
-        list1 = [user_data_x, user_data_y]
-        self.assertIn(user_data_x, list1)
-        self.assertIn(user_data_y, list1)
-        self.assertIn(user_data_z, list1)
-
-        list2 = [user_data_x, user_data_z]
-        self.assertIn(user_data_x, list2)
-        self.assertIn(user_data_z, list2)
-        self.assertNotIn(user_data_y, list2)
-
-        list3 = []
-        self.assertNotIn(user_data_x, list3)
-        self.assertNotIn(user_data_y, list3)
-        self.assertNotIn(user_data_z, list3)
-
-        list4 = [user_data_x]
-        self.assertIn(user_data_x, list4)
-        self.assertIn(user_data_z, list4)
-        self.assertNotIn(user_data_y, list4)
-
-        list5 = [user_data_y]
-        self.assertIn(user_data_y, list5)
-        self.assertNotIn(user_data_x, list5)
-        self.assertNotIn(user_data_z, list5)
 
     def has_admin_priviledges_test(self):
         """Test the has_admin_priviledges() method works correctly."""
@@ -1142,57 +691,6 @@ class UsersDataTestCase(unittest.TestCase):
         self.assertIn("foo", user_data.groups)
         self.assertIn("bar", user_data.groups)
 
-    def string_method_test(self):
-        """Test the __str__() method of UserData."""
-
-        # empty user
-        user_data = UserData()
-        expected_data = "UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=False, name='', password_set=False, shell='', uid=-1)"
-        self.assertEqual(str(user_data), expected_data)
-
-        # a generic user
-        user_data = UserData()
-        user_data.name = "foo"
-        user_data.password = "abc"
-        user_data.is_crypted = False
-        user_data.uid = 2
-        user_data.gid = 1
-        user_data.homedir = "/home/bar"
-        user_data.groups = ["mockuser", "wheel"]
-        user_data.gecos = "some stuff"
-        user_data.lock = False
-        user_data.shell = "zsh"
-        expected_string = """UserData(gecos='some stuff', gid=1, groups=['mockuser', 'wheel'], homedir='/home/bar', is_crypted=False, lock=False, name='foo', password_set=True, shell='zsh', uid=2)"""
-        self.assertEqual(str(user_data), expected_string)
-
-        # password not set
-        user_data = UserData()
-        user_data.name = "foo"
-        expected_string = """UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=False, name='foo', password_set=False, shell='', uid=-1)"""
-        self.assertEqual(str(user_data), expected_string)
-
-        # password crypted
-        user_data = UserData()
-        user_data.name = "foo"
-        user_data.password = "abc"
-        user_data.is_crypted = True
-        expected_string = """UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=False, name='foo', password_set=True, shell='', uid=-1)"""
-        self.assertEqual(str(user_data), expected_string)
-
-        # account locked with password
-        user_data = UserData()
-        user_data.name = "foo"
-        user_data.password = "abc"
-        user_data.lock = True
-        expected_string = """UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=True, name='foo', password_set=True, shell='', uid=-1)"""
-        self.assertEqual(str(user_data), expected_string)
-
-        # account locked without password
-        user_data = UserData()
-        user_data.name = "foo"
-        user_data.lock = True
-        expected_string = """UserData(gecos='', gid=-1, groups=[], homedir='', is_crypted=True, lock=True, name='foo', password_set=False, shell='', uid=-1)"""
-        self.assertEqual(str(user_data), expected_string)
 
 class SharedUICodeTestCase(unittest.TestCase):
     """Test shared UI code related to user handling.
@@ -1200,351 +698,117 @@ class SharedUICodeTestCase(unittest.TestCase):
     The shared code calls the Users module interface so it makes sense to test it here.
     """
 
-    def get_user_list_test(self):
-        """Test the shared get_user_list() method."""
-
-        user1 = {
-                "name" : "user1",
-                "uid" : 123,
-                "groups" : ["foo", "bar"],
-                "gid" : 321,
-                "homedir" : "user1_home",
-                "password" : "swordfish",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "zsh",
-                "gecos" : "some stuff",
-        }
-        user2 = {
-                "name" : "user2",
-                "uid" : 456,
-                "groups" : ["baz", "bar"],
-                "gid" : 654,
-                "homedir" : "user2_home",
-                "password" : "laksdjaskldjhasjhd",
-                "is-crypted" : True,
-                "lock" : False,
-                "shell" : "csh",
-                "gecos" : "some other stuff",
-        }
-
-        user_list_in = [user1, user2]
-
+    def get_empty_user_list_test(self):
+        """Test the shared get_user_list() method with no users."""
         users_module_mock = Mock()
-        users_module_mock.Users = user_list_in
-
-        # get user data from the mocked module
+        users_module_mock.Users = []
         user_data_list = get_user_list(users_module_mock)
-        # check if the results look correct
-
-        # list length
-        self.assertEqual(len(user_data_list), 2)
-        # equality check of the resulting UserData instances
-        user1_data = UserData.from_structure(user1)
-        user2_data = UserData.from_structure(user2)
-        self.assertEqual(user_data_list[0], user1_data)
-        self.assertEqual(user_data_list[1], user2_data)
-        # individual values
-        self.assertEqual(user_data_list[0].name, "user1")
-        self.assertEqual(user_data_list[0].uid, 123)
-        self.assertListEqual(user_data_list[0].groups, ["foo", "bar"])
-        self.assertEqual(user_data_list[0].gid, 321)
-        self.assertEqual(user_data_list[0].homedir, "user1_home")
-        self.assertEqual(user_data_list[0].password, "swordfish")
-        self.assertFalse(user_data_list[0].is_crypted)
-        self.assertFalse(user_data_list[0].lock)
-        self.assertEqual(user_data_list[0].shell, "zsh")
-        self.assertEqual(user_data_list[0].gecos, "some stuff")
-        self.assertEqual(user_data_list[1].name, "user2")
-        self.assertEqual(user_data_list[1].uid, 456)
-        self.assertListEqual(user_data_list[1].groups, ["baz", "bar"])
-        self.assertEqual(user_data_list[1].gid, 654)
-        self.assertEqual(user_data_list[1].homedir, "user2_home")
-        self.assertEqual(user_data_list[1].password, "laksdjaskldjhasjhd")
-        self.assertTrue(user_data_list[1].is_crypted)
-        self.assertFalse(user_data_list[1].lock)
-        self.assertEqual(user_data_list[1].shell, "csh")
-        self.assertEqual(user_data_list[1].gecos, "some other stuff")
+        self.assertEqual(user_data_list, [])
 
     def get_default_user_test(self):
         """Test that default user is correctly added by get_user_list()."""
-
-        # prepare a mock Users DBus module
         users_module_mock = Mock()
         users_module_mock.Users = []
-
-        # no users should be returned by default
-        user_data_list = get_user_list(users_module_mock)
-        self.assertListEqual(user_data_list, [])
-
-        # the add_default option should add an uninitialized user
         user_data_list = get_user_list(users_module_mock, add_default=True)
+
         self.assertEqual(len(user_data_list), 1)
-        default_user = user_data_list[0]
-        self.assertEqual(default_user.name, "")
-        self.assertEqual(default_user.uid, -1)
-        self.assertListEqual(default_user.groups, [])
-        self.assertEqual(default_user.gid, -1)
-        self.assertEqual(default_user.homedir, "")
-        self.assertEqual(default_user.password, "")
-        self.assertTrue(default_user.is_crypted)
-        self.assertFalse(default_user.lock)
-        self.assertEqual(default_user.shell, "")
-        self.assertEqual(default_user.gecos, "")
+        self.assertIsInstance(user_data_list[0], UserData)
+        self.assertTrue(compare_data(user_data_list[0], UserData()))
 
-    def dont_get_user_list_test(self):
-        """Test that default user is not added if add_if_not_empty is False."""
+    def get_user_list_test(self):
+        """Test the shared get_user_list() method."""
+        user1 = UserData()
+        user1.name = "user1"
+        user1.uid = 123
+        user1.groups = ["foo", "bar"]
+        user1.gid = 321
+        user1.homedir = "user1_home"
+        user1.password = "swordfish"
+        user1.is_crypted = False
+        user1.lock = False
+        user1.shell = "zsh"
+        user1.gecos = "some stuff"
 
-        user1 = {
-                "name" : "user1",
-                "uid" : 123,
-                "groups" : ["foo", "bar"],
-                "gid" : 321,
-                "homedir" : "user1_home",
-                "password" : "swordfish",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "zsh",
-                "gecos" : "some stuff",
-        }
-        user2 = {
-                "name" : "user2",
-                "uid" : 456,
-                "groups" : ["baz", "bar"],
-                "gid" : 654,
-                "homedir" : "user2_home",
-                "password" : "laksdjaskldjhasjhd",
-                "is-crypted" : True,
-                "lock" : False,
-                "shell" : "csh",
-                "gecos" : "some other stuff",
-        }
-
-        user_list_in = [user1, user2]
+        user2 = UserData()
+        user2.name = "user2"
+        user2.uid = 456
+        user2.groups = ["baz", "bar"]
+        user2.gid = 654
+        user2.homedir = "user2_home"
+        user2.password = "laksdjaskldjhasjhd"
+        user2.is_crypted = True
+        user2.lock = False
+        user2.shell = "csh"
+        user2.gecos = "some other stuff"
 
         users_module_mock = Mock()
-        users_module_mock.Users = user_list_in
+        users_module_mock.Users = UserData.to_structure_list([user1, user2])
+        user_data_list = get_user_list(users_module_mock)
 
-        # get user data from the mocked module
-        user_data_list = get_user_list(users_module_mock, add_default=True)
-        # check if the results look correct
-
-        # list length
         self.assertEqual(len(user_data_list), 2)
-        # equality check of the resulting UserData instances
-        user1_data = UserData.from_structure(user1)
-        user2_data = UserData.from_structure(user2)
-        self.assertEqual(user_data_list[0], user1_data)
-        self.assertEqual(user_data_list[1], user2_data)
-        # individual values
-        self.assertEqual(user_data_list[0].name, "user1")
-        self.assertEqual(user_data_list[0].uid, 123)
-        self.assertListEqual(user_data_list[0].groups, ["foo", "bar"])
-        self.assertEqual(user_data_list[0].gid, 321)
-        self.assertEqual(user_data_list[0].homedir, "user1_home")
-        self.assertEqual(user_data_list[0].password, "swordfish")
-        self.assertFalse(user_data_list[0].is_crypted)
-        self.assertFalse(user_data_list[0].lock)
-        self.assertEqual(user_data_list[0].shell, "zsh")
-        self.assertEqual(user_data_list[0].gecos, "some stuff")
-        self.assertEqual(user_data_list[1].name, "user2")
-        self.assertEqual(user_data_list[1].uid, 456)
-        self.assertListEqual(user_data_list[1].groups, ["baz", "bar"])
-        self.assertEqual(user_data_list[1].gid, 654)
-        self.assertEqual(user_data_list[1].homedir, "user2_home")
-        self.assertEqual(user_data_list[1].password, "laksdjaskldjhasjhd")
-        self.assertTrue(user_data_list[1].is_crypted)
-        self.assertFalse(user_data_list[1].lock)
-        self.assertEqual(user_data_list[1].shell, "csh")
-        self.assertEqual(user_data_list[1].gecos, "some other stuff")
+        self.assertIsInstance(user_data_list[0], UserData)
+        self.assertIsInstance(user_data_list[1], UserData)
+        self.assertTrue(compare_data(user_data_list[0], user1))
+        self.assertTrue(compare_data(user_data_list[1], user2))
 
-    def add_default_user_test(self):
-        """Test that default user is correctly added by get_user_list() to populated list."""
+        user_data_list = get_user_list(users_module_mock, add_default=True)
 
-        user1 = {
-                "name" : "user1",
-                "uid" : 123,
-                "groups" : ["foo", "bar"],
-                "gid" : 321,
-                "homedir" : "user1_home",
-                "password" : "swordfish",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "zsh",
-                "gecos" : "some stuff",
-        }
-        user2 = {
-                "name" : "user2",
-                "uid" : 456,
-                "groups" : ["baz", "bar"],
-                "gid" : 654,
-                "homedir" : "user2_home",
-                "password" : "laksdjaskldjhasjhd",
-                "is-crypted" : True,
-                "lock" : False,
-                "shell" : "csh",
-                "gecos" : "some other stuff",
-        }
+        self.assertEqual(len(user_data_list), 2)
+        self.assertIsInstance(user_data_list[0], UserData)
+        self.assertIsInstance(user_data_list[1], UserData)
+        self.assertTrue(compare_data(user_data_list[0], user1))
+        self.assertTrue(compare_data(user_data_list[1], user2))
 
-        user_list_in = [user1, user2]
-
-        users_module_mock = Mock()
-        users_module_mock.Users = user_list_in
-
-        # get user data from the mocked module
         user_data_list = get_user_list(users_module_mock, add_default=True, add_if_not_empty=True)
-        # check if the results look correct
 
-        # list length
         self.assertEqual(len(user_data_list), 3)
-        # equality check of the resulting UserData instances
-        user1_data = UserData.from_structure(user1)
-        user2_data = UserData.from_structure(user2)
-        self.assertEqual(user_data_list[1], user1_data)
-        self.assertEqual(user_data_list[2], user2_data)
-        # individual values
-        self.assertEqual(user_data_list[1].name, "user1")
-        self.assertEqual(user_data_list[1].uid, 123)
-        self.assertListEqual(user_data_list[1].groups, ["foo", "bar"])
-        self.assertEqual(user_data_list[1].gid, 321)
-        self.assertEqual(user_data_list[1].homedir, "user1_home")
-        self.assertEqual(user_data_list[1].password, "swordfish")
-        self.assertFalse(user_data_list[1].is_crypted)
-        self.assertFalse(user_data_list[1].lock)
-        self.assertEqual(user_data_list[1].shell, "zsh")
-        self.assertEqual(user_data_list[1].gecos, "some stuff")
-        self.assertEqual(user_data_list[2].name, "user2")
-        self.assertEqual(user_data_list[2].uid, 456)
-        self.assertListEqual(user_data_list[2].groups, ["baz", "bar"])
-        self.assertEqual(user_data_list[2].gid, 654)
-        self.assertEqual(user_data_list[2].homedir, "user2_home")
-        self.assertEqual(user_data_list[2].password, "laksdjaskldjhasjhd")
-        self.assertTrue(user_data_list[2].is_crypted)
-        self.assertFalse(user_data_list[2].lock)
-        self.assertEqual(user_data_list[2].shell, "csh")
-        self.assertEqual(user_data_list[2].gecos, "some other stuff")
-
-        # check the default user
-        default_user = user_data_list[0]
-        self.assertEqual(default_user.name, "")
-        self.assertEqual(default_user.uid, -1)
-        self.assertListEqual(default_user.groups, [])
-        self.assertEqual(default_user.gid, -1)
-        self.assertEqual(default_user.homedir, "")
-        self.assertEqual(default_user.password, "")
-        self.assertTrue(default_user.is_crypted)
-        self.assertFalse(default_user.lock)
-        self.assertEqual(default_user.shell, "")
-        self.assertEqual(default_user.gecos, "")
+        self.assertIsInstance(user_data_list[0], UserData)
+        self.assertIsInstance(user_data_list[1], UserData)
+        self.assertIsInstance(user_data_list[2], UserData)
+        self.assertTrue(compare_data(user_data_list[0], UserData()))
+        self.assertTrue(compare_data(user_data_list[1], user1))
+        self.assertTrue(compare_data(user_data_list[2], user2))
 
     def set_user_list_test(self):
         """Test the shared set_user_list() method."""
+        user1 = UserData()
+        user1.name = "user1"
+        user1.uid = 123
+        user1.groups = ["foo", "bar"]
+        user1.gid = 321
+        user1.homedir = "user1_home"
+        user1.password = "swordfish"
+        user1.is_crypted = False
+        user1.lock = False
+        user1.shell = "zsh"
+        user1.gecos = "some stuff"
 
-        user1 = {
-                "name" : "user1",
-                "uid" : 123,
-                "groups" : ["foo", "bar"],
-                "gid" : 321,
-                "homedir" : "user1_home",
-                "password" : "swordfish",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "zsh",
-                "gecos" : "some stuff",
-        }
-        user2 = {
-                "name" : "user2",
-                "uid" : 456,
-                "groups" : ["baz", "bar"],
-                "gid" : 654,
-                "homedir" : "user2_home",
-                "password" : "laksdjaskldjhasjhd",
-                "is-crypted" : True,
-                "lock" : False,
-                "shell" : "csh",
-                "gecos" : "some other stuff",
-        }
+        user2 = UserData()
+        user2.name = "user2"
+        user2.uid = 456
+        user2.groups = ["baz", "bar"]
+        user2.gid = 654
+        user2.homedir = "user2_home"
+        user2.password = "laksdjaskldjhasjhd"
+        user2.is_crypted = True
+        user2.lock = False
+        user2.shell = "csh"
+        user2.gecos = "some other stuff"
 
-        user_list_in = [user1, user2]
-
-        user_data_list_in = UserData.from_structure_list(user_list_in)
-        # create the mock Users DBus module
         users_module_mock = Mock()
-
-        # set the user data list on it
-        set_user_list(users_module_mock, user_data_list_in)
-
-        # check content of the resulting list
+        set_user_list(users_module_mock, [user1, user2])
         user_data_list = users_module_mock.SetUsers.call_args[0][0]
+
         self.assertEqual(len(user_data_list), 2)
-        self.assertEqual(user_data_list[0]["name"], GLib.Variant('s', 'user1'))
-        self.assertEqual(user_data_list[0]["uid"], GLib.Variant('i', 123))
-        self.assertEqual(user_data_list[0]["homedir"], GLib.Variant('s', "user1_home"))
-        self.assertEqual(user_data_list[0]["password"], GLib.Variant('s', "swordfish"))
-        self.assertEqual(user_data_list[0]["is-crypted"], GLib.Variant('b', False))
-        self.assertEqual(user_data_list[0]["lock"], GLib.Variant('b', False))
-        self.assertEqual(user_data_list[0]["shell"], GLib.Variant('s', "zsh"))
-        self.assertEqual(user_data_list[0]["gecos"], GLib.Variant('s', "some stuff"))
-        self.assertEqual(user_data_list[1]["name"], GLib.Variant('s', 'user2'))
-        self.assertEqual(user_data_list[1]["uid"], GLib.Variant('i', 456))
-        self.assertEqual(user_data_list[1]["homedir"], GLib.Variant('s', "user2_home"))
-        self.assertEqual(user_data_list[1]["password"], GLib.Variant('s', "laksdjaskldjhasjhd"))
-        self.assertEqual(user_data_list[1]["is-crypted"], GLib.Variant('b', True))
-        self.assertEqual(user_data_list[1]["lock"], GLib.Variant('b', False))
-        self.assertEqual(user_data_list[1]["shell"], GLib.Variant('s', "csh"))
-        self.assertEqual(user_data_list[1]["gecos"], GLib.Variant('s', "some other stuff"))
+        self.assertEqual(user_data_list[0], UserData.to_structure(user1))
+        self.assertEqual(user_data_list[1], UserData.to_structure(user2))
 
-    def remove_unset_user_test(self):
-        """Test set_user_list() correctly removes unset users when requested."""
-
-        # the first user has name unset, used as an indication the user
-        # should be removed from the list
-        user1 = {
-                "name" : "",
-                "uid" : 123,
-                "groups" : ["foo", "bar"],
-                "gid" : 321,
-                "homedir" : "user1_home",
-                "password" : "swordfish",
-                "is-crypted" : False,
-                "lock" : False,
-                "shell" : "zsh",
-                "gecos" : "some stuff",
-        }
-        user2 = {
-                "name" : "user2",
-                "uid" : 456,
-                "groups" : ["baz", "bar"],
-                "gid" : 654,
-                "homedir" : "user2_home",
-                "password" : "laksdjaskldjhasjhd",
-                "is-crypted" : True,
-                "lock" : False,
-                "shell" : "csh",
-                "gecos" : "some other stuff",
-        }
-
-        user_list_in = [user1, user2]
-
-        user_data_list_in = UserData.from_structure_list(user_list_in)
-        # create the mock Users DBus module
-        users_module_mock = Mock()
-
-        # set the user data list on it & specify that unset users should be removed
-        set_user_list(users_module_mock, user_data_list_in, remove_unset=True)
-
-        # check content of the resulting list
-        # - the first user user should be dropped
+        user1.name = ""
+        set_user_list(users_module_mock, [user1, user2], remove_unset=True)
         user_data_list = users_module_mock.SetUsers.call_args[0][0]
+
         self.assertEqual(len(user_data_list), 1)
-        self.assertEqual(user_data_list[0]["name"], GLib.Variant('s', 'user2'))
-        self.assertEqual(user_data_list[0]["uid"], GLib.Variant('i', 456))
-        self.assertEqual(user_data_list[0]["homedir"], GLib.Variant('s', "user2_home"))
-        self.assertEqual(user_data_list[0]["password"], GLib.Variant('s', "laksdjaskldjhasjhd"))
-        self.assertEqual(user_data_list[0]["is-crypted"], GLib.Variant('b', True))
-        self.assertEqual(user_data_list[0]["lock"], GLib.Variant('b', False))
-        self.assertEqual(user_data_list[0]["shell"], GLib.Variant('s', "csh"))
-        self.assertEqual(user_data_list[0]["gecos"], GLib.Variant('s', "some other stuff"))
+        self.assertEqual(user_data_list[0], UserData.to_structure(user2))
 
 
 class UsersModuleTasksTestCase(unittest.TestCase):
@@ -1561,25 +825,8 @@ class UsersModuleTasksTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.users_interface.PropertiesChanged.connect(self.callback)
 
-    @patch_dbus_publish_object
-    def root_ssh_password_config_task_basic_test(self, publisher):
-        """Test the root password SSH login configuration task - basic."""
-        self.users_interface.SetRootPasswordSSHLoginAllowed(True)
-        task_path = self.users_interface.InstallWithTasks()[4]
-
-        publisher.assert_called()
-
-        object_path = publisher.call_args_list[4][0][0]
-        obj = publisher.call_args_list[4][0][1]
-
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-        self.assertIsInstance(obj.implementation, ConfigureRootPasswordSSHLoginTask)
-        self.assertEqual(obj.implementation._password_allowed, True)
-
     def root_ssh_password_config_task_enabled_test(self):
         """Test the root password SSH login configuration task - enabled (write config file)."""
-
         # the config file should be written out when the override is enabled
         with tempfile.TemporaryDirectory() as sysroot:
             config_path = os.path.join(sysroot, self.SSHD_OVERRIDE_PATH)
@@ -1610,7 +857,6 @@ class UsersModuleTasksTestCase(unittest.TestCase):
 
     def root_ssh_password_config_task_disabled_test(self):
         """Test the root password SSH login configuration task - disabled (no config file)."""
-
         # the config file should not be written out when the override is disabled
         with tempfile.TemporaryDirectory() as sysroot:
             config_path = os.path.join(sysroot, self.SSHD_OVERRIDE_PATH)

@@ -94,7 +94,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         """Test IsNodeFromIbft method."""
         iscsi.ibft_nodes = []
         result = self.iscsi_interface.IsNodeFromIbft(
-            self._unpack_structure_content(Node.to_structure(self._node))
+            Node.to_structure(self._node)
         )
         self.assertFalse(result)
 
@@ -105,7 +105,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         blivet_node.iface = self._node.iface
         iscsi.ibft_nodes = [blivet_node]
         result = self.iscsi_interface.IsNodeFromIbft(
-            self._unpack_structure_content(Node.to_structure(self._node))
+            Node.to_structure(self._node)
         )
         self.assertTrue(result)
 
@@ -119,16 +119,13 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.iscsi_interface.GetInterface("iface0"), "ens3")
         self.assertEqual(self.iscsi_interface.GetInterface("nonexisting"), "")
 
-    def _unpack_structure_content(self, structure):
-        return {key: value.unpack() for key, value in structure.items()}
-
     @patch_dbus_publish_object
     def discover_with_task_test(self, publisher):
         """Test the discover task."""
         interfaces_mode = "default"
         task_path = self.iscsi_interface.DiscoverWithTask(
-            self._unpack_structure_content(Portal.to_structure(self._portal)),
-            self._unpack_structure_content(Credentials.to_structure(self._credentials)),
+            Portal.to_structure(self._portal),
+            Credentials.to_structure(self._credentials),
             interfaces_mode
         )
 
@@ -144,9 +141,9 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
     def login_with_task_test(self, publisher):
         """Test the login task."""
         task_path = self.iscsi_interface.LoginWithTask(
-            self._unpack_structure_content(Portal.to_structure(self._portal)),
-            self._unpack_structure_content(Credentials.to_structure(self._credentials)),
-            self._unpack_structure_content(Node.to_structure(self._node)),
+            Portal.to_structure(self._portal),
+            Credentials.to_structure(self._credentials),
+            Node.to_structure(self._node),
         )
 
         obj = check_task_creation(self, task_path, publisher, ISCSILoginTask)
