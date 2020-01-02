@@ -32,12 +32,60 @@ from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.errors.storage import ProtectedDeviceError
 
 log = get_module_logger(__name__)
 
 
 __all__ = ["get_candidate_disks", "schedule_implicit_partitions", "schedule_partitions",
-           "schedule_volumes"]
+           "schedule_volumes", "shrink_device", "remove_device"]
+
+
+def shrink_device(storage, device, size):
+    """Shrink the size of the device.
+
+    :param storage: a storage model
+    :param device: a device to shrink
+    :param size: a new size of the device
+    """
+    if device.protected:
+        raise ProtectedDeviceError(device.name)
+
+    # The device size is small enough.
+    if device.size <= size:
+        log.debug("The size of %s is already %s.", device.name, device.size)
+        return
+
+    # Resize the device.
+    log.debug("Shrinking a size of %s to %s.", device.name, size)
+    aligned_size = device.align_target_size(size)
+    storage.resize_device(device, aligned_size)
+
+
+def remove_device(storage, device):
+    """Remove a device after removing its dependent devices.
+
+    If the device is protected, do nothing. If the device has
+    protected children, just remove the unprotected ones.
+
+    :param storage: a storage model
+    :param device: a device to remove
+    """
+    if device.protected:
+        raise ProtectedDeviceError(device.name)
+
+    # Only remove unprotected children if any protected.
+    if any(d.protected for d in device.children):
+        log.debug("Removing unprotected children of %s.", device.name)
+
+        for child in (d for d in device.children if not d.protected):
+            storage.recursive_remove(child)
+
+        return
+
+    # No protected children, remove the device
+    log.debug("Removing device %s.", device.name)
+    storage.recursive_remove(device)
 
 
 def get_candidate_disks(storage):

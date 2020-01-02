@@ -88,11 +88,18 @@ class PartitioningModule(KickstartBaseModule, Publishable):
         module = self._device_tree_module
 
         if not module:
-            module = DeviceTreeModule()
+            module = self._create_device_tree()
             module.on_storage_changed(self.storage)
             self._device_tree_module = module
 
         return module
+
+    def _create_device_tree(self):
+        """Create the device tree module.
+
+        :return: a device tree module
+        """
+        return DeviceTreeModule()
 
     @abstractmethod
     def configure_with_task(self):
