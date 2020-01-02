@@ -44,6 +44,7 @@ case $kickstart in
 
         # URLs that end in '/' get '$IP_ADDR-kickstart' appended.
         if [[ $kickstart == nfs*/ ]]; then
+            new_ip_address=${new_ip_address:-$(ip addr show $netif | awk '/inet / {split($2,ip,"/"); print ip[1];}')}
             kickstart="${kickstart}${new_ip_address}-kickstart"
         fi
 
