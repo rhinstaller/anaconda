@@ -44,7 +44,7 @@ case $kickstart in
 
         # URLs that end in '/' get '$IP_ADDR-kickstart' appended.
         if [[ $kickstart == nfs*/ ]]; then
-            kickstart="${kickstart}${new_ip_address}-kickstart"
+            kickstart="${kickstart}${new_ip_address:=$(ip -4 addr show ${netif} | sed -n -e '/^ *inet / s|^ *inet \([^/]\+\)/.*$|\1|p')}-kickstart"
         fi
 
         # Use the prepared url.
