@@ -96,3 +96,11 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         return OSData.to_structure_list(
             self.implementation.collect_supported_systems()
         )
+
+    def GetSupportedRaidLevels(self, device_type: Int) -> List[Str]:
+        """Get RAID levels for the specified device type.
+
+        :param device_type: a type of the device
+        :return: a list of RAID level names
+        """
+        return self.implementation.get_supported_raid_levels(device_type)

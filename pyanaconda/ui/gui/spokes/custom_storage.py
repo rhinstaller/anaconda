@@ -60,8 +60,7 @@ from pyanaconda.modules.storage.partitioning.interactive.utils import collect_un
     collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
     collect_containers, validate_label, suggest_device_name, get_new_root_name, \
-    generate_device_factory_request, validate_device_factory_request, get_supported_raid_levels, \
-    get_device_factory_arguments, get_raid_level_by_name, get_container_size_policy_by_number
+    generate_device_factory_request, validate_device_factory_request, get_device_factory_arguments, get_raid_level_by_name, get_container_size_policy_by_number
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -85,7 +84,8 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_en
     get_default_container_raid_level, AddDialog, ConfirmDeleteDialog, \
     DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
     NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
-    ui_storage_logger, ui_storage_logged, get_selected_raid_level_name
+    ui_storage_logger, ui_storage_logged, get_selected_raid_level_name, \
+    get_supported_device_raid_levels
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
@@ -1055,7 +1055,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _raid_level_visible(self, model, itr, user_data):
         device_type = self._get_current_device_type()
         raid_level = raid.get_raid_level(model[itr][1])
-        return raid_level in get_supported_raid_levels(device_type)
+        return raid_level in get_supported_device_raid_levels(device_type)
 
     def _populate_raid(self, raid_level):
         """ Set up the raid-specific portion of the device details.
@@ -1065,7 +1065,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         """
         device_type = self._get_current_device_type()
 
-        if not get_supported_raid_levels(device_type):
+        if not get_supported_device_raid_levels(device_type):
             for widget in [self._raidLevelLabel, self._raidLevelCombo]:
                 really_hide(widget)
             return

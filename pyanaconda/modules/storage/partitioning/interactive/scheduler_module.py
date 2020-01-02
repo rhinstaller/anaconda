@@ -98,3 +98,11 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a list of data about found installations
         """
         return list(map(self._get_os_data, utils.collect_roots(self.storage)))
+
+    def get_supported_raid_levels(self, device_type):
+        """Get RAID levels for the specified device type.
+
+        :param device_type: a type of the device
+        :return: a list of RAID level names
+        """
+        return sorted([level.name for level in utils.get_supported_raid_levels(device_type)])

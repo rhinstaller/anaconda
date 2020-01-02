@@ -20,6 +20,7 @@
 import unittest
 from unittest.mock import patch
 
+from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devices import StorageDevice, DiskDevice
 from blivet.formats import get_format
 from blivet.formats.fs import FS
@@ -178,3 +179,10 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
     def get_default_file_system_test(self):
         """Test GetDefaultFileSystem."""
         self.assertEqual(self.interface.GetDefaultFileSystem(), "ext4")
+
+    def get_supported_raid_levels_test(self):
+        """Test GetSupportedRaidLevels."""
+        self.assertEqual(
+            self.interface.GetSupportedRaidLevels(DEVICE_TYPE_LVM),
+            ['linear', 'raid1', 'raid10', 'raid4', 'raid5', 'raid6', 'striped']
+        )
