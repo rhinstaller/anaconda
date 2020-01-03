@@ -26,6 +26,7 @@ from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
 from dasbus.typing import get_native
+from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
@@ -249,3 +250,22 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         report = self.interface.ValidateMountPoint("/home")
         self._check_report(report, None)
+
+    def add_device_test(self):
+        """Test AddDevice."""
+        self._add_device(DiskDevice(
+            "dev1",
+            exists=True,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        ))
+
+        request = DeviceFactoryRequest()
+        request.device_type = DEVICE_TYPE_LVM
+        request.mount_point = "/home"
+        request.size = Size("5 GiB")
+        request.disks = ["dev1"]
+
+        self.storage.factory_device = Mock()
+        self.interface.AddDevice(DeviceFactoryRequest.to_structure(request))
+        self.storage.factory_device.assert_called_once()

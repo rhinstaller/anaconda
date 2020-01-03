@@ -129,3 +129,11 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
             report.error_messages.append(error)
 
         return report
+
+    def add_device(self, request):
+        """Add a new device to the storage model.
+
+        :param request: a device factory request
+        :raise: StorageError if the device cannot be created
+        """
+        utils.add_device(self.storage, request)
