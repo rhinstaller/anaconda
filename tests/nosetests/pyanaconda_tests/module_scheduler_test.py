@@ -205,3 +205,47 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.assertEqual(self.interface.CollectUnusedMountPoints(), [
             '/boot/efi', '/home', '/var', 'swap', 'biosboot'
         ])
+
+    def _check_report(self, report, error_message=None):
+        """Check the given validation report."""
+        errors = [error_message] if error_message else []
+        warnings = []
+
+        self.assertEqual(get_native(report), {
+            "error-messages": errors,
+            "warning-messages": warnings
+        })
+
+    def validate_mount_point_test(self):
+        """Test ValidateMountPoint."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/boot")))
+
+        report = self.interface.ValidateMountPoint("/boot")
+        self._check_report(report, "That mount point is already in use. Try something else?")
+
+        report = self.interface.ValidateMountPoint("")
+        self._check_report(report, "Please enter a valid mount point.")
+
+        report = self.interface.ValidateMountPoint("/dev")
+        self._check_report(report, "That mount point is invalid. Try something else?")
+
+        report = self.interface.ValidateMountPoint("/home/")
+        self._check_report(report, "That mount point is invalid. Try something else?")
+
+        report = self.interface.ValidateMountPoint("/home/")
+        self._check_report(report, "That mount point is invalid. Try something else?")
+
+        report = self.interface.ValidateMountPoint("home")
+        self._check_report(report, "That mount point is invalid. Try something else?")
+
+        report = self.interface.ValidateMountPoint("/ho me")
+        self._check_report(report, "That mount point is invalid. Try something else?")
+
+        report = self.interface.ValidateMountPoint("/home/../")
+        self._check_report(report, "That mount point is invalid. Try something else?")
+
+        report = self.interface.ValidateMountPoint("/home/..")
+        self._check_report(report, "That mount point is invalid. Try something else?")
+
+        report = self.interface.ValidateMountPoint("/home")
+        self._check_report(report, None)

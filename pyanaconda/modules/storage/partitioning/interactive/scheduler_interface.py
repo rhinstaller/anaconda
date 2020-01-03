@@ -21,6 +21,7 @@ from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_SCHEDULER
 from pyanaconda.modules.common.structures.storage import OSData
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 
 __all__ = ["DeviceTreeSchedulerInterface"]
@@ -111,3 +112,13 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         :return: a list of RAID level names
         """
         return self.implementation.get_supported_raid_levels(device_type)
+
+    def ValidateMountPoint(self, mount_point: Str) -> Structure:
+        """Validate the given mount point.
+
+        :param mount_point: a path to a mount point
+        :return: a validation report
+        """
+        return ValidationReport.to_structure(
+            self.implementation.validate_mount_point(mount_point)
+        )

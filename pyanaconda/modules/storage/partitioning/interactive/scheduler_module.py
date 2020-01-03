@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
@@ -113,3 +114,18 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a list of RAID level names
         """
         return sorted([level.name for level in utils.get_supported_raid_levels(device_type)])
+
+    def validate_mount_point(self, mount_point):
+        """Validate the given mount point.
+
+        :param mount_point: a path to a mount point
+        :return: a validation report
+        """
+        report = ValidationReport()
+        mount_points = self.storage.mountpoints.keys()
+        error = utils.validate_mount_point(mount_point, mount_points)
+
+        if error:
+            report.error_messages.append(error)
+
+        return report
