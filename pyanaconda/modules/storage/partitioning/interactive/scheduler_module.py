@@ -130,6 +130,22 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
 
         return report
 
+    def validate_raid_level(self, raid_level, num_members):
+        """Validate the given RAID level.
+
+        :param raid_level: a RAID level name
+        :param num_members: a number of members
+        :return: a validation report
+        """
+        report = ValidationReport()
+        raid_level = utils.get_raid_level_by_name(raid_level)
+        error = utils.validate_raid_level(raid_level, num_members)
+
+        if error:
+            report.error_messages.append(error)
+
+        return report
+
     def validate_container_name(self, name):
         """Validate the given container name.
 

@@ -124,6 +124,17 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
             self.implementation.validate_mount_point(mount_point)
         )
 
+    def ValidateRaidLevel(self, raid_level: Str, num_members: Int) -> Structure:
+        """Validate the given RAID level.
+
+        :param raid_level: a RAID level name
+        :param num_members: a number of members
+        :return: a validation report
+        """
+        return ValidationReport.to_structure(
+            self.implementation.validate_raid_level(raid_level, num_members)
+        )
+
     def ValidateContainerName(self, name: Str) -> Structure:
         """Validate the given container name.
 

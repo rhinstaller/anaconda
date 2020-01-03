@@ -277,3 +277,12 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         report = self.interface.ValidateContainerName("my_container")
         self._check_report(report, None)
+
+    def validate_raid_level_test(self):
+        """Test ValidateRaidLevel."""
+        report = self.interface.ValidateRaidLevel("raid6", 2)
+        self._check_report(report, "The RAID level you have selected (raid6) requires more "
+                                   "disks (4) than you currently have selected (2).")
+
+        report = self.interface.ValidateRaidLevel("raid6", 4)
+        self._check_report(report, None)

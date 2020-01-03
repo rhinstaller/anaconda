@@ -375,7 +375,7 @@ def validate_raid_level(raid_level, num_members):
     :return: an error message
     """
     if num_members < raid_level.min_members:
-        return _("The RAID level you have selected {level} requires more disks "
+        return _("The RAID level you have selected ({level}) requires more disks "
                  "({min}) than you currently have selected ({count}).").format(
             level=raid_level,
             min=raid_level.min_members,
