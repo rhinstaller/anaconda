@@ -78,6 +78,13 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.collect_unused_devices()
 
+    def CollectUnusedMountPoints(self) -> List[Str]:
+        """Collect mount points that can be assigned to a device.
+
+        :return: a list of mount points
+        """
+        return self.implementation.collect_unused_mount_points()
+
     def CollectBootLoaderDevices(self, boot_drive: Str):
         """Collect the boot loader devices.
 

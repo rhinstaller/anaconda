@@ -82,6 +82,13 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return [d.name for d in utils.collect_unused_devices(self.storage)]
 
+    def collect_unused_mount_points(self):
+        """Collect mount points that can be assigned to a device.
+
+        :return: a list of mount points
+        """
+        return [m for m in utils.collect_mount_points() if m not in self.storage.mountpoints]
+
     def collect_boot_loader_devices(self, boot_drive):
         """Collect the boot loader devices.
 

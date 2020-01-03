@@ -18,7 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devices import StorageDevice, DiskDevice
@@ -30,6 +30,7 @@ from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface imp
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
     DeviceTreeSchedulerModule
+from pyanaconda.platform import EFI
 from pyanaconda.storage.initialization import create_storage
 from pyanaconda.storage.root import Root
 
@@ -186,3 +187,21 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             self.interface.GetSupportedRaidLevels(DEVICE_TYPE_LVM),
             ['linear', 'raid1', 'raid10', 'raid4', 'raid5', 'raid6', 'striped']
         )
+
+    @patch('pyanaconda.modules.storage.partitioning.interactive.utils.get_format')
+    @patch('pyanaconda.modules.storage.partitioning.interactive.utils.platform', new_callable=EFI)
+    def collect_unused_mount_points_test(self, platform, format_getter):
+        """Test CollectUnusedMountPoints."""
+        format_getter.side_effect = lambda fmt: Mock(supported=(fmt == "biosboot"))
+
+        self._add_device(StorageDevice(
+            "dev1",
+            fmt=get_format("ext4", mountpoint="/boot")
+        ))
+        self._add_device(StorageDevice(
+            "dev2",
+            fmt=get_format("ext4", mountpoint="/")
+        ))
+        self.assertEqual(self.interface.CollectUnusedMountPoints(), [
+            '/boot/efi', '/home', '/var', 'swap', 'biosboot'
+        ])
