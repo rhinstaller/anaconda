@@ -124,6 +124,16 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
             self.implementation.validate_mount_point(mount_point)
         )
 
+    def ValidateContainerName(self, name: Str) -> Structure:
+        """Validate the given container name.
+
+        :param name: a container name
+        :return: a validation report
+        """
+        return ValidationReport.to_structure(
+            self.implementation.validate_container_name(name)
+        )
+
     def AddDevice(self, request: Structure):
         """Add a new device to the storage model.
 

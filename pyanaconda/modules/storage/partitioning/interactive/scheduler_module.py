@@ -130,6 +130,20 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
 
         return report
 
+    def validate_container_name(self, name):
+        """Validate the given container name.
+
+        :param name: a container name
+        :return: a validation report
+        """
+        report = ValidationReport()
+        error = utils.validate_container_name(self.storage, name)
+
+        if error:
+            report.error_messages.append(error)
+
+        return report
+
     def add_device(self, request):
         """Add a new device to the storage model.
 

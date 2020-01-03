@@ -269,3 +269,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.storage.factory_device = Mock()
         self.interface.AddDevice(DeviceFactoryRequest.to_structure(request))
         self.storage.factory_device.assert_called_once()
+
+    def validate_container_name_test(self):
+        """Test ValidateContainerName."""
+        report = self.interface.ValidateContainerName("_my/contain$er")
+        self._check_report(report, "Invalid container name.")
+
+        report = self.interface.ValidateContainerName("my_container")
+        self._check_report(report, None)

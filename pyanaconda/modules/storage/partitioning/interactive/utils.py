@@ -340,6 +340,21 @@ def validate_mount_point(path, mount_points):
     return None
 
 
+def validate_container_name(storage, name):
+    """Validate the given container name.
+
+    :param storage: an instance of Blivet
+    :param name: a container name
+    :return: an error message or None
+    """
+    safe_name = storage.safe_device_name(name)
+
+    if name != safe_name:
+        return _("Invalid container name.")
+
+    return None
+
+
 def get_raid_level_by_name(name):
     """Get the RAID level object for the given name.
 
