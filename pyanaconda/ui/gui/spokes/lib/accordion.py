@@ -17,67 +17,51 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.product import productName, productVersion
-from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
-from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.storage.utils import get_supported_autopart_choices
+from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
 
 import gi
 gi.require_version("AnacondaWidgets", "3.3")
 gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, AnacondaWidgets
 
-from gi.repository.AnacondaWidgets import MountpointSelector
-from gi.repository import Gtk
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["DATA_DEVICE", "SYSTEM_DEVICE",
-           "new_selector_from_device", "update_selector_from_device",
-           "Accordion",
-           "Page", "UnknownPage", "CreateNewPage"]
+__all__ = ["MountPointSelector", "Accordion", "Page", "UnknownPage", "CreateNewPage"]
 
 DATA_DEVICE = 0
 SYSTEM_DEVICE = 1
+SYSTEM_MOUNT_POINTS = [
+    "/", "/boot", "/boot/efi", "/tmp", "/usr",
+    "/var", "swap", "PPC PReP Boot", "BIOS Boot"
+]
 
 
-def update_selector_from_device(selector, device, mountpoint=""):
-    """Create a MountpointSelector from a Device object template.  This
-       method should be used whenever constructing a new selector, or when
-       setting a bunch of attributes on an existing selector.  For just
-       changing the name or size, it's probably fine to do it by hand.
+class MountPointSelector(AnacondaWidgets.MountpointSelector):
+    """The mount point selector."""
 
-       This method returns the selector created.
+    def __init__(self):
+        super().__init__()
+        self.root_name = ""
 
-       If given a selector parameter, attributes will be set on that object
-       instead of creating a new one.  The optional mountpoint parameter
-       allows for specifying the mountpoint if it cannot be determined from
-       the device (like for a Root specifying an existing installation).
-    """
-    if hasattr(device.format, "mountpoint") and device.format.mountpoint is not None:
-        mp = device.format.mountpoint
-    elif mountpoint:
-        mp = mountpoint
-    elif device.format.name:
-        mp = device.format.name
-    else:
-        mp = _("Unknown")
+    @property
+    def device_name(self):
+        return self.get_property("name")
 
-    selector.props.name = device.name
-    selector.props.size = str(device.size)
-    selector.props.mountpoint = mp
-    selector.device = device
+    @property
+    def mount_point(self):
+        return self.get_property("mountpoint")
 
-
-def new_selector_from_device(device, mountpoint=""):
-    selector = MountpointSelector(device.name, str(device.size))
-    selector._root = None
-    update_selector_from_device(selector, device, mountpoint)
-
-    return selector
+    @property
+    def mount_point_type(self):
+        if not self.mount_point or self.mount_point in SYSTEM_MOUNT_POINTS:
+            return SYSTEM_DEVICE
+        else:
+            return DATA_DEVICE
 
 
 class Accordion(Gtk.Box):
@@ -95,7 +79,7 @@ class Accordion(Gtk.Box):
 
     def find_page_by_title(self, title):
         for e in self._expanders:
-            if e.get_child().pageTitle == title:
+            if e.get_child().page_title == title:
                 return e.get_child()
 
         return None
@@ -122,7 +106,7 @@ class Accordion(Gtk.Box):
 
     def add_page(self, contents, cb):
         label = Gtk.Label(label="""<span size='large' weight='bold' fgcolor='black'>%s</span>""" %
-                          escape_markup(contents.pageTitle), use_markup=True,
+                          escape_markup(contents.page_title), use_markup=True,
                           xalign=0, yalign=0.5, wrap=True)
 
         expander = Gtk.Expander()
@@ -155,7 +139,7 @@ class Accordion(Gtk.Box):
         self._current_selector = selector
         self._last_selected = selector
         self._activate_selector(selector, activate=True, show_arrow=True)
-        log.debug("Select device: %s", selector.device.name)
+        log.debug("Select device: %s", selector.device_name)
 
     def _select_with_shift(self, clicked_selector):
         # No items selected, only select this one
@@ -295,8 +279,8 @@ class Accordion(Gtk.Box):
                 if s is selector:
                     return page
 
-    def expand_page(self, pageTitle):
-        page = self.find_page_by_title(pageTitle)
+    def expand_page(self, page_title):
+        page = self.find_page_by_title(page_title)
         expander = page.get_parent()
         if not expander:
             raise LookupError()
@@ -304,9 +288,9 @@ class Accordion(Gtk.Box):
         if not expander.get_expanded():
             expander.emit("activate")
 
-    def remove_page(self, pageTitle):
+    def remove_page(self, page_title):
         # First, remove the expander from the list of expanders we maintain.
-        target = self.find_page_by_title(pageTitle)
+        target = self.find_page_by_title(page_title)
         if not target:
             return
 
@@ -387,14 +371,17 @@ class BasePage(Gtk.Box):
     def __init__(self, title):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.members = []
-        self.pageTitle = title
+        self.page_title = title
         self._selected_members = set()
-        self._dataBox = None
-        self._systemBox = None
+        self._data_box = None
+        self._system_box = None
 
     @property
     def selected_members(self):
         return self._selected_members
+
+    def _get_accordion(self):
+        return self.get_ancestor(Accordion)
 
     def _make_category_label(self, name):
         label = Gtk.Label()
@@ -410,9 +397,8 @@ class BasePage(Gtk.Box):
         else:
             self._selected_members.discard(selector)
 
-    def add_selector(self, device, cb, mountpoint=""):
-        accordion = self.get_ancestor(Accordion)
-        selector = new_selector_from_device(device, mountpoint=mountpoint)
+    def add_selector(self, selector, cb):
+        accordion = self._get_accordion()
         selector.set_page(self)
         selector.connect("button-press-event", accordion.process_event, cb)
         selector.connect("key-release-event", accordion.process_event, cb)
@@ -421,32 +407,23 @@ class BasePage(Gtk.Box):
         self.members.append(selector)
 
         # pylint: disable=no-member
-        if self._mountpoint_type(selector.props.mountpoint) == DATA_DEVICE:
-            self._dataBox.add(selector)
+        if selector.mount_point_type == DATA_DEVICE:
+            self._data_box.add(selector)
         else:
-            self._systemBox.add(selector)
-
-        return selector
+            self._system_box.add(selector)
 
     def remove_selector(self, selector):
-        if self._mountpoint_type(selector.props.mountpoint) == DATA_DEVICE:
-            self._dataBox.remove(selector)
+        if selector.mount_point_type == DATA_DEVICE:
+            self._data_box.remove(selector)
         else:
-            self._systemBox.remove(selector)
+            self._system_box.remove(selector)
 
-        accordion = self.get_ancestor(Accordion)
+        accordion = self._get_accordion()
         accordion.remove_selection([selector])
         self.members.remove(selector)
 
-    def _mountpoint_type(self, mountpoint):
-        if not mountpoint or mountpoint in ["/", "/boot", "/boot/efi", "/tmp", "/usr", "/var",
-                                            "swap", "PPC PReP Boot", "BIOS Boot"]:
-            return SYSTEM_DEVICE
-        else:
-            return DATA_DEVICE
-
     def _on_selector_focus_in(self, selector, event, cb):
-        accordion = self.get_ancestor(Accordion)
+        accordion = self._get_accordion()
         cb(accordion.current_selector, selector)
 
     def _on_selector_added(self, container, widget, label):
@@ -468,37 +445,33 @@ class Page(BasePage):
         super().__init__(title)
 
         # Create the Data label and a box to store all its members in.
-        self._dataBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self._dataLabel = self._make_category_label(_("DATA"))
-        really_hide(self._dataLabel)
-        self._dataBox.add(self._dataLabel)
-        self._dataBox.connect("add", self._on_selector_added, self._dataLabel)
-        self._dataBox.connect("remove", self._on_selector_removed, self._dataLabel)
-        self.add(self._dataBox)
+        self._data_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._data_label = self._make_category_label(_("DATA"))
+        really_hide(self._data_label)
+        self._data_box.add(self._data_label)
+        self._data_box.connect("add", self._on_selector_added, self._data_label)
+        self._data_box.connect("remove", self._on_selector_removed, self._data_label)
+        self.add(self._data_box)
 
         # Create the System label and a box to store all its members in.
-        self._systemBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self._systemLabel = self._make_category_label(_("SYSTEM"))
-        really_hide(self._systemLabel)
-        self._systemBox.add(self._systemLabel)
-        self._systemBox.connect("add", self._on_selector_added, self._systemLabel)
-        self._systemBox.connect("remove", self._on_selector_removed, self._systemLabel)
-        self.add(self._systemBox)
+        self._system_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._system_label = self._make_category_label(_("SYSTEM"))
+        really_hide(self._system_label)
+        self._system_box.add(self._system_label)
+        self._system_box.connect("add", self._on_selector_added, self._system_label)
+        self._system_box.connect("remove", self._on_selector_removed, self._system_label)
+        self.add(self._system_box)
 
 
 class UnknownPage(BasePage):
 
-    def add_selector(self, device, cb, mountpoint=""):
-        accordion = self.get_ancestor(Accordion)
-        selector = new_selector_from_device(device, mountpoint=mountpoint)
+    def add_selector(self, selector, cb):
+        accordion = self._get_accordion()
         selector.set_page(self)
         selector.connect("button-press-event", accordion.process_event, cb)
         selector.connect("key-release-event", accordion.process_event, cb)
-
         self.members.append(selector)
         self.add(selector)
-
-        return selector
 
     def remove_selector(self, selector):
         self.remove(selector)
@@ -512,7 +485,8 @@ class CreateNewPage(BasePage):
         packed into the Accordion first and then when the new installation
         is created, it will be removed and replaced with a Page for it.
     """
-    def __init__(self, title, createClickedCB, autopartTypeChangedCB, partitionsToReuse=True):
+    def __init__(self, title, create_clicked_cb, autopart_type_changed_cb,
+                 partitions_to_reuse=True):
         super().__init__(title)
 
         # Create a box where we store the "Here's how you create a new blah" info.
@@ -546,11 +520,11 @@ class CreateNewPage(BasePage):
         cellrendr = Gtk.CellRendererText()
         combo.pack_start(cellrendr, True)
         combo.add_attribute(cellrendr, "text", 0)
-        combo.connect("changed", autopartTypeChangedCB)
+        combo.connect("changed", autopart_type_changed_cb)
 
         self._createNewButton.set_has_tooltip(False)
         self._createNewButton.set_halign(Gtk.Align.START)
-        self._createNewButton.connect("clicked", createClickedCB, combo)
+        self._createNewButton.connect("clicked", create_clicked_cb, combo)
         self._createNewButton.connect("activate-link", lambda *args: Gtk.true())
         self._createBox.attach(self._createNewButton, 1, 1, 1, 1)
 
@@ -561,7 +535,7 @@ class CreateNewPage(BasePage):
                           xalign=0, yalign=0.5, hexpand=True, wrap=True)
         self._createBox.attach(label, 1, 2, 1, 1)
 
-        if partitionsToReuse:
+        if partitions_to_reuse:
             dot = Gtk.Label(label="•", xalign=0.5, yalign=0, hexpand=False)
             self._createBox.attach(dot, 0, 3, 1, 1)
 
@@ -585,7 +559,5 @@ class CreateNewPage(BasePage):
         combo.set_margin_end(18)
         combo.set_hexpand(False)
         combo.set_active_iter(default or store.get_iter_first())
-
         self._createBox.attach(combo, 0, 5, 2, 1)
-
         self.add(self._createBox)
