@@ -341,6 +341,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 06 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.7-1
+- Fix branding in the Connect to Red Hat spoke (mkolman)
+  Resolves: rhbz#1787342
+
 * Fri Dec 13 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.6-1
 - Fix RHSM HTTP proxy setup (mkolman)
   Related: rhbz#1748281
