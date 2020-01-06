@@ -20,8 +20,8 @@
 import unittest
 from unittest.mock import patch, Mock
 
-from blivet.devicefactory import DEVICE_TYPE_LVM
-from blivet.devices import StorageDevice, DiskDevice
+from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION
+from blivet.devices import StorageDevice, DiskDevice, PartitionDevice
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
@@ -286,3 +286,37 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         report = self.interface.ValidateRaidLevel("raid6", 4)
         self._check_report(report, None)
+
+    def generate_device_factory_request_test(self):
+        """Test GenerateDeviceFactoryRequest."""
+        dev1 = DiskDevice(
+            "dev1"
+        )
+        dev2 = PartitionDevice(
+            "dev2",
+            size=Size("5 GiB"),
+            parents=[dev1],
+            fmt=get_format("ext4", mountpoint="/", label="root")
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        request = self.interface.GenerateDeviceFactoryRequest("dev2")
+        self.assertEqual(get_native(request), {
+            'device-spec': 'dev2',
+            'disks': ['dev1'],
+            'mount-point': '/',
+            'format-type': 'ext4',
+            'label': 'root',
+            'luks-version': '',
+            'device-type': DEVICE_TYPE_PARTITION,
+            'device-name': 'dev2',
+            'device-size': Size("5 GiB").get_bytes(),
+            'device-encrypted': False,
+            'device-raid-level': '',
+            'container-name': '',
+            'container-size-policy': SIZE_POLICY_AUTO,
+            'container-encrypted': False,
+            'container-raid-level': '',
+        })

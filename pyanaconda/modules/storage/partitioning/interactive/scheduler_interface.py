@@ -56,6 +56,19 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
             self.implementation.generate_system_data(boot_drive)
         )
 
+    def GenerateDeviceFactoryRequest(self, device_name: Str) -> Structure:
+        """Generate a device factory request for the given device.
+
+        The request will reflect the current state of the device.
+        It can be modified and used to change the device.
+
+        :param device_name: a device name
+        :return: a device factory request
+        """
+        return DeviceFactoryRequest.to_structure(
+            self.implementation.generate_device_factory_request(device_name)
+        )
+
     def GetPartitioned(self) -> List[Str]:
         """Get all partitioned devices in the device tree.
 

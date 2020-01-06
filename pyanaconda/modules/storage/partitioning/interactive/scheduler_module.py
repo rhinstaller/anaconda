@@ -59,6 +59,18 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         root = utils.create_new_root(self.storage, boot_drive)
         return self._get_os_data(root)
 
+    def generate_device_factory_request(self, device_name):
+        """Generate a device factory request for the given device.
+
+        The request will reflect the current state of the device.
+        It can be modified and used to change the device.
+
+        :param device_name: a device name
+        :return: a device factory request
+        """
+        device = self._get_device(device_name)
+        return utils.generate_device_factory_request(self.storage, device)
+
     def get_partitioned(self):
         """Get all partitioned devices in the device tree.
 
