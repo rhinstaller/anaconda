@@ -5,7 +5,7 @@
   <requires lib="AnacondaWidgets" version="1.0"/>
   <object class="AnacondaSpokeWindow" id="subscription_window">
     <property name="can_focus">False</property>
-    <property name="window_name" translatable="yes">CONNECT TO REDHAT</property>
+    <property name="window_name" translatable="yes">CONNECT TO RED HAT</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
