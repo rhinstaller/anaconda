@@ -93,10 +93,12 @@ int dlabelProvides(const char* dep, const char* version, uint32_t sense, void *u
 
     int packageflags = 0;
 
-    logMessage(DEBUGLVL, "Provides: %s = %s\n", dep, version);
-
-    if (version == NULL)
+    if (version == NULL) {
+        logMessage(DEBUGLVL, "Provides does not have version specified!");
         return 0;
+    }
+
+    logMessage(DEBUGLVL, "Provides: %s = %s\n", dep, version);
 
     /* is it a modules package? */
     if (!strcmp(dep, "kernel-modules")) {

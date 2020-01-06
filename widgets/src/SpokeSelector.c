@@ -233,8 +233,8 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
                                                32, 0);
     if (NULL == icon_info) {
         gchar *icon_str = g_icon_to_string(icon);
-        fprintf(stderr, "unable to lookup icon %s\n", icon_str);
         if (NULL != icon_str) {
+            fprintf(stderr, "unable to lookup icon %s\n", icon_str);
             g_free(icon_str);
         }
         return;
