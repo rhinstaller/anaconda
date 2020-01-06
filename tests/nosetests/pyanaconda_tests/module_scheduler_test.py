@@ -320,3 +320,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'container-encrypted': False,
             'container-raid-level': '',
         })
+
+    def get_default_luks_version_test(self):
+        """Test GetDefaultLUKSVersion."""
+        self.assertEqual(self.interface.GetDefaultLUKSVersion(), "luks2")

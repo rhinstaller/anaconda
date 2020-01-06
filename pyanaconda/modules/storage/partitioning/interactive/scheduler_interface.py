@@ -39,6 +39,13 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.get_default_file_system()
 
+    def GetDefaultLUKSVersion(self) -> Str:
+        """Get the default version of LUKS.
+
+        :return: a version of LUKS
+        """
+        return self.implementation.get_default_luks_version()
+
     def GenerateSystemName(self) -> Str:
         """Generate a name of the new installation.
 

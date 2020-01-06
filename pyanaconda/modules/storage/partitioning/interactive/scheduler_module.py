@@ -43,6 +43,13 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return self.storage.default_fstype
 
+    def get_default_luks_version(self):
+        """Get the default version of LUKS.
+
+        :return: a version of LUKS
+        """
+        return self.storage.default_luks_version
+
     def generate_system_name(self):
         """Generate a name of the new installation.
 
