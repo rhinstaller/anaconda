@@ -324,3 +324,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
     def get_default_luks_version_test(self):
         """Test GetDefaultLUKSVersion."""
         self.assertEqual(self.interface.GetDefaultLUKSVersion(), "luks2")
+
+    def generate_device_name_test(self):
+        """Test GenerateDeviceName."""
+        self.assertEqual(self.interface.GenerateDeviceName("/home", "ext4"), "home")

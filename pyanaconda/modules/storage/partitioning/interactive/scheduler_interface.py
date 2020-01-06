@@ -63,6 +63,15 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
             self.implementation.generate_system_data(boot_drive)
         )
 
+    def GenerateDeviceName(self, mount_point: Str, format_type: Str) -> Str:
+        """Get a suggestion for a device name.
+
+        :param mount_point: a mount point
+        :param format_type: a format type
+        :return: a generated device name
+        """
+        return self.implementation.generate_device_name(mount_point, format_type)
+
     def GenerateDeviceFactoryRequest(self, device_name: Str) -> Structure:
         """Generate a device factory request for the given device.
 

@@ -66,6 +66,18 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         root = utils.create_new_root(self.storage, boot_drive)
         return self._get_os_data(root)
 
+    def generate_device_name(self, mount_point, format_type):
+        """Get a suggestion for a device name.
+
+        :param mount_point: a mount point
+        :param format_type: a format type
+        :return: a generated device name
+        """
+        return self.storage.suggest_device_name(
+            mountpoint=mount_point,
+            swap=bool(format_type == "swap")
+        )
+
     def generate_device_factory_request(self, device_name):
         """Generate a device factory request for the given device.
 
