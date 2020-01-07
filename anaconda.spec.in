@@ -131,6 +131,10 @@ Requires: glibc-langpack-en
 # even though the distro default is dbus-broker in F30+
 Requires: dbus-daemon
 
+# Ensure it's not possible for a version of grubby to be installed
+# that doesn't work with btrfs subvolumes correctly...
+Conflicts: grubby < 8.40-10
+
 Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
