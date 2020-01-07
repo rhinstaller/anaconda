@@ -684,22 +684,18 @@ def collect_file_system_types(device):
     return sorted(supported_types)
 
 
-def collect_device_types(device, disks):
+def collect_device_types(device):
     """Collect supported device types for the given device.
 
     :param device: a device
-    :param disks: a list of selected disks
     :return: a list of device types
     """
     # Collect the supported device types.
     supported_types = set(SUPPORTED_DEVICE_TYPES)
+    supported_types.add(devicefactory.DEVICE_TYPE_MD)
 
     # Include the type of the given device.
     supported_types.add(devicefactory.get_device_type(device))
-
-    # Include md only if there are two or more disks.
-    if len(disks) > 1:
-        supported_types.add(devicefactory.DEVICE_TYPE_MD)
 
     # Include btrfs if it is both allowed and supported.
     fmt = get_format("btrfs")

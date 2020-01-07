@@ -1139,6 +1139,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _setup_device_type_combo(self, device_type, device_types):
         """Set up device type combo."""
+        # Include md only if there are two or more disks.
+        if len(self._get_selected_disks()) <= 1:
+            device_types.remove(devicefactory.DEVICE_TYPE_MD)
+
         # For existing unsupported device add the information in the UI.
         if device_type not in device_types:
             log.debug("Existing device with unsupported type %s found.", device_type)
@@ -1242,7 +1246,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._setup_fstype_combo(request.device_type, request.format_type, format_types)
 
         # Collect the supported device types.
-        device_types = collect_device_types(device, self._get_selected_disks())
+        device_types = collect_device_types(device)
 
         # Set up the device type combo.
         self._setup_device_type_combo(request.device_type, device_types)

@@ -20,7 +20,8 @@
 import unittest
 from unittest.mock import patch, Mock
 
-from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION
+from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION, \
+    DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_DISK, DEVICE_TYPE_MD
 from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevice
 from blivet.formats import get_format
 from blivet.formats.fs import FS
@@ -361,3 +362,14 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         for fs in result:
             self.assertIsInstance(fs, str)
             self.assertEqual(fs, get_format(fs).type)
+
+    def get_device_types_for_device_test(self):
+        """Test GetDeviceTypesForDevice."""
+        self._add_device(DiskDevice("dev1"))
+        self.assertEqual(self.interface.GetDeviceTypesForDevice("dev1"), [
+            DEVICE_TYPE_LVM,
+            DEVICE_TYPE_MD,
+            DEVICE_TYPE_PARTITION,
+            DEVICE_TYPE_DISK,
+            DEVICE_TYPE_LVM_THINP,
+        ])

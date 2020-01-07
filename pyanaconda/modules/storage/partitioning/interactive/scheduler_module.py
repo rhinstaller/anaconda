@@ -147,6 +147,15 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return list(map(self._get_os_data, utils.collect_roots(self.storage)))
 
+    def get_device_types_for_device(self, device_name):
+        """Collect supported device types for the given device.
+
+        :param device_name: a device name
+        :return: a list of device types
+        """
+        device = self._get_device(device_name)
+        return utils.collect_device_types(device)
+
     def get_file_systems_for_device(self, device_name):
         """Get supported file system types for the given device.
 

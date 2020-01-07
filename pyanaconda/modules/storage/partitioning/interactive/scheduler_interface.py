@@ -143,6 +143,14 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
             self.implementation.collect_supported_systems()
         )
 
+    def GetDeviceTypesForDevice(self, device_name: Str) -> List[Int]:
+        """Collect supported device types for the given device.
+
+        :param device_name: a device name
+        :return: a list of device types
+        """
+        return self.implementation.get_device_types_for_device(device_name)
+
     def GetFileSystemsForDevice(self, device_name: Str) -> List[Str]:
         """Get supported file system types for the given device.
 
