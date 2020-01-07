@@ -308,6 +308,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-spec': 'dev2',
             'disks': ['dev1'],
             'mount-point': '/',
+            'reformat': True,
             'format-type': 'ext4',
             'label': 'root',
             'luks-version': '',

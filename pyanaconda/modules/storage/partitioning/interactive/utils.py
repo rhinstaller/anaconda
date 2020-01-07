@@ -385,16 +385,16 @@ def validate_raid_level(raid_level, num_members):
     return None
 
 
-def validate_device_factory_request(storage, request: DeviceFactoryRequest, reformat):
+def validate_device_factory_request(storage, request: DeviceFactoryRequest):
     """Validate the given device info.
 
     :param storage: an instance of Blivet
     :param request: a device factory request to validate
-    :param reformat: is reformatting enabled?
     :return: an error message
     """
     device = storage.devicetree.resolve_device(request.device_spec)
     device_type = request.device_type
+    reformat = request.reformat
     fs_type = request.format_type
     encrypted = request.device_encrypted
     raid_level = get_raid_level_by_name(request.device_raid_level)
@@ -762,6 +762,7 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     request.device_name = getattr(device.raw_device, "lvname", device.raw_device.name)
     request.device_size = device.size.get_bytes()
     request.device_type = device_type
+    request.reformat = not device.format.exists
     request.format_type = device.format.type or ""
     request.device_encrypted = isinstance(device, LUKSDevice)
     request.luks_version = get_device_luks_version(device) or ""
