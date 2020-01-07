@@ -21,7 +21,7 @@ import unittest
 from unittest.mock import patch, Mock
 
 from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION
-from blivet.devices import StorageDevice, DiskDevice, PartitionDevice
+from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevice
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
@@ -328,3 +328,23 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
     def generate_device_name_test(self):
         """Test GenerateDeviceName."""
         self.assertEqual(self.interface.GenerateDeviceName("/home", "ext4"), "home")
+
+    def get_raw_device_test(self):
+        """Test GetRawDevice."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB")
+        )
+        dev2 = LUKSDevice(
+            "dev2",
+            parents=[dev1],
+            fmt=get_format("luks"),
+            size=Size("10 GiB")
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        self.assertEqual(self.interface.GetRawDevice("dev1"), "dev1")
+        self.assertEqual(self.interface.GetRawDevice("dev2"), "dev1")

@@ -97,6 +97,15 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return [d.name for d in self.storage.partitioned]
 
+    def get_raw_device(self, device_name):
+        """Get the device itself, or when encrypted, the backing device.
+
+        :param device_name: a device name
+        :return: a raw device name
+        """
+        device = self._get_device(device_name)
+        return device.raw_device.name
+
     def collect_new_devices(self, boot_drive):
         """Get all new devices in the device tree.
 

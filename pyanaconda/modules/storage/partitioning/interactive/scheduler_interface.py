@@ -92,6 +92,14 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.get_partitioned()
 
+    def GetRawDevice(self, device_name: Str) -> Str:
+        """Get the device itself, or when encrypted, the backing device.
+
+        :param device_name: a device name
+        :return: a raw device name
+        """
+        return self.implementation.get_raw_device(device_name)
+
     def CollectNewDevices(self, boot_drive: Str) -> List[Str]:
         """Get all new devices in the device tree.
 
