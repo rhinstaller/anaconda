@@ -218,6 +218,20 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
 
         return report
 
+    def validate_device_factory_request(self, request):
+        """Validate the given device factory request.
+
+        :param request: a device factory request
+        :return: a validation report
+        """
+        report = ValidationReport()
+        error = utils.validate_device_factory_request(self.storage, request)
+
+        if error:
+            report.error_messages.append(error)
+
+        return report
+
     def add_device(self, request):
         """Add a new device to the storage model.
 

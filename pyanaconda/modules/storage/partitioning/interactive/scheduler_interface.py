@@ -198,6 +198,16 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
             self.implementation.validate_container_name(name)
         )
 
+    def ValidateDeviceFactoryRequest(self, request: Structure) -> Structure:
+        """Validate the given device factory request.
+
+        :param request: a device factory request
+        :return: a validation report
+        """
+        request = DeviceFactoryRequest.from_structure(request)
+        report = self.implementation.validate_device_factory_request(request)
+        return ValidationReport.to_structure(report)
+
     def AddDevice(self, request: Structure):
         """Add a new device to the storage model.
 

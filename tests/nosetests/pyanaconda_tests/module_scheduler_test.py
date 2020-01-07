@@ -374,3 +374,44 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             DEVICE_TYPE_DISK,
             DEVICE_TYPE_LVM_THINP,
         ])
+
+    def validate_device_factory_request_test(self):
+        """Test ValidateDeviceFactoryRequest."""
+        dev1 = DiskDevice(
+            "dev1"
+        )
+        dev2 = DiskDevice(
+            "dev2"
+        )
+        dev3 = PartitionDevice(
+            "dev3",
+            size=Size("10 GiB"),
+            parents=[dev1]
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+        self._add_device(dev3)
+
+        request = self.module.generate_device_factory_request("dev3")
+        request.device_type = DEVICE_TYPE_LVM
+        request.disks = ["dev1", "dev2"]
+        request.format_type = "ext4"
+        request.mount_point = "/boot"
+        request.label = "root"
+        request.reformat = True
+        request.luks_version = "luks1"
+        request.device_size = Size("5 GiB").get_bytes()
+        request.device_encrypted = True
+        request.device_raid_level = "raid1"
+
+        result = self.interface.ValidateDeviceFactoryRequest(
+            DeviceFactoryRequest.to_structure(request)
+        )
+        self._check_report(result, "/boot cannot be encrypted")
+
+        request.mount_point = "/"
+        result = self.interface.ValidateDeviceFactoryRequest(
+            DeviceFactoryRequest.to_structure(request)
+        )
+        self._check_report(result, None)
