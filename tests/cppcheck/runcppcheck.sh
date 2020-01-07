@@ -25,6 +25,10 @@ fi
 # Disable unusedFunction in widgets since everything will show up as unused
 # Specify the path twice so the path works relative to both the top of the
 # tree and from the tests/ directory.
+#
+# -D will define macros from libraries for the cppcheck and with --force it
+# will tell cppcheck to look even on code which won't be compiled if a macro
+# is defined
 cppcheck_output="$(echo "$filelist" |
     xargs cppcheck -q -v --error-exitcode=1 \
         --template='{id}:{file}:{line}: {message}' \
@@ -34,6 +38,9 @@ cppcheck_output="$(echo "$filelist" |
         --suppress=unusedFunction:widgets/src/* \
         --suppress=unusedFunction:*/widgets/glade/* \
         --suppress=unusedFunction:widgets/glade/* \
+        -DG_DEFINE_TYPE \
+        -DHAVE_WORKING_FORK \
+        --force \
         2>&1 )"
 
 if [ -n "$cppcheck_output" ]; then
