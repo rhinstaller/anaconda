@@ -311,6 +311,7 @@ class SubscriptionSpoke(NormalSpoke):
         payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
                                  fallback=False, checkmount=False, onlyOnChange=False)
 
+    @async_action_wait
     def _subscription_progress_callback(self, phase):
         # clear error message from a previous attempt (if any)
         self.registration_error = ""
@@ -340,6 +341,7 @@ class SubscriptionSpoke(NormalSpoke):
         # update spoke state
         self._update_registration_state()
 
+    @async_action_wait
     def _subscription_error_callback(self, error_message):
         log.debug("Subscription GUI: registration & attach failed")
         # store the error message
@@ -533,7 +535,6 @@ class SubscriptionSpoke(NormalSpoke):
 
     # properties - element sensitivity
 
-    @async_action_wait
     def set_registration_controls_sensitive(self, sensitive, include_register_button=True):
         """Set sensitivity of the registration controls.
 
@@ -840,7 +841,6 @@ class SubscriptionSpoke(NormalSpoke):
         else:
             self._register_button.set_sensitive(False)
 
-    @async_action_wait
     def _update_registration_state(self):
         """Update state of the registration related part of the spoke.
 
