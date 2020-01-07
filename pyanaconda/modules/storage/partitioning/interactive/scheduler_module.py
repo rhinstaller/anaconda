@@ -147,6 +147,15 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return list(map(self._get_os_data, utils.collect_roots(self.storage)))
 
+    def get_file_systems_for_device(self, device_name):
+        """Get supported file system types for the given device.
+
+        :param device_name: a device name
+        :return: a list of file system names
+        """
+        device = self._get_device(device_name)
+        return utils.collect_file_system_types(device)
+
     def get_supported_raid_levels(self, device_type):
         """Get RAID levels for the specified device type.
 

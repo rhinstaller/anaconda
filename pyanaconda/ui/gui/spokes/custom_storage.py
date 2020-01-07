@@ -336,13 +336,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         for data in self._containerStore:
             yield data[0]
 
-    def _get_fstype(self, fstype_combo):
-        itr = fstype_combo.get_active_iter()
+    def _get_file_system_type(self):
+        itr = self._fsCombo.get_active_iter()
         if not itr:
             return None
 
-        model = fstype_combo.get_model()
-        return model[itr][0]
+        model = self._fsCombo.get_model()
+        return model[itr][1]
 
     def _get_autopart_type(self, autopart_type_combo):
         itr = autopart_type_combo.get_active_iter()
@@ -792,10 +792,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         new_request.device_type = self._get_current_device_type()
 
     def _get_new_device_fstype(self, new_request, old_request):
-        fs_type_index = self._fsCombo.get_active()
-        fs_type_str = self._fsCombo.get_model()[fs_type_index][0]
-        new_fs = get_format(fs_type_str)
-        new_request.format_type = new_fs.type
+        new_request.format_type = self._get_file_system_type()
 
     def _get_new_device_enctyption(self, new_request, old_request):
         new_request.device_encrypted = (self._encryptCheckbox.get_active()
@@ -1121,15 +1118,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _setup_fstype_combo(self, device_type, device_format_type, format_types):
         """Setup the filesystem combo box."""
-        default = get_format(device_format_type).name
+        default_type = device_format_type
+
+        if default_type not in format_types:
+            format_types.append(default_type)
 
         # Add all desired fileystem type names to the box, sorted alphabetically
         self._fsStore.clear()
-        for ty in format_types:
-            self._fsStore.append([ty])
+        for fs_type in format_types:
+            fmt = get_format(fs_type)
+            self._fsStore.append([fmt.name, fmt.type or ""])
 
         # set the active filesystem type
-        idx = next(i for i, data in enumerate(self._fsCombo.get_model()) if data[0] == default)
+        model = self._fsCombo.get_model()
+        idx = next(i for i, data in enumerate(model) if data[1] == default_type)
         self._fsCombo.set_active(idx)
 
         # do additional updating handled by other method
@@ -2043,13 +2045,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not self._initialized:
             return
 
-        itr = combo.get_active_iter()
-        if not itr:
+        fs_type = self._get_file_system_type()
+        if fs_type is None:
             return
 
-        new_type = self._get_fstype(combo)
-
-        fmt = get_format(new_type)
+        fmt = get_format(fs_type)
         fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
 
     def on_encrypt_toggled(self, encrypted):
@@ -2155,13 +2155,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         """
         # Find unique instance of btrfs in fsCombo, if any.
         model = self._fsCombo.get_model()
-        btrfs_iter = ((idx, row) for idx, row in enumerate(model) if row[0] == "btrfs")
+        btrfs_iter = ((idx, row) for idx, row in enumerate(model) if row[1] == "btrfs")
         btrfs_idx, btrfs_row = next(btrfs_iter, (None, None))
 
         if device_type == DEVICE_TYPE_BTRFS:
             # If no btrfs entry, add one, and select the new entry
             if btrfs_idx is None:
-                self._fsStore.append(["btrfs"])
+                fmt = get_format("btrfs")
+                self._fsStore.append([fmt.name, fmt.type or ""])
                 active_index = len(self._fsCombo.get_model()) - 1
             # Otherwise, select the already located btrfs entry
             else:
@@ -2178,7 +2179,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 if active_index == btrfs_idx:
                     active_index = next(
                         idx for idx, data in enumerate(self._fsCombo.get_model())
-                        if data[0] == self.storage.default_fstype
+                        if data[1] == self.storage.default_fstype
                     )
                 # Otherwise, shift index left by one if after removed entry
                 elif active_index > btrfs_idx:

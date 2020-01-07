@@ -21,6 +21,8 @@
   </object>
   <object class="GtkListStore" id="fileSystemStore">
     <columns>
+      <!-- column-name description -->
+      <column type="gchararray"/>
       <!-- column-name fs_type -->
       <column type="gchararray"/>
     </columns>

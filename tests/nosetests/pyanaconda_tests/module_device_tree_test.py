@@ -320,9 +320,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertNotEqual(len(result), 0)
 
         for fs in result:
-            fmt = get_format(fs)
             self.assertIsInstance(fs, str)
-            self.assertIsNotNone(fmt.type)
+            self.assertEqual(fs, get_format(fs).type)
 
     def get_required_device_size_test(self):
         """Test GetRequiredDeviceSize."""

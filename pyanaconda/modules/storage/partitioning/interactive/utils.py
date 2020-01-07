@@ -664,23 +664,24 @@ def collect_file_system_types(device):
     """Collect supported file system types for the given device.
 
     :param device: a device
-    :return: a list of file system names
+    :return: a list of file system types
     """
     # Collect the supported filesystem types.
     supported_types = {
-        fs.name for fs in get_supported_filesystems()
-        if fs.name not in UNSUPPORTED_FILESYSTEMS
+        fs.type for fs in get_supported_filesystems()
+        if fs.type not in UNSUPPORTED_FILESYSTEMS
     }
 
     # Add possibly unsupported but still required file system types:
     # Add the device format type.
-    supported_types.add(device.format.name)
+    if device.format.type:
+        supported_types.add(device.format.type)
 
     # Add the original device format type.
-    if device.exists:
-        supported_types.add(device.original_format.name)
+    if device.exists and device.original_format.type:
+        supported_types.add(device.original_format.type)
 
-    return list(supported_types)
+    return sorted(supported_types)
 
 
 def collect_device_types(device, disks):

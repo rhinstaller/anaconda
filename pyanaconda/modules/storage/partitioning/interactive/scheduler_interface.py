@@ -143,6 +143,14 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
             self.implementation.collect_supported_systems()
         )
 
+    def GetFileSystemsForDevice(self, device_name: Str) -> List[Str]:
+        """Get supported file system types for the given device.
+
+        :param device_name: a device name
+        :return: a list of file system names
+        """
+        return self.implementation.get_file_systems_for_device(device_name)
+
     def GetSupportedRaidLevels(self, device_type: Int) -> List[Str]:
         """Get RAID levels for the specified device type.
 

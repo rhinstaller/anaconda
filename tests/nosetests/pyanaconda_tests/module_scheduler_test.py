@@ -348,3 +348,16 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetRawDevice("dev1"), "dev1")
         self.assertEqual(self.interface.GetRawDevice("dev2"), "dev1")
+
+    def get_file_systems_for_device_test(self):
+        """Test GetFileSystemsForDevice."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
+        result = self.interface.GetFileSystemsForDevice("dev1")
+
+        self.assertIsInstance(result, list)
+        self.assertNotEqual(len(result), 0)
+        self.assertIn("ext4", result)
+
+        for fs in result:
+            self.assertIsInstance(fs, str)
+            self.assertEqual(fs, get_format(fs).type)
