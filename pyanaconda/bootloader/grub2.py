@@ -589,6 +589,14 @@ class IPSeriesGRUB2(GRUB2):
         # Remove all other occurances of it.
         boot_list = [boot_disk] + [x for x in boot_list if x != boot_disk]
 
+        # The boot-device NVRAM variable has a maximum number of devices allowed,
+        # don't add more than the limit in the ibm,max-boot-devices OF property.
+        max_dev_path = "/sys/firmware/devicetree/base/ibm,max-boot-devices"
+        if os.access(max_dev_path, os.F_OK):
+            with open(max_dev_path, "rb") as f:
+                limit = int.from_bytes(f.read(4), byteorder='big')
+                boot_list = boot_list[:limit]
+
         update_value = "boot-device=%s" % " ".join(boot_list)
 
         rc = util.execWithRedirect("nvram", ["--update-config", update_value])
