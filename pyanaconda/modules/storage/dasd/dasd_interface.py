@@ -28,6 +28,10 @@ from pyanaconda.modules.common.containers import TaskContainer
 class DASDInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the DASD module."""
 
+    def IsSupported(self) -> Bool:
+        """Is this module supported?"""
+        return self.implementation.is_supported()
+
     def DiscoverWithTask(self, device_number: Str) -> ObjPath:
         """Discover a DASD.
 

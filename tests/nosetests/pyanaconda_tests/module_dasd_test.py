@@ -42,6 +42,10 @@ class DASDInterfaceTestCase(unittest.TestCase):
         self.dasd_module = DASDModule()
         self.dasd_interface = DASDInterface(self.dasd_module)
 
+    @patch("pyanaconda.modules.storage.dasd.dasd.arch.is_s390", return_value=True)
+    def is_supported_test(self, is_supported):
+        self.assertEqual(self.dasd_interface.IsSupported(), True)
+
     @patch_dbus_publish_object
     def discover_with_task_test(self, publisher):
         """Test DiscoverWithTask."""

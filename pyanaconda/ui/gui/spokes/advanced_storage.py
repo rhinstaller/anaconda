@@ -18,7 +18,6 @@
 #
 from collections import namedtuple
 
-from blivet import arch
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, \
     ZFCPDiskDevice, NVDIMMNamespaceDevice
 
@@ -27,7 +26,7 @@ from pyanaconda.core.i18n import CN_, CP_
 from pyanaconda.storage.utils import try_populate_devicetree, apply_disk_selection, \
     filter_disks_by_names
 from pyanaconda.storage.snapshot import on_disk_storage
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, FCOE, ISCSI
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, FCOE, ISCSI, DASD
 from pyanaconda.modules.common.constants.services import STORAGE
 
 from pyanaconda.ui.gui.utils import timed_action
@@ -427,9 +426,6 @@ class ZPage(FilterPage):
 
     def setup(self, store, selected_names, disks):
         """ Set up our Z-page, but only if we're running on s390x. """
-        if not arch.is_s390():
-            return
-
         ccws = []
         wwpns = []
         luns = []
@@ -598,8 +594,9 @@ class FilterSpoke(NormalSpoke):
             PAGE_Z: ZPage(self.storage, self.builder),
         }
 
-        if not arch.is_s390():
-            self._notebook.remove_page(-1)
+        if not STORAGE.get_proxy(DASD).IsSupported():
+            self._notebook.remove_page(PAGE_Z)
+            self._pages.pop(PAGE_Z)
             self.builder.get_object("addZFCPButton").destroy()
             self.builder.get_object("addDASDButton").destroy()
 
