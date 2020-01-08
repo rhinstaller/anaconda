@@ -204,7 +204,7 @@ class NetworkService(KickstartService):
 
     def _hostname_service_properties_changed(self, interface, changed, invalid):
         if interface == HOSTNAME.interface_name and "Hostname" in changed:
-            hostname = changed["Hostname"]
+            hostname = changed["Hostname"].unpack()
             self.current_hostname_changed.emit(hostname)
             log.debug("Current hostname changed to %s", hostname)
 
