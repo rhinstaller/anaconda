@@ -47,6 +47,10 @@ class ISCSIModule(KickstartBaseModule):
         """Publish the module."""
         DBus.publish_object(ISCSI.object_path, ISCSIInterface(self))
 
+    def is_supported(self):
+        """Is this module supported?"""
+        return bool(iscsi.available)
+
     def reload_module(self):
         """Reload the iscsi module."""
         log.debug("Start up the iSCSI module.")

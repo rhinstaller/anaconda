@@ -48,6 +48,10 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         super().connect_signals()
         self.watch_property("Initiator", self.implementation.initiator_changed)
 
+    def IsSupported(self) -> Bool:
+        """Is this module supported?"""
+        return self.implementation.is_supported()
+
     @property
     def Initiator(self) -> Str:
         """ISCSI initiator name."""
