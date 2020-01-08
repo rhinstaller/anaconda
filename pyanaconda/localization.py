@@ -35,15 +35,18 @@ log = get_module_logger(__name__)
 
 SCRIPTS_SUPPORTED_BY_CONSOLE = {'Latn', 'Cyrl', 'Grek'}
 
+
 class LocalizationConfigError(Exception):
     """Exception class for localization configuration related problems"""
 
     pass
 
+
 class InvalidLocaleSpec(LocalizationConfigError):
     """Exception class for the errors related to invalid locale specs"""
 
     pass
+
 
 def is_valid_langcode(langcode):
     """Check if the given locale has a language specified.
@@ -54,6 +57,7 @@ def is_valid_langcode(langcode):
     parsed = langtable.parse_locale(langcode)
     return bool(parsed.language)
 
+
 def raise_on_invalid_locale(arg):
     """Helper to abort when a locale is not valid.
 
@@ -62,13 +66,14 @@ def raise_on_invalid_locale(arg):
     if not is_valid_langcode(arg):
         raise InvalidLocaleSpec("'{}' is not a valid locale".format(arg))
 
+
 def get_language_id(locale):
     """Return language id without territory or anything else."""
     return langtable.parse_locale(locale).language
 
+
 def is_supported_locale(locale):
-    """
-    Function that tells if the given locale is supported by the Anaconda or
+    """Function that tells if the given locale is supported by the Anaconda or
     not. We consider locales supported by the langtable as supported by the
     Anaconda.
 
@@ -77,15 +82,13 @@ def is_supported_locale(locale):
     :return: whether the given locale is supported or not
     :rtype: bool
     :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
-
     """
-
     en_name = get_english_name(locale)
     return bool(en_name)
 
+
 def locale_supported_in_console(locale):
-    """
-    Function that tells if the given locale can be displayed by the Linux console.
+    """Function that tells if the given locale can be displayed by the Linux console.
 
     The Linux console can display Latin, Cyrillic and Greek characters reliably,
     but others such as Japanese, can't be correctly installed.
@@ -94,11 +97,10 @@ def locale_supported_in_console(locale):
     :return: whether the given locale is supported by the console or not
     :rtype: bool
     :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
-
     """
-
     locale_scripts = get_locale_scripts(locale)
     return set(locale_scripts).issubset(SCRIPTS_SUPPORTED_BY_CONSOLE)
+
 
 def langcode_matches_locale(langcode, locale):
     """Function that tells if the given langcode matches the given locale. I.e. if
@@ -128,6 +130,7 @@ def langcode_matches_locale(langcode, locale):
             return False
 
     return True
+
 
 def find_best_locale_match(locale, langcodes):
     """Find the best match for the locale in a list of langcodes. This is useful
@@ -183,9 +186,9 @@ def find_best_locale_match(locale, langcodes):
     else:
         return None
 
+
 def setup_locale(locale, localization_proxy=None, text_mode=False):
-    """
-    Procedure setting the system to use the given locale and store it in to the
+    """Procedure setting the system to use the given locale and store it in to the
     localization module (if given). DOES NOT PERFORM ANY CHECKS OF THE GIVEN
     LOCALE.
 
@@ -205,9 +208,7 @@ def setup_locale(locale, localization_proxy=None, text_mode=False):
     :param bool text_mode: if the locale is being setup for text mode
     :return: the locale that was actually set
     :rtype: str
-
     """
-
     if localization_proxy:
         localization_proxy.SetLanguage(locale)
 
@@ -240,9 +241,9 @@ def setup_locale(locale, localization_proxy=None, text_mode=False):
         if not font_set:
             log.warning("can't set console font for locale %s", locale)
             # report what exactly went wrong
-            if not(script_supported):
+            if not script_supported:
                 log.warning("script not supported by console for locale %s", locale)
-            if not(console_fonts):  # no fonts known for locale
+            if not console_fonts:  # no fonts known for locale
                 log.warning("no console font found for locale %s", locale)
             if script_supported and console_fonts:
                 log.warning("none of the suggested fonts can be set for locale %s", locale)
@@ -289,6 +290,7 @@ def get_english_name(locale):
     name = langtable.language_name(languageId=locale, languageIdQuery="en")
     return upcase_first_letter(name)
 
+
 def get_native_name(locale):
     """Function returning native name for the given locale.
 
@@ -303,17 +305,15 @@ def get_native_name(locale):
     name = langtable.language_name(languageId=locale)
     return upcase_first_letter(name)
 
+
 def get_available_translations(localedir=None):
-    """
-    Method that generates (i.e. returns a generator) available translations for
-    the installer in the given localedir.
+    """Method that generates (i.e. returns a generator) available translations
+    for the installer in the given localedir.
 
     :type localedir: str
     :return: generator yielding available translations (languages)
     :rtype: generator yielding strings
-
     """
-
     localedir = localedir or gettext._default_localedir
 
     # usually there are no message files for en
@@ -334,6 +334,7 @@ def get_available_translations(localedir=None):
 
             yield lang
 
+
 def get_language_locales(lang):
     """Function returning all locales available for the given language.
 
@@ -347,9 +348,9 @@ def get_language_locales(lang):
 
     return langtable.list_locales(languageId=lang)
 
+
 def get_territory_locales(territory):
-    """
-    Function returning list of locales for the given territory. The list is
+    """Function returning list of locales for the given territory. The list is
     sorted from the most probable locale to the least probable one (based on
     langtable's ranking.
 
@@ -357,10 +358,9 @@ def get_territory_locales(territory):
     :type territory: str
     :return: list of locales
     :rtype: list of strings
-
     """
-
     return langtable.list_locales(territoryId=territory)
+
 
 def get_locale_keyboards(locale):
     """Function returning preferred keyboard layouts for the given locale.
@@ -375,6 +375,7 @@ def get_locale_keyboards(locale):
 
     return langtable.list_keyboards(languageId=locale)
 
+
 def get_locale_timezones(locale):
     """Function returning preferred timezones for the given locale.
 
@@ -388,6 +389,7 @@ def get_locale_timezones(locale):
 
     return langtable.list_timezones(languageId=locale)
 
+
 def get_locale_console_fonts(locale):
     """Function returning preferred console fonts for the given locale.
 
@@ -399,6 +401,7 @@ def get_locale_console_fonts(locale):
     raise_on_invalid_locale(locale)
 
     return langtable.list_consolefonts(languageId=locale)
+
 
 def get_locale_scripts(locale):
     """Function returning preferred scripts (writing systems) for the given locale.
@@ -412,6 +415,7 @@ def get_locale_scripts(locale):
     raise_on_invalid_locale(locale)
 
     return langtable.list_scripts(languageId=locale)
+
 
 def get_xlated_timezone(tz_spec_part):
     """Function returning translated name of a region, city or complete timezone
@@ -430,15 +434,14 @@ def get_xlated_timezone(tz_spec_part):
     xlated = langtable.timezone_name(tz_spec_part, languageIdQuery=locale)
     return xlated
 
+
 def get_firmware_language(text_mode=False):
-    """
-    Procedure that returns the firmware language information (if any).
+    """Procedure that returns the firmware language information (if any).
 
     :param boot text_mode: if the locale is being setup for text mode
     :return: the firmware language translated into a locale string, or None
     :rtype: str
     """
-
     try:
         n = "/sys/firmware/efi/efivars/PlatformLang-8be4df61-93ca-11d2-aa0d-00e098032b8c"
         with open(n, 'r') as f:
@@ -481,11 +484,12 @@ def get_firmware_language(text_mode=False):
     log.debug("Using UEFI PlatformLang '%s' ('%s') as our language.", d, locales[0])
     return locales[0]
 
+
 _DateFieldSpec = namedtuple("DateFieldSpec", ["format", "suffix"])
 
+
 def resolve_date_format(year, month, day, fail_safe=True):
-    """
-    Puts the year, month and day objects in the right order according to the
+    """Puts the year, month and day objects in the right order according to the
     currently set locale and provides format specification for each of the
     fields.
 
@@ -505,9 +509,7 @@ def resolve_date_format(year, month, day, fail_safe=True):
     :rtype: tuple
     :raise ValueError: in case currently set locale has unsupported date
                        format and fail_safe is set to False
-
     """
-
     FAIL_SAFE_DEFAULT = "%Y-%m-%d"
 
     def order_terms_formats(fmt_str):
@@ -567,14 +569,13 @@ def resolve_date_format(year, month, day, fail_safe=True):
             # should be informed about it
             return order_terms_formats(FAIL_SAFE_DEFAULT)
 
+
 def set_console_font(font):
-    """
-    Try to set console font to the given value.
+    """Try to set console font to the given value.
 
     :param str font: console font name
     :returns: True on success, False on failure
-    :rtype: Bool
-
+    :rtype: bool
     """
     log.debug("setting console font to %s", font)
     rc = execWithRedirect("setfont", [font])
@@ -585,9 +586,9 @@ def set_console_font(font):
         log.error("setting console font to %s failed", font)
         return False
 
+
 def setup_locale_environment(locale=None, text_mode=False, prefer_environment=False):
-    """
-    Clean and configure the local environment variables.
+    """Clean and configure the local environment variables.
 
     This function will attempt to determine the desired locale and configure
     the process environment (os.environ) in the least surprising way. If a
@@ -609,7 +610,6 @@ def setup_locale_environment(locale=None, text_mode=False, prefer_environment=Fa
     :return: None
     :rtype: None
     """
-
     # pylint: disable=environment-modify
 
     # Look for a locale in the environment. If the variable is setup but

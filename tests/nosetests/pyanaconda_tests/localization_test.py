@@ -156,7 +156,6 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
                 {"LANGUAGE": "de", "LANG": "de", "LC_ALL": "de", "LC_MESSAGES": "de"})
     def setup_locale_environment_param_ok_test(self, locales_mock):
         """Test setup_locale_environment() with parameter"""
-
         # success case
         locales_mock.return_value = ["fr_FR.UTF-8"]
 
@@ -178,7 +177,6 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
     @patch.dict("pyanaconda.localization.os.environ", dict())
     def setup_locale_environment_vars_test(self):
         """Test setup_locale_environment() with multiple environment variables"""
-
         for varname in ("LANGUAGE", "LC_ALL", "LC_MESSAGES", "LANG"):
 
             localization.os.environ.clear()
@@ -193,7 +191,6 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
     @patch.dict("pyanaconda.localization.os.environ", {"LANG": "blah"})
     def setup_locale_environment_vars_invalid_test(self):
         """Test setup_locale_environment() with invalid environment variable input"""
-
         localization.setup_locale_environment(None)
 
         self.assertEqual(DEFAULT_LANG, localization.os.environ["LANG"])
@@ -202,7 +199,6 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
     @patch.dict("pyanaconda.localization.os.environ", dict())
     def setup_locale_environment_fallback_efi_ok_test(self, open_mock):
         """Test setup_locale_environment() fallback to EFI vars"""
-
         # success with valid data
         # first 4 bytes binary attributes, then language with - instead of _, minimum 10 bytes
         open_mock.return_value = StringIO("\x07\x00\x00\x00de-DE\x00")
@@ -217,7 +213,6 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
     @patch.dict("pyanaconda.localization.os.environ", dict())
     def setup_locale_environment_fallback_efi_bad_test(self, open_mock):
         """Test setup_locale_environment() fallback to EFI vars with bad contents"""
-
         # failure with invalid data - too short
         open_mock.return_value = StringIO("\x00")
 
@@ -229,7 +224,6 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 class LangcodeLocaleMatchingTests(unittest.TestCase):
     def langcode_matches_locale_test(self):
         """Langcode-locale matching should work as expected."""
-
         # should match
         self.assertTrue(localization.langcode_matches_locale("sr", "sr"))
         self.assertTrue(localization.langcode_matches_locale("sr", "sr_RS"))
@@ -267,7 +261,6 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
 
     def find_best_locale_match_test(self):
         """Finding best locale matches should work as expected."""
-
         # can find best matches
         self.assertEqual(localization.find_best_locale_match("cs_CZ", ["cs", "cs_CZ", "en", "en_US"]), "cs_CZ")
         self.assertEqual(localization.find_best_locale_match("cs", ["cs_CZ", "cs", "en", "en_US"]), "cs")
@@ -288,7 +281,6 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
 
     def resolve_date_format_test(self):
         """All locales' date formats should be properly resolved."""
-
         locales = (line.strip() for line in execWithCaptureBinary("locale", ["-a"]).splitlines())
         for locale in locales:
             # "locale -a" might return latin-1 encoded local identifiers:
