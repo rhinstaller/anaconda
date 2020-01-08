@@ -146,12 +146,12 @@ class LangLocaleHandler(object):
         """
 
         # get lang and select it
-        parts = localization.parse_langcode(locale)
-        if "language" not in parts:
+        language = localization.get_language_id(locale)
+        if not language:
             # invalid locale, cannot select
             return (None, None)
 
-        lang_itr = set_treeview_selection(self._langView, parts["language"], col=2)
+        lang_itr = set_treeview_selection(self._langView, language, col=2)
 
         # find matches and use the one with the highest rank
         locales = localization.get_language_locales(locale)
