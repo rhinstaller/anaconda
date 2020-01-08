@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.fcoe import fcoe
+from blivet.fcoe import has_fcoe, fcoe
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
@@ -41,6 +41,10 @@ class FCOEModule(KickstartBaseModule):
     def publish(self):
         """Publish the module."""
         DBus.publish_object(FCOE.object_path, FCOEInterface(self))
+
+    def is_supported(self):
+        """Is this module supported?"""
+        return has_fcoe()
 
     def reload_module(self):
         """Reload the fcoe module."""
