@@ -19,15 +19,17 @@
 #
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
-from pyanaconda.modules.common.errors import InvalidValueError
+from pyanaconda.modules.common.errors import InvalidValueError, UnsupportedValueError
 from pyanaconda.modules.payloads.payload.dnf.packages.constants import MultilibPolicy, \
     TIMEOUT_UNSET, RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 from pyanaconda.modules.payloads.payload.dnf.packages.packages_interface import \
     PackagesInterface
 
-from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, GROUP_DEFAULT
+from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, GROUP_DEFAULT, \
+    KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.parser import Group
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -63,6 +65,8 @@ class PackagesModule(KickstartBaseModule):
         self.weakdeps_excluded_changed = Signal()
         self._missing_ignored = False
         self.missing_ignored_changed = Signal()
+        self._broken_ignored = False
+        self.broken_ignored_changed = Signal()
         self._languages = LANGUAGES_DEFAULT
         self.languages_changed = Signal()
         self._multilib_policy = MultilibPolicy.BEST
@@ -77,7 +81,10 @@ class PackagesModule(KickstartBaseModule):
         DBus.publish_object(PAYLOAD_PACKAGES.object_path, PackagesInterface(self))
 
     def process_kickstart(self, data):
-        """Process the kickstart data."""
+        """Process the kickstart data.
+
+        :raise: KickstartParseError
+        """
         packages = data.packages
 
         self.set_core_group_enabled(not packages.nocore)
@@ -98,6 +105,11 @@ class PackagesModule(KickstartBaseModule):
             self.set_missing_ignored(True)
         else:
             self.set_missing_ignored(False)
+
+        if packages.handleBroken == KS_BROKEN_IGNORE:
+            self.set_broken_ignored(True)
+        else:
+            self.set_broken_ignored(False)
 
         if packages.instLangs is None:
             self.set_languages(LANGUAGES_DEFAULT)
@@ -131,6 +143,7 @@ class PackagesModule(KickstartBaseModule):
         packages.excludeDocs = self.docs_excluded
         packages.excludeWeakdeps = self.weakdeps_excluded
         packages.handleMissing = KS_MISSING_IGNORE if self.missing_ignored else KS_MISSING_PROMPT
+        packages.handleBroken = KS_BROKEN_IGNORE if self.broken_ignored else KS_BROKEN_REPORT
 
         if self.languages == LANGUAGES_DEFAULT:
             packages.instLangs = None
@@ -354,6 +367,30 @@ class PackagesModule(KickstartBaseModule):
         self._missing_ignored = missing_ignored
         self.missing_ignored_changed.emit()
         log.debug("Ignore missing is set to %s.", missing_ignored)
+
+    @property
+    def broken_ignored(self):
+        """Ignore packages that have conflicts with other packages.
+
+        :rtype: bool
+        """
+        return self._broken_ignored
+
+    def set_broken_ignored(self, broken_ignored):
+        """Set if the packages that have conflicts with other packages should be ignored.
+
+        :param missing_ignored: True if broken packages should be ignored.
+        :type missing_ignored: bool
+        :raise: UnsupportedValueError if ignorebroken is disabled on this product.
+        """
+        if not conf.payload.enable_ignore_broken_packages:
+            raise UnsupportedValueError(
+                "The ignore broken packages feature is not supported on this product"
+            )
+
+        self._broken_ignored = broken_ignored
+        self.broken_ignored_changed.emit()
+        log.debug("Ignore broken is set to %s.", broken_ignored)
 
     @property
     def languages(self):

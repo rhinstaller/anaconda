@@ -39,5 +39,11 @@ class InvalidValueError(AnacondaError):
     pass
 
 
+@dbus_error("UnsupportedValueError", namespace=ANACONDA_NAMESPACE)
+class UnsupportedValueError(AnacondaError):
+    """Value passed is not supported."""
+    pass
+
+
 # Define mapping for existing exceptions.
 dbus_error("KickstartError", namespace=ANACONDA_NAMESPACE)(KickstartError)

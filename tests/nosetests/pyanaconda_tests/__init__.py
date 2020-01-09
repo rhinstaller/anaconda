@@ -82,6 +82,8 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
     callback = PropertiesChangedCallback()
     interface.PropertiesChanged.connect(callback)
 
+    result = None
+
     # Read a kickstart,
     if ks_in is not None:
         ks_in = dedent(ks_in).strip()
@@ -89,10 +91,10 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
         test.assertEqual(ks_valid, result.is_valid())
 
     if not ks_valid:
-        return
+        return result
 
     if ks_out is None:
-        return
+        return result
 
     # Generate a kickstart
     ks_out = dedent(ks_out).strip()
@@ -111,6 +113,8 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
 
     ks_tmp = dedent(ks_tmp).strip()
     test.assertEqual(ks_tmp, interface.GenerateTemporaryKickstart().strip())
+
+    return result
 
 
 class PropertiesChangedCallback(Mock):
