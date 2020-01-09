@@ -23,7 +23,7 @@ from unittest.mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
     patch_dbus_publish_object, PropertiesChangedCallback
-from tests.nosetests.pyanaconda_tests.module_payload_shared import SourceSharedTest
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD
@@ -45,19 +45,19 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.live_os_module = LiveOSModule()
         self.live_os_interface = LiveOSInterface(self.live_os_module)
 
-        self.source_tests = SourceSharedTest(self,
-                                             payload=self.live_os_module,
-                                             payload_intf=self.live_os_interface)
+        self.shared_tests = PayloadSharedTest(self,
+                                              payload=self.live_os_module,
+                                              payload_intf=self.live_os_interface)
 
         self.callback = PropertiesChangedCallback()
         self.live_os_interface.PropertiesChanged.connect(self.callback)
 
     def _prepare_source(self):
-        return self.source_tests.prepare_source(SourceType.LIVE_OS_IMAGE)
+        return self.shared_tests.prepare_source(SourceType.LIVE_OS_IMAGE)
 
     def _prepare_and_use_source(self):
         source = self._prepare_source()
-        self.source_tests.set_sources([source])
+        self.shared_tests.set_sources([source])
 
         return source
 
@@ -69,14 +69,14 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
     def sources_empty_test(self):
         """Test sources LiveOS API for emptiness."""
-        self.source_tests.check_empty_sources()
+        self.shared_tests.check_empty_sources()
 
     @patch_dbus_publish_object
     def set_source_test(self, publisher):
         """Test if set source API of LiveOS payload."""
         sources = [self._prepare_source()]
 
-        self.source_tests.check_set_sources(sources)
+        self.shared_tests.check_set_sources(sources)
 
     @patch_dbus_publish_object
     def set_multiple_sources_fail_test(self, publisher):
@@ -86,7 +86,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
             self._prepare_source()
         ]
 
-        self.source_tests.check_set_sources(paths, exception=IncompatibleSourceError)
+        self.shared_tests.check_set_sources(paths, exception=IncompatibleSourceError)
 
     @patch_dbus_publish_object
     def set_when_initialized_source_fail_test(self, publisher):

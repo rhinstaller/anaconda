@@ -25,10 +25,10 @@ from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 
 
-class PayloadSharedTest(object):
+class PayloadKickstartSharedTest(object):
 
     def __init__(self, test, payload_service, payload_service_intf):
-        """Setup shared payload test object for common payload testing.
+        """Setup shared payload testing object for testing kickstart.
 
         :param test: instance of TestCase
         :param payload_service: main payload service module
@@ -63,10 +63,10 @@ class PayloadSharedTest(object):
         return self.payload_service.payload
 
 
-class SourceSharedTest(object):
+class PayloadSharedTest(object):
 
     def __init__(self, test, payload, payload_intf):
-        """Setup shared payload source test object for common payload testing.
+        """Setup shared payload test object for common payload testing.
 
         :param test: instance of TestCase
         :param payload: payload module

@@ -23,7 +23,7 @@ from unittest.mock import patch, create_autospec
 
 from tests.nosetests.pyanaconda_tests import check_dbus_property, patch_dbus_publish_object, \
     PropertiesChangedCallback
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadKickstartSharedTest
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
@@ -44,9 +44,9 @@ class PackagesKSTestCase(unittest.TestCase):
         self.payload_module = PayloadsService()
         self.payload_module_interface = PayloadsInterface(self.payload_module)
 
-        self.shared_tests = PayloadSharedTest(self,
-                                              self.payload_module,
-                                              self.payload_module_interface)
+        self.shared_tests = PayloadKickstartSharedTest(self,
+                                                       self.payload_module,
+                                                       self.payload_module_interface)
 
         # test variables
         self._expected_env = ""
