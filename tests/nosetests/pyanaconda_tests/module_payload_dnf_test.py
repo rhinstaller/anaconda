@@ -189,12 +189,12 @@ class PackagesKSTestCase(unittest.TestCase):
     def packages_section_multiple_attributes_kickstart_test(self, publisher):
         """Test the packages section with multiple attributes."""
         ks_in = """
-        %packages --nocore --multilib --instLangs en_US.UTF-8
+        %packages --nocore --multilib --inst-langs en_US.UTF-8
 
         %end
         """
         ks_out = """
-        %packages --nocore --instLangs=en_US.UTF-8 --multilib
+        %packages --nocore --inst-langs=en_US.UTF-8 --multilib
 
         %end
         """
@@ -224,7 +224,7 @@ class PackagesKSTestCase(unittest.TestCase):
     def packages_section_complex_exclude_kickstart_test(self, publisher):
         """Test the packages section with complex exclude example."""
         ks_in = """
-        %packages --nocore --ignoremissing --ignorebroken --instLangs=
+        %packages --nocore --ignoremissing --ignorebroken --inst-langs=
         @^environment1
         @group1
         package1
@@ -235,7 +235,7 @@ class PackagesKSTestCase(unittest.TestCase):
         %end
         """
         ks_out = """
-        %packages --nocore --ignoremissing --ignorebroken --instLangs=
+        %packages --nocore --ignoremissing --ignorebroken --inst-langs=
         @^environment1
         @group1
         @group3
