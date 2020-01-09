@@ -78,6 +78,15 @@ class PayloadSharedTest(object):
         self.payload = payload
         self.payload_interface = payload_intf
 
+    def check_type(self, payload_type):
+        """Check if payload type property is correct.
+
+        :param payload_type: expected payload type
+        :type payload_type: value of the payload.base.constants.PayloadType enum
+        """
+        t = self.payload_interface.Type
+        self._test.assertEqual(t, payload_type.value)
+
     @staticmethod
     def prepare_source(source_type):
         """Prepare mock objects which will present given source.

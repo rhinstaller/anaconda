@@ -30,9 +30,9 @@ from pyanaconda.modules.common.constants.interfaces import PAYLOAD
 from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
+from pyanaconda.modules.payloads.constants import SourceType, PayloadType
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.base.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
@@ -60,6 +60,9 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_sources([source])
 
         return source
+
+    def type_test(self):
+        self.shared_tests.check_type(PayloadType.LIVE_OS)
 
     def supported_sources_test(self):
         """Test LiveOS supported sources API."""

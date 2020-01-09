@@ -33,6 +33,7 @@ from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFiles
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
@@ -144,6 +145,9 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
             PAYLOAD_LIVE_IMAGE,
             self.live_image_interface,
             *args, **kwargs)
+
+    def type_test(self):
+        self.shared_tests.check_type(PayloadType.LIVE_IMAGE)
 
     # TODO: Add set_source and supported_sources like in Live OS payload when source is available
 
