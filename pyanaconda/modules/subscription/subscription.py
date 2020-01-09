@@ -299,20 +299,6 @@ class SubscriptionModule(KickstartModule):
         data.syspurpose.usage = self.usage
         data.syspurpose.addons = self.addons
 
-        # subscription
-        data.rhsm.organization = self.organization
-        data.rhsm.activation_keys = self.activation_keys
-        data.rhsm.server_hostname = self.server_hostname
-        data.rhsm.rhsm_baseurl = self.rhsm_baseurl
-
-        # HTTP proxy
-        if self.server_proxy_hostname:
-            proxy = util.ProxyString(host=self.server_proxy_hostname,
-                                port=self.server_proxy_port,
-                                username=self.server_proxy_user,
-                                password=self._server_proxy_password)
-            data.rhsm.proxy = proxy.url
-
         return str(data)
 
     # utility

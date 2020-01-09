@@ -2199,12 +2199,6 @@ class User(COMMANDS.User):
             except ValueError as e:
                 user_log.warning(str(e))
 
-class RHSM(RemovedCommand):
-
-    def __str__(self):
-        subscription_proxy = SUBSCRIPTION.get_proxy()
-        return subscription_proxy.GenerateKickstart()
-
 class VolGroup(COMMANDS.VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
@@ -2581,7 +2575,7 @@ commandMap = {
     "part": Partition,
     "partition": Partition,
     "raid": Raid,
-    "rhsm" : RHSM,
+    "rhsm" : UselessCommand,
     "realm": Realm,
     "reqpart": ReqPart,
     "rootpw": RootPw,
