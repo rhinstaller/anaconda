@@ -17,8 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet import arch
-
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartService
@@ -104,25 +102,11 @@ class StorageService(KickstartService):
         self._nvdimm_module = NVDIMMModule()
         self._add_module(self._nvdimm_module)
 
-        self._dasd_module = None
-        self._zfcp_module = None
+        self._dasd_module = DASDModule()
+        self._add_module(self._dasd_module)
 
-        if arch.is_s390():
-            self._dasd_module = DASDModule()
-            self._add_module(self._dasd_module)
-
-            self.storage_changed.connect(
-                self._dasd_module.on_storage_changed
-            )
-            self._disk_init_module.format_unrecognized_enabled_changed.connect(
-                self._dasd_module.on_format_unrecognized_enabled_changed
-            )
-            self._disk_init_module.format_ldl_enabled_changed.connect(
-                self._dasd_module.on_format_ldl_enabled_changed
-            )
-
-            self._zfcp_module = ZFCPModule()
-            self._add_module(self._zfcp_module)
+        self._zfcp_module = ZFCPModule()
+        self._add_module(self._zfcp_module)
 
         # Initialize the partitioning modules.
         # TODO: Remove the static partitioning modules.
@@ -150,6 +134,15 @@ class StorageService(KickstartService):
         )
         self.storage_changed.connect(
             self._bootloader_module.on_storage_changed
+        )
+        self.storage_changed.connect(
+            self._dasd_module.on_storage_changed
+        )
+        self._disk_init_module.format_unrecognized_enabled_changed.connect(
+            self._dasd_module.on_format_unrecognized_enabled_changed
+        )
+        self._disk_init_module.format_ldl_enabled_changed.connect(
+            self._dasd_module.on_format_ldl_enabled_changed
         )
         self._disk_selection_module.protected_devices_changed.connect(
             self.on_protected_devices_changed

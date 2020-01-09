@@ -1202,11 +1202,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.storage.initialization.load_plugin_s390")
     @patch("pyanaconda.modules.storage.kickstart.zfcp")
-    @patch("pyanaconda.modules.storage.storage.arch.is_s390", return_value=True)
-    def zfcp_kickstart_test(self, arch, zfcp, loader):
+    def zfcp_kickstart_test(self, zfcp, loader):
         """Test the zfcp command."""
-        self.setUp()  # set up for s390x
-
         ks_in = """
         zfcp --devnum=0.0.fc00 --wwpn=0x401040a000000000 --fcplun=0x5105074308c212e9
         """
