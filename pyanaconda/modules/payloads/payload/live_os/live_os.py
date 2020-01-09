@@ -17,8 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.server.publishable import Publishable
-
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
@@ -36,7 +34,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveOSModule(PayloadBase, Publishable):
+class LiveOSModule(PayloadBase):
     """The Live OS payload module."""
 
     def __init__(self):

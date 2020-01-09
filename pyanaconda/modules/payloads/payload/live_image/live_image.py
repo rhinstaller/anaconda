@@ -19,8 +19,6 @@
 #
 import os
 
-from dasbus.server.publishable import Publishable
-
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import requests_session
 from pyanaconda.core.configuration.anaconda import conf
@@ -45,7 +43,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveImageModule(PayloadBase, Publishable):
+class LiveImageModule(PayloadBase):
     """The Live Image payload module."""
 
     def __init__(self):
