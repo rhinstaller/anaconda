@@ -44,6 +44,15 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         self.required_space_changed = Signal()
 
     @property
+    @abstractmethod
+    def type(self):
+        """Get type of this payload.
+
+        :return: value of the payload.base.constants.PayloadType enum
+        """
+        pass
+
+    @property
     def required_space(self):
         """Get required space by payload for the installation.
 

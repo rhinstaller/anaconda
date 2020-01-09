@@ -25,11 +25,12 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
+from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.base.utils import get_kernel_version_list
+from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
     LiveImageInterface
 from pyanaconda.modules.payloads.payload.live_image.initialization import \
@@ -67,6 +68,18 @@ class LiveImageModule(PayloadBase):
 
         self._requests_session = None
 
+    def for_publication(self):
+        """Get the interface used to publish this source."""
+        return LiveImageInterface(self)
+
+    @property
+    def type(self):
+        """Get type of this payload.
+
+        :return: value of the payload.base.constants.PayloadType enum
+        """
+        return PayloadType.LIVE_IMAGE
+
     @property
     def default_required_space(self):
         """Get 1G as default when the value is not known."""
@@ -77,10 +90,6 @@ class LiveImageModule(PayloadBase):
         """Get list of sources supported by Live Image module."""
         # TODO: Add supported sources when implemented
         return None
-
-    def for_publication(self):
-        """Get the interface used to publish this source."""
-        return LiveImageInterface(self)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

@@ -40,6 +40,14 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
         self.watch_property("RequiredSpace", self.implementation.required_space_changed)
 
     @property
+    def Type(self) -> Str:
+        """Get type of this payload.
+
+        Possible types are values of the payload.base.constants.PayloadType enum
+        """
+        return self.implementation.type.value
+
+    @property
     def RequiredSpace(self) -> UInt64:
         """Required space by the source image.
 

@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 
@@ -27,15 +28,23 @@ log = get_module_logger(__name__)
 class DNFModule(PayloadBase):
     """The DNF payload module."""
 
+    def for_publication(self):
+        """Get the interface used to publish this source."""
+        return DNFInterface(self)
+
+    @property
+    def type(self):
+        """Get type of this payload.
+
+        :return: value of the payload.base.constants.PayloadType enum
+        """
+        return PayloadType.DNF
+
     @property
     def supported_source_types(self):
         """Get list of sources supported by DNF module."""
         # TODO: Add supported sources when implemented
         return None
-
-    def for_publication(self):
-        """Get the interface used to publish this source."""
-        return DNFInterface(self)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
