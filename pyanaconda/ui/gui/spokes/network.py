@@ -934,6 +934,8 @@ class NetworkControlBox(GObject.GObject):
             dt = "wired"
         elif dev_cfg.get_device_type() == NM.DeviceType.WIFI:
             dt = "wireless"
+        else:
+            return
 
         if dev_cfg.device:
             ipv4cfg = dev_cfg.device.get_ip4_config()
@@ -1038,6 +1040,8 @@ class NetworkControlBox(GObject.GObject):
             dt = "wired"
         elif dev_type == NM.DeviceType.WIFI:
             dt = "wireless"
+        else:
+            return
 
         # Speed
         speed = None
@@ -1104,6 +1108,8 @@ class NetworkControlBox(GObject.GObject):
             dev_type_str = "wired"
         elif dev_cfg.get_device_type() == NM.DeviceType.WIFI:
             dev_type_str = "wireless"
+        else:
+            return
 
         if dev_type_str == "wired":
             # update icon according to device status
