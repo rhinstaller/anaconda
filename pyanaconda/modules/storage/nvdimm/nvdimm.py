@@ -48,6 +48,10 @@ class NVDIMMModule(KickstartBaseModule):
         """Publish the module."""
         DBus.publish_object(NVDIMM.object_path, NVDIMMInterface(self))
 
+    def is_supported(self):
+        """Is this module supported?"""
+        return True
+
     def process_kickstart(self, data):
         """Process the kickstart data."""
         self._actions = data.nvdimm.actionList
