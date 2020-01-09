@@ -33,6 +33,8 @@ class PayloadsInterface(KickstartModuleInterface):
     def GetActivePayload(self) -> ObjPath:
         """Get active payload.
 
+        TODO: Do we need to think about ActivePayload? It would be easier to remove this concept.
+
         :raise: PayloadNotSetError if payload is not set
         """
         return PayloadContainer.to_object_path(
@@ -40,7 +42,10 @@ class PayloadsInterface(KickstartModuleInterface):
         )
 
     def IsPayloadSet(self) -> Bool:
-        """Test if any payload is set and used."""
+        """Test if any payload is set and used.
+
+        FIXME: This is potentially dangerous and replaceable by GetActivePayload.
+        """
         return self.implementation.is_payload_set()
 
     def CreatePayload(self, payload_type: Str) -> ObjPath:
