@@ -378,6 +378,8 @@ class PackagesInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(InvalidValueError):
             self.packages_interface.SetLanguages("")
 
+        self.callback.assert_not_called()
+
     def multilib_policy_properties_test(self):
         self._check_dbus_property("MultilibPolicy", 'all')
 
