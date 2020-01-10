@@ -22,7 +22,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
-    patch_dbus_publish_object, PropertiesChangedCallback
+    check_dbus_property, patch_dbus_publish_object
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
     SourceSharedTest
 
@@ -138,8 +138,12 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
                                              payload=self.live_image_module,
                                              payload_intf=self.live_image_interface)
 
-        self.callback = PropertiesChangedCallback()
-        self.live_image_interface.PropertiesChanged.connect(self.callback)
+    def _check_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            PAYLOAD_LIVE_IMAGE,
+            self.live_image_interface,
+            *args, **kwargs)
 
     # TODO: Add set_source and supported_sources like in Live OS payload when source is available
 
@@ -151,37 +155,25 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.live_image_interface.Url, "")
 
     def url_properties_test(self):
-        self.live_image_interface.SetUrl("http://OUCH!")
-        self.assertEqual(self.live_image_interface.Url, "http://OUCH!")
-        self.callback.assert_called_once_with(
-            PAYLOAD_LIVE_IMAGE.interface_name, {"Url": "http://OUCH!"}, [])
+        self._check_dbus_property("Url", "http://OUCH!")
 
     def default_proxy_test(self):
         self.assertEqual(self.live_image_interface.Proxy, "")
 
     def proxy_properties_test(self):
-        self.live_image_interface.SetProxy("http://YAYKS!")
-        self.assertEqual(self.live_image_interface.Proxy, "http://YAYKS!")
-        self.callback.assert_called_once_with(
-            PAYLOAD_LIVE_IMAGE.interface_name, {"Proxy": "http://YAYKS!"}, [])
+        self._check_dbus_property("Proxy", "http://YAYKS!")
 
     def default_checksum_test(self):
         self.assertEqual(self.live_image_interface.Checksum, "")
 
     def checksum_properties_test(self):
-        self.live_image_interface.SetChecksum("ABC1234")
-        self.assertEqual(self.live_image_interface.Checksum, "ABC1234")
-        self.callback.assert_called_once_with(
-            PAYLOAD_LIVE_IMAGE.interface_name, {"Checksum": "ABC1234"}, [])
+        self._check_dbus_property("Checksum", "ABC1234")
 
     def default_verifyssl_test(self):
         self.assertTrue(self.live_image_interface.VerifySSL)
 
     def verifyssl_properties_test(self):
-        self.live_image_interface.SetVerifySSL(True)
-        self.assertEqual(self.live_image_interface.VerifySSL, True)
-        self.callback.assert_called_once_with(
-            PAYLOAD_LIVE_IMAGE.interface_name, {"VerifySSL": True}, [])
+        self._check_dbus_property("VerifySSL", True)
 
     def default_space_required_test(self):
         """Test Live Image RequiredSpace property.
