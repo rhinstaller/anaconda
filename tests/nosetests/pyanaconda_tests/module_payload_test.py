@@ -349,9 +349,17 @@ class FactoryTestCase(TestCase):
 
     def create_payload_test(self):
         """Test PayloadFactory create method."""
-        self.assertIsInstance(PayloadFactory.create(PayloadType.DNF), DNFModule)
-        self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_IMAGE), LiveImageModule)
-        self.assertIsInstance(PayloadFactory.create(PayloadType.LIVE_OS), LiveOSModule)
+        payload = PayloadFactory.create(PayloadType.DNF)
+        self.assertIsInstance(payload, DNFModule)
+        self.assertEqual(payload.type, PayloadType.DNF)
+
+        payload = PayloadFactory.create(PayloadType.LIVE_IMAGE)
+        self.assertIsInstance(payload, LiveImageModule)
+        self.assertEqual(payload.type, PayloadType.LIVE_IMAGE)
+
+        payload = PayloadFactory.create(PayloadType.LIVE_OS)
+        self.assertIsInstance(payload, LiveOSModule)
+        self.assertEqual(payload.type, PayloadType.LIVE_OS)
 
     def create_payload_from_ks_test(self):
         """Test PayloadFactory create from KS method."""
