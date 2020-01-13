@@ -1077,7 +1077,14 @@ class SubscriptionSpoke(NormalSpoke):
         self._subscription_module.proxy.SetInsightsEnabled(self._insights_checkbox.get_active())
 
         # HTTP proxy
-        if self.http_proxy_location:
+        hostname = ""
+        port = -1
+        username = ""
+        password = ""
+        # We set actual HTTP proxy data only if the proxy checkbox is set
+        # and some valid loking data has been entered. Otherwise we set
+        # empty values, which are either a no-op or clear previous input.
+        if self.http_proxy_set and self.http_proxy_location:
             # gather data
             proxy_obj = ProxyString(url=self.http_proxy_location)
             hostname = proxy_obj.host
@@ -1091,8 +1098,8 @@ class SubscriptionSpoke(NormalSpoke):
             username = self.http_proxy_username
             password = self.http_proxy_password
 
-            # set values to module
-            self._subscription_module.proxy.SetServerProxy(hostname, port, username, password)
+        # set proxy values to module/clear previous values
+        self._subscription_module.proxy.SetServerProxy(hostname, port, username, password)
 
         # custom URL
         self._subscription_module.proxy.SetServerHostname(self.custom_server_hostname)
