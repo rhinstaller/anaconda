@@ -116,7 +116,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         """
         ks_out = """
         # System timezone
-        timezone Europe/Prague --utc --nontp
+        timezone Europe/Prague --isUtc --nontp
         """
         self._test_kickstart(ks_in, ks_out)
 
