@@ -78,93 +78,51 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             []
         )
 
-        in_value = [
-            {
-                "mount-point": "/boot",
-                "device-spec": "/dev/sda1"
-            }
-        ]
-
-        out_value = [
-            {
-                "mount-point": get_variant(Str, "/boot"),
-                "device-spec": get_variant(Str, "/dev/sda1"),
-                "reformat": get_variant(Bool, False),
-                "format-type": get_variant(Str, ""),
-                "format-options": get_variant(Str, ""),
-                "mount-options": get_variant(Str, "")
-            }
-        ]
-
+        request = {
+            "mount-point": get_variant(Str, "/boot"),
+            "device-spec": get_variant(Str, "/dev/sda1"),
+            "reformat": get_variant(Bool, False),
+            "format-type": get_variant(Str, ""),
+            "format-options": get_variant(Str, ""),
+            "mount-options": get_variant(Str, "")
+        }
         self._test_dbus_property(
             "Requests",
-            in_value,
-            out_value
+            [request]
         )
 
-        in_value = [
-            {
-                "mount-point":  "/boot",
-                "device-spec": "/dev/sda1",
-                "reformat": True,
-                "format-type": "xfs",
-                "format-options": "-L BOOT",
-                "mount-options": "user"
-            }
-        ]
-
-        out_value = [
-            {
-                "mount-point": get_variant(Str, "/boot"),
-                "device-spec": get_variant(Str, "/dev/sda1"),
-                "reformat": get_variant(Bool, True),
-                "format-type": get_variant(Str, "xfs"),
-                "format-options": get_variant(Str, "-L BOOT"),
-                "mount-options": get_variant(Str, "user")
-            }
-        ]
-
+        request = {
+            "mount-point": get_variant(Str, "/boot"),
+            "device-spec": get_variant(Str, "/dev/sda1"),
+            "reformat": get_variant(Bool, True),
+            "format-type": get_variant(Str, "xfs"),
+            "format-options": get_variant(Str, "-L BOOT"),
+            "mount-options": get_variant(Str, "user")
+        }
         self._test_dbus_property(
             "Requests",
-            in_value,
-            out_value,
+            [request]
         )
 
-        in_value = [
-            {
-                "mount-point": "/boot",
-                "device-spec": "/dev/sda1"
-            },
-            {
-                "mount-point": "/",
-                "device-spec": "/dev/sda2",
-                "reformat": True
-            }
-        ]
-
-        out_value = [
-            {
-                "mount-point": get_variant(Str, "/boot"),
-                "device-spec": get_variant(Str, "/dev/sda1"),
-                "reformat": get_variant(Bool, False),
-                "format-type": get_variant(Str, ""),
-                "format-options": get_variant(Str, ""),
-                "mount-options": get_variant(Str, "")
-            },
-            {
-                "mount-point": get_variant(Str, "/"),
-                "device-spec": get_variant(Str, "/dev/sda2"),
-                "reformat": get_variant(Bool, True),
-                "format-type": get_variant(Str, ""),
-                "format-options": get_variant(Str, ""),
-                "mount-options": get_variant(Str, "")
-            }
-        ]
-
+        request_1 = {
+            "mount-point": get_variant(Str, "/boot"),
+            "device-spec": get_variant(Str, "/dev/sda1"),
+            "reformat": get_variant(Bool, False),
+            "format-type": get_variant(Str, ""),
+            "format-options": get_variant(Str, ""),
+            "mount-options": get_variant(Str, "")
+        }
+        request_2 = {
+            "mount-point": get_variant(Str, "/"),
+            "device-spec": get_variant(Str, "/dev/sda2"),
+            "reformat": get_variant(Bool, True),
+            "format-type": get_variant(Str, ""),
+            "format-options": get_variant(Str, ""),
+            "mount-options": get_variant(Str, "")
+        }
         self._test_dbus_property(
             "Requests",
-            in_value,
-            out_value
+            [request_1, request_2]
         )
 
     def _add_device(self, device):

@@ -92,23 +92,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
     def request_property_test(self):
         """Test the property request."""
-        in_value = {
-            'partitioning-scheme': AUTOPART_TYPE_LVM_THINP,
-            'file-system-type': 'ext4',
-            'excluded-mount-points': ['/home', '/boot', 'swap'],
-            'encrypted': True,
-            'passphrase': '123456',
-            'cipher': 'aes-xts-plain64',
-            'luks-version': 'luks1',
-            'pbkdf': 'argon2i',
-            'pbkdf-memory': 256,
-            'pbkdf-time': 100,
-            'pbkdf-iterations': 1000,
-            'escrow-certificate': 'file:///tmp/escrow.crt',
-            'backup-passphrase-enabled': True,
-        }
-
-        out_value = {
+        request = {
             'partitioning-scheme': get_variant(Int, AUTOPART_TYPE_LVM_THINP),
             'file-system-type': get_variant(Str, 'ext4'),
             'excluded-mount-points': get_variant(List[Str], ['/home', '/boot', 'swap']),
@@ -123,11 +107,9 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             'escrow-certificate': get_variant(Str, 'file:///tmp/escrow.crt'),
             'backup-passphrase-enabled': get_variant(Bool, True),
         }
-
         self._test_dbus_property(
             "Request",
-            in_value,
-            out_value
+            request
         )
 
     def requires_passphrase_test(self):

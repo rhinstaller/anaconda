@@ -17,18 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pykickstart.errors import KickstartError
-from dasbus.error import dbus_error_by_default, dbus_error
+from dasbus.error import DBusError, dbus_error
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
 
-
-@dbus_error_by_default
-class DBusError(Exception):
-    """A default DBus error."""
-    pass
+__all__ = ["DBusError", "AnacondaError", "InvalidValueError"]
 
 
 @dbus_error("Error", namespace=ANACONDA_NAMESPACE)
-class AnacondaError(Exception):
+class AnacondaError(DBusError):
     """A default Anaconda error."""
     pass
 

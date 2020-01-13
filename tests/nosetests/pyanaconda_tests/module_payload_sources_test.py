@@ -22,7 +22,6 @@ import unittest
 from unittest.mock import Mock, patch
 
 from pyanaconda.core.constants import INSTALL_TREE
-from dasbus.typing import get_native
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
@@ -176,7 +175,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device.path = "/resolved/path/to/base/image"
 
         device_tree.GetDeviceData = Mock()
-        device_tree.GetDeviceData.return_value = get_native(DeviceData.to_structure(device))
+        device_tree.GetDeviceData.return_value = DeviceData.to_structure(device)
 
         mount.return_value = 0
 
@@ -216,7 +215,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device.path = "/resolved/path/to/base/image"
 
         device_tree.GetDeviceData = Mock()
-        device_tree.GetDeviceData.return_value = get_native(DeviceData.to_structure(device))
+        device_tree.GetDeviceData.return_value = DeviceData.to_structure(device)
 
         stat_mock.S_ISBLK = Mock()
         stat_mock.S_ISBLK.return_value = False
@@ -243,7 +242,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device.path = "/resolved/path/to/base/image"
 
         device_tree.GetDeviceData = Mock()
-        device_tree.GetDeviceData.return_value = get_native(DeviceData.to_structure(device))
+        device_tree.GetDeviceData.return_value = DeviceData.to_structure(device)
 
         mount.return_value = -20
 

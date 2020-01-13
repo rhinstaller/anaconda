@@ -23,7 +23,6 @@ from blivet.devices import DiskDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
-from dasbus.typing import get_native
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.validation import ValidationReport
@@ -85,15 +84,15 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
         storage.devicetree._add_device(dev2)
         storage.devicetree._add_device(dev3)
 
-        report = ValidationReport.from_structure(get_native(
+        report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks([])
-        ))
+        )
 
         self.assertEqual(report.is_valid(), True)
 
-        report = ValidationReport.from_structure(get_native(
+        report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks(["dev1"])
-        ))
+        )
 
         self.assertEqual(report.is_valid(), False)
         self.assertEqual(report.error_messages, [
@@ -103,9 +102,9 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
         ])
         self.assertEqual(report.warning_messages, [])
 
-        report = ValidationReport.from_structure(get_native(
+        report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks(["dev1", "dev2"])
-        ))
+        )
 
         self.assertEqual(report.is_valid(), False)
         self.assertEqual(report.error_messages, [
@@ -118,9 +117,9 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
         ])
         self.assertEqual(report.warning_messages, [])
 
-        report = ValidationReport.from_structure(get_native(
+        report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks(["dev1", "dev2", "dev3"])
-        ))
+        )
 
         self.assertEqual(report.is_valid(), True)
 
