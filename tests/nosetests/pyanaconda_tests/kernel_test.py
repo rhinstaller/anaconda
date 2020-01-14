@@ -41,23 +41,6 @@ class KernelArgumentsTests(unittest.TestCase):
         self.assertIsNone(ka.get("thisisnotthere"))
         self.assertEqual(ka.get("thisisnotthere", "fallback"), "fallback")
 
-        # test the getbool() method - presence
-        self.assertTrue(ka.getbool("blah"))  # is present
-        self.assertTrue(ka.getbool("foo"))  # has any value
-
-        # test the getbool() method - simple names and values
-        self.assertTrue(ka.getbool("bar"))  # 1
-        self.assertFalse(ka.getbool("baz"))  # 0
-        self.assertFalse(ka.getbool("beep"))  # off
-        self.assertFalse(ka.getbool("derp"))  # no
-
-        # test the getbool() method - the super magical "no" prefix
-        self.assertFalse(ka.getbool("where"))  # is present with no-prefix
-        self.assertFalse(ka.getbool("thing"))  # is set and has no-prefix
-        self.assertTrue(ka.getbool("nothing"))  # full name incl. the "no" prefix = is present
-        self.assertFalse(ka.getbool("nobody"))  # full name incl. the "no" prefix, value is 0
-        self.assertFalse(ka.get("body"))  # no-prefix and has a value
-
         # test the is_enabled() method
         self.assertTrue(ka.is_enabled("blah"))  # present
         self.assertTrue(ka.is_enabled("foo"))  # any value
@@ -77,7 +60,6 @@ class KernelArgumentsTests(unittest.TestCase):
         ka = KernelArguments()
         self.assertEqual(ka.read(["/proc/cmdlin*", "/nonexistent/file"]), ["/proc/cmdline"])
         self.assertEqual(ka.read("/another/futile/attempt"), [])
-        self.assertTrue(ka.getbool("root"))  # expect this to be set in most environments
 
     def special_argument_handling_test(self):
         """Test handling of special arguments in KernelArguments."""
