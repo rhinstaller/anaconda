@@ -20,6 +20,7 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
+from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive import utils
@@ -238,4 +239,5 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :param request: a device factory request
         :raise: StorageError if the device cannot be created
         """
-        utils.add_device(self.storage, request)
+        task = AddDeviceTask(self.storage, request)
+        task.run()

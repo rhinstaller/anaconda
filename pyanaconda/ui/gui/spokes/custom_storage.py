@@ -58,10 +58,11 @@ from pyanaconda.modules.storage.partitioning.interactive.utils import collect_un
     collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
     create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
     collect_file_system_types, collect_device_types, \
-    get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
+    get_device_raid_level, destroy_device, rename_container, get_container, \
     collect_containers, validate_label, suggest_device_name, get_new_root_name, \
     generate_device_factory_request, validate_device_factory_request, \
     get_device_factory_arguments, get_raid_level_by_name, get_container_size_policy_by_number
+from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -1453,7 +1454,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.clear_errors()
 
         try:
-            add_device(self._storage_playground, request)
+            task = AddDeviceTask(self._storage_playground, request)
+            task.run()
         except StorageError as e:
             self.set_detailed_error(_("Failed to add new device."), e)
             self._do_refresh()

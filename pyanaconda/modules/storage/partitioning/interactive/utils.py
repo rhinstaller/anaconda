@@ -29,7 +29,6 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
 from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
@@ -791,124 +790,6 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
         request.container_size_policy = get_container_size_policy(container)
 
     return request
-
-
-def add_device(storage, request: DeviceFactoryRequest):
-    """Add a device to the storage model.
-
-    :param storage: an instance of Blivet
-    :param request: a device factory request
-    :raise: StorageError if the device cannot be created
-    """
-    log.debug("Add device: %s", request)
-
-    # Complete the device info.
-    _complete_device_factory_request(storage, request)
-
-    try:
-        # Trying to use a new container.
-        _add_device(storage, request, use_existing_container=False)
-        return
-    except StorageError as e:
-        # Keep the first error.
-        error = e
-
-    try:
-        # Trying to use an existing container.
-        _add_device(storage, request, use_existing_container=True)
-        return
-    except StorageError:
-        # Ignore the second error.
-        pass
-
-    raise error
-
-
-def _complete_device_factory_request(storage, request: DeviceFactoryRequest):
-    """Complete the device factory request.
-
-    :param storage: an instance of Blivet
-    :param request: a device factory request
-    """
-    # Set the defaults.
-    if not request.luks_version:
-        request.luks_version = storage.default_luks_version
-
-    # Set the file system type for the given mount point.
-    if not request.format_type:
-        request.format_type = storage.get_fstype(request.mount_point)
-
-    # Fix the mount point.
-    if lowerASCII(request.mount_point) in ("swap", "biosboot", "prepboot"):
-        request.mount_point = ""
-
-    # We should create a partition in some cases.
-    # These devices should never be encrypted.
-    if (request.mount_point.startswith("/boot") or
-            request.format_type in PARTITION_ONLY_FORMAT_TYPES):
-        request.device_type = devicefactory.DEVICE_TYPE_PARTITION
-        request.device_encrypted = False
-
-    # We shouldn't create swap on a thinly provisioned volume.
-    if (request.format_type == "swap" and
-            request.device_type == devicefactory.DEVICE_TYPE_LVM_THINP):
-        request.device_type = devicefactory.DEVICE_TYPE_LVM
-
-    # Encryption of thinly provisioned volumes isn't supported.
-    if request.device_type == devicefactory.DEVICE_TYPE_LVM_THINP:
-        request.device_encrypted = False
-
-
-def _add_device(storage, request: DeviceFactoryRequest, use_existing_container=False):
-    """Add a device to the storage model.
-
-    :param storage: an instance of Blivet
-    :param request: a device factory request
-    :param use_existing_container: should we use an existing container?
-    :raise: StorageError if the device cannot be created
-    """
-    # Create the device factory.
-    factory = devicefactory.get_device_factory(
-        storage,
-        device_type=request.device_type,
-        size=Size(request.device_size) if request.device_size else None
-    )
-
-    # Find a container.
-    container = factory.get_container(
-        allow_existing=use_existing_container
-    )
-
-    if use_existing_container and not container:
-        raise StorageError("No existing container found.")
-
-    # Update the device info.
-    if container:
-        # Don't override user-initiated changes to a defined container.
-        request.disks = [d.name for d in container.disks]
-        request.container_encrypted = container.encrypted
-        request.container_raid_level = get_device_raid_level_name(container)
-        request.container_size_policy = get_container_size_policy(container)
-
-        # The existing container has a name.
-        if use_existing_container:
-            request.container_name = container.name
-
-        # The container is already encrypted
-        if container.encrypted:
-            request.device_encrypted = False
-
-    # Create the device.
-    dev_info = get_device_factory_arguments(storage, request)
-
-    try:
-        storage.factory_device(**dev_info)
-    except StorageError as e:
-        log.error("The device creation has failed: %s", e)
-        raise
-    except OverflowError as e:
-        log.error("Invalid partition size set: %s", str(e))
-        raise StorageError("Invalid partition size set. Use a valid integer.") from None
 
 
 def destroy_device(storage, device):
