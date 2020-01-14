@@ -55,14 +55,13 @@ from pyanaconda.modules.common.structures.partitioning import PartitioningReques
 from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive.utils import collect_unused_devices, \
-    collect_bootloader_devices, collect_new_devices, collect_selected_disks, collect_roots, \
-    create_new_root, revert_reformat, resize_device, change_encryption, reformat_device, \
-    collect_file_system_types, collect_device_types, \
-    get_device_raid_level, destroy_device, rename_container, get_container, \
-    collect_containers, validate_label, suggest_device_name, get_new_root_name, \
+    collect_new_devices, collect_selected_disks, collect_roots, create_new_root,\
+    collect_file_system_types, collect_device_types, get_device_raid_level, destroy_device, \
+    rename_container, get_container, collect_containers, suggest_device_name, get_new_root_name, \
     generate_device_factory_request, validate_device_factory_request, \
     get_device_factory_arguments, get_raid_level_by_name, get_container_size_policy_by_number
 from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
+from pyanaconda.modules.storage.partitioning.interactive.change_device import ChangeDeviceTask
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
@@ -281,12 +280,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     @property
     def _bootloader_drive(self):
         return self._bootloader_module.Drive
-
-    def _get_bootloader_devices(self):
-        return collect_bootloader_devices(
-            storage=self._storage_playground,
-            boot_drive=self._bootloader_drive
-        )
 
     def _get_new_devices(self):
         return collect_new_devices(
@@ -507,179 +500,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     ###
     ### RIGHT HAND SIDE METHODS
     ###
-    def add_new_selector(self, device):
-        """ Add an entry for device to the new install Page. """
-        page = self._accordion.find_page_by_title(self._new_root_name)
-        devices = [device]
-        if not page.members:
-            # remove the CreateNewPage and replace it with a regular Page
-            expander = self._accordion.find_page_by_title(self._new_root_name).get_parent()
-            expander.remove(expander.get_child())
-
-            page = Page(self._new_root_name)
-            expander.add(page)
-
-            # also pull in biosboot and prepboot that are on our boot disk
-            devices.extend(self._get_bootloader_devices())
-            devices = list(set(devices))
-
-        for _device in devices:
-            page.add_selector(_device, self.on_selector_clicked)
-
-        page.show_all()
-
     def _update_selectors(self):
         """ Update all btrfs selectors' size properties. """
         # we're only updating selectors in the new root. problem?
         page = self._accordion.find_page_by_title(self._new_root_name)
         for selector in page.members:
             update_selector_from_device(selector, selector.device)
-
-    def _replace_device(self, selector, request):
-        """ Create a replacement device and update the device selector. """
-        log.debug("Replacing device: %s", request.device_name)
-        arguments = get_device_factory_arguments(self._storage_playground, request)
-        new_device = self._storage_playground.factory_device(**arguments)
-
-        if selector:
-            # update the selector with the new device and its size
-            update_selector_from_device(selector, new_device)
-
-    def _update_device_in_selectors(self, old_device, new_device):
-        for s in self._accordion.all_selectors:
-            if s._device == old_device:
-                update_selector_from_device(s, new_device)
-
-    def _update_all_devices_in_selectors(self):
-        for s in self._accordion.all_selectors:
-            for new_device in self._storage_playground.devices:
-                d1 = s._device
-                d2 = new_device
-
-                if ((d1.name == d2.name) or
-                        (getattr(d1, "req_name", 1) == getattr(d2, "req_name", 2)) and
-                        d1.type == d2.type and
-                        d1.format.type == d2.format.type):
-                    update_selector_from_device(s, new_device)
-                    break
-            else:
-                log.warning("Failed to update selector for: %s", s._device.name)
-
-    def _update_size_props(self):
-        self._update_selectors()
-        self._update_space_display()
-
-    def _try_replace_device(self, selector, removed_device, new_request, old_request):
-        if removed_device:
-            # we don't want to pass the device if we removed it
-            new_request.device_spec = ""
-        try:
-            self._replace_device(selector, new_request)
-            return True
-        except StorageError as e:
-            log.error("Failed to replace device: %s", e)
-            # the factory's error handling has replaced all of the
-            # devices with copies, so update the selectors' devices
-            # accordingly
-            self._update_all_devices_in_selectors()
-            self.set_detailed_warning(_("Device reconfiguration failed."), e)
-
-            if not removed_device:
-                # nothing more to do
-                return True
-            else:
-                try:
-                    self._replace_device(selector, old_request)
-                    return True
-                except StorageError as e:
-                    # failed to recover.
-                    self.refresh()  # this calls self.clear_errors
-                    self.set_detailed_warning(_("Storage configuration reset due "
-                                                "to unrecoverable error."), e)
-                    return False
-
-    @ui_storage_logged
-    def _handle_encryption_change(self, encrypted, luks_version, device, old_device, selector):
-        log.debug("Changing encryption: %s", device.name)
-
-        old_device = device
-        new_device = change_encryption(
-            storage=self._storage_playground,
-            device=device,
-            encrypted=encrypted,
-            luks_version=luks_version
-        )
-
-        # update the selectors
-        selector.device = new_device
-        self._update_device_in_selectors(old_device, new_device)
-
-        # possibly changed device and old_device, need to return the new ones
-        return new_device, old_device
-
-    @ui_storage_logged
-    def _do_reformat(self, selector, old_request, new_request):
-        log.debug("Reformatting device: %s", new_request.device_name)
-        device = selector.device
-        mountpoint = new_request.mount_point
-        label = new_request.label
-        encrypted = new_request.device_encrypted
-        luks_version = new_request.luks_version
-        fs_type = new_request.format_type
-
-        self.clear_errors()
-        #
-        # ENCRYPTION
-        #
-        old_device = None
-
-        if old_request.device_encrypted != new_request.device_encrypted:
-            device, old_device = self._handle_encryption_change(
-                encrypted, luks_version, device, old_device, selector
-            )
-        elif encrypted and old_request.luks_version != new_request.luks_version:
-
-            device, old_device = self._handle_encryption_change(
-                False, luks_version, device, old_device, selector
-            )
-
-            device, old_device = self._handle_encryption_change(
-                True, luks_version, device, old_device, selector
-            )
-        #
-        # FORMATTING
-        #
-        try:
-            reformat_device(
-                storage=self._storage_playground,
-                device=device,
-                fstype=fs_type,
-                mountpoint=mountpoint,
-                label=label
-            )
-        except StorageError as e:
-            self.set_detailed_warning(_("Device reformat request failed."), e)
-        else:
-            # first, remove this selector from any old install page(s)
-            new_selector = None
-            for (page, _selector) in self._accordion.all_members:
-                if _selector.device in (device, old_device):
-                    if page.pageTitle == self._new_root_name:
-                        new_selector = _selector
-                        continue
-
-                    page.remove_selector(_selector)
-                    if not page.members:
-                        self._accordion.remove_page(page.pageTitle)
-
-            # either update the existing selector or add a new one
-            if new_selector:
-                update_selector_from_device(new_selector, device)
-            else:
-                self.add_new_selector(device)
-
-        # possibly changed device, need to return the new one
-        return device
 
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
@@ -711,15 +537,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         old_request = generate_device_factory_request(self._storage_playground, device)
         new_request = self._get_new_device_factory_request(device, old_request)
 
+        if compare_data(old_request, new_request):
+            log.debug("Nothing to do.")
+            return
+
         # Log the results.
         description = self._get_new_request_description(new_request, old_request)
         log.debug("Device request: %s", description)
 
         # Validate the device info.
         error = validate_device_factory_request(self._storage_playground, new_request)
-        log.debug("Validation result: %s", error)
 
         if error:
+            log.debug("Validation has failed: %s", error)
             self.set_warning(error)
             self._populate_right_side(selector)
             return
@@ -727,18 +557,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # Apply the changes.
         self.clear_errors()
 
-        if not device.raw_device.exists:
-            self._change_device(selector, new_request, old_request)
-        else:
-            self._revert_device_reformat(selector, new_request.reformat)
-            self._change_device_size(selector, old_request, new_request)
-            self._change_device_format(selector, old_request, new_request)
-            self._change_device_name(selector, old_request, new_request)
-
-        log.debug("The device request changes are applied.")
+        try:
+            task = ChangeDeviceTask(self._storage_playground, device, new_request, old_request)
+            task.run()
+        except StorageError as e:
+            log.error("Failed to reconfigure the device: %s", e)
+            self.set_detailed_error(_("Device reconfiguration failed."), e)
+            self._reset_storage()
+            self._do_refresh()
+            return
 
         # Update UI.
-        self._populate_right_side(selector)
+        log.debug("The device request changes are applied.")
+        self._do_refresh(mountpoint_to_show=new_request.mount_point)
 
     def _get_new_device_factory_request(self, device, old_request):
         log.info("Getting a new device factory request for %s", device.name)
@@ -906,154 +737,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             attributes.append(attribute)
 
         return "\n".join(["{"] + attributes + ["}"])
-
-    def _change_device(self, selector, new_request, old_request):
-        log.debug("Changing device: %s", old_request.device_name)
-
-        # If something has changed but the device does not exist,
-        # there is no need to schedule actions on the device.
-        # It is only necessary to create a new device object
-        # which reflects the current choices.
-        device = selector.device
-
-        if compare_data(new_request, old_request):
-            log.debug("Nothing has changed.")
-            return
-
-        removed_device = (
-            (old_request.device_type != new_request.device_type) or
-            (old_request.container_name and
-             new_request.container_name != old_request.container_name)
-        )
-
-        if removed_device:
-            # remove the current device
-            success = self._destroy_device(device)
-
-            if not success:
-                # the removal failed. don't continue.
-                return
-
-        with ui_storage_logger():
-            success = self._try_replace_device(
-                selector, removed_device, new_request, old_request
-            )
-
-        if not success:
-            # failed, nothing more to be done
-            return
-
-        self._update_device_in_selectors(device, selector.device)
-        self._update_size_props()
-
-    def _revert_device_reformat(self, selector, reformat):
-        log.debug("Reverting device reformat: %s", reformat)
-        # Handle deactivation of the reformat checkbutton after having committed
-        # a reformat.
-        device = selector.device
-
-        if not reformat:
-            revert_reformat(self._storage_playground, device)
-
-    def _change_device_size(self, selector, old_request, new_request):
-        log.debug("Changing device size: %s", Size(new_request.device_size))
-        device = selector.device
-
-        if new_request.device_size != old_request.device_size:
-            try:
-                changed_size = resize_device(
-                    self._storage_playground,
-                    device,
-                    Size(new_request.device_size),
-                    Size(old_request.device_size)
-                )
-            except StorageError as e:
-                self.set_detailed_warning(_("Device resize request failed."), e)
-                return
-
-            if changed_size:
-                # update the selector's size property
-                # The selector shows the visible disk, so it is necessary
-                # to use device and size, which are the values visible to
-                # the user.
-                for s in self._accordion.all_selectors:
-                    if s._device == device:
-                        s.size = str(device.size)
-
-                # update size props of all btrfs devices' selectors
-                self._update_size_props()
-
-    def _change_device_format(self, selector, old_request, new_request):
-        log.debug("Changing device format: %s", new_request.format_type)
-
-        # it's possible that reformat is active but fstype is unchanged, in
-        # which case we're not going to schedule another reformat unless
-        # encryption got toggled
-        device = selector.device
-        reformat = new_request.reformat
-        changed_encryption = (old_request.device_encrypted != new_request.device_encrypted)
-        changed_luks_version = (old_request.luks_version != new_request.luks_version)
-        changed_fs_type = (old_request.format_type != new_request.format_type)
-
-        do_reformat = (reformat and (changed_encryption or
-                                     changed_luks_version or
-                                     changed_fs_type or
-                                     device.format.exists))
-
-        # Handle reformat
-        if do_reformat:
-            self._do_reformat(selector, old_request, new_request)
-        else:
-            # Set various attributes that do not require actions.
-            self._change_device_label(selector, old_request, new_request)
-            self._change_device_mount_point(selector, old_request, new_request)
-
-    def _change_device_label(self, selector, old_request, new_request):
-        log.debug("Changing device label: %s", new_request.label)
-        device = selector.device
-        label = new_request.label
-
-        if old_request.label != label and hasattr(device.format, "label") and \
-                not validate_label(label, device.format):
-            self.clear_errors()
-            device.format.label = label
-
-    def _change_device_mount_point(self, selector, old_request, new_request):
-        log.debug("Changing device mount point: %s", new_request.mount_point)
-        device = selector.device
-        mountpoint = new_request.mount_point
-
-        if mountpoint and old_request.mount_point != mountpoint:
-            self.clear_errors()
-            device.format.mountpoint = mountpoint
-            if old_request.mount_point:
-                update_selector_from_device(selector, device)
-            else:
-                # add an entry to the new page but do not remove any entries
-                # from other pages since we haven't altered the filesystem
-                self.add_new_selector(device)
-
-    def _change_device_name(self, selector, old_request, new_request):
-        log.debug("Changing device name: %s", new_request.device_name)
-        device = selector.device
-        use_dev = device.raw_device
-        name = new_request.device_name
-        old_name = old_request.device_name
-        changed_name = new_request.device_name != old_request.device_name
-
-        if changed_name:
-            self.clear_errors()
-            try:
-                use_dev.name = name
-            except ValueError as e:
-                self.set_detailed_error(_("Invalid device name."), e)
-            else:
-                new_name = use_dev.name
-                if new_name in self._storage_playground.names:
-                    use_dev.name = old_name
-                    self.set_info(_("Specified name %s already in use.") % new_name)
-                else:
-                    update_selector_from_device(selector, device)
 
     def _raid_level_visible(self, model, itr, user_data):
         device_type = self._get_current_device_type()
