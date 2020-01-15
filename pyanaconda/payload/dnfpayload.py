@@ -711,7 +711,7 @@ class DNFPayload(payload.PackagePayload):
         # and group properties. Unset reposdir to ensure dnf has nothing it can
         # check automatically
         config.reposdir = []
-        self._base.read_comps()
+        self._base.read_comps(arch_filter=True)
 
         config.reposdir = REPO_DIRS
 
@@ -1011,7 +1011,7 @@ class DNFPayload(payload.PackagePayload):
             for repo in self._base.repos.iter_enabled():
                 self._sync_metadata(repo)
         self._base.fill_sack(load_system_repo=False)
-        self._base.read_comps()
+        self._base.read_comps(arch_filter=True)
         self._refresh_environment_addons()
 
     def install(self):
