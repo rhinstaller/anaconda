@@ -239,7 +239,7 @@ class SubscriptionModule(KickstartModule):
         # apply system purpose data, if any, before starting the RHSM service, so that
         # it picks the values up once started
         if self.is_system_purpose_set:
-            self._apply_syspurpose_from_kickstart()
+            self._apply_syspurpose()
 
         # if org and activation key are set, set authentication method
         # to organization and activation key
@@ -871,6 +871,11 @@ class SubscriptionModule(KickstartModule):
         Either password or activation key based task will be returned,
         based on currently selected authentication method.
         """
+        # apply system purpose data, if any, before starting the registration
+        # process
+        if self.is_system_purpose_set:
+            self._apply_syspurpose()
+
         # decide what task to return based on current authentication method
         if self.authentication_method == AuthenticationMethod.ORG_KEY:
             task = RegisterWithOrganizationKeyTask(self.organization,
@@ -928,11 +933,15 @@ class SubscriptionModule(KickstartModule):
         # https://bugzilla.redhat.com/show_bug.cgi?id=1777024
         self._restart_rhsm_service()
 
-    def _apply_syspurpose_from_kickstart(self):
-        """Apply system purpose information from kickstart to the installation environment.
+    def _apply_syspurpose(self):
+        """Apply system purpose information to the installation environment.
 
-        The token transfer installation task will then make sure to transfer the result,
-        so the system purpose installation task does not have to run in a such a case.
+        If this method is called, then the token transfer installation task will
+        make sure to transfer the result, so the system purpose installation task
+        does not have to run afterwards.
+
+        For this reason we record if this method has run via the
+        _set_is_system_purpose_applied() method.
         """
         log.debug("RHSM: Applying system purpose data from installation kickstart")
         task = SystemPurposeConfigurationTask("/", self.role, self.sla, self.usage, self.addons)
