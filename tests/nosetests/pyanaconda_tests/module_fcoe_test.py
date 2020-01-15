@@ -36,6 +36,10 @@ class FCOEInterfaceTestCase(unittest.TestCase):
         self.fcoe_module = FCOEModule()
         self.fcoe_interface = FCOEInterface(self.fcoe_module)
 
+    @patch("pyanaconda.modules.storage.fcoe.fcoe.has_fcoe", return_value=True)
+    def is_supported_test(self, is_supported):
+        self.assertEqual(self.fcoe_interface.IsSupported(), True)
+
     def get_nics_test(self):
         """Test the get nics method."""
         self.assertEqual(self.fcoe_interface.GetNics(), list())

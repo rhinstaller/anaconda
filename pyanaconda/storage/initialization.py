@@ -222,9 +222,8 @@ def _reset_storage(storage):
         fcoe_proxy = STORAGE.get_proxy(FCOE)
         fcoe_proxy.ReloadModule()
 
-        if arch.is_s390():
-            zfcp_proxy = STORAGE.get_proxy(ZFCP)
-            zfcp_proxy.ReloadModule()
+        zfcp_proxy = STORAGE.get_proxy(ZFCP)
+        zfcp_proxy.ReloadModule()
 
     # Do the reset.
     storage.reset()

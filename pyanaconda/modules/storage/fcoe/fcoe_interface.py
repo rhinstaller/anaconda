@@ -28,6 +28,10 @@ from pyanaconda.modules.common.containers import TaskContainer
 class FCOEInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the FCoE module."""
 
+    def IsSupported(self) -> Bool:
+        """Is this module supported?"""
+        return self.implementation.is_supported()
+
     def ReloadModule(self):
         """Reload the module.
 

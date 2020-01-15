@@ -28,6 +28,10 @@ from pyanaconda.modules.common.containers import TaskContainer
 class NVDIMMInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the NVDIMM module."""
 
+    def IsSupported(self) -> Bool:
+        """Is this module supported?"""
+        return self.implementation.is_supported()
+
     def GetDevicesToIgnore(self) -> List[Str]:
         """Get devices to be ignored.
 

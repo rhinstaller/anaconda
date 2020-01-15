@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import arch
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -41,6 +43,10 @@ class DASDModule(KickstartBaseModule):
     def publish(self):
         """Publish the module."""
         DBus.publish_object(DASD.object_path, DASDInterface(self))
+
+    def is_supported(self):
+        """Is this module supported?"""
+        return arch.is_s390()
 
     @property
     def storage(self):

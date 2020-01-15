@@ -61,6 +61,10 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.iscsi_interface.PropertiesChanged.connect(self.callback)
 
+    @patch("pyanaconda.modules.storage.iscsi.iscsi.iscsi", available=True)
+    def is_supported_test(self, iscsi):
+        self.assertEqual(self.iscsi_interface.IsSupported(), True)
+
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
     def initator_property_test(self, iscsi):
         """Test Initiator property."""

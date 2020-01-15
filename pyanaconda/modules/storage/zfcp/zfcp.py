@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import arch
 from blivet.zfcp import zfcp
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -42,9 +43,18 @@ class ZFCPModule(KickstartBaseModule):
         """Publish the module."""
         DBus.publish_object(ZFCP.object_path, ZFCPInterface(self))
 
+    def is_supported(self):
+        """Is this module supported?"""
+        return arch.is_s390()
+
     def reload_module(self):
         """Reload the zfcp module."""
         log.debug("Start up the zFCP module.")
+
+        # FIXME: Move the check to blivet.
+        if not self.is_supported():
+            return
+
         zfcp.startup()
 
     def discover_with_task(self, device_number, wwpn, lun):
@@ -60,6 +70,11 @@ class ZFCPModule(KickstartBaseModule):
     def write_configuration(self):
         """Write the configuration to sysroot."""
         log.debug("Write zFCP configuration.")
+
+        # FIXME: Move the check to blivet.
+        if not self.is_supported():
+            return
+
         zfcp.write(conf.target.system_root)
 
     def process_kickstart(self, data):
