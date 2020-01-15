@@ -359,6 +359,15 @@ class DeviceTreeViewer(ABC):
         disks = self._get_devices(disk_names)
         return self.storage.get_disk_reclaimable_space(disks).get_bytes()
 
+    def get_disk_total_space(self, disk_names):
+        """Get total space on the given disks.
+
+        :param disk_names: a list of disk names
+        :return: a total size in bytes
+        """
+        disks = self._get_devices(disk_names)
+        return sum((d.size for d in disks), Size(0)).get_bytes()
+
     def get_fstab_spec(self, name):
         """Get the device specifier for use in /etc/fstab.
 

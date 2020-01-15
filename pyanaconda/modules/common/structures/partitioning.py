@@ -354,6 +354,7 @@ class DeviceFactoryRequest(DBusData):
         self._disks = []
 
         self._mount_point = ""
+        self._reformat = False
         self._format_type = ""
         self._label = ""
         self._luks_version = ""
@@ -426,6 +427,18 @@ class DeviceFactoryRequest(DBusData):
     @mount_point.setter
     def mount_point(self, mount_point: Str):
         self._mount_point = mount_point
+
+    @property
+    def reformat(self) -> Bool:
+        """Should the device be reformatted?
+
+        :return: True or False
+        """
+        return self._reformat
+
+    @reformat.setter
+    def reformat(self, reformat: Bool):
+        self._reformat = reformat
 
     @property
     def format_type(self) -> Str:

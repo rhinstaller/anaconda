@@ -148,7 +148,8 @@ def collect_new_devices(storage, boot_drive):
         new_devices.extend(storage.mountpoints.values())
         new_devices.extend(collect_bootloader_devices(storage, boot_drive))
 
-    return list(set(new_devices))
+    # Remove duplicates, but keep the order.
+    return list(dict.fromkeys(new_devices))
 
 
 def collect_selected_disks(storage, selection):
@@ -339,6 +340,21 @@ def validate_mount_point(path, mount_points):
     return None
 
 
+def validate_container_name(storage, name):
+    """Validate the given container name.
+
+    :param storage: an instance of Blivet
+    :param name: a container name
+    :return: an error message or None
+    """
+    safe_name = storage.safe_device_name(name)
+
+    if name != safe_name:
+        return _("Invalid container name.")
+
+    return None
+
+
 def get_raid_level_by_name(name):
     """Get the RAID level object for the given name.
 
@@ -359,7 +375,7 @@ def validate_raid_level(raid_level, num_members):
     :return: an error message
     """
     if num_members < raid_level.min_members:
-        return _("The RAID level you have selected {level} requires more disks "
+        return _("The RAID level you have selected ({level}) requires more disks "
                  "({min}) than you currently have selected ({count}).").format(
             level=raid_level,
             min=raid_level.min_members,
@@ -369,16 +385,16 @@ def validate_raid_level(raid_level, num_members):
     return None
 
 
-def validate_device_factory_request(storage, request: DeviceFactoryRequest, reformat):
+def validate_device_factory_request(storage, request: DeviceFactoryRequest):
     """Validate the given device info.
 
     :param storage: an instance of Blivet
     :param request: a device factory request to validate
-    :param reformat: is reformatting enabled?
     :return: an error message
     """
     device = storage.devicetree.resolve_device(request.device_spec)
     device_type = request.device_type
+    reformat = request.reformat
     fs_type = request.format_type
     encrypted = request.device_encrypted
     raid_level = get_raid_level_by_name(request.device_raid_level)
@@ -648,41 +664,38 @@ def collect_file_system_types(device):
     """Collect supported file system types for the given device.
 
     :param device: a device
-    :return: a list of file system names
+    :return: a list of file system types
     """
     # Collect the supported filesystem types.
     supported_types = {
-        fs.name for fs in get_supported_filesystems()
-        if fs.name not in UNSUPPORTED_FILESYSTEMS
+        fs.type for fs in get_supported_filesystems()
+        if fs.type not in UNSUPPORTED_FILESYSTEMS
     }
 
     # Add possibly unsupported but still required file system types:
     # Add the device format type.
-    supported_types.add(device.format.name)
+    if device.format.type:
+        supported_types.add(device.format.type)
 
     # Add the original device format type.
-    if device.exists:
-        supported_types.add(device.original_format.name)
+    if device.exists and device.original_format.type:
+        supported_types.add(device.original_format.type)
 
-    return list(supported_types)
+    return sorted(supported_types)
 
 
-def collect_device_types(device, disks):
+def collect_device_types(device):
     """Collect supported device types for the given device.
 
     :param device: a device
-    :param disks: a list of selected disks
     :return: a list of device types
     """
     # Collect the supported device types.
     supported_types = set(SUPPORTED_DEVICE_TYPES)
+    supported_types.add(devicefactory.DEVICE_TYPE_MD)
 
     # Include the type of the given device.
     supported_types.add(devicefactory.get_device_type(device))
-
-    # Include md only if there are two or more disks.
-    if len(disks) > 1:
-        supported_types.add(devicefactory.DEVICE_TYPE_MD)
 
     # Include btrfs if it is both allowed and supported.
     fmt = get_format("btrfs")
@@ -749,6 +762,7 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     request.device_name = getattr(device.raw_device, "lvname", device.raw_device.name)
     request.device_size = device.size.get_bytes()
     request.device_type = device_type
+    request.reformat = not device.format.exists
     request.format_type = device.format.type or ""
     request.device_encrypted = isinstance(device, LUKSDevice)
     request.luks_version = get_device_luks_version(device) or ""
@@ -1065,24 +1079,9 @@ def collect_containers(storage, device_type):
 
 
 def get_supported_raid_levels(device_type):
-    """Get RAID levels supported for the given device type.
+    """Get RAID levels for the specified device type.
 
-    It supports any RAID levels that it expects to support and that blivet
-    supports for the given device type.
-
-    Since anaconda only ever allows the user to choose RAID levels for
-    device type DEVICE_TYPE_MD, hiding the RAID menu for all other device
-    types, the function only returns a non-empty set for this device type.
-    If this changes, then so should this function, but at this time it
-    is not clear what RAID levels should be offered for other device types.
-
-    :param int device_type: one of an enumeration of device types
-    :return: a set of supported raid levels
-    :rtype: a set of instances of blivet.devicelibs.raid.RAIDLevel
+    :param device_type: a type of the device
+    :return: a list of RAID levels
     """
-    if device_type == devicefactory.DEVICE_TYPE_MD:
-        supported = set(raid.RAIDLevels(["raid0", "raid1", "raid4", "raid5", "raid6", "raid10"]))
-    else:
-        supported = set()
-
-    return devicefactory.get_supported_raid_levels(device_type).intersection(supported)
+    return devicefactory.get_supported_raid_levels(device_type)

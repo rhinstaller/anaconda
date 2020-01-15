@@ -60,7 +60,7 @@ from pyanaconda.modules.storage.partitioning.interactive.utils import collect_un
     collect_file_system_types, collect_device_types, \
     get_device_raid_level, add_device, destroy_device, rename_container, get_container, \
     collect_containers, validate_label, suggest_device_name, get_new_root_name, \
-    generate_device_factory_request, validate_device_factory_request, get_supported_raid_levels, \
+    generate_device_factory_request, validate_device_factory_request, \
     get_device_factory_arguments, get_raid_level_by_name, get_container_size_policy_by_number
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
@@ -85,7 +85,8 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_en
     get_default_container_raid_level, AddDialog, ConfirmDeleteDialog, \
     DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE, NOTEBOOK_LUKS_PAGE, \
     NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT, CONTAINER_TOOLTIP, \
-    ui_storage_logger, ui_storage_logged, get_selected_raid_level_name
+    ui_storage_logger, ui_storage_logged, get_selected_raid_level_name, \
+    get_supported_device_raid_levels
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
@@ -336,13 +337,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         for data in self._containerStore:
             yield data[0]
 
-    def _get_fstype(self, fstype_combo):
-        itr = fstype_combo.get_active_iter()
+    def _get_file_system_type(self):
+        itr = self._fsCombo.get_active_iter()
         if not itr:
             return None
 
-        model = fstype_combo.get_model()
-        return model[itr][0]
+        model = self._fsCombo.get_model()
+        return model[itr][1]
 
     def _get_autopart_type(self, autopart_type_combo):
         itr = autopart_type_combo.get_active_iter()
@@ -706,16 +707,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         log.debug("Saving the right side for device: %s", device.name)
 
         # Get the device factory request.
-        reformat = self._reformatCheckbox.get_active()
         old_request = generate_device_factory_request(self._storage_playground, device)
         new_request = self._get_new_device_factory_request(device, old_request)
 
         # Log the results.
         description = self._get_new_request_description(new_request, old_request)
-        log.debug("Device request: %s (reformat %s)", description, reformat)
+        log.debug("Device request: %s", description)
 
         # Validate the device info.
-        error = validate_device_factory_request(self._storage_playground, new_request, reformat)
+        error = validate_device_factory_request(self._storage_playground, new_request)
         log.debug("Validation result: %s", error)
 
         if error:
@@ -729,9 +729,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not device.raw_device.exists:
             self._change_device(selector, new_request, old_request)
         else:
-            self._revert_device_reformat(selector, reformat)
+            self._revert_device_reformat(selector, new_request.reformat)
             self._change_device_size(selector, old_request, new_request)
-            self._change_device_format(selector, old_request, new_request, reformat)
+            self._change_device_format(selector, old_request, new_request)
             self._change_device_name(selector, old_request, new_request)
 
         log.debug("The device request changes are applied.")
@@ -748,6 +748,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._get_new_device_name(new_request, old_request)
         self._get_new_device_size(new_request, old_request)
         self._get_new_device_type(new_request, old_request)
+        self._get_new_device_reformat(new_request, old_request)
         self._get_new_device_fstype(new_request, old_request)
         self._get_new_device_enctyption(new_request, old_request)
         self._get_new_device_luks_version(new_request, old_request)
@@ -791,11 +792,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _get_new_device_type(self, new_request, old_request):
         new_request.device_type = self._get_current_device_type()
 
+    def _get_new_device_reformat(self, new_request, old_request):
+        new_request.reformat = self._reformatCheckbox.get_active()
+
     def _get_new_device_fstype(self, new_request, old_request):
-        fs_type_index = self._fsCombo.get_active()
-        fs_type_str = self._fsCombo.get_model()[fs_type_index][0]
-        new_fs = get_format(fs_type_str)
-        new_request.format_type = new_fs.type
+        new_request.format_type = self._get_file_system_type()
 
     def _get_new_device_enctyption(self, new_request, old_request):
         new_request.device_encrypted = (self._encryptCheckbox.get_active()
@@ -981,13 +982,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 # update size props of all btrfs devices' selectors
                 self._update_size_props()
 
-    def _change_device_format(self, selector, old_request, new_request, reformat):
+    def _change_device_format(self, selector, old_request, new_request):
         log.debug("Changing device format: %s", new_request.format_type)
 
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
         # encryption got toggled
         device = selector.device
+        reformat = new_request.reformat
         changed_encryption = (old_request.device_encrypted != new_request.device_encrypted)
         changed_luks_version = (old_request.luks_version != new_request.luks_version)
         changed_fs_type = (old_request.format_type != new_request.format_type)
@@ -1055,7 +1057,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _raid_level_visible(self, model, itr, user_data):
         device_type = self._get_current_device_type()
         raid_level = raid.get_raid_level(model[itr][1])
-        return raid_level in get_supported_raid_levels(device_type)
+        return raid_level in get_supported_device_raid_levels(device_type)
 
     def _populate_raid(self, raid_level):
         """ Set up the raid-specific portion of the device details.
@@ -1065,7 +1067,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         """
         device_type = self._get_current_device_type()
 
-        if not get_supported_raid_levels(device_type):
+        if not get_supported_device_raid_levels(device_type):
             for widget in [self._raidLevelLabel, self._raidLevelCombo]:
                 really_hide(widget)
             return
@@ -1121,15 +1123,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _setup_fstype_combo(self, device_type, device_format_type, format_types):
         """Setup the filesystem combo box."""
-        default = get_format(device_format_type).name
+        default_type = device_format_type
+
+        if default_type not in format_types:
+            format_types.append(default_type)
 
         # Add all desired fileystem type names to the box, sorted alphabetically
         self._fsStore.clear()
-        for ty in format_types:
-            self._fsStore.append([ty])
+        for fs_type in format_types:
+            fmt = get_format(fs_type)
+            self._fsStore.append([fmt.name, fmt.type or ""])
 
         # set the active filesystem type
-        idx = next(i for i, data in enumerate(self._fsCombo.get_model()) if data[0] == default)
+        model = self._fsCombo.get_model()
+        idx = next(i for i, data in enumerate(model) if data[1] == default_type)
         self._fsCombo.set_active(idx)
 
         # do additional updating handled by other method
@@ -1137,6 +1144,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _setup_device_type_combo(self, device_type, device_types):
         """Set up device type combo."""
+        # Include md only if there are two or more disks.
+        if len(self._get_selected_disks()) <= 1:
+            device_types.remove(devicefactory.DEVICE_TYPE_MD)
+
         # For existing unsupported device add the information in the UI.
         if device_type not in device_types:
             log.debug("Existing device with unsupported type %s found.", device_type)
@@ -1217,7 +1228,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._sizeEntry.set_text(
             Size(request.device_size).human_readable(max_places=self.MAX_SIZE_PLACES))
 
-        self._reformatCheckbox.set_active(not device.format.exists)
+        self._reformatCheckbox.set_active(request.reformat)
         fancy_set_sensitive(self._reformatCheckbox,
                             use_dev.exists and not use_dev.format_immutable)
 
@@ -1240,7 +1251,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._setup_fstype_combo(request.device_type, request.format_type, format_types)
 
         # Collect the supported device types.
-        device_types = collect_device_types(device, self._get_selected_disks())
+        device_types = collect_device_types(device)
 
         # Set up the device type combo.
         self._setup_device_type_combo(request.device_type, device_types)
@@ -2043,13 +2054,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not self._initialized:
             return
 
-        itr = combo.get_active_iter()
-        if not itr:
+        fs_type = self._get_file_system_type()
+        if fs_type is None:
             return
 
-        new_type = self._get_fstype(combo)
-
-        fmt = get_format(new_type)
+        fmt = get_format(fs_type)
         fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
 
     def on_encrypt_toggled(self, encrypted):
@@ -2155,13 +2164,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         """
         # Find unique instance of btrfs in fsCombo, if any.
         model = self._fsCombo.get_model()
-        btrfs_iter = ((idx, row) for idx, row in enumerate(model) if row[0] == "btrfs")
+        btrfs_iter = ((idx, row) for idx, row in enumerate(model) if row[1] == "btrfs")
         btrfs_idx, btrfs_row = next(btrfs_iter, (None, None))
 
         if device_type == DEVICE_TYPE_BTRFS:
             # If no btrfs entry, add one, and select the new entry
             if btrfs_idx is None:
-                self._fsStore.append(["btrfs"])
+                fmt = get_format("btrfs")
+                self._fsStore.append([fmt.name, fmt.type or ""])
                 active_index = len(self._fsCombo.get_model()) - 1
             # Otherwise, select the already located btrfs entry
             else:
@@ -2178,7 +2188,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 if active_index == btrfs_idx:
                     active_index = next(
                         idx for idx, data in enumerate(self._fsCombo.get_model())
-                        if data[0] == self.storage.default_fstype
+                        if data[1] == self.storage.default_fstype
                     )
                 # Otherwise, shift index left by one if after removed entry
                 elif active_index > btrfs_idx:
