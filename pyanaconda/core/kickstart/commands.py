@@ -74,7 +74,7 @@ from pykickstart.commands.skipx import FC3_SkipX as SkipX
 from pykickstart.commands.snapshot import F26_Snapshot as Snapshot
 from pykickstart.commands.sshpw import F24_SshPw as SshPw
 from pykickstart.commands.sshkey import F22_SshKey as SshKey
-from pykickstart.commands.timezone import F25_Timezone as Timezone
+from pykickstart.commands.timezone import F32_Timezone as Timezone
 from pykickstart.commands.updates import F7_Updates as Updates
 from pykickstart.commands.url import F30_Url as Url
 from pykickstart.commands.user import F24_User as User
