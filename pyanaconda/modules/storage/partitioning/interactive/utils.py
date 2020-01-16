@@ -29,15 +29,16 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
-from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
+from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError, UnknownDeviceError
+from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
+    DeviceFactoryPermissions
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
     get_supported_filesystems, PARTITION_ONLY_FORMAT_TYPES, SUPPORTED_DEVICE_TYPES, \
-    CONTAINER_DEVICE_TYPES, DEVICE_TEXT_MAP
+    CONTAINER_DEVICE_TYPES, DEVICE_TEXT_MAP, NAMED_DEVICE_TYPES
 
 log = get_module_logger(__name__)
 
@@ -790,6 +791,59 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
         request.container_size_policy = get_container_size_policy(container)
 
     return request
+
+
+def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
+    """Generate permissions for the requested device.
+
+    :param storage: an instance of Blivet
+    :param request: a device factory request
+    :return: device factory permissions
+    """
+    permissions = DeviceFactoryPermissions()
+    device_name = request.device_spec
+    device = storage.devicetree.resolve_device(device_name)
+
+    if not device:
+        raise UnknownDeviceError(device_name)
+
+    permissions.device_type = not device.raw_device.exists
+    permissions.device_raid_level = not device.raw_device.exists
+    permissions.mount_point = device.format.mountable
+    permissions.label = True
+
+    permissions.reformat = \
+        device.raw_device.exists \
+        and not device.raw_device.format_immutable
+
+    permissions.device_size = \
+        device.resizable or (
+                not device.exists
+                and request.device_type not in {
+                    devicefactory.DEVICE_TYPE_BTRFS
+                }
+        )
+
+    permissions.device_name = \
+        not device.raw_device.exists \
+        and device.raw_device.type != "btrfs volume" \
+        and request.device_type in NAMED_DEVICE_TYPES
+
+    permissions.format_type = \
+        request.reformat \
+        and request.device_type not in {
+            devicefactory.DEVICE_TYPE_BTRFS
+        }
+
+    permissions.device_encrypted = \
+        request.reformat \
+        and not request.container_encrypted \
+        and request.device_type not in {
+            devicefactory.DEVICE_TYPE_BTRFS,
+            devicefactory.DEVICE_TYPE_LVM_THINP
+        }
+
+    return permissions
 
 
 def destroy_device(storage, device):

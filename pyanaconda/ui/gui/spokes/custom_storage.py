@@ -34,7 +34,7 @@ from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 
 from blivet import devicefactory
-from blivet.devicefactory import DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, SIZE_POLICY_AUTO
+from blivet.devicefactory import DEVICE_TYPE_BTRFS, SIZE_POLICY_AUTO
 from blivet.devicelibs import raid, crypto
 from blivet.devices import MDRaidArrayDevice, LVMVolumeGroupDevice
 from blivet.errors import StorageError
@@ -55,11 +55,12 @@ from pyanaconda.modules.common.structures.device_factory import DeviceFactoryReq
 from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive.utils import collect_unused_devices, \
-    collect_new_devices, collect_selected_disks, collect_roots, create_new_root,\
+    collect_new_devices, collect_selected_disks, collect_roots, create_new_root, \
     collect_file_system_types, collect_device_types, get_device_raid_level, destroy_device, \
     rename_container, get_container, collect_containers, suggest_device_name, get_new_root_name, \
     generate_device_factory_request, validate_device_factory_request, \
-    get_device_factory_arguments, get_raid_level_by_name, get_container_size_policy_by_number
+    get_device_factory_arguments, get_raid_level_by_name, get_container_size_policy_by_number, \
+    generate_device_factory_permissions
 from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
 from pyanaconda.modules.storage.partitioning.interactive.change_device import ChangeDeviceTask
 from pyanaconda.platform import platform
@@ -874,9 +875,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _populate_right_side(self, selector):
         device = selector.device
-        use_dev = device.raw_device
 
         request = generate_device_factory_request(self._storage_playground, device)
+        permissions = generate_device_factory_permissions(self._storage_playground, request)
         description = self._get_new_request_description(request, request)
         log.debug("Populating the right side for device %s: %s", device.name, description)
 
@@ -901,23 +902,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._device_name = request.device_name
         self._device_suggested_name = suggest_device_name(self._storage_playground, device)
-        self._nameEntry.set_text(self._device_name)
 
         self._mountPointEntry.set_text(request.mount_point)
-        fancy_set_sensitive(self._mountPointEntry, device.format.mountable)
+        fancy_set_sensitive(self._mountPointEntry, permissions.mount_point)
 
         self._labelEntry.set_text(request.label)
-        fancy_set_sensitive(self._labelEntry, True)
+        fancy_set_sensitive(self._labelEntry, permissions.label)
 
         self._sizeEntry.set_text(
             Size(request.device_size).human_readable(max_places=self.MAX_SIZE_PLACES))
 
         self._reformatCheckbox.set_active(request.reformat)
-        fancy_set_sensitive(self._reformatCheckbox,
-                            use_dev.exists and not use_dev.format_immutable)
+        fancy_set_sensitive(self._reformatCheckbox, permissions.reformat)
 
         self._encryptCheckbox.set_active(request.device_encrypted)
-        fancy_set_sensitive(self._encryptCheckbox, self._reformatCheckbox.get_active())
+        fancy_set_sensitive(self._encryptCheckbox, permissions.device_encrypted)
 
         if request.container_encrypted:
             # The encryption checkbutton should not be sensitive if there is
@@ -928,53 +927,30 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         else:
             self._encryptCheckbox.set_tooltip_text("")
 
-        # Collect the supported file system types.
-        format_types = collect_file_system_types(device)
-
         # Set up the filesystem type combo.
+        format_types = collect_file_system_types(device)
         self._setup_fstype_combo(request.device_type, request.format_type, format_types)
-
-        # Collect the supported device types.
-        device_types = collect_device_types(device)
+        fancy_set_sensitive(self._fsCombo, permissions.format_type)
 
         # Set up the device type combo.
+        device_types = collect_device_types(device)
         self._setup_device_type_combo(request.device_type, device_types)
-
-        # Get the current device type.
-        device_type = self._get_current_device_type()
-
-        # You can't change the fstype in some cases.
-        is_sensitive = self._reformatCheckbox.get_active() \
-            and device_type != DEVICE_TYPE_BTRFS
-
-        fancy_set_sensitive(self._fsCombo, is_sensitive)
-
-        # you can't change the type of an existing device
-        fancy_set_sensitive(self._typeCombo, not use_dev.exists)
-        fancy_set_sensitive(self._raidLevelCombo, not use_dev.exists)
+        fancy_set_sensitive(self._typeCombo, permissions.device_type)
 
         # FIXME: device encryption should be mutually exclusive with container
         # encryption
 
         # FIXME: device raid should be mutually exclusive with container raid
 
-        # you can't encrypt a btrfs subvolume -- only the volume/container
-        # XXX CHECKME: encryption of thin logical volumes is not supported at this time
-        if device_type in [DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP]:
-            fancy_set_sensitive(self._encryptCheckbox, False)
-
         # The size entry is only sensitive for resizable existing devices and
         # new devices that are not btrfs subvolumes.
         # Do this after the device type combo is set since
         # on_device_type_changed doesn't account for device existence.
-        fancy_set_sensitive(
-            self._sizeEntry,
-            device.resizable or (not device.exists and device.format.type != "btrfs")
-        )
+        fancy_set_sensitive(self._sizeEntry, permissions.device_size)
 
-        if self._sizeEntry.get_sensitive():
+        if permissions.device_size:
             self._sizeEntry.props.has_tooltip = False
-        elif device.format.type == "btrfs":
+        elif request.format_type == "btrfs":
             self._sizeEntry.set_tooltip_text(_(
                 "The space available to this mount point can "
                 "be changed by modifying the volume below."
@@ -985,12 +961,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             ))
 
         self._populate_raid(get_raid_level_by_name(request.device_raid_level))
-        self._populate_container(use_dev)
+        fancy_set_sensitive(self._raidLevelCombo, permissions.device_raid_level)
+
+        self._populate_container(device)
         self._populate_luks(request.luks_version)
 
-        # do this last to override the decision made by on_device_type_changed if necessary
-        if use_dev.exists or use_dev.type == "btrfs volume":
-            fancy_set_sensitive(self._nameEntry, False)
+        self._nameEntry.set_text(self._device_name)
+        fancy_set_sensitive(self._nameEntry, permissions.device_name)
 
     ###
     ### SIGNAL HANDLERS
@@ -1770,7 +1747,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # else really populate the container
         # set up the vg widgets and then bail out
-        container = get_container(self._storage_playground, device_type, device)
+        container = get_container(self._storage_playground, device_type, device.raw_device)
         default_container_name = getattr(container, "name", None)
         container_exists = getattr(container, "exists", False)
         container_size_policy = getattr(container, "size_policy", SIZE_POLICY_AUTO)
@@ -1821,8 +1798,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             really_show(widget)
 
         # make the combo and button insensitive for existing LVs
-        can_change_container = (device is not None and not device.exists and
-                                device != container)
+        can_change_container = (device.raw_device is not None and not device.raw_device.exists and
+                                device.raw_device != container)
         fancy_set_sensitive(self._containerCombo, can_change_container)
         self._modifyContainerButton.set_sensitive(not container_exists)
 
@@ -1918,7 +1895,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._populate_raid(get_default_raid_level(new_type))
 
         if self._accordion.current_selector:
-            self._populate_container(self._accordion.current_selector.device.raw_device)
+            self._populate_container(self._accordion.current_selector.device)
 
         fancy_set_sensitive(self._nameEntry, new_type in NAMED_DEVICE_TYPES)
         self._nameEntry.set_text(self._get_device_name(new_type))
