@@ -23,7 +23,8 @@ from unittest.mock import patch, Mock
 
 from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION, \
     DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_DISK, DEVICE_TYPE_MD
-from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevice
+from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevice, \
+    BTRFSVolumeDevice
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
@@ -43,6 +44,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
     def setUp(self):
         """Set up the module."""
+        self.maxDiff = None
         self.module = DeviceTreeSchedulerModule()
         self.interface = DeviceTreeSchedulerInterface(self.module)
         self.module.on_storage_changed(create_storage())
@@ -446,3 +448,79 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             DeviceFactoryRequest.to_structure(request)
         )
         self._check_report(result, None)
+
+    def generate_device_factory_permissions_test(self):
+        """Test GenerateDeviceFactoryPermissions."""
+        dev1 = DiskDevice(
+            "dev1",
+            fmt=get_format("disklabel"),
+            size=Size("10 GiB"),
+            exists=True
+        )
+        dev2 = PartitionDevice(
+            "dev2",
+            size=Size("5 GiB"),
+            parents=[dev1],
+            fmt=get_format("ext4", mountpoint="/", label="root")
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        request = self.interface.GenerateDeviceFactoryRequest("dev1")
+        permissions = self.interface.GenerateDeviceFactoryPermissions(request)
+        self.assertEqual(get_native(permissions), {
+            'mount-point': False,
+            'reformat': True,
+            'format-type': True,
+            'label': True,
+            'device-type': False,
+            'device-name': False,
+            'device-size': False,
+            'device-encrypted': True,
+            'device-raid-level': False,
+        })
+
+        request = self.interface.GenerateDeviceFactoryRequest("dev2")
+        permissions = self.interface.GenerateDeviceFactoryPermissions(request)
+        self.assertEqual(get_native(permissions), {
+            'mount-point': True,
+            'reformat': False,
+            'format-type': True,
+            'label': True,
+            'device-type': True,
+            'device-name': False,
+            'device-size': True,
+            'device-encrypted': True,
+            'device-raid-level': True,
+        })
+
+    def generate_device_factory_permissions_btrfs_test(self):
+        """Test GenerateDeviceFactoryPermissions with btrfs."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("btrfs"),
+            size=Size("10 GiB")
+        )
+        dev2 = BTRFSVolumeDevice(
+            "dev2",
+            size=Size("5 GiB"),
+            parents=[dev1]
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        request = self.interface.GenerateDeviceFactoryRequest(dev2.name)
+        permissions = self.interface.GenerateDeviceFactoryPermissions(request)
+        self.assertEqual(get_native(permissions), {
+            'mount-point': True,
+            'reformat': False,
+            'format-type': False,
+            'label': True,
+            'device-type': True,
+            'device-name': False,
+            'device-size': False,
+            'device-encrypted': False,
+            'device-raid-level': True,
+        })

@@ -20,7 +20,8 @@
 from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_SCHEDULER
-from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
+from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
+    DeviceFactoryPermissions
 from pyanaconda.modules.common.structures.storage import OSData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
@@ -84,6 +85,19 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         return DeviceFactoryRequest.to_structure(
             self.implementation.generate_device_factory_request(device_name)
         )
+
+    def GenerateDeviceFactoryPermissions(self, request: Structure) -> Structure:
+        """Generate device factory permissions for the given request.
+
+        The permissions will reflect which device attributes we are allowed
+        to change in the requested device.
+
+        :param request: a device factory request
+        :return: device factory permissions
+        """
+        request = DeviceFactoryRequest.from_structure(request)
+        permissions = self.implementation.generate_device_factory_permissions(request)
+        return DeviceFactoryPermissions.to_structure(permissions)
 
     def GetPartitioned(self) -> List[Str]:
         """Get all partitioned devices in the device tree.
