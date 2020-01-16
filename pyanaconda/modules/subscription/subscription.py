@@ -27,7 +27,8 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
+from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_SYSPURPOSE, \
+        RHSM_ENTITLEMENT
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.subscription.constants import AuthenticationMethod
@@ -844,6 +845,44 @@ class SubscriptionModule(KickstartModule):
             self.set_subscription_attached(False)
             self.clear_subscription_data()
 
+    def _get_subscription_state_data(self):
+        """Get data from RHSM describing what subscriptions have been attached to the system.
+
+        Calling AutoAttach() also generally returns such data, but due to bug 1790924,
+        we can't depend on it always being the case.
+
+        Therefore, we query subscription state separately using the GetPools() method.
+        """
+
+        locale = os.environ.get("LANG", "")
+        # fetch subscription status data
+        entitlement_proxy = RHSM.get_proxy(RHSM_ENTITLEMENT)
+        subscription_json = entitlement_proxy.GetPools(
+                {"pool_subsets": get_variant(Str, "consumed")},
+                {},
+                locale
+        )
+        subscription_data_length = 0
+        # Log how much subscription data we got for debugging purposes.
+        # By only logging length, we should be able to debug cases of no
+        # or incomplete data being logged, without logging potentially
+        # sensitive subscription status detail in the installation logs stored
+        # on the target system.
+        if subscription_json:
+            subscription_data_length = len(subscription_json)
+            log.debug("RHSM: fetched subscription status data: %d characters",
+                      subscription_data_length)
+        else:
+            log.warning("RHSM: fetched empty subscription status data")
+
+        # fetch final system purpose data
+        log.debug("RHSM: fetching final syspurpose data")
+        syspurpose_proxy = RHSM.get_proxy(RHSM_SYSPURPOSE)
+        final_syspurpose_json = syspurpose_proxy.GetSyspurpose(locale)
+        log.debug("RHSM: final syspurpose data: %s", final_syspurpose_json)
+
+        return subscription_json, final_syspurpose_json
+
     def _attach_task_callback(self, task_instance):
         """Callback triggered after the auto attach task has been run.
 
@@ -855,8 +894,11 @@ class SubscriptionModule(KickstartModule):
 
         if not task_instance.error:
             self.set_subscription_attached(True)
-            self.set_subscription_data(subscription_json=task_instance.subscription_json,
-                                       final_syspurpose_json=task_instance.final_syspurpose_json)
+
+            # retrieve subscription data
+            subscription_json, syspurpose_json = self._get_subscription_state_data()
+            self.set_subscription_data(subscription_json=subscription_json,
+                                       final_syspurpose_json=syspurpose_json)
 
     def attach_subscription_with_task(self):
         """Return path to DBus Task that attaches subscriptions."""

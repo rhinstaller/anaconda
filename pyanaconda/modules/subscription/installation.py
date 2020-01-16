@@ -37,7 +37,7 @@ from pyanaconda.modules.common.task import Task, TaskInterface
 from pyanaconda.modules.common.constants.interfaces import SUBSCRIPTION_TASK
 from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_ATTACH, RHSM_UNREGISTER, \
-        RHSM_SYSPURPOSE, RHSM_REGISTER_SERVER, RHSM_CONFIG
+        RHSM_REGISTER_SERVER, RHSM_CONFIG
 from pyanaconda.modules.common.errors.installation import SubscriptionTokenTransferError, \
         InsightsConnectError, InsightsClientMissingError
 from pyanaconda.modules.common.errors import DBusError
@@ -158,10 +158,6 @@ class SubscriptionTask(Task, metaclass=ABCMeta):
         # JSON data returned by the respective
         # RHSM DBus method (if any)
         self.subscription_json = ""
-        # post attach syspurpose data,
-        # available only after AutoAttach()
-        # calls
-        self.final_syspurpose_json = ""
 
 @dbus_interface(SUBSCRIPTION_TASK.interface_name)
 class SubscriptionTaskInterface(TaskInterface):
@@ -317,11 +313,6 @@ class AttachSubscriptionTask(SubscriptionTask):
             result = attach_proxy.AutoAttach(self._sla, {}, locale)
             self.subscription_json = result
             log.debug("RHSM: auto-attached a subscription")
-            # fetch final system purpose data
-            log.debug("RHSM: fetching final syspurpose data")
-            syspurpose_proxy = RHSM.get_proxy(RHSM_SYSPURPOSE)
-            self.final_syspurpose_json = syspurpose_proxy.GetSyspurpose(locale)
-            log.debug("RHSM: final syspurpose data: %s", self.final_syspurpose_json)
         except DBusError as e:
             log.debug("RHSM: auto-attach failed: %s", str(e))
             exception_dict = json.loads(str(e))
