@@ -50,8 +50,8 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTI
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
     StorageConfigurationError
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest, \
-    DeviceFactoryRequest
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive.utils import collect_unused_devices, \

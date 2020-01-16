@@ -30,7 +30,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
-from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
+from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion

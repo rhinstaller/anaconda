@@ -28,7 +28,7 @@ from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
 from dasbus.typing import get_native
-from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
+from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
