@@ -40,6 +40,7 @@ EXTRA_DIST += $(top_srcdir)/translation-canary/translation_canary/*.py \
 
 NOSE_TESTS_ARGS ?= ""
 RPM_TESTS_ARGS ?= ""
+PEP8_TARGETS ?= ""
 
 # Test scripts need to be listed both here and in TESTS
 dist_check_SCRIPTS = $(srcdir)/glade/*.py \
@@ -58,7 +59,8 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     $(srcdir)/gui/*.py \
 		     $(srcdir)/storage/cases/*.py \
 		     $(srcdir)/*_tests/*.py \
-		     $(srcdir)/nosetests/*_tests/*.py
+		     $(srcdir)/nosetests/*_tests/*.py \
+		     pep8/runpep8.sh
 
 TESTS = nosetests.sh \
 	pylint/runpylint.py \
