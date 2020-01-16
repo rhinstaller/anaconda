@@ -22,23 +22,21 @@ from unittest.mock import patch, create_autospec
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
-from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 
 
-class PayloadSharedTest(object):
+class PayloadKickstartSharedTest(object):
 
     def __init__(self, test, payload_service, payload_service_intf):
-        """Setup shared payload test object for common payload testing.
+        """Setup shared payload testing object for testing kickstart.
 
         :param test: instance of TestCase
         :param payload_service: main payload service module
         :param payload_service_intf: main payload service interface
         """
         self._test = test
-        self.payload_service = PayloadsService()
-        self.payload_service_interface = PayloadsInterface(self.payload_service)
+        self.payload_service = payload_service
+        self.payload_service_interface = payload_service_intf
 
     def check_kickstart(self, ks_in, ks_out, ks_valid=True, expected_publish_calls=1):
         """Test kickstart processing.
@@ -65,10 +63,10 @@ class PayloadSharedTest(object):
         return self.payload_service.payload
 
 
-class SourceSharedTest(object):
+class PayloadSharedTest(object):
 
     def __init__(self, test, payload, payload_intf):
-        """Setup shared payload source test object for common payload testing.
+        """Setup shared payload test object for common payload testing.
 
         :param test: instance of TestCase
         :param payload: payload module
@@ -79,6 +77,15 @@ class SourceSharedTest(object):
         self._test = test
         self.payload = payload
         self.payload_interface = payload_intf
+
+    def check_type(self, payload_type):
+        """Check if payload type property is correct.
+
+        :param payload_type: expected payload type
+        :type payload_type: value of the payload.base.constants.PayloadType enum
+        """
+        t = self.payload_interface.Type
+        self._test.assertEqual(t, payload_type.value)
 
     @staticmethod
     def prepare_source(source_type):

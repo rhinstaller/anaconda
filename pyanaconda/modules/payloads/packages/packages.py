@@ -23,10 +23,9 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
 from pyanaconda.modules.common.errors import InvalidValueError, UnsupportedValueError
-from pyanaconda.modules.payloads.payload.dnf.packages.constants import MultilibPolicy, \
-    TIMEOUT_UNSET, RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
-from pyanaconda.modules.payloads.payload.dnf.packages.packages_interface import \
-    PackagesInterface
+from pyanaconda.modules.payloads.packages.constants import MultilibPolicy, TIMEOUT_UNSET, \
+    RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
+from pyanaconda.modules.payloads.packages.packages_interface import PackagesInterface
 
 from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, GROUP_DEFAULT, \
     KS_BROKEN_IGNORE, KS_BROKEN_REPORT
@@ -37,7 +36,7 @@ log = get_module_logger(__name__)
 
 
 class PackagesModule(KickstartBaseModule):
-    """The DNF sub-module for packages section."""
+    """The packages section module."""
 
     def __init__(self):
         super().__init__()

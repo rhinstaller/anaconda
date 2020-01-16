@@ -23,16 +23,17 @@ from unittest.mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
     check_dbus_property, patch_dbus_publish_object
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
-    SourceSharedTest
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadKickstartSharedTest, \
+    PayloadSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.task.task_interface import TaskInterface
-from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_IMAGE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_LIVE_IMAGE
 from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
@@ -49,9 +50,9 @@ class LiveImageKSTestCase(unittest.TestCase):
         self.payload_module = PayloadsService()
         self.payload_module_interface = PayloadsInterface(self.payload_module)
 
-        self.shared_tests = PayloadSharedTest(self,
-                                              self.payload_module,
-                                              self.payload_module_interface)
+        self.shared_tests = PayloadKickstartSharedTest(self,
+                                                       self.payload_module,
+                                                       self.payload_module_interface)
 
     def _check_properties(self, url, proxy="", checksum="", verifyssl=True):
         payload = self.shared_tests.get_payload()
@@ -134,9 +135,9 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
         self.live_image_module = LiveImageModule()
         self.live_image_interface = LiveImageInterface(self.live_image_module)
 
-        self.source_tests = SourceSharedTest(self,
-                                             payload=self.live_image_module,
-                                             payload_intf=self.live_image_interface)
+        self.shared_tests = PayloadSharedTest(self,
+                                              payload=self.live_image_module,
+                                              payload_intf=self.live_image_interface)
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
@@ -145,11 +146,14 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
             self.live_image_interface,
             *args, **kwargs)
 
+    def type_test(self):
+        self.shared_tests.check_type(PayloadType.LIVE_IMAGE)
+
     # TODO: Add set_source and supported_sources like in Live OS payload when source is available
 
     def sources_empty_test(self):
         """Test sources Live Image API for emptiness."""
-        self.source_tests.check_empty_sources()
+        self.shared_tests.check_empty_sources()
 
     def default_url_test(self):
         self.assertEqual(self.live_image_interface.Url, "")

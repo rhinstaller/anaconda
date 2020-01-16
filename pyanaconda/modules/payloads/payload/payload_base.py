@@ -19,6 +19,8 @@
 #
 from abc import ABCMeta, abstractmethod
 
+from dasbus.server.publishable import Publishable
+
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -27,7 +29,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
+class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
     """Base class for all the payload modules.
 
     This will contain all API specific to payload which will be called
@@ -40,6 +42,15 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
 
         self._required_space = None
         self.required_space_changed = Signal()
+
+    @property
+    @abstractmethod
+    def type(self):
+        """Get type of this payload.
+
+        :return: value of the payload.base.constants.PayloadType enum
+        """
+        pass
 
     @property
     def required_space(self):
@@ -134,15 +145,6 @@ class PayloadBase(KickstartBaseModule, metaclass=ABCMeta):
         :rtype: bool
         """
         return bool(self.sources)
-
-    @abstractmethod
-    def publish_payload(self):
-        """Publish object on DBus and return its path.
-
-        :returns: path to this payload
-        :rtype: string
-        """
-        pass
 
     @abstractmethod
     def pre_install_with_tasks(self):

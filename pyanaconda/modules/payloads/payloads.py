@@ -20,11 +20,13 @@
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.containers import TaskContainer, PayloadContainer
 from pyanaconda.modules.common.errors.payload import PayloadNotSetError
 from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
+from pyanaconda.modules.payloads.packages.packages import PackagesModule
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -36,11 +38,15 @@ class PayloadsService(KickstartService):
     def __init__(self):
         super().__init__()
         self._payload = None
-        self._payload_path = None
+
+        self._packages = PackagesModule()
 
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(PAYLOADS.namespace)
+
+        self._packages.publish()
+
         DBus.publish_object(PAYLOADS.object_path, PayloadsInterface(self))
         DBus.register_service(PAYLOADS.service_name)
 
@@ -54,6 +60,9 @@ class PayloadsService(KickstartService):
         """Get payload.
 
         Payloads are handling the installation process.
+
+        FIXME: Replace this solution by something extensible for multiple payload support.
+               Could it be SetPayloads() and using this list to set order of payload installation?
 
         There are a few types of payloads e.g.: DNF, LiveImage...
         """
@@ -74,15 +83,15 @@ class PayloadsService(KickstartService):
         """
         return self._payload is not None
 
-    def get_active_payload_path(self):
-        """Get path of the active payload.
+    def get_active_payload(self):
+        """Get active payload.
 
-        :rtype: str
+        FIXME: Merge get_active_payload and payload property. They are doing the same.
+
+        :rtype: instance of active payload
+        :raise: PayloadNotSetError if no payload is set
         """
-        if self._payload_path:
-            return self._payload_path
-
-        return ""
+        return self.payload
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -97,11 +106,10 @@ class PayloadsService(KickstartService):
 
         payload.process_kickstart(data)
 
-        self._initialize_payload(payload)
+        self._packages.process_kickstart(data)
 
-    def _initialize_payload(self, payload):
-        self._payload_path = payload.publish_payload()
         self.set_payload(payload)
+        PayloadContainer.to_object_path(payload)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -118,6 +126,10 @@ class PayloadsService(KickstartService):
         except PayloadNotSetError:
             log.warning("Generating kickstart data without payload set - data will be empty!")
 
+        # generate packages section only for DNF module
+        if isinstance(self.payload, DNFModule):
+            self._packages.setup_kickstart(data)
+
         return str(data)
 
     def create_payload(self, payload_type):
@@ -127,8 +139,8 @@ class PayloadsService(KickstartService):
         :type payload_type: value of the payload.base.constants.PayloadType enum
         """
         payload = PayloadFactory.create(payload_type)
-        self._initialize_payload(payload)
-        return self._payload_path
+        self.set_payload(payload)
+        return payload
 
     def create_source(self, source_type):
         """Create source based on the passed type.

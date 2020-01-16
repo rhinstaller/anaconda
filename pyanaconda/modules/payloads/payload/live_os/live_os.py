@@ -17,15 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.dbus import DBus
-
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 
-from pyanaconda.modules.common.constants.objects import PAYLOAD_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, PayloadType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask, UpdateBLSConfigurationTask
@@ -46,6 +43,18 @@ class LiveOSModule(PayloadBase):
         self._kernel_version_list = []
         self.kernel_version_list_changed = Signal()
 
+    def for_publication(self):
+        """Get the interface used to publish this source."""
+        return LiveOSInterface(self)
+
+    @property
+    def type(self):
+        """Get type of this payload.
+
+        :return: value of the payload.base.constants.PayloadType enum
+        """
+        return PayloadType.LIVE_OS
+
     @property
     def supported_source_types(self):
         """Get list of sources supported by Live Image module."""
@@ -65,11 +74,6 @@ class LiveOSModule(PayloadBase):
             raise IncompatibleSourceError("You can set only one source for this payload type.")
 
         super().set_sources(sources)
-
-    def publish_payload(self):
-        """Publish the payload."""
-        DBus.publish_object(PAYLOAD_LIVE_OS.object_path, LiveOSInterface(self))
-        return PAYLOAD_LIVE_OS.object_path
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

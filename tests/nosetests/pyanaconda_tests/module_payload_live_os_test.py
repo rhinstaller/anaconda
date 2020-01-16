@@ -23,16 +23,16 @@ from unittest.mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
     patch_dbus_publish_object, PropertiesChangedCallback
-from tests.nosetests.pyanaconda_tests.module_payload_shared import SourceSharedTest
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.modules.common.constants.interfaces import PAYLOAD_BASE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD
 from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
+from pyanaconda.modules.payloads.constants import SourceType, PayloadType
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.base.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
@@ -45,21 +45,24 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.live_os_module = LiveOSModule()
         self.live_os_interface = LiveOSInterface(self.live_os_module)
 
-        self.source_tests = SourceSharedTest(self,
-                                             payload=self.live_os_module,
-                                             payload_intf=self.live_os_interface)
+        self.shared_tests = PayloadSharedTest(self,
+                                              payload=self.live_os_module,
+                                              payload_intf=self.live_os_interface)
 
         self.callback = PropertiesChangedCallback()
         self.live_os_interface.PropertiesChanged.connect(self.callback)
 
     def _prepare_source(self):
-        return self.source_tests.prepare_source(SourceType.LIVE_OS_IMAGE)
+        return self.shared_tests.prepare_source(SourceType.LIVE_OS_IMAGE)
 
     def _prepare_and_use_source(self):
         source = self._prepare_source()
-        self.source_tests.set_sources([source])
+        self.shared_tests.set_sources([source])
 
         return source
+
+    def type_test(self):
+        self.shared_tests.check_type(PayloadType.LIVE_OS)
 
     def supported_sources_test(self):
         """Test LiveOS supported sources API."""
@@ -69,14 +72,14 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
     def sources_empty_test(self):
         """Test sources LiveOS API for emptiness."""
-        self.source_tests.check_empty_sources()
+        self.shared_tests.check_empty_sources()
 
     @patch_dbus_publish_object
     def set_source_test(self, publisher):
         """Test if set source API of LiveOS payload."""
         sources = [self._prepare_source()]
 
-        self.source_tests.check_set_sources(sources)
+        self.shared_tests.check_set_sources(sources)
 
     @patch_dbus_publish_object
     def set_multiple_sources_fail_test(self, publisher):
@@ -86,7 +89,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
             self._prepare_source()
         ]
 
-        self.source_tests.check_set_sources(paths, exception=IncompatibleSourceError)
+        self.shared_tests.check_set_sources(paths, exception=IncompatibleSourceError)
 
     @patch_dbus_publish_object
     def set_when_initialized_source_fail_test(self, publisher):
@@ -116,7 +119,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.live_os_interface.RequiredSpace, 2048)
         object_path, _ = publisher.call_args[0]
         self.callback.assert_called_once_with(
-            PAYLOAD_BASE.interface_name,
+            PAYLOAD.interface_name,
             {"RequiredSpace": 2048,
              "Sources": [object_path]}, [])
 
@@ -125,7 +128,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         task.stopped_signal.emit()
         self.assertEqual(self.live_os_interface.RequiredSpace, 0)
         self.callback.assert_called_once_with(
-            PAYLOAD_BASE.interface_name,
+            PAYLOAD.interface_name,
             {"RequiredSpace": 0},  [])
 
     @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")

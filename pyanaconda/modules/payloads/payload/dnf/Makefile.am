@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = packages
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 dnf_moduledir = $(pkgpyexecdir)/modules/payloads/payload/dnf
 dnf_module_PYTHON = $(srcdir)/*.py
