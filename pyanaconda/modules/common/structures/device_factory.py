@@ -21,7 +21,7 @@
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["DeviceFactoryRequest"]
+__all__ = ["DeviceFactoryRequest", "DeviceFactoryPermissions"]
 
 
 class DeviceFactoryRequest(DBusData):
@@ -265,3 +265,126 @@ class DeviceFactoryRequest(DBusData):
     @container_encrypted.setter
     def container_encrypted(self, value):
         self._container_encrypted = value
+
+
+class DeviceFactoryPermissions(DBusData):
+    """Device factory permissions."""
+
+    def __init__(self):
+        self._device_type = False
+        self._mount_point = False
+        self._reformat = False
+        self._format_type = False
+        self._label = False
+        self._device_name = False
+        self._device_size = False
+        self._device_raid_level = False
+        self._device_encrypted = False
+
+    @property
+    def device_type(self) -> Bool:
+        """Can the device type be changed?
+
+        :return: True or False
+        """
+        return self._device_type
+
+    @device_type.setter
+    def device_type(self, permission):
+        self._device_type = permission
+
+    @property
+    def mount_point(self) -> Bool:
+        """Can the mount point be changed?
+
+        :return: True or False
+        """
+        return self._mount_point
+
+    @mount_point.setter
+    def mount_point(self, permission):
+        self._mount_point = permission
+
+    @property
+    def reformat(self) -> Bool:
+        """Can the device format be changed?
+
+        :return: True or False
+        """
+        return self._reformat
+
+    @reformat.setter
+    def reformat(self, permission):
+        self._reformat = permission
+
+    @property
+    def format_type(self) -> Bool:
+        """Can the device format type be changed?
+
+        :return: True or False
+        """
+        return self._format_type
+
+    @format_type.setter
+    def format_type(self, permission):
+        self._format_type = permission
+
+    @property
+    def label(self) -> Bool:
+        """Can the device label be changed?
+
+        :return: True or False
+        """
+        return self._label
+
+    @label.setter
+    def label(self, permission):
+        self._label = permission
+
+    @property
+    def device_name(self) -> Bool:
+        """Can the device name be changed?
+
+        :return: True or False
+        """
+        return self._device_name
+
+    @device_name.setter
+    def device_name(self, permission):
+        self._device_name = permission
+
+    @property
+    def device_size(self) -> Bool:
+        """Can the device size be changed?
+
+        :return: True or False
+        """
+        return self._device_size
+
+    @device_size.setter
+    def device_size(self, permission):
+        self._device_size = permission
+
+    @property
+    def device_raid_level(self) -> Bool:
+        """Can the RAID level be changed?
+
+        :return: True or False
+        """
+        return self._device_raid_level
+
+    @device_raid_level.setter
+    def device_raid_level(self, permission):
+        self._device_raid_level = permission
+
+    @property
+    def device_encrypted(self) -> Bool:
+        """Can the device encryption be changed?
+
+        :return: True or False
+        """
+        return self._device_encrypted
+
+    @device_encrypted.setter
+    def device_encrypted(self, permission):
+        self._device_encrypted = permission
