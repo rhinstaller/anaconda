@@ -83,7 +83,7 @@ Guidelines for Commits
 Commit Messages
 ^^^^^^^^^^^^^^^^
 
-The first line should be a succinct description of what the commit does. If your commit is fixing a bug in Red Hat's bugzilla instance, you should add `` (#123456)`` to the end of the first line of the commit message. The next line should be blank, followed (optionally) by a more in-depth description of your changes. Here's an example:
+The first line should be a succinct description of what the commit does, starting with capital and ending without a period ('.'). If your commit is fixing a bug in Red Hat's bugzilla instance, you should add `` (#123456)`` to the end of the first line of the commit message. The next line should be blank, followed (optionally) by a more in-depth description of your changes. Here's an example:
 
     Stop kickstart when space check fails
 
@@ -130,6 +130,7 @@ In general we are trying to be as close as possible to `PEP8 <https://www.python
 * Global instances and singletons should be used only with a good reason.
 * Never do wildcard (``from foo import *``) imports with the exception when all Anaconda developers agree on that.
 * Use `raise` & `return` in the doc string. Do not use `raises` or `returns`.
+* Methods that return a task should have the suffix ‘_with_task’ (for example discover_with_task and DiscoverWithTask).
 
 Merging examples
 ----------------
