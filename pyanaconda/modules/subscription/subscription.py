@@ -896,7 +896,16 @@ class SubscriptionModule(KickstartModule):
             self.set_subscription_attached(True)
 
             # retrieve subscription data
-            subscription_json, syspurpose_json = self._get_subscription_state_data()
+            # - for some reason exceptions raised in this method are not logged,
+            #   so wrap it in a try-except block for now
+            # - as we don't know beforehand what exceptions might be raised by
+            #   the method, we also need to disable a pylint warning about
+            #   except not specifying a concrete exception to catch
+            try:
+                subscription_json, syspurpose_json = self._get_subscription_state_data()
+            # pylint: disable=broad-except
+            except Exception:
+                log.exception("RHSM: failed to fetch subscription status data")
             self.set_subscription_data(subscription_json=subscription_json,
                                        final_syspurpose_json=syspurpose_json)
 
