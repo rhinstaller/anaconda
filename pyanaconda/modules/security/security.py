@@ -204,16 +204,19 @@ class SecurityService(KickstartService):
     def discover_realm_with_task(self):
         """Return the setup task for discovering a realm."""
         realm_task = RealmDiscoverTask(sysroot=conf.target.system_root,
-                                      realm_data=self.realm)
+                                       realm_data=self.realm)
 
-        realm_task.succeeded_signal.connect(lambda: self.handle_realm_discover_results(realm_task.get_result()))
+        realm_task.succeeded_signal.connect(
+            lambda: self.handle_realm_discover_results(realm_task.get_result())
+        )
         return realm_task
 
     def join_realm_with_task(self):
         """Return the setup task for joining a realm."""
         realm_task = RealmJoinTask(sysroot=conf.target.system_root, realm_data=self.realm)
 
-        # connect to realm-data-changed signal, so that the realm data in the realm-join task is always up to date
+        # Connect to realm-data-changed signal, so that the realm data in the
+        # realm-join task is always up to date.
         self.realm_changed.connect(lambda: realm_task.set_realm_data(self.realm))
         return realm_task
 

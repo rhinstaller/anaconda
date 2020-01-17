@@ -28,11 +28,11 @@ from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, \
-    update_network_hostname_data, update_network_data_with_default_device, DEFAULT_DEVICE_SPECIFICATION, \
-    update_first_network_command_activate_value
+    update_network_hostname_data, update_network_data_with_default_device, \
+    DEFAULT_DEVICE_SPECIFICATION, update_first_network_command_activate_value
 from pyanaconda.modules.network.firewall import FirewallModule
-from pyanaconda.modules.network.device_configuration import DeviceConfigurations, supported_device_types, \
-    supported_wired_device_types
+from pyanaconda.modules.network.device_configuration import DeviceConfigurations, \
+    supported_device_types, supported_wired_device_types
 from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump, \
     get_dracut_arguments_from_connection, is_ibft_connection
 from pyanaconda.modules.network.ifcfg import get_kickstart_network_data, \
@@ -69,7 +69,9 @@ class NetworkService(KickstartService):
 
         if conf.system.provides_system_bus:
             self._hostname_service_proxy = HOSTNAME.get_proxy()
-            self._hostname_service_proxy.PropertiesChanged.connect(self._hostname_service_properties_changed)
+            self._hostname_service_proxy.PropertiesChanged.connect(
+                self._hostname_service_properties_changed
+            )
 
         self.connected_changed = Signal()
         self.nm_client = None
@@ -255,7 +257,9 @@ class NetworkService(KickstartService):
 
     @staticmethod
     def _nm_state_connected(state):
-        return state in (NM.State.CONNECTED_LOCAL, NM.State.CONNECTED_SITE, NM.State.CONNECTED_GLOBAL)
+        return state in (NM.State.CONNECTED_LOCAL,
+                         NM.State.CONNECTED_SITE,
+                         NM.State.CONNECTED_GLOBAL)
 
     def _nm_state_changed(self, *args):
         state = self.nm_client.get_state()
@@ -287,7 +291,10 @@ class NetworkService(KickstartService):
 
         # team device configuration support
         if self.get_team_devices():
-            requirements.append(Requirement.for_package("teamd", reason="Necessary for network team device configuration."))
+            requirements.append(Requirement.for_package(
+                "teamd",
+                reason="Necessary for network team device configuration."
+            ))
 
         return requirements
 
@@ -302,7 +309,9 @@ class NetworkService(KickstartService):
         onboot_ifaces_by_policy = []
         if self._should_apply_onboot_policy() and \
                 not self._has_any_onboot_yes_device(self._device_configurations):
-            onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(conf.network.default_on_boot)
+            onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(
+                conf.network.default_on_boot
+            )
 
         log.debug("Configure ONBOOT: set to yes for %s (reqested) %s (policy)",
                   onboot_ifaces, onboot_ifaces_by_policy)
@@ -322,7 +331,8 @@ class NetworkService(KickstartService):
         :param overwrite: overwrite existing configuration
         :return: a DBus path of an installation task
         """
-        disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client, supported_wired_device_types)
+        disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client,
+                                                                 supported_wired_device_types)
         network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
 
         task = NetworkInstallationTask(
@@ -333,7 +343,9 @@ class NetworkService(KickstartService):
             self.ifname_option_values
         )
 
-        task.succeeded_signal.connect(lambda: self.log_task_result(task, root_path=conf.target.system_root))
+        task.succeeded_signal.connect(
+            lambda: self.log_task_result(task, root_path=conf.target.system_root)
+        )
         return task
 
     def configure_hostname_with_task(self, overwrite):
@@ -369,7 +381,8 @@ class NetworkService(KickstartService):
             con = self.nm_client.get_connection_by_uuid(uuid)
             if con:
                 if (con.get_flags() & NM.SettingsConnectionFlags.UNSAVED):
-                    log.debug("ONBOOT policy: not considering UNSAVED connection %s", con.get_uuid())
+                    log.debug("ONBOOT policy: not considering UNSAVED connection %s",
+                              con.get_uuid())
                     continue
                 if con.get_setting_connection().get_autoconnect():
                     log.debug("ONBOOT policy: %s has 'autoconnect' == True", con.get_uuid())
@@ -409,7 +422,9 @@ class NetworkService(KickstartService):
             log.debug("Device configurations can't be created, no NetworkManager available.")
             return
         self._device_configurations = DeviceConfigurations(self.nm_client)
-        self._device_configurations.configurations_changed.connect(self.device_configurations_changed_cb)
+        self._device_configurations.configurations_changed.connect(
+            self.device_configurations_changed_cb
+        )
         self._device_configurations.reload()
         self._device_configurations.connect()
         log.debug("Device configurations created: %s", self._device_configurations)
@@ -460,7 +475,8 @@ class NetworkService(KickstartService):
             dev_info = NetworkDeviceInfo()
             dev_info.set_from_nm_device(device)
             if not all((dev_info.device_name, dev_info.device_type, dev_info.hw_address)):
-                log.warning("Missing value when setting NetworkDeviceInfo from NM device: %s", dev_info)
+                log.warning("Missing value when setting NetworkDeviceInfo from NM device: %s",
+                            dev_info)
             supported_devices.append(dev_info)
 
         return supported_devices
@@ -635,7 +651,8 @@ class NetworkService(KickstartService):
 
         if target_connections:
             if len(target_connections) > 1:
-                log.debug("Get dracut arguments: multiple connections found for traget %s: %s, taking the first one",
+                log.debug("Get dracut arguments: "
+                          "multiple connections found for traget %s: %s, taking the first one",
                           [con.get_uuid() for con in target_connections], target_ip)
             connection = target_connections[0]
         else:

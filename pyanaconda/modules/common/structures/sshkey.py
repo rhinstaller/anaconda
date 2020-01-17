@@ -59,5 +59,3 @@ class SshKeyData(DBusData):
     @username.setter
     def username(self, username: Str):
         self._username = username
-
-

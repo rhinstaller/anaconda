@@ -24,14 +24,13 @@ from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.user import UserData, USER_GID_NOT_SET, \
-                                                      USER_UID_NOT_SET
+    USER_UID_NOT_SET
 from pyanaconda.modules.common.structures.group import GroupData, GROUP_GID_NOT_SET
 from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.modules.users.installation import SetRootPasswordTask, CreateUsersTask, \
-                                                  CreateGroupsTask, SetSshKeysTask, \
-                                                  ConfigureRootPasswordSSHLoginTask
+    CreateGroupsTask, SetSshKeysTask, ConfigureRootPasswordSSHLoginTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

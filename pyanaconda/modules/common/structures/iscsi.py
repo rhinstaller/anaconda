@@ -118,6 +118,7 @@ class Credentials(DBusData):
         return (self._username, self._password, self._reverse_username, self._reverse_password) == \
             (other.username, other.password, other.reverse_username, other.reverse_password)
 
+
 class Node(DBusData):
     """Data for iSCSI node."""
 

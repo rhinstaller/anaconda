@@ -30,6 +30,7 @@ from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTa
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+
 class FirewallModule(KickstartBaseModule):
     """The firewall module."""
 
@@ -203,7 +204,8 @@ class FirewallModule(KickstartBaseModule):
         """
         self._disabled_services = list(disabled_services)
         self.disabled_services_changed.emit()
-        log.debug("Services that will be explicitly disabled on the firewall: %s", self._disabled_services)
+        log.debug("Services that will be explicitly disabled on the firewall: %s",
+                  self._disabled_services)
 
     def collect_requirements(self):
         """Return installation requirements for this module.
@@ -213,7 +215,10 @@ class FirewallModule(KickstartBaseModule):
         requirements = []
 
         if self.firewall_seen:
-            requirements.append(Requirement.for_package("firewalld", reason="Requested by the firewall kickstart command."))
+            requirements.append(Requirement.for_package(
+                "firewalld",
+                reason="Requested by the firewall kickstart command."
+            ))
 
         return requirements
 
@@ -223,10 +228,10 @@ class FirewallModule(KickstartBaseModule):
         :returns: an installation task
         """
         return ConfigureFirewallTask(
-                sysroot=conf.target.system_root,
-                firewall_mode=self.firewall_mode,
-                enabled_services=self.enabled_services,
-                disabled_services=self.disabled_services,
-                enabled_ports=self.enabled_ports,
-                trusts=self.trusts
+            sysroot=conf.target.system_root,
+            firewall_mode=self.firewall_mode,
+            enabled_services=self.enabled_services,
+            disabled_services=self.disabled_services,
+            enabled_ports=self.enabled_ports,
+            trusts=self.trusts
         )

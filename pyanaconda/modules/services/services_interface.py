@@ -37,7 +37,8 @@ class ServicesInterface(KickstartModuleInterface):
         self.watch_property("DefaultTarget", self.implementation.default_target_changed)
         self.watch_property("DefaultDesktop", self.implementation.default_desktop_changed)
         self.watch_property("SetupOnBoot", self.implementation.setup_on_boot_changed)
-        self.watch_property("PostInstallToolsEnabled", self.implementation.post_install_tools_enabled_changed)
+        self.watch_property("PostInstallToolsEnabled",
+                            self.implementation.post_install_tools_enabled_changed)
 
     @property
     def DisabledServices(self) -> List[Str]:

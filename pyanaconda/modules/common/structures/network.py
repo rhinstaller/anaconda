@@ -65,7 +65,8 @@ class NetworkDeviceConfiguration(DBusData):
         self._device_type = device_type
 
     def __eq__(self, other):
-        return (self._device_name, self._connection_uuid) == (other.device_name, other.connection_uuid)
+        return (self._device_name == other.device_name
+                and self._connection_uuid == other.connection_uuid)
 
 
 class NetworkDeviceInfo(DBusData):

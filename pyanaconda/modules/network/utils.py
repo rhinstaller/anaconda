@@ -28,9 +28,11 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+
 # TODO use anaconda.core
 def is_s390():
     return os.uname()[4].startswith('s390')
+
 
 # TODO move somewhwere
 # We duplicate this in dracut/parse-kickstart
@@ -49,11 +51,11 @@ def get_s390_settings(devname):
     cfg['SUBCHANNELS'] = ','.join(subchannels)
 
     # Example of the ccw.conf file content:
-    #qeth,0.0.0900,0.0.0901,0.0.0902,layer2=0,portname=FOOBAR,portno=0
+    # qeth,0.0.0900,0.0.0901,0.0.0902,layer2=0,portname=FOOBAR,portno=0
     #
-    #SUBCHANNELS="0.0.0900,0.0.0901,0.0.0902"
-    #NETTYPE="qeth"
-    #OPTIONS="layer2=1 portname=FOOBAR portno=0"
+    # SUBCHANNELS="0.0.0900,0.0.0901,0.0.0902"
+    # NETTYPE="qeth"
+    # OPTIONS="layer2=1 portname=FOOBAR portno=0"
     if not os.path.exists('/run/install/ccw.conf'):
         return cfg
     with open('/run/install/ccw.conf') as f:
@@ -66,6 +68,7 @@ def get_s390_settings(devname):
                 break
 
     return cfg
+
 
 def prefix2netmask(prefix):
     """ Convert prefix (CIDR bits) to netmask """
@@ -80,6 +83,7 @@ def prefix2netmask(prefix):
     netmask = ".".join(str(byte) for byte in _bytes)
     return netmask
 
+
 def netmask2prefix(netmask):
     """ Convert netmask to prefix (CIDR bits) """
     prefix = 0
@@ -91,6 +95,7 @@ def netmask2prefix(netmask):
         prefix += 1
 
     return prefix
+
 
 def get_default_route_iface(family="inet"):
     """Get the device having default route.

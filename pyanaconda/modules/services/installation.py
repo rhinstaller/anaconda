@@ -28,8 +28,8 @@ from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["ConfigureInitialSetupTask", "ConfigureServicesTask", "ConfigureSystemdDefaultTargetTask",
-           "ConfigureDefaultDesktopTask"]
+__all__ = ["ConfigureInitialSetupTask", "ConfigureServicesTask",
+           "ConfigureSystemdDefaultTargetTask", "ConfigureDefaultDesktopTask"]
 
 
 class ConfigureInitialSetupTask(Task):
@@ -219,7 +219,8 @@ class ConfigureSystemdDefaultTargetTask(Task):
             ts = rpm.TransactionSet(conf.target.system_root)
 
             if ts.dbMatch("provides", 'service(graphical-login)').count():
-                log.debug("A package with provides == service(graphical-login) is installed, using graphical.target.")
+                log.debug("A package with provides == service(graphical-login) is installed, "
+                          "using graphical.target.")
                 self._default_target = GRAPHICAL_TARGET
 
     def run(self):

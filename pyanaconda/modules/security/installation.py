@@ -60,7 +60,6 @@ class ConfigureSELinuxTask(Task):
     def name(self):
         return "Configure SELinux"
 
-
     def run(self):
         if self._selinux_mode == SELinuxMode.DEFAULT:
             log.debug("Use SELinux default configuration.")
@@ -131,7 +130,7 @@ class RealmDiscoverTask(Task):
                         required_packages.append(package_spec)
 
             log.info("Realm %s needs packages %s",
-                      discovered_realm_data, ", ".join(required_packages))
+                     discovered_realm_data, ", ".join(required_packages))
         return bool(discovered_realm_data), required_packages
 
     def run(self):
@@ -142,7 +141,8 @@ class RealmDiscoverTask(Task):
         output = ""
 
         try:
-            argv = ["discover", "--verbose"] + self._realm_data.discover_options + [self._realm_data.name]
+            argv = ["discover", "--verbose"] + self._realm_data.discover_options \
+                + [self._realm_data.name]
             output = util.execWithCapture(REALM_TOOL_NAME, argv, filter_stderr=True)
         except OSError:
             # TODO: A lousy way of propagating what will usually be
@@ -199,7 +199,8 @@ class RealmJoinTask(Task):
             # no explicit password argument, using implicit --no-password
             pw_args = ["--no-password"]
 
-        argv = ["join", "--install", self._sysroot, "--verbose"] + pw_args + self._realm_data.join_options
+        argv = ["join", "--install", self._sysroot, "--verbose"] \
+            + pw_args + self._realm_data.join_options
         rc = -1
         try:
             rc = util.execWithRedirect(REALM_TOOL_NAME, argv)

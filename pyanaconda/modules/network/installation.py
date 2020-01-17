@@ -91,6 +91,7 @@ def _write_config_file(root, path, content, error_msg, overwrite):
         msg = "{}: {}".format(error_msg, ioerr.strerror)
         raise NetworkInstallationError(msg)
 
+
 class NetworkInstallationTask(Task):
     """Installation task for the network configuration."""
 

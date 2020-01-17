@@ -114,7 +114,6 @@ class UserData(DBusData):
     def gid(self, gid: Int):
         self._gid = gid
 
-
     @property
     def homedir(self) -> Str:
         """The home directory of the user.
@@ -272,7 +271,7 @@ class UserData(DBusData):
 
         This effectively means adding/removing the "wheel" group from users group list.
         """
-        if admin and not "wheel" in self._groups:
+        if admin and "wheel" not in self._groups:
             self._groups.append("wheel")
         elif not admin and "wheel" in self._groups:
             self._groups.remove("wheel")

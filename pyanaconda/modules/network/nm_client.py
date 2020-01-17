@@ -691,7 +691,8 @@ def bind_settings_to_mac(nm_client, s_connection, s_wired, device_name=None, bin
     return modified
 
 
-def bind_settings_to_device(nm_client, s_connection, s_wired, device_name=None, bind_exclusively=True):
+def bind_settings_to_device(nm_client, s_connection, s_wired, device_name=None,
+                            bind_exclusively=True):
     """Bind the settings to the name of the device.
 
     :param s_connection: connection setting to be updated
@@ -1148,7 +1149,7 @@ def _get_dracut_vlan_argument_from_connection(nm_client, connection, iface):
             parent_cons = get_connections_available_for_iface(nm_client, parent)
             if len(parent_cons) != 1:
                 log.error("unexpected number of connections found for vlan parent %s",
-                            parent_spec)
+                          parent_spec)
             if parent_cons:
                 parent_con = parent_cons[0]
 
@@ -1156,10 +1157,10 @@ def _get_dracut_vlan_argument_from_connection(nm_client, connection, iface):
             argument = "vlan={}:{}".format(iface, parent)
         else:
             log.error("can't find parent interface of vlan device %s specified by %s",
-                        iface, parent_spec)
+                      iface, parent_spec)
         if not parent_con:
             log.error("can't find parent connection of vlan device %s specified by %s",
-                        iface, parent_spec)
+                      iface, parent_spec)
 
     return argument, parent_con
 
@@ -1181,7 +1182,8 @@ def _get_dracut_znet_argument_from_connection(connection):
             argument = "rd.znet={},{}".format(nettype, subchannels)
             options = wired_setting.get_s390_options()
             if options:
-                argument += ",{}".format(','.join("{}={}".format(key, value) for key, value in options.items()))
+                options_string = ','.join("{}={}".format(key, val) for key, val in options.items())
+                argument += ",{}".format(options_string)
     return argument
 
 

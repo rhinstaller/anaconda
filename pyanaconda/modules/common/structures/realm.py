@@ -80,7 +80,7 @@ class RealmData(DBusData):
         return self._discovered
 
     @discovered.setter
-    def discovered(self, discovered : Bool):
+    def discovered(self, discovered: Bool):
         self._discovered = discovered
 
     @property

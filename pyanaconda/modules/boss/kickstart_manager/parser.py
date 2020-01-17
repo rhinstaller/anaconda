@@ -27,6 +27,7 @@ from pyanaconda.modules.boss.kickstart_manager.element import KickstartElement,\
 VALID_SECTIONS_ANACONDA = ["%pre", "%pre-install", "%post", "%onerror", "%traceback",
                            "%packages", "%addon", "%anaconda"]
 
+
 class StoreSection(Section):
     """Section for storing section content and header line references.
 
