@@ -738,6 +738,10 @@ class PackagePayload(Payload, metaclass=ABCMeta):
             else:
                 payload_utils.unmount(mount_point, raise_exc=True)
 
+    def _device_is_mounted_as_source(self, device):
+        device_mounts = payload_utils.get_mount_paths(device.path)
+        return INSTALL_TREE in device_mounts or DRACUT_REPODIR in device_mounts
+
     def _setup_media(self, device):
         method = self.data.method
         if method.method == "harddrive":
@@ -751,12 +755,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 except PayloadSetupError as ex:
                     log.error(str(ex))
                     raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
-
-        # Check to see if the device is already mounted, in which case
-        # we don't need to mount it again
-        elif method.method == "cdrom" and payload_utils.get_mount_paths(device.path):
-            return
-        else:
+        elif not (method.method == "cdrom" and self._device_is_mounted_as_source(device)):
             payload_utils.mount_device(device, INSTALL_TREE)
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
