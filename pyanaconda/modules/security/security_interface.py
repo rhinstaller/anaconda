@@ -36,6 +36,9 @@ class SecurityInterface(KickstartModuleInterface):
         self.watch_property("SELinux", self.implementation.selinux_changed)
         self.watch_property("Authselect", self.implementation.authselect_changed)
         self.watch_property("Authconfig", self.implementation.authconfig_changed)
+        self.watch_property(
+            "FingerprintAuthEnabled", self.implementation.fingerprint_auth_enabled_changed
+        )
         self.watch_property("Realm", self.implementation.realm_changed)
 
     @property
@@ -119,6 +122,23 @@ class SecurityInterface(KickstartModuleInterface):
         :param realm: a dictionary with a specification
         """
         self.implementation.set_realm(RealmData.from_structure(realm))
+
+    @property
+    def FingerprintAuthEnabled(self) -> Bool:
+        """Reports if fingerprint authentication is enabled.
+
+        :return: True if fingerprint authentication is enabled, False otherwise
+        """
+        return self.implementation.fingerprint_auth_enabled
+
+    @emits_properties_changed
+    def SetFingerprintAuthEnabled(self, fingerprint_auth_enabled: bool):
+        """Set if fingerprint authentication should be enabled.
+
+        :param bool fingerprint_auth_enabled: set to True to enable fingerprint authentication,
+                                              False otherwise
+        """
+        self.implementation.set_fingerprint_auth_enabled(fingerprint_auth_enabled)
 
     def DiscoverRealmWithTask(self) -> ObjPath:
         """Discover realm with a task.

@@ -61,3 +61,9 @@ class FirewallConfigurationError(InstallationError):
 class TimezoneConfigurationError(InstallationError):
     """Exception for the timezone configuration errors."""
     pass
+
+
+@dbus_error("SecurityInstallationError", namespace=ANACONDA_NAMESPACE)
+class SecurityInstallationError(InstallationError):
+    """Exception for the security installation errors."""
+    pass

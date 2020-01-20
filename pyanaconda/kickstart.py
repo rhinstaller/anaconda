@@ -39,8 +39,7 @@ from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, SECURITY, \
-    SERVICES
+from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, SERVICES
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
@@ -203,63 +202,6 @@ class UselessCommand(RemovedCommand):
     def __init_subclass__(cls, **kwargs):
         raise TypeError("It is not allowed to subclass the UselessCommand class.")
 
-
-class Authselect(RemovedCommand):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.packages = []
-
-    @property
-    def fingerprint_supported(self):
-        return (os.path.exists(conf.target.system_root + "/lib64/security/pam_fprintd.so") or
-                os.path.exists(conf.target.system_root + "/lib/security/pam_fprintd.so"))
-
-    def setup(self):
-        security_proxy = SECURITY.get_proxy()
-
-        if security_proxy.Authselect or not flags.automatedInstall:
-            self.packages += ["authselect"]
-
-        if security_proxy.Authconfig:
-            self.packages += ["authselect-compat"]
-
-    def execute(self):
-        security_proxy = SECURITY.get_proxy()
-
-        # Enable fingerprint option by default (#481273).
-        if not flags.automatedInstall and self.fingerprint_supported:
-            self._run(
-                "/usr/bin/authselect",
-                ["select", "sssd", "with-fingerprint", "with-silent-lastlog", "--force"],
-                required=False
-            )
-
-        # Apply the authselect options from the kickstart file.
-        if security_proxy.Authselect:
-            self._run(
-                "/usr/bin/authselect",
-                security_proxy.Authselect + ["--force"]
-            )
-
-        # Apply the authconfig options from the kickstart file (deprecated).
-        if security_proxy.Authconfig:
-            self._run(
-                "/usr/sbin/authconfig",
-                ["--update", "--nostart"] + security_proxy.Authconfig
-            )
-
-    def _run(self, cmd, args, required=True):
-        if not os.path.lexists(conf.target.system_root + cmd):
-            if required:
-                msg = _("%s is missing. Cannot setup authentication.") % cmd
-                raise KickstartError(msg)
-            else:
-                return
-        try:
-            util.execInSysroot(cmd, args)
-        except RuntimeError as msg:
-            authselect_log.error("Error running %s %s: %s", cmd, args, msg)
 
 # FIXME: We have to fix self.handler.autopart in the pykickstart project before replacing this by
 #        UselessCommand class. The self.handler.autopart won't be present, instead there will be
@@ -501,7 +443,7 @@ class AnacondaSection(Section):
 commandMap = {
     "auth": UselessCommand,
     "authconfig": UselessCommand,
-    "authselect": Authselect,
+    "authselect": UselessCommand,
     "autopart": AutoPart,
     "btrfs": BTRFS,
     "bootloader": UselessCommand,
