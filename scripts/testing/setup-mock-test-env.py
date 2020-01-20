@@ -136,13 +136,13 @@ For further info look on the mock manual page.
 """)
     parser.add_argument('mock_config', action='store', type=str, metavar='mock-config',
                         help="""
-                        mock configuration file; could be specified as file path or 
+                        mock configuration file; could be specified as file path or
                         name of the file in /etc/mock without .cfg suffix
                         """)
     parser.add_argument('--uniqueext', action='store', type=str, metavar='<unique text>',
                         dest='uniqueext',
                         help="""
-                        set suffix to mock chroot dir; this must be used to 
+                        set suffix to mock chroot dir; this must be used to
                         run parallel tasks.
                         """)
     parser.add_argument('--result', action='store', type=str, metavar='folder',
@@ -174,6 +174,14 @@ One of these commands must be used. These commands can be combined.
     group.add_argument('--run-tests', '-t', action='store_true', dest='run_tests',
                        help="""
                        run anaconda tests in a mock
+                       """)
+    group.add_argument('--run-pep8-check', '-e', action='store', nargs='*',
+                       metavar='<pep8 targets>',
+                       dest='pep8_targets',
+                       help="""
+                       run anaconda pep8 check;
+                       you can specify targets (folders - path ending with '/' or files)
+                       from anaconda root dir as additional parameters
                        """)
     group.add_argument('--run-nosetests', '-n', action='store', nargs='*',
                        metavar='tests/nosetests/pyanaconda_tests/test.py',
@@ -209,8 +217,12 @@ def check_args(namespace):
     if namespace.run_tests and namespace.nose_targets is not None:
         raise AttributeError("You can't combine `--run-tests` and `--run-nosetests` commands!")
 
+    if namespace.run_tests and namespace.pep8_targets is not None:
+        raise AttributeError("You can't combine `--run-tests` and `--run-tests-pep8` commands!")
+
     # prepare will be called by tests automatically
-    if namespace.run_tests or namespace.nose_targets is not None:
+    if namespace.run_tests or namespace.nose_targets is not None \
+            or namespace.pep8_targets is not None:
         namespace.prepare = False
 
 
@@ -382,6 +394,23 @@ def run_nosetests(mock_command, specified_test_files):
     return result.returncode == 0
 
 
+def run_pep8_check(mock_command, targets):
+    prepare_anaconda(mock_command)
+
+    cmd = _prepare_command(mock_command)
+    additional_args = " ".join(targets)
+
+    cmd = _run_cmd_in_chroot(cmd)
+    cmd.append('cd {} && make tests-pep8 PEP8_TARGETS="{}"'.format(ANACONDA_MOCK_PATH,
+                                                                   additional_args))
+
+    result = _call_subprocess(cmd)
+
+    move_logs_in_mock(mock_command)
+
+    return result.returncode == 0
+
+
 def move_logs_in_mock(mock_command):
     cmd = _prepare_command(mock_command)
     cmd = _run_cmd_in_chroot(cmd)
@@ -445,6 +474,8 @@ if __name__ == "__main__":
         success = run_tests(mock_cmd)
     elif ns.nose_targets is not None:
         success = run_nosetests(mock_cmd, ns.nose_targets)
+    elif ns.pep8_targets is not None:
+        success = run_pep8_check(mock_cmd, ns.pep8_targets)
 
     if ns.result_folder:
         copy_result(mock_cmd, ns.result_folder)
