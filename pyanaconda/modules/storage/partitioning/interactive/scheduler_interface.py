@@ -217,3 +217,17 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         self.implementation.add_device(
             DeviceFactoryRequest.from_structure(request)
         )
+
+    def ChangeDevice(self, request: Structure, original_request: Structure):
+        """Change a device in the storage model.
+
+        FIXME: Remove the original request from the arguments.
+
+        :param request: a device factory request
+        :param original_request: an original device factory request
+        :raise: StorageError if the device cannot be changed
+        """
+        self.implementation.change_device(
+            DeviceFactoryRequest.from_structure(request),
+            DeviceFactoryRequest.from_structure(original_request)
+        )

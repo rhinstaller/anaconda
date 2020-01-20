@@ -20,6 +20,8 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
+from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
+from pyanaconda.modules.storage.partitioning.interactive.change_device import ChangeDeviceTask
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive import utils
@@ -238,4 +240,18 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :param request: a device factory request
         :raise: StorageError if the device cannot be created
         """
-        utils.add_device(self.storage, request)
+        task = AddDeviceTask(self.storage, request)
+        task.run()
+
+    def change_device(self, request, original_request):
+        """Change a device in the storage model.
+
+        FIXME: Remove the original request from the arguments.
+
+        :param request: a device factory request
+        :param original_request: an original device factory request
+        :raise: StorageError if the device cannot be changed
+        """
+        device = self._get_device(request.device_spec)
+        task = ChangeDeviceTask(self.storage, device, request, original_request)
+        task.run()

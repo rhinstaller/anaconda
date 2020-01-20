@@ -18,6 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import copy
 from unittest.mock import patch, Mock
 
 from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION, \
@@ -269,6 +270,36 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         self.storage.factory_device = Mock()
         self.interface.AddDevice(DeviceFactoryRequest.to_structure(request))
+        self.storage.factory_device.assert_called_once()
+
+    def change_device_test(self):
+        """Test ChangeDevice."""
+        dev1 = DiskDevice(
+            "dev1"
+        )
+        dev2 = PartitionDevice(
+            "dev2",
+            size=Size("5 GiB"),
+            parents=[dev1],
+            fmt=get_format("ext4", mountpoint="/", label="root")
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        original_request = self.module.generate_device_factory_request("dev2")
+        request = copy.deepcopy(original_request)
+
+        request.device_type = DEVICE_TYPE_LVM
+        request.mount_point = "/home"
+        request.size = Size("4 GiB")
+        request.label = "home"
+
+        self.storage.factory_device = Mock()
+        self.interface.ChangeDevice(
+            DeviceFactoryRequest.to_structure(request),
+            DeviceFactoryRequest.to_structure(original_request)
+        )
         self.storage.factory_device.assert_called_once()
 
     def validate_container_name_test(self):
