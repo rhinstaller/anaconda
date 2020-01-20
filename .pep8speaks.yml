@@ -1,0 +1,7 @@
+# Repository configuration for pep8speaks GitHup App
+
+scanner:
+    linter: pycodestyle
+
+pycodestyle:  # Same as scanner.linter value. Other option is flake8
+    max-line-length: 99  # Default is 79 in PEP 8
