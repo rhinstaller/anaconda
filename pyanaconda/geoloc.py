@@ -137,13 +137,17 @@ class Geolocation(object):
     """Top level geolocation handler."""
 
     def __init__(self, geoloc_option=None, options_override=False):
-        # Prepare the geolocation module for handling geolocation queries.
-        #
-        # This sets-up the Geolocation instance with the given
-        # geolocation_provider (or using the default one if no provider
-        # is given. Please note that calling this method doesn't actually
-        # execute any queries by itself, you need to call refresh()
-        # to do that.
+        """Prepare the geolocation module for handling geolocation queries.
+
+        This sets-up the Geolocation instance with the given geolocation_provider (or using the
+        default one if no provider is given. Please note that calling this method doesn't actually
+        execute any queries by itself, you need to call refresh() to do that.
+
+        :param geoloc_option: what was passed in boot or command line options
+        :type geoloc_option: str or None
+        :param options_override:
+        :type options_override: bool
+        """
         self._geolocation_enabled = self._check_if_geolocation_should_be_used(geoloc_option, options_override)
         provider_id = constants.GEOLOC_DEFAULT_PROVIDER
 
@@ -174,49 +178,37 @@ class Geolocation(object):
 
         inst.geoloc=0
 
-        :param bool options_override: use with kickstart due to CLI/boot option override
+        :param geoloc_option: what was passed in boot or command line options
+        :type geoloc_option: str or None
+        :param options_override: use with kickstart due to CLI/boot option override
+        :type options_override: bool
         """
-        geolocation_enabled = True
         # don't use geolocation during image and directory installation
         if not conf.target.is_hardware:
             log.info("Geolocation is disabled for image or directory installation.")
-            geolocation_enabled = False
-        # don't use geolocation during kickstart installation unless explicitly
-        # requested by the user
-        elif flags.automatedInstall:
-            # check for use-with-kickstart overrides
-            if options_override:
-                geolocation_enabled = True
-            else:
-                # otherwise disable geolocation during a kickstart installation
-                geolocation_enabled = False
+            return False
 
-        # and also check if geolocation was not disabled by boot or command line option
+        # check if geolocation was not disabled by boot or command line option
         # our documentation mentions only "0" as the way to disable it
         if str(geoloc_option).strip() == "0":
-            geolocation_enabled = False
+            log.info("Geolocation is disabled by the geoloc option.")
+            return False
 
-        # log the result
-        self._log_geolocation_status(geolocation_enabled, geoloc_option, options_override)
-
-        return geolocation_enabled
-
-    def _log_geolocation_status(self, geolocation_enabled, geoloc_option, options_override):
-        """Log geolocation usage status."""
-        if geolocation_enabled:
-            if flags.automatedInstall:
-                if options_override:
-                    log.info("Geolocation is enabled during kickstart installation due to use of the "
-                             "geoloc-use-with-ks option.")
+        # don't use geolocation during kickstart installation unless explicitly
+        # requested by the user
+        if flags.automatedInstall:
+            if options_override:
+                # check for use-with-kickstart overrides
+                log.info("Geolocation is enabled during kickstart installation due to use of "
+                         "the geoloc-use-with-ks option.")
+                return True
             else:
-                log.info("Geolocation is enabled.")
-        else:
-            if not conf.target.is_hardware:
-                log.info("Geolocation is disabled for image or directory installation.")
-            elif flags.automatedInstall:
+                # otherwise disable geolocation during a kickstart installation
                 log.info("Geolocation is disabled due to automated kickstart based installation.")
-            if str(geoloc_option).strip() == "0":
-                log.info("Geolocation is disabled by the geoloc option.")
+                return False
+
+        log.info("Geolocation is enabled.")
+        return True
 
     def refresh(self):
         """Refresh information about current location."""
