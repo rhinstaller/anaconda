@@ -183,6 +183,11 @@ One of these commands must be used. These commands can be combined.
                        you can specify targets (folders - path ending with '/' or files)
                        from anaconda root dir as additional parameters
                        """)
+    group.add_argument('--run-linter', '-l', action='store_true',
+                       dest='run_linter',
+                       help="""
+                       run anaconda pylint check in a mock
+                       """)
     group.add_argument('--run-nosetests', '-n', action='store', nargs='*',
                        metavar='tests/nosetests/pyanaconda_tests/test.py',
                        dest='nose_targets',
@@ -220,9 +225,12 @@ def check_args(namespace):
     if namespace.run_tests and namespace.pep8_targets is not None:
         raise AttributeError("You can't combine `--run-tests` and `--run-tests-pep8` commands!")
 
+    if namespace.run_tests and namespace.run_linter is not None:
+        raise AttributeError("You can't combine `--run-tests` and `--run-pylint` commands!")
+
     # prepare will be called by tests automatically
     if namespace.run_tests or namespace.nose_targets is not None \
-            or namespace.pep8_targets is not None:
+            or namespace.pep8_targets is not None or namespace.run_linter is not None:
         namespace.prepare = False
 
 
@@ -411,6 +419,20 @@ def run_pep8_check(mock_command, targets):
     return result.returncode == 0
 
 
+def run_linter(mock_command):
+    prepare_anaconda(mock_command)
+
+    cmd = _prepare_command(mock_command)
+    cmd = _run_cmd_in_chroot(cmd)
+    cmd.append('cd {} && make tests-pylint'.format(ANACONDA_MOCK_PATH))
+
+    result = _call_subprocess(cmd)
+
+    move_logs_in_mock(mock_command)
+
+    return result.returncode == 0
+
+
 def move_logs_in_mock(mock_command):
     cmd = _prepare_command(mock_command)
     cmd = _run_cmd_in_chroot(cmd)
@@ -476,6 +498,8 @@ if __name__ == "__main__":
         success = run_nosetests(mock_cmd, ns.nose_targets)
     elif ns.pep8_targets is not None:
         success = run_pep8_check(mock_cmd, ns.pep8_targets)
+    elif ns.run_linter:
+        success = run_linter(mock_cmd)
 
     if ns.result_folder:
         copy_result(mock_cmd, ns.result_folder)

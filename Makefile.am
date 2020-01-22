@@ -201,6 +201,10 @@ tests-pep8:
 	$(MAKE)
 	$(MAKE) TMPDIR=/var/tmp TEST_SUITE_LOG=test-suite.log TESTS=pep8/runpep8.sh check
 
+tests-pylint:
+	$(MAKE)
+	$(MAKE) TMPDIR=/var/tmp TEST_SUITE_LOG=test-suite.log TESTS=pylint/runpylint.py check
+
 tests-nose-only:
 	@mkdir -p $(USER_SITE_PACKAGES)
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
