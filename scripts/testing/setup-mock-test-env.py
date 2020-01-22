@@ -153,7 +153,7 @@ For further info look on the mock manual page.
 
     group = parser.add_argument_group(title="Main commands",
                                       description="""
-One of these commands must be used. These commands can be combined.
+One of these commands must be used. Tests commands can't be combined!
 """)
     group.add_argument('--init', action='store_true', dest='init',
                        help="""initialize environment with the required packages""")
@@ -171,31 +171,6 @@ One of these commands must be used. These commands can be combined.
                        do not install the default pip package set
                        """)
 
-    group.add_argument('--run-tests', '-t', action='store_true', dest='run_tests',
-                       help="""
-                       run anaconda tests in a mock
-                       """)
-    group.add_argument('--run-pep8-check', '-e', action='store', nargs='*',
-                       metavar='<pep8 targets>',
-                       dest='pep8_targets',
-                       help="""
-                       run anaconda pep8 check;
-                       you can specify targets (folders - path ending with '/' or files)
-                       from anaconda root dir as additional parameters
-                       """)
-    group.add_argument('--run-linter', '-l', action='store_true',
-                       dest='run_linter',
-                       help="""
-                       run anaconda pylint check in a mock
-                       """)
-    group.add_argument('--run-nosetests', '-n', action='store', nargs='*',
-                       metavar='tests/nosetests/pyanaconda_tests/test.py',
-                       dest='nose_targets',
-                       help="""
-                       run anaconda nosetests;
-                       you can specify which tests will run by giving paths to tests files
-                       from anaconda root dir as additional parameters
-                       """)
     group.add_argument('--release', action='store_true', dest='release',
                        help="""
                        prepare mock environment to be able to make a release from there
@@ -212,6 +187,33 @@ One of these commands must be used. These commands can be combined.
                        NOTE: -t and -n will call this automatically
                        """)
 
+    group_tests = group.add_mutually_exclusive_group()
+    group_tests.add_argument('--run-tests', '-t', action='store_true', dest='run_tests',
+                             help="""
+                             run anaconda tests in a mock
+                             """)
+    group_tests.add_argument('--run-pep8-check', '-e', action='store', nargs='*',
+                             metavar='<pep8 targets>',
+                             dest='pep8_targets',
+                             help="""
+                             run anaconda pep8 check;
+                             you can specify targets (folders - path ending with '/' or files)
+                             from anaconda root dir as additional parameters
+                             """)
+    group_tests.add_argument('--run-linter', '-l', action='store_true',
+                             dest='run_linter',
+                             help="""
+                             run anaconda pylint check in a mock
+                             """)
+    group_tests.add_argument('--run-nosetests', '-n', action='store', nargs='*',
+                             metavar='tests/nosetests/pyanaconda_tests/test.py',
+                             dest='nose_targets',
+                             help="""
+                             run anaconda nosetests;
+                             you can specify which tests will run by giving paths to tests files
+                             from anaconda root dir as additional parameters
+                             """)
+
     namespace = parser.parse_args()
     check_args(namespace)
 
@@ -219,15 +221,6 @@ One of these commands must be used. These commands can be combined.
 
 
 def check_args(namespace):
-    if namespace.run_tests and namespace.nose_targets is not None:
-        raise AttributeError("You can't combine `--run-tests` and `--run-nosetests` commands!")
-
-    if namespace.run_tests and namespace.pep8_targets is not None:
-        raise AttributeError("You can't combine `--run-tests` and `--run-tests-pep8` commands!")
-
-    if namespace.run_tests and namespace.run_linter is not None:
-        raise AttributeError("You can't combine `--run-tests` and `--run-pylint` commands!")
-
     # prepare will be called by tests automatically
     if namespace.run_tests or namespace.nose_targets is not None \
             or namespace.pep8_targets is not None or namespace.run_linter is not None:
