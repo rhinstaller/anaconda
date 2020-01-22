@@ -109,7 +109,6 @@ Backends that could possibly be used in the future
    * cell tower geolocation
 
 """
-from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.util import requests_session
 import requests
 import urllib.parse
@@ -145,11 +144,11 @@ class Geolocation(object):
         # is given. Please note that calling this method doesn't actually
         # execute any queries by itself, you need to call refresh()
         # to do that.
-        self._geolocation_enabled = self._check_if_geolocation_should_be_used(options_override)
+        self._geolocation_enabled = self._check_if_geolocation_should_be_used(geoloc_option, options_override)
         provider_id = constants.GEOLOC_DEFAULT_PROVIDER
 
         # check if a provider was specified by an option
-        if geoloc_option is not None:
+        if geoloc_option is not None and self._geolocation_enabled:
             parsed_id = self._get_provider_id_from_option(geoloc_option)
             if parsed_id is None:
                 log.error('geoloc: wrong provider id specified: %s', geoloc_option)
@@ -158,7 +157,7 @@ class Geolocation(object):
 
         self._location_info = LocationInfo(provider_id=provider_id)
 
-    def _check_if_geolocation_should_be_used(self, options_override):
+    def _check_if_geolocation_should_be_used(self, geoloc_option, options_override):
         """Check if geolocation can be used during this installation run.
 
         And set the geolocation_enabled module attribute accordingly.
@@ -192,16 +191,17 @@ class Geolocation(object):
                 # otherwise disable geolocation during a kickstart installation
                 geolocation_enabled = False
 
-        # and also check if geolocation was not disabled by boot or command like option
-        if not kernel_arguments.is_enabled('geoloc'):
+        # and also check if geolocation was not disabled by boot or command line option
+        # our documentation mentions only "0" as the way to disable it
+        if str(geoloc_option).strip() == "0":
             geolocation_enabled = False
 
         # log the result
-        self._log_geolocation_status(geolocation_enabled, options_override)
+        self._log_geolocation_status(geolocation_enabled, geoloc_option, options_override)
 
         return geolocation_enabled
 
-    def _log_geolocation_status(self, geolocation_enabled, options_override):
+    def _log_geolocation_status(self, geolocation_enabled, geoloc_option, options_override):
         """Log geolocation usage status."""
         if geolocation_enabled:
             if flags.automatedInstall:
@@ -215,7 +215,7 @@ class Geolocation(object):
                 log.info("Geolocation is disabled for image or directory installation.")
             elif flags.automatedInstall:
                 log.info("Geolocation is disabled due to automated kickstart based installation.")
-            if not kernel_arguments.is_enabled('geoloc'):
+            if str(geoloc_option).strip() == "0":
                 log.info("Geolocation is disabled by the geoloc option.")
 
     def refresh(self):
