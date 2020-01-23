@@ -30,6 +30,7 @@ except ImportError:
 from pocketlint.pangocheck import is_markup, markup_match
 import xml.etree.ElementTree as ET
 
+
 def test_markup(pofile):
     po = polib.pofile(pofile)
 
@@ -48,16 +49,21 @@ def test_markup(pofile):
                     ET.fromstring('<markup>%s</markup>' % msgstr)
                 except ET.ParseError:
                     if entry.msgid_plural:
-                        raise AssertionError("Invalid markup translation for %d translation of msgid %s\n%s" %
-                                (plural_id, entry.msgid, msgstr))
+                        raise AssertionError(
+                            "Invalid markup translation for {} translation of msgid {}\n{}".
+                            format(plural_id, entry.msgid, msgstr))
                     else:
-                        raise AssertionError("Invalid markup translation for msgid %s\n%s" %
-                                (entry.msgid, msgstr))
+                        raise AssertionError(
+                            "Invalid markup translation for msgid {}\n{}".
+                            format(entry.msgid, msgstr))
 
                 # Check if the markup has the same number and kind of tags
                 if not markup_match(entry.msgid, msgstr):
                     if entry.msgid_plural:
-                        raise AssertionError("Markup does not match for %d translation of msgid %s\n%s" %
-                                (plural_id, entry.msgid, msgstr))
+                        raise AssertionError(
+                            "Markup does not match for {} translation of msgid {}\n{}".
+                            format(plural_id, entry.msgid, msgstr))
                     else:
-                        raise AssertionError("Markup does not match for msgid %s\n%s" % (entry.msgid, msgstr))
+                        raise AssertionError(
+                            "Markup does not match for msgid {}\n{}".
+                            format(entry.msgid, msgstr))
