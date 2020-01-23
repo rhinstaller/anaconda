@@ -64,6 +64,7 @@ confidence=
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
+# TODO: Remove protected access and fix usages. We really want to have it enabled!
 disable=protected-access,
         fixme,
         global-statement,
