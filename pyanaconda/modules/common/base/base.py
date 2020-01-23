@@ -19,10 +19,11 @@
 # Red Hat, Inc.
 #
 import os
+import warnings
 from abc import ABC
 from locale import setlocale, LC_ALL
 
-from pykickstart.errors import KickstartError
+from pykickstart.errors import KickstartError, KickstartParseWarning
 
 from pyanaconda.core.event_loop import EventLoop
 from pyanaconda.core.timer import Timer
@@ -225,8 +226,18 @@ class KickstartService(Service, KickstartBaseModule):
         try:
             handler = self.get_kickstart_handler()
             parser = self.get_kickstart_parser(handler)
-            parser.readKickstartFromString(s)
-            self.process_kickstart(handler)
+
+            with warnings.catch_warnings(record=True) as warns:
+                warnings.simplefilter(action="always", category=KickstartParseWarning)
+
+                parser.readKickstartFromString(s)
+                self.process_kickstart(handler)
+
+                for warn in warns:
+                    if issubclass(warn.category, KickstartParseWarning):
+                        data = KickstartMessage.for_warning(str(warn))
+                        report.warning_messages.append(data)
+
         except KickstartError as e:
             data = KickstartMessage.for_error(e)
             report.error_messages.append(data)
