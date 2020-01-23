@@ -65,6 +65,7 @@ confidence=
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
 # TODO: Remove protected access and fix usages. We really want to have it enabled!
+# TODO: Try to remove C (conventions) and R (refactoring) or make them smaller.
 disable=protected-access,
         fixme,
         global-statement,
