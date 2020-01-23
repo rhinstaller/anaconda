@@ -45,7 +45,7 @@ from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
-from pykickstart.errors import KickstartError
+from pykickstart.errors import KickstartError, KickstartParseWarning
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
@@ -573,15 +573,13 @@ def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
 
     ksparser = AnacondaKSParser(handler)
     kswarnings = []
-    ksmodule = "pykickstart"
-    kscategories = (UserWarning, SyntaxWarning, DeprecationWarning)
     showwarning = warnings.showwarning
 
     def ksshowwarning(message, category, filename, lineno, file=None, line=None):
         # Print the warning with default function.
         showwarning(message, category, filename, lineno, file, line)
         # Collect pykickstart warnings.
-        if ksmodule in filename and issubclass(category, kscategories):
+        if issubclass(category, KickstartParseWarning):
             kswarnings.append(message)
 
     try:
@@ -590,9 +588,7 @@ def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
 
             # Set up the warnings module.
             warnings.showwarning = ksshowwarning
-
-            for category in kscategories:
-                warnings.filterwarnings(action="always", module=ksmodule, category=category)
+            warnings.simplefilter("always", category=KickstartParseWarning)
 
             # Parse the kickstart file in DBus modules.
             if pass_to_boss:
@@ -600,6 +596,8 @@ def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
                 report = KickstartReport.from_structure(
                     boss.ReadKickstartFile(f)
                 )
+                for warn in report.warning_messages:
+                    warnings.warn(warn.message, KickstartParseWarning)
                 if not report.is_valid():
                     message = "\n\n".join(map(str, report.error_messages))
                     raise KickstartError(message)
