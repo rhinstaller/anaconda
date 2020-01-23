@@ -378,7 +378,7 @@ def f%s(msg, non_ascii):
 f%s(msg, non_ascii)
 """ % (timestamp, timestamp)
 
-        eval(compile(code, "str_eval", "exec"))
+        eval(compile(code, "str_eval", "exec"))  # pylint: disable=eval-used
 
     # test non-ascii characters dumping
     non_ascii = u'\u0159'
