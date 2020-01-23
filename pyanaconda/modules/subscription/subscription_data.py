@@ -19,6 +19,7 @@
 #
 
 import json
+import datetime
 
 from pyanaconda.core.i18n import _
 
@@ -88,13 +89,15 @@ class SubscriptionData(object):
         AttachedSubscription class to parse.
 
         This is not ideal, but makes the AttachedSubscription implementation and
-        testing simples, as it also takes just JSON string, not some weird
+        testing simpler, as it also takes just JSON string, not some weird
         slice of already parsed JSON list.
         """
         subscriptions = json.loads(subscription_json)
-        log.debug("RHSM: parsing %d attached subscriptions", len(subscriptions))
+        # find the list of subscriptions
+        consumed_subscriptions = subscriptions.get("consumed", [])
+        log.debug("RHSM: parsing %d attached subscriptions", len(consumed_subscriptions))
         # split the list of subscriptions
-        for attached_subscription in subscriptions:
+        for attached_subscription in consumed_subscriptions:
             # into separate subscription dictionaries
             attached_subscription_json = json.dumps(attached_subscription)
             # re-encode back to JSON and pass to AttachedSubscription
@@ -173,44 +176,45 @@ class AttachedSubscription(object):
             "consumed_entitlement_count" : self.consumed_entitlement_count
         }
 
+    def _pretty_date(self, date_from_json):
+        """Return pretty human readable date based on date from the input JSON."""
+        # fallback in case of the parsing fails
+        date_string = date_from_json
+        try:
+            # The start/end date in GetPools() output seems to be formatted as
+            # "Locale’s appropriate date representation.".
+            date = datetime.datetime.strptime(date_from_json, "%m/%d/%y")
+            # get a nice human readable date
+            date_string = date.strftime("%b %d, %Y")
+        except ValueError:
+            log.warning("subscription date parsing failed: %s", date_from_json)
+
+        return date_string
 
     def _parse_attached_subscription_json(self, attached_subscription_json):
         subscription_info = json.loads(attached_subscription_json)
-        # most of the interesting data seems to be attached to the pool key
-        pool_info = subscription_info.get("pool")
-        if pool_info is None:
-            log.debug('RHSM: failed to parse attached subscription JSON, missing "pool" key')
-            return
-
         # user visible product name
-        self._name = pool_info.get("productName", _("product name unknown"))
+        self._name = subscription_info.get("subscription_name", _("product name unknown"))
 
         # subscription support level
         # - this does *not* seem to directly correlate to system purpose SLA attribute
-        service_level = _("unknown")
-        # first get product attributes
-        product_attributes = pool_info.get("productAttributes")
-        # next look for attribute called "support_level"
-        for attr_dict in product_attributes:
-            if attr_dict.get("name") == "support_level":
-                # ignore empty string, just in case
-                value = attr_dict.get("value")
-                if value:
-                    service_level = value
-                break
-        # set the value
-        self._service_level = service_level
+        self._service_level = subscription_info.get("service_level", _("unknown"))
 
         # SKU
         # - looks like productId == SKU in this JSON output
-        self._sku = pool_info.get("productId", _("unknown"))
+        self._sku = subscription_info.get("sku", _("unknown"))
 
         # contract number
-        self._contract = pool_info.get("contractNumber", _("Not Available"))
+        self._contract = subscription_info.get("contract", _("Not Available"))
 
-        # start and end date
-        self._start_date = pool_info.get("startDate", _("unknown"))
-        self._end_date = pool_info.get("endDate", _("unknown"))
+        # subscription start date
+        # - convert the raw date data from JSON to something more readable
+        start_date = subscription_info.get("starts", _("unknown"))
+        self._start_date = self._pretty_date(start_date)
+
+        # subscription end date
+        end_date = subscription_info.get("ends", _("unknown"))
+        self._end_date = self._pretty_date(end_date)
 
         # consumed entitlements
         # - this seems to correspond to the toplevel "quantity" key,
@@ -218,4 +222,5 @@ class AttachedSubscription(object):
         #   *or* the pool-level "quantity" key
         # - we need to make sure this is string, or else DBus serialization
         #   will complain later on
-        self._consumed_entitlement_count = str(subscription_info.get("quantity", _("unknown")))
+        quantity_string = str(subscription_info.get("quantity_used", _("unknown")))
+        self._consumed_entitlement_count = quantity_string

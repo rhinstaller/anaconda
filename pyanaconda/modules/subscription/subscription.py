@@ -27,7 +27,8 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
+from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_SYSPURPOSE, \
+        RHSM_ENTITLEMENT
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.subscription.constants import AuthenticationMethod
@@ -239,7 +240,7 @@ class SubscriptionModule(KickstartModule):
         # apply system purpose data, if any, before starting the RHSM service, so that
         # it picks the values up once started
         if self.is_system_purpose_set:
-            self._apply_syspurpose_from_kickstart()
+            self._apply_syspurpose()
 
         # if org and activation key are set, set authentication method
         # to organization and activation key
@@ -844,6 +845,44 @@ class SubscriptionModule(KickstartModule):
             self.set_subscription_attached(False)
             self.clear_subscription_data()
 
+    def _get_subscription_state_data(self):
+        """Get data from RHSM describing what subscriptions have been attached to the system.
+
+        Calling AutoAttach() also generally returns such data, but due to bug 1790924,
+        we can't depend on it always being the case.
+
+        Therefore, we query subscription state separately using the GetPools() method.
+        """
+
+        locale = os.environ.get("LANG", "")
+        # fetch subscription status data
+        entitlement_proxy = RHSM.get_proxy(RHSM_ENTITLEMENT)
+        subscription_json = entitlement_proxy.GetPools(
+                {"pool_subsets": get_variant(Str, "consumed")},
+                {},
+                locale
+        )
+        subscription_data_length = 0
+        # Log how much subscription data we got for debugging purposes.
+        # By only logging length, we should be able to debug cases of no
+        # or incomplete data being logged, without logging potentially
+        # sensitive subscription status detail in the installation logs stored
+        # on the target system.
+        if subscription_json:
+            subscription_data_length = len(subscription_json)
+            log.debug("RHSM: fetched subscription status data: %d characters",
+                      subscription_data_length)
+        else:
+            log.warning("RHSM: fetched empty subscription status data")
+
+        # fetch final system purpose data
+        log.debug("RHSM: fetching final syspurpose data")
+        syspurpose_proxy = RHSM.get_proxy(RHSM_SYSPURPOSE)
+        final_syspurpose_json = syspurpose_proxy.GetSyspurpose(locale)
+        log.debug("RHSM: final syspurpose data: %s", final_syspurpose_json)
+
+        return subscription_json, final_syspurpose_json
+
     def _attach_task_callback(self, task_instance):
         """Callback triggered after the auto attach task has been run.
 
@@ -855,8 +894,20 @@ class SubscriptionModule(KickstartModule):
 
         if not task_instance.error:
             self.set_subscription_attached(True)
-            self.set_subscription_data(subscription_json=task_instance.subscription_json,
-                                       final_syspurpose_json=task_instance.final_syspurpose_json)
+
+            # retrieve subscription data
+            # - for some reason exceptions raised in this method are not logged,
+            #   so wrap it in a try-except block for now
+            # - as we don't know beforehand what exceptions might be raised by
+            #   the method, we also need to disable a pylint warning about
+            #   except not specifying a concrete exception to catch
+            try:
+                subscription_json, syspurpose_json = self._get_subscription_state_data()
+            # pylint: disable=broad-except
+            except Exception:
+                log.exception("RHSM: failed to fetch subscription status data")
+            self.set_subscription_data(subscription_json=subscription_json,
+                                       final_syspurpose_json=syspurpose_json)
 
     def attach_subscription_with_task(self):
         """Return path to DBus Task that attaches subscriptions."""
@@ -871,6 +922,11 @@ class SubscriptionModule(KickstartModule):
         Either password or activation key based task will be returned,
         based on currently selected authentication method.
         """
+        # apply system purpose data, if any, before starting the registration
+        # process
+        if self.is_system_purpose_set:
+            self._apply_syspurpose()
+
         # decide what task to return based on current authentication method
         if self.authentication_method == AuthenticationMethod.ORG_KEY:
             task = RegisterWithOrganizationKeyTask(self.organization,
@@ -928,11 +984,15 @@ class SubscriptionModule(KickstartModule):
         # https://bugzilla.redhat.com/show_bug.cgi?id=1777024
         self._restart_rhsm_service()
 
-    def _apply_syspurpose_from_kickstart(self):
-        """Apply system purpose information from kickstart to the installation environment.
+    def _apply_syspurpose(self):
+        """Apply system purpose information to the installation environment.
 
-        The token transfer installation task will then make sure to transfer the result,
-        so the system purpose installation task does not have to run in a such a case.
+        If this method is called, then the token transfer installation task will
+        make sure to transfer the result, so the system purpose installation task
+        does not have to run afterwards.
+
+        For this reason we record if this method has run via the
+        _set_is_system_purpose_applied() method.
         """
         log.debug("RHSM: Applying system purpose data from installation kickstart")
         task = SystemPurposeConfigurationTask("/", self.role, self.sla, self.usage, self.addons)
