@@ -66,7 +66,8 @@ class AnacondaReverseExceptionDump(ReverseExceptionDump):
         :rtype: str
         """
         if self.type and self.value:
-            parsed_exc = traceback.format_exception_only(self.type, self.value)[0].split("\nTraceback")
+            parsed_exc = traceback.format_exception_only(self.type,
+                                                         self.value)[0].split("\nTraceback")
             description = parsed_exc[0]
             # TODO: remove when fixed (#1277422)
             # Use only first line of description (because of libreport bug - reported)
@@ -202,7 +203,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 if App.is_initialized():
                     # if Simpleline is initialized enqueue exception there
                     loop = App.get_event_loop()
-                    loop.enqueue_signal(ExceptionSignal(App.get_scheduler(), exception_info=exc_info))
+                    loop.enqueue_signal(
+                        ExceptionSignal(App.get_scheduler(), exception_info=exc_info))
                 else:
                     hubQ.send_exception((exc_info.type,
                                          exc_info.value,
@@ -277,7 +279,7 @@ def initExceptionHandling(anaconda):
                                 "_intf._currentAction._xklwrapper",
                                 "_intf._currentAction._spokes[\"KeyboardSpoke\"]._xkl_wrapper",
                                 "_intf._currentAction._storage_playground",
-                                "_intf._currentAction._spokes[\"CustomPartitioningSpoke\"]._storage_playground",
+                                "_intf._currentAction._spokes[\"CustomPartitioningSpoke\"]._storage_playground",  # pylint: disable=line-too-long
                                 "_intf._currentAction.language.translations",
                                 "_intf._currentAction.language.locales",
                                 "_intf._currentAction._spokes[\"PasswordSpoke\"]._oldweak",
@@ -291,7 +293,8 @@ def initExceptionHandling(anaconda):
                                 "_bootloader.encrypted_password",
                                 "_bootloader.password",
                                 "payload._groups"],
-                  localSkipList=["passphrase", "password", "_oldweak", "_password", "try_passphrase"],
+                  localSkipList=["passphrase", "password", "_oldweak", "_password",
+                                 "try_passphrase"],
                   fileList=file_list)
 
     config.register_callback("lsblk_output", lsblk_callback, attchmnt_only=False)

@@ -46,12 +46,13 @@ from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
 from pykickstart.base import BaseHandler, KickstartCommand
-from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
+from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
+    KS_SCRIPT_PREINSTALL
 from pykickstart.errors import KickstartError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
-from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
-                                 OnErrorScriptSection, TracebackScriptSection, Section
+from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, \
+    PreInstallScriptSection, OnErrorScriptSection, TracebackScriptSection, Section
 from pykickstart.version import returnClassForVersion
 
 from pyanaconda import anaconda_logging
@@ -133,7 +134,8 @@ class AnacondaKSScript(KSScript):
                                        root=scriptRoot)
 
         if rc != 0:
-            script_log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
+            script_log.error("Error code %s running the kickstart script at line %s",
+                             rc, self.lineno)
             if self.errorOnFail:
                 err = ""
                 with open(messages, "r") as fp:

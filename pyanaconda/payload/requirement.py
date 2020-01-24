@@ -130,7 +130,8 @@ class PayloadRequirements(object):
             elif requirement.type == "group":
                 self.add_groups([requirement.name], reason=requirement.reason)
             else:
-                log.warning("Unknown type: %s in requirement: %s, skipping.", requirement.type, requirement)
+                log.warning("Unknown type: %s in requirement: %s, skipping.",
+                            requirement.type, requirement)
 
     def _add(self, req_type, ids, reason, strong):
         if not ids:

@@ -115,7 +115,8 @@ def _find_existing_installations(devicetree):
         try:
             device.format.mount(options=options, mountpoint=sysroot)
         except Exception:  # pylint: disable=broad-except
-            log_exception_info(log.warning, "mount of %s as %s failed", [device.name, device.format.type])
+            log_exception_info(log.warning, "mount of %s as %s failed",
+                               [device.name, device.format.type])
             blivet_util.umount(mountpoint=sysroot)
             continue
 

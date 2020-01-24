@@ -465,7 +465,8 @@ class DNFPayload(payload.PackagePayload):
             module_base = dnf.module.module_base.ModuleBase(self._base)
             module_base.disable(module_specs_to_disable)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("ModuleBase.disable(): some packages, groups or modules are missing or broken:\n%s", e)
+            log.debug("ModuleBase.disable(): some packages, groups or modules are missing "
+                      "or broken:\n%s", e)
             self._payload_setup_error(e)
 
         # forward the module specs to enable to DNF

@@ -113,7 +113,8 @@ class Controller(object):
         """
         init_done = False
         with self._lock:
-            log.info("Initialization of all modules (%d) has been started.", self._added_module_count)
+            log.info("Initialization of all modules (%d) has been started.",
+                     self._added_module_count)
             self._all_modules_added = True
 
             # if all modules finished initialization before this was added then

@@ -605,7 +605,8 @@ class BootLoader(object):
         if _is_on_sw_iscsi(device):
             if not _is_on_ibft(device):
                 if conf.bootloader.nonibft_iscsi_boot:
-                    log.info("%s on non-iBFT iSCSI disk allowed by boot option inst.nonibftiscsiboot",
+                    log.info("%s on non-iBFT iSCSI disk allowed by boot option "
+                             "inst.nonibftiscsiboot",
                              self.stage2_description)
                 else:
                     self.errors.append(_("%(bootloader_stage2_description)s cannot be on "
@@ -781,7 +782,10 @@ class BootLoader(object):
                     else:
                         nic = dep.nic
                     if nic or ibft:
-                        network_args = network_proxy.GetDracutArguments(nic, dep.host_address, "", ibft)
+                        network_args = network_proxy.GetDracutArguments(nic,
+                                                                        dep.host_address,
+                                                                        "",
+                                                                        ibft)
 
                     self.boot_args.update(network_args)
                     self.dracut_args.update(network_args)

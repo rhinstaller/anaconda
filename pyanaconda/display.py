@@ -114,7 +114,8 @@ def check_vnc_can_be_started(anaconda):
 
     # disable VNC question if we were explicitly asked for text in kickstart
     if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
-        error_messages.append("Not asking for VNC because text mode was explicitly asked for in kickstart")
+        error_messages.append(
+            "Not asking for VNC because text mode was explicitly asked for in kickstart")
         vnc_startup_possible = False
 
     # disable VNC question if we don't have network
@@ -324,10 +325,11 @@ def setup_display(anaconda, options):
         if not anaconda.gui_startup_failed:
             do_extra_x11_actions(options.runres, gui_mode=anaconda.gui_mode)
 
-    if anaconda.tui_mode and anaconda.gui_startup_failed and flags.vncquestion and not anaconda.ksdata.vnc.enabled:
-        message = _("X was unable to start on your machine. Would you like to start VNC to connect to "
-                    "this computer from another computer and perform a graphical installation or continue "
-                    "with a text mode installation?")
+    if anaconda.tui_mode and anaconda.gui_startup_failed and flags.vncquestion \
+            and not anaconda.ksdata.vnc.enabled:
+        message = _("X was unable to start on your machine. Would you like to start VNC to connect "
+                    "to this computer from another computer and perform a graphical installation "
+                    "or continue with a text mode installation?")
         ask_vnc_question(anaconda, vnc_server, message)
 
     # if they want us to use VNC do that now

@@ -25,8 +25,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
-from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
-    LOCALIZATION, TIMEZONE, BOSS
+from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, \
+    SECURITY, LOCALIZATION, TIMEZONE, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
@@ -137,7 +137,9 @@ def _prepare_configuration(storage, payload, ksdata):
     addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
     # there is no longer a User class & addons should no longer need it
     # FIXME: drop user class parameter from the API & all known addons
-    addon_config.append(Task("Configure Anaconda addons", ksdata.addons.execute, (storage, ksdata, None, payload)))
+    addon_config.append(Task("Configure Anaconda addons",
+                             ksdata.addons.execute,
+                             (storage, ksdata, None, payload)))
 
     boss_proxy = BOSS.get_proxy()
     addon_config.append_dbus_tasks(BOSS, [boss_proxy.InstallSystemWithTask()])
@@ -157,7 +159,9 @@ def _prepare_configuration(storage, payload, ksdata):
     bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
 
     if isinstance(payload, LiveImagePayload) and boot_on_btrfs and bootloader_enabled:
-        generate_initramfs.append(Task("Write BTRFS bootloader fix", write_boot_loader, (storage, payload)))
+        generate_initramfs.append(Task("Write BTRFS bootloader fix",
+                                       write_boot_loader,
+                                       (storage, payload)))
 
     # Invoking zipl should be the last thing done on a s390x installation (see #1652727).
     if arch.is_s390() and not conf.target.is_directory and bootloader_enabled:
@@ -180,7 +184,8 @@ def _prepare_configuration(storage, payload, ksdata):
         configuration_queue.append(kexec_setup)
 
     # write anaconda related configs & kickstarts
-    write_configs = TaskQueue("Write configs and kickstarts", N_("Storing configuration files and kickstarts"))
+    write_configs = TaskQueue("Write configs and kickstarts",
+                              N_("Storing configuration files and kickstarts"))
 
     # Write the kickstart file to the installed system (or, copy the input
     # kickstart file over if one exists).
@@ -227,8 +232,9 @@ def _prepare_installation(storage, payload, ksdata):
 
         # Use a queue with a single task as only TaskQueues have the status_message
         # property used for setting the progress status in the UI.
-        wait_for_threads = TaskQueue("Wait for threads to finish",
-                                     N_("Waiting for %s threads to finish") % (threadMgr.running - 1))
+        wait_for_threads = TaskQueue(
+            "Wait for threads to finish",
+            N_("Waiting for %s threads to finish") % (threadMgr.running - 1))
 
         wait_for_threads.append(Task("Wait for all threads to finish", wait_for_all_treads))
         installation_queue.append(wait_for_threads)
@@ -241,7 +247,8 @@ def _prepare_installation(storage, payload, ksdata):
         installation_queue.append(save_hwclock)
 
     # setup the installation environment
-    setup_environment = TaskQueue("Installation environment setup", N_("Setting up the installation environment"))
+    setup_environment = TaskQueue("Installation environment setup",
+                                  N_("Setting up the installation environment"))
     setup_environment.append(Task("Setup addons", ksdata.addons.setup, (storage, ksdata, payload)))
 
     boss_proxy = BOSS.get_proxy()
@@ -283,8 +290,11 @@ def _prepare_installation(storage, payload, ksdata):
     installation_queue.append(early_storage)
 
     # Run %pre-install scripts with the filesystem mounted and no packages
-    pre_install_scripts = TaskQueue("Pre-install scripts", N_("Running pre-installation scripts"))
-    pre_install_scripts.append(Task("Run %pre-install scripts", runPreInstallScripts, (ksdata.scripts,)))
+    pre_install_scripts = TaskQueue("Pre-install scripts",
+                                    N_("Running pre-installation scripts"))
+    pre_install_scripts.append(Task("Run %pre-install scripts",
+                                    runPreInstallScripts,
+                                    (ksdata.scripts,)))
     installation_queue.append(pre_install_scripts)
 
     # Do various pre-installation tasks
@@ -307,7 +317,9 @@ def _prepare_installation(storage, payload, ksdata):
     pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
 
     def run_pre_install():
-        """This means to gather what additional packages (if any) are needed & executing payload.pre_install()."""
+        """This means to gather what additional packages (if any) are needed &
+        executing payload.pre_install().
+        """
         # anaconda requires storage packages in order to make sure the target
         # system is bootable and configurable, and some other packages in order
         # to finish setting up the system.
@@ -329,7 +341,8 @@ def _prepare_installation(storage, payload, ksdata):
         modules_with_package_requirements = [SECURITY, NETWORK]
         for module in modules_with_package_requirements:
             module_proxy = module.get_proxy()
-            module_requirements = Requirement.from_structure_list(module_proxy.CollectRequirements())
+            module_requirements = Requirement.from_structure_list(
+                module_proxy.CollectRequirements())
             log.debug("Adding requirements for module %s : %s", module, module_requirements)
             payload.requirements.add_requirements(module_requirements)
 
@@ -357,7 +370,8 @@ def _prepare_installation(storage, payload, ksdata):
         bootloader_install.append(Task("Install bootloader", write_boot_loader, (storage, payload)))
         installation_queue.append(bootloader_install)
 
-    post_install = TaskQueue("Post-installation setup tasks", (N_("Performing post-installation setup tasks")))
+    post_install = TaskQueue("Post-installation setup tasks",
+                             (N_("Performing post-installation setup tasks")))
     post_install.append(Task("Run post-installation setup tasks", payload.post_install))
     installation_queue.append(post_install)
 
@@ -365,7 +379,8 @@ def _prepare_installation(storage, payload, ksdata):
     snapshot_proxy = STORAGE.get_proxy(SNAPSHOT)
 
     if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_POST_INSTALL):
-        snapshot_creation = TaskQueue("Creating post installation snapshots", N_("Creating snapshots"))
+        snapshot_creation = TaskQueue("Creating post installation snapshots",
+                                      N_("Creating snapshots"))
         snapshot_requests = ksdata.snapshot.get_requests(SNAPSHOT_WHEN_POST_INSTALL)
         snapshot_task = SnapshotCreateTask(storage, snapshot_requests, SNAPSHOT_WHEN_POST_INSTALL)
         snapshot_creation.append(Task("Create post-install snapshots", snapshot_task.run))

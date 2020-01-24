@@ -57,7 +57,9 @@ class ThreadManager(object):
         # so that callers can't get & join threads that are not yet started
         with self._objs_lock:
             if obj.name in self._objs:
-                raise KeyError("Cannot add thread '%s', a thread with the same name already running" % obj.name)
+                raise KeyError(
+                    "Cannot add thread '%s', a thread with the same name already running" %
+                    obj.name)
 
             self._objs[obj.name] = obj
             obj.start()

@@ -27,7 +27,8 @@ from pyanaconda.core.i18n import _
 config = configparser.ConfigParser()
 config.add_section("Main")
 config.set("Main", "Arch", os.environ.get("ANACONDA_PRODUCTARCH", os.uname()[4]))
-config.set("Main", "BugURL", os.environ.get("ANACONDA_BUGURL", "your distribution provided bug reporting tool"))
+config.set("Main", "BugURL", os.environ.get("ANACONDA_BUGURL",
+                                            "your distribution provided bug reporting tool"))
 config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
 config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
 config.set("Main", "Variant", os.environ.get("ANACONDA_PRODUCTVARIANT", ""))

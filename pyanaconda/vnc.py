@@ -171,10 +171,15 @@ class VncServer(object):
         else:
             hostarg = self.vncconnecthost
 
-        vncconfigcommand = [self.root + "/usr/bin/vncconfig", "-display", ":%s" % constants.X_DISPLAY_NUMBER, "-connect", hostarg]
+        vncconfigcommand = [self.root + "/usr/bin/vncconfig",
+                            "-display",
+                            ":%s" % constants.X_DISPLAY_NUMBER,
+                            "-connect", hostarg]
 
         for _i in range(maxTries):
-            vncconfp = util.startProgram(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # vncconfig process
+            vncconfp = util.startProgram(vncconfigcommand,
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.PIPE)  # vncconfig process
             err = vncconfp.communicate()[1].decode("utf-8")
 
             if err == '':
@@ -198,7 +203,10 @@ class VncServer(object):
 
         self.log.info(_("Attempting to start vncconfig"))
 
-        vncconfigcommand = [self.root + "/usr/bin/vncconfig", "-nowin", "-display", ":%s" % constants.X_DISPLAY_NUMBER]
+        vncconfigcommand = [self.root + "/usr/bin/vncconfig",
+                            "-nowin",
+                            "-display",
+                            ":%s" % constants.X_DISPLAY_NUMBER]
 
         # Use startProgram to run vncconfig in the background
         util.startProgram(vncconfigcommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
@@ -209,7 +217,8 @@ class VncServer(object):
         We dont really have to do anything for the server to listen :)
         """
         if self.connxinfo is not None:
-            self.log.info(_("Please manually connect your vnc client to %s to begin the install."), self.connxinfo)
+            self.log.info(_("Please manually connect your vnc client to %s to begin the install."),
+                          self.connxinfo)
         else:
             self.log.info(_("Please manually connect your vnc client to IP-ADDRESS:%s "
                             "to begin the install. Switch to the shell (Ctrl-B 2) and "

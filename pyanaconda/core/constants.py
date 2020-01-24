@@ -214,8 +214,11 @@ SECRET_WEAK_WITH_ERROR = {
 }
 PASSWORD_FINAL_CONFIRM = N_("Press <b>Done</b> again to use the password anyway.")
 SECRET_ASCII = {
-    SecretType.PASSWORD : N_("The password you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it."),
-    SecretType.PASSPHRASE : N_("The passphrase you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it.")
+    SecretType.PASSWORD : N_("The password you have provided contains non-ASCII characters. You "
+                             "may not be able to switch between keyboard layouts when typing it."),
+    SecretType.PASSPHRASE : N_("The passphrase you have provided contains non-ASCII characters. "
+                               "You may not be able to switch between keyboard layouts when "
+                               "typing it.")
 }
 PASSWORD_DONE_TWICE = N_("You will have to press <b>Done</b> twice to confirm it.")
 PASSWORD_SET = N_("Password set.")

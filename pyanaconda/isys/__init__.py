@@ -153,7 +153,8 @@ def total_memory():
             fields = line.split()
             if len(fields) != 3:
                 log.error("unknown format for MemTotal line in /proc/meminfo: %s", line.rstrip())
-                raise RuntimeError("unknown format for MemTotal line in /proc/meminfo: %s" % line.rstrip())
+                raise RuntimeError("unknown format for MemTotal line in /proc/meminfo: %s" %
+                                   line.rstrip())
 
             try:
                 memsize = int(fields[1])

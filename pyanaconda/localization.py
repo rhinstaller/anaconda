@@ -606,7 +606,8 @@ def setup_locale_environment(locale=None, text_mode=False, prefer_environment=Fa
 
     :param str locale: locale to setup if provided
     :param bool text_mode: if the locale is being setup for text mode
-    :param bool prefer_environment: whether the process environment, if available, overrides the locale parameter
+    :param bool prefer_environment:
+        whether the process environment, if available, overrides the locale parameter
     :return: None
     :rtype: None
     """

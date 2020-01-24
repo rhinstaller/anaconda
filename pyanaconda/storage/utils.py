@@ -79,7 +79,8 @@ MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used 
                                       "to start the operating system are stored."),
                            "Root": N_("The 'root' area on your computer is where core system\n"
                                       "files and applications are stored."),
-                           "Home": N_("The 'home' area on your computer is where all your personal\n"
+                           "Home": N_("The 'home' area on your computer is where all your "
+                                      "personal\n"
                                       "data is stored."),
                            "BIOS Boot": N_("The BIOS boot partition is required to enable booting\n"
                                            "from GPT-partitioned disks on BIOS hardware."),
@@ -162,18 +163,21 @@ def bound_size(size, device, old_size):
             log.info("No size specified, using maximum size for this device (%d).", max_size)
             size = max_size
         else:
-            log.warning("No size specified and no maximum size available, setting size back to original size (%d).", old_size)
+            log.warning("No size specified and no maximum size available, setting size back to "
+                        "original size (%d).", old_size)
             size = old_size
     else:
         if max_size:
             if size > max_size:
-                log.warning("Size specified (%d) is greater than the maximum size for this device (%d), using maximum size.", size, max_size)
+                log.warning("Size specified (%d) is greater than the maximum size for this "
+                            "device (%d), using maximum size.", size, max_size)
                 size = max_size
         else:
             log.warning("Unknown upper bound on size. Using requested size (%d).", size)
 
         if size < min_size:
-            log.warning("Size specified (%d) is less than the minimum size for this device (%d), using minimum size.", size, min_size)
+            log.warning("Size specified (%d) is less than the minimum size for this "
+                        "device (%d), using minimum size.", size, min_size)
             size = min_size
 
     return size

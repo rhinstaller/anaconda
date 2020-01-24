@@ -141,7 +141,8 @@ class F22_PwPolicy(KickstartCommand):
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
         if len(extra) != 1:
-            raise KickstartParseError(lineno=self.lineno, msg=_("policy name required for %s") % "pwpolicy")
+            raise KickstartParseError(lineno=self.lineno,
+                                      msg=_("policy name required for %s") % "pwpolicy")
 
         pd = self.handler.PwPolicyData()
         self.set_to_obj(ns, pd)
@@ -150,7 +151,9 @@ class F22_PwPolicy(KickstartCommand):
 
         # Check for duplicates in the data list.
         if pd in self.dataList():
-            warnings.warn(_("A %(command)s with the name %(policyName)s has already been defined.") % {"command": "pwpolicy", "policyName": pd.name})
+            warnings.warn(_(
+                "A %(command)s with the name %(policyName)s has already been defined.") %
+                {"command": "pwpolicy", "policyName": pd.name})
 
         return pd
 
@@ -161,7 +164,8 @@ class F22_PwPolicy(KickstartCommand):
         """ Get the policy by name
 
         :param str name: Name of the policy to return.
-        :param bool fallback_to_default: If true return default policy if policy with the given `name` doesn't exists.
+        :param bool fallback_to_default:
+            If true return default policy if policy with the given `name` doesn't exists.
         """
         policy = [p for p in self.policyList if p.name == name]
         if policy:

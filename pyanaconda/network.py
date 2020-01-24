@@ -516,7 +516,7 @@ def status_message(nm_client):
                 elif device_type == NM.DeviceType.VLAN:
                     parent = device.get_parent()
                     vlanid = device.get_vlan_id()
-                    msg = _("VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
+                    msg = _("VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected")\
                         % {"interface_name": iface, "parent_device": parent, "vlanid": vlanid}
             elif len(nonslaves) > 1:
                 devlist = []
@@ -535,7 +535,8 @@ def status_message(nm_client):
                         devlist.append("%s (%s)" % (iface, ",".join(slaves[iface])))
                     elif device_type == NM.DeviceType.VLAN:
                         devlist.append("%s" % iface)
-                msg = _("Connected: %(list_of_interface_names)s") % {"list_of_interface_names": ", ".join(devlist)}
+                msg = _("Connected: %(list_of_interface_names)s") % \
+                        {"list_of_interface_names": ", ".join(devlist)}
         else:
             msg = _("Not connected")
 

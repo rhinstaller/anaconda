@@ -62,7 +62,8 @@ def autoSetLevel(handler, value):
 
 # all handlers of given logger with autoSetLevel == True are set to level
 def setHandlersLevel(logr, level):
-    for handler in filter(lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers):
+    for handler in filter(
+            lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers):
         handler.setLevel(level)
 
 

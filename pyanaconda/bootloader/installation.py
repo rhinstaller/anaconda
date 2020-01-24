@@ -84,7 +84,8 @@ def _get_rescue_kernel_versions(sysroot):
     :return: a list of rescue kernel versions
     """
     rescue_versions = glob(sysroot + "/boot/vmlinuz-*-rescue-*")
-    rescue_versions += glob(sysroot + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % conf.bootloader.efi_dir)
+    rescue_versions += glob(sysroot + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" %
+                            conf.bootloader.efi_dir)
     return [f.split("/")[-1][8:] for f in rescue_versions]
 
 

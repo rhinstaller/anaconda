@@ -127,7 +127,8 @@ class PasswordCheckRequest(object):
         :rtype: pwquality settings object or None
         """
         if not self._pwquality_settings:
-            self._pwquality_settings = pwquality_settings_cache.get_settings_by_minlen(self.policy.minlen)
+            self._pwquality_settings = \
+                pwquality_settings_cache.get_settings_by_minlen(self.policy.minlen)
         return self._pwquality_settings
 
     @property
@@ -369,7 +370,9 @@ class PasswordValidityCheck(InputCheck):
         pw_quality = 0
         try:
             # lets run the password through libpwquality
-            pw_quality = check_request.pwquality_settings.check(check_request.password, None, check_request.username)
+            pw_quality = check_request.pwquality_settings.check(check_request.password,
+                                                                None,
+                                                                check_request.username)
         except pwquality.PWQError as e:
             # Leave valid alone here: the password is weak but can still
             # be accepted.
@@ -378,7 +381,8 @@ class PasswordValidityCheck(InputCheck):
 
         if check_request.policy.emptyok:
             # if we are OK with empty passwords, then empty passwords are also fine length wise
-            length_ok = len(check_request.password) >= check_request.policy.minlen or not check_request.password
+            length_ok = len(check_request.password) >= check_request.policy.minlen \
+                        or not check_request.password
         else:
             length_ok = len(check_request.password) >= check_request.policy.minlen
 
@@ -434,8 +438,8 @@ class PasswordConfirmationCheck(InputCheck):
     def success_if_confirmation_empty(self):
         """Enables success-if-confirmation-empty mode.
 
-        This property can be used to tell the check to report success if the confirmation filed is empty,
-        which is a paradigm used by Anaconda uses for two things:
+        This property can be used to tell the check to report success if the confirmation filed
+        is empty, which is a paradigm used by Anaconda uses for two things:
         - to make it possible for users to exit without setting a valid password
         - to make it possible to exit the spoke if only the password is set
           but confirmation is empty
@@ -452,7 +456,8 @@ class PasswordConfirmationCheck(InputCheck):
             self.result.error_message = ""
             self.result.success = True
         elif check_request.password != check_request.password_confirmation:
-            self.result.error_message = _(constants.SECRET_CONFIRM_ERROR_GUI[check_request.secret_type])
+            self.result.error_message = \
+                _(constants.SECRET_CONFIRM_ERROR_GUI[check_request.secret_type])
             self.result.success = False
         else:
             self.result.error_message = ""
@@ -575,8 +580,8 @@ class PasswordChecker(object):
     and success value (True/False). If any check fails success will be False and the
     error message of the first check to fail will be returned.
 
-    It's also possible to mark individual checks to be skipped by setting their skip property to True.
-    Such check will be skipped during the checking run.
+    It's also possible to mark individual checks to be skipped by setting their skip property to
+    True. Such check will be skipped during the checking run.
     """
 
     def __init__(self, initial_password_content, initial_password_confirmation_content,

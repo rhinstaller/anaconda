@@ -20,8 +20,8 @@
 A GeoIP and WiFi location module - location detection based on IP address
 
 How to use the geolocation module
-   First call init_geolocation() with appropriate parameters - this creates the Geolocation singleton and
-   specifies what geolocation provider will be used.
+   First call init_geolocation() with appropriate parameters - this creates the Geolocation
+   singleton and specifies what geolocation provider will be used.
 
    To actually look up current position, call the refresh() function of the singleton,
    this will trigger the actual online geolocation query, which runs in a thread.
@@ -206,8 +206,8 @@ class Geolocation(object):
         if geolocation_enabled:
             if flags.automatedInstall:
                 if options_override:
-                    log.info("Geolocation is enabled during kickstart installation due to use of the "
-                             "geoloc-use-with-ks option.")
+                    log.info("Geolocation is enabled during kickstart installation due to use of "
+                             "the geoloc-use-with-ks option.")
             else:
                 log.info("Geolocation is enabled.")
         else:
@@ -477,7 +477,9 @@ class FedoraGeoIPProvider(GeolocationBackend):
 
     def _refresh(self):
         try:
-            reply = self._session.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            reply = self._session.get(self.API_URL,
+                                      timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                      verify=True)
             if reply.status_code == requests.codes.ok:
                 json_reply = reply.json()
                 territory = json_reply.get("country_code", None)
@@ -494,7 +496,8 @@ class FedoraGeoIPProvider(GeolocationBackend):
                                                     timezone=timezone_code,
                                                     timezone_source=timezone_source))
             else:
-                log.error("Geoloc: Fedora GeoIP API lookup failed with status code: %s", reply.status_code)
+                log.error("Geoloc: Fedora GeoIP API lookup failed with status code: %s",
+                          reply.status_code)
         except requests.exceptions.RequestException as e:
             log.debug("Geoloc: RequestException for Fedora GeoIP API lookup:\n%s", e)
         except ValueError as e:
@@ -512,7 +515,9 @@ class HostipGeoIPProvider(GeolocationBackend):
 
     def _refresh(self):
         try:
-            reply = self._session.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            reply = self._session.get(self.API_URL,
+                                      timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                      verify=True)
             if reply.status_code == requests.codes.ok:
                 reply_dict = reply.json()
                 territory = reply_dict.get("country_code", None)
@@ -548,7 +553,9 @@ class GoogleWiFiLocationProvider(GeolocationBackend):
         if access_points:
             try:
                 url = self._get_url(access_points)
-                reply = self._session.get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+                reply = self._session.get(url,
+                                          timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                          verify=True)
                 result_dict = reply.json()
                 status = result_dict.get('status', 'NOT OK')
                 if status == 'OK':
@@ -640,14 +647,17 @@ class Geocoder(object):
             coordinates.latitude,
             coordinates.longitude)
         try:
-            reply = requests_session().get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            reply = requests_session().get(url,
+                                           timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                           verify=True)
             if reply.status_code == requests.codes.ok:
                 reply_dict = reply.json()
                 territory_code = reply_dict['address']['country_code'].upper()
                 return GeocodingResult(coordinates=coordinates,
                                        territory_code=territory_code)
             else:
-                log.error("Geoloc: Nominatim reverse geocoding failed with status code: %s", reply.status_code)
+                log.error("Geoloc: Nominatim reverse geocoding failed with status code: %s",
+                          reply.status_code)
                 return None
         except requests.exceptions.RequestException as e:
             log.debug("Geoloc: RequestException during Nominatim reverse geocoding:\n%s", e)

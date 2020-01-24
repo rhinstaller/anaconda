@@ -277,7 +277,9 @@ def name_path_pairs(image_specs):
          * A name contains a "/"
     """
     image_specs = (spec.rsplit(":", 1) for spec in image_specs)
-    path_name_pairs = ((image_spec[0], image_spec[1].strip() if len(image_spec) == 2 else None) for image_spec in image_specs)
+    path_name_pairs = (
+        (image_spec[0], image_spec[1].strip() if len(image_spec) == 2 else None)
+        for image_spec in image_specs)
 
     paths_seen = []
     names_seen = []
@@ -402,10 +404,11 @@ def getArgumentParser(version_string, boot_cmdline=None):
             setattr(namespace, "noninteractive", True)
 
     # Interface
-    ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const", const=DisplayModes.GUI,
-                    default=DisplayModes.GUI, help=help_parser.help_text("graphical"))
-    ap.add_argument("-T", "--text", dest="display_mode", action="store_const", const=DisplayModes.TUI,
-                    help=help_parser.help_text("text"))
+    ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const",
+                    const=DisplayModes.GUI, default=DisplayModes.GUI,
+                    help=help_parser.help_text("graphical"))
+    ap.add_argument("-T", "--text", dest="display_mode", action="store_const",
+                    const=DisplayModes.TUI, help=help_parser.help_text("text"))
     ap.add_argument("-C", "--cmdline", action=SetCmdlineMode, nargs=0,
                     help=help_parser.help_text("cmdline"))
     ap.add_argument("--noninteractive", dest="noninteractive", action="store_true",
@@ -510,7 +513,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
             else:
                 setattr(namespace, self.dest, SELINUX_ENFORCING)
 
-    ap.add_argument("--selinux", action=ParseSelinux, nargs="?", help=help_parser.help_text("selinux"))
+    ap.add_argument("--selinux", action=ParseSelinux, nargs="?",
+                    help=help_parser.help_text("selinux"))
 
     ap.add_argument("--nompath", dest="mpath", action="store_false", default=True,
                     help=help_parser.help_text("nompath"))

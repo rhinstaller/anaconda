@@ -238,7 +238,8 @@ class FSSet(object):
     def dev(self):
         if not self._dev:
             self._dev = DirectoryDevice("/dev",
-                                        fmt=get_format("bind", device="/dev", mountpoint="/dev", exists=True),
+                                        fmt=get_format("bind", device="/dev", mountpoint="/dev",
+                                                       exists=True),
                                         exists=True)
 
         return self._dev
@@ -246,7 +247,8 @@ class FSSet(object):
     @property
     def devpts(self):
         if not self._devpts:
-            self._devpts = NoDevice(fmt=get_format("devpts", device="devpts", mountpoint="/dev/pts"))
+            self._devpts = NoDevice(fmt=get_format("devpts", device="devpts",
+                                                   mountpoint="/dev/pts"))
         return self._devpts
 
     @property
@@ -264,26 +266,30 @@ class FSSet(object):
     @property
     def usb(self):
         if not self._usb:
-            self._usb = NoDevice(fmt=get_format("usbfs", device="usbfs", mountpoint="/proc/bus/usb"))
+            self._usb = NoDevice(fmt=get_format("usbfs", device="usbfs",
+                                                mountpoint="/proc/bus/usb"))
         return self._usb
 
     @property
     def selinux(self):
         if not self._selinux:
-            self._selinux = NoDevice(fmt=get_format("selinuxfs", device="selinuxfs", mountpoint="/sys/fs/selinux"))
+            self._selinux = NoDevice(fmt=get_format("selinuxfs", device="selinuxfs",
+                                                    mountpoint="/sys/fs/selinux"))
         return self._selinux
 
     @property
     def efivars(self):
         if not self._efivars:
-            self._efivars = NoDevice(fmt=get_format("efivarfs", device="efivarfs", mountpoint="/sys/firmware/efi/efivars"))
+            self._efivars = NoDevice(fmt=get_format("efivarfs", device="efivarfs",
+                                                    mountpoint="/sys/firmware/efi/efivars"))
         return self._efivars
 
     @property
     def run(self):
         if not self._run:
             self._run = DirectoryDevice("/run",
-                                        fmt=get_format("bind", device="/run", mountpoint="/run", exists=True),
+                                        fmt=get_format("bind", device="/run",
+                                                       mountpoint="/run", exists=True),
                                         exists=True)
 
         return self._run
@@ -559,7 +565,8 @@ class FSSet(object):
                 device.format.setup(options=options,
                                     chroot=root_path)
             except Exception as e:  # pylint: disable=broad-except
-                log_exception_info(log.error, "error mounting %s on %s", [device.path, device.format.mountpoint])
+                log_exception_info(log.error, "error mounting %s on %s",
+                                   [device.path, device.format.mountpoint])
                 if error_handler.cb(e) == ERROR_RAISE:
                     raise
 

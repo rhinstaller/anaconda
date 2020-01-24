@@ -386,7 +386,8 @@ class RPMOSTreePayload(Payload):
         for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
                           'usrlocal', 'mnt', 'media', 'spool', 'spool/mail'):
             self._safe_exec_with_redirect("systemd-tmpfiles",
-                                          ["--create", "--boot", "--root=" + conf.target.system_root,
+                                          ["--create", "--boot",
+                                           "--root=" + conf.target.system_root,
                                            "--prefix=/var/" + varsubdir])
 
         # Handle mounts like /boot (except avoid /boot/efi; we just need the

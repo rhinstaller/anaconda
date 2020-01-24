@@ -104,7 +104,8 @@ def setup_kexec():
     shutil.copy2(conf.target.system_root + boot_info.initrd, "/tmp/initrd-kexec-reboot")
 
     append = "root=%s %s" % (boot_info.root, boot_info.args)
-    args = ["--initrd", "/tmp/initrd-kexec-reboot", "--append", append, "-l", "/tmp/vmlinuz-kexec-reboot"]
+    args = ["--initrd", "/tmp/initrd-kexec-reboot", "--append", append,
+            "-l", "/tmp/vmlinuz-kexec-reboot"]
     try:
         rc = execWithRedirect("kexec", args)
     except OSError as e:

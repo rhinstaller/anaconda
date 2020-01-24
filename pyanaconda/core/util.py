@@ -383,7 +383,12 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
                         filter_stderr=filter_stderr)[1]
 
 
-def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False, filter_stderr=False):
+def execWithCaptureBinary(command,
+                          argv,
+                          stdin=None,
+                          root='/',
+                          log_output=False,
+                          filter_stderr=False):
     """ Run an external program and capture standard out and err as binary data.
         The binary data output is not logged by default but logging can be enabled.
 
@@ -470,7 +475,8 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
         stderr = subprocess.STDOUT
 
     try:
-        proc = startProgram(argv, root=root, stdin=stdin, stderr=stderr, env_prune=env_prune, bufsize=1)
+        proc = startProgram(argv, root=root, stdin=stdin, stderr=stderr, env_prune=env_prune,
+                            bufsize=1)
     except OSError as e:
         with program_log_lock:
             program_log.error("Error running %s: %s", argv[0], e.strerror)
@@ -999,7 +1005,8 @@ def ensure_str(str_or_bytes, keep_none=True):
     elif isinstance(str_or_bytes, bytes):
         return str_or_bytes.decode(sys.getdefaultencoding())
     else:
-        raise ValueError("str_or_bytes must be of type 'str' or 'bytes', not '%s'" % type(str_or_bytes))
+        raise ValueError("str_or_bytes must be of type 'str' or 'bytes', not '%s'" %
+                         type(str_or_bytes))
 
 
 # Define translations between ASCII uppercase and lowercase for
