@@ -29,20 +29,24 @@ from pyanaconda.core.constants import DEFAULT_DBUS_TIMEOUT
 
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 
+
 class SafeDBusError(Exception):
     """Class for exceptions defined in this module."""
 
     pass
+
 
 class DBusCallError(SafeDBusError):
     """Class for the errors related to calling methods over DBus."""
 
     pass
 
+
 class DBusPropertyError(DBusCallError):
     """Class for the errors related to getting property values over DBus."""
 
     pass
+
 
 def get_new_system_connection():
     """Return a new connection to the system bus."""
@@ -52,6 +56,7 @@ def get_new_system_connection():
         Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT |
         Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
         None, None)
+
 
 def get_new_session_connection():
     """
@@ -93,6 +98,7 @@ def get_new_session_connection():
         raise DBusCallError("Connection is closed")
 
     return connection
+
 
 def call_sync(service, obj_path, iface, method, args,
               connection=None):
@@ -143,6 +149,7 @@ def call_sync(service, obj_path, iface, method, args,
         raise DBusCallError(msg)
 
     return ret.unpack()
+
 
 def get_property_sync(service, obj_path, iface, prop_name,
                       connection=None):

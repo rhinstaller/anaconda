@@ -51,6 +51,7 @@ if not productArch and productStamp.index(".") != -1:           # pylint: disabl
 if productVersion == "development":
     productVersion = "rawhide"
 
+
 def distributionText():
     return _("%(productName)s %(productVersion)s INSTALLATION") % \
              {"productName": productName, "productVersion": productVersion}

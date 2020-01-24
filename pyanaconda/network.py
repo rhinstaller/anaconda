@@ -70,6 +70,7 @@ def get_nm_client():
         log.debug("NetworkManager client not available (system does not provide it).")
         return None
 
+
 def check_ip_address(address, version=None):
     """Check if the given IP address is valid in given version if set.
 
@@ -553,7 +554,6 @@ def get_supported_devices():
     """
     network_proxy = NETWORK.get_proxy()
     return NetworkDeviceInfo.from_structure_list(network_proxy.GetSupportedDevices())
-
 
 
 def get_ntp_servers_from_dhcp(nm_client):

@@ -31,6 +31,7 @@ log = get_module_logger(__name__)
 
 PLACEHOLDER_NAME = "ADDON_placeholder"
 
+
 def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
     """This method looks into the directories present
        in toplevel_addon_paths and registers each subdirectory
@@ -70,6 +71,7 @@ def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
                 log.debug('Loading categories into module path for addon %s', addon_id)
 
     return module_paths
+
 
 class AddonRegistry(object):
     """This class represents the ksdata.addons object and
@@ -182,6 +184,7 @@ class AddonData(object):
            Addon should check if all mandatory attributes were populated.
         """
         pass
+
 
 class AddonSection(Section):
     """The section parser for %addon.

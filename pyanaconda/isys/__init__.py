@@ -46,6 +46,7 @@ NO_SWAP_EXTRA_RAM = 200
 
 ISO_BLOCK_SIZE = 2048
 
+
 ## Determine if a file is an ISO image or not.
 # @param file The full path to a file to check.
 # @return True if ISO image, False otherwise.
@@ -61,7 +62,10 @@ def isIsoImage(path):
 
     return False
 
+
 isPAE = None
+
+
 def isPaeAvailable():
     global isPAE
     if isPAE is not None:
@@ -82,6 +86,7 @@ def isPaeAvailable():
 
     return isPAE
 
+
 def isLpaeAvailable():
     with open("/proc/cpuinfo", "r") as fobj:
         for line in fobj:
@@ -89,6 +94,7 @@ def isLpaeAvailable():
                 return True
 
     return False
+
 
 def set_system_time(secs):
     """
@@ -102,6 +108,7 @@ def set_system_time(secs):
     # pylint: disable=no-member
     _isys.set_system_time(secs)
     log.info("System time set to %s UTC", time.asctime(time.gmtime(secs)))
+
 
 def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None,
                          second=None, tz=None):
@@ -141,6 +148,7 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
 
     set_system_time(int(timestamp))
 
+
 def total_memory():
     """Returns total system memory in kB (given to us by /proc/meminfo)"""
 
@@ -174,6 +182,7 @@ def total_memory():
 
         log.error("MemTotal: line not found in /proc/meminfo")
         raise RuntimeError("MemTotal: line not found in /proc/meminfo")
+
 
 # pylint: disable=no-member
 installSyncSignalHandlers = _isys.installSyncSignalHandlers

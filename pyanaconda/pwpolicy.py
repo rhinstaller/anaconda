@@ -25,6 +25,7 @@ from pykickstart.version import F22
 import warnings
 from pyanaconda.core.i18n import _
 
+
 class F22_PwPolicyData(BaseData):
     """ Kickstart Data object to hold information about pwpolicy. """
     removedKeywords = BaseData.removedKeywords
@@ -86,6 +87,7 @@ class F22_PwPolicyData(BaseData):
             retval += " --notempty"
 
         return retval
+
 
 class F22_PwPolicy(KickstartCommand):
     """ Kickstart command implementing password policy. """

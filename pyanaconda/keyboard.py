@@ -39,10 +39,12 @@ LAYOUT_VARIANT_RE = re.compile(r'^\s*([/\w]+)\s*'  # layout plus
                                r'(?:(?:\(\s*([-\w]+)\s*\))'  # variant in parentheses
                                r'|(?:$))\s*')  # or nothing
 
+
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""
 
     pass
+
 
 class InvalidLayoutVariantSpec(Exception):
     """
@@ -51,6 +53,7 @@ class InvalidLayoutVariantSpec(Exception):
     """
 
     pass
+
 
 def parse_layout_variant(layout_variant_str):
     """
@@ -76,6 +79,7 @@ def parse_layout_variant(layout_variant_str):
     # groups may be (layout, None) if no variant was specified
     return (layout, variant or "")
 
+
 def join_layout_variant(layout, variant=""):
     """
     Join layout and variant to form the commonly used 'layout (variant)'
@@ -93,6 +97,7 @@ def join_layout_variant(layout, variant=""):
     else:
         return layout
 
+
 def normalize_layout_variant(layout_str):
     """
     Normalize keyboard layout and variant specification given as a single
@@ -108,6 +113,7 @@ def normalize_layout_variant(layout_str):
     layout, variant = parse_layout_variant(layout_str)
     return join_layout_variant(layout, variant)
 
+
 def populate_missing_items(localization_proxy=None):
     """
     Function that populates virtual console keymap and X layouts if they
@@ -121,6 +127,7 @@ def populate_missing_items(localization_proxy=None):
     task_proxy = LOCALIZATION.get_proxy(task_path)
     sync_run_task(task_proxy)
 
+
 def activate_keyboard(localization_proxy):
     """
     Try to setup VConsole keymap and X11 layouts as specified in kickstart.
@@ -131,6 +138,7 @@ def activate_keyboard(localization_proxy):
     task_path = localization_proxy.ApplyKeyboardWithTask()
     task_proxy = LOCALIZATION.get_proxy(task_path)
     sync_run_task(task_proxy)
+
 
 def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
     """

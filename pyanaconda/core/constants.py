@@ -178,6 +178,7 @@ WARNING_NO_DISKS_SELECTED = N_(
     "No disks selected; please select at least one disk to install to."
 )
 
+
 # Password type
 class SecretType(Enum):
     PASSWORD = "password"
@@ -220,6 +221,7 @@ SECRET_ASCII = {
 PASSWORD_DONE_TWICE = N_("You will have to press <b>Done</b> twice to confirm it.")
 PASSWORD_SET = N_("Password set.")
 
+
 class SecretStatus(Enum):
     EMPTY = N_("Empty")
     TOO_SHORT = N_("Too short")
@@ -227,6 +229,7 @@ class SecretStatus(Enum):
     FAIR = N_("Fair")
     GOOD = N_("Good")
     STRONG = N_("Strong")
+
 
 PASSWORD_HIDE = N_("Hide password.")
 PASSWORD_SHOW = N_("Show password.")
@@ -310,6 +313,7 @@ STORAGE_REFORMAT_BLACKLIST = "reformat_blacklist"
 STORAGE_SWAP_IS_RECOMMENDED = "swap_is_recommended"
 STORAGE_LUKS2_MIN_RAM = "luks2_min_ram"
 
+
 # Display modes
 class DisplayModes(Enum):
     GUI = "GUI"
@@ -338,9 +342,11 @@ LOGGER_BLIVET = "blivet"
 LOGGER_SIMPLELINE = "simpleline"
 LOGGER_SENSITIVE_INFO = "sensitive_info"
 
+
 class PayloadRequirementType(Enum):
     package = "package"
     group = "group"
+
 
 # Timeout for starting X
 X_TIMEOUT = 60

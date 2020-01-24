@@ -487,6 +487,7 @@ def execConsole():
     except OSError as e:
         raise RuntimeError("Error running /bin/sh: " + e.strerror)
 
+
 ## Create a directory path.  Don't fail if the directory already exists.
 def mkdirChain(directory):
     """ Make a directory and all of its parents. Don't fail if part or
@@ -796,6 +797,7 @@ class ProxyString(object):
 
     def __str__(self):
         return self.url
+
 
 def strip_accents(s):
     """This function takes arbitrary unicode string
@@ -1107,6 +1109,7 @@ def have_word_match(str1, str2):
 
     return all(word in str2 for word in str1_words)
 
+
 def xprogressive_delay():
     """ A delay generator, the delay starts short and gets longer
         as the internal counter increases.
@@ -1410,6 +1413,7 @@ def collect(module_pattern, path, pred):
             retval.append(val)
 
     return retval
+
 
 def item_counter(item_count):
     """A generator for easy counting of items.

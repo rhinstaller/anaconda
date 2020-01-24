@@ -28,6 +28,7 @@ log = get_module_logger(__name__)
 _controllers = {}
 _controller_categories_map = {}
 
+
 def get_controller_by_category(category_name):
     """Return the controller instance that "owns" the corresponding category.
 
@@ -51,6 +52,7 @@ def get_controller_by_category(category_name):
     # no controller has been found for the given spoke based on it's category
     return None
 
+
 def get_controller_by_name(controller_name):
     """Return controller instance by name.
 
@@ -62,6 +64,7 @@ def get_controller_by_name(controller_name):
     :param str controller_name: a name of a controller name
     """
     return _controllers.get(controller_name)
+
 
 def add_controller(controller_name, controller_categories):
     # The controller name is currently based on Hub name
@@ -75,6 +78,7 @@ def add_controller(controller_name, controller_categories):
     _controllers[controller_name] = controller
     _controller_categories_map[controller_name] = controller_categories
     return controller
+
 
 class Controller(object):
     """A singleton that track initialization of Anaconda modules."""

@@ -807,6 +807,7 @@ class WiFiAccessPoint(object):
 
 geoloc = None
 
+
 def init_geolocation(geoloc_option, options_override):
     """Initialize the geolocation singleton."""
     global geoloc

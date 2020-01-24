@@ -52,6 +52,7 @@ def crypt_password(password):
 
     return cryptpw
 
+
 def check_username(name):
     """Check if given username is valid.
 
@@ -65,6 +66,7 @@ def check_username(name):
         return False, _("User name is reserved for system: %s") % name
 
     return is_valid_name(name)
+
 
 def check_grouplist(group_list):
     """Check a group list for validity.
@@ -90,6 +92,7 @@ def check_grouplist(group_list):
 
     return True, None
 
+
 def check_groupname(name):
     """Check if group name is valid.
 
@@ -98,6 +101,7 @@ def check_groupname(name):
     :rtype: (bool, str or None)
     """
     return is_valid_name(name)
+
 
 def is_valid_name(name):
     """Check if given name is valid for either a group or user.
@@ -146,6 +150,7 @@ def is_valid_name(name):
 
     return True, None
 
+
 def guess_username(fullname):
     """Guess username from full user name.
 
@@ -168,6 +173,7 @@ def guess_username(fullname):
     username = strip_accents(username)
     return username
 
+
 def _getpwnam(user_name, root):
     """Like pwd.getpwnam, but is able to use a different root.
 
@@ -184,6 +190,7 @@ def _getpwnam(user_name, root):
 
     return None
 
+
 def _getgrnam(group_name, root):
     """Like grp.getgrnam, but able to use a different root.
 
@@ -199,6 +206,7 @@ def _getgrnam(group_name, root):
                 return fields
 
     return None
+
 
 def _getgrgid(gid, root):
     """Like grp.getgrgid, but able to use a different root.
@@ -218,6 +226,7 @@ def _getgrgid(gid, root):
                 return fields
 
     return None
+
 
 @contextmanager
 def _ensure_login_defs(root):
@@ -241,6 +250,7 @@ def _ensure_login_defs(root):
 
     if login_defs_created:
         os.unlink(login_defs_path)
+
 
 def create_group(group_name, gid=None, root=None):
     """Create a new user on the system with the given name.
@@ -270,6 +280,7 @@ def create_group(group_name, gid=None, root=None):
         raise ValueError("Group %s already exists" % group_name)
     elif status != 0:
         raise OSError("Unable to create group %s: status=%s" % (group_name, status))
+
 
 def create_user(username, password=False, is_crypted=False, lock=False,
                 homedir=None, uid=None, gid=None, groups=None, shell=None, gecos="",
@@ -419,6 +430,7 @@ def create_user(username, password=False, is_crypted=False, lock=False,
 
     set_user_password(username, password, is_crypted, lock, root)
 
+
 def check_user_exists(username, root=None):
     """Check a user exists.
 
@@ -432,6 +444,7 @@ def check_user_exists(username, root=None):
         return True
 
     return False
+
 
 def set_user_password(username, password, is_crypted, lock, root="/"):
     """Set user password.
@@ -465,6 +478,7 @@ def set_user_password(username, password, is_crypted, lock, root="/"):
     # must be reset on the next login.
     util.execWithRedirect("chage", ["-R", root, "-d", "", username])
 
+
 def set_root_password(password, is_crypted=False, lock=False, root="/"):
     """Set root password.
 
@@ -474,6 +488,7 @@ def set_root_password(password, is_crypted=False, lock=False, root="/"):
     :param str root: target system sysroot path
     """
     return set_user_password("root", password, is_crypted, lock, root)
+
 
 def set_user_ssh_key(username, key, root=None):
     """Set an SSH key for a given username.
