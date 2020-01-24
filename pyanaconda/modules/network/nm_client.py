@@ -691,7 +691,10 @@ def bind_settings_to_mac(nm_client, s_connection, s_wired, device_name=None, bin
     return modified
 
 
-def bind_settings_to_device(nm_client, s_connection, s_wired, device_name=None,
+def bind_settings_to_device(nm_client,
+                            s_connection,
+                            s_wired,
+                            device_name=None,
                             bind_exclusively=True):
     """Bind the settings to the name of the device.
 

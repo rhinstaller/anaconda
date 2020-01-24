@@ -397,8 +397,8 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
         kwargs["device"] = physdev
         kwargs["vlanid"] = ifcfg.get("VLAN_ID")
         interface_name = ifcfg.get("DEVICE")
-        default_name = default_ks_vlan_interface_name(kwargs["device"], kwargs["vlanid"])
-        if interface_name and interface_name != default_name:
+        if interface_name and interface_name != default_ks_vlan_interface_name(kwargs["device"],
+                                                                               kwargs["vlanid"]):
             kwargs["interfacename"] = interface_name
 
     # bridging

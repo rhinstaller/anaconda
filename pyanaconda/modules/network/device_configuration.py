@@ -201,8 +201,8 @@ class DeviceConfigurations(object):
                 if con_setting and con_setting.get_read_only():
                     return True
             else:
-                log.debug("can't get remote connection of active connection "
-                          "of device %s", device.get_iface())
+                log.debug("can't get remote connection of active connection of device %s",
+                          device.get_iface())
         return False
 
     def _find_connection_uuid_of_device(self, device):

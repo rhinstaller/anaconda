@@ -217,8 +217,7 @@ class FirewallModule(KickstartBaseModule):
         if self.firewall_seen:
             requirements.append(Requirement.for_package(
                 "firewalld",
-                reason="Requested by the firewall kickstart command."
-            ))
+                reason="Requested by the firewall kickstart command."))
 
         return requirements
 

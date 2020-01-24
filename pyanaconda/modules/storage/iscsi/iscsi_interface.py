@@ -96,12 +96,10 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         """
         self.implementation.reload_module()
 
-    def DiscoverWithTask(
-        self,
-        portal: Structure,
-        credentials: Structure,
-        interfaces_mode: Str
-    ) -> ObjPath:
+    def DiscoverWithTask(self,
+                         portal: Structure,
+                         credentials: Structure,
+                         interfaces_mode: Str) -> ObjPath:
         """Discover an iSCSI device.
 
         :param portal: the portal information

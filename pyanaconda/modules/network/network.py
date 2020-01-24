@@ -70,8 +70,7 @@ class NetworkService(KickstartService):
         if conf.system.provides_system_bus:
             self._hostname_service_proxy = HOSTNAME.get_proxy()
             self._hostname_service_proxy.PropertiesChanged.connect(
-                self._hostname_service_properties_changed
-            )
+                self._hostname_service_properties_changed)
 
         self.connected_changed = Signal()
         self.nm_client = None
@@ -257,8 +256,7 @@ class NetworkService(KickstartService):
 
     @staticmethod
     def _nm_state_connected(state):
-        return state in (NM.State.CONNECTED_LOCAL,
-                         NM.State.CONNECTED_SITE,
+        return state in (NM.State.CONNECTED_LOCAL, NM.State.CONNECTED_SITE,
                          NM.State.CONNECTED_GLOBAL)
 
     def _nm_state_changed(self, *args):
@@ -293,8 +291,7 @@ class NetworkService(KickstartService):
         if self.get_team_devices():
             requirements.append(Requirement.for_package(
                 "teamd",
-                reason="Necessary for network team device configuration."
-            ))
+                reason="Necessary for network team device configuration."))
 
         return requirements
 
@@ -310,8 +307,7 @@ class NetworkService(KickstartService):
         if self._should_apply_onboot_policy() and \
                 not self._has_any_onboot_yes_device(self._device_configurations):
             onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(
-                conf.network.default_on_boot
-            )
+                conf.network.default_on_boot)
 
         log.debug("Configure ONBOOT: set to yes for %s (reqested) %s (policy)",
                   onboot_ifaces, onboot_ifaces_by_policy)
@@ -344,8 +340,7 @@ class NetworkService(KickstartService):
         )
 
         task.succeeded_signal.connect(
-            lambda: self.log_task_result(task, root_path=conf.target.system_root)
-        )
+            lambda: self.log_task_result(task, root_path=conf.target.system_root))
         return task
 
     def configure_hostname_with_task(self, overwrite):
@@ -423,8 +418,7 @@ class NetworkService(KickstartService):
             return
         self._device_configurations = DeviceConfigurations(self.nm_client)
         self._device_configurations.configurations_changed.connect(
-            self.device_configurations_changed_cb
-        )
+            self.device_configurations_changed_cb)
         self._device_configurations.reload()
         self._device_configurations.connect()
         log.debug("Device configurations created: %s", self._device_configurations)
@@ -651,8 +645,8 @@ class NetworkService(KickstartService):
 
         if target_connections:
             if len(target_connections) > 1:
-                log.debug("Get dracut arguments: "
-                          "multiple connections found for traget %s: %s, taking the first one",
+                log.debug("Get dracut arguments: multiple connections found for traget %s: %s, "
+                          "taking the first one",
                           [con.get_uuid() for con in target_connections], target_ip)
             connection = target_connections[0]
         else:

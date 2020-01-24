@@ -152,14 +152,10 @@ class Iscsi(COMMANDS.Iscsi):
 
         if tg.iface:
             if not wait_for_network_devices([tg.iface]):
-                raise KickstartParseError(
-                    lineno=self.lineno,
-                    msg=_("Network interface \"{nic}\" required by iSCSI \"{iscsi_target}\" "
-                          "target is not up.").format(
-                              nic=tg.iface,
-                              iscsi_target=tg.target
-                          )
-                )
+                raise KickstartParseError(lineno=self.lineno,
+                                          msg=_("Network interface \"%(nic)s\" required by iSCSI "
+                                                "\"%(iscsiTarget)s\" target is not up.") %
+                                          {"nic": tg.iface, "iscsiTarget": tg.target})
 
         mode = iscsi.mode
         if mode == "none":
@@ -167,12 +163,11 @@ class Iscsi(COMMANDS.Iscsi):
                 network_proxy = NETWORK.get_proxy()
                 activated_ifaces = network_proxy.GetActivatedInterfaces()
                 iscsi.create_interfaces(activated_ifaces)
-        elif ((mode == "bind" and not tg.iface) or (mode == "default" and tg.iface)):
-            raise KickstartParseError(
-                lineno=self.lineno,
-                msg=_("iscsi --iface must be specified (binding used) either for all targets "
-                      "or for none")
-            )
+        elif ((mode == "bind" and not tg.iface)
+              or (mode == "default" and tg.iface)):
+            raise KickstartParseError(lineno=self.lineno,
+                                      msg=_("iscsi --iface must be specified (binding used) "
+                                            "either for all targets or for none"))
 
         try:
             if tg.target:
@@ -212,11 +207,8 @@ class Nvdimm(COMMANDS.Nvdimm):
                                             "found.").format(action.namespace), lineno=self.lineno)
 
             log.info("Reconfiguring the namespace %s to %s mode", action.namespace, action.mode)
-            nvdimm.reconfigure_namespace(
-                action.namespace,
-                action.mode,
-                sector_size=action.sectorsize
-            )
+            nvdimm.reconfigure_namespace(action.namespace, action.mode,
+                                         sector_size=action.sectorsize)
 
         elif action.action == NVDIMM_ACTION_USE:
             if action.namespace and action.namespace not in nvdimm.namespaces:

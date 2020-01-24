@@ -537,8 +537,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         else:
             if raid_data.fstype != "":
                 ty = raid_data.fstype
-            elif (raid_data.mountpoint == "/boot"
-                  and "mdarray" in storage.bootloader.stage2_device_types):
+            elif raid_data.mountpoint == "/boot" and \
+                    "mdarray" in storage.bootloader.stage2_device_types:
                 ty = storage.default_boot_fstype
             else:
                 ty = storage.default_fstype

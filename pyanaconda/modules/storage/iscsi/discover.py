@@ -34,7 +34,9 @@ log = get_module_logger(__name__)
 class ISCSIDiscoverTask(Task):
     """A task for discovering iSCSI nodes"""
 
-    def __init__(self, portal: Portal, credentials: Credentials,
+    def __init__(self,
+                 portal: Portal,
+                 credentials: Credentials,
                  interfaces_mode: IscsiInterfacesMode):
         """Create a new task.
 

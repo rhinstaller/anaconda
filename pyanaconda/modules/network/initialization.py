@@ -341,8 +341,8 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                     else:
                         log.debug("%s: %d connections found for %s", self.name, n_cons, master)
 
-                for name, con_uuid in get_master_slaves_from_ifcfgs(self._nm_client,
-                                                                    master, uuid=master_uuid):
+                for name, con_uuid in get_master_slaves_from_ifcfgs(self._nm_client, master,
+                                                                    uuid=master_uuid):
                     con = self._nm_client.get_connection_by_uuid(con_uuid)
                     cons_to_update.append((name, con))
 
