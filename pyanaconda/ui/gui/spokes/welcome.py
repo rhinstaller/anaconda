@@ -211,7 +211,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         if not widget:
             return
 
-        if not widget in self._origStrings:
+        if widget not in self._origStrings:
             self._origStrings[widget] = widget.get_label()
 
         before = self._origStrings[widget]
@@ -241,7 +241,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         # Retranslate the language (filtering) entry's placeholder text
         languageEntry = self.builder.get_object("languageEntry")
-        if not languageEntry in self._origStrings:
+        if languageEntry not in self._origStrings:
             self._origStrings[languageEntry] = languageEntry.get_placeholder_text()
 
         languageEntry.set_placeholder_text(_(self._origStrings[languageEntry]))

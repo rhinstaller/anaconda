@@ -1194,7 +1194,7 @@ def _try_disconnect(obj, callback):
     try:
         obj.disconnect_by_func(callback)
     except TypeError as e:
-        if not "nothing connected" in str(e):
+        if "nothing connected" not in str(e):
             log.debug("%s", e)
 
 

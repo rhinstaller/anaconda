@@ -397,7 +397,7 @@ class Hub(GUIObject, common.Hub):
 
         # This handler only runs for these two kinds of events, and only for
         # activate-type keys (space, enter) in the latter event's case.
-        if event and not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
+        if event and event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
             return
 
         if event and event.type == Gdk.EventType.KEY_RELEASE and \

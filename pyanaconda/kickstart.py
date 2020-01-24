@@ -346,8 +346,7 @@ class Timezone(RemovedCommand):
 
             self.packages.append(NTP_PACKAGE)
 
-            if not NTP_SERVICE in enabled_services and \
-                    not NTP_SERVICE in disabled_services:
+            if NTP_SERVICE not in enabled_services and NTP_SERVICE not in disabled_services:
                 enabled_services.append(NTP_SERVICE)
                 services_proxy.SetEnabledServices(enabled_services)
 

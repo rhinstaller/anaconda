@@ -349,7 +349,8 @@ class Accordion(Gtk.Box):
         from gi.repository import Gdk
 
         if event:
-            if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE, Gdk.EventType.FOCUS_CHANGE]:
+            if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE,
+                                  Gdk.EventType.FOCUS_CHANGE]:
                 return
 
             if event.type == Gdk.EventType.KEY_RELEASE and \
