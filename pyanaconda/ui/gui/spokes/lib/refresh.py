@@ -25,6 +25,7 @@ from pyanaconda.storage.initialization import reset_storage
 
 __all__ = ["RefreshDialog"]
 
+
 class RefreshDialog(GUIObject):
     builderObjects = ["refreshDialog"]
     mainWidgetName = "refreshDialog"

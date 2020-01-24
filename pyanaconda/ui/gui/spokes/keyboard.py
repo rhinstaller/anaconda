@@ -51,14 +51,17 @@ LAYOUT_SWITCHING_INFO = N_("%s to switch layouts.")
 
 ADD_LAYOUTS_INITIALIZE_THREAD = "AnaAddLayoutsInitializeThread"
 
+
 def _show_layout(column, renderer, model, itr, wrapper):
     return wrapper.get_layout_variant_description(model[itr][0])
+
 
 def _show_description(column, renderer, model, itr, wrapper):
     value = wrapper.get_switch_opt_description(model[itr][0])
     if model[itr][1]:
         value = "<b>%s</b>" % escape_markup(value)
     return value
+
 
 class AddLayoutDialog(GUIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore",
@@ -328,7 +331,6 @@ class KeyboardSpoke(NormalSpoke):
     def initialize(self):
         super().initialize()
         self.initialize_start()
-
 
         # set X keyboard defaults
         # - this needs to be done early in spoke initialization so that

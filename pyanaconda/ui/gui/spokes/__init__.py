@@ -26,6 +26,7 @@ log = get_module_logger(__name__)
 
 __all__ = ["StandaloneSpoke", "NormalSpoke"]
 
+
 # Inherit abstract methods from common.StandaloneSpoke
 # pylint: disable=abstract-method
 class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
@@ -50,6 +51,7 @@ class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
         # we are done, re-emit the continue clicked signal we "consumed" previously
         # so that the Anaconda GUI can switch to the next screen
         gtk_call_once(self.window.emit, "continue-clicked")
+
 
 # Inherit abstract methods from common.NormalSpoke
 # pylint: disable=abstract-method

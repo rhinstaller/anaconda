@@ -38,6 +38,7 @@ __all__ = ["UserSpoke"]
 
 FULLNAME_ERROR_MSG = N_("Full name can't contain the ':' character")
 
+
 class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     """
        .. inheritance-diagram:: UserSpoke
@@ -110,7 +111,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         :return: a UserData instance
         """
         return self._user_list[0]
-
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)

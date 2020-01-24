@@ -45,6 +45,7 @@ log = get_module_logger(__name__)
 # confused with anything else?
 TERMINATOR = object()
 
+
 def gtk_call_once(func, *args):
     """Wrapper for GLib.idle_add call that ensures the func is called
        only once.
@@ -144,6 +145,7 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
     run_in_loop(process_one_batch, (item_queue_instance, action, done_event))
     done_event.wait()
     log.debug("Finished applying %s on %s", action, object.__repr__(items))
+
 
 def timed_action(delay=300, threshold=750, busy_cursor=True):
     """
@@ -254,6 +256,7 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
     # will be used for the calls to the decorated function.
     return TimedAction
 
+
 @contextmanager
 def blockedHandler(obj, func):
     """Prevent a GLib signal handling function from being called during some
@@ -263,6 +266,7 @@ def blockedHandler(obj, func):
     yield
     obj.handler_unblock_by_func(func)
 
+
 def busyCursor():
     window = Gdk.get_default_root_window()
     if not window:
@@ -270,12 +274,14 @@ def busyCursor():
 
     window.set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
 
+
 def unbusyCursor():
     window = Gdk.get_default_root_window()
     if not window:
         return
 
     window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
+
 
 def ignoreEscape(dlg):
     """Prevent a dialog from accepting the escape keybinding, which emits a
@@ -293,6 +299,7 @@ def ignoreEscape(dlg):
     context = dlg.get_style_context()
     context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
+
 def setViewportBackground(vp, color="@theme_bg_color"):
     """Set the background color of the GtkViewport vp to be the same as the
        overall UI background.  This should not be called for every viewport,
@@ -304,6 +311,7 @@ def setViewportBackground(vp, color="@theme_bg_color"):
     context = vp.get_style_context()
     context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
+
 def fancy_set_sensitive(widget, value):
     """Set the sensitivity of a widget, and then set the sensitivity of
        all widgets it is a mnemonic widget for.  This has the effect of
@@ -314,6 +322,7 @@ def fancy_set_sensitive(widget, value):
     for w in widget.list_mnemonic_labels():
         w.set_sensitive(value)
 
+
 def really_hide(widget):
     """Some widgets need to be both hidden, and have no_show_all set on them
        to prevent them from being shown later when the screen is redrawn.
@@ -322,6 +331,7 @@ def really_hide(widget):
     widget.set_no_show_all(True)
     widget.hide()
 
+
 def really_show(widget):
     """Some widgets need to have no_show_all unset before they can also be
        shown, so they are displayed later when the screen is redrawn.  This
@@ -329,6 +339,7 @@ def really_show(widget):
     """
     widget.set_no_show_all(False)
     widget.show()
+
 
 def set_treeview_selection(treeview, item, col=0):
     """
@@ -370,6 +381,7 @@ def set_treeview_selection(treeview, item, col=0):
 
     return itr
 
+
 def setup_gtk_direction():
     """
     Set the right direction (RTL/LTR) of the Gtk widget's and their layout based
@@ -378,6 +390,7 @@ def setup_gtk_direction():
     """
 
     Gtk.Widget.set_default_direction(Gtk.get_locale_direction())
+
 
 def escape_markup(value):
     """
@@ -388,9 +401,11 @@ def escape_markup(value):
 
     return glib.markup_escape_text(str(value))
 
+
 # This will be populated by override_cell_property. Keys are tuples of (column, renderer).
 # Values are a dict of the form {property-name: (property-func, property-data)}.
 _override_cell_property_map = {}
+
 
 def override_cell_property(tree_column, cell_renderer, propname, property_func, data=None):
     """
@@ -424,6 +439,7 @@ def override_cell_property(tree_column, cell_renderer, propname, property_func, 
 
     _override_cell_property_map[(tree_column, cell_renderer)][propname] = (property_func, data)
 
+
 def find_first_child(parent, match_func):
     """
     Find the first child widget of a container matching the given function.
@@ -451,6 +467,8 @@ def find_first_child(parent, match_func):
 
 
 _widget_watch_list = {}
+
+
 def watch_children(widget, callback, user_data=None):
     """
     Call callback on widget and all children of widget as they are added.
@@ -495,6 +513,7 @@ def watch_children(widget, callback, user_data=None):
 
             _widget_watch_list[signal_key] = (add_signal, remove_signal)
 
+
 def unwatch_children(widget, callback, user_data=None):
     """
     Unregister a callback previously added with watch_children.
@@ -515,6 +534,7 @@ def unwatch_children(widget, callback, user_data=None):
     if isinstance(widget, Gtk.Container):
         for child in widget.get_children():
             unwatch_children(child, callback, user_data)
+
 
 def set_password_visibility(entry, visible):
     """Make the password in/visible."""

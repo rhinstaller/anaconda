@@ -598,6 +598,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         log.debug("updated connection %s:\n%s", connection_uuid,
                   connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
+
 def get_default_connection(iface, device_type):
     """Get default connection to be edited by the UI."""
     connection = NM.SimpleConnection.new()

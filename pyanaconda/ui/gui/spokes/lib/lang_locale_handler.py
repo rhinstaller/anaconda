@@ -33,6 +33,7 @@ from pyanaconda import localization
 from pyanaconda.core.util import strip_accents
 from pyanaconda.ui.gui.utils import set_treeview_selection, timed_action, override_cell_property
 
+
 class LangLocaleHandler(object):
     """
     Class that could be used as a mixin for screens handling languages or

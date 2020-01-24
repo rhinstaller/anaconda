@@ -37,6 +37,7 @@ __all__ = ["run_entropy_dialog"]
 # in milliseconds
 LOOP_TIMEOUT = 250
 
+
 @async_action_wait
 def run_entropy_dialog(ksdata, desired_entropy):
     """Show dialog with waiting for entropy"""
@@ -45,6 +46,7 @@ def run_entropy_dialog(ksdata, desired_entropy):
     dialog.run()
 
     return dialog.force_cont
+
 
 class EntropyDialog(GUIObject):
     builderObjects = ["entropyDialog"]

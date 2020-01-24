@@ -174,6 +174,7 @@ class InstallOptionsDialogBase(GUIObject):
         if not self._software_is_ready():
             Timer().timeout_sec(1, self._check_for_storage_thread, widget)
 
+
 class NeedSpaceDialog(InstallOptionsDialogBase):
     builderObjects = ["need_space_dialog"]
     mainWidgetName = "need_space_dialog"
@@ -207,6 +208,7 @@ class NeedSpaceDialog(InstallOptionsDialogBase):
         self.builder.get_object("need_space_options_label").set_markup(label_text)
 
         self._add_modify_watcher(label)
+
 
 class NoSpaceDialog(InstallOptionsDialogBase):
     builderObjects = ["no_space_dialog"]
@@ -245,6 +247,7 @@ class NoSpaceDialog(InstallOptionsDialogBase):
         self.builder.get_object("no_space_options_label").set_markup(label_text)
 
         self._add_modify_watcher(label)
+
 
 class StorageSpoke(NormalSpoke, StorageCheckHandler):
     """

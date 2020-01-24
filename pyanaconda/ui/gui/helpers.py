@@ -51,6 +51,7 @@ def autoinstall_stopped(reason):
     if not flags.ksprompt:
         raise NonInteractiveError("Non interactive installation failed: %s" % reason)
 
+
 class GUIInputCheck(InputCheck):
     """ Add timer awareness to an InputCheck.
 
@@ -77,6 +78,7 @@ class GUIInputCheck(InputCheck):
             self.update_check_status.run_now()
 
         return super().check_status
+
 
 # Inherit abstract methods from InputCheckHandler
 # pylint: disable=abstract-method
@@ -116,6 +118,7 @@ class GUIInputCheckHandler(InputCheckHandler, metaclass=ABCMeta):
             return False
         else:
             return True
+
 
 class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """Provide InputCheckHandler functionality for Gtk dialogs.
@@ -178,6 +181,7 @@ class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
         else:
             return True
 
+
 class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """Provide InputCheckHandler functionality for graphical spokes.
 
@@ -201,7 +205,6 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
         self._password_confirmation_entry = None
         self._password_bar = None
         self._password_label = None
-
 
     @property
     def checker(self):

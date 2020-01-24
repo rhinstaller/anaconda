@@ -22,6 +22,7 @@ __all__ = ["UserInterface"]
 import copy
 from pyanaconda.core.util import collect
 
+
 class PathDict(dict):
     """Dictionary class supporting + operator"""
     def __add__(self, ext):
@@ -33,6 +34,7 @@ class PathDict(dict):
                 new_dict[key] = value[:]
 
         return new_dict
+
 
 class UserInterface(object):
     """This is the base class for all kinds of install UIs.  It primarily

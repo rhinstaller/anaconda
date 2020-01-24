@@ -69,6 +69,7 @@ DEFAULT_TZ = "America/New_York"
 
 SPLIT_NUMBER_SUFFIX_RE = re.compile(r'([^0-9]*)([-+])([0-9]+)')
 
+
 def _compare_regions(reg_xlated1, reg_xlated2):
     """Compare two pairs of regions and their translations."""
 
@@ -85,6 +86,7 @@ def _compare_regions(reg_xlated1, reg_xlated2):
     else:
         # otherwise compare the translated names
         return locale_mod.strcoll(xlated1, xlated2)
+
 
 def _compare_cities(city_xlated1, city_xlated2):
     """Compare two paris of cities and their translations."""
@@ -130,6 +132,7 @@ def _compare_cities(city_xlated1, city_xlated2):
         # compare prefixes
         return locale_mod.strcoll(prefix1, prefix2)
 
+
 def _new_date_field_box(store):
     """
     Creates new date field box (a combobox and a label in a horizontal box) for
@@ -150,6 +153,7 @@ def _new_date_field_box(store):
     box.pack_start(suffix_label, False, False, 0)
 
     return (box, combo, suffix_label)
+
 
 class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["ntpConfigDialog", "addImage", "serversStore"]
@@ -240,7 +244,6 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             self._add_server(pool, True)
         for server in servers:
             self._add_server(server, False)
-
 
     def _validateServer(self, inputcheck):
         server = self.get_input(inputcheck.input_obj)
@@ -394,6 +397,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         self._serversStore.set_value(itr, SERVER_WORKING, constants.NTP_SERVER_QUERY)
 
         self._refresh_server_working(itr)
+
 
 class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     """

@@ -52,10 +52,12 @@ iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)
 # namedtuple for information about a keyboard layout (its language and description)
 LayoutInfo = namedtuple("LayoutInfo", ["lang", "desc"])
 
+
 class XklWrapperError(KeyboardConfigError):
     """Exception class for reporting libxklavier-related problems"""
 
     pass
+
 
 class XklWrapper(object):
     """
