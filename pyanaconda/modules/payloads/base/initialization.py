@@ -65,7 +65,7 @@ class UpdateBLSConfigurationTask(Task):
         :param sysroot: a path to the root of the installed system
         :type sysroot: str
         :param kernel_version_list: list of kernel versions for updating of BLS configuration
-        :type krenel_version_list: list(str)
+        :type kernel_version_list: list(str)
         """
         super().__init__()
         self._sysroot = sysroot

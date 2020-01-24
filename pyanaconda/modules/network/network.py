@@ -119,7 +119,7 @@ class NetworkService(KickstartService):
     def default_device_specification(self, specification):
         """Set the default specification for missing kickstart --device option.
 
-        :param specifiacation: device specification accepted by network --device option
+        :param specification: device specification accepted by network --device option
         :type specification: str
         """
         self._default_device_specification = specification
@@ -522,7 +522,7 @@ class NetworkService(KickstartService):
     def bootif(self, specification):
         """Set the value of kickstart --device bootif option.
 
-        :param specifiacation: mac address specified by kickstart --device bootif option
+        :param specification: mac address specified by kickstart --device bootif option
         :type specification: str
         """
         self._bootif = specification

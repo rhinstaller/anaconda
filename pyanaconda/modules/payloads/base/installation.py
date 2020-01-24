@@ -35,7 +35,7 @@ class InstallFromImageTask(Task):
         :type dest_path: str
         :param kernel_version_list: list of kernel versions for rescue initrd images
                                     to be created
-        :type krenel_version_list: list(str)
+        :type kernel_version_list: list(str)
         """
         super().__init__()
         self._source = source

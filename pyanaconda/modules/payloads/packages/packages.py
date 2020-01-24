@@ -378,8 +378,8 @@ class PackagesModule(KickstartBaseModule):
     def set_broken_ignored(self, broken_ignored):
         """Set if the packages that have conflicts with other packages should be ignored.
 
-        :param missing_ignored: True if broken packages should be ignored.
-        :type missing_ignored: bool
+        :param broken_ignored: True if broken packages should be ignored.
+        :type broken_ignored: bool
         :raise: UnsupportedValueError if ignorebroken is disabled on this product.
         """
         if not conf.payload.enable_ignore_broken_packages:
