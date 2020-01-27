@@ -27,6 +27,7 @@ from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
 from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask, \
     ConfigureNTPServiceEnablementTask
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.ntp import NTP_CONFIG_FILE, NTPconfigError
@@ -204,6 +205,13 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         obj = check_task_creation(self, task_path, publisher, ConfigureNTPServiceEnablementTask)
         self.assertEqual(obj.implementation._ntp_enabled, False)
         self.assertEqual(obj.implementation._ntp_excluded, ntp_excluded)
+
+    def deprecated_warnings_test(self):
+        response = self.timezone_interface.ReadKickstart("timezone --isUtc Europe/Bratislava")
+        report = KickstartReport.from_structure(response)
+        self.assertIn("The option --isUtc will be deprecated in future releases",
+                      str(report.warning_messages[0]))
+        self.assertEqual(len(report.warning_messages), 1)
 
 
 class TimezoneTasksTestCase(unittest.TestCase):
