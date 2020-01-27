@@ -66,7 +66,8 @@ class ConfigureFirewallTask(Task):
         # whatever was provided by the rpms or ostree to be the
         # default, do nothing.
         if self._firewall_mode == FirewallMode.USE_SYSTEM_DEFAULTS:
-            log.info("ks file instructs to use system defaults for firewall, skipping configuration.")
+            log.info("ks file instructs to use system defaults for firewall, "
+                     "skipping configuration.")
             return
 
         # enabled is None if neither --enable or --disable is passed

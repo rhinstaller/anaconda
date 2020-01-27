@@ -272,7 +272,13 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.network_device_configuration_changed()
 
-    def GetDracutArguments(self, iface: Str, target_ip: Str, hostname: Str, ibft: Bool) -> List[Str]:
+    def GetDracutArguments(
+        self,
+        iface: Str,
+        target_ip: Str,
+        hostname: Str,
+        ibft: Bool
+    ) -> List[Str]:
         """Get dracut arguments for the iface and iSCSI target.
 
         The dracut arguments would activate the iface in initramfs so that the

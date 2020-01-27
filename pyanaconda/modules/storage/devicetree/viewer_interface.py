@@ -135,7 +135,7 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return self.implementation.get_required_device_size(required_space)
 
-    def GetFileSystemFreeSpace(self,  mount_points: List[Str]) -> UInt64:
+    def GetFileSystemFreeSpace(self, mount_points: List[Str]) -> UInt64:
         """Get total file system free space on the given mount points.
 
         :param mount_points: a list of mount points

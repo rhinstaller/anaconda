@@ -94,7 +94,7 @@ class DeviceConfigurations(object):
         'team': NM.DeviceType.TEAM,
         'bridge': NM.DeviceType.BRIDGE,
         'infiniband': NM.DeviceType.INFINIBAND,
-        }
+    }
 
     def __init__(self, nm_client=None):
         self._device_configurations = None
@@ -127,7 +127,7 @@ class DeviceConfigurations(object):
             try:
                 self.nm_client.disconnect_by_func(cb)
             except TypeError as e:
-                if not "nothing connected" in str(e):
+                if "nothing connected" not in str(e):
                     log.debug("%s", e)
 
     def add(self, device_name=None, connection_uuid=None, device_type=None):
@@ -202,7 +202,7 @@ class DeviceConfigurations(object):
                     return True
             else:
                 log.debug("can't get remote connection of active connection "
-                            "of device %s", device.get_iface())
+                          "of device %s", device.get_iface())
         return False
 
     def _find_connection_uuid_of_device(self, device):

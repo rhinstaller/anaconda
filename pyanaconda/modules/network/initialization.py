@@ -21,9 +21,9 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.network_interface import NetworkInitializationTaskInterface
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
-    ensure_active_connection_for_device, update_connection_from_ksdata, add_connection_from_ksdata, \
-    bound_hwaddr_of_device, get_connections_available_for_iface, update_connection_values, \
-    commit_changes_with_autoconnection_blocked, is_ibft_connection
+    ensure_active_connection_for_device, update_connection_from_ksdata, \
+    add_connection_from_ksdata, bound_hwaddr_of_device, get_connections_available_for_iface, \
+    update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types
@@ -141,11 +141,9 @@ class ApplyKickstartTask(Task):
         if device:
             cons = device.get_available_connections()
             for con in cons:
-                if (con.get_interface_name() == iface and
-                    con.get_id() == iface):
+                if con.get_interface_name() == iface and con.get_id() == iface:
                     return con
         return None
-
 
 
 class ConsolidateInitramfsConnectionsTask(Task):
@@ -343,7 +341,8 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                     else:
                         log.debug("%s: %d connections found for %s", self.name, n_cons, master)
 
-                for name, con_uuid in get_master_slaves_from_ifcfgs(self._nm_client, master, uuid=master_uuid):
+                for name, con_uuid in get_master_slaves_from_ifcfgs(self._nm_client,
+                                                                    master, uuid=master_uuid):
                     con = self._nm_client.get_connection_by_uuid(con_uuid)
                     cons_to_update.append((name, con))
 

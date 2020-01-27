@@ -91,7 +91,9 @@ class GetMissingKeyboardConfigurationTask(Task):
         :returns: tuple of X layouts and VC keyboard settings
         :rtype: (list(str), str))
         """
-        return get_missing_keyboard_configuration(self._localed_wrapper, self._x_layouts, self._vc_keymap)
+        return get_missing_keyboard_configuration(self._localed_wrapper,
+                                                  self._x_layouts,
+                                                  self._vc_keymap)
 
 
 class ApplyKeyboardTask(Task):

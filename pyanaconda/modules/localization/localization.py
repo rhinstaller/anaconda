@@ -94,7 +94,6 @@ class LocalizationService(KickstartService):
 
         self.set_keyboard_seen(data.keyboard.seen)
 
-
     def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")

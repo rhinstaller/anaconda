@@ -29,8 +29,9 @@ from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.services.services_interface import ServicesInterface
-from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, ConfigurePostInstallationToolsTask, \
-        ConfigureServicesTask, ConfigureSystemdDefaultTargetTask, ConfigureDefaultDesktopTask
+from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, \
+    ConfigurePostInstallationToolsTask, ConfigureServicesTask, ConfigureSystemdDefaultTargetTask, \
+    ConfigureDefaultDesktopTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

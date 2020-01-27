@@ -426,9 +426,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             cert = storage.get_escrow_certificate(partition_data.escrowcert)
 
             # Get the version of LUKS and PBKDF arguments.
-            partition_data.luks_version = partition_data.luks_version \
-                                          or storage.default_luks_version
-
+            partition_data.luks_version = (partition_data.luks_version
+                                           or storage.default_luks_version)
             pbkdf_args = get_pbkdf_args(
                 luks_version=partition_data.luks_version,
                 pbkdf_type=partition_data.pbkdf,
@@ -538,7 +537,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         else:
             if raid_data.fstype != "":
                 ty = raid_data.fstype
-            elif raid_data.mountpoint == "/boot" and "mdarray" in storage.bootloader.stage2_device_types:
+            elif (raid_data.mountpoint == "/boot"
+                  and "mdarray" in storage.bootloader.stage2_device_types):
                 ty = storage.default_boot_fstype
             else:
                 ty = storage.default_fstype

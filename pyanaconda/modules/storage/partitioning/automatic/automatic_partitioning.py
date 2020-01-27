@@ -231,7 +231,8 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         log.debug("requests:\n%s", "".join([str(p) for p in requests]))
         log.debug("encrypted: %s", encrypted)
         log.debug("storage.disks: %s", [d.name for d in storage.disks])
-        log.debug("storage.partitioned: %s", [d.name for d in storage.partitioned if d.format.supported])
+        log.debug("storage.partitioned: %s",
+                  [d.name for d in storage.partitioned if d.format.supported])
         log.debug("all names: %s", [d.name for d in storage.devices])
         log.debug("boot disk: %s", getattr(storage.bootloader.stage1_disk, "name", None))
 
