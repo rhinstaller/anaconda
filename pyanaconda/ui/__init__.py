@@ -73,7 +73,9 @@ class UserInterface(object):
 
     @classmethod
     def update_paths(cls, pathdict):
-        """Receives pathdict and appends it's contents to the current class defined search path dictionary."""
+        """Receives pathdict and appends its contents to the current class defined search path
+        dictionary.
+        """
         for k, v in pathdict.items():
             cls.paths.setdefault(k, [])
             cls.paths[k].extend(v)
@@ -89,13 +91,16 @@ class UserInterface(object):
         """Run the interface.
 
         This should do little more than just pass through to something else's run method,
-        but is provided here in case more is needed.  This method must be provided by all subclasses.
+        but is provided here in case more is needed.  This method must be provided by all
+        subclasses.
         """
         raise NotImplementedError
 
     @property
     def meh_interface(self):
-        """Returns an interface for exception handling (defined by python-meh's AbstractIntf class)."""
+        """Returns an interface for exception handling
+        (defined by python-meh's AbstractIntf class).
+        """
         raise NotImplementedError
 
     ###
@@ -144,14 +149,19 @@ class UserInterface(object):
         """
         standalones = []
 
+        def is_ok_to_import(obj):
+            return issubclass(obj, standalone_class) \
+                   and getattr(obj, "preForHub", False) \
+                   or getattr(obj, "postForHub", False)
+
         for module_pattern, path in module_pattern_w_path:
-            standalones.extend(collect(module_pattern, path, lambda obj: issubclass(obj, standalone_class) and \
-                                       getattr(obj, "preForHub", False) or getattr(obj, "postForHub", False)))
+            standalones.extend(collect(module_pattern, path, is_ok_to_import))
 
         return standalones
 
     def _orderActionClasses(self, spokes, hubs):
-        """Order all the Hub and Spoke classes which should be enqueued for processing according to their pre/post dependencies.
+        """Order all the Hub and Spoke classes which should be enqueued for processing according
+        to their pre/post dependencies.
 
         :param spokes: the classes we are to about order according
                        to the hub dependencies
@@ -164,10 +174,12 @@ class UserInterface(object):
 
         actionClasses = []
         for hub in hubs:
-            actionClasses.extend(sorted(filter(lambda obj, h=hub: getattr(obj, "preForHub", None) == h, spokes),
-                                        key=lambda obj: obj.priority))
+            actionClasses.extend(sorted(
+                filter(lambda obj, h=hub: getattr(obj, "preForHub", None) == h, spokes),
+                key=lambda obj: obj.priority))
             actionClasses.append(hub)
-            actionClasses.extend(sorted(filter(lambda obj, h=hub: getattr(obj, "postForHub", None) == h, spokes),
-                                        key=lambda obj: obj.priority))
+            actionClasses.extend(sorted(
+                filter(lambda obj, h=hub: getattr(obj, "postForHub", None) == h, spokes),
+                key=lambda obj: obj.priority))
 
         return actionClasses

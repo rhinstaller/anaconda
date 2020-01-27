@@ -34,7 +34,8 @@ from pyanaconda.ui.tui.tuiobject import Dialog, report_if_failed
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.core.i18n import N_, _, C_
 
-from pyanaconda.core.regexes import IPV4_PATTERN_WITH_ANCHORS, IPV4_NETMASK_WITH_ANCHORS, IPV4_OR_DHCP_PATTERN_WITH_ANCHORS
+from pyanaconda.core.regexes import IPV4_PATTERN_WITH_ANCHORS, IPV4_NETMASK_WITH_ANCHORS, \
+    IPV4_OR_DHCP_PATTERN_WITH_ANCHORS
 from pyanaconda.core.constants import ANACONDA_ENVIRON
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -88,7 +89,8 @@ class WiredTUIConfigurationData():
         elif ip4_method == NM.SETTING_IP4_CONFIG_METHOD_DISABLED:
             self.ip = ""
         else:
-            log.error("Unexpected ipv4 method %s found in connection %s", ip4_method, connection_uuid)
+            log.error("Unexpected ipv4 method %s found in connection %s",
+                      ip4_method, connection_uuid)
             self.ip = "dhcp"
         self.gateway = ip4_config.get_gateway() or ""
 
@@ -107,7 +109,8 @@ class WiredTUIConfigurationData():
             else:
                 log.error("No ip6 address found for manual method in %s", connection_uuid)
         else:
-            log.error("Unexpected ipv6 method %s found in connection %s", ip6_method, connection_uuid)
+            log.error("Unexpected ipv6 method %s found in connection %s",
+                      ip6_method, connection_uuid)
             self.ipv6 = "auto"
         self.ipv6gateway = ip6_config.get_gateway() or ""
 
@@ -324,7 +327,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self.window.add_with_separator(TextWidget(self.errors.pop()))
 
         dialog = Dialog(_("Host Name"))
-        self._container.add(TextWidget(_("Set host name")), callback=self._set_hostname_callback, data=dialog)
+        self._container.add(TextWidget(_("Set host name")), callback=self._set_hostname_callback,
+                            data=dialog)
 
         for device_configuration in self.editable_configurations:
             iface = device_configuration.device_name
@@ -462,13 +466,16 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
         dialog = Dialog(title=(_('IPv4 address or %s for DHCP') % '"dhcp"'),
                         conditions=[self._check_ipv4_or_dhcp])
-        self._container.add(EntryWidget(dialog.title, self._data.ip), self._set_ipv4_or_dhcp, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.ip), self._set_ipv4_or_dhcp,
+                            dialog)
 
         dialog = Dialog(title=_("IPv4 netmask"), conditions=[self._check_netmask])
-        self._container.add(EntryWidget(dialog.title, self._data.netmask), self._set_netmask, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.netmask), self._set_netmask,
+                            dialog)
 
         dialog = Dialog(title=_("IPv4 gateway"), conditions=[self._check_ipv4])
-        self._container.add(EntryWidget(dialog.title, self._data.gateway), self._set_ipv4_gateway, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.gateway), self._set_ipv4_gateway,
+                            dialog)
 
         msg = (_('IPv6 address[/prefix] or %(auto)s for automatic, %(dhcp)s for DHCP, '
                  '%(ignore)s to turn off')
@@ -477,10 +484,13 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         self._container.add(EntryWidget(dialog.title, self._data.ipv6), self._set_ipv6, dialog)
 
         dialog = Dialog(title=_("IPv6 default gateway"), conditions=[self._check_ipv6])
-        self._container.add(EntryWidget(dialog.title, self._data.ipv6gateway), self._set_ipv6_gateway, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.ipv6gateway),
+                            self._set_ipv6_gateway, dialog)
 
-        dialog = Dialog(title=_("Nameservers (comma separated)"), conditions=[self._check_nameservers])
-        self._container.add(EntryWidget(dialog.title, self._data.nameserver), self._set_nameservers, dialog)
+        dialog = Dialog(title=_("Nameservers (comma separated)"),
+                        conditions=[self._check_nameservers])
+        self._container.add(EntryWidget(dialog.title, self._data.nameserver),
+                            self._set_nameservers, dialog)
 
         msg = _("Connect automatically after reboot")
         w = CheckboxWidget(title=msg, completed=self._data.onboot)
@@ -564,7 +574,8 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 if self._data.ip != "dhcp" and not self._data.netmask:
-                    self.errors.append(_("Configuration not saved: netmask missing in static configuration"))
+                    self.errors.append(_(
+                        "Configuration not saved: netmask missing in static configuration"))
                 else:
                     self.apply()
                 return InputState.PROCESSED_AND_CLOSE

@@ -134,7 +134,8 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         prompt = NormalTUISpoke.prompt(self, args)
         prompt.set_message(_("Please select language support to install"))
         # TRANSLATORS: 'b' to go back
-        prompt.add_option(C_("TUI|Spoke Navigation|Language Support", "b"), _("to return to language list"))
+        prompt.add_option(C_("TUI|Spoke Navigation|Language Support", "b"),
+                          _("to return to language list"))
         return prompt
 
     def apply(self):

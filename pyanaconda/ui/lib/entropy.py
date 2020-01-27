@@ -87,7 +87,8 @@ def _tui_wait(msg, desired_entropy):
     secs = 0
     while cur_entr < desired_entropy and secs <= MAX_ENTROPY_WAIT:
         remaining = (MAX_ENTROPY_WAIT - secs) / 60.0
-        print(_("Available entropy: %(av_entr)s, Required entropy: %(req_entr)s [%(pct)d %%] (%(rem)d %(min)s remaining)")
+        print(_("Available entropy: %(av_entr)s, Required entropy: "
+                "%(req_entr)s [%(pct)d %%] (%(rem)d %(min)s remaining)")
                 % {"av_entr": cur_entr, "req_entr": desired_entropy,
                    "pct": int((float(cur_entr) / desired_entropy) * 100),
                    "min": P_("minute", "minutes", remaining),

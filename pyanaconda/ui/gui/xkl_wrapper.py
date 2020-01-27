@@ -40,7 +40,8 @@ from collections import namedtuple
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
-from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, KeyboardConfigError, InvalidLayoutVariantSpec
+from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, KeyboardConfigError, \
+    InvalidLayoutVariantSpec
 from pyanaconda.core.async_utils import async_action_wait
 
 from pyanaconda.anaconda_loggers import get_module_logger

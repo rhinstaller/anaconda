@@ -87,7 +87,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         if constants.ANACONDA_ENVIRON in flags.environs:
             ntp_servers = self._timezone_module.NTPServers
         elif constants.FIRSTBOOT_ENVIRON in flags.environs:
-            ntp_servers = ntp.get_servers_from_config()[1]  # returns a (NPT pools, NTP servers) tupple
+            ntp_servers = ntp.get_servers_from_config()[1]  # returns a (pools,servers) tuple
         else:
             log.error("tui time spoke: unsupported environment configuration %s,"
                       "can't decide where to get initial NTP servers", flags.environs)
@@ -244,7 +244,8 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
         self._container.add(TextWidget(timezone_option), callback=self._timezone_callback)
-        self._container.add(TextWidget(_("Configure NTP servers")), callback=self._configure_ntp_server_callback)
+        self._container.add(TextWidget(_("Configure NTP servers")),
+                            callback=self._configure_ntp_server_callback)
 
         self.window.add_with_separator(self._container)
 
@@ -286,12 +287,15 @@ class TimeZoneSpoke(NormalTUISpoke):
         # needs to be unsorted in order to display in the same order as the GUI
         # so whatever
         self._regions = list(timezone.get_all_regions_and_timezones().keys())
-        self._timezones = dict((k, sorted(v)) for k, v in timezone.get_all_regions_and_timezones().items())
+        self._timezones = dict((k, sorted(v)) for k, v
+                               in timezone.get_all_regions_and_timezones().items())
         self._lower_regions = [r.lower() for r in self._regions]
 
-        self._zones = ["%s/%s" % (region, z) for region in self._timezones for z in self._timezones[region]]
+        self._zones = ["%s/%s" % (region, z) for region
+                       in self._timezones for z in self._timezones[region]]
         # for lowercase lookup
-        self._lower_zones = [z.lower().replace("_", " ") for region in self._timezones for z in self._timezones[region]]
+        self._lower_zones = [z.lower().replace("_", " ") for region
+                             in self._timezones for z in self._timezones[region]]
         self._selection = ""
 
         self._timezone_module = TIMEZONE.get_proxy()
@@ -309,7 +313,8 @@ class TimeZoneSpoke(NormalTUISpoke):
         if args and args in self._timezones:
             self.window.add(TextWidget(_("Available timezones in region %s") % args))
             for tz in self._timezones[args]:
-                self._container.add(TextWidget(tz), self._select_timezone_callback, CallbackTimezoneArgs(args, tz))
+                self._container.add(TextWidget(tz), self._select_timezone_callback,
+                                    CallbackTimezoneArgs(args, tz))
         else:
             self.window.add(TextWidget(_("Available regions")))
             for region in self._regions:
@@ -486,7 +491,8 @@ class RemoveNTPServerSpoke(NormalTUISpoke):
     def _summary_text(self):
         """Return a numbered listing of NTP servers."""
         msg = ""
-        for index, status in enumerate(format_ntp_status_list(self._time_spoke.ntp_servers), start=1):
+        for index, status in enumerate(format_ntp_status_list(self._time_spoke.ntp_servers),
+                                       start=1):
             msg += "%d) %s" % (index, status)
             if index < len(self._time_spoke.ntp_servers):
                 msg += "\n"

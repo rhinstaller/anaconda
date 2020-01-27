@@ -194,9 +194,13 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         StorageCheckHandler.check_storage(self)
 
         if self.errors:
-            self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
+            self.set_warning(_(
+                "Error checking storage configuration.  <a href=\"\">Click for details</a>"
+                " or press Done again to continue."))
         elif self.warnings:
-            self.set_warning(_("Warning checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
+            self.set_warning(_(
+                "Warning checking storage configuration.  <a href=\"\">Click for details</a>"
+                " or press Done again to continue."))
 
         # on_info_bar_clicked requires self._error to be set, so set it to the
         # list of all errors and warnings that storage checking found.
@@ -276,7 +280,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
                                 message_format=msg)
         dlg.set_decorated(False)
         dlg.add_buttons(C_("GUI|Custom Partitioning|Reset Dialog", "_Reset selections"), 0,
-                        C_("GUI|Custom Partitioning|Reset Dialog", "_Preserve current selections"), 1)
+                        C_("GUI|Custom Partitioning|Reset Dialog", "_Preserve current selections"), 1)  # pylint: disable=line-too-long
         dlg.set_default_response(1)
 
         with self.main_window.enlightbox(dlg):

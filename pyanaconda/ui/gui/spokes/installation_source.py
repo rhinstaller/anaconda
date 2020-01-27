@@ -1087,7 +1087,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
 
     def _http_active(self):
-        return self._protocol_combo_box.get_active_id() in [PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_MIRROR]
+        return self._protocol_combo_box.get_active_id() \
+               in [PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_MIRROR]
 
     def _ftp_active(self):
         return self._protocol_combo_box.get_active_id() == PROTOCOL_FTP

@@ -479,7 +479,8 @@ class StandaloneSpoke(Spoke):
     def __init__(self, storage, payload):
         """Create a StandaloneSpoke instance."""
         if self.preForHub and self.postForHub:
-            raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
+            raise AttributeError("StandaloneSpoke instance %s may not have both"
+                                 " preForHub and postForHub set" % self)
 
         super().__init__(storage, payload)
 
@@ -610,12 +611,16 @@ def collect_spokes(mask_paths, category):
        :rtype: list of Spoke classes
 
     """
+    def is_spoke_in_category(obj):
+        return hasattr(obj, "category") \
+               and obj.category is not None \
+               and obj.category.__name__ == category
+
     spokes = []
     for mask, path in mask_paths:
-        candidate_spokes = (collect(mask, path,
-                            lambda obj: hasattr(obj, "category") and obj.category is not None and obj.category.__name__ == category))
-        # filter out any spokes from the candidates that have already been visited by the user before
-        # (eq. before Anaconda or Initial Setup started) and should not be visible again
+        candidate_spokes = (collect(mask, path, is_spoke_in_category))
+        # Filter out any spokes from the candidates that have already been visited by the user
+        # before (eg. before Anaconda or Initial Setup started) and should not be visible again.
         visible_spokes = []
         hidden_spokes = conf.ui.hidden_spokes
         for candidate in candidate_spokes:

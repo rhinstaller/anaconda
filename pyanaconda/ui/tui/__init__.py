@@ -217,7 +217,8 @@ class TextUserInterface(ui.UserInterface):
         """Run the interface.
 
         This should do little more than just pass through to something else's run method,
-        but is provided here in case more is needed.  This method must be provided by all subclasses.
+        but is provided here in case more is needed.  This method must be provided by all
+        subclasses.
         """
         return App.run()
 

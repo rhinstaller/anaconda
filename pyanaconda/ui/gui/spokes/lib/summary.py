@@ -48,12 +48,13 @@ class ActionSummaryDialog(GUIObject):
                     mountpoint = getattr(action.device.format, "mountpoint", "")
 
             if hasattr(action.device, "description"):
-                desc = _("%(description)s (%(deviceName)s)") % {"deviceName": action.device.name,
-                                                                "description": action.device.description}
+                desc = _("%(description)s (%(deviceName)s)") % \
+                       {"deviceName": action.device.name, "description": action.device.description}
                 serial = action.device.serial
             elif hasattr(action.device, "disk"):
-                desc = _("%(deviceName)s on %(container)s") % {"deviceName": action.device.name,
-                                                               "container": action.device.disk.description}
+                desc = _("%(deviceName)s on %(container)s") % \
+                       {"deviceName": action.device.name,
+                        "container": action.device.disk.description}
                 serial = action.device.disk.serial
             else:
                 desc = action.device.name

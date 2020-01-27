@@ -63,8 +63,10 @@ class LangLocaleHandler(object):
         # Load arrows from resources. Unfortunately, Gtk.Image.new_from_resource does not
         # work for some reason, so we should use GdkPixbuf.Pixbuf.new_from_resource instead.
         resource_path = "/org/fedoraproject/anaconda/widgets/"
-        self._right_arrow = GdkPixbuf.Pixbuf.new_from_resource(resource_path + "right-arrow-icon.png")
-        self._left_arrow = GdkPixbuf.Pixbuf.new_from_resource(resource_path + "left-arrow-icon.png")
+        self._right_arrow = GdkPixbuf.Pixbuf.new_from_resource(
+            resource_path + "right-arrow-icon.png")
+        self._left_arrow = GdkPixbuf.Pixbuf.new_from_resource(
+            resource_path + "left-arrow-icon.png")
 
         # Render an arrow for the chosen language.
         override_cell_property(self._langSelectedColumn, self._langSelectedRenderer,

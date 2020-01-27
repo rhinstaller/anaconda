@@ -71,7 +71,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._password_bar = self.builder.get_object("password_bar")
         self._password_label = self.builder.get_object("password_label")
         self._lock = self.builder.get_object("lock")
-        self._root_password_ssh_login_override = self.builder.get_object("root_password_ssh_login_override")
+        self._root_password_ssh_login_override = self.builder.get_object(
+            "root_password_ssh_login_override")
 
         # Install the password checks:
         # - Has a password been specified?
@@ -87,9 +88,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         )
         # configure the checker for password checking
         self.checker.secret_type = constants.SecretType.PASSWORD
-        # remove any placeholder texts if either password or confirmation field changes content from initial state
+        # remove any placeholder texts if either password or confirmation field changes content
+        # from initial state
         self.checker.password.changed_from_initial_state.connect(self.remove_placeholder_texts)
-        self.checker.password_confirmation.changed_from_initial_state.connect(self.remove_placeholder_texts)
+        self.checker.password_confirmation.changed_from_initial_state.connect(
+            self.remove_placeholder_texts)
         # connect UI updates to check results
         self.checker.checks_done.connect(self._checks_done)
 

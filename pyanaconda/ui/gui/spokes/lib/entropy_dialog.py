@@ -84,9 +84,10 @@ class EntropyDialog(GUIObject):
             remaining = (MAX_ENTROPY_WAIT * 1000 - self._num_loops * LOOP_TIMEOUT) / 1000 / 60.0
 
             self._progress_bar.set_fraction(current_fraction)
-            self._progress_bar.set_text("%(pct)d %% (%(rem)d %(min)s remaining)" % {"pct": (int(current_fraction * 100)),
-                                                                                    "rem": math.ceil(remaining),
-                                                                                    "min": P_("minute", "minutes", int(remaining))})
+            self._progress_bar.set_text("%(pct)d %% (%(rem)d %(min)s remaining)" %
+                                        {"pct": (int(current_fraction * 100)),
+                                         "rem": math.ceil(remaining),
+                                         "min": P_("minute", "minutes", int(remaining))})
 
             # if we have enough our time ran out, terminate the dialog, but let
             # the progress_bar refresh in the main loop

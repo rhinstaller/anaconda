@@ -199,7 +199,8 @@ class Hub(GUIObject, common.Hub):
 
             row = category_row
 
-            label = Gtk.Label(label="<span size=\"larger\" weight=\"bold\">%s</span>" % escape_markup(_(obj.title)),
+            label = Gtk.Label(label="<span size=\"larger\" weight=\"bold\">%s</span>" %
+                                    escape_markup(_(obj.title)),
                               use_markup=True, halign=Gtk.Align.START, valign=Gtk.Align.END,
                               margin_bottom=6, wrap=True, xalign=0.0)
 
@@ -221,7 +222,8 @@ class Hub(GUIObject, common.Hub):
         if hub_controller:
             hub_controller.all_modules_added()
         else:
-            log.error("Initialization controller for hub %s expected but missing.", self.__class__.__name__)
+            log.error("Initialization controller for hub %s expected but missing.",
+                      self.__class__.__name__)
 
         spokeArea = self.window.get_spoke_area()
         viewport = Gtk.Viewport()
@@ -266,7 +268,8 @@ class Hub(GUIObject, common.Hub):
                     self._autoContinue = False
                     self._checker_ignore = True
         else:
-            warning = _("Please complete items marked with this icon before continuing to the next step.")
+            warning = _("Please complete items marked with this icon before continuing to the"
+                        " next step.")
 
         # Check that this warning isn't already set to avoid spamming the
         # info bar with incomplete spoke messages when the hub starts
@@ -281,7 +284,9 @@ class Hub(GUIObject, common.Hub):
 
     @property
     def continuePossible(self):
-        return len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0 and (getattr(self._checker, "success", True) or self._checker_ignore)
+        return len(self._incompleteSpokes) == 0 \
+               and len(self._notReadySpokes) == 0 \
+               and (getattr(self._checker, "success", True) or self._checker_ignore)
 
     def _updateContinueButton(self):
         self.window.set_may_continue(self.continuePossible)
@@ -400,7 +405,8 @@ class Hub(GUIObject, common.Hub):
             return
 
         if event and event.type == Gdk.EventType.KEY_RELEASE and \
-           event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
+           event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter,
+                                Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
             return
 
         if selector:
@@ -471,15 +477,18 @@ class Hub(GUIObject, common.Hub):
 
         # create a list of all spokes in reverse alphabetic order, we will pop() from it when
         # processing all the spokes so the screenshots will actually be in alphabetic order
-        self._spokesToStepIn = list(reversed(sorted(self._spokes.values(), key=lambda x: x.__class__.__name__)))
+        self._spokesToStepIn = list(reversed(sorted(self._spokes.values(),
+                                                    key=lambda x: x.__class__.__name__)))
 
-        # we can't just loop over all the spokes due to the asynchronous nature of GtkStack, so we start by
-        # autostepping to the first spoke, this will trigger a callback that steps to the next spoke,
-        # until we run out of unvisited spokes
+        # we can't just loop over all the spokes due to the asynchronous nature of GtkStack, so we
+        # start by autostepping to the first spoke, this will trigger a callback that steps to the
+        # next spoke, until we run out of unvisited spokes
         self._autostepSpoke()
 
     def _autostepSpoke(self):
-        """Process a single spoke, if no more spokes are available report autostep as finished for the hub."""
+        """Process a single spoke, if no more spokes are available report autostep as finished for
+        the hub.
+        """
         # do we have some spokes to work on ?
         if self._spokesToStepIn:
             # take one of them
@@ -488,10 +497,13 @@ class Hub(GUIObject, common.Hub):
             # increment the number of processed spokes
             self._spokeAutostepIndex += 1
 
-            log.debug("stepping to spoke %s (%d/%d)", spoke.__class__.__name__, self._spokeAutostepIndex, len(self._spokes))
+            log.debug("stepping to spoke %s (%d/%d)",
+                      spoke.__class__.__name__,
+                      self._spokeAutostepIndex,
+                      len(self._spokes))
 
-            # notify the spoke about the upcoming automatic entry and set a callback that will be called
-            # once the spoke has been successfully processed
+            # notify the spoke about the upcoming automatic entry and set a callback that will be
+            # called once the spoke has been successfully processed
             spoke.automaticEntry = True
             spoke.autostepDoneCallback = lambda x: self._autostepSpoke()
 

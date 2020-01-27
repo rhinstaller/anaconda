@@ -51,7 +51,8 @@ def _get_best_help_file(help_folder, help_file):
         log.warning("help folder %s for help file %s does not exist", help_folder, help_file)
         return None
 
-    help_langs = [l for l in os.listdir(help_folder) if os.path.isfile(os.path.join(help_folder, l, help_file))]
+    help_langs = [l for l in os.listdir(help_folder)
+                  if os.path.isfile(os.path.join(help_folder, l, help_file))]
 
     best_lang = find_best_locale_match(current_lang, help_langs)
     if not best_lang and current_lang != DEFAULT_LANG:

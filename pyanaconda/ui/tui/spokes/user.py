@@ -116,7 +116,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
 
         # refresh the user list
-        self._user_list = get_user_list(self._users_module, add_default=True, add_if_not_empty=self._user_cleared)
+        self._user_list = get_user_list(self._users_module,
+                                        add_default=True,
+                                        add_if_not_empty=self._user_cleared)
 
         self._is_admin = self.user.has_admin_priviledges()
         self._groups = ", ".join(self.user.groups)
@@ -128,10 +130,14 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         if self._create_user:
             dialog = Dialog(title=_("Full name"), conditions=[self._check_fullname])
-            self._container.add(EntryWidget(dialog.title, self.user.gecos), self._set_fullname, dialog)
+            self._container.add(EntryWidget(dialog.title, self.user.gecos),
+                                self._set_fullname,
+                                dialog)
 
             dialog = Dialog(title=_("User name"), conditions=[self._check_username])
-            self._container.add(EntryWidget(dialog.title, self.user.name), self._set_username, dialog)
+            self._container.add(EntryWidget(dialog.title, self.user.name),
+                                self._set_username,
+                                dialog)
 
             w = CheckboxWidget(title=_("Use password"), completed=self._use_password)
             self._container.add(w, self._set_use_password)

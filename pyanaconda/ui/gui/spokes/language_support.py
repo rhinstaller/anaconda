@@ -91,8 +91,10 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         languageNameColumn = self.builder.get_object("nameColumn")
         nativeNameRenderer = self.builder.get_object("nativeNameRenderer")
         englishNameRenderer = self.builder.get_object("englishNameRenderer")
-        override_cell_property(languageNameColumn, nativeNameRenderer, "weight", self._mark_selected_language_bold)
-        override_cell_property(languageNameColumn, englishNameRenderer, "weight", self._mark_selected_language_bold)
+        override_cell_property(languageNameColumn, nativeNameRenderer,
+                               "weight", self._mark_selected_language_bold)
+        override_cell_property(languageNameColumn, englishNameRenderer,
+                               "weight", self._mark_selected_language_bold)
 
         # If a language has selected locales, highlight every column so that
         # the row appears highlighted

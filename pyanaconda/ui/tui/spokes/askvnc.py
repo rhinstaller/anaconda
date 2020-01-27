@@ -128,8 +128,8 @@ class VNCPassSpoke(NormalTUISpoke):
         if message:
             self._message = message
         else:
-            self._message = _("Please provide VNC password (must be six to eight characters long).\n"
-                              "You will have to type it twice. Leave blank for no password")
+            self._message = _("Please provide VNC password (must be six to eight characters long)."
+                              "\nYou will have to type it twice. Leave blank for no password")
 
     @property
     def indirect(self):

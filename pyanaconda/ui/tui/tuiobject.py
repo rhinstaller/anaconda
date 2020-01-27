@@ -24,7 +24,8 @@ from pyanaconda import input_checking
 from pyanaconda.core.i18n import _
 from pyanaconda.core.users import crypt_password
 
-from simpleline.render.adv_widgets import ErrorDialog, GetInputScreen, GetPasswordInputScreen, YesNoDialog
+from simpleline.render.adv_widgets import ErrorDialog, GetInputScreen, GetPasswordInputScreen, \
+    YesNoDialog
 from simpleline.render.screen import UIScreen, Prompt
 from simpleline.render.screen_handler import ScreenHandler
 
@@ -128,7 +129,8 @@ class Dialog(object):
 
         :param conditions: Optional acceptance conditions. If condition is not valid the
                           `wrong_input_message` is printed and user must set correct value.
-        :type conditions: A function func(user_input, report_func) -> bool taking user input and returning bool.
+        :type conditions: A function func(user_input, report_func) -> bool taking user input and
+                          returning bool.
                           See `report_func` parameter for report_func specification.
 
         :param report_func: Function for printing errors and warnings from conditions.
@@ -186,7 +188,8 @@ class Dialog(object):
     def run(self):
         """Get input from user, run the condition functions and call setter callback at the end.
 
-        Repeat asking user for input to the time when all the acceptance conditions will be satisfied.
+        Repeat asking user for input to the time when all the acceptance conditions will be
+        satisfied.
         """
         screen = GetInputScreen(self._user_prompt)
         if self._conditions:
@@ -272,7 +275,9 @@ class PasswordDialog(Dialog):
 
             if password_check.result.error_message:
                 weak_prefix = _(constants.SECRET_WEAK_WITH_ERROR[self._secret_type])
-                error = "{} {} {}".format(weak_prefix, password_check.result.error_message, done_msg)
+                error = "{} {} {}".format(weak_prefix,
+                                          password_check.result.error_message,
+                                          done_msg)
             else:
                 weak_prefix = _(constants.SECRET_WEAK[self._secret_type])
                 error = "{} {}".format(weak_prefix, done_msg)

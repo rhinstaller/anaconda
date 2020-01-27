@@ -301,9 +301,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # configure the checker for password checking
         self.checker.username = self.username
         self.checker.secret_type = constants.SecretType.PASSWORD
-        # remove any placeholder texts if either password or confirmation field changes content from initial state
+        # remove any placeholder texts if either password or confirmation field changes content
+        # from initial state
         self.checker.password.changed_from_initial_state.connect(self.remove_placeholder_texts)
-        self.checker.password_confirmation.changed_from_initial_state.connect(self.remove_placeholder_texts)
+        self.checker.password_confirmation.changed_from_initial_state.connect(
+            self.remove_placeholder_texts)
         # connect UI updates to check results
         self.checker.checks_done.connect(self._checks_done)
 
@@ -427,7 +429,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # a requested user has been cleared from the list in previous
         # spoke visit we need to have an empty user instance prepended
         # to the list.
-        self._user_list = get_user_list(self._users_module, add_default=True, add_if_not_empty=self._requested_user_cleared)
+        self._user_list = get_user_list(self._users_module,
+                                        add_default=True,
+                                        add_if_not_empty=self._requested_user_cleared)
 
         self.username = self.user.name
         self.fullname = self.user.gecos

@@ -429,7 +429,11 @@ class MainWindow(Gtk.Window):
         # Stop the window from being closed here
         return True
 
-    def _on_overlay_get_child_position(self, overlay_container, overlayed_widget, allocation, user_data=None):
+    def _on_overlay_get_child_position(self,
+                                       overlay_container,
+                                       overlayed_widget,
+                                       allocation,
+                                       user_data=None):
         overlay_allocation = overlay_container.get_allocation()
 
         # Scale the overlayed image's pixbuf to the size of the GtkOverlay
@@ -503,7 +507,9 @@ class MainWindow(Gtk.Window):
         # Connect to mnemonics-visible to add the (F1) mnemonic to the button label
         if self._mnemonic_signal:
             self.disconnect(self._mnemonic_signal)
-        self._mnemonic_signal = self.connect("notify::mnemonics-visible", self._on_mnemonics_visible_changed, child)
+        self._mnemonic_signal = self.connect("notify::mnemonics-visible",
+                                             self._on_mnemonics_visible_changed,
+                                             child)
 
         self._stack.set_visible_child(child.window)
 
@@ -834,7 +840,8 @@ class GraphicalUserInterface(UserInterface):
             self._currentAction.refresh()
 
             self._currentAction.window.set_beta(not self._isFinal)
-            self._currentAction.window.set_property("distribution", self._distributionText().upper())
+            self._currentAction.window.set_property("distribution",
+                                                    self._distributionText().upper())
 
             # Set some program-wide settings.
             settings = Gtk.Settings.get_default()

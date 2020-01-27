@@ -887,7 +887,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._device_container_name = request.container_name or None
         self._device_container_raid_level = get_raid_level_by_name(request.container_raid_level)
         self._device_container_encrypted = request.container_encrypted
-        self._device_container_size = get_container_size_policy_by_number(request.container_size_policy)
+        self._device_container_size = get_container_size_policy_by_number(
+            request.container_size_policy)
 
         self._device_container_raid_level = \
             self._device_container_raid_level or \

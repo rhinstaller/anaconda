@@ -207,9 +207,15 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
 class NetworkControlBox(GObject.GObject):
 
     __gsignals__ = {
-        "nm-state-changed": (GObject.SignalFlags.RUN_LAST, GObject.TYPE_NONE, []),
-        "device-state-changed": (GObject.SignalFlags.RUN_LAST, GObject.TYPE_NONE, [str, int, int, int]),
-        "apply-hostname": (GObject.SignalFlags.RUN_LAST, GObject.TYPE_NONE, []),
+        "nm-state-changed": (GObject.SignalFlags.RUN_LAST,
+                             GObject.TYPE_NONE,
+                             []),
+        "device-state-changed": (GObject.SignalFlags.RUN_LAST,
+                                 GObject.TYPE_NONE,
+                                 [str, int, int, int]),
+        "apply-hostname": (GObject.SignalFlags.RUN_LAST,
+                           GObject.TYPE_NONE,
+                           []),
     }
 
     supported_device_types = [
@@ -540,8 +546,9 @@ class NetworkControlBox(GObject.GObject):
             if device and device.get_state() == NM.DeviceState.ACTIVATED:
                 # Reactivate the connection after configuring it (if it changed)
                 settings = con.to_dbus(NM.ConnectionSerializationFlags.ALL)
-                settings_changed = lambda: settings != con.to_dbus(NM.ConnectionSerializationFlags.ALL)
-                activate = (con, device, settings_changed)
+                activate = (con,
+                            device,
+                            lambda: settings != con.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
         log.info("configuring connection %s device %s ssid %s",
                  con.get_uuid(), iface, ssid)
@@ -555,7 +562,8 @@ class NetworkControlBox(GObject.GObject):
 
     def _run_nmce(self, uuid, activate):
         self.kill_nmce(msg="Configure button clicked")
-        proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % uuid], reset_lang=False)
+        proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % uuid],
+                            reset_lang=False)
         self._running_nmce = proc
 
         PidWatcher().watch_process(proc.pid, self.on_nmce_exited, activate)
@@ -666,7 +674,8 @@ class NetworkControlBox(GObject.GObject):
     def add_device(self, ty):
         log.info("adding device of type %s", ty)
         self.kill_nmce(msg="Add device button clicked")
-        proc = startProgram(["nm-connection-editor", "--keep-above", "--create", "--type=%s" % ty], reset_lang=False)
+        proc = startProgram(["nm-connection-editor", "--keep-above", "--create", "--type=%s" % ty],
+                            reset_lang=False)
         self._running_nmce = proc
 
         PidWatcher().watch_process(proc.pid, self.on_nmce_exited)
@@ -980,7 +989,8 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("remove_toolbutton").set_sensitive(True)
         elif dev_type == NM.DeviceType.WIFI:
             notebook.set_current_page(1)
-            self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ap is not None)
+            btn_wireless_options = self.builder.get_object("button_wireless_options")
+            btn_wireless_options.set_sensitive(self.selected_ap is not None)
 
     def _refresh_carrier_info(self):
         for row in self.dev_cfg_store:
@@ -1413,7 +1423,11 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
        .. inheritance-diagram:: NetworkSpoke
           :parts: 3
     """
-    builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
+    builderObjects = ["networkWindow",
+                      "liststore_wireless_network",
+                      "liststore_devices",
+                      "add_device_dialog",
+                      "liststore_add_device"]
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
     helpFile = "NetworkSpoke.xml"
@@ -1428,7 +1442,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.networking_changed = False
         self._network_module = NETWORK.get_proxy()
         self._nm_client = network.get_nm_client()
-        self.network_control_box = NetworkControlBox(self.builder, self._nm_client, self._network_module, spoke=self)
+        self.network_control_box = NetworkControlBox(self.builder,
+                                                     self._nm_client,
+                                                     self._network_module,
+                                                     spoke=self)
         self.network_control_box.hostname = self._network_module.Hostname
         self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
         self._network_module.CurrentHostnameChanged.connect(self._hostname_changed)
@@ -1454,9 +1471,12 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if self.networking_changed:
             if self.payload and self.payload.needs_network:
                 if ANACONDA_ENVIRON in anaconda_flags.environs:
-                    log.debug("network spoke (apply), network configuration changed - restarting payload thread")
+                    log.debug("network spoke (apply), network configuration changed -"
+                              " restarting payload thread")
                     from pyanaconda.payload.manager import payloadMgr
-                    payloadMgr.restart_thread(self.payload, fallback=not anaconda_flags.automatedInstall, onlyOnChange=True)
+                    payloadMgr.restart_thread(self.payload,
+                                              fallback=not anaconda_flags.automatedInstall,
+                                              onlyOnChange=True)
                 else:
                     log.debug("network spoke (apply), network configuration changed - "
                               "skipping restart of payload thread, outside of Anaconda environment")
@@ -1561,7 +1581,12 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
        .. inheritance-diagram:: NetworkStandaloneSpoke
           :parts: 3
     """
-    builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
+    builderObjects = ["networkStandaloneWindow",
+                      "networkControlBox_vbox",
+                      "liststore_wireless_network",
+                      "liststore_devices",
+                      "add_device_dialog",
+                      "liststore_add_device"]
     mainWidgetName = "networkStandaloneWindow"
     uiFile = "spokes/network.glade"
 
@@ -1572,7 +1597,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         super().__init__(*args, **kwargs)
         self._network_module = NETWORK.get_proxy()
         self._nm_client = network.get_nm_client()
-        self.network_control_box = NetworkControlBox(self.builder, self._nm_client, self._network_module, spoke=self)
+        self.network_control_box = NetworkControlBox(self.builder, self._nm_client,
+                                                     self._network_module, spoke=self)
 
         self.network_control_box.hostname = self._network_module.Hostname
         self.network_control_box.current_hostname = self._network_module.GetCurrentHostname()
@@ -1602,7 +1628,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
         self._now_available = self.completed
 
-        log.debug("network standalone spoke (apply) payload: %s completed: %s", self.payload.base_repo, self._now_available)
+        log.debug("network standalone spoke (apply) payload: %s completed: %s",
+                  self.payload.base_repo, self._now_available)
         if (not self.payload.base_repo and not self._initially_available
             and self._now_available and self.payload.needs_network):
             from pyanaconda.payload.manager import payloadMgr

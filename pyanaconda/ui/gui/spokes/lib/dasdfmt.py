@@ -87,7 +87,9 @@ class DasdFormatDialog(GUIObject):
         self._notebook.set_current_page(1)
 
         # Format dasds and update the storage.
-        threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT, target=self.run_format, args=()))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT,
+                                     target=self.run_format,
+                                     args=()))
 
     def run_format(self):
         """Run the dasd formatting and update the storage."""

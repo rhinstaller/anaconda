@@ -352,8 +352,9 @@ class InputCheckHandler(object, metaclass=ABCMeta):
     @property
     def failed_checks_with_message(self):
         """A generator of all failed input checks with an error message"""
-        return (c for c in self._check_list \
-                if c.enabled and c.check_status not in (InputCheck.CHECK_OK, InputCheck.CHECK_SILENT))
+        return (c for c in self._check_list
+                if c.enabled
+                and c.check_status not in (InputCheck.CHECK_OK, InputCheck.CHECK_SILENT))
 
     @property
     def checks(self):

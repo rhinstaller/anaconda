@@ -347,11 +347,13 @@ class Accordion(Gtk.Box):
         from gi.repository import Gdk
 
         if event:
-            if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE, Gdk.EventType.FOCUS_CHANGE]:
+            if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE,
+                                  Gdk.EventType.FOCUS_CHANGE]:
                 return
 
             if event.type == Gdk.EventType.KEY_RELEASE and \
-               event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
+               event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter,
+                                    Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
                 return
 
             old_selector = self.current_selector
@@ -458,8 +460,8 @@ class BasePage(Gtk.Box):
 
 class Page(BasePage):
     """ A Page is a box that is stored in an Accordion.  It breaks down all the filesystems that
-        comprise a single installed OS into two categories - Data filesystems and System filesystems.
-        Each filesystem is described by a single MountpointSelector.
+        comprise a single installed OS into two categories - Data filesystems and System
+        filesystems. Each filesystem is described by a single MountpointSelector.
     """
     def __init__(self, title):
         super().__init__(title)
@@ -528,7 +530,8 @@ class CreateNewPage(BasePage):
         self._createBox.attach(dot, 0, 1, 1, 1)
 
         self._createNewButton = Gtk.LinkButton(uri="",
-                label=C_("GUI|Custom Partitioning|Autopart Page", "_Click here to create them automatically."))
+                label=C_("GUI|Custom Partitioning|Autopart Page",
+                         "_Click here to create them automatically."))
         label = self._createNewButton.get_children()[0]
         label.set_xalign(0)
         label.set_yalign(0.5)
@@ -567,7 +570,8 @@ class CreateNewPage(BasePage):
                               xalign=0, yalign=0.5, hexpand=True, wrap=True)
             self._createBox.attach(label, 1, 3, 1, 1)
 
-        label = Gtk.Label(label=C_("GUI|Custom Partitioning|Autopart Page", "_New mount points will use the following partitioning scheme:"),
+        label = Gtk.Label(label=C_("GUI|Custom Partitioning|Autopart Page",
+                                   "_New mount points will use the following partitioning scheme:"),
                           xalign=0, yalign=0.5, wrap=True, use_underline=True)
         self._createBox.attach(label, 0, 4, 2, 1)
         label.set_mnemonic_widget(combo)

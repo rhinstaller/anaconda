@@ -139,8 +139,8 @@ class InstallOptionsDialogBase(GUIObject):
                           "software": escape_markup(str(sw_space)),
                           "swap": escape_markup(str(auto_swap))})
         else:
-            sw_text = (_("Your current <a href=\"\" title=\"%(tooltip)s\"><b>%(product)s</b> software "
-                         "selection</a> requires <b>%(total)s</b> of available "
+            sw_text = (_("Your current <a href=\"\" title=\"%(tooltip)s\"><b>%(product)s</b> "
+                         "software selection</a> requires <b>%(total)s</b> of available "
                          "space, including <b>%(software)s</b> for software and "
                          "<b>%(swap)s</b> for swap space.")
                        % {"tooltip": escape_markup(tooltip),

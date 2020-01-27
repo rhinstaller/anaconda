@@ -1397,7 +1397,8 @@ def collect(module_pattern, path, pred):
             if module_path and "pyanaconda" in module_path:
                 # failure when importing our own module:
                 raise
-            log.error("Failed to import module %s from path %s in collect: %s", mod_name, module_path, imperr)
+            log.error("Failed to import module %s from path %s in collect: %s",
+                      mod_name, module_path, imperr)
             continue
         finally:
             if mod_info and mod_info[0]:  # pylint: disable=unsubscriptable-object

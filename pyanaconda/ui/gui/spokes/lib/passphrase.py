@@ -58,9 +58,10 @@ class PassphraseDialog(GUIObject):
         self._strength_bar.add_offset_value("high", 4)
 
         # Setup the password checker for passphrase checking
-        self._checker = input_checking.PasswordChecker(initial_password_content = self._passphrase_entry.get_text(),
-                                                       initial_password_confirmation_content = self._confirm_entry.get_text(),
-                                                       policy = input_checking.get_policy(self.data, "luks"))
+        self._checker = input_checking.PasswordChecker(
+            initial_password_content = self._passphrase_entry.get_text(),
+            initial_password_confirmation_content = self._confirm_entry.get_text(),
+            policy = input_checking.get_policy(self.data, "luks"))
         # configure the checker for passphrase checking
         self._checker.secret_type = constants.SecretType.PASSPHRASE
         # connect UI updates to check results
@@ -156,7 +157,8 @@ class PassphraseDialog(GUIObject):
         self._passphrase_good_enough = False
         if self._checker.success:
             self._passphrase_good_enough = True
-        elif len(self._checker.failed_checks) == 1 and self._validity_check in self._checker._failed_checks:
+        elif len(self._checker.failed_checks) == 1 \
+                and self._validity_check in self._checker._failed_checks:
             # only the password validity check failed
             if self._checker.policy.strict:
                 # this is not fine for the strict password policy
@@ -164,7 +166,8 @@ class PassphraseDialog(GUIObject):
             else:
                 # but is totally fine under the non-strict policy
                 self._passphrase_good_enough = True
-        elif len(self._checker.failed_checks) == 1 and self._ascii_check in self._checker._failed_checks:
+        elif len(self._checker.failed_checks) == 1 \
+                and self._ascii_check in self._checker._failed_checks:
             # enable the save button if only the ascii check has failed
             self._passphrase_good_enough = True
 
