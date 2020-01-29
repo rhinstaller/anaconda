@@ -190,18 +190,6 @@ class FilterPage(object):
         """Filter a row by the specified filter."""
         return True
 
-    def _get_long_identifier(self, disk):
-        # For iSCSI devices, we want the long ip-address:port-iscsi-tgtname-lun-XX
-        # identifier, but blivet doesn't expose that in any useful way and I don't
-        # want to go asking udev.  Instead, we dig around in the deviceLinks and
-        # default to the name if we can't figure anything else out.
-        for link in disk.device_links:
-            if "by-path" in link:
-                last_slash = link.rindex("/") + 1
-                return link[last_slash:]
-
-        return disk.name
-
 
 class SearchPage(FilterPage):
     # Match these to searchTypeCombo ids in glade
@@ -261,6 +249,18 @@ class SearchPage(FilterPage):
         else:
             return True
 
+    def _wwid_equal(self, device):
+        active = self._wwid_entry.get_text().strip()
+        if active:
+            if hasattr(device, "wwn"):
+                return active in device.wwn
+            elif hasattr(device, "id_path"):
+                return active in device.id_path
+            else:
+                return active in device.name
+        else:
+            return True
+
     def _filter_func(self, filter_by, device):
         if filter_by == self.SEARCH_TYPE_PORT_TARGET_LUN:
             return self._port_equal(device) \
@@ -268,8 +268,7 @@ class SearchPage(FilterPage):
                    and self._lun_equal(device)
 
         if filter_by == self.SEARCH_TYPE_WWID:
-            return self._wwid_entry.get_text() \
-                   in getattr(device, "wwn", self._get_long_identifier(device))
+            return self._wwid_equal(device)
 
         return False
 
@@ -370,7 +369,7 @@ class OtherPage(FilterPage):
                 True, selected, not disk.protected,
                 disk.name, "", disk.model, str(disk.size),
                 disk.vendor, disk.bus, disk.serial,
-                self._get_long_identifier(disk), "\n".join(paths), port, target,
+                disk.id_path or disk.name, "\n".join(paths), port, target,
                 lun, "", "", "", ""
             ])
 
@@ -498,7 +497,7 @@ class NvdimmPage(FilterPage):
                 True, selected, mutable,
                 disk.name, "", disk.model, str(disk.size),
                 disk.vendor, disk.bus, disk.serial,
-                self._get_long_identifier(disk), "\n".join(paths), "", "",
+                disk.id_path or disk.name, "\n".join(paths), "", "",
                 "", "", "", disk.devname, disk.mode
             ])
 

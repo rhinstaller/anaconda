@@ -96,6 +96,8 @@ class DeviceTreeViewer(ABC):
         # Collect the specialized data.
         if device.type == "dasd":
             self._set_device_data_dasd(device, data)
+        elif device.type == "fcoe":
+            self._set_device_data_fcoe(device, data)
         elif device.type == "iscsi":
             self._set_device_data_iscsi(device, data)
         elif device.type == "nvdimm":
@@ -133,17 +135,23 @@ class DeviceTreeViewer(ABC):
         """Set data for a DASD device."""
         data.attrs["bus-id"] = self._get_attribute(device, "busid")
 
+    def _set_device_data_fcoe(self, device, data):
+        """Set data for an FCoE device."""
+        data.attrs["path-id"] = self._get_attribute(device, "id_path")
+
     def _set_device_data_iscsi(self, device, data):
         """Set data for an iSCSI device."""
         data.attrs["port"] = self._get_attribute(device, "port")
         data.attrs["initiator"] = self._get_attribute(device, "initiator")
         data.attrs["lun"] = self._get_attribute(device, "lun")
         data.attrs["target"] = self._get_attribute(device, "target")
+        data.attrs["path-id"] = self._get_attribute(device, "id_path")
 
     def _set_device_data_nvdimm(self, device, data):
         """Set data for an NVDIMM device."""
         data.attrs["mode"] = self._get_attribute(device, "mode")
         data.attrs["namespace"] = self._get_attribute(device, "devname")
+        data.attrs["path-id"] = self._get_attribute(device, "id_path")
 
     def _set_device_data_zfcp(self, device, data):
         """Set data for a ZFCP device."""
