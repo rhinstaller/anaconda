@@ -353,6 +353,19 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 29 2020 Martin Kolman <mkolman@redhat.com> - 32.21-1
+- Add the path-id attribute to the DBus structure for device data (vponcova)
+- Use id_path as a long identifier of a disk (vponcova)
+- Migrate authselect to dbus tasks (mkolman)
+- Remove pyanaconda.flags.cmdline and KernelArguments.getbool() (vslavik)
+- Remove duplicated definition of PayloadContainer (vslavik)
+- Fix typos in docstrings (vslavik)
+- Fix setup-mock-test-env with multiple test commands (jkonecny)
+- Add support to run pylint only check (jkonecny)
+- Fix most of pep8 issues in pyanaconda/modules subfolder (rvykydal)
+- Convert VG reserved_space to Size (vtrefny)
+- Do not set default fstype for blivet-gui (vtrefny)
+
 * Mon Jan 20 2020 Martin Kolman <mkolman@redhat.com> - 32.20-1
 - Add the DBus method ChangeDevice (vponcova)
 - Add the task ChangeDeviceTask (vponcova)
