@@ -1,11 +1,18 @@
 #!/bin/bash
+# Start the Anaconda's Python module $1.
+# For example: ./start-module pyanaconda.modules.boss
 
-# add updates & product image directories to PYTHONPATH if
-# it looks like we are in the installation environment
+# Add Anaconda addons to the PYTHONPATH.
+PYTHONPATH="$PYTHONPATH:/usr/share/anaconda/addons"
 
+# Add updates & product image directories to PYTHONPATH if
+# it looks like we are in the installation environment.
 if [ -d "/run/install" ]; then
-  # Control will enter here if $DIRECTORY exists.
-  export PYTHONPATH=/run/install/updates:/run/install/product:/tmp/updates:/tmp/product
+  PYTHONPATH="/run/install/updates:/run/install/product:/tmp/updates:/tmp/product:$PYTHONPATH"
 fi
 
-python3 -m $1
+# Export the modified PYTHONPATH.
+export PYTHONPATH
+
+# Start a Python module in the detached mode.
+python3 -m $1 &
