@@ -378,7 +378,7 @@ class ErrorHandler(object):
 
         if exn.__class__.__name__ in _map:
             rc = _map[exn.__class__.__name__](exn)
-        elif getattr(exn, "dbus_name") and exn.dbus_name in _dbus_map:
+        elif hasattr(exn, "dbus_name") and exn.dbus_name in _dbus_map:
             rc = _dbus_map[exn.dbus_name](exn)
 
         return rc
