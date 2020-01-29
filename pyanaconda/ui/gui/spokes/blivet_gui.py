@@ -139,7 +139,6 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         self._back_already_clicked = False
 
-        config.default_fstype = self._storage.default_fstype
         self._storage_playground = self.storage.copy()
         self.client.initialize(self._storage_playground)
         self.blivetgui.initialize()
