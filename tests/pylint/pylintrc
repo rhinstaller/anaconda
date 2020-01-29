@@ -419,8 +419,12 @@ redefining-builtins-modules=six.moves,past.builtins,future.builtins,builtins,io
 [CLASSES]
 
 # List of method names used to declare (i.e. assign) instance attributes.
-defining-attr-methods=__init__,grabObjects,initialize,reset,start,setUp
+defining-attr-methods=__init__,
                       __new__,
+                      grabObjects,
+                      initialize,
+                      reset,
+                      start,
                       setUp
 
 # List of member names, which should be excluded from the protected access
