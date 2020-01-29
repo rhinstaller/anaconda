@@ -103,8 +103,7 @@ class KernelArguments():
         inst_prefix = "inst."
 
         for i in lst:
-            # drop the inst. prefix (if found), so that getbool() works
-            # consistently for both "foo=0" and "inst.foo=0"
+            # drop the inst. prefix (if found)
             if i.startswith(inst_prefix):
                 i = i[len(inst_prefix):]
 
@@ -141,28 +140,6 @@ class KernelArguments():
             return False
         else:
             return True
-
-    def getbool(self, arg, default=False):
-        """Return the boolean value of the given argument.
-
-        The rules are:
-        - "arg", "arg=val": True
-        - "noarg", "noarg=val", "arg=[0|off|no]": False
-
-        :param arg: a name of the argument
-        :param default: a default value
-        :return: a boolean value of the argument
-        """
-        result = default
-        for a in self._data:
-            if a == arg:
-                if self._data[arg] in ("0", "off", "no"):
-                    result = False
-                else:
-                    result = True
-            elif a == 'no' + arg:
-                result = False  # XXX: should noarg=off -> True?
-        return result
 
     def get(self, arg, default=None):
         """Return the value of the given argument.
