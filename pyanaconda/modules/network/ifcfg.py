@@ -171,8 +171,8 @@ def get_ifcfg_file_of_device(nm_client, device_name, device_hwaddr=None, root_pa
     :type nm_client: NM.Client
     :param device_name: name of the device
     :type device_name: str
-    :param hwaddr: hardware address of the device
-    :type hwaddr: str
+    :param device_hwaddr: hardware address of the device
+    :type device_hwaddr: str
     :param root_path: search in the filesystem specified by root path
     :type root_path: str
     :returns: ifcfg file object
@@ -444,7 +444,7 @@ def get_master_slaves_from_ifcfgs(nm_client, master_devname, root_path="", uuid=
     :param nm_client: instance of NetworkManager client
     :type nm_client: NM.Client
     :param master_devname: name of master device
-    :type devname: str
+    :type master_devname: str
     :param root_path: optional root path for ifcfg files
     :type root_path: str
     :param uuid: uuid of master connection (optional)

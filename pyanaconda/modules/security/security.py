@@ -183,7 +183,7 @@ class SecurityService(KickstartService):
     def handle_realm_discover_results(self, realm_data):
         """ Handle results from the RealmDiscover task.
 
-        :param results: an updated instance of realm data
+        :param realm_data: an updated instance of realm data
         """
         log.debug("Updating realm data with results from realm discover task.")
         self.set_realm(realm_data)

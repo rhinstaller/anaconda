@@ -148,7 +148,7 @@ class SetSshKeysTask(Task):
 
         :param str sysroot: a path to the root of the installed system
         :param ssh_key_data_list: list of keys to install
-        :type ssk_key_data_list: list of SshKeyData instances
+        :type ssh_key_data_list: list of SshKeyData instances
         """
         super().__init__()
         self._sysroot = sysroot

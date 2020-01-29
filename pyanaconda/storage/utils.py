@@ -185,7 +185,7 @@ def try_populate_devicetree(devicetree):
     them).
 
     :param devicetree: devicetree to try to populate
-    :type decicetree: :class:`blivet.devicetree.DeviceTree`
+    :type devicetree: :class:`blivet.devicetree.DeviceTree`
 
     """
 

@@ -315,7 +315,7 @@ class DownloadProgress(object):
         :param size: length of the file
         :type size: int
         :param report_callback: callback with progress message argument
-        :type task: callable taking str argument
+        :type report_callback: callable taking str argument
         """
         self.report = report_callback
         self.url = url

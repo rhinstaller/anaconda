@@ -542,8 +542,8 @@ def bound_hwaddr_of_device(nm_client, device_name, ifname_option_values):
     hwaddress of the device devname is the same as the MAC address, its value
     is returned.
 
-    :param devname: device name
-    :type devname: str
+    :param device_name: device name
+    :type device_name: str
     :param ifname_option_values: list of ifname boot option values
     :type ifname_option_values: list(str)
     :return: hwaddress of the device if bound, or None
@@ -659,7 +659,7 @@ def bind_settings_to_mac(nm_client, s_connection, s_wired, device_name=None, bin
     :param s_wired: wired setting to be updated
     :type s_wired: NM.SettingWired
     :param device_name: name of the device to be bound
-    :type evice_name: str
+    :type device_name: str
     :param bind_exclusively: remove reference to the device name from the settings
     :type bind_exclusively: bool
     :returns: True if the settings were modified, False otherwise
@@ -700,7 +700,7 @@ def bind_settings_to_device(nm_client, s_connection, s_wired, device_name=None,
     :param s_wired: wired setting to be updated
     :type s_wired: NM.SettingWired
     :param device_name: name of the device to be bound
-    :type evice_name: str
+    :type device_name: str
     :param bind_exclusively: remove reference to the mac address from the settings
     :type bind_exclusively: bool
     :returns: True if the settings were modified, False otherwise

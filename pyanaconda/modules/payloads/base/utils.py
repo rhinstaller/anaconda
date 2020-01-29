@@ -56,7 +56,7 @@ def write_module_blacklist(sysroot):
 def get_dir_size(directory):
     """Get the size of a directory and all its subdirectories.
 
-    :param dir: the name of the directory to find the size of
+    :param str directory: the name of the directory to find the size of
     :return: the size of the directory in kilobytes
     """
     def get_subdir_size(directory):

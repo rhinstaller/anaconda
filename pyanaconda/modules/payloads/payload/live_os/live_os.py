@@ -66,8 +66,9 @@ class LiveOSModule(PayloadBase):
         This payload is specific that it can't have more than only one source attached. It will
         instead replace the old source with the new one.
 
-        :param source: source object
-        :type source: instance of pyanaconda.modules.payloads.source.source_base.PayloadSourceBase
+        :param sources: source objects
+        :type sources:
+            list of pyanaconda.modules.payloads.source.source_base.PayloadSourceBase instances
         :raises: IncompatibleSourceError
         """
         if len(sources) > 1:
