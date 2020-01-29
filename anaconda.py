@@ -523,11 +523,14 @@ if __name__ == "__main__":
     if anaconda.methodstr and not ksdata.method.seen:
         startup_utils.set_installation_method_from_anaconda_options(anaconda, ksdata)
 
-    # Override the selinux state from kickstart if set on the command line
     from pyanaconda.modules.common.constants.services import SECURITY
+    security_proxy = SECURITY.get_proxy()
+    # Override the selinux state from kickstart if set on the command line
     if conf.security.selinux != constants.SELINUX_DEFAULT:
-        security_proxy = SECURITY.get_proxy()
         security_proxy.SetSELinux(conf.security.selinux)
+    # Enable fingerprint option by default (#481273).
+    if not flags.automatedInstall:
+        security_proxy.SetFingerprintAuthEnabled(True)
 
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.

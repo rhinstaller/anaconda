@@ -31,7 +31,8 @@ from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
-    RealmDiscoverTask, RealmJoinTask
+    RealmDiscoverTask, RealmJoinTask, ConfigureAuthselectTask, \
+    ConfigureAuthconfigTask, ConfigureFingerprintAuthTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -51,6 +52,9 @@ class SecurityService(KickstartService):
 
         self.authconfig_changed = Signal()
         self._authconfig_args = []
+
+        self.fingerprint_auth_enabled_changed = Signal()
+        self._fingerprint_auth_enabled = False
 
         self.realm_changed = Signal()
         self._realm = RealmData()
@@ -164,6 +168,26 @@ class SecurityService(KickstartService):
         log.debug("Authconfig is set to %s.", args)
 
     @property
+    def fingerprint_auth_enabled(self):
+        """Specifies if fingerprint authentication should be enabled.
+
+        :return: True if fingerprint authentication should be enabled, False otherwise
+        :rtype: bool
+        """
+        return self._fingerprint_auth_enabled
+
+    def set_fingerprint_auth_enabled(self, fingerprint_auth_enabled):
+        """Set if fingerprint authentication should be enabled.
+
+        :param bool fingerprint_auth_enabled: True if fingerprint authentication
+                                              should be enabled, False otherwise
+        """
+        self._fingerprint_auth_enabled = fingerprint_auth_enabled
+        self.fingerprint_auth_enabled_changed.emit()
+        log.debug("Fingerprint authentication enbled is set to %s.",
+                  self.fingerprint_auth_enabled)
+
+    @property
     def realm(self):
         """Specification of the enrollment in a realm.
 
@@ -199,6 +223,23 @@ class SecurityService(KickstartService):
         for name in self.realm.required_packages:
             requirements.append(Requirement.for_package(name, reason="Needed to join a realm."))
 
+        # Add authselect / authconfig requirements
+        if self.authselect or self.fingerprint_auth_enabled:
+            # we need the authselect package in two cases:
+            # - autselect command is used in kickstart
+            # - to configure fingerprint authentication
+            requirements.append(Requirement.for_package(
+                "authselect",
+                reason="Needed by authselect kickstart command & "
+                "for fingerprint authentication support."
+            ))
+
+        if self.authconfig:
+            requirements.append(Requirement.for_package(
+                "authselect-compat",
+                reason="Needed to support legacy authconfig kickstart command."
+            ))
+
         return requirements
 
     def discover_realm_with_task(self):
@@ -226,5 +267,20 @@ class SecurityService(KickstartService):
         :returns: list of installation tasks
         """
         return [
-            ConfigureSELinuxTask(sysroot=conf.target.system_root, selinux_mode=self.selinux)
+            ConfigureSELinuxTask(
+                sysroot=conf.target.system_root,
+                selinux_mode=self.selinux
+            ),
+            ConfigureFingerprintAuthTask(
+                sysroot=conf.target.system_root,
+                fingerprint_auth_enabled=self.fingerprint_auth_enabled
+            ),
+            ConfigureAuthselectTask(
+                sysroot=conf.target.system_root,
+                authselect_options=self.authselect
+            ),
+            ConfigureAuthconfigTask(
+                sysroot=conf.target.system_root,
+                authconfig_options=self.authconfig
+            )
         ]

@@ -89,7 +89,6 @@ def _prepare_configuration(storage, payload, ksdata):
 
     # schedule the execute methods of ksdata that require an installed system to be present
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
-    os_config.append(Task("Configure authselect", ksdata.authselect.execute))
 
     # add installation tasks for the Security DBus module
     security_proxy = SECURITY.get_proxy()
@@ -291,7 +290,6 @@ def _prepare_installation(storage, payload, ksdata):
     # - try to discover a realm (if any)
     # - check for possibly needed additional packages.
     pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
-    pre_install.append(Task("Setup authselect", ksdata.authselect.setup))
     # Setup timezone and add chrony as package if timezone was set in KS
     # and "-chrony" wasn't in packages section and/or --nontp wasn't set.
     pre_install.append(Task("Setup timezone", ksdata.timezone.setup, (ksdata,)))
@@ -312,7 +310,6 @@ def _prepare_installation(storage, payload, ksdata):
         # system is bootable and configurable, and some other packages in order
         # to finish setting up the system.
         payload.requirements.add_packages(storage.packages, reason="storage")
-        payload.requirements.add_packages(ksdata.authselect.packages, reason="authselect")
         payload.requirements.add_packages(ksdata.timezone.packages, reason="ntp", strong=False)
 
         if can_install_bootloader:
