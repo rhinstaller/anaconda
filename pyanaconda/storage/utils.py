@@ -449,21 +449,34 @@ def lookup_alias(devicetree, alias):
     return None
 
 
-def find_live_backing_device():
+def find_live_backing_device(devicetree):
     """Find the backing device for the live image.
 
     Note that this is a little bit of a hack since we're assuming
     that /run/initramfs/live will exist
 
-    :return: a device name or None
+    :param devicetree: a device tree
+    :return: a device or None
     """
     for mnt in open("/proc/mounts").readlines():
         if " /run/initramfs/live " not in mnt:
             continue
 
-        live_device_path = mnt.split()[0]
-        live_device_name = live_device_path.split("/")[-1]
-        return live_device_name or None
+        # Return the device mounted at /run/initramfs/live.
+        device_path = mnt.split()[0]
+        device_name = device_path.split("/")[-1]
+        device = devicetree.get_device_by_name(device_name, hidden=True)
+
+        if device:
+            return device
+
+        # Or return the disk of this device.
+        info = udev.get_device(device_node=device_path)
+        disk_name = udev.device_get_partition_disk(info) if info else ""
+        disk = devicetree.get_device_by_name(disk_name, hidden=True)
+
+        if disk:
+            return disk
 
     return None
 

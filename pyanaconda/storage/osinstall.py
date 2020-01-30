@@ -277,15 +277,12 @@ class InstallerStorage(Blivet):
                 protected.append(dev)
 
         # Find the live backing device and its parents.
-        live_device_name = find_live_backing_device()
+        live_device = find_live_backing_device(self.devicetree)
 
-        if live_device_name:
-            log.debug("Resolved live device to %s.", live_device_name)
-            dev = self.devicetree.get_device_by_name(live_device_name, hidden=True)
-
-            if dev is not None:
-                protected.append(dev)
-                protected.extend(dev.parents)
+        if live_device:
+            log.debug("Resolved live device to %s.", live_device.name)
+            protected.append(live_device)
+            protected.extend(live_device.parents)
 
         # For image installation setup_disk_images method marks all local
         # storage disks as ignored so they are protected from teardown.
