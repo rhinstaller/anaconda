@@ -244,6 +244,11 @@ class LiveImagePayload(Payload):
 class DownloadProgress(object):
     """ Provide methods for download progress reporting."""
 
+    def __init__(self):
+        self.url = ""
+        self.size = 0
+        self._pct = -1
+
     def start(self, url, size):
         """ Start of download
 
