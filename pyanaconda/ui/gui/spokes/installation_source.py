@@ -1085,7 +1085,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         return self._protocol_combo_box.get_active_id() == PROTOCOL_MIRROR and \
             self._network_button.get_active()
 
-
     def _http_active(self):
         return self._protocol_combo_box.get_active_id() in [PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_MIRROR]
 

@@ -192,6 +192,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
 
         self.data.method.method = None
 
+
 class InputCheck(object):
     """Handle an input validation check.
 
@@ -261,6 +262,7 @@ class InputCheck(object):
     @enabled.setter
     def enabled(self, value):
         self._enabled = value
+
 
 class InputCheckHandler(object, metaclass=ABCMeta):
     """Provide a framework for adding input validation checks to a screen.

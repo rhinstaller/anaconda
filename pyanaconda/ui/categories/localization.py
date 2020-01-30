@@ -22,6 +22,7 @@ from pyanaconda.ui.categories import SpokeCategory
 
 __all__ = ["LocalizationCategory"]
 
+
 class LocalizationCategory(SpokeCategory):
     sortOrder = 100
     title = N_("LOCALIZATION")

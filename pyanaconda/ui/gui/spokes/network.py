@@ -113,7 +113,9 @@ def localized_string_of_device_state(device, state):
 
     return s
 
+
 __all__ = ["NetworkSpoke", "NetworkStandaloneSpoke"]
+
 
 class CellRendererSignal(Gtk.CellRendererPixbuf):
 
@@ -128,7 +130,6 @@ class CellRendererSignal(Gtk.CellRendererPixbuf):
     def __init__(self):
         super().__init__()
         self.signal = 0
-
 
     def do_get_property(self, prop):
         if prop.name == 'signal':
@@ -168,6 +169,7 @@ NM_AP_SEC_NONE = 1
 NM_AP_SEC_WEP = 2
 NM_AP_SEC_WPA = 3
 NM_AP_SEC_WPA2 = 4
+
 
 class CellRendererSecurity(Gtk.CellRendererPixbuf):
 
@@ -332,7 +334,6 @@ class NetworkControlBox(GObject.GObject):
     def vbox(self):
         return self.builder.get_object("networkControlBox_vbox")
 
-
     def _add_ap_icons(self, combobox):
         cell = CellRendererSecurity()
         cell.set_padding(4, 0)
@@ -365,7 +366,6 @@ class NetworkControlBox(GObject.GObject):
         self.client.connect("notify::%s" % NM.CLIENT_STATE,
                             self.on_nm_state_changed)
 
-
         self._load_device_configurations()
         self._network_module.DeviceConfigurationChanged.connect(
             self.on_device_configurations_changed
@@ -377,7 +377,6 @@ class NetworkControlBox(GObject.GObject):
         itr = self.dev_cfg_store.get_iter_first()
         if itr:
             selection.select_iter(itr)
-
 
     def on_device_configurations_changed(self, changes):
         log.debug("device configurations changed: %s", changes)
@@ -1190,12 +1189,14 @@ class NetworkControlBox(GObject.GObject):
 
         return out
 
+
 def _try_disconnect(obj, callback):
     try:
         obj.disconnect_by_func(callback)
     except TypeError as e:
         if not "nothing connected" in str(e):
             log.debug("%s", e)
+
 
 class SecretAgentDialog(GUIObject):
     builderObjects = ["secret_agent_dialog"]
@@ -1263,10 +1264,13 @@ class SecretAgentDialog(GUIObject):
     def _update_connect_button(self):
         self._connect_button.set_sensitive(self.valid)
 
+
 secret_agent = None
+
 
 class NotAuthorizedException(dbus.DBusException):
     _dbus_error_name = SECRET_AGENT_IFACE + '.NotAuthorized'
+
 
 class SecretAgent(dbus.service.Object):
     def __init__(self, spoke):
@@ -1389,6 +1393,7 @@ class SecretAgent(dbus.service.Object):
             return 0 <= len(value) <= 64
         else:
             return True
+
 
 def register_secret_agent(spoke):
 
@@ -1555,6 +1560,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         """
         self.network_control_box.kill_nmce(msg="finished with network spoke")
         self.network_control_box.disconnect_client_callbacks()
+
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
     """

@@ -38,16 +38,20 @@ progressQ.addMessage("message", 1)          # message
 progressQ.addMessage("complete", 0)
 progressQ.addMessage("quit", 1)             # exit_code
 
+
 def progress_message(message):
     progressQ.send_message(_(message))
     log.info(message)
+
 
 def progress_step(message):
     progressQ.send_step()
     log.info(message)
 
+
 def progress_init(steps):
     progressQ.send_init(steps)
+
 
 def progress_complete():
     progressQ.send_complete()

@@ -36,6 +36,7 @@ from blivet.util import get_current_entropy
 
 from pyanaconda.core.i18n import _, P_
 
+
 def wait_for_entropy(msg, desired_entropy, ksdata):
     """
     Show UI dialog/message for waiting for desired random data entropy.
@@ -57,6 +58,7 @@ def wait_for_entropy(msg, desired_entropy, ksdata):
         return run_entropy_dialog(ksdata, desired_entropy)
     else:
         return _tui_wait(msg, desired_entropy)
+
 
 def _tui_wait(msg, desired_entropy):
     """Tell user we are waiting for entropy"""

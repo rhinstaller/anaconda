@@ -25,6 +25,7 @@ N_ = lambda x: x
 _ = lambda x: gettext.translation("anaconda", fallback=True).gettext(x) if x != "" else ""
 P_ = lambda x, y, z: gettext.translation("anaconda", fallback=True).ngettext(x, y, z)
 
+
 # This is equivalent to "pgettext" in GNU gettext. The pgettext functions
 # are not exported by Python, but all they really do is a stick a EOT
 # character between msgctxt and msgid and check that msgctxt isn't part
@@ -39,8 +40,10 @@ def C_(msgctxt, msgid):
     else:
         return translation
 
+
 # Mark as translatable with context
 CN_ = lambda c, x: x
+
 
 # npgettext; i.e., gettext with plural form and context
 def CP_(msgctxt, msgid, msgid_plural, n):

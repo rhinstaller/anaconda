@@ -63,6 +63,7 @@ STYLE_PROVIDER_PRIORITY_CUSTOM = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 15
 STYLE_PROVIDER_PRIORITY_UPDATES = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 20
 assert STYLE_PROVIDER_PRIORITY_UPDATES < Gtk.STYLE_PROVIDER_PRIORITY_USER
 
+
 class GUIObject(common.UIObject):
     """This is the base class from which all other GUI classes are derived.  It
        thus contains only attributes and methods that are common to everything
@@ -308,6 +309,7 @@ class GUIObject(common.UIObject):
         """
         self.window.set_warning(msg)
 
+
 class QuitDialog(GUIObject):
     builderObjects = ["quitDialog"]
     mainWidgetName = "quitDialog"
@@ -320,6 +322,7 @@ class QuitDialog(GUIObject):
             self.builder.get_object("quit_message").set_label(_(self.MESSAGE))
         rc = self.window.run()
         return rc
+
 
 class ErrorDialog(GUIObject):
     builderObjects = ["errorDialog", "errorTextBuffer"]
@@ -334,6 +337,7 @@ class ErrorDialog(GUIObject):
     def run(self):
         rc = self.window.run()
         return rc
+
 
 class MainWindow(Gtk.Window):
     """This is a top-level, full size window containing the Anaconda screens."""
@@ -639,6 +643,7 @@ class MainWindow(Gtk.Window):
         pixbuf.savev(fn, 'png', [], [])
         log.info("%s taken", screenshot_filename)
         self._screenshot_index += 1
+
 
 class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
@@ -1038,6 +1043,7 @@ class GraphicalUserInterface(UserInterface):
             self._currentAction.exited.emit(self._currentAction)
             util.ipmi_abort(scripts=self.data.scripts)
             sys.exit(0)
+
 
 class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
     """

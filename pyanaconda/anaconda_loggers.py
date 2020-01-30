@@ -42,29 +42,38 @@ def get_module_logger(module_name):
         module_name = module_name[11:]
     return logging.getLogger("anaconda.%s" % module_name)
 
+
 def get_anaconda_root_logger():
     return logging.getLogger(constants.LOGGER_ANACONDA_ROOT)
+
 
 def get_main_logger():
     return logging.getLogger(constants.LOGGER_MAIN)
 
+
 def get_stdout_logger():
     return logging.getLogger(constants.LOGGER_STDOUT)
+
 
 def get_program_logger():
     return logging.getLogger(constants.LOGGER_PROGRAM)
 
+
 def get_storage_logger():
     return logging.getLogger(constants.LOGGER_STORAGE)
+
 
 def get_packaging_logger():
     return logging.getLogger(constants.LOGGER_PACKAGING)
 
+
 def get_dnf_logger():
     return logging.getLogger(constants.LOGGER_DNF)
 
+
 def get_blivet_logger():
     return logging.getLogger(constants.LOGGER_BLIVET)
+
 
 def get_sensitive_info_logger():
     return logging.getLogger(constants.LOGGER_SENSITIVE_INFO)

@@ -30,6 +30,7 @@ log = get_module_logger(__name__)
 
 yelp_process = None
 
+
 def _get_best_help_file(help_folder, help_file):
     """
     Return the path to the best help file for the current language and available
@@ -70,6 +71,7 @@ def _get_best_help_file(help_folder, help_file):
     else:
         log.warning("no help content found for file %s", help_file)
         return None
+
 
 def get_help_path(help_file, plain_text=False):
     """
@@ -123,6 +125,7 @@ def get_help_path(help_file, plain_text=False):
     # a placeholder page, which should be always present
     return _get_best_help_file(HELP_DIR, placeholder)
 
+
 def start_yelp(help_path):
     """
     Start a new yelp process and make sure to kill any existing ones
@@ -138,6 +141,7 @@ def start_yelp(help_path):
     # the help path can be None and we need to prevent Popen
     # receiving None as an argument instead of a string
     yelp_process = startProgram(["yelp", help_path or ""], reset_lang=False)
+
 
 def kill_yelp():
     """Try to kill any existing yelp processes"""

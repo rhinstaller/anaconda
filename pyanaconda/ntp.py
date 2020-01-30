@@ -41,9 +41,11 @@ SRV_LINE_REGEXP = re.compile(r"^\s*(server|pool)\s*([-a-zA-Z.0-9]+)\s*[a-zA-Z]+\
 #treat pools as four servers with the same name
 SERVERS_PER_POOL = 4
 
+
 class NTPconfigError(Exception):
     """Exception class for NTP related problems"""
     pass
+
 
 def ntp_server_working(server):
     """
@@ -72,6 +74,7 @@ def ntp_server_working(server):
 
     return True
 
+
 def pools_servers_to_internal(pools, servers):
     ret = []
     for pool in pools:
@@ -79,6 +82,7 @@ def pools_servers_to_internal(pools, servers):
     ret.extend(servers)
 
     return ret
+
 
 def internal_to_pools_and_servers(pools_servers):
     server_nums = dict()
@@ -96,6 +100,7 @@ def internal_to_pools_and_servers(pools_servers):
             servers.extend(server_nums[item] * [item])
 
     return (pools, servers)
+
 
 def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
                             srv_regexp=SRV_LINE_REGEXP):
@@ -127,6 +132,7 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
         raise NTPconfigError(msg)
 
     return (pools, servers)
+
 
 def save_servers_to_config(pools, servers, conf_file_path=NTP_CONFIG_FILE,
                            srv_regexp=SRV_LINE_REGEXP, out_file_path=None):
@@ -198,6 +204,7 @@ def save_servers_to_config(pools, servers, conf_file_path=NTP_CONFIG_FILE,
 
             raise NTPconfigError(msg)
 
+
 def one_time_sync(server, callback=None):
     """
     Synchronize the system time with a given NTP server. Note that this
@@ -225,6 +232,7 @@ def one_time_sync(server, callback=None):
         callback(success)
 
     return success
+
 
 def one_time_sync_async(server, callback=None):
     """

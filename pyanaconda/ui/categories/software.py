@@ -22,6 +22,7 @@ from pyanaconda.ui.categories import SpokeCategory
 
 __all__ = ["SoftwareCategory"]
 
+
 class SoftwareCategory(SpokeCategory):
     sortOrder = 200
     title = N_("SOFTWARE")

@@ -22,6 +22,7 @@ from pyanaconda.ui.categories import SpokeCategory
 
 __all__ = ["UserSettingsCategory"]
 
+
 class UserSettingsCategory(SpokeCategory):
     sortOrder = 400
     title = N_("USER SETTINGS")

@@ -19,6 +19,7 @@
 import queue
 from pyanaconda.core.util import lowerASCII, upperASCII
 
+
 class QueueFactory(object):
     """Constructs a new object wrapping a Queue.Queue, complete with constants
        and sending functions for each type of message that can be put into the

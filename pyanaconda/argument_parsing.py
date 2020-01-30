@@ -41,6 +41,7 @@ LEFT_PADDING = 8  # the help text will start after 8 spaces
 RIGHT_PADDING = 8  # there will be 8 spaces left on the right
 DEFAULT_HELP_WIDTH = 80
 
+
 def get_help_width():
     """
     Try to detect the terminal window width size and use it to
@@ -78,6 +79,7 @@ def get_help_width():
         help_width = DEFAULT_HELP_WIDTH
 
     return help_width
+
 
 class AnacondaArgumentParser(ArgumentParser):
     """
@@ -252,6 +254,7 @@ class AnacondaArgumentParser(ArgumentParser):
         namespace = super().parse_args(args, namespace)
         return namespace
 
+
 def name_path_pairs(image_specs):
     """Processes and verifies image file specifications. Generates pairs
        of names and paths.
@@ -305,6 +308,7 @@ def name_path_pairs(image_specs):
         names_seen.append(name)
 
         yield name, path
+
 
 class HelpTextParser(object):
     """Class to parse help text from file and make it available to option
@@ -364,6 +368,7 @@ class HelpTextParser(object):
                 log.error("error reading help text file %s: %s", self._path, e)
 
         return self._help_text.get(option, "")
+
 
 def getArgumentParser(version_string, boot_cmdline=None):
     """Return the anaconda argument parser.

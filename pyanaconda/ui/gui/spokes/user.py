@@ -42,6 +42,7 @@ log = get_module_logger(__name__)
 
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
 
+
 class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
     """
        .. inheritance-diagram:: AdvancedUserDialog
@@ -210,6 +211,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
             return True
 
         return False
+
 
 class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     """

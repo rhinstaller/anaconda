@@ -43,6 +43,7 @@ __all__ = ["DATA_DEVICE", "SYSTEM_DEVICE",
 DATA_DEVICE = 0
 SYSTEM_DEVICE = 1
 
+
 def update_selector_from_device(selector, device, mountpoint=""):
     """Create a MountpointSelector from a Device object template.  This
        method should be used whenever constructing a new selector, or when
@@ -69,6 +70,7 @@ def update_selector_from_device(selector, device, mountpoint=""):
     selector.props.size = str(device.size)
     selector.props.mountpoint = mp
     selector.device = device
+
 
 def new_selector_from_device(device, mountpoint=""):
     selector = MountpointSelector(device.name, str(device.size))

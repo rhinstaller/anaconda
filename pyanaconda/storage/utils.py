@@ -105,6 +105,7 @@ MAX_SWAP_DISK_RATIO = Decimal('0.1')
 
 udev_device_dict_cache = None
 
+
 def size_from_input(input_str, units=None):
     """ Get a Size object from an input string.
 
@@ -131,6 +132,7 @@ def size_from_input(input_str, units=None):
         return None
 
     return size
+
 
 def device_type_from_autopart(autopart_type):
     """Get device type matching the given autopart type."""
@@ -178,6 +180,7 @@ def bound_size(size, device, old_size):
 
     return size
 
+
 def try_populate_devicetree(devicetree):
     """
     Try to populate the given devicetree while catching errors and dealing with
@@ -203,10 +206,12 @@ def try_populate_devicetree(devicetree):
 
     return
 
+
 def filter_unsupported_disklabel_devices(devices):
     """ Return input list minus any devices that exist on an unsupported disklabel. """
     return [d for d in devices
             if not any(not getattr(p, "disklabel_supported", True) for p in d.ancestors)]
+
 
 def device_name_is_disk(device_name, devicetree=None, refresh_udev_cache=False):
     """Report if the given device name corresponds to a disk device.
@@ -253,6 +258,7 @@ def device_name_is_disk(device_name, devicetree=None, refresh_udev_cache=False):
     else:
         device = devicetree.get_device_by_name(device_name)
         return device and device.is_disk
+
 
 def device_matches(spec, devicetree=None, disks_only=False):
     """Return names of block devices matching the provided specification.
@@ -330,6 +336,7 @@ def device_matches(spec, devicetree=None, disks_only=False):
 
     return matches
 
+
 def get_supported_filesystems():
     fs_types = []
     for cls in device_formats.values():
@@ -344,8 +351,10 @@ def get_supported_filesystems():
 
     return fs_types
 
+
 def get_supported_autopart_choices():
     return [c for c in AUTOPART_CHOICES if is_supported_device_type(AUTOPART_DEVICE_TYPES[c[1]])]
+
 
 def get_pbkdf_args(luks_version, pbkdf_type=None, max_memory_kb=0, iterations=0, time_ms=0):
     """Get the pbkdf arguments.

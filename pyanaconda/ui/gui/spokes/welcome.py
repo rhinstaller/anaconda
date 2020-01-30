@@ -47,6 +47,7 @@ log = get_module_logger(__name__)
 
 __all__ = ["WelcomeLanguageSpoke"]
 
+
 class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
     """
        .. inheritance-diagram:: WelcomeLanguageSpoke

@@ -30,6 +30,7 @@ from pyanaconda import lifecycle
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+
 class UIObject(object):
     """This is the base class from which all other UI classes are derived.  It
        thus contains only attributes and methods that are common to everything
@@ -100,6 +101,7 @@ class UIObject(object):
     def data(self):
         return self._data
 
+
 class FirstbootSpokeMixIn(object):
     """This MixIn class marks Spokes as usable for Firstboot
        and Anaconda.
@@ -155,6 +157,7 @@ class FirstbootOnlySpokeMixIn(object):
             return True
         else:
             return False
+
 
 class Spoke(object, metaclass=ABCMeta):
     """A Spoke is a single configuration screen.  There are several different
@@ -448,6 +451,7 @@ class NormalSpoke(Spoke):
         """
         return True
 
+
 # Inherit abstract methods from NormalSpoke
 # pylint: disable=abstract-method
 class StandaloneSpoke(Spoke):
@@ -489,6 +493,7 @@ class StandaloneSpoke(Spoke):
     @property
     def status(self):
         return None
+
 
 class Hub(object, metaclass=ABCMeta):
     """A Hub is an overview UI screen.  A Hub consists of one or more grids of
@@ -599,6 +604,7 @@ class Hub(object, metaclass=ABCMeta):
         """
         return self.__class__.__name__
 
+
 def collect_spokes(mask_paths, category):
     """Return a list of all spoke subclasses that should appear for a given
        category. Look for them in files imported as module_path % basename(f)
@@ -628,6 +634,7 @@ def collect_spokes(mask_paths, category):
 
     return spokes
 
+
 def collect_categories(mask_paths):
     """Return a list of all category subclasses. Look for them in modules
        imported as module_mask % basename(f) where f is name of all files in path.
@@ -638,6 +645,7 @@ def collect_categories(mask_paths):
         categories.extend(collect(mask, path, lambda obj: issubclass(obj, SpokeCategory)))
 
     return categories
+
 
 def collectCategoriesAndSpokes(paths, klass):
     """Collects categories and spokes to be displayed on this Hub

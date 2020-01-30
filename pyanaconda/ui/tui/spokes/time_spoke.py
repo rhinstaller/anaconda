@@ -53,6 +53,7 @@ def format_ntp_status_list(servers):
         status_list.append("%s (%s)" % (server, ntp_server_states[server_state]))
     return status_list
 
+
 __all__ = ["TimeSpoke"]
 
 

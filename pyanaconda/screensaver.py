@@ -32,6 +32,7 @@ SCREENSAVER_UNINHIBIT_METHOD = "UnInhibit"
 SCREENSAVER_APPLICATION = "anaconda"
 SCREENSAVER_REASON = "Installing"
 
+
 def inhibit_screensaver(connection):
     """
     Inhibit the screensaver idle timer.
@@ -52,6 +53,7 @@ def inhibit_screensaver(connection):
         log.info("Unable to inhibit the screensaver: %s", e)
 
     return None
+
 
 def uninhibit_screensaver(connection, inhibit_id):
     """

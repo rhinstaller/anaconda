@@ -297,4 +297,5 @@ def get_platform():
     else:
         raise SystemError("Could not determine system architecture.")
 
+
 platform = get_platform()

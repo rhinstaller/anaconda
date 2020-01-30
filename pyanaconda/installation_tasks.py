@@ -26,6 +26,7 @@ import time
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+
 class BaseTask(object):
     """A base class for Task and TaskQueue.
 

@@ -22,6 +22,7 @@ from pyanaconda.ui.gui import GUIObject
 
 __all__ = ["DetailedErrorDialog"]
 
+
 class DetailedErrorDialog(GUIObject):
     """This class provides a lightboxable dialog to display a very detailed
        set of error messages, like might be required to display the results

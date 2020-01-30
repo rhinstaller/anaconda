@@ -21,6 +21,7 @@ from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+
 def get_user_list(users_module, add_default=False, add_if_not_empty=False):
     """Get list of users from the Users DBus module.
 
@@ -42,6 +43,7 @@ def get_user_list(users_module, add_default=False, add_if_not_empty=False):
             user_data_list.insert(0, UserData())
 
     return user_data_list
+
 
 def set_user_list(users_module, user_data_list, remove_unset=False):
     """Properly set the user list in the Users DBus module.

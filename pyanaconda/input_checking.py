@@ -63,7 +63,9 @@ class PwqualitySettingsCache(object):
             self._pwq_settings[minlen] = settings
         return settings
 
+
 pwquality_settings_cache = PwqualitySettingsCache()
+
 
 class PasswordCheckRequest(object):
     """A wrapper for a password check request.
@@ -297,6 +299,7 @@ class PasswordValidityCheckResult(CheckResult):
     def length_ok(self, value):
         self._length_ok = value
         self.length_ok_changed.emit(value)
+
 
 class InputCheck(object):
     """Input checking base class."""

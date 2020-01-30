@@ -32,6 +32,7 @@ log = get_module_logger(__name__)
 
 __all__ = ["GRUB2", "IPSeriesGRUB2"]
 
+
 class SerialConsoleOptions(object):
     """The serial console options."""
 
@@ -75,6 +76,7 @@ def _parse_serial_opt(arg):
     except IndexError:
         pass
     return opts
+
 
 class GRUB2(BootLoader):
     """GRUBv2.
@@ -537,6 +539,7 @@ class GRUB2(BootLoader):
 
         return valid
 
+
 class IPSeriesGRUB2(GRUB2):
     """IPSeries GRUBv2"""
 
@@ -621,6 +624,7 @@ class IPSeriesGRUB2(GRUB2):
         #       PowerVM / POWER on qemu/kvm
         defaults.write("GRUB_DISABLE_OS_PROBER=true\n")
         defaults.close()
+
 
 class PowerNVGRUB2(GRUB2):
     """PowerNV GRUBv2"""

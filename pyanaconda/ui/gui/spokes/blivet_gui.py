@@ -46,6 +46,7 @@ log = get_module_logger(__name__)
 # export only the spoke, no helper functions, classes or constants
 __all__ = ["BlivetGuiSpoke"]
 
+
 class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     ### class attributes defined by API ###
 

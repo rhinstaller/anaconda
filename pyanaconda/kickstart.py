@@ -75,6 +75,7 @@ timezone_log = log.getChild("kickstart.timezone")
 realm_log = log.getChild("kickstart.realm")
 firewall_log = log.getChild("kickstart.firewall")
 
+
 @contextmanager
 def check_kickstart_error():
     try:
@@ -85,6 +86,7 @@ def check_kickstart_error():
         print(e)
         util.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
+
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
@@ -144,6 +146,7 @@ class AnacondaKSScript(KSScript):
                 errorHandler.cb(ScriptError(self.lineno, err))
                 util.ipmi_report(IPMI_ABORTED)
                 sys.exit(0)
+
 
 class AnacondaInternalScript(AnacondaKSScript):
     def __init__(self, *args, **kwargs):
@@ -209,14 +212,18 @@ class UselessCommand(RemovedCommand):
 class AutoPart(RemovedCommand):
     pass
 
+
 class BTRFS(COMMANDS.BTRFS):
     pass
+
 
 # no overrides needed here
 Eula = COMMANDS.Eula
 
+
 class LogVol(COMMANDS.LogVol):
     pass
+
 
 class Logging(COMMANDS.Logging):
     def execute(self):
@@ -236,11 +243,14 @@ class Logging(COMMANDS.Logging):
                 remote_server = "%s:%s" % (self.host, self.port)
             anaconda_logging.logger.updateRemote(remote_server)
 
+
 class Partition(COMMANDS.Partition):
     pass
 
+
 class Raid(COMMANDS.Raid):
     pass
+
 
 class RepoData(COMMANDS.RepoData):
 
@@ -299,8 +309,10 @@ class RepoData(COMMANDS.RepoData):
     def is_harddrive_based(self):
         return self.partition is not None
 
+
 class ReqPart(COMMANDS.ReqPart):
     pass
+
 
 class Timezone(RemovedCommand):
 
@@ -342,6 +354,7 @@ class Timezone(RemovedCommand):
 
 class VolGroup(COMMANDS.VolGroup):
     pass
+
 
 class Snapshot(COMMANDS.Snapshot):
     """The snapshot kickstart command.
@@ -408,6 +421,7 @@ class AnacondaSectionHandler(BaseHandler):
             retval = "\n%anaconda\n" + retval + "%end\n"
         return retval
 
+
 class AnacondaSection(Section):
     """A section for anaconda specific commands."""
     sectionOpen = "%anaconda"
@@ -433,6 +447,7 @@ class AnacondaSection(Section):
     def finalize(self):
         """Let %anaconda know no additional data will come."""
         Section.finalize(self)
+
 
 ###
 ### HANDLERS
@@ -487,6 +502,7 @@ dataMap = {
 }
 
 superclass = returnClassForVersion(VERSION)
+
 
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData
@@ -577,6 +593,7 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(AddonSection(self.handler))
         self.registerSection(AnacondaSection(self.handler.anaconda))
 
+
 def preScriptPass(f):
     # The first pass through kickstart file processing - look for %pre scripts
     # and run them.  This must come in a separate pass in case a script
@@ -588,6 +605,7 @@ def preScriptPass(f):
 
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
+
 
 def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
     # preprocessing the kickstart file has already been handled in initramfs.
@@ -652,6 +670,7 @@ def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
         time.sleep(10)
         sys.exit(1)
 
+
 def appendPostScripts(ksdata):
     scripts = ""
 
@@ -668,6 +687,7 @@ def appendPostScripts(ksdata):
     ksparser = AnacondaKSParser(ksdata, scriptClass=AnacondaInternalScript)
     ksparser.readKickstartFromString(scripts, reset=False)
 
+
 def runPostScripts(scripts):
     postScripts = [s for s in scripts if s.type == KS_SCRIPT_POST]
 
@@ -678,6 +698,7 @@ def runPostScripts(scripts):
     for script in postScripts:
         script.run(conf.target.system_root)
     script_log.info("All kickstart %%post script(s) have been run")
+
 
 def runPreScripts(scripts):
     preScripts = [s for s in scripts if s.type == KS_SCRIPT_PRE]
@@ -693,6 +714,7 @@ def runPreScripts(scripts):
 
     script_log.info("All kickstart %%pre script(s) have been run")
 
+
 def runPreInstallScripts(scripts):
     preInstallScripts = [s for s in scripts if s.type == KS_SCRIPT_PREINSTALL]
 
@@ -705,6 +727,7 @@ def runPreInstallScripts(scripts):
         script.run("/")
 
     script_log.info("All kickstart %%pre-install script(s) have been run")
+
 
 def runTracebackScripts(scripts):
     script_log.info("Running kickstart %%traceback script(s)")

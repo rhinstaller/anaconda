@@ -48,9 +48,11 @@ ETC_ZONES = ['GMT+1', 'GMT+2', 'GMT+3', 'GMT+4', 'GMT+5', 'GMT+6', 'GMT+7',
 NTP_PACKAGE = "chrony"
 NTP_SERVICE = "chronyd"
 
+
 class TimezoneConfigError(Exception):
     """Exception class for timezone configuration related problems"""
     pass
+
 
 def time_initialize(timezone_proxy, storage):
     """
@@ -126,6 +128,7 @@ def get_preferred_timezone(territory):
 
     return timezones[0]
 
+
 def get_all_regions_and_timezones():
     """
     Get a dictionary mapping the regions to the list of their timezones.
@@ -147,6 +150,7 @@ def get_all_regions_and_timezones():
     result["Etc"] = set(ETC_ZONES)
     return result
 
+
 def is_valid_timezone(timezone):
     """
     Check if a given string is an existing timezone.
@@ -159,6 +163,7 @@ def is_valid_timezone(timezone):
     etc_zones = ["Etc/" + zone for zone in ETC_ZONES]
 
     return timezone in pytz.common_timezones + etc_zones
+
 
 def get_timezone(timezone):
     """

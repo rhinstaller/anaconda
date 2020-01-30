@@ -25,8 +25,10 @@ from pyanaconda.core.util import upperASCII
 
 _SAFECHARS = frozenset(string.ascii_letters + string.digits + '@%_-+=:,./')
 
+
 def unquote(s):
     return ' '.join(shlex.split(s))
+
 
 def quote(s, always=False):
     """ If always is set it returns a quoted value
@@ -38,6 +40,7 @@ def quote(s, always=False):
         else:
             return s
     return '"' + s.replace('"', '\\"') + '"'
+
 
 def find_comment(s):
     """ Look for a # comment outside of a quoted string.
@@ -81,6 +84,7 @@ def write_tmpfile(filename, data):
 
     # Move the temporary file over the top of the original
     os.rename(tmpf.name, filename)
+
 
 class SimpleConfigFile(object):
     """ Edit values in a configuration file without changing comments.
