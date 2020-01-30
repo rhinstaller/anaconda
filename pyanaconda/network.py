@@ -329,6 +329,7 @@ def write_configuration(overwrite=False):
 
 def _set_ntp_servers_from_dhcp():
     """Set NTP servers of timezone module from dhcp if not set by kickstart."""
+    # FIXME - do it only if they will be applied (the guard at the end of the function)
     timezone_proxy = TIMEZONE.get_proxy()
     ntp_servers = get_ntp_servers_from_dhcp(get_nm_client())
     log.info("got %d NTP servers from DHCP", len(ntp_servers))
