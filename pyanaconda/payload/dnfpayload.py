@@ -120,8 +120,6 @@ def _paced(fn):
 
 def _pick_mpoint(df, download_size, install_size, download_only):
     reasonable_mpoints = {
-        '/tmp',
-        '/',
         '/var/tmp',
         conf.target.system_root,
         os.path.join(conf.target.system_root, 'home'),
