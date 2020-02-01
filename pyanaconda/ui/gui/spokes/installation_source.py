@@ -450,6 +450,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 return False
         elif self._hmcButton.get_active():
             self.data.method.method = "hmc"
+        elif self._cdnButton.get_active():
+            # clear method if the CDN button is active,
+            # otherwise a non CDN method (such as URL, etc.)
+            # will interfere with CDN being used as the
+            # installation source
+            self.data.method.method = None
         elif self._isoButton.get_active():
             # If the user didn't select a partition (not sure how that would
             # happen) or didn't choose a directory (more likely), then return
@@ -955,8 +961,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # something different later, we can change it.
         self._protocolComboBox.set_active_id(PROTOCOL_MIRROR)
 
-        if self._payload_module.proxy.RedHatCDNEnabled:
-            # prevent the Red Hat CDN from being overrun by method ad refresh time,
+        if not self.data.method.method and self._payload_module.proxy.RedHatCDNEnabled:
+            # prevent the Red Hat CDN from being overrun by method at refresh time,
             # if CDN was set as installation source before
             self._cdnButton.set_active(True)
         elif self.data.method.method == "url":
