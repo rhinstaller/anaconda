@@ -450,7 +450,7 @@ class Task(BaseTask):
                 # we can handle.
                 if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
                     log.error("Installation failed: %r", e)
-                    _failure_limbo()
+                    raise e
         else:
             log.error("Task %s callable not set.", self.name)
 
