@@ -341,6 +341,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 03 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.11-1
+- Fix DBus error detection (mkolman)
+  Related: rhbz#1794767
+- Make sure RHSM HTTP proxy port from kickstart is an integer (mkolman)
+  Resolves: rhbz#1794025
+
 * Thu Jan 23 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.10-1
 - Log exceptions raised in subscription data fetching method (mkolman)
   Related: rhbz#1788036
