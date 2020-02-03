@@ -21,17 +21,20 @@ import os
 import tempfile
 import unittest
 from shutil import copytree, copyfile
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask
+from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask, \
+    ConfigureNTPServiceEnablementTask
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.ntp import NTP_CONFIG_FILE, NTPconfigError
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, \
-    patch_dbus_publish_object, PropertiesChangedCallback
+    patch_dbus_publish_object, PropertiesChangedCallback, check_task_creation, \
+    patch_dbus_get_proxy
+from pyanaconda.timezone import NTP_SERVICE
 
 
 class TimezoneInterfaceTestCase(unittest.TestCase):
@@ -187,6 +190,25 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self.assertIsInstance(ntp_obj, TaskInterface)
         self.assertIsInstance(ntp_obj.implementation, ConfigureNTPTask)
         self.assertEqual(ntp_obj.implementation._ntp_enabled, False)
+
+    @patch_dbus_publish_object
+    def configure_ntp_service_enablement_default_test(self, publisher):
+        """Test ntp service enablement with default module state."""
+        ntp_excluded = True
+        task_path = self.timezone_interface.ConfigureNTPServiceEnablementWithTask(ntp_excluded)
+        obj = check_task_creation(self, task_path, publisher, ConfigureNTPServiceEnablementTask)
+        self.assertEqual(obj.implementation._ntp_enabled, True)
+        self.assertEqual(obj.implementation._ntp_excluded, ntp_excluded)
+
+    @patch_dbus_publish_object
+    def configure_ntp_service_enablement_configured_test(self, publisher):
+        """Test ntp service enablement with configured module state."""
+        ntp_excluded = False
+        self.timezone_interface.SetNTPEnabled(False)
+        task_path = self.timezone_interface.ConfigureNTPServiceEnablementWithTask(ntp_excluded)
+        obj = check_task_creation(self, task_path, publisher, ConfigureNTPServiceEnablementTask)
+        self.assertEqual(obj.implementation._ntp_enabled, False)
+        self.assertEqual(obj.implementation._ntp_excluded, ntp_excluded)
 
 
 class TimezoneTasksTestCase(unittest.TestCase):
@@ -374,3 +396,29 @@ class NTPTasksTestCase(unittest.TestCase):
                     self.assertIn(server, all_lines)
         elif not was_present:
             self.assertFalse(os.path.exists(sysroot + NTP_CONFIG_FILE))
+
+    @patch_dbus_get_proxy
+    def configure_ntp_service_service_enablement_task_test(self, proxy_getter):
+        """Test task for NTP service enablement."""
+        services_proxy = Mock()
+        proxy_getter.return_value = services_proxy
+
+        services_proxy.EnabledServices = ["e1"]
+        services_proxy.DisabledServices = ["d1"]
+        ConfigureNTPServiceEnablementTask(
+            ntp_enabled=True,
+            ntp_excluded=False,
+        ).run()
+        services_proxy.SetEnabledServices.assert_called_once_with(["e1", NTP_SERVICE])
+        services_proxy.SetDisabledServices.assert_not_called()
+
+        for ntp_enabled, ntp_excluded in [(True, True), (False, True), (False, False)]:
+            services_proxy.reset_mock()
+            services_proxy.EnabledServices = ["e1"]
+            services_proxy.DisabledServices = ["d1"]
+            ConfigureNTPServiceEnablementTask(
+                ntp_enabled=ntp_enabled,
+                ntp_excluded=ntp_excluded,
+            ).run()
+            services_proxy.SetEnabledServices.assert_not_called()
+            services_proxy.SetDisabledServices.assert_called_once_with(["d1", NTP_SERVICE])

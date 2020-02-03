@@ -39,10 +39,9 @@ from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, SERVICES
+from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
-from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
@@ -314,33 +313,6 @@ class ReqPart(COMMANDS.ReqPart):
     pass
 
 
-class Timezone(RemovedCommand):
-
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.packages = []
-
-    def setup(self, ksdata):
-        timezone_proxy = TIMEZONE.get_proxy()
-        services_proxy = SERVICES.get_proxy()
-
-        enabled_services = services_proxy.EnabledServices
-        disabled_services = services_proxy.DisabledServices
-
-        # do not install and use NTP package
-        if not timezone_proxy.NTPEnabled or NTP_PACKAGE in ksdata.packages.excludedList:
-            if NTP_SERVICE not in disabled_services:
-                disabled_services.append(NTP_SERVICE)
-                services_proxy.SetDisabledServices(disabled_services)
-        # install and use NTP package
-        else:
-            self.packages.append(NTP_PACKAGE)
-
-            if NTP_SERVICE not in enabled_services and NTP_SERVICE not in disabled_services:
-                enabled_services.append(NTP_SERVICE)
-                services_proxy.SetEnabledServices(enabled_services)
-
-
 class VolGroup(COMMANDS.VolGroup):
     pass
 
@@ -478,7 +450,7 @@ commandMap = {
     "sshkey" : UselessCommand,
     "skipx": UselessCommand,
     "snapshot": Snapshot,
-    "timezone": Timezone,
+    "timezone": UselessCommand,
     "user": UselessCommand,
     "volgroup": VolGroup,
     "xconfig": UselessCommand,
