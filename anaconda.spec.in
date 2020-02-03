@@ -353,6 +353,26 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 03 2020 Martin Kolman <mkolman@redhat.com> - 32.22-1
+- Don't set the device names (#1797274) (vponcova)
+- Fix line spacing in UI (vslavik)
+- Fix line spacing in pyanaconda (vslavik)
+- Extend the start-module script (vponcova)
+- Remove start() from pylint defining attrs methods (jkonecny)
+- Refactor pylintrc file a bit (jkonecny)
+- Remove pylint CVS ignore directory (jkonecny)
+- Add TODO to enable C and R in pylint (jkonecny)
+- Remove bad-option-value disables from pylint (jkonecny)
+- Add TODO for future work (jkonecny)
+- Remove use of eval from pylint disabled (jkonecny)
+- Ignore attributes of Namespace class (jkonecny)
+- Fix GError message False positive (jkonecny)
+- Move unnecessary pass statement from false positives (jkonecny)
+- Add mock to the list of pylint deprecated modules (jkonecny)
+- Fix pylint errors (jkonecny)
+- Adapt runpylint to use pocketlint replacement (jkonecny)
+- Add pylint censorship - replacement of pocketlint (jkonecny)
+
 * Wed Jan 29 2020 Martin Kolman <mkolman@redhat.com> - 32.21-1
 - Add the path-id attribute to the DBus structure for device data (vponcova)
 - Use id_path as a long identifier of a disk (vponcova)
