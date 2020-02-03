@@ -1023,7 +1023,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.storage.devicetree._devices = self._storage_playground.devicetree._devices
         self.storage.devicetree._actions = self._storage_playground.devicetree._actions
         self.storage.devicetree._hidden = self._storage_playground.devicetree._hidden
-        self.storage.devicetree.names = self._storage_playground.devicetree.names
         self.storage.roots = self._storage_playground.roots
 
         # set up bootloader and check the configuration
