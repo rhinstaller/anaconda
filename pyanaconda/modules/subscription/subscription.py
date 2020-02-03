@@ -230,8 +230,11 @@ class SubscriptionModule(KickstartModule):
             try:
                 proxy = util.ProxyString(data.rhsm.proxy)
                 if proxy.host:
+                    # ensure port is an integer and set to -1 if unknown
+                    port = int(proxy.port) if proxy.port else -1
+
                     self.set_server_proxy(hostname=proxy.host,
-                                          port=proxy.port,
+                                          port=port,
                                           username=proxy.username,
                                           password=proxy.password)
             except util.ProxyStringError as e:
@@ -802,19 +805,31 @@ class SubscriptionModule(KickstartModule):
         # set the local attributes
         self._server_proxy_hostname = hostname
         self._server_proxy_port = port
-        self._server_proxy_user = username
-        self._server_proxy_password = password
         # negative port number means no port has been set
         if port < 0:
             port_string = ""
         else:
             port_string = "{}".format(port)
+        # use "" when username is not known
+        self._server_proxy_user = username or ""
+
+        # use "" when password is not known
+        self._server_proxy_password = password or ""
+
         # set data to RHSM
         log.debug("setting HTTP proxy data to RHSM")
-        self.rhsm_config_proxy.Set("server.proxy_hostname", get_variant(Str, hostname), "")
-        self.rhsm_config_proxy.Set("server.proxy_port", get_variant(Str, port_string), "")
-        self.rhsm_config_proxy.Set("server.proxy_user", get_variant(Str, username), "")
-        self.rhsm_config_proxy.Set("server.proxy_password", get_variant(Str, password), "")
+        self.rhsm_config_proxy.Set("server.proxy_hostname",
+                                   get_variant(Str, hostname),
+                                   "")
+        self.rhsm_config_proxy.Set("server.proxy_port",
+                                   get_variant(Str, port_string),
+                                   "")
+        self.rhsm_config_proxy.Set("server.proxy_user",
+                                   get_variant(Str, self.server_proxy_user),
+                                   "")
+        self.rhsm_config_proxy.Set("server.proxy_password",
+                                   get_variant(Str, self._server_proxy_password),
+                                   "")
 
         # trigger the changed signal
         self.server_proxy_configuration_changed.emit()
