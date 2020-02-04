@@ -92,6 +92,17 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         device = self._get_device(device_name)
         return utils.generate_device_factory_request(self.storage, device)
 
+    def generate_device_factory_permissions(self, request):
+        """Generate device factory permissions for the given request.
+
+        The permissions will reflect which device attributes we are allowed
+        to change in the requested device.
+
+        :param request: a device factory request
+        :return: device factory permissions
+        """
+        return utils.generate_device_factory_permissions(self.storage, request)
+
     def get_partitioned(self):
         """Get all partitioned devices in the device tree.
 

@@ -31,7 +31,7 @@ from pyanaconda.core.constants import PARTITIONING_METHOD_INTERACTIVE
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.containers import DeviceTreeContainer
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
-from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
+from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.partitioning.interactive.interactive_module import \
     InteractivePartitioningModule

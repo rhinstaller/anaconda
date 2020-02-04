@@ -20,7 +20,7 @@ from blivet.errors import StorageError
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import lowerASCII
-from pyanaconda.modules.common.structures.partitioning import DeviceFactoryRequest
+from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.storage.partitioning.interactive.utils import \
     get_device_raid_level_name, get_container_size_policy, get_device_factory_arguments
