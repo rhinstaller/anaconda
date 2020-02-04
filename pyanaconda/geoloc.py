@@ -20,21 +20,25 @@
 A GeoIP and WiFi location module - location detection based on IP address
 
 How to use the geolocation module
-   First call init_geolocation() with appropriate parameters - this creates the Geolocation singleton and
-   specifies what geolocation provider will be used.
+   First call init_geolocation() with appropriate parameters - this creates
+   the Geolocation singleton and specifies what geolocation provider will be
+   used.
 
-   To actually look up current position, call the refresh() function of the singleton,
-   this will trigger the actual online geolocation query, which runs in a thread.
+   To actually look up current position, call the refresh() function of the
+   singleton, this will trigger the actual online geolocation query, which
+   runs in a thread.
 
-   It's possible to wait for the lookup to finish by calling the wait_for_refresh_to_finish() method
-   of the singleton. If a lookup is in progress it will block until the lookup finishes or a timeout
-   is reached. If no lookup is in progress in till return at once.
+   It's possible to wait for the lookup to finish by calling the
+   wait_for_refresh_to_finish() method of the singleton. If a lookup is in
+   progress it will block until the lookup finishes or a timeout is reached.
+   If no lookup is in progress it will return at once.
 
    After the look-up thread finishes, the results are stored in the singleton
    and can be retrieved using the territory, timezone and result properties.
 
-   If you use these properties without calling refresh() first or if the look-up is currently
-   in progress or failed to return any results all properties will return None.
+   If you use these properties without calling refresh() first or if the
+   look-up is currently in progress or failed to return any results, all
+   properties will return None.
 
 ====================
 Geolocation backends
@@ -82,13 +86,13 @@ This could have severe privacy issues and should be carefully considered before
 enabling it to be used by default. Also the Google WiFi geolocation API seems to
 lack official documentation.
 
-As a result its long-term stability might not be guarantied.
+As a result its long-term stability might not be guaranteed.
 
 
 
 Possible issues with GeoIP
    "I'm in Switzerland connected to corporate VPN and anaconda tells me
-   I'm in Netherlands."
+   I'm in the Netherlands."
    The public IP address is not directly mapped to the physical location
    of a computer. So while your world visible IP address is registered to
    an IP block assigned to an ISP in Netherlands, it is just the external
@@ -109,7 +113,6 @@ Backends that could possibly be used in the future
    * cell tower geolocation
 
 """
-from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.util import requests_session
 import requests
 import urllib.parse
@@ -138,18 +141,23 @@ class Geolocation(object):
     """Top level geolocation handler."""
 
     def __init__(self, geoloc_option=None, options_override=False):
-        # Prepare the geolocation module for handling geolocation queries.
-        #
-        # This sets-up the Geolocation instance with the given
-        # geolocation_provider (or using the default one if no provider
-        # is given. Please note that calling this method doesn't actually
-        # execute any queries by itself, you need to call refresh()
-        # to do that.
-        self._geolocation_enabled = self._check_if_geolocation_should_be_used(options_override)
+        """Prepare the geolocation module for handling geolocation queries.
+
+        This sets-up the Geolocation instance with the given geolocation_provider (or using the
+        default one if no provider is given. Please note that calling this method doesn't actually
+        execute any queries by itself, you need to call refresh() to do that.
+
+        :param geoloc_option: what was passed in boot or command line options
+        :type geoloc_option: str or None
+        :param options_override:
+        :type options_override: bool
+        """
+        self._geolocation_enabled = self._check_if_geolocation_should_be_used(geoloc_option,
+                                                                              options_override)
         provider_id = constants.GEOLOC_DEFAULT_PROVIDER
 
         # check if a provider was specified by an option
-        if geoloc_option is not None:
+        if geoloc_option is not None and self._geolocation_enabled:
             parsed_id = self._get_provider_id_from_option(geoloc_option)
             if parsed_id is None:
                 log.error('geoloc: wrong provider id specified: %s', geoloc_option)
@@ -158,7 +166,7 @@ class Geolocation(object):
 
         self._location_info = LocationInfo(provider_id=provider_id)
 
-    def _check_if_geolocation_should_be_used(self, options_override):
+    def _check_if_geolocation_should_be_used(self, geoloc_option, options_override):
         """Check if geolocation can be used during this installation run.
 
         And set the geolocation_enabled module attribute accordingly.
@@ -175,48 +183,37 @@ class Geolocation(object):
 
         inst.geoloc=0
 
-        :param bool options_override: use with kickstart due to CLI/boot option override
+        :param geoloc_option: what was passed in boot or command line options
+        :type geoloc_option: str or None
+        :param options_override: use with kickstart due to CLI/boot option override
+        :type options_override: bool
         """
-        geolocation_enabled = True
         # don't use geolocation during image and directory installation
         if not conf.target.is_hardware:
             log.info("Geolocation is disabled for image or directory installation.")
-            geolocation_enabled = False
+            return False
+
+        # check if geolocation was not disabled by boot or command line option
+        # our documentation mentions only "0" as the way to disable it
+        if str(geoloc_option).strip() == "0":
+            log.info("Geolocation is disabled by the geoloc option.")
+            return False
+
         # don't use geolocation during kickstart installation unless explicitly
         # requested by the user
-        elif flags.automatedInstall:
-            # check for use-with-kickstart overrides
+        if flags.automatedInstall:
             if options_override:
-                geolocation_enabled = True
+                # check for use-with-kickstart overrides
+                log.info("Geolocation is enabled during kickstart installation due to use of "
+                         "the geoloc-use-with-ks option.")
+                return True
             else:
                 # otherwise disable geolocation during a kickstart installation
-                geolocation_enabled = False
-
-        # and also check if geolocation was not disabled by boot or command like option
-        if not kernel_arguments.is_enabled('geoloc'):
-            geolocation_enabled = False
-
-        # log the result
-        self._log_geolocation_status(geolocation_enabled, options_override)
-
-        return geolocation_enabled
-
-    def _log_geolocation_status(self, geolocation_enabled, options_override):
-        """Log geolocation usage status."""
-        if geolocation_enabled:
-            if flags.automatedInstall:
-                if options_override:
-                    log.info("Geolocation is enabled during kickstart installation due to use of the "
-                             "geoloc-use-with-ks option.")
-            else:
-                log.info("Geolocation is enabled.")
-        else:
-            if not conf.target.is_hardware:
-                log.info("Geolocation is disabled for image or directory installation.")
-            elif flags.automatedInstall:
                 log.info("Geolocation is disabled due to automated kickstart based installation.")
-            if not kernel_arguments.is_enabled('geoloc'):
-                log.info("Geolocation is disabled by the geoloc option.")
+                return False
+
+        log.info("Geolocation is enabled.")
+        return True
 
     def refresh(self):
         """Refresh information about current location."""
@@ -477,7 +474,9 @@ class FedoraGeoIPProvider(GeolocationBackend):
 
     def _refresh(self):
         try:
-            reply = self._session.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            reply = self._session.get(self.API_URL,
+                                      timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                      verify=True)
             if reply.status_code == requests.codes.ok:
                 json_reply = reply.json()
                 territory = json_reply.get("country_code", None)
@@ -494,7 +493,8 @@ class FedoraGeoIPProvider(GeolocationBackend):
                                                     timezone=timezone_code,
                                                     timezone_source=timezone_source))
             else:
-                log.error("Geoloc: Fedora GeoIP API lookup failed with status code: %s", reply.status_code)
+                log.error("Geoloc: Fedora GeoIP API lookup failed with status code: %s",
+                          reply.status_code)
         except requests.exceptions.RequestException as e:
             log.debug("Geoloc: RequestException for Fedora GeoIP API lookup:\n%s", e)
         except ValueError as e:
@@ -512,7 +512,9 @@ class HostipGeoIPProvider(GeolocationBackend):
 
     def _refresh(self):
         try:
-            reply = self._session.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            reply = self._session.get(self.API_URL,
+                                      timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                      verify=True)
             if reply.status_code == requests.codes.ok:
                 reply_dict = reply.json()
                 territory = reply_dict.get("country_code", None)
@@ -547,8 +549,9 @@ class GoogleWiFiLocationProvider(GeolocationBackend):
         access_points = scanner.get_results()
         if access_points:
             try:
-                url = self._get_url(access_points)
-                reply = self._session.get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+                reply = self._session.get(self._get_url(access_points),
+                                          timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                          verify=True)
                 result_dict = reply.json()
                 status = result_dict.get('status', 'NOT OK')
                 if status == 'OK':
@@ -640,14 +643,17 @@ class Geocoder(object):
             coordinates.latitude,
             coordinates.longitude)
         try:
-            reply = requests_session().get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            reply = requests_session().get(url,
+                                           timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                           verify=True)
             if reply.status_code == requests.codes.ok:
                 reply_dict = reply.json()
                 territory_code = reply_dict['address']['country_code'].upper()
                 return GeocodingResult(coordinates=coordinates,
                                        territory_code=territory_code)
             else:
-                log.error("Geoloc: Nominatim reverse geocoding failed with status code: %s", reply.status_code)
+                log.error("Geoloc: Nominatim reverse geocoding failed with status code: %s",
+                          reply.status_code)
                 return None
         except requests.exceptions.RequestException as e:
             log.debug("Geoloc: RequestException during Nominatim reverse geocoding:\n%s", e)
