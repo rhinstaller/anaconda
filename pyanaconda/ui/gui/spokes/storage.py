@@ -513,7 +513,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def _on_disk_clicked(self, overview, event):
         # This handler only runs for these two kinds of events, and only for
         # activate-type keys (space, enter) in the latter event's case.
-        if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
+        if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
             return
 
         if event.type == Gdk.EventType.KEY_RELEASE and \

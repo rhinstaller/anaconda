@@ -327,7 +327,7 @@ class XklWrapper(object):
 
         layouts_variants = list(zip(self._rec.layouts, self._rec.variants))
 
-        if not (layout, variant) in layouts_variants:
+        if (layout, variant) not in layouts_variants:
             msg = "'%s (%s)' not in the list of added layouts" % (layout,
                                                                   variant)
             raise XklWrapperError(msg)
