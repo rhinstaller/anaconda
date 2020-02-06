@@ -79,7 +79,10 @@ class FCoEDialog(GUIObject):
     @property
     def nic(self):
         text = self._nicCombo.get_active_text()
-        return text.split()[0]
+        if text:
+            return text.split()[0]
+        else:
+            return None
 
     @property
     def use_dcb(self):
@@ -104,7 +107,12 @@ class FCoEDialog(GUIObject):
         self._errorBox.hide()
 
         # Get the discovery task.
-        task_path = self._fcoe_proxy.DiscoverWithTask(self.nic, self.use_dcb, self.use_auto_vlan)
+        if self.nic:
+            task_path = self._fcoe_proxy.DiscoverWithTask(self.nic, self.use_dcb, self.use_auto_vlan)
+        else:
+            self._errorLabel.set_text("There is no nic detected!")
+            self._errorBox.show()
+            return
         task_proxy = STORAGE.get_proxy(task_path)
 
         # Start the discovery.
