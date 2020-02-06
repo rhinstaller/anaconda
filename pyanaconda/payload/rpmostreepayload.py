@@ -389,14 +389,22 @@ class RPMOSTreePayload(Payload):
                                           ["--create", "--boot", "--root=" + conf.target.system_root,
                                            "--prefix=/var/" + varsubdir])
 
-        # Handle mounts like /boot (except avoid /boot/efi; we just need the
-        # toplevel), and any admin-specified points like /home (really
-        # /var/home). Note we already handled /var above. Avoid recursion since
+        # Handle /boot; if the admin didn't specify a mount for /boot, we need
+        # to do the default ostree one.
+        boot_root = '/ostree/deploy/' + ostreesetup.osname + '/boot'
+        if self.storage.mountpoints.get("/boot") is None:
+            self._setup_internal_bindmount(boot_root, dest='/boot', recurse=False)
+        else:
+            # Otherwise, bind it
+            self._setup_internal_bindmount('/boot', recurse=False)
+
+        # Handle admin-specified points like /home (really /var/home). Note we
+        # already handled /var and /boot above. Avoid recursion since
         # sub-mounts will be in the list too.  We sort by length as a crude
-        # hack to try to simulate the tree relationship; it looks like this
-        # is handled in blivet in a different way.
+        # hack to try to simulate the tree relationship; it looks like this is
+        # handled in blivet in a different way.
         for mount in sorted(self.storage.mountpoints, key=len):
-            if mount in ('/', '/var') or mount in api_mounts:
+            if mount in ('/', '/var', '/boot') or mount in api_mounts:
                 continue
             self._setup_internal_bindmount(mount, recurse=False)
 
