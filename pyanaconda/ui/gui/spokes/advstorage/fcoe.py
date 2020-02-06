@@ -66,6 +66,7 @@ class FCoEDialog(GUIObject):
             self._nicCombo.append_text("%s - %s" % (dev_info.device_name, dev_info.hw_address))
 
         self._nicCombo.set_active(0)
+        self._addButton.set_sensitive(bool(self.nic))
 
     def run(self):
         rc = self.window.run()
@@ -79,7 +80,10 @@ class FCoEDialog(GUIObject):
     @property
     def nic(self):
         text = self._nicCombo.get_active_text()
-        return text.split()[0]
+        if text:
+            return text.split()[0]
+        else:
+            return ""
 
     @property
     def use_dcb(self):
