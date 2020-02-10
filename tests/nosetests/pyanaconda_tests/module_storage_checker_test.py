@@ -20,6 +20,7 @@
 import unittest
 from unittest.mock import patch
 
+from dasbus.typing import get_variant, Int
 from pyanaconda.core.constants import STORAGE_MIN_RAM
 from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface
@@ -36,5 +37,5 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
     def set_constraint_test(self):
         """Test SetConstraint."""
         with patch.dict(storage_checker.constraints):
-            self.interface.SetConstraint(STORAGE_MIN_RAM, 987)
+            self.interface.SetConstraint(STORAGE_MIN_RAM, get_variant(Int, 987))
             self.assertEqual(storage_checker.constraints[STORAGE_MIN_RAM], 987)

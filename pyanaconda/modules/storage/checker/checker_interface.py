@@ -36,4 +36,4 @@ class StorageCheckerInterface(InterfaceTemplate):
         :param value: a value of the constraint
         :raise: KeyError if the constraint does not exist
         """
-        self.implementation.set_constraint(name, value)
+        self.implementation.set_constraint(name, get_native(value))
