@@ -50,8 +50,10 @@ _to_log lsof
 _to_log ip -s li
 _to_log ip a
 _to_log ip r
+_to_log journalctl
 
 cp /tmp/*.log ${OUTDIR}
+cp /root/lorax-packages.log ${OUTDIR}
 
 if [[ -e /tmp/pre-anaconda-logs/ ]];then
     cp -r /tmp/pre-anaconda-logs ${OUTDIR}
