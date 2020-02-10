@@ -18,6 +18,7 @@
 #
 
 from collections import namedtuple
+from dasbus.typing import unwrap_variant
 
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.task import async_run_task
@@ -203,7 +204,7 @@ class ISCSIDialog(GUIObject):
             self._discoveryErrorLabel.set_text(str(e))
             self._conditionNotebook.set_current_page(2)
         else:
-            nodes = task_proxy.GetResult()
+            nodes = unwrap_variant(task_proxy.GetResult())
             # Discovery succeeded.
             # Populate the node store.
             self._discovered_nodes = Node.from_structure_list(nodes)
