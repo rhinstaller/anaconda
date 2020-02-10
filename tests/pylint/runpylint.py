@@ -87,7 +87,7 @@ class AnacondaLintConfig(CensorshipConfig):
         return self._files()
 
 
-def _setup_environment(self):
+def setup_environment():
     # We need top_builddir to be set so we know where to put the pylint analysis
     # stuff.  Usually this will be set up if we are run via "make test" but if
     # not, hope that we are at least being run out of the right directory.
@@ -98,7 +98,7 @@ def _setup_environment(self):
     if "XDG_RUNTIME_DIR" not in os.environ:
         d = tempfile.mkdtemp()
         os.environ["XDG_RUNTIME_DIR"] = d
-        atexit.register(self._del_xdg_runtime_dir)
+        atexit.register(_del_xdg_runtime_dir)
 
     # Unset TERM so that things that use readline don't output terminal garbage.
     if "TERM" in os.environ:
@@ -140,6 +140,7 @@ def save_end_time():
 
 
 if __name__ == "__main__":
+    setup_environment()
     conf = AnacondaLintConfig()
     linter = CensorshipLinter(conf)
     save_start_time()
