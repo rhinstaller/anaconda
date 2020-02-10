@@ -1,6 +1,6 @@
 #!/bin/bash
 
-date=$(date +%F_%R)
+date=$(date +%F_%H%M%S)
 OUTDIR=/tmp/log-capture-${date}
 ARCHIVE=${1-/tmp/log-capture.tar.bz2}
 
