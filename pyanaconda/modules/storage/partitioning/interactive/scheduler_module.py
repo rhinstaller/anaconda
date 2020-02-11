@@ -269,6 +269,23 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         task = ChangeDeviceTask(self.storage, device, request, original_request)
         task.run()
 
+    def reset_device(self, device_name):
+        """Reset the specified device in the storage model.
+
+        FIXME: Merge with destroy_device.
+
+        :param device_name: a name of the device
+        :raise: StorageConfigurationError in a case of failure
+        """
+        device = self._get_device(device_name)
+
+        if device.exists:
+            # Revert changes done to an existing device.
+            self.storage.reset_device(device)
+        else:
+            # Destroy a non-existing device.
+            utils.destroy_device(self.storage, device)
+
     def destroy_device(self, device_name):
         """Destroy the specified device in the storage model.
 

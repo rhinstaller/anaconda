@@ -596,3 +596,56 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.assertNotIn(dev1, self.module.storage.devices)
         self.assertNotIn(dev2, self.module.storage.devices)
         self.assertNotIn(dev3, self.module.storage.devices)
+
+    def reset_device_test(self):
+        """Test ResetDevice."""
+        dev1 = StorageDevice(
+            "dev1",
+            exists=False,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        )
+
+        dev2 = StorageDevice(
+            "dev2",
+            exists=False,
+            parents=[dev1],
+            size=Size("6 GiB"),
+            fmt=get_format("ext4")
+        )
+
+        dev3 = StorageDevice(
+            "dev3",
+            exists=True,
+            size=Size("6 GiB")
+        )
+
+        dev3.original_format = get_format("ext4")
+        dev3.format = get_format("xfs")
+
+        self.module.on_storage_changed(create_storage())
+        self.module.storage.devicetree._add_device(dev1)
+        self.module.storage.devicetree._add_device(dev2)
+        self.module.storage.devicetree._add_device(dev3)
+
+        with self.assertRaises(StorageConfigurationError):
+            self.interface.ResetDevice("dev1")
+
+        self.assertIn(dev1, self.module.storage.devices)
+        self.assertIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+        self.assertEqual(dev3.format.type, "xfs")
+
+        self.interface.ResetDevice("dev2")
+
+        self.assertNotIn(dev1, self.module.storage.devices)
+        self.assertNotIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+        self.assertEqual(dev3.format.type, "xfs")
+
+        self.interface.ResetDevice("dev3")
+
+        self.assertNotIn(dev1, self.module.storage.devices)
+        self.assertNotIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+        self.assertEqual(dev3.format.type, "ext4")
