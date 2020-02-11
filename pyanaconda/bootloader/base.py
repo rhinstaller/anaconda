@@ -33,7 +33,7 @@ from pyanaconda.core import util
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.modules.common.constants.objects import FCOE, ISCSI
+from pyanaconda.modules.common.constants.objects import FCOE, ISCSI, BOOTLOADER
 from pyanaconda.modules.common.structures.iscsi import Node
 from pyanaconda.modules.common.constants.services import STORAGE, NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
@@ -690,9 +690,15 @@ class BootLoader(object):
 
     def set_boot_args(self, storage):
         """Set up the boot command line."""
+        self._set_extra_boot_args()
         self._set_storage_boot_args(storage)
         self._preserve_some_boot_args()
         self._set_graphical_boot_args()
+
+    def _set_extra_boot_args(self):
+        """Set the extra boot args."""
+        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+        self.boot_args.update(bootloader_proxy.ExtraArguments)
 
     def _set_storage_boot_args(self, storage):
         """Set the storage boot args."""

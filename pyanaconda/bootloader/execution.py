@@ -69,7 +69,6 @@ class BootloaderExecutor(object):
 
         # Apply the settings.
         self._update_flags(storage, bootloader_proxy)
-        self._apply_args(storage, bootloader_proxy)
         self._apply_location(storage, bootloader_proxy)
         self._apply_password(storage, bootloader_proxy)
         self._apply_timeout(storage, bootloader_proxy)
@@ -90,12 +89,6 @@ class BootloaderExecutor(object):
         if bootloader_proxy.KeepBootOrder:
             log.debug("Don't change the existing boot order.")
             storage.bootloader.keep_boot_order = True
-
-    def _apply_args(self, storage, bootloader_proxy):
-        """Apply the arguments."""
-        args = bootloader_proxy.ExtraArguments
-        log.debug("Applying bootloader arguments: %s", args)
-        storage.bootloader.boot_args.update(args)
 
     def _apply_location(self, storage, bootloader_proxy):
         """Set the location."""
