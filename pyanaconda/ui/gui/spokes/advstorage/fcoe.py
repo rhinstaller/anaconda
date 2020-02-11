@@ -59,11 +59,10 @@ class FCoEDialog(GUIObject):
         self._nicCombo.remove_all()
 
         network_proxy = NETWORK.get_proxy()
-        ethernet_devices = [NetworkDeviceInfo.from_structure(device)
-                            for device in network_proxy.GetSupportedDevices()
-                            if device['device-type'] == NM.DeviceType.ETHERNET]
-        for dev_info in ethernet_devices:
-            self._nicCombo.append_text("%s - %s" % (dev_info.device_name, dev_info.hw_address))
+        device_infos = NetworkDeviceInfo.from_structure_list(network_proxy.GetSupportedDevices())
+        for dev_info in device_infos:
+            if dev_info.device_type == NM.DeviceType.ETHERNET:
+                self._nicCombo.append_text("%s - %s" % (dev_info.device_name, dev_info.hw_address))
 
         self._nicCombo.set_active(0)
 
