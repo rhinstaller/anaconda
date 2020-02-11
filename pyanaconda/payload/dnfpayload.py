@@ -67,9 +67,7 @@ DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 DNF_LIBREPO_LOG = '/tmp/dnf.librepo.log'
-DOWNLOAD_MPOINTS = {'/tmp',
-                    '/',
-                    '/var/tmp',
+DOWNLOAD_MPOINTS = {'/var/tmp',
                     '/mnt/sysimage',
                     '/mnt/sysimage/home',
                     '/mnt/sysimage/tmp',
