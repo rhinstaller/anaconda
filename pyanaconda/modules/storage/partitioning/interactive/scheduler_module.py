@@ -269,6 +269,15 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         task = ChangeDeviceTask(self.storage, device, request, original_request)
         task.run()
 
+    def destroy_device(self, device_name):
+        """Destroy the specified device in the storage model.
+
+        :param device_name: a name of the device
+        :raise: StorageConfigurationError in a case of failure
+        """
+        device = self._get_device(device_name)
+        utils.destroy_device(self.storage, device)
+
     def schedule_partitions_with_task(self, request):
         """Schedule the partitioning actions.
 

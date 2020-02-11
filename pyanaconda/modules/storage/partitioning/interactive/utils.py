@@ -29,6 +29,7 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError, UnknownDeviceError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
@@ -851,9 +852,23 @@ def destroy_device(storage, device):
 
     :param storage: an instance of Blivet
     :param device: an instance of a device
+    :raise: StorageConfigurationError in a case of failure
     """
     log.debug("Destroy device: %s", device.name)
 
+    try:
+        _destroy_device(storage, device)
+    except (StorageError, ValueError) as e:
+        log.error("Failed to destroy a device: %s", e)
+        raise StorageConfigurationError(str(e)) from None
+
+
+def _destroy_device(storage, device):
+    """Destroy the given device in the storage model.
+
+    :param storage: an instance of Blivet
+    :param device: an instance of a device
+    """
     # Remove the device.
     if device.is_disk and device.partitioned and not device.format.supported:
         storage.recursive_remove(device)

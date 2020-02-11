@@ -32,6 +32,7 @@ from dasbus.structure import compare_data
 from dasbus.typing import get_native
 from pykickstart.constants import AUTOPART_TYPE_PLAIN
 
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
@@ -547,3 +548,51 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         obj = check_task_creation(self, task_path, publisher, InteractiveAutoPartitioningTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
         self.assertTrue(compare_data(obj.implementation._request, request))
+
+    def destroy_device_test(self):
+        """Test DestroyDevice."""
+        dev1 = StorageDevice(
+            "dev1",
+            exists=False,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        )
+
+        dev2 = StorageDevice(
+            "dev2",
+            exists=False,
+            parents=[dev1],
+            size=Size("6 GiB"),
+            fmt=get_format("ext4")
+        )
+
+        dev3 = StorageDevice(
+            "dev3",
+            exists=False,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        )
+
+        self.module.on_storage_changed(create_storage())
+        self.module.storage.devicetree._add_device(dev1)
+        self.module.storage.devicetree._add_device(dev2)
+        self.module.storage.devicetree._add_device(dev3)
+
+        with self.assertRaises(StorageConfigurationError):
+            self.interface.DestroyDevice("dev1")
+
+        self.assertIn(dev1, self.module.storage.devices)
+        self.assertIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+
+        self.interface.DestroyDevice("dev2")
+
+        self.assertNotIn(dev1, self.module.storage.devices)
+        self.assertNotIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+
+        self.interface.DestroyDevice("dev3")
+
+        self.assertNotIn(dev1, self.module.storage.devices)
+        self.assertNotIn(dev2, self.module.storage.devices)
+        self.assertNotIn(dev3, self.module.storage.devices)
