@@ -91,6 +91,18 @@ class KickstartMessage(DBusData):
         data.line_number = e.lineno
         return data
 
+    @classmethod
+    def for_warning(cls, warn_msg):
+        """Create a new message for a kickstart error.
+
+        :param str warn_msg: a warning string
+        :return: an instance of KickstartMessage
+        """
+        data = cls()
+        data.message = warn_msg
+        data.line_number = -1
+        return data
+
     def __str__(self):
         """Return the string representation."""
         return self.message
