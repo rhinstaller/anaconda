@@ -28,8 +28,14 @@ from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevic
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
+from dasbus.structure import compare_data
 from dasbus.typing import get_native
+from pykickstart.constants import AUTOPART_TYPE_PLAIN
+
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
+    InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
@@ -37,6 +43,7 @@ from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import
 from pyanaconda.platform import EFI
 from pyanaconda.storage.initialization import create_storage
 from pyanaconda.storage.root import Root
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 
 class DeviceTreeSchedulerTestCase(unittest.TestCase):
@@ -524,3 +531,19 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-encrypted': False,
             'device-raid-level': True,
         })
+
+    @patch_dbus_publish_object
+    def schedule_partitions_with_task_test(self, publisher):
+        """Test SchedulePartitionsWithTask."""
+        self.module.on_storage_changed(Mock())
+
+        request = PartitioningRequest()
+        request.partitioning_scheme = AUTOPART_TYPE_PLAIN
+
+        task_path = self.interface.SchedulePartitionsWithTask(
+            PartitioningRequest.to_structure(request)
+        )
+
+        obj = check_task_creation(self, task_path, publisher, InteractiveAutoPartitioningTask)
+        self.assertEqual(obj.implementation._storage, self.module.storage)
+        self.assertTrue(compare_data(obj.implementation._request, request))

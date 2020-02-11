@@ -20,8 +20,10 @@
 from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_SCHEDULER
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.common.structures.storage import OSData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
@@ -244,4 +246,19 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         self.implementation.change_device(
             DeviceFactoryRequest.from_structure(request),
             DeviceFactoryRequest.from_structure(original_request)
+        )
+
+    def SchedulePartitionsWithTask(self, request: Structure) -> ObjPath:
+        """Schedule the partitioning actions.
+
+        Generate the automatic partitioning configuration
+        using the given request.
+
+        :param: a partitioning request
+        :return: a DBus path to a task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.schedule_partitions_with_task(
+                PartitioningRequest.from_structure(request)
+            )
         )

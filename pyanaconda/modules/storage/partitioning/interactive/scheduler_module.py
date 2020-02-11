@@ -22,6 +22,8 @@ from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
 from pyanaconda.modules.storage.partitioning.interactive.change_device import ChangeDeviceTask
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
+    InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive import utils
@@ -266,3 +268,14 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         device = self._get_device(request.device_spec)
         task = ChangeDeviceTask(self.storage, device, request, original_request)
         task.run()
+
+    def schedule_partitions_with_task(self, request):
+        """Schedule the partitioning actions.
+
+        Generate the automatic partitioning configuration
+        using the given request.
+
+        :param: a partitioning request
+        :return: a task
+        """
+        return InteractiveAutoPartitioningTask(self.storage, request)
