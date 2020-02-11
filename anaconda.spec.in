@@ -341,6 +341,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 11 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.13-1
+- Disable package download to / /tmp (jkonecny)
+  Resolves: rhbz#1781517
+
 * Thu Feb 06 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.12-1
 - network: fix GUI crash on invalid devices in the list (rvykydal)
   Resolves: rhbz#1697256
