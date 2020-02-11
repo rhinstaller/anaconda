@@ -292,7 +292,11 @@ def _prepare_installation(storage, payload, ksdata):
     pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
     # Setup timezone and add chrony as package if timezone was set in KS
     # and "-chrony" wasn't in packages section and/or --nontp wasn't set.
-    pre_install.append(Task("Setup timezone", ksdata.timezone.setup, (ksdata,)))
+    timezone_proxy = TIMEZONE.get_proxy()
+    ntp_excluded = timezone.NTP_PACKAGE in ksdata.packages.excludedList
+    pre_install.append_dbus_tasks(
+        TIMEZONE, [timezone_proxy.ConfigureNTPServiceEnablementWithTask(ntp_excluded)]
+    )
 
     # make name resolution work for rpm scripts in chroot
     if conf.system.provides_resolver_config:
@@ -310,7 +314,6 @@ def _prepare_installation(storage, payload, ksdata):
         # system is bootable and configurable, and some other packages in order
         # to finish setting up the system.
         payload.requirements.add_packages(storage.packages, reason="storage")
-        payload.requirements.add_packages(ksdata.timezone.packages, reason="ntp", strong=False)
 
         if can_install_bootloader:
             payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
@@ -323,7 +326,7 @@ def _prepare_installation(storage, payload, ksdata):
         # add package requirements from modules
         # - iterate over all modules we know have valid package requirements
         # - add any requirements found to the payload requirement tracking
-        modules_with_package_requirements = [SECURITY, NETWORK]
+        modules_with_package_requirements = [SECURITY, NETWORK, TIMEZONE]
         for module in modules_with_package_requirements:
             module_proxy = module.get_proxy()
             module_requirements = Requirement.from_structure_list(module_proxy.CollectRequirements())

@@ -19,6 +19,8 @@ import os
 import os.path
 
 from pyanaconda import ntp
+from pyanaconda.modules.common.constants.services import SERVICES
+from pyanaconda.timezone import NTP_SERVICE
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
 from pyanaconda.modules.common.task import Task
@@ -26,7 +28,7 @@ from pyanaconda.timezone import is_valid_timezone
 
 from blivet import arch
 
-__all__ = ["ConfigureNTPTask", "ConfigureTimezoneTask"]
+__all__ = ["ConfigureNTPTask", "ConfigureTimezoneTask", "ConfigureNTPServiceEnablementTask"]
 
 log = get_module_logger(__name__)
 
@@ -164,3 +166,36 @@ class ConfigureNTPTask(Task):
             except ntp.NTPconfigError as ntperr:
                 log.warning("Failed to save NTP configuration without chrony package: %s",
                             ntperr)
+
+
+class ConfigureNTPServiceEnablementTask(Task):
+    """Installation task for NTP service enablement."""
+
+    def __init__(self, ntp_enabled, ntp_excluded):
+        """Create a new task.
+
+        :param bool ntp_enabled: is NTP enabled or not
+        # FIXME replace with asking PAYLOAD when available
+        :param bool ntp_excluded: is NTP service package explicitly excluded?
+        """
+        super().__init__()
+        self._ntp_enabled = ntp_enabled
+        self._ntp_excluded = ntp_excluded
+
+    @property
+    def name(self):
+        return "Configure NTP service enablement"
+
+    def run(self):
+        services_proxy = SERVICES.get_proxy()
+        enabled_services = services_proxy.EnabledServices
+        disabled_services = services_proxy.DisabledServices
+
+        if self._ntp_enabled and not self._ntp_excluded:
+            if NTP_SERVICE not in enabled_services and NTP_SERVICE not in disabled_services:
+                enabled_services.append(NTP_SERVICE)
+                services_proxy.SetEnabledServices(enabled_services)
+        else:
+            if NTP_SERVICE not in disabled_services:
+                disabled_services.append(NTP_SERVICE)
+                services_proxy.SetDisabledServices(disabled_services)
