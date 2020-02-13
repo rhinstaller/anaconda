@@ -17,6 +17,7 @@
 #
 import blivet.arch
 from blivet.devices import iScsiDiskDevice
+from pyanaconda.bootloader.base import BootLoaderError
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -211,12 +212,14 @@ class BootloaderExecutor(object):
         return None
 
     def _get_boot_drive(self, storage, bootloader_proxy):
-        """Apply the boot drive.
+        """Get the boot drive.
 
         When bootloader doesn't have --boot-drive parameter then use this logic as fallback:
-        1) If present first valid disk from driveorder parameter
-        2) If present and usable, use disk where a valid stage1 device is placed
-        3) Use first disk from Blivet
+
+        1) If present, use the first valid disk from driveorder parameter.
+        2) If present and usable, use a disk where a valid stage1 device is placed.
+        3) Use the first usable disk from Blivet if there is one.
+        4) Raise an exception.
         """
         boot_drive = bootloader_proxy.Drive
         drive_order = storage.bootloader.disk_order
@@ -241,18 +244,15 @@ class BootloaderExecutor(object):
             return found_drive
 
         # Or use the first usable drive.
-        log.debug("Use the first usable drive.")
-        return usable_disks_list[0]
+        if usable_disks_list:
+            log.debug("Use the first usable drive.")
+            return usable_disks_list[0]
+
+        # Or raise an exception.
+        raise BootLoaderError("No usable boot drive was found.")
 
     def _apply_boot_drive(self, storage, bootloader_proxy, dry_run=False):
-        """Apply the boot drive.
-
-        When bootloader doesn't have --boot-drive parameter then use this logic as fallback:
-
-        1) If present first valid disk from --driveorder parameter.
-        2) If present and usable, use disk where /boot partition is placed.
-        3) Use first disk from Blivet.
-        """
+        """Apply the boot drive."""
         boot_drive = self._get_boot_drive(storage, bootloader_proxy)
         log.debug("Using a boot drive: %s", boot_drive)
 
