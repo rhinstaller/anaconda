@@ -731,3 +731,22 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             "This blivet device is missing member devices. "
             "You can remove it or select a different device."
         )
+
+    def is_device_editable_test(self):
+        """Test IsDeviceEditable."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB")
+        )
+        dev2 = DiskDevice(
+            "dev2",
+            fmt=get_format("disklabel"),
+            size=Size("10 GiB")
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        self.assertEqual(self.interface.IsDeviceEditable("dev1"), False)
+        self.assertEqual(self.interface.IsDeviceEditable("dev2"), True)

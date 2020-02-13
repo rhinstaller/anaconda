@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import devicefactory
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
@@ -48,6 +50,15 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         device = self._get_device(device_name)
         return device.format.type == "luks" and device.format.exists
+
+    def is_device_editable(self, device_name):
+        """Is the specified device editable?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        device = self._get_device(device_name)
+        return devicefactory.get_device_type(device) is not None
 
     def check_completeness(self, device_name):
         """Check that the specified device is complete.

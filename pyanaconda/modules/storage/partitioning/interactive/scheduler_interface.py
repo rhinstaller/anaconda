@@ -43,6 +43,14 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.is_device_locked(device_name)
 
+    def IsDeviceEditable(self, device_name: Str) -> Bool:
+        """Is the specified device editable?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        return self.implementation.is_device_editable(device_name)
+
     def CheckCompleteness(self, device_name: Str) -> Structure:
         """Check that the specified device is complete.
 
