@@ -43,6 +43,16 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.is_device_locked(device_name)
 
+    def CheckCompleteness(self, device_name: Str) -> Structure:
+        """Check that the specified device is complete.
+
+        :param device_name: a name of the device
+        :return: a validation report
+        """
+        return ValidationReport.to_structure(
+            self.implementation.check_completeness(device_name)
+        )
+
     def GetDefaultFileSystem(self) -> Str:
         """Get the default type of a filesystem.
 

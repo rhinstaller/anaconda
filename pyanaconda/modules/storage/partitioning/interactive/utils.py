@@ -21,7 +21,7 @@ import re
 
 from blivet import devicefactory
 from blivet.devicelibs import crypto, raid
-from blivet.devices import LUKSDevice
+from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.size import Size
@@ -1046,3 +1046,30 @@ def get_supported_raid_levels(device_type):
     :return: a list of RAID levels
     """
     return devicefactory.get_supported_raid_levels(device_type)
+
+
+def check_device_completeness(device):
+    """Check that the specified device is complete.
+
+    :param device: a device to check
+    :return: an error message or None
+    """
+    if getattr(device, "complete", True):
+        return None
+
+    if isinstance(device, MDRaidArrayDevice):
+        total = device.member_devices
+        missing = total - len(device.parents)
+        return _("This Software RAID array is missing %(missing)d of %(total)d "
+                 "member partitions. You can remove it or select a different "
+                 "device.") % {"missing": missing, "total": total}
+
+    if isinstance(device, LVMVolumeGroupDevice):
+        total = device.pv_count
+        missing = total - len(device.parents)
+        return _("This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d "
+                 "physical volumes. You can remove it or select a different "
+                 "device.") % {"missingPVs": missing, "totalPVs": total}
+
+    return _("This %(type)s device is missing member devices. You can remove "
+             "it or select a different device.") % {"type": device.type}

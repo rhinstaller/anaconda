@@ -49,6 +49,21 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         device = self._get_device(device_name)
         return device.format.type == "luks" and device.format.exists
 
+    def check_completeness(self, device_name):
+        """Check that the specified device is complete.
+
+        :param device_name: a name of the device
+        :return: a validation report
+        """
+        report = ValidationReport()
+        device = self._get_device(device_name)
+        message = utils.check_device_completeness(device)
+
+        if message:
+            report.error_messages.append(message)
+
+        return report
+
     def get_default_file_system(self):
         """Get the default type of a filesystem.
 

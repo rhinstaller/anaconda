@@ -209,7 +209,9 @@ class DeviceTreeViewer(ABC):
         :return: an instance of the Blivet's device
         :raise: UnknownDeviceError if no device is found
         """
-        device = self.storage.devicetree.get_device_by_name(name, hidden=True)
+        device = self.storage.devicetree.get_device_by_name(
+            name, hidden=True, incomplete=True
+        )
 
         if not device:
             raise UnknownDeviceError(name)

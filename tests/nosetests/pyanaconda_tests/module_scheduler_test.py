@@ -24,7 +24,7 @@ from unittest.mock import patch, Mock
 from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION, \
     DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_DISK, DEVICE_TYPE_MD
 from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevice, \
-    BTRFSVolumeDevice
+    BTRFSVolumeDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
@@ -685,3 +685,49 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.assertEqual(self.interface.IsDeviceLocked("dev1"), False)
         self.assertEqual(self.interface.IsDeviceLocked("dev2"), False)
         self.assertEqual(self.interface.IsDeviceLocked("dev3"), True)
+
+    def check_completeness_test(self):
+        """Test CheckCompleteness."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB"),
+            exists=True
+        )
+        dev2 = MDRaidArrayDevice(
+            name="dev2",
+            size=Size("500 MiB"),
+            level=1,
+            member_devices=2,
+            total_devices=2,
+            exists=True
+        )
+        dev3 = LVMVolumeGroupDevice(
+            "dev3",
+            pv_count=2,
+            exists=True
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+        self._add_device(dev3)
+
+        self._check_report(
+            self.interface.CheckCompleteness("dev1")
+        )
+        self._check_report(
+            self.interface.CheckCompleteness("dev2"),
+            "This Software RAID array is missing 2 of 2 member partitions. "
+            "You can remove it or select a different device."
+        )
+        self._check_report(
+            self.interface.CheckCompleteness("dev3"),
+            "This LVM Volume Group is missing 2 of 2 physical volumes. "
+            "You can remove it or select a different device."
+        )
+        dev1.complete = False
+        self._check_report(
+            self.interface.CheckCompleteness("dev1"),
+            "This blivet device is missing member devices. "
+            "You can remove it or select a different device."
+        )
