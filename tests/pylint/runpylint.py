@@ -118,7 +118,7 @@ def setup_environment():
         os.mkdir(os.environ["PYLINTHOME"])
 
 
-def _del_xdg_runtime_dir(self):
+def _del_xdg_runtime_dir():
     shutil.rmtree(os.environ["XDG_RUNTIME_DIR"])
 
 
