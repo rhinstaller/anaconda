@@ -842,7 +842,11 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
         and request.device_type not in {
             devicefactory.DEVICE_TYPE_BTRFS,
             devicefactory.DEVICE_TYPE_LVM_THINP
-        }
+        } \
+        and not any(
+            a.format.type == "luks" and a.format.exists
+            for a in device.raw_device.ancestors if a != device
+        )
 
     return permissions
 
