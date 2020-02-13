@@ -353,6 +353,34 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 13 2020 Martin Kolman <mkolman@redhat.com> - 32.23-1
+- Test kickstart warnings from modules (vslavik)
+- Use kickstart parsing warnings coming from boss (vslavik)
+- Log kickstart warnings in modules (vslavik)
+- Disable package download to / /tmp (#1781517) (jkonecny)
+- Handle the variant in SetConstraint (vponcova)
+- Handle the variant from GetResult (#1798392) (vponcova)
+- Fix the function _del_xdg_runtime_dir (vponcova)
+- Do not crash on adding fcoe device in gui when there are no nics (#1798402)
+  (rvykydal)
+- Fix checking of network device type in Add FCoE gui dialog (#1798876)
+  (rvykydal)
+- Use check_task_creation_task in timezone tests (rvykydal)
+- Move timezone setup kickstart method to dbus module (rvykydal)
+- Do not restart NTP service during its installation (rvykydal)
+- Add fixme to ntp from dhcp setting (rvykydal)
+- Change "not...in" to "...not in" (vslavik)
+- Line length fixes (PEP8) + typos (vslavik)
+- Add the DBus method GenerateDeviceFactoryPermissions (vponcova)
+- Generate the device factory permissions (vponcova)
+- Add the DBus structure DeviceFactoryPermissions (vponcova)
+- Move the class DeviceFactoryRequest to a new file (vponcova)
+- Set up the environment for pylint (vponcova)
+- Unify geoloc logging and enable/disable decision logic (vslavik)
+- Disable geoloc by opts.geoloc instead of kernel cmdline (vslavik)
+- Add a fallback for a disk of the live device (vponcova)
+- If no usable boot drive is found, raise an exception (vponcova)
+
 * Mon Feb 03 2020 Martin Kolman <mkolman@redhat.com> - 32.22-1
 - Don't set the device names (#1797274) (vponcova)
 - Fix line spacing in UI (vslavik)
