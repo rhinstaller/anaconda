@@ -32,6 +32,8 @@ import threading
 import re
 import ipaddress
 
+from dasbus.typing import get_native
+
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
@@ -261,7 +263,7 @@ def run_network_initialization_task(task_path):
     task_proxy = NETWORK.get_proxy(task_path)
     log.debug("Running task %s", task_proxy.Name)
     sync_run_task(task_proxy)
-    result = task_proxy.GetResult()
+    result = get_native(task_proxy.GetResult())
     msg = "%s result: %s" % (task_proxy.Name, result)
     log.debug(msg)
 
