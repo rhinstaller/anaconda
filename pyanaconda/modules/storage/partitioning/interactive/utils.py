@@ -808,6 +808,9 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     if not device:
         raise UnknownDeviceError(device_name)
 
+    if device.protected:
+        return permissions
+
     permissions.device_type = not device.raw_device.exists
     permissions.device_raid_level = not device.raw_device.exists
     permissions.mount_point = device.format.mountable
@@ -847,6 +850,10 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
             a.format.type == "luks" and a.format.exists
             for a in device.raw_device.ancestors if a != device
         )
+
+    permissions.disks = \
+        not device.exists \
+        and request.device_type not in CONTAINER_DEVICE_TYPES
 
     return permissions
 

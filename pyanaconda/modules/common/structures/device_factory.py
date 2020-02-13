@@ -272,6 +272,7 @@ class DeviceFactoryPermissions(DBusData):
 
     def __init__(self):
         self._device_type = False
+        self._disks = False
         self._mount_point = False
         self._reformat = False
         self._format_type = False
@@ -292,6 +293,15 @@ class DeviceFactoryPermissions(DBusData):
     @device_type.setter
     def device_type(self, permission):
         self._device_type = permission
+
+    @property
+    def disks(self) -> Bool:
+        """Can the list of disks be changed?"""
+        return self._disks
+
+    @disks.setter
+    def disks(self, permission):
+        self._disks = permission
 
     @property
     def mount_point(self) -> Bool:

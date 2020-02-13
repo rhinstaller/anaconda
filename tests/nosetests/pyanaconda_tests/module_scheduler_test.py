@@ -487,6 +487,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-size': False,
             'device-encrypted': True,
             'device-raid-level': False,
+            'disks': False,
         })
 
         request = self.interface.GenerateDeviceFactoryRequest("dev2")
@@ -501,7 +502,13 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-size': True,
             'device-encrypted': True,
             'device-raid-level': True,
+            'disks': True,
         })
+
+        dev2.protected = True
+        permissions = self.interface.GenerateDeviceFactoryPermissions(request)
+        for value in get_native(permissions).values():
+            self.assertEqual(value, False)
 
     def generate_device_factory_permissions_btrfs_test(self):
         """Test GenerateDeviceFactoryPermissions with btrfs."""
@@ -531,6 +538,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-size': False,
             'device-encrypted': False,
             'device-raid-level': True,
+            'disks': False,
         })
 
     @patch_dbus_publish_object
