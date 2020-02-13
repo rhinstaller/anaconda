@@ -100,7 +100,7 @@ def collect_unused_devices(storage):
         if not d.format.supported
     ]
 
-    return unused + incomplete + unsupported
+    return filter_unsupported_disklabel_devices(unused + incomplete + unsupported)
 
 
 def collect_bootloader_devices(storage, boot_drive):
@@ -120,7 +120,7 @@ def collect_bootloader_devices(storage, boot_drive):
         if not boot_drive or boot_drive in (d.name for d in device.disks):
             devices.append(device)
 
-    return devices
+    return filter_unsupported_disklabel_devices(devices)
 
 
 def collect_new_devices(storage, boot_drive):
@@ -150,7 +150,7 @@ def collect_new_devices(storage, boot_drive):
         new_devices.extend(collect_bootloader_devices(storage, boot_drive))
 
     # Remove duplicates, but keep the order.
-    return list(dict.fromkeys(new_devices))
+    return filter_unsupported_disklabel_devices(list(dict.fromkeys(new_devices)))
 
 
 def collect_selected_disks(storage, selection):
@@ -229,18 +229,14 @@ def create_new_root(storage, boot_drive):
     :param boot_drive: a name of the bootloader drive
     :return: a new root
     """
-    devices = filter_unsupported_disklabel_devices(
-        collect_new_devices(
-            storage=storage,
-            boot_drive=boot_drive
-        )
+    devices = collect_new_devices(
+        storage=storage,
+        boot_drive=boot_drive
     )
 
-    bootloader_devices = filter_unsupported_disklabel_devices(
-        collect_bootloader_devices(
-            storage=storage,
-            boot_drive=boot_drive
-        )
+    bootloader_devices = collect_bootloader_devices(
+        storage=storage,
+        boot_drive=boot_drive
     )
 
     swaps = [
