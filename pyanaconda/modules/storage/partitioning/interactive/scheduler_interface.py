@@ -35,6 +35,14 @@ __all__ = ["DeviceTreeSchedulerInterface"]
 class DeviceTreeSchedulerInterface(DeviceTreeInterface):
     """DBus interface for the device tree scheduler."""
 
+    def IsDeviceLocked(self, device_name: Str) -> Bool:
+        """Is the specified device locked?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        return self.implementation.is_device_locked(device_name)
+
     def GetDefaultFileSystem(self) -> Str:
         """Get the default type of a filesystem.
 

@@ -40,6 +40,15 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """Return a DBus representation."""
         return DeviceTreeSchedulerInterface(self)
 
+    def is_device_locked(self, device_name):
+        """Is the specified device locked?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        device = self._get_device(device_name)
+        return device.format.type == "luks" and device.format.exists
+
     def get_default_file_system(self):
         """Get the default type of a filesystem.
 

@@ -657,3 +657,31 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.assertNotIn(dev2, self.module.storage.devices)
         self.assertIn(dev3, self.module.storage.devices)
         self.assertEqual(dev3.format.type, "ext4")
+
+    def is_device_locked_test(self):
+        """Test IsDeviceLocked."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB")
+        )
+        dev2 = LUKSDevice(
+            "dev2",
+            parents=[dev1],
+            fmt=get_format("luks"),
+            size=Size("10 GiB"),
+        )
+        dev3 = LUKSDevice(
+            "dev3",
+            parents=[dev1],
+            fmt=get_format("luks", exists=True),
+            size=Size("10 GiB"),
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+        self._add_device(dev3)
+
+        self.assertEqual(self.interface.IsDeviceLocked("dev1"), False)
+        self.assertEqual(self.interface.IsDeviceLocked("dev2"), False)
+        self.assertEqual(self.interface.IsDeviceLocked("dev3"), True)
