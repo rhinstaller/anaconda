@@ -798,11 +798,11 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     :return: device factory permissions
     """
     permissions = DeviceFactoryPermissions()
-    device_name = request.device_spec
-    device = storage.devicetree.resolve_device(device_name)
+    device = storage.devicetree.resolve_device(request.device_spec)
+    container = storage.devicetree.resolve_device(request.container_name)
 
     if not device:
-        raise UnknownDeviceError(device_name)
+        raise UnknownDeviceError(request.device_spec)
 
     if device.protected:
         return permissions
@@ -850,6 +850,21 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     permissions.disks = \
         not device.exists \
         and request.device_type not in CONTAINER_DEVICE_TYPES
+
+    can_change_container = \
+        request.device_type in CONTAINER_DEVICE_TYPES \
+        and not getattr(container, "exists", False)
+
+    can_replace_container = \
+        request.device_type in CONTAINER_DEVICE_TYPES \
+        and not device.raw_device.exists \
+        and device.raw_device != container
+
+    permissions.container_name = can_change_container
+    permissions.container_encrypted = can_change_container
+    permissions.container_raid_level = can_change_container
+    permissions.container_size_policy = can_change_container
+    permissions.container_replacement = can_replace_container
 
     return permissions
 
