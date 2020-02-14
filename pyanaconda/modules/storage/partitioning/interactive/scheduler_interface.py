@@ -176,6 +176,14 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.collect_boot_loader_devices(boot_drive)
 
+    def CollectContainers(self, device_type: Int) -> List[Str]:
+        """Collect containers of the given type.
+
+        :param device_type: a device type
+        :return: a list of container names
+        """
+        return self.implementation.collect_containers(device_type)
+
     def CollectSupportedSystems(self) -> List[Structure]:
         """Collect supported existing or new installations.
 

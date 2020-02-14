@@ -190,6 +190,14 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return [d.name for d in utils.collect_bootloader_devices(self.storage, boot_drive)]
 
+    def collect_containers(self, device_type):
+        """Collect containers of the given type.
+
+        :param device_type: a device type
+        :return: a list of container names
+        """
+        return [c.name for c in utils.collect_containers(self.storage, device_type)]
+
     def collect_supported_systems(self):
         """Collect supported existing or new installations.
 
