@@ -44,7 +44,8 @@ from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import
 from pyanaconda.platform import EFI
 from pyanaconda.storage.initialization import create_storage
 from pyanaconda.storage.root import Root
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
+    patch_dbus_get_proxy
 
 
 class DeviceTreeSchedulerTestCase(unittest.TestCase):
@@ -818,3 +819,19 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         free_space = self.interface.GetContainerFreeSpace("dev2")
         self.assertGreater(free_space, Size("9 GiB").get_bytes())
         self.assertLess(free_space, Size("10 GiB").get_bytes())
+
+    @patch_dbus_get_proxy
+    def generate_container_name_test(self, proxy_getter):
+        """Test GenerateContainerName."""
+        network_proxy = Mock()
+        proxy_getter.return_value = network_proxy
+
+        network_proxy.Hostname = "localhost"
+        network_proxy.GetCurrentHostname.return_value = "localhost"
+        self.assertEqual(self.interface.GenerateContainerName(), "anaconda")
+
+        network_proxy.GetCurrentHostname.return_value = "hostname"
+        self.assertEqual(self.interface.GenerateContainerName(), "anaconda_hostname")
+
+        network_proxy.Hostname = "best.hostname"
+        self.assertEqual(self.interface.GenerateContainerName(), "anaconda_best")

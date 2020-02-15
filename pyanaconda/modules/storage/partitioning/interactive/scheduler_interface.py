@@ -109,6 +109,13 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.generate_device_name(mount_point, format_type)
 
+    def GenerateContainerName(self) -> Str:
+        """Get a suggestion for a container name.
+
+        :return: a generated container name
+        """
+        return self.implementation.generate_container_name()
+
     def GenerateDeviceFactoryRequest(self, device_name: Str) -> Structure:
         """Generate a device factory request for the given device.
 

@@ -127,6 +127,13 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
             swap=bool(format_type == "swap")
         )
 
+    def generate_container_name(self):
+        """Get a suggestion for a container name.
+
+        :return: a generated container name
+        """
+        return self._storage.suggest_container_name()
+
     def generate_device_factory_request(self, device_name):
         """Generate a device factory request for the given device.
 
