@@ -25,6 +25,7 @@ from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_
     DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_DISK, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS
 from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevice, \
     BTRFSVolumeDevice, MDRaidArrayDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice
+from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
@@ -911,3 +912,61 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.assertEqual(request.container_encrypted, False)
         self.assertEqual(request.container_raid_level, "")
         self.assertEqual(request.container_size_policy, 0)
+
+    def update_container_data_test(self):
+        """Test UpdateContainerData."""
+        pv1 = StorageDevice(
+            "pv1",
+            size=Size("1025 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        pv2 = StorageDevice(
+            "pv2",
+            size=Size("513 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        vg = LVMVolumeGroupDevice(
+            "testvg",
+            parents=[pv1, pv2]
+        )
+
+        self._add_device(pv1)
+        self._add_device(pv2)
+        self._add_device(vg)
+
+        request = DeviceFactoryRequest()
+        request.device_type = DEVICE_TYPE_PARTITION
+
+        with self.assertRaises(StorageError):
+            self.interface.UpdateContainerData(
+                    DeviceFactoryRequest.to_structure(request),
+                    "anaconda"
+            )
+
+        request.device_type = DEVICE_TYPE_BTRFS
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.UpdateContainerData(
+                DeviceFactoryRequest.to_structure(request),
+                "anaconda"
+            )
+        )
+
+        self.assertEqual(request.container_name, "anaconda")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "single")
+        self.assertEqual(request.container_size_policy, 0)
+        self.assertEqual(request.disks, [])
+
+        request.device_type = DEVICE_TYPE_LVM
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.UpdateContainerData(
+                DeviceFactoryRequest.to_structure(request),
+                "testvg"
+            )
+        )
+
+        self.assertEqual(request.container_name, "testvg")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "")
+        self.assertEqual(request.container_size_policy, Size("1.5 GiB").get_bytes())
+        self.assertEqual(request.disks, [])

@@ -164,6 +164,14 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         utils.generate_container_data(self.storage, request)
 
+    def update_container_data(self, request, container_name):
+        """Update the container data in the device factory request.
+
+        :param request: a device factory request
+        :param container_name: a container name
+        """
+        utils.update_container_data(self.storage, request, container_name)
+
     def get_partitioned(self):
         """Get all partitioned devices in the device tree.
 

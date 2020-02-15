@@ -821,6 +821,40 @@ def generate_container_data(storage, request: DeviceFactoryRequest):
         )
 
 
+def update_container_data(storage, request: DeviceFactoryRequest, container_name):
+    """Update the container data in the device factory request.
+
+    :param storage: an instance of Blivet
+    :param request: a device factory request
+    :param container_name: a container name to apply
+    """
+    # Reset all container data.
+    request.reset_container_data()
+
+    # Check the device type.
+    if request.device_type not in CONTAINER_DEVICE_TYPES:
+        raise StorageError("Invalid device type.")
+
+    # Find the container in the device tree if any.
+    container = storage.devicetree.get_device_by_name(container_name)
+
+    if container:
+        # Set the request from the found container.
+        request.container_name = container.name
+        request.container_encrypted = container.encrypted
+        request.container_raid_level = get_device_raid_level_name(container)
+        request.container_size_policy = get_container_size_policy(container)
+
+        # Use the container's disks.
+        request.disks = [d.name for d in container.disks]
+    else:
+        # Set the request from the new container.
+        request.container_name = container_name
+        request.container_raid_level = get_default_container_raid_level_name(
+            request.device_type
+        )
+
+
 def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     """Generate permissions for the requested device.
 
