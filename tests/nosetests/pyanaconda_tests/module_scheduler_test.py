@@ -316,6 +316,14 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
     def validate_container_name_test(self):
         """Test ValidateContainerName."""
+        dev1 = DiskDevice(
+            "dev1"
+        )
+        self._add_device(dev1)
+
+        report = self.interface.ValidateContainerName("dev1")
+        self._check_report(report, "Name is already in use.")
+
         report = self.interface.ValidateContainerName("_my/contain$er")
         self._check_report(report, "Invalid container name.")
 
