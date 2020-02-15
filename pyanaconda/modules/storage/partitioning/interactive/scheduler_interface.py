@@ -75,6 +75,14 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.get_default_luks_version()
 
+    def GetContainerFreeSpace(self, container_name: Str) -> UInt64:
+        """Get total free space in the specified container.
+
+        :param container_name: a name of the container
+        :return: a size in bytes
+        """
+        return self.implementation.get_container_free_space(container_name)
+
     def GenerateSystemName(self) -> Str:
         """Generate a name of the new installation.
 

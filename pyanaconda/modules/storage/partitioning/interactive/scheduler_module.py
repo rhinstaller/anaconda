@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from blivet import devicefactory
+from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.structures.validation import ValidationReport
@@ -88,6 +89,15 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a version of LUKS
         """
         return self.storage.default_luks_version
+
+    def get_container_free_space(self, container_name):
+        """Get total free space in the specified container.
+
+        :param container_name: a name of the container
+        :return: a size in bytes
+        """
+        container = self._get_device(container_name)
+        return Size(getattr(container, "free_space", 0)).get_bytes()
 
     def generate_system_name(self):
         """Generate a name of the new installation.

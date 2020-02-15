@@ -783,3 +783,25 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.CollectContainers(DEVICE_TYPE_BTRFS), [dev2.name])
         self.assertEqual(self.interface.CollectContainers(DEVICE_TYPE_LVM), [])
+
+    def get_container_free_space_test(self):
+        """Test GetContainerFreeSpace."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("lvmpv"),
+            size=Size("10 GiB")
+        )
+        dev2 = LVMVolumeGroupDevice(
+            "dev2",
+            parents=[dev1]
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        free_space = self.interface.GetContainerFreeSpace("dev1")
+        self.assertEqual(free_space, 0)
+
+        free_space = self.interface.GetContainerFreeSpace("dev2")
+        self.assertGreater(free_space, Size("9 GiB").get_bytes())
+        self.assertLess(free_space, Size("10 GiB").get_bytes())
