@@ -266,6 +266,13 @@ class DeviceFactoryRequest(DBusData):
     def container_encrypted(self, value):
         self._container_encrypted = value
 
+    def reset_container_data(self):
+        """Reset all container data."""
+        self.container_name = ""
+        self.container_size_policy = 0
+        self.container_raid_level = ""
+        self.container_encrypted = False
+
 
 class DeviceFactoryPermissions(DBusData):
     """Device factory permissions."""

@@ -364,6 +364,19 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'container-raid-level': '',
         })
 
+    def reset_device_factory_request_test(self):
+        """Test reset_container_data."""
+        default = DeviceFactoryRequest()
+        request = DeviceFactoryRequest()
+
+        request.container_name = "dev1"
+        request.container_size_policy = 123
+        request.container_encrypted = True
+        request.container_raid_level = "raid1"
+        request.reset_container_data()
+
+        self.assertEqual(compare_data(request, default), True)
+
     def get_default_luks_version_test(self):
         """Test GetDefaultLUKSVersion."""
         self.assertEqual(self.interface.GetDefaultLUKSVersion(), "luks2")
