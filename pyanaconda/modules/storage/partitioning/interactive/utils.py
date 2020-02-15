@@ -790,6 +790,37 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     return request
 
 
+def generate_container_data(storage, request: DeviceFactoryRequest):
+    """Generate the container data for the device factory request.
+
+    :param storage: an instance of Blivet
+    :param request: a device factory request
+    """
+    # Reset all container data.
+    request.reset_container_data()
+
+    # Check the device type.
+    if request.device_type not in CONTAINER_DEVICE_TYPES:
+        return
+
+    # Find a container of the requested type.
+    device = storage.devicetree.resolve_device(request.device_spec)
+    container = get_container(storage, request.device_type, device.raw_device)
+
+    if container:
+        # Set the request from the found container.
+        request.container_name = container.name
+        request.container_encrypted = container.encrypted
+        request.container_raid_level = get_device_raid_level_name(container)
+        request.container_size_policy = get_container_size_policy(container)
+    else:
+        # Set the request from a new container.
+        request.container_name = storage.suggest_container_name()
+        request.container_raid_level = get_default_container_raid_level_name(
+            request.device_type
+        )
+
+
 def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     """Generate permissions for the requested device.
 
@@ -1035,6 +1066,18 @@ def get_container_size_policy_by_number(number):
         return number
 
     return Size(number)
+
+
+def get_default_container_raid_level_name(device_type):
+    """Get the default RAID level for this device type's container type.
+
+    :param int device_type: a device_type
+    :return str: a name of the default RAID level or an empty string
+    """
+    if device_type == devicefactory.DEVICE_TYPE_BTRFS:
+        return "single"
+
+    return ""
 
 
 def collect_containers(storage, device_type):

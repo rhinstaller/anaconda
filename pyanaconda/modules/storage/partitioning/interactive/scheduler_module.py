@@ -157,6 +157,13 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return utils.generate_device_factory_permissions(self.storage, request)
 
+    def generate_container_data(self, request):
+        """Generate the container data for the device factory request.
+
+        :param request: a device factory request
+        """
+        utils.generate_container_data(self.storage, request)
+
     def get_partitioned(self):
         """Get all partitioned devices in the device tree.
 

@@ -142,6 +142,16 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         permissions = self.implementation.generate_device_factory_permissions(request)
         return DeviceFactoryPermissions.to_structure(permissions)
 
+    def GenerateContainerData(self, request: Structure) -> Structure:
+        """Generate the container data for the device factory request.
+
+        :param request: a device factory request
+        :return: a device factory request
+        """
+        request = DeviceFactoryRequest.from_structure(request)
+        self.implementation.generate_container_data(request)
+        return DeviceFactoryRequest.to_structure(request)
+
     def GetPartitioned(self) -> List[Str]:
         """Get all partitioned devices in the device tree.
 

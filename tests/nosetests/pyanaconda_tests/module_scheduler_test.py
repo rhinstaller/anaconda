@@ -24,7 +24,7 @@ from unittest.mock import patch, Mock
 from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION, \
     DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_DISK, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS
 from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevice, \
-    BTRFSVolumeDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
+    BTRFSVolumeDevice, MDRaidArrayDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
@@ -835,3 +835,79 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         network_proxy.Hostname = "best.hostname"
         self.assertEqual(self.interface.GenerateContainerName(), "anaconda_best")
+
+    @patch_dbus_get_proxy
+    def generate_container_data_test(self, proxy_getter):
+        """Test GenerateContainerData."""
+        network_proxy = Mock()
+        network_proxy.Hostname = "localhost"
+        network_proxy.GetCurrentHostname.return_value = "localhost"
+        proxy_getter.return_value = network_proxy
+
+        pv1 = StorageDevice(
+            "pv1",
+            size=Size("1025 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        pv2 = StorageDevice(
+            "pv2",
+            size=Size("513 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        vg = LVMVolumeGroupDevice(
+            "testvg",
+            parents=[pv1, pv2]
+        )
+        lv = LVMLogicalVolumeDevice(
+            "testlv",
+            size=Size("512 MiB"),
+            parents=[vg],
+            fmt=get_format("xfs"),
+            exists=False,
+            seg_type="raid1",
+            pvs=[pv1, pv2]
+        )
+
+        self._add_device(pv1)
+        self._add_device(pv2)
+        self._add_device(vg)
+        self._add_device(lv)
+
+        request = DeviceFactoryRequest()
+        request.device_spec = lv.name
+
+        request.device_type = DEVICE_TYPE_LVM
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.GenerateContainerData(
+                DeviceFactoryRequest.to_structure(request)
+            )
+        )
+
+        self.assertEqual(request.container_name, "testvg")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "")
+        self.assertEqual(request.container_size_policy, Size("1.5 GiB").get_bytes())
+
+        request.device_type = DEVICE_TYPE_BTRFS
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.GenerateContainerData(
+                DeviceFactoryRequest.to_structure(request)
+            )
+        )
+
+        self.assertEqual(request.container_name, "anaconda")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "single")
+        self.assertEqual(request.container_size_policy, 0)
+
+        request.device_type = DEVICE_TYPE_PARTITION
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.GenerateContainerData(
+                DeviceFactoryRequest.to_structure(request)
+            )
+        )
+
+        self.assertEqual(request.container_name, "")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "")
+        self.assertEqual(request.container_size_policy, 0)
