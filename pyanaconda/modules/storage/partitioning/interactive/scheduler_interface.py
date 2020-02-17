@@ -311,7 +311,7 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
 
         :param request: a device factory request
         :param original_request: an original device factory request
-        :raise: StorageError if the device cannot be changed
+        :raise: StorageConfigurationError if the device cannot be changed
         """
         self.implementation.change_device(
             DeviceFactoryRequest.from_structure(request),

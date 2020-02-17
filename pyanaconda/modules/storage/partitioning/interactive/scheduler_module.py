@@ -338,7 +338,7 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
 
         :param request: a device factory request
         :param original_request: an original device factory request
-        :raise: StorageError if the device cannot be changed
+        :raise: StorageConfigurationError if the device cannot be changed
         """
         device = self._get_device(request.device_spec)
         task = ChangeDeviceTask(self.storage, device, request, original_request)
