@@ -43,6 +43,7 @@ class DeviceFactoryRequest(DBusData):
         self._device_raid_level = ""
         self._device_encrypted = False
 
+        self._container_spec = ""
         self._container_name = ""
         self._container_size_policy = 0
         self._container_raid_level = ""
@@ -212,6 +213,18 @@ class DeviceFactoryRequest(DBusData):
         self._device_encrypted = value
 
     @property
+    def container_spec(self) -> Str:
+        """Container to use for adjustment.
+
+        :return: a container specification
+        """
+        return self._container_spec
+
+    @container_spec.setter
+    def container_spec(self, spec: Str):
+        self._container_spec = spec
+
+    @property
     def container_name(self) -> Str:
         """Name of the container.
 
@@ -268,6 +281,7 @@ class DeviceFactoryRequest(DBusData):
 
     def reset_container_data(self):
         """Reset all container data."""
+        self.container_spec = ""
         self.container_name = ""
         self.container_size_policy = 0
         self.container_raid_level = ""
@@ -291,11 +305,11 @@ class DeviceFactoryPermissions(DBusData):
         self._device_raid_level = False
         self._device_encrypted = False
 
+        self._container_spec = False
         self._container_name = False
         self._container_size_policy = False
         self._container_raid_level = False
         self._container_encrypted = False
-        self._container_replacement = False
 
     @property
     def device_type(self) -> Bool:
@@ -415,6 +429,18 @@ class DeviceFactoryPermissions(DBusData):
         self._device_encrypted = permission
 
     @property
+    def container_spec(self) -> Bool:
+        """Can the container be replaced?
+
+        :return: True or False
+        """
+        return self._container_spec
+
+    @container_spec.setter
+    def container_spec(self, permission):
+        self._container_spec = permission
+
+    @property
     def container_name(self) -> Bool:
         """Can the container name be changed?
 
@@ -462,21 +488,9 @@ class DeviceFactoryPermissions(DBusData):
     def container_encrypted(self, permission):
         self._container_encrypted = permission
 
-    @property
-    def container_replacement(self) -> Bool:
-        """Can the container be replaced?
-
-        :return: True or False
-        """
-        return self._container_replacement
-
-    @container_replacement.setter
-    def container_replacement(self, permission):
-        self._container_replacement = permission
-
     def can_replace_container(self):
         """Can we use a different container?"""
-        return self.container_replacement
+        return self._container_spec
 
     def can_modify_container(self):
         """Can we modify the current container?"""

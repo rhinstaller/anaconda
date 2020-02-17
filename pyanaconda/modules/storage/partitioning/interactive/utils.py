@@ -785,6 +785,7 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     container = factory.get_container()
 
     if container:
+        request.container_spec = container.name
         request.container_name = container.name
         request.container_encrypted = container.encrypted
         request.container_raid_level = get_device_raid_level_name(container)
@@ -812,6 +813,7 @@ def generate_container_data(storage, request: DeviceFactoryRequest):
 
     if container:
         # Set the request from the found container.
+        request.container_spec = container.name
         request.container_name = container.name
         request.container_encrypted = container.encrypted
         request.container_raid_level = get_device_raid_level_name(container)
@@ -843,6 +845,7 @@ def update_container_data(storage, request: DeviceFactoryRequest, container_name
 
     if container:
         # Set the request from the found container.
+        request.container_spec = container.name
         request.container_name = container.name
         request.container_encrypted = container.encrypted
         request.container_raid_level = get_device_raid_level_name(container)
@@ -928,11 +931,11 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
         and not device.raw_device.exists \
         and device.raw_device != container
 
+    permissions.container_spec = can_replace_container
     permissions.container_name = can_change_container
     permissions.container_encrypted = can_change_container
     permissions.container_raid_level = can_change_container
     permissions.container_size_policy = can_change_container
-    permissions.container_replacement = can_replace_container
 
     return permissions
 

@@ -368,6 +368,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-size': Size("5 GiB").get_bytes(),
             'device-encrypted': False,
             'device-raid-level': '',
+            'container-spec': '',
             'container-name': '',
             'container-size-policy': SIZE_POLICY_AUTO,
             'container-encrypted': False,
@@ -379,6 +380,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         default = DeviceFactoryRequest()
         request = DeviceFactoryRequest()
 
+        request.container_spec = "dev1"
         request.container_name = "dev1"
         request.container_size_policy = 123
         request.container_encrypted = True
@@ -511,11 +513,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-encrypted': True,
             'device-raid-level': False,
             'disks': False,
+            'container-spec': False,
             'container-name': False,
             'container-size-policy': False,
             'container-encrypted': False,
             'container-raid-level': False,
-            'container-replacement': False,
         })
 
         request = self.interface.GenerateDeviceFactoryRequest("dev2")
@@ -531,11 +533,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-encrypted': True,
             'device-raid-level': True,
             'disks': True,
+            'container-spec': False,
             'container-name': False,
             'container-size-policy': False,
             'container-encrypted': False,
             'container-raid-level': False,
-            'container-replacement': False,
         })
 
         dev2.protected = True
@@ -572,11 +574,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-encrypted': False,
             'device-raid-level': True,
             'disks': False,
+            'container-spec': False,
             'container-name': True,
             'container-size-policy': True,
             'container-encrypted': True,
             'container-raid-level': True,
-            'container-replacement': False,
         })
 
     @patch_dbus_publish_object
@@ -892,6 +894,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
+        self.assertEqual(request.container_spec, "testvg")
         self.assertEqual(request.container_name, "testvg")
         self.assertEqual(request.container_encrypted, False)
         self.assertEqual(request.container_raid_level, "")
@@ -904,6 +907,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
+        self.assertEqual(request.container_spec, "")
         self.assertEqual(request.container_name, "anaconda")
         self.assertEqual(request.container_encrypted, False)
         self.assertEqual(request.container_raid_level, "single")
@@ -916,6 +920,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
+        self.assertEqual(request.container_spec, "")
         self.assertEqual(request.container_name, "")
         self.assertEqual(request.container_encrypted, False)
         self.assertEqual(request.container_raid_level, "")
@@ -959,6 +964,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
+        self.assertEqual(request.container_spec, "")
         self.assertEqual(request.container_name, "anaconda")
         self.assertEqual(request.container_encrypted, False)
         self.assertEqual(request.container_raid_level, "single")
@@ -973,6 +979,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
+        self.assertEqual(request.container_spec, "testvg")
         self.assertEqual(request.container_name, "testvg")
         self.assertEqual(request.container_encrypted, False)
         self.assertEqual(request.container_raid_level, "")
