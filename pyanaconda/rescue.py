@@ -16,13 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from blivet.errors import StorageError
-
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE, QUIT_MESSAGE
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.threading import threadMgr
@@ -195,7 +194,7 @@ class Rescue(object):
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
             log.info("System has been mounted under: %s", conf.target.system_root)
-        except StorageError as e:
+        except MountFilesystemError as e:
             log.error("Mounting system under %s failed: %s", conf.target.system_root, e)
             self.status = RescueModeStatus.MOUNT_FAILED
             return False

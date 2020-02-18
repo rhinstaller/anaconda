@@ -17,8 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.errors import StorageError
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.storage.root import find_existing_installations, mount_existing_system
 from pyanaconda.modules.common.task import Task
+
+log = get_module_logger(__name__)
 
 __all__ = ["FindExistingSystemsTask", "MountExistingSystemTask"]
 
@@ -66,9 +72,16 @@ class MountExistingSystemTask(Task):
         return "Mount an existing operating system"
 
     def run(self):
-        """Run the task."""
-        mount_existing_system(
-            storage=self._storage,
-            root_device=self._device,
-            read_only=self._read_only
-        )
+        """Run the task.
+
+        :raise: MountFilesystemError in a case of failure
+        """
+        try:
+            mount_existing_system(
+                storage=self._storage,
+                root_device=self._device,
+                read_only=self._read_only
+            )
+        except StorageError as e:
+            log.error("Failed to mount the system: %s", e)
+            raise MountFilesystemError(str(e)) from e
