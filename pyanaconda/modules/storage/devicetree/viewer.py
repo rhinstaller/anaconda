@@ -19,10 +19,12 @@
 #
 from abc import abstractmethod, ABC
 
+from blivet.deviceaction import ACTION_OBJECT_FORMAT
 from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
     DeviceFormatData, OSData
@@ -277,10 +279,40 @@ class DeviceTreeViewer(ABC):
         :return: an instance of DeviceActionData
         """
         data = DeviceActionData()
+
+        # Collect the action data.
         data.action_type = action.type_string.lower()
+        data.action_description = action.type_desc
+
+        # Collect the object data.
         data.object_type = action.object_string.lower()
-        data.device_name = action.device.name
-        data.description = action.type_desc
+        data.object_description = action.object_type_string
+
+        # Collect the device data.
+        device = action.device
+        data.device_name = device.name
+
+        if action.obj == ACTION_OBJECT_FORMAT:
+            data.attrs["mount-point"] = self._get_attribute(device.format, "mountpoint")
+
+        if getattr(device, "description", ""):
+            data.attrs["serial"] = self._get_attribute(device, "serial")
+            data.device_description = _("{device_description} ({device_name})").format(
+                device_description=device.description,
+                device_name=device.name
+            )
+        elif getattr(device, "disk", None):
+            data.attrs["serial"] = self._get_attribute(device.disk, "serial")
+            data.device_description = _("{device_name} on {container_name}").format(
+                device_name=device.name,
+                container_name=device.disk.description
+            )
+        else:
+            data.attrs["serial"] = self._get_attribute(device, "serial")
+            data.device_description = device.name
+
+        # Prune the attributes.
+        data.attrs = self._prune_attributes(data.attrs)
         return data
 
     def resolve_device(self, dev_spec):

@@ -273,9 +273,15 @@ class DeviceActionData(DBusData):
 
     def __init__(self):
         self._action_type = ""
+        self._action_description = ""
+
         self._object_type = ""
+        self._object_description = ""
+
         self._device_name = ""
-        self._description = ""
+        self._device_description = ""
+
+        self._attrs = {}
 
     @property
     def action_type(self) -> Str:
@@ -294,6 +300,18 @@ class DeviceActionData(DBusData):
         self._action_type = name
 
     @property
+    def action_description(self) -> Str:
+        """Description of the action.
+
+        :return: a string with description
+        """
+        return self._action_description
+
+    @action_description.setter
+    def action_description(self, value):
+        self._action_description = value
+
+    @property
     def object_type(self) -> Str:
         """A type of the action object.
 
@@ -309,6 +327,18 @@ class DeviceActionData(DBusData):
         self._object_type = name
 
     @property
+    def object_description(self) -> Str:
+        """Description of the action object.
+
+        :return: a string with description
+        """
+        return self._object_description
+
+    @object_description.setter
+    def object_description(self, value):
+        self._object_description = value
+
+    @property
     def device_name(self) -> Str:
         """A name of the device.
 
@@ -321,18 +351,37 @@ class DeviceActionData(DBusData):
         self._device_name = name
 
     @property
-    def description(self) -> Str:
-        """Description of the action.
-
-        FIXME: This is a temporary property.
+    def device_description(self) -> Str:
+        """Description of the device.
 
         :return: a string with description
         """
-        return self._description
+        return self._device_description
 
-    @description.setter
-    def description(self, text):
-        self._description = text
+    @device_description.setter
+    def device_description(self, value):
+        self._device_description = value
+
+    @property
+    def attrs(self) -> Dict[Str, Str]:
+        """Additional attributes.
+
+        The supported attributes are defined by
+        the lists below.
+
+        Attributes for all types:
+            serial
+
+        Attributes for file systems:
+            mount-point
+
+        :return: a dictionary of attributes
+        """
+        return self._attrs
+
+    @attrs.setter
+    def attrs(self, attrs: Dict[Str, Str]):
+        self._attrs = attrs
 
 
 class OSData(DBusData):
