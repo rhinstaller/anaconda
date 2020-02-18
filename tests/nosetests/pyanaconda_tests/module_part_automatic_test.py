@@ -81,7 +81,14 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         """Test the device tree."""
         self.module.on_storage_changed(Mock())
         path = self.interface.GetDeviceTree()
-        check_dbus_object_creation(self, path, publisher, ResizableDeviceTreeModule)
+        obj = check_dbus_object_creation(self, path, publisher, ResizableDeviceTreeModule)
+        self.assertEqual(obj.implementation.storage, self.module.storage)
+
+        self.module.on_partitioning_reset()
+        self.assertEqual(obj.implementation.storage, self.module.storage)
+
+        self.module.on_storage_changed(Mock())
+        self.assertEqual(obj.implementation.storage, self.module.storage)
 
     def request_property_test(self):
         """Test the property request."""

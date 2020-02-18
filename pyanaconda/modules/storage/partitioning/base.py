@@ -72,9 +72,15 @@ class PartitioningModule(KickstartBaseModule, Publishable):
         """Update the current storage."""
         self._current_storage = storage
 
+        if self._device_tree_module:
+            self._device_tree_module.on_storage_changed(self.storage)
+
     def on_partitioning_reset(self):
         """Drop the storage playground."""
         self._storage_playground = None
+
+        if self._device_tree_module:
+            self._device_tree_module.on_storage_changed(self.storage)
 
     def on_selected_disks_changed(self, selection):
         """Keep the current disk selection."""
