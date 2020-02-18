@@ -298,7 +298,7 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """Add a new device to the storage model.
 
         :param request: a device factory request
-        :raise: StorageError if the device cannot be created
+        :raise: StorageConfigurationError if the device cannot be created
         """
         self.implementation.add_device(
             DeviceFactoryRequest.from_structure(request)

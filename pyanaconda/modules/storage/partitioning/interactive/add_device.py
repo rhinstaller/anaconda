@@ -20,6 +20,7 @@ from blivet.errors import StorageError
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import lowerASCII
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.storage.partitioning.interactive.utils import \
@@ -52,7 +53,7 @@ class AddDeviceTask(Task):
     def run(self):
         """Add a new device to the device tree.
 
-        :raise: StorageError if the device cannot be created
+        :raise: StorageConfigurationError if the device cannot be created
         """
         log.debug("Add device: %s", self._request)
 
@@ -75,7 +76,8 @@ class AddDeviceTask(Task):
             # Ignore the second error.
             pass
 
-        raise error
+        log.error("Failed to add a device: %s", error)
+        raise StorageConfigurationError(str(error))
 
     def _complete_device_factory_request(self, storage, request: DeviceFactoryRequest):
         """Complete the device factory request.

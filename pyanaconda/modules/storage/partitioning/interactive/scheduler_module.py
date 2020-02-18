@@ -326,7 +326,7 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """Add a new device to the storage model.
 
         :param request: a device factory request
-        :raise: StorageError if the device cannot be created
+        :raise: StorageConfigurationError if the device cannot be created
         """
         task = AddDeviceTask(self.storage, request)
         task.run()
