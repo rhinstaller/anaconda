@@ -28,6 +28,7 @@ from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, INSTALL_TRE
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 
 from pyanaconda import isys
+from pyanaconda.modules.common.errors.storage import MountFilesystemError, DeviceSetupError
 from pyanaconda.payload.image import findFirstIsoImage, mountImage, find_optical_install_media,\
     verifyMedia, verify_valid_installtree
 from pyanaconda.core import util
@@ -41,9 +42,6 @@ from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
 
 from pykickstart.parser import Group
-
-from blivet.errors import StorageError
-
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -459,7 +457,7 @@ class Payload(metaclass=ABCMeta):
         try:
             payload_utils.setup_device(device)
             payload_utils.mount_device(device, mountpoint)
-        except StorageError as e:
+        except (DeviceSetupError, MountFilesystemError) as e:
             log.error("mount failed: %s", e)
             payload_utils.teardown_device(device)
             raise PayloadSetupError(str(e))

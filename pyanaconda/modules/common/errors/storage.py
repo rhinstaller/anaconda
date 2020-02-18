@@ -64,6 +64,12 @@ class ProtectedDeviceError(AnacondaError):
     pass
 
 
+@dbus_error("DeviceSetupError", namespace=STORAGE_NAMESPACE)
+class DeviceSetupError(AnacondaError):
+    """Failed to set up or tear down a device."""
+    pass
+
+
 @dbus_error("MountFilesystemError", namespace=STORAGE_NAMESPACE)
 class MountFilesystemError(AnacondaError):
     """Failed to un/mount a filesystem."""

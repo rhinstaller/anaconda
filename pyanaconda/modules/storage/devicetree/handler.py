@@ -19,9 +19,10 @@
 #
 from abc import abstractmethod, ABC
 
-from blivet.errors import FSError
+from blivet.errors import FSError, StorageError
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
+from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError, \
+    DeviceSetupError
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
     MountExistingSystemTask
@@ -59,17 +60,27 @@ class DeviceTreeHandler(ABC):
         """Open, or set up, a device.
 
         :param device_name: a name of the device
+        :raise: DeviceSetupError in a case of failure
         """
         device = self._get_device(device_name)
-        device.setup()
+        try:
+            device.setup()
+        except StorageError as e:
+            msg = "Failed to set up {}: {}".format(device_name, str(e))
+            raise DeviceSetupError(msg) from None
 
     def teardown_device(self, device_name):
         """Close, or tear down, a device.
 
         :param device_name: a name of the device
+        :raise: DeviceSetupError in a case of failure
         """
         device = self._get_device(device_name)
-        device.teardown(recursive=True)
+        try:
+            device.teardown(recursive=True)
+        except StorageError as e:
+            msg = "Failed to tear down {}: {}".format(device_name, str(e))
+            raise DeviceSetupError(msg) from None
 
     def mount_device(self, device_name, mount_point):
         """Mount a filesystem on the device.

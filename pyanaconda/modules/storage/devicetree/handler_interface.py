@@ -34,6 +34,7 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         """Open, or set up, a device.
 
         :param device_name: a name of the device
+        :raise: DeviceSetupError in a case of failure
         """
         self.implementation.setup_device(device_name)
 
@@ -41,6 +42,7 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         """Close, or tear down, a device.
 
         :param device_name: a name of the device
+        :raise: DeviceSetupError in a case of failure
         """
         self.implementation.teardown_device(device_name)
 
