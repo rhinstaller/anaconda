@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-EXTRA_DIST = $(srcdir)/*.rst $(srcdir)/*.txt $(srcdir)/conf.py
+EXTRA_DIST = $(srcdir)/*.rst $(srcdir)/conf.py
 
 CLEANFILES = api $(builddir)/*.xml
 
