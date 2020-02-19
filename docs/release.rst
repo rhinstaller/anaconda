@@ -105,112 +105,15 @@ environment way see mock path below.
 
     fedpkg build
 
-
-
-Using mock path solution
-------------------------
-This is an alternative to the ``rpmbuild`` tutorial above using ``mock`` container environment.
-This way has the benefit that you don't need to install all Anaconda dependencies to your system. To be able
-to use the mock without root privileges you should be member of a ``mock`` group.
-
-1. allow network access in a mock environment
+14. push new translations
 
 ::
+    make po-push
 
-    vim /etc/mock/site-defaults.cfg
-
-find line which contains
-
-::
-
-    config_opts['rpmbuild_networking']
-
-uncomment it and set it to True instead
-
-1. do any changes that are needed to anaconda.spec.in
-
-::
-
-   vim anaconda.spec.in
-
-2. do a release commit
-
-::
-
-    ./scripts/makebumpver -c
-
-3. check the commit and tag are correct
-
-4. push the master branch to the remote
-
-::
-
-    git push origin master --tags
-
-5. prepare mock environment
-
-::
-
-    ./scripts/testing/setup-mock-test-env.py --init -c --release fedora-rawhide-x86_64
-
-6. connect to the prepared mock environment
-
-::
-
-    mock -r fedora-rawhide-x86_64 --chroot -- "cd anaconda && make clean; ./autogen.sh && ./configure && make release"
-
-7. copy tarball to SOURCES from a mock
-
-::
-
-    mock -r fedora-rawhide-x86_64 --copyout "/anaconda/anaconda-*.tar.bz2" .
-    mock -r fedora-rawhide-x86_64 --copyout "/anaconda/anaconda.spec" .
-
-8. create SRPM
-
-::
-
-    mock -r fedora-rawhide-x86_64 --buildsrpm --spec ./anaconda.spec --sources ./anaconda-*.tar.bz2 --resultdir /tmp/anaconda-srpm/
-    cp /tmp/anaconda-srpm/anaconda-*.src.rpm .
-
-9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the master branch & make sure it's up to date
-
-::
-
-    cd <some folder>
-    fedpkg clone anaconda
-    cd anaconda
-    fedpkg switch-branch master
-    git pull
-
-10. switch to Fedora distgit folder and import the SRPM; to make this work you have to be authenticated in FAS by a kerberos ticket
-
-::
-
-    fedpkg import <anaconda directory>/anaconda-<version>.src.rpm
-
-11. this will stage a commit, check it's content and commit
-
- - Do not forget to replace the ``<new-version>`` with correct version!!
-
-::
-
-  fedpkg commit --with-changelog --message "New version <new-version>"
-
-12. push the update
-
-::
-
-    fedpkg push
-
-13. start the build
-
-::
-
-    fedpkg build
+15. check repository on path returned by the above command and push if it's correct
 
 
-Upcomming Fedora release & package build
+Upcoming Fedora release & package build
 ========================================
 
 Creating and anaconda release and build for an upcoming Fedora release is pretty similar to a Rawhide build
