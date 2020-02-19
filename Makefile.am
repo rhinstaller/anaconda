@@ -99,7 +99,33 @@ po-pull:
 po-push:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 	rm $(srcdir)/po/{main,extra}.pot
-	$(ZANATA_CLIENT_BIN) push $(ZANATA_PUSH_ARGS)
+# This algorithm will make these steps:
+# - clone localization repository
+# - copy pot file to this repository
+# - check if pot file is changed (ignore the POT-Creation-Date otherwise it's always changed)
+# - if not changed:
+#   - remove cloned repository
+# - if changed:
+#   - add pot file
+#   - commit pot file
+#   - tell user to verify this file and push to the remote from the temp dir
+	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) || exit 1 ; \
+	git clone --depth 1 -b $(GIT_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR || exit 2 ; \
+	cp $(srcdir)/po/anaconda.pot $$TEMP_DIR/ || exit 3 ; \
+	pushd $$TEMP_DIR ; \
+	git difftool --trust-exit-code -y -x "diff -u -I '^\"POT-Creation-Date: .*$$'" HEAD ./anaconda.pot &>/dev/null ; \
+	if [ $$? -eq 0  ] ; then \
+		popd ; \
+		echo "Pot file is up to date" ; \
+		rm -rf $$TEMP_DIR ; \
+	else \
+		git add ./anaconda.pot && \
+		git commit -m "Update anaconda.pot" && \
+		popd && \
+		echo "Pot file updated for the localization repository $(L10N_REPOSITORY)" && \
+		echo "Please confirm and push:" && \
+		echo "$$TEMP_DIR" ; \
+	fi ;
 
 po-all:
 	$(MAKE) po-push
