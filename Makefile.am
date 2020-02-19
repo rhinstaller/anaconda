@@ -50,6 +50,8 @@ ZANATA_PUSH_ARGS = --srcfile $(srcdir)/po/anaconda.pot --push-type source --forc
 
 ZANATA_CLIENT_BIN=zanata
 
+L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
+
 DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
 				-e 's/^f//' \
 				-e 's/master/rawhide/')
@@ -89,8 +91,10 @@ tag:
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
 po-pull:
-	which $(ZANATA_CLIENT_BIN) &>/dev/null || ( echo "need to install zanata python client package"; exit 1 )
-	( cd $(srcdir) && $(ZANATA_CLIENT_BIN) pull $(ZANATA_PULL_ARGS) )
+	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
+	git clone --depth 1 -b $(GIT_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR && \
+	cp $$TEMP_DIR/*.po $(srcdir)/po/ && \
+	rm -rf $$TEMP_DIR
 
 po-push:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
