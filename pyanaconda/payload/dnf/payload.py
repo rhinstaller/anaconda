@@ -191,7 +191,7 @@ class DNFPayload(Payload):
         :type sources: list
         :returns: True if any source requires network
         """
-        network_protocols = ["http:", "ftp:", "nfs:", "nfsiso:"]
+        network_protocols = ["http:", "https:", "ftp:", "nfs:", "nfsiso:"]
         for s in sources:
             if s and any(s.startswith(p) for p in network_protocols):
                 log.debug("Source %s needs network for installation", s)
