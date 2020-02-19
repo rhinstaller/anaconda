@@ -122,10 +122,6 @@ po-push:
 		echo "$$TEMP_DIR" ; \
 	fi ;
 
-po-all:
-	$(MAKE) po-push
-	$(MAKE) po-pull
-
 # Try to fetch translations, but if that fails just keep going
 po-fallback:
 	-$(MAKE) po-pull
@@ -148,7 +144,7 @@ scratch-bumpver:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 release:
-	$(MAKE) po-all
+	$(MAKE) po-pull
 	$(MAKE) dist
 
 release-and-tag:
