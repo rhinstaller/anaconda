@@ -45,11 +45,6 @@ uninstall-hook:
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
-ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
-ZANATA_PUSH_ARGS = --srcfile $(srcdir)/po/anaconda.pot --push-type source --force
-
-ZANATA_CLIENT_BIN=zanata
-
 L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
 
 DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
@@ -149,7 +144,7 @@ scratch-bumpver:
 	if [ ! -z "$(BZDEBUG)" ]; then \
 		opts="$${opts} -d" ; \
 	fi ; \
-	( cd $(srcdir) && scripts/makebumpver --skip-zanata $${opts} ) || exit 1 ; \
+	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 release:
@@ -180,10 +175,8 @@ bumpver: po-pull
 	if [ ! -z "$(SKIP_ACKS)" ]; then \
 		opts="$${opts} -s" ; \
 	fi ; \
-	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
-	$(MAKE) -C po $(PACKAGE_NAME).pot-update && \
-	rm $(srcdir)/po/{main,extra}.pot
-	$(ZANATA_CLIENT_BIN) push $(ZANATA_PUSH_ARGS)
+	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1
+	$(MAKE) po-push
 
 # GUI TESTING
 runglade:
