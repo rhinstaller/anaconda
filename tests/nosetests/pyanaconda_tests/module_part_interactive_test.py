@@ -18,7 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 from blivet import devicefactory
 from blivet.devicelibs import raid
@@ -63,7 +63,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def device_tree_test(self, publisher):
         """Test the device tree."""
-        self.module.on_storage_changed(Mock())
+        self.module.on_storage_changed(create_storage())
         path = self.interface.GetDeviceTree()
         check_dbus_object_creation(self, path, publisher, DeviceTreeSchedulerModule)
 
@@ -75,7 +75,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
     def get_device_tree_test(self, publisher):
         """Test GetDeviceTree."""
         DeviceTreeContainer._counter = 0
-        self.module.on_storage_changed(Mock())
+        self.module.on_storage_changed(create_storage())
 
         tree_path = self.interface.GetDeviceTree()
 
@@ -100,7 +100,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""
-        self.module.on_storage_changed(Mock())
+        self.module.on_storage_changed(create_storage())
         task_path = self.interface.ConfigureWithTask()
 
         obj = check_task_creation(self, task_path, publisher, InteractivePartitioningTask)

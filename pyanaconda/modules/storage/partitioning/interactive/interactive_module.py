@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.storage.disk_initialization.configuration import DiskInitializationConfig
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
@@ -45,6 +47,20 @@ class InteractivePartitioningModule(PartitioningModule):
     def _create_device_tree(self):
         """Create the device tree module."""
         return DeviceTreeSchedulerModule()
+
+    def _create_storage_playground(self):
+        """Prepare the current storage model for partitioning."""
+        storage = super()._create_storage_playground()
+
+        # Ensure all disks have appropriate disk labels.
+        config = DiskInitializationConfig()
+        config.initialize_labels = True
+
+        for disk in storage.disks:
+            if config.can_initialize(storage, disk):
+                storage.initialize_disk(disk)
+
+        return storage
 
     def configure_with_task(self):
         """Complete the scheduled partitioning."""
