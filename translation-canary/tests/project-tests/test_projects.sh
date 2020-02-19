@@ -30,15 +30,8 @@ while read project_name branch ; do
 
     podir="$(mktemp -d ${project_name}-${branch}.XXXXXX)"
 
-    # The zanata output only matters if something goes wrong
-    zanata_output="$(zanata pull --project-type gettext --project-id "$project_name" --project-version "$branch" --transdir "$podir" --url https://fedora.zanata.org/ 2>&1)"
-    if [ $? -ne 0 ]; then
-        echo "Zanata pull failed for $project_name:$branch"
-        echo "$zanata_output"
-        status=1
-        rm -rf "$podir"
-        continue
-    fi
+    # Download translations
+    git clone --depth 1 -b $branch -- "https://github.com/rhinstaller/anaconda-l10n.git" $podir
 
     # Ignore the percent-translated warnings
     python3 -W ignore -m translation_canary.translated "$podir"
