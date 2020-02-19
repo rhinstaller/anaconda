@@ -74,8 +74,11 @@ class ResizableDeviceTreeModule(DeviceTreeModule):
 
         return [
             d.name for d in device.children
-            if isinstance(d, PartitionDevice)
-            and not (d.is_extended and d.format.logical_partitions)
+            if not (
+                isinstance(d, PartitionDevice)
+                and d.is_extended
+                and device.format.logical_partitions
+            )
         ]
 
     def get_device_size_limits(self, device_name):
