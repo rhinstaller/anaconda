@@ -666,6 +666,9 @@ def unlock_device(storage, device, passphrase):
         # Save the passphrase.
         storage.save_passphrase(device)
 
+        # Set the passphrase also to the original format of the device.
+        device.original_format.passphrase = passphrase
+
         # Wait for the device.
         # Otherwise, we could get a message about no Linux partitions.
         time.sleep(2)
