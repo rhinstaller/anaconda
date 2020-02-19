@@ -11,7 +11,7 @@ In that case just ignore all section that require you to be an Anaconda maintain
 - you need an up to date anaconda source code checkout
 - it is recommended to make the release on a fresh clone (prevent you from pushing local work into the upstream repository)
 - you need to have commit access to the anaconda repository (so that you can push release commits)
-- you need to have write access to the corresponding Fedora Zanata project so that you can push .pot file updates
+- you need to have write access to the https://github.com/rhinstaller/anaconda-l10n localization repository
 - you need to have the ``rpmbuild`` or ``mock`` and ``fedpkg`` tools installed
 - you need to have the Fedora Kerberos based authentication setup
 - you need to have committer access to the anaconda package on Fedora distgit
@@ -33,7 +33,7 @@ environment way see mock path below.
 
 ::
 
-    ./scripts/makebumpver -c --skip-zanata
+    ./scripts/makebumpver -c
 
 3. check the commit and tag are correct
 
@@ -137,7 +137,7 @@ uncomment it and set it to True instead
 
 ::
 
-    ./scripts/makebumpver -c --skip-zanata
+    ./scripts/makebumpver -c
 
 3. check the commit and tag are correct
 
@@ -334,27 +334,6 @@ Push the branches to the origin (``-u`` makes sure to setup tracking) :
     git push -u origin f<version>-devel
     git push -u origin f<version>-release
 
-How to create translation branch for next Fedora in Zanata
-----------------------------------------------------------
-
-The Fedora project uses the fedora.zanata.org translation system, so for each Fedora release we also need
-to create a new translation branch there.
-
-To do this you need to have:
-
-- a FAS account
-- be in the admin group of the Anaconda project on Zanata
-
-1. Go to the Anaconda project on the Fedora Zanata instance: https://fedora.zanata.org/project/view/anaconda
-
-2. Make sure you are logged in.
-
-3. Click on the small arrow next to the ``master`` branch and select ``Copy to new version``
-
-4. On the new page ``version id`` should be ``f<version>`` and make sure ``Copy from previous version`` is ticked
-
-5. Wait till the new branch is created.
-
 How to bump Rawhide Anaconda version
 ------------------------------------
 
@@ -371,7 +350,7 @@ Do the major version bump and verify that the output looks correct:
 
 ::
 
-    ./scripts/makebumpver --skip-zanata -c --bump-major-version
+    ./scripts/makebumpver -c --bump-major-version
 
 If everything looks fine (changelog, new major version & the tag) push the changes to the origin:
 
@@ -383,6 +362,9 @@ Then continue with the normal Rawhide Anaconda build process.
 
 How to add release version for next Fedora
 ------------------------------------------
+
+.. TODO: Add localization repository branching steps. It will be better to write this when it's done.
+.. Branch should be automatically discovered by Weblate.
 
 The current practise is to keep the Rawhide major & minor version from which the
 given Anaconda was branched as-is and add a third version number (the release number
@@ -426,7 +408,7 @@ Next add the third (release) version number:
 
 ::
 
-    ./scripts/makebumpver --skip-zanata -c --add-version-number
+    ./scripts/makebumpver -c --add-version-number
 
 If everything looks fine (changelog, the version number & tag) push the changes to the origin:
 
