@@ -27,7 +27,6 @@ import sys
 import subprocess
 
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
-from os.path import expanduser
 
 
 DEPENDENCY_SOLVER = "dependency_solver.py"
@@ -304,18 +303,6 @@ def copy_anaconda_to_mock(mock_command):
     _check_subprocess(cmd, "Can't copy Anaconda to mock.")
 
 
-def copy_zanata_config_to_mock(mock_command):
-    create_dir_in_mock(mock_command, '/builddir/.config')
-
-    cmd = _prepare_command(mock_command)
-
-    cmd.append('--copyin')
-    cmd.append(expanduser('~/.config/zanata.ini'))
-    cmd.append('/builddir/.config/zanata.ini')
-
-    _check_subprocess(cmd, "Can't copy zanata ini file to the mock.")
-
-
 def copy_result(mock_command, out_dir):
     cmd = _prepare_command(mock_command)
 
@@ -483,7 +470,8 @@ if __name__ == "__main__":
         prepare_anaconda(mock_cmd)
 
     if ns.release:
-        copy_zanata_config_to_mock(mock_cmd)
+        # Zanata was removed but I don't want to change API. This can be handy in the future.
+        pass
 
     if ns.run_tests:
         success = run_tests(mock_cmd)
