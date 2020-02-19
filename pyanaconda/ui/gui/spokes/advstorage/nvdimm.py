@@ -31,12 +31,11 @@ log = get_module_logger(__name__)
 
 __all__ = ["NVDIMMDialog"]
 
-DEFAULT_SECTOR_SIZE = 512
-
 PAGE_ACTION = 1
 PAGE_RESULT_ERROR = 2
 PAGE_RESULT_SUCCESS = 3
 
+NVDIMM_SECTOR_SIZE_OPTIONS = ['512', '4096']
 
 class NVDIMMDialog(GUIObject):
     """
@@ -62,17 +61,22 @@ class NVDIMMDialog(GUIObject):
         self._repopulateSpinner = self.builder.get_object("repopulateSpinner")
         self._repopulateLabel = self.builder.get_object("repopulateLabel")
         self._sectorSizeLabel = self.builder.get_object("sectorSizeLabel")
-        self._sectorSizeSpinButton = self.builder.get_object("sectorSizeSpinButton")
+        self._sectorSizeCombo = self.builder.get_object("sectorSizeCombo")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
         self._deviceErrorLabel = self.builder.get_object("deviceErrorLabel")
+        self._setup_size_combo()
+
+    def _setup_size_combo(self):
+        for size in NVDIMM_SECTOR_SIZE_OPTIONS:
+            self._sectorSizeCombo.append_text(size)
 
     def refresh(self):
-        self._sectorSizeSpinButton.set_value(DEFAULT_SECTOR_SIZE)
+        self._sectorSizeCombo.set_active(0)
 
         if self._namespaces:
             self._devicesLabel.set_text("%s" % ", ".join(self._namespaces))
         else:
-            self._sectorSizeSpinButton.set_sensitive(False)
+            self._sectorSizeCombo.set_sensitive(False)
             self._okButton.set_sensitive(False)
             self._startButton.set_sensitive(False)
             self._sectorSizeLabel.set_sensitive(False)
@@ -88,7 +92,7 @@ class NVDIMMDialog(GUIObject):
     @property
     def sector_size(self):
         """Size of the sector."""
-        return self._sectorSizeSpinButton.get_value_as_int()
+        return int(self._sectorSizeCombo.get_active_text())
 
     def on_start_clicked(self, *args):
         """Start to reconfigure the namespaces."""
@@ -104,7 +108,7 @@ class NVDIMMDialog(GUIObject):
         self._conditionNotebook.set_current_page(PAGE_ACTION)
         self._startButton.set_sensitive(False)
         self._cancelButton.set_sensitive(False)
-        self._sectorSizeSpinButton.set_sensitive(False)
+        self._sectorSizeCombo.set_sensitive(False)
         self._okButton.set_sensitive(False)
 
         # Get the data.
