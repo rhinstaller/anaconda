@@ -27,7 +27,7 @@ EXTRA_DIST += $(srcdir)/translation-canary/xgettext_werror.sh
 
 MAINTAINERCLEANFILES =	Makefile.in config.guess config.h.in config.sub \
 						depcomp install-sh ltmain.sh missing ABOUT-NLS \
-						INSTALL aclocal.m4 configure *.pyc zanata.xml.in \
+						INSTALL aclocal.m4 configure *.pyc \
 						py-compile m4/* po/Makefile.in.in po/Rules-quot \
 						test-driver
 
