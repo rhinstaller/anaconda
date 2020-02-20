@@ -1019,17 +1019,6 @@ def rename_container(storage, container, name):
     """
     log.debug("Rename container %s to %s.", container.name, name)
 
-    # Remove the names of the container and its child
-    # devices from the list of already-used names.
-    for device in [container] + container.children:
-        if device.name in storage.devicetree.names:
-            storage.devicetree.names.remove(device.name)
-
-        luks_name = "luks-%s" % device.name
-        if luks_name in storage.devicetree.names:
-            storage.devicetree.names.remove(luks_name)
-
-    # Set the name of the container.
     try:
         container.name = name
     except ValueError as e:
@@ -1038,15 +1027,6 @@ def rename_container(storage, container, name):
     # Fix the btrfs label.
     if container.format.type == "btrfs":
         container.format.label = name
-
-    # Add the new names to the list of the already-used
-    # names and prevent potential issues with making the
-    # devices encrypted later
-    for device in [container] + container.children:
-        storage.devicetree.names.append(device.name)
-
-        luks_name = "luks-%s" % device.name
-        storage.devicetree.names.append(luks_name)
 
 
 def get_container(storage, device_type, device=None):
