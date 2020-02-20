@@ -819,7 +819,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # if there's only one disk, select it by default
         if len(self.disks) == 1 and not self.selected_disks:
-            applyDiskSelection(self.storage, self.data, [self.disks[0].name])
+            single_disk = self.disks[0]
+            # if the disk is not hidden
+            if single_disk in self.storage.disks:
+                applyDiskSelection(self.storage, self.data, single_disk.name)
 
         # do not set ready in automated install before execute is run
         if flags.automatedInstall:
