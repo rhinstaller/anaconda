@@ -21,11 +21,12 @@ from blivet.size import Size
 from dasbus.structure import compare_data
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device, \
     get_device_factory_arguments, revert_reformat, resize_device, reformat_device, \
-    validate_label, change_encryption
+    validate_label, change_encryption, rename_container
 
 log = get_module_logger(__name__)
 
@@ -60,18 +61,51 @@ class ChangeDeviceTask(Task):
     def run(self):
         """Change a device in the device tree.
 
-        :raise: StorageError if the device cannot be changed
+        :raise: StorageConfigurationError if the device cannot be changed
         """
         log.debug("Change device: %s", self._request)
 
+        # Nothing to do. Skip.
         if compare_data(self._request, self._original_request):
             log.debug("Nothing to change.")
             return
 
-        if not self._device.raw_device.exists:
-            self._replace_device()
-        else:
-            self._change_device()
+        try:
+            # Change the container.
+            self._rename_container()
+
+            # Change or replace the device.
+            if not self._device.raw_device.exists:
+                self._replace_device()
+            else:
+                self._change_device()
+
+        except StorageError as e:
+            log.error("Failed to change a device: %s", e)
+            raise StorageConfigurationError(str(e)) from e
+
+    def _rename_container(self):
+        """Rename the existing container."""
+        container_spec = self._request.container_spec
+        container_name = self._request.container_name
+
+        # Nothing to do.
+        if not container_spec or container_spec == container_name:
+            return
+
+        container = self._storage.devicetree.resolve_device(container_spec)
+
+        # Container doesn't exist.
+        if not container:
+            return
+
+        log.debug("Changing container name: %s", container_name)
+
+        try:
+            rename_container(self._storage, container, container_name)
+        except StorageError as e:
+            log.error("Invalid container name: %s", e)
+            raise StorageError(str(e))
 
     def _replace_device(self):
         """Replace the nonexistent device with a new one.

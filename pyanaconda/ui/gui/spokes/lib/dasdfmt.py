@@ -34,10 +34,8 @@ class DasdFormatDialog(GUIObject):
     mainWidgetName = "unformattedDasdDialog"
     uiFile = "spokes/lib/dasdfmt.glade"
 
-    def __init__(self, data, storage, dasds_formatting):
+    def __init__(self, data, dasds_formatting):
         super().__init__(data)
-
-        self._storage = storage
         self._dasds_formatting = dasds_formatting
 
         self._notebook = self.builder.get_object("formatNotebook")
@@ -95,7 +93,7 @@ class DasdFormatDialog(GUIObject):
 
         # Loop through all of our unformatted DASDs and format them
         self._dasds_formatting.report.connect(self.show_dasdfmt_report)
-        self._dasds_formatting.run(self._storage, self._data)
+        self._dasds_formatting.run()
         self._dasds_formatting.report.disconnect(self.show_dasdfmt_report)
 
         # Update dialog.

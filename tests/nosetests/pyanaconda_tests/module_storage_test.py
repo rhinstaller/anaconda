@@ -972,6 +972,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --pbkdf-time=100
         """
+        self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 

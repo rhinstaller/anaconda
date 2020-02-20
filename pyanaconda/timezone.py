@@ -29,7 +29,8 @@ from collections import OrderedDict
 from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.constants.services import TIMEZONE, STORAGE
 from pyanaconda.threading import threadMgr
 from blivet import arch
 
@@ -54,16 +55,14 @@ class TimezoneConfigError(Exception):
     pass
 
 
-def time_initialize(timezone_proxy, storage):
+def time_initialize(timezone_proxy):
     """
     Try to guess if RTC uses UTC time or not, set timezone.isUtc properly and
     set system time from RTC using the UTC guess.
     Guess is done by searching for bootable ntfs devices.
 
     :param timezone_proxy: DBus proxy of the timezone module
-    :param storage: pyanaconda.storage.InstallerStorage instance
     """
-
     if arch.is_s390():
         # nothing to do on s390(x) were hwclock doesn't exist
         return
@@ -71,10 +70,9 @@ def time_initialize(timezone_proxy, storage):
     if not timezone_proxy.IsUTC and not flags.automatedInstall:
         # if set in the kickstart, no magic needed here
         threadMgr.wait(THREAD_STORAGE)
-        ntfs_devs = filter(lambda dev: dev.format.name == "ntfs",
-                           storage.devices)
-
-        timezone_proxy.SetIsUTC(not storage.bootloader.has_windows(ntfs_devs))
+        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+        is_utc = not bootloader_proxy.DetectWindows()
+        timezone_proxy.SetIsUTC(is_utc)
 
     cmd = "hwclock"
     args = ["--hctosys"]

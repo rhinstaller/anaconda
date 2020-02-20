@@ -104,8 +104,6 @@
       <column type="gchararray"/>
       <!-- column-name name_col -->
       <column type="gchararray"/>
-      <!-- column-name id_col -->
-      <column type="gint"/>
     </columns>
   </object>
   <object class="GtkDialog" id="disks_dialog">
@@ -533,7 +531,7 @@ use.  Try something else?</property>
     <data>
       <row>
         <col id="0" translatable="yes">None</col>
-        <col id="1">none</col>
+        <col id="1"></col>
       </row>
       <row>
         <col id="0" translatable="yes">Single</col>

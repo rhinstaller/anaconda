@@ -16,12 +16,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda.core.timer import Timer
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.core import constants
-from pyanaconda.storage.initialization import reset_storage
+from pyanaconda.ui.lib.storage import reset_storage
 
 __all__ = ["RefreshDialog"]
 
@@ -31,11 +30,8 @@ class RefreshDialog(GUIObject):
     mainWidgetName = "refreshDialog"
     uiFile = "spokes/lib/refresh.glade"
 
-    def __init__(self, data, storage):
+    def __init__(self, data):
         super().__init__(data)
-
-        self.storage = storage
-
         self._notebook = self.builder.get_object("refreshNotebook")
         self._cancel_button = self.builder.get_object("refreshCancelButton")
         self._ok_button = self.builder.get_object("refreshOKButton")
@@ -88,7 +84,6 @@ class RefreshDialog(GUIObject):
         # And now to fire up the storage reinitialization.
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
                                      target=reset_storage,
-                                     args=(self.storage, ),
                                      kwargs={"scan_all": True}))
 
         self._elapsed = 0

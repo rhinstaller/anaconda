@@ -41,34 +41,6 @@ class MountpointSelector(Anaconda.MountpointSelector):
         if mountpoint:
             self.set_property("mountpoint", mountpoint)
 
-        # our extensions not related to the look of the widget
-        self._device = None
-        self._root = None
-
-    @property
-    def size(self):
-        return self.get_property("size")
-
-    @size.setter
-    def size(self, size):
-        self.set_property("size", size)
-
-    @property
-    def device(self):
-        return self._device
-
-    @device.setter
-    def device(self, device):
-        self._device = device
-
-    @property
-    def root(self):
-        return self._root
-
-    @root.setter
-    def root(self, dev):
-        self._root = dev
-
 MountpointSelector = override(MountpointSelector)
 __all__.append('MountpointSelector')
 

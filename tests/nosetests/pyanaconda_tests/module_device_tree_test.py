@@ -46,6 +46,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the device tree handler."""
 
     def setUp(self):
+        self.maxDiff = None
         self.module = DeviceTreeModule()
         self.interface = DeviceTreeInterface(self.module)
 
@@ -318,21 +319,93 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test GetActions."""
         self.assertEqual(self.interface.GetActions(), [])
 
-        self._add_device(DiskDevice(
+        dev1 = DiskDevice(
             "dev1",
-            fmt=get_format("ext4"),
-            size=Size("10 MiB"),
-        ))
+            fmt=get_format("disklabel"),
+            size=Size("1 GiB"),
+            vendor="VENDOR",
+            model="MODEL"
+        )
 
-        device = self.storage.devicetree.get_device_by_name("dev1")
-        self.storage.destroy_device(device)
+        self._add_device(dev1)
+        self.storage.initialize_disk(dev1)
+        dev1.format._label_type = "msdos"
 
-        self.assertEqual(self.interface.GetActions(), [{
-            'action-type': get_variant(Str, 'destroy'),
-            'object-type': get_variant(Str, 'device'),
-            'device-name': get_variant(Str, 'dev1'),
-            'description': get_variant(Str, 'destroy device'),
-        }])
+        action_1 = {
+            'action-type': 'create',
+            'action-description': 'create format',
+            'object-type': 'format',
+            'object-description': 'partition table (MSDOS)',
+            'device-name': 'dev1',
+            'device-description': 'VENDOR MODEL (dev1)',
+            'attrs': {},
+        }
+
+        self.assertEqual(get_native(self.interface.GetActions()), [
+            action_1
+        ])
+
+        dev2 = StorageDevice(
+            "dev2",
+            size=Size("500 MiB"),
+            serial="SERIAL",
+            exists=True
+        )
+
+        self._add_device(dev2)
+        self.storage.destroy_device(dev2)
+
+        action_2 = {
+            'action-type': 'destroy',
+            'action-description': 'destroy device',
+            'object-type': 'device',
+            'object-description': 'blivet',
+            'device-name': 'dev2',
+            'device-description': 'dev2',
+            'attrs': {"serial": "SERIAL"},
+        }
+
+        self.assertEqual(get_native(self.interface.GetActions()), [
+            action_2,
+            action_1
+          ])
+
+        dev3 = PartitionDevice(
+            "dev3",
+            fmt=get_format("ext4", mountpoint="/home"),
+            size=Size("500 MiB"),
+            parents=[dev1]
+        )
+
+        self.storage.create_device(dev3)
+        dev3.disk = dev1
+
+        action_3 = {
+            'action-type': 'create',
+            'action-description': 'create device',
+            'object-type': 'device',
+            'object-description': 'partition',
+            'device-name': 'dev3',
+            'device-description': 'dev3 on VENDOR MODEL',
+            'attrs': {},
+        }
+
+        action_4 = {
+            'action-type': 'create',
+            'action-description': 'create format',
+            'object-type': 'format',
+            'object-description': 'ext4',
+            'device-name': 'dev3',
+            'device-description': 'dev3 on VENDOR MODEL',
+            'attrs': {'mount-point': '/home'},
+        }
+
+        self.assertEqual(get_native(self.interface.GetActions()), [
+            action_2,
+            action_1,
+            action_3,
+            action_4,
+          ])
 
     def get_supported_file_systems_test(self):
         """Test GetSupportedFileSystems."""
@@ -556,12 +629,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.FindMountablePartitions(), ["dev2"])
 
-    @patch("pyanaconda.storage.utils.try_populate_devicetree")
     @patch.object(LUKS, "setup")
     @patch.object(LUKSDevice, "teardown")
     @patch.object(LUKSDevice, "setup")
-    def unlock_device_test(self, device_setup, device_teardown, format_setup, populate):
+    def unlock_device_test(self, device_setup, device_teardown, format_setup):
         """Test UnlockDevice."""
+        self.storage.devicetree.populate = Mock()
+        self.storage.devicetree.teardown_all = Mock()
+
         dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
         self._add_device(dev1)
 
@@ -572,8 +647,9 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         device_setup.assert_called_once()
         format_setup.assert_called_once()
-        populate.assert_called_once()
         device_teardown.assert_not_called()
+        self.storage.devicetree.populate.assert_called_once()
+        self.storage.devicetree.teardown_all.assert_called_once()
         self.assertTrue(dev2.format.has_key)
 
         device_setup.side_effect = StorageError("Fake error")

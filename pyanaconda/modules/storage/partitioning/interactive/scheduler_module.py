@@ -17,11 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import devicefactory
+from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
 from pyanaconda.modules.storage.partitioning.interactive.change_device import ChangeDeviceTask
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
+    InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive import utils
@@ -38,6 +43,39 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """Return a DBus representation."""
         return DeviceTreeSchedulerInterface(self)
 
+    def is_device_locked(self, device_name):
+        """Is the specified device locked?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        device = self._get_device(device_name)
+        return device.format.type == "luks" and device.format.exists
+
+    def is_device_editable(self, device_name):
+        """Is the specified device editable?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        device = self._get_device(device_name)
+        return devicefactory.get_device_type(device) is not None
+
+    def check_completeness(self, device_name):
+        """Check that the specified device is complete.
+
+        :param device_name: a name of the device
+        :return: a validation report
+        """
+        report = ValidationReport()
+        device = self._get_device(device_name)
+        message = utils.check_device_completeness(device)
+
+        if message:
+            report.error_messages.append(message)
+
+        return report
+
     def get_default_file_system(self):
         """Get the default type of a filesystem.
 
@@ -51,6 +89,15 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a version of LUKS
         """
         return self.storage.default_luks_version
+
+    def get_container_free_space(self, container_name):
+        """Get total free space in the specified container.
+
+        :param container_name: a name of the container
+        :return: a size in bytes
+        """
+        container = self._get_device(container_name)
+        return Size(getattr(container, "free_space", 0)).get_bytes()
 
     def generate_system_name(self):
         """Generate a name of the new installation.
@@ -80,6 +127,13 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
             swap=bool(format_type == "swap")
         )
 
+    def generate_container_name(self):
+        """Get a suggestion for a container name.
+
+        :return: a generated container name
+        """
+        return self._storage.suggest_container_name()
+
     def generate_device_factory_request(self, device_name):
         """Generate a device factory request for the given device.
 
@@ -102,6 +156,21 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: device factory permissions
         """
         return utils.generate_device_factory_permissions(self.storage, request)
+
+    def generate_container_data(self, request):
+        """Generate the container data for the device factory request.
+
+        :param request: a device factory request
+        """
+        utils.generate_container_data(self.storage, request)
+
+    def update_container_data(self, request, container_name):
+        """Update the container data in the device factory request.
+
+        :param request: a device factory request
+        :param container_name: a container name
+        """
+        utils.update_container_data(self.storage, request, container_name)
 
     def get_partitioned(self):
         """Get all partitioned devices in the device tree.
@@ -152,6 +221,14 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a list of device names
         """
         return [d.name for d in utils.collect_bootloader_devices(self.storage, boot_drive)]
+
+    def collect_containers(self, device_type):
+        """Collect containers of the given type.
+
+        :param device_type: a device type
+        :return: a list of container names
+        """
+        return [c.name for c in utils.collect_containers(self.storage, device_type)]
 
     def collect_supported_systems(self):
         """Collect supported existing or new installations.
@@ -249,7 +326,7 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """Add a new device to the storage model.
 
         :param request: a device factory request
-        :raise: StorageError if the device cannot be created
+        :raise: StorageConfigurationError if the device cannot be created
         """
         task = AddDeviceTask(self.storage, request)
         task.run()
@@ -261,8 +338,45 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
 
         :param request: a device factory request
         :param original_request: an original device factory request
-        :raise: StorageError if the device cannot be changed
+        :raise: StorageConfigurationError if the device cannot be changed
         """
         device = self._get_device(request.device_spec)
         task = ChangeDeviceTask(self.storage, device, request, original_request)
         task.run()
+
+    def reset_device(self, device_name):
+        """Reset the specified device in the storage model.
+
+        FIXME: Merge with destroy_device.
+
+        :param device_name: a name of the device
+        :raise: StorageConfigurationError in a case of failure
+        """
+        device = self._get_device(device_name)
+
+        if device.exists:
+            # Revert changes done to an existing device.
+            self.storage.reset_device(device)
+        else:
+            # Destroy a non-existing device.
+            utils.destroy_device(self.storage, device)
+
+    def destroy_device(self, device_name):
+        """Destroy the specified device in the storage model.
+
+        :param device_name: a name of the device
+        :raise: StorageConfigurationError in a case of failure
+        """
+        device = self._get_device(device_name)
+        utils.destroy_device(self.storage, device)
+
+    def schedule_partitions_with_task(self, request):
+        """Schedule the partitioning actions.
+
+        Generate the automatic partitioning configuration
+        using the given request.
+
+        :param: a partitioning request
+        :return: a task
+        """
+        return InteractiveAutoPartitioningTask(self.storage, request)

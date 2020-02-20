@@ -22,14 +22,22 @@ import copy
 from unittest.mock import patch, Mock
 
 from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION, \
-    DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_DISK, DEVICE_TYPE_MD
+    DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_DISK, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS
 from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevice, \
-    BTRFSVolumeDevice
+    BTRFSVolumeDevice, MDRaidArrayDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice
+from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
+from dasbus.structure import compare_data
 from dasbus.typing import get_native
+from pykickstart.constants import AUTOPART_TYPE_PLAIN
+
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
+    InteractiveAutoPartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
     DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
@@ -37,6 +45,8 @@ from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import
 from pyanaconda.platform import EFI
 from pyanaconda.storage.initialization import create_storage
 from pyanaconda.storage.root import Root
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
+    patch_dbus_get_proxy
 
 
 class DeviceTreeSchedulerTestCase(unittest.TestCase):
@@ -306,6 +316,14 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
     def validate_container_name_test(self):
         """Test ValidateContainerName."""
+        dev1 = DiskDevice(
+            "dev1"
+        )
+        self._add_device(dev1)
+
+        report = self.interface.ValidateContainerName("dev1")
+        self._check_report(report, "Name is already in use.")
+
         report = self.interface.ValidateContainerName("_my/contain$er")
         self._check_report(report, "Invalid container name.")
 
@@ -350,11 +368,26 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-size': Size("5 GiB").get_bytes(),
             'device-encrypted': False,
             'device-raid-level': '',
+            'container-spec': '',
             'container-name': '',
             'container-size-policy': SIZE_POLICY_AUTO,
             'container-encrypted': False,
             'container-raid-level': '',
         })
+
+    def reset_device_factory_request_test(self):
+        """Test reset_container_data."""
+        default = DeviceFactoryRequest()
+        request = DeviceFactoryRequest()
+
+        request.container_spec = "dev1"
+        request.container_name = "dev1"
+        request.container_size_policy = 123
+        request.container_encrypted = True
+        request.container_raid_level = "raid1"
+        request.reset_container_data()
+
+        self.assertEqual(compare_data(request, default), True)
 
     def get_default_luks_version_test(self):
         """Test GetDefaultLUKSVersion."""
@@ -479,6 +512,12 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-size': False,
             'device-encrypted': True,
             'device-raid-level': False,
+            'disks': False,
+            'container-spec': False,
+            'container-name': False,
+            'container-size-policy': False,
+            'container-encrypted': False,
+            'container-raid-level': False,
         })
 
         request = self.interface.GenerateDeviceFactoryRequest("dev2")
@@ -493,7 +532,18 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-size': True,
             'device-encrypted': True,
             'device-raid-level': True,
+            'disks': True,
+            'container-spec': False,
+            'container-name': False,
+            'container-size-policy': False,
+            'container-encrypted': False,
+            'container-raid-level': False,
         })
+
+        dev2.protected = True
+        permissions = self.interface.GenerateDeviceFactoryPermissions(request)
+        for value in get_native(permissions).values():
+            self.assertEqual(value, False)
 
     def generate_device_factory_permissions_btrfs_test(self):
         """Test GenerateDeviceFactoryPermissions with btrfs."""
@@ -523,4 +573,415 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'device-size': False,
             'device-encrypted': False,
             'device-raid-level': True,
+            'disks': False,
+            'container-spec': False,
+            'container-name': True,
+            'container-size-policy': True,
+            'container-encrypted': True,
+            'container-raid-level': True,
         })
+
+    @patch_dbus_publish_object
+    def schedule_partitions_with_task_test(self, publisher):
+        """Test SchedulePartitionsWithTask."""
+        self.module.on_storage_changed(Mock())
+
+        request = PartitioningRequest()
+        request.partitioning_scheme = AUTOPART_TYPE_PLAIN
+
+        task_path = self.interface.SchedulePartitionsWithTask(
+            PartitioningRequest.to_structure(request)
+        )
+
+        obj = check_task_creation(self, task_path, publisher, InteractiveAutoPartitioningTask)
+        self.assertEqual(obj.implementation._storage, self.module.storage)
+        self.assertTrue(compare_data(obj.implementation._request, request))
+
+    def destroy_device_test(self):
+        """Test DestroyDevice."""
+        dev1 = StorageDevice(
+            "dev1",
+            exists=False,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        )
+
+        dev2 = StorageDevice(
+            "dev2",
+            exists=False,
+            parents=[dev1],
+            size=Size("6 GiB"),
+            fmt=get_format("ext4")
+        )
+
+        dev3 = StorageDevice(
+            "dev3",
+            exists=False,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        )
+
+        self.module.on_storage_changed(create_storage())
+        self.module.storage.devicetree._add_device(dev1)
+        self.module.storage.devicetree._add_device(dev2)
+        self.module.storage.devicetree._add_device(dev3)
+
+        with self.assertRaises(StorageConfigurationError):
+            self.interface.DestroyDevice("dev1")
+
+        self.assertIn(dev1, self.module.storage.devices)
+        self.assertIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+
+        self.interface.DestroyDevice("dev2")
+
+        self.assertNotIn(dev1, self.module.storage.devices)
+        self.assertNotIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+
+        self.interface.DestroyDevice("dev3")
+
+        self.assertNotIn(dev1, self.module.storage.devices)
+        self.assertNotIn(dev2, self.module.storage.devices)
+        self.assertNotIn(dev3, self.module.storage.devices)
+
+    def reset_device_test(self):
+        """Test ResetDevice."""
+        dev1 = StorageDevice(
+            "dev1",
+            exists=False,
+            size=Size("15 GiB"),
+            fmt=get_format("disklabel")
+        )
+
+        dev2 = StorageDevice(
+            "dev2",
+            exists=False,
+            parents=[dev1],
+            size=Size("6 GiB"),
+            fmt=get_format("ext4")
+        )
+
+        dev3 = StorageDevice(
+            "dev3",
+            exists=True,
+            size=Size("6 GiB")
+        )
+
+        dev3.original_format = get_format("ext4")
+        dev3.format = get_format("xfs")
+
+        self.module.on_storage_changed(create_storage())
+        self.module.storage.devicetree._add_device(dev1)
+        self.module.storage.devicetree._add_device(dev2)
+        self.module.storage.devicetree._add_device(dev3)
+
+        with self.assertRaises(StorageConfigurationError):
+            self.interface.ResetDevice("dev1")
+
+        self.assertIn(dev1, self.module.storage.devices)
+        self.assertIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+        self.assertEqual(dev3.format.type, "xfs")
+
+        self.interface.ResetDevice("dev2")
+
+        self.assertNotIn(dev1, self.module.storage.devices)
+        self.assertNotIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+        self.assertEqual(dev3.format.type, "xfs")
+
+        self.interface.ResetDevice("dev3")
+
+        self.assertNotIn(dev1, self.module.storage.devices)
+        self.assertNotIn(dev2, self.module.storage.devices)
+        self.assertIn(dev3, self.module.storage.devices)
+        self.assertEqual(dev3.format.type, "ext4")
+
+    def is_device_locked_test(self):
+        """Test IsDeviceLocked."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB")
+        )
+        dev2 = LUKSDevice(
+            "dev2",
+            parents=[dev1],
+            fmt=get_format("luks"),
+            size=Size("10 GiB"),
+        )
+        dev3 = LUKSDevice(
+            "dev3",
+            parents=[dev1],
+            fmt=get_format("luks", exists=True),
+            size=Size("10 GiB"),
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+        self._add_device(dev3)
+
+        self.assertEqual(self.interface.IsDeviceLocked("dev1"), False)
+        self.assertEqual(self.interface.IsDeviceLocked("dev2"), False)
+        self.assertEqual(self.interface.IsDeviceLocked("dev3"), True)
+
+    def check_completeness_test(self):
+        """Test CheckCompleteness."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB"),
+            exists=True
+        )
+        dev2 = MDRaidArrayDevice(
+            name="dev2",
+            size=Size("500 MiB"),
+            level=1,
+            member_devices=2,
+            total_devices=2,
+            exists=True
+        )
+        dev3 = LVMVolumeGroupDevice(
+            "dev3",
+            pv_count=2,
+            exists=True
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+        self._add_device(dev3)
+
+        self._check_report(
+            self.interface.CheckCompleteness("dev1")
+        )
+        self._check_report(
+            self.interface.CheckCompleteness("dev2"),
+            "This Software RAID array is missing 2 of 2 member partitions. "
+            "You can remove it or select a different device."
+        )
+        self._check_report(
+            self.interface.CheckCompleteness("dev3"),
+            "This LVM Volume Group is missing 2 of 2 physical volumes. "
+            "You can remove it or select a different device."
+        )
+        dev1.complete = False
+        self._check_report(
+            self.interface.CheckCompleteness("dev1"),
+            "This blivet device is missing member devices. "
+            "You can remove it or select a different device."
+        )
+
+    def is_device_editable_test(self):
+        """Test IsDeviceEditable."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB")
+        )
+        dev2 = DiskDevice(
+            "dev2",
+            fmt=get_format("disklabel"),
+            size=Size("10 GiB")
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        self.assertEqual(self.interface.IsDeviceEditable("dev1"), False)
+        self.assertEqual(self.interface.IsDeviceEditable("dev2"), True)
+
+    def collect_containers_test(self):
+        """Test CollectContainers."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("btrfs"),
+            size=Size("10 GiB")
+        )
+        dev2 = BTRFSVolumeDevice(
+            "dev2",
+            parents=[dev1]
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        self.assertEqual(self.interface.CollectContainers(DEVICE_TYPE_BTRFS), [dev2.name])
+        self.assertEqual(self.interface.CollectContainers(DEVICE_TYPE_LVM), [])
+
+    def get_container_free_space_test(self):
+        """Test GetContainerFreeSpace."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("lvmpv"),
+            size=Size("10 GiB")
+        )
+        dev2 = LVMVolumeGroupDevice(
+            "dev2",
+            parents=[dev1]
+        )
+
+        self._add_device(dev1)
+        self._add_device(dev2)
+
+        free_space = self.interface.GetContainerFreeSpace("dev1")
+        self.assertEqual(free_space, 0)
+
+        free_space = self.interface.GetContainerFreeSpace("dev2")
+        self.assertGreater(free_space, Size("9 GiB").get_bytes())
+        self.assertLess(free_space, Size("10 GiB").get_bytes())
+
+    @patch_dbus_get_proxy
+    def generate_container_name_test(self, proxy_getter):
+        """Test GenerateContainerName."""
+        network_proxy = Mock()
+        proxy_getter.return_value = network_proxy
+
+        network_proxy.Hostname = "localhost"
+        network_proxy.GetCurrentHostname.return_value = "localhost"
+        self.assertEqual(self.interface.GenerateContainerName(), "anaconda")
+
+        network_proxy.GetCurrentHostname.return_value = "hostname"
+        self.assertEqual(self.interface.GenerateContainerName(), "anaconda_hostname")
+
+        network_proxy.Hostname = "best.hostname"
+        self.assertEqual(self.interface.GenerateContainerName(), "anaconda_best")
+
+    @patch_dbus_get_proxy
+    def generate_container_data_test(self, proxy_getter):
+        """Test GenerateContainerData."""
+        network_proxy = Mock()
+        network_proxy.Hostname = "localhost"
+        network_proxy.GetCurrentHostname.return_value = "localhost"
+        proxy_getter.return_value = network_proxy
+
+        pv1 = StorageDevice(
+            "pv1",
+            size=Size("1025 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        pv2 = StorageDevice(
+            "pv2",
+            size=Size("513 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        vg = LVMVolumeGroupDevice(
+            "testvg",
+            parents=[pv1, pv2]
+        )
+        lv = LVMLogicalVolumeDevice(
+            "testlv",
+            size=Size("512 MiB"),
+            parents=[vg],
+            fmt=get_format("xfs"),
+            exists=False,
+            seg_type="raid1",
+            pvs=[pv1, pv2]
+        )
+
+        self._add_device(pv1)
+        self._add_device(pv2)
+        self._add_device(vg)
+        self._add_device(lv)
+
+        request = DeviceFactoryRequest()
+        request.device_spec = lv.name
+
+        request.device_type = DEVICE_TYPE_LVM
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.GenerateContainerData(
+                DeviceFactoryRequest.to_structure(request)
+            )
+        )
+
+        self.assertEqual(request.container_spec, "testvg")
+        self.assertEqual(request.container_name, "testvg")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "")
+        self.assertEqual(request.container_size_policy, Size("1.5 GiB").get_bytes())
+
+        request.device_type = DEVICE_TYPE_BTRFS
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.GenerateContainerData(
+                DeviceFactoryRequest.to_structure(request)
+            )
+        )
+
+        self.assertEqual(request.container_spec, "")
+        self.assertEqual(request.container_name, "anaconda")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "single")
+        self.assertEqual(request.container_size_policy, 0)
+
+        request.device_type = DEVICE_TYPE_PARTITION
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.GenerateContainerData(
+                DeviceFactoryRequest.to_structure(request)
+            )
+        )
+
+        self.assertEqual(request.container_spec, "")
+        self.assertEqual(request.container_name, "")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "")
+        self.assertEqual(request.container_size_policy, 0)
+
+    def update_container_data_test(self):
+        """Test UpdateContainerData."""
+        pv1 = StorageDevice(
+            "pv1",
+            size=Size("1025 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        pv2 = StorageDevice(
+            "pv2",
+            size=Size("513 MiB"),
+            fmt=get_format("lvmpv")
+        )
+        vg = LVMVolumeGroupDevice(
+            "testvg",
+            parents=[pv1, pv2]
+        )
+
+        self._add_device(pv1)
+        self._add_device(pv2)
+        self._add_device(vg)
+
+        request = DeviceFactoryRequest()
+        request.device_type = DEVICE_TYPE_PARTITION
+
+        with self.assertRaises(StorageError):
+            self.interface.UpdateContainerData(
+                    DeviceFactoryRequest.to_structure(request),
+                    "anaconda"
+            )
+
+        request.device_type = DEVICE_TYPE_BTRFS
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.UpdateContainerData(
+                DeviceFactoryRequest.to_structure(request),
+                "anaconda"
+            )
+        )
+
+        self.assertEqual(request.container_spec, "")
+        self.assertEqual(request.container_name, "anaconda")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "single")
+        self.assertEqual(request.container_size_policy, 0)
+        self.assertEqual(request.disks, [])
+
+        request.device_type = DEVICE_TYPE_LVM
+        request = DeviceFactoryRequest.from_structure(
+            self.interface.UpdateContainerData(
+                DeviceFactoryRequest.to_structure(request),
+                "testvg"
+            )
+        )
+
+        self.assertEqual(request.container_spec, "testvg")
+        self.assertEqual(request.container_name, "testvg")
+        self.assertEqual(request.container_encrypted, False)
+        self.assertEqual(request.container_raid_level, "")
+        self.assertEqual(request.container_size_policy, Size("1.5 GiB").get_bytes())
+        self.assertEqual(request.disks, [])

@@ -16,28 +16,22 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-"""Helper functions and classes for custom partitioning."""
 from collections import namedtuple
-from contextlib import contextmanager
-
-import functools
-from functools import wraps
-
-import logging
 
 from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
     DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
-from blivet.devicefactory import get_supported_raid_levels
-from blivet.devicelibs import btrfs, mdraid, raid
 from blivet.size import Size
 
-from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
-from pyanaconda.core.i18n import _, N_, CN_
+from pyanaconda.core.i18n import _, N_, CN_, C_
 from pyanaconda.core.util import lowerASCII
-from pyanaconda.modules.storage.partitioning.interactive.utils import collect_mount_points, \
-    validate_mount_point, validate_raid_level
+from dasbus.structure import generate_dictionary_from_data
+from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
+    DeviceFactoryPermissions
+from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
+from pyanaconda.modules.common.structures.validation import ValidationReport
+from pyanaconda.platform import platform
 from pyanaconda.storage.utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
@@ -73,6 +67,35 @@ CONTAINER_TYPES = {
 }
 
 
+def generate_request_description(request, original=None):
+    """Generate a description of a device factory request.
+
+    :param request: a device factory request
+    :param original: an original device factory request or None
+    :return: a string with the description
+    """
+    new_device_info = generate_dictionary_from_data(request)
+    old_device_info = generate_dictionary_from_data(original or request)
+    attributes = []
+
+    if new_device_info.keys() != old_device_info.keys():
+        raise KeyError
+
+    for key in new_device_info.keys():
+        if new_device_info[key] == old_device_info[key]:
+            attribute = "{} = {}".format(
+                key, repr(new_device_info[key])
+            )
+        else:
+            attribute = "{} = {} -> {}".format(
+                key, repr(old_device_info[key]), repr(new_device_info[key])
+            )
+
+        attributes.append(attribute)
+
+    return "\n".join(["{"] + attributes + ["}"])
+
+
 def get_size_from_entry(entry, lower_bound=None, units=None):
     """ Get a Size object from an entry field.
 
@@ -101,91 +124,35 @@ def get_size_from_entry(entry, lower_bound=None, units=None):
 def get_selected_raid_level(raid_level_combo):
     """Interpret the selection of a RAID level combo box.
 
-       :returns: the selected raid level, None if none selected
-       :rtype: instance of blivet.devicelibs.raid.RaidLevel or NoneType
+    :return str: the selected raid level, an empty string if none selected
     """
     if not raid_level_combo.get_property("visible"):
         # the combo is hidden when raid level isn't applicable
-        return None
+        return ""
 
     itr = raid_level_combo.get_active_iter()
     store = raid_level_combo.get_model()
 
     if not itr:
-        return
+        return ""
 
     selected_level = store[itr][1]
-    if selected_level == "none":
-        return None
-    else:
-        return raid.get_raid_level(selected_level)
-
-
-def get_selected_raid_level_name(raid_level_combo):
-    raid_level = get_selected_raid_level(raid_level_combo)
-    return raid_level.name if raid_level else ""
-
-
-def get_raid_level_selection(raid_level):
-    """ Returns a string corresponding to the RAID level.
-
-        :param raid_level: a raid level
-        :type raid_level: instance of blivet.devicelibs.raid.RAID or None
-        :returns: a string corresponding to this raid level
-        :rtype: str
-    """
-    return raid_level.name if raid_level else "none"
+    return selected_level
 
 
 def get_default_raid_level(device_type):
-    """ Returns the default RAID level for this device type.
+    """Returns the default RAID level for this device type.
 
-        :param int device_type: an int representing the device_type
-        :returns: the default RAID level for this device type or None
-        :rtype: blivet.devicelibs.raid.RAIDLevel or NoneType
+    :param int device_type: an int representing the device_type
+    :return str: the default RAID level for this device type or an empty string
     """
     if device_type == DEVICE_TYPE_MD:
-        return mdraid.raid_levels.raid_level("raid1")
+        return "raid1"
 
-    return None
-
-
-def get_default_container_raid_level(device_type):
-    """ Returns the default RAID level for this device type's container type.
-
-        :param int device_type: an int representing the device_type
-        :returns: the default RAID level for this device type's container or None
-        :rtype: blivet.devicelibs.raid.RAIDLevel or NoneType
-    """
-    if device_type == DEVICE_TYPE_BTRFS:
-        return btrfs.raid_levels.raid_level("single")
-
-    return None
+    return ""
 
 
-def memoizer(f):
-    """ A simple decorator that memoizes by means of the shared default
-        value for cache in the result function.
-
-        :param f: a function of a single argument
-        :returns: a memoizing version of f
-    """
-
-    @functools.wraps(f)
-    def new_func(arg, cache={}):
-        # pylint: disable=dangerous-default-value
-        if arg in cache:
-            return cache[arg]
-
-        result = f(arg)
-        cache[arg] = result
-        return result
-
-    return new_func
-
-
-@memoizer
-def get_supported_device_raid_levels(device_type):
+def get_supported_device_raid_levels(device_tree, device_type):
     """Get RAID levels supported for the given device type.
 
     It supports any RAID levels that it expects to support and that blivet
@@ -197,38 +164,38 @@ def get_supported_device_raid_levels(device_type):
     If this changes, then so should this function, but at this time it
     is not clear what RAID levels should be offered for other device types.
 
+    :param device_tree: a proxy of a device tree
     :param int device_type: one of an enumeration of device types
     :return: a set of supported raid levels
-    :rtype: a set of instances of blivet.devicelibs.raid.RAIDLevel
+    :rtype: a set of strings
     """
     if device_type == DEVICE_TYPE_MD:
-        supported = set(raid.RAIDLevels(["raid0", "raid1", "raid4", "raid5", "raid6", "raid10"]))
-    else:
-        supported = set()
+        supported = {"raid0", "raid1", "raid4", "raid5", "raid6", "raid10"}
+        levels = set(device_tree.GetSupportedRaidLevels(DEVICE_TYPE_MD))
+        return levels.intersection(supported)
 
-    return get_supported_raid_levels(device_type).intersection(supported)
+    return set()
 
 
-@memoizer
-def get_supported_container_raid_levels(device_type):
+def get_supported_container_raid_levels(device_tree, device_type):
     """The raid levels anaconda supports for a container for this device_type.
 
     For LVM, anaconda supports LVM on RAID, but also allows no RAID.
 
+    :param device_tree: a proxy of a device tree
     :param int device_type: one of an enumeration of device types
-    :returns: a set of supported raid levels
-    :rtype: a set of instances of blivet.devicelibs.raid.RAIDLevel
+    :return: a set of supported raid levels
+    :rtype: a set of strings
     """
     if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP):
-        supported = set(raid.RAIDLevels(["raid0", "raid1", "raid4", "raid5", "raid6", "raid10"]))
-        return get_supported_raid_levels(DEVICE_TYPE_MD)\
-            .intersection(supported)\
-            .union({None})
+        supported = {"raid0", "raid1", "raid4", "raid5", "raid6", "raid10"}
+        levels = set(device_tree.GetSupportedRaidLevels(DEVICE_TYPE_MD))
+        return levels.intersection(supported).union({""})
 
-    elif device_type == DEVICE_TYPE_BTRFS:
-        supported = set(raid.RAIDLevels(["raid0", "raid1", "raid10", "single"]))
-        return get_supported_raid_levels(DEVICE_TYPE_BTRFS)\
-            .intersection(supported)
+    if device_type == DEVICE_TYPE_BTRFS:
+        supported = {"raid0", "raid1", "raid10", "single"}
+        levels = set(device_tree.GetSupportedRaidLevels(DEVICE_TYPE_BTRFS))
+        return levels.intersection(supported)
 
     return set()
 
@@ -236,34 +203,6 @@ def get_supported_container_raid_levels(device_type):
 def get_container_type(device_type):
     return CONTAINER_TYPES.get(device_type, ContainerType(N_("container"), CN_(
         "GUI|Custom Partitioning|Configure|Devices", "container")))
-
-
-@contextmanager
-def ui_storage_logger():
-    """Context manager that applies the UIStorageFilter for its block"""
-
-    storage_log = get_blivet_logger()
-    storage_filter = UIStorageFilter()
-    storage_log.addFilter(storage_filter)
-    yield
-    storage_log.removeFilter(storage_filter)
-
-
-def ui_storage_logged(func):
-    @wraps(func)
-    def decorated(*args, **kwargs):
-        with ui_storage_logger():
-            return func(*args, **kwargs)
-
-    return decorated
-
-
-class UIStorageFilter(logging.Filter):
-    """Logging filter for UI storage events"""
-
-    def filter(self, record):
-        record.name = "storage.ui"
-        return True
 
 
 class AddDialog(GUIObject):
@@ -275,56 +214,78 @@ class AddDialog(GUIObject):
     # If the user enters a smaller size, the GUI changes it to this value
     MIN_SIZE_ENTRY = Size("1 MiB")
 
-    def __init__(self, data, storage):
+    def __init__(self, data, device_tree):
         super().__init__(data)
-        self.storage = storage
-        self.mount_points = storage.mountpoints.keys()
-        self.size = Size(0)
-        self.mount_point = ""
-        self._error = False
+        self._device_tree = device_tree
+        self._size = Size(0)
+        self._mount_point = ""
+        self._error = ""
+        self._warning_label = self.builder.get_object("mountPointWarningLabel")
+        self._populate_mount_points()
 
-        store = self.builder.get_object("mountPointStore")
-        paths = collect_mount_points()
+    @property
+    def mount_point(self):
+        """The requested mount point."""
+        return self._mount_point
 
-        for path in paths:
-            if path not in self.mount_points:
-                store.append([path])
+    @property
+    def size(self):
+        """The requested size."""
+        return self._size
 
-        self.builder.get_object("addMountPointEntry").set_model(store)
+    def _populate_mount_points(self):
+        mount_points = self._device_tree.CollectUnusedMountPoints()
+        mount_point_store = self.builder.get_object("mountPointStore")
+
+        for path in mount_points:
+            mount_point_store.append([path])
+
+        entry = self.builder.get_object("addMountPointEntry")
+        entry.set_model(mount_point_store)
 
         completion = self.builder.get_object("mountPointCompletion")
         completion.set_text_column(0)
         completion.set_popup_completion(True)
 
-        self._warningLabel = self.builder.get_object("mountPointWarningLabel")
-
     def on_add_confirm_clicked(self, button, *args):
-        self.mount_point = self.builder.get_object("addMountPointEntry").get_active_text()
+        self._error = ""
+        self._set_mount_point()
+        self._set_size()
 
-        if lowerASCII(self.mount_point) in ("swap", "biosboot", "prepboot"):
-            self._error = None
-        else:
-            self._error = validate_mount_point(self.mount_point, self.mount_points)
-
-        self._warningLabel.set_text(self._error or "")
+        self._warning_label.set_text(self._error)
         self.window.show_all()
-        if self._error:
+
+        if not self._error:
+            self.window.destroy()
+
+    def _set_mount_point(self):
+        self._mount_point = self.builder.get_object("addMountPointEntry").get_active_text()
+
+        if lowerASCII(self._mount_point) in ("swap", "biosboot", "prepboot"):
             return
 
-        self.size = get_size_from_entry(
+        report = ValidationReport.from_structure(
+            self._device_tree.ValidateMountPoint(self._mount_point)
+        )
+        self._error = " ".join(report.get_messages())
+
+    def _set_size(self):
+        self._size = get_size_from_entry(
             self.builder.get_object("addSizeEntry"),
             lower_bound=self.MIN_SIZE_ENTRY,
             units=SIZE_UNITS_DEFAULT
         )
-        self.window.destroy()
+
+        if self._size is None or self._size < Size("1 MB"):
+            self._size = Size(0)
 
     def refresh(self):
         super().refresh()
-        self._warningLabel.set_text("")
+        self._warning_label.set_text("")
 
     def run(self):
         while True:
-            self._error = None
+            self._error = ""
             rc = self.window.run()
             if not self._error:
                 return rc
@@ -335,52 +296,84 @@ class ConfirmDeleteDialog(GUIObject):
     mainWidgetName = "confirmDeleteDialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, data, device_tree, root_name, device_name, is_multiselection):
+        super().__init__(data)
+        self._device_tree = device_tree
+        self._root_name = root_name
+        self._device_name = device_name
+        self._is_multiselection = is_multiselection
+
+        self._label = self.builder.get_object("confirmLabel")
+        self._label.set_text(self._get_label_text())
+
         self._optional_checkbox = self.builder.get_object("optionalCheckbox")
+        self._optional_checkbox.set_label(self._get_checkbox_text())
+
+        if not self._optional_checkbox.get_label():
+            self._optional_checkbox.hide()
 
     @property
     def option_checked(self):
         return self._optional_checkbox.get_active()
 
+    @property
+    def _protected_types(self):
+        return platform.boot_stage1_constraint_dict["format_types"]
+
     def on_delete_confirm_clicked(self, button, *args):
         self.window.destroy()
 
-    # pylint: disable=arguments-differ
-    def refresh(self, mountpoint, device, checkbox_text="", snapshots=False, bootpart=False):
-        """ Show confirmation dialog with the optional checkbox. If the
-            `checkbox_text` for the checkbox is not set then the checkbox
-            will not be showed.
+    def _get_checkbox_text(self):
+        root_name = self._root_name
 
-            :param str mountpoint: Mountpoint for device.
-            :param str device: Name of the device.
-            :param str checkbox_text: Text for checkbox. If nothing set do
-                                      not display the checkbox.
-            :param bool snapshots: If true warn user he's going to delete snapshots too.
-        """
-        super().refresh()
-        label = self.builder.get_object("confirmLabel")
+        if root_name and "_" in root_name:
+            root_name = root_name.replace("_", "__")
 
-        if checkbox_text:
-            self._optional_checkbox.set_label(checkbox_text)
-        else:
-            self._optional_checkbox.hide()
+        if self._is_multiselection:
+            return C_(
+                "GUI|Custom Partitioning|Confirm Delete Dialog",
+                "Do _not show this dialog for other selected file systems."
+            )
 
-        if mountpoint:
-            txt = "%s (%s)" % (mountpoint, device)
-        else:
-            txt = device
+        if root_name:
+            return C_(
+                "GUI|Custom Partitioning|Confirm Delete Dialog",
+                "Delete _all file systems which are only used by {}."
+            ).format(root_name)
 
-        if bootpart:
-            label_text = _("%s may be a system boot partition! Deleting it may break other "
-                           "operating systems. Are you sure you want to delete it?") % txt
-        elif not snapshots:
-            label_text = _("Are you sure you want to delete all of the data on %s?") % txt
-        else:
-            label_text = _("Are you sure you want to delete all of the data on %s, including "
-                           "snapshots and/or subvolumes?") % txt
+        return None
 
-        label.set_text(label_text)
+    def _get_label_text(self):
+        device_data = DeviceData.from_structure(
+            self._device_tree.GetDeviceData(self._device_name)
+        )
+
+        format_data = DeviceFormatData.from_structure(
+            self._device_tree.GetFormatData(self._device_name)
+        )
+        device_name = self._device_name
+        mount_point = format_data.attrs.get("mount-point", "")
+
+        if mount_point:
+            device_name = "{} ({})".format(mount_point, self._device_name)
+
+        if format_data.type in self._protected_types:
+            return _(
+                "{} may be a system boot partition! Deleting it may break "
+                "other operating systems. Are you sure you want to delete it?"
+            ).format(device_name)
+
+        if device_data.type == "btrfs" and device_data.children:
+            return _(
+                "Are you sure you want to delete all of the data on {}, including subvolumes?"
+            ).format(device_name)
+
+        if device_data.type == "lvmthinlv" and device_data.children:
+            return _(
+                "Are you sure you want to delete all of the data on {}, including snapshots?"
+            ).format(device_name)
+
+        return _("Are you sure you want to delete all of the data on {}?").format(device_name)
 
     def run(self):
         return self.window.run()
@@ -391,27 +384,47 @@ class DisksDialog(GUIObject):
     mainWidgetName = "disks_dialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
-    def __init__(self, data, storage, disks, selected):
+    def __init__(self, data, device_tree, disks, selected_disks):
         super().__init__(data)
+        self._device_tree = device_tree
+        self._selected_disks = selected_disks
         self._disks = disks
-        self.selected = selected
         self._store = self.builder.get_object("disk_store")
-        # populate the store
-        for disk in self._disks:
-            self._store.append(["%s (%s)" % (disk.description, disk.serial),
-                                str(disk.size),
-                                str(storage.get_disk_free_space([disk])),
-                                disk.name,
-                                disk.id])
+        self._view = self.builder.get_object("disk_view")
+        self._populate_disks()
+        self._select_disks()
 
-        treeview = self.builder.get_object("disk_view")
-        model = treeview.get_model()
+    @property
+    def selected_disks(self):
+        """Selected disks."""
+        return self._selected_disks
+
+    def _populate_disks(self):
+        for device_name in self._disks:
+            device_data = DeviceData.from_structure(
+                self._device_tree.GetDeviceData(device_name)
+            )
+            device_free_space = self._device_tree.GetDiskFreeSpace(
+                [device_name]
+            )
+            self._store.append([
+                "{} ({})".format(
+                    device_data.description,
+                    device_data.attrs.get("serial", "")
+                ),
+                str(Size(device_data.size)),
+                str(Size(device_free_space)),
+                device_name
+            ])
+
+    def _select_disks(self):
+        model = self._view.get_model()
         itr = model.get_iter_first()
-        selected_ids = [d.id for d in self.selected]
-        selection = treeview.get_selection()
+        selection = self._view.get_selection()
+
         while itr:
-            disk_id = model.get_value(itr, 4)
-            if disk_id in selected_ids:
+            device_name = model.get_value(itr, 3)
+            if device_name in self._selected_disks:
                 selection.select_iter(itr)
 
             itr = model.iter_next(itr)
@@ -419,19 +432,15 @@ class DisksDialog(GUIObject):
     def on_cancel_clicked(self, button):
         self.window.destroy()
 
-    def _get_disk_by_id(self, disk_id):
-        for disk in self._disks:
-            if disk.id == disk_id:
-                return disk
-
     def on_select_clicked(self, button):
         treeview = self.builder.get_object("disk_view")
         model, paths = treeview.get_selection().get_selected_rows()
-        self.selected = []
+        self._selected_disks = []
+
         for path in paths:
             itr = model.get_iter(path)
-            disk_id = model.get_value(itr, 4)
-            self.selected.append(self._get_disk_by_id(disk_id))
+            device_name = model.get_value(itr, 3)
+            self._selected_disks.append(device_name)
 
         self.window.destroy()
 
@@ -451,164 +460,170 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
     # If the user enters a smaller size, the GUI changes it to this value
     MIN_SIZE_ENTRY = Size("1 MiB")
 
-    def __init__(self, data, storage, **kwargs):
+    def __init__(self, data, device_tree, request: DeviceFactoryRequest,
+                 permissions: DeviceFactoryPermissions, disks, names):
         GUIObject.__init__(self, data)
-        # these are all absolutely required. not getting them is fatal.
-        self.storage = storage
-        self._disks = kwargs.pop("disks")
-        self.selected = kwargs.pop("selected")[:]
-        self.name = kwargs.pop("name") or ""  # make sure it's a string
-        self.device_type = kwargs.pop("device_type")
+        self._device_tree = device_tree
+        self._disks = disks
+        self._request = request
+        self._permissions = permissions
+        self._original_name = request.container_name
+        self._container_names = names
+        self._error = ""
 
-        # these are less critical
-        self.raid_level = kwargs.pop("raid_level", None) or None  # not ""
-        self.encrypted = kwargs.pop("encrypted", False)
-        self.exists = kwargs.pop("exists", False)
+        self._title_label = self.builder.get_object("container_dialog_title_label")
+        self._dialog_label = self.builder.get_object("container_dialog_label")
+        self._error_label = self.builder.get_object("containerErrorLabel")
+        self._name_entry = self.builder.get_object("container_name_entry")
+        self._encryptCheckbutton = self.builder.get_object("containerEncryptedCheckbox")
+        self._raidStoreFilter = self.builder.get_object("containerRaidStoreFiltered")
+        self._store = self.builder.get_object("disk_store")
+        self._treeview = self.builder.get_object("container_disk_view")
+        self._sizeCombo = self.builder.get_object("containerSizeCombo")
+        self._sizeEntry = self.builder.get_object("containerSizeEntry")
+        self._raidLevelCombo = self.builder.get_object("containerRaidLevelCombo")
+        self._raidLevelLabel = self.builder.get_object("containerRaidLevelLabel")
+        self._save_button = self.builder.get_object("container_save_button")
 
-        self.size_policy = kwargs.pop("size_policy", SIZE_POLICY_AUTO)
-        self.size = kwargs.pop("size", Size(0))
-
-        self._error = None
-
-        self._grab_objects()
         GUIDialogInputCheckHandler.__init__(self, self._save_button)
 
-        # set up the dialog labels with device-type-specific text
-        container_type = get_container_type(self.device_type)
-        title_text = _(CONTAINER_DIALOG_TITLE) % {"container_type": _(container_type.name).upper()}
+        self._supported_raid_levels = get_supported_container_raid_levels(
+            self._device_tree, self._request.device_type
+        )
+
+        self._set_labels()
+        self._populate_disks()
+        self._select_disks()
+        self._populate_raid()
+        self._set_name()
+        self._set_size()
+        self._set_encryption()
+
+    def _set_labels(self):
+        container_type = get_container_type(self._request.device_type)
+        title_text = _(CONTAINER_DIALOG_TITLE) % {
+            "container_type": _(container_type.name).upper()
+        }
         self._title_label.set_text(title_text)
 
-        dialog_text = _(CONTAINER_DIALOG_TEXT) % {"container_type": _(container_type.name).lower()}
+        dialog_text = _(CONTAINER_DIALOG_TEXT) % {
+            "container_type": _(container_type.name).lower()
+        }
         self._dialog_label.set_text(dialog_text)
 
-        # populate the dialog widgets
-        self._name_entry.set_text(self.name)
+    def _populate_disks(self):
+        for device_name in self._disks:
+            device_data = DeviceData.from_structure(
+                self._device_tree.GetDeviceData(device_name)
+            )
+            device_free_space = self._device_tree.GetDiskFreeSpace(
+                [device_name]
+            )
+            self._store.append([
+                "{} ({})".format(
+                    device_data.description,
+                    device_data.attrs.get("serial", "")
+                ),
+                str(Size(device_data.size)),
+                str(Size(device_free_space)),
+                device_name
+            ])
 
-        # populate the store
-        for disk in self._disks:
-            self._store.append([disk.description,
-                                str(disk.size),
-                                str(storage.get_disk_free_space([disk])),
-                                disk.name,
-                                disk.id])
-
+    def _select_disks(self):
         model = self._treeview.get_model()
         itr = model.get_iter_first()
-
-        selected_ids = [d.id for d in self.selected]
         selection = self._treeview.get_selection()
+
         while itr:
-            disk_id = model.get_value(itr, 4)
-            if disk_id in selected_ids:
+            device_name = model.get_value(itr, 3)
+            if device_name in self._request.disks:
                 selection.select_iter(itr)
 
             itr = model.iter_next(itr)
 
-        # XXX how will this be related to the device encryption setting?
-        self._encryptCheckbutton.set_active(self.encrypted)
+        if not self._permissions.can_modify_container():
+            self._treeview.set_sensitive(False)
 
-        # set up the raid level combo
-        # XXX how will this be related to the device raid level setting?
+    def _populate_raid(self):
+        """Set up the raid-specific portion of the device details.
+
+        Hide the RAID level menu if this device type does not support RAID.
+        Choose a default RAID level.
+        """
         self._raidStoreFilter.set_visible_func(self._raid_level_visible)
         self._raidStoreFilter.refilter()
-        self._populate_raid()
 
-        self._original_size = self.size
-        self._original_size_text = self.size.human_readable(max_places=2)
-        self._sizeEntry.set_text(self._original_size_text)
-        if self.size_policy == SIZE_POLICY_AUTO:
+        if not self._supported_raid_levels:
+            for widget in [self._raidLevelLabel, self._raidLevelCombo]:
+                really_hide(widget)
+            return
+
+        raid_level = self._request.container_raid_level
+
+        for (i, row) in enumerate(self._raidLevelCombo.get_model()):
+            if row[1] == raid_level:
+                self._raidLevelCombo.set_active(i)
+                break
+
+        for widget in [self._raidLevelLabel, self._raidLevelCombo]:
+            really_show(widget)
+
+        fancy_set_sensitive(self._raidLevelCombo, self._permissions.container_raid_level)
+
+    def _raid_level_visible(self, model, itr, user_data):
+        raid_level = model[itr][1]
+        return raid_level in self._supported_raid_levels
+
+    def _set_name(self):
+        self._name_entry.set_text(self._request.container_name)
+        self.add_check(self._name_entry, self._check_name_entry)
+
+        if not self._permissions.container_name:
+            fancy_set_sensitive(self._name_entry, False)
+
+    def _check_name_entry(self, inputcheck):
+        container_name = self.get_input(inputcheck.input_obj).strip()
+
+        if container_name == self._original_name:
+            return InputCheck.CHECK_OK
+
+        if container_name in self._container_names:
+            return _("Name is already in use.")
+
+        report = ValidationReport.from_structure(
+            self._device_tree.ValidateContainerName(container_name)
+        )
+
+        if not report.is_valid():
+            return " ".join(report.get_messages())
+
+        return InputCheck.CHECK_OK
+
+    def _set_size(self):
+        if self._request.container_size_policy == SIZE_POLICY_AUTO:
             self._sizeCombo.set_active(0)
-        elif self.size_policy == SIZE_POLICY_MAX:
+            self._sizeEntry.set_text("")
+        elif self._request.container_size_policy == SIZE_POLICY_MAX:
             self._sizeCombo.set_active(1)
+            self._sizeEntry.set_text("")
         else:
             self._sizeCombo.set_active(2)
+            size = Size(self._request.container_size_policy)
+            self._sizeEntry.set_text(size.human_readable(max_places=2))
 
-        if self.exists:
-            fancy_set_sensitive(self._name_entry, False)
-            self._treeview.set_sensitive(False)
-            fancy_set_sensitive(self._encryptCheckbutton, False)
+        if not self._permissions.container_size_policy:
             fancy_set_sensitive(self._sizeCombo, False)
             self._sizeEntry.set_sensitive(False)
 
-        # Check that the container name configured is valid
-        self.add_check(self._name_entry, self._check_name_entry)
+    def _set_encryption(self):
+        self._encryptCheckbutton.set_active(self._request.container_encrypted)
 
-    def _grab_objects(self):
-        self._title_label = self.builder.get_object("container_dialog_title_label")
-        self._dialog_label = self.builder.get_object("container_dialog_label")
-        self._error_label = self.builder.get_object("containerErrorLabel")
-
-        self._name_entry = self.builder.get_object("container_name_entry")
-
-        self._encryptCheckbutton = self.builder.get_object("containerEncryptedCheckbox")
-        self._raidStoreFilter = self.builder.get_object("containerRaidStoreFiltered")
-
-        self._store = self.builder.get_object("disk_store")
-        self._treeview = self.builder.get_object("container_disk_view")
-
-        self._sizeCombo = self.builder.get_object("containerSizeCombo")
-        self._sizeEntry = self.builder.get_object("containerSizeEntry")
-
-        self._raidLevelCombo = self.builder.get_object("containerRaidLevelCombo")
-        self._raidLevelLabel = self.builder.get_object("containerRaidLevelLabel")
-
-        self._save_button = self.builder.get_object("container_save_button")
-
-    def _get_disk_by_id(self, disk_id):
-        for disk in self._disks:
-            if disk.id == disk_id:
-                return disk
-
-    def _save_clicked(self):
-        if self.exists:
-            return
-
-        model, paths = self._treeview.get_selection().get_selected_rows()
-
-        raid_level = get_selected_raid_level(self._raidLevelCombo)
-        if raid_level:
-            self._error = validate_raid_level(raid_level, len(paths))
-
-            if self._error:
-                self._error_label.set_text(self._error)
-                self.window.show_all()
-                return
-
-        idx = self._sizeCombo.get_active()
-        if idx == 0:
-            size = SIZE_POLICY_AUTO
-        elif idx == 1:
-            size = SIZE_POLICY_MAX
-        elif idx == 2:
-            if self._original_size_text != self._sizeEntry.get_text():
-                size = get_size_from_entry(
-                    self._sizeEntry,
-                    lower_bound=self.MIN_SIZE_ENTRY,
-                    units=SIZE_UNITS_DEFAULT
-                )
-                if size is None:
-                    size = SIZE_POLICY_MAX
-            else:
-                size = self._original_size
-
-        # now save the changes
-
-        self.selected = []
-        for path in paths:
-            itr = model.get_iter(path)
-            disk_id = model.get_value(itr, 4)
-            self.selected.append(self._get_disk_by_id(disk_id))
-
-        self.name = self._name_entry.get_text().strip()
-        self.raid_level = raid_level
-        self.encrypted = self._encryptCheckbutton.get_active()
-        self.size_policy = size
-
-        self._error_label.set_text("")
+        if not self._permissions.container_encrypted:
+            fancy_set_sensitive(self._encryptCheckbutton, False)
 
     def run(self):
         while True:
-            self._error = None
+            self._error = ""
             rc = self.window.run()
             if rc == 1:
                 # Save clicked and input validation passed, try saving it
@@ -630,6 +645,87 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self.window.destroy()
         return rc
 
+    def _save_clicked(self):
+        if not self._permissions.can_modify_container():
+            return
+
+        if not self._validate_disks():
+            return
+
+        if not self._validate_raid_level():
+            return
+
+        self._request.disks = self._get_disks()
+        self._request.container_name = self._name_entry.get_text().strip()
+        self._request.container_encrypted = self._encryptCheckbutton.get_active()
+        self._request.container_size_policy = self._get_size_policy()
+        self._request.container_raid_level = get_selected_raid_level(self._raidLevelCombo)
+        self._error_label.set_text("")
+
+    def _validate_disks(self):
+        if not self._get_disks():
+            self._error = _("No disks selected.")
+            self._error_label.set_text(self._error)
+            self.window.show_all()
+            return False
+
+        return True
+
+    def _validate_raid_level(self):
+        raid_level = get_selected_raid_level(self._raidLevelCombo)
+        self._error = ""
+
+        if raid_level:
+            paths = self._treeview.get_selection().get_selected_rows()[1]
+            report = ValidationReport.from_structure(
+                self._device_tree.ValidateRaidLevel(raid_level, len(paths))
+            )
+
+            if not report.is_valid():
+                self._error = " ".join(report.get_messages())
+                self._error_label.set_text(self._error)
+                self.window.show_all()
+                return False
+
+        return True
+
+    def _get_disks(self):
+        model, paths = self._treeview.get_selection().get_selected_rows()
+        disks = []
+
+        for path in paths:
+            itr = model.get_iter(path)
+            device_name = model.get_value(itr, 3)
+            disks.append(device_name)
+
+        return disks
+
+    def _get_size_policy(self):
+        idx = self._sizeCombo.get_active()
+
+        if idx == 0:
+            return SIZE_POLICY_AUTO
+
+        if idx == 1:
+            return SIZE_POLICY_MAX
+
+        original_size = Size(self._request.container_size_policy)
+        original_entry = original_size.human_readable(max_places=2)
+
+        if self._sizeEntry.get_text() == original_entry:
+            return self._request.container_size_policy
+
+        size = get_size_from_entry(
+            self._sizeEntry,
+            lower_bound=self.MIN_SIZE_ENTRY,
+            units=SIZE_UNITS_DEFAULT
+        )
+
+        if size is None:
+            return SIZE_POLICY_MAX
+
+        return size.get_bytes()
+
     def on_size_changed(self, combo):
         active_index = combo.get_active()
         if active_index == 0:
@@ -638,42 +734,3 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             self._sizeEntry.set_sensitive(False)
         else:
             self._sizeEntry.set_sensitive(True)
-
-    def _raid_level_visible(self, model, itr, user_data):
-        raid_level_str = model[itr][1]
-        raid_level = raid.get_raid_level(raid_level_str) if raid_level_str != "none" else None
-        return raid_level in get_supported_container_raid_levels(self.device_type)
-
-    def _populate_raid(self):
-        """ Set up the raid-specific portion of the device details.
-
-            Hide the RAID level menu if this device type does not support RAID.
-            Choose a default RAID level.
-        """
-        if not get_supported_container_raid_levels(self.device_type):
-            for widget in [self._raidLevelLabel, self._raidLevelCombo]:
-                really_hide(widget)
-            return
-
-        raid_level = self.raid_level or get_default_container_raid_level(self.device_type)
-        raid_level_name = get_raid_level_selection(raid_level)
-
-        # Set a default RAID level in the combo.
-        for (i, row) in enumerate(self._raidLevelCombo.get_model()):
-            if row[1] == raid_level_name:
-                self._raidLevelCombo.set_active(i)
-                break
-
-        for widget in [self._raidLevelLabel, self._raidLevelCombo]:
-            really_show(widget)
-        fancy_set_sensitive(self._raidLevelCombo, not self.exists)
-
-    def _check_name_entry(self, inputcheck):
-        container_name = self.get_input(inputcheck.input_obj).strip()
-
-        # Check that the container name is valid
-        safename = self.storage.safe_device_name(container_name)
-        if container_name != safename:
-            return _("Invalid container name")
-
-        return InputCheck.CHECK_OK

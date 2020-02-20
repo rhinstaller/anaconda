@@ -16,13 +16,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.core.constants import BOOTLOADER_ENABLED, BOOTLOADER_LOCATION_MBR, \
     BOOTLOADER_DRIVE_UNSET, BOOTLOADER_SKIPPED
-from pyanaconda.core.i18n import C_, P_
-from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.core.i18n import C_
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import escape_markup
+from pyanaconda.ui.lib.storage import get_disks_summary
 from blivet.size import Size
 
 __all__ = ["SelectedDisksDialog"]
@@ -32,7 +33,6 @@ DESCRIPTION_COL = 1
 SIZE_COL = 2
 FREE_SPACE_COL = 3
 NAME_COL = 4
-ID_COL = 5
 
 
 class SelectedDisksDialog(GUIObject):
@@ -40,32 +40,24 @@ class SelectedDisksDialog(GUIObject):
     mainWidgetName = "selected_disks_dialog"
     uiFile = "spokes/lib/cart.glade"
 
-    def __init__(self, data, storage, disks, show_remove=True, set_boot=True):
+    def __init__(self, data, disks, show_remove=True, set_boot=True):
         super().__init__(data)
-        self._storage = storage
-        self.disks = []
+        self._disks = disks[:]
+        self._previous_boot_device = None
+
+        self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        self._bootloader_module = STORAGE.get_proxy(BOOTLOADER)
 
         self._view = self.builder.get_object("disk_tree_view")
         self._store = self.builder.get_object("disk_store")
         self._selection = self.builder.get_object("disk_selection")
         self._summary_label = self.builder.get_object("summary_label")
-
         self._set_button = self.builder.get_object("set_as_boot_button")
         self._remove_button = self.builder.get_object("remove_button")
 
-        self._bootloader_module = STORAGE.get_proxy(BOOTLOADER)
-
-        self._previousID = None
-
-        for disk in disks:
-            self._store.append([False,
-                                "%s (%s)" % (disk.description, disk.serial),
-                                str(disk.size),
-                                str(self._storage.get_disk_free_space([disk])),
-                                disk.name,
-                                disk.id])
-        self.disks = disks[:]
+        self._update_disks()
         self._update_summary()
+        self._update_boot_device()
 
         if not show_remove:
             self.builder.get_object("remove_button").hide()
@@ -73,81 +65,85 @@ class SelectedDisksDialog(GUIObject):
         if not set_boot:
             self._set_button.hide()
 
-        if not disks:
-            return
+    @property
+    def disks(self):
+        """Selected disks.
 
-        # Don't select a boot device if no boot device is asked for.
-        if self._bootloader_module.BootloaderMode != BOOTLOADER_ENABLED:
-            return
-
-        # Set up the default boot device.  Use what's in the ksdata if anything,
-        # then fall back to the first device.
-        boot_drive = self._bootloader_module.Drive
-        default_id = None
-
-        if boot_drive:
-            for d in self.disks:
-                if d.name == boot_drive:
-                    default_id = d.id
-
-        if not default_id:
-            default_id = self.disks[0].id
-
-        # And then select it in the UI.
-        for row in self._store:
-            if row[ID_COL] == default_id:
-                self._previousID = row[ID_COL]
-                row[IS_BOOT_COL] = True
-                break
+        :return: a list of device names
+        """
+        return self._disks
 
     def run(self):
         rc = self.window.run()
         self.window.destroy()
         return rc
 
+    def _update_disks(self):
+        for device_name in self._disks:
+            device_data = DeviceData.from_structure(
+                self._device_tree.GetDeviceData(device_name)
+            )
+
+            device_free_space = self._device_tree.GetDiskFreeSpace(
+                [device_name]
+            )
+
+            self._store.append([
+                False,
+                "{} ({})".format(
+                    device_data.description,
+                    device_data.attrs.get("serial", "")
+                ),
+                str(Size(device_data.size)),
+                str(Size(device_free_space)),
+                device_name
+            ])
+
     def _update_summary(self):
-        count = 0
-        size = Size(0)
-        free = Size(0)
+        self._summary_label.set_markup("<b>{}</b>".format(
+            get_disks_summary(self._disks)
+        ))
+
+    def _update_boot_device(self):
+        if not self._disks:
+            return
+
+        # Don't select a boot device if no boot device is asked for.
+        if self._bootloader_module.BootloaderMode != BOOTLOADER_ENABLED:
+            return
+
+        # Set up the default boot device. Use what's in the module
+        # if anything, then fall back to the first device.
+        boot_drive = self._bootloader_module.Drive
+
+        if boot_drive not in self._disks:
+            boot_drive = self._disks[0]
+
+        # And then select it in the UI.
         for row in self._store:
-            count += 1
-            size += Size(row[SIZE_COL])
-            free += Size(row[FREE_SPACE_COL])
+            if row[NAME_COL] == boot_drive:
+                self._previous_boot_device = row[NAME_COL]
+                row[IS_BOOT_COL] = True
+                break
 
-        # pylint: disable=unescaped-markup
-        text = P_("<b>%(count)d disk; %(size)s capacity; %(free)s free space</b> "
-                   "(unpartitioned and in file systems)",
-                  "<b>%(count)d disks; %(size)s capacity; %(free)s free space</b> "
-                   "(unpartitioned and in file systems)",
-                   count) % {"count" : count,
-                             "size" : escape_markup(size),
-                             "free" : escape_markup(free)}
-        self._summary_label.set_markup(text)
-
-    # signal handlers
     def on_remove_clicked(self, button):
         itr = self._selection.get_selected()[1]
         if not itr:
             return
 
-        disk = None
-        for d in self.disks:
-            if d.id == self._store[itr][ID_COL]:
-                disk = d
-                break
-
-        if not disk:
+        disk = self._store[itr][NAME_COL]
+        if disk not in self._disks:
             return
 
         # If this disk was marked as the boot device, just change to the first one
         # instead.
-        resetBootDevice = self._store[itr][IS_BOOT_COL]
+        reset_boot_device = self._store[itr][IS_BOOT_COL]
 
         # remove the selected disk(s) from the list and update the summary label
         self._store.remove(itr)
-        self.disks.remove(disk)
+        self._disks.remove(disk)
 
-        if resetBootDevice and len(self._store) > 0:
+        if reset_boot_device and len(self._store) > 0:
             self._store[0][IS_BOOT_COL] = True
 
         self._update_summary()
@@ -157,28 +153,34 @@ class SelectedDisksDialog(GUIObject):
         self._remove_button.set_sensitive(len(self._store) > 0)
 
     def on_close_clicked(self, button):
-        # Save the boot device setting, if something was selected.
+        boot_device = None
+
         for row in self._store:
             if row[IS_BOOT_COL]:
-                for disk in self.disks:
-                    if disk.id == row[ID_COL]:
-                        self._bootloader_module.SetBootloaderMode(BOOTLOADER_ENABLED)
-                        self._bootloader_module.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
-                        self._bootloader_module.SetDrive(disk.name)
-                        return
+                boot_device = row[NAME_COL]
+                break
 
-        # No device was selected.  The user does not want to install
-        # a bootloader.
-        self._bootloader_module.SetBootloaderMode(BOOTLOADER_SKIPPED)
-        self._bootloader_module.SetDrive(BOOTLOADER_DRIVE_UNSET)
+        if boot_device and boot_device in self._disks:
+            # Save the boot device setting, if something was selected.
+            self._bootloader_module.SetBootloaderMode(BOOTLOADER_ENABLED)
+            self._bootloader_module.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
+            self._bootloader_module.SetDrive(boot_device)
+        else:
+            # No device was selected. The user does not want to install a boot loader.
+            self._bootloader_module.SetBootloaderMode(BOOTLOADER_SKIPPED)
+            self._bootloader_module.SetDrive(BOOTLOADER_DRIVE_UNSET)
 
     def _toggle_button_text(self, row):
         if row[IS_BOOT_COL]:
-            self._set_button.set_label(C_("GUI|Selected Disks Dialog",
-                "_Do not install boot loader"))
+            self._set_button.set_label(C_(
+                "GUI|Selected Disks Dialog",
+                "_Do not install boot loader"
+            ))
         else:
-            self._set_button.set_label(C_("GUI|Selected Disks Dialog",
-                "_Set as Boot Device"))
+            self._set_button.set_label(C_(
+                "GUI|Selected Disks Dialog",
+                "_Set as Boot Device"
+            ))
 
     def on_selection_changed(self, *args):
         itr = self._selection.get_selected()[1]
@@ -193,7 +195,7 @@ class SelectedDisksDialog(GUIObject):
             return
 
         # There's only two cases:
-        if self._store[itr][ID_COL] == self._previousID:
+        if self._store[itr][NAME_COL] == self._previous_boot_device:
             # Either the user clicked on the device they'd previously selected,
             # in which case we are just toggling here.
             self._store[itr][IS_BOOT_COL] = not self._store[itr][IS_BOOT_COL]
@@ -201,12 +203,12 @@ class SelectedDisksDialog(GUIObject):
             # Or they clicked on a different device.  First we unselect the
             # previously selected device.
             for row in self._store:
-                if row[ID_COL] == self._previousID:
+                if row[NAME_COL] == self._previous_boot_device:
                     row[IS_BOOT_COL] = False
                     break
 
             # Then we select the new row.
             self._store[itr][IS_BOOT_COL] = True
-            self._previousID = self._store[itr][ID_COL]
+            self._previous_boot_device = self._store[itr][NAME_COL]
 
         self._toggle_button_text(self._store[itr])

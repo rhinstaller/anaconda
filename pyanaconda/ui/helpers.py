@@ -56,7 +56,7 @@
 from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda.core import constants
-from pyanaconda.storage.utils import unmark_protected_device, mark_protected_device
+from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
 from pyanaconda.threading import threadMgr
 from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -121,16 +121,17 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         so it can be used for the installation.
         """
         if self.data.method.method == "harddrive" and self.data.method.partition:
-            unmark_protected_device(self.storage, self.data.method.partition)
+            unmark_protected_device(self.data.method.partition)
 
-    def set_source_hdd_iso(self, device, iso_path):
+    def set_source_hdd_iso(self, device_name, iso_path):
         """ Switch to the HDD ISO install source
-        :param partition: name of the partition hosting the ISO
-        :type partition: string
+
+        :param device_name: name of the partition hosting the ISO
+        :type device_name: string
         :param iso_path: full path to the source ISO file
         :type iso_path: string
         """
-        partition = device.name
+        partition = device_name
         # the GUI source spoke also does the copy
         old_source = copy.copy(self.data.method)
 
@@ -138,15 +139,15 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         if old_source.method == "harddrive" and old_source.partition != partition:
             self._clean_hdd_iso()
 
-        # protect current device
-        mark_protected_device(self.storage, device.name)
+        # protect current device_name
+        mark_protected_device(device_name)
 
         self.data.method.method = "harddrive"
         self.data.method.partition = partition
         # the / gets stripped off by payload.ISO_image
         self.data.method.dir = "/" + iso_path
 
-        # as we already made the device protected when
+        # as we already made the device_name protected when
         # switching to it, we don't need to protect it here
 
     def set_source_url(self, url=None):

@@ -20,8 +20,10 @@
 from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_SCHEDULER
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.common.structures.storage import OSData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
@@ -32,6 +34,32 @@ __all__ = ["DeviceTreeSchedulerInterface"]
 @dbus_interface(DEVICE_TREE_SCHEDULER.interface_name)
 class DeviceTreeSchedulerInterface(DeviceTreeInterface):
     """DBus interface for the device tree scheduler."""
+
+    def IsDeviceLocked(self, device_name: Str) -> Bool:
+        """Is the specified device locked?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        return self.implementation.is_device_locked(device_name)
+
+    def IsDeviceEditable(self, device_name: Str) -> Bool:
+        """Is the specified device editable?
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        return self.implementation.is_device_editable(device_name)
+
+    def CheckCompleteness(self, device_name: Str) -> Structure:
+        """Check that the specified device is complete.
+
+        :param device_name: a name of the device
+        :return: a validation report
+        """
+        return ValidationReport.to_structure(
+            self.implementation.check_completeness(device_name)
+        )
 
     def GetDefaultFileSystem(self) -> Str:
         """Get the default type of a filesystem.
@@ -46,6 +74,14 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         :return: a version of LUKS
         """
         return self.implementation.get_default_luks_version()
+
+    def GetContainerFreeSpace(self, container_name: Str) -> UInt64:
+        """Get total free space in the specified container.
+
+        :param container_name: a name of the container
+        :return: a size in bytes
+        """
+        return self.implementation.get_container_free_space(container_name)
 
     def GenerateSystemName(self) -> Str:
         """Generate a name of the new installation.
@@ -73,6 +109,13 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.generate_device_name(mount_point, format_type)
 
+    def GenerateContainerName(self) -> Str:
+        """Get a suggestion for a container name.
+
+        :return: a generated container name
+        """
+        return self.implementation.generate_container_name()
+
     def GenerateDeviceFactoryRequest(self, device_name: Str) -> Structure:
         """Generate a device factory request for the given device.
 
@@ -98,6 +141,27 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         request = DeviceFactoryRequest.from_structure(request)
         permissions = self.implementation.generate_device_factory_permissions(request)
         return DeviceFactoryPermissions.to_structure(permissions)
+
+    def GenerateContainerData(self, request: Structure) -> Structure:
+        """Generate the container data for the device factory request.
+
+        :param request: a device factory request
+        :return: a device factory request
+        """
+        request = DeviceFactoryRequest.from_structure(request)
+        self.implementation.generate_container_data(request)
+        return DeviceFactoryRequest.to_structure(request)
+
+    def UpdateContainerData(self, request: Structure, container_name: Str) -> Structure:
+        """Update the container data in the device factory request.
+
+        :param request: a device factory request
+        :param container_name: a container name
+        :return: a device factory request
+        """
+        request = DeviceFactoryRequest.from_structure(request)
+        self.implementation.update_container_data(request, container_name)
+        return DeviceFactoryRequest.to_structure(request)
 
     def GetPartitioned(self) -> List[Str]:
         """Get all partitioned devices in the device tree.
@@ -147,6 +211,14 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         :return: a list of device names
         """
         return self.implementation.collect_boot_loader_devices(boot_drive)
+
+    def CollectContainers(self, device_type: Int) -> List[Str]:
+        """Collect containers of the given type.
+
+        :param device_type: a device type
+        :return: a list of container names
+        """
+        return self.implementation.collect_containers(device_type)
 
     def CollectSupportedSystems(self) -> List[Structure]:
         """Collect supported existing or new installations.
@@ -226,7 +298,7 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """Add a new device to the storage model.
 
         :param request: a device factory request
-        :raise: StorageError if the device cannot be created
+        :raise: StorageConfigurationError if the device cannot be created
         """
         self.implementation.add_device(
             DeviceFactoryRequest.from_structure(request)
@@ -239,9 +311,42 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
 
         :param request: a device factory request
         :param original_request: an original device factory request
-        :raise: StorageError if the device cannot be changed
+        :raise: StorageConfigurationError if the device cannot be changed
         """
         self.implementation.change_device(
             DeviceFactoryRequest.from_structure(request),
             DeviceFactoryRequest.from_structure(original_request)
+        )
+
+    def ResetDevice(self, device_name: Str):
+        """Reset the specified device in the storage model.
+
+        FIXME: Merge with DestroyDevice.
+
+        :param device_name: a name of the device
+        :raise: StorageConfigurationError in a case of failure
+        """
+        self.implementation.reset_device(device_name)
+
+    def DestroyDevice(self, device_name: Str):
+        """Destroy the specified device in the storage model.
+
+        :param device_name: a name of the device
+        :raise: StorageConfigurationError in a case of failure
+        """
+        self.implementation.destroy_device(device_name)
+
+    def SchedulePartitionsWithTask(self, request: Structure) -> ObjPath:
+        """Schedule the partitioning actions.
+
+        Generate the automatic partitioning configuration
+        using the given request.
+
+        :param: a partitioning request
+        :return: a DBus path to a task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.schedule_partitions_with_task(
+                PartitioningRequest.from_structure(request)
+            )
         )

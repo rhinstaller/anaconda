@@ -26,7 +26,6 @@ import requests
 from decimal import Decimal
 
 from blivet import udev
-from blivet.devices import MultipathDevice, iScsiDiskDevice, FcoeDiskDevice
 from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.formats import device_formats
@@ -47,9 +46,8 @@ from pykickstart.errors import KickstartError
 from pyanaconda.core import util
 from pyanaconda.core.i18n import N_, _, P_
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM, DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -179,32 +177,6 @@ def bound_size(size, device, old_size):
             size = min_size
 
     return size
-
-
-def try_populate_devicetree(devicetree):
-    """
-    Try to populate the given devicetree while catching errors and dealing with
-    some special ones in a nice way (giving user chance to do something about
-    them).
-
-    :param devicetree: devicetree to try to populate
-    :type devicetree: :class:`blivet.devicetree.DeviceTree`
-
-    """
-
-    while True:
-        try:
-            devicetree.populate()
-            devicetree.teardown_all()
-        except StorageError as e:
-            if errorHandler.cb(e) == ERROR_RAISE:
-                raise
-            else:
-                continue
-        else:
-            break
-
-    return
 
 
 def filter_unsupported_disklabel_devices(devices):
@@ -495,53 +467,9 @@ def filter_disks_by_names(disks, names):
 
     :param disks: a list of disks
     :param names: a list of disk names
-    :return: a list of filtered disks
+    :return: a list of filtered disk names
     """
-    return [d for d in disks if d.name in names]
-
-
-def is_local_disk(disk):
-    """Is the disk local?
-
-    A local disk doesn't require any additional setup unlike
-    the advanced storage.
-
-    While technically local disks, zFCP and NVDIMM devices are
-    specialized storage and should not be considered local.
-
-    :param disk: a disk
-    :type disk: an instance of blivet.devices.Device
-    :return: True or False
-    """
-    return not isinstance(disk, MultipathDevice) \
-        and not isinstance(disk, iScsiDiskDevice) \
-        and not isinstance(disk, FcoeDiskDevice) \
-        and disk.type not in ("zfcp", "nvdimm")
-
-
-def apply_disk_selection(storage, selected_names):
-    """Apply the disks selection.
-
-    :param storage: blivet.Blivet instance
-    :param selected_names: a list of selected disk names
-    """
-    # Get the selected disks.
-    selected_disks = filter_disks_by_names(storage.disks, selected_names)
-
-    # Get names of their ancestors.
-    ancestor_names = [
-        ancestor.name
-        for disk in selected_disks for ancestor in disk.ancestors
-        if ancestor.is_disk and ancestor.name not in selected_names
-    ]
-
-    # Set the disks to select.
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    disk_select_proxy.SetSelectedDisks(selected_names + ancestor_names)
-
-    # Set the drives to clear.
-    disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-    disk_init_proxy.SetDrivesToClear(selected_names)
+    return list(filter(lambda name: name in disks, names))
 
 
 def check_disk_selection(storage, selected_disks):
@@ -597,55 +525,6 @@ def get_required_device_size(required_space, format_class=None):
 
     device_size = format_class.get_required_size(required_space)
     return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
-
-
-def get_disks_summary(storage, selected):
-    """Get a summary of the selected disks
-
-    :param storage: an instance of the storage
-    :param selected: a list of selected disks
-    :return: a string with a summary
-    """
-    count = len(selected)
-    capacity = sum((disk.size for disk in selected), Size(0))
-    free_space = storage.get_disk_free_space(selected)
-
-    return P_(
-        "{count} disk selected; {capacity} capacity; {free} free",
-        "{count} disks selected; {capacity} capacity; {free} free",
-        count).format(count=count, capacity=capacity, free=free_space)
-
-
-def mark_protected_device(storage, spec):
-    """Mark a device as protected.
-
-    :param storage: an instance of the storage
-    :param spec: a specification of the device
-    """
-    disk_selection_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    protected_devices = disk_selection_proxy.ProtectedDevices
-
-    if spec not in protected_devices:
-        protected_devices.add(spec)
-
-    storage.protect_devices(protected_devices)
-    disk_selection_proxy.SetProtectedDevices(protected_devices)
-
-
-def unmark_protected_device(storage, spec):
-    """Unmark a device as protected.
-
-    :param storage: an instance of the storage
-    :param spec: a specification of the device
-    """
-    disk_selection_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    protected_devices = disk_selection_proxy.ProtectedDevices
-
-    if spec in protected_devices:
-        protected_devices.remove(spec)
-
-    storage.protect_devices(protected_devices)
-    disk_selection_proxy.SetProtectedDevices(protected_devices)
 
 
 def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
@@ -787,12 +666,16 @@ def unlock_device(storage, device, passphrase):
         # Save the passphrase.
         storage.save_passphrase(device)
 
+        # Set the passphrase also to the original format of the device.
+        device.original_format.passphrase = passphrase
+
         # Wait for the device.
         # Otherwise, we could get a message about no Linux partitions.
         time.sleep(2)
 
         # Update the device tree.
-        try_populate_devicetree(storage.devicetree)
+        storage.devicetree.populate()
+        storage.devicetree.teardown_all()
 
         return True
 

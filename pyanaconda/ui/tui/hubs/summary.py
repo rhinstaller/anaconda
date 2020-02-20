@@ -47,9 +47,9 @@ class SummaryHub(TUIHub):
         self.title = N_("Installation")
 
         if not conf.target.is_directory:
-            self._checker = FileSystemSpaceChecker(storage, payload)
+            self._checker = FileSystemSpaceChecker(payload)
         else:
-            self._checker = DirInstallSpaceChecker(storage, payload)
+            self._checker = DirInstallSpaceChecker(payload)
 
     def setup(self, args="anaconda"):
         environment = args

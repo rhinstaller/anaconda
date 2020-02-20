@@ -21,9 +21,7 @@ import copy
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
-from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
     ResizableDeviceTreeModule
@@ -43,9 +41,6 @@ class AutoPartitioningModule(PartitioningModule):
     def __init__(self):
         """Initialize the module."""
         super().__init__()
-        self.enabled_changed = Signal()
-        self._enabled = False
-
         self.request_changed = Signal()
         self._request = PartitioningRequest()
 
@@ -58,17 +53,12 @@ class AutoPartitioningModule(PartitioningModule):
         """Return a DBus representation."""
         return AutoPartitioningInterface(self)
 
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(AUTO_PARTITIONING.object_path, self.for_publication())
-
     def _create_device_tree(self):
         """Create the device tree module."""
         return ResizableDeviceTreeModule()
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        self.set_enabled(data.autopart.autopart)
         request = PartitioningRequest()
 
         if data.autopart.type is not None:
@@ -104,7 +94,7 @@ class AutoPartitioningModule(PartitioningModule):
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        data.autopart.autopart = self.enabled
+        data.autopart.autopart = True
         data.autopart.fstype = self.request.file_system_type
 
         if self.request.partitioning_scheme != DEFAULT_AUTOPART_TYPE:
@@ -128,20 +118,6 @@ class AutoPartitioningModule(PartitioningModule):
 
         data.autopart.escrowcert = self.request.escrow_certificate
         data.autopart.backuppassphrase = self.request.backup_passphrase_enabled
-
-    @property
-    def enabled(self):
-        """Is the auto partitioning enabled?"""
-        return self._enabled
-
-    def set_enabled(self, enabled):
-        """Is the auto partitioning enabled?
-
-        :param enabled: a boolean value
-        """
-        self._enabled = enabled
-        self.enabled_changed.emit()
-        log.debug("Enabled is set to '%s'.", enabled)
 
     @property
     def request(self):

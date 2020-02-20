@@ -26,12 +26,13 @@ import pyanaconda.errors as errors
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
 from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_and_modifier
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.progress import progressQ
 from pyanaconda.payload import Payload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
 from pyanaconda.payload.flatpak import FlatpakPayload
-from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 
@@ -141,7 +142,8 @@ class RPMOSTreePayload(Payload):
         # to add other bootloaders here though (if they can't easily
         # be fixed to *copy* data into /boot at install time, instead
         # of shipping it in the RPM).
-        is_efi = isinstance(self.storage.bootloader, EFIBase)
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        is_efi = bootloader.IsEFI()
         physboot = conf.target.physical_root + '/boot'
         ostree_boot_source = conf.target.system_root + '/usr/lib/ostree-boot'
         if not os.path.isdir(ostree_boot_source):
@@ -345,6 +347,7 @@ class RPMOSTreePayload(Payload):
     def _prepare_mount_targets(self):
         """ Prepare the ostree root """
         ostreesetup = self.data.ostreesetup
+        mount_points = payload_utils.get_mount_points()
 
         # Currently, blivet sets up mounts in the physical root.
         # We used to unmount them and remount them in the sysroot, but
@@ -364,7 +367,7 @@ class RPMOSTreePayload(Payload):
         # to do the default ostree one.
         # https://github.com/ostreedev/ostree/issues/855
         var_root = '/ostree/deploy/' + ostreesetup.osname + '/var'
-        if self.storage.mountpoints.get("/var") is None:
+        if mount_points.get("/var") is None:
             self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
         else:
             # Otherwise, bind it
@@ -395,7 +398,7 @@ class RPMOSTreePayload(Payload):
         # sub-mounts will be in the list too.  We sort by length as a crude
         # hack to try to simulate the tree relationship; it looks like this
         # is handled in blivet in a different way.
-        for mount in sorted(self.storage.mountpoints, key=len):
+        for mount in sorted(mount_points, key=len):
             if mount in ('/', '/var') or mount in api_mounts:
                 continue
             self._setup_internal_bindmount(mount, recurse=False)
@@ -462,9 +465,13 @@ class RPMOSTreePayload(Payload):
             # OSTree owns the bootloader configuration, so here we give it
             # the argument list we computed from storage, architecture and
             # such.
+            bootloader = STORAGE.get_proxy(BOOTLOADER)
+            device_tree = STORAGE.get_proxy(DEVICE_TREE)
+            root_device = device_tree.GetRootDevice()
+
             set_kargs_args = ["admin", "instutil", "set-kargs"]
-            set_kargs_args.extend(self.storage.bootloader.boot_args)
-            set_kargs_args.append("root=" + self.storage.root_device.fstab_spec)
+            set_kargs_args.extend(bootloader.GetArguments())
+            set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_device))
             self._safe_exec_with_redirect("ostree", set_kargs_args, root=conf.target.system_root)
 
 

@@ -16,8 +16,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
@@ -26,7 +27,8 @@ from pyanaconda.payload import PackagePayload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
-from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources
+from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
+    get_hdiso_source_info, get_hdiso_source_description
 
 from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.core.constants import THREAD_STORAGE_WATCHER
@@ -88,7 +90,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         if self.data.method.method == "cdrom":
             self._cdrom = self.payload.install_device
         elif not flags.automatedInstall:
-            self._cdrom = find_optical_install_media(self.storage)
+            self._cdrom = find_optical_install_media()
 
         # Enable the SE/HMC option.
         if self.payload.is_hmc_enabled:
@@ -393,6 +395,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
         super().__init__(data, storage, payload)
         self.title = N_("Select device containing the ISO file")
         self._container = None
+        self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
         self._mountable_devices = self._get_mountable_devices()
         self._device = None
 
@@ -400,21 +403,14 @@ class SelectDeviceSpoke(NormalTUISpoke):
     def indirect(self):
         return True
 
-    def _sanitize_model(self, model):
-        return model.replace("_", " ")
-
     def _get_mountable_devices(self):
         disks = []
-        fstring = "%(model)s %(path)s (%(size)s MB) %(format)s %(label)s"
-        for dev in find_potential_hdiso_sources(self.storage):
-            # path model size format type uuid of format
-            dev_info = {"model": self._sanitize_model(dev.disk.model),
-                        "path": dev.path,
-                        "size": dev.size,
-                        "format": dev.format.name or "",
-                        "label": dev.format.label or dev.format.uuid or ""
-                        }
-            disks.append([dev, fstring % dev_info])
+
+        for device_name in find_potential_hdiso_sources():
+            device_info = get_hdiso_source_info(self._device_tree, device_name)
+            device_desc = get_hdiso_source_description(device_info)
+            disks.append([device_name, device_desc])
+
         return disks
 
     def refresh(self, args=None):

@@ -121,7 +121,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         threadMgr.add(AnacondaThread(
             name=THREAD_INSTALL,
             target=run_installation,
-            args=(self.storage, self.payload, self.data))
+            args=(self.payload, self.data))
         )
 
         # This will run until we're all done with the install thread.

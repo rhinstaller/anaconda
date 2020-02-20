@@ -5,6 +5,8 @@
   <requires lib="AnacondaWidgets" version="3.0"/>
   <object class="GtkListStore" id="containerStore">
     <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
       <!-- column-name description -->
       <column type="gchararray"/>
       <!-- column-name freeSpace -->
@@ -367,7 +369,7 @@
                                                     <property name="halign">start</property>
                                                     <property name="width_chars">10</property>
                                                     <property name="completion">mountPointCompletion</property>
-                                                    <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                    <signal name="changed" handler="on_mount_point_changed" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -413,7 +415,7 @@
                                                     <property name="can_focus">True</property>
                                                     <property name="halign">start</property>
                                                     <property name="width_chars">10</property>
-                                                    <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                    <signal name="changed" handler="on_size_changed" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -464,7 +466,7 @@
                                                 <property name="can_focus">True</property>
                                                 <property name="halign">start</property>
                                                 <property name="max_length">20</property>
-                                                <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                <signal name="changed" handler="on_label_changed" swapped="no"/>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -572,7 +574,7 @@
                                                 <property name="can_focus">True</property>
                                                 <property name="halign">start</property>
                                                 <property name="width_chars">20</property>
-                                                <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                <signal name="changed" handler="on_name_changed" swapped="no"/>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -627,7 +629,6 @@
                                                         <property name="can_focus">False</property>
                                                         <property name="model">deviceTypeStore</property>
                                                         <signal name="changed" handler="on_device_type_changed" swapped="no"/>
-                                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
                                                         <child>
                                                           <object class="GtkCellRendererText" id="deviceTypeRenderer">
                                                             <property name="ellipsize">end</property>
@@ -662,7 +663,6 @@
                                                     <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
-                                                    <signal name="toggled" handler="on_value_changed" swapped="no"/>
                                                     <signal name="toggled" handler="on_encrypt_toggled" swapped="no"/>
                                                   </object>
                                                   <packing>
@@ -713,7 +713,6 @@
                                                         <property name="can_focus">False</property>
                                                         <property name="model">fileSystemStore</property>
                                                         <signal name="changed" handler="on_fs_type_changed" swapped="no"/>
-                                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
                                                         <child>
                                                           <object class="GtkCellRendererText" id="fileSystemRenderer">
                                                             <property name="ellipsize">end</property>
@@ -748,7 +747,6 @@
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_reformat_toggled" swapped="no"/>
-                                                    <signal name="toggled" handler="on_value_changed" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -818,7 +816,7 @@
                                                             <property name="ellipsize">middle</property>
                                                           </object>
                                                           <attributes>
-                                                            <attribute name="text">0</attribute>
+                                                            <attribute name="text">1</attribute>
                                                           </attributes>
                                                         </child>
                                                         <child>
@@ -827,7 +825,7 @@
                                                             <property name="foreground">grey</property>
                                                           </object>
                                                           <attributes>
-                                                            <attribute name="markup">1</attribute>
+                                                            <attribute name="markup">2</attribute>
                                                           </attributes>
                                                         </child>
                                                       </object>
@@ -897,7 +895,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="model">raidStoreFiltered</property>
-                                                    <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                    <signal name="changed" handler="on_raid_level_changed" swapped="no"/>
                                                     <child>
                                                       <object class="GtkCellRendererText" id="raidLevelRenderer">
                                                         <property name="ellipsize">end</property>
@@ -954,7 +952,7 @@
                                                         <property name="visible">True</property>
                                                         <property name="can_focus">False</property>
                                                         <property name="model">luksVersionStore</property>
-                                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                        <signal name="changed" handler="on_luks_version_changed" swapped="no"/>
                                                         <child>
                                                           <object class="GtkCellRendererText" id="luksVersionRenderer">
                                                             <property name="ellipsize">end</property>

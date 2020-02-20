@@ -16,78 +16,52 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import sys
 
-"""
-    TODO:
-
-        - add button within sw_needs text in options dialogs 2,3
-        - udev data gathering
-            - udev fwraid, mpath would sure be nice
-        - status/completed
-            - what are noteworthy status events?
-                - disks selected
-                    - exclusiveDisks non-empty
-                - sufficient space for software selection
-                - autopart selected
-                - custom selected
-                    - performing custom configuration
-                - storage configuration complete
-        - spacing and border width always 6
-
-"""
+from blivet.size import Size
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util, constants
+from pyanaconda.core.async_utils import async_action_nowait
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
+    STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
+    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET
+from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.timer import Timer
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
+    BOOTLOADER, DEVICE_TREE
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.structures.validation import ValidationReport
+from pyanaconda.payload.livepayload import LiveImagePayload
+from pyanaconda.product import productName
+from pyanaconda.storage.utils import filter_disks_by_names, suggest_swap_size
+from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.ui.categories.system import SystemCategory
+from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
+from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
+from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
+from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
+from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
+from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
+from pyanaconda.ui.gui.utils import escape_markup, ignoreEscape
+from pyanaconda.ui.helpers import StorageCheckHandler
+from pyanaconda.ui.lib.format_dasd import DasdFormatting
+from pyanaconda.ui.lib.storage import find_partitioning, apply_partitioning, \
+    select_all_disks_by_default, apply_disk_selection, get_disks_summary, create_partitioning, \
+    is_local_disk
 
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("AnacondaWidgets", "3.3")
-
 from gi.repository import Gdk, AnacondaWidgets, Gtk
 
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.storage.utils import filter_disks_by_names, is_local_disk, apply_disk_selection, \
-    check_disk_selection, get_disks_summary, suggest_swap_size, setup_passphrase
-from pyanaconda.storage.execution import configure_storage
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
-from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
-from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
-from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
-from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
-from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.gui.utils import escape_markup, ignoreEscape
-from pyanaconda.core.async_utils import async_action_nowait
-from pyanaconda.ui.helpers import StorageCheckHandler
-from pyanaconda.core.timer import Timer
-from pyanaconda.storage.kickstart import reset_custom_storage_data
-
-from blivet.size import Size
-from blivet.devices import MultipathDevice, ZFCPDiskDevice, NVDIMMNamespaceDevice
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.product import productName
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, C_, CN_
-from pyanaconda.core import util, constants
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
-    STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET
-from pyanaconda.storage.initialization import reset_storage, select_all_disks_by_default, \
-    reset_bootloader
-from pyanaconda.storage.snapshot import on_disk_storage
-from pyanaconda.storage.format_dasd import DasdFormatting
-from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
-    BootloaderConfigurationError
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    BOOTLOADER, AUTO_PARTITIONING
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.payload.livepayload import LiveImagePayload
-
-import sys
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["StorageSpoke"]
@@ -109,7 +83,6 @@ class InstallOptionsDialogBase(GUIObject):
     def __init__(self, *args, **kwargs):
         self.payload = kwargs.pop("payload", None)
         super().__init__(*args, **kwargs)
-
         self._grabObjects()
 
     def _grabObjects(self):
@@ -206,7 +179,6 @@ class NeedSpaceDialog(InstallOptionsDialogBase):
                        "partitions on your own in the custom partitioning "
                        "interface.") % escape_markup(productName)
         self.builder.get_object("need_space_options_label").set_markup(label_text)
-
         self._add_modify_watcher(label)
 
 
@@ -269,38 +241,38 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, *args, **kwargs)
         self.applyOnSkip = True
+        self._ready = False
+        self._back_clicked = False
+        self._disks_errors = []
+        self._last_clicked_overview = None
+        self._cur_clicked_overview = None
 
+        self._storage_module = STORAGE.get_proxy()
+        self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
         self._bootloader_module = STORAGE.get_proxy(BOOTLOADER)
         self._disk_init_module = STORAGE.get_proxy(DISK_INITIALIZATION)
         self._disk_select_module = STORAGE.get_proxy(DISK_SELECTION)
-        self._auto_part_module = STORAGE.get_proxy(AUTO_PARTITIONING)
-
-        self._selected_disks = self._disk_select_module.SelectedDisks
-        self._last_selected_disks = []
 
         # This list contains all possible disks that can be included in the install.
         # All types of advanced disks should be set up for us ahead of time, so
         # there should be no need to modify this list.
         self._available_disks = []
+        self._selected_disks = []
+        self._last_selected_disks = []
 
-        if not flags.automatedInstall:
-            # default to using autopart for interactive installs
-            self._auto_part_module.SetEnabled(True)
+        # Find a partitioning to use.
+        self._partitioning = find_partitioning()
+        self._last_partitioning_method = self._partitioning.PartitioningMethod
 
-        self._ready = False
-        self._back_clicked = False
-
-        self._auto_part_enabled = self._auto_part_module.Enabled
-        self._previous_auto_part = False
+        # Create a partitioning request for the automatic partitioning.
         self._partitioning_request = PartitioningRequest()
 
-        self._initialization_mode = constants.CLEAR_PARTITIONS_NONE
-        self._auto_part_missing_passphrase = False
-        self._disks_errors = []
+        if self._last_partitioning_method == PARTITIONING_METHOD_AUTOMATIC:
+            self._partitioning_request = PartitioningRequest.from_structure(
+                self._partitioning.Request
+            )
 
-        self._last_clicked_overview = None
-        self._cur_clicked_overview = None
-
+        # Get the UI elements.
         self._auto_part_radio_button = self.builder.get_object("autopartRadioButton")
         self._custom_part_radio_button = self.builder.get_object("customRadioButton")
         self._blivet_gui_radio_button = self.builder.get_object("blivetguiRadioButton")
@@ -316,28 +288,17 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._main_viewport = self.builder.get_object("storageViewport")
         self._main_box = self.builder.get_object("storageMainBox")
 
-        # Connect the callbacks.
-        self._auto_part_radio_button.connect("toggled", self._method_radio_button_toggled)
-        self._custom_part_radio_button.connect("toggled", self._method_radio_button_toggled)
+        # Configure the partitioning methods.
+        self._configure_partitioning_methods()
 
-        # hide radio buttons for spokes that have been marked as visited by the
-        # user interaction config file
+    def _configure_partitioning_methods(self):
         if "CustomPartitioningSpoke" in conf.ui.hidden_spokes:
             self._custom_part_radio_button.set_visible(False)
             self._custom_part_radio_button.set_no_show_all(True)
 
-        self._enable_blivet_gui(conf.ui.blivet_gui_supported)
-        self._last_partitioning_method = self._get_selected_partitioning_method()
-
-    def _enable_blivet_gui(self, supported):
-        if supported:
-            self._blivet_gui_radio_button.connect("toggled", self._method_radio_button_toggled)
-            if "BlivetGuiSpoke" in conf.ui.hidden_spokes:
-                self._blivet_gui_radio_button.set_visible(False)
-                self._blivet_gui_radio_button.set_no_show_all(True)
-        else:
-            log.info("Blivet-GUI is not supported.")
-            self._part_type_box.remove(self._blivet_gui_radio_button)
+        if "BlivetGuiSpoke" in conf.ui.hidden_spokes or not conf.ui.blivet_gui_supported:
+            self._blivet_gui_radio_button.set_visible(False)
+            self._blivet_gui_radio_button.set_no_show_all(True)
 
     def _get_selected_partitioning_method(self):
         """Get the selected partitioning method.
@@ -353,33 +314,33 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         return PARTITIONING_METHOD_AUTOMATIC
 
-    def _method_radio_button_toggled(self, radio_button):
+    def on_method_toggled(self, radio_button):
         """Triggered when one of the partitioning method radio buttons is toggled."""
-        # Run only for an active radio button.
-        if not radio_button.get_active():
+        # Run only for a visible active radio button.
+        if not radio_button.get_visible() or not radio_button.get_active():
             return
+
+        # Get the selected patitioning method.
+        current_partitioning_method = self._get_selected_partitioning_method()
 
         # Hide the encryption checkbox for Blivet GUI storage configuration,
         # as Blivet GUI handles encryption per encrypted device, not globally.
         # Hide it also for the interactive partitioning as CustomPartitioningSpoke
         # provides support for encryption of mount points.
-        if self._get_selected_partitioning_method() != PARTITIONING_METHOD_AUTOMATIC:
-            self._encryption_revealer.set_reveal_child(False)
-            self._encrypted_checkbox.set_active(False)
-        else:
-            self._encryption_revealer.set_reveal_child(True)
+        self._encryption_revealer.set_reveal_child(
+            current_partitioning_method == PARTITIONING_METHOD_AUTOMATIC
+        )
 
         # Hide the reclaim space checkbox if automatic storage configuration is not used.
-        if self._get_selected_partitioning_method() == PARTITIONING_METHOD_AUTOMATIC:
-            self._reclaim_revealer.set_reveal_child(True)
-        else:
-            self._reclaim_revealer.set_reveal_child(False)
+        self._reclaim_revealer.set_reveal_child(
+            current_partitioning_method == PARTITIONING_METHOD_AUTOMATIC
+        )
 
-        # is this a change from the last used method ?
-        method_changed = self._get_selected_partitioning_method() != self._last_partitioning_method
-        # are there any actions planned ?
-        actions_planned = self.storage.devicetree.actions.find()
-        if actions_planned:
+        # Is this a change from the last used method ?
+        method_changed = current_partitioning_method != self._last_partitioning_method
+
+        # Are there any actions planned ?
+        if self._storage_module.AppliedPartitioning:
             if method_changed:
                 # clear any existing messages from the info bar
                 # - this generally means various storage related error warnings
@@ -392,81 +353,48 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 self._check_problems()
 
     def apply(self):
-        apply_disk_selection(self.storage, self._selected_disks)
-        self._auto_part_module.SetEnabled(self._auto_part_enabled)
-
-        self._auto_part_module.SetRequest(
-            PartitioningRequest.to_structure(self._partitioning_request)
-        )
-
-        boot_drive = self._bootloader_module.Drive
-        if boot_drive and boot_drive not in self._selected_disks:
-            reset_bootloader(self.storage)
-
+        self._disk_init_module.SetInitializationMode(CLEAR_PARTITIONS_NONE)
         self._disk_init_module.SetInitializeLabelsEnabled(True)
-
-        if not self._auto_part_missing_passphrase:
-            self._initialization_mode = CLEAR_PARTITIONS_NONE
-            self._disk_init_module.SetInitializationMode(CLEAR_PARTITIONS_NONE)
+        apply_disk_selection(self._selected_disks, reset_boot_drive=True)
 
     @async_action_nowait
     def execute(self):
+        """"Apply a partitioning."""
+        # Make sure that we apply a non-interactive partitioning.
+        if self._last_partitioning_method == PARTITIONING_METHOD_CUSTOM:
+            log.debug("Skipping the execute method for the CUSTOM partitioning method.")
+            return
+
+        if self._last_partitioning_method == PARTITIONING_METHOD_BLIVET:
+            log.debug("Skipping the execute method for the BLIVET partitioning method.")
+            return
+
         # Spawn storage execution as a separate thread so there's no big delay
         # going back from this spoke to the hub while StorageCheckHandler.run runs.
         # Yes, this means there's a thread spawning another thread.  Sorry.
-        threadMgr.add(AnacondaThread(name=constants.THREAD_EXECUTE_STORAGE,
-                                     target=self._do_execute))
+        threadMgr.add(AnacondaThread(
+            name=constants.THREAD_EXECUTE_STORAGE,
+            target=self._do_execute
+        ))
 
     def _do_execute(self):
+        """"Apply a non-interactive partitioning."""
         self._ready = False
         hubQ.send_not_ready(self.__class__.__name__)
-        # on the off-chance dasdfmt is running, we can't proceed further
-        threadMgr.wait(constants.THREAD_DASDFMT)
-        hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
-        threadMgr.wait(constants.THREAD_STORAGE)
-        if flags.automatedInstall and self._auto_part_module.RequiresPassphrase():
-            self._auto_part_missing_passphrase = True
-            StorageCheckHandler.errors = [_("Passphrase for autopart encryption not specified.")]
-            self._ready = True
-            hubQ.send_ready(self.__class__.__name__, True)
-            return
-        if not flags.automatedInstall and not self._selected_disks:
-            log.debug("not executing storage, no disk selected")
-            StorageCheckHandler.errors = [_("No disks selected")]
-            self._ready = True
-            hubQ.send_ready(self.__class__.__name__, True)
-            return
-        try:
-            configure_storage(self.storage, self.data)
-        # ValueError is here because Blivet is returning ValueError from devices/lvm.py
-        except StorageConfigurationError as e:
-            StorageCheckHandler.errors = str(e).split("\n")
-            hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-            reset_bootloader(self.storage)
-            reset_storage(self.storage, scan_all=True)
-        except BootloaderConfigurationError as e:
-            StorageCheckHandler.errors = str(e).split("\n")
-            hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-            reset_bootloader(self.storage)
-        except Exception as e:
-            log.error("unexpected storage error: %s", e)
-            StorageCheckHandler.errors = str(e).split("\n")
-            hubQ.send_message(self.__class__.__name__, _("Unexpected storage error"))
-            raise e
-        else:
-            if self._auto_part_enabled or \
-                    (flags.automatedInstall and
-                     (self._auto_part_module.Enabled or self.data.partition.seen)):
-                hubQ.send_message(self.__class__.__name__, _("Checking storage configuration..."))
-                StorageCheckHandler.check_storage(self)
-        finally:
-            reset_custom_storage_data(self.data)
-            self._ready = True
-            hubQ.send_ready(self.__class__.__name__, True)
+
+        report = apply_partitioning(self._partitioning, self._show_execute_message)
+        StorageCheckHandler.errors = list(report.error_messages)
+        StorageCheckHandler.warnings = list(report.warning_messages)
+
+        self._ready = True
+        hubQ.send_ready(self.__class__.__name__, True)
+
+    def _show_execute_message(self, msg):
+        hubQ.send_message(self.__class__.__name__, msg)
 
     @property
     def completed(self):
-        return self.ready and not self.errors and self.storage.root_device
+        return self.ready and not self.errors and self._device_tree.GetRootDevice()
 
     @property
     def ready(self):
@@ -486,7 +414,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         """ A short string describing the current status of storage setup. """
         if not self.ready:
             return _("Processing...")
-        elif flags.automatedInstall and not self.storage.root_device:
+        elif flags.automatedInstall and not self._device_tree.GetRootDevice():
             return _("Kickstart insufficient")
         elif not self._disk_select_module.SelectedDisks:
             return _("No disks selected")
@@ -494,7 +422,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             return _("Error checking storage configuration")
         elif self.warnings:
             return _("Warning checking storage configuration")
-        elif self._auto_part_module.Enabled:
+        elif self._last_partitioning_method == PARTITIONING_METHOD_AUTOMATIC:
             return _("Automatic partitioning selected")
         else:
             return _("Custom partitioning selected")
@@ -572,23 +500,11 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def refresh(self):
         self._back_clicked = False
 
-        self._available_disks = self.storage.usable_disks
+        self._available_disks = self._disk_select_module.GetUsableDisks()
+        self._selected_disks = self._disk_select_module.SelectedDisks
 
-        # synchronize our local data store with the global ksdata
-        disk_names = [d.name for d in self._available_disks]
-        selected_names = self._disk_select_module.SelectedDisks
-        self._selected_disks = [d for d in selected_names if d in disk_names]
-
-        # unhide previously hidden disks so that they don't look like being
-        # empty (because of all child devices hidden)
-        self.storage.select_disks(disk_names)
-
-        self._auto_part_enabled = self._auto_part_module.Enabled
-        self._previous_auto_part = self._auto_part_enabled
-
-        self._partitioning_request = PartitioningRequest.from_structure(
-            self._auto_part_module.Request
-        )
+        # Get the available selected disks.
+        self._selected_disks = filter_disks_by_names(self._available_disks, self._selected_disks)
 
         # First, remove all non-button children.
         for child in self.local_overviews + self.advanced_overviews:
@@ -597,34 +513,35 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Then deal with local disks, which are really easy.  They need to be
         # handled here instead of refresh to take into account the user pressing
         # the rescan button on custom partitioning.
-        for disk in filter(is_local_disk, self._available_disks):
-            self._add_disk_overview(disk, self._local_disks_box)
-
         # Advanced disks are different.  Because there can potentially be a lot
         # of them, we do not display them in the box by default.  Instead, only
         # those selected in the filter UI are displayed.  This means refresh
         # needs to know to create and destroy overviews as appropriate.
-        for name in selected_names:
-            if name not in disk_names:
-                continue
-            obj = self.storage.devicetree.get_device_by_name(name, hidden=True)
+        for device_name in self._available_disks:
 
-            if is_local_disk(obj):
-                continue
+            # Get the device data.
+            device_data = DeviceData.from_structure(
+                self._device_tree.GetDeviceData(device_name)
+            )
 
-            self._add_disk_overview(obj, self._specialized_disks_box)
+            if is_local_disk(device_data.type):
+                # Add all available local disks.
+                self._add_disk_overview(device_data, self._local_disks_box)
+
+            elif device_name in self._selected_disks:
+                # Add only selected advanced disks.
+                self._add_disk_overview(device_data, self._specialized_disks_box)
 
         # update the selections in the ui
         for overview in self.local_overviews + self.advanced_overviews:
             name = overview.get_property("name")
             overview.set_chosen(name in self._selected_disks)
 
-        # if encrypted is specified in kickstart, select the encryptionCheckbox in the GUI
+        # Update the encryption checkbox.
         if self._partitioning_request.encrypted:
             self._encrypted_checkbox.set_active(True)
 
         self._update_summary()
-
         self._check_problems()
 
     def _check_problems(self):
@@ -656,51 +573,41 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
 
-    def _add_disk_overview(self, disk, box):
-        if disk.removable:
-            kind = "drive-removable-media"
+    def _add_disk_overview(self, device_data, box):
+        if device_data.type == "dm-multipath":
+            # We don't want to display the whole huge WWID for a multipath device.
+            wwn = device_data.attrs.get("wwn", "")
+            description = wwn[0:6] + "..." + wwn[-8:]
+        elif device_data.type == "zfcp":
+            # Manually mangle the desc of a zFCP device to be multi-line since
+            # it's so long it makes the disk selection screen look odd.
+            description = _("FCP device {hba_id}\nWWPN {wwpn}\nLUN {lun}").format(
+                hba_id=device_data.attrs.get("hba-id", ""),
+                wwpn=device_data.attrs.get("wwpn", ""),
+                lun=device_data.attrs.get("fcp-lun", "")
+            )
+        elif device_data.type == "nvdimm":
+            description = _("NVDIMM device {namespace}").format(
+                namespace=device_data.attrs.get("namespace", "")
+            )
         else:
-            kind = "drive-harddisk"
+            description = device_data.description
 
-        if disk.serial:
-            popup_info = "%s" % disk.serial
-        else:
-            popup_info = None
+        kind = "drive-removable-media" if device_data.removable else "drive-harddisk"
+        free_space = self._device_tree.GetDiskFreeSpace([device_data.name])
+        serial_number = device_data.attrs.get("serial") or None
 
-        # We don't want to display the whole huge WWID for a multipath device.
-        # That makes the DO way too wide.
-        if isinstance(disk, MultipathDevice):
-            if not disk.wwn:
-                log.warning("Missing value of wwn attribute of MultipathDevice %s is unexpected.",
-                            disk.name)
-                description = ""
-            else:
-                description = disk.wwn[0:6] + "..." + disk.wwn[-8:]
-        elif isinstance(disk, ZFCPDiskDevice):
-            # manually mangle the desc of a zFCP device to be multi-line since
-            # it's so long it makes the disk selection screen look odd
-            description = _("FCP device %(hba_id)s\nWWPN %(wwpn)s\nLUN %(lun)s") % \
-                            {"hba_id": disk.hba_id, "wwpn": disk.wwpn, "lun": disk.fcp_lun}
-        elif isinstance(disk, NVDIMMNamespaceDevice):
-            description = _("NVDIMM device %(namespace)s") % {"namespace": disk.devname}
-        else:
-            description = disk.description
+        overview = AnacondaWidgets.DiskOverview(
+            description,
+            kind,
+            str(Size(device_data.size)),
+            _("{} free").format(free_space),
+            device_data.name,
+            serial_number
+        )
 
-        free = self.storage.get_disk_free_space([disk])
-
-        overview = AnacondaWidgets.DiskOverview(description,
-                                                kind,
-                                                str(disk.size),
-                                                _("%s free") % free,
-                                                disk.name,
-                                                popup=popup_info)
         box.pack_start(overview, False, False, 0)
-
-        # FIXME: this will need to get smarter
-        #
-        # maybe a little function that resolves each item in onlyuse using
-        # udev_resolve_devspec and compares that to the DiskDevice?
-        overview.set_chosen(disk.name in self._selected_disks)
+        overview.set_chosen(device_data.name in self._selected_disks)
         overview.connect("button-press-event", self._on_disk_clicked)
         overview.connect("key-release-event", self._on_disk_clicked)
         overview.connect("focus-in-event", self._on_disk_focus_in)
@@ -711,34 +618,28 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         This method is expected to run only once during the initialization.
         """
-        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
-
         # Wait for storage.
+        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
         threadMgr.wait(constants.THREAD_STORAGE)
 
         # Automatically format DASDs if allowed.
-        DasdFormatting.run_automatically(self.storage, self.data, self._show_dasdfmt_report)
+        disks = self._disk_select_module.GetUsableDisks()
+        DasdFormatting.run_automatically(disks, self._show_dasdfmt_report)
+        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
 
         # Update the selected disks.
         if flags.automatedInstall:
-            self._selected_disks = select_all_disks_by_default(self.storage)
+            select_all_disks_by_default()
 
-        # Continue with initializing.
-        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
-        self._available_disks = self.storage.usable_disks
-
-        # if there's only one disk, select it by default
-        if len(self._available_disks) == 1 and not self._selected_disks:
-            apply_disk_selection(self.storage, [self._available_disks[0].name])
-
-        # do not set ready in automated install before execute is run
+        # Apply the partitioning. Do not set ready in the automated
+        # installation before the execute method is run.
         if flags.automatedInstall:
             self.execute()
         else:
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, False)
 
-        # report that the storage spoke has been initialized
+        # Report that the storage spoke has been initialized.
         self.initialize_done()
 
     def _show_dasdfmt_report(self, msg):
@@ -747,7 +648,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def _update_summary(self):
         """ Update the summary based on the UI. """
         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
-        summary = get_disks_summary(self.storage, disks)
+        summary = get_disks_summary(disks)
 
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)
@@ -787,18 +688,17 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def on_summary_clicked(self, button):
         # show the selected disks dialog
         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
-        dialog = SelectedDisksDialog(self.data, self.storage, disks)
+        dialog = SelectedDisksDialog(self.data, disks)
         dialog.refresh()
 
         self.run_lightbox_dialog(dialog)
 
         # update selected disks since some may have been removed
-        self._selected_disks = [d.name for d in dialog.disks]
+        self._selected_disks = list(dialog.disks)
 
         # update the UI to reflect changes to self.selected_disks
         for overview in self.local_overviews + self.advanced_overviews:
             name = overview.get_property("name")
-
             overview.set_chosen(name in self._selected_disks)
 
         self._update_summary()
@@ -815,29 +715,17 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         return rc
 
-    def _setup_passphrase(self):
-        passphrase = self._partitioning_request.passphrase
-        dialog = PassphraseDialog(self.data, default_passphrase=passphrase)
-
-        rc = self.run_lightbox_dialog(dialog)
-        if rc != 1:
-            return False
-
-        passphrase = dialog.passphrase
-        self._partitioning_request.passphrase = passphrase
-        setup_passphrase(self.storage, passphrase)
-        return True
-
-    def _remove_nonexistant_partitions(self):
-        for partition in self.storage.partitions[:]:
-            # check if it's been removed in a previous iteration
-            if not partition.exists and \
-               partition in self.storage.partitions:
-                self.storage.recursive_remove(partition)
-
     def _check_dasd_formats(self):
         # No change by default.
         rc = DASD_FORMAT_NO_CHANGE
+
+        # Do nothing if unsupported.
+        if not DasdFormatting.is_supported():
+            return rc
+
+        # Allow to format DASDs.
+        self._disk_init_module.SetFormatUnrecognizedEnabled(True)
+        self._disk_init_module.SetFormatLDLEnabled(True)
 
         # Get selected disks.
         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
@@ -849,20 +737,25 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         if dasd_formatting.should_run():
             # We want to apply current selection before running dasdfmt to
             # prevent this information from being lost afterward
-            apply_disk_selection(self.storage, self._selected_disks)
+            apply_disk_selection(self._selected_disks)
 
             # Run the dialog.
-            dialog = DasdFormatDialog(self.data, self.storage, dasd_formatting)
+            dialog = DasdFormatDialog(self.data, dasd_formatting)
             ignoreEscape(dialog.window)
             rc = self.run_lightbox_dialog(dialog)
 
         return rc
 
-    def _check_space_and_get_dialog(self, disks):
-        disk_free = self.storage.get_disk_free_space(disks)
-        fs_free = self.storage.get_disk_reclaimable_space(disks)
-        disks_size = sum((d.size for d in disks), Size(0))
-        sw_space = self.payload.space_required
+    def _check_space_and_run_dialog(self, disks):
+        # User wants to reclaim the space.
+        if self._reclaim_checkbox.get_active():
+            return RESPONSE_RECLAIM
+
+        # Calculate the required and free space.
+        disk_free = Size(self._device_tree.GetDiskFreeSpace(disks))
+        fs_free = Size(self._device_tree.GetDiskReclaimableSpace(disks))
+        disks_size = Size(self._device_tree.GetDiskTotalSpace(disks))
+        sw_space = Size(self.payload.space_required)
         auto_swap = suggest_swap_size()
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
@@ -872,221 +765,219 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # It is not an ideal estimate, but it works.
         required_space = sw_space + auto_swap + STORAGE_METADATA_RATIO * disk_free
 
+        # There is enough space to continue.
         if disk_free >= required_space:
-            dialog = None
-        elif disks_size >= required_space - auto_swap:
+            return RESPONSE_OK
+
+        # Ask user what to do.
+        if disks_size >= required_space - auto_swap:
             dialog = NeedSpaceDialog(self.data, payload=self.payload)
             dialog.refresh(required_space, sw_space, auto_swap, disk_free, fs_free)
         else:
             dialog = NoSpaceDialog(self.data, payload=self.payload)
             dialog.refresh(required_space, sw_space, auto_swap, disk_free, fs_free)
 
-        # the 'dialog' variable is always set by the if statement above
-        return dialog
-
-    def _run_dialogs(self, disks, start_with):
-        rc = self.run_lightbox_dialog(start_with)
-        if rc == RESPONSE_RECLAIM:
-            # we need to run another dialog
-
-            # respect disk selection and other choices in the ReclaimDialog
-            self.apply()
-            resize_dialog = ResizeDialog(self.data, self.storage, self.payload)
-            resize_dialog.refresh(disks)
-
-            return self._run_dialogs(disks, start_with=resize_dialog)
-        else:
-            # we are done
-            return rc
+        return self.run_lightbox_dialog(dialog)
 
     def on_back_clicked(self, button):
-        # We can't exit early if it looks like nothing has changed because the
-        # user might want to change settings presented in the dialogs shown from
-        # within this method.
-
-        # Do not enter this method multiple times if user clicking multiple times
-        # on back button
         if self._back_clicked:
             return
-        else:
-            self._back_clicked = True
 
-        # make sure the snapshot of unmodified on-disk-storage model is created
-        if not on_disk_storage.created:
-            on_disk_storage.create_snapshot(self.storage)
+        # Skip if user is clicking multiple times on the back button.
+        self._back_clicked = True
 
-        if self._auto_part_missing_passphrase:
-            self._setup_passphrase()
-            NormalSpoke.on_back_clicked(self, button)
-            return
+        # Clear the current warning message if any.
+        self.clear_info()
 
         # No disks selected?  The user wants to back out of the storage spoke.
         if not self._selected_disks:
             NormalSpoke.on_back_clicked(self, button)
             return
 
-        disk_selection_changed = False
-        if self._last_selected_disks:
-            disk_selection_changed = (self._last_selected_disks != set(self._selected_disks))
+        # Reset to a snapshot if necessary.
+        self._reset_to_snapshot()
 
-        # We aren't (yet?) ready to support storage configuration to be done partially
-        # in the custom spoke and in the Blivet GUI spoke. There are some storage configuration
-        # one tool can create and the other might not understand, so detect that the user
-        # switched from on to to the other and reset storage configuration to the "clean"
-        # initial storage configuration snapshot in such a case.
-        partitioning_method_changed = False
-        current_partitioning_method = self._get_selected_partitioning_method()
-        if self._last_partitioning_method != current_partitioning_method:
-            log.info("Partitioning method changed from %s to %s.",
-                     self._last_partitioning_method,
-                     current_partitioning_method)
-            log.info("Rolling back planed storage configuration changes.")
-            partitioning_method_changed = True
-            self._last_partitioning_method = current_partitioning_method
+        # The disk selection has to make sense before we can proceed.
+        if not self._check_disk_selection():
+            self._back_clicked = False
+            return
 
-        # remember the disk selection for future decisions
-        self._last_selected_disks = set(self._selected_disks)
-
-        if disk_selection_changed or partitioning_method_changed:
-            # Changing disk selection is really, really complicated and has
-            # always been causing numerous hard bugs. Let's not play the hero
-            # game and just revert everything and start over again.
-            #
-            # Same thing for switching between different storage configuration
-            # methods (auto/custom/blivet-gui), at least for now.
-            on_disk_storage.reset_to_snapshot(self.storage)
-            self._available_disks = self.storage.usable_disks
+        # Check for unsupported DASDs.
+        rc = self._check_dasd_formats()
+        if rc == DASD_FORMAT_NO_CHANGE:
+            pass
+        elif rc == DASD_FORMAT_REFRESH:
+            # User hit OK on the dialog
+            self.refresh()
+        elif rc == DASD_FORMAT_RETURN_TO_HUB:
+            # User clicked uri to return to hub.
+            NormalSpoke.on_back_clicked(self, button)
+            return
         else:
-            # Remove all non-existing devices if autopart was active when we last
-            # refreshed.
-            if self._previous_auto_part:
-                self._previous_auto_part = False
-                self._remove_nonexistant_partitions()
+            # User either hit cancel on the dialog or closed
+            # it via escape, there was no formatting done.
+            self._back_clicked = False
+            return
 
-        # make sure no containers were split up by the user's disk selection
-        self.clear_info()
+        # Handle the partitioning.
+        partitioning_method = self._get_selected_partitioning_method()
+        self._last_partitioning_method = partitioning_method
 
-        # if there are some disk selection errors we don't let user to leave the
-        # spoke, so these errors don't have to go to self.errors
-        self._disks_errors = check_disk_selection(self.storage, self._selected_disks)
-        if self._disks_errors:
-            # The disk selection has to make sense before we can proceed.
+        if partitioning_method == PARTITIONING_METHOD_AUTOMATIC:
+            self._skip_to_automatic_partitioning()
+            return
+
+        if partitioning_method == PARTITIONING_METHOD_CUSTOM:
+            self._skip_to_spoke("CustomPartitioningSpoke")
+            return
+
+        if partitioning_method == PARTITIONING_METHOD_BLIVET:
+            self._skip_to_spoke("BlivetGuiSpoke")
+            return
+
+        self._back_clicked = False
+        return
+
+    def _reset_to_snapshot(self):
+        # Can we reset the storage configuration?
+        reset = False
+
+        # Changing disk selection is really, really complicated and has
+        # always been causing numerous hard bugs. Let's not play the hero
+        # game and just revert everything and start over again.
+        disks = self._last_selected_disks
+        current_disks = set(self._selected_disks)
+        self._last_selected_disks = set(current_disks)
+
+        if disks and disks != current_disks:
+            log.info("Disk selection has changed.")
+            reset = True
+
+        method = self._last_partitioning_method
+        current_method = self._get_selected_partitioning_method()
+        self._last_partitioning_method = current_method
+
+        # Same thing for switching between different storage configuration
+        # methods (auto/custom/blivet-gui), at least for now.
+        if method != current_method:
+            log.info("Partitioning method has changed from %s to %s.",
+                     method, current_method)
+            reset = True
+
+        # Reset the storage configuration if necessary.
+        # FIXME: Reset only the partitioning that we will use.
+        if reset:
+            log.info("Rolling back planed storage configuration changes.")
+            self._storage_module.ResetPartitioning()
+
+    def _check_disk_selection(self):
+        # If there are some disk selection errors we don't let user to leave
+        # the spoke, so these errors don't have to go to self.errors.
+        report = ValidationReport.from_structure(
+            self._disk_select_module.ValidateSelectedDisks(self._selected_disks)
+        )
+
+        if not report.is_valid():
+            self._disks_errors = report.get_messages()
             self.set_error(_("There was a problem with your disk selection. "
                              "Click here for details."))
-            self._back_clicked = False
-            return
+            return False
 
-        if DasdFormatting.is_supported():
-            # check for unformatted or LDL DASDs and launch dasdfmt if any discovered
-            rc = self._check_dasd_formats()
-            if rc == DASD_FORMAT_NO_CHANGE:
-                pass
-            elif rc == DASD_FORMAT_REFRESH:
-                # User hit OK on the dialog
-                self.refresh()
-            elif rc == DASD_FORMAT_RETURN_TO_HUB:
-                # User clicked uri to return to hub.
-                NormalSpoke.on_back_clicked(self, button)
-                return
-            else:
-                # User either hit cancel on the dialog or closed it via escape,
-                # there was no formatting done.
-                self._back_clicked = False
-                return
+        self._disks_errors = []
+        return True
 
-        # Select the chosen disks.
-        self.storage.select_disks(self._selected_disks)
+    def _skip_to_spoke(self, name, apply_on_skip=True):
+        """Skip to a spoke.
 
-        # even if they're not doing autopart, setting autopart.encrypted
-        # establishes a default of encrypting new devices
+        The user has requested to skip to different spoke or to the
+        summary hub.
+
+        :param name: a name of the spoke or None to return to the hub
+        :param apply_on_skip: should we call apply?
+        """
+        self.skipTo = name
+        self.applyOnSkip = apply_on_skip
+        NormalSpoke.on_back_clicked(self, None)
+
+    def _skip_to_automatic_partitioning(self):
+        """Skip to the automatic partitioning.
+
+        The user has requested to create the partitioning automatically.
+        Ask for missing information and set up the automatic partitioning,
+        so it can be later applied in the execute method.
+        """
+        # Set up the encryption.
         self._partitioning_request.encrypted = self._encrypted_checkbox.get_active()
 
-        # We might first need to ask about an encryption passphrase.
-        if self._partitioning_request.encrypted and not self._setup_passphrase():
+        # Ask for a passphrase.
+        if self._partitioning_request.encrypted:
+            dialog = PassphraseDialog(
+                self.data,
+                self._partitioning_request.passphrase
+            )
+
+            rc = self.run_lightbox_dialog(dialog)
+            if rc != 1:
+                self._back_clicked = False
+                return
+
+            self._partitioning_request.passphrase = dialog.passphrase
+
+        # Set up the disk selection and initialization.
+        self.apply()
+
+        # Use the automatic partitioning and reset it.
+        self._partitioning = create_partitioning(PARTITIONING_METHOD_AUTOMATIC)
+
+        self._partitioning.SetRequest(
+            PartitioningRequest.to_structure(self._partitioning_request)
+        )
+
+        # Reclaim space.
+        disks = filter_disks_by_names(self._available_disks, self._selected_disks)
+        rc = self._check_space_and_run_dialog(disks)
+
+        if rc == RESPONSE_RECLAIM:
+            dialog = ResizeDialog(self.data, self.payload, self._partitioning, disks)
+            dialog.refresh()
+            rc = self.run_lightbox_dialog(dialog)
+
+        # Plan the next action.
+        if rc == RESPONSE_OK:
+            # nothing special needed
+            self._skip_to_spoke(None)
+            return
+
+        if rc == RESPONSE_CANCEL:
+            # A cancel button was clicked on one of the dialogs.  Stay on this
+            # spoke.  Generally, this is because the user wants to add more disks.
             self._back_clicked = False
             return
 
-        # At this point there are three possible states:
-        # 1) user chose custom part => just send them to the CustomPart spoke
-        # 2) user wants to reclaim some more space => run the ResizeDialog
-        # 3) we are just asked to do autopart => check free space and see if we need
-        #                                        user to do anything more
-        self._auto_part_enabled = (
-            self._get_selected_partitioning_method() == PARTITIONING_METHOD_AUTOMATIC
-        )
-        disks = filter_disks_by_names(self._available_disks, self._selected_disks)
-        dialog = None
-        if not self._auto_part_enabled:
-            if self._get_selected_partitioning_method() == PARTITIONING_METHOD_CUSTOM:
-                self.skipTo = "CustomPartitioningSpoke"
-            if self._get_selected_partitioning_method() == PARTITIONING_METHOD_BLIVET:
-                self.skipTo = "BlivetGuiSpoke"
-        elif self._reclaim_checkbox.get_active():
-            # HINT: change the logic of this 'if' statement if we are asked to
-            # support "reclaim before custom partitioning"
+        if rc == RESPONSE_MODIFY_SW:
+            # The "Fedora software selection" link was clicked on one of the
+            # dialogs.  Send the user to the software spoke.
+            self._skip_to_spoke("SoftwareSelectionSpoke")
+            return
 
-            # respect disk selection and other choices in the ReclaimDialog
-            self.apply()
-            dialog = ResizeDialog(self.data, self.storage, self.payload)
-            dialog.refresh(disks)
-        else:
-            dialog = self._check_space_and_get_dialog(disks)
+        if rc == RESPONSE_QUIT:
+            # Not enough space, and the user can't do anything about it so
+            # they chose to quit.
+            raise SystemExit("user-selected exit")
 
-        if dialog:
-            # more dialogs may need to be run based on user choices, but we are
-            # only interested in the final result
-            rc = self._run_dialogs(disks, start_with=dialog)
-
-            if rc == RESPONSE_OK:
-                # nothing special needed
-                pass
-            elif rc == RESPONSE_CANCEL:
-                # A cancel button was clicked on one of the dialogs.  Stay on this
-                # spoke.  Generally, this is because the user wants to add more disks.
-                self._back_clicked = False
-                return
-            elif rc == RESPONSE_MODIFY_SW:
-                # The "Fedora software selection" link was clicked on one of the
-                # dialogs.  Send the user to the software spoke.
-                self.skipTo = "SoftwareSelectionSpoke"
-            elif rc == RESPONSE_QUIT:
-                # Not enough space, and the user can't do anything about it so
-                # they chose to quit.
-                raise SystemExit("user-selected exit")
-            else:
-                # I don't know how we'd get here, but might as well have a
-                # catch-all.  Just stay on this spoke.
-                self._back_clicked = False
-                return
-
-        self.applyOnSkip = True
-        NormalSpoke.on_back_clicked(self, button)
-
-    def on_custom_toggled(self, button):
-        # The custom button won't be active until after this handler is run,
-        # so we have to negate everything here.
-        self._reclaim_checkbox.set_sensitive(not button.get_active())
-
-        if self._reclaim_checkbox.get_sensitive():
-            self._reclaim_checkbox.set_has_tooltip(False)
-        else:
-            self._reclaim_checkbox.set_tooltip_text(
-                _("You'll be able to make space available during custom partitioning.")
-            )
+        # I don't know how we'd get here, but might as well have a
+        # catch-all.  Just stay on this spoke.
+        self._back_clicked = False
+        return
 
     def on_specialized_clicked(self, button):
-        # there will be changes in disk selection, revert
-        # storage to an early snapshot (if it exists)
-        if on_disk_storage.created:
-            on_disk_storage.reset_to_snapshot(self.storage)
-
         # Don't want to run apply or execute in this case, since we have to
         # collect some more disks first.  The user will be back to this spoke.
         self.applyOnSkip = False
 
         # However, we do want to apply current selections so the disk cart off
         # the filter spoke will display the correct information.
-        apply_disk_selection(self.storage, self._selected_disks)
+        apply_disk_selection(self._selected_disks)
 
         self.skipTo = "FilterSpoke"
         NormalSpoke.on_back_clicked(self, button)
@@ -1171,7 +1062,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     # This callback is for the button that has anaconda go back and rescan the
     # disks to pick up whatever changes the user made outside our control.
     def on_refresh_clicked(self, *args):
-        dialog = RefreshDialog(self.data, self.storage)
+        dialog = RefreshDialog(self.data)
         ignoreEscape(dialog.window)
         with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
@@ -1180,7 +1071,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         if rc == 1:
             # User hit OK on the dialog, indicating they stayed on the dialog
             # until rescanning completed.
-            on_disk_storage.dispose_snapshot()
             self.refresh()
             return
         elif rc != 2:
@@ -1189,8 +1079,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             # NOTE: rc == 2 means the user clicked on the link that takes them
             # back to the hub.
             return
-
-        on_disk_storage.dispose_snapshot()
 
         # Can't use this spoke's on_back_clicked method as that will try to
         # save the right hand side, which is no longer valid.  The user must

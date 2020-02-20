@@ -17,9 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.storage.disk_initialization.configuration import DiskInitializationConfig
+
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.blivet.blivet_interface import \
     BlivetPartitioningInterface
@@ -47,9 +47,19 @@ class BlivetPartitioningModule(PartitioningModule):
         """Return a DBus representation."""
         return BlivetPartitioningInterface(self)
 
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(BLIVET_PARTITIONING.object_path, self.for_publication())
+    def _create_storage_playground(self):
+        """Prepare the current storage model for partitioning."""
+        storage = super()._create_storage_playground()
+
+        # Ensure all disks have appropriate disk labels.
+        config = DiskInitializationConfig()
+        config.initialize_labels = True
+
+        for disk in storage.disks:
+            if config.can_initialize(storage, disk):
+                storage.initialize_disk(disk)
+
+        return storage
 
     @property
     def storage_handler(self):

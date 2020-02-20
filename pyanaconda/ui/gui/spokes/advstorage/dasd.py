@@ -21,7 +21,7 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.storage.utils import try_populate_devicetree
+from pyanaconda.ui.lib.storage import try_populate_devicetree
 
 __all__ = ["DASDDialog"]
 
@@ -37,9 +37,8 @@ class DASDDialog(GUIObject):
     mainWidgetName = "dasdDialog"
     uiFile = "spokes/advstorage/dasd.glade"
 
-    def __init__(self, data, storage):
+    def __init__(self, data):
         super().__init__(data)
-        self._storage = storage
         self._update_devicetree = False
         self._dasd_proxy = STORAGE.get_proxy(DASD)
 
@@ -65,7 +64,7 @@ class DASDDialog(GUIObject):
         # We need to call this to get the device nodes to show up
         # in our devicetree.
         if self._update_devicetree:
-            try_populate_devicetree(self._storage.devicetree)
+            try_populate_devicetree()
         return rc
 
     def on_start_clicked(self, *args):

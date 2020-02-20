@@ -21,25 +21,13 @@ from gi.repository import BlockDev as blockdev
 
 from blivet import util as blivet_util, udev, arch
 from blivet.devicelibs import crypto
-from blivet.errors import StorageError
 from blivet.flags import flags as blivet_flags
 from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_logging import program_log_lock
-from pyanaconda.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET, STORAGE_SWAP_IS_RECOMMENDED
-from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
-    FCOE, ZFCP, BOOTLOADER, ISCSI
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.platform import platform
-
-from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
 
 
 def enable_installer_mode():
@@ -99,28 +87,6 @@ def create_storage():
     return storage
 
 
-def set_storage_defaults_from_kickstart(storage):
-    """Set the storage default values from a kickstart file.
-
-    FIXME: A temporary workaround for UI.
-    """
-    # Set the default filesystem types.
-    auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-    request = PartitioningRequest.from_structure(auto_part_proxy.Request)
-
-    if request.file_system_type:
-        storage.set_default_fstype(request.file_system_type)
-
-    if "swap" in request.excluded_mount_points:
-        storage_checker.set_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)
-
-    # Set up the bootloader.
-    boot_loader_proxy = STORAGE.get_proxy(BOOTLOADER)
-    default_type = boot_loader_proxy.GetDefaultType()
-    default_class = BootLoaderFactory.get_class_by_name(default_type)
-    BootLoaderFactory.set_default_class(default_class)
-
-
 def load_plugin_s390():
     """Load the s390x plugin."""
     # Don't load the plugin in a dir installation.
@@ -136,94 +102,3 @@ def load_plugin_s390():
     plugin.name = blockdev.Plugin.S390
     plugin.so_name = None
     blockdev.reinit([plugin], reload=False)
-
-
-def reset_storage(storage, scan_all=False, retry=True):
-    """Reset the storage model.
-
-    :param storage: an instance of the Blivet's storage object
-    :param scan_all: should we scan all devices in the system?
-    :param retry: should we allow to retry the reset?
-    """
-    # Clear the exclusive disks to scan all devices in the system.
-    if scan_all:
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        disk_select_proxy.SetExclusiveDisks([])
-
-    # Do the reset.
-    while True:
-        try:
-            _reset_storage(storage)
-        except StorageError as e:
-            # Is the retry allowed?
-            if not retry:
-                raise
-            # Does the user want to retry?
-            elif error_handler.cb(e) == ERROR_RAISE:
-                raise
-            # Retry the storage reset.
-            else:
-                continue
-        else:
-            # No need to retry.
-            break
-
-
-def reset_bootloader(storage):
-    """Reset the bootloader.
-
-    :param storage: an instance of the Blivet's storage object
-    """
-    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-    bootloader_proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-    storage.bootloader.reset()
-
-
-def select_all_disks_by_default(storage):
-    """Select all disks for the partitioning by default.
-
-    It will select all disks for the partitioning if there are
-    no disks selected. Kickstart uses all the disks by default.
-
-    :param storage: an instance of the Blivet's storage object
-    :return: a list of selected disks
-    """
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    selected_disks = disk_select_proxy.SelectedDisks
-    ignored_disks = disk_select_proxy.IgnoredDisks
-
-    if not selected_disks:
-        selected_disks = [d.name for d in storage.disks if d.name not in ignored_disks]
-        disk_select_proxy.SetSelectedDisks(selected_disks)
-        log.debug("Selecting all disks by default: %s", ",".join(selected_disks))
-
-    return selected_disks
-
-
-def _reset_storage(storage):
-    """Do reset the storage.
-
-    FIXME: Call the DBus task instead of this function.
-
-    :param storage: an instance of the Blivet's storage object
-    """
-    # Set the ignored and exclusive disks.
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    storage.ignored_disks = disk_select_proxy.IgnoredDisks
-    storage.exclusive_disks = disk_select_proxy.ExclusiveDisks
-    storage.protected_devices = disk_select_proxy.ProtectedDevices
-    storage.disk_images = disk_select_proxy.DiskImages
-
-    # Reload additional modules.
-    if not conf.target.is_image:
-        iscsi_proxy = STORAGE.get_proxy(ISCSI)
-        iscsi_proxy.ReloadModule()
-
-        fcoe_proxy = STORAGE.get_proxy(FCOE)
-        fcoe_proxy.ReloadModule()
-
-        zfcp_proxy = STORAGE.get_proxy(ZFCP)
-        zfcp_proxy.ReloadModule()
-
-    # Do the reset.
-    storage.reset()

@@ -28,6 +28,7 @@ from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, INSTALL_TRE
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 
 from pyanaconda import isys
+from pyanaconda.modules.common.errors.storage import MountFilesystemError, DeviceSetupError
 from pyanaconda.payload.image import findFirstIsoImage, mountImage, find_optical_install_media,\
     verifyMedia, verify_valid_installtree
 from pyanaconda.core import util
@@ -41,9 +42,6 @@ from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
 
 from pykickstart.parser import Group
-
-from blivet.errors import StorageError
-
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -52,14 +50,12 @@ USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 class Payload(metaclass=ABCMeta):
     """Payload is an abstract class for OS install delivery methods."""
-    def __init__(self, data, storage):
+    def __init__(self, data):
         """Initialize Payload class
 
         :param data: This param is a kickstart.AnacondaKSHandler class.
-        :param storage: an instance of Blivet's storage model
         """
         self.data = data
-        self.storage = storage
         self.tx_id = None
 
         self._install_tree_metadata = None
@@ -443,7 +439,7 @@ class Payload(metaclass=ABCMeta):
     @staticmethod
     def _setup_device(device, mountpoint):
         """Prepare an install CD/DVD for use as a package source."""
-        log.info("setting up device %s and mounting on %s", device.name, mountpoint)
+        log.info("setting up device %s and mounting on %s", device, mountpoint)
         # Is there a symlink involved?  If so, let's get the actual path.
         # This is to catch /run/install/isodir vs. /mnt/install/isodir, for
         # instance.
@@ -453,7 +449,7 @@ class Payload(metaclass=ABCMeta):
         if mount_device_path:
             log.warning("%s is already mounted on %s", mount_device_path, mountpoint)
 
-            if mount_device_path == device.path:
+            if mount_device_path == payload_utils.get_device_path(device):
                 return
             else:
                 payload_utils.unmount(real_mountpoint)
@@ -461,7 +457,7 @@ class Payload(metaclass=ABCMeta):
         try:
             payload_utils.setup_device(device)
             payload_utils.mount_device(device, mountpoint)
-        except StorageError as e:
+        except (DeviceSetupError, MountFilesystemError) as e:
             log.error("mount failed: %s", e)
             payload_utils.teardown_device(device)
             raise PayloadSetupError(str(e))
@@ -689,16 +685,18 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
         # nfs: umount INSTALL_TREE
         # nfsiso: umount INSTALL_TREE, umount ISO_DIR
+        install_device_path = payload_utils.get_device_path(self.install_device)
+
         if os.path.ismount(INSTALL_TREE):
             if self.install_device and \
-               payload_utils.get_mount_device_path(INSTALL_TREE) == self.install_device.path:
+               payload_utils.get_mount_device_path(INSTALL_TREE) == install_device_path:
                 payload_utils.teardown_device(self.install_device)
             else:
                 payload_utils.unmount(INSTALL_TREE, raise_exc=True)
 
         if os.path.ismount(ISO_DIR):
             if self.install_device and \
-               payload_utils.get_mount_device_path(ISO_DIR) == self.install_device.path:
+               payload_utils.get_mount_device_path(ISO_DIR) == install_device_path:
                 payload_utils.teardown_device(self.install_device)
             # The below code will fail when nfsiso is the stage2 source
             # But if we don't do this we may not be able to switch from
@@ -732,18 +730,20 @@ class PackagePayload(Payload, metaclass=ABCMeta):
     def _unmount_source_directory(self, mount_point):
         if os.path.ismount(mount_point):
             device_path = payload_utils.get_mount_device_path(mount_point)
-            device = payload_utils.resolve_device(self.storage, device_path)
+            device = payload_utils.resolve_device(device_path)
             if device:
                 payload_utils.teardown_device(device)
             else:
                 payload_utils.unmount(mount_point, raise_exc=True)
 
     def _device_is_mounted_as_source(self, device):
-        device_mounts = payload_utils.get_mount_paths(device.path)
+        device_path = payload_utils.get_device_path(device)
+        device_mounts = payload_utils.get_mount_paths(device_path)
         return INSTALL_TREE in device_mounts or DRACUT_REPODIR in device_mounts
 
     def _setup_media(self, device):
         method = self.data.method
+
         if method.method == "harddrive":
             try:
                 method.dir = self._find_and_mount_iso(device, ISO_DIR, method.dir, INSTALL_TREE)
@@ -857,7 +857,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 # We don't setup an install_device here
                 # because we can't tear it down
 
-        iso_device = payload_utils.resolve_device(self.storage, dev_spec)
+        iso_device = payload_utils.resolve_device(dev_spec)
         if need_mount:
             if not iso_device:
                 raise PayloadSetupError("device for HDISO install %s does not exist" % dev_spec)
@@ -991,11 +991,11 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         # Check for valid optical media if we didn't boot from one
         if not verifyMedia(DRACUT_REPODIR):
-            self.install_device = find_optical_install_media(self.storage)
+            self.install_device = find_optical_install_media()
 
         # Only look at the dracut mount if we don't already have a cdrom
         if repo_device_path and not self.install_device:
-            self.install_device = payload_utils.resolve_device(self.storage, repo_device_path)
+            self.install_device = payload_utils.resolve_device(repo_device_path)
             url = "file://" + DRACUT_REPODIR
             if not method.method:
                 # See if this is a nfs mount
@@ -1021,7 +1021,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         return url
 
     def _setup_harddrive_addon_repo(self, ksrepo):
-        iso_device = payload_utils.resolve_device(self.storage, ksrepo.partition)
+        iso_device = payload_utils.resolve_device(ksrepo.partition)
         if not iso_device:
             raise PayloadSetupError("device for HDISO addon repo install %s does not exist" %
                                     ksrepo.partition)

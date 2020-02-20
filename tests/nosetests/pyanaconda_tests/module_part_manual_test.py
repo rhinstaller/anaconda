@@ -59,18 +59,6 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def enabled_property_test(self):
-        """Test the enabled property."""
-        self._test_dbus_property(
-            "Enabled",
-            True
-        )
-
-        self._test_dbus_property(
-            "Enabled",
-            False
-        )
-
     def mount_points_property_test(self):
         """Test the mount points property."""
         self._test_dbus_property(

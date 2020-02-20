@@ -21,7 +21,7 @@ import re
 
 from blivet import devicefactory
 from blivet.devicelibs import crypto, raid
-from blivet.devices import LUKSDevice
+from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.size import Size
@@ -29,6 +29,7 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError, UnknownDeviceError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
@@ -99,7 +100,7 @@ def collect_unused_devices(storage):
         if not d.format.supported
     ]
 
-    return unused + incomplete + unsupported
+    return filter_unsupported_disklabel_devices(unused + incomplete + unsupported)
 
 
 def collect_bootloader_devices(storage, boot_drive):
@@ -119,7 +120,7 @@ def collect_bootloader_devices(storage, boot_drive):
         if not boot_drive or boot_drive in (d.name for d in device.disks):
             devices.append(device)
 
-    return devices
+    return filter_unsupported_disklabel_devices(devices)
 
 
 def collect_new_devices(storage, boot_drive):
@@ -149,22 +150,7 @@ def collect_new_devices(storage, boot_drive):
         new_devices.extend(collect_bootloader_devices(storage, boot_drive))
 
     # Remove duplicates, but keep the order.
-    return list(dict.fromkeys(new_devices))
-
-
-def collect_selected_disks(storage, selection):
-    """Collect selected disks.
-
-    FIXME: Is this method really necessary? Remove it if possible.
-
-    :param storage: an instance of Blivet
-    :param selection: names of selected disks
-    :return: a list of devices
-    """
-    return [
-        d for d in storage.devices
-        if d.name in selection and d.partitioned
-    ]
+    return filter_unsupported_disklabel_devices(list(dict.fromkeys(new_devices)))
 
 
 def collect_roots(storage):
@@ -228,18 +214,14 @@ def create_new_root(storage, boot_drive):
     :param boot_drive: a name of the bootloader drive
     :return: a new root
     """
-    devices = filter_unsupported_disklabel_devices(
-        collect_new_devices(
-            storage=storage,
-            boot_drive=boot_drive
-        )
+    devices = collect_new_devices(
+        storage=storage,
+        boot_drive=boot_drive
     )
 
-    bootloader_devices = filter_unsupported_disklabel_devices(
-        collect_bootloader_devices(
-            storage=storage,
-            boot_drive=boot_drive
-        )
+    bootloader_devices = collect_bootloader_devices(
+        storage=storage,
+        boot_drive=boot_drive
     )
 
     swaps = [
@@ -351,6 +333,9 @@ def validate_container_name(storage, name):
 
     if name != safe_name:
         return _("Invalid container name.")
+
+    if name in storage.names:
+        return _("Name is already in use.")
 
     return None
 
@@ -785,12 +770,80 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     container = factory.get_container()
 
     if container:
+        request.container_spec = container.name
         request.container_name = container.name
         request.container_encrypted = container.encrypted
         request.container_raid_level = get_device_raid_level_name(container)
         request.container_size_policy = get_container_size_policy(container)
 
     return request
+
+
+def generate_container_data(storage, request: DeviceFactoryRequest):
+    """Generate the container data for the device factory request.
+
+    :param storage: an instance of Blivet
+    :param request: a device factory request
+    """
+    # Reset all container data.
+    request.reset_container_data()
+
+    # Check the device type.
+    if request.device_type not in CONTAINER_DEVICE_TYPES:
+        return
+
+    # Find a container of the requested type.
+    device = storage.devicetree.resolve_device(request.device_spec)
+    container = get_container(storage, request.device_type, device.raw_device)
+
+    if container:
+        # Set the request from the found container.
+        request.container_spec = container.name
+        request.container_name = container.name
+        request.container_encrypted = container.encrypted
+        request.container_raid_level = get_device_raid_level_name(container)
+        request.container_size_policy = get_container_size_policy(container)
+    else:
+        # Set the request from a new container.
+        request.container_name = storage.suggest_container_name()
+        request.container_raid_level = get_default_container_raid_level_name(
+            request.device_type
+        )
+
+
+def update_container_data(storage, request: DeviceFactoryRequest, container_name):
+    """Update the container data in the device factory request.
+
+    :param storage: an instance of Blivet
+    :param request: a device factory request
+    :param container_name: a container name to apply
+    """
+    # Reset all container data.
+    request.reset_container_data()
+
+    # Check the device type.
+    if request.device_type not in CONTAINER_DEVICE_TYPES:
+        raise StorageError("Invalid device type.")
+
+    # Find the container in the device tree if any.
+    container = storage.devicetree.get_device_by_name(container_name)
+
+    if container:
+        # Set the request from the found container.
+        request.container_spec = container.name
+        request.container_name = container.name
+        request.container_encrypted = container.encrypted
+        request.container_raid_level = get_device_raid_level_name(container)
+        request.container_size_policy = get_container_size_policy(container)
+
+        # Use the container's disks.
+        request.disks = [d.name for d in container.disks]
+    else:
+        # Set the request from the new container.
+        request.container_name = container_name
+        request.container_raid_level = get_default_container_raid_level_name(
+            request.device_type
+        )
 
 
 def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
@@ -801,11 +854,14 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     :return: device factory permissions
     """
     permissions = DeviceFactoryPermissions()
-    device_name = request.device_spec
-    device = storage.devicetree.resolve_device(device_name)
+    device = storage.devicetree.resolve_device(request.device_spec)
+    container = storage.devicetree.resolve_device(request.container_name)
 
     if not device:
-        raise UnknownDeviceError(device_name)
+        raise UnknownDeviceError(request.device_spec)
+
+    if device.protected:
+        return permissions
 
     permissions.device_type = not device.raw_device.exists
     permissions.device_raid_level = not device.raw_device.exists
@@ -841,7 +897,30 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
         and request.device_type not in {
             devicefactory.DEVICE_TYPE_BTRFS,
             devicefactory.DEVICE_TYPE_LVM_THINP
-        }
+        } \
+        and not any(
+            a.format.type == "luks" and a.format.exists
+            for a in device.raw_device.ancestors if a != device
+        )
+
+    permissions.disks = \
+        not device.exists \
+        and request.device_type not in CONTAINER_DEVICE_TYPES
+
+    can_change_container = \
+        request.device_type in CONTAINER_DEVICE_TYPES \
+        and not getattr(container, "exists", False)
+
+    can_replace_container = \
+        request.device_type in CONTAINER_DEVICE_TYPES \
+        and not device.raw_device.exists \
+        and device.raw_device != container
+
+    permissions.container_spec = can_replace_container
+    permissions.container_name = can_change_container
+    permissions.container_encrypted = can_change_container
+    permissions.container_raid_level = can_change_container
+    permissions.container_size_policy = can_change_container
 
     return permissions
 
@@ -851,9 +930,23 @@ def destroy_device(storage, device):
 
     :param storage: an instance of Blivet
     :param device: an instance of a device
+    :raise: StorageConfigurationError in a case of failure
     """
     log.debug("Destroy device: %s", device.name)
 
+    try:
+        _destroy_device(storage, device)
+    except (StorageError, ValueError) as e:
+        log.error("Failed to destroy a device: %s", e)
+        raise StorageConfigurationError(str(e)) from None
+
+
+def _destroy_device(storage, device):
+    """Destroy the given device in the storage model.
+
+    :param storage: an instance of Blivet
+    :param device: an instance of a device
+    """
     # Remove the device.
     if device.is_disk and device.partitioned and not device.format.supported:
         storage.recursive_remove(device)
@@ -1000,6 +1093,18 @@ def get_container_size_policy_by_number(number):
     return Size(number)
 
 
+def get_default_container_raid_level_name(device_type):
+    """Get the default RAID level for this device type's container type.
+
+    :param int device_type: a device_type
+    :return str: a name of the default RAID level or an empty string
+    """
+    if device_type == devicefactory.DEVICE_TYPE_BTRFS:
+        return "single"
+
+    return ""
+
+
 def collect_containers(storage, device_type):
     """Collect containers of the given type.
 
@@ -1020,3 +1125,30 @@ def get_supported_raid_levels(device_type):
     :return: a list of RAID levels
     """
     return devicefactory.get_supported_raid_levels(device_type)
+
+
+def check_device_completeness(device):
+    """Check that the specified device is complete.
+
+    :param device: a device to check
+    :return: an error message or None
+    """
+    if getattr(device, "complete", True):
+        return None
+
+    if isinstance(device, MDRaidArrayDevice):
+        total = device.member_devices
+        missing = total - len(device.parents)
+        return _("This Software RAID array is missing %(missing)d of %(total)d "
+                 "member partitions. You can remove it or select a different "
+                 "device.") % {"missing": missing, "total": total}
+
+    if isinstance(device, LVMVolumeGroupDevice):
+        total = device.pv_count
+        missing = total - len(device.parents)
+        return _("This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d "
+                 "physical volumes. You can remove it or select a different "
+                 "device.") % {"missingPVs": missing, "totalPVs": total}
+
+    return _("This %(type)s device is missing member devices. You can remove "
+             "it or select a different device.") % {"type": device.type}

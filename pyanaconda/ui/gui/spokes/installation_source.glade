@@ -196,8 +196,8 @@
   </object>
   <object class="GtkListStore" id="partitionStore">
     <columns>
-      <!-- column-name device -->
-      <column type="PyObject"/>
+      <!-- column-name device name -->
+      <column type="gchararray"/>
       <!-- column-name description -->
       <column type="gchararray"/>
     </columns>

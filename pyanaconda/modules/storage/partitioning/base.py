@@ -63,18 +63,29 @@ class PartitioningModule(KickstartBaseModule, Publishable):
             raise UnavailableStorageError()
 
         if self._storage_playground is None:
-            self._storage_playground = self._current_storage.copy()
-            self._storage_playground.select_disks(self._selected_disks)
+            self._storage_playground = self._create_storage_playground()
 
         return self._storage_playground
+
+    def _create_storage_playground(self):
+        """Prepare the current storage model for partitioning."""
+        storage = self._current_storage.copy()
+        storage.select_disks(self._selected_disks)
+        return storage
 
     def on_storage_changed(self, storage):
         """Update the current storage."""
         self._current_storage = storage
 
+        if self._device_tree_module:
+            self._device_tree_module.on_storage_changed(self.storage)
+
     def on_partitioning_reset(self):
         """Drop the storage playground."""
         self._storage_playground = None
+
+        if self._device_tree_module:
+            self._device_tree_module.on_storage_changed(self.storage)
 
     def on_selected_disks_changed(self, selection):
         """Keep the current disk selection."""

@@ -108,17 +108,6 @@ class StorageService(KickstartService):
         self._zfcp_module = ZFCPModule()
         self._add_module(self._zfcp_module)
 
-        # Initialize the partitioning modules.
-        # TODO: Remove the static partitioning modules.
-        self._add_module(self.create_partitioning(PartitioningMethod.AUTOMATIC))
-        self._add_module(self.create_partitioning(PartitioningMethod.MANUAL))
-        self._add_module(self.create_partitioning(PartitioningMethod.CUSTOM))
-        self._add_module(self.create_partitioning(PartitioningMethod.INTERACTIVE))
-        self._add_module(self.create_partitioning(PartitioningMethod.BLIVET))
-        # Forget the static partitioning modules.
-        # TODO: Remove with the static partitioning modules.
-        self._created_partitioning = []
-
         # Connect modules to signals.
         self.storage_changed.connect(
             self._device_tree_module.on_storage_changed

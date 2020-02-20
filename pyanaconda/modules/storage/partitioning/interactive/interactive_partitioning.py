@@ -16,11 +16,16 @@
 # Red Hat, Inc.
 #
 from blivet.devicefactory import SIZE_POLICY_AUTO
+from blivet.errors import StorageError
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.bootloader.execution import setup_bootloader
 from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
     AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask
+from pyanaconda.storage.checker import storage_checker, verify_luks_devices_have_key
+
+log = get_module_logger(__name__)
 
 __all__ = ["InteractivePartitioningTask", "InteractiveAutoPartitioningTask"]
 
@@ -52,6 +57,7 @@ class InteractiveAutoPartitioningTask(AutomaticPartitioningTask):
         """Do the partitioning."""
         super()._run(storage)
         self._update_size_policy(storage)
+        self._verify_partitioning(storage)
 
     def _clear_partitions(self, storage):
         """Nothing to clear.
@@ -68,3 +74,13 @@ class InteractiveAutoPartitioningTask(AutomaticPartitioningTask):
         for device in storage.devices:
             if not device.exists and hasattr(device, "size_policy"):
                 device.size_policy = SIZE_POLICY_AUTO
+
+    def _verify_partitioning(self, storage):
+        """Verify the created partitioning."""
+        report = storage_checker.check(storage, skip=(verify_luks_devices_have_key,))
+        report.log(log)
+
+        if not report.errors:
+            return
+
+        raise StorageError(" ".join(report.errors))
