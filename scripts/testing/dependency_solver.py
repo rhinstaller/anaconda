@@ -48,7 +48,7 @@ PIP_DEPENDENCIES = [
                     "rpmfluff", "dogtail", "pocketlint"
                    ]
 
-RELEASE_DEPENDENCIES = ["python3-zanata-client"]
+RELEASE_DEPENDENCIES = []
 
 
 def _resolve_top_dir():

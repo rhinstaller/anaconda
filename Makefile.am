@@ -27,7 +27,7 @@ EXTRA_DIST += $(srcdir)/translation-canary/xgettext_werror.sh
 
 MAINTAINERCLEANFILES =	Makefile.in config.guess config.h.in config.sub \
 						depcomp install-sh ltmain.sh missing ABOUT-NLS \
-						INSTALL aclocal.m4 configure *.pyc zanata.xml.in \
+						INSTALL aclocal.m4 configure *.pyc \
 						py-compile m4/* po/Makefile.in.in po/Rules-quot \
 						test-driver
 
@@ -45,10 +45,7 @@ uninstall-hook:
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
-ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
-ZANATA_PUSH_ARGS = --srcfile $(srcdir)/po/anaconda.pot --push-type source --force
-
-ZANATA_CLIENT_BIN=zanata
+L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
 
 DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
 				-e 's/^f//' \
@@ -89,17 +86,41 @@ tag:
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
 po-pull:
-	which $(ZANATA_CLIENT_BIN) &>/dev/null || ( echo "need to install zanata python client package"; exit 1 )
-	( cd $(srcdir) && $(ZANATA_CLIENT_BIN) pull $(ZANATA_PULL_ARGS) )
+	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
+	git clone --depth 1 -b $(GIT_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR && \
+	cp $$TEMP_DIR/*.po $(srcdir)/po/ && \
+	rm -rf $$TEMP_DIR
 
 po-push:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 	rm $(srcdir)/po/{main,extra}.pot
-	$(ZANATA_CLIENT_BIN) push $(ZANATA_PUSH_ARGS)
-
-po-all:
-	$(MAKE) po-push
-	$(MAKE) po-pull
+# This algorithm will make these steps:
+# - clone localization repository
+# - copy pot file to this repository
+# - check if pot file is changed (ignore the POT-Creation-Date otherwise it's always changed)
+# - if not changed:
+#   - remove cloned repository
+# - if changed:
+#   - add pot file
+#   - commit pot file
+#   - tell user to verify this file and push to the remote from the temp dir
+	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) || exit 1 ; \
+	git clone --depth 1 -b $(GIT_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR || exit 2 ; \
+	cp $(srcdir)/po/anaconda.pot $$TEMP_DIR/ || exit 3 ; \
+	pushd $$TEMP_DIR ; \
+	git difftool --trust-exit-code -y -x "diff -u -I '^\"POT-Creation-Date: .*$$'" HEAD ./anaconda.pot &>/dev/null ; \
+	if [ $$? -eq 0  ] ; then \
+		popd ; \
+		echo "Pot file is up to date" ; \
+		rm -rf $$TEMP_DIR ; \
+	else \
+		git add ./anaconda.pot && \
+		git commit -m "Update anaconda.pot" && \
+		popd && \
+		echo "Pot file updated for the localization repository $(L10N_REPOSITORY)" && \
+		echo "Please confirm and push:" && \
+		echo "$$TEMP_DIR" ; \
+	fi ;
 
 # Try to fetch translations, but if that fails just keep going
 po-fallback:
@@ -119,11 +140,11 @@ scratch-bumpver:
 	if [ ! -z "$(BZDEBUG)" ]; then \
 		opts="$${opts} -d" ; \
 	fi ; \
-	( cd $(srcdir) && scripts/makebumpver --skip-zanata $${opts} ) || exit 1 ; \
+	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 release:
-	$(MAKE) po-all
+	$(MAKE) po-pull
 	$(MAKE) dist
 
 release-and-tag:
@@ -150,10 +171,8 @@ bumpver: po-pull
 	if [ ! -z "$(SKIP_ACKS)" ]; then \
 		opts="$${opts} -s" ; \
 	fi ; \
-	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
-	$(MAKE) -C po $(PACKAGE_NAME).pot-update && \
-	rm $(srcdir)/po/{main,extra}.pot
-	$(ZANATA_CLIENT_BIN) push $(ZANATA_PUSH_ARGS)
+	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1
+	$(MAKE) po-push
 
 # GUI TESTING
 runglade:

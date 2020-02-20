@@ -100,7 +100,7 @@ ANACONDA_PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
 ANACONDA_PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 
 # Find git branch
-s_git_branch="`./scripts/git-find-branch | sed 's/unstable/master/'`"
+s_git_branch="`./scripts/git-find-branch`"
 AC_SUBST(GIT_BRANCH, [$s_git_branch])
 
 # GCC likes to bomb out on some ridiculous warnings.  Add your favorites
@@ -119,7 +119,6 @@ AC_CONFIG_SUBDIRS([widgets])
 
 AC_CONFIG_FILES([Makefile
                  anaconda.spec
-                 zanata.xml
                  data/Makefile
                  data/command-stubs/Makefile
                  docs/Makefile

@@ -38,9 +38,6 @@ import sys
 import textwrap
 import urllib.request
 
-DEFAULT_ZANATA_GIT_BRANCH_ALIASES = {
-    "unstable": "master",
-}
 
 VERSION_NUMBER_INCREMENT = 1
 DEFAULT_ADDED_VERSION_NUMBER = 1
@@ -70,7 +67,6 @@ class MakeBumpVer:
         cwd = os.getcwd()
         self.configure = os.path.realpath(cwd + '/configure.ac')
         self.spec = os.path.realpath(cwd + '/anaconda.spec.in')
-        self.zanata_config = os.path.realpath(cwd + '/zanata.xml')
 
         with open(self.configure, "rt") as f:
             config_ac = f.read()
@@ -117,10 +113,6 @@ class MakeBumpVer:
                             help="Skip all checks.")
         parser.add_argument("-d", "--debug", dest="debug", action="store_true", default=False,
                             help="Enable debug logging to stdout.")
-        parser.add_argument("--zanata-branch", dest="zanata_branch", metavar="BRANCH NAME",
-                            help="Zanata branch name (needed if different from git branch name & not present in default mappings).")
-        parser.add_argument("--skip-zanata", dest="skip_zanata", action="store_true", default=False,
-                            help="Skip checking Zanata config for branch name.")
         parser.add_argument("--skip-jenkins", dest="skip_jenkins", action="store_true", default=False,
                             help="Skip checking Jenkins for test results.")
         parser.add_argument("--dry-run", dest="dry_run", action="store_true", default=False,
@@ -199,14 +191,12 @@ class MakeBumpVer:
 
         self.skip_acks = self.args.skip_acks
         self.skip_all = self.args.skip_all_acks
-        self.skip_zanata = self.args.skip_zanata
         self.skip_jenkins = self.args.skip_jenkins
         self.dry_run = self.args.dry_run
 
         if self.skip_all:
             self.skip_acks = True
             self.skip_jenkins = True
-            self.skip_zanata = True
 
         self.git_branch = None
 
@@ -594,43 +584,6 @@ class MakeBumpVer:
 
         return ret
 
-    def check_zanata(self):
-        """
-        Make sure that the zanata project-version matches the current git branch
-
-        This is to prevent accidentally pushing translations to the wrong branch,
-        eg. when branching for a new release and zanata.xml hasn't been updated
-        """
-        if not self.git_branch:
-            log.error("No git branch, cannot check zanata config")
-            return False
-
-        version_re = re.compile("<project-version>(.*)</project-version>")
-        ret = False
-
-        git_branch_name = self.git_branch
-        git_branch_aliases = DEFAULT_ZANATA_GIT_BRANCH_ALIASES
-        # If a Zanata branch name is provided from comand line
-        # then register it as an alias for the current Git branch.
-        if self.args.zanata_branch:
-            git_branch_aliases[self.git_branch] = self.args.zanata_branch
-        if self.git_branch in git_branch_aliases:
-            git_branch_name = git_branch_aliases[self.git_branch]
-
-        with open(self.zanata_config, "r") as f:
-            for line in f:
-                m = version_re.match(line.strip())
-                if m and m.group(1) == git_branch_name:
-                    ret = True
-                    break
-                elif m:
-                    log.error("zanata.xml branch (%s) does not match current branch: %s", m.group(1), self.git_branch)
-                    break
-            else:
-                log.error("zanata.xml does not have a project-version")
-
-        return ret
-
     def _do_release_commit(self, new_version):
         log.info("creating a tagged release commit")
         commit_message = "New version - %s" % new_version
@@ -650,9 +603,6 @@ class MakeBumpVer:
         log.info("tag: %s", release_tag)
 
     def run(self):
-        if not self.skip_zanata and not self.check_zanata():
-            sys.exit(1)
-
         # For now, jenkins is in an advisory role so do not require it to pass.
         if not self.skip_jenkins and not self.check_jenkins():
             log.warning("jenkins test results do not pass; ignoring for now")
