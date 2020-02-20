@@ -353,6 +353,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 20 2020 Martin Kolman <mkolman@redhat.com> - 32.24.1-1
+- Set correct Pykickstart version for F32 (mkolman)
+
 * Thu Feb 20 2020 Martin Kolman <mkolman@redhat.com> - 32.24-1
 - Initialize disks in interactive and Blivet partitioning modules (vponcova)
 - Fix the function get_device_partitions (vponcova)
