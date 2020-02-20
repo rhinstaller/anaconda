@@ -341,6 +341,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 20 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.15-1
+- Fix installation source switching to/from CDN (mkolman)
+  Resolves: rhbz#1788487
+  Resolves: rhbz#1790383
+  Resolves: rhbz#1791376
+
 * Thu Feb 20 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.14-1
 - Do not allow selecting ignored disk in GUI even if it is the only one
   (rvykydal)
