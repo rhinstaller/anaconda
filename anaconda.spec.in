@@ -341,6 +341,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 20 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.14-1
+- Do not allow selecting ignored disk in GUI even if it is the only one
+  (rvykydal)
+  Resolves: rhbz#1786561
+
 * Tue Feb 11 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.13-1
 - Disable package download to / /tmp (jkonecny)
   Resolves: rhbz#1781517
