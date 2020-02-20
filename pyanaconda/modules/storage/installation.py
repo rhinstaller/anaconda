@@ -17,7 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import callbacks
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
@@ -47,7 +50,23 @@ class ActivateFilesystemsTask(Task):
                       "the installation to a directory.")
             return
 
-        turn_on_filesystems(self._storage)
+        register = callbacks.create_new_callbacks_register(
+            create_format_pre=self._report_message,
+            resize_format_pre=self._report_message,
+            wait_for_entropy=self._report_message
+        )
+
+        turn_on_filesystems(
+            self._storage,
+            callbacks=register
+        )
+
+    def _report_message(self, data):
+        """Report a Blivet message.
+
+        :param data: Blivet's callback data
+        """
+        self.report_progress(data.msg)
 
 
 class MountFilesystemsTask(Task):
