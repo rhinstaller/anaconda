@@ -49,7 +49,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fan
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
-from pyanaconda.modules.common.constants.services import NETWORK, PAYLOAD
+from pyanaconda.modules.common.constants.services import NETWORK, PAYLOAD, SUBSCRIPTION
 from pyanaconda.storage_utils import device_matches
 
 from blivet.util import get_mount_device, get_mount_paths
@@ -408,7 +408,18 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._payload_module = PAYLOAD.get_observer()
         self._payload_module.connect()
 
+        self._subscription_module = SUBSCRIPTION.get_observer()
+        self._subscription_module.connect()
+
         self._treeinfo_repos_already_disabled = False
+
+        # track if CDN has been manually enabled,
+        # for change tracking purposes
+        self._cdn_enabled_manually = False
+
+        # track if CDN was used on spoke exit
+        # for change tracking purposes
+        self._cdn_in_use_on_spoke_exit = False
 
     def apply(self):
         # If askmethod was provided on the command line, entering the source
@@ -426,6 +437,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             :returns: True if it changed, False if not
             :rtype: bool
         """
+        log.debug("source spoke: installation method change check")
         # FIXME:
         # This is an ugly temporary fix, because we cannot use deepcopy since
         # pykickstart 3. This entire module should be rewritten anyway.
@@ -450,6 +462,20 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 return False
         elif self._hmcButton.get_active():
             self.data.method.method = "hmc"
+        elif self._cdnButton.get_active():
+            # Check if CDN has been manually enabled
+            # and clear method if it was.
+            if self._cdn_enabled_manually:
+                # reset the trigger
+                self._cdn_enabled_manually = False
+                # clear any method
+                log.debug("source spoke: CDN manually requested")
+                self.data.method.method = None
+                # update CDN usage
+                self._update_CDN_usage()
+            # Check if CDN source changed since last
+            # spoke exit.
+            return old_method is not None
         elif self._isoButton.get_active():
             # If the user didn't select a partition (not sure how that would
             # happen) or didn't choose a directory (more likely), then return
@@ -623,7 +649,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     @property
     def cdn_used_as_installation_source(self):
-        return self._cdnButton.get_active()
+        """ Report if Red Hat CDN is the current installation source.
+
+        The following conditions need to be met:
+        - method is None
+        - the RedHatCDNEnabled hint needs to be True
+        """
+        method_set = self.data.method.method is not None
+        cdn_enabled = self._payload_module.proxy.RedHatCDNEnabled
+        return cdn_enabled and not method_set
 
     @property
     def completed(self):
@@ -657,7 +691,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         elif not self.ready:
             return _(BASEREPO_SETUP_MESSAGE)
         elif not self.payload.baseRepo:
-            return _("Error setting up base repository")
+            subscribed = self._subscription_module.proxy.IsSubscriptionAttached
+            if not self.data.method.method and not subscribed:
+                # If method is None, there is no base repo and system
+                # has no subscription attached it means the Red Hat CDN
+                # is in use, but the system has not yet been registered.
+                return _("Red Hat CDN")
+            else:
+                return _("Error setting up base repository")
         elif self._error:
             return _("Error setting up software source")
         elif self.data.method.method == "url":
@@ -791,7 +832,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         # default to Red Hat CDN if no method has been specified
         if not self.data.method.method:
+            log.debug("source spoke: no method set during initialization, enabling CDN")
             self._cdnButton.set_active(True)
+            # Clear the manual flag that unfortunately also gets triggered
+            # if we call set_active() on any of the radio buttons.
+            self._cdn_enabled_manually = False
             self._update_CDN_usage()
 
         # Start the thread last so that we are sure initialize_done() is really called only
@@ -955,9 +1000,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # something different later, we can change it.
         self._protocolComboBox.set_active_id(PROTOCOL_MIRROR)
 
-        if self._payload_module.proxy.RedHatCDNEnabled:
-            # prevent the Red Hat CDN from being overrun by method ad refresh time,
-            # if CDN was set as installation source before
+        # unset CDN as installation source if the system has been
+        # unregistered in the meantime
+        cdn_button_active = self._cdnButton.get_active()
+        if cdn_button_active and not self.cdn_used_as_installation_source:
+            log.debug("source spoke: unregistered since last visit, turning off CDN button")
+            self._cdnButton.set_active(False)
+
+        # Set CDN radio button active, in case external conditions
+        # changed since the last refresh.
+        if self.cdn_used_as_installation_source and not self._cdnButton.get_active():
+            log.debug("source spoke: CDN enabled, enabling CDN button")
             self._cdnButton.set_active(True)
         elif self.data.method.method == "url":
             self._networkButton.set_active(True)
@@ -1005,10 +1058,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # No method was given in advance, so now we need to make a sensible
             # guess.  Try to autodetect media if that was provided, and then
             # fall back to Red Hat CDN.
-            if not self._autodetectButton.get_no_show_all():
+            autodetect_on = not self._autodetectButton.get_no_show_all()
+            cdn_in_use = self.cdn_used_as_installation_source
+            if autodetect_on and not cdn_in_use:
                 self._autodetectButton.set_active(True)
                 self.data.method.method = "cdrom"
-            else:
+                log.debug("source spoke: CDN not enabled & no other method found, enabling cdrom")
+            elif not self._cdnButton.get_active():
+                log.debug("source spoke: CDN enabled, enabling CDN button")
+                # NOTE: we already do something similar at the start of the method, but we need
+                #       to do it again as some of the calls in between might have side effects
+                #       that could result in CDN and/or the button being turned on/off
                 self._cdnButton.set_active(True)
                 self.data.method.method = None
                 self._update_CDN_usage()
@@ -1087,7 +1147,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def _update_CDN_usage(self):
         """Notify Payload module and Subscription spoke about possible CDN usage change."""
         # first set CDN enabled data in Payload module
-        self._payload_module.proxy.SetRedHatCDNEnabled(self.cdn_used_as_installation_source)
+        self._payload_module.proxy.SetRedHatCDNEnabled(self._cdnButton.get_active())
 
         # notify Subscription spoke about possible change
         hubQ.send_ready("SubscriptionSpoke", False)
@@ -1265,6 +1325,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         self._setup_no_updates()
 
+        # record CDN radio button being toggled
+        if button.get_active():
+            log.debug("source spoke: CDN radio button enabled")
+            self._cdn_enabled_manually = True
+
         self._update_CDN_usage()
 
     def on_back_clicked(self, button):
@@ -1298,6 +1363,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Otherwise let GUISpokeInputCheckHandler figure out what to focus
         elif not self.can_go_back_focus_if_not():
             return
+
+        # remember if CDN was in use on spoke exit
+        if self._cdnButton.get_active():
+            self._cdn_in_use_on_spoke_exit = True
 
         self.clear_info()
         NormalSpoke.on_back_clicked(self, button)

@@ -63,5 +63,6 @@ class PayloadModule(KickstartModule):
         return self._red_hat_cdn_enabled
 
     def set_red_hat_cdn_enabled(self, enabled):
+        log.debug("payload module: CDN enabled set to: %s", enabled)
         self._red_hat_cdn_enabled = enabled
         self.red_hat_cdn_enabled_changed.emit()

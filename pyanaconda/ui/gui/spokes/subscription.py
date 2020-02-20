@@ -28,7 +28,7 @@ from pyanaconda import subscription
 
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.constants import RHSM_AUTH_USERNAME_PASSWORD, RHSM_AUTH_ORG_KEY, RHSM_AUTH_NOT_SELECTED, \
-        THREAD_SUBSCRIPTION
+        THREAD_SUBSCRIPTION, INSTALLATION_METHODS_OVERRIDEN_BY_CDN
 from pyanaconda.core.util import ProxyString
 from pyanaconda.core.async_utils import async_action_wait
 
@@ -99,6 +99,9 @@ class SubscriptionSpoke(NormalSpoke):
 
         # previous visit network connectivity tracking
         self._network_connected_previously = False
+
+        # overridden installation source method tracking
+        self._overridden_method = None
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -323,6 +326,18 @@ class SubscriptionSpoke(NormalSpoke):
             log.debug("Subscription GUI: registration & attach done")
             # we are done, clear the phase
             self.registration_phase = None
+            # check if an installation method is set that the
+            # Red Hat CDN should override
+            method_set = self.data.method.method is not None
+
+            can_override_method = self.data.method.method in INSTALLATION_METHODS_OVERRIDEN_BY_CDN
+            if method_set and can_override_method:
+                log.debug("Subscription GUI: Overriding installation method %s by Red Hat CDN",
+                          self.data.method.method)
+                # remember what method we have overridden
+                self._overridden_method = self.data.method.method
+                # override it
+                self.data.method.method = None
             # set CDN as installation source
             self._payload_module.proxy.SetRedHatCDNEnabled(True)
             # restart payload
@@ -1143,6 +1158,17 @@ class SubscriptionSpoke(NormalSpoke):
             log.debug("Subscription GUI: unregistration succeeded")
             # success, clear any previous errors
             self.registration_error = ""
+            # disable CDN usage, as we can no longer use it without registration
+            self._payload_module.proxy.SetRedHatCDNEnabled(False)
+            # if a URL has been set previously, switch method back to "url"
+            if hasattr(self.data.method, "url") and self.data.method.url:
+                log.debug("Subscription GUI: switching source back to URL")
+                self.data.method.method = "url"
+            # check for overridden methods as well
+            elif self._overridden_method:
+                self.data.method.method = self._overridden_method
+                # clear overridden method tracking
+                self._overridden_method = None
             # update subscription status tab
             self._update_registration_state()
 

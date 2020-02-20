@@ -395,3 +395,12 @@ MOUNT_POINT_MOUNT_OPTIONS = "mount-options"
 RHSM_AUTH_NOT_SELECTED = -1
 RHSM_AUTH_USERNAME_PASSWORD = 0
 RHSM_AUTH_ORG_KEY = 1
+
+# Installation methods overriden by the CDN
+
+# This set lists methods the Red Hat CDN should automatically
+# override if the system gets registered during installation.
+# At the moment there is just the "cdrom" method, as almost
+# always the CDN content will be much more up to date and
+# more secure than the local content on the DVD image.
+INSTALLATION_METHODS_OVERRIDEN_BY_CDN = {"cdrom"}

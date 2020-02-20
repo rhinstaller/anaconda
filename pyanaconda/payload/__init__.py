@@ -43,7 +43,7 @@ from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_
     DD_RPMS, INSTALL_TREE, ISO_DIR, THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
     THREAD_WAIT_FOR_CONNECTING_NM, THREAD_SUBSCRIPTION, PayloadRequirementType, \
     GRAPHICAL_TARGET, TEXT_ONLY_TARGET
-from pyanaconda.modules.common.constants.services import SERVICES
+from pyanaconda.modules.common.constants.services import SERVICES, SUBSCRIPTION, PAYLOAD
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_
@@ -1420,7 +1420,27 @@ class PackagePayload(Payload):
                     method.server = host
                     method.dir = path
                 else:
-                    method.method = "cdrom"
+                    if flags.automatedInstall:
+                        # During a kickstart installation if we auto-detected
+                        # a local media, we should also disable the CDN in case
+                        # it was set previously but not enough authentication
+                        # data is available.
+                        subscription_proxy = SUBSCRIPTION.get_proxy()
+                        org_set = bool(subscription_proxy.Organization)
+                        key_set = subscription_proxy.IsActivationKeySet
+                        kickstart_sufficient = org_set and key_set
+                        if kickstart_sufficient:
+                            log.debug("payload: using CDN instead of cdrom")
+                            # we can use the CDN, so keep method set to None
+                            method.method = None
+                        else:
+                            log.debug("payload: making sure cdrom is used instead of CDN")
+                            payload_proxy = PAYLOAD.get_proxy()
+                            payload_proxy.SetRedHatCDNEnabled(False)
+                            method.method = "cdrom"
+                    else:
+                        log.debug("payload: using cdrom on non automated installation")
+                        method.method = "cdrom"
         else:
             if self.install_device:
                 if not method.method:
@@ -1635,6 +1655,7 @@ class PayloadManager(object):
     # Error strings
     ERROR_SETUP = N_("Failed to set up installation source")
     ERROR_MD = N_("Error downloading package metadata")
+    ERROR_NO_REGISTRATION = N_("Red Hat CDN requires registration")
 
     def __init__(self):
         self._event_lock = threading.Lock()
@@ -1785,8 +1806,19 @@ class PayloadManager(object):
 
         # Check if that failed
         if not payload.baseRepo:
-            log.error("No base repo configured")
-            self._error = self.ERROR_MD
+            # Missing base repo could be caused by CDN install source
+            # being set on a system that is not subscribed, let's check
+            # for that.
+            subscription_proxy = SUBSCRIPTION.get_proxy()
+            payload_proxy = PAYLOAD.get_proxy()
+            subscribed = subscription_proxy.IsSubscriptionAttached
+            cdn_source = payload_proxy.RedHatCDNEnabled
+            if cdn_source and not subscribed:
+                log.error("CDN set as installation source but system is not registered")
+                self._error = self.ERROR_NO_REGISTRATION
+            else:
+                log.error("No base repo configured")
+                self._error = self.ERROR_MD
             self._setState(self.STATE_ERROR)
             payload.unsetup()
             return
