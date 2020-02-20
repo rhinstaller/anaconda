@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartHandler
 from pykickstart.parser import KickstartParser
-from pykickstart.version import DEVEL
+from pykickstart.version import F32
 
 from pyanaconda.core.kickstart.addon import AddonSection, AddonRegistry
 
@@ -56,7 +56,7 @@ class KickstartSpecification(object):
 
     """
 
-    version = DEVEL
+    version = F32
     commands = {}
     commands_data = {}
     sections = {}
