@@ -341,6 +341,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 21 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.16-1
+- Fix crash on single disk selection in GUI (rvykydal)
+  Resolves: rhbz#1805613
+
 * Thu Feb 20 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.15-1
 - Fix installation source switching to/from CDN (mkolman)
   Resolves: rhbz#1788487
