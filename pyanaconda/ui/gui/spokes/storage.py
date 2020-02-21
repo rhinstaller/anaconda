@@ -53,7 +53,7 @@ from pyanaconda.ui.gui.utils import escape_markup, ignoreEscape
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.ui.lib.storage import find_partitioning, apply_partitioning, \
-    select_all_disks_by_default, apply_disk_selection, get_disks_summary, create_partitioning, \
+    select_default_disks, apply_disk_selection, get_disks_summary, create_partitioning, \
     is_local_disk
 
 import gi
@@ -628,8 +628,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
 
         # Update the selected disks.
-        if flags.automatedInstall:
-            select_all_disks_by_default()
+        select_default_disks()
 
         # Apply the partitioning. Do not set ready in the automated
         # installation before the execute method is run.
