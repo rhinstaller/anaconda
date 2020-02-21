@@ -150,7 +150,6 @@ class RPMOSTreePayload(Payload):
             ostree_boot_source = conf.target.system_root + '/boot'
         for fname in os.listdir(ostree_boot_source):
             srcpath = os.path.join(ostree_boot_source, fname)
-            destpath = os.path.join(physboot, fname)
 
             # We're only copying directories
             if not os.path.isdir(srcpath):
@@ -162,16 +161,9 @@ class RPMOSTreePayload(Payload):
             # expected to already exist (so if we used copytree, we'd
             # traceback).  If it doesn't, we're not on a UEFI system,
             # so we don't want to copy the data.
-            if fname == 'efi':
-                if is_efi:
-                    for subname in os.listdir(srcpath):
-                        sub_srcpath = os.path.join(srcpath, subname)
-                        sub_destpath = os.path.join(destpath, subname)
-                        self._safe_exec_with_redirect('cp',
-                                                      ['-r', '-p', sub_srcpath, sub_destpath])
-            else:
+            if not fname == 'efi' or is_efi and os.path.isdir(os.path.join(physboot, fname)):
                 log.info("Copying bootloader data: %s", fname)
-                self._safe_exec_with_redirect('cp', ['-r', '-p', srcpath, destpath])
+                self._safe_exec_with_redirect('cp', ['-r', '-p', srcpath, physboot])
 
             # Unfortunate hack, see https://github.com/rhinstaller/anaconda/issues/1188
             efi_grubenv_link = physboot + '/grub2/grubenv'
