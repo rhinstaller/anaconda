@@ -601,7 +601,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             description,
             kind,
             str(Size(device_data.size)),
-            _("{} free").format(free_space),
+            _("{} free").format(str(Size(free_space))),
             device_data.name,
             serial_number
         )
