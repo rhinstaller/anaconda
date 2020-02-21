@@ -108,6 +108,7 @@ environment way see mock path below.
 14. push new translations
 
 ::
+
     make po-push
 
 15. check repository on path returned by the above command and push if it's correct
