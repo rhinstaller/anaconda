@@ -55,32 +55,40 @@ def exitHandler(rebootData):
     if anaconda.payload:
         anaconda.payload.unsetup()
 
+    # Collect all optical media.
+    from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+    from pyanaconda.modules.common.structures.storage import DeviceData
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    optical_media = []
+
+    for device_name in device_tree.FindOpticalMedia():
+        device_data = DeviceData.from_structure(
+            device_tree.GetDeviceData(device_name)
+        )
+        optical_media.append(device_data.path)
+
+    # Tear down the storage module.
     storage_proxy = STORAGE.get_proxy()
 
     for task_path in storage_proxy.TeardownWithTasks():
         task_proxy = STORAGE.get_proxy(task_path)
         sync_run_task(task_proxy)
 
+    # Stop the DBus session.
+    anaconda.dbus_launcher.stop()
+
     # Clean up the PID file
     if pidfile:
         pidfile.close()
 
-    anaconda.dbus_launcher.stop()
-
+    # Reboot the system.
     if conf.system.can_reboot:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
         if flags.eject or rebootData.eject:
-            from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-            from pyanaconda.modules.common.structures.storage import DeviceData
-            device_tree_proxy = STORAGE.get_proxy(DEVICE_TREE)
-
-            for device_name in device_tree_proxy.FindOpticalMedia:
-                device_data = DeviceData.from_structure(
-                    device_tree_proxy.GetDeviceData(device_name)
-                )
-                if util.get_mount_paths(device_data.path):
-                    util.dracut_eject(device_data.path)
+            for device_path in optical_media:
+                if util.get_mount_paths(device_path):
+                    util.dracut_eject(device_path)
 
         if flags.kexec:
             util.execWithRedirect("systemctl", ["--no-wall", "kexec"])
