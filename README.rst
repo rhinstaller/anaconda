@@ -21,7 +21,11 @@ I want to contribute!
 
 Checkout out our easy guide at: https://anaconda-installer.readthedocs.io/en/latest/contributing.html
 
-Or help to translate: https://translate.fedoraproject.org/projects/anaconda/
+Or help to translate:
+
+.. image:: https://translate.fedoraproject.org/widgets/anaconda/-/master/287x66-grey.png
+    :alt: Translation status
+    :target: https://translate.fedoraproject.org/engage/anaconda/?utm_source=widget
 
 
 I want to do an automated installation!
