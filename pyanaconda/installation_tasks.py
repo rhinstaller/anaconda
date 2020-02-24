@@ -19,8 +19,10 @@
 #
 from threading import RLock
 
+from dasbus.error import DBusError
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import synchronized
+from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.task import sync_run_task
 import time
 
@@ -517,6 +519,10 @@ class DBusTask(Task):
 
             # Run the task.
             sync_run_task(self._task_proxy)
+        except DBusError as e:
+            # Handle a remote error.
+            if errorHandler.cb(e) == ERROR_RAISE:
+                raise
         finally:
             # Disconnect from the signal.
             self._task_proxy.ProgressChanged.disconnect()
