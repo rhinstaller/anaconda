@@ -744,6 +744,38 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(obj.implementation._devicetree, self.module.storage.devicetree)
 
+    def get_device_mount_options_test(self):
+        """Test GetDeviceMountOptions."""
+        dev1 = StorageDevice(
+            "dev1",
+            size=Size("10 GiB")
+        )
+        self._add_device(dev1)
+        self.assertEqual(self.interface.GetDeviceMountOptions("dev1"), "")
+
+        dev1.format = get_format("ext4")
+        dev1.format.options = "defaults,ro"
+        self.assertEqual(self.interface.GetDeviceMountOptions("dev1"), "defaults,ro")
+
+    def set_device_mount_options_test(self):
+        """Test SetDeviceMountOptions."""
+        dev1 = StorageDevice(
+            "dev1",
+            size=Size("10 GiB")
+        )
+        self._add_device(dev1)
+
+        self.interface.SetDeviceMountOptions("dev1", "auto")
+        self.assertEqual(dev1.format.options, "auto")
+
+        self.interface.SetDeviceMountOptions("dev1", "")
+        self.assertEqual(dev1.format.options, None)
+
+        dev1.format = get_format("ext4")
+        dev1.format.options = "defaults,ro"
+        self.interface.SetDeviceMountOptions("dev1", "")
+        self.assertEqual(dev1.format.options, "defaults")
+
 
 class DeviceTreeTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""

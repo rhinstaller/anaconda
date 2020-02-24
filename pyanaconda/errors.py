@@ -18,6 +18,7 @@
 
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY", "errorHandler", "InvalidImageSizeError",
            "MissingImageError", "ScriptError", "NonInteractiveError", "CmdlineError", "ExitError"]
@@ -324,7 +325,7 @@ class ErrorHandler(object):
                 "ScriptError": self._scriptErrorHandler,
                 "PayloadInstallError": self._payloadInstallHandler,
                 "DependencyError": self._dependencyErrorHandler,
-                "BootLoaderError": self._bootLoaderErrorHandler,
+                BootloaderInstallationError.__name__: self._bootLoaderErrorHandler,
                 "PasswordCryptError": self._passwordCryptErrorHandler,
                 "ZIPLError": self._ziplErrorHandler}
 

@@ -29,7 +29,7 @@ from pyanaconda.modules.common.structures.storage import DeviceFormatData, Devic
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, \
-    select_all_disks_by_default, apply_disk_selection, get_disks_summary, apply_partitioning, \
+    select_default_disks, apply_disk_selection, get_disks_summary, apply_partitioning, \
     create_partitioning
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
@@ -394,8 +394,7 @@ class StorageSpoke(NormalTUISpoke):
         DasdFormatting.run_automatically(disks)
 
         # Update the selected disks.
-        if flags.automatedInstall:
-            select_all_disks_by_default()
+        select_default_disks()
 
         # Storage is ready.
         self._ready = True

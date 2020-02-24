@@ -18,11 +18,9 @@
 import os
 from glob import glob
 
-from pyanaconda.bootloader.base import BootLoaderError
 from pyanaconda.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import decode_bytes
-from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.product import productName
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -150,6 +148,7 @@ def install_boot_loader(storage):
     """Do the final write of the boot loader.
 
     :param storage: an instance of the storage
+    :raise: BootLoaderError if the installation fails
     """
     log.debug("Installing the boot loader.")
 
@@ -159,12 +158,9 @@ def install_boot_loader(storage):
     stage2_device = storage.bootloader.stage2_device
     log.info("boot loader stage2 target device is %s", stage2_device.name)
 
+    # Set up the arguments.
     # FIXME: do this from elsewhere?
     storage.bootloader.set_boot_args(storage)
 
-    try:
-        storage.bootloader.write()
-    except BootLoaderError as e:
-        log.error("bootloader.write failed: %s", e)
-        if errorHandler.cb(e) == ERROR_RAISE:
-            raise
+    # Install the bootloader.
+    storage.bootloader.write()
