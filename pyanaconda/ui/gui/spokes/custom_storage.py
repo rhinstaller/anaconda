@@ -1112,7 +1112,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                     # we only want to delete boot partitions if they're not
                     # shared *and* we have no unknown partitions
                     other_format = DeviceFormatData.from_structure(
-                        self._device_tree.GetFormatTypeData(other_name)
+                        self._device_tree.GetFormatData(other_name)
                     )
 
                     can_destroy = not self._get_unused_devices() \
