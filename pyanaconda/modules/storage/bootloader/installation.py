@@ -19,8 +19,10 @@
 #
 from blivet import arch
 from blivet.devices import BTRFSDevice
+from pyanaconda.bootloader import BootLoaderError
 
 from pyanaconda.core.util import execInSysroot
+from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -81,7 +83,10 @@ class InstallBootloaderTask(Task):
         return "Install the bootloader"
 
     def run(self):
-        """Run the task."""
+        """Run the task.
+
+        :raise: BootloaderInstallationError if the installation fails
+        """
         if conf.target.is_directory:
             log.debug("The bootloader installation is disabled for dir installations.")
             return
@@ -94,7 +99,11 @@ class InstallBootloaderTask(Task):
             log.debug("The bootloader installation is skipped.")
             return
 
-        install_boot_loader(storage=self._storage)
+        try:
+            install_boot_loader(storage=self._storage)
+        except BootLoaderError as e:
+            log.error("Bootloader installation has failed: %s", e)
+            raise BootloaderInstallationError(str(e)) from None
 
 
 class FixBTRFSBootloaderTask(Task):

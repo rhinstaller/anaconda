@@ -67,3 +67,9 @@ class TimezoneConfigurationError(InstallationError):
 class SecurityInstallationError(InstallationError):
     """Exception for the security installation errors."""
     pass
+
+
+@dbus_error("BootloaderInstallationError", namespace=ANACONDA_NAMESPACE)
+class BootloaderInstallationError(InstallationError):
+    """Exception for the bootloader installation errors."""
+    pass
