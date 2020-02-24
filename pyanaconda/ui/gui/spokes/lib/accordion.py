@@ -190,7 +190,7 @@ class Accordion(Gtk.Box):
                 self._activate_selector(s, activate=True, show_arrow=False)
             else:
                 self._activate_selector(s, activate=True, show_arrow=True)
-            log.debug("Append device %s to the selection.", s.device.name)
+            log.debug("Append device %s to the selection.", s.device_name)
 
         if len(selectors) == 1:
             self._last_selected = selectors[-1]

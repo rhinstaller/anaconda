@@ -18,12 +18,17 @@
 # Red Hat, Inc.
 #
 from threading import RLock
+
+from dasbus.error import DBusError
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import synchronized
+from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.task import sync_run_task
 import time
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.progress import progress_message
+
 log = get_module_logger(__name__)
 
 
@@ -332,7 +337,7 @@ class TaskQueue(BaseTask):
         """
         for dbus_task_path in dbus_tasks:
             task_proxy = service_id.get_proxy(dbus_task_path)
-            self.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
+            self.append(DBusTask(task_proxy))
 
     @synchronized
     def insert(self, index, item):
@@ -490,3 +495,48 @@ class Task(BaseTask):
                 self._running = False
                 self._done = True
                 self._done_timestamp = time.time()
+
+
+class DBusTask(Task):
+    """Wrapper for a DBus installation task."""
+
+    def __init__(self, task_proxy):
+        """Create a new task.
+
+        :param task_proxy: a DBus proxy of the task
+        """
+        super().__init__(task_proxy.Name)
+        self._task_proxy = task_proxy
+        self._msg_counter = 0
+
+    def run_task(self):
+        """Run the DBus task."""
+        try:
+            # Report the progress messages.
+            self._task_proxy.ProgressChanged.connect(
+                self._show_message
+            )
+
+            # Run the task.
+            sync_run_task(self._task_proxy)
+        except DBusError as e:
+            # Handle a remote error.
+            if errorHandler.cb(e) == ERROR_RAISE:
+                raise
+        finally:
+            # Disconnect from the signal.
+            self._task_proxy.ProgressChanged.disconnect()
+
+    def _show_message(self, step, msg):
+        """Show a progress message.
+
+        Always drop the first message, because it is the same
+        as the name of the DBus task, so it was probably already
+        reported.
+
+        FIXME: Drop the ugly workaround for the first message.
+        """
+        self._msg_counter += 1
+
+        if self._msg_counter > 1:
+            progress_message(msg)

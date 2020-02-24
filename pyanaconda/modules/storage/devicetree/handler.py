@@ -149,6 +149,29 @@ class DeviceTreeHandler(ABC):
         device.format.passphrase = passphrase
         self.storage.save_passphrase(device)
 
+    def get_device_mount_options(self, device_name):
+        """Get mount options of the specified device.
+
+        :param device_name: a name of the device
+        :return: a string with options
+        """
+        device = self._get_device(device_name)
+        return device.format.options or ""
+
+    def set_device_mount_options(self, device_name, mount_options):
+        """Set mount options of the specified device.
+
+        Specifies a free form string of options to be used when
+        mounting the filesystem. This string will be copied into
+        the /etc/fstab file of the installed system.
+
+        :param device_name: a name of the device
+        :param mount_options: a string with options
+        """
+        device = self._get_device(device_name)
+        device.format.options = mount_options or None
+        log.debug("Mount options of %s are set to '%s'.", device_name, mount_options)
+
     def find_devices_with_task(self):
         """Find new devices.
 

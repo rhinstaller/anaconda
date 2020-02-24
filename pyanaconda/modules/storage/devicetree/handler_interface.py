@@ -91,6 +91,26 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         """
         self.implementation.set_device_passphrase(device_name, passphrase)
 
+    def GetDeviceMountOptions(self, device_name: Str) -> Str:
+        """Get mount options of the specified device.
+
+        :param device_name: a name of the device
+        :return: a string with options
+        """
+        return self.implementation.get_device_mount_options(device_name)
+
+    def SetDeviceMountOptions(self, device_name: Str, mount_options: Str):
+        """Set mount options of the specified device.
+
+        Specifies a free form string of options to be used when
+        mounting the filesystem. This string will be copied into
+        the /etc/fstab file of the installed system.
+
+        :param device_name: a name of the device
+        :param mount_options: a string with options
+        """
+        self.implementation.set_device_mount_options(device_name, mount_options)
+
     def FindDevicesWithTask(self) -> ObjPath:
         """Find new devices.
 

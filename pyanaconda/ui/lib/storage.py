@@ -25,6 +25,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, BOOTLOADER_DRIVE_UNSET
 from pyanaconda.core.i18n import P_, _
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
+from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, BOOTLOADER, DEVICE_TREE, \
     DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -113,11 +114,13 @@ def reset_bootloader():
     bootloader_proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
 
 
-def select_all_disks_by_default():
-    """Select all disks for the partitioning by default.
+def select_default_disks():
+    """Select default disks for the partitioning.
 
-    It will select all disks for the partitioning if there are
-    no disks selected. Kickstart uses all the disks by default.
+    If there are some disks already selected, do nothing.
+    In the automatic installation, select all disks. In
+    the interactive installation, select a disk if there
+    is only one available.
 
     :return: a list of selected disks
     """
@@ -125,7 +128,10 @@ def select_all_disks_by_default():
     selected_disks = disk_select_proxy.SelectedDisks
     ignored_disks = disk_select_proxy.IgnoredDisks
 
-    if not selected_disks:
+    if selected_disks:
+        # Do nothing if there are some disks selected.
+        pass
+    elif flags.automatedInstall:
         # Get all disks.
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
         all_disks = device_tree.GetDisks()
@@ -134,6 +140,17 @@ def select_all_disks_by_default():
         selected_disks = [d for d in all_disks if d not in ignored_disks]
         disk_select_proxy.SetSelectedDisks(selected_disks)
         log.debug("Selecting all disks by default: %s", ",".join(selected_disks))
+    else:
+        # Get usable disks.
+        usable_disks = disk_select_proxy.GetUsableDisks()
+        available_disks = [d for d in usable_disks if d not in ignored_disks]
+
+        # Select a usable disk if there is only one available.
+        if len(available_disks) == 1:
+            selected_disks = available_disks
+            apply_disk_selection(selected_disks)
+
+        log.debug("Selecting one or less disks by default: %s", ",".join(selected_disks))
 
     return selected_disks
 
