@@ -353,6 +353,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 24 2020 Martin Kolman <mkolman@redhat.com> - 32.24.2-1
+- Fix the multiselection in the custom spoke (vponcova)
+- Handle installation errors from DBus tasks (vponcova)
+- Wait for entropy in the DBus Storage module (vponcova)
+- Don't remove unknown devices (#1806233) (vponcova)
+- Call GetFormatData instead of GetFormatTypeData (vponcova)
+- Show progress messages from DBus tasks (vponcova)
+- Report Blivet's messages during the storage installation (vponcova)
+- Handle a failed bootloader installation (#1806103) (vponcova)
+- Fix the exit handler (#1805916) (vponcova)
+- Add DBus methods GetDeviceMountOptions and SetDeviceMountOptions (vponcova)
+- Don't show the disk free space in bytes (vponcova)
+- Fix the default disk selection (#1805553) (vponcova)
+
 * Thu Feb 20 2020 Martin Kolman <mkolman@redhat.com> - 32.24.1-1
 - Set correct Pykickstart version for F32 (mkolman)
 
