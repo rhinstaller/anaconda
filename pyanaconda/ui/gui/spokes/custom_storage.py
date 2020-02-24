@@ -1077,6 +1077,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             root_name = selector.root_name or page.page_title
             log.debug("Removing device %s from page %s.", device_name, root_name)
 
+            # Skip if the device isn't in the device tree.
+            if device_name not in self._device_tree.GetDevices():
+                log.debug("Device %s isn't in the device tree.", device_name)
+                continue
+
             if root_name == self._os_name:
                 if is_multiselection and not option_checked:
                     (rc, option_checked) = self._show_confirmation_dialog(root_name, device_name)
@@ -1109,6 +1114,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 # The same rule applies for selected device. If it's shared do not
                 # remove it in other pages when Delete all option is checked.
                 for other_name in self._find_unshared_devices(page):
+                    # Skip if the device isn't in the device tree.
+                    if other_name not in self._device_tree.GetDevices():
+                        log.debug("Device %s isn't in the device tree.", other_name)
+                        continue
+
                     # we only want to delete boot partitions if they're not
                     # shared *and* we have no unknown partitions
                     other_format = DeviceFormatData.from_structure(
