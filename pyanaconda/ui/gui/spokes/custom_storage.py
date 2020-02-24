@@ -1077,6 +1077,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             root_name = selector.root_name or page.page_title
             log.debug("Removing device %s from page %s.", device_name, root_name)
 
+            # Skip if the device isn't in the device tree.
+            if device_name not in self._device_tree.GetDevices():
+                log.debug("Device %s isn't in the device tree.", device_name)
+                continue
+
             if root_name == self._os_name:
                 if is_multiselection and not option_checked:
                     (rc, option_checked) = self._show_confirmation_dialog(root_name, device_name)
@@ -1109,10 +1114,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 # The same rule applies for selected device. If it's shared do not
                 # remove it in other pages when Delete all option is checked.
                 for other_name in self._find_unshared_devices(page):
+                    # Skip if the device isn't in the device tree.
+                    if other_name not in self._device_tree.GetDevices():
+                        log.debug("Device %s isn't in the device tree.", other_name)
+                        continue
+
                     # we only want to delete boot partitions if they're not
                     # shared *and* we have no unknown partitions
                     other_format = DeviceFormatData.from_structure(
-                        self._device_tree.GetFormatTypeData(other_name)
+                        self._device_tree.GetFormatData(other_name)
                     )
 
                     can_destroy = not self._get_unused_devices() \
@@ -1363,6 +1373,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if old_selector:
             self._save_current_page(old_selector)
 
+        # There is no device to show.
+        if self._accordion.is_multiselection or not self._accordion.current_selector:
+            self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
+            self._set_page_label_text()
+            return
+
         device_name = self._accordion.current_selector.device_name
         device_data = DeviceData.from_structure(
             self._device_tree.GetDeviceData(device_name)
@@ -1372,10 +1388,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         )
         description = _(MOUNTPOINT_DESCRIPTIONS.get(device_data.type, ""))
 
-        if self._accordion.is_multiselection or not self._accordion.current_selector:
-            self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
-            self._set_page_label_text()
-        elif self._device_tree.IsDeviceLocked(device_name):
+        if self._device_tree.IsDeviceLocked(device_name):
             self._partitionsNotebook.set_current_page(NOTEBOOK_LUKS_PAGE)
             self._encryptedDeviceLabel.set_text(device_name)
             self._encryptedDeviceDescLabel.set_text(description)
