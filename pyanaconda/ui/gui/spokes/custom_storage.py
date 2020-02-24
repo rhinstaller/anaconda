@@ -1373,6 +1373,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if old_selector:
             self._save_current_page(old_selector)
 
+        # There is no device to show.
+        if self._accordion.is_multiselection or not self._accordion.current_selector:
+            self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
+            self._set_page_label_text()
+            return
+
         device_name = self._accordion.current_selector.device_name
         device_data = DeviceData.from_structure(
             self._device_tree.GetDeviceData(device_name)
@@ -1382,10 +1388,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         )
         description = _(MOUNTPOINT_DESCRIPTIONS.get(device_data.type, ""))
 
-        if self._accordion.is_multiselection or not self._accordion.current_selector:
-            self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
-            self._set_page_label_text()
-        elif self._device_tree.IsDeviceLocked(device_name):
+        if self._device_tree.IsDeviceLocked(device_name):
             self._partitionsNotebook.set_current_page(NOTEBOOK_LUKS_PAGE)
             self._encryptedDeviceLabel.set_text(device_name)
             self._encryptedDeviceDescLabel.set_text(description)
