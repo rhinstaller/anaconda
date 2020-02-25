@@ -810,6 +810,8 @@ class NetworkControlBox(GObject.GObject):
             dt = "wired"
         elif dev_cfg.device_type  == NM.DeviceType.WIFI:
             dt = "wireless"
+        else:
+            return
 
         device = self.client.get_device_by_iface(dev_cfg.device_name)
         if device:
@@ -920,6 +922,8 @@ class NetworkControlBox(GObject.GObject):
             dt = "wired"
         elif dev_type == NM.DeviceType.WIFI:
             dt = "wireless"
+        else:
+            return
 
         device = self.client.get_device_by_iface(dev_cfg.device_name)
 
@@ -990,6 +994,8 @@ class NetworkControlBox(GObject.GObject):
             dev_type_str = "wired"
         elif dev_cfg.device_type == NM.DeviceType.WIFI:
             dev_type_str = "wireless"
+        else:
+            return
 
         if dev_type_str == "wired":
             # update icon according to device status
