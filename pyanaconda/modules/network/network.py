@@ -295,6 +295,12 @@ class NetworkService(KickstartService):
                 "teamd",
                 reason="Necessary for network team device configuration."
             ))
+        # prefixdevname
+        if self._is_using_persistent_device_names(kernel_arguments):
+            requirements.append(Requirement.for_package(
+                "prefixdevname",
+                reason="Necessary for persistent network device naming feature."
+            ))
 
         return requirements
 
@@ -705,3 +711,6 @@ class NetworkService(KickstartService):
         if self.nm_available:
             for line in get_connections_dump(self.nm_client).splitlines():
                 log.debug(line)
+
+    def _is_using_persistent_device_names(self, kernel_args):
+        return 'net.ifnames.prefix' in kernel_args
