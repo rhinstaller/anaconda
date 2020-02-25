@@ -346,7 +346,8 @@ class NetworkService(KickstartService):
             disable_ipv6,
             overwrite,
             network_ifaces,
-            self.ifname_option_values
+            self.ifname_option_values,
+            self._is_using_persistent_device_names(kernel_arguments)
         )
 
         task.succeeded_signal.connect(
