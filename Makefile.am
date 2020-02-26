@@ -48,6 +48,8 @@ ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
 L10N_REPOSITORY_RW ?= git@github.com:rhinstaller/anaconda-l10n.git
 
+GIT_BRANCH ?= master
+
 DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
 				-e 's/^f//' \
 				-e 's/master/rawhide/')
