@@ -90,7 +90,7 @@ po-pull:
 	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
 	GIT_L10N_BRANCH=$$(echo $(GIT_BRANCH) | sed -e 's/^\(f[[:digit:]]\+\)-\(devel\|release\)$$/\1/') && \
 	git clone --depth 1 -b $$GIT_L10N_BRANCH -- $(L10N_REPOSITORY) $$TEMP_DIR && \
-	cp $$TEMP_DIR/*.po $(srcdir)/po/ && \
+	cp $$TEMP_DIR/$(GIT_BRANCH)/*.po $(srcdir)/po/ && \
 	rm -rf $$TEMP_DIR
 
 po-push:
@@ -109,8 +109,8 @@ po-push:
 	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) || exit 1 ; \
 	GIT_L10N_BRANCH=$$(echo $(GIT_BRANCH) | sed -e 's/^\(f[[:digit:]]\+\)-\(devel\|release\)$$/\1/'); \
 	git clone --depth 1 -b $$GIT_L10N_BRANCH -- $(L10N_REPOSITORY_RW) $$TEMP_DIR || exit 2 ; \
-	cp $(srcdir)/po/anaconda.pot $$TEMP_DIR/ || exit 3 ; \
-	pushd $$TEMP_DIR ; \
+	cp $(srcdir)/po/anaconda.pot $$TEMP_DIR/$(GIT_BRANCH)/ || exit 3 ; \
+	pushd $$TEMP_DIR/$(GIT_BRANCH) ; \
 	git difftool --trust-exit-code -y -x "diff -u -I '^\"POT-Creation-Date: .*$$'" HEAD ./anaconda.pot &>/dev/null ; \
 	if [ $$? -eq 0  ] ; then \
 		popd ; \
@@ -121,7 +121,7 @@ po-push:
 		git commit -m "Update anaconda.pot" && \
 		popd && \
 		echo "Pot file updated for the localization repository $(L10N_REPOSITORY)" && \
-		echo "Please confirm and push:" && \
+		echo "Please confirm changes and push:" && \
 		echo "$$TEMP_DIR" ; \
 	fi ;
 
