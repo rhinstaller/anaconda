@@ -68,7 +68,7 @@ class AutoPart(COMMANDS.AutoPart):
 
 
 class ClearPart(COMMANDS.ClearPart):
-    """The ignoredisk kickstart command."""
+    """The clearpart kickstart command."""
 
     def parse(self, args):
         """Parse the command.
