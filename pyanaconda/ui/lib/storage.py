@@ -15,8 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.errors import StorageError
 from blivet.size import Size
+from dasbus.error import DBusError
 
 from dasbus.typing import unwrap_variant
 from dasbus.client.proxy import get_object_path
@@ -90,7 +90,7 @@ def reset_storage(scan_all=False, retry=True):
             task_path = storage_proxy.ScanDevicesWithTask()
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
-        except StorageError as e:
+        except DBusError as e:
             # Is the retry allowed?
             if not retry:
                 raise
@@ -249,7 +249,7 @@ def try_populate_devicetree():
             task_path = device_tree.FindDevicesWithTask()
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
-        except StorageError as e:
+        except DBusError as e:
             if error_handler.cb(e) == ERROR_RAISE:
                 raise
             else:
