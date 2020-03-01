@@ -18,7 +18,8 @@
 
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
+from pyanaconda.modules.common.errors.installation import BootloaderInstallationError, \
+    StorageInstallationError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY", "errorHandler", "InvalidImageSizeError",
@@ -107,13 +108,11 @@ class ErrorHandler(object):
     def __init__(self, ui=None):
         self.ui = ui
 
-    def _fsResizeHandler(self, exn):
-        message = _("An error occurred while resizing the device %s.") % exn
+    def _storage_install_handler(self, exn):
+        message = _("An error occurred while activating your storage configuration.")
+        details = str(exn)
 
-        if exn.details:
-            message += "\n\n%s" % exn.details
-
-        self.ui.showError(message)
+        self.ui.showDetailedError(message, details)
         return ERROR_RAISE
 
     def _storage_reset_handler(self, exn):
@@ -280,7 +279,7 @@ class ErrorHandler(object):
             raise NonInteractiveError("Non interactive installation failed: %s" % exn)
 
         _map = {
-            "FSResizeError": self._fsResizeHandler,
+            StorageInstallationError.__name__: self._storage_install_handler,
             UnusableStorageError.__name__: self._storage_reset_handler,
             "InvalidImageSizeError": self._invalidImageSizeHandler,
             "MissingImageError": self._missingImageHandler,

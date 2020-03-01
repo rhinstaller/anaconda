@@ -23,10 +23,8 @@ gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
 from blivet import util as blivet_util, arch
-from blivet.errors import FSResizeError, FormatResizeError
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.objects import FCOE, ZFCP, ISCSI
 from pyanaconda.modules.common.constants.services import STORAGE
 
@@ -45,15 +43,9 @@ def turn_on_filesystems(storage, callbacks=None):
     :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_register`
     """
     storage.devicetree.teardown_all()
-
-    try:
-        storage.do_it(callbacks)
-        _setup_bootable_devices(storage)
-        storage.dump_state("final")
-    except (FSResizeError, FormatResizeError) as e:
-        if error_handler.cb(e) == ERROR_RAISE:
-            raise
-
+    storage.do_it(callbacks)
+    _setup_bootable_devices(storage)
+    storage.dump_state("final")
     storage.turn_on_swap()
 
 
