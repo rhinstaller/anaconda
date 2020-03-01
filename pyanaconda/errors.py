@@ -133,14 +133,6 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def _fstabTypeMismatchHandler(self, exn):
-        # FIXME: include the two types in the message instead of including
-        #        the raw exception text
-        message = _("There is an entry in your /etc/fstab file that contains "
-                    "an invalid or incorrect file system type:\n\n")
-        message += " " + str(exn)
-        self.ui.showError(message)
-
     def _invalidImageSizeHandler(self, exn):
         message = _("The ISO image %s has a size which is not "
                     "a multiple of 2048 bytes.  This may mean "
@@ -290,7 +282,6 @@ class ErrorHandler(object):
         _map = {
             "FSResizeError": self._fsResizeHandler,
             UnusableStorageError.__name__: self._storage_reset_handler,
-            "FSTabTypeMismatchError": self._fstabTypeMismatchHandler,
             "InvalidImageSizeError": self._invalidImageSizeHandler,
             "MissingImageError": self._missingImageHandler,
             "NoSuchGroup": self._noSuchGroupHandler,

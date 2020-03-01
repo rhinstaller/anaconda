@@ -31,6 +31,7 @@ from blivet.formats import get_format, get_device_format_class
 from blivet.storage_log import log_exception_info
 
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import _
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.platform import platform as _platform, EFI
 
@@ -386,8 +387,15 @@ class FSSet(object):
                 device.format = fmt
             else:
                 device.teardown()
-                raise FSTabTypeMismatchError("%s: detected as %s, fstab says %s"
-                                             % (mountpoint, dtype, ftype))
+                raise FSTabTypeMismatchError(_(
+                    "There is an entry in your /etc/fstab file that contains "
+                    "an invalid or incorrect file system type. The file says that "
+                    "{detected_type} at {mount_point} is {fstab_type}.").format(
+                    detected_type=dtype,
+                    mount_point=mountpoint,
+                    fstab_type=ftype
+                ))
+
         del ftype
         del dtype
 
