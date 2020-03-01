@@ -133,13 +133,6 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def _noDisksHandler(self, exn):
-        message = _("An error has occurred - no valid devices were found on "
-                    "which to create new file systems.  Please check your "
-                    "hardware for the cause of this problem.")
-        self.ui.showError(message)
-        return ERROR_RAISE
-
     def _fstabTypeMismatchHandler(self, exn):
         # FIXME: include the two types in the message instead of including
         #        the raw exception text
@@ -306,7 +299,6 @@ class ErrorHandler(object):
         _map = {
             "FSResizeError": self._fsResizeHandler,
             UnusableStorageError.__name__: self._storage_reset_handler,
-            "NoDisksError": self._noDisksHandler,
             "FSTabTypeMismatchError": self._fstabTypeMismatchHandler,
             "InvalidImageSizeError": self._invalidImageSizeHandler,
             "MissingImageError": self._missingImageHandler,
