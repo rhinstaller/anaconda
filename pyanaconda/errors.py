@@ -107,12 +107,6 @@ class ErrorHandler(object):
     def __init__(self, ui=None):
         self.ui = ui
 
-    def _partitionErrorHandler(self, exn):
-        message = _("The following errors occurred with your partitioning:\n\n%(errortxt)s\n\n"
-                    "The installation will now terminate.") % {"errortxt": exn}
-        self.ui.showError(message)
-        return ERROR_RAISE
-
     def _fsResizeHandler(self, exn):
         message = _("An error occurred while resizing the device %s.") % exn
 
@@ -310,7 +304,6 @@ class ErrorHandler(object):
             raise NonInteractiveError("Non interactive installation failed: %s" % exn)
 
         _map = {
-            "PartitioningError": self._partitionErrorHandler,
             "FSResizeError": self._fsResizeHandler,
             UnusableStorageError.__name__: self._storage_reset_handler,
             "NoDisksError": self._noDisksHandler,
