@@ -34,6 +34,12 @@ class UnavailableDataError(AnacondaError):
     pass
 
 
+@dbus_error("UnusableStorageError", namespace=STORAGE_NAMESPACE)
+class UnusableStorageError(AnacondaError):
+    """The storage model is not usable."""
+    pass
+
+
 @dbus_error("InvalidStorageError", namespace=STORAGE_NAMESPACE)
 class InvalidStorageError(AnacondaError):
     """The storage model is not valid."""
