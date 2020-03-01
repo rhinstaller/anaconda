@@ -269,15 +269,6 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _ziplErrorHandler(self, exn):
-        details = str(exn)
-        message = _("Installation was stopped due to an error installing the "
-                    "boot loader. The exact error message is:\n\n%s\n\n"
-                    "The installer will now terminate.") % details
-
-        self.ui.showError(message)
-        return ERROR_RAISE
-
     def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -311,7 +302,6 @@ class ErrorHandler(object):
             "DependencyError": self._dependencyErrorHandler,
             BootloaderInstallationError.__name__: self._bootLoaderErrorHandler,
             "PasswordCryptError": self._passwordCryptErrorHandler,
-            "ZIPLError": self._ziplErrorHandler
         }
 
         if exn.__class__.__name__ in _map:
