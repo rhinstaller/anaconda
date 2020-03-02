@@ -81,6 +81,11 @@ SERVICES_NAMESPACE = (
     "Services"
 )
 
+SUBSCRIPTION_NAMESPACE = (
+    *MODULES_NAMESPACE,
+    "Subscription"
+)
+
 PAYLOADS_NAMESPACE = (
     *MODULES_NAMESPACE,
     "Payloads"
