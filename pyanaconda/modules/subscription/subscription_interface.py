@@ -19,11 +19,63 @@
 #
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.modules.common.structures.subscription import SystemPurposeData
+from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 
 @dbus_interface(SUBSCRIPTION.interface_name)
 class SubscriptionInterface(KickstartModuleInterface):
     """DBus interface for the Subscription service."""
 
+    def connect_signals(self):
+        super().connect_signals()
+        self.watch_property("SystemPurposeData", self.implementation.system_purpose_data_changed)
 
+    def GetValidRoles(self) -> List[Str]:
+        """Return all valid system purpose roles.
+
+        These are OS release specific, but could look like this:
+
+        "Red Hat Enterprise Linux Server"
+        "Red Hat Enterprise Linux Workstation"
+        "Red Hat Enterprise Linux Compute Node"
+        """
+        return self.implementation.valid_roles
+
+    def GetValidSLAs(self) -> List[Str]:
+        """Return all valid system purpose SLAs.
+
+        These are OS release specific, but could look like this:
+
+        "Premium"
+        "Standard"
+        "Self-Support"
+        """
+        return self.implementation.valid_slas
+
+    def GetValidUsageTypes(self) -> List[Str]:
+        """List all valid system purpose usage types.
+
+        These are OS release specific, but could look like this:
+
+        "Production",
+        "Development/Test",
+        "Disaster Recovery"
+        """
+        return self.implementation.valid_usage_types
+
+    @property
+    def SystemPurposeData(self) -> Structure:
+        """Return DBus structure holding current system purpose data."""
+        return SystemPurposeData.to_structure(self.implementation.system_purpose_data)
+
+    @emits_properties_changed
+    def SetSystemPurposeData(self, system_purpose_data: Structure):
+        """Set a new DBus structure holding system purpose data.
+
+        :param system_purpose_data: DBus structure corresponding to SystemPurposeData
+        """
+        converted_data = SystemPurposeData.from_structure(system_purpose_data)
+        self.implementation.set_system_purpose_data(converted_data)
