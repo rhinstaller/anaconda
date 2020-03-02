@@ -190,6 +190,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test InstallNetworkWithTask."""
         self.network_module._disable_ipv6 = True
         self.network_module.nm_client = Mock()
+        self.network_module._is_using_persistent_device_names = Mock(return_value=True)
         self.__mock_nm_client_devices(
             [
                 ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET),
@@ -205,6 +206,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._disable_ipv6, True)
         self.assertEqual(obj.implementation._overwrite, False)
         self.assertEqual(obj.implementation._network_ifaces, ["ens3", "ens4", "ens5"])
+        self.assertEqual(obj.implementation._configure_persistent_device_names, True)
 
         self.network_module.log_task_result = Mock()
 

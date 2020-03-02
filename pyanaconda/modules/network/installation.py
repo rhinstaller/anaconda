@@ -99,6 +99,8 @@ class NetworkInstallationTask(Task):
     ANACONDA_SYSCTL_FILE_PATH = "/etc/sysctl.d/anaconda.conf"
     RESOLV_CONF_FILE_PATH = "/etc/resolv.conf"
     NETWORK_SCRIPTS_DIR_PATH = "/etc/sysconfig/network-scripts"
+    PREFIXDEVNAME_DIR_PATH = "/etc/systemd/network"
+    PREFIXDEVNAME_CONFIG_FILE_PREFIX = "71-net-ifnames-prefix-"
     DEVICE_CONFIG_FILE_PREFIXES = ("ifcfg-", "keys-", "route-")
     DHCLIENT_FILE_TEMPLATE = "/etc/dhcp/dhclient-{}.conf"
     INTERFACE_RENAME_FILE_TEMPLATE = "/etc/systemd/network/10-anaconda-ifname-{}.link"
@@ -112,7 +114,8 @@ Name={}
 """.strip()
 
     def __init__(self, sysroot, disable_ipv6, overwrite,
-                 network_ifaces, ifname_option_values):
+                 network_ifaces, ifname_option_values,
+                 configure_persistent_device_names):
         """Create a new task.
 
         :param sysroot: a path to the root of installed system
@@ -125,6 +128,9 @@ Name={}
         :type network_ifaces: list(str)
         :param ifname_option_values: list of ifname boot option values
         :type ifname_option_values: list(str)
+        :param configure_persistent_device_names: configure persistent network device
+                                                  names on target system
+        :type configure_persistent_device_names: bool
         """
         super().__init__()
         self._sysroot = sysroot
@@ -132,6 +138,7 @@ Name={}
         self._overwrite = overwrite
         self._network_ifaces = network_ifaces
         self._ifname_option_values = ifname_option_values
+        self._configure_persistent_device_names = configure_persistent_device_names
 
     @property
     def name(self):
@@ -146,6 +153,8 @@ Name={}
         self._copy_device_config_files(self._sysroot)
         self._copy_dhclient_config_files(self._sysroot, self._network_ifaces)
         self._copy_resolv_conf(self._sysroot, self._overwrite)
+        if self._configure_persistent_device_names:
+            self._copy_prefixdevname_files(self._sysroot)
 
     def _write_sysconfig_network(self, root, overwrite):
         """Write empty /etc/sysconfig/network target system configuration file.
@@ -253,6 +262,19 @@ Name={}
         for device_name in network_ifaces:
             dhclient_file = self.DHCLIENT_FILE_TEMPLATE.format(device_name)
             self._copy_file_to_root(root, dhclient_file)
+
+    def _copy_prefixdevname_files(self, root):
+        """Copy prefixdevname persistent configuration to target system.
+
+        :param root: path to the root of the target system
+        :type root: str
+        """
+        config_files = os.listdir(self.PREFIXDEVNAME_DIR_PATH)
+        for config_file in config_files:
+            if config_file.startswith(self.PREFIXDEVNAME_CONFIG_FILE_PREFIX):
+                config_file_path = os.path.join(self.PREFIXDEVNAME_DIR_PATH,
+                                                config_file)
+                self._copy_file_to_root(root, config_file_path)
 
 
 class ConfigureActivationOnBootTask(Task):
