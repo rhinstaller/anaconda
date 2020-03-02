@@ -26,12 +26,12 @@ import blivet.util
 import blivet.arch
 
 from blivet.size import Size
-from blivet.errors import FSError
 
 from pyanaconda import isys
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
@@ -209,7 +209,7 @@ def find_optical_install_media():
         try:
             try:
                 payload_utils.mount_device(dev, mountpoint)
-            except FSError:
+            except MountFilesystemError:
                 continue
             try:
                 if not verifyMedia(mountpoint):
