@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from blivet.errors import StorageError
 from dasbus.error import dbus_error
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE
 from pyanaconda.modules.common.errors import AnacondaError
@@ -80,8 +79,3 @@ class DeviceSetupError(AnacondaError):
 class MountFilesystemError(AnacondaError):
     """Failed to un/mount a filesystem."""
     pass
-
-
-# Define mapping for existing exceptions.
-# FIXME: This is a temporary solution for the interactive partitioning.
-dbus_error("StorageError", namespace=STORAGE_NAMESPACE)(StorageError)
