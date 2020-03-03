@@ -353,6 +353,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 03 2020 Martin Kolman <mkolman@redhat.com> - 33.2-1
+- prefixdevname: add to unit tests (rvykydal)
+- prefixdevname: pass persistent configuration to installed system (rvykydal)
+- Add L10N dir constant to makefile (jkonecny)
+- Remove auto-discover of git branch (jkonecny)
+- Adapt Makefile to new L10N repository structure (jkonecny)
+- prefixdevname: pass net.ifnames.prefix option to installed system (rvykydal)
+- prefixdevname: install package to target system if needed (rvykydal)
+- prefixdevname: import state from initramfs to stage 2 (rvykydal)
+- Handle invalid optical install media (#1806520) (vponcova)
+- Start live CD with explicit GUI (#1765650) (vslavik)
+- network: fix GUI crash on invalid devices in the list (rvykydal)
+- Add translation badge (vslavik)
+- Remove -devel and -release for L10N repository (jkonecny)
+- Use git url instead of http for pot files creation (jkonecny)
+- Fix documentation changes in release.rst (jkonecny)
+- Ignore the required package btrfs-progs in RHEL (vponcova)
+
 * Mon Feb 24 2020 Martin Kolman <mkolman@redhat.com> - 33.1-1
 - Fix the multiselection in the custom spoke (vponcova)
 - Handle installation errors from DBus tasks (vponcova)
