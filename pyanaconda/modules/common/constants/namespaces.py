@@ -81,11 +81,6 @@ SERVICES_NAMESPACE = (
     "Services"
 )
 
-BAZ_NAMESPACE = (
-    *ADDONS_NAMESPACE,
-    "Baz"
-)
-
 PAYLOADS_NAMESPACE = (
     *MODULES_NAMESPACE,
     "Payloads"

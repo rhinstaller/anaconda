@@ -69,7 +69,6 @@ class SimpleImportTestCase(unittest.TestCase):
             "pyanaconda.core",
             "pyanaconda.core.util",
             "pyanaconda.core.configuration.anaconda",
-            "pyanaconda.dbus_addons.baz.baz_interface",
             "pyanaconda.isys",
             "pyanaconda.modules.common.constants.interfaces",
             "pyanaconda.payload.source.factory",

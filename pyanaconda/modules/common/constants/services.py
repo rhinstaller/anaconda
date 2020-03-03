@@ -19,18 +19,13 @@
 from pyanaconda.core.dbus import SystemBus, DBus
 from dasbus.identifier import DBusServiceIdentifier
 from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, TIMEZONE_NAMESPACE, \
-    NETWORK_NAMESPACE, LOCALIZATION_NAMESPACE, SECURITY_NAMESPACE, USERS_NAMESPACE, BAZ_NAMESPACE, \
+    NETWORK_NAMESPACE, LOCALIZATION_NAMESPACE, SECURITY_NAMESPACE, USERS_NAMESPACE, \
     PAYLOADS_NAMESPACE, STORAGE_NAMESPACE, SERVICES_NAMESPACE
 
 # Anaconda services.
 
 BOSS = DBusServiceIdentifier(
     namespace=BOSS_NAMESPACE,
-    message_bus=DBus
-)
-
-BAZ = DBusServiceIdentifier(
-    namespace=BAZ_NAMESPACE,
     message_bus=DBus
 )
 
