@@ -368,20 +368,19 @@ class ResizeDialog(GUIObject):
 
     def _update_action_buttons(self, row):
         obj = PartStoreRow(*row)
-        device_name = obj.name
-        device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
-        )
 
-        # Disks themselves may be editable in certain ways, but they are never
-        # shrinkable.
         self._preserve_button.set_sensitive(obj.editable)
-        self._shrink_button.set_sensitive(obj.editable and not device_data.is_disk)
+        self._shrink_button.set_sensitive(obj.editable)
         self._delete_button.set_sensitive(obj.editable)
         self._resize_slider.set_visible(False)
 
         if not obj.editable:
             return
+
+        device_name = obj.name
+        device_data = DeviceData.from_structure(
+            self._device_tree.GetDeviceData(device_name)
+        )
 
         # If the selected filesystem does not support shrinking, make that
         # button insensitive.
