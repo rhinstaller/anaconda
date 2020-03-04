@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+include ./branch-config.mk
+
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
@@ -45,14 +47,11 @@ uninstall-hook:
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
-GIT_BRANCH ?= master
-
+# LOCALIZATION SETTINGS
 L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
 L10N_REPOSITORY_RW ?= git@github.com:rhinstaller/anaconda-l10n.git
 # Branch used in anaconda-l10n repository. This should be master all the time.
 GIT_L10N_BRANCH ?= master
-# Directory for this anaconda branch in anaconda-l10n repository. This could be master, fXX, rhel-8 etc.
-L10N_DIR ?= master
 
 DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
 				-e 's/^f//' \
