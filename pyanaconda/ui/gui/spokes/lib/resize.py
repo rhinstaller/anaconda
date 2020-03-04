@@ -366,7 +366,14 @@ class ResizeDialog(GUIObject):
         self._resize_slider.add_mark(min_size, Gtk.PositionType.BOTTOM, str(Size(min_size)))
         self._resize_slider.add_mark(max_size, Gtk.PositionType.BOTTOM, str(Size(max_size)))
 
-    def _update_action_buttons(self, row):
+    def _update_action_buttons(self):
+        # Update buttons for the selected row.
+        itr = self._selection.get_selected()[1]
+
+        if not itr:
+            return
+
+        row = self._disk_store[itr]
         obj = PartStoreRow(*row)
 
         self._preserve_button.set_sensitive(obj.editable)
@@ -512,7 +519,7 @@ class ResizeDialog(GUIObject):
         self._disk_store.foreach(self._sum_reclaimable_space, None)
         self._update_labels(selected_reclaimable=self._selected_reclaimable_space)
         self._update_reclaim_button(self._selected_reclaimable_space)
-        self._update_action_buttons(selected_row)
+        self._update_action_buttons()
 
     def _schedule_actions(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
@@ -574,12 +581,7 @@ class ResizeDialog(GUIObject):
         # selection.  Thus, clicking on a disk header to collapse it and then
         # immediately clicking on it again to expand it would not work when
         # dealt with here.
-        itr = selection.get_selected()[1]
-
-        if not itr:
-            return
-
-        self._update_action_buttons(self._disk_store[itr])
+        self._update_action_buttons()
 
     @timed_action(delay=200, threshold=500, busy_cursor=False)
     def on_resize_value_changed(self, rng):
