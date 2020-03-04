@@ -233,6 +233,20 @@ check-branching:
 		 echo "directory:  $(L10N_DIR)"; \
 		 exit 2)
 
+	@echo "===================================="
+	@echo "Testing pykickstart configuration"
+	@echo "===================================="
+	@substituted_branch=$$(echo "$(GIT_BRANCH)" | sed 's/^master$$/DEVEL/'); \
+	for i in $$(git grep 'from pykickstart.version import DEVEL as VERSION' -- pyanaconda/ dracut/ | awk -F "[: ]" '{print $$1 ";" $$5}'); do \
+		i=$${i^^}; \
+		if [ "$${i#*;}" != "$$substituted_branch" ]; then \
+			echo "$${i%;*} is not substituted properly!"; \
+			exit 3;\
+		fi; \
+	done
+
+	@echo "SUCCESS"
+
 grab-logs:
 # can't be used after tests automatically because make will end when tests fails
 # clean result dir
