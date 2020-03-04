@@ -203,6 +203,18 @@ ci:
 		exit $$status; \
 	fi
 
+check-branching:
+# checking if branching can be finished and all the pieces are in place
+	@echo "===================================="
+	@echo "Testing localization for $(L10N_DIR)"
+	@echo "===================================="
+	@curl --fail --silent --show-error -L https://raw.githubusercontent.com/rhinstaller/anaconda-l10n/$(GIT_L10N_BRANCH)/$(L10N_DIR)/anaconda.pot >/dev/null ||  \
+		(echo "*** Can't download translations from a localization repository"; \
+		 echo "repository: $(L10N_REPOSITORY)"; \
+		 echo "branch:     $(GIT_L10N_BRANCH)"; \
+		 echo "directory:  $(L10N_DIR)"; \
+		 exit 2)
+
 grab-logs:
 # can't be used after tests automatically because make will end when tests fails
 # clean result dir
