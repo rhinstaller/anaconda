@@ -206,6 +206,18 @@ ci:
 check-branching:
 # checking if branching can be finished and all the pieces are in place
 	@echo "===================================="
+	@echo "Testing branch configuration"
+	@echo "===================================="
+	@CURRENT_BRANCH=$$(git rev-parse --abbrev-ref HEAD); \
+	if [ "$$CURRENT_BRANCH" != "$(GIT_BRANCH)" ]; then \
+		echo "*** Configuration is not adjusted for current branch!"; \
+		echo "This check will work only on main development branch fXX-release, rhel-X ..."; \
+		echo "current branch:  $$CURRENT_BRANCH"; \
+		echo "expected branch: $(GIT_BRANCH)"; \
+		exit 1; \
+	fi
+
+	@echo "===================================="
 	@echo "Testing localization for $(L10N_DIR)"
 	@echo "===================================="
 	@curl --fail --silent --show-error -L https://raw.githubusercontent.com/rhinstaller/anaconda-l10n/$(GIT_L10N_BRANCH)/$(L10N_DIR)/anaconda.pot >/dev/null ||  \
