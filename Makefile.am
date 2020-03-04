@@ -75,6 +75,8 @@ SRPM_BUILD_DIR = $(BUILD_RESULT_DIR)/00-srpm-build
 RPM_BUILD_DIR = $(BUILD_RESULT_DIR)/01-rpm-build
 TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
+SKIP_BRANCHING_CHECK ?= "false"
+
 # If translations are present, run tests on the .po files before tarring them
 # up. Use a weird looking loop because shell doesn't have a good way to test
 # for a wildcard
@@ -208,13 +210,17 @@ check-branching:
 	@echo "===================================="
 	@echo "Testing branch configuration"
 	@echo "===================================="
-	@CURRENT_BRANCH=$$(git rev-parse --abbrev-ref HEAD); \
-	if [ "$$CURRENT_BRANCH" != "$(GIT_BRANCH)" ]; then \
-		echo "*** Configuration is not adjusted for current branch!"; \
-		echo "This check will work only on main development branch fXX-release, rhel-X ..."; \
-		echo "current branch:  $$CURRENT_BRANCH"; \
-		echo "expected branch: $(GIT_BRANCH)"; \
-		exit 1; \
+	@if [ "$(SKIP_BRANCHING_CHECK)" != "false" ]; then \
+		echo "skipping..."; \
+	else \
+		CURRENT_BRANCH=$$(git rev-parse --abbrev-ref HEAD); \
+		if [ "$$CURRENT_BRANCH" != "$(GIT_BRANCH)" ]; then \
+			echo "*** Configuration is not adjusted for current branch!"; \
+			echo "This check will work only on main development branch fXX-release, rhel-X ..."; \
+			echo "current branch:  $$CURRENT_BRANCH"; \
+			echo "expected branch: $(GIT_BRANCH)"; \
+			exit 1; \
+		fi; \
 	fi
 
 	@echo "===================================="
