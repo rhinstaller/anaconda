@@ -24,7 +24,7 @@ from pykickstart.constants import KS_BROKEN_IGNORE
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
-from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
+from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
 
 
 class AnacondaPackageSection(PackageSection):
@@ -45,8 +45,6 @@ class AnacondaPackageSection(PackageSection):
 
 
 class PayloadKickstartSpecification(KickstartSpecification):
-
-    version = VERSION
 
     commands = {
         "liveimg": COMMANDS.Liveimg
