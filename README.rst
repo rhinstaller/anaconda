@@ -3,6 +3,14 @@ Anaconda
 
 Anaconda is the OS installer used by Fedora, RHEL, CentOS and other Linux distributions.
 
+.. image:: https://readthedocs.org/projects/anaconda-installer/badge/?version=latest
+    :alt: Documentation Status
+    :target: https://anaconda-installer.readthedocs.io/en/latest/?badge=latest
+
+.. image:: https://translate.fedoraproject.org/widgets/anaconda/-/master/svg-badge.svg
+    :alt: Translation status
+    :target: https://translate.fedoraproject.org/engage/anaconda/?utm_source=widget
+
 
 Documentation
 -------------
@@ -21,11 +29,7 @@ I want to contribute!
 
 Checkout out our easy guide at: https://anaconda-installer.readthedocs.io/en/latest/contributing.html
 
-Or help to translate:
-
-.. image:: https://translate.fedoraproject.org/widgets/anaconda/-/master/287x66-grey.png
-    :alt: Translation status
-    :target: https://translate.fedoraproject.org/engage/anaconda/?utm_source=widget
+Or help to translate: https://translate.fedoraproject.org/engage/anaconda/
 
 
 I want to do an automated installation!
