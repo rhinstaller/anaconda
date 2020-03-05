@@ -17,12 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
+from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
 
 
 class SecurityKickstartSpecification(KickstartSpecification):
-
-    version = VERSION
 
     commands = {
         "auth": COMMANDS.Authconfig,
