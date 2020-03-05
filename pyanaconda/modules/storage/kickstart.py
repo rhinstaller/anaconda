@@ -30,7 +30,7 @@ from pyanaconda.network import get_supported_devices, wait_for_network_devices
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
-from pyanaconda.storage.utils import device_matches
+from pyanaconda.core.storage import device_matches
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

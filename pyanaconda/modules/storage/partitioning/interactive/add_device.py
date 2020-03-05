@@ -25,7 +25,7 @@ from pyanaconda.modules.common.structures.device_factory import DeviceFactoryReq
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.storage.partitioning.interactive.utils import \
     get_device_raid_level_name, get_container_size_policy, get_device_factory_arguments
-from pyanaconda.storage.utils import PARTITION_ONLY_FORMAT_TYPES
+from pyanaconda.core.storage import PARTITION_ONLY_FORMAT_TYPES
 
 log = get_module_logger(__name__)
 

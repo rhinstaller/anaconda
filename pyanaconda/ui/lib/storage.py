@@ -37,7 +37,7 @@ from pyanaconda.modules.common.errors.configuration import StorageConfigurationE
     BootloaderConfigurationError
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.storage.utils import device_matches
+from pyanaconda.core.storage import device_matches
 
 log = get_module_logger(__name__)
 

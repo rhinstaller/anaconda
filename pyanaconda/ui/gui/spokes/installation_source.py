@@ -50,7 +50,7 @@ from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.storage.utils import device_matches
+from pyanaconda.core.storage import device_matches
 from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
 
 from pyanaconda.anaconda_loggers import get_module_logger

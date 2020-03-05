@@ -37,7 +37,7 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.product import productName
-from pyanaconda.storage.utils import suggest_swap_size
+from pyanaconda.core.storage import suggest_swap_size
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
