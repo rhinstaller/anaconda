@@ -6,3 +6,15 @@ actions:
   create-archive:
     - make release
     - bash -c "ls | grep 'tar.bz2'"
+jobs:
+  - job: copr_build
+    trigger: pull_request
+    metadata:
+      targets:
+        - fedora-rawhide-x86_64
+        - fedora-rawhide-aarch64
+
+  - job: propose_downstream
+    trigger: release
+    metadata:
+      dist-git-branch: master
