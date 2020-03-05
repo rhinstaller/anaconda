@@ -1,0 +1,8 @@
+specfile_path: anaconda.spec
+actions:
+  post-upstream-clone:
+    - ./autogen.sh
+    - ./configure
+  create-archive:
+    - make release
+    - bash -c "ls | grep 'tar.bz2'"
