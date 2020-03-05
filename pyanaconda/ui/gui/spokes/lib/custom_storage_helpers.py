@@ -32,7 +32,7 @@ from pyanaconda.modules.common.structures.device_factory import DeviceFactoryReq
 from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.platform import platform
-from pyanaconda.storage.utils import size_from_input
+from pyanaconda.ui.lib.storage import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler

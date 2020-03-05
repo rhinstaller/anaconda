@@ -643,11 +643,11 @@ if __name__ == "__main__":
     disk_select_proxy.SetDiskImages(disk_images)
 
     # Ignore disks labeled OEMDRV
-    from pyanaconda.storage.utils import ignore_oemdrv_disks
+    from pyanaconda.ui.lib.storage import ignore_oemdrv_disks
     ignore_oemdrv_disks()
 
     # Ignore nvdimm devices.
-    from pyanaconda.storage.utils import ignore_nvdimm_blockdevs
+    from pyanaconda.ui.lib.storage import ignore_nvdimm_blockdevs
     ignore_nvdimm_blockdevs()
 
     # Specify protected devices.

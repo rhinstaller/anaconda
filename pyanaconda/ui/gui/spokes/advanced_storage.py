@@ -24,8 +24,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import CN_, CP_
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.storage.utils import filter_disks_by_names
-from pyanaconda.ui.lib.storage import apply_disk_selection, try_populate_devicetree
+from pyanaconda.ui.lib.storage import apply_disk_selection, try_populate_devicetree, \
+    filter_disks_by_names
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, FCOE, ISCSI, DASD, \
     DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE

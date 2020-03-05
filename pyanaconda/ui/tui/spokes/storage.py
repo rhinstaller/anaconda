@@ -30,10 +30,10 @@ from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, \
     select_default_disks, apply_disk_selection, get_disks_summary, apply_partitioning, \
-    create_partitioning
+    create_partitioning, filter_disks_by_names
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
-from pyanaconda.storage.utils import get_supported_autopart_choices, filter_disks_by_names
+from pyanaconda.storage.utils import get_supported_autopart_choices
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 
 from blivet.size import Size

@@ -17,8 +17,6 @@
 #
 
 """UI-independent storage utility functions"""
-import re
-import locale
 import os
 import time
 import requests
@@ -45,9 +43,7 @@ from pykickstart.errors import KickstartError
 
 from pyanaconda.core import util
 from pyanaconda.core.i18n import N_, _, P_
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM
+from pyanaconda.modules.common.constants.services import NETWORK
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -102,34 +98,6 @@ SUPPORTED_DEVICE_TYPES = (DEVICE_TYPE_PARTITION, DEVICE_TYPE_LVM, DEVICE_TYPE_LV
 MAX_SWAP_DISK_RATIO = Decimal('0.1')
 
 udev_device_dict_cache = None
-
-
-def size_from_input(input_str, units=None):
-    """ Get a Size object from an input string.
-
-        :param str input_str: a string forming some representation of a size
-        :param units: use these units if none specified in input_str
-        :type units: str or NoneType
-        :returns: a Size object corresponding to input_str
-        :rtype: :class:`blivet.size.Size` or NoneType
-
-        Units default to bytes if no units in input_str or units.
-    """
-
-    if not input_str:
-        # Nothing to parse
-        return None
-
-    # A string ending with a digit contains no units information.
-    if re.search(r'[\d.%s]$' % locale.nl_langinfo(locale.RADIXCHAR), input_str):
-        input_str += units or ""
-
-    try:
-        size = Size(input_str)
-    except ValueError:
-        return None
-
-    return size
 
 
 def device_type_from_autopart(autopart_type):
@@ -351,39 +319,6 @@ def get_pbkdf_args(luks_version, pbkdf_type=None, max_memory_kb=0, iterations=0,
     return LUKS2PBKDFArgs(pbkdf_type or None, max_memory_kb or 0, iterations or 0, time_ms or 0)
 
 
-def ignore_nvdimm_blockdevs():
-    """Add nvdimm devices to be ignored to the ignored disks."""
-    if conf.target.is_directory:
-        return
-
-    nvdimm_proxy = STORAGE.get_proxy(NVDIMM)
-    ignored_nvdimm_devs = nvdimm_proxy.GetDevicesToIgnore()
-
-    if not ignored_nvdimm_devs:
-        return
-
-    log.debug("Adding NVDIMM devices %s to ignored disks", ",".join(ignored_nvdimm_devs))
-
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    ignored_disks = disk_select_proxy.IgnoredDisks
-    ignored_disks.extend(ignored_nvdimm_devs)
-    disk_select_proxy.SetIgnoredDisks(ignored_disks)
-
-
-def ignore_oemdrv_disks():
-    """Ignore disks labeled OEMDRV."""
-    matched = device_matches("LABEL=OEMDRV", disks_only=True)
-
-    for oemdrv_disk in matched:
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        ignored_disks = disk_select_proxy.IgnoredDisks
-
-        if oemdrv_disk not in ignored_disks:
-            log.info("Adding disk %s labeled OEMDRV to ignored disks.", oemdrv_disk)
-            ignored_disks.append(oemdrv_disk)
-            disk_select_proxy.SetIgnoredDisks(ignored_disks)
-
-
 def download_escrow_certificate(url):
     """Download the escrow certificate.
 
@@ -460,16 +395,6 @@ def find_live_backing_device(devicetree):
             return disk
 
     return None
-
-
-def filter_disks_by_names(disks, names):
-    """Filter disks by the given names.
-
-    :param disks: a list of disks
-    :param names: a list of disk names
-    :return: a list of filtered disk names
-    """
-    return list(filter(lambda name: name in disks, names))
 
 
 def check_disk_selection(storage, selected_disks):

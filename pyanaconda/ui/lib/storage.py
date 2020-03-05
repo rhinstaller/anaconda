@@ -15,6 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import locale
+import re
+
 from blivet.errors import StorageError
 from blivet.size import Size
 
@@ -22,18 +25,19 @@ from dasbus.typing import unwrap_variant
 from dasbus.client.proxy import get_object_path
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, BOOTLOADER_DRIVE_UNSET
 from pyanaconda.core.i18n import P_, _
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, BOOTLOADER, DEVICE_TREE, \
-    DISK_INITIALIZATION
+    DISK_INITIALIZATION, NVDIMM
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
     BootloaderConfigurationError
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.storage.utils import filter_disks_by_names
+from pyanaconda.storage.utils import device_matches
 
 log = get_module_logger(__name__)
 
@@ -318,3 +322,74 @@ def is_local_disk(device_type):
         "zfcp",
         "nvdimm"
     )
+
+
+def size_from_input(input_str, units=None):
+    """Get a Size object from an input string.
+
+    :param str input_str: a string forming some representation of a size
+    :param units: use these units if none specified in input_str
+    :type units: str or NoneType
+    :returns: a Size object corresponding to input_str
+    :rtype: :class:`blivet.size.Size` or NoneType
+
+    Units default to bytes if no units in input_str or units.
+    """
+
+    if not input_str:
+        # Nothing to parse
+        return None
+
+    # A string ending with a digit contains no units information.
+    if re.search(r'[\d.%s]$' % locale.nl_langinfo(locale.RADIXCHAR), input_str):
+        input_str += units or ""
+
+    try:
+        size = Size(input_str)
+    except ValueError:
+        return None
+
+    return size
+
+
+def ignore_nvdimm_blockdevs():
+    """Add nvdimm devices to be ignored to the ignored disks."""
+    if conf.target.is_directory:
+        return
+
+    nvdimm_proxy = STORAGE.get_proxy(NVDIMM)
+    ignored_nvdimm_devs = nvdimm_proxy.GetDevicesToIgnore()
+
+    if not ignored_nvdimm_devs:
+        return
+
+    log.debug("Adding NVDIMM devices %s to ignored disks", ",".join(ignored_nvdimm_devs))
+
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    ignored_disks = disk_select_proxy.IgnoredDisks
+    ignored_disks.extend(ignored_nvdimm_devs)
+    disk_select_proxy.SetIgnoredDisks(ignored_disks)
+
+
+def ignore_oemdrv_disks():
+    """Ignore disks labeled OEMDRV."""
+    matched = device_matches("LABEL=OEMDRV", disks_only=True)
+
+    for oemdrv_disk in matched:
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        ignored_disks = disk_select_proxy.IgnoredDisks
+
+        if oemdrv_disk not in ignored_disks:
+            log.info("Adding disk %s labeled OEMDRV to ignored disks.", oemdrv_disk)
+            ignored_disks.append(oemdrv_disk)
+            disk_select_proxy.SetIgnoredDisks(ignored_disks)
+
+
+def filter_disks_by_names(disks, names):
+    """Filter disks by the given names.
+
+    :param disks: a list of disks name
+    :param names: a list of names to filter
+    :return: a list of filtered disk names
+    """
+    return list(filter(lambda name: name in disks, names))

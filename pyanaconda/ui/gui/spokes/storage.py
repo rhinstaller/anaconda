@@ -37,7 +37,7 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.product import productName
-from pyanaconda.storage.utils import filter_disks_by_names, suggest_swap_size
+from pyanaconda.storage.utils import suggest_swap_size
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
@@ -54,7 +54,7 @@ from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.ui.lib.storage import find_partitioning, apply_partitioning, \
     select_default_disks, apply_disk_selection, get_disks_summary, create_partitioning, \
-    is_local_disk
+    is_local_disk, filter_disks_by_names
 
 import gi
 gi.require_version("Gtk", "3.0")
