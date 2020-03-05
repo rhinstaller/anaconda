@@ -9,3 +9,9 @@ actions:
   create-archive:
     - "make release"
     - "bash -c 'ls | grep tar.bz2'"
+jobs:
+  - job: tests
+    trigger: pull_request
+    metadata:
+      targets:
+        - fedora-rawhide
