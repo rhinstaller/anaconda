@@ -18,7 +18,6 @@
 from abc import ABC
 from threading import Lock
 
-from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.errors.task import NoResultError
 
 __all__ = ['ResultProvider']
@@ -29,7 +28,6 @@ class ResultProvider(ABC):
 
     def __init__(self):
         super().__init__()
-        self._result_changed_signal = Signal()
         self.__result_lock = Lock()
         self.__result = None
 

@@ -124,8 +124,6 @@ THREAD_SOFTWARE_WATCHER = "AnaSoftwareWatcher"
 THREAD_CHECK_SOFTWARE = "AnaCheckSoftwareThread"
 THREAD_SOURCE_WATCHER = "AnaSourceWatcher"
 THREAD_INSTALL = "AnaInstallThread"
-THREAD_ISCSI_DISCOVER = "AnaIscsiDiscoverThread"
-THREAD_ISCSI_LOGIN = "AnaIscsiLoginThread"
 THREAD_GEOLOCATION_REFRESH = "AnaGeolocationRefreshThread"
 THREAD_DATE_TIME = "AnaDateTimeThread"
 THREAD_TIME_INIT = "AnaTimeInitThread"
@@ -279,11 +277,6 @@ IPMI_STARTED = 0x7          # installation started
 IPMI_FINISHED = 0x8         # installation finished successfully
 IPMI_ABORTED = 0x9          # installation finished unsuccessfully, due to some non-exn error
 IPMI_FAILED = 0xA           # installation hit an exception
-
-
-# for how long (in seconds) we try to wait for enough entropy for LUKS
-# keep this a multiple of 60 (minutes)
-MAX_ENTROPY_WAIT = 10 * 60
 
 # X display number to use
 X_DISPLAY_NUMBER = 1

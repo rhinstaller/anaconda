@@ -65,15 +65,6 @@ storage_log = get_blivet_logger()
 script_log = log.getChild("script")
 parsing_log = log.getChild("parsing")
 
-# command specific loggers
-authselect_log = log.getChild("kickstart.authselect")
-user_log = log.getChild("kickstart.user")
-group_log = log.getChild("kickstart.group")
-iscsi_log = log.getChild("kickstart.iscsi")
-timezone_log = log.getChild("kickstart.timezone")
-realm_log = log.getChild("kickstart.realm")
-firewall_log = log.getChild("kickstart.firewall")
-
 
 @contextmanager
 def check_kickstart_error():

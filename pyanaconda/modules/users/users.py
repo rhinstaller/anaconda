@@ -45,7 +45,6 @@ class UsersService(KickstartService):
         self._can_change_root_password = True
 
         self.root_password_is_set_changed = Signal()
-        self._root_password_is_set = False
         self._root_password = ""
         self._root_password_is_crypted = False
 

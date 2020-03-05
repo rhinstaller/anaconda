@@ -150,13 +150,6 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.CollectUnusedDevices(), ["dev2", "dev3"])
 
-    def collect_boot_loader_devices_test(self):
-        """Test CollectBootLoaderDevices."""
-        self._add_device(StorageDevice("dev1", fmt=get_format("biosboot")))
-        self._add_device(StorageDevice("dev2", fmt=get_format("prepboot")))
-        self._add_device(StorageDevice("dev3", fmt=get_format("ext4")))
-        self.assertEqual(self.interface.CollectBootLoaderDevices(""), ["dev1", "dev2"])
-
     @patch.object(FS, "update_size_info")
     def collect_supported_systems_test(self, update_size_info):
         """Test CollectSupportedSystems."""
@@ -396,26 +389,6 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
     def generate_device_name_test(self):
         """Test GenerateDeviceName."""
         self.assertEqual(self.interface.GenerateDeviceName("/home", "ext4"), "home")
-
-    def get_raw_device_test(self):
-        """Test GetRawDevice."""
-        dev1 = StorageDevice(
-            "dev1",
-            fmt=get_format("ext4"),
-            size=Size("10 GiB")
-        )
-        dev2 = LUKSDevice(
-            "dev2",
-            parents=[dev1],
-            fmt=get_format("luks"),
-            size=Size("10 GiB")
-        )
-
-        self._add_device(dev1)
-        self._add_device(dev2)
-
-        self.assertEqual(self.interface.GetRawDevice("dev1"), "dev1")
-        self.assertEqual(self.interface.GetRawDevice("dev2"), "dev1")
 
     def get_file_systems_for_device_test(self):
         """Test GetFileSystemsForDevice."""

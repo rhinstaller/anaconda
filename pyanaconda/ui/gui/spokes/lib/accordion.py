@@ -412,16 +412,6 @@ class BasePage(Gtk.Box):
         else:
             self._system_box.add(selector)
 
-    def remove_selector(self, selector):
-        if selector.mount_point_type == DATA_DEVICE:
-            self._data_box.remove(selector)
-        else:
-            self._system_box.remove(selector)
-
-        accordion = self._get_accordion()
-        accordion.remove_selection([selector])
-        self.members.remove(selector)
-
     def _on_selector_focus_in(self, selector, event, cb):
         accordion = self._get_accordion()
         cb(accordion.current_selector, selector)
@@ -472,10 +462,6 @@ class UnknownPage(BasePage):
         selector.connect("key-release-event", accordion.process_event, cb)
         self.members.append(selector)
         self.add(selector)
-
-    def remove_selector(self, selector):
-        self.remove(selector)
-        self.members.remove(selector)
 
 
 class CreateNewPage(BasePage):

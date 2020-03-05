@@ -57,13 +57,6 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
 
     @patch('pyanaconda.modules.storage.zfcp.zfcp.zfcp')
     @patch("pyanaconda.modules.storage.zfcp.zfcp.arch.is_s390", return_value=True)
-    def reload_module_test(self, arch, zfcp):
-        """Test ReloadModule."""
-        self.zfcp_interface.ReloadModule()
-        zfcp.startup.assert_called_once_with()
-
-    @patch('pyanaconda.modules.storage.zfcp.zfcp.zfcp')
-    @patch("pyanaconda.modules.storage.zfcp.zfcp.arch.is_s390", return_value=True)
     def write_configuration_test(self, arch, zfcp):
         """Test WriteConfiguration."""
         self.zfcp_interface.WriteConfiguration()

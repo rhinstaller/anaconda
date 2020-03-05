@@ -24,10 +24,6 @@ from pyanaconda.core.constants import DEFAULT_KEYBOARD
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-LOCALED_SERVICE = "org.freedesktop.locale1"
-LOCALED_OBJECT_PATH = "/org/freedesktop/locale1"
-LOCALED_IFACE = "org.freedesktop.locale1"
-
 
 class LocaledWrapper(object):
     """Class wrapping systemd-localed daemon functionality."""

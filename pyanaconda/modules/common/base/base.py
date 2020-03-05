@@ -43,7 +43,6 @@ class BaseModule(ABC):
 
     def __init__(self):
         self._module_properties_changed = Signal()
-        self._published_tasks = {}
 
     @property
     def module_properties_changed(self):

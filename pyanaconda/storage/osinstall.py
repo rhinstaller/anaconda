@@ -48,7 +48,6 @@ class InstallerStorage(Blivet):
     def __init__(self):
         super().__init__()
         self.protected_devices = []
-        self._hidden_protected_disks = []
         self._escrow_certificates = {}
         self._bootloader = None
         self.__luks_devs = {}
@@ -373,21 +372,6 @@ class InstallerStorage(Blivet):
             else:
                 if disk not in self.devices:
                     self.devicetree.unhide(disk)
-
-    def hide_protected_disks(self):
-        """Hide protected disks."""
-        for disk in self.disks:
-            if disk.protected:
-                self._hidden_protected_disks.append(disk)
-                self.devicetree.hide(disk)
-
-    def show_protected_disks(self):
-        """Show hidden protected disks."""
-        while self._hidden_protected_disks:
-            disk = self._hidden_protected_disks.pop()
-
-            if disk not in self.devices:
-                self.devicetree.unhide(disk)
 
     def _get_hostname(self):
         """Return a hostname."""

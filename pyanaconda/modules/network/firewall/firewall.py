@@ -56,9 +56,6 @@ class FirewallModule(KickstartBaseModule):
         self.disabled_services_changed = Signal()
         self._disabled_services = []
 
-        self.use_system_defaults_changed = Signal()
-        self._use_system_defaults = False
-
     def publish(self):
         """Publish the module."""
         DBus.publish_object(FIREWALL.object_path, FirewallInterface(self))

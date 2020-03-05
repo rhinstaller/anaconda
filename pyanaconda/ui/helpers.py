@@ -59,29 +59,13 @@ from pyanaconda.core import constants
 from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
 from pyanaconda.threading import threadMgr
 from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.anaconda_loggers import get_module_logger
 
 import copy
 
 
 class StorageCheckHandler(object, metaclass=ABCMeta):
-    log = get_module_logger(__name__)
     errors = []
     warnings = []
-
-    @abstractproperty
-    def storage(self):
-        pass
-
-    def check_storage(self):
-        from pyanaconda.storage.checker import storage_checker
-        report = storage_checker.check(self.storage)
-        report.log(self.log)
-
-        # Storage spoke and custom spoke communicate errors via StorageCheckHandler,
-        # so we need to set errors and warnings class attributes here.
-        StorageCheckHandler.errors = report.errors
-        StorageCheckHandler.warnings = report.warnings
 
 
 class SourceSwitchHandler(object, metaclass=ABCMeta):
@@ -282,13 +266,6 @@ class InputCheckHandler(object, metaclass=ABCMeta):
 
     def __init__(self):
         self._check_list = []
-
-    def _check_re(self, inputcheck):
-        """Perform an input validation check against a regular expression."""
-        if inputcheck.data['regex'].match(self.get_input(inputcheck.input_obj)):
-            return inputcheck.CHECK_OK
-        else:
-            return inputcheck.data['message']
 
     @abstractmethod
     def get_input(self, input_obj):

@@ -50,11 +50,6 @@ NTP_PACKAGE = "chrony"
 NTP_SERVICE = "chronyd"
 
 
-class TimezoneConfigError(Exception):
-    """Exception class for timezone configuration related problems"""
-    pass
-
-
 def time_initialize(timezone_proxy):
     """
     Try to guess if RTC uses UTC time or not, set timezone.isUtc properly and
