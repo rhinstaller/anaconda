@@ -13,3 +13,5 @@ Wants=anaconda-sshd.service
 Wants=anaconda-pre.service
 Wants=zram.service
 Wants=systemd-logind.service
+Wants=rhsm.service
+After=rhsm.service
