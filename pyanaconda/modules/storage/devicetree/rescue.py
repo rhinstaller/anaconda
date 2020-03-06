@@ -74,7 +74,7 @@ class MountExistingSystemTask(Task):
     def run(self):
         """Run the task.
 
-        :raise: MountFilesystemError in a case of failure
+        :raise: MountFilesystemError in case of failure
         """
         try:
             mount_existing_system(

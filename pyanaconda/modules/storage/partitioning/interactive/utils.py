@@ -930,7 +930,7 @@ def destroy_device(storage, device):
 
     :param storage: an instance of Blivet
     :param device: an instance of a device
-    :raise: StorageConfigurationError in a case of failure
+    :raise: StorageConfigurationError in case of failure
     """
     log.debug("Destroy device: %s", device.name)
 

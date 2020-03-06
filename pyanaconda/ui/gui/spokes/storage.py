@@ -359,7 +359,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     @async_action_nowait
     def execute(self):
-        """"Apply a partitioning."""
+        """Apply a partitioning."""
         # Make sure that we apply a non-interactive partitioning.
         if self._last_partitioning_method == PARTITIONING_METHOD_CUSTOM:
             log.debug("Skipping the execute method for the CUSTOM partitioning method.")
