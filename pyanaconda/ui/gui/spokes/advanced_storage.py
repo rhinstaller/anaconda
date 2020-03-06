@@ -175,7 +175,10 @@ class FilterPage(object):
         combo.remove_all()
         combo.append_text('')
 
-        for i in sorted(set(items)):
+        # Remove duplicate and empty items and sort them.
+        items = sorted(set(filter(None, items)))
+
+        for i in items:
             combo.append_text(i)
 
         if items:
@@ -243,12 +246,9 @@ class SearchPage(FilterPage):
         ports = set()
 
         for device_data in disks:
-            device_port = device_data.attrs.get("port")
+            ports.add(device_data.attrs.get("port"))
 
-            if device_port is not None:
-                ports.add(device_port)
-
-        self._setup_combo(self._port_combo, sorted(ports))
+        self._setup_combo(self._port_combo, ports)
         self._setup_search_type()
 
     def clear(self):
@@ -309,8 +309,8 @@ class MultipathPage(FilterPage):
             vendors.add(device_data.attrs.get("vendor"))
             interconnects.add(device_data.attrs.get("bus"))
 
-        self._setup_combo(self._vendor_combo, sorted(vendors))
-        self._setup_combo(self._ic_combo, sorted(interconnects))
+        self._setup_combo(self._vendor_combo, vendors)
+        self._setup_combo(self._ic_combo, interconnects)
         self._setup_search_type()
 
     def clear(self):
@@ -367,8 +367,8 @@ class OtherPage(FilterPage):
             vendors.add(device_data.attrs.get("vendor"))
             interconnects.add(device_data.attrs.get("bus"))
 
-        self._setup_combo(self._vendor_combo, sorted(vendors))
-        self._setup_combo(self._ic_combo, sorted(interconnects))
+        self._setup_combo(self._vendor_combo, vendors)
+        self._setup_combo(self._ic_combo, interconnects)
         self._setup_search_type()
 
     def clear(self):
@@ -466,7 +466,7 @@ class NvdimmPage(FilterPage):
             store.append([*row])
             modes.add(mode)
 
-        self._setup_combo(self._mode_combo, sorted(modes))
+        self._setup_combo(self._mode_combo, modes)
         self._setup_search_type()
 
     def clear(self):
