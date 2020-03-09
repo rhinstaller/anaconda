@@ -21,6 +21,7 @@ import unittest
 import tempfile
 import os
 import shutil
+from textwrap import dedent
 from unittest.mock import patch, Mock
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
@@ -30,7 +31,8 @@ from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
         FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.constants.objects import FIREWALL
-from pyanaconda.modules.common.errors.installation import FirewallConfigurationError
+from pyanaconda.modules.common.errors.installation import FirewallConfigurationError, \
+    NetworkInstallationError
 from pyanaconda.modules.network.network import NetworkService
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.constants import FirewallMode
@@ -730,6 +732,21 @@ class HostnameConfigurationTaskTestCase(unittest.TestCase):
 
             shutil.rmtree(hostname_dir)
 
+    def hostname_config_dir_not_exist_test(self):
+        """Test hostname configuration task with missing target system directory."""
+        with tempfile.TemporaryDirectory() as sysroot:
+
+            hostname = "bla.bla"
+
+            task = HostnameConfigurationTask(
+                sysroot=sysroot,
+                hostname=hostname,
+                overwrite=True
+            )
+
+            with self.assertRaises(NetworkInstallationError):
+                task.run()
+
 
 class FirewallConfigurationTaskTestCase(unittest.TestCase):
     """Test the Firewall configuration DBus Task."""
@@ -1159,4 +1176,514 @@ class NetworkModuleTestCase(unittest.TestCase):
                 True,
                 "ens11",
             ]
+        )
+
+
+class InstallationTaskTestCase(unittest.TestCase):
+
+    def setUp(self):
+        # The source files are not in "/" but in the mocked root path, which we need
+        # to use on the target as well
+        self._mocked_root = tempfile.mkdtemp(prefix="network-installation-test")
+        self._target_root = os.path.join(self._mocked_root, "mnt/sysimage")
+        self._target_mocked_root = os.path.join(self._target_root, self._mocked_root.lstrip("/"))
+
+        # Directories of conifiguration files
+        # Will be created as existing or not in tests
+        self._sysconf_dir = os.path.dirname(NetworkInstallationTask.SYSCONF_NETWORK_FILE_PATH)
+        self._sysctl_dir = os.path.dirname(NetworkInstallationTask.ANACONDA_SYSCTL_FILE_PATH)
+        self._resolv_conf_dir = os.path.dirname(NetworkInstallationTask.RESOLV_CONF_FILE_PATH)
+        self._network_scripts_dir = NetworkInstallationTask.NETWORK_SCRIPTS_DIR_PATH
+        self._prefixdevname_dir = NetworkInstallationTask.PREFIXDEVNAME_DIR_PATH
+        self._rename_dir = os.path.dirname(NetworkInstallationTask.INTERFACE_RENAME_FILE_TEMPLATE)
+        self._dhclient_dir = os.path.dirname(NetworkInstallationTask.DHCLIENT_FILE_TEMPLATE)
+
+    def _create_config_dirs(self, installer_dirs, target_system_dirs):
+        for config_dir in installer_dirs:
+            os.makedirs(os.path.join(self._mocked_root, config_dir.lstrip("/")), exist_ok=True)
+        for config_dir in target_system_dirs:
+            os.makedirs(
+                os.path.join(self._target_mocked_root, config_dir.lstrip("/")),
+                exist_ok=True
+            )
+
+    def tearDown(self):
+        shutil.rmtree(self._mocked_root)
+
+    def _dump_config_files(self, conf_dir, files_list):
+        for file_name, content in files_list:
+            content = dedent(content).strip()
+            mocked_conf_dir = os.path.join(self._mocked_root, conf_dir.lstrip("/"))
+            with open(os.path.join(mocked_conf_dir, file_name), "w") as f:
+                f.write(content)
+
+    def _dump_config_files_in_target(self, conf_dir, files_list):
+        for file_name, content in files_list:
+            content = dedent(content).strip()
+            mocked_conf_dir = os.path.join(self._target_mocked_root, conf_dir.lstrip("/"))
+            with open(os.path.join(mocked_conf_dir, file_name), "w") as f:
+                f.write(content)
+
+    def _check_config_file(self, conf_dir, file_name, expected_content):
+        expected_content = dedent(expected_content).strip()
+        mocked_conf_dir = os.path.join(self._target_mocked_root, conf_dir.lstrip("/"))
+        with open(os.path.join(mocked_conf_dir, file_name), "r") as f:
+            content = f.read().strip()
+        self.assertEqual(content, expected_content)
+
+    def _check_config_file_does_not_exist(self, conf_dir, file_name):
+        mocked_conf_dir = os.path.join(self._target_mocked_root, conf_dir.lstrip("/"))
+        self.assertFalse(os.path.exists(os.path.join(mocked_conf_dir, file_name)))
+
+    def _mock_task_paths(self, task):
+        # Mock the paths in the task
+        task.SYSCONF_NETWORK_FILE_PATH = self._mocked_root + "/etc/sysconfig/network"
+        task.ANACONDA_SYSCTL_FILE_PATH = self._mocked_root + "/etc/sysctl.d/anaconda.conf"
+        task.RESOLV_CONF_FILE_PATH = self._mocked_root + "/etc/resolv.conf"
+        task.NETWORK_SCRIPTS_DIR_PATH = self._mocked_root + "/etc/sysconfig/network-scripts"
+        task.PREFIXDEVNAME_DIR_PATH = self._mocked_root + "/etc/systemd/network"
+        task.DHCLIENT_FILE_TEMPLATE = self._mocked_root + "/etc/dhcp/dhclient-{}.conf"
+        task.INTERFACE_RENAME_FILE_TEMPLATE = self._mocked_root \
+            + "/etc/systemd/network/10-anaconda-ifname-{}.link"
+
+    def _create_all_expected_dirs(self):
+        # Create directories that are expected to be existing in installer
+        # environmant and on target system
+        self._create_config_dirs(
+            installer_dirs=[
+                self._sysconf_dir,
+                self._sysctl_dir,
+                self._resolv_conf_dir,
+                self._network_scripts_dir,
+                self._prefixdevname_dir,
+                self._rename_dir,
+                self._dhclient_dir,
+            ],
+            target_system_dirs=[
+                self._sysconf_dir,
+                self._sysctl_dir,
+                self._resolv_conf_dir,
+                self._network_scripts_dir,
+                self._prefixdevname_dir,
+                self._rename_dir,
+                self._dhclient_dir,
+            ]
+        )
+
+    def network_instalation_task_no_src_files_test(self):
+        """Test the task for network installation with no src files."""
+
+        self._create_all_expected_dirs()
+
+        # Create files that will be copied from installer
+        # No files
+
+        # Create files existing on target system (could be used to test overwrite
+        # parameter.
+        # No files
+
+        # Create the task
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=True,
+            overwrite=True,
+            network_ifaces=["ens3", "ens7"],
+            ifname_option_values=["ens3:00:15:17:96:75:0a"],
+            # Perhaps does not make sense together with ifname option, but for
+            # test it is fine
+            configure_persistent_device_names=True,
+        )
+        self._mock_task_paths(task)
+        task.run()
+        # Check /etc/sysconfig/network was written by anaconda
+        self._check_config_file(
+            self._sysconf_dir,
+            "network",
+            """
+            # Created by anaconda
+            """
+        )
+        self._check_config_file(
+            self._sysctl_dir,
+            "anaconda.conf",
+            """
+            # Anaconda disabling ipv6 (noipv6 option)
+            net.ipv6.conf.all.disable_ipv6=1
+            net.ipv6.conf.default.disable_ipv6=1
+            """
+        )
+
+    def network_instalation_task_all_src_files_test(self):
+        """Test the task for network installation with all src files available."""
+
+        self._create_all_expected_dirs()
+
+        # Create files that will be copied from installer
+        # All possible files
+        self._dump_config_files(
+            self._network_scripts_dir,
+            (
+                ("ifcfg-ens3", "noesis"),
+                ("ifcfg-ens7", "noema"),
+                ("something-ens7", "res"),
+                ("keys-ens7", "clavis"),
+                ("route-ens7", "via"),
+            )
+        )
+        self._dump_config_files(
+            self._dhclient_dir,
+            (
+                ("dhclient-ens3.conf", "ens3conf"),
+                ("dhclient-ens7.conf", "ens7conf"),
+                ("file_that_shoudnt_be_copied.conf", "ens"),
+            )
+        )
+        self._dump_config_files(
+            self._sysconf_dir,
+            (("network", "Zeug"),)
+        )
+        self._dump_config_files(
+            self._resolv_conf_dir,
+            (("resolv.conf", "nomen"),)
+        )
+        self._dump_config_files(
+            self._prefixdevname_dir,
+            (
+                ("71-net-ifnames-prefix-XYZ", "bla"),
+                ("70-shouldnt-be-copied", "blabla"),
+            )
+        )
+
+        # Create files existing on target system (could be used to test overwrite
+        # parameter.
+        # No files
+
+        # Create the task
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=True,
+            overwrite=True,
+            network_ifaces=["ens3", "ens7"],
+            ifname_option_values=["ens3:00:15:17:96:75:0a"],
+            # Perhaps does not make sense together with ifname option, but for
+            # test it is fine
+            configure_persistent_device_names=True,
+        )
+        self._mock_task_paths(task)
+        task.run()
+        # Check /etc/sysconfig/network was written by anaconda
+        self._check_config_file(
+            self._sysconf_dir,
+            "network",
+            """
+            # Created by anaconda
+            """
+        )
+        self._check_config_file(
+            self._sysctl_dir,
+            "anaconda.conf",
+            """
+            # Anaconda disabling ipv6 (noipv6 option)
+            net.ipv6.conf.all.disable_ipv6=1
+            net.ipv6.conf.default.disable_ipv6=1
+            """
+        )
+        self._check_config_file(
+            self._resolv_conf_dir,
+            "resolv.conf",
+            """
+            nomen
+            """
+        )
+        self._check_config_file(
+            self._network_scripts_dir,
+            "ifcfg-ens3",
+            """
+            noesis
+            """
+        )
+        self._check_config_file(
+            self._network_scripts_dir,
+            "ifcfg-ens7",
+            """
+            noema
+            """
+        )
+        self._check_config_file(
+            self._network_scripts_dir,
+            "keys-ens7",
+            """
+            clavis
+            """
+        )
+        self._check_config_file(
+            self._network_scripts_dir,
+            "route-ens7",
+            """
+            via
+            """
+        )
+        self._check_config_file_does_not_exist(
+            self._network_scripts_dir,
+            "something-ens7"
+        )
+        self._check_config_file(
+            self._dhclient_dir,
+            "dhclient-ens3.conf",
+            """
+            ens3conf
+            """
+        )
+        self._check_config_file(
+            self._dhclient_dir,
+            "dhclient-ens7.conf",
+            """
+            ens7conf
+            """
+        )
+        self._check_config_file_does_not_exist(
+            self._dhclient_dir,
+            "file_that_shoudnt_be_copied.conf"
+        )
+        self._check_config_file(
+            self._prefixdevname_dir,
+            "71-net-ifnames-prefix-XYZ",
+            """
+            bla
+            """
+        )
+        content_template = NetworkInstallationTask.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE
+        self._check_config_file(
+            self._rename_dir,
+            "10-anaconda-ifname-ens3.link",
+            content_template.format("00:15:17:96:75:0a", "ens3")
+        )
+        self._check_config_file_does_not_exist(
+            self._prefixdevname_dir,
+            "70-shouldnt-be-copied"
+        )
+
+    def _create_config_files_to_check_overwrite(self):
+        self._dump_config_files_in_target(
+            self._resolv_conf_dir,
+            (("resolv.conf", "original target system content"),)
+        )
+        self._dump_config_files_in_target(
+            self._sysconf_dir,
+            (("network", "original target system content"),)
+        )
+        self._dump_config_files_in_target(
+            self._rename_dir,
+            (("10-anaconda-ifname-ens3.link", "original target system content"),)
+        )
+        self._dump_config_files_in_target(
+            self._network_scripts_dir,
+            (("ifcfg-ens3", "original target system content"),)
+        )
+        self._dump_config_files_in_target(
+            self._dhclient_dir,
+            (("dhclient-ens3.conf", "original target system content"),)
+        )
+        self._dump_config_files_in_target(
+            self._prefixdevname_dir,
+            (("71-net-ifnames-prefix-XYZ", "original target system content"),)
+        )
+
+        self._dump_config_files(
+            self._resolv_conf_dir,
+            (("resolv.conf", "installer environment content"),)
+        )
+        self._dump_config_files(
+            self._network_scripts_dir,
+            (("ifcfg-ens3", "installer environment content"),)
+        )
+        self._dump_config_files(
+            self._dhclient_dir,
+            (("dhclient-ens3.conf", "installer environment content"),)
+        )
+        self._dump_config_files(
+            self._prefixdevname_dir,
+            (("71-net-ifnames-prefix-XYZ", "installer environment content"),)
+        )
+
+    def network_installation_task_overwrite_test(self):
+        """Test the task for network installation with overwrite."""
+
+        self._create_all_expected_dirs()
+        self._create_config_files_to_check_overwrite()
+
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=False,
+            overwrite=True,
+            network_ifaces=["ens3", "ens7"],
+            ifname_option_values=["ens3:00:15:17:96:75:0a"],
+            configure_persistent_device_names=False,
+        )
+        self._mock_task_paths(task)
+        task.run()
+
+        # Files that are created are overwritten
+        self._check_config_file(
+            self._sysconf_dir,
+            "network",
+            """
+            # Created by anaconda
+            """
+        )
+        content_template = NetworkInstallationTask.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE
+        self._check_config_file(
+            self._rename_dir,
+            "10-anaconda-ifname-ens3.link",
+            content_template.format("00:15:17:96:75:0a", "ens3")
+        )
+
+        # Files that are copied are not actually overwritten in spite of the
+        # task argument
+        self._check_config_file(
+            self._resolv_conf_dir,
+            "resolv.conf",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._network_scripts_dir,
+            "ifcfg-ens3",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._dhclient_dir,
+            "dhclient-ens3.conf",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._prefixdevname_dir,
+            "71-net-ifnames-prefix-XYZ",
+            """
+            original target system content
+            """
+        )
+
+    def network_installation_task_no_overwrite_test(self):
+        """Test the task for network installation with no overwrite."""
+
+        self._create_all_expected_dirs()
+        self._create_config_files_to_check_overwrite()
+
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=False,
+            overwrite=False,
+            network_ifaces=["ens3", "ens7"],
+            ifname_option_values=["ens3:00:15:17:96:75:0a"],
+            configure_persistent_device_names=False,
+        )
+        self._mock_task_paths(task)
+        task.run()
+
+        self._check_config_file(
+            self._sysconf_dir,
+            "network",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._resolv_conf_dir,
+            "resolv.conf",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._rename_dir,
+            "10-anaconda-ifname-ens3.link",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._network_scripts_dir,
+            "ifcfg-ens3",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._dhclient_dir,
+            "dhclient-ens3.conf",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._prefixdevname_dir,
+            "71-net-ifnames-prefix-XYZ",
+            """
+            original target system content
+            """
+        )
+
+    def disable_ipv6_on_system_no_dir_test(self):
+        """Test disabling of ipv6 on system when target directory is missing."""
+
+        # Create the task
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=True,
+            overwrite=False,
+            network_ifaces=[],
+            ifname_option_values=[],
+            # Perhaps does not make sense together with ifname option, but for
+            # test it is fine
+            configure_persistent_device_names=False,
+        )
+        self._mock_task_paths(task)
+
+        with self.assertRaises(NetworkInstallationError):
+            task._disable_ipv6_on_system(self._target_root)
+
+    def network_instalation_task_missing_target_dir_test(self):
+        """Test the task for network installation with missing target system directory."""
+
+        self._create_config_dirs(
+            installer_dirs=[
+                self._network_scripts_dir,
+                self._prefixdevname_dir,
+            ],
+            target_system_dirs=[
+                self._sysconf_dir,
+                # target dir for prefixdevname is missing
+                # but it should be created by the task
+            ]
+        )
+
+        self._dump_config_files(
+            self._prefixdevname_dir,
+            (("71-net-ifnames-prefix-XYZ", "bla"),)
+        )
+
+        # Create the task
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=False,
+            overwrite=True,
+            network_ifaces=["ens3", "ens7"],
+            ifname_option_values=[],
+            configure_persistent_device_names=True,
+        )
+        self._mock_task_paths(task)
+        task.run()
+
+        self._check_config_file(
+            self._prefixdevname_dir,
+            "71-net-ifnames-prefix-XYZ",
+            """
+            bla
+            """
         )

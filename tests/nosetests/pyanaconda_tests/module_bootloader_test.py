@@ -304,12 +304,15 @@ class BootloaderTasksTestCase(unittest.TestCase):
         storage.devicetree._add_device(dev1)
 
         dev2 = BTRFSDevice(
-            "dev1",
+            "dev2",
             fmt=get_format("btrfs", mountpoint="/"),
             size=Size("5 GiB"),
             parents=[dev1]
         )
         storage.devicetree._add_device(dev2)
+
+        # Make the btrfs format mountable.
+        dev2.format._mount = Mock(available=True)
 
         conf.target.is_directory = False
         FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()

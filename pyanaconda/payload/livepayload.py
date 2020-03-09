@@ -183,7 +183,7 @@ class LiveImagePayload(Payload):
         if os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
             use_nkp = True
         else:
-            log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
+            log.debug("new-kernel-pkg does not exist, calling scripts directly.")
             use_nkp = False
 
         for kernel in self.kernel_version_list:

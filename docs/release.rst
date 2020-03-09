@@ -212,8 +212,41 @@ The branches are named like this:
 The ``-devel`` branch is where code changes go and it is periodically merged to the master branch.
 The ``-release`` branch contains release commits and any Fedora version specific hotfixes.
 
+Create new localization branch for Anaconda
+-------------------------------------------
+
+First thing which needs to be done before branching in Anaconda is to create a new localization branch which will be used by the new Anaconda branch.
+
+Start by cloning translation repository (ideally outside of Anaconda git) and enter this repository:
+
+::
+
+   git clone git@github.com:rhinstaller/anaconda-l10n.git
+   cd anaconda-l10n
+
+Create a new localization directory from ``master`` directory:
+
+::
+
+   cp -r master f<version>
+
+Commit these changes:
+
+::
+
+   git commit -m "Branch new Fedora <version> from master"
+
+Push new localization directory. This will be automatically discovered and added by
+`Weblate <https://translate.fedoraproject.org/projects/anaconda/>`_ service:
+
+::
+
+   git push origin
+
 How to branch Anaconda
 ----------------------
+
+First make sure that localization branch for the next Fedora is already created.
 
 Create the ``-devel`` branch:
 
@@ -231,61 +264,24 @@ Create the ``-release`` branch:
     git pull
     git checkout -b f<version>-release
 
-Push the branches to the origin (``-u`` makes sure to setup tracking) :
+Switch to f<version>-release branch for Fedora specific settings:
 
 ::
 
-    git push -u origin f<version>-devel
-    git push -u origin f<version>-release
+   git checkout f<version>-release
 
-How to bump Rawhide Anaconda version
-------------------------------------
-
-- major version becomes major version ``+1``
-- minor version is set to 1
-
-For example, for the F27 branching:
-
-- at the time of branching the Rawhide version was ``27.20``
-- after the bump the version is ``28.1``
-
-
-Do the major version bump and verify that the output looks correct:
+Edit branch specific settings. This have to be done on f<version>-release branch only:
 
 ::
 
-    ./scripts/makebumpver -c --bump-major-version
+   vim ./branch-config.mk
 
-If everything looks fine (changelog, new major version & the tag) push the changes to the origin:
-
-::
-
-    git push origin master --tags
-
-Then continue with the normal Rawhide Anaconda build process.
-
-How to add release version for next Fedora
-------------------------------------------
-
-.. TODO: Add localization repository branching steps. It will be better to write this when it's done.
-.. Branch should be automatically discovered by Weblate.
-
-The current practise is to keep the Rawhide major & minor version from which the
-given Anaconda was branched as-is and add a third version number (the release number
-in the NVR nomenclature) and bump that when releasing a new Anaconda for the
-upcoming Fedora release.
-
-For example, for the F27 branching:
-
-- the last Rawhide Anaconda release was 27.20
-- so the first F27 Anaconda release will be 27.20.1, the next 27.20.2 and so on
-
-First checkout the ``f<version>-release`` branch and merge ``f<version>-devel`` into it:
+And change content to:
 
 ::
 
-    git checkout f<version>-release
-    git merge --no-ff f<version>-devel
+   GIT_BRANCH ?= f<version>-release
+   L10N_DIR ?= f<version>
 
 
 Then correct pykickstart version for the new Fedora release by changing all occurrences of
@@ -308,6 +304,43 @@ in the Fedora version specific branch on Anaconda side.
 Commit the result. The commit will become one of the few exclusive release branch commits,
 as we can't let it be merged back to master via the devel branch for obvious reasons.
 
+
+Check if everything is correctly set:
+
+::
+
+   make check-branching
+
+
+If everything works correctly you can push the branches to the origin (``-u`` makes sure to setup tracking) :
+
+::
+
+    git push -u origin f<version>-devel
+    git push -u origin f<version>-release
+
+
+How to add release version for next Fedora
+------------------------------------------
+
+The current practise is to keep the Rawhide major & minor version from which the
+given Anaconda was branched as-is and add a third version number (the release number
+in the NVR nomenclature) and bump that when releasing a new Anaconda for the
+upcoming Fedora release.
+
+For example, for the F27 branching:
+
+- the last Rawhide Anaconda release was 27.20
+- so the first F27 Anaconda release will be 27.20.1, the next 27.20.2 and so on
+
+First checkout the ``f<version>-release`` branch and merge ``f<version>-devel`` into it:
+
+::
+
+    git checkout f<version>-release
+    git merge --no-ff f<version>-devel
+
+
 Next add the third (release) version number:
 
 ::
@@ -321,3 +354,35 @@ If everything looks fine (changelog, the version number & tag) push the changes 
     git push origin f<version>-release --tags
 
 Then continue with the normal Upcoming Fedora Anaconda build process.
+
+How to bump Rawhide Anaconda version
+------------------------------------
+
+- major version becomes major version ``+1``
+- minor version is set to 1
+
+For example, for the F27 branching:
+
+- at the time of branching the Rawhide version was ``27.20``
+- after the bump the version is ``28.1``
+
+
+Do the major version bump and verify that the output looks correct:
+
+::
+
+    ./scripts/makebumpver -c --bump-major-version
+
+You can run checks if branching is correctly handled by running:
+
+::
+
+   make check-branching
+
+If everything looks fine (changelog, new major version & the tag) push the changes to the origin:
+
+::
+
+    git push origin master --tags
+
+Then continue with the normal Rawhide Anaconda build process.
