@@ -26,7 +26,7 @@ from pyanaconda.core.constants import BOOTLOADER_ENABLED, BOOTLOADER_SKIPPED, \
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.storage.utils import device_matches
+from pyanaconda.core.storage import device_matches
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

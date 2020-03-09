@@ -38,8 +38,9 @@ from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
-    get_supported_filesystems, PARTITION_ONLY_FORMAT_TYPES, SUPPORTED_DEVICE_TYPES, \
-    CONTAINER_DEVICE_TYPES, DEVICE_TEXT_MAP, NAMED_DEVICE_TYPES
+    get_supported_filesystems
+from pyanaconda.core.storage import DEVICE_TEXT_MAP, PARTITION_ONLY_FORMAT_TYPES, \
+    NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, SUPPORTED_DEVICE_TYPES
 
 log = get_module_logger(__name__)
 

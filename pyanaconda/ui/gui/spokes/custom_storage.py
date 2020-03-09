@@ -50,10 +50,9 @@ from pyanaconda.modules.common.structures.device_factory import DeviceFactoryReq
     DeviceFactoryPermissions
 from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
-from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning
-from pyanaconda.storage.utils import DEVICE_TEXT_MAP, MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, \
-    CONTAINER_DEVICE_TYPES, device_type_from_autopart, DEVICE_TYPE_UNSUPPORTED, \
-    filter_disks_by_names
+from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning, filter_disks_by_names
+from pyanaconda.core.storage import DEVICE_TYPE_UNSUPPORTED, DEVICE_TEXT_MAP, \
+    MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
