@@ -73,6 +73,10 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
     def apply(self):
         (store, itr) = self._localeSelection.get_selected()
 
+        if not itr:
+            log.warning("No locale is selected. Skip.")
+            return
+
         locale = store[itr][1]
         locale = localization.setup_locale(locale, self._l12_module, text_mode=False)
         self._set_lang(locale)
