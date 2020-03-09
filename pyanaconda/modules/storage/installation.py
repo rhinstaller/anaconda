@@ -21,11 +21,13 @@ from datetime import timedelta
 from time import sleep
 
 from blivet import callbacks
+from blivet.errors import FSResizeError, FormatResizeError, StorageError
 from blivet.util import get_current_entropy
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.errors.installation import StorageInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
 
@@ -53,7 +55,10 @@ class ActivateFilesystemsTask(Task):
         return "Activate filesystems"
 
     def run(self):
-        """Do the activation."""
+        """Do the activation.
+
+        :raise: StorageInstallationError if the activation fails
+        """
         if conf.target.is_directory:
             log.debug("Don't activate file systems during "
                       "the installation to a directory.")
@@ -65,10 +70,20 @@ class ActivateFilesystemsTask(Task):
             wait_for_entropy=self._wait_for_entropy
         )
 
-        turn_on_filesystems(
-            self._storage,
-            callbacks=register
-        )
+        try:
+            turn_on_filesystems(
+                self._storage,
+                callbacks=register
+            )
+        except (FSResizeError, FormatResizeError) as e:
+            log.error("Failed to resize device %s: %s", e.details, str(e))
+            message = _("An error occurred while resizing the device {}: {}").format(
+                e.details, str(e)
+            )
+            raise StorageInstallationError(message) from None
+        except StorageError as e:
+            log.error("Failed to activate filesystems: %s", str(e))
+            raise StorageInstallationError(str(e)) from None
 
     def _report_message(self, data):
         """Report a Blivet message.
