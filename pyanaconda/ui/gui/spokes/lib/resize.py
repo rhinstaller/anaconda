@@ -366,22 +366,28 @@ class ResizeDialog(GUIObject):
         self._resize_slider.add_mark(min_size, Gtk.PositionType.BOTTOM, str(Size(min_size)))
         self._resize_slider.add_mark(max_size, Gtk.PositionType.BOTTOM, str(Size(max_size)))
 
-    def _update_action_buttons(self, row):
-        obj = PartStoreRow(*row)
-        device_name = obj.name
-        device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
-        )
+    def _update_action_buttons(self):
+        # Update buttons for the selected row.
+        itr = self._selection.get_selected()[1]
 
-        # Disks themselves may be editable in certain ways, but they are never
-        # shrinkable.
+        if not itr:
+            return
+
+        row = self._disk_store[itr]
+        obj = PartStoreRow(*row)
+
         self._preserve_button.set_sensitive(obj.editable)
-        self._shrink_button.set_sensitive(obj.editable and not device_data.is_disk)
+        self._shrink_button.set_sensitive(obj.editable)
         self._delete_button.set_sensitive(obj.editable)
         self._resize_slider.set_visible(False)
 
         if not obj.editable:
             return
+
+        device_name = obj.name
+        device_data = DeviceData.from_structure(
+            self._device_tree.GetDeviceData(device_name)
+        )
 
         # If the selected filesystem does not support shrinking, make that
         # button insensitive.
@@ -513,7 +519,7 @@ class ResizeDialog(GUIObject):
         self._disk_store.foreach(self._sum_reclaimable_space, None)
         self._update_labels(selected_reclaimable=self._selected_reclaimable_space)
         self._update_reclaim_button(self._selected_reclaimable_space)
-        self._update_action_buttons(selected_row)
+        self._update_action_buttons()
 
     def _schedule_actions(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
@@ -575,12 +581,7 @@ class ResizeDialog(GUIObject):
         # selection.  Thus, clicking on a disk header to collapse it and then
         # immediately clicking on it again to expand it would not work when
         # dealt with here.
-        itr = selection.get_selected()[1]
-
-        if not itr:
-            return
-
-        self._update_action_buttons(self._disk_store[itr])
+        self._update_action_buttons()
 
     @timed_action(delay=200, threshold=500, busy_cursor=False)
     def on_resize_value_changed(self, rng):
