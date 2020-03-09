@@ -25,7 +25,8 @@ from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET
+    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET, \
+    PARTITIONING_METHOD_INTERACTIVE
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.timer import Timer
 from pyanaconda.flags import flags
@@ -361,8 +362,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def execute(self):
         """"Apply a partitioning."""
         # Make sure that we apply a non-interactive partitioning.
-        if self._last_partitioning_method == PARTITIONING_METHOD_CUSTOM:
-            log.debug("Skipping the execute method for the CUSTOM partitioning method.")
+        if self._last_partitioning_method == PARTITIONING_METHOD_INTERACTIVE:
+            log.debug("Skipping the execute method for the INTERACTIVE partitioning method.")
             return
 
         if self._last_partitioning_method == PARTITIONING_METHOD_BLIVET:
