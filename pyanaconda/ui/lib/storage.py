@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019  Red Hat, Inc.
+# Copyright (C) 2020  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -208,7 +208,12 @@ def get_disks_summary(disks):
     return P_(
         "{count} disk selected; {capacity} capacity; {free} free",
         "{count} disks selected; {capacity} capacity; {free} free",
-        count).format(count=count, capacity=capacity, free=free_space)
+        count
+    ).format(
+        count=count,
+        capacity=capacity,
+        free=free_space
+    )
 
 
 def mark_protected_device(spec):
@@ -242,7 +247,7 @@ def unmark_protected_device(spec):
 def try_populate_devicetree():
     """Try to populate a device tree.
 
-    Try to populate the devic etree while catching errors and dealing with
+    Try to populate the device tree while catching errors and dealing with
     some special ones in a nice way (giving user chance to do something about
     them).
     """
@@ -254,11 +259,14 @@ def try_populate_devicetree():
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
         except StorageError as e:
+            # Does the user want to retry?
             if error_handler.cb(e) == ERROR_RAISE:
                 raise
+            # Retry populating the device tree.
             else:
                 continue
         else:
+            # No need to retry.
             break
 
 
@@ -310,7 +318,7 @@ def is_local_disk(device_type):
     the advanced storage.
 
     While technically local disks, zFCP and NVDIMM devices are
-    specialized storage and should not be considered local.
+    advanced storage and should not be considered local.
 
     :param device_type: a device type
     :return: True or False

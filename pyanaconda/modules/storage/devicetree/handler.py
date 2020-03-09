@@ -60,7 +60,7 @@ class DeviceTreeHandler(ABC):
         """Open, or set up, a device.
 
         :param device_name: a name of the device
-        :raise: DeviceSetupError in a case of failure
+        :raise: DeviceSetupError in case of failure
         """
         device = self._get_device(device_name)
         try:
@@ -73,7 +73,7 @@ class DeviceTreeHandler(ABC):
         """Close, or tear down, a device.
 
         :param device_name: a name of the device
-        :raise: DeviceSetupError in a case of failure
+        :raise: DeviceSetupError in case of failure
         """
         device = self._get_device(device_name)
         try:

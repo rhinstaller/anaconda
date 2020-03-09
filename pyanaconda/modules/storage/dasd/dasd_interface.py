@@ -37,7 +37,7 @@ class DASDInterface(KickstartModuleInterfaceTemplate):
 
         :param device_number: a device number
         :return: a path to a task
-        :raise: DiscoveryError in a case of failure
+        :raise: DiscoveryError in case of failure
         """
         return TaskContainer.to_object_path(
             self.implementation.discover_with_task(device_number)

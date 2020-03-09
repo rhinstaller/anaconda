@@ -51,7 +51,7 @@ class NVDIMMReconfigureTask(Task):
         :param namespace: a device name of the namespace
         :param mode: a new mode of the namespace
         :param sector_size: a size of the sector
-        :raise: StorageConfigurationError in a case of failure
+        :raise: StorageConfigurationError in case of failure
         """
         try:
             nvdimm.reconfigure_namespace(namespace, mode, sector_size=sector_size)

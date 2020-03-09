@@ -324,7 +324,7 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         FIXME: Merge with DestroyDevice.
 
         :param device_name: a name of the device
-        :raise: StorageConfigurationError in a case of failure
+        :raise: StorageConfigurationError in case of failure
         """
         self.implementation.reset_device(device_name)
 
@@ -332,7 +332,7 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """Destroy the specified device in the storage model.
 
         :param device_name: a name of the device
-        :raise: StorageConfigurationError in a case of failure
+        :raise: StorageConfigurationError in case of failure
         """
         self.implementation.destroy_device(device_name)
 
