@@ -134,7 +134,7 @@ class AnacondaConfiguration(Configuration):
         return self._license
 
     def set_from_defaults(self):
-        """"Set the configuration from the default configuration files.
+        """Set the configuration from the default configuration files.
 
         Read the current configuration from the temporary config file.
         Or load the default configuration file from:

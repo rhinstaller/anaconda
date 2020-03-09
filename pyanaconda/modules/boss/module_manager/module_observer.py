@@ -47,7 +47,7 @@ class ModuleObserver(DBusObserver):
 
     @property
     def proxy(self):
-        """"Returns a proxy of the remote object."""
+        """Returns a proxy of the remote object."""
         if not self._is_service_available:
             raise DBusObserverError("Service {} is not available."
                                     .format(self._service_name))

@@ -420,7 +420,7 @@ class DeviceTreeViewer(ABC):
         return device.fstab_spec
 
     def get_existing_systems(self):
-        """"Get existing GNU/Linux installations.
+        """Get existing GNU/Linux installations.
 
         :return: a list of data about found installations
         """

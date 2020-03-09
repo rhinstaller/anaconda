@@ -55,7 +55,7 @@ __all__ = ["BlivetGuiSpoke"]
 
 
 class BlivetGUIAnacondaClient(BlivetGUIClient):
-    """"The request handler for the Blivet-GUI."""
+    """The request handler for the Blivet-GUI."""
 
     def __init__(self):  # pylint: disable=super-init-not-called
         self.mutex = Lock()

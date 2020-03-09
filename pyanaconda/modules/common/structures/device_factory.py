@@ -454,7 +454,7 @@ class DeviceFactoryPermissions(DBusData):
 
     @property
     def container_size_policy(self) -> Bool:
-        """"Can the container size policy be changed?
+        """Can the container size policy be changed?
 
         :return: True or False
         """

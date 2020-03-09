@@ -198,7 +198,7 @@ class DeviceTreeHandler(ABC):
         return [d.name for d in devices]
 
     def find_existing_systems_with_task(self):
-        """"Find existing GNU/Linux installations.
+        """Find existing GNU/Linux installations.
 
         The task will update data about existing installations.
 
