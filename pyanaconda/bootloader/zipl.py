@@ -21,18 +21,12 @@ import re
 from pyanaconda.bootloader.base import BootLoader, Arguments, BootLoaderError
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.errors import errorHandler
 from pyanaconda.product import productName
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["ZIPL"]
-
-
-class ZIPLError(Exception):
-    """An exception class for ZIPL errors."""
-    pass
 
 
 class ZIPL(BootLoader):
@@ -162,7 +156,7 @@ class ZIPL(BootLoader):
             # exceed 896 bytes; there is nothing we can do about this, so just
             # catch the error and show it to the user instead of crashing
             elif line.startswith("Error: The length of the parameters "):
-                errorHandler.cb(ZIPLError(line))
+                raise BootLoaderError(line)
 
         if not self.stage1_name:
             raise BootLoaderError("could not find IPL device")

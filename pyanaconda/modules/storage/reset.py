@@ -18,12 +18,18 @@
 # Red Hat, Inc.
 #
 from blivet import arch
+from blivet.errors import UnusableConfigurationError
 from blivet.fcoe import fcoe
+from blivet.i18n import _
 from blivet.iscsi import iscsi
 from blivet.zfcp import zfcp
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.modules.common.task import Task
+
+log = get_module_logger(__name__)
 
 __all__ = ["ScanDevicesTask"]
 
@@ -48,9 +54,17 @@ class ScanDevicesTask(Task):
         return "Scan all devices"
 
     def run(self):
-        """Run the task."""
-        self._reload_modules()
-        self._reset_storage(self._storage)
+        """Run the task.
+
+        :raise: UnusableStorageError if the model is not usable
+        """
+        try:
+            self._reload_modules()
+            self._reset_storage(self._storage)
+        except UnusableConfigurationError as e:
+            log.error("Failed to scan devices: %s", e)
+            message = "\n\n".join([str(e), _(e.suggestion)])
+            raise UnusableStorageError(message) from None
 
     def _reload_modules(self):
         """Reload the additional modules."""

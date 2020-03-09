@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+include ./branch-config.mk
+
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
@@ -45,14 +47,11 @@ uninstall-hook:
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
-GIT_BRANCH ?= master
-
+# LOCALIZATION SETTINGS
 L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
 L10N_REPOSITORY_RW ?= git@github.com:rhinstaller/anaconda-l10n.git
 # Branch used in anaconda-l10n repository. This should be master all the time.
 GIT_L10N_BRANCH ?= master
-# Directory for this anaconda branch in anaconda-l10n repository. This could be master, fXX, rhel-8 etc.
-L10N_DIR ?= master
 
 DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
 				-e 's/^f//' \
@@ -75,6 +74,8 @@ TEST_RESULT_DIR = $(RESULT_DIR)/tests
 SRPM_BUILD_DIR = $(BUILD_RESULT_DIR)/00-srpm-build
 RPM_BUILD_DIR = $(BUILD_RESULT_DIR)/01-rpm-build
 TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
+
+SKIP_BRANCHING_CHECK ?= "false"
 
 # If translations are present, run tests on the .po files before tarring them
 # up. Use a weird looking loop because shell doesn't have a good way to test
@@ -203,6 +204,48 @@ ci:
 		rm $(srcdir)/tests/error_occured; \
 		exit $$status; \
 	fi
+
+check-branching:
+# checking if branching can be finished and all the pieces are in place
+	@echo "===================================="
+	@echo "Testing branch configuration"
+	@echo "===================================="
+	@if [ "$(SKIP_BRANCHING_CHECK)" != "false" ]; then \
+		echo "skipping..."; \
+	else \
+		CURRENT_BRANCH=$$(git rev-parse --abbrev-ref HEAD); \
+		if [ "$$CURRENT_BRANCH" != "$(GIT_BRANCH)" ]; then \
+			echo "*** Configuration is not adjusted for current branch!"; \
+			echo "This check will work only on main development branch fXX-release, rhel-X ..."; \
+			echo "current branch:  $$CURRENT_BRANCH"; \
+			echo "expected branch: $(GIT_BRANCH)"; \
+			exit 1; \
+		fi; \
+	fi
+
+	@echo "===================================="
+	@echo "Testing localization for $(L10N_DIR)"
+	@echo "===================================="
+	@curl --fail --silent --show-error -L https://raw.githubusercontent.com/rhinstaller/anaconda-l10n/$(GIT_L10N_BRANCH)/$(L10N_DIR)/anaconda.pot >/dev/null ||  \
+		(echo "*** Can't download translations from a localization repository"; \
+		 echo "repository: $(L10N_REPOSITORY)"; \
+		 echo "branch:     $(GIT_L10N_BRANCH)"; \
+		 echo "directory:  $(L10N_DIR)"; \
+		 exit 2)
+
+	@echo "===================================="
+	@echo "Testing pykickstart configuration"
+	@echo "===================================="
+	@substituted_branch=$$(echo "$(GIT_BRANCH)" | sed 's/^master$$/DEVEL/'); \
+	for i in $$(git grep 'from pykickstart.version import DEVEL as VERSION' -- pyanaconda/ dracut/ | awk -F "[: ]" '{print $$1 ";" $$5}'); do \
+		i=$${i^^}; \
+		if [ "$${i#*;}" != "$$substituted_branch" ]; then \
+			echo "$${i%;*} is not substituted properly!"; \
+			exit 3;\
+		fi; \
+	done
+
+	@echo "SUCCESS"
 
 grab-logs:
 # can't be used after tests automatically because make will end when tests fails

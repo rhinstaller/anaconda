@@ -41,6 +41,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.communication import hubQ
 
@@ -111,7 +112,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occurred"), hw_error_msg)
             sys.exit(0)
-        elif isinstance(value, blivet.errors.UnusableConfigurationError):
+        elif isinstance(value, UnusableStorageError):
             sys.exit(0)
         elif isinstance(value, NonInteractiveError):
             sys.exit(0)

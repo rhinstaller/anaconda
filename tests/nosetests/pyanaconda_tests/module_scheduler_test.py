@@ -561,10 +561,13 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev1)
         self._add_device(dev2)
 
+        # Make the btrfs format not mountable.
+        dev2.format._mount = Mock(available=False)
+
         request = self.interface.GenerateDeviceFactoryRequest(dev2.name)
         permissions = self.interface.GenerateDeviceFactoryPermissions(request)
         self.assertEqual(get_native(permissions), {
-            'mount-point': True,
+            'mount-point': False,
             'reformat': False,
             'format-type': False,
             'label': True,

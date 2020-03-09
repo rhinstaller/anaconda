@@ -131,7 +131,7 @@ def _write_sysconfig_kernel(sysroot, storage):
     kernel = decode_bytes(h.name)
 
     f = open(sysroot + "/etc/sysconfig/kernel", "w+")
-    f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
+    f.write("# UPDATEDEFAULT specifies if kernel-install should make\n"
             "# new kernels the default\n")
     # only update the default if we're setting the default to linux (#156678)
     if storage.bootloader.default.device == storage.root_device:

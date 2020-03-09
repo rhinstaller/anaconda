@@ -156,6 +156,7 @@ class Rescue(object):
         self.ro = False
 
         self.status = RescueModeStatus.NOT_SET
+        self.error = None
 
         if rescue_data:
             self.automated = True
@@ -197,6 +198,7 @@ class Rescue(object):
         except MountFilesystemError as e:
             log.error("Mounting system under %s failed: %s", conf.target.system_root, e)
             self.status = RescueModeStatus.MOUNT_FAILED
+            self.error = e
             return False
 
         # turn on selinux also
@@ -435,9 +437,15 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                     finish_msg = exit_reboot_msg
                 else:
                     finish_msg = umount_msg
-                text = TextWidget(_("An error occurred trying to mount some or all of "
-                                    "your system.  Some of it may be mounted under %s\n\n") %
-                                  conf.target.system_root + finish_msg)
+
+                msg = _(
+                    "An error occurred trying to mount some or all of your system: "
+                    "{message}\n\nSome of it may be mounted under {path}.").format(
+                    message=str(self._rescue.error),
+                    path=conf.target.system_root
+                )
+
+                text = TextWidget(msg + " " + finish_msg)
             elif status == RescueModeStatus.ROOT_NOT_FOUND:
                 if self._rescue.reboot:
                     finish_msg = _("Rebooting.")

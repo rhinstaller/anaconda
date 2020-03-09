@@ -73,3 +73,9 @@ class SecurityInstallationError(InstallationError):
 class BootloaderInstallationError(InstallationError):
     """Exception for the bootloader installation errors."""
     pass
+
+
+@dbus_error("StorageInstallationError", namespace=ANACONDA_NAMESPACE)
+class StorageInstallationError(InstallationError):
+    """Exception for the storage installation errors."""
+    pass
