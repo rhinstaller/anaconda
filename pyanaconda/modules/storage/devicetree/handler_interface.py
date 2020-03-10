@@ -137,7 +137,7 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         return self.implementation.find_mountable_partitions()
 
     def FindExistingSystemsWithTask(self) -> ObjPath:
-        """"Find existing GNU/Linux installations.
+        """Find existing GNU/Linux installations.
 
         The task will update data about existing installations.
 

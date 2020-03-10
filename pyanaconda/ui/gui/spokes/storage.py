@@ -378,7 +378,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         ))
 
     def _do_execute(self):
-        """"Apply a non-interactive partitioning."""
+        """Apply a non-interactive partitioning."""
         self._ready = False
         hubQ.send_not_ready(self.__class__.__name__)
 

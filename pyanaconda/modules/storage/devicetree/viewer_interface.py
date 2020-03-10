@@ -181,7 +181,7 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         return self.implementation.get_fstab_spec(name)
 
     def GetExistingSystems(self) -> List[Structure]:
-        """"Get existing GNU/Linux installations.
+        """Get existing GNU/Linux installations.
 
         :return: a list of data about found installations
         """
