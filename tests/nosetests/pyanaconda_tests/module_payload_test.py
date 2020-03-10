@@ -24,6 +24,9 @@ from unittest.mock import patch, Mock, create_autospec, DEFAULT
 from textwrap import dedent
 from tempfile import TemporaryDirectory
 
+from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, \
+    KickstartSpecificationParser
+from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
 from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
@@ -71,10 +74,10 @@ class PayloadsInterfaceTestCase(TestCase):
 
     def process_kickstart_with_no_payload_test(self):
         """Test kickstart processing when no payload set or created based on KS data."""
-        with self.assertLogs('anaconda.modules.payloads.payloads', level="WARNING") as log:
-            self.payload_interface.ReadKickstart("")
+        self.payload_interface.ReadKickstart("")
 
-            self.assertTrue(any(map(lambda x: "No payload was created" in x, log.output)))
+        with self.assertRaises(PayloadNotSetError):
+            self.payload_interface.GetActivePayload()
 
     @patch_dbus_publish_object
     def is_payload_set_test(self, publisher):
@@ -360,20 +363,26 @@ class FactoryTestCase(TestCase):
 
     def create_payload_from_ks_test(self):
         """Test PayloadFactory create from KS method."""
-        # Live OS can't be detected from the KS data so it is not tested here
-        data = Mock()
-        data.liveimg.seen = True
-        data.packages.seen = False
+        self._check_payload_type(
+            PayloadType.LIVE_IMAGE,
+            "liveimg --url http://my/path"
+        )
+        self._check_payload_type(
+            PayloadType.DNF,
+            "%packages\na\nb\nc\n%end"
+        )
+        self._check_payload_type(
+            None,
+            ""
+        )
 
-        self.assertIsInstance(PayloadFactory.create_from_ks_data(data), LiveImageModule)
-
-        data.liveimg.seen = False
-        data.packages.seen = True
-        self.assertIsInstance(PayloadFactory.create_from_ks_data(data), DNFModule)
-
-        data.liveimg.seen = False
-        data.packages.seen = False
-        self.assertIsNone(PayloadFactory.create_from_ks_data(data))
+    def _check_payload_type(self, payload_type, kickstart):
+        """Check the payload type for the given kickstart."""
+        specification = PayloadKickstartSpecification
+        handler = KickstartSpecificationHandler(specification)
+        parser = KickstartSpecificationParser(handler, specification)
+        parser.readKickstartFromString(kickstart)
+        self.assertEqual(payload_type, PayloadFactory.get_type_for_kickstart(handler))
 
     def failed_create_payload_test(self):
         """Test failed create method of the payload factory."""

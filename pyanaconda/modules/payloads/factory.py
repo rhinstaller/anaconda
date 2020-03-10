@@ -49,20 +49,12 @@ class PayloadFactory(BaseFactory):
     """Factory to create payloads."""
 
     @classmethod
-    def create_from_ks_data(cls, data):
-        """Create payload based on the KS data.
+    def get_type_for_kickstart(cls, data):
+        """Get a payload type for the given kickstart data.
 
-        :param data: kickstart data
+        :param data: a kickstart data
+        :return: a payload type
         """
-        payload_type = cls._get_type_from_ks(data)
-
-        if payload_type is None:
-            return None
-
-        return cls.create(payload_type)
-
-    @classmethod
-    def _get_type_from_ks(cls, data):
         if data.liveimg.seen:
             return PayloadType.LIVE_IMAGE
         elif data.packages.seen:

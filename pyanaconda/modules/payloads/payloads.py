@@ -97,19 +97,19 @@ class PayloadsService(KickstartService):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
 
-        # create payload if no payload is set already
-        if not self.is_payload_set():
-            payload = PayloadFactory.create_from_ks_data(data)
-            if not payload:
-                log.warning("No payload was created. Kickstart data passed in are lost.")
-                return
+        # Create a new payload module.
+        payload_type = PayloadFactory.get_type_for_kickstart(data)
 
-        payload.process_kickstart(data)
+        if payload_type:
+            payload_module = self.create_payload(payload_type)
+            payload_module.process_kickstart(data)
 
+            # FIXME: This is a temporary workaround.
+            PayloadContainer.to_object_path(payload_module)
+
+        # FIXME: Process packages in the DNF module.
+        # The packages module should be replaces with a DBus structure.
         self._packages.process_kickstart(data)
-
-        self.set_payload(payload)
-        PayloadContainer.to_object_path(payload)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
