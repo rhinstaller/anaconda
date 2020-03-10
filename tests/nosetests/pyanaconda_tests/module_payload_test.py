@@ -375,6 +375,11 @@ class FactoryTestCase(TestCase):
         data.packages.seen = False
         self.assertIsNone(PayloadFactory.create_from_ks_data(data))
 
+    def failed_create_payload_test(self):
+        """Test failed create method of the payload factory."""
+        with self.assertRaises(ValueError):
+            PayloadFactory.create("INVALID")
+
     def create_source_test(self):
         """Test SourceFactory create method."""
         for source_type in SourceType:
@@ -382,3 +387,8 @@ class FactoryTestCase(TestCase):
             self.assertIsInstance(module, PayloadSourceBase)
             self.assertIsInstance(module.for_publication(), PayloadSourceBaseInterface)
             self.assertEqual(module.type, source_type)
+
+    def failed_create_source_test(self):
+        """Test failed create method of the source factory."""
+        with self.assertRaises(ValueError):
+            SourceFactory.create("INVALID")

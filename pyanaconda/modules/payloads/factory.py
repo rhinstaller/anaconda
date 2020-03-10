@@ -83,6 +83,8 @@ class PayloadFactory(BaseFactory):
             from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
             return DNFModule()
 
+        raise ValueError("Unknown payload type: {}".format(object_type))
+
 
 class SourceFactory(BaseFactory):
     """Factory to create payload sources."""
@@ -92,3 +94,5 @@ class SourceFactory(BaseFactory):
         if object_type == SourceType.LIVE_OS_IMAGE:
             from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
             return LiveOSSourceModule()
+
+        raise ValueError("Unknown source type: {}".format(object_type))
