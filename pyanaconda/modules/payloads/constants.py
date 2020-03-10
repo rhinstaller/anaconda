@@ -31,3 +31,4 @@ class PayloadType(Enum):
 class SourceType(Enum):
     """Type of the payload source."""
     LIVE_OS_IMAGE = "LIVE_OS_IMAGE"
+    HMC = "HMC"
