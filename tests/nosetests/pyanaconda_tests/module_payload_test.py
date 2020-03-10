@@ -24,6 +24,9 @@ from unittest.mock import patch, Mock, create_autospec, DEFAULT
 from textwrap import dedent
 from tempfile import TemporaryDirectory
 
+from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
+from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
 from pyanaconda.modules.common.containers import PayloadContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError, \
@@ -349,17 +352,11 @@ class FactoryTestCase(TestCase):
 
     def create_payload_test(self):
         """Test PayloadFactory create method."""
-        payload = PayloadFactory.create(PayloadType.DNF)
-        self.assertIsInstance(payload, DNFModule)
-        self.assertEqual(payload.type, PayloadType.DNF)
-
-        payload = PayloadFactory.create(PayloadType.LIVE_IMAGE)
-        self.assertIsInstance(payload, LiveImageModule)
-        self.assertEqual(payload.type, PayloadType.LIVE_IMAGE)
-
-        payload = PayloadFactory.create(PayloadType.LIVE_OS)
-        self.assertIsInstance(payload, LiveOSModule)
-        self.assertEqual(payload.type, PayloadType.LIVE_OS)
+        for payload_type in PayloadType:
+            module = PayloadFactory.create(payload_type)
+            self.assertIsInstance(module, PayloadBase)
+            self.assertIsInstance(module.for_publication(), PayloadBaseInterface)
+            self.assertEqual(module.type, payload_type)
 
     def create_payload_from_ks_test(self):
         """Test PayloadFactory create from KS method."""
@@ -380,5 +377,8 @@ class FactoryTestCase(TestCase):
 
     def create_source_test(self):
         """Test SourceFactory create method."""
-        self.assertIsInstance(SourceFactory.create(SourceType.LIVE_OS_IMAGE),
-                              LiveOSSourceModule)
+        for source_type in SourceType:
+            module = SourceFactory.create(source_type)
+            self.assertIsInstance(module, PayloadSourceBase)
+            self.assertIsInstance(module.for_publication(), PayloadSourceBaseInterface)
+            self.assertEqual(module.type, source_type)
