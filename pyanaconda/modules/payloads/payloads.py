@@ -138,7 +138,7 @@ class PayloadsService(KickstartService):
         :param payload_type: type of the desirable payload
         :type payload_type: value of the payload.base.constants.PayloadType enum
         """
-        payload = PayloadFactory.create(payload_type)
+        payload = PayloadFactory.create_payload(payload_type)
         self.set_payload(payload)
         return payload
 
@@ -148,4 +148,4 @@ class PayloadsService(KickstartService):
         :param source_type: type of the desirable source
         :type source_type: value of the payload.base.constants.SourceType enum
         """
-        return SourceFactory.create(source_type)
+        return SourceFactory.create_source(source_type)

@@ -23,29 +23,7 @@ from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 __all__ = ["PayloadFactory", "SourceFactory"]
 
 
-class BaseFactory(ABC):
-    """Factory to create payload objects."""
-
-    @classmethod
-    def create(cls, object_type):
-        """Create an object of the given type.
-
-        :param object_type: value from the enum of given type
-        """
-        obj = cls._create(object_type)
-
-        return obj
-
-    @abstractclassmethod
-    def _create(cls, object_type):
-        """Return class from the type.
-
-        :rtype: class
-        """
-        pass
-
-
-class PayloadFactory(BaseFactory):
+class PayloadFactory(object):
     """Factory to create payloads."""
 
     @classmethod
@@ -62,8 +40,13 @@ class PayloadFactory(BaseFactory):
         else:
             return None
 
-    @classmethod
-    def _create(cls, object_type):
+    @staticmethod
+    def create_payload(object_type: PayloadType):
+        """Create a partitioning module.
+
+        :param object_type: a payload type
+        :return: a payload module
+        """
         if object_type == PayloadType.LIVE_IMAGE:
             from pyanaconda.modules.payloads.payload.live_image.live_image import \
                 LiveImageModule
@@ -78,11 +61,16 @@ class PayloadFactory(BaseFactory):
         raise ValueError("Unknown payload type: {}".format(object_type))
 
 
-class SourceFactory(BaseFactory):
+class SourceFactory(object):
     """Factory to create payload sources."""
 
-    @classmethod
-    def _create(cls, object_type):
+    @staticmethod
+    def create_source(object_type: SourceType):
+        """Create a source module.
+
+        :param object_type: a source type
+        :return: a source module
+        """
         if object_type == SourceType.LIVE_OS_IMAGE:
             from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
             return LiveOSSourceModule()

@@ -356,7 +356,7 @@ class FactoryTestCase(TestCase):
     def create_payload_test(self):
         """Test PayloadFactory create method."""
         for payload_type in PayloadType:
-            module = PayloadFactory.create(payload_type)
+            module = PayloadFactory.create_payload(payload_type)
             self.assertIsInstance(module, PayloadBase)
             self.assertIsInstance(module.for_publication(), PayloadBaseInterface)
             self.assertEqual(module.type, payload_type)
@@ -387,12 +387,12 @@ class FactoryTestCase(TestCase):
     def failed_create_payload_test(self):
         """Test failed create method of the payload factory."""
         with self.assertRaises(ValueError):
-            PayloadFactory.create("INVALID")
+            PayloadFactory.create_payload("INVALID")
 
     def create_source_test(self):
         """Test SourceFactory create method."""
         for source_type in SourceType:
-            module = SourceFactory.create(source_type)
+            module = SourceFactory.create_source(source_type)
             self.assertIsInstance(module, PayloadSourceBase)
             self.assertIsInstance(module.for_publication(), PayloadSourceBaseInterface)
             self.assertEqual(module.type, source_type)
@@ -400,4 +400,4 @@ class FactoryTestCase(TestCase):
     def failed_create_source_test(self):
         """Test failed create method of the source factory."""
         with self.assertRaises(ValueError):
-            SourceFactory.create("INVALID")
+            SourceFactory.create_source("INVALID")
