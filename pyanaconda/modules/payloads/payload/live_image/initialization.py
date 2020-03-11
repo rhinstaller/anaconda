@@ -253,7 +253,7 @@ class SetupInstallationSourceImageTask(Task):
 
         # TODO - do we use it at all in LiveImage
         # Used to make install progress % look correct
-        # self._adj_size = os.stat(self.image_path)[stat.ST_SIZE]
+        # self._adj_size = os.stat(self.image_path).st_size
 
         if self._checksum:
             self._check_image_sum(self._image_path, self._checksum)
