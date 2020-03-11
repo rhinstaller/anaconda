@@ -16,15 +16,36 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
-from abc import ABC, abstractclassmethod
+#
+from pyanaconda.modules.payloads.constants import PayloadType
 
-from pyanaconda.modules.payloads.constants import PayloadType, SourceType
-
-__all__ = ["PayloadFactory", "SourceFactory"]
+__all__ = ["PayloadFactory"]
 
 
 class PayloadFactory(object):
     """Factory to create payloads."""
+
+    @staticmethod
+    def create_payload(payload_type: PayloadType):
+        """Create a partitioning module.
+
+        :param payload_type: a payload type
+        :return: a payload module
+        """
+        if payload_type == PayloadType.LIVE_IMAGE:
+            from pyanaconda.modules.payloads.payload.live_image.live_image import \
+                LiveImageModule
+            return LiveImageModule()
+
+        if payload_type == PayloadType.LIVE_OS:
+            from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
+            return LiveOSModule()
+
+        if payload_type == PayloadType.DNF:
+            from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
+            return DNFModule()
+
+        raise ValueError("Unknown payload type: {}".format(payload_type))
 
     @classmethod
     def get_type_for_kickstart(cls, data):
@@ -35,44 +56,8 @@ class PayloadFactory(object):
         """
         if data.liveimg.seen:
             return PayloadType.LIVE_IMAGE
-        elif data.packages.seen:
+
+        if data.packages.seen:
             return PayloadType.DNF
-        else:
-            return None
 
-    @staticmethod
-    def create_payload(object_type: PayloadType):
-        """Create a partitioning module.
-
-        :param object_type: a payload type
-        :return: a payload module
-        """
-        if object_type == PayloadType.LIVE_IMAGE:
-            from pyanaconda.modules.payloads.payload.live_image.live_image import \
-                LiveImageModule
-            return LiveImageModule()
-        elif object_type == PayloadType.LIVE_OS:
-            from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
-            return LiveOSModule()
-        elif object_type == PayloadType.DNF:
-            from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
-            return DNFModule()
-
-        raise ValueError("Unknown payload type: {}".format(object_type))
-
-
-class SourceFactory(object):
-    """Factory to create payload sources."""
-
-    @staticmethod
-    def create_source(object_type: SourceType):
-        """Create a source module.
-
-        :param object_type: a source type
-        :return: a source module
-        """
-        if object_type == SourceType.LIVE_OS_IMAGE:
-            from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
-            return LiveOSSourceModule()
-
-        raise ValueError("Unknown source type: {}".format(object_type))
+        return None

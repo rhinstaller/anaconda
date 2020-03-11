@@ -22,7 +22,8 @@ from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer, PayloadContainer
 from pyanaconda.modules.common.errors.payload import PayloadNotSetError
-from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
+from pyanaconda.modules.payloads.source.factory import SourceFactory
+from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.packages.packages import PackagesModule
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface

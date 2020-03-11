@@ -20,16 +20,10 @@
 import os
 
 from unittest import TestCase
-from unittest.mock import patch, Mock, create_autospec, DEFAULT
+from unittest.mock import patch, create_autospec, DEFAULT
 from textwrap import dedent
 from tempfile import TemporaryDirectory
 
-from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, \
-    KickstartSpecificationParser
-from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
-from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
-from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
 from pyanaconda.modules.common.containers import PayloadContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError, \
@@ -40,7 +34,6 @@ from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module
     get_dir_size
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
@@ -351,53 +344,3 @@ class PayloadSharedUtilsTest(TestCase):
         # computed correctly
 
 
-class FactoryTestCase(TestCase):
-
-    def create_payload_test(self):
-        """Test PayloadFactory create method."""
-        for payload_type in PayloadType:
-            module = PayloadFactory.create_payload(payload_type)
-            self.assertIsInstance(module, PayloadBase)
-            self.assertIsInstance(module.for_publication(), PayloadBaseInterface)
-            self.assertEqual(module.type, payload_type)
-
-    def create_payload_from_ks_test(self):
-        """Test PayloadFactory create from KS method."""
-        self._check_payload_type(
-            PayloadType.LIVE_IMAGE,
-            "liveimg --url http://my/path"
-        )
-        self._check_payload_type(
-            PayloadType.DNF,
-            "%packages\na\nb\nc\n%end"
-        )
-        self._check_payload_type(
-            None,
-            ""
-        )
-
-    def _check_payload_type(self, payload_type, kickstart):
-        """Check the payload type for the given kickstart."""
-        specification = PayloadKickstartSpecification
-        handler = KickstartSpecificationHandler(specification)
-        parser = KickstartSpecificationParser(handler, specification)
-        parser.readKickstartFromString(kickstart)
-        self.assertEqual(payload_type, PayloadFactory.get_type_for_kickstart(handler))
-
-    def failed_create_payload_test(self):
-        """Test failed create method of the payload factory."""
-        with self.assertRaises(ValueError):
-            PayloadFactory.create_payload("INVALID")
-
-    def create_source_test(self):
-        """Test SourceFactory create method."""
-        for source_type in SourceType:
-            module = SourceFactory.create_source(source_type)
-            self.assertIsInstance(module, PayloadSourceBase)
-            self.assertIsInstance(module.for_publication(), PayloadSourceBaseInterface)
-            self.assertEqual(module.type, source_type)
-
-    def failed_create_source_test(self):
-        """Test failed create method of the source factory."""
-        with self.assertRaises(ValueError):
-            SourceFactory.create_source("INVALID")
