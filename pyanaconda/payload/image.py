@@ -33,6 +33,7 @@ from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
+from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 
@@ -212,7 +213,7 @@ def find_optical_install_media():
             except MountFilesystemError:
                 continue
             try:
-                if not verifyMedia(mountpoint):
+                if not is_valid_install_disk(mountpoint):
                     continue
             finally:
                 payload_utils.unmount_device(dev, mountpoint)
@@ -271,23 +272,3 @@ def get_hdiso_source_description(device_info):
     :return: a string with a device description
     """
     return "{model} {path} ({size}) {format} {label}".format(**device_info)
-
-
-def verifyMedia(tree, timestamp=None):
-    if os.access("%s/.discinfo" % tree, os.R_OK):
-        f = open("%s/.discinfo" % tree)
-
-        newStamp = f.readline().strip()
-        # Next is the description, which we just want to throw away.
-        f.readline()
-        arch = f.readline().strip()
-        f.close()
-
-        if timestamp is not None:
-            if newStamp == timestamp and arch == _arch:
-                return True
-        else:
-            if arch == _arch:
-                return True
-
-    return False
