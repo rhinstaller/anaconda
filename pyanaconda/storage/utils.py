@@ -378,14 +378,3 @@ def find_unconfigured_luks(storage):
         devices.append(device)
 
     return devices
-
-
-def setup_passphrase(storage, passphrase):
-    """Set up the given passphrase on unconfigured LUKS devices.
-
-    :param storage: an instance of Blivet
-    :param passphrase: a passphrase to use
-    """
-    for device in find_unconfigured_luks(storage):
-        device.format.passphrase = passphrase
-        storage.save_passphrase(device)

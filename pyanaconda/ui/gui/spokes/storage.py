@@ -273,10 +273,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             )
 
         # Get the UI elements.
-        self._auto_part_radio_button = self.builder.get_object("autopartRadioButton")
         self._custom_part_radio_button = self.builder.get_object("customRadioButton")
         self._blivet_gui_radio_button = self.builder.get_object("blivetguiRadioButton")
-        self._part_type_box = self.builder.get_object("partitioningTypeBox")
         self._encrypted_checkbox = self.builder.get_object("encryptionCheckbox")
         self._encryption_revealer = self.builder.get_object("encryption_revealer")
         self._reclaim_checkbox = self.builder.get_object("reclaimCheckbox")

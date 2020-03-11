@@ -18,17 +18,12 @@
 #
 from dasbus.identifier import DBusInterfaceIdentifier
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, \
-    MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE, \
-    DEVICE_TREE_NAMESPACE, PAYLOAD_NAMESPACE, SOURCE_NAMESPACE
+    MODULES_NAMESPACE, PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, PAYLOAD_NAMESPACE, \
+    SOURCE_NAMESPACE
 
 
 KICKSTART_MODULE = DBusInterfaceIdentifier(
     namespace=MODULES_NAMESPACE
-)
-
-USER = DBusInterfaceIdentifier(
-    namespace=USERS_NAMESPACE,
-    basename="User"
 )
 
 PARTITIONING = DBusInterfaceIdentifier(

@@ -32,13 +32,6 @@ class ZFCPInterface(KickstartModuleInterfaceTemplate):
         """Is this module supported?"""
         return self.implementation.is_supported()
 
-    def ReloadModule(self):
-        """Reload the module.
-
-        FIXME: This is just a temporary method.
-        """
-        self.implementation.reload_module()
-
     def DiscoverWithTask(self, device_number: Str, wwpn: Str, lun: Str) -> ObjPath:
         """Discover a zFCP device.
 

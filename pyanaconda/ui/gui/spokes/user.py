@@ -270,7 +270,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # rather than a default user added by us
         if self.user.name:
             self._user_requested = True
-            self._requested_user_name = self.user.name
 
         # gather references to relevant GUI objects
 

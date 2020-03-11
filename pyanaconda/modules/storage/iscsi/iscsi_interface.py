@@ -89,13 +89,6 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.get_interface_mode().value
 
-    def ReloadModule(self):
-        """Reload the module.
-
-        FIXME: This is just a temporary method.
-        """
-        self.implementation.reload_module()
-
     def DiscoverWithTask(
         self,
         portal: Structure,

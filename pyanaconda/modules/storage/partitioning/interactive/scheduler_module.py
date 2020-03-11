@@ -179,15 +179,6 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return [d.name for d in self.storage.partitioned]
 
-    def get_raw_device(self, device_name):
-        """Get the device itself, or when encrypted, the backing device.
-
-        :param device_name: a device name
-        :return: a raw device name
-        """
-        device = self._get_device(device_name)
-        return device.raw_device.name
-
     def collect_new_devices(self, boot_drive):
         """Get all new devices in the device tree.
 
@@ -211,16 +202,6 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a list of mount points
         """
         return [m for m in utils.collect_mount_points() if m not in self.storage.mountpoints]
-
-    def collect_boot_loader_devices(self, boot_drive):
-        """Collect the boot loader devices.
-
-        FIXME: Remove the boot drive option.
-
-        :param boot_drive: a name of the boot drive
-        :return: a list of device names
-        """
-        return [d.name for d in utils.collect_bootloader_devices(self.storage, boot_drive)]
 
     def collect_containers(self, device_type):
         """Collect containers of the given type.

@@ -606,7 +606,6 @@ class MountPointAssignSpoke(NormalTUISpoke):
         self._container = None
         self._partitioning = partitioning
         self._device_tree = STORAGE.get_proxy(self._partitioning.GetDeviceTree())
-        self._disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
         self._requests = self._gather_requests()
 
     @property

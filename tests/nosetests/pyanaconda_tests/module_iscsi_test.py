@@ -157,12 +157,6 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._node, self._node)
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
-    def reload_module_test(self, iscsi):
-        """Test ReloadModule."""
-        self.iscsi_interface.ReloadModule()
-        iscsi.startup.assert_called_once_with()
-
-    @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
     def write_configuration_test(self, iscsi):
         """Test WriteConfiguration."""
         self.iscsi_interface.WriteConfiguration()

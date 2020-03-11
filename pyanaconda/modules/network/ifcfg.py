@@ -48,7 +48,6 @@ class IfcfgFile(SimpleConfigFile):
         super().__init__(always_quote=True, filename=path)
         self._dirty = False
         self._path = path
-        self._uuid = None
         self._loaded = False
 
     @property

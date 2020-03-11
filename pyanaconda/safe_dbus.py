@@ -24,10 +24,8 @@ gi.require_version("Gio", "2.0")
 from gi.repository import Gio
 
 import os
-from pyanaconda.core.glib import GError, Variant
+from pyanaconda.core.glib import GError
 from pyanaconda.core.constants import DEFAULT_DBUS_TIMEOUT
-
-DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 
 
 class SafeDBusError(Exception):
@@ -40,22 +38,6 @@ class DBusCallError(SafeDBusError):
     """Class for the errors related to calling methods over DBus."""
 
     pass
-
-
-class DBusPropertyError(DBusCallError):
-    """Class for the errors related to getting property values over DBus."""
-
-    pass
-
-
-def get_new_system_connection():
-    """Return a new connection to the system bus."""
-
-    return Gio.DBusConnection.new_for_address_sync(
-        Gio.dbus_address_get_for_bus_sync(Gio.BusType.SYSTEM, None),
-        Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT |
-        Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
-        None, None)
 
 
 def get_new_session_connection():
@@ -100,8 +82,7 @@ def get_new_session_connection():
     return connection
 
 
-def call_sync(service, obj_path, iface, method, args,
-              connection=None):
+def call_sync(service, obj_path, iface, method, args, connection):
     """
     Safely call a given method on a given object of a given service over DBus
     passing given arguments. If a connection is given, it is used, otherwise a
@@ -118,21 +99,13 @@ def call_sync(service, obj_path, iface, method, args,
     :type method: str
     :param args: arguments to pass to the method
     :type args: GVariant
-    :param connection: connection to use (if None, a new connection is
-                       established)
+    :param connection: connection to use
     :type connection: Gio.DBusConnection
     :return: unpacked value returned by the method
     :rtype: tuple with elements that depend on the method
     :raise DBusCallError: if some DBus related error appears
 
     """
-
-    if not connection:
-        try:
-            connection = get_new_system_connection()
-        except GError as gerr:
-            raise DBusCallError("Unable to connect to system bus: {}".format(gerr))
-
     if connection.is_closed():
         raise DBusCallError("Connection is closed")
 
@@ -150,38 +123,3 @@ def call_sync(service, obj_path, iface, method, args,
         raise DBusCallError(msg)
 
     return ret.unpack()
-
-
-def get_property_sync(service, obj_path, iface, prop_name,
-                      connection=None):
-    """
-    Get value of a given property of a given object provided by a given service.
-
-    :param service: DBus service to use
-    :type service: str
-    :param obj_path: object path
-    :type obj_path: str
-    :param iface: interface to use
-    :type iface: str
-    :param prop_name: name of the property
-    :type prop_name: str
-    :param connection: connection to use (if None, a new connection is
-                       established)
-    :type connection: Gio.DBusConnection
-    :return: unpacked value of the property
-    :rtype: tuple with elements that depend on the type of the property
-    :raise DBusCallError: when the internal dbus_call_safe_sync invocation
-                          raises an exception
-    :raise DBusPropertyError: when the given object doesn't have the given
-                              property
-
-    """
-
-    args = Variant('(ss)', (iface, prop_name))
-    ret = call_sync(service, obj_path, DBUS_PROPS_IFACE, "Get", args,
-                    connection)
-    if ret is None:
-        msg = "No value for the %s object's property %s" % (obj_path, prop_name)
-        raise DBusPropertyError(msg)
-
-    return ret

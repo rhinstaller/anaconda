@@ -64,12 +64,6 @@ class FCOEInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._auto_vlan, True)
 
     @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
-    def reload_module_test(self, fcoe):
-        """Test ReloadModule."""
-        self.fcoe_interface.ReloadModule()
-        fcoe.startup.assert_called_once_with()
-
-    @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
     def write_configuration_test(self, fcoe):
         """Test WriteConfiguration."""
         self.fcoe_interface.WriteConfiguration()
