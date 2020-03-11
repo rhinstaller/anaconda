@@ -35,6 +35,9 @@ class SourceFactory(object):
         if source_type == SourceType.LIVE_OS_IMAGE:
             from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
             return LiveOSSourceModule()
+        elif source_type == SourceType.CDROM:
+            from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
+            return CdromSourceModule()
 
         if source_type == SourceType.HMC:
             from pyanaconda.modules.payloads.source.hmc.hmc import HMCSourceModule

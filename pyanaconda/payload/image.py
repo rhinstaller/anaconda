@@ -200,6 +200,8 @@ def find_optical_install_media():
     Return the first device containing a valid optical install
     media for this product.
 
+    FIXME: This is duplicated in SetUpCdromSourceTask.run
+
     :return: a device name or None
     """
     device_tree = STORAGE.get_proxy(DEVICE_TREE)

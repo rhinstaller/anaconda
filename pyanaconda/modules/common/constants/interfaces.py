@@ -87,3 +87,8 @@ PAYLOAD_SOURCE_HMC = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="HMC"
 )
+
+PAYLOAD_SOURCE_CDROM = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="CDROM"
+)
