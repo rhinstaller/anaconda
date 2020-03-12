@@ -22,7 +22,8 @@ from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer, PayloadContainer
 from pyanaconda.modules.common.errors.payload import PayloadNotSetError
-from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
+from pyanaconda.modules.payloads.source.factory import SourceFactory
+from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.packages.packages import PackagesModule
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
@@ -97,19 +98,19 @@ class PayloadsService(KickstartService):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
 
-        # create payload if no payload is set already
-        if not self.is_payload_set():
-            payload = PayloadFactory.create_from_ks_data(data)
-            if not payload:
-                log.warning("No payload was created. Kickstart data passed in are lost.")
-                return
+        # Create a new payload module.
+        payload_type = PayloadFactory.get_type_for_kickstart(data)
 
-        payload.process_kickstart(data)
+        if payload_type:
+            payload_module = self.create_payload(payload_type)
+            payload_module.process_kickstart(data)
 
+            # FIXME: This is a temporary workaround.
+            PayloadContainer.to_object_path(payload_module)
+
+        # FIXME: Process packages in the DNF module.
+        # The packages module should be replaces with a DBus structure.
         self._packages.process_kickstart(data)
-
-        self.set_payload(payload)
-        PayloadContainer.to_object_path(payload)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -138,7 +139,7 @@ class PayloadsService(KickstartService):
         :param payload_type: type of the desirable payload
         :type payload_type: value of the payload.base.constants.PayloadType enum
         """
-        payload = PayloadFactory.create(payload_type)
+        payload = PayloadFactory.create_payload(payload_type)
         self.set_payload(payload)
         return payload
 
@@ -148,4 +149,4 @@ class PayloadsService(KickstartService):
         :param source_type: type of the desirable source
         :type source_type: value of the payload.base.constants.SourceType enum
         """
-        return SourceFactory.create(source_type)
+        return SourceFactory.create_source(source_type)

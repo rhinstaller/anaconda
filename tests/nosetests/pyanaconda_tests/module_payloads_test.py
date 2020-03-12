@@ -20,7 +20,7 @@
 import os
 
 from unittest import TestCase
-from unittest.mock import patch, Mock, create_autospec, DEFAULT
+from unittest.mock import patch, create_autospec, DEFAULT
 from textwrap import dedent
 from tempfile import TemporaryDirectory
 
@@ -34,7 +34,6 @@ from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module
     get_dir_size
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.factory import PayloadFactory, SourceFactory
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
@@ -68,10 +67,10 @@ class PayloadsInterfaceTestCase(TestCase):
 
     def process_kickstart_with_no_payload_test(self):
         """Test kickstart processing when no payload set or created based on KS data."""
-        with self.assertLogs('anaconda.modules.payloads.payloads', level="WARNING") as log:
-            self.payload_interface.ReadKickstart("")
+        self.payload_interface.ReadKickstart("")
 
-            self.assertTrue(any(map(lambda x: "No payload was created" in x, log.output)))
+        with self.assertRaises(PayloadNotSetError):
+            self.payload_interface.GetActivePayload()
 
     @patch_dbus_publish_object
     def is_payload_set_test(self, publisher):
@@ -345,40 +344,3 @@ class PayloadSharedUtilsTest(TestCase):
         # computed correctly
 
 
-class FactoryTestCase(TestCase):
-
-    def create_payload_test(self):
-        """Test PayloadFactory create method."""
-        payload = PayloadFactory.create(PayloadType.DNF)
-        self.assertIsInstance(payload, DNFModule)
-        self.assertEqual(payload.type, PayloadType.DNF)
-
-        payload = PayloadFactory.create(PayloadType.LIVE_IMAGE)
-        self.assertIsInstance(payload, LiveImageModule)
-        self.assertEqual(payload.type, PayloadType.LIVE_IMAGE)
-
-        payload = PayloadFactory.create(PayloadType.LIVE_OS)
-        self.assertIsInstance(payload, LiveOSModule)
-        self.assertEqual(payload.type, PayloadType.LIVE_OS)
-
-    def create_payload_from_ks_test(self):
-        """Test PayloadFactory create from KS method."""
-        # Live OS can't be detected from the KS data so it is not tested here
-        data = Mock()
-        data.liveimg.seen = True
-        data.packages.seen = False
-
-        self.assertIsInstance(PayloadFactory.create_from_ks_data(data), LiveImageModule)
-
-        data.liveimg.seen = False
-        data.packages.seen = True
-        self.assertIsInstance(PayloadFactory.create_from_ks_data(data), DNFModule)
-
-        data.liveimg.seen = False
-        data.packages.seen = False
-        self.assertIsNone(PayloadFactory.create_from_ks_data(data))
-
-    def create_source_test(self):
-        """Test SourceFactory create method."""
-        self.assertIsInstance(SourceFactory.create(SourceType.LIVE_OS_IMAGE),
-                              LiveOSSourceModule)
