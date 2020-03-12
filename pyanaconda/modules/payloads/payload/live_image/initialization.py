@@ -18,7 +18,6 @@
 import glob
 import hashlib
 import os
-import stat
 from requests.exceptions import RequestException
 
 from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, IMAGE_DIR
@@ -59,7 +58,7 @@ class CheckInstallationSourceImageTask(Task):
         """Check that the file exists and return required space."""
         if not os.path.exists(file_path):
             raise SourceSetupError("File {} does not exist".format(file_path))
-        size = os.stat(file_path)[stat.ST_SIZE] * 3
+        size = os.stat(file_path).st_blocks * 512 * 3
         return size
 
     def _check_remote_image(self, url, proxy):
@@ -254,7 +253,7 @@ class SetupInstallationSourceImageTask(Task):
 
         # TODO - do we use it at all in LiveImage
         # Used to make install progress % look correct
-        # self._adj_size = os.stat(self.image_path)[stat.ST_SIZE]
+        # self._adj_size = os.stat(self.image_path).st_size
 
         if self._checksum:
             self._check_image_sum(self._image_path, self._checksum)
