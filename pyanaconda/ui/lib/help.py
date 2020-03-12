@@ -52,25 +52,30 @@ def _get_best_help_file(help_folder, help_file):
         log.warning("help folder %s for help file %s does not exist", help_folder, help_file)
         return None
 
-    help_langs = [l for l in os.listdir(help_folder) if os.path.isfile(os.path.join(help_folder, l, help_file))]
+    # Collect languages and files that provide the help content.
+    help_langs = {}
 
-    best_lang = find_best_locale_match(current_lang, help_langs)
-    if not best_lang and current_lang != DEFAULT_LANG:
-        # nothing found for current language, fallback to the default language,
-        # if available & different from current language
-        log.warning("help file %s not found in lang %s, falling back to default lang (%s)",
-                    help_file, current_lang, DEFAULT_LANG)
-        best_lang = find_best_locale_match(DEFAULT_LANG, help_langs)
+    for lang in os.listdir(help_folder):
+        # Does the help file exist for this language?
+        path = os.path.join(help_folder, lang, help_file)
+        if not os.path.isfile(path):
+            continue
 
-    # did we get something usable ?
-    if best_lang:
-        # we already checked that the full path exists when enumerating suitable
-        # help content above, so we can just return the part here without
-        # checking it again
-        return os.path.join(help_folder, best_lang, help_file)
-    else:
-        log.warning("no help content found for file %s", help_file)
-        return None
+        # Create a valid langcode. For example, use en_US instead of en-US.
+        code = lang.replace('-', '_')
+        help_langs[code] = path
+
+    # Find the best help file.
+    for locale in (current_lang, DEFAULT_LANG):
+        best_lang = find_best_locale_match(locale, help_langs.keys())
+        best_path = help_langs.get(best_lang, None)
+
+        if best_path:
+            return best_path
+
+    # No file found.
+    log.warning("no help content found for file %s", help_file)
+    return None
 
 
 def get_help_path(help_file, plain_text=False):
