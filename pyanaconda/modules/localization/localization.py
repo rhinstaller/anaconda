@@ -94,11 +94,8 @@ class LocalizationService(KickstartService):
 
         self.set_keyboard_seen(data.keyboard.seen)
 
-    def generate_kickstart(self):
-        """Return the kickstart string."""
-        log.debug("Generating kickstart data...")
-        data = self.get_kickstart_handler()
-
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
         # lang
         data.lang.lang = self.language
         data.lang.addsupport = self.language_support
@@ -108,7 +105,7 @@ class LocalizationService(KickstartService):
         data.keyboard.x_layouts = self.x_layouts
         data.keyboard.switch_options = self.switch_options
 
-        return str(data)
+        return data
 
     @property
     def language(self):

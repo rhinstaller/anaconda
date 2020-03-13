@@ -112,14 +112,16 @@ class PayloadsService(KickstartService):
         # The packages module should be replaces with a DBus structure.
         self._packages.process_kickstart(data)
 
-    def generate_kickstart(self):
-        """Return the kickstart string."""
-        log.debug("Generating kickstart data...")
-        return ""
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
+        return data
 
     def generate_temporary_kickstart(self):
-        """Return the kickstart string."""
-        log.debug("Generating kickstart data...")
+        """Return the temporary kickstart string.
+
+        FIXME: This is a temporary workaround.
+        """
+        log.debug("Generating temporary kickstart data...")
         data = self.get_kickstart_handler()
 
         try:

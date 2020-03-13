@@ -73,10 +73,8 @@ class TimezoneService(KickstartService):
         self.set_ntp_enabled(not data.timezone.nontp)
         self.set_ntp_servers(data.timezone.ntpservers)
 
-    def generate_kickstart(self):
-        """Return the kickstart string."""
-        log.debug("Generating kickstart data...")
-        data = self.get_kickstart_handler()
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
         data.timezone.timezone = self.timezone
         data.timezone.isUtc = self.is_utc
         data.timezone.nontp = not self.ntp_enabled
@@ -84,7 +82,7 @@ class TimezoneService(KickstartService):
         if self.ntp_enabled:
             data.timezone.ntpservers = list(self.ntp_servers)
 
-        return str(data)
+        return data
 
     @property
     def timezone(self):

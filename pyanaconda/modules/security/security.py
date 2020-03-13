@@ -91,11 +91,8 @@ class SecurityService(KickstartService):
 
             self.set_realm(realm)
 
-    def generate_kickstart(self):
-        """Return the kickstart string."""
-        log.debug("Generating kickstart data...")
-        data = self.get_kickstart_handler()
-
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
         if self.selinux != SELinuxMode.DEFAULT:
             data.selinux.selinux = self.selinux.value
 
@@ -110,7 +107,7 @@ class SecurityService(KickstartService):
             data.realm.discover_options = self.realm.discover_options
             data.realm.join_args = self.realm.join_options
 
-        return str(data)
+        return data
 
     @property
     def selinux(self):

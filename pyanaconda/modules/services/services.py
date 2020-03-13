@@ -101,11 +101,8 @@ class ServicesService(KickstartService):
         if data.firstboot.firstboot == FIRSTBOOT_SKIP:
             self.set_post_install_tools_enabled(False)
 
-    def generate_kickstart(self):
-        """Return the kickstart string."""
-        log.debug("Generating kickstart data...")
-        data = self.get_kickstart_handler()
-
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
         data.services.enabled = self.enabled_services
         data.services.disabled = self.disabled_services
 
@@ -119,7 +116,7 @@ class ServicesService(KickstartService):
         firstboot = self._map_firstboot(self.setup_on_boot, reverse=True)
         data.firstboot.firstboot = firstboot
 
-        return str(data)
+        return data
 
     def _map_firstboot(self, value, reverse=False):
         """Convert the firstboot value to the setup on boot value.

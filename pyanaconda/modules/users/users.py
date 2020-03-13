@@ -114,10 +114,8 @@ class UsersService(KickstartService):
         self.set_ssh_keys(ssh_key_data_list)
 
     # pylint: disable=arguments-differ
-    def generate_kickstart(self):
-        """Return the kickstart string."""
-        log.debug("Generating kickstart data...")
-        data = self.get_kickstart_handler()
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
         data.rootpw.password = self._root_password
         data.rootpw.isCrypted = self._root_password_is_crypted
         data.rootpw.lock = self.root_account_locked
@@ -139,7 +137,7 @@ class UsersService(KickstartService):
             ssh_key_ksdata.username = ssh_key_data.username
             data.sshkey.sshUserList.append(ssh_key_ksdata)
 
-        return str(data)
+        return data
 
     def configure_groups_with_task(self):
         """Return the user group configuration task.

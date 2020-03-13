@@ -175,18 +175,15 @@ class StorageService(KickstartService):
             partitioning_module = self.create_partitioning(partitioning_method)
             partitioning_module.process_kickstart(data)
 
-    def generate_kickstart(self):
-        """Return the kickstart string."""
-        log.debug("Generating kickstart data...")
-        data = self.get_kickstart_handler()
-
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
         for kickstart_module in self._modules:
             kickstart_module.setup_kickstart(data)
 
         if self.applied_partitioning:
             self.applied_partitioning.setup_kickstart(data)
 
-        return str(data)
+        return data
 
     @property
     def storage(self):
