@@ -102,3 +102,8 @@ PAYLOAD_SOURCE_NFS = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="NFS"
 )
+
+PAYLOAD_SOURCE_URL = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="URL"
+)
