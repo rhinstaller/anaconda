@@ -99,10 +99,6 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def setUp(self):
         self.live_os_source_module = LiveOSSourceModule()
 
-    def type_test(self):
-        """Test Live OS source module has a correct type."""
-        self.assertEqual(SourceType.LIVE_OS_IMAGE, self.live_os_source_module.type)
-
     def set_up_with_tasks_test(self):
         """Test Live OS Source set up call."""
         task_classes = [
