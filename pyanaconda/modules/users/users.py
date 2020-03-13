@@ -78,8 +78,6 @@ class UsersService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("Processing kickstart data...")
-
         self.set_root_password(data.rootpw.password, crypted=data.rootpw.isCrypted)
         self.set_root_account_locked(data.rootpw.lock)
         # make sure the root account is locked unless a password is set in kickstart

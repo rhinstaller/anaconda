@@ -76,7 +76,6 @@ class ServicesService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("Processing kickstart data...")
         self.set_enabled_services(data.services.enabled)
         self.set_disabled_services(data.services.disabled)
 

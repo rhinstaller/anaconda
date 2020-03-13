@@ -96,8 +96,6 @@ class PayloadsService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("Processing kickstart data...")
-
         # Create a new payload module.
         payload_type = PayloadFactory.get_type_for_kickstart(data)
 

@@ -158,8 +158,6 @@ class StorageService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("Processing kickstart data...")
-
         # Process the kickstart data in modules.
         for kickstart_module in self._modules:
             kickstart_module.process_kickstart(data)

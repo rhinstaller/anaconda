@@ -76,8 +76,6 @@ class LocalizationService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("Processing kickstart data...")
-
         # lang
         self.set_language(data.lang.lang)
         self.set_language_support(data.lang.addsupport)

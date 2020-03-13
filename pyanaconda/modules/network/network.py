@@ -127,8 +127,6 @@ class NetworkService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("Processing kickstart data...")
-
         # Handle default value for --device
         spec = self.default_device_specification
         if update_network_data_with_default_device(data.network.network, spec):

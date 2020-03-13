@@ -72,8 +72,6 @@ class SecurityService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("Processing kickstart data...")
-
         if data.selinux.selinux is not None:
             self.set_selinux(SELinuxMode(data.selinux.selinux))
 
