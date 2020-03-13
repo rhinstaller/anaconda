@@ -48,5 +48,8 @@ class SourceFactory(object):
         elif source_type == SourceType.NFS:
             from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
             return NFSSourceModule()
+        elif source_type == SourceType.URL:
+            from pyanaconda.modules.payloads.source.url.url import URLSourceModule
+            return URLSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))
