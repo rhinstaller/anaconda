@@ -155,14 +155,17 @@ int main(int argc, char *argv[])
             break;
 
         case 'd':
+            free(directory);
             directory = strdup(optarg);
             break;
 
         case 'k':
+            free(kernel);
             kernel = strdup(optarg);
             break;
 
         case 'r':
+            free(rpm);
             rpm = strdup(optarg);
             break;
 
