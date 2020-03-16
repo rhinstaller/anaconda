@@ -336,6 +336,7 @@ int explodeDDRPM(const char *source,
     /* check the status of archive_open */
     if (rc != ARCHIVE_OK){
         Fclose(gzdi);
+        archive_read_free(cpio);
         headerFree(h);
         return -1;
     }

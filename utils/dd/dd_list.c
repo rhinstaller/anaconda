@@ -190,14 +190,17 @@ int main(int argc, char *argv[])
             break;
 
         case 'd':
+            free(path);
             path = strdup(optarg);
             break;
 
         case 'k':
+            free(versions.kernel);
             versions.kernel = strdup(optarg);
             break;
 
         case 'a':
+            free(versions.anaconda);
             versions.anaconda = strdup(optarg);
             break;
 
