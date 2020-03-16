@@ -400,6 +400,7 @@ int explodeDDRPM(const char *source,
 
             /* call chmod to set any bits that were removed by umask during open */
             if (fchmod(fd, fstat->st_mode) != 0) {
+                close(fd);
                 rc = 33;
                 break;
             }
