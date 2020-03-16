@@ -332,7 +332,7 @@ def _update_wired_connection_with_s390_settings(connection, s390cfg):
     if s390cfg['OPTIONS']:
         opts = s390cfg['OPTIONS'].split(" ")
         opts_dict = {k: v for k, v in (o.split("=") for o in opts)}
-        s_wired.props.s90_options = opts_dict
+        s_wired.props.s390_options = opts_dict
 
 
 def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_option_values=None):
