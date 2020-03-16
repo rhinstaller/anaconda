@@ -190,14 +190,32 @@ int main(int argc, char *argv[])
             break;
 
         case 'd':
+            if (path) {
+                logMessage(ERROR, "Multiple -d arguments\n");
+                show_help();
+                rc = 1;
+                goto cleanup;
+            }
             path = strdup(optarg);
             break;
 
         case 'k':
+            if (versions.kernel) {
+                logMessage(ERROR, "Multiple -k arguments\n");
+                show_help();
+                rc = 1;
+                goto cleanup;
+            }
             versions.kernel = strdup(optarg);
             break;
 
         case 'a':
+            if (versions.anaconda) {
+                logMessage(ERROR, "Multiple -a arguments\n");
+                show_help();
+                rc = 1;
+                goto cleanup;
+            }
             versions.anaconda = strdup(optarg);
             break;
 
