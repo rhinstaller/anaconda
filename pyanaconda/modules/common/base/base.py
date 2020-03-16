@@ -253,6 +253,7 @@ class KickstartService(Service, KickstartBaseModule):
 
         :return: a kickstart string
         """
+        log.debug("Generating kickstart...")
         handler = self.get_kickstart_handler()
         self.setup_kickstart(handler)
         return str(handler)

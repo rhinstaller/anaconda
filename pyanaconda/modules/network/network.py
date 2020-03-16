@@ -127,8 +127,6 @@ class NetworkService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("Processing kickstart data...")
-
         # Handle default value for --device
         spec = self.default_device_specification
         if update_network_data_with_default_device(data.network.network, spec):
@@ -141,10 +139,8 @@ class NetworkService(KickstartService):
             self.set_hostname(data.network.hostname)
         self._firewall_module.process_kickstart(data)
 
-    def generate_kickstart(self):
-        """Return the kickstart string."""
-        data = self.get_kickstart_handler()
-
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
         if self._device_configurations and self._use_device_configurations:
             log.debug("using device configurations to generate kickstart")
             device_data = self.generate_kickstart_network_data(data.NetworkData)
@@ -160,7 +156,7 @@ class NetworkService(KickstartService):
         # firewall
         self._firewall_module.setup_kickstart(data)
 
-        return str(data)
+        return data
 
     def _is_device_activated(self, iface):
         device = self.nm_client.get_device_by_iface(iface)
