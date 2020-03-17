@@ -778,6 +778,8 @@ def main(args):
         else:
             request, dev = args
 
+        log.debug("Processing: %s with dev %s", request, dev)
+
         # Guess whether this is an ISO or RPM based on the filename.
         # If neither matches, assume it is a device node and processes as an ISO.
         # This is relevant for both --disk and --net since --disk could be

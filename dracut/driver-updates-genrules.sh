@@ -30,14 +30,17 @@ for dd in $DD_OEMDRV $DD_DISKS; do
             driver-updates --disk $dd $dd
     # otherwise, tell udev to do driver-updates when the device appears
     else
+        # replace '\' with '\\' for udev rules
+        # otherwise '\' will be lost during the command execution (required for \x20)
+        dd_whitespace_fix=${dd//\\/\\\\}
         # this is a disk with path to specific RPM file on it
         if [ "${dd##*.}" = "rpm" ]; then
             splitsep ":" "$dd" dd_type dd_dev dd_path
             when_diskdev_appears "$(disk_to_dev_path $dd_type)" \
-                driver-updates --disk $dd \$devnode $dd_dev
+                driver-updates --disk $dd_whitespace_fix \$devnode $dd_dev
         else
             when_diskdev_appears "$(disk_to_dev_path $dd)" \
-                driver-updates --disk $dd \$devnode
+                driver-updates --disk $dd_whitespace_fix \$devnode
         fi
     fi
 done
