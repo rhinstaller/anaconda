@@ -218,9 +218,14 @@
                       <object class="GtkTreeViewColumn" id="description_column">
                         <property name="spacing">6</property>
                         <property name="title" translatable="yes">Description</property>
+                        <property name="expand">True</property>
+                        <property name="resizable">True</property>
+                        <property name="min-width">100</property>
                         <property name="clickable">True</property>
                         <child>
-                          <object class="GtkCellRendererText" id="description_renderer"/>
+                          <object class="GtkCellRendererText" id="description_renderer">
+                             <property name="ellipsize">middle</property>
+                          </object>
                           <attributes>
                             <attribute name="text">0</attribute>
                           </attributes>
