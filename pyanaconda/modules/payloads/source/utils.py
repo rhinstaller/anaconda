@@ -1,7 +1,5 @@
 #
-# Constants shared in the payload module.
-#
-# Copyright (C) 2019 Red Hat, Inc.
+# Copyright (C) 2020 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -16,20 +14,29 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
-from enum import Enum, unique
+#
+from os.path import join
+from blivet.arch import get_arch
 
 
-@unique
-class PayloadType(Enum):
-    """Type of the payload."""
-    DNF = "DNF"
-    LIVE_OS = "LIVE_OS"
-    LIVE_IMAGE = "LIVE_IMAGE"
+def is_valid_install_disk(tree_dir):
+    """Is the disk a valid installation repository?
 
+    Success criteria:
+    - Disk must be already mounted at tree_dir.
+    - A .discinfo file exists.
+    - Third line of .discinfo equals current architecture.
 
-@unique
-class SourceType(Enum):
-    """Type of the payload source."""
-    LIVE_OS_IMAGE = "LIVE_OS_IMAGE"
-    HMC = "HMC"
-    CDROM = "CDROM"
+    :param str tree_dir: Where the disk is mounted.
+    :rtype: bool
+    """
+    try:
+        with open(join(tree_dir, ".discinfo"), "r") as f:
+            f.readline()  # throw away timestamp
+            f.readline()  # throw away description
+            arch = f.readline().strip()
+            if arch == get_arch():
+                return True
+    except OSError:
+        pass
+    return False

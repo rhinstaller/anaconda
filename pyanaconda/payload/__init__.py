@@ -29,8 +29,9 @@ from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 
 from pyanaconda import isys
 from pyanaconda.modules.common.errors.storage import MountFilesystemError, DeviceSetupError
+from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
 from pyanaconda.payload.image import findFirstIsoImage, mountImage, find_optical_install_media,\
-    verifyMedia, verify_valid_installtree
+    verify_valid_installtree
 from pyanaconda.core import util
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
@@ -989,7 +990,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         # FIXME: We really should not talk about NFS here - regression from re-factorization?
 
         # Check for valid optical media if we didn't boot from one
-        if not verifyMedia(DRACUT_REPODIR):
+        if not is_valid_install_disk(DRACUT_REPODIR):
             self.install_device = find_optical_install_media()
 
         # Only look at the dracut mount if we don't already have a cdrom
