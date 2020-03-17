@@ -53,13 +53,12 @@ from pykickstart.sections import NullSection, PackageSection, PostScriptSection,
 from pykickstart.version import returnClassForVersion
 
 from pyanaconda import anaconda_logging
-from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, get_blivet_logger,\
+from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, \
     get_anaconda_root_logger
 
 log = get_module_logger(__name__)
 
 stdoutLog = get_stdout_logger()
-storage_log = get_blivet_logger()
 
 # kickstart parsing and kickstart script
 script_log = log.getChild("script")
@@ -217,8 +216,6 @@ class Logging(COMMANDS.Logging):
             anaconda_logging.logger.loglevel = level
             # set log level for the "anaconda" root logger
             anaconda_logging.setHandlersLevel(get_anaconda_root_logger(), level)
-            # set log level for the storage logger
-            anaconda_logging.setHandlersLevel(storage_log, level)
 
         if anaconda_logging.logger.remote_syslog is None and len(self.host) > 0:
             # not set from the command line, ok to use kickstart
