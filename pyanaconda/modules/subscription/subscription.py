@@ -17,16 +17,24 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
+import copy
+import warnings
 
 from pyanaconda.core import util
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
+    SUBSCRIPTION_REQUEST_VALID_TYPES
 
+from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.common.base import KickstartService
-from pyanaconda.modules.common.structures.subscription import SystemPurposeData
+from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
+    SubscriptionRequest
+from pyanaconda.modules.common.structures.secret import get_public_copy
 
 from pyanaconda.modules.subscription import system_purpose
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
+
+from pykickstart.errors import KickstartParseWarning
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -48,6 +56,25 @@ class SubscriptionService(KickstartService):
         self.system_purpose_data_changed = Signal()
 
         self._load_valid_system_purpose_values()
+
+        # subscription request
+
+        self._subscription_request = SubscriptionRequest()
+        self.subscription_request_changed = Signal()
+
+        # Insights
+
+        # What are the defaults for Red Hat Insights ?
+        # - during a kickstart installation, the user
+        #   needs to opt-in by using the rhsm command
+        #   with the --connect-to-insights option
+        # - during a GUI interactive installation the
+        #  "connect to Insights" checkbox is checked by default,
+        #  making Insights opt-out
+        # - in both cases the system also needs to be subscribed,
+        #   or else the system can't be connected to Insights
+        self._connect_to_insights = False
+        self.connect_to_insights_changed = Signal()
 
         # FIXME: handle rhsm.service startup in a safe manner
 
@@ -95,8 +122,61 @@ class SubscriptionService(KickstartService):
 
         self.set_system_purpose_data(system_purpose_data)
 
+        # subscription request
+
+        subscription_request = SubscriptionRequest()
+
+        # credentials
+        if data.rhsm.organization:
+            subscription_request.organization = data.rhsm.organization
+        if data.rhsm.activation_keys:
+            subscription_request.activation_keys.set_secret(data.rhsm.activation_keys)
+
+        # if org id and at least one activation key is set, switch authentication
+        # type to ORG & KEY
+        if data.rhsm.organization and data.rhsm.activation_keys:
+            subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+
+        # custom URLs
+        if data.rhsm.server_hostname:
+            subscription_request.server_hostname = data.rhsm.server_hostname
+        if data.rhsm.rhsm_baseurl:
+            subscription_request.rhsm_baseurl = data.rhsm.rhsm_baseurl
+
+        # HTTP proxy
+        if data.rhsm.proxy:
+            # first try to parse the proxy string from kickstart
+            try:
+                proxy = util.ProxyString(data.rhsm.proxy)
+                if proxy.host:
+                    # ensure port is an integer and set to -1 if unknown
+                    port = int(proxy.port) if proxy.port else -1
+
+                    subscription_request.server_proxy_hostname = proxy.host
+                    subscription_request.server_proxy_port = port
+                    subscription_request.server_proxy_user = proxy.username
+                    subscription_request.server_proxy_password.set_secret(proxy.password)
+            except util.ProxyStringError as e:
+                # should not be fatal, but definitely logged as error
+                message = "Failed to parse proxy for the rhsm command: {}".format(str(e))
+                warnings.warn(message, KickstartParseWarning)
+
+        # set the resulting subscription request
+        self.set_subscription_request(subscription_request)
+
+        # insights
+        self.set_connect_to_insights(bool(data.rhsm.connect_to_insights))
+
     def setup_kickstart(self, data):
-        """Return the kickstart string."""
+        """Return the kickstart string.
+
+        NOTE: We are not writing out the rhsm command as the input can contain
+              sensitive data (activation keys, proxy passwords) that we would have
+              to omit from the output kickstart. This in turn would make the rhsm
+              command incomplete & would turn the output kickstart invalid as a result.
+              For this reason we skip the rhsm command completely in the output
+              kickstart.
+        """
 
         # system purpose
         data.syspurpose.role = self.system_purpose_data.role
@@ -174,3 +254,102 @@ class SubscriptionService(KickstartService):
         self._system_purpose_data = system_purpose_data
         self.system_purpose_data_changed.emit()
         log.debug("System purpose data set to %s.", system_purpose_data)
+
+    # subscription request
+
+    def _validate_subscription_request_type(self, request_type):
+        """Check that subscription request is of known type."""
+        if request_type not in SUBSCRIPTION_REQUEST_VALID_TYPES:
+            raise InvalidValueError(
+                "Invalid subscription request type set '{}'".format(request_type)
+            )
+
+    @property
+    def subscription_request(self):
+        """Subscription request.
+
+        A DBus structure holding data to be used to subscribe the system.
+
+        :return: subscription request DBus structure
+        :rtype: DBusData instance
+        """
+        # Return a deep copy of the subscription request that
+        # has also been cleared of private data.
+        # Thankfully the secret Dbus structures modules
+        # has the get_public_copy() method that does just
+        # that. It creates a deep copy & clears
+        # all SecretData and SecretDataList instances.
+        return get_public_copy(self._subscription_request)
+
+    def set_subscription_request(self, subscription_request):
+        """Set a subscription request.
+
+        Set the complete DBus structure containing subscription
+        request data.
+
+        :param subscription_request: subscription request structure to be set
+        :type subscription_request: DBus structure
+        """
+        self._replace_current_subscription_request(subscription_request)
+        self.subscription_request_changed.emit()
+        log.debug("A subscription request set: %s", str(self._subscription_request))
+
+    def _replace_current_subscription_request(self, new_request):
+        """Replace current subscription request without loosing sensitive data.
+
+        We need to do this to prevent blank SecretData & SecretDataList instances
+        from wiping out previously set secret data. The instances will be blank
+        every time a SubscriptionRequest that went through get_public_copy() comes
+        back with the secret data fields unchanged.
+
+        So what we do is depends on type of the incoming secret data:
+
+        - SECRET_TYPE_NONE - use structure from new request unchanged,
+                             clearing previously set data (if any)
+        - SECRET_TYPE_HIDDEN - secret data has been set previously and
+                               cleared when SubscriptionRequest was sent out;
+                               put secret data from current request to the
+                               new one to prevent it from being lost
+                               (this will also switch the secret data
+                                instance to SECRET_TYPE_TEXT so that
+                                the Subscription module can read it
+                                internally)
+        - SECRET_TYPE_TEXT - this is new secret entry, we can keep it as is
+        """
+        current_request = self._subscription_request
+
+        # Red Hat account password
+        if new_request.account_password.type == SECRET_TYPE_HIDDEN:
+            new_request.account_password = copy.deepcopy(
+                current_request.account_password)
+
+        # activation keys used together with an organization id
+        if new_request.activation_keys.type == SECRET_TYPE_HIDDEN:
+            new_request.activation_keys = copy.deepcopy(
+                current_request.activation_keys)
+
+        # RHSM HTTP proxy password
+        if new_request.server_proxy_password.type == SECRET_TYPE_HIDDEN:
+            new_request.server_proxy_password = copy.deepcopy(
+                    current_request.server_proxy_password)
+
+        # replace current request
+        self._subscription_request = new_request
+
+    @property
+    def connect_to_insights(self):
+        """Indicates if the target system should be connected to Red Hat Insights.
+
+        :return: True to connect, False not to connect the target system to Insights
+        :rtype: bool
+        """
+        return self._connect_to_insights
+
+    def set_connect_to_insights(self, connect):
+        """Set if the target system should be connected to Red Hat Insights.
+
+        :param bool connect: set to True to connect, set to False not to connect
+        """
+        self._connect_to_insights = connect
+        self.connect_to_insights_changed.emit()
+        log.debug("Connect target system to Insights set to: %s", self._connect_to_insights)

@@ -19,7 +19,8 @@
 #
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.modules.common.structures.subscription import SystemPurposeData
+from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
+    SubscriptionRequest
 from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
@@ -31,7 +32,12 @@ class SubscriptionInterface(KickstartModuleInterface):
 
     def connect_signals(self):
         super().connect_signals()
-        self.watch_property("SystemPurposeData", self.implementation.system_purpose_data_changed)
+        self.watch_property("SystemPurposeData",
+                            self.implementation.system_purpose_data_changed)
+        self.watch_property("SubscriptionRequest",
+                            self.implementation.subscription_request_changed)
+        self.watch_property("InsightsEnabled",
+                            self.implementation.connect_to_insights_changed)
 
     def GetValidRoles(self) -> List[Str]:
         """Return all valid system purpose roles.
@@ -79,3 +85,33 @@ class SubscriptionInterface(KickstartModuleInterface):
         """
         converted_data = SystemPurposeData.from_structure(system_purpose_data)
         self.implementation.set_system_purpose_data(converted_data)
+
+    @property
+    def SubscriptionRequest(self) -> Structure:
+        """Return DBus structure holding current subscription request.
+
+        Subscription request holds data necessary for a successful subscription attempt.
+        """
+        return SubscriptionRequest.to_structure(self.implementation.subscription_request)
+
+    @emits_properties_changed
+    def SetSubscriptionRequest(self, subscription_request: Structure):
+        """Set a new DBus structure holding subscription request data.
+
+        :param subscription_request: DBus structure corresponding to SubscriptionRequest
+        """
+        converted_data = SubscriptionRequest.from_structure(subscription_request)
+        self.implementation.set_subscription_request(converted_data)
+
+    @property
+    def InsightsEnabled(self) -> Int:
+        """Connect the target system to Red Hat Insights."""
+        return self.implementation.connect_to_insights
+
+    @emits_properties_changed
+    def SetInsightsEnabled(self, connect_to_insights: Bool):
+        """Set if the target system should be connected to Red Hat Insights.
+
+        :param bool connect_to_insights: True to connect, False not to connect
+        """
+        self.implementation.set_connect_to_insights(connect_to_insights)
