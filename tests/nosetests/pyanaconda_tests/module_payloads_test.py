@@ -342,5 +342,3 @@ class PayloadSharedUtilsTest(TestCase):
 
         # TODO: mock some dirs and check if their size is
         # computed correctly
-
-
