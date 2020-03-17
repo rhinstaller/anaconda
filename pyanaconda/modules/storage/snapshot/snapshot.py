@@ -87,7 +87,6 @@ class SnapshotModule(KickstartBaseModule):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         data.snapshot.snapshotList = self._requests
-        return data
 
     def is_requested(self, when):
         """Is there a snapshot request of the given type?

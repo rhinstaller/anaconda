@@ -105,8 +105,6 @@ class SecurityService(KickstartService):
             data.realm.discover_options = self.realm.discover_options
             data.realm.join_args = self.realm.join_options
 
-        return data
-
     @property
     def selinux(self):
         """The state of SELinux on the installed system.

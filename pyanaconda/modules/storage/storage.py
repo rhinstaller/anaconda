@@ -181,8 +181,6 @@ class StorageService(KickstartService):
         if self.applied_partitioning:
             self.applied_partitioning.setup_kickstart(data)
 
-        return data
-
     @property
     def storage(self):
         """The storage model.

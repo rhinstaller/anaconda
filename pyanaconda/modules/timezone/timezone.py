@@ -81,8 +81,6 @@ class TimezoneService(KickstartService):
         if self.ntp_enabled:
             data.timezone.ntpservers = list(self.ntp_servers)
 
-        return data
-
     @property
     def timezone(self):
         """Return the timezone."""

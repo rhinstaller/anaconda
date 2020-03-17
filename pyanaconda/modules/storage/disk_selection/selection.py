@@ -81,7 +81,6 @@ class DiskSelectionModule(KickstartBaseModule):
         """Setup the kickstart data."""
         data.ignoredisk.onlyuse = self.selected_disks
         data.ignoredisk.ignoredisk = self.ignored_disks
-        return data
 
     @property
     def selected_disks(self):

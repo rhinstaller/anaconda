@@ -156,8 +156,6 @@ class NetworkService(KickstartService):
         # firewall
         self._firewall_module.setup_kickstart(data)
 
-        return data
-
     def _is_device_activated(self, iface):
         device = self.nm_client.get_device_by_iface(iface)
         return device and device.get_state() == NM.DeviceState.ACTIVATED
