@@ -82,3 +82,8 @@ PAYLOAD_SOURCE_LIVE_OS = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="LiveOS"
 )
+
+PAYLOAD_SOURCE_HMC = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="HMC"
+)

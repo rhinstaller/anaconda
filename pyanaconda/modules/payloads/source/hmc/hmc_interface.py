@@ -1,5 +1,5 @@
 #
-# Factory class to create sources.
+# DBus interface for the SE/HMC source module.
 #
 # Copyright (C) 2020 Red Hat, Inc.
 #
@@ -17,27 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.payloads.constants import SourceType
+from dasbus.server.interface import dbus_interface
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_HMC
+from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 
-__all__ = ["SourceFactory"]
+__all__ = ["HMCSourceInterface"]
 
 
-class SourceFactory(object):
-    """Factory to create payload sources."""
-
-    @staticmethod
-    def create_source(source_type: SourceType):
-        """Create a source module.
-
-        :param source_type: a source type
-        :return: a source module
-        """
-        if source_type == SourceType.LIVE_OS_IMAGE:
-            from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
-            return LiveOSSourceModule()
-
-        if source_type == SourceType.HMC:
-            from pyanaconda.modules.payloads.source.hmc.hmc import HMCSourceModule
-            return HMCSourceModule()
-
-        raise ValueError("Unknown source type: {}".format(source_type))
+@dbus_interface(PAYLOAD_SOURCE_HMC.interface_name)
+class HMCSourceInterface(PayloadSourceBaseInterface):
+    """DBus interface for the SE/HMC source module."""
+    pass
