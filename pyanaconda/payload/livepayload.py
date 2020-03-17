@@ -318,8 +318,8 @@ class LiveImageKSPayload(LiveImagePayload):
 
         error = None
         try:
-            response = self._session.get(self.data.method.url, proxies=self._proxies, verify=True,
-                                         timeout=NETWORK_CONNECTION_TIMEOUT)
+            response = self._session.head(self.data.method.url, proxies=self._proxies, verify=True,
+                                          timeout=NETWORK_CONNECTION_TIMEOUT)
 
             # At this point we know we can get the image and what its size is
             # Make a guess as to minimum size needed:

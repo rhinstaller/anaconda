@@ -19,6 +19,8 @@ import gi
 gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
+from collections import defaultdict
+
 from blivet import arch, util
 from blivet.size import Size
 
@@ -411,6 +413,43 @@ def verify_mounted_partitions(storage, constraints, report_error, report_warning
                                "installation. Please unmount it and retry.") % part.path)
 
 
+def verify_lvm_destruction(storage, constraints, report_error, report_warning):
+    """Verify that destruction of LVM devices is correct.
+
+    A VG and all its PVs must be all destroyed together, nothing is allowed to remain.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    # Implementation detects VGs that should be destroyed and aren't. This is because of how
+    # blivet implements ignoring devices: Ignoring a device hides also all dependent devices - for
+    # any disk, it could be a PV partition, which would then hide also all VGs and LVs that depend
+    # on the PV. It does not matter that the VG needs other PVs too - the hiding wins.
+    destroyed_vg_names = set()
+    all_touched_disks_by_vg = defaultdict(list)
+
+    for action in storage.devicetree.actions:
+        if action.is_destroy and action.is_device and action.device.type == "lvmvg":
+            destroyed_vg_names.add(action.device.name)
+
+        elif action.is_destroy and action.is_format and action.orig_format.type == "lvmpv":
+            # Check if the PV actually had any VG assigned
+            if action.orig_format.vg_name:
+                disk_name = action.device.disk.name
+                vg_name = action.orig_format.vg_name
+                all_touched_disks_by_vg[vg_name].append(disk_name)
+
+    for vg_name, disks in all_touched_disks_by_vg.items():
+        if vg_name not in destroyed_vg_names:
+            report_error(_(
+                "Selected disks {} contain volume group '{}' that also uses further unselected "
+                "disks. You must select or de-select all these disks as a set."
+                .format(", ".join(disks), vg_name)
+            ))
+
+
 class StorageCheckerReport(object):
     """Class for results of the storage checking."""
 
@@ -620,6 +659,7 @@ class StorageChecker(object):
         self.add_check(verify_luks_devices_have_key)
         self.add_check(verify_luks2_memory_requirements)
         self.add_check(verify_mounted_partitions)
+        self.add_check(verify_lvm_destruction)
 
 
 # Setup the storage checker.

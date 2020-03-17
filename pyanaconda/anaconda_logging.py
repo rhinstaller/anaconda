@@ -39,7 +39,6 @@ ANACONDA_SYSLOG_FORMAT = "anaconda: %(log_prefix)s: %(message)s"
 
 MAIN_LOG_FILE = "/tmp/anaconda.log"
 PROGRAM_LOG_FILE = "/tmp/program.log"
-STORAGE_LOG_FILE = "/tmp/storage.log"
 PACKAGING_LOG_FILE = "/tmp/packaging.log"
 SENSITIVE_INFO_LOG_FILE = "/tmp/sensitive-info.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
@@ -184,27 +183,15 @@ class AnacondaLog(object):
         # handled by a FileHandler(/dev/null), which can deadlock.
         self.anaconda_logger = logging.getLogger("anaconda")
         self.anaconda_logger.propagate = False
+        self.anaconda_logger.setLevel(logging.DEBUG)
+        warnings.showwarning = self.showwarning
         self.addFileHandler(MAIN_LOG_FILE, self.anaconda_logger,
                             minLevel=logging.DEBUG,
                             fmtStr=ANACONDA_ENTRY_FORMAT,
                             log_filter=AnacondaPrefixFilter())
-        warnings.showwarning = self.showwarning
-
-        # Create the storage logger.
-        storage_logger = logging.getLogger(constants.LOGGER_BLIVET)
-        storage_logger.propagate = False
-        self.addFileHandler(STORAGE_LOG_FILE, storage_logger,
-                            minLevel=logging.DEBUG)
-
-        # Set the common parameters for anaconda and storage loggers.
-        for logr in [self.anaconda_logger, storage_logger]:
-            logr.setLevel(logging.DEBUG)
-
-        # forward both logs to syslog
         self.forwardToJournal(self.anaconda_logger,
                               log_filter=AnacondaPrefixFilter(),
                               log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
-        self.forwardToJournal(storage_logger)
 
         # External program output log
         program_logger = logging.getLogger(constants.LOGGER_PROGRAM)

@@ -393,6 +393,7 @@ class DisksDialog(GUIObject):
         self._view = self.builder.get_object("disk_view")
         self._populate_disks()
         self._select_disks()
+        self._view.set_tooltip_column(0)
 
     @property
     def selected_disks(self):

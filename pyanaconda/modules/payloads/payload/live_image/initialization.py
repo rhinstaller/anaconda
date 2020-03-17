@@ -67,8 +67,8 @@ class CheckInstallationSourceImageTask(Task):
         # FIXME: validate earlier when setting?
         proxies = get_proxies_from_option(self._proxy)
         try:
-            response = self._session.get(url, proxies=proxies, verify=True,
-                                         timeout=NETWORK_CONNECTION_TIMEOUT)
+            response = self._session.head(url, proxies=proxies, verify=True,
+                                          timeout=NETWORK_CONNECTION_TIMEOUT)
 
             # At this point we know we can get the image and what its size is
             # Make a guess as to minimum size needed:

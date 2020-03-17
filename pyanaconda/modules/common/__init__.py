@@ -15,21 +15,40 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import sys
 
 __all__ = ["init"]
 
 
-def init():
+def init(log_filename=None, log_stream=sys.stderr):
     """Do initial configuration of an Anaconda DBus module.
 
     This method should be imported and called from __main__.py of every
     Anaconda DBus module before any other import.
+
+    :param log_filename: a file for logging or None
+    :param log_stream: a stream for logging or None
     """
     import faulthandler
     faulthandler.enable()
 
     import logging
-    logging.basicConfig(level=logging.DEBUG)
+    handlers = []
+
+    if log_stream:
+        handlers.append(
+            logging.StreamHandler(log_stream)
+        )
+
+    if log_filename:
+        handlers.append(
+            logging.FileHandler(log_filename)
+        )
+
+    logging.basicConfig(
+        level=logging.DEBUG,
+        handlers=handlers
+    )
 
     import locale
     from pyanaconda.core.constants import DEFAULT_LANG
