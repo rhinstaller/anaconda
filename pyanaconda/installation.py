@@ -23,6 +23,7 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FI
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
     LOCALIZATION, TIMEZONE, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda import flags
@@ -322,9 +323,13 @@ def _prepare_installation(payload, ksdata):
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
 
-    if not payload.handles_bootloader_configuration:
+    def configure_bootloader():
         boot_task = bootloader_proxy.ConfigureWithTask(payload.kernel_version_list)
-        bootloader_install.append_dbus_tasks(STORAGE, [boot_task])
+        sync_run_task(STORAGE.get_proxy(boot_task))
+
+    if not payload.handles_bootloader_configuration:
+        # FIXME: This is a temporary workaround, run the DBus task directly.
+        bootloader_install.append(Task("Configure the bootloader", configure_bootloader))
 
     bootloader_install.append_dbus_tasks(STORAGE, [bootloader_proxy.InstallWithTask()])
     installation_queue.append(bootloader_install)

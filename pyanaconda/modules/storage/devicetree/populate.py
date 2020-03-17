@@ -17,7 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.errors import UnusableConfigurationError
+from blivet.i18n import _
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.modules.common.task import Task
+
+log = get_module_logger(__name__)
 
 __all__ = ["FindDevicesTask"]
 
@@ -38,6 +45,14 @@ class FindDevicesTask(Task):
         return "Find new devices"
 
     def run(self):
-        """Run the task."""
-        self._devicetree.populate()
-        self._devicetree.teardown_all()
+        """Run the task.
+
+        :raise: UnusableStorageError if the model is not usable
+        """
+        try:
+            self._devicetree.populate()
+            self._devicetree.teardown_all()
+        except UnusableConfigurationError as e:
+            log.error("Failed to find devices: %s", e)
+            message = "\n\n".join([str(e), _(e.suggestion)])
+            raise UnusableStorageError(message) from None

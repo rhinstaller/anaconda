@@ -25,7 +25,8 @@ from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET
+    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET, \
+    PARTITIONING_METHOD_INTERACTIVE
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.timer import Timer
 from pyanaconda.flags import flags
@@ -361,8 +362,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def execute(self):
         """"Apply a partitioning."""
         # Make sure that we apply a non-interactive partitioning.
-        if self._last_partitioning_method == PARTITIONING_METHOD_CUSTOM:
-            log.debug("Skipping the execute method for the CUSTOM partitioning method.")
+        if self._last_partitioning_method == PARTITIONING_METHOD_INTERACTIVE:
+            log.debug("Skipping the execute method for the INTERACTIVE partitioning method.")
             return
 
         if self._last_partitioning_method == PARTITIONING_METHOD_BLIVET:
@@ -745,15 +746,18 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         return rc
 
-    def _check_space_and_run_dialog(self, disks):
+    def _check_space_and_run_dialog(self, partitioning, disks):
         # User wants to reclaim the space.
         if self._reclaim_checkbox.get_active():
             return RESPONSE_RECLAIM
 
+        # Get the device tree of the partitioning module.
+        device_tree = STORAGE.get_proxy(partitioning.GetDeviceTree())
+
         # Calculate the required and free space.
-        disk_free = Size(self._device_tree.GetDiskFreeSpace(disks))
-        fs_free = Size(self._device_tree.GetDiskReclaimableSpace(disks))
-        disks_size = Size(self._device_tree.GetDiskTotalSpace(disks))
+        disk_free = Size(device_tree.GetDiskFreeSpace(disks))
+        fs_free = Size(device_tree.GetDiskReclaimableSpace(disks))
+        disks_size = Size(device_tree.GetDiskTotalSpace(disks))
         sw_space = Size(self.payload.space_required)
         auto_swap = suggest_swap_size()
 
@@ -934,7 +938,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Reclaim space.
         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
-        rc = self._check_space_and_run_dialog(disks)
+        rc = self._check_space_and_run_dialog(self._partitioning, disks)
 
         if rc == RESPONSE_RECLAIM:
             dialog = ResizeDialog(self.data, self.payload, self._partitioning, disks)

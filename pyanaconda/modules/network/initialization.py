@@ -208,19 +208,21 @@ class ConsolidateInitramfsConnectionsTask(Task):
                     log.debug("%s: %d for %s - no suitable connection for the interface found",
                               self.name, number_of_connections, iface)
                     continue
+                else:
+                    con_uuid = con_for_iface.get_uuid()
             else:
                 # Handle only ifcfgs created from boot options in initramfs
                 # (Kickstart based ifcfgs are handled when applying kickstart)
                 if ifcfg_file.is_from_kickstart:
                     continue
-                con_for_iface = ifcfg_file.uuid
+                con_uuid = ifcfg_file.uuid
 
             log.debug("%s: %d for %s - ensure active ifcfg connection",
                       self.name, number_of_connections, iface)
 
             ensure_active_connection_for_device(
                 self._nm_client,
-                con_for_iface.get_uuid(),
+                con_uuid,
                 iface,
                 only_replace=True
             )

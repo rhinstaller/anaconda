@@ -18,7 +18,9 @@
 
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
+from pyanaconda.modules.common.errors.installation import BootloaderInstallationError, \
+    StorageInstallationError
+from pyanaconda.modules.common.errors.storage import UnusableStorageError
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY", "errorHandler", "InvalidImageSizeError",
            "MissingImageError", "ScriptError", "NonInteractiveError", "CmdlineError", "ExitError"]
@@ -106,52 +108,29 @@ class ErrorHandler(object):
     def __init__(self, ui=None):
         self.ui = ui
 
-    def _partitionErrorHandler(self, exn):
-        message = _("The following errors occurred with your partitioning:\n\n%(errortxt)s\n\n"
-                    "The installation will now terminate.") % {"errortxt": exn}
-        self.ui.showError(message)
+    def _storage_install_handler(self, exn):
+        message = _("An error occurred while activating your storage configuration.")
+        details = str(exn)
+
+        self.ui.showDetailedError(message, details)
         return ERROR_RAISE
 
-    def _fsResizeHandler(self, exn):
-        message = _("An error occurred while resizing the device %s.") % exn
-
-        if exn.details:
-            message += "\n\n%s" % exn.details
-
-        self.ui.showError(message)
-        return ERROR_RAISE
-
-    def _storageResetHandler(self, exn):
+    def _storage_reset_handler(self, exn):
         message = (_("There is a problem with your existing storage "
-                     "configuration: %(errortxt)s\n\n"
+                     "configuration."
                      "You must resolve this matter before the installation can "
                      "proceed. There is a shell available for use which you "
                      "can access by pressing ctrl-alt-f1 and then ctrl-b 2."
                      "\n\nOnce you have resolved the issue you can retry the "
                      "storage scan. If you do not fix it you will have to exit "
-                     "the installer.") % {"errortxt": exn})
-        details = _(exn.suggestion)
+                     "the installer."))
+        details = str(exn)
         buttons = (C_("GUI|Storage Detailed Error Dialog", "_Exit Installer"),
                    C_("GUI|Storage Detailed Error Dialog", "_Retry"))
         if self.ui.showDetailedError(message, details, buttons=buttons):
             return ERROR_RETRY
         else:
             return ERROR_RAISE
-
-    def _noDisksHandler(self, exn):
-        message = _("An error has occurred - no valid devices were found on "
-                    "which to create new file systems.  Please check your "
-                    "hardware for the cause of this problem.")
-        self.ui.showError(message)
-        return ERROR_RAISE
-
-    def _fstabTypeMismatchHandler(self, exn):
-        # FIXME: include the two types in the message instead of including
-        #        the raw exception text
-        message = _("There is an entry in your /etc/fstab file that contains "
-                    "an invalid or incorrect file system type:\n\n")
-        message += " " + str(exn)
-        self.ui.showError(message)
 
     def _invalidImageSizeHandler(self, exn):
         message = _("The ISO image %s has a size which is not "
@@ -281,15 +260,6 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _ziplErrorHandler(self, exn):
-        details = str(exn)
-        message = _("Installation was stopped due to an error installing the "
-                    "boot loader. The exact error message is:\n\n%s\n\n"
-                    "The installer will now terminate.") % details
-
-        self.ui.showError(message)
-        return ERROR_RAISE
-
     def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -308,26 +278,21 @@ class ErrorHandler(object):
         if not flags.ksprompt:
             raise NonInteractiveError("Non interactive installation failed: %s" % exn)
 
-        _map = {"PartitioningError": self._partitionErrorHandler,
-                "FSResizeError": self._fsResizeHandler,
-                "UnusableConfigurationError": self._storageResetHandler,
-                "DiskLabelScanError": self._storageResetHandler,
-                "CorruptGPTError": self._storageResetHandler,
-                "DuplicateVGError": self._storageResetHandler,
-                "NoDisksError": self._noDisksHandler,
-                "FSTabTypeMismatchError": self._fstabTypeMismatchHandler,
-                "InvalidImageSizeError": self._invalidImageSizeHandler,
-                "MissingImageError": self._missingImageHandler,
-                "NoSuchGroup": self._noSuchGroupHandler,
-                "NoStreamSpecifiedException": self._no_module_stream_specified,
-                "InstallMoreStreamsException": self._multiple_module_streams_specified,
-                "MarkingErrors": self._install_specs_handler,
-                "ScriptError": self._scriptErrorHandler,
-                "PayloadInstallError": self._payloadInstallHandler,
-                "DependencyError": self._dependencyErrorHandler,
-                BootloaderInstallationError.__name__: self._bootLoaderErrorHandler,
-                "PasswordCryptError": self._passwordCryptErrorHandler,
-                "ZIPLError": self._ziplErrorHandler}
+        _map = {
+            StorageInstallationError.__name__: self._storage_install_handler,
+            UnusableStorageError.__name__: self._storage_reset_handler,
+            "InvalidImageSizeError": self._invalidImageSizeHandler,
+            "MissingImageError": self._missingImageHandler,
+            "NoSuchGroup": self._noSuchGroupHandler,
+            "NoStreamSpecifiedException": self._no_module_stream_specified,
+            "InstallMoreStreamsException": self._multiple_module_streams_specified,
+            "MarkingErrors": self._install_specs_handler,
+            "ScriptError": self._scriptErrorHandler,
+            "PayloadInstallError": self._payloadInstallHandler,
+            "DependencyError": self._dependencyErrorHandler,
+            BootloaderInstallationError.__name__: self._bootLoaderErrorHandler,
+            "PasswordCryptError": self._passwordCryptErrorHandler,
+        }
 
         if exn.__class__.__name__ in _map:
             rc = _map[exn.__class__.__name__](exn)

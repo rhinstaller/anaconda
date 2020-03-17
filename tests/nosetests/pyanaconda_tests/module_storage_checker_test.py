@@ -18,13 +18,13 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from dasbus.typing import get_variant, Int
 from pyanaconda.core.constants import STORAGE_MIN_RAM
 from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface
-from pyanaconda.storage.checker import storage_checker
+from pyanaconda.storage.checker import storage_checker, verify_lvm_destruction
 
 
 class StorageCheckerInterfaceTestCase(unittest.TestCase):
@@ -39,3 +39,58 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
         with patch.dict(storage_checker.constraints):
             self.interface.SetConstraint(STORAGE_MIN_RAM, get_variant(Int, 987))
             self.assertEqual(storage_checker.constraints[STORAGE_MIN_RAM], 987)
+
+
+class StorageCheckerVerificationTestCase(unittest.TestCase):
+
+    @patch("pyanaconda.storage.checker._", side_effect=lambda x: x)
+    def lvm_verification_test(self, _):
+        """Test the LVM destruction test."""
+        # VG that is destroyed correctly
+        action1 = Mock()
+        action1.is_destroy = True
+        action1.is_device = True
+        action1.device.type = "lvmvg"
+        action1.device.name = "VOLGROUP-A"
+
+        # something to ignore
+        action2 = Mock()
+        action2.is_destroy = False
+
+        # PV that belongs to VG from #1
+        action3 = Mock()
+        action3.is_destroy = True
+        action3.is_format = True
+        action3.orig_format.type = "lvmpv"
+        action3.device.disk.name = "PHYSDISK-1"
+        action3.orig_format.vg_name = "VOLGROUP-A"
+
+        # PV that belongs to a missing group
+        action4 = Mock()
+        action4.is_destroy = True
+        action4.is_format = True
+        action4.orig_format.type = "lvmpv"
+        action4.device.disk.name = "PHYSDISK-2"
+        action4.orig_format.vg_name = "VOLGROUP-B"
+
+        # PV that does not belong to any group
+        action5 = Mock()
+        action5.is_destroy = True
+        action5.is_format = True
+        action5.orig_format.type = "lvmpv"
+        action5.device.disk.name = "PHYSDISK-3"
+        action5.orig_format.vg_name = ""
+
+        storage = Mock()
+        storage.devicetree.actions = [action1, action2, action3, action4, action5]
+        error_handler = Mock()
+        warning_handler = Mock()
+
+        verify_lvm_destruction(storage, None, error_handler, warning_handler)
+
+        warning_handler.assert_not_called()
+        error_handler.assert_called_once_with(
+            "Selected disks {} contain volume group '{}' that also uses further unselected disks. "
+            "You must select or de-select all these disks as a set."
+            .format("PHYSDISK-2", "VOLGROUP-B")
+        )

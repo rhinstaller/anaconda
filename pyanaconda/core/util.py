@@ -500,7 +500,7 @@ def mkdirChain(directory):
 
 
 def get_active_console(dev="console"):
-    '''Find the active console device.
+    """Find the active console device.
 
     Some tty devices (/dev/console, /dev/tty0) aren't actual devices;
     they just redirect input and output to the real console device(s).
@@ -508,7 +508,7 @@ def get_active_console(dev="console"):
     These 'fake' ttys have an 'active' sysfs attribute, which lists the real
     console device(s). (If there's more than one, the *last* one in the list
     is the primary console.)
-    '''
+    """
     # If there's an 'active' attribute, this is a fake console..
     while os.path.exists("/sys/class/tty/%s/active" % dev):
         # So read the name of the real, primary console out of the file.
@@ -1116,7 +1116,6 @@ def xprogressive_delay():
         For example for 10 retries, the delay will increases from
         0.5 to 256 seconds.
 
-        :param int retry_number: retry counter
         :returns float: time to wait in seconds
     """
     counter = 1

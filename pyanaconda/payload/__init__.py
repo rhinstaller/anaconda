@@ -527,8 +527,7 @@ class Payload(metaclass=ABCMeta):
         if os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
             use_dracut = False
         else:
-            log.warning("new-kernel-pkg does not exist - grubby wasn't installed? "
-                        " using dracut instead.")
+            log.debug("new-kernel-pkg does not exist, using dracut instead.")
             use_dracut = True
 
         for kernel in self.kernel_version_list:

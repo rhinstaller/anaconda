@@ -26,12 +26,12 @@ from gi.repository import BlockDev as blockdev
 
 from blivet.devices import NoDevice, DirectoryDevice, NFSDevice, FileDevice, MDRaidArrayDevice, \
     NetworkStorageDevice, OpticalDevice
-from blivet.errors import UnrecognizedFSTabEntryError, FSTabTypeMismatchError, StorageError
+from blivet.errors import UnrecognizedFSTabEntryError, FSTabTypeMismatchError
 from blivet.formats import get_format, get_device_format_class
 from blivet.storage_log import log_exception_info
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
+from pyanaconda.core.i18n import _
 from pyanaconda.platform import platform as _platform, EFI
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -386,8 +386,15 @@ class FSSet(object):
                 device.format = fmt
             else:
                 device.teardown()
-                raise FSTabTypeMismatchError("%s: detected as %s, fstab says %s"
-                                             % (mountpoint, dtype, ftype))
+                raise FSTabTypeMismatchError(_(
+                    "There is an entry in your /etc/fstab file that contains "
+                    "an invalid or incorrect file system type. The file says that "
+                    "{detected_type} at {mount_point} is {fstab_type}.").format(
+                    detected_type=dtype,
+                    mount_point=mountpoint,
+                    fstab_type=ftype
+                ))
+
         del ftype
         del dtype
 
@@ -494,9 +501,6 @@ class FSSet(object):
                         blockdev.SwapUnknownError, blockdev.SwapPagesizeError) as e:
                     log.error("Failed to activate swap on '%s': %s", device.name, str(e))
                     break
-                except (StorageError, blockdev.BlockDevError) as e:
-                    if error_handler.cb(e) == ERROR_RAISE:
-                        raise
                 else:
                     break
 
@@ -543,25 +547,14 @@ class FSSet(object):
                 else:
                     device.parents = [parent]
 
-            try:
-                device.setup()
-            except Exception as e:  # pylint: disable=broad-except
-                log_exception_info(fmt_str="unable to set up device %s", fmt_args=[device])
-                if error_handler.cb(e) == ERROR_RAISE:
-                    raise
-                else:
-                    continue
-
             if read_only:
                 options = "%s,%s" % (options, read_only)
 
-            try:
-                device.format.setup(options=options,
-                                    chroot=root_path)
-            except Exception as e:  # pylint: disable=broad-except
-                log_exception_info(log.error, "error mounting %s on %s", [device.path, device.format.mountpoint])
-                if error_handler.cb(e) == ERROR_RAISE:
-                    raise
+            device.setup()
+            device.format.setup(
+                options=options,
+                chroot=root_path
+            )
 
         self.active = True
 
