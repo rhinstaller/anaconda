@@ -32,7 +32,7 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 DEPENDENCY_SOLVER = "dependency_solver.py"
 
 ANACONDA_MOCK_PATH = "/anaconda"
-NOSE_TESTS_PREFIX = "./nosetests/pyanaconda_tests/"
+NOSE_TESTS_DIR = "nosetests/"
 
 
 class MockException(Exception):
@@ -73,13 +73,17 @@ def _resolve_top_dir():
     return os.path.split(top_dir)[0]
 
 
-def _replace_prefix_paths(paths, prefix):
+def _correct_tests_paths(paths, nose_dir_name):
     result = []
 
     for p in paths:
         if os.path.exists(p):
-            basename = os.path.basename(p)
-            result.append(os.path.join(prefix + basename))
+            basename = p.rsplit(nose_dir_name, maxsplit=1)[-1]
+
+            if p != basename:
+                basename = os.path.join(nose_dir_name, basename)
+
+            result.append(basename)
         else:
             result.append(p)
 
@@ -368,7 +372,7 @@ def run_nosetests(mock_command, specified_test_files):
 
     cmd = _prepare_command(mock_command)
 
-    specified_test_files = _replace_prefix_paths(specified_test_files, NOSE_TESTS_PREFIX)
+    specified_test_files = _correct_tests_paths(specified_test_files, NOSE_TESTS_DIR)
     additional_args = " ".join(specified_test_files)
 
     cmd = _run_cmd_in_chroot(cmd)
