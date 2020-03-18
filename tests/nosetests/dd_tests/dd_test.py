@@ -20,20 +20,25 @@ Driver = namedtuple("Driver", "source name flags description")
 
 def dd_list(dd_path, kernel_ver, anaconda_ver):
     out = subprocess.check_output([os.path.join(UTILDIR, "dd_list"),
-            '-d', dd_path, '-k', kernel_ver, '-a', anaconda_ver],
-            stderr=open('/dev/null')).decode('utf-8')
-    return [Driver(*d.split('\n',3)) for d in out.split('\n---\n')[:-1]]
+                                   '-d', dd_path,
+                                   '-k', kernel_ver,
+                                   '-a', anaconda_ver],
+                                  stderr=open('/dev/null')).decode('utf-8')
+    return [Driver(*d.split('\n', 3)) for d in out.split('\n---\n')[:-1]]
 
 
 def dd_extract(rpm_path, outdir, kernel_ver, flags='-blmf'):
     out = subprocess.check_output([os.path.join(UTILDIR, "dd_extract"),
-            flags, '-r', rpm_path, '-d', outdir, '-k', kernel_ver],
-            stderr=subprocess.STDOUT).decode('utf-8')
+                                   flags,
+                                   '-r', rpm_path,
+                                   '-d', outdir,
+                                   '-k', kernel_ver],
+                                  stderr=subprocess.STDOUT).decode('utf-8')
     return out
 
 
 def listfiles(dirname):
-    return set(os.path.join(root,f)
+    return set(os.path.join(root, f)
                for root, dirs, files in os.walk(dirname)
                for f in files)
 
@@ -139,7 +144,7 @@ class DD_List_TestCase(unittest.TestCase):
     def dd_list(self, dd_dir=None, kernel_ver=None, anaconda_ver=None):
         return dd_list(dd_dir or self.tmpdir,
                        kernel_ver or self.k_ver,
-                       anaconda_ver  or self.a_ver)
+                       anaconda_ver or self.a_ver)
 
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
