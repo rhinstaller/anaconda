@@ -20,7 +20,7 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload.base import PackagePayload
+from pyanaconda.payload.dnf import DNFPayload
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import DependencyError, NoSuchGroup
 from pyanaconda.core.i18n import N_, _, C_
@@ -148,7 +148,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
     @property
     def showable(self):
-        return isinstance(self.payload, PackagePayload)
+        return isinstance(self.payload, DNFPayload)
 
     @property
     def status(self):
