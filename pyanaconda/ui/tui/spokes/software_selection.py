@@ -229,9 +229,9 @@ class SoftwareSpoke(NormalTUISpoke):
             self._container.add(widget, callback=self._set_addons_callback, data=addon_id)
 
         if available_addons:
-            return _("Add-ons for selected environment")
+            return _("Additional software for selected environment")
         else:
-            return _("No add-ons to select.")
+            return _("No additional software to select.")
 
     def _set_environment_callback(self, data):
         self._selected_environment = data
