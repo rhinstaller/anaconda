@@ -1,7 +1,5 @@
 #
-# Constants shared in the payload module.
-#
-# Copyright (C) 2019 Red Hat, Inc.
+# Copyright (C) 2020 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -16,21 +14,34 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
-from enum import Enum, unique
+#
+import os.path
+import glob
+
+from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.task import Task
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
+__all__ = ["SetUpRepoFilesSourceTask"]
 
 
-@unique
-class PayloadType(Enum):
-    """Type of the payload."""
-    DNF = "DNF"
-    LIVE_OS = "LIVE_OS"
-    LIVE_IMAGE = "LIVE_IMAGE"
+class SetUpRepoFilesSourceTask(Task):
+    """Task to setup installation source."""
 
+    def __init__(self, repo_dirs):
+        super().__init__()
+        self._repo_dirs = repo_dirs
 
-@unique
-class SourceType(Enum):
-    """Type of the payload source."""
-    LIVE_OS_IMAGE = "LIVE_OS_IMAGE"
-    HMC = "HMC"
-    CDROM = "CDROM"
-    REPO_FILES = "REPO_FILES"
+    @property
+    def name(self):
+        return "Set up Repo files Installation Source"
+
+    def run(self):
+        """Run Repo files installation source setup."""
+        log.debug("Trying to detect repo files automatically")
+        for repo_dir in self._repo_dirs:
+            if len(glob.glob(os.path.join(repo_dir, "*.repo"))) > 0:
+                return
+        raise SourceSetupError("repo files not found")

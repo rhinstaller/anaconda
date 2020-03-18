@@ -1,7 +1,7 @@
 #
-# Constants shared in the payload module.
+# DBus interface for payload Repo files image source.
 #
-# Copyright (C) 2019 Red Hat, Inc.
+# Copyright (C) 2020 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -16,21 +16,13 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
-from enum import Enum, unique
+#
+from dasbus.server.interface import dbus_interface
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_REPO_FILES
+from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 
 
-@unique
-class PayloadType(Enum):
-    """Type of the payload."""
-    DNF = "DNF"
-    LIVE_OS = "LIVE_OS"
-    LIVE_IMAGE = "LIVE_IMAGE"
-
-
-@unique
-class SourceType(Enum):
-    """Type of the payload source."""
-    LIVE_OS_IMAGE = "LIVE_OS_IMAGE"
-    HMC = "HMC"
-    CDROM = "CDROM"
-    REPO_FILES = "REPO_FILES"
+@dbus_interface(PAYLOAD_SOURCE_REPO_FILES.interface_name)
+class RepoFilesSourceInterface(PayloadSourceBaseInterface):
+    """Interface for the payload Repo files image source."""
+    pass
