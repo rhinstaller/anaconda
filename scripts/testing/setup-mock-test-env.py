@@ -81,11 +81,9 @@ def _correct_tests_paths(paths, nose_dir_name):
             basename = p.rsplit(nose_dir_name, maxsplit=1)[-1]
 
             if p != basename:
-                basename = os.path.join(nose_dir_name, basename)
+                p = os.path.join(nose_dir_name, basename)
 
-            result.append(basename)
-        else:
-            result.append(p)
+        result.append(p)
 
     return result
 
