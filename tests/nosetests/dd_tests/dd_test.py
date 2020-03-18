@@ -111,20 +111,20 @@ class ASelfTestCase(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
 
-    def test_rpmfluff_simple(self):
+    def rpmfluff_simple_test(self):
         """check if rpmfluff is working"""
         p = make_rpm(outdir=self.tmpdir)
         rpmfile = os.path.basename(p.get_built_rpm(expectedArch))
         self.assertTrue(rpmfile in os.listdir(self.tmpdir))
 
     @unittest.skip("Fails with a message: SRPM does not contain expected source file 'fun'.")
-    def test_rpmfluff_payload(self):
+    def rpmfluff_payload_test(self):
         """check if rpmfluff can add files to built RPMs"""
         p = make_rpm(outdir=self.tmpdir, payload=(binfile, kofile))
         rpmfile = os.path.basename(p.get_built_rpm(expectedArch))
         self.assertTrue(rpmfile in os.listdir(self.tmpdir))
 
-    def test_utils_exist(self):
+    def utils_exist_test(self):
         """check that the dd utilities exist"""
         self.assertTrue("dd_list" in os.listdir(UTILDIR))
         self.assertTrue("dd_extract" in os.listdir(UTILDIR))
@@ -144,7 +144,7 @@ class DD_List_TestCase(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
 
-    def test_dd_list(self):
+    def dd_list_test(self):
         """dd_list: check output format"""
         rpm = make_rpm(self.tmpdir, for_kernel_ver=self.k_ver)
         drivers = self.dd_list()
@@ -159,7 +159,7 @@ class DD_List_TestCase(unittest.TestCase):
         self.assertNotIn("binaries", d.flags)
         self.assertNotIn("libraries", d.flags)
 
-    def test_dd_list_multiple(self):
+    def dd_list_multiple_test(self):
         """dd_list: multiple outputs for multiple packages"""
         names = ['fun', 'even_more_fun', 'too_much_fun']
         for name in names:
@@ -168,7 +168,7 @@ class DD_List_TestCase(unittest.TestCase):
         self.assertEqual(len(drivers), len(names))
         self.assertEqual(set(d.name for d in drivers), set(names))
 
-    def test_dd_list_binaries(self):
+    def dd_list_binaries_test(self):
         """dd_list: 'Provides:installer-enhancement' implies bins/libs"""
         make_rpm(self.tmpdir, for_anaconda_ver=self.a_ver)
         drivers = self.dd_list()
@@ -179,12 +179,12 @@ class DD_List_TestCase(unittest.TestCase):
         self.assertNotIn("modules", d.flags)
         self.assertNotIn("firmwares", d.flags)
 
-    def test_dd_list_old_kmods(self):
+    def dd_list_old_kmods_test(self):
         """dd_list: ignore kmods if our kernel is too old"""
         make_rpm(self.tmpdir, for_kernel_ver="5.0.1-555")
         self.assertEqual(self.dd_list(), [])
 
-    def test_dd_list_z_stream_kmods(self):
+    def dd_list_z_stream_kmods_test(self):
         """dd_list: accept kmods for z-stream kernels (#1207831)"""
         make_rpm(self.tmpdir, for_kernel_ver=self.k_ver)
         drivers = self.dd_list(kernel_ver=self.k_ver+".3")
@@ -192,16 +192,16 @@ class DD_List_TestCase(unittest.TestCase):
         d = drivers[0]
         self.assertIn("modules", d.flags)
 
-    def test_dd_list_anaconda_old(self):
+    def dd_list_anaconda_old_test(self):
         """dd_list: ignore installer-enhancements if version doesn't match"""
         make_rpm(self.tmpdir, for_anaconda_ver="23.0")
         self.assertEqual(self.dd_list(), [])
 
-    def test_dd_list_no_rpms(self):
+    def dd_list_no_rpms_test(self):
         """dd_list: empty directory returns no results"""
         self.assertEqual(self.dd_list(), [])
 
-    def test_dd_list_missing_dir(self):
+    def dd_list_missing_dir_test(self):
         """dd_list: missing directory returns no results"""
         self.assertEqual(self.dd_list(dd_dir="/non/existent/path"), [])
 
@@ -233,13 +233,13 @@ class DD_Extract_TestCase(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.tmpdir)
 
-    def test_dd_extract(self):
+    def dd_extract_test(self):
         """dd_extract: files are extracted correctly"""
         self.dd_extract()
         for f in self.rpmpayload:
             self.assertEqual(f.contents, open(self.outdir+f.path).read())
 
-    def test_dd_extract_chmod(self):
+    def dd_extract_chmod_test(self):
         """dd_extract: files get correct mode (#1222056)"""
         self.dd_extract()
         for f in self.rpmpayload:
@@ -250,22 +250,22 @@ class DD_Extract_TestCase(unittest.TestCase):
                 print("testing", f.path)
                 self.assertEqual(binmode & expectmode, expectmode)
 
-    def test_dd_extract_modules(self):
+    def dd_extract_modules_test(self):
         """dd_extract: using --modules extracts only .ko files"""
         outfiles = self.dd_extract(flags='--modules')
         self.assertEqual(outfiles, set([self.outdir+kofile.path]))
 
-    def test_dd_extract_binaries(self):
+    def dd_extract_binaries_test(self):
         """dd_extract: using --binaries extracts only /bin, /sbin, etc."""
         outfiles = self.dd_extract(flags='--binaries')
         self.assertEqual(outfiles, set([self.outdir+binfile.path]))
 
-    def test_dd_extract_libs(self):
+    def dd_extract_libs_test(self):
         """dd_extract: using --libraries extracts only /lib etc."""
         outfiles = self.dd_extract(flags='--libraries')
         self.assertEqual(outfiles, set([self.outdir+libfile.path]))
 
-    def test_dd_extract_firmware(self):
+    def dd_extract_firmware_test(self):
         """dd_extract: using --firmwares extracts only /lib/firmware"""
         outfiles = self.dd_extract(flags='--firmwares')
         self.assertEqual(outfiles, set([self.outdir+fwfile.path]))
