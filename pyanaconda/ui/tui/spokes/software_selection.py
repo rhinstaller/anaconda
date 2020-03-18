@@ -20,7 +20,7 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import PackagePayload
+from pyanaconda.payload.base import PackagePayload
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import DependencyError, NoSuchGroup
 from pyanaconda.core.i18n import N_, _, C_

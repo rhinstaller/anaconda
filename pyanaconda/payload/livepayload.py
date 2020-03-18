@@ -39,8 +39,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
-from pyanaconda.payload import Payload
-from pyanaconda.payload import payload_utils
+from pyanaconda.payload.base import Payload
+from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadSetupError, PayloadInstallError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.errors import errorHandler, ERROR_RAISE

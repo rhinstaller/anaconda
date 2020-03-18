@@ -29,7 +29,7 @@ from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_an
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.progress import progressQ
-from pyanaconda.payload import Payload
+from pyanaconda.payload.base import Payload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
 from pyanaconda.payload.flatpak import FlatpakPayload

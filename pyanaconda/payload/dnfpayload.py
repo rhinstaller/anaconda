@@ -31,6 +31,7 @@ from requests.exceptions import RequestException
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.payload.base import PackagePayload
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import constants
@@ -47,7 +48,6 @@ from pyanaconda.payload import utils as payload_utils
 
 import pyanaconda.errors as errors
 import pyanaconda.localization
-import pyanaconda.payload as payload
 
 import dnf
 import dnf.logging
@@ -291,7 +291,7 @@ def do_transaction(base, queue_instance):
         queue_instance.put(('quit', str(exit_reason)))
 
 
-class DNFPayload(payload.PackagePayload):
+class DNFPayload(PackagePayload):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -24,7 +24,7 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAY
     THREAD_WAIT_FOR_CONNECTING_NM
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import PackagePayload
+from pyanaconda.payload.base import PackagePayload
 from pyanaconda.payload.errors import PayloadError
 
 from pyanaconda.anaconda_loggers import get_module_logger
