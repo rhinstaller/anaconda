@@ -67,6 +67,7 @@ from pykickstart.commands.reboot import F23_Reboot as Reboot
 from pykickstart.commands.repo import F30_Repo as Repo
 from pykickstart.commands.reqpart import F23_ReqPart as ReqPart
 from pykickstart.commands.rescue import F10_Rescue as Rescue
+from pykickstart.commands.rhsm import RHEL8_RHSM as RHSM
 from pykickstart.commands.rootpw import F18_RootPw as RootPw
 from pykickstart.commands.selinux import FC3_SELinux as SELinux
 from pykickstart.commands.services import FC6_Services as Services
@@ -74,6 +75,7 @@ from pykickstart.commands.skipx import FC3_SkipX as SkipX
 from pykickstart.commands.snapshot import F26_Snapshot as Snapshot
 from pykickstart.commands.sshpw import F24_SshPw as SshPw
 from pykickstart.commands.sshkey import F22_SshKey as SshKey
+from pykickstart.commands.syspurpose import RHEL8_Syspurpose as Syspurpose
 from pykickstart.commands.timezone import F32_Timezone as Timezone
 from pykickstart.commands.updates import F7_Updates as Updates
 from pykickstart.commands.url import F30_Url as Url

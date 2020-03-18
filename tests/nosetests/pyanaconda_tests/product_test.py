@@ -68,6 +68,18 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         config.validate()
 
+    def _get_config(self, product_name, variant_name=""):
+        """Get parsed config file."""
+        config = AnacondaConfiguration.from_defaults()
+        paths = self._loader.collect_configurations(product_name, variant_name)
+
+        for path in paths:
+            config.read(path)
+
+        config.validate()
+
+        return config
+
     def fedora_products_test(self):
         self._check_default_product(
             "Fedora", "",
@@ -109,6 +121,19 @@ class ProductConfigurationTestCase(unittest.TestCase):
             "Scientific Linux", "",
             ["rhel.conf", "scientific-linux.conf"]
         )
+
+    def product_module_list_difference_test(self):
+        """Test for expected Fedora & RHEL module list differences."""
+        fedora_config = self._get_config("Fedora")
+        fedora_modules = fedora_config.anaconda.kickstart_modules
+
+        rhel_config = self._get_config("Red Hat Enterprise Linux")
+        rhel_modules = rhel_config.anaconda.kickstart_modules
+
+        difference = list(set(rhel_modules) - set(fedora_modules))
+        expected_difference = ["org.fedoraproject.Anaconda.Modules.Subscription"]
+
+        self.assertListEqual(difference, expected_difference)
 
     def valid_product_test(self):
         content = dedent("""

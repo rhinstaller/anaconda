@@ -200,6 +200,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/storage/snapshot/Makefile
                  pyanaconda/modules/storage/zfcp/Makefile
                  pyanaconda/modules/services/Makefile
+                 pyanaconda/modules/subscription/Makefile
                  data/post-scripts/Makefile
                  data/pixmaps/Makefile
                  tests/Makefile

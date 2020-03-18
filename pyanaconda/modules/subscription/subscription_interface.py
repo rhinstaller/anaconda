@@ -1,0 +1,81 @@
+#
+# DBus interface for the subscription module.
+#
+# Copyright (C) 2020 Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.base import KickstartModuleInterface
+from pyanaconda.modules.common.structures.subscription import SystemPurposeData
+from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
+from dasbus.typing import *  # pylint: disable=wildcard-import
+
+
+@dbus_interface(SUBSCRIPTION.interface_name)
+class SubscriptionInterface(KickstartModuleInterface):
+    """DBus interface for the Subscription service."""
+
+    def connect_signals(self):
+        super().connect_signals()
+        self.watch_property("SystemPurposeData", self.implementation.system_purpose_data_changed)
+
+    def GetValidRoles(self) -> List[Str]:
+        """Return all valid system purpose roles.
+
+        These are OS release specific, but could look like this:
+
+        "Red Hat Enterprise Linux Server"
+        "Red Hat Enterprise Linux Workstation"
+        "Red Hat Enterprise Linux Compute Node"
+        """
+        return self.implementation.valid_roles
+
+    def GetValidSLAs(self) -> List[Str]:
+        """Return all valid system purpose SLAs.
+
+        These are OS release specific, but could look like this:
+
+        "Premium"
+        "Standard"
+        "Self-Support"
+        """
+        return self.implementation.valid_slas
+
+    def GetValidUsageTypes(self) -> List[Str]:
+        """List all valid system purpose usage types.
+
+        These are OS release specific, but could look like this:
+
+        "Production",
+        "Development/Test",
+        "Disaster Recovery"
+        """
+        return self.implementation.valid_usage_types
+
+    @property
+    def SystemPurposeData(self) -> Structure:
+        """Return DBus structure holding current system purpose data."""
+        return SystemPurposeData.to_structure(self.implementation.system_purpose_data)
+
+    @emits_properties_changed
+    def SetSystemPurposeData(self, system_purpose_data: Structure):
+        """Set a new DBus structure holding system purpose data.
+
+        :param system_purpose_data: DBus structure corresponding to SystemPurposeData
+        """
+        converted_data = SystemPurposeData.from_structure(system_purpose_data)
+        self.implementation.set_system_purpose_data(converted_data)
