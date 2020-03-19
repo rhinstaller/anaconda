@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 from pykickstart.constants import NVDIMM_MODE_SECTOR
-from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.constants.objects import NVDIMM
@@ -79,7 +79,7 @@ class NVDIMMDialog(GUIObject):
             self._startButton.set_sensitive(False)
             self._sectorSizeLabel.set_sensitive(False)
             self._infoLabel.set_text(
-                CN_("GUI|Advanced Storage|NVDIM", "No device to be reconfigured selected.")
+                C_("GUI|Advanced Storage|NVDIM", "No device to be reconfigured selected.")
             )
 
     def run(self):
