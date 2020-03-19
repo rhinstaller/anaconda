@@ -27,7 +27,7 @@ from pyanaconda.storage_utils import try_populate_devicetree, \
     nvdimm_update_ksdata_after_reconfiguration
 from pykickstart.constants import NVDIMM_MODE_SECTOR
 
-from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.i18n import _, C_
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -75,7 +75,7 @@ class NVDIMMDialog(GUIObject):
         if self.namespaces:
             self._devicesLabel.set_text("%s" % ", ".join(self.namespaces))
         else:
-            msg = CN_("GUI|Advanced Storage|NVDIM", "No device to be reconfigured selected.")
+            msg = C_("GUI|Advanced Storage|NVDIM", "No device to be reconfigured selected.")
             self._infoLabel.set_text(msg)
             for widget in [self._sectorSizeSpinButton, self._okButton, self._startButton,
                            self._sectorSizeLabel]:
