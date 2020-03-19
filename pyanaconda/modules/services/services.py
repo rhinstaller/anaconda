@@ -115,8 +115,6 @@ class ServicesService(KickstartService):
         firstboot = self._map_firstboot(self.setup_on_boot, reverse=True)
         data.firstboot.firstboot = firstboot
 
-        return data
-
     def _map_firstboot(self, value, reverse=False):
         """Convert the firstboot value to the setup on boot value.
 

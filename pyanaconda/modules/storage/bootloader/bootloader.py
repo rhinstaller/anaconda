@@ -202,8 +202,6 @@ class BootloaderModule(KickstartBaseModule):
         data.bootloader.password = self.password
         data.bootloader.isCrypted = self.password_is_encrypted
 
-        return data
-
     @property
     def bootloader_mode(self):
         """The mode of the bootloader."""

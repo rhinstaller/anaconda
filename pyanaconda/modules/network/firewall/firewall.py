@@ -88,7 +88,6 @@ class FirewallModule(KickstartBaseModule):
         data.firewall.trusts = self.trusts
         data.firewall.services = self.enabled_services
         data.firewall.remove_services = self.disabled_services
-        return data
 
     @property
     def firewall_seen(self):

@@ -105,7 +105,6 @@ class LiveImageModule(PayloadBase):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         liveimg = data.liveimg
-
         liveimg.url = self.url
         liveimg.proxy = self.proxy
         liveimg.checksum = self.checksum

@@ -135,8 +135,6 @@ class UsersService(KickstartService):
             ssh_key_ksdata.username = ssh_key_data.username
             data.sshkey.sshUserList.append(ssh_key_ksdata)
 
-        return data
-
     def configure_groups_with_task(self):
         """Return the user group configuration task.
 

@@ -134,9 +134,8 @@ class KickstartBaseModule(BaseModule):
         Use the module attributes to set the kickstart data.
 
         :param data: a kickstart handler
-        :return: a kickstart handler
         """
-        return data
+        pass
 
     def collect_requirements(self):
         """Return installation requirements.

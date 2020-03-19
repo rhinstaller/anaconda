@@ -112,7 +112,7 @@ class PayloadsService(KickstartService):
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
-        return data
+        pass
 
     def generate_temporary_kickstart(self):
         """Return the temporary kickstart string.

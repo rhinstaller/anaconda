@@ -103,8 +103,6 @@ class LocalizationService(KickstartService):
         data.keyboard.x_layouts = self.x_layouts
         data.keyboard.switch_options = self.switch_options
 
-        return data
-
     @property
     def language(self):
         """Return the language."""

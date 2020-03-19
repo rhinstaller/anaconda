@@ -98,7 +98,6 @@ class DiskInitializationModule(KickstartBaseModule):
         """Setup the kickstart data."""
         self._setup_kickstart_from_module(data)
         self._setup_kickstart_from_storage(data)
-        return data
 
     def _setup_kickstart_from_module(self, data):
         """Update the configuration from the module.
