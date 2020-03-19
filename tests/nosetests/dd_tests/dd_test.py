@@ -122,7 +122,6 @@ class ASelfTestCase(unittest.TestCase):
         rpmfile = os.path.basename(p.get_built_rpm(expectedArch))
         self.assertTrue(rpmfile in os.listdir(self.tmpdir))
 
-    @unittest.skip("Fails with a message: SRPM does not contain expected source file 'fun'.")
     def rpmfluff_payload_test(self):
         """check if rpmfluff can add files to built RPMs"""
         p = make_rpm(outdir=self.tmpdir, payload=(binfile, kofile))
@@ -214,7 +213,6 @@ class DD_List_TestCase(unittest.TestCase):
 class DD_Extract_TestCase(unittest.TestCase):
 
     @classmethod
-    @unittest.skip("Fails with a message: SRPM does not contain expected source file 'fun'.")
     def setUpClass(cls):
         cls.k_ver = "4.1.4-333"
         cls.a_ver = "22.0"
