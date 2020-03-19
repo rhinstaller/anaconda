@@ -6,9 +6,11 @@ import unittest
 import tempfile
 import subprocess
 
+from abc import ABC
+
 from contextlib import contextmanager
 from collections import namedtuple
-from rpmfluff import SourceFile, SimpleRpmBuild, expectedArch
+from rpmfluff import SourceFile, GeneratedSourceFile, SimpleRpmBuild, expectedArch, make_elf
 from shutup import shutup
 
 TOP_SRCDIR = os.environ.get("top_builddir", "../..")
@@ -67,7 +69,7 @@ def make_rpm(outdir, name='test', version='1.0', release='1', arch=None,
         payload = []
     for item in payload:
         p.add_installed_file(item.path,
-                             SourceFile(item.srcpath, item.contents),
+                             item.create_source_file(),
                              **item.kwargs)
     with in_tempdir("anaconda-test-dd."):
         with shutup():
@@ -78,31 +80,50 @@ def make_rpm(outdir, name='test', version='1.0', release='1', arch=None,
     return p
 
 
-class RPMFile(object):
-    """simple container object for information about RPM payloads"""
-    def __init__(self, path, srcpath=None, contents='', **kwargs):
+class RPMFile(ABC):
+    """Base class for simple container object for information about RPM payloads"""
+    def __init__(self, path, srcpath=None, mode=None):
         self.path = path
         self.srcpath = srcpath or os.path.basename(path)
+        self.kwargs = {}
+
+        if mode:
+            self.kwargs["mode"] = mode
+
+    def create_source_file(self):
+        """Create source file for RPM fluff."""
+        pass
+
+
+class TextRPMFile(RPMFile):
+    """RPM file with text content"""
+    def __init__(self, contents='', **kwargs):
+        super().__init__(**kwargs)
         self.contents = contents
-        self.kwargs = kwargs
+
+    def create_source_file(self):
+        return SourceFile(self.srcpath, self.contents)
 
 
-binfile = RPMFile(
+class BinRPMFile(RPMFile):
+    """RPM file with binary content"""
+    def create_source_file(self):
+        return GeneratedSourceFile(self.srcpath, make_elf())
+
+
+binfile = BinRPMFile(
     path="/usr/bin/fun",
-    contents="echo WHEE\n",
-    # FIXME: Find reason why the file mode doesn't
-#    mode="0755"
+    mode="0755"
 )
-libfile = RPMFile(
+libfile = BinRPMFile(
     path="/usr/lib/fun.so",
-    contents="I AM TOTALLY A SHARED LIBRARY",
-#    mode="0755"
+    mode="0755"
 )
-fwfile = RPMFile(
+fwfile = TextRPMFile(
     path="/lib/firmware/fun.fw",
     contents="HELLO I AM FIRMWARE"
 )
-kofile = RPMFile(
+kofile = TextRPMFile(
     path="/lib/modules/KERNELVER/extra/net/fun.ko",
     contents="KERNEL MODULE??? YOU BETCHA"
 )
@@ -239,8 +260,15 @@ class DD_Extract_TestCase(unittest.TestCase):
     def dd_extract_test(self):
         """dd_extract: files are extracted correctly"""
         self.dd_extract()
-        for f in self.rpmpayload:
-            self.assertEqual(f.contents, open(self.outdir+f.path).read())
+        for item in self.rpmpayload:
+            out_path = self.outdir+item.path
+            if isinstance(item, TextRPMFile):
+                with open(out_path) as f:
+                    self.assertEqual(item.contents, f.read())
+            elif isinstance(item, BinRPMFile):
+                self.assertTrue(os.path.exists(out_path))
+                # check that file have some generated content
+                self.assertGreater(os.stat(out_path).st_size, 1)
 
     def dd_extract_chmod_test(self):
         """dd_extract: files get correct mode (#1222056)"""
