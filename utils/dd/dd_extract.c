@@ -155,14 +155,32 @@ int main(int argc, char *argv[])
             break;
 
         case 'd':
+            if (directory) {
+                logMessage(ERROR, "Multiple -d arguments\n");
+                show_help();
+                rc = 1;
+                goto cleanup;
+            }
             directory = strdup(optarg);
             break;
 
         case 'k':
+            if (kernel) {
+                logMessage(ERROR, "Multiple -k arguments\n");
+                show_help();
+                rc = 1;
+                goto cleanup;
+            }
             kernel = strdup(optarg);
             break;
 
         case 'r':
+            if (rpm) {
+                logMessage(ERROR, "Multiple -r arguments\n");
+                show_help();
+                rc = 1;
+                goto cleanup;
+            }
             rpm = strdup(optarg);
             break;
 

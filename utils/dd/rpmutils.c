@@ -336,6 +336,7 @@ int explodeDDRPM(const char *source,
     /* check the status of archive_open */
     if (rc != ARCHIVE_OK){
         Fclose(gzdi);
+        archive_read_free(cpio);
         headerFree(h);
         return -1;
     }
@@ -400,6 +401,7 @@ int explodeDDRPM(const char *source,
 
             /* call chmod to set any bits that were removed by umask during open */
             if (fchmod(fd, fstat->st_mode) != 0) {
+                close(fd);
                 rc = 33;
                 break;
             }
