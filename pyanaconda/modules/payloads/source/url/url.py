@@ -30,7 +30,8 @@ class URLSourceModule(PayloadSourceBase):
 
     def is_ready(self):
         """This source is ready for the installation to start."""
-        pass
+        # FIXME: always true is correct but it will block change of payload source. Find solution!
+        return True
 
     @property
     def type(self):

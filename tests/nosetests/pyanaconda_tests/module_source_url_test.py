@@ -33,3 +33,17 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
     def type_test(self):
         """Test URL source has a correct type specified."""
         self.assertEqual(SourceType.URL.value, self.url_source_interface.Type)
+
+
+class URLSourceTestCase(unittest.TestCase):
+    """Test the URL source module."""
+
+    def setUp(self):
+        self.module = URLSourceModule()
+
+    def ready_state_test(self):
+        """Check ready state of URL source.
+
+        It will be always True there is no state.
+        """
+        self.assertTrue(self.module.is_ready())
