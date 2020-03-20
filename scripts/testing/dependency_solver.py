@@ -134,26 +134,6 @@ def release_dependencies():
     return result
 
 
-# FIXME: Remove this when mock 32.1. will be available
-# https://github.com/rpm-software-management/mock/commit/151e774b4bceadb0ac3f7f10b1f46bb0f0ece487
-def mock_v2_workaround_filter(packages):
-    """Fix packages broken by mock issue
-
-    Dracut and libtool are packages which are instead expanded to /builddir/<name>. This expansion
-    is done because these exists as local files/directories in Anaconda root folder.
-    Change these packages in the package set to something which can't be matched to local object.
-    """
-    if "dracut" in packages:
-        packages.remove("dracut")
-        packages.add("dra?ut")
-
-    if "libtool" in packages:
-        packages.remove("libtool")
-        packages.add("lib?ool")
-
-    return packages
-
-
 if __name__ == "__main__":
     args = parse_args()
     spec = ""
@@ -172,9 +152,6 @@ if __name__ == "__main__":
         res_packages.update(test_dependencies())
     if args.release:
         res_packages.update(release_dependencies())
-
-    res_packages = mock_v2_workaround_filter(res_packages)
-
     if args.pip:
         res_packages = pip_dependencies()
 
