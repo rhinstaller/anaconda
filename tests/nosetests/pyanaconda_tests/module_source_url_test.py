@@ -47,3 +47,17 @@ class URLSourceTestCase(unittest.TestCase):
         It will be always True there is no state.
         """
         self.assertTrue(self.module.is_ready())
+
+    def set_up_with_tasks_test(self):
+        """Get set up tasks for url source.
+
+        No task is required. Will be an empty list.
+        """
+        self.assertEqual(self.module.set_up_with_tasks(), [])
+
+    def tear_down_with_tasks_test(self):
+        """Get tear down tasks for url source.
+
+        No task is required. Will be an empty list.
+        """
+        self.assertEqual(self.module.tear_down_with_tasks(), [])
