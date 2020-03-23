@@ -32,9 +32,9 @@ from blivet.size import Size
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.payload import dnfpayload
+from pyanaconda.payload.dnf import utils
 from pyanaconda.payload.flatpak import FlatpakPayload
-from pyanaconda.payload.dnfpayload import RepoMDMetaHash
+from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.payload.errors import PayloadRequirementsMissingApply
 
@@ -51,7 +51,7 @@ class PickLocation(unittest.TestCase):
         download_size = Size("1.5 G")
         install_size = Size("1.8 G")
 
-        mpoint = dnfpayload._pick_mpoint(df_map, download_size, install_size, True)
+        mpoint = utils.pick_mount_point(df_map, download_size, install_size, True)
 
         self.assertEqual(mpoint, os.path.join(conf.target.system_root, "home"))
 
@@ -67,7 +67,7 @@ class PickLocation(unittest.TestCase):
         download_size = Size("2.5 G")
         install_size = Size("3.0 G")
 
-        mpoint = dnfpayload._pick_mpoint(df_map, download_size, install_size, True)
+        mpoint = utils.pick_mount_point(df_map, download_size, install_size, True)
 
         self.assertEqual(mpoint, os.path.join(conf.target.system_root))
 
@@ -79,7 +79,7 @@ class PickLocation(unittest.TestCase):
         download_size = Size("1.5 G")
         install_size = Size("3.0 G")
 
-        mpoint = dnfpayload._pick_mpoint(df_map, download_size, install_size, False)
+        mpoint = utils.pick_mount_point(df_map, download_size, install_size, False)
 
         self.assertEqual(mpoint, conf.target.system_root)
 
@@ -91,7 +91,7 @@ class PickLocation(unittest.TestCase):
         download_size = Size("1.5 G")
         install_size = Size("3.0 G")
 
-        mpoint = dnfpayload._pick_mpoint(df_map, download_size, install_size, False)
+        mpoint = utils.pick_mount_point(df_map, download_size, install_size, False)
 
         self.assertEqual(mpoint, None)
 

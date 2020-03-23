@@ -96,7 +96,7 @@ class Anaconda(object):
                 from pyanaconda.payload.livepayload import LiveImageKSPayload
                 klass = LiveImageKSPayload
             else:
-                from pyanaconda.payload.dnfpayload import DNFPayload
+                from pyanaconda.payload.dnf import DNFPayload
                 klass = DNFPayload
 
             self._payload = klass(self.ksdata)

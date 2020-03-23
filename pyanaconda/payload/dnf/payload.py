@@ -16,285 +16,77 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import configparser
-import collections
+import functools
 import multiprocessing
-import operator
-import hashlib
+import os
 import shutil
 import sys
-import time
 import threading
-from requests.exceptions import RequestException
-
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, N_
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.progress import progressQ, progress_message
-from pyanaconda.core.util import ProxyString, ProxyStringError
-from pyanaconda.core import constants
-from pyanaconda.core import util
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
-from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda.kickstart import RepoData
-from pyanaconda.product import productName, productVersion
-from pyanaconda.payload.errors import MetadataError, NoSuchGroup, DependencyError, \
-    PayloadInstallError, PayloadSetupError, PayloadError
-from pyanaconda.payload import utils as payload_utils
-
-
-import pyanaconda.errors as errors
-import pyanaconda.localization
-import pyanaconda.payload as payload
-
 import dnf
 import dnf.logging
 import dnf.exceptions
+import dnf.module
+import dnf.module.module_base
 import dnf.repo
-import dnf.callback
-import dnf.transaction
+import dnf.subject
 import libdnf.conf
+import libdnf.repo
 import rpm
-from dnf.const import GROUP_PACKAGE_TYPES
+import pyanaconda.localization
 
 from blivet.size import Size
+from dnf.const import GROUP_PACKAGE_TYPES
+from fnmatch import fnmatch
+from glob import glob
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE
 
-from pyanaconda.anaconda_loggers import get_packaging_logger, get_dnf_logger
+from pyanaconda import errors as errors
+from pyanaconda import isys
+from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
+from pyanaconda.core import constants, util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, DRACUT_REPODIR, DRACUT_ISODIR
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
+from pyanaconda.flags import flags
+from pyanaconda.kickstart import RepoData
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
+from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
+from pyanaconda.payload import utils as payload_utils
+from pyanaconda.payload.base import Payload
+from pyanaconda.payload.dnf.utils import DNF_CACHE_DIR, DNF_PLUGINCONF_DIR, REPO_DIRS, \
+    DNF_LIBREPO_LOG, DNF_PACKAGE_CACHE_DIR_SUFFIX, BONUS_SIZE_ON_FILE, YUM_REPOS_DIR, \
+    go_to_failure_limbo, do_transaction, get_df_map, pick_mount_point
+from pyanaconda.payload.dnf.download_progress import DownloadProgress
+from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
+from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
+    PayloadInstallError, PayloadSetupError
+from pyanaconda.payload.image import findFirstIsoImage, mountImage, verify_valid_installtree, \
+    find_optical_install_media
+from pyanaconda.progress import progressQ, progress_message
+from pyanaconda.simpleconfig import SimpleConfigFile
+
 log = get_packaging_logger()
 
-
-DNF_CACHE_DIR = '/tmp/dnf.cache'
-DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
-DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
-DNF_LIBREPO_LOG = '/tmp/dnf.librepo.log'
-REPO_DIRS = ['/etc/yum.repos.d',
-             '/etc/anaconda.repos.d',
-             '/tmp/updates/anaconda.repos.d',
-             '/tmp/product/anaconda.repos.d']
-YUM_REPOS_DIR = "/etc/yum.repos.d/"
-
-USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
-
-# Bonus to required free space which depends on block size and rpm database size estimation.
-# Every file could be aligned to fragment size so 4KiB * number_of_files should be a worst
-# case scenario. 2KiB for RPM DB was acquired by testing.
-# 6KiB = 4K(max default fragment size) + 2K(rpm db could be taken for a header file)
-BONUS_SIZE_ON_FILE = Size("6 KiB")
+__all__ = ["DNFPayload"]
 
 
-def _failure_limbo():
-    progressQ.send_quit(1)
-    while True:
-        time.sleep(10000)
-
-
-def _df_map():
-    """Return (mountpoint -> size available) mapping."""
-    output = util.execWithCapture('df', ['--output=target,avail'])
-    output = output.rstrip()
-    lines = output.splitlines()
-    structured = {}
-    for line in lines:
-        key, val = line.rsplit(maxsplit=1)
-        if not key.startswith('/'):
-            continue
-        structured[key] = Size(int(val) * 1024)
-
-    # Add /var/tmp/ if this is a directory or image installation
-    if not conf.target.is_hardware:
-        var_tmp = os.statvfs("/var/tmp")
-        structured["/var/tmp"] = Size(var_tmp.f_frsize * var_tmp.f_bfree)
-    return structured
-
-
-def _paced(fn):
-    """Execute `fn` no more often then every 2 seconds."""
-    def paced_fn(self, *args):
-        now = time.time()
-        if now - self.last_time < 2:
-            return
-        self.last_time = now
-        return fn(self, *args)
-    return paced_fn
-
-
-def _pick_mpoint(df, download_size, install_size, download_only):
-    reasonable_mpoints = {
-        '/var/tmp',
-        conf.target.system_root,
-        os.path.join(conf.target.system_root, 'home'),
-        os.path.join(conf.target.system_root, 'tmp'),
-        os.path.join(conf.target.system_root, 'var'),
-    }
-
-    requested = download_size
-    requested_root = requested + install_size
-    root_mpoint = conf.target.system_root
-    log.debug('Input mount points: %s', df)
-    log.info('Estimated size: download %s & install %s', requested,
-             (requested_root - requested))
-
-    # Find sufficient mountpoint to download and install packages.
-    sufficients = {key: val for (key, val) in df.items()
-                   if ((key != root_mpoint and val > requested) or val > requested_root) and
-                   key in reasonable_mpoints}
-
-    # If no sufficient mountpoints for download and install were found and we are looking
-    # for download mountpoint only, ignore install size and try to find mountpoint just
-    # to download packages. This fallback is required when user skipped space check.
-    if not sufficients and download_only:
-        sufficients = {key: val for (key, val) in df.items() if val > requested and
-                       key in reasonable_mpoints}
-        if sufficients:
-            log.info('Sufficient mountpoint for download only found: %s', sufficients)
-    elif sufficients:
-        log.info('Sufficient mountpoints found: %s', sufficients)
-
-    if not sufficients:
-        log.debug("No sufficient mountpoints found")
-        return None
-
-    sorted_mpoints = sorted(sufficients.items(), key=operator.itemgetter(1), reverse=True)
-
-    # try to pick something else than root mountpoint for downloading
-    if download_only and len(sorted_mpoints) >= 2 and sorted_mpoints[0][0] == root_mpoint:
-        return sorted_mpoints[1][0]
-    else:
-        # default to the biggest one:
-        return sorted_mpoints[0][0]
-
-
-class PayloadRPMDisplay(dnf.callback.TransactionProgress):
-    def __init__(self, queue_instance):
-        super().__init__()
-        self._queue = queue_instance
-        self._last_ts = None
-        self._postinst_phase = False
-        self.cnt = 0
-
-    def progress(self, package, action, ti_done, ti_total, ts_done, ts_total):
-        # Process DNF actions, communicating with anaconda via the queue
-        # A normal installation consists of 'install' messages followed by
-        # the 'post' message.
-        if action == dnf.transaction.PKG_INSTALL and ti_done == 0:
-            # do not report same package twice
-            if self._last_ts == ts_done:
-                return
-            self._last_ts = ts_done
-
-            msg = '%s.%s (%d/%d)' % \
-                (package.name, package.arch, ts_done, ts_total)
-            self.cnt += 1
-            self._queue.put(('install', msg))
-
-            # Log the exact package nevra, build time and checksum
-            nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
-            log_msg = "Installed: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
-            self._queue.put(('log', log_msg))
-
-        elif action == dnf.transaction.TRANS_POST:
-            self._queue.put(('post', None))
-            log_msg = "Post installation setup phase started."
-            self._queue.put(('log', log_msg))
-            self._postinst_phase = True
-
-        elif action == dnf.transaction.PKG_SCRIPTLET:
-            # Log the exact package nevra, build time and checksum
-            nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
-            log_msg = "Configuring (running scriptlet for): %s %s %s" % (nevra, package.buildtime,
-                                                                         package.returnIdSum()[1])
-            self._queue.put(('log', log_msg))
-
-            # only show progress in UI for post-installation scriptlets
-            if self._postinst_phase:
-                msg = '%s.%s' % (package.name, package.arch)
-                self._queue.put(('configure', msg))
-
-        elif action == dnf.transaction.PKG_VERIFY:
-            msg = '%s.%s (%d/%d)' % (package.name, package.arch, ts_done, ts_total)
-            self._queue.put(('verify', msg))
-
-            # Log the exact package nevra, build time and checksum
-            nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
-            log_msg = "Verifying: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
-            self._queue.put(('log', log_msg))
-
-            # Once the last package is verified the transaction is over
-            if ts_done == ts_total:
-                self._queue.put(('done', None))
-
-    def error(self, message):
-        """Report an error that occurred during the transaction. Message is a
-        string which describes the error.
-        """
-        self._queue.put(('error', message))
-
-
-class DownloadProgress(dnf.callback.DownloadProgress):
-    def __init__(self):
-        super().__init__()
-        self.downloads = collections.defaultdict(int)
-        self.last_time = time.time()
-        self.total_files = 0
-        self.total_size = Size(0)
-
-    @_paced
-    def _update(self):
-        msg = _('Downloading %(total_files)s RPMs, '
-                '%(downloaded)s / %(total_size)s (%(percent)d%%) done.')
-        downloaded = Size(sum(self.downloads.values()))
-        vals = {
-            'downloaded': downloaded,
-            'percent': int(100 * downloaded / self.total_size),
-            'total_files': self.total_files,
-            'total_size': self.total_size
-        }
-        progressQ.send_message(msg % vals)
-
-    def end(self, dnf_payload, status, msg):  # pylint: disable=arguments-differ
-        nevra = str(dnf_payload)
-        if status is dnf.callback.STATUS_OK:
-            self.downloads[nevra] = dnf_payload.download_size
-            self._update()
-            return
-        log.warning("Failed to download '%s': %d - %s", nevra, status, msg)
-
-    def progress(self, dnf_payload, done):  # pylint: disable=arguments-differ
-        nevra = str(dnf_payload)
-        self.downloads[nevra] = done
-        self._update()
-
-    # TODO: Remove pylint disable after DNF-2.5.0 will arrive in Fedora
-    def start(self, total_files, total_size, total_drpms=0):  # pylint: disable=arguments-differ
-        self.total_files = total_files
-        self.total_size = Size(total_size)
-
-
-def do_transaction(base, queue_instance):
-    # Execute the DNF transaction and catch any errors. An error doesn't
-    # always raise a BaseException, so presence of 'quit' without a preceeding
-    # 'post' message also indicates a problem.
-    try:
-        display = PayloadRPMDisplay(queue_instance)
-        base.do_transaction(display=display)
-        exit_reason = "DNF quit"
-    except BaseException as e:  # pylint: disable=broad-except
-        log.error('The transaction process has ended abruptly')
-        log.info(e)
-        import traceback
-        exit_reason = str(e) + traceback.format_exc()
-    finally:
-        base.close()  # Always close this base.
-        queue_instance.put(('quit', str(exit_reason)))
-
-
-class DNFPayload(payload.PackagePayload):
+class DNFPayload(Payload):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.install_device = None
+        self._rpm_macros = []
+
+        # Used to determine which add-ons to display for each environment.
+        # The dictionary keys are environment IDs. The dictionary values are two-tuples
+        # consisting of lists of add-on group IDs. The first list is the add-ons specific
+        # to the environment, and the second list is the other add-ons possible for the
+        # environment.
+        self._environment_addons = {}
+
         self._base = None
         self._download_location = None
         self._updates_enabled = True
@@ -451,7 +243,10 @@ class DNFPayload(payload.PackagePayload):
         for module in self.data.module.dataList():
             # stream definition is optional
             if module.stream:
-                module_spec = "{name}:{stream}".format(name=module.name, stream=module.stream)
+                module_spec = "{name}:{stream}".format(
+                    name=module.name,
+                    stream=module.stream
+                )
             else:
                 module_spec = module.name
 
@@ -466,7 +261,10 @@ class DNFPayload(payload.PackagePayload):
             module_base = dnf.module.module_base.ModuleBase(self._base)
             module_base.disable(module_specs_to_disable)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("ModuleBase.disable(): some packages, groups or modules are missing or broken:\n%s", e)
+            log.debug(
+                "ModuleBase.disable(): some packages, groups "
+                "or modules are missing or broken:\n%s", e
+            )
             self._payload_setup_error(e)
 
         # forward the module specs to enable to DNF
@@ -475,8 +273,8 @@ class DNFPayload(payload.PackagePayload):
             module_base = dnf.module.module_base.ModuleBase(self._base)
             module_base.enable(module_specs_to_enable)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("ModuleBase.enable(): some packages, groups or modules are "
-                      "missing or broken:\n%s", e)
+            log.debug("ModuleBase.enable(): some packages, groups "
+                      "or modules are missing or broken:\n%s", e)
             self._payload_setup_error(e)
 
     def _apply_selections(self):
@@ -496,7 +294,8 @@ class DNFPayload(payload.PackagePayload):
 
         # core groups
         if self.data.packages.nocore:
-            log.info("skipping core group due to %%packages --nocore; system may not be complete")
+            log.info("skipping core group due to %%packages "
+                     "--nocore; system may not be complete")
             exclude_list.append("@core")
         else:
             log.info("selected group: core")
@@ -535,10 +334,14 @@ class DNFPayload(payload.PackagePayload):
                     type_list.append("optional")
 
                 types = ",".join(type_list)
-                group_spec = "@{group_name}/{types}".format(group_name=group.name, types=types)
+                group_spec = "@{group_name}/{types}".format(
+                    group_name=group.name,
+                    types=types
+                )
             else:
-                # if group is a regular group this is equal to @group/mandatory,default,conditional
-                # (current content of the DNF GROUP_PACKAGE_TYPES constant)
+                # if group is a regular group this is equal to
+                # @group/mandatory,default,conditional (current
+                # content of the DNF GROUP_PACKAGE_TYPES constant)
                 group_spec = "@{}".format(group.name)
 
             include_list.append(group_spec)
@@ -586,8 +389,8 @@ class DNFPayload(payload.PackagePayload):
                 e.error_pkg_specs or \
                 e.module_depsolv_errors
             if not transaction_broken and self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                log.info("ignoring missing package/group/module specs due to --ignoremissing flag "
-                         "in kickstart")
+                log.info("ignoring missing package/group/module "
+                         "specs due to --ignoremissing flag in kickstart")
             else:
                 self._payload_setup_error(e)
         except Exception as e:  # pylint: disable=broad-except
@@ -700,10 +503,12 @@ class DNFPayload(payload.PackagePayload):
             config.retries = self.data.packages.retries
 
         if self.data.packages.handleBroken == KS_BROKEN_IGNORE:
-            log.warning("\n*********************************************************************\n"
-                        "User has requested to skip broken packages. Using this option may result "
-                        "in an UNUSABLE system!\n"
-                        "*********************************************************************")
+            log.warning(
+                "\n*********************************************************************\n"
+                "User has requested to skip broken packages. Using this option may result "
+                "in an UNUSABLE system!\n"
+                "*********************************************************************"
+            )
             config.strict = False
 
         self._configure_proxy()
@@ -757,10 +562,16 @@ class DNFPayload(payload.PackagePayload):
     def _pick_download_location(self):
         download_size = self._download_space
         install_size = self._space_required()
-        df_map = _df_map()
-        mpoint = _pick_mpoint(df_map, download_size, install_size, download_only=True)
+        df_map = get_df_map()
+        mpoint = pick_mount_point(
+            df_map,
+            download_size,
+            install_size,
+            download_only=True
+        )
         if mpoint is None:
-            msg = ("Not enough disk space to download the packages; size %s." % download_size)
+            msg = ("Not enough disk space to download the "
+                   "packages; size %s." % download_size)
             raise PayloadError(msg)
 
         log.info("Mountpoint %s picked as download location", mpoint)
@@ -775,6 +586,23 @@ class DNFPayload(payload.PackagePayload):
         """Check if the given package name looks instalable."""
         subj = dnf.subject.Subject(package_name)
         return bool(subj.get_best_query(self._base.sack))
+
+    @property
+    def kernel_packages(self):
+        if "kernel" in self.data.packages.excludedList:
+            return []
+
+        kernels = ["kernel"]
+
+        if payload_utils.arch_is_x86() and isys.isPaeAvailable():
+            kernels.insert(0, "kernel-PAE")
+
+        # ARM systems use either the standard Multiplatform or LPAE platform
+        if payload_utils.arch_is_arm():
+            if isys.isLpaeAvailable():
+                kernels.insert(0, "kernel-lpae")
+
+        return kernels
 
     def _get_kernel_package(self):
         kernels = self.kernel_packages
@@ -802,7 +630,8 @@ class DNFPayload(payload.PackagePayload):
         for lang in [localization_proxy.Language] + localization_proxy.LanguageSupport:
             loc = pyanaconda.localization.find_best_locale_match(lang, alangs)
             if not loc:
-                log.warning("Selected lang %s does not match any available langpack", lang)
+                log.warning("Selected lang %s does not match "
+                            "any available langpack", lang)
                 continue
             langpacks.append("langpacks-" + loc)
         return langpacks
@@ -828,27 +657,122 @@ class DNFPayload(payload.PackagePayload):
                     return repo.id
         return None
 
+    ###
+    # METHODS FOR WORKING WITH ENVIRONMENTS
+    ###
+
     @property
     def environments(self):
         return [env.id for env in self._base.comps.environments]
+
+    def select_environment(self, environment_id):
+        if environment_id not in self.environments:
+            raise NoSuchGroup(environment_id)
+
+        self.data.packages.environment = environment_id
+
+    @property
+    def environment_addons(self):
+        return self._environment_addons
+
+    ###
+    # METHODS FOR WORKING WITH GROUPS
+    ###
 
     @property
     def groups(self):
         groups = self._base.comps.groups_iter()
         return [g.id for g in groups]
 
+    def selected_groups_IDs(self):
+        """ Return list of selected group IDs.
+
+        :return: List of selected group IDs.
+        :raise PayloadError: If translation is not supported by payload.
+        """
+        # pylint: disable=try-except-raise
+        try:
+            ret = []
+            for grp in self.selected_groups():
+                ret.append(self.group_id(grp))
+            return ret
+        # Translation feature is not implemented for this payload.
+        except NotImplementedError:
+            raise PayloadError(("Can't translate group names to group ID - "
+                                "Group translation is not implemented for %s payload." % self))
+        except PayloadError as ex:
+            raise PayloadError("Can't translate group names to group ID - {}".format(ex))
+
+    ###
+    # METHODS FOR WORKING WITH REPOSITORIES
+    ###
     @property
     def repos(self):
-        # known repo ids
+        """A list of repo identifiers, not objects themselves."""
         with self._repos_lock:
             return [r.id for r in self._base.repos.values()]
+
+    def add_driver_repos(self):
+        """Add driver repositories and packages."""
+        # Drivers are loaded by anaconda-dracut, their repos are copied
+        # into /run/install/DD-X where X is a number starting at 1. The list of
+        # packages that were selected is in /run/install/dd_packages
+
+        # Add repositories
+        dir_num = 0
+        while True:
+            dir_num += 1
+            repo = "/run/install/DD-%d/" % dir_num
+            if not os.path.isdir(repo):
+                break
+
+            # Run createrepo if there are rpms and no repodata
+            if not os.path.isdir(repo + "/repodata"):
+                rpms = glob(repo + "/*rpm")
+                if not rpms:
+                    continue
+                log.info("Running createrepo on %s", repo)
+                util.execWithRedirect("createrepo_c", [repo])
+
+            repo_name = "DD-%d" % dir_num
+            if repo_name not in self.addons:
+                ks_repo = self.data.RepoData(name=repo_name,
+                                             baseurl="file://" + repo,
+                                             enabled=True)
+                self.add_repo(ks_repo)
+
+        # Add packages
+        if not os.path.exists("/run/install/dd_packages"):
+            return
+        with open("/run/install/dd_packages", "r") as f:
+            for line in f:
+                package = line.strip()
+                self.requirements.add_packages([package], reason="driver disk")
+
+    @property
+    def ISO_image(self):
+        """The location of a mounted ISO repo, or None."""
+        if not self.data.method.method == "harddrive":
+            return None
+
+        # This could either be mounted to INSTALL_TREE or on
+        # DRACUT_ISODIR if dracut did the mount.
+        device_path = payload_utils.get_mount_device_path(INSTALL_TREE)
+        if device_path:
+            return device_path[len(ISO_DIR) + 1:]
+
+        device_path = payload_utils.get_mount_device_path(DRACUT_ISODIR)
+        if device_path:
+            return device_path[len(DRACUT_ISODIR) + 1:]
+
+        return None
 
     @property
     def space_required(self):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
         size = self._space_required()
         download_size = self._download_space
-        valid_points = _df_map()
+        valid_points = get_df_map()
         root_mpoint = conf.target.system_root
 
         for key in payload_utils.get_mount_points():
@@ -859,7 +783,7 @@ class DNFPayload(payload.PackagePayload):
             if key.startswith('/') and ((root_mpoint + new_key) not in valid_points):
                 valid_points[root_mpoint + new_key] = device_tree.GetFileSystemFreeSpace([key])
 
-        m_point = _pick_mpoint(valid_points, download_size, size, download_only=False)
+        m_point = pick_mount_point(valid_points, download_size, size, download_only=False)
         if not m_point or m_point == root_mpoint:
             # download and install to the same mount point
             size = size + download_size
@@ -964,10 +888,14 @@ class DNFPayload(payload.PackagePayload):
         """Return environment id for the environment specified by id or name."""
         # the enviroment must be string or else DNF >=3 throws an assert error
         if not isinstance(environment, str):
-            log.warning("environment_id() called with non-string argument: %s", environment)
+            log.warning("environment_id() called with non-string "
+                        "argument: %s", environment)
+
         env = self._base.comps.environment_by_pattern(environment)
+
         if env is None:
             raise NoSuchGroup(environment)
+
         return env.id
 
     def environment_has_option(self, environment_id, grpid):
@@ -1013,6 +941,65 @@ class DNFPayload(payload.PackagePayload):
         self._base.read_comps(arch_filter=True)
         self._refresh_environment_addons()
 
+    def _refresh_environment_addons(self):
+        log.info("Refreshing environment_addons")
+        self._environment_addons = {}
+
+        for environment in self.environments:
+            self._environment_addons[environment] = ([], [])
+
+            # Determine which groups are specific to this environment and which other groups
+            # are available in this environment.
+            for grp in self.groups:
+                if self.environment_has_option(environment, grp):
+                    self._environment_addons[environment][0].append(grp)
+                elif self._is_group_visible(grp):
+                    self._environment_addons[environment][1].append(grp)
+
+    @property
+    def rpm_macros(self):
+        """A list of (name, value) pairs to define as macros in the rpm transaction."""
+        return self._rpm_macros
+
+    @rpm_macros.setter
+    def rpm_macros(self, value):
+        self._rpm_macros = value
+
+    def pre_install(self):
+        super().pre_install()
+
+        # Set rpm-specific options
+
+        # nofsync speeds things up at the risk of rpmdb data loss in a crash.
+        # But if we crash mid-install you're boned anyway, so who cares?
+        self.rpm_macros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
+
+        if self.data.packages.excludeDocs:
+            self.rpm_macros.append(('_excludedocs', '1'))
+
+        if self.data.packages.instLangs is not None:
+            # Use nil if instLangs is empty
+            self.rpm_macros.append(('_install_langs', self.data.packages.instLangs or '%{nil}'))
+
+        if conf.security.selinux:
+            for d in ["/tmp/updates",
+                      "/etc/selinux/targeted/contexts/files",
+                      "/etc/security/selinux/src/policy",
+                      "/etc/security/selinux"]:
+                f = d + "/file_contexts"
+                if os.access(f, os.R_OK):
+                    self.rpm_macros.append(('__file_context_path', f))
+                    break
+        else:
+            self.rpm_macros.append(('__file_context_path', '%{nil}'))
+
+        # Add platform specific group
+        groupid = util.get_platform_groupid()
+        if groupid and groupid in self.groups:
+            self.requirements.add_groups([groupid], reason="platform")
+        elif groupid:
+            log.warning("Platform group %s not available.", groupid)
+
     def install(self):
         progress_message(N_('Starting package installation process'))
 
@@ -1028,10 +1015,11 @@ class DNFPayload(payload.PackagePayload):
         except PayloadError as e:
             if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
                 log.error("Installation failed: %r", e)
-                _failure_limbo()
+                go_to_failure_limbo()
 
         if os.path.exists(self._download_location):
-            log.info("Removing existing package download location: %s", self._download_location)
+            log.info("Removing existing package download "
+                     "location: %s", self._download_location)
             shutil.rmtree(self._download_location)
         pkgs_to_download = self._base.transaction.install_set
         log.info('Downloading packages to %s.', self._download_location)
@@ -1044,7 +1032,7 @@ class DNFPayload(payload.PackagePayload):
             exc = PayloadInstallError(msg)
             if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
                 log.error("Installation failed: %r", exc)
-                _failure_limbo()
+                go_to_failure_limbo()
 
         log.info('Downloading packages finished.')
 
@@ -1083,20 +1071,22 @@ class DNFPayload(payload.PackagePayload):
                 exc = PayloadInstallError("DNF error: %s" % msg)
                 if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
                     log.error("Installation failed: %r", exc)
-                    _failure_limbo()
+                    go_to_failure_limbo()
             (token, msg) = queue_instance.get()
 
         process.join()
         # Don't close the mother base here, because we still need it.
         if os.path.exists(self._download_location):
-            log.info("Cleaning up downloaded packages: %s", self._download_location)
+            log.info("Cleaning up downloaded packages: "
+                     "%s", self._download_location)
             shutil.rmtree(self._download_location)
         else:
             # Some installation sources, such as NFS, don't need to download packages to
             # local storage, so the download location might not always exist. So for now
             # warn about this, at least until the RFE in bug 1193121 is implemented and
             # we don't have to care about clearing the download location ourselves.
-            log.warning("Can't delete nonexistent download location: %s", self._download_location)
+            log.warning("Can't delete nonexistent download "
+                        "location: %s", self._download_location)
 
     def get_repo(self, repo_id):
         """Return the yum repo object."""
@@ -1132,13 +1122,73 @@ class DNFPayload(payload.PackagePayload):
         return list(gids)
 
     def reset(self):
-        super().reset()
+        self.reset_install_device()
+        self.reset_additional_repos()
+
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
+
         self.tx_id = None
         self._base.reset(sack=True, repos=True)
         self._configure_proxy()
         self._repoMD_list = []
+
+    def reset_install_device(self):
+        """Unmount the previous base repo and reset the install_device."""
+        # cdrom: install_device.teardown (INSTALL_TREE)
+        # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
+        # nfs: umount INSTALL_TREE
+        # nfsiso: umount INSTALL_TREE, umount ISO_DIR
+        install_device_path = payload_utils.get_device_path(self.install_device)
+
+        if os.path.ismount(INSTALL_TREE):
+            if self.install_device and \
+               payload_utils.get_mount_device_path(INSTALL_TREE) == install_device_path:
+                payload_utils.teardown_device(self.install_device)
+            else:
+                payload_utils.unmount(INSTALL_TREE, raise_exc=True)
+
+        if os.path.ismount(ISO_DIR):
+            if self.install_device and \
+               payload_utils.get_mount_device_path(ISO_DIR) == install_device_path:
+                payload_utils.teardown_device(self.install_device)
+            # The below code will fail when nfsiso is the stage2 source
+            # But if we don't do this we may not be able to switch from
+            # one nfsiso repo to another nfsiso repo.  We need to have a
+            # way to detect the stage2 state and work around it.
+            # Commenting out the below is a hack for F18.  FIXME
+            # else:
+            #     # NFS
+            #     blivet.util.umount(ISO_DIR)
+
+        self.install_device = None
+
+    def reset_additional_repos(self):
+        for name in self._find_mounted_additional_repos():
+            installation_dir = INSTALL_TREE + "-" + name
+            self._unmount_source_directory(installation_dir)
+
+            iso_dir = ISO_DIR + "-" + name
+            self._unmount_source_directory(iso_dir)
+
+    def _find_mounted_additional_repos(self):
+        prefix = ISO_DIR + "-"
+        prefix_len = len(prefix)
+        result = []
+
+        for dir_path in glob(prefix + "*"):
+            result.append(dir_path[prefix_len:])
+
+        return result
+
+    def _unmount_source_directory(self, mount_point):
+        if os.path.ismount(mount_point):
+            device_path = payload_utils.get_mount_device_path(mount_point)
+            device = payload_utils.resolve_device(device_path)
+            if device:
+                payload_utils.teardown_device(device)
+            else:
+                payload_utils.unmount(mount_point, raise_exc=True)
 
     def update_base_repo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
@@ -1181,8 +1231,8 @@ class DNFPayload(payload.PackagePayload):
 
                 log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
             except configparser.MissingSectionHeaderError as e:
-                log.error("couldn't set releasever from base repo (%s): %s",
-                          method.method, e)
+                log.error("couldn't set releasever from base repo (%s): "
+                          "%s", method.method, e)
 
             try:
                 proxy = getattr(method, "proxy", None)
@@ -1257,6 +1307,306 @@ class DNFPayload(payload.PackagePayload):
             for repo_name in self.addons:
                 if repo_name in enabled_repos:
                     self._fetch_md(repo_name)
+
+    def _setup_install_device(self, checkmount):
+        # XXX FIXME: does this need to handle whatever was set up by dracut?
+        method = self.data.method
+        url = None
+        mirrorlist = None
+        metalink = None
+
+        # See if we already have stuff mounted due to dracut
+        iso_device_path = payload_utils.get_mount_device_path(DRACUT_ISODIR)
+        repo_device_path = payload_utils.get_mount_device_path(DRACUT_REPODIR)
+
+        if method.method == "harddrive":
+            log.debug("Setting up harddrive install device")
+            url = self._setup_harddrive_device(method, iso_device_path, repo_device_path)
+        elif method.method == "nfs":
+            log.debug("Setting up nfs install device")
+            url = self._setup_nfs_device(method, iso_device_path, repo_device_path)
+        elif method.method == "url":
+            url = method.url
+            mirrorlist = method.mirrorlist
+            metalink = method.metalink
+        elif method.method == "hmc":
+            log.debug("Setting up hmc install device")
+            url = self._setup_hmc_device(method, iso_device_path, repo_device_path)
+        elif method.method == "cdrom" or (checkmount and not method.method):
+            log.debug("Setting up cdrom install device")
+            url = self._setup_cdrom_device(method, iso_device_path, repo_device_path)
+
+        return url, mirrorlist, metalink
+
+    def _setup_harddrive_device(self, method, iso_device_path, repo_device_path):
+        url = None
+        need_mount = False
+
+        if method.biospart:
+            log.warning("biospart support is not implemented")
+            dev_spec = method.biospart
+        else:
+            dev_spec = method.partition
+            need_mount = True
+            # See if we used this method for stage2, thus dracut left it
+            if iso_device_path and method.partition and \
+               method.partition in iso_device_path and \
+               DRACUT_ISODIR in repo_device_path:
+                # Everything should be setup
+                url = "file://" + DRACUT_REPODIR
+                need_mount = False
+                # We don't setup an install_device here
+                # because we can't tear it down
+
+        iso_device = payload_utils.resolve_device(dev_spec)
+        if need_mount:
+            if not iso_device:
+                raise PayloadSetupError("device for HDISO install %s does not exist" % dev_spec)
+
+            self._setup_media(iso_device)
+            url = "file://" + INSTALL_TREE
+            self.install_device = iso_device
+
+        return url
+
+    def _setup_nfs_device(self, method, iso_device_path, repo_device_path):
+        # There are several possible scenarios here:
+        # 1. dracut could have mounted both the nfs repo and an iso and used
+        #    the stage2 from inside the iso to boot from.
+        #    iso_device_path and repo_device_path will be set in this case.
+        # 2. dracut could have mounted the nfs repo and used a stage2 from
+        #    the NFS mount w/o mounting the iso.
+        #    iso_device_path will be None and repo_device_path will be the nfs: path
+        # 3. dracut did not mount the nfs (eg. stage2 came from elsewhere)
+        #    iso_device_path and/or repo_device_path are None
+        # 4. The repo may not contain an iso, in that case use it as is
+        url = None
+        path = None
+
+        if iso_device_path and repo_device_path:
+            path = util.parseNfsUrl('nfs:%s' % iso_device_path)[2]
+            # See if the dir holding the iso is what we want
+            # and also if we have an iso mounted to /run/install/repo
+            if path and path in iso_device_path and DRACUT_ISODIR in repo_device_path:
+                # Everything should be setup
+                url = "file://" + DRACUT_REPODIR
+        else:
+            # see if the nfs dir is mounted
+            need_mount = True
+            if repo_device_path:
+                _options, host, path = util.parseNfsUrl('nfs:%s' % repo_device_path)
+                if method.server and method.server == host and \
+                   method.dir and method.dir == path:
+                    need_mount = False
+                    path = DRACUT_REPODIR
+            elif iso_device_path:
+                # iso_device_path with no repo_device_path can happen when options on an existing
+                # nfs mount have changed. It is already mounted, but on INSTALL_TREE
+                # which is the same as DRACUT_ISODIR, making it hard for _setup_NFS
+                # to detect that it is already mounted.
+                _options, host, path = util.parseNfsUrl('nfs:%s' % iso_device_path)
+                if path and path in iso_device_path:
+                    need_mount = False
+                    path = DRACUT_ISODIR
+
+            if need_mount:
+                # Mount the NFS share on INSTALL_TREE. If it ends up
+                # being nfsiso we will move the mountpoint to ISO_DIR.
+                if method.dir.endswith(".iso"):
+                    nfs_dir = os.path.dirname(method.dir)
+                else:
+                    nfs_dir = method.dir
+
+                self._setup_NFS(INSTALL_TREE, method.server, nfs_dir, method.opts)
+                path = INSTALL_TREE
+
+            # check for ISO images in the newly mounted dir
+            if method.dir.endswith(".iso"):
+                # if the given URL includes a specific ISO image file, use it
+                image_file = os.path.basename(method.dir)
+                path = os.path.normpath("%s/%s" % (path, image_file))
+
+            image = findFirstIsoImage(path)
+
+            # An image was found, mount it on INSTALL_TREE
+            if image:
+                if path.startswith(INSTALL_TREE):
+                    # move the INSTALL_TREE mount to ISO_DIR so we can
+                    # mount the contents of the iso there.
+                    # work around inability to move shared filesystems
+                    util.execWithRedirect("mount",
+                                          ["--make-rprivate", "/"])
+                    util.execWithRedirect("mount",
+                                          ["--move", INSTALL_TREE, ISO_DIR])
+                    # The iso is now under ISO_DIR
+                    path = ISO_DIR
+                elif path.endswith(".iso"):
+                    path = os.path.dirname(path)
+
+                # mount the ISO on a loop
+                image = os.path.normpath("%s/%s" % (path, image))
+                mountImage(image, INSTALL_TREE)
+
+                url = "file://" + INSTALL_TREE
+            elif os.path.isdir(path):
+                # Fall back to the mount path instead of a mounted iso
+                url = "file://" + path
+            else:
+                # Do not try to use iso as source if it is not valid source
+                raise PayloadSetupError("Not a valid ISO image!")
+
+        return url
+
+    def _setup_hmc_device(self, method, iso_device_path, repo_device_path):
+        # Check if /dev/hmcdrv is already mounted.
+        if repo_device_path == "/dev/hmcdrv":
+            log.debug("HMC is already mounted at %s.", DRACUT_REPODIR)
+            url = "file://" + DRACUT_REPODIR
+        else:
+            log.debug("Trying to mount the content of HMC media drive.")
+
+            # Test the SE/HMC file access.
+            if util.execWithRedirect("/usr/sbin/lshmc", []):
+                raise PayloadSetupError("The content of HMC media drive couldn't be accessed.")
+
+            # Test if a path is a mount point.
+            if os.path.ismount(INSTALL_TREE):
+                log.debug("Don't mount the content of HMC media drive yet.")
+            else:
+                # Make sure that the directories exists.
+                util.mkdirChain(INSTALL_TREE)
+
+                # Mount the device.
+                if util.execWithRedirect("/usr/bin/hmcdrvfs", [INSTALL_TREE]):
+                    raise PayloadSetupError("The content of HMC media drive couldn't be mounted.")
+
+            log.debug("We are ready to use the HMC at %s.", INSTALL_TREE)
+            url = "file://" + INSTALL_TREE
+
+        return url
+
+    def _setup_cdrom_device(self, method, iso_device_path, repo_device_path):
+        url = None
+
+        # FIXME: We really should not talk about NFS here - regression from re-factorization?
+
+        # Check for valid optical media if we didn't boot from one
+        if not is_valid_install_disk(DRACUT_REPODIR):
+            self.install_device = find_optical_install_media()
+
+        # Only look at the dracut mount if we don't already have a cdrom
+        if repo_device_path and not self.install_device:
+            self.install_device = payload_utils.resolve_device(repo_device_path)
+            url = "file://" + DRACUT_REPODIR
+            if not method.method:
+                # See if this is a nfs mount
+                if ':' in repo_device_path:
+                    # prepend nfs: to the url as that's what the parser
+                    # wants.  Note we don't get options from this, but
+                    # that's OK for the UI at least.
+                    _options, host, path = util.parseNfsUrl("nfs:%s" % repo_device_path)
+                    method.method = "nfs"
+                    method.server = host
+                    method.dir = path
+                else:
+                    method.method = "cdrom"
+        else:
+            if self.install_device:
+                if not method.method:
+                    method.method = "cdrom"
+                self._setup_media(self.install_device)
+                url = "file://" + INSTALL_TREE
+            elif method.method == "cdrom":
+                raise PayloadSetupError("no usable optical media found")
+
+        return url
+
+    def _setup_media(self, device):
+        method = self.data.method
+
+        if method.method == "harddrive":
+            try:
+                method.dir = self._find_and_mount_iso(device, ISO_DIR, method.dir, INSTALL_TREE)
+            except PayloadSetupError as ex:
+                log.warning(str(ex))
+
+                try:
+                    self._setup_install_tree(device, method.dir, INSTALL_TREE)
+                except PayloadSetupError as ex:
+                    log.error(str(ex))
+                    raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
+        elif not (method.method == "cdrom" and self._device_is_mounted_as_source(device)):
+            payload_utils.mount_device(device, INSTALL_TREE)
+
+    def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
+        """Find and mount installation source from ISO on device.
+
+        Return changed path to the iso to save looking for iso in the future call.
+        """
+        self._setup_device(device, mountpoint=device_mount_dir)
+
+        # check for ISO images in the newly mounted dir
+        path = device_mount_dir
+        if iso_path:
+            path = os.path.normpath("%s/%s" % (path, iso_path))
+
+        # XXX it would be nice to streamline this when we're just setting
+        #     things back up after storage activation instead of having to
+        #     pretend we don't already know which ISO image we're going to
+        #     use
+        image = findFirstIsoImage(path)
+        if not image:
+            payload_utils.teardown_device(device)
+            raise PayloadSetupError("failed to find valid iso image")
+
+        if path.endswith(".iso"):
+            path = os.path.dirname(path)
+
+        # this could already be set up the first time through
+        if not os.path.ismount(iso_mount_dir):
+            # mount the ISO on a loop
+            image = os.path.normpath("%s/%s" % (path, image))
+            mountImage(image, iso_mount_dir)
+
+        if not iso_path.endswith(".iso"):
+            result_path = os.path.normpath("%s/%s" % (iso_path,
+                                                      os.path.basename(image)))
+            while result_path.startswith("/"):
+                # ridiculous
+                result_path = result_path[1:]
+
+            return result_path
+
+        return iso_path
+
+    def _setup_install_tree(self, device, install_tree_path, device_mount_dir):
+        self._setup_device(device, mountpoint=device_mount_dir)
+        path = os.path.normpath("%s/%s" % (device_mount_dir, install_tree_path))
+
+        if not verify_valid_installtree(path):
+            payload_utils.teardown_device(device)
+            raise PayloadSetupError("failed to find valid installation tree")
+
+    def _device_is_mounted_as_source(self, device):
+        device_path = payload_utils.get_device_path(device)
+        device_mounts = payload_utils.get_mount_paths(device_path)
+        return INSTALL_TREE in device_mounts or DRACUT_REPODIR in device_mounts
+
+    def _setup_harddrive_addon_repo(self, ksrepo):
+        iso_device = payload_utils.resolve_device(ksrepo.partition)
+        if not iso_device:
+            raise PayloadSetupError("device for HDISO addon repo install %s does not exist" %
+                                    ksrepo.partition)
+
+        ksrepo.generate_mount_dir()
+
+        device_mount_dir = ISO_DIR + "-" + ksrepo.mount_dir_suffix
+        install_root_dir = INSTALL_TREE + "-" + ksrepo.mount_dir_suffix
+
+        self._find_and_mount_iso(iso_device, device_mount_dir, ksrepo.iso_path, install_root_dir)
+        url = "file://" + install_root_dir
+
+        return url
 
     def _get_base_repo_location(self, install_tree_url):
         """Try to find base repository from the treeinfo file.
@@ -1416,76 +1766,18 @@ class DNFPayload(payload.PackagePayload):
         self._base.close()
         super().post_install()
 
-
-class RepoMDMetaHash(object):
-    """Class that holds hash of a repomd.xml file content from a repository.
-    This class can test availability of this repository by comparing hashes.
-    """
-    def __init__(self, dnf_payload, repo):
-        self._repoId = repo.id
-        self._method = dnf_payload.data.method
-        self._ssl_verify = repo.sslverify
-        self._urls = repo.baseurl
-        self._repomd_hash = ""
-
     @property
-    def repoMD_hash(self):
-        """Return SHA256 hash of the repomd.xml file stored."""
-        return self._repomd_hash
+    def kernel_version_list(self):
+        # Find all installed rpms that provide 'kernel'
+        files = []
+        ts = rpm.TransactionSet(conf.target.system_root)
+        mi = ts.dbMatch('providename', 'kernel')
 
-    @property
-    def id(self):
-        """Name of the repository."""
-        return self._repoId
+        for hdr in mi:
+            unicode_fnames = (decode_bytes(f) for f in hdr.filenames)
+            # Find all /boot/vmlinuz- files and strip off vmlinuz-
+            files.extend((f.split("/")[-1][8:] for f in unicode_fnames
+                         if fnmatch(f, "/boot/vmlinuz-*") or
+                         fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir)))
 
-    def store_repoMD_hash(self):
-        """Download and store hash of the repomd.xml file content."""
-        repomd = self._download_repoMD(self._method)
-        self._repomd_hash = self._calculate_hash(repomd)
-
-    def verify_repoMD(self):
-        """Download and compare with stored repomd.xml file."""
-        new_repomd = self._download_repoMD(self._method)
-        new_repomd_hash = self._calculate_hash(new_repomd)
-        return new_repomd_hash == self._repomd_hash
-
-    def _calculate_hash(self, data):
-        m = hashlib.sha256()
-        m.update(data.encode('ascii', 'backslashreplace'))
-        return m.digest()
-
-    def _download_repoMD(self, method):
-        proxies = {}
-        repomd = ""
-        headers = {"user-agent": USER_AGENT}
-
-        if hasattr(method, "proxy"):
-            proxy_url = method.proxy
-            try:
-                proxy = ProxyString(proxy_url)
-                proxies = {"http": proxy.url,
-                           "https": proxy.url}
-            except ProxyStringError as e:
-                log.info("Failed to parse proxy for test if repo available %s: %s",
-                         proxy_url, e)
-
-        session = util.requests_session()
-
-        # Test all urls for this repo. If any of these is working it is enough.
-        for url in self._urls:
-            try:
-                result = session.get("%s/repodata/repomd.xml" % url, headers=headers,
-                                     proxies=proxies, verify=self._ssl_verify,
-                                     timeout=constants.NETWORK_CONNECTION_TIMEOUT)
-                if result.ok:
-                    repomd = result.text
-                    break
-                else:
-                    log.debug("Server returned %i code when downloading repomd",
-                              result.status_code)
-                    continue
-            except RequestException as e:
-                log.debug("Can't download new repomd.xml from %s with proxy: %s. Error: %s",
-                          url, proxies, e)
-
-        return repomd
+        return sorted(files, key=functools.cmp_to_key(payload_utils.version_cmp))

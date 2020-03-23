@@ -42,7 +42,7 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_child
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import PackagePayload
+from pyanaconda.payload.dnf import DNFPayload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.configuration.anaconda import conf
@@ -1085,7 +1085,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     @property
     def showable(self):
-        return isinstance(self.payload, PackagePayload)
+        return isinstance(self.payload, DNFPayload)
 
     def _mirror_active(self):
         return self._protocol_combo_box.get_active_id() == PROTOCOL_MIRROR and \

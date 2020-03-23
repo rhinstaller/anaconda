@@ -1,6 +1,5 @@
-# payload/Makefile.am for anaconda
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2020  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,10 +14,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = source dnf
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-payloaddir = $(pkgpyexecdir)/payload
+payloaddir = $(pkgpyexecdir)/payload/dnf
 payload_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
