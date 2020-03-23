@@ -34,3 +34,4 @@ class SourceType(Enum):
     HMC = "HMC"
     CDROM = "CDROM"
     REPO_FILES = "REPO_FILES"
+    NFS = "NFS"

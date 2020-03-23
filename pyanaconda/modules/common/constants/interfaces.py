@@ -97,3 +97,8 @@ PAYLOAD_SOURCE_REPO_FILES = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="RepoFiles"
 )
+
+PAYLOAD_SOURCE_NFS = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="NFS"
+)
