@@ -17,7 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
+
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_URL
 from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 
@@ -25,3 +28,17 @@ from pyanaconda.modules.payloads.source.source_base_interface import PayloadSour
 @dbus_interface(PAYLOAD_SOURCE_URL.interface_name)
 class URLSourceInterface(PayloadSourceBaseInterface):
     """Interface for the payload URL source."""
+
+    def connect_signals(self):
+        super().connect_signals()
+        self.watch_property("InstallRepoEnabled", self.implementation.install_repo_enabled_changed)
+
+    @property
+    def InstallRepoEnabled(self) -> Bool:
+        """Get if the repository should be installed to the target system."""
+        return self.implementation.install_repo_enabled
+
+    @emits_properties_changed
+    def SetInstallRepoEnabled(self, install_repo_enabled: Bool):
+        """Set if the repository should be installed to the target system."""
+        self.implementation.set_install_repo_enabled(install_repo_enabled)

@@ -20,6 +20,10 @@
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
+from pyanaconda.core.signal import Signal
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 class URLSourceModule(PayloadSourceBase):
@@ -27,6 +31,9 @@ class URLSourceModule(PayloadSourceBase):
 
     def __init__(self):
         super().__init__()
+
+        self._install_repo_enabled = False
+        self.install_repo_enabled_changed = Signal()
 
     def is_ready(self):
         """This source is ready for the installation to start."""
@@ -57,3 +64,21 @@ class URLSourceModule(PayloadSourceBase):
         :rtype: [Task]
         """
         return []
+
+    @property
+    def install_repo_enabled(self):
+        """Get if this repository will be installed to the resulting system.
+
+        :rtype: bool
+        """
+        return self._install_repo_enabled
+
+    def set_install_repo_enabled(self, install_repo_enabled):
+        """Set if this repository will be installed to the resulting system.
+
+        :param install_repo_enabled: True if we want to have this repository installed
+        :type install_repo_enabled: bool
+        """
+        self._install_repo_enabled = install_repo_enabled
+        self.install_repo_enabled_changed.emit(self._install_repo_enabled)
+        log.debug("The install_repo_enabled has changed %s", install_repo_enabled)
