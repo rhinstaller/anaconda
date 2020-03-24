@@ -16,7 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.util import parseNfsUrl
+from pyanaconda.core.util import parse_nfs_url
 from pyanaconda.payload.source.sources import CDRomSource, HDDSource, NFSSource, HTTPSource, \
     HTTPSSource, FTPSource, FileSource, LiveSource, HMCSource
 
@@ -36,7 +36,7 @@ class SourceFactory(object):
         if cls.is_cdrom(cmdline):
             return CDRomSource()
         elif cls.is_nfs(cmdline):
-            nfs_options, server, path = parseNfsUrl(cmdline)
+            nfs_options, server, path = parse_nfs_url(cmdline)
             return NFSSource(server, path, nfs_options)
         elif cls.is_harddrive(cmdline):
             url = cmdline.split(":", 1)[1]

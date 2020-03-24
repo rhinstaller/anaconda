@@ -1384,7 +1384,7 @@ class DNFPayload(Payload):
         path = None
 
         if iso_device_path and repo_device_path:
-            path = util.parseNfsUrl('nfs:%s' % iso_device_path)[2]
+            path = util.parse_nfs_url('nfs:%s' % iso_device_path)[2]
             # See if the dir holding the iso is what we want
             # and also if we have an iso mounted to /run/install/repo
             if path and path in iso_device_path and DRACUT_ISODIR in repo_device_path:
@@ -1394,7 +1394,7 @@ class DNFPayload(Payload):
             # see if the nfs dir is mounted
             need_mount = True
             if repo_device_path:
-                _options, host, path = util.parseNfsUrl('nfs:%s' % repo_device_path)
+                _options, host, path = util.parse_nfs_url('nfs:%s' % repo_device_path)
                 if method.server and method.server == host and \
                    method.dir and method.dir == path:
                     need_mount = False
@@ -1404,7 +1404,7 @@ class DNFPayload(Payload):
                 # nfs mount have changed. It is already mounted, but on INSTALL_TREE
                 # which is the same as DRACUT_ISODIR, making it hard for _setup_NFS
                 # to detect that it is already mounted.
-                _options, host, path = util.parseNfsUrl('nfs:%s' % iso_device_path)
+                _options, host, path = util.parse_nfs_url('nfs:%s' % iso_device_path)
                 if path and path in iso_device_path:
                     need_mount = False
                     path = DRACUT_ISODIR
@@ -1504,7 +1504,7 @@ class DNFPayload(Payload):
                     # prepend nfs: to the url as that's what the parser
                     # wants.  Note we don't get options from this, but
                     # that's OK for the UI at least.
-                    _options, host, path = util.parseNfsUrl("nfs:%s" % repo_device_path)
+                    _options, host, path = util.parse_nfs_url("nfs:%s" % repo_device_path)
                     method.method = "nfs"
                     method.server = host
                     method.dir = path
