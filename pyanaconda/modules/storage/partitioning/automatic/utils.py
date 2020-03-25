@@ -373,7 +373,7 @@ def schedule_volumes(storage, devices, scheme, requests, encrypted=False):
     for request in requests:
         btr = bool(scheme == AUTOPART_TYPE_BTRFS and request.btr)
         lv = bool(scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP) and request.lv)
-        thinlv = bool(scheme == AUTOPART_TYPE_LVM_THINP and request.lv and request.thin)
+        thinlv = bool(scheme == AUTOPART_TYPE_LVM_THINP and request.lv and request.thin_volume)
 
         if thinlv and pool is None:
             # create a single thin pool in the vg

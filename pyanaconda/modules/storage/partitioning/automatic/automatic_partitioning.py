@@ -45,7 +45,7 @@ SERVER_PARTITIONING = [
         grow=True,
         btr=True,
         lv=True,
-        thin=True,
+        thin_volume=True,
         encrypted=True
     ),
     PartSpec(
@@ -64,7 +64,7 @@ WORKSTATION_PARTITIONING = [
         grow=True,
         btr=True,
         lv=True,
-        thin=True,
+        thin_volume=True,
         encrypted=True),
     PartSpec(
         mountpoint="/home",
@@ -72,7 +72,7 @@ WORKSTATION_PARTITIONING = [
         required_space=Size("50GiB"),
         btr=True,
         lv=True,
-        thin=True,
+        thin_volume=True,
         encrypted=True),
     PartSpec(
         fstype="swap",
