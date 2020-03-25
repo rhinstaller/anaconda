@@ -556,12 +556,18 @@ def resetRpmDb():
             log.debug("error %s removing file: %s", e, rpmfile)
 
 
-def parseNfsUrl(nfsurl):
+def parse_nfs_url(nfs_url):
+    """Parse NFS URL into components.
+
+    :param str nfs_url: The raw URL, including "nfs:"
+    :return: Tuple with options, host, and path
+    :rtype: (str, str, str) or None
+    """
     options = ''
     host = ''
     path = ''
-    if nfsurl:
-        s = nfsurl.split(":")
+    if nfs_url:
+        s = nfs_url.split(":")
         s.pop(0)
         if len(s) >= 3:
             (options, host, path) = s[:3]
@@ -570,7 +576,7 @@ def parseNfsUrl(nfsurl):
         else:
             host = s[0]
 
-    return (options, host, path)
+    return options, host, path
 
 
 def add_po_path(directory):
