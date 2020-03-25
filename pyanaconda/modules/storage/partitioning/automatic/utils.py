@@ -369,19 +369,34 @@ def schedule_volumes(storage, devices, scheme, requests, encrypted=False):
     # Convert requests into Device instances and schedule them for creation.
     #
     # Second pass, for LVs only.
+
     pool = None
+    request_thin_pool = False
+    request_thin_volume = False
+    for request in requests:
+        if request.thin_pool:
+            request_thin_pool = True
+
+        if request.thin_volume:
+            request_thin_volume = True
+
+    if request_thin_volume and not request_thin_pool:
+        # create only one default thin pool if no thin_pool is requested
+        pool = new_volume(parents=[container], thin_pool=True, grow=True)
+        storage.create_device(pool)
+
+    if pool or request_thin_pool:
+        # make sure VG reserves space for the pool to grow if needed
+        container.thpool_reserve = DEFAULT_THPOOL_RESERVE
+
+    # TODO: Ensure requests are properly ordered:
+    #  VG -> Static LV
+    #  VG -> Thin Pool - > Thin Volume
     for request in requests:
         btr = bool(scheme == AUTOPART_TYPE_BTRFS and request.btr)
         lv = bool(scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP) and request.lv)
+        thinlp = bool(scheme == AUTOPART_TYPE_LVM_THINP and request.lv and request.thin_pool)
         thinlv = bool(scheme == AUTOPART_TYPE_LVM_THINP and request.lv and request.thin_volume)
-
-        if thinlv and pool is None:
-            # create a single thin pool in the vg
-            pool = storage.new_lv(parents=[container], thin_pool=True, grow=True)
-            storage.create_device(pool)
-
-            # make sure VG reserves space for the pool to grow if needed
-            container.thpool_reserve = DEFAULT_THPOOL_RESERVE
 
         if not btr and not lv and not thinlv:
             continue
@@ -391,32 +406,43 @@ def schedule_volumes(storage, devices, scheme, requests, encrypted=False):
            request.required_space and request.required_space > container.size:
             continue
 
-        if request.fstype is None:
+        if request.fstype is None and not thinlp:
             if btr:
                 # btrfs volumes can only contain btrfs filesystems
                 request.fstype = "btrfs"
             else:
                 request.fstype = storage.default_fstype
 
-        kwargs = {"mountpoint": request.mountpoint,
-                  "fmt_type": request.fstype}
-        if lv or thinlv:
+        kwargs = {
+            "mountpoint": request.mountpoint,
+            "fmt_type": request.fstype
+        }
+        if lv or thinlp or thinlv:
             if thinlv:
+                # A previous request should have created pool
+                # or default pool will be used
                 parents = [pool]
             else:
                 parents = [container]
 
-            kwargs.update({"parents": parents,
-                           "grow": request.grow,
-                           "maxsize": request.max_size,
-                           "size": request.size,
-                           "thin_volume": thinlv})
+            kwargs.update({
+                "parents": parents,
+                "grow": request.grow,
+                "maxsize": request.max_size,
+                "size": request.size,
+                "thin_pool": thinlp,
+                "thin_volume": thinlv
+            })
         else:
-            kwargs.update({"parents": [container],
-                           "size": request.size,
-                           "subvol": True})
+            kwargs.update({
+                "parents": [container],
+                "size": request.size,
+                "subvol": True
+            })
 
         dev = new_volume(**kwargs)
+        if thinlp:
+            pool = dev
 
         # schedule the device for creation
         storage.create_device(dev)

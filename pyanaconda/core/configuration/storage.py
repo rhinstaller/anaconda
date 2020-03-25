@@ -26,6 +26,7 @@ class PartitioningType(Enum):
     """Type of the default partitioning."""
     SERVER = "SERVER"
     WORKSTATION = "WORKSTATION"
+    QUBESOS = "QUBESOS"
 
 
 class StorageSection(Section):
@@ -82,6 +83,7 @@ class StorageSection(Section):
 
           SERVER       Choose partitioning for servers.
           WORKSTATION  Choose partitioning for workstations.
+          QUBESOS      Choose partitioning for QubesOS.
 
         :return: an instance of PartitioningType
         """

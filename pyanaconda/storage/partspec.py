@@ -25,8 +25,9 @@ from blivet.util import stringize, unicodeize
 class PartSpec(object):
 
     def __init__(self, mountpoint=None, fstype=None, size=None, max_size=None,
-                 grow=False, btr=False, lv=False, thin_volume=False, weight=0,
-                 required_space=0, encrypted=False):
+                 grow=False, btr=False, lv=False, thin_pool=False,
+                 thin_volume=False, weight=0, required_space=0,
+                 encrypted=False):
         """ Create a new storage specification.  These are used to specify
             the default partitioning layout as an object before we have the
             storage system up and running.  The attributes are obvious
@@ -36,6 +37,8 @@ class PartSpec(object):
                    it will be allocated as a partition.
             lv -- Should this be allocated as a logical volume?  If not,
                   it will be allocated as a partition.
+            thin_pool -- Should this be allocated as a thin logical pool
+                  if it is being allocated as a logical volume?
             thin_volume -- Should this be allocated as a thin logical volume
                   if it is being allocated as a logical volume?
             weight -- An integer that modifies the sort algorithm for partition
@@ -63,6 +66,7 @@ class PartSpec(object):
         self.grow = grow
         self.lv = lv
         self.btr = btr
+        self.thin_pool = thin_pool
         self.thin_volume = thin_volume
         self.weight = weight
         self.required_space = required_space
@@ -71,15 +75,16 @@ class PartSpec(object):
     # Force str and unicode types in case any of the properties are unicode
     def _to_string(self):
         s = ("%(type)s instance (%(id)s) -- \n"
-             "  mountpoint = %(mountpoint)s  lv = %(lv)s"
-             "  thin_volume = %(thin_volume)s  btrfs = %(btrfs)s\n"
+             "  mountpoint = %(mountpoint)s  lv = %(lv)s btrfs = %(btrfs)s"
+             "  thin_pool = %(thin_pool)s thin_volume = %(thin_volume)s\n"
              "  weight = %(weight)s  fstype = %(fstype)s  encrypted = %(enc)s\n"
              "  size = %(size)s  max_size = %(max_size)s  grow = %(grow)s\n" %
              {"type": self.__class__.__name__, "id": "%#x" % id(self),
               "mountpoint": self.mountpoint, "lv": self.lv, "btrfs": self.btr,
               "weight": self.weight, "fstype": self.fstype, "size": self.size,
-              "enc": self.encrypted, "max_size": self.max_size, "grow": self.grow,
-              "thin_volume": self.thin_volume})
+              "enc": self.encrypted, "max_size": self.max_size,
+              "grow": self.grow, "thin_volume": self.thin_volume,
+              "thin_pool": self.thin_pool})
 
         return s
 
