@@ -38,9 +38,12 @@ class SourceFactory(object):
         elif source_type == SourceType.CDROM:
             from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
             return CdromSourceModule()
-
-        if source_type == SourceType.HMC:
+        elif source_type == SourceType.HMC:
             from pyanaconda.modules.payloads.source.hmc.hmc import HMCSourceModule
             return HMCSourceModule()
+        elif source_type == SourceType.REPO_FILES:
+            from pyanaconda.modules.payloads.source.repo_files.repo_files import \
+                RepoFilesSourceModule
+            return RepoFilesSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))

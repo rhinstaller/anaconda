@@ -92,3 +92,8 @@ PAYLOAD_SOURCE_CDROM = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="CDROM"
 )
+
+PAYLOAD_SOURCE_REPO_FILES = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="RepoFiles"
+)
