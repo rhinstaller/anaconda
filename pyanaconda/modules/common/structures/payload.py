@@ -20,6 +20,7 @@
 
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.core.constants import URL_TYPE_BASEURL
 
 __all__ = ["RepoConfigurationData"]
 
@@ -28,12 +29,29 @@ class RepoConfigurationData(DBusData):
     """Structure to hold repository configuration."""
 
     def __init__(self):
-        self._temp_var = 0
+        self._url = ""
+        self._type = URL_TYPE_BASEURL
 
     @property
-    def temp(self) -> Int:
-        return self._temp_var
+    def url(self) -> Str:
+        """Get link to the repository."""
+        return self._url
 
-    @temp.setter
-    def temp(self, temp: Int):
-        self._temp_var = temp
+    @url.setter
+    def url(self, url: Str):
+        self._url = url
+
+    @property
+    def type(self) -> Str:
+        """Get type of the url.
+
+        Possible values:
+        - BASEURL
+        - MIRRORLIST
+        - METALINK
+        """
+        return self._type
+
+    @type.setter
+    def type(self, url_type: Str):
+        self._type = url_type

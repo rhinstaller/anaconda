@@ -19,8 +19,13 @@
 #
 import unittest
 
+from dasbus.typing import *  # pylint: disable=wildcard-import
+
 from tests.nosetests.pyanaconda_tests import check_dbus_property
+
+from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_METALINK, URL_TYPE_MIRRORLIST
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_URL
+from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.url.url import URLSourceModule
@@ -45,6 +50,58 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
     def type_test(self):
         """Test URL source has a correct type specified."""
         self.assertEqual(SourceType.URL.value, self.url_source_interface.Type)
+
+    def set_url_base_source_properties_test(self):
+        data = RepoConfigurationData()
+        data.url = "http://example.com/repo"
+        data.type = URL_TYPE_BASEURL
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
+    def set_url_mirrorlist_properties_test(self):
+        data = RepoConfigurationData()
+        data.url = "http://forthehorde.com/mirrorlist?url"
+        data.type = URL_TYPE_MIRRORLIST
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
+    def set_url_metalink_properties_test(self):
+        data = RepoConfigurationData()
+        data.url = "https://alianceFTW/metalink?nopesir"
+        data.type = URL_TYPE_METALINK
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
+    def set_invalid_url_type_properties_test(self):
+        data = RepoConfigurationData()
+        data.url = "http://test"
+        data.type = "DOES-NOT-EXISTS"
+
+        with self.assertRaises(InvalidValueError):
+            self._check_dbus_property(
+                "RepoConfiguration",
+                RepoConfigurationData.to_structure(data)
+            )
+
+    def set_raw_url_with_properties_test(self):
+        data = {
+            "url": get_variant(Str, "http://NaNaNaNaNaNa/Batmaaan"),
+            "type": get_variant(Str, URL_TYPE_METALINK)
+        }
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            data
+        )
 
     def set_empty_repo_configuration_properties_test(self):
         self._check_dbus_property(

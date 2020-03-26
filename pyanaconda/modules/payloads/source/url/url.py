@@ -18,8 +18,9 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, URLType
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
 
@@ -83,6 +84,13 @@ class URLSourceModule(PayloadSourceBase):
         :type repo_configuration: RepoConfigurationData data structure
         """
         self._repo_configuration = repo_configuration
+
+        try:
+            URLType(self._repo_configuration.type)
+        except ValueError:
+            raise InvalidValueError(
+                "Invalid source type set '{}'".format(self._repo_configuration.type))
+
         self.repo_configuration_changed.emit(self._repo_configuration)
         log.debug("The repo_configuration is set to %s", self._repo_configuration)
 
