@@ -17,10 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
-from pyanaconda.core.signal import Signal
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -31,6 +32,8 @@ class URLSourceModule(PayloadSourceBase):
 
     def __init__(self):
         super().__init__()
+        self._repo_configuration = RepoConfigurationData()
+        self.repo_configuration_changed = Signal()
 
         self._install_repo_enabled = False
         self.install_repo_enabled_changed = Signal()
@@ -64,6 +67,24 @@ class URLSourceModule(PayloadSourceBase):
         :rtype: [Task]
         """
         return []
+
+    @property
+    def repo_configuration(self):
+        """Get repository configuration data.
+
+        :rtype: RepoConfigurationData data structure
+        """
+        return self._repo_configuration
+
+    def set_repo_configuration(self, repo_configuration):
+        """Set repository configuration data.
+
+        :param repo_configuration: configuration for this repository
+        :type repo_configuration: RepoConfigurationData data structure
+        """
+        self._repo_configuration = repo_configuration
+        self.repo_configuration_changed.emit(self._repo_configuration)
+        log.debug("The repo_configuration is set to %s", self._repo_configuration)
 
     @property
     def install_repo_enabled(self):

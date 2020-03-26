@@ -21,6 +21,7 @@ import unittest
 
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_URL
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.url.url import URLSourceModule
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
@@ -44,6 +45,16 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
     def type_test(self):
         """Test URL source has a correct type specified."""
         self.assertEqual(SourceType.URL.value, self.url_source_interface.Type)
+
+    def set_empty_repo_configuration_properties_test(self):
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(RepoConfigurationData())
+        )
+
+    def default_repo_configuration_properties_test(self):
+        self.assertEqual(self.url_source_interface.RepoConfiguration,
+                         RepoConfigurationData.to_structure(RepoConfigurationData()))
 
     def set_true_install_properties_test(self):
         self._check_dbus_property(

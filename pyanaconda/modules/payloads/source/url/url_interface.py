@@ -22,6 +22,7 @@ from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_URL
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 
 
@@ -31,7 +32,29 @@ class URLSourceInterface(PayloadSourceBaseInterface):
 
     def connect_signals(self):
         super().connect_signals()
+        self.watch_property("RepoConfiguration", self.implementation.repo_configuration_changed)
         self.watch_property("InstallRepoEnabled", self.implementation.install_repo_enabled_changed)
+
+    @property
+    def RepoConfiguration(self) -> Structure:
+        """Get this repository configuration.
+
+        :rtype: RepoConfigurationData data structure
+        """
+        return RepoConfigurationData.to_structure(
+            self.implementation.repo_configuration
+        )
+
+    @emits_properties_changed
+    def SetRepoConfiguration(self, repo_configuration: Structure):
+        """Set this repository configuration.
+
+        :param repo_configuration: configuration structure of this repository
+        :type repo_configuration: RepoConfigurationData structure
+        """
+        self.implementation.set_repo_configuration(
+            RepoConfigurationData.from_structure(repo_configuration)
+        )
 
     @property
     def InstallRepoEnabled(self) -> Bool:
