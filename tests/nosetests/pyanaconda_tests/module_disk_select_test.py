@@ -91,6 +91,16 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(report.is_valid(), True)
 
         report = ValidationReport.from_structure(
+            self.disk_selection_interface.ValidateSelectedDisks(["devX"])
+        )
+
+        self.assertEqual(report.is_valid(), False)
+        self.assertEqual(report.error_messages, [
+            "The selected disk devX is not recognized."
+        ])
+        self.assertEqual(report.warning_messages, [])
+
+        report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks(["dev1"])
         )
 
