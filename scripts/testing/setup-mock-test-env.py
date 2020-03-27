@@ -235,8 +235,8 @@ def check_args(namespace):
             or namespace.pep8_targets is not None or namespace.run_linter is not None:
         namespace.prepare = False
 
-    if not any([namespace.init, namespace.copy, namespace.update,
-                namespace.run_tests, namespace.install, namespace.install_pip]):
+    if not any([namespace.init, namespace.copy, namespace.update, namespace.prepare,
+                namespace.run_tests, namespace.install, namespace.install_pip, namespace.release]):
         print("You need to specify one of the main commands!", file=sys.stderr)
         print("Run './setup-mock-test-env.py --help' for more info.", file=sys.stderr)
         exit(1)
