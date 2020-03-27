@@ -292,24 +292,31 @@ def create_dir_in_mock(mock_command, path):
     _check_subprocess(cmd, "Can't create directory {} to the mock.".format(path))
 
 
-def remove_anaconda_in_mock(mock_command):
+def remove_anaconda_in_mock(mock_command, target_mock_path=None):
     cmd = _prepare_command(mock_command)
 
+    if not target_mock_path:
+        target_mock_path = ANACONDA_MOCK_PATH
+
     cmd = _run_cmd_in_chroot(cmd)
-    cmd.append('rm -rf ' + ANACONDA_MOCK_PATH)
+    cmd.append('rm -rf ' + target_mock_path)
 
-    _check_subprocess(cmd, "Can't remove existing anaconda.")
+    _check_subprocess(cmd, "Can't remove existing Anaconda.")
 
 
-def copy_anaconda_to_mock(mock_command):
-    remove_anaconda_in_mock(mock_command)
+def copy_anaconda_to_mock(mock_command, target_mock_path=None):
+    remove_anaconda_in_mock(mock_command, target_mock_path)
 
     anaconda_dir = _resolve_top_dir()
+
+    if not target_mock_path:
+        target_mock_path = ANACONDA_MOCK_PATH
+
     cmd = _prepare_command(mock_command)
 
     cmd.append('--copyin')
     cmd.append('{}'.format(anaconda_dir))
-    cmd.append(ANACONDA_MOCK_PATH)
+    cmd.append(target_mock_path)
 
     _check_subprocess(cmd, "Can't copy Anaconda to mock.")
 
