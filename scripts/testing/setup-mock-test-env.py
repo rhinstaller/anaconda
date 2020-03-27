@@ -361,8 +361,6 @@ def prepare_anaconda(mock_command):
 
 
 def run_tests(mock_command):
-    prepare_anaconda(mock_command)
-
     cmd = _prepare_command(mock_command)
 
     cmd = _run_cmd_in_chroot(cmd)
@@ -374,8 +372,6 @@ def run_tests(mock_command):
 
 
 def run_nosetests(mock_command, specified_test_files):
-    prepare_anaconda(mock_command)
-
     cmd = _prepare_command(mock_command)
 
     specified_test_files = _replace_prefix_paths(specified_test_files, NOSE_TESTS_PREFIX)
@@ -393,8 +389,6 @@ def run_nosetests(mock_command, specified_test_files):
 
 
 def run_pep8_check(mock_command, targets):
-    prepare_anaconda(mock_command)
-
     cmd = _prepare_command(mock_command)
     additional_args = " ".join(targets)
 
@@ -410,8 +404,6 @@ def run_pep8_check(mock_command, targets):
 
 
 def run_linter(mock_command):
-    prepare_anaconda(mock_command)
-
     cmd = _prepare_command(mock_command)
     cmd = _run_cmd_in_chroot(cmd)
     cmd.append('cd {} && make tests-pylint'.format(ANACONDA_MOCK_PATH))
@@ -449,11 +441,32 @@ def setup_mock(mock_command, no_pip, release):
         install_required_pip_packages(mock_command)
 
 
+def _run_tests(mock_command, namespace, should_prepare_anaconda):
+    test_func = None
+
+    if namespace.run_tests:
+        test_func = lambda: run_tests(mock_cmd)
+    elif namespace.nose_targets is not None:
+        test_func = lambda: run_nosetests(mock_cmd, namespace.nose_targets)
+    elif namespace.pep8_targets is not None:
+        test_func = lambda: run_pep8_check(mock_cmd, namespace.pep8_targets)
+    elif namespace.run_linter:
+        test_func = lambda: run_linter(mock_cmd)
+
+    if test_func is None:
+        return True
+
+    if should_prepare_anaconda:
+        prepare_anaconda(mock_command)
+
+    return test_func()
+
+
 if __name__ == "__main__":
     ns = parse_args()
 
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
-    success = True
+    anaconda_prepare_requested = False
 
     if not any([ns.init, ns.copy, ns.update, ns.run_tests, ns.install, ns.install_pip]):
         print("You need to specify one of the main commands!", file=sys.stderr)
@@ -475,22 +488,17 @@ if __name__ == "__main__":
 
     if ns.copy:
         copy_anaconda_to_mock(mock_cmd)
+        anaconda_prepare_requested = True
 
     if ns.prepare:
         prepare_anaconda(mock_cmd)
+        anaconda_prepare_requested = False
 
     if ns.release:
         # Zanata was removed but I don't want to change API. This can be handy in the future.
         pass
 
-    if ns.run_tests:
-        success = run_tests(mock_cmd)
-    elif ns.nose_targets is not None:
-        success = run_nosetests(mock_cmd, ns.nose_targets)
-    elif ns.pep8_targets is not None:
-        success = run_pep8_check(mock_cmd, ns.pep8_targets)
-    elif ns.run_linter:
-        success = run_linter(mock_cmd)
+    success = _run_tests(mock_cmd, ns, anaconda_prepare_requested)
 
     if ns.result_folder:
         copy_result(mock_cmd, ns.result_folder)
