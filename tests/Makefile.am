@@ -55,9 +55,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     testenv.sh \
 		     $(srcdir)/gettext_tests/*.py \
 		     gettext_tests/canary_tests.sh \
-		     storage/run_storage_tests.py \
 		     $(srcdir)/gui/*.py \
-		     $(srcdir)/storage/cases/*.py \
 		     $(srcdir)/*_tests/*.py \
 		     $(srcdir)/nosetests/*_tests/*.py \
 		     pep8/runpep8.sh
@@ -69,7 +67,6 @@ TESTS = nosetests.sh \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
 	gettext_tests/canary_tests.sh \
-	storage/run_storage_tests.py \
 	glade/run_glade_tests.py
 
 clean-local:
