@@ -128,8 +128,11 @@ When the init is done the mock environment stays for later use.
 It is possible to connect to mock by calling:
     mock -r <mock configuration> --shell
 
-Or just update Anaconda and start CI by:
+Or copy Anaconda and start CI by:
     setup-mock-test-env.py <mock configuration> --copy --run-tests --result /tmp/result
+
+Or update existing Anaconda in a mock and start unit tests only by:
+    setup-mock-test-env.py <mock configuration> --update --run-nosetests --result /tmp/result
 
 For further info look on the mock manual page.
 """)
@@ -175,11 +178,18 @@ One of these commands must be used. Tests commands can't be combined!
                        prepare mock environment to be able to make a release from there
                        """)
 
-    group.add_argument('--copy', '-c', action='store_true', dest='copy',
-                       help="""
-                       keep existing mock and only replace Anaconda folder in it;
-                       this will not re-init mock chroot
-                       """)
+    group_copy = group.add_mutually_exclusive_group()
+    group_copy.add_argument('--copy', '-c', action='store_true', dest='copy',
+                            help="""
+                            keep existing mock and only replace Anaconda folder in it;
+                            this will not re-init mock chroot
+                            """)
+    group_copy.add_argument('--update', '-u', action='store_true', dest='update',
+                            help="""
+                            keep existing mock and replace updated files in Anaconda;
+                            this way you can re-run tests without autogen and configure call;
+                            this will not re-init mock chroot
+                            """)
     group.add_argument('--prepare', '-p', action='store_true', dest='prepare',
                        help="""
                        run configure and autogen.sh on Anaconda inside of mock
@@ -445,7 +455,7 @@ if __name__ == "__main__":
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
     success = True
 
-    if not any([ns.init, ns.copy, ns.run_tests, ns.install, ns.install_pip]):
+    if not any([ns.init, ns.copy, ns.update, ns.run_tests, ns.install, ns.install_pip]):
         print("You need to specify one of the main commands!", file=sys.stderr)
         print("Run './setup-mock-test-env.py --help' for more info.", file=sys.stderr)
         exit(1)
