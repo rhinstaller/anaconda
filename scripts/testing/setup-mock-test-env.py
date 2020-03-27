@@ -235,6 +235,12 @@ def check_args(namespace):
             or namespace.pep8_targets is not None or namespace.run_linter is not None:
         namespace.prepare = False
 
+    if not any([namespace.init, namespace.copy, namespace.update,
+                namespace.run_tests, namespace.install, namespace.install_pip]):
+        print("You need to specify one of the main commands!", file=sys.stderr)
+        print("Run './setup-mock-test-env.py --help' for more info.", file=sys.stderr)
+        exit(1)
+
 
 def get_required_packages():
     """Get required packages for running Anaconda tests."""
@@ -467,11 +473,6 @@ if __name__ == "__main__":
 
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
     anaconda_prepare_requested = False
-
-    if not any([ns.init, ns.copy, ns.update, ns.run_tests, ns.install, ns.install_pip]):
-        print("You need to specify one of the main commands!", file=sys.stderr)
-        print("Run './setup-mock-test-env.py --help' for more info.", file=sys.stderr)
-        exit(1)
 
     # quit immediately if the result dir exists
     if ns.result_folder:
