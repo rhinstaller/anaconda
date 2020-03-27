@@ -32,6 +32,8 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 DEPENDENCY_SOLVER = "dependency_solver.py"
 
 ANACONDA_MOCK_PATH = "/anaconda"
+ANACONDA_MOCK_TEMP_PATH = "/anaconda-temp"
+
 NOSE_TESTS_PREFIX = "./nosetests/pyanaconda_tests/"
 
 
@@ -321,6 +323,22 @@ def copy_anaconda_to_mock(mock_command, target_mock_path=None):
     _check_subprocess(cmd, "Can't copy Anaconda to mock.")
 
 
+def update_anaconda_in_mock(mock_command):
+    copy_anaconda_to_mock(mock_command, ANACONDA_MOCK_TEMP_PATH)
+
+    cmd = _prepare_command(mock_command)
+    cmd = _run_cmd_in_chroot(cmd)
+
+    cmd.append('rsync')
+    cmd.append('-aAHhSv')
+    cmd.append('--update')
+    cmd.append('--inplace')
+    cmd.append(ANACONDA_MOCK_TEMP_PATH + "/")
+    cmd.append(ANACONDA_MOCK_PATH + "/")
+
+    _check_subprocess(cmd, "Can't update Anaconda in mock.")
+
+
 def copy_result(mock_command, out_dir):
     cmd = _prepare_command(mock_command)
 
@@ -492,6 +510,10 @@ if __name__ == "__main__":
     if ns.copy:
         copy_anaconda_to_mock(mock_cmd)
         anaconda_prepare_requested = True
+
+    if ns.update:
+        update_anaconda_in_mock(mock_cmd)
+        anaconda_prepare_requested = False
 
     if ns.prepare:
         prepare_anaconda(mock_cmd)
