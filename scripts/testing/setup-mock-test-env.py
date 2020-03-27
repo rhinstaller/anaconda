@@ -230,11 +230,6 @@ One of these commands must be used. Tests commands can't be combined!
 
 
 def check_args(namespace):
-    # prepare will be called by tests automatically
-    if namespace.run_tests or namespace.nose_targets is not None \
-            or namespace.pep8_targets is not None or namespace.run_linter is not None:
-        namespace.prepare = False
-
     if not any([namespace.init, namespace.copy, namespace.update, namespace.prepare,
                 namespace.run_tests, namespace.install, namespace.install_pip, namespace.release]):
         print("You need to specify one of the main commands!", file=sys.stderr)
