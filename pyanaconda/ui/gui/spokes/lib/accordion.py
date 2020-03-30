@@ -279,14 +279,20 @@ class Accordion(Gtk.Box):
                 if s is selector:
                     return page
 
-    def expand_page(self, page_title):
-        page = self.find_page_by_title(page_title)
-        expander = page.get_parent()
-        if not expander:
-            raise LookupError()
+    def get_expanded_pages(self):
+        """Return titles of expanded pages."""
+        return [page.page_title for page in self.all_pages if page.get_parent().get_expanded()]
 
-        if not expander.get_expanded():
-            expander.emit("activate")
+    def expand_pages(self, page_titles):
+        for page_title in page_titles:
+            page = self.find_page_by_title(page_title)
+            if page:
+                expander = page.get_parent()
+                if not expander:
+                    raise LookupError()
+
+                if not expander.get_expanded():
+                    expander.emit("activate")
 
     def remove_page(self, page_title):
         # First, remove the expander from the list of expanders we maintain.
