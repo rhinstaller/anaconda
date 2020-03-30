@@ -26,7 +26,8 @@ from tests.nosetests.pyanaconda_tests import check_dbus_property
 from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_METALINK, URL_TYPE_MIRRORLIST
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_URL
 from pyanaconda.modules.common.errors import InvalidValueError
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
+    SSLConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.url.url import URLSourceModule
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
@@ -140,12 +141,54 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
+    def set_ssl_configuration_properties_test(self):
+        data = RepoConfigurationData()
+        ssl_conf = data.ssl_configuration
+        ssl_conf.ca_cert_path = "file:///my/cool/cert"
+        ssl_conf.client_cert_path = "file:///my/cool/client/cert"
+        ssl_conf.client_key_path = "file:///my/cool/client/key/"
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
+    def ssl_configuration_is_empty_properties_test(self):
+        repo_data = self.url_source_interface.RepoConfiguration
+        repo_conf = RepoConfigurationData.from_structure(repo_data)
+        ssl_conf = repo_conf.ssl_configuration
+
+        self.assertTrue(ssl_conf.is_empty())
+
+    def ssl_configuration_is_not_empty_properties_test(self):
+        ssl_conf = SSLConfigurationData()
+        ssl_conf.ca_cert_path = "file:///my/root/house"
+        ssl_conf.client_cert_path = "file:///badge/with/yellow/access"
+        ssl_conf.client_key_path = "file:///skeleton/head/key"
+
+        repo_data = RepoConfigurationData()
+        repo_data.ssl_configuration = ssl_conf
+        self.url_source_interface.SetRepoConfiguration(
+            RepoConfigurationData.to_structure(repo_data)
+        )
+
+        repo_data_2 = RepoConfigurationData.from_structure(
+            self.url_source_interface.RepoConfiguration
+        )
+
+        self.assertFalse(repo_data_2.ssl_configuration.is_empty())
+
     def set_raw_repo_configuration_properties_test(self):
         data = {
             "name": get_variant(Str, "RRRRRRRRRRrrrrrrrr!"),
             "url": get_variant(Str, "http://NaNaNaNaNaNa/Batmaaan"),
             "type": get_variant(Str, URL_TYPE_METALINK),
-            "ssl-verification-enabled": get_variant(Bool, True)
+            "ssl-verification-enabled": get_variant(Bool, True),
+            "ssl-configuration": get_variant(Structure, {
+                "ca-cert-path": get_variant(Str, "file:///ca_cert/path"),
+                "client-cert-path": get_variant(Str, "file:///client/cert/path"),
+                "client-key-path": get_variant(Str, "file:///to/client/key")
+            })
         }
 
         self._check_dbus_property(

@@ -22,7 +22,50 @@ from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.core.constants import URL_TYPE_BASEURL
 
-__all__ = ["RepoConfigurationData"]
+__all__ = ["RepoConfigurationData", "SSLConfigurationData"]
+
+
+class SSLConfigurationData(DBusData):
+    """Structure with SSL configuration settings."""
+
+    def __init__(self):
+        self._ca_cert_path = ""
+        self._client_cert_path = ""
+        self._client_key_path = ""
+
+    @property
+    def ca_cert_path(self) -> Str:
+        """Get CA certificate path."""
+        return self._ca_cert_path
+
+    @ca_cert_path.setter
+    def ca_cert_path(self, ca_cert_path: Str):
+        self._ca_cert_path = ca_cert_path
+
+    @property
+    def client_cert_path(self) -> Str:
+        """Get client certificate path."""
+        return self._client_cert_path
+
+    @client_cert_path.setter
+    def client_cert_path(self, client_cert_path: Str):
+        self._client_cert_path = client_cert_path
+
+    @property
+    def client_key_path(self) -> Str:
+        """Get client key path."""
+        return self._client_key_path
+
+    @client_key_path.setter
+    def client_key_path(self, client_key_path: Str):
+        self._client_key_path = client_key_path
+
+    def is_empty(self):
+        """Is this configuration empty?
+
+        :rtype: bool
+        """
+        return not any([self._ca_cert_path, self._client_cert_path, self._client_key_path])
 
 
 class RepoConfigurationData(DBusData):
@@ -33,6 +76,7 @@ class RepoConfigurationData(DBusData):
         self._url = ""
         self._type = URL_TYPE_BASEURL
         self._ssl_verification_enabled = True
+        self._ssl_configuration = SSLConfigurationData()
 
     @property
     def name(self) -> Str:
@@ -82,3 +126,15 @@ class RepoConfigurationData(DBusData):
     @ssl_verification_enabled.setter
     def ssl_verification_enabled(self, ssl_verification_enabled: Bool):
         self._ssl_verification_enabled = ssl_verification_enabled
+
+    @property
+    def ssl_configuration(self) -> SSLConfigurationData:
+        """Inner structure for SSL configuration.
+
+        See SSLConfigurationData for more details.
+        """
+        return self._ssl_configuration
+
+    @ssl_configuration.setter
+    def ssl_configuration(self, ssl_configuration: SSLConfigurationData):
+        self._ssl_configuration = ssl_configuration
