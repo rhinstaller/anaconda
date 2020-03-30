@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.constants import BASE_REPO_NAME
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -31,13 +32,26 @@ log = get_module_logger(__name__)
 class URLSourceModule(PayloadSourceBase):
     """The URL source payload module."""
 
+    REPO_NAME_ID = 0
+
     def __init__(self):
         super().__init__()
+        self._url_source_name = ""
+        self._generate_source_name()
+
         self._repo_configuration = RepoConfigurationData()
         self.repo_configuration_changed = Signal()
 
+        self._repo_configuration.name = self._url_source_name
+
         self._install_repo_enabled = False
         self.install_repo_enabled_changed = Signal()
+
+    def _generate_source_name(self):
+        source_id = URLSourceModule.REPO_NAME_ID
+        URLSourceModule.REPO_NAME_ID = URLSourceModule.REPO_NAME_ID + 1
+
+        self._url_source_name = "{}-{}".format(BASE_REPO_NAME, source_id)
 
     def is_ready(self):
         """This source is ready for the installation to start."""
@@ -90,6 +104,9 @@ class URLSourceModule(PayloadSourceBase):
         except ValueError:
             raise InvalidValueError(
                 "Invalid source type set '{}'".format(self._repo_configuration.type))
+
+        if not self._repo_configuration.name:
+            self._repo_configuration.name = self._url_source_name
 
         self.repo_configuration_changed.emit(self._repo_configuration)
         log.debug("The repo_configuration is set to %s", self._repo_configuration)

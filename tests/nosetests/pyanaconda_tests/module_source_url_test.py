@@ -35,10 +35,15 @@ from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterf
 class URLSourceInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
+        URLSourceModule.REPO_NAME_ID = 0
         self.url_source_module = URLSourceModule()
         self.url_source_interface = URLSourceInterface(self.url_source_module)
 
     def _check_dbus_property(self, property_name, in_value):
+        if type(in_value) is dict and not in_value["name"]:
+            name = self._generate_repo_name()
+            in_value["name"] = get_variant(Str, name)
+
         check_dbus_property(
             self,
             PAYLOAD_SOURCE_URL,
@@ -47,9 +52,34 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             in_value
         )
 
+    def _generate_repo_name(self):
+        """Set offset +1 for each time name wasn't set to structure."""
+        return self.url_source_module._url_source_name
+
     def type_test(self):
         """Test URL source has a correct type specified."""
         self.assertEqual(SourceType.URL.value, self.url_source_interface.Type)
+
+    def set_name_properties_test(self):
+        data = RepoConfigurationData()
+        data.name = "Saitama"
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
+    def name_uniqueness_properties_test(self):
+        module1 = URLSourceModule()
+        interface1 = URLSourceInterface(module1)
+
+        module2 = URLSourceModule()
+        interface2 = URLSourceInterface(module2)
+
+        conf1 = RepoConfigurationData.from_structure(interface1.RepoConfiguration)
+        conf2 = RepoConfigurationData.from_structure(interface2.RepoConfiguration)
+
+        self.assertNotEqual(conf1.name, conf2.name)
 
     def set_url_base_source_properties_test(self):
         data = RepoConfigurationData()
@@ -92,8 +122,9 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
                 RepoConfigurationData.to_structure(data)
             )
 
-    def set_raw_url_with_properties_test(self):
+    def set_raw_repo_configuration_properties_test(self):
         data = {
+            "name": get_variant(Str, "RRRRRRRRRRrrrrrrrr!"),
             "url": get_variant(Str, "http://NaNaNaNaNaNa/Batmaaan"),
             "type": get_variant(Str, URL_TYPE_METALINK)
         }
@@ -110,8 +141,11 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         )
 
     def default_repo_configuration_properties_test(self):
+        data = RepoConfigurationData()
+        data.name = self._generate_repo_name()
+
         self.assertEqual(self.url_source_interface.RepoConfiguration,
-                         RepoConfigurationData.to_structure(RepoConfigurationData()))
+                         RepoConfigurationData.to_structure(data))
 
     def set_true_install_properties_test(self):
         self._check_dbus_property(
