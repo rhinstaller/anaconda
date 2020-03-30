@@ -26,6 +26,8 @@ import os
 import sys
 import subprocess
 
+from functools import partial
+
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 
@@ -391,11 +393,11 @@ def run_tests(mock_command):
     return result.returncode == 0
 
 
-def run_nosetests(mock_command, specified_test_files):
+def run_nosetests(mock_command, targets):
     cmd = _prepare_command(mock_command)
 
-    specified_test_files = _replace_prefix_paths(specified_test_files, NOSE_TESTS_PREFIX)
-    additional_args = " ".join(specified_test_files)
+    targets = _replace_prefix_paths(targets, NOSE_TESTS_PREFIX)
+    additional_args = " ".join(targets)
 
     cmd = _run_cmd_in_chroot(cmd)
     cmd.append('cd {} && make tests-nose-only NOSE_TESTS_ARGS="{}"'.format(ANACONDA_MOCK_PATH,
@@ -465,13 +467,13 @@ def _run_tests(mock_command, namespace, should_prepare_anaconda):
     test_func = None
 
     if namespace.run_tests:
-        test_func = lambda: run_tests(mock_cmd)
+        test_func = partial(run_tests)
     elif namespace.nose_targets is not None:
-        test_func = lambda: run_nosetests(mock_cmd, namespace.nose_targets)
+        test_func = partial(run_nosetests, targets=namespace.nose_targets)
     elif namespace.pep8_targets is not None:
-        test_func = lambda: run_pep8_check(mock_cmd, namespace.pep8_targets)
+        test_func = partial(run_pep8_check, targets=namespace.pep8_targets)
     elif namespace.run_linter:
-        test_func = lambda: run_linter(mock_cmd)
+        test_func = partial(run_linter)
 
     if test_func is None:
         return True
@@ -479,7 +481,7 @@ def _run_tests(mock_command, namespace, should_prepare_anaconda):
     if should_prepare_anaconda:
         prepare_anaconda(mock_command)
 
-    return test_func()
+    return test_func(mock_command=mock_command)
 
 
 if __name__ == "__main__":
