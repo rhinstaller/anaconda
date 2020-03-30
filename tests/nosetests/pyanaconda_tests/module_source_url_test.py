@@ -178,6 +178,25 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
 
         self.assertFalse(repo_data_2.ssl_configuration.is_empty())
 
+    def set_proxy_properties_test(self):
+        data = RepoConfigurationData()
+        data.proxy = "http://user:pass@super-cool-server.com"
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
+    def set_invalid_proxy_properties_test(self):
+        data = RepoConfigurationData()
+        data.proxy = "https:///no/server/hostname"
+
+        with self.assertRaises(InvalidValueError):
+            self._check_dbus_property(
+                "RepoConfiguration",
+                RepoConfigurationData.to_structure(data)
+            )
+
     def set_raw_repo_configuration_properties_test(self):
         data = {
             "name": get_variant(Str, "RRRRRRRRRRrrrrrrrr!"),
@@ -188,7 +207,8 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
                 "ca-cert-path": get_variant(Str, "file:///ca_cert/path"),
                 "client-cert-path": get_variant(Str, "file:///client/cert/path"),
                 "client-key-path": get_variant(Str, "file:///to/client/key")
-            })
+            }),
+            "proxy": get_variant(Str, "http://user:pass@example.com/proxy")
         }
 
         self._check_dbus_property(

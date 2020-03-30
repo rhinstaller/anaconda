@@ -19,6 +19,7 @@
 #
 from pyanaconda.core.constants import BASE_REPO_NAME
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, URLType
@@ -99,17 +100,29 @@ class URLSourceModule(PayloadSourceBase):
         """
         self._repo_configuration = repo_configuration
 
-        try:
-            URLType(self._repo_configuration.type)
-        except ValueError:
-            raise InvalidValueError(
-                "Invalid source type set '{}'".format(self._repo_configuration.type))
+        self._validate_url(self._repo_configuration.type)
+        self._validate_proxy(self._repo_configuration.proxy)
 
         if not self._repo_configuration.name:
             self._repo_configuration.name = self._url_source_name
 
         self.repo_configuration_changed.emit(self._repo_configuration)
         log.debug("The repo_configuration is set to %s", self._repo_configuration)
+
+    def _validate_proxy(self, proxy):
+        if not proxy:
+            return
+
+        try:
+            ProxyString(url=proxy)
+        except ProxyStringError as e:
+            raise InvalidValueError("Proxy URL does not have valid format: {}".format(str(e)))
+
+    def _validate_url(self, url_type):
+        try:
+            URLType(url_type)
+        except ValueError:
+            raise InvalidValueError("Invalid source type set '{}'".format(url_type))
 
     @property
     def install_repo_enabled(self):

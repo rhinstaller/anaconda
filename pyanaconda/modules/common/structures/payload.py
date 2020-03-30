@@ -77,6 +77,7 @@ class RepoConfigurationData(DBusData):
         self._type = URL_TYPE_BASEURL
         self._ssl_verification_enabled = True
         self._ssl_configuration = SSLConfigurationData()
+        self._proxy = ""
 
     @property
     def name(self) -> Str:
@@ -138,3 +139,15 @@ class RepoConfigurationData(DBusData):
     @ssl_configuration.setter
     def ssl_configuration(self, ssl_configuration: SSLConfigurationData):
         self._ssl_configuration = ssl_configuration
+
+    @property
+    def proxy(self) -> Str:
+        """Get proxy URL for this repository.
+
+        :return: a proxy URL
+        """
+        return self._proxy
+
+    @proxy.setter
+    def proxy(self, proxy: Str):
+        self._proxy = proxy
