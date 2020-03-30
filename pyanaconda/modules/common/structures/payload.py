@@ -32,6 +32,7 @@ class RepoConfigurationData(DBusData):
         self._name = ""
         self._url = ""
         self._type = URL_TYPE_BASEURL
+        self._ssl_verification_enabled = True
 
     @property
     def name(self) -> Str:
@@ -68,3 +69,16 @@ class RepoConfigurationData(DBusData):
     @type.setter
     def type(self, url_type: Str):
         self._type = url_type
+
+    @property
+    def ssl_verification_enabled(self) -> Bool:
+        """Is ssl verification enabled?
+
+        You can disable SSL verification to reach server with certificate
+        which is not part of installation environment.
+        """
+        return self._ssl_verification_enabled
+
+    @ssl_verification_enabled.setter
+    def ssl_verification_enabled(self, ssl_verification_enabled: Bool):
+        self._ssl_verification_enabled = ssl_verification_enabled

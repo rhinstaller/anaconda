@@ -122,11 +122,30 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
                 RepoConfigurationData.to_structure(data)
             )
 
+    def enable_ssl_verification_properties_test(self):
+        data = RepoConfigurationData()
+        data.ssl_verification_enabled = True
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
+    def disable_ssl_verification_properties_test(self):
+        data = RepoConfigurationData()
+        data.ssl_verification_enabled = False
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
     def set_raw_repo_configuration_properties_test(self):
         data = {
             "name": get_variant(Str, "RRRRRRRRRRrrrrrrrr!"),
             "url": get_variant(Str, "http://NaNaNaNaNaNa/Batmaaan"),
-            "type": get_variant(Str, URL_TYPE_METALINK)
+            "type": get_variant(Str, URL_TYPE_METALINK),
+            "ssl-verification-enabled": get_variant(Bool, True)
         }
 
         self._check_dbus_property(
