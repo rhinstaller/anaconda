@@ -370,6 +370,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("Skipping the execute method for the BLIVET partitioning method.")
             return
 
+        log.debug("Running the execute method for the %s partitioning method.",
+                  self._last_partitioning_method)
+
         # Spawn storage execution as a separate thread so there's no big delay
         # going back from this spoke to the hub while StorageCheckHandler.run runs.
         # Yes, this means there's a thread spawning another thread.  Sorry.
@@ -384,6 +387,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         hubQ.send_not_ready(self.__class__.__name__)
 
         report = apply_partitioning(self._partitioning, self._show_execute_message)
+
+        log.debug("Partitioning has been applied: %s", report)
         StorageCheckHandler.errors = list(report.error_messages)
         StorageCheckHandler.warnings = list(report.warning_messages)
 
@@ -392,6 +397,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     def _show_execute_message(self, msg):
         hubQ.send_message(self.__class__.__name__, msg)
+        log.debug(msg)
 
     @property
     def completed(self):
