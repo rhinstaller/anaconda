@@ -485,6 +485,11 @@ def check_disk_selection(storage, selected_disks):
 
     for name in selected_disks:
         selected = storage.devicetree.get_device_by_name(name, hidden=True)
+
+        if not selected:
+            errors.append(_("The selected disk {} is not recognized.").format(name))
+            continue
+
         related = sorted(storage.devicetree.get_related_disks(selected), key=lambda d: d.name)
         missing = [r.name for r in related if r.name not in selected_disks]
 
