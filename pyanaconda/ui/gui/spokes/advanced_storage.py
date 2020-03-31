@@ -323,7 +323,7 @@ class MultipathPage(FilterPage):
             return row.vendor == self._vendor_combo.get_active_text()
 
         if filter_by == self.SEARCH_TYPE_INTERCONNECT:
-            return row.bus == self._ic_combo.get_active_text()
+            return row.interconnect == self._ic_combo.get_active_text()
 
         if filter_by == self.SEARCH_TYPE_WWID:
             return self._wwid_entry.get_text() in row.wwid
@@ -519,6 +519,7 @@ class FilterSpoke(NormalSpoke):
         self._selected_disks = []
         self._protected_disks = []
 
+        self._storage_module = STORAGE.get_proxy()
         self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
         self._disk_selection = STORAGE.get_proxy(DISK_SELECTION)
 
@@ -571,6 +572,12 @@ class FilterSpoke(NormalSpoke):
 
     def refresh(self):
         super().refresh()
+
+        # Reset the scheduled partitioning if any to make sure that we
+        # are working with the current system’s storage configuration.
+        # FIXME: Change modules and UI to work with the right device tree.
+        self._storage_module.ResetPartitioning()
+
         self._disks = self._disk_selection.GetUsableDisks()
         self._selected_disks = self._disk_selection.SelectedDisks
         self._protected_disks = self._disk_selection.ProtectedDevices

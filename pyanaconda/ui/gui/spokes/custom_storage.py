@@ -310,7 +310,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._selected_disks = filter_disks_by_names(partitioned_devices, selected_disks)
 
         # Update the UI elements.
-        self._do_refresh()
+        self._do_refresh(init_expanded_pages=True)
         self._applyButton.set_sensitive(False)
 
     def _get_file_system_type(self):
@@ -489,9 +489,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         selector.props.mountpoint = mount_point
         selector.root_name = root_name
 
-    def _do_refresh(self, mountpoint_to_show=None):
+    def _do_refresh(self, mountpoint_to_show=None, init_expanded_pages=False):
         # block mountpoint selector signal handler for now
         self._initialized = False
+        expanded_pages = self._accordion.get_expanded_pages()
         self._accordion.clear_current_selector()
 
         # Start with buttons disabled, since nothing is selected.
@@ -504,8 +505,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # And then open the first page by default.  Most of the time, this will
         # be fine since it'll be the new installation page.
         self._initialized = True
+
         first_page = self._accordion.all_pages[0]
-        self._accordion.expand_page(first_page.page_title)
+        if init_expanded_pages:
+            expanded_pages = [first_page.page_title]
+        self._accordion.expand_pages(expanded_pages)
         self._show_mountpoint(page=first_page, mountpoint=mountpoint_to_show)
 
         self._applyButton.set_sensitive(False)
@@ -902,7 +906,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             result = unwrap_variant(task_proxy.GetResult())
             report = ValidationReport.from_structure(result)
 
-            log.error("\n".join(report.get_messages()))
+            log.debug("Validation has been completed: %s", report)
             StorageCheckHandler.errors = report.error_messages
             StorageCheckHandler.warnings = report.warning_messages
 

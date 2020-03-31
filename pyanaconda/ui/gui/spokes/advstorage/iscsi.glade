@@ -1092,6 +1092,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkLabel" id="loginErrorLabel">
+                                    <property name="wrap">True</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label">Error message goes here.</property>

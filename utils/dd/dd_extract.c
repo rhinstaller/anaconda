@@ -50,7 +50,8 @@ static const struct option longopts[] = {
 
 static const char *options_help [][2] = {
     {"directory", "Directory to extract into"},
-    {"rpm",       "rpm to extract"},
+    {"rpm",       "rpm to extract - must be absolute path"},
+    // FIXME: It seems that this argument is not used anywhere. Check and remove it.
     {"kernel",    "kernel version"},
     {"verbose",   "Verbose output"},
     {"binaries",  "Extract binaries"},
