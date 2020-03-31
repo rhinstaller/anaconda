@@ -25,8 +25,7 @@ from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_BLIVET, \
-    PARTITIONING_METHOD_INTERACTIVE
+    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_BLIVET
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.timer import Timer
 from pyanaconda.flags import flags
@@ -308,7 +307,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         radio button is currently active.
         """
         if self._custom_part_radio_button.get_active():
-            return PARTITIONING_METHOD_CUSTOM
+            return PARTITIONING_METHOD_INTERACTIVE
 
         if self._blivet_gui_radio_button.get_active():
             return PARTITIONING_METHOD_BLIVET
@@ -836,7 +835,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self._skip_to_automatic_partitioning()
             return
 
-        if partitioning_method == PARTITIONING_METHOD_CUSTOM:
+        if partitioning_method == PARTITIONING_METHOD_INTERACTIVE:
             self._skip_to_spoke("CustomPartitioningSpoke")
             return
 
