@@ -905,7 +905,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             result = unwrap_variant(task_proxy.GetResult())
             report = ValidationReport.from_structure(result)
 
-            log.error("\n".join(report.get_messages()))
+            log.debug("Validation has been completed: %s", report)
             StorageCheckHandler.errors = report.error_messages
             StorageCheckHandler.warnings = report.warning_messages
 
