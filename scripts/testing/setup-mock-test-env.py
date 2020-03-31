@@ -26,13 +26,17 @@ import os
 import sys
 import subprocess
 
+from functools import partial
+
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 
 DEPENDENCY_SOLVER = "dependency_solver.py"
 
 ANACONDA_MOCK_PATH = "/anaconda"
-NOSE_TESTS_DIR = "nosetests/"
+ANACONDA_MOCK_TEMP_PATH = "/anaconda-temp"
+
+NOSE_TESTS_PREFIX = "nosetests/"
 
 
 class MockException(Exception):
@@ -130,8 +134,11 @@ When the init is done the mock environment stays for later use.
 It is possible to connect to mock by calling:
     mock -r <mock configuration> --shell
 
-Or just update Anaconda and start CI by:
+Or copy Anaconda and start CI by:
     setup-mock-test-env.py <mock configuration> --copy --run-tests --result /tmp/result
+
+Or update existing Anaconda in a mock and start unit tests only by:
+    setup-mock-test-env.py <mock configuration> --update --run-nosetests --result /tmp/result
 
 For further info look on the mock manual page.
 """)
@@ -177,11 +184,18 @@ One of these commands must be used. Tests commands can't be combined!
                        prepare mock environment to be able to make a release from there
                        """)
 
-    group.add_argument('--copy', '-c', action='store_true', dest='copy',
-                       help="""
-                       keep existing mock and only replace Anaconda folder in it;
-                       this will not re-init mock chroot
-                       """)
+    group_copy = group.add_mutually_exclusive_group()
+    group_copy.add_argument('--copy', '-c', action='store_true', dest='copy',
+                            help="""
+                            keep existing mock and only replace Anaconda folder in it;
+                            this will not re-init mock chroot
+                            """)
+    group_copy.add_argument('--update', '-u', action='store_true', dest='update',
+                            help="""
+                            keep existing mock and replace updated files in Anaconda;
+                            this way you can re-run tests without autogen and configure call;
+                            this will not re-init mock chroot
+                            """)
     group.add_argument('--prepare', '-p', action='store_true', dest='prepare',
                        help="""
                        run configure and autogen.sh on Anaconda inside of mock
@@ -222,10 +236,11 @@ One of these commands must be used. Tests commands can't be combined!
 
 
 def check_args(namespace):
-    # prepare will be called by tests automatically
-    if namespace.run_tests or namespace.nose_targets is not None \
-            or namespace.pep8_targets is not None or namespace.run_linter is not None:
-        namespace.prepare = False
+    if not any([namespace.init, namespace.copy, namespace.update, namespace.prepare,
+                namespace.run_tests, namespace.install, namespace.install_pip, namespace.release]):
+        print("You need to specify one of the main commands!", file=sys.stderr)
+        print("Run './setup-mock-test-env.py --help' for more info.", file=sys.stderr)
+        exit(1)
 
 
 def get_required_packages():
@@ -283,26 +298,43 @@ def create_dir_in_mock(mock_command, path):
     _check_subprocess(cmd, "Can't create directory {} to the mock.".format(path))
 
 
-def remove_anaconda_in_mock(mock_command):
+def remove_anaconda_in_mock(mock_command, target_mock_path=ANACONDA_MOCK_PATH):
     cmd = _prepare_command(mock_command)
 
     cmd = _run_cmd_in_chroot(cmd)
-    cmd.append('rm -rf ' + ANACONDA_MOCK_PATH)
+    cmd.append('rm -rf ' + target_mock_path)
 
-    _check_subprocess(cmd, "Can't remove existing anaconda.")
+    _check_subprocess(cmd, "Can't remove existing Anaconda.")
 
 
-def copy_anaconda_to_mock(mock_command):
-    remove_anaconda_in_mock(mock_command)
+def copy_anaconda_to_mock(mock_command, target_mock_path=ANACONDA_MOCK_PATH):
+    remove_anaconda_in_mock(mock_command, target_mock_path)
 
     anaconda_dir = _resolve_top_dir()
+
     cmd = _prepare_command(mock_command)
 
     cmd.append('--copyin')
     cmd.append('{}'.format(anaconda_dir))
-    cmd.append(ANACONDA_MOCK_PATH)
+    cmd.append(target_mock_path)
 
     _check_subprocess(cmd, "Can't copy Anaconda to mock.")
+
+
+def update_anaconda_in_mock(mock_command):
+    copy_anaconda_to_mock(mock_command, ANACONDA_MOCK_TEMP_PATH)
+
+    cmd = _prepare_command(mock_command)
+    cmd = _run_cmd_in_chroot(cmd)
+
+    cmd.append('rsync')
+    cmd.append('-aAHhSv')
+    cmd.append('--update')
+    cmd.append('--inplace')
+    cmd.append(ANACONDA_MOCK_TEMP_PATH + "/")
+    cmd.append(ANACONDA_MOCK_PATH + "/")
+
+    _check_subprocess(cmd, "Can't update Anaconda in mock.")
 
 
 def copy_result(mock_command, out_dir):
@@ -353,8 +385,6 @@ def prepare_anaconda(mock_command):
 
 
 def run_tests(mock_command):
-    prepare_anaconda(mock_command)
-
     cmd = _prepare_command(mock_command)
 
     cmd = _run_cmd_in_chroot(cmd)
@@ -365,13 +395,11 @@ def run_tests(mock_command):
     return result.returncode == 0
 
 
-def run_nosetests(mock_command, specified_test_files):
-    prepare_anaconda(mock_command)
-
+def run_nosetests(mock_command, targets):
     cmd = _prepare_command(mock_command)
 
-    specified_test_files = _correct_tests_paths(specified_test_files, NOSE_TESTS_DIR)
-    additional_args = " ".join(specified_test_files)
+    targets = _correct_tests_paths(targets, NOSE_TESTS_PREFIX)
+    additional_args = " ".join(targets)
 
     cmd = _run_cmd_in_chroot(cmd)
     cmd.append('cd {} && make tests-nose-only NOSE_TESTS_ARGS="{}"'.format(ANACONDA_MOCK_PATH,
@@ -385,8 +413,6 @@ def run_nosetests(mock_command, specified_test_files):
 
 
 def run_pep8_check(mock_command, targets):
-    prepare_anaconda(mock_command)
-
     cmd = _prepare_command(mock_command)
     additional_args = " ".join(targets)
 
@@ -402,8 +428,6 @@ def run_pep8_check(mock_command, targets):
 
 
 def run_linter(mock_command):
-    prepare_anaconda(mock_command)
-
     cmd = _prepare_command(mock_command)
     cmd = _run_cmd_in_chroot(cmd)
     cmd.append('cd {} && make tests-pylint'.format(ANACONDA_MOCK_PATH))
@@ -441,16 +465,32 @@ def setup_mock(mock_command, no_pip, release):
         install_required_pip_packages(mock_command)
 
 
+def _run_tests(mock_command, namespace, should_prepare_anaconda):
+    test_func = None
+
+    if namespace.run_tests:
+        test_func = partial(run_tests)
+    elif namespace.nose_targets is not None:
+        test_func = partial(run_nosetests, targets=namespace.nose_targets)
+    elif namespace.pep8_targets is not None:
+        test_func = partial(run_pep8_check, targets=namespace.pep8_targets)
+    elif namespace.run_linter:
+        test_func = partial(run_linter)
+
+    if test_func is None:
+        return True
+
+    if should_prepare_anaconda:
+        prepare_anaconda(mock_command)
+
+    return test_func(mock_command=mock_command)
+
+
 if __name__ == "__main__":
     ns = parse_args()
 
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
-    success = True
-
-    if not any([ns.init, ns.copy, ns.run_tests, ns.install, ns.install_pip]):
-        print("You need to specify one of the main commands!", file=sys.stderr)
-        print("Run './setup-mock-test-env.py --help' for more info.", file=sys.stderr)
-        exit(1)
+    anaconda_prepare_requested = False
 
     # quit immediately if the result dir exists
     if ns.result_folder:
@@ -467,22 +507,21 @@ if __name__ == "__main__":
 
     if ns.copy:
         copy_anaconda_to_mock(mock_cmd)
+        anaconda_prepare_requested = True
+
+    if ns.update:
+        update_anaconda_in_mock(mock_cmd)
+        anaconda_prepare_requested = False
 
     if ns.prepare:
         prepare_anaconda(mock_cmd)
+        anaconda_prepare_requested = False
 
     if ns.release:
         # Zanata was removed but I don't want to change API. This can be handy in the future.
         pass
 
-    if ns.run_tests:
-        success = run_tests(mock_cmd)
-    elif ns.nose_targets is not None:
-        success = run_nosetests(mock_cmd, ns.nose_targets)
-    elif ns.pep8_targets is not None:
-        success = run_pep8_check(mock_cmd, ns.pep8_targets)
-    elif ns.run_linter:
-        success = run_linter(mock_cmd)
+    success = _run_tests(mock_cmd, ns, anaconda_prepare_requested)
 
     if ns.result_folder:
         copy_result(mock_cmd, ns.result_folder)

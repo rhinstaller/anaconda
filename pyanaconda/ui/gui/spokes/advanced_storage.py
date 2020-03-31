@@ -323,7 +323,7 @@ class MultipathPage(FilterPage):
             return row.vendor == self._vendor_combo.get_active_text()
 
         if filter_by == self.SEARCH_TYPE_INTERCONNECT:
-            return row.bus == self._ic_combo.get_active_text()
+            return row.interconnect == self._ic_combo.get_active_text()
 
         if filter_by == self.SEARCH_TYPE_WWID:
             return self._wwid_entry.get_text() in row.wwid
