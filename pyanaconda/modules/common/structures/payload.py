@@ -79,6 +79,8 @@ class RepoConfigurationData(DBusData):
         self._ssl_configuration = SSLConfigurationData()
         self._proxy = ""
         self._cost = DNF_DEFAULT_REPO_COST
+        self._exclude_packages = []
+        self._included_packages = []
 
     @property
     def name(self) -> Str:
@@ -167,3 +169,32 @@ class RepoConfigurationData(DBusData):
     @cost.setter
     def cost(self, cost: Int):
         self._cost = cost
+
+    @property
+    def excluded_packages(self) -> List[Str]:
+        """Packages which won't be fetched from the repository.
+
+        A list of package names and globs that must not be fetched from this repository.
+        This is useful if multiple repositories provide the same package and you
+        want to make sure it is not fetched from a particular repository during installation.
+        """
+        return self._exclude_packages
+
+    @excluded_packages.setter
+    def excluded_packages(self, excluded_packages: List[Str]):
+        self._exclude_packages = excluded_packages
+
+    @property
+    def included_packages(self) -> List[Str]:
+        """Get packages which only should be installed from the repository.
+
+        A list of package names and globs that can be pulled from this repository.
+        Any other packages provided by the repository not on this list will be ignored.
+        This is useful if you want to install just a single package or set of packages
+        from a repository while including all other packages the repository provides.
+        """
+        return self._included_packages
+
+    @included_packages.setter
+    def included_packages(self, included_packages: List[Str]):
+        self._included_packages = included_packages

@@ -213,6 +213,24 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(repo_conf.cost, DNF_DEFAULT_REPO_COST)
 
+    def set_excluded_packages_properties_test(self):
+        data = RepoConfigurationData()
+        data.exclude_packages = ["foo", "bar", "foobar", "<-yep it's merge of the two!"]
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
+    def set_included_packages_properties_test(self):
+        data = RepoConfigurationData()
+        data.include_packages = ["python*", "perl", "rattlesnake", "<- what does not belong there"]
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
     def set_raw_repo_configuration_properties_test(self):
         data = {
             "name": get_variant(Str, "RRRRRRRRRRrrrrrrrr!"),
@@ -225,7 +243,13 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
                 "client-key-path": get_variant(Str, "file:///to/client/key")
             }),
             "proxy": get_variant(Str, "http://user:pass@example.com/proxy"),
-            "cost": get_variant(Int, 1500)
+            "cost": get_variant(Int, 1500),
+            "excluded-packages": get_variant(List[Str], [
+                "Joker", "Two-Face", "Catwoman"
+            ]),
+            "included-packages": get_variant(List[Str], [
+                "Batman", "Robin", "Alfred", "Batgirl"
+            ])
         }
 
         self._check_dbus_property(
