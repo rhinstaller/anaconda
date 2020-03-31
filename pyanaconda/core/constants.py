@@ -84,7 +84,6 @@ DEFAULT_KEYBOARD = "us"
 DRACUT_SHUTDOWN_EJECT = "/run/initramfs/usr/lib/dracut/hooks/shutdown/99anaconda-eject.sh"
 
 # Help.
-HELP_DIR = "/usr/share/anaconda/help"
 HELP_MAIN_PAGE_GUI = "Installation_Guide.xml"
 HELP_MAIN_PAGE_TUI = "Installation_Guide.txt"
 

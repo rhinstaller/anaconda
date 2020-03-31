@@ -29,6 +29,11 @@ class UserInterfaceSection(Section):
         return self._get_option("custom_stylesheet", str)
 
     @property
+    def help_directory(self):
+        """The path to a directory with help files."""
+        return self._get_option("help_directory", str)
+
+    @property
     def default_help_pages(self):
         """Default help pages for TUI, GUI and Live OS."""
         values = self._get_option("default_help_pages", str).split()
