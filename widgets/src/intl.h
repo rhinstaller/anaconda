@@ -18,10 +18,12 @@
 #ifndef _INTL_H
 #define _INTL_H
 
+#include <string.h>
+
 #include "config.h"
 #include "gettext.h"
 
-#define _(x) dgettext("anaconda", x)
+#define _(x) (strcmp(x, "") ? dgettext("anaconda", x) : "")
 #define N_(String) String
 #define C_(Context, String) dpgettext("anaconda", Context, String)
 #define CN_(Context, String) String
