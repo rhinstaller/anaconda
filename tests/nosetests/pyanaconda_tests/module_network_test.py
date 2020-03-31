@@ -84,7 +84,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.network_interface.KickstartSections, [])
         self.assertEqual(self.network_interface.KickstartAddons, [])
 
-    def _test_dbus_property(self, *args, **kwargs):
+    def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,
             NETWORK,
@@ -107,7 +107,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     def hostname_property_test(self):
         """Test the hostname property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "Hostname",
             "dot.dot",
         )
@@ -601,7 +601,7 @@ class FirewallInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.firewall_interface.PropertiesChanged.connect(self.callback)
 
-    def _test_dbus_property(self, *args, **kwargs):
+    def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,
             FIREWALL,
@@ -622,85 +622,85 @@ class FirewallInterfaceTestCase(unittest.TestCase):
 
     def set_use_system_defaults_test(self):
         """Test if the use-system-firewall-defaults option can be set."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "FirewallMode",
             FIREWALL_USE_SYSTEM_DEFAULTS,
         )
 
     def disable_firewall_test(self):
         """Test if firewall can be disabled."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "FirewallMode",
             FIREWALL_DISABLED,
         )
 
     def toggle_firewall_test(self):
         """Test if firewall can be toggled."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "FirewallMode",
             FIREWALL_DISABLED,
         )
-        self._test_dbus_property(
+        self._check_dbus_property(
             "FirewallMode",
             FIREWALL_ENABLED,
         )
 
     def set_enabled_ports_test(self):
         """Test if enabled ports can be set."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "EnabledPorts",
             ["imap:tcp","1234:udp","47"],
         )
-        self._test_dbus_property(
+        self._check_dbus_property(
             "EnabledPorts",
             [],
         )
-        self._test_dbus_property(
+        self._check_dbus_property(
             "EnabledPorts",
             ["1337:udp","9001"],
         )
 
     def set_trusts_test(self):
         """Tests if trusts can be set."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "Trusts",
             ["eth1", "eth2", "enps1337"],
         )
-        self._test_dbus_property(
+        self._check_dbus_property(
             "Trusts",
             [],
         )
-        self._test_dbus_property(
+        self._check_dbus_property(
             "Trusts",
             ["virbr0", "wl01", "foo", "bar"],
         )
 
     def set_enabled_services_test(self):
         """Tests if enabled services can be set."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "EnabledServices",
             ["tftp", "rsyncd", "ssh"],
         )
-        self._test_dbus_property(
+        self._check_dbus_property(
             "EnabledServices",
             [],
         )
-        self._test_dbus_property(
+        self._check_dbus_property(
             "EnabledServices",
             ["ptp", "syslog", "ssh"],
         )
 
     def set_disabled_services_test(self):
         """Tests if disabled services can be set."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "DisabledServices",
             ["samba", "nfs", "ssh"],
         )
-        self._test_dbus_property(
+        self._check_dbus_property(
             "DisabledServices",
             [],
         )
-        self._test_dbus_property(
+        self._check_dbus_property(
             "DisabledServices",
             ["ldap", "ldaps", "ssh"],
         )
