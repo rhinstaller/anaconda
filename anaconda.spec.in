@@ -353,6 +353,30 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 31 2020 Martin Kolman <mkolman@redhat.com> - 32.24.4-1
+- Don't call the DBus method IsNodeFromIbft from the Storage module (#1817529)
+  (vponcova)
+- Use the right partitioning method in the storage spoke (vponcova)
+- Improve logging of storage spokes in GUI and TUI (vponcova)
+- Don't log an empty string (vponcova)
+- Handle translation of an empty string in widgets (#1815461) (vponcova)
+- Replace lambda by partial (jkonecny)
+- Implement updating changed Anaconda files in a mock (jkonecny)
+- Add possibility to add/remove specific dir in mock (jkonecny)
+- Remove prepare parameter disable when running tests (jkonecny)
+- Add missing arguments from the main command check (jkonecny)
+- Move check for required setup-mock commands (jkonecny)
+- Simplify test calling in setup-mock-test-env script (jkonecny)
+- storage gui: keep expanded mountpoints info on actions in UI by default
+  (#1210944) (rvykydal)
+- Support updating Anaconda files in the mock (jkonecny)
+- Handle invalid disk selection (vponcova)
+- Set up advanced storage on the right device tree (#1812561) (vponcova)
+- Use the right field of DiskStoreRow (#1816256) (vponcova)
+- Improve help of dd_extract tool (jkonecny)
+- Fix translation of one nvdimm related GUI string (rvykydal)
+- Wrap iscsi login error messages in GUI (#1811382) (rvykydal)
+
 * Tue Mar 17 2020 Martin Kolman <mkolman@redhat.com> - 32.24.3-1
 - Remove the configuration of the Blivet's logger (vponcova)
 - Support logging of Anaconda DBus modules to files (#1812380) (vponcova)
