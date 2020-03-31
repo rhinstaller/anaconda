@@ -29,6 +29,7 @@ class PartitioningType(Enum):
     """Type of the default partitioning."""
     SERVER = "SERVER"
     WORKSTATION = "WORKSTATION"
+    VIRTUALIZATION = "VIRTUALIZATION"
 
 
 class PartitioningScheme(Enum):
@@ -102,8 +103,9 @@ class StorageSection(Section):
 
         Valid values:
 
-          SERVER       Choose partitioning for servers.
-          WORKSTATION  Choose partitioning for workstations.
+          SERVER          Choose partitioning for servers.
+          WORKSTATION     Choose partitioning for workstations.
+          VIRTUALIZATION  Choose partitioning for virtualizations.
 
         :return: an instance of PartitioningType
         """
