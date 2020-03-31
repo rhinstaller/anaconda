@@ -23,7 +23,7 @@ import unittest
 from textwrap import dedent
 
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
-from pyanaconda.core.configuration.base import ConfigurationError
+from pyanaconda.core.configuration.base import ConfigurationError, create_parser, read_config
 from pyanaconda.core.configuration.product import ProductLoader
 from pyanaconda.product import trim_product_version_for_ui
 
@@ -119,6 +119,14 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ["rhel.conf", "centos.conf"]
         )
         self._check_default_product(
+            "Red Hat Virtualization", "",
+            ["rhel.conf", "rhev.conf"]
+        )
+        self._check_default_product(
+            "oVirt Node Next", "",
+            ["rhel.conf", "centos.conf", "ovirt.conf"]
+        )
+        self._check_default_product(
             "Scientific Linux", "",
             ["rhel.conf", "scientific-linux.conf"]
         )
@@ -135,6 +143,32 @@ class ProductConfigurationTestCase(unittest.TestCase):
         expected_difference = ["org.fedoraproject.Anaconda.Modules.Subscription"]
 
         self.assertListEqual(difference, expected_difference)
+
+    def _compare_product_files(self, file_name, other_file_name):
+        parser = create_parser()
+        read_config(parser, os.path.join(PRODUCT_DIR, file_name))
+
+        other_parser = create_parser()
+        read_config(other_parser, os.path.join(PRODUCT_DIR, other_file_name))
+
+        # The defined sections should be the same.
+        self.assertEqual(parser.sections(), other_parser.sections())
+
+        for section in parser.sections():
+            # Skip the product-related sections.
+            if section in ("Product", "Base Product"):
+                continue
+
+            # The defined options should be the same.
+            self.assertEqual(parser.options(section), other_parser.options(section))
+
+            for key in parser.options(section):
+                # The values of the options should be the same.
+                self.assertEqual(parser.get(section, key), other_parser.get(section, key))
+
+    def ovirt_and_rhev_test(self):
+        """Test the similarity of oVirt Node Next with Red Hat Virtualization."""
+        self._compare_product_files("rhev.conf", "ovirt.conf")
 
     def valid_product_test(self):
         content = dedent("""
