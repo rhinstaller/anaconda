@@ -20,7 +20,7 @@
 
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.core.constants import URL_TYPE_BASEURL
+from pyanaconda.core.constants import URL_TYPE_BASEURL, DNF_DEFAULT_REPO_COST
 
 __all__ = ["RepoConfigurationData", "SSLConfigurationData"]
 
@@ -78,6 +78,7 @@ class RepoConfigurationData(DBusData):
         self._ssl_verification_enabled = True
         self._ssl_configuration = SSLConfigurationData()
         self._proxy = ""
+        self._cost = DNF_DEFAULT_REPO_COST
 
     @property
     def name(self) -> Str:
@@ -151,3 +152,18 @@ class RepoConfigurationData(DBusData):
     @proxy.setter
     def proxy(self, proxy: Str):
         self._proxy = proxy
+
+    @property
+    def cost(self) -> Int:
+        """Cost value of this repository.
+
+        The relative cost of accessing this repository. This value is compared when the
+        priorities of two repositories are the same. The repository with the lowest cost is picked.
+
+        Default value is 1000.
+        """
+        return self._cost
+
+    @cost.setter
+    def cost(self, cost: Int):
+        self._cost = cost

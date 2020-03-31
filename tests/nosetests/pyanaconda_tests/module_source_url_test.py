@@ -23,7 +23,8 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 
-from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_METALINK, URL_TYPE_MIRRORLIST
+from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_METALINK, URL_TYPE_MIRRORLIST, \
+    DNF_DEFAULT_REPO_COST
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_URL
 from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
@@ -197,6 +198,21 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
                 RepoConfigurationData.to_structure(data)
             )
 
+    def set_cost_properties_test(self):
+        data = RepoConfigurationData()
+        data.cost = 2000
+
+        self._check_dbus_property(
+            "RepoConfiguration",
+            RepoConfigurationData.to_structure(data)
+        )
+
+    def default_cost_properties_test(self):
+        repo_conf = self.url_source_interface.RepoConfiguration
+        repo_conf = RepoConfigurationData.from_structure(repo_conf)
+
+        self.assertEqual(repo_conf.cost, DNF_DEFAULT_REPO_COST)
+
     def set_raw_repo_configuration_properties_test(self):
         data = {
             "name": get_variant(Str, "RRRRRRRRRRrrrrrrrr!"),
@@ -208,7 +224,8 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
                 "client-cert-path": get_variant(Str, "file:///client/cert/path"),
                 "client-key-path": get_variant(Str, "file:///to/client/key")
             }),
-            "proxy": get_variant(Str, "http://user:pass@example.com/proxy")
+            "proxy": get_variant(Str, "http://user:pass@example.com/proxy"),
+            "cost": get_variant(Int, 1500)
         }
 
         self._check_dbus_property(
