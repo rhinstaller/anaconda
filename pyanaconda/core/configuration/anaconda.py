@@ -25,6 +25,7 @@ from pyanaconda.core.configuration.network import NetworkSection
 from pyanaconda.core.configuration.payload import PayloadSection
 from pyanaconda.core.configuration.security import SecuritySection
 from pyanaconda.core.configuration.storage import StorageSection
+from pyanaconda.core.configuration.storage_constraints import StorageConstraints
 from pyanaconda.core.configuration.system import SystemType, SystemSection
 from pyanaconda.core.configuration.target import TargetType, TargetSection
 from pyanaconda.core.configuration.base import Section, Configuration, ConfigurationError
@@ -72,16 +73,39 @@ class AnacondaConfiguration(Configuration):
     def __init__(self):
         """Initialize the configuration."""
         super().__init__()
-        self._anaconda = AnacondaSection("Anaconda", self.get_parser())
-        self._system = SystemSection("Installation System", self.get_parser())
-        self._target = TargetSection("Installation Target", self.get_parser())
-        self._network = NetworkSection("Network", self.get_parser())
-        self._payload = PayloadSection("Payload", self.get_parser())
-        self._bootloader = BootloaderSection("Bootloader", self.get_parser())
-        self._storage = StorageSection("Storage", self.get_parser())
-        self._security = SecuritySection("Security", self.get_parser())
-        self._ui = UserInterfaceSection("User Interface", self.get_parser())
-        self._license = LicenseSection("License", self.get_parser())
+        self._anaconda = AnacondaSection(
+            "Anaconda", self.get_parser()
+        )
+        self._system = SystemSection(
+            "Installation System", self.get_parser()
+        )
+        self._target = TargetSection(
+            "Installation Target", self.get_parser()
+        )
+        self._network = NetworkSection(
+            "Network", self.get_parser()
+        )
+        self._payload = PayloadSection(
+            "Payload", self.get_parser()
+        )
+        self._bootloader = BootloaderSection(
+            "Bootloader", self.get_parser()
+        )
+        self._storage = StorageSection(
+            "Storage", self.get_parser()
+        )
+        self._storage_constraints = StorageConstraints(
+            "Storage Constraints", self.get_parser()
+        )
+        self._security = SecuritySection(
+            "Security", self.get_parser()
+        )
+        self._ui = UserInterfaceSection(
+            "User Interface", self.get_parser()
+        )
+        self._license = LicenseSection(
+            "License", self.get_parser()
+        )
 
     @property
     def anaconda(self):
@@ -117,6 +141,11 @@ class AnacondaConfiguration(Configuration):
     def storage(self):
         """The Storage section."""
         return self._storage
+
+    @property
+    def storage_constraints(self):
+        """The Storage Constraints section."""
+        return self._storage_constraints
 
     @property
     def security(self):

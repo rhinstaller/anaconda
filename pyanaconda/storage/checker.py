@@ -26,6 +26,7 @@ from blivet.devicefactory import get_device_type
 from blivet.size import Size
 
 from pyanaconda import isys
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLACKLIST, \
     STORAGE_REFORMAT_WHITELIST, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_RAM, \
     STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
@@ -635,44 +636,28 @@ class StorageChecker(object):
 
         return result
 
+    def get_default_constraint_names(self):
+        """Get a list of default constraint names."""
+        return [
+            STORAGE_MIN_RAM,
+            STORAGE_ROOT_DEVICE_TYPES,
+            STORAGE_MIN_PARTITION_SIZES,
+            STORAGE_REQ_PARTITION_SIZES,
+            STORAGE_MUST_BE_ON_LINUXFS,
+            STORAGE_MUST_BE_ON_ROOT,
+            STORAGE_MUST_NOT_BE_ON_ROOT,
+            STORAGE_REFORMAT_WHITELIST,
+            STORAGE_REFORMAT_BLACKLIST,
+            STORAGE_SWAP_IS_RECOMMENDED,
+            STORAGE_LUKS2_MIN_RAM,
+        ]
+
     def set_default_constraints(self):
         """Set the default constraints needed by default checks."""
         self.constraints = dict()
-        self.add_constraint(STORAGE_MIN_RAM, Size("{} MiB".format(isys.MIN_RAM)))
 
-        self.add_constraint(STORAGE_ROOT_DEVICE_TYPES, set())
-
-        self.add_constraint(STORAGE_MIN_PARTITION_SIZES, {
-            '/': Size("250 MiB"),
-            '/usr': Size("250 MiB"),
-            '/tmp': Size("50 MiB"),
-            '/var': Size("384 MiB"),
-            '/home': Size("100 MiB"),
-            '/boot': Size("200 MiB")
-        })
-
-        self.add_constraint(STORAGE_REQ_PARTITION_SIZES, dict())
-
-        self.add_constraint(STORAGE_MUST_BE_ON_LINUXFS, {
-            '/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib'
-        })
-
-        self.add_constraint(STORAGE_MUST_BE_ON_ROOT, {
-            '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
-        })
-
-        self.add_constraint(STORAGE_MUST_NOT_BE_ON_ROOT, set())
-
-        self.add_constraint(STORAGE_REFORMAT_WHITELIST, {
-            '/boot', '/var', '/tmp', '/usr'
-        })
-
-        self.add_constraint(STORAGE_REFORMAT_BLACKLIST, {
-            '/home', '/usr/local', '/opt', '/var/www'
-        })
-
-        self.add_constraint(STORAGE_SWAP_IS_RECOMMENDED, True)
-        self.add_constraint(STORAGE_LUKS2_MIN_RAM, Size("128 MiB"))
+        for name in self.get_default_constraint_names():
+            self.add_constraint(name, getattr(conf.storage_constraints, name))
 
     def set_default_checks(self):
         """Set the default checks."""
