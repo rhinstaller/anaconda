@@ -23,23 +23,23 @@ class AnacondaLintConfig(CensorshipConfig):
         self.pylintrc_path = os.path.join(current_dir, "pylintrc")
 
         self.false_positives = [
-                                FalsePositive(r"^E1101.*: Instance of 'KickstartSpecificationHandler' has no '.*' member$"),
-                                FalsePositive(r"^E1101.*: FedoraGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
-                                FalsePositive(r"^E1101.*: HostipGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
-                                FalsePositive(r"^E1101.*: Geocoder._reverse_geocode_nominatim: Instance of 'LookupDict' has no 'ok' member"),
+            FalsePositive(r"^E1101.*: Instance of 'KickstartSpecificationHandler' has no '.*' member$"),
+            FalsePositive(r"^E1101.*: FedoraGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
+            FalsePositive(r"^E1101.*: HostipGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
+            FalsePositive(r"^E1101.*: Geocoder._reverse_geocode_nominatim: Instance of 'LookupDict' has no 'ok' member"),
 
-                                # TODO: BlockDev introspection needs to be added to pylint to handle these
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_fba' member"),
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_needs_format' member"),
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_format' member"),
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'sanitize_dev_input' member"),
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_online' member"),
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'zfcp_sanitize_wwpn_input' member"),
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'zfcp_sanitize_lun_input' member"),
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'name_from_node' member"),
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'generate_backup_passphrase' member"),
-                                FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_ldl' member"),
-                              ]
+            # TODO: BlockDev introspection needs to be added to pylint to handle these
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_fba' member"),
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_needs_format' member"),
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_format' member"),
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'sanitize_dev_input' member"),
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_online' member"),
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'zfcp_sanitize_wwpn_input' member"),
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'zfcp_sanitize_lun_input' member"),
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'name_from_node' member"),
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'generate_backup_passphrase' member"),
+            FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_ldl' member"),
+        ]
 
     def _files(self):
         srcdir = os.environ.get("top_srcdir", os.getcwd())
