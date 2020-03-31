@@ -22,6 +22,7 @@ from glob import glob
 import blivet
 from blivet.devices import NetworkStorageDevice
 from blivet.formats.disklabel import DiskLabel
+from blivet.iscsi import iscsi
 from blivet.size import Size
 from ordered_set import OrderedSet
 
@@ -61,14 +62,25 @@ def _get_iscsi_node_from_device(device):
 
 def _is_on_ibft(device):
     """Tells whether a given device is ibft disk or not."""
-    iscsi_proxy = STORAGE.get_proxy(ISCSI)
     for disk in device.disks:
         if not isinstance(disk, blivet.devices.iScsiDiskDevice):
             return False
         node = _get_iscsi_node_from_device(disk)
-        if not iscsi_proxy.IsNodeFromIbft(Node.to_structure(node)):
+        if not _is_node_from_ibft(node):
             return False
     return True
+
+
+def _is_node_from_ibft(node):
+    """Is the node configured from iBFT table?.
+
+    :param node: the node information
+    """
+    for ibft_node in iscsi.ibft_nodes:
+        if ibft_node.name == node.name and ibft_node.address == node.address \
+                and ibft_node.port == int(node.port) and ibft_node.iface == node.iface:
+            return True
+    return False
 
 
 class BootLoaderError(Exception):
