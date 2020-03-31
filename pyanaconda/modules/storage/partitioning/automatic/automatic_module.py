@@ -20,7 +20,7 @@
 import copy
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
@@ -97,7 +97,7 @@ class AutoPartitioningModule(PartitioningModule):
         data.autopart.autopart = True
         data.autopart.fstype = self.request.file_system_type
 
-        if self.request.partitioning_scheme != DEFAULT_AUTOPART_TYPE:
+        if self.request.partitioning_scheme != conf.storage.default_scheme:
             data.autopart.type = self.request.partitioning_scheme
 
         data.autopart.nohome = "/home" in self.request.excluded_mount_points

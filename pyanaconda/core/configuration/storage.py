@@ -19,6 +19,9 @@
 #
 from enum import Enum
 
+from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
+    AUTOPART_TYPE_LVM_THINP
+
 from pyanaconda.core.configuration.base import Section
 
 
@@ -26,6 +29,25 @@ class PartitioningType(Enum):
     """Type of the default partitioning."""
     SERVER = "SERVER"
     WORKSTATION = "WORKSTATION"
+
+
+class PartitioningScheme(Enum):
+    """Type of the default partitioning scheme."""
+    PLAIN = AUTOPART_TYPE_PLAIN
+    BTRFS = AUTOPART_TYPE_BTRFS
+    LVM = AUTOPART_TYPE_LVM
+    LVM_THINP = AUTOPART_TYPE_LVM_THINP
+
+    @classmethod
+    def from_name(cls, value):
+        """Convert the given value into a partitioning scheme."""
+        try:
+            member = cls.__members__[value]
+            return member.value
+        except KeyError:
+            pass
+
+        raise ValueError("'{}' is not a valid partitioning scheme".format(value))
 
 
 class StorageSection(Section):
@@ -86,6 +108,21 @@ class StorageSection(Section):
         :return: an instance of PartitioningType
         """
         return self._get_option("default_partitioning", PartitioningType)
+
+    @property
+    def default_scheme(self):
+        """Default partitioning scheme.
+
+        Valid values:
+
+          0  PLAIN      Create standard partitions.
+          1  BTRFS      Use the Btrfs scheme.
+          2  LVM        Use the LVM scheme.
+          3  LVM_THINP  Use LVM Thin Provisioning.
+
+        :return: a partitioning scheme
+        """
+        return self._get_option("default_scheme", PartitioningScheme.from_name)
 
     @property
     def luks_version(self):

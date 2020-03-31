@@ -35,8 +35,9 @@ from dasbus.structure import compare_data
 from dasbus.typing import unwrap_variant
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
-    SIZE_UNITS_DEFAULT, DEFAULT_AUTOPART_TYPE, PARTITIONING_METHOD_INTERACTIVE
+    SIZE_UNITS_DEFAULT, PARTITIONING_METHOD_INTERACTIVE
 from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -113,7 +114,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._error = None
         self._accordion = None
 
-        self._partitioning_scheme = DEFAULT_AUTOPART_TYPE
+        self._partitioning_scheme = conf.storage.default_scheme
         self._default_file_system = ""
         self._selected_disks = []
         self._passphrase = ""
@@ -320,14 +321,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         model = self._fsCombo.get_model()
         return model[itr][1]
 
-    def _get_autopart_type(self, autopart_type_combo):
-        itr = autopart_type_combo.get_active_iter()
-        if not itr:
-            return DEFAULT_AUTOPART_TYPE
-
-        model = autopart_type_combo.get_model()
-        return model[itr][1]
-
     def _change_autopart_type(self, autopart_type_combo):
         """
         This is called when the autopart type combo on the left hand side of
@@ -337,7 +330,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         clicks the '+' button.
 
         """
-        self._partitioning_scheme = self._get_autopart_type(autopart_type_combo)
+        itr = autopart_type_combo.get_active_iter()
+        if not itr:
+            return
+
+        model = autopart_type_combo.get_model()
+        self._partitioning_scheme = model[itr][1]
 
     def _set_page_label_text(self):
         if self._accordion.is_multiselection:
@@ -416,6 +414,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._os_name,
             self.on_create_clicked,
             self._change_autopart_type,
+            default_scheme=self._partitioning_scheme,
             partitions_to_reuse=reuse_existing
         )
 
@@ -1453,7 +1452,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def on_create_clicked(self, button, autopart_type_combo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
         # custom partitioning, so you have to make your own room.
-        self._do_autopart(self._get_autopart_type(autopart_type_combo))
+        self._do_autopart(self._partitioning_scheme)
 
         # Refresh the spoke to make the new partitions appear.
         self._do_refresh()
