@@ -29,6 +29,7 @@ class AnacondaLintConfig(CensorshipConfig):
                                 FalsePositive(r"^E1101.*: Geocoder._reverse_geocode_nominatim: Instance of 'LookupDict' has no 'ok' member"),
 
                                 # TODO: BlockDev introspection needs to be added to pylint to handle these
+                                FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_fba' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_needs_format' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_format' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'sanitize_dev_input' member"),
