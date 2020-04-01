@@ -64,7 +64,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         """Add a device to the device tree."""
         self.storage.devicetree._add_device(device)
 
-    def _test_dbus_property(self, *args, **kwargs):
+    def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,
             AUTO_PARTITIONING,
@@ -107,7 +107,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             'escrow-certificate': get_variant(Str, 'file:///tmp/escrow.crt'),
             'backup-passphrase-enabled': get_variant(Bool, True),
         }
-        self._test_dbus_property(
+        self._check_dbus_property(
             "Request",
             request
         )
