@@ -40,7 +40,7 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
         self.disk_selection_module = DiskSelectionModule()
         self.disk_selection_interface = DiskSelectionInterface(self.disk_selection_module)
 
-    def _test_dbus_property(self, *args, **kwargs):
+    def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,
             DISK_SELECTION,
@@ -50,7 +50,7 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
 
     def selected_disks_property_test(self):
         """Test the selected disks property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "SelectedDisks",
             ["sda", "sdb"]
         )
@@ -135,28 +135,28 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
 
     def exclusive_disks_property_test(self):
         """Test the exclusive disks property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "ExclusiveDisks",
             ["sda", "sdb"]
         )
 
     def ignored_disks_property_test(self):
         """Test the ignored disks property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "IgnoredDisks",
             ["sda", "sdb"]
         )
 
     def protected_disks_property_test(self):
         """Test the protected disks property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "ProtectedDevices",
             ["sda", "sdb"]
         )
 
     def disk_images_property_test(self):
         """Test the protected disks property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "DiskImages",
             {
                 "image_1": "/path/1",
