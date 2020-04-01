@@ -182,6 +182,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/payloads/source/cdrom/Makefile
                  pyanaconda/modules/payloads/source/hmc/Makefile
                  pyanaconda/modules/payloads/source/live_os/Makefile
+                 pyanaconda/modules/payloads/source/nfs/Makefile
                  pyanaconda/modules/payloads/source/repo_files/Makefile
                  pyanaconda/modules/storage/Makefile
                  pyanaconda/modules/storage/bootloader/Makefile
