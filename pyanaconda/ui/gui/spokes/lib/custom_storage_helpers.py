@@ -21,12 +21,12 @@ from collections import namedtuple
 from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
     DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
 from blivet.size import Size
+from dasbus.structure import get_fields
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_, C_
 from pyanaconda.core.util import lowerASCII
-from dasbus.structure import generate_dictionary_from_data
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
 from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
@@ -74,21 +74,24 @@ def generate_request_description(request, original=None):
     :param original: an original device factory request or None
     :return: a string with the description
     """
-    new_device_info = generate_dictionary_from_data(request)
-    old_device_info = generate_dictionary_from_data(original or request)
     attributes = []
+    original = original or request
 
-    if new_device_info.keys() != old_device_info.keys():
-        raise KeyError
+    if not isinstance(request, DeviceFactoryRequest) \
+            or not isinstance(original, DeviceFactoryRequest):
+        raise ValueError("Not instances of DeviceFactoryRequest")
 
-    for key in new_device_info.keys():
-        if new_device_info[key] == old_device_info[key]:
+    for name, field in get_fields(request).items():
+        new_value = field.get_data(request)
+        old_value = field.get_data(original)
+
+        if new_value == old_value:
             attribute = "{} = {}".format(
-                key, repr(new_device_info[key])
+                name, repr(new_value)
             )
         else:
             attribute = "{} = {} -> {}".format(
-                key, repr(old_device_info[key]), repr(new_device_info[key])
+                name, repr(old_value), repr(new_value)
             )
 
         attributes.append(attribute)
