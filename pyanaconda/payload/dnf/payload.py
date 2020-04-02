@@ -63,7 +63,7 @@ from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadInstallError, PayloadSetupError
-from pyanaconda.payload.image import findFirstIsoImage, mountImage, verify_valid_installtree, \
+from pyanaconda.payload.image import find_first_iso_image, mountImage, verify_valid_installtree, \
     find_optical_install_media
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -1426,7 +1426,7 @@ class DNFPayload(Payload):
                 image_file = os.path.basename(method.dir)
                 path = os.path.normpath("%s/%s" % (path, image_file))
 
-            image = findFirstIsoImage(path)
+            image = find_first_iso_image(path)
 
             # An image was found, mount it on INSTALL_TREE
             if image:
@@ -1554,7 +1554,7 @@ class DNFPayload(Payload):
         #     things back up after storage activation instead of having to
         #     pretend we don't already know which ISO image we're going to
         #     use
-        image = findFirstIsoImage(path)
+        image = find_first_iso_image(path)
         if not image:
             payload_utils.teardown_device(device)
             raise PayloadSetupError("failed to find valid iso image")
