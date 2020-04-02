@@ -214,8 +214,19 @@ class DataWithSecretsTestCase(unittest.TestCase):
         expected = \
             "Data(" \
             "a='a', " \
-            "b={'type': 'TEXT', 'value': 'b'}, " \
-            "c={'type': 'TEXT', 'value': ['c1', 'c2', 'c3']})"
+            "b=SecretData(type='TEXT', value_set=True), " \
+            "c=SecretDataList(type='TEXT', value_set=True))"
+
+        self.assertEqual(str(data), expected)
+        self.assertEqual(repr(data), expected)
+
+        hide_secrets(data)
+
+        expected = \
+            "Data(" \
+            "a='a', " \
+            "b=SecretData(type='HIDDEN', value_set=False), " \
+            "c=SecretDataList(type='HIDDEN', value_set=False))"
 
         self.assertEqual(str(data), expected)
         self.assertEqual(repr(data), expected)
