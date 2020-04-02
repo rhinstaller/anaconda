@@ -1536,14 +1536,14 @@ class DNFPayload(Payload):
 
                 try:
                     self._setup_install_tree(device, method.dir, INSTALL_TREE)
-                    return "file://" + INSTALL_TREE + method.dir
+                    return util.join_paths("file:///", INSTALL_TREE, method.dir)
                 except PayloadSetupError as ex:
                     log.error(str(ex))
                     raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
         elif not (method.method == "cdrom" and self._device_is_mounted_as_source(device)):
             payload_utils.mount_device(device, INSTALL_TREE)
 
-        return "file://" + INSTALL_TREE
+        return util.join_paths("file:///", INSTALL_TREE)
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
         """Find and mount installation source from ISO on device.
