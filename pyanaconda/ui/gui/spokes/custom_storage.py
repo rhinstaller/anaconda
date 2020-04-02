@@ -646,7 +646,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if data[0] == luks_version
         )
         self._luksCombo.set_active(idx)
-        self.on_encrypt_toggled(self._encryptCheckbox)
+        self._update_luks_combo()
 
     def _get_current_device_type(self):
         """ Return integer for type combo selection.
@@ -1253,7 +1253,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 self._encryptCheckbox.set_active(False)
 
             fancy_set_sensitive(self._encryptCheckbox, self._permissions.device_encrypted)
-            self.on_encrypt_toggled(self._encryptCheckbox)
+            self._update_luks_combo()
 
         # Update the UI.
         self._set_devices_label()
@@ -1480,8 +1480,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Update the UI.
         fancy_set_sensitive(self._encryptCheckbox, self._permissions.device_encrypted)
-        self.on_encrypt_toggled(self._encryptCheckbox)
-
+        self._update_luks_combo()
         fancy_set_sensitive(self._fsCombo, self._permissions.format_type)
         self.on_value_changed()
 
@@ -1509,7 +1508,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def on_encrypt_toggled(self, widget):
         self._request.device_encrypted = self._encryptCheckbox.get_active()
         self.on_luks_version_changed(self._luksCombo)
+        self._update_luks_combo()
+        self.on_value_changed()
 
+    def _update_luks_combo(self):
         hide_or_show = really_show if self._encryptCheckbox.get_active() else really_hide
 
         for widget in [self._luksLabel, self._luksCombo]:
@@ -1519,8 +1521,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._luksCombo,
             self._encryptCheckbox.get_active() and self._encryptCheckbox.get_sensitive()
         )
-
-        self.on_value_changed()
 
     def on_luks_version_changed(self, widget):
         luks_version_index = self._luksCombo.get_active()
