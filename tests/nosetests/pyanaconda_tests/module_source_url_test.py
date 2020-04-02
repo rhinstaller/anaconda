@@ -124,6 +124,12 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
                 RepoConfigurationData.to_structure(data)
             )
 
+        # new value shouldn't be set
+        old_data = self.url_source_interface.RepoConfiguration
+        old_data = RepoConfigurationData.from_structure(old_data)
+        self.assertEqual(old_data.url, "")
+        self.assertEqual(old_data.type, URL_TYPE_BASEURL)
+
     def enable_ssl_verification_properties_test(self):
         data = RepoConfigurationData()
         data.ssl_verification_enabled = True
@@ -197,6 +203,11 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
                 "RepoConfiguration",
                 RepoConfigurationData.to_structure(data)
             )
+
+        # new value shouldn't be set
+        old_data = self.url_source_interface.RepoConfiguration
+        old_data = RepoConfigurationData.from_structure(old_data)
+        self.assertEqual(old_data.proxy, "")
 
     def set_cost_properties_test(self):
         data = RepoConfigurationData()

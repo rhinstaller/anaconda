@@ -98,10 +98,10 @@ class URLSourceModule(PayloadSourceBase):
         :param repo_configuration: configuration for this repository
         :type repo_configuration: RepoConfigurationData data structure
         """
-        self._repo_configuration = repo_configuration
+        self._validate_url(repo_configuration.type)
+        self._validate_proxy(repo_configuration.proxy)
 
-        self._validate_url(self._repo_configuration.type)
-        self._validate_proxy(self._repo_configuration.proxy)
+        self._repo_configuration = repo_configuration
 
         if not self._repo_configuration.name:
             self._repo_configuration.name = self._url_source_name
