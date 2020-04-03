@@ -1258,6 +1258,27 @@ def sysroot_path(path):
     return os.path.join(conf.target.system_root, path.lstrip(os.path.sep))
 
 
+def join_paths(path, *paths):
+    """Always join paths.
+
+    The os.path.join() function has a drawback when second path is absolute. In that case it will
+    instead return the second path only.
+
+    :param path: first path we want to join
+    :param paths: paths we want to merge
+    :returns: return path created from all the input paths
+    :rtype: str
+    """
+    if len(paths) == 0:
+        return path
+
+    new_paths = []
+    for p in paths:
+        new_paths.append(p.lstrip(os.path.sep))
+
+    return os.path.join(path, *new_paths)
+
+
 def save_screenshots():
     """Save screenshots to the installed system"""
     if not os.path.exists(SCREENSHOTS_DIRECTORY):

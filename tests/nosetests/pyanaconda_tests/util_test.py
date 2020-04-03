@@ -66,6 +66,7 @@ class UpcaseFirstLetterTests(unittest.TestCase):
         self.assertEqual(util.upcase_first_letter("czech Republic"),
                          "Czech Republic")
 
+
 class RunProgramTests(unittest.TestCase):
     def run_program_test(self):
         """Test the _run_program method."""
@@ -462,6 +463,7 @@ done
             proc.communicate()
         self.assertRaises(ExitError, WatchProcesses.watch_process, proc, "test2")
 
+
 class MiscTests(unittest.TestCase):
 
     def mkdir_chain_test(self):
@@ -816,6 +818,24 @@ class MiscTests(unittest.TestCase):
     def sysroot_test(self):
         self.assertEqual(conf.target.physical_root, "/mnt/sysimage")
         self.assertEqual(conf.target.system_root, "/mnt/sysroot")
+
+    def join_paths_test(self):
+        self.assertEqual(util.join_paths("/first/path/"),
+                         "/first/path/")
+        self.assertEqual(util.join_paths(""),
+                         "")
+        self.assertEqual(util.join_paths("/first/path/", "/second/path"),
+                         "/first/path/second/path")
+        self.assertEqual(util.join_paths("/first/path/", "/second/path", "/third/path"),
+                         "/first/path/second/path/third/path")
+        self.assertEqual(util.join_paths("/first/path/", "/second/path", "third/path"),
+                         "/first/path/second/path/third/path")
+        self.assertEqual(util.join_paths("/first/path/", "second/path"),
+                         "/first/path/second/path")
+        self.assertEqual(util.join_paths("first/path", "/second/path"),
+                         "first/path/second/path")
+        self.assertEqual(util.join_paths("first/path", "second/path"),
+                         "first/path/second/path")
 
     def decode_bytes_test(self):
         self.assertEqual("STRING", util.decode_bytes("STRING"))
