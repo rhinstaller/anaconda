@@ -51,7 +51,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), ManualPartitioningInterface)
 
-    def _test_dbus_property(self, *args, **kwargs):
+    def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,
             MANUAL_PARTITIONING,
@@ -61,7 +61,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
     def mount_points_property_test(self):
         """Test the mount points property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "Requests",
             []
         )
@@ -74,7 +74,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             "format-options": get_variant(Str, ""),
             "mount-options": get_variant(Str, "")
         }
-        self._test_dbus_property(
+        self._check_dbus_property(
             "Requests",
             [request]
         )
@@ -87,7 +87,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             "format-options": get_variant(Str, "-L BOOT"),
             "mount-options": get_variant(Str, "user")
         }
-        self._test_dbus_property(
+        self._check_dbus_property(
             "Requests",
             [request]
         )
@@ -108,7 +108,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             "format-options": get_variant(Str, ""),
             "mount-options": get_variant(Str, "")
         }
-        self._test_dbus_property(
+        self._check_dbus_property(
             "Requests",
             [request_1, request_2]
         )

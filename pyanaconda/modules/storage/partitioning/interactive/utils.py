@@ -865,7 +865,7 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
 
     permissions.device_type = not device.raw_device.exists
     permissions.device_raid_level = not device.raw_device.exists
-    permissions.mount_point = device.format.mountable
+    permissions.mount_point = get_format(request.format_type).mountable
     permissions.label = True
 
     permissions.reformat = \

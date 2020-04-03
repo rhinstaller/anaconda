@@ -526,8 +526,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             This method must never trigger a call to self._do_refresh.
         """
-        self.clear_errors()
-
         # check if initialized and have something to operate on
         if not self._initialized or not selector:
             return
@@ -543,6 +541,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             # just-removed device
             return
 
+        self.clear_errors()
         self._back_already_clicked = False
 
         log.debug("Saving the right side for device: %s", device_name)
@@ -573,8 +572,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         # Apply the changes.
-        self.clear_errors()
-
         try:
             self._device_tree.ChangeDevice(
                 DeviceFactoryRequest.to_structure(new_request),
@@ -646,7 +643,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if data[0] == luks_version
         )
         self._luksCombo.set_active(idx)
-        self.on_encrypt_toggled(self._encryptCheckbox)
+        self._update_luks_combo()
 
     def _get_current_device_type(self):
         """ Return integer for type combo selection.
@@ -782,17 +779,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._reformatCheckbox.set_active(self._request.reformat)
         fancy_set_sensitive(self._reformatCheckbox, self._permissions.reformat)
 
+        # Set up the encryption.
         self._encryptCheckbox.set_active(self._request.device_encrypted)
         fancy_set_sensitive(self._encryptCheckbox, self._permissions.device_encrypted)
 
-        if self._request.container_encrypted:
-            # The encryption checkbutton should not be sensitive if there is
-            # existing encryption below the leaf layer.
-            fancy_set_sensitive(self._encryptCheckbox, False)
-            self._encryptCheckbox.set_active(True)
-            self._encryptCheckbox.set_tooltip_text(_("The container is encrypted."))
-        else:
-            self._encryptCheckbox.set_tooltip_text("")
+        self._encryptCheckbox.set_inconsistent(self._request.container_encrypted)
+        text = _("The container is encrypted.") if self._request.container_encrypted else ""
+        self._encryptCheckbox.set_tooltip_text(text)
+        self._update_luks_combo()
 
         # Set up the filesystem type combo.
         format_types = self._device_tree.GetFileSystemsForDevice(device_name)
@@ -934,7 +928,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # Clear any existing errors
         self.clear_errors()
 
-        # Save anything from the currently displayed mountpoint.
+        # Save anything from the currently displayed mount point.
         self._save_right_side(self._accordion.current_selector)
         self._applyButton.set_sensitive(False)
 
@@ -970,6 +964,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         NormalSpoke.on_back_clicked(self, button)
 
     def on_add_clicked(self, button):
+        # Clear any existing errors
+        self.clear_errors()
+
+        # Save anything from the currently displayed mount point.
         self._save_right_side(self._accordion.current_selector)
 
         # Initialize and run the AddDialog.
@@ -1253,7 +1251,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 self._encryptCheckbox.set_active(False)
 
             fancy_set_sensitive(self._encryptCheckbox, self._permissions.device_encrypted)
-            self.on_encrypt_toggled(self._encryptCheckbox)
+            self._update_luks_combo()
 
         # Update the UI.
         self._set_devices_label()
@@ -1358,12 +1356,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._modifyContainerButton.set_sensitive(self._permissions.can_modify_container())
         self.on_value_changed()
 
-    def _save_current_page(self, selector=None):
-        if selector is None:
-            selector = self._accordion.current_selector
-
-        self._save_right_side(selector)
-
     def on_selector_clicked(self, old_selector, selector):
         if not self._initialized:
             return
@@ -1375,7 +1367,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Take care of the previously chosen selector.
         if old_selector:
-            self._save_current_page(old_selector)
+            self._save_right_side(old_selector)
 
         # There is no device to show.
         if self._accordion.is_multiselection or not self._accordion.current_selector:
@@ -1416,7 +1408,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         if self._accordion.is_current_selected:
-            self._save_current_page()
+            self._save_right_side(self._accordion.current_selector)
 
         self._show_mountpoint(page=page, mountpoint=mountpoint_to_show)
 
@@ -1480,8 +1472,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Update the UI.
         fancy_set_sensitive(self._encryptCheckbox, self._permissions.device_encrypted)
-        self.on_encrypt_toggled(self._encryptCheckbox)
-
+        self._update_luks_combo()
         fancy_set_sensitive(self._fsCombo, self._permissions.format_type)
         self.on_value_changed()
 
@@ -1507,20 +1498,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.on_value_changed()
 
     def on_encrypt_toggled(self, widget):
+        self._encryptCheckbox.set_inconsistent(False)
         self._request.device_encrypted = self._encryptCheckbox.get_active()
         self.on_luks_version_changed(self._luksCombo)
-
-        hide_or_show = really_show if self._encryptCheckbox.get_active() else really_hide
-
-        for widget in [self._luksLabel, self._luksCombo]:
-            hide_or_show(widget)
-
-        fancy_set_sensitive(
-            self._luksCombo,
-            self._encryptCheckbox.get_active() and self._encryptCheckbox.get_sensitive()
-        )
-
+        self._update_luks_combo()
         self.on_value_changed()
+
+    def _update_luks_combo(self):
+        visible = self._encryptCheckbox.get_active() or self._encryptCheckbox.get_inconsistent()
+        sensitive = self._encryptCheckbox.get_active()
+
+        if visible:
+            really_show(self._luksLabel)
+            really_show(self._luksCombo)
+            fancy_set_sensitive(self._luksCombo, sensitive)
+        else:
+            really_hide(self._luksLabel)
+            really_hide(self._luksCombo)
 
     def on_luks_version_changed(self, widget):
         luks_version_index = self._luksCombo.get_active()
@@ -1836,6 +1830,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     @timed_action(delay=50, threshold=100)
     def on_update_settings_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
+        # Clear any existing errors
+        self.clear_errors()
+
+        # Save anything from the currently displayed mount point.
         self._save_right_side(self._accordion.current_selector)
         self._applyButton.set_sensitive(False)
 

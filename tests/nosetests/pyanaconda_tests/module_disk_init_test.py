@@ -41,7 +41,7 @@ class DiskInitializationInterfaceTestCase(unittest.TestCase):
         self.disk_init_module = DiskInitializationModule()
         self.disk_init_interface = DiskInitializationInterface(self.disk_init_module)
 
-    def _test_dbus_property(self, *args, **kwargs):
+    def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,
             DISK_INITIALIZATION,
@@ -51,49 +51,49 @@ class DiskInitializationInterfaceTestCase(unittest.TestCase):
 
     def default_disk_label_property_test(self):
         """Test the default disk label property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "DefaultDiskLabel",
             "msdos"
         )
 
     def format_unrecognized_enabled_property_test(self):
         """Test the can format unrecognized property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "FormatUnrecognizedEnabled",
             False
         )
 
     def can_initialize_label_property_test(self):
         """Test the can initialize label property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "InitializeLabelsEnabled",
             False
         )
 
     def format_ldl_enabled_property_test(self):
         """Test the can format LDL property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "FormatLDLEnabled",
             True
         )
 
     def initialization_mode_property_test(self):
         """Test the type to clear property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "InitializationMode",
             CLEAR_PARTITIONS_LINUX
         )
 
     def devices_to_clear_property_test(self):
         """Test the devices to clear property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "DevicesToClear",
             ["sda2", "sda3", "sdb1"]
         )
 
     def drives_to_clear_property_test(self):
         """Test the drives to clear property."""
-        self._test_dbus_property(
+        self._check_dbus_property(
             "DrivesToClear",
             ["sda", "sdb"]
         )
