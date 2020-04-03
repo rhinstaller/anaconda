@@ -33,7 +33,6 @@ from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
-from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 
@@ -176,6 +175,7 @@ def _search_for_install_root_repository(repos):
 
 
 def mountImage(isodir, tree):
+    # FIXME: This is duplicated in SetUpHardDriveSourceTask.run
     while True:
         if os.path.isfile(isodir):
             image = isodir
@@ -223,6 +223,7 @@ def find_optical_install_media():
             except MountFilesystemError:
                 continue
             try:
+                from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
                 if not is_valid_install_disk(mountpoint):
                     continue
             finally:
