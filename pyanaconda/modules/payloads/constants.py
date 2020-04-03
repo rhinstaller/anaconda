@@ -39,6 +39,7 @@ class SourceType(Enum):
     REPO_FILES = "REPO_FILES"
     NFS = "NFS"
     URL = "URL"
+    HDD = "HDD"
 
 
 @unique

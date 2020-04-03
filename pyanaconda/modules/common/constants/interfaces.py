@@ -107,3 +107,8 @@ PAYLOAD_SOURCE_URL = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="URL"
 )
+
+PAYLOAD_SOURCE_HARDDRIVE = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="HDD"
+)
