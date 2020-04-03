@@ -21,10 +21,9 @@ import threading
 from enum import IntEnum
 
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
-    THREAD_WAIT_FOR_CONNECTING_NM
+    THREAD_WAIT_FOR_CONNECTING_NM, PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload.dnf import DNFPayload
 from pyanaconda.payload.errors import PayloadError
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -186,7 +185,7 @@ class PayloadManager(object):
         payload.setup()
 
         # If this is a non-package Payload, we're done
-        if not isinstance(payload, DNFPayload):
+        if payload.type != PAYLOAD_TYPE_DNF:
             self._set_state(PayloadState.FINISHED)
             return
 

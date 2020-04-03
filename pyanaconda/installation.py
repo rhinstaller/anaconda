@@ -18,13 +18,13 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
     LOCALIZATION, TIMEZONE, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda import flags
 from pyanaconda.core import util
@@ -110,7 +110,7 @@ def _prepare_configuration(payload, ksdata):
 
     # schedule network configuration (if required)
     if conf.system.provides_network_config:
-        overwrite = isinstance(payload, LiveImagePayload)
+        overwrite = payload.type in PAYLOAD_LIVE_TYPES
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
                                    network.write_configuration, (overwrite, )))
@@ -148,7 +148,7 @@ def _prepare_configuration(payload, ksdata):
     # been created, fixing the kernel root and subvol args and adding the missing initrd entry.
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
-    if isinstance(payload, LiveImagePayload):
+    if payload.type in PAYLOAD_LIVE_TYPES:
         btrfs_task = bootloader_proxy.FixBTRFSWithTask(payload.kernel_version_list)
         generate_initramfs.append_dbus_tasks(STORAGE, [btrfs_task])
 

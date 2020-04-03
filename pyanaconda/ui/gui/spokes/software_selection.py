@@ -22,8 +22,8 @@ import gi
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.payload.dnf import DNFPayload
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import NoSuchGroup, PayloadError, DependencyError
 from pyanaconda.threading import threadMgr, AnacondaThread
@@ -289,7 +289,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def showable(self):
-        return isinstance(self.payload, DNFPayload)
+        return self.payload.type == PAYLOAD_TYPE_DNF
 
     @property
     def status(self):

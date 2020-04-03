@@ -27,6 +27,7 @@ from collections import namedtuple
 from urllib.parse import urlsplit
 
 from pyanaconda.core import glib, constants
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_, CN_
@@ -42,7 +43,6 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_child
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload.dnf import DNFPayload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.configuration.anaconda import conf
@@ -1085,7 +1085,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     @property
     def showable(self):
-        return isinstance(self.payload, DNFPayload)
+        return self.payload.type == PAYLOAD_TYPE_DNF
 
     def _mirror_active(self):
         return self._protocol_combo_box.get_active_id() == PROTOCOL_MIRROR and \
