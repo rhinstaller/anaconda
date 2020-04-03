@@ -19,15 +19,15 @@
 from enum import Enum, unique
 
 from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK
+    URL_TYPE_METALINK, PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_LIVE_OS, PAYLOAD_TYPE_LIVE_IMAGE
 
 
 @unique
 class PayloadType(Enum):
     """Type of the payload."""
-    DNF = "DNF"
-    LIVE_OS = "LIVE_OS"
-    LIVE_IMAGE = "LIVE_IMAGE"
+    DNF = PAYLOAD_TYPE_DNF
+    LIVE_OS = PAYLOAD_TYPE_LIVE_OS
+    LIVE_IMAGE = PAYLOAD_TYPE_LIVE_IMAGE
 
 
 @unique

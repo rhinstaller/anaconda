@@ -46,7 +46,8 @@ from pyanaconda import isys
 from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, DRACUT_REPODIR, DRACUT_ISODIR
+from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, DRACUT_REPODIR, DRACUT_ISODIR, \
+    PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
 from pyanaconda.flags import flags
@@ -104,6 +105,11 @@ class DNFPayload(Payload):
         self._req_groups = set()
         self._req_packages = set()
         self.requirements.set_apply_callback(self._apply_requirements)
+
+    @property
+    def type(self):
+        """The DBus type of the payload."""
+        return PAYLOAD_TYPE_DNF
 
     def unsetup(self):
         super().unsetup()

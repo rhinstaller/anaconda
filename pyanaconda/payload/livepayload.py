@@ -46,7 +46,8 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.progress import progressQ
 
-from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
+from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS, \
+    PAYLOAD_TYPE_LIVE_IMAGE, PAYLOAD_TYPE_LIVE_OS
 from pyanaconda.core.constants import IMAGE_DIR, TAR_SUFFIX, NETWORK_CONNECTION_TIMEOUT
 
 from blivet.size import Size
@@ -67,6 +68,11 @@ class LiveImagePayload(Payload):
         self.source_size = 1
 
         self._kernel_version_list = []
+
+    @property
+    def type(self):
+        """The DBus type of the payload."""
+        return PAYLOAD_TYPE_LIVE_OS
 
     def setup(self):
         super().setup()
@@ -296,6 +302,11 @@ class LiveImageKSPayload(LiveImagePayload):
         self._min_size = 0
         self._proxies = {}
         self.image_path = conf.target.system_root + "/disk.img"
+
+    @property
+    def type(self):
+        """The DBus type of the payload."""
+        return PAYLOAD_TYPE_LIVE_IMAGE
 
     @property
     def is_tarfile(self):
