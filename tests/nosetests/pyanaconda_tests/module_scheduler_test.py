@@ -27,7 +27,7 @@ from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevic
     BTRFSVolumeDevice, MDRaidArrayDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice
 from blivet.errors import StorageError
 from blivet.formats import get_format
-from blivet.formats.fs import FS
+from blivet.formats.fs import FS, BTRFS
 from blivet.size import Size
 from dasbus.structure import compare_data
 from dasbus.typing import get_native
@@ -562,10 +562,10 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev2)
 
         # Make the btrfs format not mountable.
-        dev2.format._mount = Mock(available=False)
+        with patch.object(BTRFS, "_mount_class", return_value=Mock(available=False)):
+            request = self.interface.GenerateDeviceFactoryRequest(dev2.name)
+            permissions = self.interface.GenerateDeviceFactoryPermissions(request)
 
-        request = self.interface.GenerateDeviceFactoryRequest(dev2.name)
-        permissions = self.interface.GenerateDeviceFactoryPermissions(request)
         self.assertEqual(get_native(permissions), {
             'mount-point': False,
             'reformat': False,
