@@ -353,6 +353,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 03 2020 Martin Kolman <mkolman@redhat.com> - 33.7-1
+- Don't clear errors by expanding pages in the custom spoke (vponcova)
+- Fix the permission for changing a mount point (#1818500) (vponcova)
+- Allow to use an existing unlocked LUKS in one special case (#1772902)
+  (vponcova)
+- Fix the encryption checkbox in the custom spoke (#1819360) (vponcova)
+- Don't manually trigger a device encryption change (vponcova)
+
 * Thu Apr 02 2020 Martin Kolman <mkolman@redhat.com> - 33.6-1
 - Fix the test for complex data with secrets (vponcova)
 - Update generate_request_description (vponcova)
