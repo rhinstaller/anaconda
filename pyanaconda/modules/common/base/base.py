@@ -25,7 +25,7 @@ from locale import setlocale, LC_ALL
 
 from pykickstart.errors import KickstartError, KickstartParseWarning
 
-from pyanaconda.core.event_loop import EventLoop
+from pyanaconda.core.glib import create_main_loop
 from pyanaconda.core.timer import Timer
 from pyanaconda.core.util import setenv
 from pyanaconda.core.dbus import DBus
@@ -76,7 +76,7 @@ class Service(BaseModule):
 
     def __init__(self):
         super().__init__()
-        self._loop = EventLoop()
+        self._loop = create_main_loop()
 
     @property
     def loop(self):
