@@ -20,12 +20,13 @@ import os
 
 from dasbus.connection import SystemMessageBus, SessionMessageBus, MessageBus
 from dasbus.constants import DBUS_STARTER_ADDRESS
+from dasbus.error import ErrorMapper, get_error_decorator
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DBUS_ANACONDA_SESSION_ADDRESS, ANACONDA_BUS_ADDR_FILE
 
 log = get_module_logger(__name__)
 
-__all__ = ["DBus", "SystemBus", "SessionBus"]
+__all__ = ["DBus", "SystemBus", "SessionBus", "error_mapper", "dbus_error"]
 
 
 class AnacondaMessageBus(MessageBus):
@@ -71,11 +72,23 @@ class DefaultMessageBus(AnacondaMessageBus):
         return super()._find_bus_address()
 
 
+# The mapper of DBus errors.
+error_mapper = ErrorMapper()
+
 # Default bus. Anaconda uses this connection.
-DBus = DefaultMessageBus()
+DBus = DefaultMessageBus(
+    error_mapper=error_mapper
+)
 
 # System bus.
-SystemBus = SystemMessageBus()
+SystemBus = SystemMessageBus(
+    error_mapper=error_mapper
+)
 
 # Session bus.
-SessionBus = SessionMessageBus()
+SessionBus = SessionMessageBus(
+    error_mapper=error_mapper
+)
+
+# The decorator for DBus errors.
+dbus_error = get_error_decorator(error_mapper)

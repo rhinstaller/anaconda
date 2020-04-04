@@ -16,8 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from dasbus.error import DBusError
+
 from pykickstart.errors import KickstartError
-from dasbus.error import DBusError, dbus_error
+from pyanaconda.core.dbus import dbus_error
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
 
 __all__ = ["DBusError", "AnacondaError", "InvalidValueError"]
