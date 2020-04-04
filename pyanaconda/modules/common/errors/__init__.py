@@ -18,7 +18,6 @@
 #
 from dasbus.error import DBusError
 
-from pykickstart.errors import KickstartError
 from pyanaconda.core.dbus import dbus_error
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
 
@@ -41,7 +40,3 @@ class InvalidValueError(AnacondaError):
 class UnsupportedValueError(AnacondaError):
     """Value passed is not supported."""
     pass
-
-
-# Define mapping for existing exceptions.
-dbus_error("KickstartError", namespace=ANACONDA_NAMESPACE)(KickstartError)
