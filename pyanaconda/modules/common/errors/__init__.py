@@ -1,6 +1,4 @@
 #
-# Common DBus errors.
-#
 # Copyright (C) 2018  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -16,27 +14,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from dasbus.error import DBusError
-
-from pyanaconda.core.dbus import dbus_error
-from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
-
-__all__ = ["DBusError", "AnacondaError", "InvalidValueError"]
+__all__ = ["register_errors"]
 
 
-@dbus_error("Error", namespace=ANACONDA_NAMESPACE)
-class AnacondaError(DBusError):
-    """A default Anaconda error."""
-    pass
-
-
-@dbus_error("InvalidValueError", namespace=ANACONDA_NAMESPACE)
-class InvalidValueError(AnacondaError):
-    """Invalid value passed."""
-    pass
-
-
-@dbus_error("UnsupportedValueError", namespace=ANACONDA_NAMESPACE)
-class UnsupportedValueError(AnacondaError):
-    """Value passed is not supported."""
-    pass
+def register_errors():
+    """Register all Anaconda's DBus errors."""
+    # pylint:disable=unused-import
+    from pyanaconda.modules.common.errors import (
+        configuration,
+        general,
+        installation,
+        module,
+        payload,
+        storage,
+        task
+    )

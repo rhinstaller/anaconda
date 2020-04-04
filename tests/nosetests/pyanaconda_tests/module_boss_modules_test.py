@@ -19,9 +19,10 @@ import unittest
 from unittest.mock import Mock, patch
 
 from dasbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
+from dasbus.error import DBusError
+
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
-from pyanaconda.modules.common.errors import DBusError
 from pyanaconda.modules.common.errors.module import UnavailableModuleError
 
 

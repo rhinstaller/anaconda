@@ -18,7 +18,7 @@
 #
 from pyanaconda.core.dbus import dbus_error
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
-from pyanaconda.modules.common.errors import AnacondaError
+from pyanaconda.modules.common.errors.general import AnacondaError
 
 
 @dbus_error("ConfigurationError", namespace=ANACONDA_NAMESPACE)

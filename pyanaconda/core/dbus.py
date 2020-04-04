@@ -23,6 +23,7 @@ from dasbus.constants import DBUS_STARTER_ADDRESS
 from dasbus.error import ErrorMapper, get_error_decorator
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DBUS_ANACONDA_SESSION_ADDRESS, ANACONDA_BUS_ADDR_FILE
+from pyanaconda.modules.common.errors import register_errors
 
 log = get_module_logger(__name__)
 
@@ -92,3 +93,6 @@ SessionBus = SessionMessageBus(
 
 # The decorator for DBus errors.
 dbus_error = get_error_decorator(error_mapper)
+
+# Register all DBus errors.
+register_errors()
