@@ -30,9 +30,14 @@ from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
     SubscriptionRequest
 from pyanaconda.modules.common.structures.secret import get_public_copy
+from pyanaconda.core.dbus import DBus
+
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.containers import TaskContainer
 
 from pyanaconda.modules.subscription import system_purpose
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
+from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
 
 from pykickstart.errors import KickstartParseWarning
 
@@ -77,6 +82,12 @@ class SubscriptionService(KickstartService):
         self.connect_to_insights_changed = Signal()
 
         # FIXME: handle rhsm.service startup in a safe manner
+
+    def publish(self):
+        """Publish the module."""
+        TaskContainer.set_namespace(SUBSCRIPTION.namespace)
+        DBus.publish_object(SUBSCRIPTION.object_path, SubscriptionInterface(self))
+        DBus.register_service(SUBSCRIPTION.service_name)
 
     @property
     def kickstart_specification(self):
