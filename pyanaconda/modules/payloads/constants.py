@@ -18,6 +18,9 @@
 # Red Hat, Inc.
 from enum import Enum, unique
 
+from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
+    URL_TYPE_METALINK
+
 
 @unique
 class PayloadType(Enum):
@@ -35,3 +38,12 @@ class SourceType(Enum):
     CDROM = "CDROM"
     REPO_FILES = "REPO_FILES"
     NFS = "NFS"
+    URL = "URL"
+
+
+@unique
+class URLType(Enum):
+    """Types of supported URL sources."""
+    BASEURL = URL_TYPE_BASEURL
+    MIRRORLIST = URL_TYPE_MIRRORLIST
+    METALINK = URL_TYPE_METALINK
