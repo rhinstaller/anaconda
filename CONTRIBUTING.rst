@@ -131,6 +131,7 @@ In general we are trying to be as close as possible to `PEP8 <https://www.python
 * Never do wildcard (``from foo import *``) imports with the exception when all Anaconda developers agree on that.
 * Use ``raise`` & ``return`` in the doc string. Do not use ``raises`` or ``returns``.
 * Methods that return a task should have the suffix ‘_with_task’ (for example discover_with_task and DiscoverWithTask).
+* Prefer to use ``pyanaconda.util.join_paths`` over ``os.path.join``. See documentation for more info.
 
 Merging examples
 ----------------
