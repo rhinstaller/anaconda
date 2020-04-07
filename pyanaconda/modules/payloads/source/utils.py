@@ -15,8 +15,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from os.path import join
+import os
+
 from blivet.arch import get_arch
+from blivet.util import mount
+
+from pyanaconda.core.storage import device_matches
+from pyanaconda.payload.image import find_first_iso_image
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
+__all__ = ["is_valid_install_disk", "find_and_mount_device", "find_and_mount_iso_image"]
 
 
 def is_valid_install_disk(tree_dir):
@@ -31,7 +41,7 @@ def is_valid_install_disk(tree_dir):
     :rtype: bool
     """
     try:
-        with open(join(tree_dir, ".discinfo"), "r") as f:
+        with open(os.path.join(tree_dir, ".discinfo"), "r") as f:
             f.readline()  # throw away timestamp
             f.readline()  # throw away description
             arch = f.readline().strip()
@@ -40,3 +50,50 @@ def is_valid_install_disk(tree_dir):
     except OSError:
         pass
     return False
+
+
+def find_and_mount_device(device_spec, mount_point):
+    """Resolve what device to mount and do so, read-only.
+
+    Assumes that the device is directly mountable without any preparations or dependencies.
+
+    :param str device_spec: specification of the device
+    :param str mount_point: where to mount the device
+
+    :return: success or not
+    :rtype: bool
+    """
+    matches = device_matches(device_spec)
+    if not matches:
+        log.error("Device spec %s does not resolve to anything", device_spec)
+        return False
+
+    device_path = "/dev/" + matches[0]
+
+    try:
+        mount(device_path, mount_point, "auto", "ro")
+        return True
+    except OSError as e:
+        log.error("Mount of device failed: %s", e)
+        return False
+
+
+def find_and_mount_iso_image(image_location, mount_point):
+    """Find a ISO image in a location and mount it.
+
+    :param str image_location: where the image ISO file is
+    :param str mount_point: where to mount the image
+
+    :return: success or not
+    :rtype: bool
+    """
+    image_filename = find_first_iso_image(image_location)
+    if not image_filename:
+        return False
+    full_image_path = os.path.join(image_location, image_filename)
+    try:
+        mount(full_image_path, mount_point, fstype='iso9660', options="ro")
+        return True
+    except OSError as e:
+        log.error("Mount of ISO file failed: %s", e)
+        return False

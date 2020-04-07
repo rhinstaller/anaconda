@@ -51,5 +51,9 @@ class SourceFactory(object):
         elif source_type == SourceType.URL:
             from pyanaconda.modules.payloads.source.url.url import URLSourceModule
             return URLSourceModule()
+        elif source_type == SourceType.HDD:
+            from pyanaconda.modules.payloads.source.harddrive.harddrive import \
+                HardDriveSourceModule
+            return HardDriveSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))

@@ -33,7 +33,6 @@ from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
-from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 
@@ -45,12 +44,19 @@ log = get_module_logger(__name__)
 _arch = blivet.arch.get_arch()
 
 
-def findFirstIsoImage(path):
-    """
-    Find the first iso image in path
-    This also supports specifying a specific .iso image
+def find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
+    """Find the first iso image in path.
 
-    Returns the basename of the image
+    :param str path: path to the directory with iso image(s); this also supports pointing to
+        a specific .iso image
+    :param str mount_path: path for mounting the ISO when checking it is valid
+
+    FIXME once payloads are modularized:
+      - this should move somewhere else
+      - mount_path should lose the legacy default
+
+    :return: basename of the image - file name without path
+    :rtype: str or None
     """
     try:
         os.stat(path)
@@ -58,7 +64,6 @@ def findFirstIsoImage(path):
         return None
 
     arch = _arch
-    mount_path = "/mnt/install/cdimage"
     discinfo_path = os.path.join(mount_path, ".discinfo")
 
     if os.path.isfile(path) and path.endswith(".iso"):
@@ -73,7 +78,7 @@ def findFirstIsoImage(path):
         if not isys.isIsoImage(what):
             continue
 
-        log.debug("mounting %s on %s", what, mount_path)
+        log.debug("Mounting %s on %s", what, mount_path)
         try:
             blivet.util.mount(what, mount_path, fstype="iso9660", options="ro")
         except OSError:
@@ -86,6 +91,8 @@ def findFirstIsoImage(path):
         log.debug("Reading .discinfo")
         disc_info = DiscInfo()
 
+        # TODO replace next 2 blocks with:
+        #   pyanaconda.modules.payloads.source.utils.is_valid_install_disk
         try:
             disc_info.load(discinfo_path)
             disc_arch = disc_info.arch
@@ -95,7 +102,7 @@ def findFirstIsoImage(path):
 
         log.debug("discArch = %s", disc_arch)
         if disc_arch != arch:
-            log.warning("findFirstIsoImage: architectures mismatch: %s, %s",
+            log.warning("Architectures mismatch in find_first_iso_image: %s != %s",
                         disc_arch, arch)
             blivet.util.umount(mount_path)
             continue
@@ -168,11 +175,12 @@ def _search_for_install_root_repository(repos):
 
 
 def mountImage(isodir, tree):
+    # FIXME: This is duplicated in SetUpHardDriveSourceTask.run
     while True:
         if os.path.isfile(isodir):
             image = isodir
         else:
-            image = findFirstIsoImage(isodir)
+            image = find_first_iso_image(isodir)
             if image is None:
                 exn = MissingImageError()
                 if errorHandler.cb(exn) == ERROR_RAISE:
@@ -215,6 +223,7 @@ def find_optical_install_media():
             except MountFilesystemError:
                 continue
             try:
+                from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
                 if not is_valid_install_disk(mountpoint):
                     continue
             finally:
