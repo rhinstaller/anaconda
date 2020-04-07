@@ -826,14 +826,23 @@ class MiscTests(unittest.TestCase):
 
     @patch.dict('sys.modules')
     def get_anaconda_version_string_test(self):
+        # Forget imported modules from pyanaconda. We have to forget every parent module of
+        # pyanaconda.version but this is just more robust and easier. Without this the
+        # version module is already imported and it's not loaded again.
+        for name in list(sys.modules):
+            if name.startswith('pyanaconda'):
+                sys.modules.pop(name)
+
         # Disable the version module.
         sys.modules['pyanaconda.version'] = None
-        self.assertEqual(util.get_anaconda_version_string(), "unknown")
+
+        from pyanaconda.core.util import get_anaconda_version_string
+        self.assertEqual(get_anaconda_version_string(), "unknown")
 
         # Mock the version module.
         sys.modules['pyanaconda.version'] = Mock(
             __version__="1.0",
             __build_time_version__="1.0-1"
         )
-        self.assertEqual(util.get_anaconda_version_string(), "1.0")
-        self.assertEqual(util.get_anaconda_version_string(build_time_version=True), "1.0-1")
+        self.assertEqual(get_anaconda_version_string(), "1.0")
+        self.assertEqual(get_anaconda_version_string(build_time_version=True), "1.0-1")
