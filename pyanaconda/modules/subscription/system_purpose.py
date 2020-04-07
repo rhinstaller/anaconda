@@ -21,7 +21,6 @@
 import os
 import json
 
-from pyanaconda.core import util
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
