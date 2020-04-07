@@ -20,8 +20,10 @@
 import unittest
 from unittest.mock import patch, Mock
 
+from blivet.size import Size
 from dasbus.typing import get_variant, Int
-from pyanaconda.core.constants import STORAGE_MIN_RAM
+from pyanaconda.core.constants import STORAGE_MIN_RAM, STORAGE_LUKS2_MIN_RAM
+from pyanaconda.modules.common.errors.general import UnsupportedValueError
 from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface
 from pyanaconda.storage.checker import storage_checker, verify_lvm_destruction
@@ -34,11 +36,24 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
         self.module = StorageCheckerModule()
         self.interface = StorageCheckerInterface(self.module)
 
+    @patch.dict(storage_checker.constraints)
     def set_constraint_test(self):
         """Test SetConstraint."""
-        with patch.dict(storage_checker.constraints):
-            self.interface.SetConstraint(STORAGE_MIN_RAM, get_variant(Int, 987))
-            self.assertEqual(storage_checker.constraints[STORAGE_MIN_RAM], 987)
+        self.interface.SetConstraint(
+            STORAGE_MIN_RAM,
+            get_variant(Int, 987 * 1024 * 1024)
+        )
+
+        self.assertEqual(storage_checker.constraints[STORAGE_MIN_RAM], Size("987 MiB"))
+
+        with self.assertRaises(UnsupportedValueError) as cm:
+            self.interface.SetConstraint(
+                STORAGE_LUKS2_MIN_RAM,
+                get_variant(Int, 987 * 1024 * 1024)
+            )
+
+        self.assertEqual(str(cm.exception), "Constraint 'luks2_min_ram' is not supported.")
+        self.assertEqual(storage_checker.constraints[STORAGE_LUKS2_MIN_RAM], Size("128 MiB"))
 
 
 class StorageCheckerVerificationTestCase(unittest.TestCase):

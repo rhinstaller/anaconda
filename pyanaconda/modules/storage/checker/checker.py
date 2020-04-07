@@ -17,11 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED
+from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MIN_RAM
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
+from pyanaconda.modules.common.errors.general import UnsupportedValueError
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface
 from pyanaconda.storage.checker import storage_checker
 
@@ -40,11 +43,24 @@ class StorageCheckerModule(KickstartBaseModule):
     def set_constraint(self, name, value):
         """Set a constraint to a new value.
 
+        Supported constraints:
+
+            min_ram  Minimal size of the total memory in bytes.
+            swap_is_recommended  Recommend to specify a swap partition.
+
         :param str name: a name of the existing constraint
         :param value: a value of the constraint
-        :raise: KeyError if the constraint does not exist
+        :raise: UnsupportedValueError if the constraint is not supported
         """
-        storage_checker.set_constraint(name, value)
+        if name == STORAGE_MIN_RAM:
+            storage_checker.set_constraint(name, Size(value))
+        elif name == STORAGE_SWAP_IS_RECOMMENDED:
+            storage_checker.set_constraint(name, value)
+        else:
+            raise UnsupportedValueError(
+                "Constraint '{}' is not supported.".format(name)
+            )
+
         log.debug("Constraint '%s' is set to '%s'.", name, value)
 
     def process_kickstart(self, data):

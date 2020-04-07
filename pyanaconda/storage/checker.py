@@ -253,7 +253,7 @@ def verify_swap(storage, constraints, report_error, report_warning):
 
     if not swaps:
         installed = util.total_memory()
-        required = Size("%s MiB" % (constraints[STORAGE_MIN_RAM] + isys.NO_SWAP_EXTRA_RAM))
+        required = constraints[STORAGE_MIN_RAM] + Size("{} MiB".format(isys.NO_SWAP_EXTRA_RAM))
 
         if not constraints[STORAGE_SWAP_IS_RECOMMENDED]:
             if installed < required:
@@ -638,7 +638,7 @@ class StorageChecker(object):
     def set_default_constraints(self):
         """Set the default constraints needed by default checks."""
         self.constraints = dict()
-        self.add_constraint(STORAGE_MIN_RAM, isys.MIN_RAM)
+        self.add_constraint(STORAGE_MIN_RAM, Size("{} MiB".format(isys.MIN_RAM)))
 
         self.add_constraint(STORAGE_ROOT_DEVICE_TYPES, set())
 
