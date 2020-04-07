@@ -1517,7 +1517,9 @@ def is_smt_enabled():
 
     :return: True or False
     """
-    if flags.automatedInstall or not conf.target.is_hardware:
+    if flags.automatedInstall \
+            or not conf.target.is_hardware \
+            or not conf.system.can_detect_enabled_smt:
         log.info("Skipping detection of SMT.")
         return False
 
