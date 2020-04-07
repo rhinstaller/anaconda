@@ -311,7 +311,6 @@ NTP_SERVER_QUERY = 2
 
 # Storage checker constraints
 STORAGE_MIN_RAM = "min_ram"
-STORAGE_MIN_ROOT = "min_root"
 STORAGE_ROOT_DEVICE_TYPES = "root_device_types"
 STORAGE_MIN_PARTITION_SIZES = "min_partition_sizes"
 STORAGE_REQ_PARTITION_SIZES = "req_partition_sizes"

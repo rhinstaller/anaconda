@@ -26,7 +26,7 @@ from blivet.devicefactory import get_device_type
 from blivet.size import Size
 
 from pyanaconda import isys
-from pyanaconda.core.constants import STORAGE_MIN_ROOT, productName, STORAGE_REFORMAT_BLACKLIST, \
+from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLACKLIST, \
     STORAGE_REFORMAT_WHITELIST, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_RAM, \
     STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
     STORAGE_LUKS2_MIN_RAM, STORAGE_ROOT_DEVICE_TYPES, STORAGE_REQ_PARTITION_SIZES, \
@@ -49,14 +49,7 @@ def verify_root(storage, constraints, report_error, report_warning):
     """
     root = storage.fsset.root_device
 
-    if root:
-        if root.size < constraints[STORAGE_MIN_ROOT]:
-            report_warning(_("Your root partition is less than %(size)s "
-                             "which is usually too small to install "
-                             "%(product)s.")
-                           % {'size': constraints[STORAGE_MIN_ROOT],
-                              'product': productName})
-    else:
+    if not root:
         report_error(_("You have not defined a root partition (/), "
                        "which is required for installation of %s"
                        " to continue.") % (productName,))
@@ -647,10 +640,10 @@ class StorageChecker(object):
         self.constraints = dict()
         self.add_constraint(STORAGE_MIN_RAM, isys.MIN_RAM)
 
-        self.add_constraint(STORAGE_MIN_ROOT, Size("250 MiB"))
         self.add_constraint(STORAGE_ROOT_DEVICE_TYPES, set())
 
         self.add_constraint(STORAGE_MIN_PARTITION_SIZES, {
+            '/': Size("250 MiB"),
             '/usr': Size("250 MiB"),
             '/tmp': Size("50 MiB"),
             '/var': Size("384 MiB"),
