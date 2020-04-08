@@ -48,8 +48,8 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def is_ready(self):
-        """This source is ready for the installation to start.
+    def get_state(self):
+        """Get state of this source.
 
         This method will not be part of the public API. There is no need for others than the
         payload owner to see the status of the source. It is also not really useful, in time when
@@ -104,7 +104,7 @@ class MountingSourceBase(PayloadSourceBase, ABC):
         super().__init__()
         self._mount_point = MountPointGenerator.generate_mount_point(self.type.value.lower())
 
-    def is_ready(self):
+    def get_state(self):
         """This source is ready for the installation to start.
 
         :return: ready or not

@@ -93,7 +93,7 @@ class PayloadSharedTest(object):
         :param SourceType source: Enum describing the source type
         """
         source = SourceFactory.create_source(source_type)
-        source.is_ready = Mock(return_value=True)
+        source.get_state = Mock(return_value=True)
 
         return source
 

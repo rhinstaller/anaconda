@@ -70,12 +70,12 @@ class MountingSourceBaseTestCase(unittest.TestCase):
         """Mount source base ready state for set up."""
         ismount_mock.return_value = False
         module = DummyMountingSourceSubclass()
-        self.assertFalse(module.is_ready())
+        self.assertFalse(module.get_state())
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        self.assertTrue(module.is_ready())
+        self.assertTrue(module.get_state())
 
         ismount_mock.assert_called_once_with(module.mount_point)
 

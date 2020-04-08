@@ -54,8 +54,8 @@ class URLSourceModule(PayloadSourceBase):
 
         self._url_source_name = "{}-{}".format(BASE_REPO_NAME, source_id)
 
-    def is_ready(self):
-        """This source is ready for the installation to start."""
+    def get_state(self):
+        """Get state of this source."""
         # FIXME: always true is correct but it will block change of payload source. Find solution!
         return True
 

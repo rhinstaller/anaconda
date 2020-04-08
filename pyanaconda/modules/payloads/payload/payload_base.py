@@ -129,7 +129,7 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
                 raise IncompatibleSourceError("Source type {} is not supported by this payload."
                                               .format(source.type.value))
 
-        if any(source.is_ready() for source in self.sources):
+        if any(source.get_state() for source in self.sources):
             raise SourceSetupError("Can't change list of sources if there is at least one source "
                                    "initialized! Please tear down the sources first.")
 

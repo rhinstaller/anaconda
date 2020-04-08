@@ -125,13 +125,13 @@ class HardDriveSourceTestCase(unittest.TestCase):
         """Hard drive source ready state for set up."""
         ismount.return_value = False
 
-        self.assertFalse(self.source_module.is_ready())
+        self.assertFalse(self.source_module.get_state())
         ismount.assert_called_once_with(INSTALL_TREE + "_device")
 
         ismount.reset_mock()
         ismount.return_value = True
 
-        self.assertFalse(self.source_module.is_ready())
+        self.assertFalse(self.source_module.get_state())
         ismount.assert_called_once_with(INSTALL_TREE + "_device")
 
     def return_handler_test(self):

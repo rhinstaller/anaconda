@@ -101,7 +101,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         path2 = PayloadSourceContainer.to_object_path(source2)
 
         self.live_os_interface.SetSources([path])
-        source1.is_ready.return_value = True
+        source1.get_state.return_value = True
 
         with self.assertRaises(SourceSetupError):
             self.live_os_interface.SetSources([path2])

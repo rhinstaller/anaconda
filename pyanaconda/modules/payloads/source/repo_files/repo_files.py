@@ -38,8 +38,8 @@ class RepoFilesSourceModule(PayloadSourceBase):
         """Get type of this source."""
         return SourceType.REPO_FILES
 
-    def is_ready(self):
-        """This source is ready for the installation to start."""
+    def get_state(self):
+        """Get state of this source."""
         # FIXME: Returning True is correct here but it will prevent payload from setting sources.
         # Find better solution.
         return True
