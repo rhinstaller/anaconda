@@ -18,12 +18,17 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-
 import unittest
+import pyanaconda.storage.checker as checks
+
+from blivet.size import Size
 from pyanaconda.storage.checker import StorageChecker
 
 
 class StorageCheckerTests(unittest.TestCase):
+
+    def setUp(self):
+        self.maxDiff = None
 
     def nocheck_test(self):
         """Test a check with no checks."""
@@ -220,3 +225,52 @@ class StorageCheckerTests(unittest.TestCase):
         checker = StorageChecker()
         checker.set_default_constraints()
         checker.set_default_checks()
+
+        self.assertEqual(checker.constraints, {
+            checks.STORAGE_MIN_RAM:  Size("320 MiB"),
+            checks.STORAGE_ROOT_DEVICE_TYPES: set(),
+            checks.STORAGE_MIN_PARTITION_SIZES: {
+                '/': Size("250 MiB"),
+                '/usr': Size("250 MiB"),
+                '/tmp': Size("50 MiB"),
+                '/var': Size("384 MiB"),
+                '/home': Size("100 MiB"),
+                '/boot': Size("200 MiB")
+            },
+            checks.STORAGE_REQ_PARTITION_SIZES: dict(),
+            checks.STORAGE_MUST_BE_ON_LINUXFS: {
+                '/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib'
+            },
+            checks.STORAGE_MUST_BE_ON_ROOT: {
+                '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
+            },
+            checks.STORAGE_MUST_NOT_BE_ON_ROOT: set(),
+            checks.STORAGE_REFORMAT_WHITELIST: {
+                '/boot', '/var', '/tmp', '/usr'
+            },
+            checks.STORAGE_REFORMAT_BLACKLIST: {
+                '/home', '/usr/local', '/opt', '/var/www'
+            },
+            checks.STORAGE_SWAP_IS_RECOMMENDED: True,
+            checks.STORAGE_LUKS2_MIN_RAM: Size("128 MiB"),
+        })
+
+        self.assertEqual(checker.checks, [
+            checks.verify_root,
+            checks.verify_s390_constraints,
+            checks.verify_partition_formatting,
+            checks.verify_partition_sizes,
+            checks.verify_partition_format_sizes,
+            checks.verify_bootloader,
+            checks.verify_gpt_biosboot,
+            checks.verify_swap,
+            checks.verify_swap_uuid,
+            checks.verify_mountpoints_on_linuxfs,
+            checks.verify_mountpoints_on_root,
+            checks.verify_mountpoints_not_on_root,
+            checks.verify_unlocked_devices_have_key,
+            checks.verify_luks_devices_have_key,
+            checks.verify_luks2_memory_requirements,
+            checks.verify_mounted_partitions,
+            checks.verify_lvm_destruction,
+        ])
