@@ -89,8 +89,14 @@ class DASDInterfaceTestCase(unittest.TestCase):
         # The policy doesn't allow tp format anything.
         self.assertEqual(self.dasd_interface.FindFormattable(["dev1"]), [])
 
+        # The policy allows to format unformatted, but there are only FBA DASDs.
+        self.dasd_module.on_format_unrecognized_enabled_changed(True)
+        blockdev.s390.dasd_is_fba.return_value = True
+        self.assertEqual(self.dasd_interface.FindFormattable(["dev1"]), [])
+
         # The policy allows to format unformatted, but there are none.
         self.dasd_module.on_format_unrecognized_enabled_changed(True)
+        blockdev.s390.dasd_is_fba.return_value = False
         blockdev.s390.dasd_needs_format.return_value = False
         self.assertEqual(self.dasd_interface.FindFormattable(["dev1"]), [])
 
