@@ -25,7 +25,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
     SUBSCRIPTION_REQUEST_VALID_TYPES
 
-from pyanaconda.modules.common.errors import InvalidValueError
+from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
     SubscriptionRequest
