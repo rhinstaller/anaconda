@@ -353,6 +353,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 08 2020 Martin Kolman <mkolman@redhat.com> - 33.9-1
+- Fix bad import of general errors (jkonecny)
+- Improve code convention code formatting (jkonecny)
+
 * Wed Apr 08 2020 Martin Kolman <mkolman@redhat.com> - 33.8-1
 - Fix the indentation of false positives (vponcova)
 - Don't try to format FBA DASD devices (#1715303) (vponcova)
