@@ -24,6 +24,7 @@ from subprocess import CalledProcessError
 
 import pyanaconda.errors as errors
 from pyanaconda.core import util
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
 from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_and_modifier
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
@@ -54,6 +55,11 @@ class RPMOSTreePayload(Payload):
         self._remoteOptions = None
         self._internal_mounts = []
         self._locale_map = None
+
+    @property
+    def type(self):
+        """The DBus type of the payload."""
+        return PAYLOAD_TYPE_RPM_OSTREE
 
     @property
     def handles_bootloader_configuration(self):

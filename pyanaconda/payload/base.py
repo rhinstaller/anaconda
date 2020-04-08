@@ -18,7 +18,7 @@
 #
 import os
 import re
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core.configuration.anaconda import conf
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
@@ -64,6 +64,12 @@ class Payload(metaclass=ABCMeta):
 
         # Additional packages required by installer based on used features
         self.requirements = PayloadRequirements()
+
+    @property
+    @abstractmethod
+    def type(self):
+        """The DBus type of the payload."""
+        return None
 
     @property
     def first_payload_reset(self):

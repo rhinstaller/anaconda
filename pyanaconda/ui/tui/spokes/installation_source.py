@@ -23,14 +23,13 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload.dnf import DNFPayload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
     get_hdiso_source_info, get_hdiso_source_description
 
-from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
+from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD, PAYLOAD_TYPE_DNF
 from pyanaconda.core.constants import THREAD_STORAGE_WATCHER
 from pyanaconda.core.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR, DRACUT_REPODIR
 from pyanaconda.core.constants import PAYLOAD_STATUS_PROBING_STORAGE
@@ -126,7 +125,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     @property
     def showable(self):
-        return isinstance(self.payload, DNFPayload)
+        return self.payload.type == PAYLOAD_TYPE_DNF
 
     @property
     def status(self):

@@ -20,14 +20,13 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload.dnf import DNFPayload
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import DependencyError, NoSuchGroup
 from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
-                                      THREAD_SOFTWARE_WATCHER
+    THREAD_SOFTWARE_WATCHER, PAYLOAD_TYPE_DNF
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
@@ -148,7 +147,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
     @property
     def showable(self):
-        return isinstance(self.payload, DNFPayload)
+        return self.payload.type == PAYLOAD_TYPE_DNF
 
     @property
     def status(self):

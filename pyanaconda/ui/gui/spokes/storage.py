@@ -25,7 +25,8 @@ from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_BLIVET
+    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_BLIVET, \
+    PAYLOAD_LIVE_TYPES
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.timer import Timer
 from pyanaconda.flags import flags
@@ -35,7 +36,6 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.product import productName
 from pyanaconda.core.storage import suggest_swap_size
 from pyanaconda.threading import threadMgr, AnacondaThread
@@ -102,7 +102,7 @@ class InstallOptionsDialogBase(GUIObject):
     def _get_sw_needs_text(self, required_space, sw_space, auto_swap):
         tooltip = _("Please wait... software metadata still loading.")
 
-        if isinstance(self.payload, LiveImagePayload):
+        if self.payload.type in PAYLOAD_LIVE_TYPES:
             sw_text = (_("Your current <b>%(product)s</b> software "
                          "selection requires <b>%(total)s</b> of available "
                          "space, including <b>%(software)s</b> for software and "
@@ -168,7 +168,7 @@ class NeedSpaceDialog(InstallOptionsDialogBase):
         label = self.builder.get_object("need_space_desc_label")
         label.set_markup(label_text)
 
-        if not isinstance(self.payload, LiveImagePayload):
+        if self.payload.type not in PAYLOAD_LIVE_TYPES:
             label.connect("activate-link", self._modify_sw_link_clicked)
 
         self._set_free_space_labels(disk_free, fs_free)
@@ -204,7 +204,7 @@ class NoSpaceDialog(InstallOptionsDialogBase):
         label = self.builder.get_object("no_space_desc_label")
         label.set_markup(label_text)
 
-        if not isinstance(self.payload, LiveImagePayload):
+        if self.payload.type not in PAYLOAD_LIVE_TYPES:
             label.connect("activate-link", self._modify_sw_link_clicked)
 
         self._set_free_space_labels(disk_free, fs_free)
