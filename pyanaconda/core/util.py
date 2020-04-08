@@ -1510,3 +1510,21 @@ def get_anaconda_version_string(build_time_version=False):
         # there is a slight chance version.py might be generated incorrectly
         # during build, so don't crash in that case
         return "unknown"
+
+
+def is_smt_enabled():
+    """Is Simultaneous Multithreading (SMT) enabled?
+
+    :return: True or False
+    """
+    if flags.automatedInstall \
+            or not conf.target.is_hardware \
+            or not conf.system.can_detect_enabled_smt:
+        log.info("Skipping detection of SMT.")
+        return False
+
+    try:
+        return int(open("/sys/devices/system/cpu/smt/active").read()) == 1
+    except (IOError, ValueError):
+        log.warning("Failed to detect SMT.")
+        return False

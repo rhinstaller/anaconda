@@ -148,6 +148,11 @@ class SystemSection(Section):
         return self._get_option("can_detect_support_removed", bool)
 
     @property
+    def can_detect_enabled_smt(self):
+        """Can we try to detect enabled SMT?"""
+        return self._get_option("can_detect_enabled_smt", bool)
+
+    @property
     def provides_network_config(self):
         """Can we copy network configuration to the target system?
 
