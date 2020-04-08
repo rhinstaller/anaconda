@@ -20,8 +20,10 @@
 from unittest.mock import patch, Mock
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
+
 from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.payloads.source.factory import SourceFactory
+from pyanaconda.modules.payloads.constants import SourceState
 
 
 class PayloadKickstartSharedTest(object):
@@ -87,13 +89,14 @@ class PayloadSharedTest(object):
         self._test.assertEqual(t, payload_type.value)
 
     @staticmethod
-    def prepare_source(source_type):
+    def prepare_source(source_type, state=SourceState.READY):
         """Prepare mock objects which will present given source.
 
         :param SourceType source: Enum describing the source type
+        :param SourceState state: mock state of the created source
         """
         source = SourceFactory.create_source(source_type)
-        source.get_state = Mock(return_value=True)
+        source.get_state = Mock(return_value=state)
 
         return source
 

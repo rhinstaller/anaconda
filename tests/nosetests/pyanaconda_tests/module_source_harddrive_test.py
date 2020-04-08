@@ -21,7 +21,7 @@ from unittest.mock import patch, call
 from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_HARDDRIVE
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
 from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
     HardDriveSourceInterface
@@ -125,13 +125,13 @@ class HardDriveSourceTestCase(unittest.TestCase):
         """Hard drive source ready state for set up."""
         ismount.return_value = False
 
-        self.assertFalse(self.source_module.get_state())
+        self.assertEqual(self.source_module.get_state(), SourceState.UNREADY)
         ismount.assert_called_once_with(INSTALL_TREE + "_device")
 
         ismount.reset_mock()
         ismount.return_value = True
 
-        self.assertFalse(self.source_module.get_state())
+        self.assertEqual(self.source_module.get_state(), SourceState.UNREADY)
         ismount.assert_called_once_with(INSTALL_TREE + "_device")
 
     def return_handler_test(self):

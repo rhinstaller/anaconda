@@ -27,7 +27,7 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
-from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType, SourceState
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 
@@ -103,17 +103,24 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
             SourceType.LIVE_OS_IMAGE.value)
         self.assertEqual(str(cm.exception), msg)
 
-    @patch.object(DNFModule, "supported_source_types", [SourceType.NFS])
+    @patch.object(DNFModule, "supported_source_types", [SourceType.NFS, SourceType.URL])
     @patch_dbus_publish_object
     def set_when_initialized_source_fail_test(self, publisher):
         """Test payload can't set new sources if the old ones are initialized."""
         source1 = self.shared_tests.prepare_source(SourceType.NFS)
-        source2 = self.shared_tests.prepare_source(SourceType.NFS)
+        source2 = self.shared_tests.prepare_source(SourceType.URL, state=SourceState.NOT_SUPPORTED)
 
         self.shared_tests.check_set_sources([source1])
 
-        # Can't switch source if attached source is ready
-        source1.get_state.return_value = True
+        # can't switch source if attached source is ready
+        source1.get_state.return_value = SourceState.READY
         self.shared_tests.check_set_sources([source2],
                                             exception=SourceSetupError,
                                             expected_sources=[source1])
+
+        # change to source2 when attached source state is UNREADY
+        source1.get_state.return_value = SourceState.UNREADY
+        self.shared_tests.check_set_sources([source2])
+
+        # can change back anytime because source2 has state NOT_SUPPORTED
+        self.shared_tests.check_set_sources([source1])

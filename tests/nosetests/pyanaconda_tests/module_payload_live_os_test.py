@@ -27,10 +27,9 @@ from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadShared
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD
-from pyanaconda.modules.common.containers import PayloadSourceContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
-from pyanaconda.modules.payloads.constants import SourceType, PayloadType
+from pyanaconda.modules.payloads.constants import SourceType, PayloadType, SourceState
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.base.initialization import UpdateBLSConfigurationTask
@@ -97,14 +96,16 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         source1 = self._prepare_source()
         source2 = self._prepare_source()
 
-        path = PayloadSourceContainer.to_object_path(source1)
-        path2 = PayloadSourceContainer.to_object_path(source2)
+        self.shared_tests.check_set_sources([source1])
 
-        self.live_os_interface.SetSources([path])
-        source1.get_state.return_value = True
+        # can't switch source if attached source is ready
+        source1.get_state.return_value = SourceState.READY
+        self.shared_tests.check_set_sources([source2],
+                                            exception=SourceSetupError,
+                                            expected_sources=[source1])
 
-        with self.assertRaises(SourceSetupError):
-            self.live_os_interface.SetSources([path2])
+        source1.get_state.return_value = SourceState.UNREADY
+        self.shared_tests.check_set_sources([source1])
 
     @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_dir_size")
     @patch_dbus_publish_object
