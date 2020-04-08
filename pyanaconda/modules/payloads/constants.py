@@ -16,7 +16,7 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
-from enum import Enum, unique
+from enum import Enum, unique, auto
 
 from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
     URL_TYPE_METALINK, PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_LIVE_OS, PAYLOAD_TYPE_LIVE_IMAGE
@@ -48,3 +48,28 @@ class URLType(Enum):
     BASEURL = URL_TYPE_BASEURL
     MIRRORLIST = URL_TYPE_MIRRORLIST
     METALINK = URL_TYPE_METALINK
+
+
+@unique
+class SourceState(Enum):
+    """States in which the source modules could be.
+
+    These will be used only internally. Not with a DBus API.
+    """
+    READY = auto()
+    UNREADY = auto()
+    NOT_SUPPORTED = auto()
+
+    @staticmethod
+    def from_bool(value):
+        """Get state from a bool value.
+
+        This way we can't return NONE state but that is not a problem. NONE state is specific
+        for sources which do not have a state, so they don't have to convert it from bool.
+
+        :param value: input boolean value
+        :type value: bool
+
+        :return: READY if value is True or UNREADY
+        """
+        return SourceState.READY if value else SourceState.UNREADY
