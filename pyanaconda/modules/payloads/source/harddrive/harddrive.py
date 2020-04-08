@@ -22,7 +22,7 @@ import os
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.signal import Signal
 
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
     HardDriveSourceInterface
@@ -56,7 +56,7 @@ class HardDriveSourceModule(PayloadSourceBase):
         # TODO: this should be check on a special directory for every source
         res = os.path.ismount(self._device_mount) and bool(self._install_tree_path)
         log.debug("Source is set to %s ready state", res)
-        return res
+        return SourceState.from_bool(res)
 
     def for_publication(self):
         """Get the interface used to publish this source."""

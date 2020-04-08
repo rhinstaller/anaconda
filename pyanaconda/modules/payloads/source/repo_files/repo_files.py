@@ -19,7 +19,7 @@
 #
 from pyanaconda.payload.dnf.utils import REPO_DIRS
 
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.repo_files.repo_files_interface import \
     RepoFilesSourceInterface
@@ -40,9 +40,7 @@ class RepoFilesSourceModule(PayloadSourceBase):
 
     def get_state(self):
         """Get state of this source."""
-        # FIXME: Returning True is correct here but it will prevent payload from setting sources.
-        # Find better solution.
-        return True
+        return SourceState.NOT_SUPPORTED
 
     def for_publication(self):
         """Get the interface used to publish this source."""

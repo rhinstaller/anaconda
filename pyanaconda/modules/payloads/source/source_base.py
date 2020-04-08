@@ -23,6 +23,7 @@ from abc import ABC, ABCMeta, abstractmethod
 from dasbus.server.publishable import Publishable
 
 from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.payloads.constants import SourceState
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -56,7 +57,8 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         user gets the ready state the state could be different because of the DBus parallelism.
         In general we should not share state.
 
-        :rtype: bool
+        :return: one of the supported state of SourceState enum
+        :rtype: pyanaconda.modules.payloads.constants.SourceState enum value
         """
         # TODO: Add needs_teardown property which will tell us if the source has to be cleaned up
         # before removing the source from a payload. The is_ready will work for now but it
@@ -107,10 +109,11 @@ class MountingSourceBase(PayloadSourceBase, ABC):
     def get_state(self):
         """This source is ready for the installation to start.
 
-        :return: ready or not
-        :rtype: bool
+        :return: one of the supported state of SourceState enum
+        :rtype: pyanaconda.modules.payloads.constants.SourceState enum value
         """
-        return os.path.ismount(self._mount_point)
+        res = os.path.ismount(self._mount_point)
+        return SourceState.from_bool(res)
 
     @property
     def mount_point(self):

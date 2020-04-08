@@ -22,7 +22,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, URLType
+from pyanaconda.modules.payloads.constants import SourceType, URLType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
 
@@ -56,8 +56,7 @@ class URLSourceModule(PayloadSourceBase):
 
     def get_state(self):
         """Get state of this source."""
-        # FIXME: always true is correct but it will block change of payload source. Find solution!
-        return True
+        return SourceState.NOT_SUPPORTED
 
     @property
     def type(self):

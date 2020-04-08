@@ -24,6 +24,7 @@ from dasbus.server.publishable import Publishable
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
 from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.payloads.constants import SourceState
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -129,7 +130,7 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
                 raise IncompatibleSourceError("Source type {} is not supported by this payload."
                                               .format(source.type.value))
 
-        if any(source.get_state() for source in self.sources):
+        if any(source.get_state() == SourceState.READY for source in self.sources):
             raise SourceSetupError("Can't change list of sources if there is at least one source "
                                    "initialized! Please tear down the sources first.")
 
