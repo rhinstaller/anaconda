@@ -353,6 +353,36 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 08 2020 Martin Kolman <mkolman@redhat.com> - 33.8-1
+- Fix the indentation of false positives (vponcova)
+- Don't try to format FBA DASD devices (#1715303) (vponcova)
+- Disable the SMT warning by default (vponcova)
+- Detect and warn if SMT is enabled (#1684056) (vponcova)
+- Use constants to check the type of the payload object (#1820418) (vponcova)
+- Provide the DBus types of the payloads (vponcova)
+- Add Harddrive (HDD, HDISO) source (vslavik)
+- Add utility functions for sources (vslavik)
+- subscription: SubscriptionRequest DBus structure (mkolman)
+- Remove the abstraction for the event loop (vponcova)
+- Upgrade findFirstIsoImage (vslavik)
+- Make sure that all Anaconda's DBus errors are registered (vponcova)
+- Remove the mapping to a DBus error for KickstartError (vponcova)
+- Don't use the default error register (vponcova)
+- Set new repo configuration after validation is done (jkonecny)
+- Add packaging constrains to URL payload source (jkonecny)
+- Add repo cost to the URL payload source (jkonecny)
+- Add proxy url to URL payload source (jkonecny)
+- Add ssl configuration structure to URL payload source (jkonecny)
+- Add ssl verification flag to URL payload source (jkonecny)
+- Add Name to the URL payload source (jkonecny)
+- Add URL repo configuration to the url source (jkonecny)
+- Add empty repository configuration DBus structure (jkonecny)
+- Add install_repo_enabled flag to URL payload source (jkonecny)
+- Add tests for set up and tear down for url source (jkonecny)
+- Add is_ready tests for URL source module (jkonecny)
+- Add simple tests for a new URL payload source (jkonecny)
+- Add payload URL source base structure (jkonecny)
+
 * Fri Apr 03 2020 Martin Kolman <mkolman@redhat.com> - 33.7-1
 - Don't clear errors by expanding pages in the custom spoke (vponcova)
 - Fix the permission for changing a mount point (#1818500) (vponcova)
