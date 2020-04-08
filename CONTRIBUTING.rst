@@ -119,17 +119,17 @@ It is important to have consistency across the codebase. This won't necessarily 
 In general we are trying to be as close as possible to `PEP8 <https://www.python.org/dev/peps/pep-0008/>`_ but also extending or modifying minor PEP8 rules when it seems suitable in the context of our project. See list of the conventions below:
 
 * Limit all lines to a maximum of 99 characters.
-* Format strings with `.format() <https://docs.python.org/3/library/stdtypes.html#str.format>`_ instead of `%` (https://pyformat.info/)
-    * Exception: Use `%` formatting in logging functions and pass the `%` as arguments. See `logging format interpolation <https://stackoverflow.com/questions/34619790/pylint-message-logging-format-interpolation>`_ for the reasons.
+* Format strings with `.format() <https://docs.python.org/3/library/stdtypes.html#str.format>`_ instead of ``%`` (https://pyformat.info/)
+    * Exception: Use ``%`` formatting in logging functions and pass the ``%`` as arguments. See `logging format interpolation <https://stackoverflow.com/questions/34619790/pylint-message-logging-format-interpolation>`_ for the reasons.
 * Follow docstring conventions. See `PEP257 <https://www.python.org/dev/peps/pep-0257>`_.
 * Use `Enum <https://docs.python.org/3/library/enum.html>`_ instead of constants is recommended.
-* Use `super()` instead of `super(ParentClass, self)`.
+* Use ``super()`` instead of ``super(ParentClass, self)``.
 * Use only absolute imports (instead of relative ones).
-* Use `ParentClass.method(self)` only in case of multiple inheritance.
+* Use ``ParentClass.method(self)`` only in case of multiple inheritance.
 * Instance variables are preferred, class variables should be used only with a good reason.
 * Global instances and singletons should be used only with a good reason.
 * Never do wildcard (``from foo import *``) imports with the exception when all Anaconda developers agree on that.
-* Use `raise` & `return` in the doc string. Do not use `raises` or `returns`.
+* Use ``raise`` & ``return`` in the doc string. Do not use ``raises`` or ``returns``.
 * Methods that return a task should have the suffix ‘_with_task’ (for example discover_with_task and DiscoverWithTask).
 
 Merging examples
