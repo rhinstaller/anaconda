@@ -67,6 +67,23 @@ class AutoPart(COMMANDS.AutoPart):
         return retval
 
 
+class BTRFS(COMMANDS.BTRFS):
+    """The btrfs kickstart command."""
+
+    def parse(self, args):
+        """Parse the command."""
+        retval = super().parse(args)
+
+        # Check the file system type.
+        fmt = get_format("btrfs")
+
+        if not fmt.supported or not fmt.formattable:
+            msg = _("Btrfs file system is not supported.")
+            raise KickstartParseError(msg, lineno=self.lineno)
+
+        return retval
+
+
 class ClearPart(COMMANDS.ClearPart):
     """The clearpart kickstart command."""
 
@@ -266,7 +283,7 @@ class StorageKickstartSpecification(KickstartSpecification):
     commands = {
         "autopart": AutoPart,
         "bootloader": COMMANDS.Bootloader,
-        "btrfs": COMMANDS.BTRFS,
+        "btrfs": BTRFS,
         "clearpart": ClearPart,
         "fcoe": Fcoe,
         "ignoredisk": IgnoreDisk,
