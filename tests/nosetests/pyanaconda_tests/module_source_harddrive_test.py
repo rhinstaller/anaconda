@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch, call
+from unittest.mock import patch, call, Mock
 
 from pyanaconda.core.constants import INSTALL_TREE
 
@@ -131,7 +131,11 @@ class HardDriveSourceTestCase(unittest.TestCase):
         ismount.reset_mock()
         ismount.return_value = True
 
-        self.assertEqual(self.source_module.get_state(), SourceState.UNREADY)
+        task = self.source_module.set_up_with_tasks()[0]
+        task.get_result = Mock("/my/path")
+        task.succeeded_signal.emit()
+
+        self.assertEqual(self.source_module.get_state(), SourceState.READY)
         ismount.assert_called_once_with(INSTALL_TREE + "_device")
 
     def return_handler_test(self):
