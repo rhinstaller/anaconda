@@ -69,13 +69,14 @@ class LiveImagePayload(Payload):
         self.osimg_path = None
 
         self._kernel_version_list = []
+
     def is_plain_squashfs_image(self):
         """ Examine the contents of the filename to determine whether it's a plain squashfs filesystem.
         If the return value is True, then the image is considered plain. This means it does not contain any embedded filesystem inside. If the value returned is False, it means that the filesystem has an embedded, in Fedora -- ext4, filesystem inside a squashfs image.
         " :param: self.osimg_path -- a path to the target file or a block device
         " :returns: bool
         """
-        search_string = "Number of inodes (\d+)"
+        search_string = r"Number of inodes (\d+)"
         file_squashfs_information = util.execWithCapture("unsquashfs", ["-s", self.osimg_path])
         match_obj = re.search(search_string, file_squashfs_information)
         try:
@@ -100,7 +101,6 @@ class LiveImagePayload(Payload):
             raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
 
         osimg_path = payload_utils.get_device_path(osimg)
-        log.info(osimg_path)
         if not stat.S_ISBLK(os.stat(osimg_path)[stat.ST_MODE]):
             exn = PayloadSetupError("%s is not a valid block device" %
                                     (self.data.method.partition,))
@@ -199,13 +199,14 @@ class LiveImagePayload(Payload):
             exn = PayloadInstallError(err or msg)
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
-	
+
         # Wait for progress thread to finish
         with self.pct_lock:
             self.pct = 100
         threadMgr.wait(THREAD_LIVE_PROGRESS)
         if plain_squashfs_image:
-            # This will cleanup files that are by default in the squashfs image 
+            # This will cleanup files that are by default in the squashfs image
+            # and are not wanted in the target system. The parent directories will be preserved
             find_arguments = ["/boot/loader", "/tmp", "-mindepth", "1", "-delete"]
             util.execInSysroot("find", find_arguments)
         # Live needs to create the rescue image before bootloader is written
