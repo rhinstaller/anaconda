@@ -73,3 +73,15 @@ class BootloaderInstallationError(InstallationError):
 class StorageInstallationError(InstallationError):
     """Exception for the storage installation errors."""
     pass
+
+
+@dbus_error("InsightsClientMissingError", namespace=ANACONDA_NAMESPACE)
+class InsightsClientMissingError(InstallationError):
+    """Exception for missing Red Hat Insights utility."""
+    pass
+
+
+@dbus_error("InsightsConnectError", namespace=ANACONDA_NAMESPACE)
+class InsightsConnectError(InstallationError):
+    """Exception for error when connecting to Red Hat Insights."""
+    pass
