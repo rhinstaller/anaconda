@@ -31,6 +31,7 @@ import stat
 import requests
 import hashlib
 import glob
+import re
 import functools
 from time import sleep
 from threading import Lock
@@ -65,8 +66,30 @@ class LiveImagePayload(Payload):
         self.pct = 0
         self.pct_lock = None
         self.source_size = 1
+        self.osimg_path = None
 
         self._kernel_version_list = []
+    def is_plain_squashfs_image(self):
+        """ Examine the contents of the filename to determine whether it's a plain squashfs filesystem.
+        If the return value is True, then the image is considered plain. This means it does not contain any embedded filesystem inside. If the value returned is False, it means that the filesystem has an embedded, in Fedora -- ext4, filesystem inside a squashfs image.
+        " :param: self.osimg_path -- a path to the target file or a block device
+        " :returns: bool
+        """
+        search_string = "Number of inodes (\d+)"
+        file_squashfs_information = util.execWithCapture("unsquashfs", ["-s", self.osimg_path])
+        match_obj = re.search(search_string, file_squashfs_information)
+        try:
+            number_of_inodes = int(match_obj.group(1))
+        except AttributeError as e:
+            log.debug("The filesystem is either non-plain or an error has occured")
+            debug_message = str(e)
+            log.debug(debug_message)
+        # When number of files is less than 50, the gains from the optimization is marginal. Therefore let's consider the filesystem as non-plain.
+        # Usually the non-Plain filesystem contains only 3 inodes. Whereas on plain, the number of files is >10000. 50 is a enough threshold for determining whether the FS is non-plain.
+        else:
+            if number_of_inodes > 50:
+                return True
+        return False
 
     def setup(self):
         super().setup()
@@ -77,11 +100,13 @@ class LiveImagePayload(Payload):
             raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
 
         osimg_path = payload_utils.get_device_path(osimg)
+        log.info(osimg_path)
         if not stat.S_ISBLK(os.stat(osimg_path)[stat.ST_MODE]):
             exn = PayloadSetupError("%s is not a valid block device" %
                                     (self.data.method.partition,))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
+        self.osimg_path = osimg_path
         rc = payload_utils.mount(osimg_path, INSTALL_TREE, fstype="auto", options="ro")
         if rc != 0:
             raise PayloadInstallError("Failed to mount the install tree")
@@ -138,15 +163,27 @@ class LiveImagePayload(Payload):
         threadMgr.add(AnacondaThread(name=THREAD_LIVE_PROGRESS,
                                      target=self.progress))
 
-        cmd = "rsync"
-        # preserve: permissions, owners, groups, ACL's, xattrs, times,
-        #           symlinks, hardlinks
-        # go recursively, include devices and special files, don't cross
-        # file system boundaries
-        args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
-                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
-                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", conf.target.system_root]
+        plain_squashfs_image = self.is_plain_squashfs_image()
+        if plain_squashfs_image:
+            # Use an optimization in case the SQUASHFS image is plain.
+            cmd = "unsquashfs"
+            # preserve: permissions, owners, groups, ACL's, xattrs, times,
+            #           symlinks, hardlinks
+            # go recursively, include devices and special files, don't cross
+            # file system boundaries
+            args = ["-f", "-n", "-d", conf.target.system_root,
+                    self.osimg_path, "bin", "boot", "etc", "home", "lib",
+                    "lib64", "media", "mnt", "opt", "root", "sbin", "srv", "tmp", "usr", "var"]
+        else:
+            cmd = "rsync"
+            # preserve: permissions, owners, groups, ACL's, xattrs, times,
+            #           symlinks, hardlinks
+            # go recursively, include devices and special files, don't cross
+            # file system boundaries
+            args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
+                    "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
+                    "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
+                    "--exclude", "/etc/machine-id", INSTALL_TREE + "/", conf.target.system_root]
         try:
             rc = util.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
@@ -162,12 +199,15 @@ class LiveImagePayload(Payload):
             exn = PayloadInstallError(err or msg)
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
-
+	
         # Wait for progress thread to finish
         with self.pct_lock:
             self.pct = 100
         threadMgr.wait(THREAD_LIVE_PROGRESS)
-
+        if plain_squashfs_image:
+            # This will cleanup files that are by default in the squashfs image 
+            find_arguments = ["/boot/loader", "/tmp", "-mindepth", "1", "-delete"]
+            util.execInSysroot("find", find_arguments)
         # Live needs to create the rescue image before bootloader is written
         self._create_rescue_image()
 
