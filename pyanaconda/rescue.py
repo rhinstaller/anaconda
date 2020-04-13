@@ -448,10 +448,10 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                 text = TextWidget(msg + " " + finish_msg)
             elif status == RescueModeStatus.ROOT_NOT_FOUND:
                 if self._rescue.reboot:
-                    finish_msg = _("Rebooting.")
+                    finish_msg = exit_reboot_msg
                 else:
                     finish_msg = ""
-                text = TextWidget(_("You don't have any Linux partitions. %s\n") % finish_msg)
+                text = TextWidget(_("You don't have any Linux partitions.\n") + finish_msg)
         else:
             if self._rescue.reboot:
                 finish_msg = exit_reboot_msg
