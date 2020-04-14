@@ -81,6 +81,10 @@ class SubscriptionService(KickstartService):
         self._connect_to_insights = False
         self.connect_to_insights_changed = Signal()
 
+        # subscription status
+        self.subscription_attached_changed = Signal()
+        self._subscription_attached = False
+
         # FIXME: handle rhsm.service startup in a safe manner
 
     def publish(self):
@@ -364,3 +368,26 @@ class SubscriptionService(KickstartService):
         self._connect_to_insights = connect
         self.connect_to_insights_changed.emit()
         log.debug("Connect target system to Insights set to: %s", self._connect_to_insights)
+
+    # subscription status
+
+    @property
+    def subscription_attached(self):
+        """Return True if a subscription has been attached to the system.
+
+        :return: True if a subscription has been attached to the system, False otherwise
+        :rtype: bool
+        """
+        return self._subscription_attached
+
+    def set_subscription_attached(self, system_subscription_attached):
+        """Set a subscription has been attached to the system.
+
+        :param bool system_registered: True if subscription has been attached, False otherwise
+        """
+        self._subscription_attached = system_subscription_attached
+        self.subscription_attached_changed.emit()
+        # as there is no public setter in the DBus API, we need to emit
+        # the properties changed signal here manually
+        self.module_properties_changed.emit()
+        log.debug("Subscription attached set to: %s", system_subscription_attached)

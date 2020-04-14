@@ -714,6 +714,29 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
           False
         )
 
+    def subscription_attached_property_test(self):
+        """Test the IsSubscriptionAttached property."""
+        # should be false by default
+        self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
+
+        # this property can't be set by client as it is set as the result of
+        # subscription attempts, so we need to call the internal module interface
+        # via a custom setter
+
+        def custom_setter(value):
+            self.subscription_module.set_subscription_attached(value)
+
+        # check the property is True and the signal was emitted
+        # - we use fake setter as there is no public setter
+        self._check_dbus_property(
+          "IsSubscriptionAttached",
+          True,
+          setter=custom_setter
+        )
+
+        # at the end the property should be True
+        self.assertTrue(self.subscription_interface.IsSubscriptionAttached)
+
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.subscription_interface, ks_in, ks_out)
 
