@@ -366,7 +366,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
                 'snapshot',
                 'volgroup',
                 'zerombr',
-                'zfcp'
+                'zfcp',
+                'zipl',
             ]
         )
         self.assertEqual(self.storage_interface.KickstartSections, [])
@@ -708,6 +709,39 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # System bootloader configuration
         bootloader --location=mbr --nombr
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def zipl_secure_boot_kickstart_test(self):
+        """Test the zipl command with the secure boot option."""
+        ks_in = """
+        zipl --secure-boot
+        """
+        ks_out = """
+        # ZIPL configuration
+        zipl --secure-boot
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def zipl_disable_secure_boot_kickstart_test(self):
+        """Test the zipl command with the disable secure boot option."""
+        ks_in = """
+        zipl --no-secure-boot
+        """
+        ks_out = """
+        # ZIPL configuration
+        zipl --no-secure-boot
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def zipl_enable_secure_boot_kickstart_test(self):
+        """Test the zipl command with the force secure boot option."""
+        ks_in = """
+        zipl --force-secure-boot
+        """
+        ks_out = """
+        # ZIPL configuration
+        zipl --force-secure-boot
         """
         self._test_kickstart(ks_in, ks_out)
 
