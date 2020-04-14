@@ -24,6 +24,7 @@ from pyanaconda.core import util
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
     SUBSCRIPTION_REQUEST_VALID_TYPES
+from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.base import KickstartService
@@ -38,6 +39,7 @@ from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.subscription import system_purpose
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
+from pyanaconda.modules.subscription.installation import ConnectToInsightsTask
 
 from pykickstart.errors import KickstartParseWarning
 
@@ -391,3 +393,18 @@ class SubscriptionService(KickstartService):
         # the properties changed signal here manually
         self.module_properties_changed.emit()
         log.debug("Subscription attached set to: %s", system_subscription_attached)
+
+    # tasks
+
+    def install_with_tasks(self):
+        """Return the installation tasks of this module.
+
+        :returns: list of installation tasks
+        """
+        return [
+            ConnectToInsightsTask(
+                sysroot=conf.target.system_root,
+                subscription_attached=self.subscription_attached,
+                connect_to_insights=self.connect_to_insights
+            )
+        ]

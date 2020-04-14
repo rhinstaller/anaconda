@@ -35,9 +35,10 @@ from pyanaconda.modules.subscription.subscription import SubscriptionService
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
 from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _normalize_field, \
     _match_field, process_field
+from pyanaconda.modules.subscription.installation import ConnectToInsightsTask
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
-    PropertiesChangedCallback
+    PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list
 
 # content of a valid populated valid values json file for system purpose testing
 SYSPURPOSE_VALID_VALUES_JSON = """
@@ -736,6 +737,38 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         # at the end the property should be True
         self.assertTrue(self.subscription_interface.IsSubscriptionAttached)
+
+    @patch_dbus_publish_object
+    def install_with_tasks_default_test(self, publisher):
+        """Test install tasks - Subscription module in default state."""
+        task_classes = [
+            ConnectToInsightsTask
+        ]
+        task_paths = self.subscription_interface.InstallWithTasks()
+        task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
+
+        # ConnectToInsightsTask
+        obj = task_objs[0]
+        self.assertEqual(obj.implementation._subscription_attached, False)
+        self.assertEqual(obj.implementation._connect_to_insights, False)
+
+    @patch_dbus_publish_object
+    def install_with_tasks_configured_test(self, publisher):
+        """Test install tasks - Subscription module in configured state."""
+
+        self.subscription_interface.SetInsightsEnabled(True)
+        self.subscription_module.set_subscription_attached(True)
+
+        task_classes = [
+            ConnectToInsightsTask
+        ]
+        task_paths = self.subscription_interface.InstallWithTasks()
+        task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
+
+        # ConnectToInsightsTask
+        obj = task_objs[0]
+        self.assertEqual(obj.implementation._subscription_attached, True)
+        self.assertEqual(obj.implementation._connect_to_insights, True)
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.subscription_interface, ks_in, ks_out)
