@@ -34,25 +34,25 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesCha
 class CdromSourceInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.cdrom_source_module = CdromSourceModule()
-        self.cdrom_source_interface = CdromSourceInterface(self.cdrom_source_module)
+        self.module = CdromSourceModule()
+        self.interface = CdromSourceInterface(self.module)
 
         self.callback = PropertiesChangedCallback()
-        self.cdrom_source_interface.PropertiesChanged.connect(self.callback)
+        self.interface.PropertiesChanged.connect(self.callback)
 
     def type_test(self):
         """Test CD-ROM source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_CDROM, self.cdrom_source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_CDROM, self.interface.Type)
 
 
 class CdromSourceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.cdrom_source_module = CdromSourceModule()
+        self.module = CdromSourceModule()
 
     def type_test(self):
         """Test CD-ROM source module has a correct type."""
-        self.assertEqual(SourceType.CDROM, self.cdrom_source_module.type)
+        self.assertEqual(SourceType.CDROM, self.module.type)
 
     def set_up_with_tasks_test(self):
         """Test CD-ROM Source set up call."""
@@ -61,7 +61,7 @@ class CdromSourceTestCase(unittest.TestCase):
         ]
 
         # task will not be public so it won't be published
-        tasks = self.cdrom_source_module.set_up_with_tasks()
+        tasks = self.module.set_up_with_tasks()
 
         # Check the number of the tasks
         task_number = len(task_classes)
@@ -77,7 +77,7 @@ class CdromSourceTestCase(unittest.TestCase):
         ]
 
         # task will not be public so it won't be published
-        tasks = self.cdrom_source_module.tear_down_with_tasks()
+        tasks = self.module.tear_down_with_tasks()
 
         # check the number of tasks
         task_number = len(task_classes)

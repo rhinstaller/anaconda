@@ -33,38 +33,38 @@ from pyanaconda.modules.payloads.source.repo_files.initialization import \
 class RepoFilesSourceInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.source_module = RepoFilesSourceModule()
-        self.source_interface = RepoFilesSourceInterface(self.source_module)
+        self.module = RepoFilesSourceModule()
+        self.interface = RepoFilesSourceInterface(self.module)
 
     def type_test(self):
         """Test Repo files source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_REPO_FILES, self.source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_REPO_FILES, self.interface.Type)
 
 
 class RepoFilesSourceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.source_module = RepoFilesSourceModule()
-        self.source_interface = RepoFilesSourceInterface(self.source_module)
+        self.module = RepoFilesSourceModule()
+        self.interface = RepoFilesSourceInterface(self.module)
 
     def type_test(self):
         """Test Repo files source module has a correct type."""
-        self.assertEqual(SourceType.REPO_FILES, self.source_module.type)
+        self.assertEqual(SourceType.REPO_FILES, self.module.type)
 
     def set_up_with_tasks_test(self):
         """Test Repo files Source set up call."""
-        tasks = self.source_module.set_up_with_tasks()
+        tasks = self.module.set_up_with_tasks()
         self.assertEqual(len(tasks), 1)
         self.assertIsInstance(tasks[0], SetUpRepoFilesSourceTask)
 
     def tear_down_with_tasks_test(self):
         """Test Repo files Source ready state for tear down."""
-        tasks = self.source_module.tear_down_with_tasks()
+        tasks = self.module.tear_down_with_tasks()
         self.assertEqual([], tasks)
 
     def ready_state_test(self):
         """Test Repo files Source ready state for set up."""
-        self.assertTrue(self.source_module.get_state())
+        self.assertTrue(self.module.get_state())
 
 
 class RepoFilesSourceSetupTaskTestCase(unittest.TestCase):

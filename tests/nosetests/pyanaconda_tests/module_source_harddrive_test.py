@@ -50,20 +50,20 @@ def _create_setup_task():
 class HardDriveSourceInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.source_module = HardDriveSourceModule()
-        self.source_interface = HardDriveSourceInterface(self.source_module)
+        self.module = HardDriveSourceModule()
+        self.interface = HardDriveSourceInterface(self.module)
 
         self.callback = PropertiesChangedCallback()
-        self.source_interface.PropertiesChanged.connect(self.callback)
+        self.interface.PropertiesChanged.connect(self.callback)
 
     def type_test(self):
         """Hard drive source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_HDD, self.source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_HDD, self.interface.Type)
 
     def empty_properties_test(self):
         """Hard drive source properties are empty when not set."""
-        self.assertEqual(self.source_interface.Partition, "")
-        self.assertEqual(self.source_interface.Directory, "")
+        self.assertEqual(self.interface.Partition, "")
+        self.assertEqual(self.interface.Directory, "")
 
     def setting_properties_test(self):
         """Hard drive source properties are correctly set."""
@@ -74,7 +74,7 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
         check_dbus_property(
             self,
             PAYLOAD_SOURCE_HARDDRIVE,
-            self.source_interface,
+            self.interface,
             *args, **kwargs
         )
 
@@ -82,11 +82,11 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
 class HardDriveSourceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.source_module = HardDriveSourceModule()
+        self.module = HardDriveSourceModule()
 
     def type_test(self):
         """Hard drive source module has a correct type."""
-        self.assertEqual(SourceType.HDD, self.source_module.type)
+        self.assertEqual(SourceType.HDD, self.module.type)
 
     def set_up_with_tasks_test(self):
         """Hard drive source set up task type and amount."""
@@ -95,7 +95,7 @@ class HardDriveSourceTestCase(unittest.TestCase):
         ]
 
         # task will not be public so it won't be published
-        tasks = self.source_module.set_up_with_tasks()
+        tasks = self.module.set_up_with_tasks()
 
         # Check the number of the tasks
         task_number = len(task_classes)
@@ -109,18 +109,19 @@ class HardDriveSourceTestCase(unittest.TestCase):
         """Hard drive source ready state for set up."""
         ismount.return_value = False
 
-        self.assertEqual(self.source_module.get_state(), SourceState.UNREADY)
-        ismount.assert_called_once_with(self.source_module._device_mount)
+        self.assertEqual(self.module.get_state(), SourceState.UNREADY)
+        ismount.assert_called_once_with(self.module._device_mount)
 
         ismount.reset_mock()
         ismount.return_value = True
 
-        task = self.source_module.set_up_with_tasks()[0]
+        task = self.module.set_up_with_tasks()[0]
         task.get_result = Mock(return_value=("/my/path", False))
         task.succeeded_signal.emit()
 
-        self.assertEqual(self.source_module.get_state(), SourceState.READY)
-        ismount.assert_called_once_with(self.source_module._device_mount)
+        self.assertEqual(self.module.get_state(), SourceState.READY)
+        ismount.assert_called_once_with(self.module._device_mount)
+
 
     def return_handler_test(self):
         """Hard drive source setup result propagates back."""
@@ -128,10 +129,10 @@ class HardDriveSourceTestCase(unittest.TestCase):
         # Test only the returning. To do that, fake what the magic in start() does.
         # Do not run() the task at all, less mocking needed that way.
         task._set_result((iso_mount_location, True))
-        self.source_module._handle_setup_task_result(task)
+        self.module._handle_setup_task_result(task)
 
-        self.assertEqual(iso_mount_location, self.source_module.install_tree_path)
-        self.assertEqual(True, self.source_module._uses_iso_mount)
+        self.assertEqual(iso_mount_location, self.module.install_tree_path)
+        self.assertEqual(True, self.module._uses_iso_mount)
 
 
 class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
