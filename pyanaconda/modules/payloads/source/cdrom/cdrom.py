@@ -17,34 +17,22 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
-from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import \
-    CdromSourceInterface
-from pyanaconda.modules.payloads.source.cdrom.initialization import \
-    SetUpCdromSourceTask, TearDownCdromSourceTask
+from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
+from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
+from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class CdromSourceModule(PayloadSourceBase):
+class CdromSourceModule(MountingSourceBase):
     """The CD-ROM source payload module."""
 
     @property
     def type(self):
         """Get type of this source."""
         return SourceType.CDROM
-
-    def is_ready(self):
-        """This source is ready for the installation to start."""
-        # TODO: this should be check on a special directory for every source
-        res = os.path.ismount(INSTALL_TREE)
-        log.debug("Source is set to %s ready state", res)
-        return res
 
     def for_publication(self):
         """Get the interface used to publish this source."""
@@ -56,14 +44,5 @@ class CdromSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        task = SetUpCdromSourceTask(INSTALL_TREE)
-        return [task]
-
-    def tear_down_with_tasks(self):
-        """Tear down the installation source.
-
-        :return: list of tasks required for the source clean-up
-        :rtype: [Task]
-        """
-        task = TearDownCdromSourceTask(INSTALL_TREE)
+        task = SetUpCdromSourceTask(self.mount_point)
         return [task]

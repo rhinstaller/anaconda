@@ -17,15 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
-from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask, \
-    TearDownNFSSourceTask
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
+from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -33,7 +29,7 @@ log = get_module_logger(__name__)
 __all__ = ["NFSSourceModule"]
 
 
-class NFSSourceModule(PayloadSourceBase):
+class NFSSourceModule(MountingSourceBase):
     """The NFS source module."""
 
     def __init__(self):
@@ -49,12 +45,6 @@ class NFSSourceModule(PayloadSourceBase):
     def for_publication(self):
         """Return a DBus representation."""
         return NFSSourceInterface(self)
-
-    def is_ready(self):
-        """This source is ready for the installation to start."""
-        ready = os.path.ismount(INSTALL_TREE)
-        log.debug("Source is set to %s ready state.", ready)
-        return ready
 
     @property
     def url(self):
@@ -84,12 +74,4 @@ class NFSSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        return [SetUpNFSSourceTask(INSTALL_TREE, self._url)]
-
-    def tear_down_with_tasks(self):
-        """Tear down the installation source for installation.
-
-        :return: list of tasks required for the source clean-up
-        :rtype: [Task]
-        """
-        return [TearDownNFSSourceTask(INSTALL_TREE)]
+        return [SetUpNFSSourceTask(self.mount_point, self._url)]

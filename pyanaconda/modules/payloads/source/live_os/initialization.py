@@ -18,43 +18,26 @@
 import os
 import stat
 
-from pyanaconda.payload.utils import mount, unmount
+from pyanaconda.payload.utils import mount
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 
 
-class TearDownLiveOSSourceTask(Task):
-    """Task to teardown installation source."""
-
-    def __init__(self, target_mount):
-        super().__init__()
-        self._target_mount = target_mount
-
-    @property
-    def name(self):
-        return "Tear down Live OS Installation Source"
-
-    def run(self):
-        """Run live installation source un-setup."""
-        unmount(self._target_mount)
-
-
-class SetUpLiveOSSourceTask(Task):
+class SetUpLiveOSSourceTask(SetUpMountTask):
     """Task to setup installation source."""
 
     def __init__(self, live_partition, target_mount):
-        super().__init__()
+        super().__init__(target_mount)
         self._live_partition = live_partition
-        self._target_mount = target_mount
 
     @property
     def name(self):
         return "Set up Live OS Installation Source"
 
-    def run(self):
+    def _do_mount(self):
         """Run live installation source setup."""
         # Mount the live device and copy from it instead of the overlay at /
         device_tree = STORAGE.get_proxy(DEVICE_TREE)

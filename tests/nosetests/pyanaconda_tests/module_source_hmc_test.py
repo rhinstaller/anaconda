@@ -21,13 +21,12 @@ import unittest
 
 from unittest.mock import patch, call
 
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.hmc.hmc import HMCSourceModule
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
-from pyanaconda.modules.payloads.source.hmc.initialization import TearDownHMCSourceTask, \
-    SetUpHMCSourceTask
+from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 
 
 class HMCSourceInterfaceTestCase(unittest.TestCase):
@@ -48,18 +47,6 @@ class HMCSourceModuleTestCase(unittest.TestCase):
     def setUp(self):
         self.module = HMCSourceModule()
 
-    @patch("os.path.ismount")
-    def ready_state_test(self, ismount):
-        """Check whether SE/HMC is ready."""
-        ismount.return_value = False
-        self.assertFalse(self.module.is_ready())
-
-        ismount.reset_mock()
-        ismount.return_value = True
-
-        self.assertTrue(self.module.is_ready())
-        ismount.assert_called_once_with(INSTALL_TREE)
-
     def set_up_with_tasks_test(self):
         """Get tasks to set up SE/HMC."""
         tasks = self.module.set_up_with_tasks()
@@ -67,7 +54,7 @@ class HMCSourceModuleTestCase(unittest.TestCase):
 
         task = tasks[0]
         self.assertIsInstance(task, SetUpHMCSourceTask)
-        self.assertEqual(task._target_mount, INSTALL_TREE)
+        self.assertEqual(task._target_mount, self.module.mount_point)
 
     def tear_down_with_tasks_test(self):
         """Get tasks to tear down SE/HMC."""
@@ -75,7 +62,7 @@ class HMCSourceModuleTestCase(unittest.TestCase):
         self.assertEqual(len(tasks), 1)
 
         task = tasks[0]
-        self.assertIsInstance(task, TearDownHMCSourceTask)
+        self.assertIsInstance(task, TearDownMountTask)
 
 
 class HMCSourceTasksTestCase(unittest.TestCase):
@@ -103,11 +90,3 @@ class HMCSourceTasksTestCase(unittest.TestCase):
                 call("/usr/sbin/lshmc", []),
                 call("/usr/bin/hmcdrvfs", [d])
             ])
-
-    @patch("pyanaconda.modules.payloads.source.hmc.initialization.unmount")
-    def tear_down_with_tasks_test(self, unmount):
-        """Tear down SE/HMC."""
-        with tempfile.TemporaryDirectory() as d:
-            task = TearDownHMCSourceTask(d)
-            task.run()
-            unmount.assert_called_once_with(d)

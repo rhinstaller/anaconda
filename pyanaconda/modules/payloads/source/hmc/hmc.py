@@ -17,14 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
-from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask, \
-    TearDownHMCSourceTask
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
+from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -32,7 +28,7 @@ log = get_module_logger(__name__)
 __all__ = ["HMCSourceModule"]
 
 
-class HMCSourceModule(PayloadSourceBase):
+class HMCSourceModule(MountingSourceBase):
     """The SE/HMC source module."""
 
     @property
@@ -44,24 +40,10 @@ class HMCSourceModule(PayloadSourceBase):
         """Return a DBus representation."""
         return HMCSourceInterface(self)
 
-    def is_ready(self):
-        """This source is ready for the installation to start."""
-        ready = os.path.ismount(INSTALL_TREE)
-        log.debug("Source is set to %s ready state.", ready)
-        return ready
-
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
 
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        return [SetUpHMCSourceTask(INSTALL_TREE)]
-
-    def tear_down_with_tasks(self):
-        """Tear down the installation source for installation.
-
-        :return: list of tasks required for the source clean-up
-        :rtype: [Task]
-        """
-        return [TearDownHMCSourceTask(INSTALL_TREE)]
+        return [SetUpHMCSourceTask(self.mount_point)]

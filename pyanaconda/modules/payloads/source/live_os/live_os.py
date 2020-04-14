@@ -20,21 +20,18 @@
 import os
 import stat
 
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
-from pyanaconda.modules.payloads.source.live_os.live_os_interface import \
-    LiveOSSourceInterface
-from pyanaconda.modules.payloads.source.live_os.initialization import \
-    SetUpLiveOSSourceTask, TearDownLiveOSSourceTask
+from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
+from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
+from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LiveOSSourceModule(PayloadSourceBase):
+class LiveOSSourceModule(MountingSourceBase):
     """The Live OS source payload module."""
 
     def __init__(self):
@@ -46,13 +43,6 @@ class LiveOSSourceModule(PayloadSourceBase):
     def type(self):
         """Get type of this source."""
         return SourceType.LIVE_OS_IMAGE
-
-    def is_ready(self):
-        """This source is ready for the installation to start."""
-        # TODO: this should be check on a special directory for every source
-        res = os.path.ismount(INSTALL_TREE)
-        log.debug("Source is set to %s ready state", res)
-        return res
 
     @property
     def image_path(self):
@@ -109,14 +99,5 @@ class LiveOSSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        task = SetUpLiveOSSourceTask(self._image_path, INSTALL_TREE)
-        return [task]
-
-    def tear_down_with_tasks(self):
-        """Tear down the installation source for installation.
-
-        :return: list of tasks required for the source clean-up
-        :rtype: [Task]
-        """
-        task = TearDownLiveOSSourceTask(INSTALL_TREE)
+        task = SetUpLiveOSSourceTask(self._image_path, self.mount_point)
         return [task]

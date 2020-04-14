@@ -17,43 +17,22 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.payload.utils import unmount
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 
 log = get_module_logger(__name__)
 
-__all__ = ["TearDownHMCSourceTask", "SetUpHMCSourceTask"]
+__all__ = ["SetUpHMCSourceTask"]
 
 
-class TearDownHMCSourceTask(Task):
-    """Task to teardown the SE/HMC source."""
-
-    def __init__(self, target_mount):
-        super().__init__()
-        self._target_mount = target_mount
-
-    @property
-    def name(self):
-        return "Tear down the SE/HMC source"
-
-    def run(self):
-        """Tear down the installation source."""
-        unmount(self._target_mount)
-
-
-class SetUpHMCSourceTask(Task):
+class SetUpHMCSourceTask(SetUpMountTask):
     """Task to set up the SE/HMC source."""
-
-    def __init__(self, target_mount):
-        super().__init__()
-        self._target_mount = target_mount
 
     @property
     def name(self):
         return "Set up the SE/HMC source"
 
-    def run(self):
+    def _do_mount(self):
         """Set up the installation source."""
         log.debug("Trying to mount the content of HMC media drive.")
 

@@ -18,7 +18,7 @@
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.payload.utils import mount, unmount, PayloadSetupError
 from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
@@ -26,43 +26,22 @@ from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["SetUpCdromSourceTask", "TearDownCdromSourceTask"]
+__all__ = ["SetUpCdromSourceTask"]
 
 
-class TearDownCdromSourceTask(Task):
-    """Task to teardown installation source."""
-
-    def __init__(self, target_mount):
-        super().__init__()
-        self._target_mount = target_mount
-
-    @property
-    def name(self):
-        return "Tear down CD-ROM Installation Source"
-
-    def run(self):
-        """Run live installation source un-setup."""
-        log.debug("Unmounting CD-ROM installation source")
-        unmount(self._target_mount)
-
-
-class SetUpCdromSourceTask(Task):
+class SetUpCdromSourceTask(SetUpMountTask):
     """Task to setup installation source."""
-
-    def __init__(self, target_mount):
-        super().__init__()
-        self._target_mount = target_mount
-        self._device_name = ""
 
     @property
     def name(self):
         return "Set up CD-ROM Installation Source"
 
-    def run(self):
+    def _do_mount(self):
         """Run CD-ROM installation source setup."""
         log.debug("Trying to detect CD-ROM automatically")
 
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        device_name = ""
 
         for dev_name in device_tree.FindOpticalMedia():
             try:
@@ -72,11 +51,11 @@ class SetUpCdromSourceTask(Task):
                 continue
 
             if is_valid_install_disk(self._target_mount):
-                self._device_name = dev_name
+                device_name = dev_name
                 log.info("using CD-ROM device %s mounted at %s", dev_name, self._target_mount)
                 break
             else:
                 unmount(self._target_mount)
 
-        if not self._device_name:
+        if not device_name:
             raise SourceSetupError("Found no CD-ROM")
