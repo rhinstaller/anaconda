@@ -21,40 +21,18 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.utils import find_and_mount_device, \
     find_and_mount_iso_image
-
-from pyanaconda.payload.utils import unmount
 from pyanaconda.payload.image import verify_valid_installtree
-
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
-__all__ = ["SetUpHardDriveSourceTask", "TearDownHardDriveSourceTask"]
-
-
-class TearDownHardDriveSourceTask(Task):
-    """Task to teardown installation source."""
-
-    def __init__(self, device_mount, iso_mount):
-        super().__init__()
-        self._device_mount = device_mount
-        self._iso_mount = iso_mount
-
-    @property
-    def name(self):
-        return "Tear down Hard drive installation source"
-
-    def run(self):
-        """Run live installation source un-setup."""
-        log.debug("Unmounting Hard drive installation source")
-        unmount(self._iso_mount)
-        unmount(self._device_mount)
+__all__ = ["SetUpHardDriveSourceTask"]
 
 
 class SetUpHardDriveSourceTask(Task):
     """Task to setup installation source."""
 
     def __init__(self, device_mount, iso_mount, partition, directory):
-        # TODO need better name for target_mount
         super().__init__()
         self._device_mount = device_mount
         self._iso_mount = iso_mount
@@ -68,10 +46,21 @@ class SetUpHardDriveSourceTask(Task):
     def run(self):
         """Run Hard drive installation source setup.
 
+        Always sets up two mount points: First for the device, and second for the ISO image or a
+        bind for unpacked ISO. These depend on each other, and must be destroyed in the correct
+        order again.
+
+        :raise: SourceSetupError
         :return: path to the install tree
         :rtype: str
         """
         log.debug("Setting up Hard drive source")
+
+        for mount_point in [self._device_mount, self._iso_mount]:
+            if os.path.ismount(mount_point):
+                raise SourceSetupError("The mount point {} is already in use.".format(
+                    mount_point
+                ))
 
         if not find_and_mount_device(self._partition, self._device_mount):
             raise SourceSetupError(
@@ -83,9 +72,9 @@ class SetUpHardDriveSourceTask(Task):
         )
 
         if find_and_mount_iso_image(full_path_on_mounted_device, self._iso_mount):
-            return self._iso_mount
+            return self._iso_mount, True
         elif verify_valid_installtree(full_path_on_mounted_device):
-            return full_path_on_mounted_device
+            return full_path_on_mounted_device, False
 
         raise SourceSetupError(
             "Nothing useful found for Hard drive ISO source at partition={} directory={}".format(

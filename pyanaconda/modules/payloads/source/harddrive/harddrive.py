@@ -19,17 +19,16 @@
 #
 import os
 
-from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.signal import Signal
-
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
     HardDriveSourceInterface
-from pyanaconda.modules.payloads.source.harddrive.initialization import \
-    SetUpHardDriveSourceTask, TearDownHardDriveSourceTask
+from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
@@ -43,8 +42,13 @@ class HardDriveSourceModule(PayloadSourceBase):
         self._device = ""
         self.device_changed = Signal()
         self._install_tree_path = ""
-        self._device_mount = INSTALL_TREE + "_device"
-        self._iso_mount = INSTALL_TREE + "_iso"
+        self._device_mount = MountPointGenerator.generate_mount_point(
+            self.type.value.lower() + "-device"
+        )
+        self._iso_mount = MountPointGenerator.generate_mount_point(
+            self.type.value.lower() + "-iso"
+        )
+        self._uses_iso_mount = False
 
     @property
     def type(self):
@@ -53,9 +57,7 @@ class HardDriveSourceModule(PayloadSourceBase):
 
     def get_state(self):
         """Get state of this source."""
-        # TODO: this should be check on a special directory for every source
         res = os.path.ismount(self._device_mount) and bool(self._install_tree_path)
-        log.debug("Source is set to %s ready state", res)
         return SourceState.from_bool(res)
 
     def for_publication(self):
@@ -129,9 +131,13 @@ class HardDriveSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source clean-up
         :rtype: [Task]
         """
-        task = TearDownHardDriveSourceTask(self._device_mount, self._iso_mount,)
-        return [task]
+        tasks = []
+        if self._uses_iso_mount:
+            tasks.append(TearDownMountTask(self._iso_mount))
+        tasks.append(TearDownMountTask(self._device_mount))
+        return tasks
 
     def _handle_setup_task_result(self, task):
-        self._install_tree_path = task.get_result()
+        result = task.get_result()
+        self._install_tree_path, self._uses_iso_mount = result
         log.debug("Hard drive install tree path is set to '%s'", self._install_tree_path)
