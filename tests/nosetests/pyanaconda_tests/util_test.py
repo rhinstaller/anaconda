@@ -66,6 +66,7 @@ class UpcaseFirstLetterTests(unittest.TestCase):
         self.assertEqual(util.upcase_first_letter("czech Republic"),
                          "Czech Republic")
 
+
 class RunProgramTests(unittest.TestCase):
     def run_program_test(self):
         """Test the _run_program method."""
@@ -462,6 +463,7 @@ done
             proc.communicate()
         self.assertRaises(ExitError, WatchProcesses.watch_process, proc, "test2")
 
+
 class MiscTests(unittest.TestCase):
 
     def mkdir_chain_test(self):
@@ -817,6 +819,24 @@ class MiscTests(unittest.TestCase):
         self.assertEqual(conf.target.physical_root, "/mnt/sysimage")
         self.assertEqual(conf.target.system_root, "/mnt/sysroot")
 
+    def join_paths_test(self):
+        self.assertEqual(util.join_paths("/first/path/"),
+                         "/first/path/")
+        self.assertEqual(util.join_paths(""),
+                         "")
+        self.assertEqual(util.join_paths("/first/path/", "/second/path"),
+                         "/first/path/second/path")
+        self.assertEqual(util.join_paths("/first/path/", "/second/path", "/third/path"),
+                         "/first/path/second/path/third/path")
+        self.assertEqual(util.join_paths("/first/path/", "/second/path", "third/path"),
+                         "/first/path/second/path/third/path")
+        self.assertEqual(util.join_paths("/first/path/", "second/path"),
+                         "/first/path/second/path")
+        self.assertEqual(util.join_paths("first/path", "/second/path"),
+                         "first/path/second/path")
+        self.assertEqual(util.join_paths("first/path", "second/path"),
+                         "first/path/second/path")
+
     def decode_bytes_test(self):
         self.assertEqual("STRING", util.decode_bytes("STRING"))
         self.assertEqual("BYTES", util.decode_bytes(b"BYTES"))
@@ -826,14 +846,23 @@ class MiscTests(unittest.TestCase):
 
     @patch.dict('sys.modules')
     def get_anaconda_version_string_test(self):
+        # Forget imported modules from pyanaconda. We have to forget every parent module of
+        # pyanaconda.version but this is just more robust and easier. Without this the
+        # version module is already imported and it's not loaded again.
+        for name in list(sys.modules):
+            if name.startswith('pyanaconda'):
+                sys.modules.pop(name)
+
         # Disable the version module.
         sys.modules['pyanaconda.version'] = None
-        self.assertEqual(util.get_anaconda_version_string(), "unknown")
+
+        from pyanaconda.core.util import get_anaconda_version_string
+        self.assertEqual(get_anaconda_version_string(), "unknown")
 
         # Mock the version module.
         sys.modules['pyanaconda.version'] = Mock(
             __version__="1.0",
             __build_time_version__="1.0-1"
         )
-        self.assertEqual(util.get_anaconda_version_string(), "1.0")
-        self.assertEqual(util.get_anaconda_version_string(build_time_version=True), "1.0-1")
+        self.assertEqual(get_anaconda_version_string(), "1.0")
+        self.assertEqual(get_anaconda_version_string(build_time_version=True), "1.0-1")
