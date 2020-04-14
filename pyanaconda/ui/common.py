@@ -480,6 +480,8 @@ class StandaloneSpoke(Spoke):
     preForHub = None
     postForHub = None
 
+    priority = 0
+
     def __init__(self, storage, payload):
         """Create a StandaloneSpoke instance."""
         if self.preForHub and self.postForHub:
