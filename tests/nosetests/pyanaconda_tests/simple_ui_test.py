@@ -21,6 +21,7 @@ import sys
 import unittest
 
 from unittest.mock import Mock, patch
+from pyanaconda.ui import UserInterface
 from pyanaconda.ui.common import StandaloneSpoke
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
 
@@ -56,6 +57,10 @@ class SimpleUITestCase(unittest.TestCase):
     def action_classes(self):
         return self.interface._collectActionClasses(self.paths["spokes"], StandaloneSpoke)
 
+    @property
+    def ordered_action_classes(self):
+        return self.interface._orderActionClasses(self.action_classes, self.hubs)
+
     def _get_action_class_names(self):
         classes = self.interface._orderActionClasses(self.action_classes, self.hubs)
         return [cls.__name__ for cls in classes]
@@ -69,6 +74,29 @@ class SimpleUITestCase(unittest.TestCase):
     def _get_category_names(self, hub_class):
         categories = self._get_categories(hub_class)
         return {c.__name__:  list(sorted(s.__name__ for s in categories[c])) for c in categories}
+
+    def _check_spokes_priority_uniqueness(self):
+        # Force us to always decide order of standalone spokes based on priority not by name.
+        # This will ordering errors easier to spot.
+        spokes = self.ordered_action_classes
+
+        for hub in self.hubs:
+            pre_spokes = UserInterface._filter_spokes_by_pre_for_hub_reference(spokes, hub)
+            self._check_spokes_with_same_priority(pre_spokes)
+            post_spokes = UserInterface._filter_spokes_by_post_for_hub_reference(spokes, hub)
+            self._check_spokes_with_same_priority(post_spokes)
+
+    def _check_spokes_with_same_priority(self, spokes):
+        res = dict()
+
+        for spoke in spokes:
+            priority = spoke.priority
+            name = spoke.__name__
+
+            if priority in res:
+                msg = "Spokes {} and {} have the same priority!".format(res[priority], name)
+                self.assertNotIn(priority, res, msg)
+            res[priority] = name
 
     @patch_dbus_get_proxy
     def tui_test(self, proxy_getter):
@@ -109,6 +137,10 @@ class SimpleUITestCase(unittest.TestCase):
                 'UserSpoke'
             ]
         })
+
+        # Force us to always decide order of standalone spokes based on priority not by name.
+        # This will ordering errors easier to spot.
+        self._check_spokes_priority_uniqueness()
 
     @patch_dbus_get_proxy
     @patch("pyanaconda.ui.gui.Gtk.Builder")
@@ -156,3 +188,7 @@ class SimpleUITestCase(unittest.TestCase):
                 'UserSpoke'
             ]}
         )
+
+        # Force us to always decide order of standalone spokes based on priority not by name.
+        # This will ordering errors easier to spot.
+        self._check_spokes_priority_uniqueness()
