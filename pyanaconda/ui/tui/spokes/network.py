@@ -233,10 +233,11 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._update_editable_configurations()
 
     def _update_editable_configurations(self):
-        device_configurations = self._network_module.GetDeviceConfigurations()
-        self.editable_configurations = [NetworkDeviceConfiguration.from_structure(dc)
-                                        for dc in device_configurations
-                                        if dc['device-type'] in self.configurable_device_types]
+        device_configurations = NetworkDeviceConfiguration.from_structure_list(
+            self._network_module.GetDeviceConfigurations()
+        )
+        self.editable_configurations = [dc for dc in device_configurations
+                                        if dc.device_type in self.configurable_device_types]
 
     @property
     def completed(self):
