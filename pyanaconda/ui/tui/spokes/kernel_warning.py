@@ -29,7 +29,6 @@ __all__ = ["KernelWarningSpoke"]
 class KernelWarningSpoke(StandaloneTUISpoke):
     """Spoke for kernel-related warnings."""
     preForHub = SummaryHub
-    priority = 0
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -43,7 +43,6 @@ class ProgressSpoke(StandaloneTUISpoke):
           :parts: 3
     """
     postForHub = SummaryHub
-    priority = 0
 
     def __init__(self, ksdata, storage, payload):
         self.initialize_start()
