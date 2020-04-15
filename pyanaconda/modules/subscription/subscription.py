@@ -20,6 +20,7 @@
 import copy
 import warnings
 
+
 from pyanaconda.core import util
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
@@ -40,6 +41,9 @@ from pyanaconda.modules.subscription import system_purpose
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask
+from pyanaconda.modules.subscription.initialization import StartRHSMTask
+from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
+
 
 from pykickstart.errors import KickstartParseWarning
 
@@ -87,13 +91,24 @@ class SubscriptionService(KickstartService):
         self.subscription_attached_changed = Signal()
         self._subscription_attached = False
 
-        # FIXME: handle rhsm.service startup in a safe manner
+        # RHSM service startup and access
+        self._rhsm_startup_task = StartRHSMTask()
+        self._rhsm_observer = RHSMObserver(self._rhsm_startup_task.is_service_available)
 
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(SUBSCRIPTION.namespace)
         DBus.publish_object(SUBSCRIPTION.object_path, SubscriptionInterface(self))
         DBus.register_service(SUBSCRIPTION.service_name)
+
+    def run(self):
+        """Initiate RHSM service startup before starting the main loop.
+
+        This way RHSM service can startup in parallel without blocking
+        startup of the Subscription module.
+        """
+        self._rhsm_startup_task.start()
+        super().run()
 
     @property
     def kickstart_specification(self):
@@ -408,3 +423,20 @@ class SubscriptionService(KickstartService):
                 connect_to_insights=self.connect_to_insights
             )
         ]
+
+    # RHSM DBus API access
+    def rhsm_observer(self):
+        """Provide access to the RHSM DBus service observer.
+
+        This observer handles various peculiarities of the
+        RHSM DBus API startup and should be used as the
+        only access point to the RHSM Dbus API.
+
+        If you need to RHSM DBus API object, just call the
+        get_proxy() method of the observer with object
+        identifier.
+
+        :return: RHSM DBus API observer
+        :rtype: RHSMObserver instance
+        """
+        return self._rhsm_observer
