@@ -1316,6 +1316,8 @@ if __name__ == "__main__":
     if not flags.dirInstall:
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
                                      args=(anaconda.storage, ksdata, anaconda.protected)))
+
+    if not flags.dirInstall and not flags.imageInstall:
         threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT, target=time_initialize,
                                      args=(ksdata.timezone, anaconda.storage, anaconda.bootloader)))
 
