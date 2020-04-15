@@ -321,6 +321,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 15 2020 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.159-1
+- Do not run hwclock when using image install mode (bcl)
+  Resolves: rhbz#1766785
+
 * Tue Sep 10 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.158-1
 - network: use DEVICETYPE for team when updating virtual slaves ifcfgs
   (rvykydal)
