@@ -100,3 +100,9 @@ SOURCE_NAMESPACE = (
     *PAYLOADS_NAMESPACE,
     "Source"
 )
+
+# System service namespaces
+
+RHSM_NAMESPACE = (
+    "com", "redhat", "RHSM1"
+)
