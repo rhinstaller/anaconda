@@ -15,12 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-
 from blivet.arch import get_arch
 from blivet.util import mount
 
 from pyanaconda.core.storage import device_matches
+from pyanaconda.core.util import join_paths
 from pyanaconda.payload.image import find_first_iso_image
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -41,7 +40,7 @@ def is_valid_install_disk(tree_dir):
     :rtype: bool
     """
     try:
-        with open(os.path.join(tree_dir, ".discinfo"), "r") as f:
+        with open(join_paths(tree_dir, ".discinfo"), "r") as f:
             f.readline()  # throw away timestamp
             f.readline()  # throw away description
             arch = f.readline().strip()
@@ -90,7 +89,7 @@ def find_and_mount_iso_image(image_location, mount_point):
     image_filename = find_first_iso_image(image_location)
     if not image_filename:
         return False
-    full_image_path = os.path.join(image_location, image_filename)
+    full_image_path = join_paths(image_location, image_filename)
     try:
         mount(full_image_path, mount_point, fstype='iso9660', options="ro")
         return True
