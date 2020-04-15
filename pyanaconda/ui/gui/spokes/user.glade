@@ -110,6 +110,7 @@
                       <object class="GtkEntry" id="username_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="width_chars">50</property>
                         <signal name="changed" handler="on_username_changed" swapped="no"/>
                         <signal name="changed" handler="on_username_set_by_user" swapped="no"/>
                         <child internal-child="accessible">
@@ -195,19 +196,6 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">7</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label6">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Tip:&lt;/b&gt; Keep your user name shorter than 32 characters and do not use spaces.</property>
-                        <property name="use_markup">True</property>
-                        <property name="xalign">0</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">2</property>
                       </packing>
                     </child>
                     <child>
