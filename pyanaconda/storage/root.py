@@ -124,28 +124,21 @@ def _find_existing_installations(devicetree):
             device.teardown()
             continue
 
-        try:
-            (architecture, product, version) = get_release_string(chroot=sysroot)
-        except ValueError:
-            name = _("Linux on %s") % device.name
-        else:
-            # I'd like to make this finer grained, but it'd be very difficult
-            # to translate.
-            if not product or not version or not architecture:
-                name = _("Unknown Linux")
-            elif "linux" in product.lower():
-                name = _("%(product)s %(version)s for %(arch)s") % \
-                    {"product": product, "version": version, "arch": architecture}
-            else:
-                name = _("%(product)s Linux %(version)s for %(arch)s") % \
-                    {"product": product, "version": version, "arch": architecture}
-
+        architecture, product, version = get_release_string(chroot=sysroot)
         (mounts, swaps) = _parse_fstab(devicetree, chroot=sysroot)
         blivet_util.umount(mountpoint=sysroot)
+
         if not mounts and not swaps:
             # empty /etc/fstab. weird, but I've seen it happen.
             continue
-        roots.append(Root(mounts=mounts, swaps=swaps, name=name))
+
+        roots.append(Root(
+            product=product,
+            version=version,
+            arch=architecture,
+            mounts=mounts,
+            swaps=swaps
+        ))
 
     return roots
 
@@ -170,13 +163,16 @@ def get_release_string(chroot):
     except OSError:
         rel_arch = None
 
-    filename = "%s/etc/redhat-release" % sysroot
-    if os.access(filename, os.R_OK):
-        (rel_name, rel_ver) = _release_from_redhat_release(filename)
-    else:
-        filename = "%s/etc/os-release" % sysroot
+    try:
+        filename = "%s/etc/redhat-release" % sysroot
         if os.access(filename, os.R_OK):
-            (rel_name, rel_ver) = _release_from_os_release(filename)
+            (rel_name, rel_ver) = _release_from_redhat_release(filename)
+        else:
+            filename = "%s/etc/os-release" % sysroot
+            if os.access(filename, os.R_OK):
+                (rel_name, rel_ver) = _release_from_os_release(filename)
+    except ValueError:
+        pass
 
     return rel_arch, rel_name, rel_ver
 
@@ -312,32 +308,48 @@ def _parse_fstab(devicetree, chroot):
 class Root(object):
     """A root represents an existing OS installation."""
 
-    def __init__(self, mounts=None, swaps=None, name=None):
+    def __init__(self, name=None, product=None, version=None, arch=None, mounts=None, swaps=None):
+        """Create a new OS representation.
+
+        :param name: a name of the OS or None
+        :param product: a distribution name or None
+        :param version: a distribution version or None
+        :param arch: a machine's architecture or None
+        :param mounts: a dictionary of mount points and devices
+        :param swaps: a list of swap devices
         """
-            :keyword mounts: mountpoint dict
-            :type mounts: dict (mountpoint keys and :class:`blivet.devices.StorageDevice` values)
-            :keyword swaps: swap device list
-            :type swaps: list of :class:`blivet.devices.StorageDevice`
-            :keyword name: name for this installed OS
-            :type name: str
-        """
-        # mountpoint key, StorageDevice value
-        if not mounts:
-            self.mounts = {}
+        self._name = name
+        self._product = product
+        self._version = version
+        self._arch = arch
+
+        # Blivet needs to be able to set these attributes.
+        self.mounts = mounts or {}
+        self.swaps = swaps or []
+
+    @property
+    def name(self):
+        """The name of the OS."""
+        # Use the specified name.
+        if self._name:
+            return self._name
+
+        # Or generate a translated name.
+        if not self._product or not self._version or not self._arch:
+            return _("Unknown Linux")
+
+        if "linux" in self._product.lower():
+            template = _("{product} {version} for {arch}")
         else:
-            self.mounts = mounts
+            template = _("{product} Linux {version} for {arch}")
 
-        # StorageDevice
-        if not swaps:
-            self.swaps = []
-        else:
-            self.swaps = swaps
-
-        self.name = name    # eg: "Fedora Linux 16 for x86_64", "Linux on sda2"
-
-        if not self.name and "/" in self.mounts:
-            self.name = self.mounts["/"].format.uuid
+        return template.format(
+            product=self._product,
+            version=self._version,
+            arch=self._arch
+        )
 
     @property
     def device(self):
+        """The root device or None."""
         return self.mounts.get("/")
