@@ -19,7 +19,9 @@
 #
 import logging
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, PropertyMock
+
+from blivet.formats.fs import BTRFS
 
 from pyanaconda.bootloader import BootLoaderFactory
 from pyanaconda.bootloader.extlinux import EXTLINUX
@@ -1379,15 +1381,28 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
     @patch_dbus_publish_object
-    def btrfs_kickstart_test(self, publisher):
+    @patch.object(BTRFS, "supported", new_callable=PropertyMock)
+    @patch.object(BTRFS, "formattable", new_callable=PropertyMock)
+    def btrfs_kickstart_test(self, supported, formattable, publisher):
         """Test the btrfs command."""
         ks_in = """
         btrfs / --subvol --name=root fedora-btrfs
         """
         ks_out = ""
+
+        supported.return_value = True
+        formattable.return_value = True
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+        supported.return_value = False
+        formattable.return_value = True
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+        supported.return_value = True
+        formattable.return_value = False
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
 
 class StorageModuleTestCase(unittest.TestCase):

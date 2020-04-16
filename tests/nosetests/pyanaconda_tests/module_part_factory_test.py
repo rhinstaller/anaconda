@@ -18,7 +18,9 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from unittest.mock import patch, PropertyMock
 
+from blivet.formats.fs import BTRFS
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, \
     KickstartSpecificationParser
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
@@ -44,8 +46,13 @@ class PartitioningFactoryTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             PartitioningFactory.create_partitioning("INVALID")
 
-    def get_method_for_kickstart_test(self):
+    @patch.object(BTRFS, "formattable", new_callable=PropertyMock)
+    @patch.object(BTRFS, "supported", new_callable=PropertyMock)
+    def get_method_for_kickstart_test(self, supported, formattable):
         """Test get_method_for_kickstart."""
+        supported.return_value = True
+        formattable.return_value = True
+
         self._check_method(
             PartitioningMethod.AUTOMATIC,
             "autopart"
