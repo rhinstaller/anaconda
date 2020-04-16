@@ -353,6 +353,30 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 16 2020 Martin Kolman <mkolman@redhat.com> - 33.10-1
+- subscription: Implement install_with_tasks() method (mkolman)
+- subscription: Add the IsSubscriptionAttached property (mkolman)
+- subscription: Add ConnectToInsights task (mkolman)
+- Create product configuration files for Red Hat Virtualization (vponcova)
+- Create the configuration section Storage Constraints (vponcova)
+- Extend tests for the default storage checker (vponcova)
+- Represent the constraint STORAGE_MIN_RAM by an instance of Size (vponcova)
+- Remove the constraint STORAGE_MIN_ROOT (vponcova)
+- Extend support for custom storage checking (vponcova)
+- Add a new type of the default partitioning for virtualizations (vponcova)
+- Add the configuration option default_scheme (vponcova)
+- Add the configuration option help_directory (vponcova)
+- Accept `harddrive --dir` without absolute paths (jkonecny)
+- Make the kickstart support for the btrfs command optional (vponcova)
+- Fix non-root dir of install tree HD installation (#1689194) (jkonecny)
+- subscription: Add missing pieces for the Subscription DBus module (mkolman)
+- Add UI support for the ZIPL Secure boot (vponcova)
+- Add DBus support for the ZIPL Secure Boot (vponcova)
+- Add code convention to prefer join_paths over os.path.join (jkonecny)
+- Add helper function force_path_join (jkonecny)
+- Fix get anaconda version test after test file rename (vponcova)
+- Rename iutil_test to util_test (jkonecny)
+
 * Wed Apr 08 2020 Martin Kolman <mkolman@redhat.com> - 33.9-1
 - Fix bad import of general errors (jkonecny)
 - Improve code convention code formatting (jkonecny)
