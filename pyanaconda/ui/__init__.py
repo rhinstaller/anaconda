@@ -180,18 +180,19 @@ class UserInterface(object):
                      attribute of Spokes to pick up
         :type hubs: common.Hub based types
         """
+        ordered_spokes = sorted(spokes, key=lambda x: x.__name__)
         action_classes = []
 
         for hub in hubs:
             action_classes.extend(
                 sorted(
-                    UserInterface._filter_spokes_by_pre_for_hub_reference(spokes, hub),
+                    UserInterface._filter_spokes_by_pre_for_hub_reference(ordered_spokes, hub),
                     key=lambda obj: obj.priority)
             )
             action_classes.append(hub)
             action_classes.extend(
                 sorted(
-                    UserInterface._filter_spokes_by_post_for_hub_reference(spokes, hub),
+                    UserInterface._filter_spokes_by_post_for_hub_reference(ordered_spokes, hub),
                     key=lambda obj: obj.priority)
             )
 
