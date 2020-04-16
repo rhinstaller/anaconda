@@ -38,6 +38,8 @@ class SubscriptionInterface(KickstartModuleInterface):
                             self.implementation.subscription_request_changed)
         self.watch_property("InsightsEnabled",
                             self.implementation.connect_to_insights_changed)
+        self.watch_property("IsSubscriptionAttached",
+                            self.implementation.subscription_attached_changed)
 
     def GetValidRoles(self) -> List[Str]:
         """Return all valid system purpose roles.
@@ -115,3 +117,8 @@ class SubscriptionInterface(KickstartModuleInterface):
         :param bool connect_to_insights: True to connect, False not to connect
         """
         self.implementation.set_connect_to_insights(connect_to_insights)
+
+    @property
+    def IsSubscriptionAttached(self) -> Bool:
+        """Report if an entitlement has been successfully attached."""
+        return self.implementation.subscription_attached
