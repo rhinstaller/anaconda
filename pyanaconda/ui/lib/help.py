@@ -22,7 +22,7 @@ import os
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.localization import find_best_locale_match
-from pyanaconda.core.constants import DEFAULT_LANG, HELP_DIR, HELP_MAIN_PAGE_GUI, HELP_MAIN_PAGE_TUI
+from pyanaconda.core.constants import DEFAULT_LANG, HELP_MAIN_PAGE_GUI, HELP_MAIN_PAGE_TUI
 from pyanaconda.core.util import startProgram
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -31,17 +31,17 @@ log = get_module_logger(__name__)
 yelp_process = None
 
 
-def _get_best_help_file(help_folder, help_file):
+def _get_best_help_file(help_file):
     """
     Return the path to the best help file for the current language and available
     help content
 
-    :param str help_folder: a path to folder where we should look for the help files
     :param str help_file: name of the requested help file
     :return: path to the best help file or ``None`` is no match is found
     :rtype: str or NoneType
 
     """
+    help_folder = conf.ui.help_directory
     current_lang = os.environ["LANG"]
     # list all available languages for the Anaconda help
     # * content is stored in folders named after the given language code
@@ -104,7 +104,7 @@ def get_help_path(help_file, plain_text=False):
     # help l10n handling
 
     if help_file:
-        help_path = _get_best_help_file(HELP_DIR, help_file)
+        help_path = _get_best_help_file(help_file)
         if help_path is not None:
             return help_path
 
@@ -122,13 +122,13 @@ def get_help_path(help_file, plain_text=False):
     # the screen did not have a helpFile defined or the defined help file
     # does not exist, so next try to check if we can find the main page
     # of the installation guide and use it instead
-    help_path = _get_best_help_file(HELP_DIR, main_page)
+    help_path = _get_best_help_file(main_page)
     if help_path is not None:
         return help_path
 
     # looks like the installation guide is not available, so just return
     # a placeholder page, which should be always present
-    return _get_best_help_file(HELP_DIR, placeholder)
+    return _get_best_help_file(placeholder)
 
 
 def start_yelp(help_path):

@@ -623,7 +623,10 @@ if __name__ == "__main__":
     from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
     from dasbus.typing import get_variant, Int
     storage_checker = STORAGE.get_proxy(STORAGE_CHECKER)
-    storage_checker.SetConstraint(constants.STORAGE_MIN_RAM, get_variant(Int, min_ram))
+    storage_checker.SetConstraint(
+        constants.STORAGE_MIN_RAM,
+        get_variant(Int, min_ram * 1024 * 1024)
+    )
 
     # Set the disk images.
     from pyanaconda.modules.common.constants.objects import DISK_SELECTION

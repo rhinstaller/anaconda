@@ -22,14 +22,18 @@ from gi.repository import BlockDev as blockdev
 from collections import defaultdict
 
 from blivet import arch, util
+from blivet.devicefactory import get_device_type
 from blivet.size import Size
 
 from pyanaconda import isys
-from pyanaconda.core.constants import STORAGE_MIN_ROOT, productName, STORAGE_REFORMAT_BLACKLIST, \
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLACKLIST, \
     STORAGE_REFORMAT_WHITELIST, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_RAM, \
     STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
-    STORAGE_LUKS2_MIN_RAM
+    STORAGE_LUKS2_MIN_RAM, STORAGE_ROOT_DEVICE_TYPES, STORAGE_REQ_PARTITION_SIZES, \
+    STORAGE_MUST_NOT_BE_ON_ROOT
 from pyanaconda.core.i18n import _
+from pyanaconda.core.storage import DEVICE_TEXT_MAP
 from pyanaconda.platform import platform as _platform
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -46,20 +50,20 @@ def verify_root(storage, constraints, report_error, report_warning):
     """
     root = storage.fsset.root_device
 
-    if root:
-        if root.size < constraints[STORAGE_MIN_ROOT]:
-            report_warning(_("Your root partition is less than %(size)s "
-                             "which is usually too small to install "
-                             "%(product)s.")
-                           % {'size': constraints[STORAGE_MIN_ROOT],
-                              'product': productName})
-    else:
+    if not root:
         report_error(_("You have not defined a root partition (/), "
                        "which is required for installation of %s"
                        " to continue.") % (productName,))
 
     if root and root.format.exists and root.format.mountable and root.format.mountpoint == "/":
         report_error(_("You must create a new file system on the root device."))
+
+    if storage.root_device and constraints[STORAGE_ROOT_DEVICE_TYPES]:
+        device_type = get_device_type(storage.root_device)
+        device_types = constraints[STORAGE_ROOT_DEVICE_TYPES]
+        if device_type not in device_types:
+            report_error(_("Your root partition must be on a device of type: %s.")
+                         % ", ".join(DEVICE_TEXT_MAP[t] for t in device_types))
 
 
 def verify_s390_constraints(storage, constraints, report_error, report_warning):
@@ -135,6 +139,12 @@ def verify_partition_sizes(storage, constraints, report_error, report_warning):
                              "for a normal %(productName)s install.")
                            % {'mount': mount, 'size': size,
                               'productName': productName})
+
+    for (mount, size) in constraints[STORAGE_REQ_PARTITION_SIZES].items():
+        if mount in filesystems and filesystems[mount].size < size:
+            report_error(_("Your %(mount)s partition size is lower "
+                           "than required %(size)s.")
+                         % {'mount': mount, 'size': size})
 
 
 def verify_partition_format_sizes(storage, constraints, report_error, report_warning):
@@ -244,7 +254,7 @@ def verify_swap(storage, constraints, report_error, report_warning):
 
     if not swaps:
         installed = util.total_memory()
-        required = Size("%s MiB" % (constraints[STORAGE_MIN_RAM] + isys.NO_SWAP_EXTRA_RAM))
+        required = constraints[STORAGE_MIN_RAM] + Size("{} MiB".format(isys.NO_SWAP_EXTRA_RAM))
 
         if not constraints[STORAGE_SWAP_IS_RECOMMENDED]:
             if installed < required:
@@ -300,6 +310,22 @@ def verify_mountpoints_on_root(storage, constraints, report_error, report_warnin
         if mountpoint in constraints[STORAGE_MUST_BE_ON_ROOT]:
             report_error(_("This mount point is invalid. The %s directory must "
                            "be on the / file system.") % mountpoint)
+
+
+def verify_mountpoints_not_on_root(storage, constraints, report_error, report_warning):
+    """ Verify mountpoints not on the root.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    filesystems = storage.mountpoints
+
+    for mountpoint in constraints[STORAGE_MUST_NOT_BE_ON_ROOT]:
+        if mountpoint not in filesystems:
+            report_error(_("Your %s must be on a separate partition or LV.")
+                         % mountpoint)
 
 
 def verify_mountpoints_on_linuxfs(storage, constraints, report_error, report_warning):
@@ -610,37 +636,28 @@ class StorageChecker(object):
 
         return result
 
+    def get_default_constraint_names(self):
+        """Get a list of default constraint names."""
+        return [
+            STORAGE_MIN_RAM,
+            STORAGE_ROOT_DEVICE_TYPES,
+            STORAGE_MIN_PARTITION_SIZES,
+            STORAGE_REQ_PARTITION_SIZES,
+            STORAGE_MUST_BE_ON_LINUXFS,
+            STORAGE_MUST_BE_ON_ROOT,
+            STORAGE_MUST_NOT_BE_ON_ROOT,
+            STORAGE_REFORMAT_WHITELIST,
+            STORAGE_REFORMAT_BLACKLIST,
+            STORAGE_SWAP_IS_RECOMMENDED,
+            STORAGE_LUKS2_MIN_RAM,
+        ]
+
     def set_default_constraints(self):
         """Set the default constraints needed by default checks."""
         self.constraints = dict()
-        self.add_constraint(STORAGE_MIN_RAM, isys.MIN_RAM)
-        self.add_constraint(STORAGE_MIN_ROOT, Size("250 MiB"))
-        self.add_constraint(STORAGE_MIN_PARTITION_SIZES, {
-            '/usr': Size("250 MiB"),
-            '/tmp': Size("50 MiB"),
-            '/var': Size("384 MiB"),
-            '/home': Size("100 MiB"),
-            '/boot': Size("200 MiB")
-        })
 
-        self.add_constraint(STORAGE_MUST_BE_ON_LINUXFS, {
-            '/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib'
-        })
-
-        self.add_constraint(STORAGE_MUST_BE_ON_ROOT, {
-            '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
-        })
-
-        self.add_constraint(STORAGE_REFORMAT_WHITELIST, {
-            '/boot', '/var', '/tmp', '/usr'
-        })
-
-        self.add_constraint(STORAGE_REFORMAT_BLACKLIST, {
-            '/home', '/usr/local', '/opt', '/var/www'
-        })
-
-        self.add_constraint(STORAGE_SWAP_IS_RECOMMENDED, True)
-        self.add_constraint(STORAGE_LUKS2_MIN_RAM, Size("128 MiB"))
+        for name in self.get_default_constraint_names():
+            self.add_constraint(name, getattr(conf.storage_constraints, name))
 
     def set_default_checks(self):
         """Set the default checks."""
@@ -656,6 +673,7 @@ class StorageChecker(object):
         self.add_check(verify_swap_uuid)
         self.add_check(verify_mountpoints_on_linuxfs)
         self.add_check(verify_mountpoints_on_root)
+        self.add_check(verify_mountpoints_not_on_root)
         self.add_check(verify_unlocked_devices_have_key)
         self.add_check(verify_luks_devices_have_key)
         self.add_check(verify_luks2_memory_requirements)

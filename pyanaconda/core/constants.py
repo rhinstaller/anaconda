@@ -84,7 +84,6 @@ DEFAULT_KEYBOARD = "us"
 DRACUT_SHUTDOWN_EJECT = "/run/initramfs/usr/lib/dracut/hooks/shutdown/99anaconda-eject.sh"
 
 # Help.
-HELP_DIR = "/usr/share/anaconda/help"
 HELP_MAIN_PAGE_GUI = "Installation_Guide.xml"
 HELP_MAIN_PAGE_TUI = "Installation_Guide.txt"
 
@@ -278,10 +277,6 @@ CMDLINE_FILES = [
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
 CMDLINE_LIST = ["addrepo"]
 
-# The default autopart type is LVM.
-from pykickstart.constants import AUTOPART_TYPE_LVM
-DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
-
 # Filesystems which are not supported by Anaconda
 UNSUPPORTED_FILESYSTEMS = ("btrfs", "ntfs", "tmpfs")
 
@@ -316,10 +311,12 @@ NTP_SERVER_QUERY = 2
 
 # Storage checker constraints
 STORAGE_MIN_RAM = "min_ram"
-STORAGE_MIN_ROOT = "min_root"
+STORAGE_ROOT_DEVICE_TYPES = "root_device_types"
 STORAGE_MIN_PARTITION_SIZES = "min_partition_sizes"
+STORAGE_REQ_PARTITION_SIZES = "req_partition_sizes"
 STORAGE_MUST_BE_ON_LINUXFS = "must_be_on_linuxfs"
 STORAGE_MUST_BE_ON_ROOT = "must_be_on_root"
+STORAGE_MUST_NOT_BE_ON_ROOT = "must_not_be_on_root"
 STORAGE_REFORMAT_WHITELIST = "reformat_whitelist"
 STORAGE_REFORMAT_BLACKLIST = "reformat_blacklist"
 STORAGE_SWAP_IS_RECOMMENDED = "swap_is_recommended"

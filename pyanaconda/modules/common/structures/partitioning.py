@@ -17,10 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from dasbus.structure import DBusData, generate_string_from_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
+from pyanaconda.core.configuration.anaconda import conf
 
 __all__ = ["PartitioningRequest", "MountPointRequest"]
 
@@ -29,7 +29,7 @@ class PartitioningRequest(DBusData):
     """Partitioning request data."""
 
     def __init__(self):
-        self._partitioning_scheme = DEFAULT_AUTOPART_TYPE
+        self._partitioning_scheme = conf.storage.default_scheme
         self._file_system_type = ""
         self._excluded_mount_points = []
 

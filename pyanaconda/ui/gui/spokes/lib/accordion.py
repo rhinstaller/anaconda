@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.core.storage import get_supported_autopart_choices
@@ -478,7 +477,7 @@ class CreateNewPage(BasePage):
         is created, it will be removed and replaced with a Page for it.
     """
     def __init__(self, title, create_clicked_cb, autopart_type_changed_cb,
-                 partitions_to_reuse=True):
+                 default_scheme, partitions_to_reuse=True):
         super().__init__(title)
 
         # Create a box where we store the "Here's how you create a new blah" info.
@@ -544,7 +543,7 @@ class CreateNewPage(BasePage):
         default = None
         for name, code in get_supported_autopart_choices():
             itr = store.append([_(name), code])
-            if code == DEFAULT_AUTOPART_TYPE:
+            if code == default_scheme:
                 default = itr
 
         combo.set_margin_start(18)

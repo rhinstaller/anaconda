@@ -32,8 +32,12 @@ class StorageCheckerInterface(InterfaceTemplate):
     def SetConstraint(self, name: Str, value: Variant):
         """Set a constraint to a new value.
 
+        Supported constraints:
+            min_ram  Minimal size of the total memory in bytes.
+            swap_is_recommended  Recommend to specify a swap partition.
+
         :param str name: a name of the existing constraint
         :param value: a value of the constraint
-        :raise: KeyError if the constraint does not exist
+        :raise: UnsupportedValueError if the constraint is not supported
         """
         self.implementation.set_constraint(name, get_native(value))

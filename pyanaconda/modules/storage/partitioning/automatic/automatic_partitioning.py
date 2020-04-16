@@ -82,6 +82,52 @@ WORKSTATION_PARTITIONING = [
     )
 ]
 
+VIRTUALIZATION_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("6GiB"),
+        grow=True,
+        lv=True,
+        thin=True
+    ),
+    PartSpec(
+        mountpoint="/home",
+        size=Size("1GiB"),
+        lv=True,
+        thin=True
+    ),
+    PartSpec(
+        mountpoint="/tmp",
+        size=Size("1GiB"),
+        lv=True,
+        thin=True
+    ),
+    PartSpec(
+        mountpoint="/var",
+        size=Size("15GiB"),
+        lv=True,
+        thin=True
+    ),
+    PartSpec(
+        mountpoint="/var/log",
+        size=Size("8GiB"),
+        lv=True,
+        thin=True
+    ),
+    PartSpec(
+        mountpoint="/var/log/audit",
+        size=Size("2GiB"),
+        lv=True,
+        thin=True
+    ),
+    PartSpec(
+        fstype="swap",
+        grow=False,
+        lv=True,
+        encrypted=True
+    )
+]
+
 
 def get_default_partitioning(partitioning_type=None):
     """Get the default partitioning requests.
@@ -97,6 +143,9 @@ def get_default_partitioning(partitioning_type=None):
 
     if partitioning_type is PartitioningType.WORKSTATION:
         return platform.set_default_partitioning() + WORKSTATION_PARTITIONING
+
+    if partitioning_type is PartitioningType.VIRTUALIZATION:
+        return platform.set_default_partitioning() + VIRTUALIZATION_PARTITIONING
 
     raise ValueError("Invalid partitioning type: {}".format(conf.storage.default_partitioning))
 
