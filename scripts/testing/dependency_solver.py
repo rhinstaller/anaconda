@@ -39,7 +39,6 @@ TEST_DEPENDENCIES = [
     "cppcheck",
     "rpm-ostree",
     "pykickstart",
-    "python3-mock",
     "python3-pip",
     "policycoreutils",  # contains restorecon which was removed in Fedora 28 mock
 ]
