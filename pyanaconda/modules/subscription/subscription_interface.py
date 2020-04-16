@@ -21,6 +21,7 @@ from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
     SubscriptionRequest
+from pyanaconda.modules.common.containers import TaskContainer
 from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
@@ -34,6 +35,8 @@ class SubscriptionInterface(KickstartModuleInterface):
         super().connect_signals()
         self.watch_property("SystemPurposeData",
                             self.implementation.system_purpose_data_changed)
+        self.watch_property("IsSystemPurposeApplied",
+                            self.implementation.is_system_purpose_applied_changed)
         self.watch_property("SubscriptionRequest",
                             self.implementation.subscription_request_changed)
         self.watch_property("InsightsEnabled",
@@ -87,6 +90,25 @@ class SubscriptionInterface(KickstartModuleInterface):
         """
         converted_data = SystemPurposeData.from_structure(system_purpose_data)
         self.implementation.set_system_purpose_data(converted_data)
+
+    @property
+    def IsSystemPurposeApplied(self) -> Bool:
+        """Report if system purpose data has been applied.
+
+        We don't differentiate between that installation environment and the target system in this
+        case as we will make sure the system purpose data will always end up on the target system
+        if requested by the user, regardless of where it is initially set.
+        """
+        return self.implementation.is_system_purpose_applied
+
+    def SetSystemPurposeWithTask(self) -> ObjPath:
+        """Set system purpose for the installed system with an installation task.
+
+        :return: a DBus path of an installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.set_system_purpose_with_task()
+        )
 
     @property
     def SubscriptionRequest(self) -> Structure:

@@ -40,7 +40,8 @@ from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.subscription import system_purpose
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
-from pyanaconda.modules.subscription.installation import ConnectToInsightsTask
+from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
+    SystemPurposeConfigurationTask
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
 
@@ -67,6 +68,9 @@ class SubscriptionService(KickstartService):
         self.system_purpose_data_changed = Signal()
 
         self._load_valid_system_purpose_values()
+
+        self._is_system_purpose_applied = False
+        self.is_system_purpose_applied_changed = Signal()
 
         # subscription request
 
@@ -153,6 +157,11 @@ class SubscriptionService(KickstartService):
             system_purpose_data.addons = data.syspurpose.addons
 
         self.set_system_purpose_data(system_purpose_data)
+
+        # apply system purpose data, if any, so that it is all in place when we start
+        # talking to the RHSM service
+        if self.system_purpose_data.check_data_available():
+            self._apply_syspurpose()
 
         # subscription request
 
@@ -286,6 +295,66 @@ class SubscriptionService(KickstartService):
         self._system_purpose_data = system_purpose_data
         self.system_purpose_data_changed.emit()
         log.debug("System purpose data set to %s.", system_purpose_data)
+
+    @property
+    def is_system_purpose_applied(self):
+        """Report if system purpose has been applied to the system.
+
+        Note that we don't differentiate between the installation environment
+        and the target system, as the token transfer installation task will
+        make sure any system purpose configuration file created in the installation
+        environment will be transferred to the target system.
+
+        We also need to avoid running system purpose configuration again after
+        a successful subscription attempt, as subscription can actually change
+        the system purpose attached to the system via system purpose values
+        attached to an activation key. If we re-run the system purpose task
+        on the installed system, we would basically overwrite these changes.
+        """
+        return self._is_system_purpose_applied
+
+    def set_is_system_purpose_applied(self, system_purpose_applied):
+        """Set if system purpose is applied.
+
+        :param bool system_purpose_applied: True if applied, False otherwise
+
+        NOTE: We keep this as a private method, called by the completed signal of the
+              task that applies system purpose information on the system.
+        """
+        self._is_system_purpose_applied = system_purpose_applied
+        self.is_system_purpose_applied_changed.emit()
+        # as there is no public setter in the DBus API, we need to emit
+        # the properties changed signal here manually
+        self.module_properties_changed.emit()
+        log.debug("System purpose is applied set to: %s", system_purpose_applied)
+
+    def _apply_syspurpose(self):
+        """Apply system purpose information to the installation environment.
+
+        If this method is called, then the token transfer installation task will
+        make sure to transfer the result, so the system purpose installation task
+        does not have to run afterwards.
+        For this reason we record if this method has run via the
+        set_is_system_purpose_applied() method.
+        """
+        log.debug("subscription: Applying system purpose data")
+        task = SystemPurposeConfigurationTask(sysroot="/",
+                                              system_purpose_data=self.system_purpose_data)
+        # set system purpose as applied/not applied based on True/False returned by run()
+        self.set_is_system_purpose_applied(task.run())
+
+    def set_system_purpose_with_task(self):
+        """Set system purpose for the installed system with an installation task.
+
+        :param sysroot: a path to the root of the installed system
+        :return: a DBus path of an installation task
+        """
+        task = SystemPurposeConfigurationTask(sysroot=conf.target.system_root,
+                                              system_purpose_data=self.system_purpose_data)
+        # set system purpose as applied once the task successfully finishes running
+        task.succeeded_signal.connect(
+            lambda: self.set_is_system_purpose_applied(task.get_result()))
+        return task
 
     # subscription request
 

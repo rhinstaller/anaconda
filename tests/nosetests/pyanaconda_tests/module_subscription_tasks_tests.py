@@ -27,8 +27,10 @@ from pyanaconda.core import util
 
 from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
     InsightsClientMissingError
+from pyanaconda.modules.common.structures.subscription import SystemPurposeData
 
-from pyanaconda.modules.subscription.installation import ConnectToInsightsTask
+from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
+    SystemPurposeConfigurationTask
 
 
 class ConnectToInsightsTaskTestCase(unittest.TestCase):
@@ -113,3 +115,29 @@ class ConnectToInsightsTaskTestCase(unittest.TestCase):
             exec_with_redirect.assert_called_once_with('/usr/bin/insights-client',
                                                        ['--register'],
                                                        root=sysroot)
+
+
+class SystemPurposeConfigurationTaskTestCase(unittest.TestCase):
+    """Test the SystemPurposeConfigurationTask task.
+
+    As we test the give_system_purpose() method quite extensively,
+    just making sure it is called correctly by the task should be
+    enough here.
+    """
+
+    @patch("pyanaconda.modules.subscription.system_purpose.give_the_system_purpose")
+    def system_purpose_task_test(self, give_the_system_purpose):
+        """Test the SystemPurposeConfigurationTask task."""
+        with tempfile.TemporaryDirectory() as sysroot:
+            system_purpose_data = SystemPurposeData()
+            system_purpose_data.role = "foo"
+            system_purpose_data.sla = "bar"
+            system_purpose_data.usage = "baz"
+            system_purpose_data.addons = ["a", "b", "c"]
+            task = SystemPurposeConfigurationTask(sysroot, system_purpose_data)
+            task.run()
+            give_the_system_purpose.assert_called_once_with(role="foo",
+                                                            sla="bar",
+                                                            usage="baz",
+                                                            addons=["a", "b", "c"],
+                                                            sysroot=sysroot)
