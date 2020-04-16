@@ -75,7 +75,7 @@ class UserInterface(object):
 
     @classmethod
     def update_paths(cls, pathdict):
-        """Receives pathdict and appends it's contents to the current class defined search path dictionary."""
+        """Receives path dict and appends it's contents to the class defined search path."""
         for k, v in pathdict.items():
             cls.paths.setdefault(k, [])
             cls.paths[k].extend(v)
@@ -91,18 +91,23 @@ class UserInterface(object):
         """Run the interface.
 
         This should do little more than just pass through to something else's run method,
-        but is provided here in case more is needed.  This method must be provided by all subclasses.
+        but is provided here in case more is needed. This method must be provided
+        by all subclasses.
         """
         raise NotImplementedError
 
     @property
     def meh_interface(self):
-        """Returns an interface for exception handling (defined by python-meh's AbstractIntf class)."""
+        """Returns an interface for exception handling.
+
+        Defined by python-meh's AbstractIntf class.
+        """
         raise NotImplementedError
 
     ###
-    ### MESSAGE HANDLING METHODS
+    # MESSAGE HANDLING METHODS
     ###
+
     def showError(self, message):
         """Display an error dialog with the given message.
 
@@ -146,14 +151,24 @@ class UserInterface(object):
         """
         standalones = []
 
+        def check_standalone_spokes(obj):
+            return issubclass(obj, standalone_class) and \
+                getattr(obj, "preForHub", False) or \
+                getattr(obj, "postForHub", False)
+
         for module_pattern, path in module_pattern_w_path:
-            standalones.extend(collect(module_pattern, path, lambda obj: issubclass(obj, standalone_class) and \
-                                       getattr(obj, "preForHub", False) or getattr(obj, "postForHub", False)))
+            standalones.extend(
+                collect(module_pattern,
+                        path,
+                        check_standalone_spokes)
+            )
 
         return standalones
 
     def _orderActionClasses(self, spokes, hubs):
-        """Order all the Hub and Spoke classes which should be enqueued for processing according to their pre/post dependencies.
+        """Order all the Hub and Spoke classes.
+
+        These should be enqueued for processing according to their pre/post dependencies.
 
         :param spokes: the classes we are to about order according
                        to the hub dependencies
@@ -163,13 +178,27 @@ class UserInterface(object):
                      attribute of Spokes to pick up
         :type hubs: common.Hub based types
         """
+        action_classes = []
 
-        actionClasses = []
         for hub in hubs:
-            actionClasses.extend(sorted(filter(lambda obj, h=hub: getattr(obj, "preForHub", None) == h, spokes),
-                                        key=lambda obj: obj.priority))
-            actionClasses.append(hub)
-            actionClasses.extend(sorted(filter(lambda obj, h=hub: getattr(obj, "postForHub", None) == h, spokes),
-                                        key=lambda obj: obj.priority))
+            action_classes.extend(
+                sorted(
+                    self._filter_spokes_by_pre_for_hub_reference(spokes, hub),
+                    key=lambda obj: obj.priority)
+            )
+            action_classes.append(hub)
+            action_classes.extend(
+                sorted(
+                    self._filter_spokes_by_post_for_hub_reference(spokes, hub),
+                    key=lambda obj: obj.priority)
+            )
 
-        return actionClasses
+        return action_classes
+
+    @staticmethod
+    def _filter_spokes_by_pre_for_hub_reference(spokes, hub):
+        return filter(lambda obj, h=hub: getattr(obj, "preForHub", None) == h, spokes)
+
+    @staticmethod
+    def _filter_spokes_by_post_for_hub_reference(spokes, hub):
+        return filter(lambda obj, h=hub: getattr(obj, "postForHub", None) == h, spokes)
