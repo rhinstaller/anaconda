@@ -136,7 +136,8 @@ class UserInterface(object):
         """
         raise NotImplementedError
 
-    def _collectActionClasses(self, module_pattern_w_path, standalone_class):
+    @staticmethod
+    def _collectActionClasses(module_pattern_w_path, standalone_class):
         """Collect all the Hub and Spoke classes which should be enqueued for processing.
 
         :param module_pattern_w_path: the full name patterns (pyanaconda.ui.gui.spokes.%s)
@@ -165,7 +166,8 @@ class UserInterface(object):
 
         return standalones
 
-    def _orderActionClasses(self, spokes, hubs):
+    @staticmethod
+    def _orderActionClasses(spokes, hubs):
         """Order all the Hub and Spoke classes.
 
         These should be enqueued for processing according to their pre/post dependencies.
@@ -183,13 +185,13 @@ class UserInterface(object):
         for hub in hubs:
             action_classes.extend(
                 sorted(
-                    self._filter_spokes_by_pre_for_hub_reference(spokes, hub),
+                    UserInterface._filter_spokes_by_pre_for_hub_reference(spokes, hub),
                     key=lambda obj: obj.priority)
             )
             action_classes.append(hub)
             action_classes.extend(
                 sorted(
-                    self._filter_spokes_by_post_for_hub_reference(spokes, hub),
+                    UserInterface._filter_spokes_by_post_for_hub_reference(spokes, hub),
                     key=lambda obj: obj.priority)
             )
 
