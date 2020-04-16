@@ -20,9 +20,9 @@
 import sys
 import unittest
 
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, create_autospec
 from pyanaconda.ui import UserInterface
-from pyanaconda.ui.common import StandaloneSpoke
+from pyanaconda.ui.common import StandaloneSpoke, Hub
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
 
 
@@ -192,3 +192,28 @@ class SimpleUITestCase(unittest.TestCase):
         # Force us to always decide order of standalone spokes based on priority not by name.
         # This will ordering errors easier to spot.
         self._check_spokes_priority_uniqueness()
+
+    def correct_spokes_ordering_test(self):
+        # create fake spokes with the same priority
+        hub = create_autospec(Hub)
+
+        class SpokeA(StandaloneSpoke):  # pylint: disable=abstract-method
+            preForHub = hub
+
+        class SpokeB(StandaloneSpoke):  # pylint: disable=abstract-method
+            preForHub = hub
+
+        class SpokeC(StandaloneSpoke):  # pylint: disable=abstract-method
+            preForHub = hub
+
+        class SpokeD(StandaloneSpoke):  # pylint: disable=abstract-method
+            postForHub = hub
+
+        class SpokeE(StandaloneSpoke):  # pylint: disable=abstract-method
+            postForHub = hub
+
+        list1 = [SpokeC, SpokeB, SpokeE, SpokeD, SpokeA]
+
+        # the input list ordering shouldn't matter sorting should be based on class names
+        self.assertEqual([SpokeA, SpokeB, SpokeC, hub, SpokeD, SpokeE],
+                         UserInterface._orderActionClasses(list1, [hub]))
