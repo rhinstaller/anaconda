@@ -31,6 +31,7 @@ class UnsupportedHardwareSpoke(StandaloneTUISpoke):
     Show this spoke if the unsupported hardware was detected.
     """
     preForHub = SummaryHub
+    priority = -10
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
