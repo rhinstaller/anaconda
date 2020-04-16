@@ -218,6 +218,28 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         output = self.subscription_interface.SystemPurposeData
         self.assertEqual(output, expected_dict)
 
+    def system_purpose_data_helper_test(self):
+        """Test the SystemPurposeData DBus structure data availability helper method."""
+
+        # empty
+        data = SystemPurposeData()
+        self.assertFalse(data.check_data_available())
+
+        # full
+        data = SystemPurposeData()
+        data.role = "foo"
+        data.sla = "bar"
+        data.usage = "baz"
+        data.addons = ["a", "b", "c"]
+        self.assertTrue(data.check_data_available())
+
+        # partially populated
+        data = SystemPurposeData()
+        data.role = "foo"
+        data.usage = "baz"
+        data.addons = ["a"]
+        self.assertTrue(data.check_data_available())
+
     def set_system_purpose_test(self):
         """Test if setting system purpose data from DBUS works correctly."""
         system_purpose_data = {
