@@ -69,10 +69,6 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
             [SourceType.LIVE_OS_IMAGE.value],
             self.live_os_interface.SupportedSourceTypes)
 
-    def sources_empty_test(self):
-        """Test sources LiveOS API for emptiness."""
-        self.shared_tests.check_empty_sources()
-
     @patch_dbus_publish_object
     def set_source_test(self, publisher):
         """Test if set source API of LiveOS payload."""
