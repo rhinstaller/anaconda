@@ -17,12 +17,11 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
-from unittest.mock import patch, create_autospec
+from unittest.mock import patch, Mock
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 from pyanaconda.modules.common.containers import PayloadSourceContainer
-from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 
 class PayloadKickstartSharedTest(object):
@@ -93,12 +92,8 @@ class PayloadSharedTest(object):
 
         :param SourceType source: Enum describing the source type
         """
-        if source_type == SourceType.LIVE_OS_IMAGE:
-            source = create_autospec(LiveOSSourceModule)
-            source.image_path = "/test/path"
-
-        source.type = source_type
-        source.is_ready.return_value = True
+        source = SourceFactory.create_source(source_type)
+        source.is_ready = Mock(return_value=True)
 
         return source
 
