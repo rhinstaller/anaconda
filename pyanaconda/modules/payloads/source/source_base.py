@@ -17,10 +17,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from abc import ABCMeta, abstractmethod
+import os.path
+from abc import ABC, ABCMeta, abstractmethod
 
 from dasbus.server.publishable import Publishable
+
 from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.payloads.source.utils import MountPointGenerator
+from pyanaconda.anaconda_loggers import get_module_logger
+
+log = get_module_logger(__name__)
 
 
 class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
@@ -84,3 +91,41 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         :rtype: list[task]
         """
         pass
+
+
+class MountingSourceBase(PayloadSourceBase, ABC):
+    """Base class for sources that use mounting.
+
+    Implements some common functionality, most notably generation of mount point paths.
+    """
+    # pylint: disable=abstract-method
+
+    def __init__(self):
+        super().__init__()
+        self._mount_point = MountPointGenerator.generate_mount_point(self.type.value.lower())
+
+    def is_ready(self):
+        """This source is ready for the installation to start.
+
+        :return: ready or not
+        :rtype: bool
+        """
+        return os.path.ismount(self._mount_point)
+
+    @property
+    def mount_point(self):
+        """Where the source will be mounted.
+
+        :return: path to the mount point
+        :rtype: str
+        """
+        return self._mount_point
+
+    def tear_down_with_tasks(self):
+        """Tear down the installation source.
+
+        :return: list of tasks required for the source clean-up
+        :rtype: [TearDownMountTask]
+        """
+        task = TearDownMountTask(self._mount_point)
+        return [task]
