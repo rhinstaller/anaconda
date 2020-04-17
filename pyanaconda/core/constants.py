@@ -450,3 +450,8 @@ SUBSCRIPTION_REQUEST_VALID_TYPES = {
 # username password - this is basically to avoid the invalid
 # case of request not having a type set.
 DEFAULT_SUBSCRIPTION_REQUEST_TYPE = SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
+
+# How long to wait for the RHSM service to become available after it is started.
+# - in seconds
+# - based on the default 90 second systemd service activation timeout
+RHSM_SERVICE_TIMEOUT = 90.0
