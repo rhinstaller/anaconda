@@ -476,16 +476,35 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._device_tree.GetFormatData(device_name)
         )
 
-        mount_point = \
-            format_data.attrs.get("mount-point", "") or \
-            mount_point or \
-            format_data.description or \
-            _("Unknown")
+        mount_point = self._get_mount_point_description(
+            mount_point, format_data
+        )
 
         selector.props.name = device_name
         selector.props.size = str(Size(device_data.size))
         selector.props.mountpoint = mount_point
         selector.root_name = root_name
+
+    def _get_mount_point_description(self, mount_point, format_data):
+        """Generate the selector's mount point description."""
+        return \
+            format_data.attrs.get("mount-point", "") or \
+            mount_point or \
+            format_data.description or \
+            _("Unknown")
+
+    def _get_mount_point_description_for_request(self, request):
+        """Generate the selector's mount point description from a request."""
+        mount_point = request.mount_point
+        format_type = request.format_type
+
+        format_data = DeviceFormatData.from_structure(
+            self._device_tree.GetFormatTypeData(format_type)
+        )
+
+        return self._get_mount_point_description(
+            mount_point, format_data
+        )
 
     def _do_refresh(self, mountpoint_to_show=None, init_expanded_pages=False):
         # block mountpoint selector signal handler for now
@@ -584,7 +603,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Update UI.
         log.debug("The device request changes are applied.")
-        self._do_refresh(mountpoint_to_show=new_request.mount_point)
+        mount_point = self._get_mount_point_description_for_request(new_request)
+        self._do_refresh(mountpoint_to_show=mount_point)
 
     def _raid_level_visible(self, model, itr, user_data):
         raid_level = model[itr][1]
@@ -1000,7 +1020,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self.set_detailed_error(_("Failed to add new device."), e)
             self._do_refresh()
         else:
-            self._do_refresh(mountpoint_to_show=dialog.mount_point)
+            mount_point = self._get_mount_point_description_for_request(request)
+            self._do_refresh(mountpoint_to_show=mount_point)
 
     def _show_mountpoint(self, page, mountpoint=None):
         if not self._initialized:
