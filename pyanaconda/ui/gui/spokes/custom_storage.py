@@ -1470,6 +1470,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._update_permissions()
 
         # Update the UI.
+        fancy_set_sensitive(self._labelEntry, self._permissions.label)
         fancy_set_sensitive(self._encryptCheckbox, self._permissions.device_encrypted)
         self._update_luks_combo()
         fancy_set_sensitive(self._fsCombo, self._permissions.format_type)
@@ -1493,6 +1494,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._update_permissions()
 
         # Update UI.
+        fancy_set_sensitive(self._labelEntry, self._permissions.label)
         fancy_set_sensitive(self._mountPointEntry, self._permissions.mount_point)
         self.on_value_changed()
 

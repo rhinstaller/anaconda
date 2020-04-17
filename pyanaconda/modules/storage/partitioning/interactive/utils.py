@@ -278,9 +278,6 @@ def validate_label(label, fmt):
     if not label:
         return None
 
-    if fmt.exists:
-        return _("Cannot relabel already existing file system.")
-
     if not fmt.labeling():
         return _("Cannot set label on file system.")
 
@@ -857,6 +854,7 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     permissions = DeviceFactoryPermissions()
     device = storage.devicetree.resolve_device(request.device_spec)
     container = storage.devicetree.resolve_device(request.container_name)
+    fmt = get_format(request.format_type)
 
     if not device:
         raise UnknownDeviceError(request.device_spec)
@@ -866,8 +864,11 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
 
     permissions.device_type = not device.raw_device.exists
     permissions.device_raid_level = not device.raw_device.exists
-    permissions.mount_point = get_format(request.format_type).mountable
-    permissions.label = True
+    permissions.mount_point = fmt.mountable
+
+    permissions.label = \
+        request.reformat \
+        and fmt.labeling()
 
     permissions.reformat = \
         device.raw_device.exists \
