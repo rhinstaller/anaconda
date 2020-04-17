@@ -1079,7 +1079,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("Removing device %s from page %s.", device_name, root_name)
 
             # Skip if the device isn't in the device tree.
-            if device_name not in self._device_tree.GetDevices():
+            if not self._device_tree.IsDevice(device_name):
                 log.debug("Device %s isn't in the device tree.", device_name)
                 continue
 
@@ -1116,7 +1116,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 # remove it in other pages when Delete all option is checked.
                 for other_name in self._find_unshared_devices(page):
                     # Skip if the device isn't in the device tree.
-                    if other_name not in self._device_tree.GetDevices():
+                    if not self._device_tree.IsDevice(other_name):
                         log.debug("Device %s isn't in the device tree.", other_name)
                         continue
 

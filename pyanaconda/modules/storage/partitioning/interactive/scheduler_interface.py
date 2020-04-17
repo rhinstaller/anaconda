@@ -35,6 +35,16 @@ __all__ = ["DeviceTreeSchedulerInterface"]
 class DeviceTreeSchedulerInterface(DeviceTreeInterface):
     """DBus interface for the device tree scheduler."""
 
+    def IsDevice(self, device_name: Str) -> Bool:
+        """Is the specified device in the device tree?
+
+        It can recognize also hidden and incomplete devices.
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        return self.implementation.is_device(device_name)
+
     def IsDeviceLocked(self, device_name: Str) -> Bool:
         """Is the specified device locked?
 
