@@ -426,8 +426,11 @@ class PartTypeSpoke(NormalTUISpoke):
         # Choose the initialization mode.
         self._disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
         self._orig_init_mode = self._disk_init_proxy.InitializationMode
-        self._init_mode = self._disk_init_proxy.InitializationMode
+        self._init_mode = self._orig_init_mode
         self._init_mode_list = sorted(INIT_MODES.keys())
+
+        if self._init_mode == CLEAR_PARTITIONS_DEFAULT:
+            self._init_mode = CLEAR_PARTITIONS_ALL
 
         # Choose the partitioning method.
         self._storage_module = storage_module
