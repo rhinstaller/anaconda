@@ -30,7 +30,7 @@ from pyanaconda.modules.common.constants.objects import DISK_SELECTION, FCOE, IS
     DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 
-from pyanaconda.ui.gui.utils import timed_action
+from pyanaconda.ui.gui.utils import timed_action, really_show, really_hide
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
@@ -629,11 +629,11 @@ class FilterSpoke(NormalSpoke):
             count
         ).format(count)
 
-        label.set_text(summary)
-        label.set_use_underline(True)
-
-        summary_button.set_visible(count > 0)
-        label.set_sensitive(count > 0)
+        if count > 0:
+            really_show(summary_button)
+            label.set_text(summary)
+        else:
+            really_hide(summary_button)
 
     def on_back_clicked(self, button):
         self.skipTo = "StorageSpoke"
