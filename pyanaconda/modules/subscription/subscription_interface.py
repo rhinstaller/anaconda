@@ -144,3 +144,12 @@ class SubscriptionInterface(KickstartModuleInterface):
     def IsSubscriptionAttached(self) -> Bool:
         """Report if an entitlement has been successfully attached."""
         return self.implementation.subscription_attached
+
+    def SetRHSMConfigWithTask(self) -> ObjPath:
+        """Set RHSM configuration with a runtime DBus task.
+
+        :return: a DBus path of an installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.set_rhsm_config_with_task()
+        )

@@ -20,6 +20,7 @@
 import copy
 import warnings
 
+from dasbus.typing import get_native
 
 from pyanaconda.core import util
 from pyanaconda.core.signal import Signal
@@ -35,6 +36,7 @@ from pyanaconda.modules.common.structures.secret import get_public_copy
 from pyanaconda.core.dbus import DBus
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
 from pyanaconda.modules.common.containers import TaskContainer
 
 from pyanaconda.modules.subscription import system_purpose
@@ -43,6 +45,7 @@ from pyanaconda.modules.subscription.subscription_interface import SubscriptionI
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
     SystemPurposeConfigurationTask
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
+from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
 
 
@@ -98,6 +101,9 @@ class SubscriptionService(KickstartService):
         # RHSM service startup and access
         self._rhsm_startup_task = StartRHSMTask()
         self._rhsm_observer = RHSMObserver(self._rhsm_startup_task.is_service_available)
+
+        # RHSM config default values cache
+        self._rhsm_config_defaults = None
 
     def publish(self):
         """Publish the module."""
@@ -510,3 +516,43 @@ class SubscriptionService(KickstartService):
         :rtype: RHSMObserver instance
         """
         return self._rhsm_observer
+
+    def get_rhsm_config_defaults(self):
+        """Return RHSM config default values.
+
+        We need to have these available in case the user decides
+        to return to default values from a custom value at
+        runtime.
+
+        This method is lazy evaluated, the first call it fetches
+        the full config dict from RHSM and subsequent calls are
+        then served from cache.
+
+        Due to this it is important not to set RHSM configuration
+        values before first calling this method to populate the cache
+        or else the method might return non-default (Anaconda overwritten)
+        data.
+
+        :return : dictionary of default RHSM configuration values
+        :rtype: dict
+        """
+        if self._rhsm_config_defaults is None:
+            # config defaults cache not yet populated, do it now
+            proxy = self.rhsm_observer.get_proxy(RHSM_CONFIG)
+            # turn the variant into a dict with get_native()
+            self._rhsm_config_defaults = get_native(proxy.GetAll(""))
+        return self._rhsm_config_defaults
+
+    def set_rhsm_config_with_task(self):
+        """Set RHSM config values based on current subscription request.
+
+        :return: a DBus path of an installation task
+        """
+        # NOTE: we access self._subscription_request directly
+        #       to avoid the sensitive data clearing happening
+        #       in the subscription_request property getter
+        rhsm_config_proxy = self.rhsm_observer.get_proxy(RHSM_CONFIG)
+        task = SetRHSMConfigurationTask(rhsm_config_proxy=rhsm_config_proxy,
+                                        rhsm_config_defaults=self.get_rhsm_config_defaults(),
+                                        subscription_request=self._subscription_request)
+        return task
