@@ -43,6 +43,20 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """Return a DBus representation."""
         return DeviceTreeSchedulerInterface(self)
 
+    def is_device(self, device_name):
+        """Is the specified device in the device tree?
+
+        It can recognize also hidden and incomplete devices.
+
+        :param device_name: a name of the device
+        :return: True or False
+        """
+        device = self.storage.devicetree.get_device_by_name(
+            device_name, hidden=True, incomplete=True
+        )
+
+        return device is not None
+
     def is_device_locked(self, device_name):
         """Is the specified device locked?
 

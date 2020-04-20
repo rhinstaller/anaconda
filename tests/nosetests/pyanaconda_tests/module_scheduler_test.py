@@ -961,3 +961,23 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.assertEqual(request.container_raid_level, "")
         self.assertEqual(request.container_size_policy, Size("1.5 GiB").get_bytes())
         self.assertEqual(request.disks, [])
+
+    def is_device_test(self):
+        """Test IsDevice."""
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB"),
+            exists=True
+        )
+
+        self.assertEqual(self.interface.IsDevice("dev1"), False)
+
+        self._add_device(dev1)
+        self.assertEqual(self.interface.IsDevice("dev1"), True)
+
+        dev1.complete = False
+        self.assertEqual(self.interface.IsDevice("dev1"), True)
+
+        self.storage.devicetree.hide(dev1)
+        self.assertEqual(self.interface.IsDevice("dev1"), True)
