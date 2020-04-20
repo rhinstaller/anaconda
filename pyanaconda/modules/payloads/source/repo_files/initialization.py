@@ -15,9 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os.path
 import glob
 
+from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 
@@ -42,6 +42,6 @@ class SetUpRepoFilesSourceTask(Task):
         """Run Repo files installation source setup."""
         log.debug("Trying to detect repo files automatically")
         for repo_dir in self._repo_dirs:
-            if len(glob.glob(os.path.join(repo_dir, "*.repo"))) > 0:
+            if len(glob.glob(join_paths(repo_dir, "*.repo"))) > 0:
                 return
         raise SourceSetupError("repo files not found")
