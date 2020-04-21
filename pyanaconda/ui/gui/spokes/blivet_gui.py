@@ -332,9 +332,14 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
             dlg.destroy()
 
         if rc == 0:
+            self._reset_storage()
             self.refresh()
             self._blivetgui.reload()
 
             # XXX: Reset currently preserves actions set in previous runs
             # of the spoke, so we need to 're-add' these to the ui
             self._blivetgui.set_actions(self._client.get_actions())
+
+    def _reset_storage(self):
+        # FIXME: Reset only the current partitioning module.
+        self._storage_module.ResetPartitioning()
