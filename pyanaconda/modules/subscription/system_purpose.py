@@ -21,11 +21,13 @@
 import os
 import json
 
+from pyanaconda.core import util
+
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 VALID_FIELDS_FILE_PATH = "/etc/rhsm/syspurpose/valid_fields.json"
-
+SYSPURPOSE_UTILITY_PATH = "/usr/sbin/syspurpose"
 
 def get_valid_fields(valid_fields_file_path=VALID_FIELDS_FILE_PATH):
     """Get valid role, sla and usage fields for system purpose use.
@@ -137,3 +139,73 @@ def process_field(syspurpose_value, valid_values, value_name):
         return syspurpose_value
     else:
         return ""
+
+
+def _call_syspurpose_tool(sysroot, args):
+    """Helper function for invoking the syspurpose tool with error checking.
+
+    :param str sysroot: system root path
+    :param args: list of arguments for syspurpose
+    :type args: list of str
+    :return: syspurpose tool return code (non zero means failure)
+    """
+    rc = util.execWithRedirect("syspurpose", args, root=sysroot)
+    if rc:
+        log.error("subscription: syspurpose invocation failed for args %s with rc %s", args, rc)
+    return rc
+
+
+def give_the_system_purpose(sysroot, role, sla, usage, addons):
+    """Set system purpose for the installed system by calling the syspurpose tool.
+
+    The tool is called in the installed system chroot, so this method can be only
+    called once the system rootfs content is in place.
+
+    :param str sysroot: system root path
+    :param role: role of the system
+    :type role: str or None
+    :param sla: Service Level Agreement for the system
+    :type sla: str or None
+    :param usage: intended usage of the system
+    :type usage: str or None
+    :param list addons: any additional layered products or features
+    """
+
+    if role or sla or usage or addons:
+        # using join_paths() as both paths are absolute
+        syspurpose_sysroot_path = util.join_paths(sysroot, SYSPURPOSE_UTILITY_PATH)
+        if os.path.exists(syspurpose_sysroot_path):
+            # The syspurpose utility can only set one value at a time,
+            # so we might need to call it multiple times to set all the
+            # requested values.
+            #
+            # Also as the values can contain white space we need to make sure the
+            # values passed to arguments are all properly quoted.
+            if role:
+                args = ["set-role", role]
+                if _call_syspurpose_tool(sysroot, args):
+                    return False
+            if sla:
+                args = ["set-sla", sla]
+
+                if _call_syspurpose_tool(sysroot, args):
+                    return False
+            if usage:
+                args = ["set-usage", usage]
+                if _call_syspurpose_tool(sysroot, args):
+                    return False
+            if addons:
+                args = ["add", "addons"]
+                for addon in addons:
+                    args.append(addon)
+                if _call_syspurpose_tool(sysroot, args):
+                    return False
+            log.debug("subscription: system purpose has been set")
+            return True
+        else:
+            log.error("the syspurpose tool is missing, cannot set system purpose")
+            return False
+    else:
+        log.warning("not calling syspurpose as no fields have been provided")
+        # doing nothing is still not a failure
+        return True

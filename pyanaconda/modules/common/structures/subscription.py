@@ -82,6 +82,16 @@ class SystemPurposeData(DBusData):
     def addons(self, addons: List[Str]):
         self._addons = addons
 
+    def check_data_available(self):
+        """A helper function used to determining if some system purpose data is available.
+
+        Otherwise we would have to query all the fields each time we want to check if we
+        have any system purpose data available.
+
+        :return: is any system purpose data is available
+        :rtype: bool
+        """
+        return any((self.role, self.sla, self.usage, self.addons))
 
 class SubscriptionRequest(DBusData):
     """Data for a subscription request.
