@@ -266,6 +266,10 @@ class ChangeDeviceTask(Task):
             log.warning("Cannot set a label to the current format.")
             return
 
+        if self._device.format.exists:
+            log.warning("Cannot relabel already existing file system.")
+            return
+
         if validate_label(label, self._device.format):
             log.warning("Cannot set an invalid label.")
             return
