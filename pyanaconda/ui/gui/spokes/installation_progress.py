@@ -47,7 +47,6 @@ class ProgressSpoke(StandaloneSpoke):
     helpFile = "ProgressHub.xml"
 
     postForHub = SummaryHub
-    priority = 0
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
