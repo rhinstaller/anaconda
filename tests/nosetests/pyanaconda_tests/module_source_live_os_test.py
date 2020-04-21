@@ -21,15 +21,15 @@ import unittest
 
 from unittest.mock import Mock, patch
 
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
-from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask, \
-    TearDownLiveOSSourceTask
+from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesChangedCallback
 
 
@@ -118,7 +118,7 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def tear_down_with_tasks_test(self):
         """Test Live OS Source ready state for tear down."""
         task_classes = [
-            TearDownLiveOSSourceTask
+            TearDownMountTask
         ]
 
         # task will not be public so it won't be published
@@ -130,19 +130,6 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
-
-    @patch("os.path.ismount")
-    def ready_state_test(self, ismount):
-        """Test Live OS Source ready state for set up."""
-        ismount.return_value = False
-        self.assertFalse(self.live_os_source_module.is_ready())
-
-        ismount.reset_mock()
-        ismount.return_value = True
-
-        self.assertTrue(self.live_os_source_module.is_ready())
-
-        ismount.assert_called_once_with(INSTALL_TREE)
 
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
@@ -247,22 +234,3 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()
-
-    def tear_down_install_source_task_name_test(self):
-        """Test Live OS tear down installation source task name."""
-        task = TearDownLiveOSSourceTask(
-                "/path/to/mount/source/image"
-            )
-
-        self.assertEqual(task.name, "Tear down Live OS Installation Source")
-
-    @patch("pyanaconda.modules.payloads.source.live_os.initialization.unmount")
-    def tear_down_install_source_task_test(self, unmount):
-        """Test Live OS tear down installation source taks."""
-        path = "/path/to/test/image"
-
-        task = TearDownLiveOSSourceTask(path)
-
-        task.run()
-
-        unmount.assert_called_once_with(path)

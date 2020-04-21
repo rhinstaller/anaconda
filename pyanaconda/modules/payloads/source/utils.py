@@ -18,6 +18,7 @@
 from blivet.arch import get_arch
 from blivet.util import mount
 
+from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.storage import device_matches
 from pyanaconda.core.util import join_paths
 from pyanaconda.payload.image import find_first_iso_image
@@ -25,7 +26,8 @@ from pyanaconda.payload.image import find_first_iso_image
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["is_valid_install_disk", "find_and_mount_device", "find_and_mount_iso_image"]
+__all__ = ["is_valid_install_disk", "find_and_mount_device", "find_and_mount_iso_image",
+           "MountPointGenerator"]
 
 
 def is_valid_install_disk(tree_dir):
@@ -96,3 +98,25 @@ def find_and_mount_iso_image(image_location, mount_point):
     except OSError as e:
         log.error("Mount of ISO file failed: %s", e)
         return False
+
+
+class MountPointGenerator:
+    _counter = 0
+
+    @classmethod
+    def generate_mount_point(cls, suffix):
+        """Generate a complete unique mount point path
+
+        The path includes an auto-incremented serial number and suffix.
+
+        :param str suffix: Suffix of the mount point path
+        :return:
+        :rtype: str
+        """
+        path = "{}/mount-{:0>4}-{}".format(
+            INSTALL_TREE,
+            cls._counter,
+            suffix
+        )
+        cls._counter = cls._counter + 1
+        return path

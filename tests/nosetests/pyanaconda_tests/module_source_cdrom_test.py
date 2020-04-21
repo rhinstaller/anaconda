@@ -18,14 +18,13 @@
 import unittest
 from unittest.mock import call, DEFAULT, Mock, patch
 
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
 from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
-from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask, \
-    TearDownCdromSourceTask
+from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.payload.utils import PayloadSetupError
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesChangedCallback
@@ -73,7 +72,7 @@ class CdromSourceTestCase(unittest.TestCase):
     def tear_down_with_tasks_test(self):
         """Test CD-ROM Source ready state for tear down."""
         task_classes = [
-            TearDownCdromSourceTask
+            TearDownMountTask
         ]
 
         # task will not be public so it won't be published
@@ -85,19 +84,6 @@ class CdromSourceTestCase(unittest.TestCase):
 
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
-
-    @patch("os.path.ismount")
-    def ready_state_test(self, ismount):
-        """Test CD-ROM Source ready state for set up."""
-        ismount.return_value = False
-        self.assertFalse(self.cdrom_source_module.is_ready())
-
-        ismount.reset_mock()
-        ismount.return_value = True
-
-        self.assertTrue(self.cdrom_source_module.is_ready())
-
-        ismount.assert_called_once_with(INSTALL_TREE)
 
 
 class CdromSourceSetupTaskTestCase(unittest.TestCase):
@@ -205,7 +191,6 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
 
         #  #1 died earlier, #2 was unmounted, #3 was left mounted, #4 never got mounted
         unmount_mock.assert_called_once_with(self.mount_location)
-        self.assertEqual(task._device_name, "test2")
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
@@ -231,8 +216,6 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         # neither validation nor unmounting could not have been reached
         valid_mock.assert_not_called()
         unmount_mock.assert_not_called()
-        # no device was selected
-        self.assertFalse(task._device_name)
         # exception happened due to no disk
         self.assertEqual(str(cm.exception), "Found no CD-ROM")
 
@@ -259,26 +242,5 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         # neither validation nor unmounting could not have been reached
         valid_mock.assert_called_once()
         unmount_mock.assert_called_once()
-        # no device was selected
-        self.assertFalse(task._device_name)
         # exception happened due to no disk
         self.assertEqual(str(cm.exception), "Found no CD-ROM")
-
-
-class CdromSourceTeardownTaskTestCase(unittest.TestCase):
-
-    def tear_down_install_source_task_name_test(self):
-        """Test CD-ROM tear down installation source task name."""
-        task = TearDownCdromSourceTask("/path/to/mount")
-
-        self.assertEqual(task.name, "Tear down CD-ROM Installation Source")
-
-    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
-    def tear_down_install_source_task_test(self, unmount):
-        """Test CD-ROM tear down installation source tasks."""
-        path = "/path/to/mount"
-
-        task = TearDownCdromSourceTask(path)
-        task.run()
-
-        unmount.assert_called_once_with(path)

@@ -15,55 +15,30 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from os.path import ismount
-
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.payload.utils import mount, unmount
+from pyanaconda.payload.utils import mount
 from pyanaconda.core.util import parse_nfs_url
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 
 log = get_module_logger(__name__)
 
-__all__ = ["TearDownNFSSourceTask", "SetUpNFSSourceTask"]
+__all__ = ["SetUpNFSSourceTask"]
 
 
-class TearDownNFSSourceTask(Task):
-    """Task to teardown the NFS source."""
-
-    def __init__(self, target_mount):
-        super().__init__()
-        self._target_mount = target_mount
-
-    @property
-    def name(self):
-        return "Tear down NFS installation source"
-
-    def run(self):
-        """Tear down the installation source."""
-        log.debug("Unmounting NFS installation source")
-        unmount(self._target_mount)
-
-
-class SetUpNFSSourceTask(Task):
+class SetUpNFSSourceTask(SetUpMountTask):
     """Task to set up the NFS source."""
 
     def __init__(self, target_mount, url):
-        super().__init__()
-        self._target_mount = target_mount
+        super().__init__(target_mount)
         self._url = url
 
     @property
     def name(self):
         return "Set up NFS installation source"
 
-    def run(self):
+    def _do_mount(self):
         """Set up the installation source."""
         log.debug("Trying to mount NFS: %s", self._url)
-
-        if ismount(self._target_mount):
-            raise SourceSetupError(
-                "Something is already mounted at the target {}".format(self._target_mount))
 
         options, host, path = parse_nfs_url(self._url)
         if not options:

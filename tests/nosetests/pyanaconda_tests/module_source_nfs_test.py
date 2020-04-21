@@ -18,13 +18,12 @@
 import unittest
 from unittest.mock import patch
 
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_NFS
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
-from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask, \
-    TearDownNFSSourceTask
+from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.payload.utils import PayloadSetupError
 
 from tests.nosetests.pyanaconda_tests import check_dbus_property, PropertiesChangedCallback
@@ -91,7 +90,7 @@ class NFSSourceTestCase(unittest.TestCase):
     def tear_down_with_tasks_test(self):
         """Test NFS Source ready state for tear down."""
         task_classes = [
-            TearDownNFSSourceTask
+            TearDownMountTask
         ]
 
         # task will not be public so it won't be published
@@ -104,20 +103,8 @@ class NFSSourceTestCase(unittest.TestCase):
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
 
-    @patch("os.path.ismount")
-    def ready_state_test(self, ismount):
-        """Test NFS Source ready state for set up."""
-        ismount.return_value = False
-        self.assertFalse(self.source_module.is_ready())
-
-        ismount.reset_mock()
-        ismount.return_value = True
-
-        self.assertTrue(self.source_module.is_ready())
-
-        ismount.assert_called_once_with(INSTALL_TREE)
-
     def url_property_test(self):
+        """Test NFS source URL property is correctly set."""
         self.source_module.set_url(nfs_url)
         self.assertEqual(nfs_url, self.source_module.url)
 
@@ -161,20 +148,3 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
 
         mount_mock.assert_called_once_with(nfs_address, mount_location, fstype="nfs",
                                            options="nolock")
-
-
-class NFSSourceTeardownTaskTestCase(unittest.TestCase):
-
-    def tear_down_install_source_task_name_test(self):
-        """Test NFS tear down installation source task name."""
-        task = TearDownNFSSourceTask(mount_location)
-
-        self.assertEqual(task.name, "Tear down NFS installation source")
-
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.unmount")
-    def tear_down_install_source_task_test(self, unmount):
-        """Test NFS tear down installation source tasks."""
-        task = TearDownNFSSourceTask(mount_location)
-        task.run()
-
-        unmount.assert_called_once_with(mount_location)
