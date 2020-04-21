@@ -353,6 +353,36 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 21 2020 Martin Kolman <mkolman@redhat.com> - 33.11-1
+- Reset the partitioning of Blivet-GUI (#1826286) (vponcova)
+- Fix the validation of a device label (#1823221) (vponcova)
+- Use the new base classes in sources (vslavik)
+- Add base classes for mounting sources (vslavik)
+- Add test if the spokes ordering is correct (jkonecny)
+- Fix ordering of spokes with the same priority (jkonecny)
+- Fix TUI Kernel and Unsupported HW spokes ordering (jkonecny)
+- Switch collecting & ordering action classes to static (jkonecny)
+- Add TUI/GUI tests for standalone spokes priority (jkonecny)
+- Use join_paths instead of os.path.join in sources (vslavik)
+- Get ui/__init__.py closer to pep8 (jkonecny)
+- Allow to remove incomplete devices (#1823232) (vponcova)
+- subscription: RHSMObserver & StartRHSMTask (mkolman)
+- Make sure that the summary button is really hidden (#1823467) (vponcova)
+- Use default priority in the GUI spokes (jkonecny)
+- Fix TUI spokes priorities (jkonecny)
+- Add back default priority for standalone spokes (jkonecny)
+- subscription: Add initial RHSM DBus API identifiers (mkolman)
+- Install scripts at /usr/bin (vponcova)
+- Remove mock from the test dependencies (vponcova)
+- Install test dependencies from pip when possible (vponcova)
+- Fix the indentation of the test dependencies (vponcova)
+- Expand the selector with swap (#1823127) (vponcova)
+- Fix default value for pwpolicy emptyok (#1664704) (mkolman)
+- Only quit GTK mainloop on GUI quit request (#1643111) (mkolman)
+- Print correct message if no linux partitions were found in rescue mode
+  (#1823222) (honza.stodola)
+- Use black color for errors in bottom bar (#1823004) (honza.stodola)
+
 * Thu Apr 16 2020 Martin Kolman <mkolman@redhat.com> - 33.10-1
 - subscription: Implement install_with_tasks() method (mkolman)
 - subscription: Add the IsSubscriptionAttached property (mkolman)
