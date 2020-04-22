@@ -346,7 +346,6 @@ class SubscriptionService(KickstartService):
     def set_system_purpose_with_task(self):
         """Set system purpose for the installed system with an installation task.
 
-        :param sysroot: a path to the root of the installed system
         :return: a DBus path of an installation task
         """
         task = SystemPurposeConfigurationTask(sysroot=conf.target.system_root,
