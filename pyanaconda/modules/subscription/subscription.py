@@ -493,6 +493,8 @@ class SubscriptionService(KickstartService):
         ]
 
     # RHSM DBus API access
+
+    @property
     def rhsm_observer(self):
         """Provide access to the RHSM DBus service observer.
 
