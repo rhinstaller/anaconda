@@ -18,7 +18,7 @@
 #
 from pyanaconda.core.util import parse_nfs_url
 from pyanaconda.payload.source.sources import CDRomSource, HDDSource, NFSSource, HTTPSource, \
-    HTTPSSource, FTPSource, FileSource, LiveSource, HMCSource
+    HTTPSSource, FTPSource, FileSource, HMCSource
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -64,9 +64,6 @@ class SourceFactory(object):
             return FTPSource(cmdline)
         elif cls.is_file(cmdline):
             return FileSource(cmdline)
-        elif cls.is_livecd(cmdline):
-            device = cmdline.split(":", 1)[1]
-            return LiveSource(device)
         elif cls.is_hmc(cmdline):
             return HMCSource()
         else:
@@ -106,11 +103,6 @@ class SourceFactory(object):
     def is_file(cmdline):
         """Is this cmdline parameter local file based payload source?"""
         return cmdline.startswith("file:")
-
-    @staticmethod
-    def is_livecd(cmdline):
-        """Is this cmdline parameter live image based payload source?"""
-        return cmdline.startswith("livecd")
 
     @staticmethod
     def is_hmc(cmdline):

@@ -28,7 +28,6 @@ class SourceType(Enum):
     HTTPS = "https"
     FTP = "ftp"
     FILE = "file"
-    LIVECD = "livecd"
     HMC = "hmc"
 
 
@@ -114,14 +113,6 @@ class BasePayloadSource(object):
         :rtype bool
         """
         return self._source_type == SourceType.FILE
-
-    @property
-    def is_livecd(self):
-        """Is this livecd source?
-
-        :rtype bool
-        """
-        return self._source_type == SourceType.LIVECD
 
     @property
     def is_hmc(self):
@@ -273,23 +264,6 @@ class FileSource(BasePayloadSource):
         :rtype: str
         """
         return self._path
-
-
-class LiveSource(BasePayloadSource):
-    """Source object for live image sources."""
-
-    def __init__(self, partition):
-        super().__init__(SourceType.LIVECD, "harddrive")
-
-        self._partition = partition
-
-    @property
-    def partition(self):
-        """Partition with live image.
-
-        :rtype: str
-        """
-        return self._partition
 
 
 class HMCSource(BasePayloadSource):

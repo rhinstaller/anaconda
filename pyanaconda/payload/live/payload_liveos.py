@@ -20,9 +20,10 @@ import stat
 
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, INSTALL_TREE
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.core.i18n import _
 from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.live.payload_base import BaseLivePayload
@@ -41,20 +42,38 @@ class LiveOSPayload(BaseLivePayload):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_LIVE_OS
 
+    @staticmethod
+    def _get_live_os_image():
+        """Detect live os image on the system.
+
+        FIXME: This is a temporary workaround.
+
+        :return: a path to the image
+        """
+        payloads_proxy = PAYLOADS.get_proxy()
+        source_path = payloads_proxy.CreateSource(SOURCE_TYPE_LIVE_OS_IMAGE)
+
+        source_proxy = PAYLOADS.get_proxy(source_path)
+        return source_proxy.DetectLiveOSImage()
+
     def setup(self):
         super().setup()
-
         # Mount the live device and copy from it instead of the overlay at /
-        osimg = payload_utils.resolve_device(self.data.method.partition)
+        osimg_spec = self._get_live_os_image()
+
+        if not osimg_spec:
+            raise PayloadSetupError("No live image found!")
+
+        osimg = payload_utils.resolve_device(osimg_spec)
         if not osimg:
-            raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
+            raise PayloadInstallError("Unable to find osimg for {}".format(osimg_spec))
 
         osimg_path = payload_utils.get_device_path(osimg)
         if not stat.S_ISBLK(os.stat(osimg_path)[stat.ST_MODE]):
-            exn = PayloadSetupError("%s is not a valid block device" %
-                                    (self.data.method.partition,))
+            exn = PayloadSetupError("{} is not a valid block device".format(osimg_spec))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
+
         rc = payload_utils.mount(osimg_path, INSTALL_TREE, fstype="auto", options="ro")
         if rc != 0:
             raise PayloadInstallError("Failed to mount the install tree")

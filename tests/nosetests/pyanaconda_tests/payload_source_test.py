@@ -40,8 +40,6 @@ class TestValues(enum.Enum):
     harddrive = "hd:/dev/sda2:/path/to/iso.iso"
     harddrive_label = "hd:LABEL=TEST:/path/to/iso.iso"
     harddrive_uuid = "hd:UUID=8176c7bf-04ff-403a-a832-9557f94e61db:/path/to/iso.iso"
-    livecd = "livecd:///dev/mapper/live-base"
-    livecd2 = "livecd:///dev/mapper/live-osimg-min"
     hmc = "hmc"
 
     broken_http = "htttp://broken.server.com/test"
@@ -63,8 +61,6 @@ class TestValues(enum.Enum):
             return CDRomSource
         elif self in (self.harddrive, self.harddrive_label, self.harddrive_uuid):
             return HDDSource
-        elif self in (self.livecd, self.livecd2):
-            return LiveSource
         elif self == self.hmc:
             return HMCSource
         else:
@@ -132,11 +128,6 @@ class TestSourceFactoryTests(unittest.TestCase):
         self._check_is_methods(SourceFactory.is_file,
                                [TestValues.file],
                                "file")
-
-    def is_livecd_test(self):
-        self._check_is_methods(SourceFactory.is_livecd,
-                               [TestValues.livecd, TestValues.livecd2],
-                               "livecd")
 
     def is_hmc_test(self):
         self._check_is_methods(SourceFactory.is_hmc,
