@@ -148,6 +148,7 @@ def _new_date_field_box(store):
 
     # idx is column 0, string we want to show is 1
     combo.add_attribute(renderer, "text", 1)
+    combo.set_wrap_width(1)
 
     box.pack_start(combo, False, False, 0)
     box.pack_start(suffix_label, False, False, 0)
