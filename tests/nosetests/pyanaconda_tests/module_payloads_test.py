@@ -53,7 +53,14 @@ class PayloadsInterfaceTestCase(TestCase):
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.payload_interface.KickstartCommands, ['liveimg'])
+        self.assertEqual(self.payload_interface.KickstartCommands, [
+            "cdrom",
+            "harddrive",
+            "hmc",
+            "liveimg",
+            "nfs",
+            "url"
+        ])
         self.assertEqual(self.payload_interface.KickstartSections, ["packages"])
         self.assertEqual(self.payload_interface.KickstartAddons, [])
 

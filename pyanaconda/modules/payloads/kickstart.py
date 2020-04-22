@@ -47,7 +47,12 @@ class AnacondaPackageSection(PackageSection):
 class PayloadKickstartSpecification(KickstartSpecification):
 
     commands = {
-        "liveimg": COMMANDS.Liveimg
+        "cdrom": COMMANDS.Cdrom,
+        "harddrive": COMMANDS.HardDrive,
+        "hmc": COMMANDS.Hmc,
+        "liveimg": COMMANDS.Liveimg,
+        "nfs": COMMANDS.NFS,
+        "url": COMMANDS.Url
     }
 
     sections = {
