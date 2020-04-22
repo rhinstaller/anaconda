@@ -43,7 +43,7 @@ from pyanaconda.modules.subscription import system_purpose
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    SystemPurposeConfigurationTask
+    SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
@@ -488,9 +488,26 @@ class SubscriptionService(KickstartService):
     def install_with_tasks(self):
         """Return the installation tasks of this module.
 
+        Order of execution is important:
+        - before transferring subscription tokens we need to restore
+          the INFO log level in rhsm.conf or else target system will
+          end up with RHSM logging in DEBUG mode
+        - transfer subscription tokens
+        - connect to insights, this can run only once subscription
+          tokens are in place on the target system or else it would
+          fail as Insights client needs the subscription tokens to
+          authenticate to the Red Hat Insights online service
+
         :returns: list of installation tasks
         """
         return [
+            RestoreRHSMLogLevelTask(
+                rhsm_config_proxy=self.rhsm_observer.get_proxy(RHSM_CONFIG)
+            ),
+            TransferSubscriptionTokensTask(
+                sysroot=conf.target.system_root,
+                transfer_subscription_tokens=self.subscription_attached
+            ),
             ConnectToInsightsTask(
                 sysroot=conf.target.system_root,
                 subscription_attached=self.subscription_attached,
