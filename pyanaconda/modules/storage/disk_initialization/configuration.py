@@ -118,10 +118,15 @@ class DiskInitializationConfig(object):
 
     def _is_device_empty(self, device):
         """Is the given device empty?"""
+        # Is the device partitioned?
         if not device.partitioned:
             return device.format.type is None
 
-        return all(isinstance(p, PartitionDevice) and p.is_magic for p in device.children)
+        # Check the partitions (see initialize_disk).
+        total = len(device.format.partitions)
+        magic = device.format.magic_partition_number
+        expected = 1 if magic else 0
+        return total <= expected
 
     def can_initialize(self, storage, disk):
         """Can the given disk be initialized based on the config?
