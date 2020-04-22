@@ -216,6 +216,20 @@ class Logging(COMMANDS.Logging):
             anaconda_logging.logger.updateRemote(remote_server)
 
 
+def is_dnf_method(name):
+    """Is it a method of the DNF installation?
+
+    :param name: a name of a kickstart command
+    :return: True or False
+    """
+    return name != "liveimg"
+
+
+class Method(COMMANDS.Method):
+    """Proxy to the actual method of the DNF installation."""
+    _methods = list(filter(is_dnf_method, COMMANDS.Method._methods))
+
+
 class RepoData(COMMANDS.RepoData):
 
     __mount_counter = 0
@@ -358,6 +372,7 @@ commandMap = {
     "lang": UselessCommand,
     "logging": Logging,
     "logvol": UselessCommand,
+    "method": Method,
     "mount": UselessCommand,
     "network": UselessCommand,
     "nvdimm": UselessCommand,
