@@ -24,6 +24,7 @@ from unittest.mock import patch, create_autospec, DEFAULT
 from textwrap import dedent
 from tempfile import TemporaryDirectory
 
+from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
 from pyanaconda.modules.common.containers import PayloadContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError, \
@@ -34,7 +35,7 @@ from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module
     get_dir_size
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
@@ -123,7 +124,7 @@ class PayloadsInterfaceTestCase(TestCase):
     @patch_dbus_publish_object
     def create_live_os_source_test(self, publisher):
         """Test creation of the Live OS source module."""
-        source_path = self.payload_interface.CreateSource(SourceType.LIVE_OS_IMAGE.value)
+        source_path = self.payload_interface.CreateSource(SOURCE_TYPE_LIVE_OS_IMAGE)
 
         check_dbus_object_creation(self, source_path, publisher, LiveOSSourceModule)
 

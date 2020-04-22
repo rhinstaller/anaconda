@@ -21,10 +21,10 @@ import unittest
 
 from unittest.mock import Mock, patch
 
+from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
@@ -44,7 +44,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
 
     def type_test(self):
         """Test Live OS source has a correct type specified."""
-        self.assertEqual(SourceType.LIVE_OS_IMAGE.value, self.live_os_source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_LIVE_OS_IMAGE, self.live_os_source_interface.Type)
 
     def image_path_empty_properties_test(self):
         """Test Live OS payload image path property when not set."""
