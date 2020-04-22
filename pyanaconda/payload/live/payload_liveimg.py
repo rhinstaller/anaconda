@@ -33,10 +33,9 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.payload.live.download_progress import DownloadProgress
-from pyanaconda.payload.live.payload_liveos import LiveOSPayload
+from pyanaconda.payload.live.payload_base import BaseLivePayload
 from pyanaconda.progress import progressQ
 from pyanaconda.threading import threadMgr, AnacondaThread
 
@@ -45,7 +44,7 @@ log = get_packaging_logger()
 __all__ = ["LiveImagePayload"]
 
 
-class LiveImagePayload(LiveOSPayload):
+class LiveImagePayload(BaseLivePayload):
     """ Install using a live filesystem image from the network """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -109,9 +108,7 @@ class LiveImagePayload(LiveOSPayload):
     def setup(self):
         """ Check the availability and size of the image.
         """
-        # This is on purpose, we don't want to call LiveImagePayload's setup method.
-        # FIXME: this should be solved on a inheritance level not like this
-        Payload.setup(self)
+        super().setup()
 
         if self.data.method.url.startswith("file://"):
             error = self._setup_file_image()
@@ -124,11 +121,6 @@ class LiveImagePayload(LiveOSPayload):
                 raise exn
 
         log.debug("liveimg size is %s", self._min_size)
-
-    def unsetup(self):
-        # Skip LiveImagePayload's unsetup method
-        # FIXME: this should be solved on a inheritance level not like this
-        Payload.unsetup(self)
 
     def _pre_install_url_image(self):
         """ Download the image using Requests with progress reporting"""
