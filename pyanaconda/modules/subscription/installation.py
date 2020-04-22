@@ -17,6 +17,8 @@
 #
 import os
 
+from dasbus.typing import get_variant, Str
+
 from pyanaconda.core import util
 
 from pyanaconda.modules.common.task import Task
@@ -104,3 +106,32 @@ class SystemPurposeConfigurationTask(Task):
             usage=self._system_purpose_data.usage,
             addons=self._system_purpose_data.addons
         )
+
+
+class RestoreRHSMLogLevelTask(Task):
+    """Restore RHSM log level back to INFO."""
+
+    def __init__(self, rhsm_config_proxy):
+        """Create a new task.
+        :param rhsm_config_proxy: DBus proxy for the RHSM Config object
+        """
+        super().__init__()
+        self._rhsm_config_proxy = rhsm_config_proxy
+
+    @property
+    def name(self):
+        return "Restoring subscription manager log level"
+
+    def run(self):
+        """Set RHSM log level back to INFO.
+
+        We previously set the RHSM log level to DEBUG, which is also
+        reflected in rhsm.conf. This would mean RHSM would continue to
+        log in debug mode also on the system once rhsm.conf has been
+        copied over to the target system.
+
+        So set the log level back to INFO before we copy the config file.
+        """
+        log.debug("subscription: setting RHSM log level back to INFO")
+        self._rhsm_config_proxy.Set("logging.default_log_level",
+                                    get_variant(Str, "INFO"), "")

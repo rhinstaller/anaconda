@@ -34,7 +34,7 @@ from pyanaconda.modules.common.structures.subscription import SystemPurposeData,
     SubscriptionRequest
 
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    SystemPurposeConfigurationTask
+    SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask
 
 class ConnectToInsightsTaskTestCase(unittest.TestCase):
@@ -241,3 +241,16 @@ class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
                          "rhsm.baseurl": get_variant(Str, "cdn.example.com")}
 
         mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")
+
+
+class RestoreRHSMLogLevelTaskTestCase(unittest.TestCase):
+    """Test the RestoreRHSMLogLevelTask task."""
+
+    def restore_rhsm_log_level_task_test(self):
+        """Test the RestoreRHSMLogLevelTask task."""
+        mock_config_proxy = Mock()
+        task = RestoreRHSMLogLevelTask(rhsm_config_proxy=mock_config_proxy)
+        task.run()
+        mock_config_proxy.Set.assert_called_once_with("logging.default_log_level",
+                                                      get_variant(Str, "INFO"),
+                                                      "")
