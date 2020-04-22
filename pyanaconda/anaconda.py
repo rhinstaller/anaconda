@@ -92,7 +92,7 @@ class Anaconda(object):
             elif self.opts.liveinst:
                 from pyanaconda.payload.live import LiveOSPayload
                 klass = LiveOSPayload
-            elif self.ksdata.method.method == "liveimg":
+            elif self.ksdata.liveimg.seen:
                 from pyanaconda.payload.live import LiveImagePayload
                 klass = LiveImagePayload
             else:

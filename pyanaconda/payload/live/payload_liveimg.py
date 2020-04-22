@@ -60,26 +60,30 @@ class LiveImagePayload(BaseLivePayload):
     @property
     def is_tarfile(self):
         """ Return True if the url ends with a tar suffix """
-        return any(self.data.method.url.endswith(suffix) for suffix in TAR_SUFFIX)
+        return any(self.data.liveimg.url.endswith(suffix) for suffix in TAR_SUFFIX)
 
     def _setup_url_image(self):
         """ Check to make sure the url is available and estimate the space
             needed to download and install it.
         """
         self._proxies = {}
-        if self.data.method.proxy:
+        if self.data.liveimg.proxy:
             try:
-                proxy = ProxyString(self.data.method.proxy)
+                proxy = ProxyString(self.data.liveimg.proxy)
                 self._proxies = {"http": proxy.url,
                                  "https": proxy.url}
             except ProxyStringError as e:
                 log.info("Failed to parse proxy for liveimg --proxy=\"%s\": %s",
-                         self.data.method.proxy, e)
+                         self.data.liveimg.proxy, e)
 
         error = None
         try:
-            response = self._session.head(self.data.method.url, proxies=self._proxies, verify=True,
-                                          timeout=NETWORK_CONNECTION_TIMEOUT)
+            response = self._session.head(
+                self.data.liveimg.url,
+                proxies=self._proxies,
+                verify=True,
+                timeout=NETWORK_CONNECTION_TIMEOUT
+            )
 
             # At this point we know we can get the image and what its size is
             # Make a guess as to minimum size needed:
@@ -99,10 +103,10 @@ class LiveImagePayload(BaseLivePayload):
         """ Check to make sure the file is available and estimate the space
             needed to install it.
         """
-        if not os.path.exists(self.data.method.url[7:]):
-            return "file does not exist: %s" % self.data.method.url
+        if not os.path.exists(self.data.liveimg.url[7:]):
+            return "file does not exist: %s" % self.data.liveimg.url
 
-        self._min_size = os.stat(self.data.method.url[7:]).st_blocks * 512 * 3
+        self._min_size = os.stat(self.data.liveimg.url[7:]).st_blocks * 512 * 3
         return None
 
     def setup(self):
@@ -110,7 +114,7 @@ class LiveImagePayload(BaseLivePayload):
         """
         super().setup()
 
-        if self.data.method.url.startswith("file://"):
+        if self.data.liveimg.url.startswith("file://"):
             error = self._setup_file_image()
         else:
             error = self._setup_url_image()
@@ -130,10 +134,14 @@ class LiveImagePayload(BaseLivePayload):
         try:
             log.info("Starting image download")
             with open(self.image_path, "wb") as f:
-                ssl_verify = not self.data.method.noverifyssl
-                response = self._session.get(self.data.method.url, proxies=self._proxies,
-                                             verify=ssl_verify, stream=True,
-                                             timeout=NETWORK_CONNECTION_TIMEOUT)
+                ssl_verify = not self.data.liveimg.noverifyssl
+                response = self._session.get(
+                    self.data.liveimg.url,
+                    proxies=self._proxies,
+                    verify=ssl_verify,
+                    stream=True,
+                    timeout=NETWORK_CONNECTION_TIMEOUT
+                )
                 total_length = response.headers.get('content-length')
                 if total_length is None:  # no content length header
                     # just download the file in one go and fake the progress reporting once done
@@ -141,11 +149,11 @@ class LiveImagePayload(BaseLivePayload):
                                 "download progress reporting will not be available")
                     f.write(response.content)
                     size = f.tell()
-                    progress.start(self.data.method.url, size)
+                    progress.start(self.data.liveimg.url, size)
                     progress.end(size)
                 else:
                     # requests return headers as strings, so convert total_length to int
-                    progress.start(self.data.method.url, int(total_length))
+                    progress.start(self.data.liveimg.url, int(total_length))
                     bytes_read = 0
                     for buf in response.iter_content(1024 * 1024):  # 1 MB chunks
                         if buf:
@@ -160,7 +168,7 @@ class LiveImagePayload(BaseLivePayload):
             error = e
         else:
             if not os.path.exists(self.image_path):
-                error = "Failed to download %s, file doesn't exist" % self.data.method.url
+                error = "Failed to download %s, file doesn't exist" % self.data.liveimg.url
                 log.error(error)
 
         return error
@@ -176,8 +184,8 @@ class LiveImagePayload(BaseLivePayload):
             If it is a file:// source then use the file directly.
         """
         error = None
-        if self.data.method.url.startswith("file://"):
-            self.image_path = self.data.method.url[7:]
+        if self.data.liveimg.url.startswith("file://"):
+            self.image_path = self.data.liveimg.url[7:]
         else:
             error = self._pre_install_url_image()
 
@@ -189,7 +197,7 @@ class LiveImagePayload(BaseLivePayload):
         # Used to make install progress % look correct
         self._adj_size = os.stat(self.image_path)[stat.ST_SIZE]
 
-        if self.data.method.checksum:
+        if self.data.liveimg.checksum:
             progressQ.send_message(_("Checking image checksum"))
             sha256 = hashlib.sha256()
             with open(self.image_path, "rb") as f:
@@ -199,10 +207,10 @@ class LiveImagePayload(BaseLivePayload):
                         break
                     sha256.update(data)
             filesum = sha256.hexdigest()
-            log.debug("sha256 of %s is %s", self.data.method.url, filesum)
+            log.debug("sha256 of %s is %s", self.data.liveimg.url, filesum)
 
-            if util.lowerASCII(self.data.method.checksum) != filesum:
-                log.error("%s does not match checksum.", self.data.method.checksum)
+            if util.lowerASCII(self.data.liveimg.checksum) != filesum:
+                log.error("%s does not match checksum.", self.data.liveimg.checksum)
                 exn = PayloadInstallError("Checksum of image does not match")
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
@@ -323,7 +331,7 @@ class LiveImagePayload(BaseLivePayload):
             payload_utils.unmount(IMAGE_DIR, raise_exc=True)
             os.rmdir(IMAGE_DIR)
 
-        if os.path.exists(self.image_path) and not self.data.method.url.startswith("file://"):
+        if os.path.exists(self.image_path) and not self.data.liveimg.url.startswith("file://"):
             os.unlink(self.image_path)
 
     @property
