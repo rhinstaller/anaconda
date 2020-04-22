@@ -90,11 +90,11 @@ class Anaconda(object):
                     from pyanaconda.payload.rpmostreepayload import RPMOSTreePayload
                     klass = RPMOSTreePayload
             elif self.opts.liveinst:
-                from pyanaconda.payload.livepayload import LiveImagePayload
-                klass = LiveImagePayload
+                from pyanaconda.payload.live import LiveOSPayload
+                klass = LiveOSPayload
             elif self.ksdata.method.method == "liveimg":
-                from pyanaconda.payload.livepayload import LiveImageKSPayload
-                klass = LiveImageKSPayload
+                from pyanaconda.payload.live import LiveImagePayload
+                klass = LiveImagePayload
             else:
                 from pyanaconda.payload.dnf import DNFPayload
                 klass = DNFPayload
