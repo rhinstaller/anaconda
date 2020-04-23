@@ -33,13 +33,17 @@ import dnf.subject
 import libdnf.conf
 import libdnf.repo
 import rpm
+import re
 import pyanaconda.localization
 
 from blivet.size import Size
 from dnf.const import GROUP_PACKAGE_TYPES
 from fnmatch import fnmatch
 from glob import glob
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE
+
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
+    GROUP_REQUIRED
+from pykickstart.parser import Group
 
 from pyanaconda import errors as errors
 from pyanaconda import isys
@@ -49,11 +53,13 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, DRACUT_REPODIR, DRACUT_ISODIR, \
     PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
+from pyanaconda.modules.common.errors.storage import MountFilesystemError, DeviceSetupError
 from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
@@ -66,10 +72,14 @@ from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, 
     PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, mountImage, verify_valid_installtree, \
     find_optical_install_media
+from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
+from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.simpleconfig import SimpleConfigFile
 
 log = get_packaging_logger()
+
+USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 __all__ = ["DNFPayload"]
 
@@ -79,6 +89,9 @@ class DNFPayload(Payload):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.install_device = None
+        self.tx_id = None
+
+        self._install_tree_metadata = None
         self._rpm_macros = []
 
         # Used to determine which add-ons to display for each environment.
@@ -111,11 +124,66 @@ class DNFPayload(Payload):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_DNF
 
+    @property
+    def is_hmc_enabled(self):
+        return self.data.method.method == "hmc"
+
+    def is_ready(self):
+        """Is the payload ready?"""
+        return self.base_repo is not None
+
     def unsetup(self):
         super().unsetup()
         self._base = None
         self._configure()
         self._repoMD_list = []
+        self._install_tree_metadata = None
+
+    @property
+    def needs_network(self):
+        """Test base and additional repositories if they require network."""
+        url = ""
+        if self.data.method.method is None:
+            # closest mirror set
+            return True
+        elif self.data.method.method == "nfs":
+            # NFS is always on network
+            return True
+        elif self.data.method.method == "url":
+            if self.data.url.url:
+                url = self.data.url.url
+            elif self.data.url.mirrorlist:
+                url = self.data.url.mirrorlist
+            elif self.data.url.metalink:
+                url = self.data.url.metalink
+
+        return (self._source_needs_network([url]) or
+                any(self._repo_needs_network(repo) for repo in self.data.repo.dataList()))
+
+    def _repo_needs_network(self, repo):
+        """Returns True if the ksdata repo requires networking."""
+        urls = [repo.baseurl]
+        if repo.mirrorlist:
+            urls.extend(repo.mirrorlist)
+        elif repo.metalink:
+            urls.extend(repo.metalink)
+        return self._source_needs_network(urls)
+
+    def _source_needs_network(self, sources):
+        """Return True if the source requires network.
+
+        :param sources: Source paths for testing
+        :type sources: list
+        :returns: True if any source requires network
+        """
+        network_protocols = ["http:", "ftp:", "nfs:", "nfsiso:"]
+        for s in sources:
+            if s and any(s.startswith(p) for p in network_protocols):
+                log.debug("Source %s needs network for installation", s)
+                return True
+
+        log.debug("Source doesn't require network for installation")
+        return False
 
     def _replace_vars(self, url):
         """Replace url variables with their values.
@@ -233,13 +301,23 @@ class DNFPayload(Payload):
     def add_repo(self, ksrepo):
         """Add an enabled repo to dnf and kickstart repo lists.
 
+        Add the repo given by the pykickstart Repo object ksrepo to the
+        system.  The repo will be automatically enabled and its metadata
+        fetched.
+
+        Duplicate repos will not raise an error.  They should just silently
+        take the place of the previous value.
+
         :param ksrepo: Kickstart Repository to add
         :type ksrepo: Kickstart RepoData object.
         :returns: None
         """
         self._add_repo(ksrepo)
         self._fetch_md(ksrepo.name)
-        super().add_repo(ksrepo)
+
+        # Add the repo to the ksdata so it'll appear in the output ks file.
+        ksrepo.enabled = True
+        self.data.repo.dataList().append(ksrepo)
 
     def _process_module_command(self):
         """Enable/disable modules (if any)."""
@@ -655,6 +733,7 @@ class DNFPayload(Payload):
 
     @property
     def base_repo(self):
+        """Get the identifier of the current base repo or None."""
         # is any locking needed here?
         repo_names = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS
         with self._repos_lock:
@@ -690,8 +769,19 @@ class DNFPayload(Payload):
         groups = self._base.comps.groups_iter()
         return [g.id for g in groups]
 
+    def selected_groups(self):
+        """Return list of selected group names from kickstart.
+
+        NOTE:
+        This group names can be mix of group IDs and other valid identifiers.
+        If you want group IDs use `selected_groups_IDs` instead.
+
+        :return: list of group names in a format specified by a kickstart file.
+        """
+        return [grp.name for grp in self.data.packages.groupList]
+
     def selected_groups_IDs(self):
-        """ Return list of selected group IDs.
+        """Return list of IDs for selected groups.
 
         :return: List of selected group IDs.
         :raise PayloadError: If translation is not supported by payload.
@@ -709,14 +799,113 @@ class DNFPayload(Payload):
         except PayloadError as ex:
             raise PayloadError("Can't translate group names to group ID - {}".format(ex))
 
+    def group_selected(self, groupid):
+        return Group(groupid) in self.data.packages.groupList
+
+    def select_group(self, groupid, default=True, optional=False):
+        if optional:
+            include = GROUP_ALL
+        elif default:
+            include = GROUP_DEFAULT
+        else:
+            include = GROUP_REQUIRED
+
+        grp = Group(groupid, include=include)
+
+        if grp in self.data.packages.groupList:
+            # I'm not sure this would ever happen, but ensure that re-selecting
+            # a group with a different types set works as expected.
+            if grp.include != include:
+                grp.include = include
+
+            return
+
+        if grp in self.data.packages.excludedGroupList:
+            self.data.packages.excludedGroupList.remove(grp)
+
+        self.data.packages.groupList.append(grp)
+
+    def deselect_group(self, groupid):
+        grp = Group(groupid)
+
+        if grp in self.data.packages.excludedGroupList:
+            return
+
+        if grp in self.data.packages.groupList:
+            self.data.packages.groupList.remove(grp)
+
+        self.data.packages.excludedGroupList.append(grp)
+
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
+
     @property
     def repos(self):
         """A list of repo identifiers, not objects themselves."""
         with self._repos_lock:
             return [r.id for r in self._base.repos.values()]
+
+    @property
+    def addons(self):
+        """A list of addon repo names."""
+        return [r.name for r in self.data.repo.dataList()]
+
+    @property
+    def mirrors_available(self):
+        """Is the closest/fastest mirror option enabled?  This does not make
+        sense for those payloads that do not support this concept.
+        """
+        return conf.payload.enable_closest_mirror
+
+    @property
+    def disabled_repos(self):
+        """A list of names of the disabled repos."""
+        disabled = []
+        for repo in self.addons:
+            if not self.is_repo_enabled(repo):
+                disabled.append(repo)
+
+        return disabled
+
+    @property
+    def enabled_repos(self):
+        """A list of names of the enabled repos."""
+        enabled = []
+        for repo in self.addons:
+            if self.is_repo_enabled(repo):
+                enabled.append(repo)
+
+        return enabled
+
+    def get_addon_repo(self, repo_id):
+        """Return a ksdata Repo instance matching the specified repo id."""
+        repo = None
+        for r in self.data.repo.dataList():
+            if r.name == repo_id:
+                repo = r
+                break
+
+        return repo
+
+    def add_disabled_repo(self, ksrepo):
+        """Add the repo given by the pykickstart Repo object ksrepo to the
+        list of known repos.  The repo will be automatically disabled.
+
+        Duplicate repos will not raise an error.  They should just silently
+        take the place of the previous value.
+        """
+        ksrepo.enabled = False
+        self.data.repo.dataList().append(ksrepo)
+
+    def remove_repo(self, repo_id):
+        repos = self.data.repo.dataList()
+        try:
+            idx = [repo.name for repo in repos].index(repo_id)
+        except ValueError:
+            log.error("failed to remove repo %s: not found", repo_id)
+        else:
+            repos.pop(idx)
 
     def add_driver_repos(self):
         """Add driver repositories and packages."""
@@ -874,7 +1063,10 @@ class DNFPayload(Payload):
             log.info("Disabled '%s'", repo_id)
         except KeyError:
             pass
-        super().disable_repo(repo_id)
+
+        repo = self.get_addon_repo(repo_id)
+        if repo:
+            repo.enabled = False
 
     def enable_repo(self, repo_id):
         try:
@@ -882,7 +1074,10 @@ class DNFPayload(Payload):
             log.info("Enabled '%s'", repo_id)
         except KeyError:
             pass
-        super().enable_repo(repo_id)
+
+        repo = self.get_addon_repo(repo_id)
+        if repo:
+            repo.enabled = True
 
     def environment_description(self, environment_id):
         env = self._base.comps.environment_by_pattern(environment_id)
@@ -1099,13 +1294,23 @@ class DNFPayload(Payload):
         return self._base.repos[repo_id]
 
     def is_repo_enabled(self, repo_id):
+        """Return True if repo is enabled."""
         try:
             return self._base.repos[repo_id].enabled
         except (dnf.exceptions.RepoError, KeyError):
-            return super().is_repo_enabled(repo_id)
+            repo = self.get_addon_repo(repo_id)
+            if repo:
+                return repo.enabled
+            else:
+                return False
 
     def verify_available_repositories(self):
-        """Verify availability of repositories."""
+        """Verify availability of existing repositories.
+
+        This method tests if URL links from active repositories can be reached.
+        It is useful when network settings is changed so that we can verify if repositories
+        are still reachable.
+        """
         if not self._repoMD_list:
             return False
 
@@ -1197,6 +1402,7 @@ class DNFPayload(Payload):
                 payload_utils.unmount(mount_point, raise_exc=True)
 
     def update_base_repo(self, fallback=True, checkmount=True):
+        """Update the base repository from ksdata.method."""
         log.info('configuring base repo')
         self.reset()
         install_tree_url, mirrorlist, metalink = self._setup_install_device(checkmount)
@@ -1594,6 +1800,58 @@ class DNFPayload(Payload):
             payload_utils.teardown_device(device)
             raise PayloadSetupError("failed to find valid installation tree")
 
+    @staticmethod
+    def _setup_device(device, mountpoint):
+        """Prepare an install CD/DVD for use as a package source."""
+        log.info("setting up device %s and mounting on %s", device, mountpoint)
+        # Is there a symlink involved?  If so, let's get the actual path.
+        # This is to catch /run/install/isodir vs. /mnt/install/isodir, for
+        # instance.
+        real_mountpoint = os.path.realpath(mountpoint)
+        mount_device_path = payload_utils.get_mount_device_path(real_mountpoint)
+
+        if mount_device_path:
+            log.warning("%s is already mounted on %s", mount_device_path, mountpoint)
+
+            if mount_device_path == payload_utils.get_device_path(device):
+                return
+            else:
+                payload_utils.unmount(real_mountpoint)
+
+        try:
+            payload_utils.setup_device(device)
+            payload_utils.mount_device(device, mountpoint)
+        except (DeviceSetupError, MountFilesystemError) as e:
+            log.error("mount failed: %s", e)
+            payload_utils.teardown_device(device)
+            raise PayloadSetupError(str(e))
+
+    @staticmethod
+    def _setup_NFS(mountpoint, server, path, options):
+        """Prepare an NFS directory for use as an install source."""
+        log.info("mounting %s:%s:%s on %s", server, path, options, mountpoint)
+        device_path = payload_utils.get_mount_device_path(mountpoint)
+
+        # test if the mountpoint is occupied already
+        if device_path:
+            _server, colon, _path = device_path.partition(":")
+            if colon == ":" and server == _server and path == _path:
+                log.debug("%s:%s already mounted on %s", server, path, mountpoint)
+                return
+            else:
+                log.debug("%s already has something mounted on it", mountpoint)
+                payload_utils.unmount(mountpoint)
+
+        # mount the specified directory
+        url = "%s:%s" % (server, path)
+
+        if not options:
+            options = "nolock"
+        elif "nolock" not in options:
+            options += ",nolock"
+
+        payload_utils.mount(url, mountpoint, fstype="nfs", options=options)
+
     def _device_is_mounted_as_source(self, device):
         device_path = payload_utils.get_device_path(device)
         device_mounts = payload_utils.get_mount_paths(device_path)
@@ -1614,6 +1872,74 @@ class DNFPayload(Payload):
         url = "file://" + install_root_dir
 
         return url
+
+    def _refresh_install_tree(self, url):
+        """Refresh installation tree metadata.
+
+        :param url: url of the repo
+        :type url: string
+        """
+        if not url:
+            return
+
+        if hasattr(self.data.method, "proxy"):
+            proxy_url = self.data.method.proxy
+        else:
+            proxy_url = None
+
+        # ssl_verify can be:
+        #   - the path to a cert file
+        #   - True, to use the system's certificates
+        #   - False, to not verify
+        ssl_verify = getattr(self.data.method, "sslcacert", None) or conf.payload.verify_ssl
+
+        ssl_client_cert = getattr(self.data.method, "ssl_client_cert", None)
+        ssl_client_key = getattr(self.data.method, "ssl_client_key", None)
+        ssl_cert = (ssl_client_cert, ssl_client_key) if ssl_client_cert else None
+
+        log.debug("retrieving treeinfo from %s (proxy: %s ; ssl_verify: %s)",
+                  url, proxy_url, ssl_verify)
+
+        proxies = {}
+        if proxy_url:
+            try:
+                proxy = ProxyString(proxy_url)
+                proxies = {"http": proxy.url,
+                           "https": proxy.url}
+            except ProxyStringError as e:
+                log.info("Failed to parse proxy for _getTreeInfo %s: %s",
+                         proxy_url, e)
+
+        headers = {"user-agent": USER_AGENT}
+        self._install_tree_metadata = InstallTreeMetadata()
+        try:
+            ret = self._install_tree_metadata.load_url(url, proxies, ssl_verify, ssl_cert, headers)
+        except IOError as e:
+            self._install_tree_metadata = None
+            self.verbose_errors.append(str(e))
+            log.warning("Install tree metadata fetching failed: %s", str(e))
+            return
+
+        if not ret:
+            log.warning("Install tree metadata can't be loaded!")
+            self._install_tree_metadata = None
+
+    def _get_release_version(self, url):
+        """Return the release version of the tree at the specified URL."""
+        try:
+            version = re.match(VERSION_DIGITS, productVersion).group(1)
+        except AttributeError:
+            version = "rawhide"
+
+        log.debug("getting release version from tree at %s (%s)", url, version)
+
+        if self._install_tree_metadata:
+            version = self._install_tree_metadata.get_release_version()
+            log.debug("using treeinfo release version of %s", version)
+        else:
+            log.debug("using default release version of %s", version)
+
+        return version
 
     def _get_base_repo_location(self, install_tree_url):
         """Try to find base repository from the treeinfo file.
