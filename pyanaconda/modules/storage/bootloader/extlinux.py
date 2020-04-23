@@ -17,7 +17,7 @@
 #
 import os
 
-from pyanaconda.bootloader.base import BootLoader, Arguments, BootLoaderError
+from pyanaconda.modules.storage.bootloader.base import BootLoader, Arguments, BootLoaderError
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.product import productName

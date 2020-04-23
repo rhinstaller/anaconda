@@ -30,16 +30,16 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_db
     check_task_creation, reset_boot_loader_factory
 
 from pyanaconda import platform
-from pyanaconda.bootloader import BootLoaderFactory
-from pyanaconda.bootloader.base import BootLoader
-from pyanaconda.bootloader.efi import EFIGRUB, MacEFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
-from pyanaconda.bootloader.extlinux import EXTLINUX
-from pyanaconda.bootloader.grub2 import GRUB2, IPSeriesGRUB2, PowerNVGRUB2
-from pyanaconda.bootloader.zipl import ZIPL
+from pyanaconda.modules.storage.bootloader import BootLoaderFactory
+from pyanaconda.modules.storage.bootloader.base import BootLoader
+from pyanaconda.modules.storage.bootloader.efi import EFIGRUB, MacEFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
+from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
+from pyanaconda.modules.storage.bootloader.grub2 import GRUB2, IPSeriesGRUB2, PowerNVGRUB2
+from pyanaconda.modules.storage.bootloader.zipl import ZIPL
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import BootloaderMode
 
-from pyanaconda.bootloader.image import LinuxBootLoaderImage
+from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.storage.bootloader import BootloaderModule

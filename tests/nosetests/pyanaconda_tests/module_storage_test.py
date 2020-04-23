@@ -23,8 +23,8 @@ from unittest.mock import patch, Mock, PropertyMock
 
 from blivet.formats.fs import BTRFS
 
-from pyanaconda.bootloader import BootLoaderFactory
-from pyanaconda.bootloader.extlinux import EXTLINUX
+from pyanaconda.modules.storage.bootloader import BootLoaderFactory
+from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, \
     PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_CUSTOM
 from dasbus.server.container import DBusContainerError
@@ -41,8 +41,8 @@ from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
     patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy, reset_boot_loader_factory
 
-from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
-from pyanaconda.bootloader.zipl import ZIPL
+from pyanaconda.modules.storage.bootloader.grub2 import IPSeriesGRUB2, GRUB2
+from pyanaconda.modules.storage.bootloader.zipl import ZIPL
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
 from pyanaconda.modules.common.task import TaskInterface

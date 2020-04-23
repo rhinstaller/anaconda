@@ -19,14 +19,14 @@
 #
 from blivet import arch
 from blivet.devices import BTRFSDevice
-from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.modules.storage.bootloader import BootLoaderError
 
 from pyanaconda.core.util import execInSysroot
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.bootloader.installation import configure_boot_loader, install_boot_loader
+from pyanaconda.modules.storage.bootloader.utils import configure_boot_loader, install_boot_loader
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 

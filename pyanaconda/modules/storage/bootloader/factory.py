@@ -15,13 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.bootloader.base import BootLoaderError
 from pyanaconda import platform
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["BootLoaderError", "BootLoaderFactory"]
+__all__ = ["BootLoaderFactory"]
 
 
 class BootLoaderFactory(object):
@@ -74,7 +73,7 @@ class BootLoaderFactory(object):
 
         :return: a boot loader class
         """
-        from pyanaconda.bootloader.base import BootLoader
+        from pyanaconda.modules.storage.bootloader.base import BootLoader
         return BootLoader
 
     @classmethod
@@ -88,7 +87,7 @@ class BootLoaderFactory(object):
         :return: a boot loader class or None
         """
         if name == "EXTLINUX":
-            from pyanaconda.bootloader.extlinux import EXTLINUX
+            from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
             return EXTLINUX
 
         return None
@@ -108,43 +107,43 @@ class BootLoaderFactory(object):
 
         # Get the type of the bootloader.
         if platform_class is platform.X86:
-            from pyanaconda.bootloader.grub2 import GRUB2
+            from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
             return GRUB2
 
         if platform_class is platform.EFI:
-            from pyanaconda.bootloader.efi import EFIGRUB
+            from pyanaconda.modules.storage.bootloader.efi import EFIGRUB
             return EFIGRUB
 
         if platform_class is platform.MacEFI:
-            from pyanaconda.bootloader.efi import MacEFIGRUB
+            from pyanaconda.modules.storage.bootloader.efi import MacEFIGRUB
             return MacEFIGRUB
 
         if platform_class is platform.PPC:
-            from pyanaconda.bootloader.grub2 import GRUB2
+            from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
             return GRUB2
 
         if platform_class is platform.IPSeriesPPC:
-            from pyanaconda.bootloader.grub2 import IPSeriesGRUB2
+            from pyanaconda.modules.storage.bootloader.grub2 import IPSeriesGRUB2
             return IPSeriesGRUB2
 
         if platform_class is platform.PowerNV:
-            from pyanaconda.bootloader.grub2 import PowerNVGRUB2
+            from pyanaconda.modules.storage.bootloader.grub2 import PowerNVGRUB2
             return PowerNVGRUB2
 
         if platform_class is platform.S390:
-            from pyanaconda.bootloader.zipl import ZIPL
+            from pyanaconda.modules.storage.bootloader.zipl import ZIPL
             return ZIPL
 
         if platform_class is platform.Aarch64EFI:
-            from pyanaconda.bootloader.efi import Aarch64EFIGRUB
+            from pyanaconda.modules.storage.bootloader.efi import Aarch64EFIGRUB
             return Aarch64EFIGRUB
 
         if platform_class is platform.ARM:
-            from pyanaconda.bootloader.extlinux import EXTLINUX
+            from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
             return EXTLINUX
 
         if platform_class is platform.ArmEFI:
-            from pyanaconda.bootloader.efi import ArmEFIGRUB
+            from pyanaconda.modules.storage.bootloader.efi import ArmEFIGRUB
             return ArmEFIGRUB
 
         return None

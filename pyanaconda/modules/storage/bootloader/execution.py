@@ -17,7 +17,7 @@
 #
 import blivet.arch
 from blivet.devices import iScsiDiskDevice
-from pyanaconda.bootloader.base import BootLoaderError
+from pyanaconda.modules.storage.bootloader.base import BootLoaderError
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.core.configuration.anaconda import conf
