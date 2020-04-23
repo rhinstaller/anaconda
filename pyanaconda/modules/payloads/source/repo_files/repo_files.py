@@ -40,7 +40,7 @@ class RepoFilesSourceModule(PayloadSourceBase):
 
     def get_state(self):
         """Get state of this source."""
-        return SourceState.NOT_SUPPORTED
+        return SourceState.NOT_APPLICABLE
 
     def for_publication(self):
         """Get the interface used to publish this source."""

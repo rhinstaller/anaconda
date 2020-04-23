@@ -108,7 +108,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
     def set_when_initialized_source_fail_test(self, publisher):
         """Test payload can't set new sources if the old ones are initialized."""
         source1 = self.shared_tests.prepare_source(SourceType.NFS)
-        source2 = self.shared_tests.prepare_source(SourceType.URL, state=SourceState.NOT_SUPPORTED)
+        source2 = self.shared_tests.prepare_source(SourceType.URL, state=SourceState.NOT_APPLICABLE)
 
         self.shared_tests.check_set_sources([source1])
 
@@ -122,5 +122,5 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         source1.get_state.return_value = SourceState.UNREADY
         self.shared_tests.check_set_sources([source2])
 
-        # can change back anytime because source2 has state NOT_SUPPORTED
+        # can change back anytime because source2 has state NOT_APPLICABLE
         self.shared_tests.check_set_sources([source1])

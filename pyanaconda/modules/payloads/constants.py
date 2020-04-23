@@ -56,9 +56,9 @@ class SourceState(Enum):
 
     These will be used only internally. Not with a DBus API.
     """
+    NOT_APPLICABLE = auto()
     READY = auto()
     UNREADY = auto()
-    NOT_SUPPORTED = auto()
 
     @staticmethod
     def from_bool(value):

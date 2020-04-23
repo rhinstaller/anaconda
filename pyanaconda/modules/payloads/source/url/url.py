@@ -56,7 +56,7 @@ class URLSourceModule(PayloadSourceBase):
 
     def get_state(self):
         """Get state of this source."""
-        return SourceState.NOT_SUPPORTED
+        return SourceState.NOT_APPLICABLE
 
     @property
     def type(self):
