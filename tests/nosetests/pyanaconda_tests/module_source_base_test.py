@@ -20,7 +20,7 @@ from unittest.mock import patch
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask, TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
 
@@ -70,12 +70,12 @@ class MountingSourceBaseTestCase(unittest.TestCase):
         """Mount source base ready state for set up."""
         ismount_mock.return_value = False
         module = DummyMountingSourceSubclass()
-        self.assertFalse(module.is_ready())
+        self.assertEqual(SourceState.UNREADY, module.get_state())
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        self.assertTrue(module.is_ready())
+        self.assertEqual(SourceState.READY, module.get_state())
 
         ismount_mock.assert_called_once_with(module.mount_point)
 

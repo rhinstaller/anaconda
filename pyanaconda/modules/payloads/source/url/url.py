@@ -22,7 +22,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, URLType
+from pyanaconda.modules.payloads.constants import SourceType, URLType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
 
@@ -54,10 +54,9 @@ class URLSourceModule(PayloadSourceBase):
 
         self._url_source_name = "{}-{}".format(BASE_REPO_NAME, source_id)
 
-    def is_ready(self):
-        """This source is ready for the installation to start."""
-        # FIXME: always true is correct but it will block change of payload source. Find solution!
-        return True
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.NOT_APPLICABLE
 
     @property
     def type(self):

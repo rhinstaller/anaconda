@@ -151,10 +151,6 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
 
     # TODO: Add set_source and supported_sources like in Live OS payload when source is available
 
-    def sources_empty_test(self):
-        """Test sources Live Image API for emptiness."""
-        self.shared_tests.check_empty_sources()
-
     def default_url_test(self):
         self.assertEqual(self.live_image_interface.Url, "")
 

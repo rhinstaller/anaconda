@@ -19,7 +19,7 @@
 #
 from pyanaconda.payload.dnf.utils import REPO_DIRS
 
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.repo_files.repo_files_interface import \
     RepoFilesSourceInterface
@@ -38,11 +38,9 @@ class RepoFilesSourceModule(PayloadSourceBase):
         """Get type of this source."""
         return SourceType.REPO_FILES
 
-    def is_ready(self):
-        """This source is ready for the installation to start."""
-        # FIXME: Returning True is correct here but it will prevent payload from setting sources.
-        # Find better solution.
-        return True
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.NOT_APPLICABLE
 
     def for_publication(self):
         """Get the interface used to publish this source."""

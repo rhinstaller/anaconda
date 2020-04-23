@@ -17,12 +17,13 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
-from unittest.mock import patch, create_autospec
+from unittest.mock import patch, Mock
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
+
 from pyanaconda.modules.common.containers import PayloadSourceContainer
-from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
+from pyanaconda.modules.payloads.source.factory import SourceFactory
+from pyanaconda.modules.payloads.constants import SourceState
 
 
 class PayloadKickstartSharedTest(object):
@@ -88,17 +89,14 @@ class PayloadSharedTest(object):
         self._test.assertEqual(t, payload_type.value)
 
     @staticmethod
-    def prepare_source(source_type):
+    def prepare_source(source_type, state=SourceState.READY):
         """Prepare mock objects which will present given source.
 
         :param SourceType source: Enum describing the source type
+        :param SourceState state: mock state of the created source
         """
-        if source_type == SourceType.LIVE_OS_IMAGE:
-            source = create_autospec(LiveOSSourceModule)
-            source.image_path = "/test/path"
-
-        source.type = source_type
-        source.is_ready.return_value = True
+        source = SourceFactory.create_source(source_type)
+        source.get_state = Mock(return_value=state)
 
         return source
 
@@ -116,22 +114,37 @@ class PayloadSharedTest(object):
         self._test.assertEqual([], self.payload_interface.Sources)
         self._test.assertFalse(self.payload_interface.HasSource())
 
-    def check_set_sources(self, test_sources, exception=None):
+    def check_set_sources(self, test_sources, exception=None, expected_sources=None):
         """Default check to set sources.
 
         :param test_sources: list of sources for emptiness failed check
+        :type test_sources: list of source instances
         :param exception: exception class which will be raised for the given sources
+        :param expected_sources: list of expected sources after trying to set;
+                                 including when exception raised
+        :type expected_sources: list of source instances
+        :return: caught exception if exception raised
         """
         paths = PayloadSourceContainer.to_object_path_list(test_sources)
+        ret = None
 
         if exception:
-            with self._test.assertRaises(exception):
+            with self._test.assertRaises(exception) as cm:
                 self.payload_interface.SetSources(paths)
-
-            self._test.assertEqual(self.payload_interface.Sources, [])
-            self._test.assertFalse(self.payload_interface.HasSource())
+            ret = cm
         else:
             self.payload_interface.SetSources(paths)
 
+        if expected_sources:
+            expected_paths = PayloadSourceContainer.to_object_path_list(expected_sources)
+
+            self._test.assertEqual(self.payload_interface.Sources, expected_paths)
+            self._test.assertTrue(self.payload_interface.HasSource())
+        elif exception:
+            self._test.assertEqual(self.payload_interface.Sources, [])
+            self._test.assertFalse(self.payload_interface.HasSource())
+        else:
             self._test.assertEqual(self.payload_interface.Sources, paths)
             self._test.assertTrue(self.payload_interface.HasSource())
+
+        return ret

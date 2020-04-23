@@ -308,7 +308,7 @@ class URLSourceTestCase(unittest.TestCase):
 
         It will be always True there is no state.
         """
-        self.assertTrue(self.module.is_ready())
+        self.assertTrue(self.module.get_state())
 
     def set_up_with_tasks_test(self):
         """Get set up tasks for url source.

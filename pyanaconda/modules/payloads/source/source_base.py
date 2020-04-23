@@ -23,6 +23,7 @@ from abc import ABC, ABCMeta, abstractmethod
 from dasbus.server.publishable import Publishable
 
 from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.payloads.constants import SourceState
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -48,15 +49,16 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def is_ready(self):
-        """This source is ready for the installation to start.
+    def get_state(self):
+        """Get state of this source.
 
         This method will not be part of the public API. There is no need for others than the
         payload owner to see the status of the source. It is also not really useful, in time when
         user gets the ready state the state could be different because of the DBus parallelism.
         In general we should not share state.
 
-        :rtype: bool
+        :return: one of the supported state of SourceState enum
+        :rtype: pyanaconda.modules.payloads.constants.SourceState enum value
         """
         # TODO: Add needs_teardown property which will tell us if the source has to be cleaned up
         # before removing the source from a payload. The is_ready will work for now but it
@@ -104,13 +106,14 @@ class MountingSourceBase(PayloadSourceBase, ABC):
         super().__init__()
         self._mount_point = MountPointGenerator.generate_mount_point(self.type.value.lower())
 
-    def is_ready(self):
+    def get_state(self):
         """This source is ready for the installation to start.
 
-        :return: ready or not
-        :rtype: bool
+        :return: one of the supported state of SourceState enum
+        :rtype: pyanaconda.modules.payloads.constants.SourceState enum value
         """
-        return os.path.ismount(self._mount_point)
+        res = os.path.ismount(self._mount_point)
+        return SourceState.from_bool(res)
 
     @property
     def mount_point(self):

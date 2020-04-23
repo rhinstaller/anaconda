@@ -63,7 +63,7 @@ class RepoFilesSourceTestCase(unittest.TestCase):
 
     def ready_state_test(self):
         """Test Repo files Source ready state for set up."""
-        self.assertTrue(self.source_module.is_ready())
+        self.assertTrue(self.source_module.get_state())
 
 
 class RepoFilesSourceSetupTaskTestCase(unittest.TestCase):
