@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.payloads.constants import PayloadType
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 
@@ -43,8 +43,14 @@ class DNFModule(PayloadBase):
     @property
     def supported_source_types(self):
         """Get list of sources supported by DNF module."""
-        # TODO: Add supported sources when implemented
-        return None
+        return [
+            SourceType.CDROM,
+            SourceType.HDD,
+            SourceType.HMC,
+            SourceType.NFS,
+            SourceType.REPO_FILES,
+            SourceType.URL
+        ]
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
