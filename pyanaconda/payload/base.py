@@ -59,6 +59,10 @@ class Payload(metaclass=ABCMeta):
     def first_payload_reset(self):
         return self._first_payload_reset
 
+    def is_ready(self):
+        """Is the payload ready?"""
+        return True
+
     def setup(self):
         """Do any payload-specific setup."""
         self.verbose_errors = []

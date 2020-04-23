@@ -1614,8 +1614,10 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
         self._now_available = self.completed
 
-        log.debug("network standalone spoke (apply) payload: %s completed: %s", self.payload.base_repo, self._now_available)
-        if (not self.payload.base_repo and not self._initially_available
+        log.debug("network standalone spoke (apply) payload: %s completed: %s",
+                  self.payload.is_ready(), self._now_available)
+
+        if (not self.payload.is_ready() and not self._initially_available
             and self._now_available and self.payload.needs_network):
             from pyanaconda.payload.manager import payloadMgr
             payloadMgr.restart_thread(self.payload, fallback=not anaconda_flags.automatedInstall)

@@ -128,6 +128,10 @@ class DNFPayload(Payload):
     def is_hmc_enabled(self):
         return self.data.method.method == "hmc"
 
+    def is_ready(self):
+        """Is the payload ready?"""
+        return self.base_repo is not None
+
     def unsetup(self):
         super().unsetup()
         self._base = None

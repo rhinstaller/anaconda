@@ -129,7 +129,7 @@ class InstallOptionsDialogBase(GUIObject):
         return (not threadMgr.get(constants.THREAD_PAYLOAD) and
                 not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
                 not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
-                self.payload.base_repo is not None)
+                self.payload.is_ready())
 
     def _check_for_storage_thread(self, button):
         if self._software_is_ready():
