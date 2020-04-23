@@ -61,6 +61,12 @@ PARTITION_ONLY_FORMAT_TYPES = (
     "appleboot"
 )
 
+PROTECTED_FORMAT_TYPES = (
+    "efi",
+    "macefi",
+    "prepboot",
+    "appleboot"
+)
 
 # Used for info about device with
 # no more supported type (ie btrfs).
