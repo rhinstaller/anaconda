@@ -27,7 +27,6 @@ from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.packages.packages import PackagesModule
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
-from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -106,10 +105,6 @@ class PayloadsService(KickstartService):
             # FIXME: This is a temporary workaround.
             PayloadContainer.to_object_path(payload_module)
 
-        # FIXME: Process packages in the DNF module.
-        # The packages module should be replaces with a DBus structure.
-        self._packages.process_kickstart(data)
-
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
         pass
@@ -126,10 +121,6 @@ class PayloadsService(KickstartService):
             self.payload.setup_kickstart(data)
         except PayloadNotSetError:
             log.warning("Generating kickstart data without payload set - data will be empty!")
-
-        # generate packages section only for DNF module
-        if isinstance(self.payload, DNFModule):
-            self._packages.setup_kickstart(data)
 
         return str(data)
 

@@ -61,7 +61,7 @@ class PayloadsInterfaceTestCase(TestCase):
             "nfs",
             "url"
         ])
-        self.assertEqual(self.payload_interface.KickstartSections, ["packages"])
+        self.assertEqual(self.payload_interface.KickstartSections, [])
         self.assertEqual(self.payload_interface.KickstartAddons, [])
 
     def no_payload_set_test(self):

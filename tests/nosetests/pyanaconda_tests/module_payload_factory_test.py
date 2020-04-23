@@ -49,10 +49,6 @@ class PayloadFactoryTestCase(TestCase):
             "liveimg --url http://my/path"
         )
         self._check_payload_type(
-            PayloadType.DNF,
-            "%packages\na\nb\nc\n%end"
-        )
-        self._check_payload_type(
             None,
             ""
         )

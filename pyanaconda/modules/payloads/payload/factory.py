@@ -57,7 +57,4 @@ class PayloadFactory(object):
         if data.liveimg.seen:
             return PayloadType.LIVE_IMAGE
 
-        if data.packages.seen:
-            return PayloadType.DNF
-
         return None
