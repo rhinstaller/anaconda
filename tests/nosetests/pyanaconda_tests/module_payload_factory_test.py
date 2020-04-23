@@ -48,6 +48,32 @@ class PayloadFactoryTestCase(TestCase):
             PayloadType.LIVE_IMAGE,
             "liveimg --url http://my/path"
         )
+
+        self._check_payload_type(
+            PayloadType.DNF,
+            "cdrom"
+        )
+
+        self._check_payload_type(
+            PayloadType.DNF,
+            "hmc"
+        )
+
+        self._check_payload_type(
+            PayloadType.DNF,
+            "harddrive --partition=Glum1 --dir=something/precious"
+        )
+
+        self._check_payload_type(
+            PayloadType.DNF,
+            "nfs --server=ring.com --dir=Moria"
+        )
+
+        self._check_payload_type(
+            PayloadType.DNF,
+            "url --url=lonely_mountain.erebor/GOLD!"
+        )
+
         self._check_payload_type(
             None,
             ""
