@@ -19,19 +19,23 @@
 #
 import os
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 import tempfile
 
+from dasbus.typing import get_variant, Str
+
 from pyanaconda.core import util
+from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
 
 from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
     InsightsClientMissingError
-from pyanaconda.modules.common.structures.subscription import SystemPurposeData
+from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
+    SubscriptionRequest
 
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
     SystemPurposeConfigurationTask
-
+from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask
 
 class ConnectToInsightsTaskTestCase(unittest.TestCase):
     """Test the ConnectToInsights task."""
@@ -141,3 +145,99 @@ class SystemPurposeConfigurationTaskTestCase(unittest.TestCase):
                                                             usage="baz",
                                                             addons=["a", "b", "c"],
                                                             sysroot=sysroot)
+
+
+class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
+    """Test the SystemPurposeConfigurationTask task.
+
+    We mainly need to test that the task attempts to set the correct
+    values to the (mock) RHSM config DBus interface, including values
+    help in SecretData instances. Also it needs to be able reset
+    keys to default values if they come in blank.
+    """
+
+    def set_rhsm_config_tast_test(self):
+        """Test the SetRHSMConfigurationTask task."""
+        mock_config_proxy = Mock()
+        # RHSM config default values
+        default_config = {
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_HOSTNAME: "server.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_HOSTNAME: "proxy.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PORT: "1000",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_USER: "foo_user",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PASSWORD: "foo_password",
+            SetRHSMConfigurationTask.CONFIG_KEY_RHSM_BASEURL: "cdn.example.com",
+            "key_anaconda_does_not_use_1": "foo1",
+            "key_anaconda_does_not_use_2": "foo2"
+        }
+        # a representative subscription request
+        request = SubscriptionRequest()
+        request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        request.organization = "123456789"
+        request.account_username = "foo_user"
+        request.server_hostname = "candlepin.foo.com"
+        request.rhsm_baseurl = "cdn.foo.com"
+        request.server_proxy_hostname = "proxy.foo.com"
+        request.server_proxy_port = 9001
+        request.server_proxy_user = "foo_proxy_user"
+        request.account_password.set_secret("foo_password")
+        request.activation_keys.set_secret(["key1", "key2", "key3"])
+        request.server_proxy_password.set_secret("foo_proxy_password")
+        # create a task
+        task = SetRHSMConfigurationTask(rhsm_config_proxy=mock_config_proxy,
+                                        rhsm_config_defaults=default_config,
+                                        subscription_request=request)
+        task.run()
+        # check that we tried to set the expected config keys via the RHSM config DBus API
+        expected_dict = {"server.hostname": get_variant(Str, "candlepin.foo.com"),
+                         "server.proxy_hostname": get_variant(Str, "proxy.foo.com"),
+                         "server.proxy_port": get_variant(Str, "9001"),
+                         "server.proxy_user": get_variant(Str, "foo_proxy_user"),
+                         "server.proxy_password": get_variant(Str, "foo_proxy_password"),
+                         "rhsm.baseurl": get_variant(Str, "cdn.foo.com")}
+
+        mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")
+
+    def set_rhsm_config_tast_restore_default_value_test(self):
+        """Test the SetRHSMConfigurationTask task - restore default values."""
+        mock_config_proxy = Mock()
+        # RHSM config default values
+        default_config = {
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_HOSTNAME: "server.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_HOSTNAME: "proxy.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PORT: "1000",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_USER: "foo_user",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PASSWORD: "foo_password",
+            SetRHSMConfigurationTask.CONFIG_KEY_RHSM_BASEURL: "cdn.example.com",
+            "key_anaconda_does_not_use_1": "foo1",
+            "key_anaconda_does_not_use_2": "foo2"
+        }
+        # a representative subscription request, with server hostname and rhsm baseurl
+        # set to blank
+        request = SubscriptionRequest()
+        request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        request.organization = "123456789"
+        request.account_username = "foo_user"
+        request.server_hostname = ""
+        request.rhsm_baseurl = ""
+        request.server_proxy_hostname = "proxy.foo.com"
+        request.server_proxy_port = 9001
+        request.server_proxy_user = "foo_proxy_user"
+        request.account_password.set_secret("foo_password")
+        request.activation_keys.set_secret(["key1", "key2", "key3"])
+        request.server_proxy_password.set_secret("foo_proxy_password")
+        # create a task
+        task = SetRHSMConfigurationTask(rhsm_config_proxy=mock_config_proxy,
+                                        rhsm_config_defaults=default_config,
+                                        subscription_request=request)
+        task.run()
+        # check that the server.hostname and rhsm.baseurl keys are set
+        # to the default value
+        expected_dict = {"server.hostname": get_variant(Str, "server.example.com"),
+                         "server.proxy_hostname": get_variant(Str, "proxy.foo.com"),
+                         "server.proxy_port": get_variant(Str, "9001"),
+                         "server.proxy_user": get_variant(Str, "foo_proxy_user"),
+                         "server.proxy_password": get_variant(Str, "foo_proxy_password"),
+                         "rhsm.baseurl": get_variant(Str, "cdn.example.com")}
+
+        mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")

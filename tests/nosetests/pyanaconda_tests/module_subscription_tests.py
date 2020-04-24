@@ -19,7 +19,7 @@
 #
 import os
 import unittest
-from unittest.mock import patch, call
+from unittest.mock import patch, call, Mock
 import tempfile
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
@@ -30,6 +30,7 @@ from pyanaconda.core.constants import SECRET_TYPE_NONE, SECRET_TYPE_HIDDEN, SECR
     DEFAULT_SUBSCRIPTION_REQUEST_TYPE
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
     SubscriptionRequest
 
@@ -39,6 +40,7 @@ from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _no
     _match_field, process_field, give_the_system_purpose, SYSPURPOSE_UTILITY_PATH
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
     SystemPurposeConfigurationTask
+from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
     PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list, \
@@ -924,6 +926,118 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
         self.subscription_module._apply_syspurpose()
         self.assertTrue(self.subscription_interface.IsSystemPurposeApplied)
+
+    def get_rhsm_config_defaults_test(self):
+        """Test the get_rhsm_config_defaults() method."""
+        # cache should be None by default
+        self.assertIsNone(self.subscription_module._rhsm_config_defaults)
+
+        # create a default config
+        default_config = {
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_HOSTNAME: "server.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_HOSTNAME: "proxy.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PORT: "1000",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_USER: "foo_user",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PASSWORD: "foo_password",
+            SetRHSMConfigurationTask.CONFIG_KEY_RHSM_BASEURL: "cdn.example.com",
+            "key_anaconda_does_not_use_1": "foo1",
+            "key_anaconda_does_not_use_2": "foo2"
+        }
+        # turn it to variant, which is what RHSM DBus API will return
+        default_variant = get_variant(Dict[Str, Str], default_config)
+
+        # mock the rhsm config proxy
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        config_proxy = Mock()
+        config_proxy.GetAll.return_value = default_variant
+
+        observer.get_proxy.return_value = config_proxy
+
+        # query the property multiple times
+        result1 = self.subscription_module.get_rhsm_config_defaults()
+        result2 = self.subscription_module.get_rhsm_config_defaults()
+
+        # make sure the results are identical
+        self.assertEqual(result1, result2)
+
+        # make sure the results contain the expected dict
+        # - even though GetAll() returns a variant, the
+        #   get_rhsm_config_default() should convert it
+        #   to a native Python dict
+        self.assertEqual(result1, default_config)
+        self.assertEqual(result2, default_config)
+
+        # check the property requested the correct DBus object
+        observer.get_proxy.assert_called_once_with(RHSM_CONFIG)
+
+        # check the mock proxy was called only once
+        config_proxy.GetAll.assert_called_once_with("")
+
+    @patch_dbus_publish_object
+    def set_rhsm_config_with_task_test(self, publisher):
+        """Test SetRHSMConfigurationTask creation."""
+        # prepare the module with dummy data
+        default_config = {
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_HOSTNAME: "server.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_HOSTNAME: "proxy.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PORT: "1000",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_USER: "foo_user",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PASSWORD: "foo_password",
+            SetRHSMConfigurationTask.CONFIG_KEY_RHSM_BASEURL: "cdn.example.com",
+            "key_anaconda_does_not_use_1": "foo1",
+            "key_anaconda_does_not_use_2": "foo2"
+        }
+
+        full_request = SubscriptionRequest()
+        full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        full_request.organization = "123456789"
+        full_request.account_username = "foo_user"
+        full_request.server_hostname = "candlepin.foo.com"
+        full_request.rhsm_baseurl = "cdn.foo.com"
+        full_request.server_proxy_hostname = "proxy.foo.com"
+        full_request.server_proxy_port = 9001
+        full_request.server_proxy_user = "foo_proxy_user"
+        full_request.account_password.set_secret("foo_password")
+        full_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        full_request.server_proxy_password.set_secret("foo_proxy_password")
+
+        self.subscription_interface.SetSubscriptionRequest(
+            SubscriptionRequest.to_structure(full_request)
+        )
+        # make sure the task gets dummy rhsm config proxy that returns
+        # our dummy RHSM config defaults
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        config_proxy = Mock()
+        config_proxy.GetAll.return_value = default_config
+        observer.get_proxy.return_value = config_proxy
+
+        # check the task is created correctly
+        task_path = self.subscription_interface.SetRHSMConfigWithTask()
+        obj = check_task_creation(self, task_path, publisher, SetRHSMConfigurationTask)
+        # check all the data got propagated to the module correctly
+        self.assertEqual(obj.implementation._rhsm_config_proxy, config_proxy)
+        task_request = obj.implementation._request
+        expected_full_dict = {
+            "type": SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
+            "organization": "123456789",
+            "account-username": "foo_user",
+            "server-hostname": "candlepin.foo.com",
+            "rhsm-baseurl": "cdn.foo.com",
+            "server-proxy-hostname": "proxy.foo.com",
+            "server-proxy-port": 9001,
+            "server-proxy-user": "foo_proxy_user",
+            "account-password": {"type": SECRET_TYPE_TEXT, "value": "foo_password"},
+            "activation-keys": {"type": SECRET_TYPE_TEXT, "value": ["key1", "key2", "key3"]},
+            "server-proxy-password": {"type": SECRET_TYPE_TEXT, "value": "foo_proxy_password"},
+        }
+        self.assertEqual(
+                get_native(SubscriptionRequest.to_structure(task_request)),
+                expected_full_dict)
+        self.assertEqual(obj.implementation._rhsm_config_defaults, default_config)
 
     @patch_dbus_publish_object
     def install_with_tasks_default_test(self, publisher):
