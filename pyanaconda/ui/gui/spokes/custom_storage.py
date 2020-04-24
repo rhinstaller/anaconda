@@ -1268,6 +1268,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             # is not encrypted and make the encryption checkbox insensitive
             if request.container_encrypted:
                 self._encryptCheckbox.set_active(False)
+                self._encryptCheckbox.set_inconsistent(True)
 
             fancy_set_sensitive(self._encryptCheckbox, self._permissions.device_encrypted)
             self._update_luks_combo()
@@ -1526,29 +1527,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.on_value_changed()
 
     def _update_luks_combo(self):
-        visible = self._encryptCheckbox.get_active() or self._encryptCheckbox.get_inconsistent()
-        sensitive = self._encryptCheckbox.get_active()
-
-        if visible:
+        if self._encryptCheckbox.get_active():
             really_show(self._luksLabel)
             really_show(self._luksCombo)
-            fancy_set_sensitive(self._luksCombo, sensitive)
         else:
             really_hide(self._luksLabel)
             really_hide(self._luksCombo)
 
     def on_luks_version_changed(self, widget):
-        luks_version_index = self._luksCombo.get_active()
+        if self._encryptCheckbox.get_active():
+            active_index = self._luksCombo.get_active()
 
-        if luks_version_index == -1:
-            return
-
-        luks_version_str = self._luksCombo.get_model()[luks_version_index][0]
-
-        if self._request.device_encrypted:
-            self._request.luks_version = luks_version_str
-        else:
-            self._request.luks_version = ""
+            if active_index != -1:
+                luks_version = self._luksCombo.get_model()[active_index][0]
+                self._request.luks_version = luks_version
 
         self.on_value_changed()
 
