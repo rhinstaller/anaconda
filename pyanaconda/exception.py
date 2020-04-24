@@ -111,12 +111,16 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The exact error message is:\n\n%s.\n\n "
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occurred"), hw_error_msg)
+            self._run_kickstart_scripts(dump_info)
             sys.exit(0)
         elif isinstance(value, UnusableStorageError):
+            self._run_kickstart_scripts(dump_info)
             sys.exit(0)
         elif isinstance(value, NonInteractiveError):
+            self._run_kickstart_scripts(dump_info)
             sys.exit(0)
         else:
+            # This will call postWriteHook.
             super().handleException(dump_info)
             return False
 
@@ -185,6 +189,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                     # to acknowledge the error; instead, print the error out and sleep
                     # for a few seconds before exiting the installer
                     print(cmdline_error_msg)
+                    self._run_kickstart_scripts(dump_info)
                     time.sleep(180)
                     sys.exit(1)
                 else:
@@ -210,8 +215,6 @@ class AnacondaExceptionHandler(ExceptionHandler):
                                          exc_info.stack))
 
     def postWriteHook(self, dump_info):
-        anaconda = dump_info.object
-
         # See if there is a /root present in the root path and put exception there as well
         if os.access(conf.target.system_root + "/root", os.X_OK):
             try:
@@ -221,14 +224,20 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 log.error("Failed to copy %s to %s/root", self.exnFile, conf.target.system_root)
 
         # run kickstart traceback scripts (if necessary)
+        self._run_kickstart_scripts(dump_info)
+
+        util.ipmi_report(IPMI_FAILED)
+
+    def _run_kickstart_scripts(self, dump_info):
+        """Run the %traceback and %onerror kickstart scripts."""
+        anaconda = dump_info.object
+
         try:
             util.runOnErrorScripts(anaconda.ksdata.scripts)
             kickstart.runTracebackScripts(anaconda.ksdata.scripts)
         # pylint: disable=bare-except
         except:
             pass
-
-        util.ipmi_report(IPMI_FAILED)
 
     def runDebug(self, exc_info):
         if conf.system.can_switch_tty and self._intf_tty_num != 1:
