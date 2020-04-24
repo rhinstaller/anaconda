@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import itertools
 import re
 
 from blivet import devicefactory
@@ -604,14 +605,29 @@ def get_device_luks_version(device):
     """Get the LUKS version of the given device.
 
     :param device: a device
-    :return: a LUKS version or None
+    :return: a LUKS version or an empty string
     """
     device = device.raw_device
 
     if device.format.type == "luks":
         return device.format.luks_version
 
-    return None
+    return ""
+
+
+def get_container_luks_version(container):
+    """Get the LUKS version of the given container.
+
+    :param container: a container
+    :return: a LUKS version or an empty string
+    """
+    for device in itertools.chain([container], container.parents):
+        luks_version = get_device_luks_version(device)
+
+        if luks_version:
+            return luks_version
+
+    return ""
 
 
 def get_device_raid_level(device):
@@ -748,7 +764,7 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     request.reformat = not device.format.exists
     request.format_type = device.format.type or ""
     request.device_encrypted = isinstance(device, LUKSDevice)
-    request.luks_version = get_device_luks_version(device) or ""
+    request.luks_version = get_device_luks_version(device)
     request.label = getattr(device.format, "label", "") or ""
     request.mount_point = getattr(device.format, "mountpoint", "") or ""
     request.device_raid_level = get_device_raid_level_name(device)
@@ -784,6 +800,9 @@ def set_container_data(request: DeviceFactoryRequest, container):
     request.container_encrypted = container.encrypted
     request.container_raid_level = get_device_raid_level_name(container)
     request.container_size_policy = get_container_size_policy(container)
+
+    if request.container_encrypted:
+        request.luks_version = get_container_luks_version(container)
 
 
 def generate_container_data(storage, request: DeviceFactoryRequest):
