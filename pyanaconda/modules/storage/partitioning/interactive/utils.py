@@ -768,13 +768,22 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     container = factory.get_container()
 
     if container:
-        request.container_spec = container.name
-        request.container_name = container.name
-        request.container_encrypted = container.encrypted
-        request.container_raid_level = get_device_raid_level_name(container)
-        request.container_size_policy = get_container_size_policy(container)
+        set_container_data(request, container)
 
     return request
+
+
+def set_container_data(request: DeviceFactoryRequest, container):
+    """Set the container data in the device factory request.
+
+    :param request: a device factory request
+    :param container: a container
+    """
+    request.container_spec = container.name
+    request.container_name = container.name
+    request.container_encrypted = container.encrypted
+    request.container_raid_level = get_device_raid_level_name(container)
+    request.container_size_policy = get_container_size_policy(container)
 
 
 def generate_container_data(storage, request: DeviceFactoryRequest):
@@ -796,11 +805,7 @@ def generate_container_data(storage, request: DeviceFactoryRequest):
 
     if container:
         # Set the request from the found container.
-        request.container_spec = container.name
-        request.container_name = container.name
-        request.container_encrypted = container.encrypted
-        request.container_raid_level = get_device_raid_level_name(container)
-        request.container_size_policy = get_container_size_policy(container)
+        set_container_data(request, container)
     else:
         # Set the request from a new container.
         request.container_name = storage.suggest_container_name()
@@ -828,11 +833,7 @@ def update_container_data(storage, request: DeviceFactoryRequest, container_name
 
     if container:
         # Set the request from the found container.
-        request.container_spec = container.name
-        request.container_name = container.name
-        request.container_encrypted = container.encrypted
-        request.container_raid_level = get_device_raid_level_name(container)
-        request.container_size_policy = get_container_size_policy(container)
+        set_container_data(request, container)
 
         # Use the container's disks.
         request.disks = [d.name for d in container.disks]
