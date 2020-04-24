@@ -209,7 +209,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     @property
     def sensitive(self):
         return not (self.completed and flags.automatedInstall
-                    and self._users_module.CanChangeRootPassword)
+                    and not self._users_module.CanChangeRootPassword)
 
     def _checks_done(self, error_message):
         """Update the warning with the input validation error from the first
