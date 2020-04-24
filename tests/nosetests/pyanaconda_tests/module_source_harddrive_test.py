@@ -18,7 +18,7 @@
 import unittest
 from unittest.mock import patch, call, Mock
 
-from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.core.constants import INSTALL_TREE, SOURCE_TYPE_HDD
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_HARDDRIVE
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
@@ -58,7 +58,7 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
 
     def type_test(self):
         """Hard drive source has a correct type specified."""
-        self.assertEqual(SourceType.HDD.value, self.source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_HDD, self.source_interface.Type)
 
     def empty_properties_test(self):
         """Hard drive source properties are empty when not set."""

@@ -24,12 +24,11 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_METALINK, URL_TYPE_MIRRORLIST, \
-    DNF_DEFAULT_REPO_COST
+    DNF_DEFAULT_REPO_COST, SOURCE_TYPE_URL
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_URL
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
     SSLConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.url.url import URLSourceModule
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
 
@@ -60,7 +59,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
 
     def type_test(self):
         """Test URL source has a correct type specified."""
-        self.assertEqual(SourceType.URL.value, self.url_source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_URL, self.url_source_interface.Type)
 
     def set_name_properties_test(self):
         data = RepoConfigurationData()

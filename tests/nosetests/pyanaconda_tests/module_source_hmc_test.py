@@ -21,8 +21,8 @@ import unittest
 
 from unittest.mock import patch, call
 
+from pyanaconda.core.constants import SOURCE_TYPE_HMC
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.hmc.hmc import HMCSourceModule
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
 from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
@@ -38,7 +38,7 @@ class HMCSourceInterfaceTestCase(unittest.TestCase):
 
     def type_test(self):
         """Test the type of SE/HMC."""
-        self.assertEqual(SourceType.HMC.value, self.interface.Type)
+        self.assertEqual(SOURCE_TYPE_HMC, self.interface.Type)
 
 
 class HMCSourceModuleTestCase(unittest.TestCase):

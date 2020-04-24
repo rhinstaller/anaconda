@@ -18,6 +18,7 @@
 import unittest
 from unittest.mock import patch
 
+from pyanaconda.core.constants import SOURCE_TYPE_NFS
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_NFS
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
@@ -45,7 +46,7 @@ class NFSSourceInterfaceTestCase(unittest.TestCase):
 
     def type_test(self):
         """Test NFS source has a correct type specified."""
-        self.assertEqual(SourceType.NFS.value, self.source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_NFS, self.source_interface.Type)
 
     def url_empty_properties_test(self):
         """Test NFS source URL property when not set."""

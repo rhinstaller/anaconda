@@ -33,29 +33,6 @@ if [[ "$LIVECMD $*" =~ "--liveinst" ]]; then
     LIVE_INSTALL=1
 fi
 
-# Try to sort out where the live device is
-if [ -z "$LIVE_BLOCK" ]; then
-    if [ -b "/dev/mapper/live-base" ]; then
-       LIVE_BLOCK="/dev/mapper/live-base"
-    elif [ -b "/dev/mapper/live-osimg-min" ]; then
-       LIVE_BLOCK="/dev/mapper/live-osimg-min"
-    elif [ -e "/run/rootfsbase" ]; then
-        LIVE_BLOCK="$(findmnt -n -o SOURCE /run/rootfsbase)"
-    fi
-fi
-
-if [ $LIVE_INSTALL = 1 -a ! -b "$LIVE_BLOCK" ]; then
-  title="Not a Live image"
-  text="Can't do live image installation unless running from a live image"
-  if which zenity &> /dev/null; then
-      zenity --error --title="$title" --text="$text"
-  else
-      echo "$title" >&2
-      echo "$text" >&2
-  fi
-  exit 1
-fi
-
 # Start swap on ZRAM service. Do this for LiveOS only, rather than enabling
 # it on the target system, for the time being.
 systemctl start zram.service
@@ -63,7 +40,7 @@ systemctl start zram.service
 # Allow running another command in the place of anaconda, but in this same
 # environment.  This allows storage testing to make use of all the module
 # loading and lvm control in this file, too.
-ANACONDA="${LIVECMD:=anaconda --liveinst --method=livecd:${LIVE_BLOCK} --graphical}"
+ANACONDA="${LIVECMD:=anaconda --liveinst --graphical}"
 
 # load modules that would get loaded by the initramfs (#230945)
 for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts iscsi_tcp iscsi_ibft; do /sbin/modprobe $i 2>/dev/null ; done

@@ -18,6 +18,7 @@
 import unittest
 from unittest.mock import call, DEFAULT, Mock, patch
 
+from pyanaconda.core.constants import SOURCE_TYPE_CDROM
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.constants import SourceType
@@ -41,7 +42,7 @@ class CdromSourceInterfaceTestCase(unittest.TestCase):
 
     def type_test(self):
         """Test CD-ROM source has a correct type specified."""
-        self.assertEqual(SourceType.CDROM.value, self.cdrom_source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_CDROM, self.cdrom_source_interface.Type)
 
 
 class CdromSourceTestCase(unittest.TestCase):

@@ -25,7 +25,7 @@ from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_cre
     patch_dbus_publish_object, PropertiesChangedCallback
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 
-from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.core.constants import INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
@@ -66,7 +66,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
     def supported_sources_test(self):
         """Test LiveOS supported sources API."""
         self.assertEqual(
-            [SourceType.LIVE_OS_IMAGE.value],
+            [SOURCE_TYPE_LIVE_OS_IMAGE],
             self.live_os_interface.SupportedSourceTypes)
 
     @patch_dbus_publish_object

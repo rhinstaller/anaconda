@@ -20,6 +20,7 @@ from tempfile import TemporaryDirectory
 
 import unittest
 
+from pyanaconda.core.constants import SOURCE_TYPE_REPO_FILES
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.repo_files.repo_files import RepoFilesSourceModule
@@ -37,7 +38,7 @@ class RepoFilesSourceInterfaceTestCase(unittest.TestCase):
 
     def type_test(self):
         """Test Repo files source has a correct type specified."""
-        self.assertEqual(SourceType.REPO_FILES.value, self.source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_REPO_FILES, self.source_interface.Type)
 
 
 class RepoFilesSourceTestCase(unittest.TestCase):

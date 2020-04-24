@@ -324,8 +324,6 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
         ksdata.method.url = source.path
         ksdata.method.mirrorlist = None
         ksdata.method.metalink = None
-    elif source.is_livecd:
-        ksdata.method.partition = source.partition
 
 
 def find_kickstart(options):
