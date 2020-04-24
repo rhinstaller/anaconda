@@ -16,17 +16,17 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch, call, Mock
 
-from pyanaconda.core.constants import INSTALL_TREE, SOURCE_TYPE_HDD
+from pyanaconda.core.constants import SOURCE_TYPE_HDD
+from unittest.mock import patch, Mock
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_HARDDRIVE
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
 from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
     HardDriveSourceInterface
-from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask, \
-    TearDownHardDriveSourceTask
+from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 
 from tests.nosetests.pyanaconda_tests import check_dbus_property, PropertiesChangedCallback
@@ -104,49 +104,34 @@ class HardDriveSourceTestCase(unittest.TestCase):
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
 
-    def tear_down_with_tasks_test(self):
-        """Hard drive source tear down task type and amount."""
-        task_classes = [
-            TearDownHardDriveSourceTask
-        ]
-
-        # task will not be public so it won't be published
-        tasks = self.source_module.tear_down_with_tasks()
-
-        # check the number of tasks
-        task_number = len(task_classes)
-        self.assertEqual(task_number, len(tasks))
-
-        for i in range(task_number):
-            self.assertIsInstance(tasks[i], task_classes[i])
-
     @patch("os.path.ismount")
     def ready_state_test(self, ismount):
         """Hard drive source ready state for set up."""
         ismount.return_value = False
 
         self.assertEqual(self.source_module.get_state(), SourceState.UNREADY)
-        ismount.assert_called_once_with(INSTALL_TREE + "_device")
+        ismount.assert_called_once_with(self.source_module._device_mount)
 
         ismount.reset_mock()
         ismount.return_value = True
 
         task = self.source_module.set_up_with_tasks()[0]
-        task.get_result = Mock("/my/path")
+        task.get_result = Mock(return_value=("/my/path", False))
         task.succeeded_signal.emit()
 
         self.assertEqual(self.source_module.get_state(), SourceState.READY)
-        ismount.assert_called_once_with(INSTALL_TREE + "_device")
+        ismount.assert_called_once_with(self.source_module._device_mount)
 
     def return_handler_test(self):
         """Hard drive source setup result propagates back."""
         task = _create_setup_task()
         # Test only the returning. To do that, fake what the magic in start() does.
         # Do not run() the task at all, less mocking needed that way.
-        task._set_result(iso_mount_location)
+        task._set_result((iso_mount_location, True))
         self.source_module._handle_setup_task_result(task)
 
         self.assertEqual(iso_mount_location, self.source_module.install_tree_path)
+        self.assertEqual(True, self.source_module._uses_iso_mount)
 
 
 class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
@@ -175,7 +160,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
             device_mount_location + path_on_device,
             iso_mount_location
         )
-        self.assertEqual(result, iso_mount_location)
+        self.assertEqual(result, (iso_mount_location, True))
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
@@ -202,7 +187,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
         verify_valid_installtree_mock.assert_called_once_with(
             device_mount_location + path_on_device
         )
-        self.assertEqual(result, device_mount_location + path_on_device)
+        self.assertEqual(result, (device_mount_location + path_on_device, False))
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
@@ -250,17 +235,40 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
             "Could not mount device specified as"
         ))
 
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.os.path.ismount",
+           return_value=True)
+    def failure_mount_already_used_test(self, ismount_mock):
+        """Hard drive source setup failure to find or mount partition device."""
+        task = _create_setup_task()
+        with self.assertRaises(SourceSetupError) as cm:
+            task.run()
 
-class HardDriveSourceTeardownTaskTestCase(unittest.TestCase):
+        ismount_mock.assert_called_once()  # must die on first check
+        self.assertTrue(str(cm.exception).startswith(
+            "The mount point"
+        ))
 
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.unmount")
-    def tear_down_install_source_task_test(self, unmount):
-        """Hard drive source tear down tasks."""
-        task = TearDownHardDriveSourceTask(device_mount_location, iso_mount_location)
-        task.run()
 
-        self.assertEqual(task.name, "Tear down Hard drive installation source")
-        unmount.assert_has_calls([
-            call(iso_mount_location),
-            call(device_mount_location)
-        ])
+class HardDriveSourceTearDownTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.source_module = HardDriveSourceModule()
+
+    def tear_down_task_order_test(self):
+        """Hard drive source tear down task order."""
+        self.source_module._uses_iso_mount = True
+        tasks = self.source_module.tear_down_with_tasks()
+        self.assertEqual(len(tasks), 2)
+        self.assertIsInstance(tasks[0], TearDownMountTask)
+        self.assertIsInstance(tasks[1], TearDownMountTask)
+        name_suffixes = ["-iso", "-device"]
+        for task, fragment in zip(tasks, name_suffixes):
+            self.assertTrue(task._target_mount.endswith(fragment))
+
+    def single_tear_down_task_test(self):
+        """Hard drive source single tear down task."""
+        self.source_module._uses_iso_mount = False
+        tasks = self.source_module.tear_down_with_tasks()
+        self.assertEqual(len(tasks), 1)
+        self.assertIsInstance(tasks[0], TearDownMountTask)
+        self.assertTrue(tasks[0]._target_mount.endswith("-device"))
