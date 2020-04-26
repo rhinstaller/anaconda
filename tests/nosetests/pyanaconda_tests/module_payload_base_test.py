@@ -159,9 +159,8 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
         # can't switch source if attached source is ready
         source1.get_state.return_value = SourceState.READY
-        self.shared_tests.check_set_sources([source2],
-                                            exception=SourceSetupError,
-                                            expected_sources=[source1])
+        self.shared_tests.set_sources([source2], SourceSetupError)
+        self.shared_tests.check_sources([source1])
 
         # change to source2 when attached source state is UNREADY
         source1.get_state.return_value = SourceState.UNREADY

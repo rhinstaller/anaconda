@@ -100,55 +100,45 @@ class PayloadSharedTest(object):
 
         return source
 
-    def set_sources(self, sources):
-        """Set sources list to payload object.
-
-        This will not call DBus API.
-
-        :param sources: list of source objects to be set
-        """
-        self.payload.set_sources(sources)
-
     def check_empty_sources(self):
         """Default check for payload with no sources set."""
         self._test.assertEqual([], self.payload_interface.Sources)
         self._test.assertFalse(self.payload_interface.HasSource())
 
-    def check_set_sources(self, test_sources, exception=None, expected_sources=None):
+    def check_set_sources(self, test_sources, exception=None):
         """Default check to set sources.
 
         :param test_sources: list of sources for emptiness failed check
         :type test_sources: list of source instances
         :param exception: exception class which will be raised for the given sources
-        :param expected_sources: list of expected sources after trying to set;
-                                 including when exception raised
-        :type expected_sources: list of source instances
+        :return: caught exception if exception raised
+        """
+        ret = self.set_sources(test_sources, exception)
+
+        if exception:
+            self.check_sources([])
+        else:
+            self.check_sources(test_sources)
+
+        return ret
+
+    def set_sources(self, test_sources, exception=None):
+        """Set sources to payload.
+
+        :param test_sources: list of sources for emptiness failed check
+        :type test_sources: list of source instances
+        :param exception: exception class which will be raised for the given sources
         :return: caught exception if exception raised
         """
         paths = PayloadSourceContainer.to_object_path_list(test_sources)
-        ret = None
 
         if exception:
             with self._test.assertRaises(exception) as cm:
                 self.payload_interface.SetSources(paths)
-            ret = cm
-        else:
-            self.payload_interface.SetSources(paths)
+            return cm
 
-        if expected_sources:
-            expected_paths = PayloadSourceContainer.to_object_path_list(expected_sources)
-
-            self._test.assertEqual(self.payload_interface.Sources, expected_paths)
-            self._test.assertTrue(self.payload_interface.HasSource())
-        elif exception:
-            self._test.assertEqual(self.payload_interface.Sources, [])
-            self._test.assertFalse(self.payload_interface.HasSource())
-        else:
-            self._test.assertEqual(self.payload_interface.Sources, paths)
-            self._test.assertTrue(self.payload_interface.HasSource())
-
-        return ret
-
+        self.payload_interface.SetSources(paths)
+        return None
 
     def check_sources(self, expected_sources=None):
         """Check what sources are set in payload.
@@ -159,9 +149,9 @@ class PayloadSharedTest(object):
         """
         expected_paths = PayloadSourceContainer.to_object_path_list(expected_sources)
 
+        self._test.assertEqual(self.payload_interface.Sources, expected_paths)
+
         if expected_sources:
-            self._test.assertEqual(self.payload_interface.Sources, expected_paths)
             self._test.assertTrue(self.payload_interface.HasSource())
         else:
-            self._test.assertEqual(self.payload_interface.Sources, [])
             self._test.assertFalse(self.payload_interface.HasSource())

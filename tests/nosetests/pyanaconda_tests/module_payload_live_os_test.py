@@ -56,7 +56,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
     def _prepare_and_use_source(self):
         source = self._prepare_source()
-        self.shared_tests.set_sources([source])
+        self.live_os_module.set_sources([source])
 
         return source
 
@@ -96,9 +96,8 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
         # can't switch source if attached source is ready
         source1.get_state.return_value = SourceState.READY
-        self.shared_tests.check_set_sources([source2],
-                                            exception=SourceSetupError,
-                                            expected_sources=[source1])
+        self.shared_tests.set_sources([source2], SourceSetupError)
+        self.shared_tests.check_sources([source1])
 
         source1.get_state.return_value = SourceState.UNREADY
         self.shared_tests.check_set_sources([source1])
