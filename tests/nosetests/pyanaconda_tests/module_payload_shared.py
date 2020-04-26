@@ -105,7 +105,7 @@ class PayloadSharedTest(object):
         self._test.assertEqual([], self.payload_interface.Sources)
         self._test.assertFalse(self.payload_interface.HasSource())
 
-    def check_set_sources(self, test_sources, exception=None):
+    def set_and_check_sources(self, test_sources, exception=None):
         """Default check to set sources.
 
         :param test_sources: list of sources for emptiness failed check
