@@ -124,3 +124,13 @@ RHSM_CONFIG = DBusObjectIdentifier(
     namespace=RHSM_NAMESPACE,
     basename="Config"
 )
+
+RHSM_REGISTER_SERVER = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="RegisterServer"
+)
+
+RHSM_REGISTER = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Register"
+)

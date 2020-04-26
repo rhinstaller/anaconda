@@ -24,19 +24,24 @@ from unittest.mock import patch, Mock, call
 import tempfile
 
 from dasbus.typing import get_variant, Str
+from dasbus.error import DBusError
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
 
 from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
     InsightsClientMissingError, SubscriptionTokenTransferError
+from pyanaconda.modules.common.errors.subscription import RegistrationError
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
     SubscriptionRequest
+from pyanaconda.modules.common.constants.services import RHSM
+from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
 
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
     SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask, \
     TransferSubscriptionTokensTask
-from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask
+from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
+    RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask
 
 
 class ConnectToInsightsTaskTestCase(unittest.TestCase):
@@ -491,3 +496,149 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
             task._transfer_system_purpose.assert_called_once()
             task._transfer_entitlement_keys.assert_not_called()
             task._transfer_file.assert_not_called()
+
+
+class RHSMPrivateBusTestCase(unittest.TestCase):
+    """Test the RHSMPrivateBus class.
+
+    This class provides access to the RHSM private bus and also
+    implements context manager API for easy use.
+    """
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def rhsm_private_bus_test(self, environ_get):
+        """Test the RHSMPrivateBus class."""
+        # mock the register server proxy
+        register_server_proxy = Mock()
+        mock_address = "abcdefgh"
+        register_server_proxy.Start.return_value = mock_address
+        # prepare a mock bus backend now so we can check later that
+        # disconnect() was called after exiting the context manager
+        provider = Mock()
+        get_address_bus = provider.get_addressed_bus_connection
+        connection = get_address_bus.return_value
+        # enter the context manager
+        with RHSMPrivateBus(register_server_proxy) as private_bus:
+            # the private bus address should be set once we are
+            # inside the context of the context manager
+            self.assertEqual(private_bus._private_bus_address, mock_address)
+            # the register server proxy Start method should have been called
+            register_server_proxy.Start.assert_called_once_with("en_US.UTF-8")
+            # now mock the backend of the bus instance to prevent it from
+            # trying to get an actual connection
+            private_bus._provider = provider
+            # and try to get a proxy
+            private_register_proxy = private_bus.connection.get_proxy(RHSM.service_name,
+                                                                      RHSM_REGISTER.object_path)
+            # check correct address was used
+            get_address_bus.assert_called_with("abcdefgh")
+            # check correct proxy was requested from the connection
+            connection.get_proxy.assert_called_once_with(RHSM.service_name,
+                                                         RHSM_REGISTER.object_path)
+            self.assertEqual(private_register_proxy, connection.get_proxy.return_value)
+        # exit the context manager and check cleanup happened as expected
+        connection.disconnect.assert_called_once()
+        register_server_proxy.Stop.assert_called_once_with("en_US.UTF-8")
+
+
+class RegistrationTasksTestCase(unittest.TestCase):
+    """Test the registration tasks."""
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def username_password_success_test(self, private_bus, environ_get):
+        """Test the RegisterWithUsernamePasswordTask - success."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # instantiate the task and run it
+        task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
+                                                username="foo_user",
+                                                password="bar_password")
+        task.run()
+        # check the private register proxy Register method was called correctly
+        private_register_proxy.Register.assert_called_once_with("",
+                                                                "foo_user",
+                                                                "bar_password",
+                                                                {},
+                                                                {},
+                                                                "en_US.UTF-8")
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def username_password_failure_test(self, private_bus, environ_get):
+        """Test the RegisterWithUsernamePasswordTask - failure."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # raise DBusError with error message in JSON
+        json_error = '{"message": "Registration failed."}'
+        private_register_proxy.Register.side_effect = DBusError(json_error)
+        # instantiate the task and run it
+        task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
+                                                username="foo_user",
+                                                password="bar_password")
+        with self.assertRaises(RegistrationError):
+            task.run()
+        # check private register proxy Register method was called correctly
+        private_register_proxy.Register.assert_called_with("",
+                                                           "foo_user",
+                                                           "bar_password",
+                                                           {},
+                                                           {},
+                                                           "en_US.UTF-8")
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def org_key_success_test(self, private_bus, environ_get):
+        """Test the RegisterWithOrganizationKeyTask - success."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        private_register_proxy.Register.return_value = True, ""
+        # instantiate the task and run it
+        task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
+                                               organization="123456789",
+                                               activation_keys=["foo", "bar", "baz"])
+        task.run()
+        # check private register proxy RegisterWithActivationKeys method was called correctly
+        private_register_proxy.RegisterWithActivationKeys.assert_called_with(
+            "123456789",
+            ["foo", "bar", "baz"],
+            {},
+            {},
+            'en_US.UTF-8'
+        )
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def org_key_failure_test(self, private_bus, environ_get):
+        """Test the RegisterWithOrganizationKeyTask - failure."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # raise DBusError with error message in JSON
+        json_error = '{"message": "Registration failed."}'
+        private_register_proxy.RegisterWithActivationKeys.side_effect = DBusError(json_error)
+        # instantiate the task and run it
+        task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
+                                               organization="123456789",
+                                               activation_keys=["foo", "bar", "baz"])
+        with self.assertRaises(RegistrationError):
+            task.run()
+        # check private register proxy RegisterWithActivationKeys method was called correctly
+        private_register_proxy.RegisterWithActivationKeys.assert_called_with(
+            "123456789",
+            ["foo", "bar", "baz"],
+            {},
+            {},
+            'en_US.UTF-8'
+        )
