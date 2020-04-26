@@ -66,6 +66,17 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_CDROM)
 
+    def hmc_kickstart_test(self):
+        ks_in = """
+        hmc
+        """
+        ks_out = """
+        # Use installation media via SE/HMC
+        hmc
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_HMC)
+
 
 class DNFInterfaceTestCase(unittest.TestCase):
 
