@@ -135,7 +135,7 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
                                    "initialized! Please tear down the sources first.")
 
         self._sources = sources
-        log.debug("New sources %s was added.", sources)
+        log.debug("New sources %s were added.", sources)
         self.sources_changed.emit()
 
     def has_source(self):
