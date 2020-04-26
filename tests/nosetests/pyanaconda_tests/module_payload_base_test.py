@@ -79,6 +79,51 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests.check_set_sources(sources)
 
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def add_source_test(self, publisher):
+        """Test module API to add source."""
+        source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.NOT_APPLICABLE)
+
+        sources = [source1]
+        self.shared_tests.check_set_sources(sources)
+
+        source2 = self.shared_tests.prepare_source(SourceType.URL)
+        self.module.add_source(source2)
+
+        sources.append(source2)
+        self.shared_tests.check_sources(sources)
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def add_source_incompatible_source_failed_test(self, publisher):
+        """Test module API to add source failed with incompatible source."""
+        source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.NOT_APPLICABLE)
+
+        sources = [source1]
+        self.shared_tests.check_set_sources(sources)
+
+        source2 = self.shared_tests.prepare_source(SourceType.NFS)
+        with self.assertRaises(IncompatibleSourceError):
+            self.module.add_source(source2)
+
+        self.shared_tests.check_sources(sources)
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def add_source_ready_failed_test(self, publisher):
+        """Test module API to add source failed with ready source."""
+        source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.READY)
+
+        sources = [source1]
+        self.shared_tests.check_set_sources(sources)
+
+        source2 = self.shared_tests.prepare_source(SourceType.URL)
+        with self.assertRaises(SourceSetupError):
+            self.module.add_source(source2)
+
+        self.shared_tests.check_sources(sources)
+
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL, SourceType.NFS])
     @patch_dbus_publish_object
     def set_multiple_source_test(self, publisher):

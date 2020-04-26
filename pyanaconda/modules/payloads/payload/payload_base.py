@@ -146,6 +146,15 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         return bool(self.sources)
 
+    def add_source(self, source):
+        """Module scope API for easier adding of sources.
+
+        :param source: Source we want to add.
+        """
+        sources = list(self.sources)
+        sources.append(source)
+        self.set_sources(sources)
+
     @abstractmethod
     def pre_install_with_tasks(self):
         """Execute preparation steps.

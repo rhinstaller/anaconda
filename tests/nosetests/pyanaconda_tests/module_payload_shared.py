@@ -148,3 +148,20 @@ class PayloadSharedTest(object):
             self._test.assertTrue(self.payload_interface.HasSource())
 
         return ret
+
+
+    def check_sources(self, expected_sources=None):
+        """Check what sources are set in payload.
+
+        :param expected_sources: list of expected sources after trying to set;
+                                 including when exception raised
+        :type expected_sources: list of source instances
+        """
+        expected_paths = PayloadSourceContainer.to_object_path_list(expected_sources)
+
+        if expected_sources:
+            self._test.assertEqual(self.payload_interface.Sources, expected_paths)
+            self._test.assertTrue(self.payload_interface.HasSource())
+        else:
+            self._test.assertEqual(self.payload_interface.Sources, [])
+            self._test.assertFalse(self.payload_interface.HasSource())
