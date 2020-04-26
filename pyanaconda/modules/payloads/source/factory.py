@@ -57,3 +57,27 @@ class SourceFactory(object):
             return HardDriveSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))
+
+    @staticmethod
+    def get_rpm_type_for_kickstart(ks_data):
+        """Generate source type from DNF kickstart data.
+
+        This method will mimic behavior of method command which will take first from the list
+        and ignore rest of the commands. If we want to improve this behavior we should do that
+        in the pykickstart instead.
+
+        :param ks_data: kickstart data from DNF payload
+        :return: SourceType value
+        """
+        if ks_data.cdrom.seen:
+            return SourceType.CDROM
+        if ks_data.harddrive.seen:
+            return SourceType.HDD
+        if ks_data.hmc.seen:
+            return SourceType.HMC
+        if ks_data.nfs.seen:
+            return SourceType.NFS
+        if ks_data.url.seen:
+            return SourceType.URL
+
+        return None
