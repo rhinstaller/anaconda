@@ -19,13 +19,52 @@
 #
 import unittest
 
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
+    PayloadKickstartSharedTest
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
     SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL
 from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+
+
+class DNFKSTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.module = PayloadsService()
+        self.interface = PayloadsInterface(self.module)
+
+        self.shared_ks_tests = PayloadKickstartSharedTest(self,
+                                                          self.module,
+                                                          self.interface)
+
+    def _check_properties(self, expected_source_type):
+        payload = self.shared_ks_tests.get_payload()
+
+        self.assertIsInstance(payload, DNFModule)
+
+        # verify sources set
+        if expected_source_type is None:
+            self.assertFalse(payload.has_source())
+        else:
+            self.assertTrue(payload.has_source())
+            sources = payload.sources
+            self.assertEqual(1, len(sources))
+            self.assertEqual(sources[0].type.value, expected_source_type)
+
+    def cdrom_kickstart_test(self):
+        ks_in = """
+        cdrom
+        """
+        ks_out = """
+        # Use CDROM installation media
+        cdrom
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_CDROM)
 
 
 class DNFInterfaceTestCase(unittest.TestCase):

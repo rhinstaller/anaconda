@@ -46,3 +46,14 @@ class CdromSourceModule(MountingSourceBase):
         """
         task = SetUpCdromSourceTask(self.mount_point)
         return [task]
+
+    def process_kickstart(self, data):
+        """Process the kickstart data.
+
+        This will be empty because cdrom KS command does not have any arguments.
+        """
+        pass
+
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        data.cdrom.seen = True
