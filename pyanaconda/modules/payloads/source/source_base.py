@@ -60,10 +60,6 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         :return: one of the supported state of SourceState enum
         :rtype: pyanaconda.modules.payloads.constants.SourceState enum value
         """
-        # TODO: Add needs_teardown property which will tell us if the source has to be cleaned up
-        # before removing the source from a payload. The is_ready will work for now but it
-        # will not work for for example HTTP source which is always ready. That source would cause
-        # troubles for the base payload set_sources method ready check.
         pass
 
     @abstractmethod
