@@ -209,9 +209,13 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
     def deprecated_warnings_test(self):
         response = self.timezone_interface.ReadKickstart("timezone --isUtc Europe/Bratislava")
         report = KickstartReport.from_structure(response)
-        self.assertIn("The option --isUtc will be deprecated in future releases",
-                      str(report.warning_messages[0]))
+
+        warning = "The option --isUtc will be deprecated in future releases. " \
+                  "Please modify your kickstart file to replace this option with " \
+                  "its preferred alias --utc."
+
         self.assertEqual(len(report.warning_messages), 1)
+        self.assertEqual(report.warning_messages[0].message, warning)
 
 
 class TimezoneTasksTestCase(unittest.TestCase):
