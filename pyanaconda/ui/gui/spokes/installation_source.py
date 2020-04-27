@@ -1750,7 +1750,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         # do not update check status if checks are not yet set up
         # (populating/refreshing the spoke)
-        if repo.name in self._repo_checks:
+        if repo.repo_id in self._repo_checks:
             self._repo_checks[repo.repo_id].proxy_check.update_check_status()
 
         try:
