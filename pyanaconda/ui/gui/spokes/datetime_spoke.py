@@ -261,6 +261,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             return InputCheck.CHECK_OK
 
     def refresh(self):
+        self._initialize_store_from_config()
         self._serverEntry.grab_focus()
 
     def refresh_servers_state(self):
@@ -287,8 +288,6 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             self._epoch_lock.acquire()
             self._epoch += 1
             self._epoch_lock.release()
-
-            self._initialize_store_from_config()
 
         return rc
 
