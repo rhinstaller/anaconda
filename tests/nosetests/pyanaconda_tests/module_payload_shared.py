@@ -39,7 +39,7 @@ class PayloadKickstartSharedTest(object):
         self.payload_service = payload_service
         self.payload_service_interface = payload_service_intf
 
-    def check_kickstart(self, ks_in, ks_out, ks_valid=True, expected_publish_calls=1):
+    def check_kickstart(self, ks_in, ks_out=None, ks_valid=True, expected_publish_calls=1):
         """Test kickstart processing.
 
         :param test_obj: TestCase object (probably self)
@@ -53,7 +53,7 @@ class PayloadKickstartSharedTest(object):
                                                self.payload_service_interface,
                                                ks_in, "", ks_valid, ks_tmp=ks_out)
 
-            if ks_valid:
+            if ks_valid and expected_publish_calls != 0:
                 publisher.assert_called()
                 self._test.assertEqual(publisher.call_count, expected_publish_calls)
 

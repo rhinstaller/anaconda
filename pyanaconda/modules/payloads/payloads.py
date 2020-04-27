@@ -121,6 +121,7 @@ class PayloadsService(KickstartService):
             self.payload.setup_kickstart(data)
         except PayloadNotSetError:
             log.warning("Generating kickstart data without payload set - data will be empty!")
+            return ""
 
         return str(data)
 
