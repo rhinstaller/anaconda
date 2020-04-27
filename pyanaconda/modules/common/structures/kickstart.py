@@ -56,15 +56,15 @@ class KickstartMessage(DBusData):
         self._file_name = value
 
     @property
-    def line_number(self) -> Int:
+    def line_number(self) -> UInt32:
         """Number of the line.
 
         :return: a number
         """
-        return self._line_number
+        return UInt32(self._line_number)
 
     @line_number.setter
-    def line_number(self, value: Int):
+    def line_number(self, value: UInt32):
         self._line_number = value
 
     @property
@@ -88,7 +88,7 @@ class KickstartMessage(DBusData):
         """
         data = cls()
         data.message = e.message
-        data.line_number = e.lineno
+        data.line_number = e.lineno or 0
         return data
 
     @classmethod
@@ -100,7 +100,7 @@ class KickstartMessage(DBusData):
         """
         data = cls()
         data.message = warn_msg
-        data.line_number = -1
+        data.line_number = 0
         return data
 
     def __str__(self):
