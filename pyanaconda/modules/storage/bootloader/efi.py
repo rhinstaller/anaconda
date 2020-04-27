@@ -18,8 +18,8 @@
 import os
 import re
 
-from pyanaconda.bootloader.base import BootLoaderError
-from pyanaconda.bootloader.grub2 import GRUB2
+from pyanaconda.modules.storage.bootloader.base import BootLoaderError
+from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
 from pyanaconda.core import util
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.configuration.anaconda import conf

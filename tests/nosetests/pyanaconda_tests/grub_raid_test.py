@@ -23,7 +23,7 @@ from blivet.devicelibs.raid import RAID1
 from blivet.formats import get_format
 from blivet.size import Size
 
-from pyanaconda.bootloader.grub2 import GRUB2
+from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
 
 import unittest
 

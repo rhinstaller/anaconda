@@ -19,7 +19,7 @@ from blivet.devicefactory import SIZE_POLICY_AUTO
 from blivet.errors import StorageError
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.bootloader.execution import setup_bootloader
+from pyanaconda.modules.storage.bootloader.execution import setup_bootloader
 from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
     AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask

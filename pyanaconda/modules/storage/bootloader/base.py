@@ -29,7 +29,7 @@ from ordered_set import OrderedSet
 from pyanaconda.network import iface_for_host_ip
 from pyanaconda import platform
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.bootloader.image import LinuxBootLoaderImage
+from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core import util
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.configuration.anaconda import conf

@@ -256,11 +256,11 @@ class reset_boot_loader_factory(ContextDecorator):
         self._default_type = default_type
 
     def __enter__(self):
-        from pyanaconda.bootloader import BootLoaderFactory
+        from pyanaconda.modules.storage.bootloader import BootLoaderFactory
         BootLoaderFactory.set_default_class(self._default_type)
         return self
 
     def __exit__(self, *exc):
-        from pyanaconda.bootloader import BootLoaderFactory
+        from pyanaconda.modules.storage.bootloader import BootLoaderFactory
         BootLoaderFactory.set_default_class(None)
         return False

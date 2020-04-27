@@ -18,7 +18,7 @@
 import os
 from glob import glob
 
-from pyanaconda.bootloader.image import LinuxBootLoaderImage
+from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import decode_bytes
 from pyanaconda.product import productName

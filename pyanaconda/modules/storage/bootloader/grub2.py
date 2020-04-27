@@ -21,7 +21,7 @@ from _ped import PARTITION_BIOS_GRUB
 
 from blivet.devicelibs import raid
 
-from pyanaconda.bootloader.base import BootLoader, BootLoaderError
+from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderError
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _

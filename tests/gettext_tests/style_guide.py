@@ -43,7 +43,7 @@ bad_strings = {'(?i)bootloader': 'boot loader',
 # write a more specific regex. List occurrences here.
 # {'filename': {'matched string', occurrences}}
 expected_badness = {
-    'pyanaconda/bootloader/base.py': {
+    'pyanaconda/modules/storage/bootloader/base.py': {
         'mountpoint': 1,  # format string specifier
         'bootloader': 1,  # format string specifier
     },

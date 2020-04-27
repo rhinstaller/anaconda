@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.storage.bootloader.base import BootLoaderError
+from pyanaconda.modules.storage.bootloader.factory import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.bootloader import BootloaderModule
 
-__all__ = ["BootloaderModule"]
+__all__ = ["BootLoaderError", "BootLoaderFactory", "BootloaderModule"]

@@ -20,7 +20,7 @@ from blivet.errors import StorageError
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.modules.storage.bootloader import BootLoaderError
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
     BootloaderConfigurationError
 from pyanaconda.modules.common.task.task import Task

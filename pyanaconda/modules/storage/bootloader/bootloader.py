@@ -21,9 +21,9 @@ from pykickstart.errors import KickstartParseError
 from pykickstart.constants import SECURE_BOOT_AUTO, SECURE_BOOT_ENABLED, SECURE_BOOT_DISABLED
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.bootloader import BootLoaderFactory
-from pyanaconda.bootloader.efi import EFIBase
-from pyanaconda.bootloader.grub2 import GRUB2
+from pyanaconda.modules.storage.bootloader import BootLoaderFactory
+from pyanaconda.modules.storage.bootloader.efi import EFIBase
+from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.bootloader import BootloaderType
 from pyanaconda.core.constants import BOOTLOADER_LOCATION_DEFAULT, BOOTLOADER_TIMEOUT_UNSET, \
