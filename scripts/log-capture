@@ -52,6 +52,7 @@ _to_log ip a
 _to_log ip r
 _to_log journalctl
 
+cp /etc/resolv.conf ${OUTDIR}
 cp /tmp/*.log ${OUTDIR}
 cp /root/lorax-packages.log ${OUTDIR}
 
