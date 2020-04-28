@@ -26,7 +26,7 @@ from pyanaconda.core.constants import STORAGE_MIN_RAM, STORAGE_LUKS2_MIN_RAM
 from pyanaconda.modules.common.errors.general import UnsupportedValueError
 from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface
-from pyanaconda.storage.checker import storage_checker, verify_lvm_destruction
+from pyanaconda.modules.storage.checker.utils import storage_checker, verify_lvm_destruction
 
 
 class StorageCheckerInterfaceTestCase(unittest.TestCase):
@@ -58,8 +58,7 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
 
 class StorageCheckerVerificationTestCase(unittest.TestCase):
 
-    @patch("pyanaconda.storage.checker._", side_effect=lambda x: x)
-    def lvm_verification_test(self, _):
+    def lvm_verification_test(self):
         """Test the LVM destruction test."""
         # VG that is destroyed correctly
         action1 = Mock()

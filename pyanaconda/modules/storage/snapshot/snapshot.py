@@ -29,7 +29,7 @@ from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
 from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
-from pyanaconda.storage.checker import storage_checker
+from pyanaconda.modules.storage.checker.utils import storage_checker
 
 log = get_module_logger(__name__)
 

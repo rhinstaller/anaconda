@@ -20,7 +20,7 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task.task import ValidationTask
-from pyanaconda.storage.checker import storage_checker
+from pyanaconda.modules.storage.checker.utils import storage_checker
 
 log = get_module_logger(__name__)
 

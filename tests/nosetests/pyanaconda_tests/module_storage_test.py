@@ -53,7 +53,7 @@ from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.modules.storage.storage import StorageService
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
-from pyanaconda.storage.checker import StorageCheckerReport
+from pyanaconda.modules.storage.checker.utils import StorageCheckerReport
 
 
 class StorageInterfaceTestCase(unittest.TestCase):

@@ -26,7 +26,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
 from pyanaconda.modules.common.errors.general import UnsupportedValueError
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface
-from pyanaconda.storage.checker import storage_checker
+from pyanaconda.modules.storage.checker.utils import storage_checker
 
 log = get_module_logger(__name__)
 
