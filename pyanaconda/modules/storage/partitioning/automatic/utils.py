@@ -25,6 +25,7 @@ from blivet.devices.luks import LUKSDevice
 from blivet.devices.lvm import DEFAULT_THPOOL_RESERVE
 from blivet.errors import NotEnoughFreeSpaceError, NoDisksError
 from blivet.formats import get_format
+from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.partitioning import get_free_regions, get_next_partition_type
 
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
@@ -37,8 +38,41 @@ from pyanaconda.modules.common.errors.storage import ProtectedDeviceError
 log = get_module_logger(__name__)
 
 
-__all__ = ["get_candidate_disks", "schedule_implicit_partitions", "schedule_partitions",
-           "schedule_volumes", "shrink_device", "remove_device"]
+def get_pbkdf_args(luks_version, pbkdf_type=None, max_memory_kb=0, iterations=0, time_ms=0):
+    """Get the pbkdf arguments.
+
+    :param luks_version: a version of LUKS
+    :param pbkdf_type: a type of PBKDF
+    :param max_memory_kb: a memory cost for PBKDF
+    :param iterations: a number of iterations
+    :param time_ms: an iteration time in ms
+    :return:
+    """
+    # PBKDF arguments are not supported for LUKS 1.
+    if luks_version != "luks2":
+        return None
+
+    # Use defaults.
+    if not pbkdf_type and not max_memory_kb and not iterations and not time_ms:
+        log.debug("Using default PBKDF args.")
+        return None
+
+    # Use specified arguments.
+    return LUKS2PBKDFArgs(pbkdf_type or None, max_memory_kb or 0, iterations or 0, time_ms or 0)
+
+
+def lookup_alias(devicetree, alias):
+    """Look up a device of the given alias in the device tree.
+
+    :param devicetree: a device tree to look up devices
+    :param alias: an alias name
+    :return: a device object
+    """
+    for dev in devicetree.devices:
+        if getattr(dev, "req_name", None) == alias:
+            return dev
+
+    return None
 
 
 def shrink_device(storage, device, size):

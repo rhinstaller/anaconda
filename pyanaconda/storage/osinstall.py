@@ -34,7 +34,8 @@ from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName
 from pyanaconda.storage.fsset import FSSet
-from pyanaconda.storage.utils import download_escrow_certificate, find_live_backing_device
+from pyanaconda.modules.storage.devicetree.utils import download_escrow_certificate, \
+    find_live_backing_device
 from pyanaconda.storage.root import find_existing_installations
 from pyanaconda.modules.common.constants.services import NETWORK
 
