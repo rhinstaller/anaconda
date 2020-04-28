@@ -39,7 +39,7 @@ from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
     MountExistingSystemTask
 from pyanaconda.storage.initialization import create_storage
-from pyanaconda.storage.root import Root
+from pyanaconda.modules.storage.devicetree.root import Root
 
 
 class DeviceTreeInterfaceTestCase(unittest.TestCase):

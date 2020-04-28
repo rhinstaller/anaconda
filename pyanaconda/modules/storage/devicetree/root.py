@@ -25,7 +25,7 @@ from blivet.storage_log import log_exception_info
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
-from pyanaconda.storage.fsset import BlkidTab, CryptTab
+from pyanaconda.modules.storage.devicetree.fsset import BlkidTab, CryptTab
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

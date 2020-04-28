@@ -28,6 +28,7 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_ta
     patch_dbus_get_proxy
 
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
+from pyanaconda.modules.storage.devicetree.model import InstallerStorage
 from pyanaconda.modules.storage.partitioning.custom.custom_module import CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.custom.custom_interface import \
     CustomPartitioningInterface
@@ -105,7 +106,7 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         self.assertEqual(self.interface.RequiresPassphrase(), False)
 
     @patch_dbus_get_proxy
-    @patch('pyanaconda.storage.osinstall.InstallerStorage.mountpoints', new_callable=PropertyMock)
+    @patch.object(InstallerStorage, 'mountpoints', new_callable=PropertyMock)
     def test_prepboot_bootloader_in_kickstart(self, mock_mountpoints, dbus):
         """Test that a prepboot bootloader shows up in the ks data."""
         # set up prepboot partition
@@ -127,8 +128,8 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         self.assertIn("part prepboot", str(ksdata))
 
     @patch_dbus_get_proxy
-    @patch('pyanaconda.storage.osinstall.InstallerStorage.devices', new_callable=PropertyMock)
-    @patch('pyanaconda.storage.osinstall.InstallerStorage.mountpoints', new_callable=PropertyMock)
+    @patch.object(InstallerStorage, 'devices', new_callable=PropertyMock)
+    @patch.object(InstallerStorage, 'mountpoints', new_callable=PropertyMock)
     def test_biosboot_bootloader_in_kickstart(self, mock_mountpoints, mock_devices, dbus):
         """Test that a biosboot bootloader shows up in the ks data."""
         # set up biosboot partition

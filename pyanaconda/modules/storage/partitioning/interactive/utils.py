@@ -36,7 +36,7 @@ from pyanaconda.modules.common.structures.device_factory import DeviceFactoryReq
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.platform import platform
 from pyanaconda.product import productName, productVersion
-from pyanaconda.storage.root import Root
+from pyanaconda.modules.storage.devicetree.root import Root
 from pyanaconda.modules.storage.devicetree.utils import get_supported_filesystems
 from pyanaconda.core.storage import DEVICE_TEXT_MAP, PARTITION_ONLY_FORMAT_TYPES, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, SUPPORTED_DEVICE_TYPES

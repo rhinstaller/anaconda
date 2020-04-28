@@ -128,8 +128,8 @@ def get_candidate_disks(storage):
     Disks must be partitioned and have a single free region large enough
     for a default-sized (500MiB) partition.
 
-    :param storage: an InstallerStorage instance
-    :type storage: :class:`~.storage.InstallerStorage`
+    :param storage: the storage object
+    :type storage: an instance of InstallerStorage
     :return: a list of partitioned disks with at least 500MiB of free space
     :rtype: list of :class:`blivet.devices.StorageDevice`
     """
@@ -173,8 +173,8 @@ def schedule_implicit_partitions(storage, disks, scheme, encrypted=False, luks_f
     We create one such partition on each disk. They are not allocated until
     later (in :func:`doPartitioning`).
 
-    :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
-    :type storage: :class:`pyanaconda.storage.InstallerStorage`
+    :param storage: the storage object
+    :type storage: an instance of InstallerStorage
     :param disks: list of partitioned disks with free space
     :type disks: list of :class:`blivet.devices.StorageDevice`
     :param scheme: a type of the partitioning scheme
@@ -219,8 +219,8 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
 
     This only schedules the requests for actual partitions.
 
-    :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
-    :type storage: :class:`pyanaconda.storage.InstallerStorage`
+    :param storage: the storage object
+    :type storage: an instance of InstallerStorage
     :param disks: list of partitioned disks with free space
     :type disks: list of :class:`blivet.devices.StorageDevice`
     :param implicit_devices: list of implicit devices
@@ -360,8 +360,8 @@ def schedule_volumes(storage, devices, scheme, requests, encrypted=False):
     If an appropriate bootloader stage1 device exists on the boot drive, any
     autopart request to create another one will be skipped/discarded.
 
-    :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
-    :type storage: :class:`pyanaconda.storage.InstallerStorage`
+    :param storage: the storage object
+    :type storage: an instance of InstallerStorage
     :param devices: list of member partitions
     :type devices: list of :class:`blivet.devices.PartitionDevice`
     :param scheme: a type of the partitioning scheme

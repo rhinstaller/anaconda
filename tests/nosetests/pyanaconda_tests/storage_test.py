@@ -5,7 +5,7 @@ from unittest.mock import patch
 from blivet import util
 from blivet.size import Size
 
-from pyanaconda.storage.osinstall import InstallerStorage
+from pyanaconda.storage.initialization import create_storage
 from pyanaconda.ui.lib.storage import reset_storage
 
 
@@ -20,7 +20,7 @@ class SetupDiskImagesNonZeroSizeTestCase(unittest.TestCase):
     disks = {"disk1": Size("2 GiB")}
 
     def setUp(self):
-        self.storage = InstallerStorage()
+        self.storage = create_storage()
 
         # anaconda first configures disk images
         for (name, size) in iter(self.disks.items()):

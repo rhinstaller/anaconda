@@ -154,7 +154,7 @@ class ActivateFilesystemsTask(Task):
         """Perform installer-specific activation of storage configuration.
 
         :param storage: the storage object
-        :type storage: :class:`~.storage.InstallerStorage`
+        :type storage: an instance of InstallerStorage
         :param callbacks: callbacks to be invoked when actions are executed
         :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_register`
         """
@@ -296,7 +296,7 @@ class WriteConfigurationTask(Task):
         """Write the escrow packets.
 
         :param storage: the storage object
-        :type storage: :class:`~.storage.InstallerStorage`
+        :type storage: an instance of InstallerStorage
         :param sysroot: a path to the target OS installation
         :type sysroot: str
         """

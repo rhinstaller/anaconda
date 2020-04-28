@@ -59,7 +59,7 @@ expected_badness = {
     'pyanaconda/startup_utils.py': {
         'HOSTNAME': 1,    # ssh to install@HOSTNAME
     },
-    'pyanaconda/storage/fsset.py': {
+    'pyanaconda/modules/storage/devicetree/fsset.py': {
         'mountpoint': 1,  # format string specifier mount_point
     }
 }

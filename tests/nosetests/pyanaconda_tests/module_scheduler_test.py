@@ -44,7 +44,7 @@ from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import
     DeviceTreeSchedulerModule
 from pyanaconda.modules.storage.platform import EFI
 from pyanaconda.storage.initialization import create_storage
-from pyanaconda.storage.root import Root
+from pyanaconda.modules.storage.devicetree.root import Root
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
     patch_dbus_get_proxy
 
