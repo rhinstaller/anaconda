@@ -32,6 +32,7 @@ from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONIN
 from dasbus.server.container import DBusContainerError
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import PartitioningContainer
+from pyanaconda.modules.storage.initialization import enable_installer_mode
 from pyanaconda.modules.storage.partitioning.automatic.automatic_module import \
     AutoPartitioningModule
 from pyanaconda.modules.storage.partitioning.manual.manual_module import ManualPartitioningModule
@@ -106,6 +107,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
             self.storage_module._set_applied_partitioning(module)
 
         self.storage_module.created_partitioning_changed.connect(_apply_partitioning)
+
+    def initialization_test(self):
+        """Test the Blivet initialization."""
+        enable_installer_mode()
 
     def create_storage_test(self):
         """Test the storage created by default."""
@@ -1239,9 +1244,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         iscsi_mock.active_nodes.return_value = nodes + ibft_nodes
         iscsi_mock.ibft_nodes = ibft_nodes
 
-    @patch("pyanaconda.storage.initialization.load_plugin_s390")
     @patch("pyanaconda.modules.storage.kickstart.zfcp")
-    def zfcp_kickstart_test(self, zfcp, loader):
+    def zfcp_kickstart_test(self, zfcp):
         """Test the zfcp command."""
         ks_in = """
         zfcp --devnum=0.0.fc00 --wwpn=0x401040a000000000 --fcplun=0x5105074308c212e9

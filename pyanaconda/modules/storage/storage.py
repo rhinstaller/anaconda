@@ -44,7 +44,6 @@ from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
 from pyanaconda.modules.storage.zfcp import ZFCPModule
-from pyanaconda.modules.storage.initialization import enable_installer_mode
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -55,9 +54,6 @@ class StorageService(KickstartService):
 
     def __init__(self):
         super().__init__()
-        # Initialize Blivet.
-        enable_installer_mode()
-
         # The storage model.
         self._current_storage = None
         self._storage_playground = None
