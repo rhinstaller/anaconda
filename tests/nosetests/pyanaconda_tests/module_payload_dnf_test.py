@@ -24,6 +24,7 @@ from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadShared
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
     SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL
+from pyanaconda.modules.common.errors.payload import PayloadNotSetError
 from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
@@ -76,6 +77,26 @@ class DNFKSTestCase(unittest.TestCase):
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_HMC)
+
+    def harddrive_kickstart_test(self):
+        ks_in = """
+        harddrive --partition=nsa-device --dir=top-secret
+        """
+        ks_out = """
+        # Use hard drive installation media
+        harddrive --dir=top-secret --partition=nsa-device
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_HDD)
+
+    def harddrive_kickstart_failed_test(self):
+        ks_in = """
+        harddrive --partition=nsa-device
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=0)
+
+        with self.assertRaises(PayloadNotSetError):
+            self.interface.GetActivePayload()
 
 
 class DNFInterfaceTestCase(unittest.TestCase):
