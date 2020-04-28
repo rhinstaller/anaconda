@@ -98,6 +98,16 @@ class DNFKSTestCase(unittest.TestCase):
         with self.assertRaises(PayloadNotSetError):
             self.interface.GetActivePayload()
 
+    def harddrive_biospart_kickstart_failed_test(self):
+        # The biospart parameter is not implemented since 2012 and it won't
+        # really work. Make it obvious for user.
+        ks_in = """
+        harddrive --biospart=007 --dir=cool/store
+        """
+        # One publisher call because the biospart support is decided in the harddrive source
+        self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=1)
+        self._check_properties(None)
+
 
 class DNFInterfaceTestCase(unittest.TestCase):
 
