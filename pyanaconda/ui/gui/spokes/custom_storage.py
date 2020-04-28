@@ -63,7 +63,8 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_en
     get_selected_raid_level, get_default_raid_level, get_container_type, AddDialog,\
     ConfirmDeleteDialog, DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE,\
     NOTEBOOK_LUKS_PAGE, NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT,\
-    CONTAINER_TOOLTIP, get_supported_device_raid_levels, generate_request_description
+    CONTAINER_TOOLTIP, DESIRED_CAPACITY_ERROR, get_supported_device_raid_levels, \
+    generate_request_description
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
@@ -1552,14 +1553,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._request.device_raid_level = get_selected_raid_level(self._raidLevelCombo)
         self.on_value_changed()
 
-    def on_size_changed(self, widget):
+    @timed_action(750, 1500, False)
+    def on_size_changed(self, *args):
+        """Callback for text change in "desired capacity" widget"""
         if not self._sizeEntry.get_sensitive():
-            return
-
-        current_size = Size(self._request.device_size)
-        displayed_size = current_size.human_readable(max_places=self.MAX_SIZE_PLACES)
-
-        if displayed_size == self._sizeEntry.get_text():
             return
 
         size = get_size_from_entry(
@@ -1568,7 +1565,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             units=SIZE_UNITS_DEFAULT
         )
 
+        # Show warning if the size string is invalid. Field self._error is used as a "flag" that
+        # the last error was the same. This is done because this warning can fire on every change,
+        # so it would keep flickering at the bottom as you type.
         if size is None:
+            if self._error != DESIRED_CAPACITY_ERROR:
+                self.clear_errors()
+                self.set_detailed_warning(
+                    _("Invalid input. Specify the Desired Capacity in whole or decimal numbers, "
+                      "with an appropriate unit."),
+                    _(DESIRED_CAPACITY_ERROR)
+                )
+            return
+        elif self._error == DESIRED_CAPACITY_ERROR:
+            self.clear_errors()
+
+        current_size = Size(self._request.device_size)
+        displayed_size = current_size.human_readable(max_places=self.MAX_SIZE_PLACES)
+
+        if displayed_size == self._sizeEntry.get_text():
             return
 
         self._request.device_size = size.get_bytes()
