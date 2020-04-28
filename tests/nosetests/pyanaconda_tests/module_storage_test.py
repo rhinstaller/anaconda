@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import logging
+import os
+import tempfile
 import unittest
 from unittest.mock import patch, Mock, PropertyMock
 
@@ -1461,19 +1463,23 @@ class StorageTasksTestCase(unittest.TestCase):
         execute.return_value = 0
         MountFilesystemsTask(storage).run()
 
-    @patch("pyanaconda.modules.storage.installation.write_storage_configuration")
+    @patch_dbus_get_proxy
     @patch("pyanaconda.modules.storage.installation.conf")
-    def write_configuration_test(self, patched_conf, write):
+    def write_configuration_test(self, patched_conf, dbus):
         """Test WriteConfigurationTask."""
-        storage = Mock()
+        storage = Mock(devices=[])
 
-        patched_conf.target.is_directory = True
-        WriteConfigurationTask(storage).run()
-        write.assert_not_called()
+        with tempfile.TemporaryDirectory() as d:
+            patched_conf.target.system_root = d
+            patched_conf.target.physical_root = d
 
-        patched_conf.target.is_directory = False
-        WriteConfigurationTask(storage).run()
-        write.assert_called_once_with(storage)
+            patched_conf.target.is_directory = True
+            WriteConfigurationTask(storage).run()
+            self.assertFalse(os.path.exists("{}/etc".format(d)))
+
+            patched_conf.target.is_directory = False
+            WriteConfigurationTask(storage).run()
+            self.assertTrue(os.path.exists("{}/etc".format(d)))
 
 
 class StorageValidationTasksTestCase(unittest.TestCase):
