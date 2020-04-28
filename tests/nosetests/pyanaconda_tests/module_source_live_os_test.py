@@ -36,24 +36,24 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesCha
 class LiveOSSourceInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.live_os_source_module = LiveOSSourceModule()
-        self.live_os_source_interface = LiveOSSourceInterface(self.live_os_source_module)
+        self.module = LiveOSSourceModule()
+        self.interface = LiveOSSourceInterface(self.module)
 
         self.callback = PropertiesChangedCallback()
-        self.live_os_source_interface.PropertiesChanged.connect(self.callback)
+        self.interface.PropertiesChanged.connect(self.callback)
 
     def type_test(self):
         """Test Live OS source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_LIVE_OS_IMAGE, self.live_os_source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_LIVE_OS_IMAGE, self.interface.Type)
 
     def image_path_empty_properties_test(self):
         """Test Live OS payload image path property when not set."""
-        self.assertEqual(self.live_os_source_interface.ImagePath, "")
+        self.assertEqual(self.interface.ImagePath, "")
 
     def image_path_properties_test(self):
         """Test Live OS payload image path property is correctly set."""
-        self.live_os_source_interface.SetImagePath("/my/supper/image/path")
-        self.assertEqual(self.live_os_source_interface.ImagePath, "/my/supper/image/path")
+        self.interface.SetImagePath("/my/supper/image/path")
+        self.assertEqual(self.interface.ImagePath, "/my/supper/image/path")
         self.callback.assert_called_once_with(
             PAYLOAD_SOURCE_LIVE_OS.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
@@ -69,7 +69,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         stat_mock.S_ISBLK = Mock()
         stat_mock.S_ISBLK.return_value = False
 
-        self.assertEqual(self.live_os_source_interface.DetectLiveOSImage(), "")
+        self.assertEqual(self.interface.DetectLiveOSImage(), "")
 
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
     def detect_live_os_image_failed_nothing_found_test(self, os_stat_mock):
@@ -78,7 +78,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         # otherwise we will skip the whole sequence
         os_stat_mock.side_effect = FileNotFoundError()
 
-        self.assertEqual(self.live_os_source_interface.DetectLiveOSImage(), "")
+        self.assertEqual(self.interface.DetectLiveOSImage(), "")
 
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.stat")
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
@@ -88,7 +88,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         # otherwise we will skip the whole sequence
         stat_mock.S_ISBLK = Mock(return_value=True)
 
-        detected_image = self.live_os_source_interface.DetectLiveOSImage()
+        detected_image = self.interface.DetectLiveOSImage()
         stat_mock.S_ISBLK.assert_called_once()
 
         self.assertEqual(detected_image, "/dev/mapper/live-base")
@@ -97,7 +97,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
 class LiveOSSourceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.live_os_source_module = LiveOSSourceModule()
+        self.module = LiveOSSourceModule()
 
     def set_up_with_tasks_test(self):
         """Test Live OS Source set up call."""
@@ -106,7 +106,7 @@ class LiveOSSourceTestCase(unittest.TestCase):
         ]
 
         # task will not be public so it won't be published
-        tasks = self.live_os_source_module.set_up_with_tasks()
+        tasks = self.module.set_up_with_tasks()
 
         # Check the number of the tasks
         task_number = len(task_classes)
@@ -122,7 +122,7 @@ class LiveOSSourceTestCase(unittest.TestCase):
         ]
 
         # task will not be public so it won't be published
-        tasks = self.live_os_source_module.tear_down_with_tasks()
+        tasks = self.module.tear_down_with_tasks()
 
         # check the number of tasks
         task_number = len(task_classes)

@@ -38,26 +38,26 @@ mount_location = "/mnt/put-nfs-here"
 class NFSSourceInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.source_module = NFSSourceModule()
-        self.source_interface = NFSSourceInterface(self.source_module)
+        self.module = NFSSourceModule()
+        self.interface = NFSSourceInterface(self.module)
 
         self.callback = PropertiesChangedCallback()
-        self.source_interface.PropertiesChanged.connect(self.callback)
+        self.interface.PropertiesChanged.connect(self.callback)
 
     def type_test(self):
         """Test NFS source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_NFS, self.source_interface.Type)
+        self.assertEqual(SOURCE_TYPE_NFS, self.interface.Type)
 
     def url_empty_properties_test(self):
         """Test NFS source URL property when not set."""
-        self.assertEqual(self.source_interface.URL, "")
+        self.assertEqual(self.interface.URL, "")
 
     def url_properties_test(self):
         """Test NFS source URL property is correctly set."""
         check_dbus_property(
             self,
             PAYLOAD_SOURCE_NFS,
-            self.source_interface,
+            self.interface,
             "URL",
             nfs_url
         )
@@ -66,11 +66,11 @@ class NFSSourceInterfaceTestCase(unittest.TestCase):
 class NFSSourceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.source_module = NFSSourceModule()
+        self.module = NFSSourceModule()
 
     def type_test(self):
         """Test NFS source module has a correct type."""
-        self.assertEqual(SourceType.NFS, self.source_module.type)
+        self.assertEqual(SourceType.NFS, self.module.type)
 
     def set_up_with_tasks_test(self):
         """Test NFS Source set up call."""
@@ -79,7 +79,7 @@ class NFSSourceTestCase(unittest.TestCase):
         ]
 
         # task will not be public so it won't be published
-        tasks = self.source_module.set_up_with_tasks()
+        tasks = self.module.set_up_with_tasks()
 
         # Check the number of the tasks
         task_number = len(task_classes)
@@ -95,7 +95,7 @@ class NFSSourceTestCase(unittest.TestCase):
         ]
 
         # task will not be public so it won't be published
-        tasks = self.source_module.tear_down_with_tasks()
+        tasks = self.module.tear_down_with_tasks()
 
         # check the number of tasks
         task_number = len(task_classes)
@@ -106,8 +106,8 @@ class NFSSourceTestCase(unittest.TestCase):
 
     def url_property_test(self):
         """Test NFS source URL property is correctly set."""
-        self.source_module.set_url(nfs_url)
-        self.assertEqual(nfs_url, self.source_module.url)
+        self.module.set_url(nfs_url)
+        self.assertEqual(nfs_url, self.module.url)
 
 
 class NFSSourceSetupTaskTestCase(unittest.TestCase):
