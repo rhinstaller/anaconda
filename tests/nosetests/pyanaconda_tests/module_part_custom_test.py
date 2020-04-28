@@ -35,7 +35,7 @@ from pyanaconda.modules.storage.partitioning.custom.custom_interface import \
 from pyanaconda.modules.storage.partitioning.custom.custom_partitioning import \
     CustomPartitioningTask
 from pyanaconda.modules.storage.storage import StorageService
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 
 
 class CustomPartitioningInterfaceTestCase(unittest.TestCase):

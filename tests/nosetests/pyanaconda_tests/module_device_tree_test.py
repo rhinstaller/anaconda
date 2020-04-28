@@ -33,12 +33,11 @@ from blivet.size import Size
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
-from pyanaconda.modules.storage.devicetree import DeviceTreeModule
+from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_storage
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
     MountExistingSystemTask
-from pyanaconda.storage.initialization import create_storage
 from pyanaconda.modules.storage.devicetree.root import Root
 
 

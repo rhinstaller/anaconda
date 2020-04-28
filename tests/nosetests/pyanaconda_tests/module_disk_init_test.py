@@ -29,7 +29,7 @@ from pyanaconda.modules.storage.constants import InitializationMode
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
     DiskInitializationInterface
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 

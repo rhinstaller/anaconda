@@ -25,7 +25,7 @@ from blivet.devices import BTRFSDevice, DiskDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation, reset_boot_loader_factory
 

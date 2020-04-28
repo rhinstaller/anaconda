@@ -22,7 +22,7 @@ import pickle
 import unittest
 from unittest.mock import patch
 
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from blivetgui.communication.proxy_utils import ProxyID

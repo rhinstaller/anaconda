@@ -44,7 +44,7 @@ from pyanaconda.modules.storage.partitioning.automatic.automatic_interface impor
 from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
     AutomaticPartitioningTask, get_default_partitioning
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 
 
 class AutopartitioningInterfaceTestCase(unittest.TestCase):

@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.storage.devicetree.model import create_storage
 from pyanaconda.modules.storage.devicetree.devicetree import DeviceTreeModule
 
-__all__ = ["DeviceTreeModule"]
+__all__ = ["create_storage", "DeviceTreeModule"]

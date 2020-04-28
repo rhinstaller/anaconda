@@ -36,7 +36,7 @@ from pyanaconda.modules.storage.partitioning.manual.manual_interface import \
     ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual.manual_partitioning import \
     ManualPartitioningTask
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 
 
 class ManualPartitioningInterfaceTestCase(unittest.TestCase):

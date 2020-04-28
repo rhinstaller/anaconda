@@ -5,7 +5,7 @@ from unittest.mock import patch
 from blivet import util
 from blivet.size import Size
 
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 from pyanaconda.ui.lib.storage import reset_storage
 
 
