@@ -32,7 +32,7 @@ from blivet.storage_log import log_exception_info
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
-from pyanaconda.platform import platform as _platform, EFI
+from pyanaconda.modules.storage.platform import platform, EFI
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -515,7 +515,7 @@ class FSSet(object):
         devices = list(self.mountpoints.values()) + self.swap_devices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
                         self.proc, self.selinux, self.usb, self.run])
-        if isinstance(_platform, EFI):
+        if isinstance(platform, EFI):
             devices.append(self.efivars)
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", ""))
 
@@ -566,7 +566,7 @@ class FSSet(object):
         devices = list(self.mountpoints.values()) + self.swap_devices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
                         self.proc, self.usb, self.selinux, self.run])
-        if isinstance(_platform, EFI):
+        if isinstance(platform, EFI):
             devices.append(self.efivars)
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", ""))
         devices.reverse()

@@ -27,7 +27,7 @@ from blivet.static_data import luks_data
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.storage.osinstall import InstallerStorage
-from pyanaconda.platform import platform
+from pyanaconda.modules.storage.platform import platform
 
 
 def enable_installer_mode():

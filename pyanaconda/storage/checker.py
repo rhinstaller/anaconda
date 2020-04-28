@@ -34,7 +34,7 @@ from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLACKLIST, \
     STORAGE_MUST_NOT_BE_ON_ROOT
 from pyanaconda.core.i18n import _
 from pyanaconda.core.storage import DEVICE_TEXT_MAP
-from pyanaconda.platform import platform as _platform
+from pyanaconda.modules.storage.platform import platform
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -188,7 +188,7 @@ def verify_bootloader(storage, constraints, report_error, report_warning):
         if not stage1:
             report_error(_("No valid boot loader target device found. "
                            "See below for details."))
-            pe = _platform.stage1_missing_error
+            pe = platform.stage1_missing_error
             if pe:
                 report_error(_(pe))
         else:

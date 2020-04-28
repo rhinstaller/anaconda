@@ -34,7 +34,7 @@ from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError, Unk
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
-from pyanaconda.platform import platform
+from pyanaconda.modules.storage.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.root import Root
 from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \

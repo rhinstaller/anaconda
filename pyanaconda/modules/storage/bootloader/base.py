@@ -27,7 +27,7 @@ from blivet.size import Size
 from ordered_set import OrderedSet
 
 from pyanaconda.network import iface_for_host_ip
-from pyanaconda import platform
+from pyanaconda.modules.storage.platform import platform
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core import util
@@ -294,7 +294,7 @@ class BootLoader(object):
 
     @property
     def device_descriptions(self):
-        return platform.platform.boot_stage1_constraint_dict["descriptions"]
+        return platform.boot_stage1_constraint_dict["descriptions"]
 
     #
     # constraint checking for target devices
@@ -481,7 +481,7 @@ class BootLoader(object):
         self.errors = []
         self.warnings = []
         valid = True
-        constraint = platform.platform.boot_stage1_constraint_dict
+        constraint = platform.boot_stage1_constraint_dict
 
         if device is None:
             return False
@@ -661,7 +661,7 @@ class BootLoader(object):
                                      desc=_(self.stage2_description)):
             valid = False
 
-        non_linux_format_types = platform.platform._non_linux_format_types
+        non_linux_format_types = platform._non_linux_format_types
         if non_linux and \
            not self._is_valid_format(device,
                                      format_types=non_linux_format_types):

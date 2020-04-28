@@ -29,7 +29,7 @@ from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation, reset_boot_loader_factory
 
-from pyanaconda import platform
+from pyanaconda.modules.storage import platform
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.base import BootLoader
 from pyanaconda.modules.storage.bootloader.efi import EFIGRUB, MacEFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
