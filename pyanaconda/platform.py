@@ -28,7 +28,7 @@ from blivet.formats import get_device_format_class
 from blivet.size import Size
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.storage.partspec import PartSpec
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
 
 
 class Platform(object):

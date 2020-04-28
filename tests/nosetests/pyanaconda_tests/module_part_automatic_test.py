@@ -27,7 +27,7 @@ from pyanaconda.core.configuration.storage import PartitioningType
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
     ResizableDeviceTreeModule
-from pyanaconda.storage.partspec import PartSpec
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation, check_dbus_object_creation
 
