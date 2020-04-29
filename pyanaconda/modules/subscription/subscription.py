@@ -38,6 +38,7 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_REGISTER_SERVER
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.requirement import Requirement
 
 from pyanaconda.modules.subscription import system_purpose
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
@@ -606,3 +607,39 @@ class SubscriptionService(KickstartService):
                                                organization=organization,
                                                activation_keys=activation_keys)
         return task
+
+    def collect_requirements(self):
+        """Return installation requirements for this module.
+
+        :return: a list of requirements
+        """
+        requirements = []
+
+        # check if we need the syspurpose package needed for system purpose configuration
+        if self.system_purpose_data.check_data_available() and not self.is_system_purpose_applied:
+            # The system purpose installation task (which needs the syspurpose utility
+            # to be installed) runs:
+            # - if system purpose configuration has been requested
+            # - but system purpose has not been applied during the installation
+            # Only in such a case it will run on the target system and needs the
+            # syspurpose utility to be available on the target system.
+            requirements.append(
+                Requirement.for_package(
+                    "python3-syspurpose",
+                    reason="Needed for System Purpose configuration."
+                )
+            )
+
+        # check if we need the insights-client package, which is needed to connect the
+        # target system to Red Hat Insights
+        if self.connect_to_insights:
+            # establishing a connection to Red Hat Insights has been requested
+            # and we need the insights-client package to be present in the
+            # target system chroot for that
+            requirements.append(
+                Requirement.for_package(
+                    "insights-client",
+                    reason="Needed to connect the target system to Red Hat Insights."
+                )
+            )
+        return requirements
