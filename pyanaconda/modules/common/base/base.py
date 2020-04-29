@@ -233,7 +233,8 @@ class KickstartService(Service, KickstartBaseModule):
 
                 for warn in warns:
                     if issubclass(warn.category, KickstartParseWarning):
-                        data = KickstartMessage.for_warning(str(warn))
+                        message = str(warn.message)
+                        data = KickstartMessage.for_warning(message)
                         report.warning_messages.append(data)
 
         except KickstartError as e:
