@@ -26,8 +26,8 @@ from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFi
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
     MountExistingSystemTask
-from pyanaconda.storage.utils import find_optical_media, find_mountable_partitions, unlock_device, \
-    find_unconfigured_luks
+from pyanaconda.modules.storage.devicetree.utils import find_optical_media, \
+    find_mountable_partitions, unlock_device, find_unconfigured_luks
 
 log = get_module_logger(__name__)
 

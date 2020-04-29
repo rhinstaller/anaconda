@@ -26,8 +26,7 @@ from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.storage.osinstall import InstallerStorage
-from pyanaconda.platform import platform
+from pyanaconda.modules.storage.platform import platform
 
 
 def enable_installer_mode():
@@ -69,22 +68,6 @@ def enable_installer_mode():
 
     # We need this so all the /dev/disk/* stuff is set up.
     udev.trigger(subsystem="block", action="change")
-
-
-def create_storage():
-    """Create the storage object.
-
-    :return: an instance of the Blivet's storage object
-    """
-    storage = InstallerStorage()
-
-    # Set the default filesystem type.
-    storage.set_default_fstype(conf.storage.file_system_type or storage.default_fstype)
-
-    # Set the default LUKS version.
-    storage.set_default_luks_version(conf.storage.luks_version or storage.default_luks_version)
-
-    return storage
 
 
 def load_plugin_s390():

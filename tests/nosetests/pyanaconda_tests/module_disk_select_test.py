@@ -28,7 +28,7 @@ from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 

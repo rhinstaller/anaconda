@@ -1,4 +1,3 @@
-# partspec.py
 #
 # Copyright (C) 2009  Red Hat, Inc.
 #

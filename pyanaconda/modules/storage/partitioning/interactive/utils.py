@@ -34,15 +34,21 @@ from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError, Unk
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
-from pyanaconda.platform import platform
+from pyanaconda.modules.storage.platform import platform
 from pyanaconda.product import productName, productVersion
-from pyanaconda.storage.root import Root
-from pyanaconda.storage.utils import filter_unsupported_disklabel_devices, bound_size, \
-    get_supported_filesystems
+from pyanaconda.modules.storage.devicetree.root import Root
+from pyanaconda.modules.storage.devicetree.utils import get_supported_filesystems
 from pyanaconda.core.storage import DEVICE_TEXT_MAP, PARTITION_ONLY_FORMAT_TYPES, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, SUPPORTED_DEVICE_TYPES
 
 log = get_module_logger(__name__)
+
+
+def filter_unsupported_disklabel_devices(devices):
+    """Return input list minus any devices that exist on an unsupported disklabel."""
+    return [d for d in devices if not any(
+        not getattr(p, "disklabel_supported", True) for p in d.ancestors
+    )]
 
 
 def collect_used_devices(storage):
@@ -548,6 +554,52 @@ def resize_device(storage, device, new_size, old_size):
             device.raw_device.size, device.raw_device.target_size
         )
         return True
+
+
+def bound_size(size, device, old_size):
+    """Returns a size bounded by the maximum and minimum size for the device.
+
+    :param size: the candidate size
+    :type size: :class:`blivet.size.Size`
+    :param device: the device being displayed
+    :type device: :class:`blivet.devices.StorageDevice`
+    :param old_size: the fallback size
+    :type old_size: :class:`blivet.size.Size`
+    :returns: a size to which to set the device
+    :rtype: :class:`blivet.size.Size`
+
+    If size is 0, interpreted as set size to maximum possible.
+    If no maximum size is available, reset size to old_size, but
+    log a warning.
+    """
+    max_size = device.max_size
+    min_size = device.min_size
+    if not size:
+        if max_size:
+            log.info("No size specified, using maximum size for "
+                     "this device (%d).", max_size)
+            size = max_size
+        else:
+            log.warning("No size specified and no maximum size available, "
+                        "setting size back to original size (%d).", old_size)
+            size = old_size
+    else:
+        if max_size:
+            if size > max_size:
+                log.warning("Size specified (%d) is greater than the maximum "
+                            "size for this device (%d), using maximum size.",
+                            size, max_size)
+                size = max_size
+        else:
+            log.warning("Unknown upper bound on size. Using requested size (%d).",
+                        size)
+
+        if size < min_size:
+            log.warning("Size specified (%d) is less than the minimum size for "
+                        "this device (%d), using minimum size.", size, min_size)
+            size = min_size
+
+    return size
 
 
 def change_encryption(storage, device, encrypted, luks_version):

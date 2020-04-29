@@ -42,7 +42,7 @@ from pyanaconda.modules.storage.partitioning.interactive.interactive_partitionin
     InteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
     DeviceTreeSchedulerModule
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
     check_dbus_object_creation

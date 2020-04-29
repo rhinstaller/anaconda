@@ -19,10 +19,10 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pyanaconda.storage.checker as checks
+import pyanaconda.modules.storage.checker.utils as checks
 
 from blivet.size import Size
-from pyanaconda.storage.checker import StorageChecker
+from pyanaconda.modules.storage.checker.utils import StorageChecker
 
 
 class StorageCheckerTests(unittest.TestCase):

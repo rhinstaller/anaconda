@@ -28,7 +28,7 @@ from pyanaconda.modules.storage.partitioning.automatic.resizable_interface impor
 from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
     ResizableDeviceTreeModule
 from pyanaconda.modules.common.errors.storage import ProtectedDeviceError
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 
 
 class ResizableDeviceTreeTestCase(unittest.TestCase):

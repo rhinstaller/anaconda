@@ -49,11 +49,11 @@ from pyanaconda.modules.common.errors.configuration import BootloaderConfigurati
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
-from pyanaconda.platform import platform
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning, filter_disks_by_names
 from pyanaconda.core.storage import DEVICE_TYPE_UNSUPPORTED, DEVICE_TEXT_MAP, \
-    MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart
+    MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, \
+    PROTECTED_FORMAT_TYPES
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
@@ -1090,7 +1090,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _remove_selected_devices(self):
         option_checked = False
         is_multiselection = self._accordion.is_multiselection
-        protected_types = platform.boot_stage1_constraint_dict["format_types"]
 
         for selector in self._accordion.selected_items:
             page = self._accordion.page_for_selector(selector)
@@ -1147,7 +1146,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                     )
 
                     can_destroy = not self._get_unused_devices() \
-                        or other_format.type not in protected_types
+                        or other_format.type not in PROTECTED_FORMAT_TYPES
 
                     if not can_destroy:
                         log.debug("Device %s cannot be removed.", other_name)

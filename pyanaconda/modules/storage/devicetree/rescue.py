@@ -21,7 +21,7 @@ from blivet.errors import StorageError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
-from pyanaconda.storage.root import find_existing_installations, mount_existing_system
+from pyanaconda.modules.storage.devicetree.root import find_existing_installations, mount_existing_system
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)

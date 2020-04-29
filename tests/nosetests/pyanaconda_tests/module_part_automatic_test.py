@@ -27,7 +27,7 @@ from pyanaconda.core.configuration.storage import PartitioningType
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
     ResizableDeviceTreeModule
-from pyanaconda.storage.partspec import PartSpec
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation, check_dbus_object_creation
 
@@ -44,7 +44,7 @@ from pyanaconda.modules.storage.partitioning.automatic.automatic_interface impor
 from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
     AutomaticPartitioningTask, get_default_partitioning
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 
 
 class AutopartitioningInterfaceTestCase(unittest.TestCase):

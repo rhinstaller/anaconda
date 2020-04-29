@@ -30,7 +30,7 @@ from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
 from pyanaconda.modules.storage.dasd.format import DASDFormatTask
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 

@@ -26,12 +26,12 @@ from dasbus.structure import get_fields
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_, C_
+from pyanaconda.core.storage import PROTECTED_FORMAT_TYPES
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
 from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.platform import platform
 from pyanaconda.ui.lib.storage import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
@@ -319,10 +319,6 @@ class ConfirmDeleteDialog(GUIObject):
     def option_checked(self):
         return self._optional_checkbox.get_active()
 
-    @property
-    def _protected_types(self):
-        return platform.boot_stage1_constraint_dict["format_types"]
-
     def on_delete_confirm_clicked(self, button, *args):
         self.window.destroy()
 
@@ -360,7 +356,7 @@ class ConfirmDeleteDialog(GUIObject):
         if mount_point:
             device_name = "{} ({})".format(mount_point, self._device_name)
 
-        if format_data.type in self._protected_types:
+        if format_data.type in PROTECTED_FORMAT_TYPES:
             return _(
                 "{} may be a system boot partition! Deleting it may break "
                 "other operating systems. Are you sure you want to delete it?"

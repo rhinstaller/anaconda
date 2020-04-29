@@ -27,7 +27,7 @@ from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.dasd import DASDModule
-from pyanaconda.modules.storage.devicetree import DeviceTreeModule
+from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_storage
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
@@ -44,7 +44,6 @@ from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
 from pyanaconda.modules.storage.zfcp import ZFCPModule
-from pyanaconda.storage.initialization import enable_installer_mode, create_storage
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -55,9 +54,6 @@ class StorageService(KickstartService):
 
     def __init__(self):
         super().__init__()
-        # Initialize Blivet.
-        enable_installer_mode()
-
         # The storage model.
         self._current_storage = None
         self._storage_playground = None

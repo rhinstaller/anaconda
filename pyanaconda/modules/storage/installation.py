@@ -17,19 +17,27 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+import parted
+
 from datetime import timedelta
 from time import sleep
 
-from blivet import callbacks
+from blivet import callbacks as blivet_callbacks, util as blivet_util, arch
 from blivet.errors import FSResizeError, FormatResizeError, StorageError
 from blivet.util import get_current_entropy
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.constants.objects import ISCSI, FCOE, ZFCP
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.installation import StorageInstallationError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
+
+import gi
+gi.require_version("BlockDev", "2.0")
+from gi.repository import BlockDev as blockdev
 
 log = get_module_logger(__name__)
 
@@ -64,14 +72,14 @@ class ActivateFilesystemsTask(Task):
                       "the installation to a directory.")
             return
 
-        register = callbacks.create_new_callbacks_register(
+        register = blivet_callbacks.create_new_callbacks_register(
             create_format_pre=self._report_message,
             resize_format_pre=self._report_message,
             wait_for_entropy=self._wait_for_entropy
         )
 
         try:
-            turn_on_filesystems(
+            self._turn_on_filesystems(
                 self._storage,
                 callbacks=register
             )
@@ -142,6 +150,81 @@ class ActivateFilesystemsTask(Task):
 
         self.report_progress(message)
 
+    def _turn_on_filesystems(self, storage, callbacks=None):
+        """Perform installer-specific activation of storage configuration.
+
+        :param storage: the storage object
+        :type storage: an instance of InstallerStorage
+        :param callbacks: callbacks to be invoked when actions are executed
+        :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_register`
+        """
+        storage.devicetree.teardown_all()
+        storage.do_it(callbacks)
+        self._setup_bootable_devices(storage)
+        storage.dump_state("final")
+        storage.turn_on_swap()
+
+    def _setup_bootable_devices(self, storage):
+        """Set up the bootable devices.
+
+        Mark the boot devices as bootable.
+
+        :param storage: an instance of the storage
+        """
+        if storage.bootloader.skip_bootloader:
+            return
+
+        if storage.bootloader.stage2_bootable:
+            boot = storage.boot_device
+        else:
+            boot = storage.bootloader.stage1_device
+
+        if boot.type == "mdarray":
+            boot_devs = boot.parents
+        else:
+            boot_devs = [boot]
+
+        for dev in boot_devs:
+            if not hasattr(dev, "bootable"):
+                log.info("Skipping %s, not bootable", dev)
+                continue
+
+            # Dos labels can only have one partition marked as active
+            # and unmarking ie the windows partition is not a good idea
+            skip = False
+            if dev.disk.format.parted_disk.type == "msdos":
+                for p in dev.disk.format.parted_disk.partitions:
+                    if p.type == parted.PARTITION_NORMAL and \
+                            p.getFlag(parted.PARTITION_BOOT):
+                        skip = True
+                        break
+
+            # GPT labeled disks should only have bootable set on the
+            # EFI system partition (parted sets the EFI System GUID on
+            # GPT partitions with the boot flag)
+            if dev.disk.format.label_type == "gpt" and \
+                    dev.format.type not in ["efi", "macefi"]:
+                skip = True
+
+            if skip:
+                log.info("Skipping %s", dev.name)
+                continue
+
+            # hfs+ partitions on gpt can't be marked bootable via parted
+            if dev.disk.format.parted_disk.type != "gpt" or \
+                    dev.format.type not in ["hfs+", "macefi"]:
+                log.info("setting boot flag on %s", dev.name)
+                dev.bootable = True
+
+            # Set the boot partition's name on disk labels that support it
+            if dev.parted_partition.disk.supportsFeature(parted.DISK_TYPE_PARTITION_NAME):
+                ped_partition = dev.parted_partition.getPedPartition()
+                ped_partition.set_name(dev.format.name)
+                log.info("Setting label on %s to '%s'", dev, dev.format.name)
+
+            dev.disk.setup()
+            dev.disk.format.commit_to_disk()
+
 
 class MountFilesystemsTask(Task):
     """Installation task for mounting the filesystems."""
@@ -179,4 +262,111 @@ class WriteConfigurationTask(Task):
                       "during the installation to a directory.")
             return
 
-        write_storage_configuration(self._storage)
+        self._write_storage_configuration(self._storage)
+
+    def _write_storage_configuration(self, storage, sysroot=None):
+        """Write the storage configuration to sysroot.
+
+        :param storage: the storage object
+        :param sysroot: a path to the target OS installation
+        """
+        if sysroot is None:
+            sysroot = conf.target.system_root
+
+        if not os.path.isdir("%s/etc" % sysroot):
+            os.mkdir("%s/etc" % sysroot)
+
+        self._write_escrow_packets(storage, sysroot)
+
+        storage.make_mtab()
+        storage.fsset.write()
+
+        iscsi_proxy = STORAGE.get_proxy(ISCSI)
+        iscsi_proxy.WriteConfiguration()
+
+        fcoe_proxy = STORAGE.get_proxy(FCOE)
+        fcoe_proxy.WriteConfiguration()
+
+        zfcp_proxy = STORAGE.get_proxy(ZFCP)
+        zfcp_proxy.WriteConfiguration()
+
+        self._write_dasd_conf(storage, sysroot)
+
+    def _write_escrow_packets(self, storage, sysroot):
+        """Write the escrow packets.
+
+        :param storage: the storage object
+        :type storage: an instance of InstallerStorage
+        :param sysroot: a path to the target OS installation
+        :type sysroot: str
+        """
+        escrow_devices = [
+            d for d in storage.devices
+            if d.format.type == 'luks' and d.format.escrow_cert
+        ]
+
+        if not escrow_devices:
+            return
+
+        log.debug("escrow: write_escrow_packets start")
+        backup_passphrase = blockdev.crypto.generate_backup_passphrase()
+
+        try:
+            escrow_dir = sysroot + "/root"
+            log.debug("escrow: writing escrow packets to %s", escrow_dir)
+            blivet_util.makedirs(escrow_dir)
+            for device in escrow_devices:
+                log.debug("escrow: device %s: %s",
+                          repr(device.path), repr(device.format.type))
+                device.format.escrow(escrow_dir,
+                                     backup_passphrase)
+
+        except (IOError, RuntimeError) as e:
+            # TODO: real error handling
+            log.error("failed to store encryption key: %s", e)
+
+        log.debug("escrow: write_escrow_packets done")
+
+    def _write_dasd_conf(self, storage, sysroot):
+        """Write DASD configuration to sysroot.
+
+        Write /etc/dasd.conf to target system for all DASD devices
+        configured during installation.
+
+        :param storage: the storage object
+        :param sysroot: a path to the target OS installation
+        """
+        dasds = [d for d in storage.devices if d.type == "dasd"]
+        dasds.sort(key=lambda d: d.name)
+        if not (arch.is_s390() and dasds):
+            return
+
+        with open(os.path.realpath(sysroot + "/etc/dasd.conf"), "w") as f:
+            for dasd in dasds:
+                fields = [dasd.busid] + dasd.get_opts()
+                f.write("%s\n" % " ".join(fields),)
+
+        # check for hyper PAV aliases; they need to get added to dasd.conf as well
+        sysfs = "/sys/bus/ccw/drivers/dasd-eckd"
+
+        # in the case that someone is installing with *only* FBA DASDs,the above
+        # sysfs path will not exist; so check for it and just bail out of here if
+        # that's the case
+        if not os.path.exists(sysfs):
+            return
+
+        # this does catch every DASD, even non-aliases, but we're only going to be
+        # checking for a very specific flag, so there won't be any duplicate entries
+        # in dasd.conf
+        devs = [d for d in os.listdir(sysfs) if d.startswith("0.0")]
+        with open(os.path.realpath(sysroot + "/etc/dasd.conf"), "a") as f:
+            for d in devs:
+                aliasfile = "%s/%s/alias" % (sysfs, d)
+                with open(aliasfile, "r") as falias:
+                    alias = falias.read().strip()
+
+                # if alias == 1, then the device is an alias; otherwise it is a
+                # normal dasd (alias == 0) and we can skip it, since it will have
+                # been added to dasd.conf in the above block of code
+                if alias == "1":
+                    f.write("%s\n" % d)

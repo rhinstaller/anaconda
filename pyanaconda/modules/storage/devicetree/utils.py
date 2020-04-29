@@ -15,8 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-"""UI-independent storage utility functions"""
 import time
 import requests
 
@@ -25,67 +23,23 @@ from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.formats import device_formats
 from blivet.formats.fs import FS
-from blivet.formats.luks import LUKS2PBKDFArgs
 from bytesize.bytesize import ROUND_HALF_UP
 
 from pykickstart.errors import KickstartError
 
 from pyanaconda.core import util
-from pyanaconda.core.i18n import _, P_
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import NETWORK
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-def bound_size(size, device, old_size):
-    """ Returns a size bounded by the maximum and minimum size for
-        the device.
-
-        :param size: the candidate size
-        :type size: :class:`blivet.size.Size`
-        :param device: the device being displayed
-        :type device: :class:`blivet.devices.StorageDevice`
-        :param old_size: the fallback size
-        :type old_size: :class:`blivet.size.Size`
-        :returns: a size to which to set the device
-        :rtype: :class:`blivet.size.Size`
-
-        If size is 0, interpreted as set size to maximum possible.
-        If no maximum size is available, reset size to old_size, but
-        log a warning.
-    """
-    max_size = device.max_size
-    min_size = device.min_size
-    if not size:
-        if max_size:
-            log.info("No size specified, using maximum size for this device (%d).", max_size)
-            size = max_size
-        else:
-            log.warning("No size specified and no maximum size available, setting size back to original size (%d).", old_size)
-            size = old_size
-    else:
-        if max_size:
-            if size > max_size:
-                log.warning("Size specified (%d) is greater than the maximum size for this device (%d), using maximum size.", size, max_size)
-                size = max_size
-        else:
-            log.warning("Unknown upper bound on size. Using requested size (%d).", size)
-
-        if size < min_size:
-            log.warning("Size specified (%d) is less than the minimum size for this device (%d), using minimum size.", size, min_size)
-            size = min_size
-
-    return size
-
-
-def filter_unsupported_disklabel_devices(devices):
-    """ Return input list minus any devices that exist on an unsupported disklabel. """
-    return [d for d in devices
-            if not any(not getattr(p, "disklabel_supported", True) for p in d.ancestors)]
-
-
 def get_supported_filesystems():
+    """Get the supported filesystems.
+
+    :return: a list of formats
+    """
     fs_types = []
     for cls in device_formats.values():
         obj = cls()
@@ -98,29 +52,6 @@ def get_supported_filesystems():
             fs_types.append(obj)
 
     return fs_types
-
-
-def get_pbkdf_args(luks_version, pbkdf_type=None, max_memory_kb=0, iterations=0, time_ms=0):
-    """Get the pbkdf arguments.
-
-    :param luks_version: a version of LUKS
-    :param pbkdf_type: a type of PBKDF
-    :param max_memory_kb: a memory cost for PBKDF
-    :param iterations: a number of iterations
-    :param time_ms: an iteration time in ms
-    :return:
-    """
-    # PBKDF arguments are not supported for LUKS 1.
-    if luks_version != "luks2":
-        return None
-
-    # Use defaults.
-    if not pbkdf_type and not max_memory_kb and not iterations and not time_ms:
-        log.debug("Using default PBKDF args.")
-        return None
-
-    # Use specified arguments.
-    return LUKS2PBKDFArgs(pbkdf_type or None, max_memory_kb or 0, iterations or 0, time_ms or 0)
 
 
 def download_escrow_certificate(url):
@@ -155,20 +86,6 @@ def download_escrow_certificate(url):
     return certificate
 
 
-def lookup_alias(devicetree, alias):
-    """Look up a device of the given alias in the device tree.
-
-    :param devicetree: a device tree to look up devices
-    :param alias: an alias name
-    :return: a device object
-    """
-    for dev in devicetree.devices:
-        if getattr(dev, "req_name", None) == alias:
-            return dev
-
-    return None
-
-
 def find_live_backing_device(devicetree):
     """Find the backing device for the live image.
 
@@ -199,47 +116,6 @@ def find_live_backing_device(devicetree):
             return disk
 
     return None
-
-
-def check_disk_selection(storage, selected_disks):
-    """Return a list of errors related to a proposed disk selection.
-
-    :param storage: blivet.Blivet instance
-    :param selected_disks: names of selected disks
-    :type selected_disks: list of str
-    :returns: a list of error messages
-    :rtype: list of str
-    """
-    errors = []
-
-    for name in selected_disks:
-        selected = storage.devicetree.get_device_by_name(name, hidden=True)
-
-        if not selected:
-            errors.append(_("The selected disk {} is not recognized.").format(name))
-            continue
-
-        related = sorted(storage.devicetree.get_related_disks(selected), key=lambda d: d.name)
-        missing = [r.name for r in related if r.name not in selected_disks]
-
-        if not missing:
-            continue
-
-        errors.append(P_(
-            "You selected disk %(selected)s, which contains "
-            "devices that also use unselected disk "
-            "%(unselected)s. You must select or de-select "
-            "these disks as a set.",
-            "You selected disk %(selected)s, which contains "
-            "devices that also use unselected disks "
-            "%(unselected)s. You must select or de-select "
-            "these disks as a set.",
-            len(missing)) % {
-            "selected": selected.name,
-            "unselected": ", ".join(missing)
-        })
-
-    return errors
 
 
 def get_required_device_size(required_space, format_class=None):

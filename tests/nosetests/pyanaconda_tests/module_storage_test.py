@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import logging
+import os
+import tempfile
 import unittest
 from unittest.mock import patch, Mock, PropertyMock
 
@@ -30,6 +32,7 @@ from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONIN
 from dasbus.server.container import DBusContainerError
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import PartitioningContainer
+from pyanaconda.modules.storage.initialization import enable_installer_mode
 from pyanaconda.modules.storage.partitioning.automatic.automatic_module import \
     AutoPartitioningModule
 from pyanaconda.modules.storage.partitioning.manual.manual_module import ManualPartitioningModule
@@ -37,7 +40,7 @@ from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive.interactive_module import \
     InteractivePartitioningModule
-from pyanaconda.storage.initialization import create_storage
+from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
     patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy, reset_boot_loader_factory
 
@@ -53,7 +56,7 @@ from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.modules.storage.storage import StorageService
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
-from pyanaconda.storage.checker import StorageCheckerReport
+from pyanaconda.modules.storage.checker.utils import StorageCheckerReport
 
 
 class StorageInterfaceTestCase(unittest.TestCase):
@@ -104,6 +107,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
             self.storage_module._set_applied_partitioning(module)
 
         self.storage_module.created_partitioning_changed.connect(_apply_partitioning)
+
+    def initialization_test(self):
+        """Test the Blivet initialization."""
+        enable_installer_mode()
 
     def create_storage_test(self):
         """Test the storage created by default."""
@@ -1237,9 +1244,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         iscsi_mock.active_nodes.return_value = nodes + ibft_nodes
         iscsi_mock.ibft_nodes = ibft_nodes
 
-    @patch("pyanaconda.storage.initialization.load_plugin_s390")
     @patch("pyanaconda.modules.storage.kickstart.zfcp")
-    def zfcp_kickstart_test(self, zfcp, loader):
+    def zfcp_kickstart_test(self, zfcp):
         """Test the zfcp command."""
         ks_in = """
         zfcp --devnum=0.0.fc00 --wwpn=0x401040a000000000 --fcplun=0x5105074308c212e9
@@ -1461,19 +1467,23 @@ class StorageTasksTestCase(unittest.TestCase):
         execute.return_value = 0
         MountFilesystemsTask(storage).run()
 
-    @patch("pyanaconda.modules.storage.installation.write_storage_configuration")
+    @patch_dbus_get_proxy
     @patch("pyanaconda.modules.storage.installation.conf")
-    def write_configuration_test(self, patched_conf, write):
+    def write_configuration_test(self, patched_conf, dbus):
         """Test WriteConfigurationTask."""
-        storage = Mock()
+        storage = Mock(devices=[])
 
-        patched_conf.target.is_directory = True
-        WriteConfigurationTask(storage).run()
-        write.assert_not_called()
+        with tempfile.TemporaryDirectory() as d:
+            patched_conf.target.system_root = d
+            patched_conf.target.physical_root = d
 
-        patched_conf.target.is_directory = False
-        WriteConfigurationTask(storage).run()
-        write.assert_called_once_with(storage)
+            patched_conf.target.is_directory = True
+            WriteConfigurationTask(storage).run()
+            self.assertFalse(os.path.exists("{}/etc".format(d)))
+
+            patched_conf.target.is_directory = False
+            WriteConfigurationTask(storage).run()
+            self.assertTrue(os.path.exists("{}/etc".format(d)))
 
 
 class StorageValidationTasksTestCase(unittest.TestCase):
