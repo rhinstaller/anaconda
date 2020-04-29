@@ -39,7 +39,7 @@ from pyanaconda.modules.subscription.subscription_interface import SubscriptionI
 from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _normalize_field, \
     _match_field, process_field, give_the_system_purpose, SYSPURPOSE_UTILITY_PATH
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    SystemPurposeConfigurationTask
+    SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
@@ -1042,14 +1042,31 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def install_with_tasks_default_test(self, publisher):
         """Test install tasks - Subscription module in default state."""
+        # mock the rhsm config proxy
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        config_proxy = Mock()
+        observer.get_proxy.return_value = config_proxy
+
         task_classes = [
+            RestoreRHSMLogLevelTask,
+            TransferSubscriptionTokensTask,
             ConnectToInsightsTask
         ]
         task_paths = self.subscription_interface.InstallWithTasks()
         task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
 
-        # ConnectToInsightsTask
+        # RestoreRHSMLogLevelTask
         obj = task_objs[0]
+        self.assertEqual(obj.implementation._rhsm_config_proxy, config_proxy)
+
+        # TransferSubscriptionTokensTask
+        obj = task_objs[1]
+        self.assertEqual(obj.implementation._transfer_subscription_tokens, False)
+
+        # ConnectToInsightsTask
+        obj = task_objs[2]
         self.assertEqual(obj.implementation._subscription_attached, False)
         self.assertEqual(obj.implementation._connect_to_insights, False)
 
@@ -1060,14 +1077,31 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.subscription_interface.SetInsightsEnabled(True)
         self.subscription_module.set_subscription_attached(True)
 
+        # mock the rhsm config proxy
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        config_proxy = Mock()
+        observer.get_proxy.return_value = config_proxy
+
         task_classes = [
+            RestoreRHSMLogLevelTask,
+            TransferSubscriptionTokensTask,
             ConnectToInsightsTask
         ]
         task_paths = self.subscription_interface.InstallWithTasks()
         task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
 
-        # ConnectToInsightsTask
+        # RestoreRHSMLogLevelTask
         obj = task_objs[0]
+        self.assertEqual(obj.implementation._rhsm_config_proxy, config_proxy)
+
+        # TransferSubscriptionTokensTask
+        obj = task_objs[1]
+        self.assertEqual(obj.implementation._transfer_subscription_tokens, True)
+
+        # ConnectToInsightsTask
+        obj = task_objs[2]
         self.assertEqual(obj.implementation._subscription_attached, True)
         self.assertEqual(obj.implementation._connect_to_insights, True)
 

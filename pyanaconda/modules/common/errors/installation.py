@@ -85,3 +85,9 @@ class InsightsClientMissingError(InstallationError):
 class InsightsConnectError(InstallationError):
     """Exception for error when connecting to Red Hat Insights."""
     pass
+
+
+@dbus_error("SubscriptionTokenTransferError", namespace=ANACONDA_NAMESPACE)
+class SubscriptionTokenTransferError(InstallationError):
+    """Exception for errors during subscription token transfer."""
+    pass
