@@ -134,3 +134,8 @@ RHSM_REGISTER = DBusObjectIdentifier(
     namespace=RHSM_NAMESPACE,
     basename="Register"
 )
+
+RHSM_UNREGISTER = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Unregister"
+)

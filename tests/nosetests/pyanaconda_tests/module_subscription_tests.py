@@ -41,7 +41,8 @@ from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _no
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
     SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
-    RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask
+    RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
+    UnregisterTask
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
     PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list, \
@@ -1199,6 +1200,25 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
         self.assertEqual(obj.implementation._organization, "123456789")
         self.assertEqual(obj.implementation._activation_keys, ["key1", "key2", "key3"])
+
+    @patch_dbus_publish_object
+    def unregister_test(self, publisher):
+        """Test UnregisterTask creation."""
+        # simulate system being subscribed
+        self.subscription_module.set_subscription_attached(True)
+        # make sure the task gets dummy rhsm unregister proxy
+        observer = Mock()
+        self.subscription_module._rhsm_observer = observer
+        rhsm_unregister_proxy = observer.get_proxy.return_value
+        # check the task is created correctly
+        task_path = self.subscription_interface.UnregisterWithTask()
+        obj = check_task_creation(self, task_path, publisher, UnregisterTask)
+        # check all the data got propagated to the module correctly
+        self.assertEqual(obj.implementation._rhsm_unregister_proxy, rhsm_unregister_proxy)
+        # trigger the succeeded signal
+        obj.implementation.succeeded_signal.emit()
+        # check this set subscription_attached to False
+        self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
 
     @patch_dbus_publish_object
     def install_with_tasks_default_test(self, publisher):

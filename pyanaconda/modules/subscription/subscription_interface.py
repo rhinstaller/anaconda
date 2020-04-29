@@ -171,3 +171,12 @@ class SubscriptionInterface(KickstartModuleInterface):
         return TaskContainer.to_object_path(
             self.implementation.register_organization_key_with_task()
         )
+
+    def UnregisterWithTask(self) -> ObjPath:
+        """Unregister using a runtime DBus task.
+
+        :return: a DBus path of an installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.unregister_with_task()
+        )
