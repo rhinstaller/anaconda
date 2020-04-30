@@ -40,7 +40,8 @@ from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _no
     _match_field, process_field, give_the_system_purpose, SYSPURPOSE_UTILITY_PATH
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
     SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
-from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask
+from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
+    RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
     PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list, \
@@ -1038,6 +1039,76 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
                 get_native(SubscriptionRequest.to_structure(task_request)),
                 expected_full_dict)
         self.assertEqual(obj.implementation._rhsm_config_defaults, default_config)
+
+    @patch_dbus_publish_object
+    def register_with_username_password_test(self, publisher):
+        """Test RegisterWithUsernamePasswordTask creation."""
+        # prepare the module with dummy data
+        full_request = SubscriptionRequest()
+        full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        full_request.organization = "123456789"
+        full_request.account_username = "foo_user"
+        full_request.server_hostname = "candlepin.foo.com"
+        full_request.rhsm_baseurl = "cdn.foo.com"
+        full_request.server_proxy_hostname = "proxy.foo.com"
+        full_request.server_proxy_port = 9001
+        full_request.server_proxy_user = "foo_proxy_user"
+        full_request.account_password.set_secret("foo_password")
+        full_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        full_request.server_proxy_password.set_secret("foo_proxy_password")
+
+        self.subscription_interface.SetSubscriptionRequest(
+            SubscriptionRequest.to_structure(full_request)
+        )
+        # make sure the task gets dummy rhsm register server proxy
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        register_server_proxy = Mock()
+        observer.get_proxy.return_value = register_server_proxy
+
+        # check the task is created correctly
+        task_path = self.subscription_interface.RegisterUsernamePasswordWithTask()
+        obj = check_task_creation(self, task_path, publisher, RegisterWithUsernamePasswordTask)
+        # check all the data got propagated to the module correctly
+        self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
+        self.assertEqual(obj.implementation._username, "foo_user")
+        self.assertEqual(obj.implementation._password, "foo_password")
+
+    @patch_dbus_publish_object
+    def register_with_organization_key_test(self, publisher):
+        """Test RegisterWithOrganizationKeyTask creation."""
+        # prepare the module with dummy data
+        full_request = SubscriptionRequest()
+        full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        full_request.organization = "123456789"
+        full_request.account_username = "foo_user"
+        full_request.server_hostname = "candlepin.foo.com"
+        full_request.rhsm_baseurl = "cdn.foo.com"
+        full_request.server_proxy_hostname = "proxy.foo.com"
+        full_request.server_proxy_port = 9001
+        full_request.server_proxy_user = "foo_proxy_user"
+        full_request.account_password.set_secret("foo_password")
+        full_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        full_request.server_proxy_password.set_secret("foo_proxy_password")
+
+        self.subscription_interface.SetSubscriptionRequest(
+            SubscriptionRequest.to_structure(full_request)
+        )
+        # make sure the task gets dummy rhsm register server proxy
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        register_server_proxy = Mock()
+        observer.get_proxy.return_value = register_server_proxy
+
+        # check the task is created correctly
+        task_path = self.subscription_interface.RegisterOrganizationKeyWithTask()
+        obj = check_task_creation(self, task_path, publisher, RegisterWithOrganizationKeyTask)
+        # check all the data got propagated to the module correctly
+        self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
+        self.assertEqual(obj.implementation._organization, "123456789")
+        self.assertEqual(obj.implementation._activation_keys, ["key1", "key2", "key3"])
 
     @patch_dbus_publish_object
     def install_with_tasks_default_test(self, publisher):

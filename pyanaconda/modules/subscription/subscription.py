@@ -36,7 +36,7 @@ from pyanaconda.modules.common.structures.secret import get_public_copy
 from pyanaconda.core.dbus import DBus
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
+from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_REGISTER_SERVER
 from pyanaconda.modules.common.containers import TaskContainer
 
 from pyanaconda.modules.subscription import system_purpose
@@ -45,7 +45,8 @@ from pyanaconda.modules.subscription.subscription_interface import SubscriptionI
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
     SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
-from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask
+from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
+    RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
 
 
@@ -572,4 +573,36 @@ class SubscriptionService(KickstartService):
         task = SetRHSMConfigurationTask(rhsm_config_proxy=rhsm_config_proxy,
                                         rhsm_config_defaults=self.get_rhsm_config_defaults(),
                                         subscription_request=self._subscription_request)
+        return task
+
+    def register_username_password_with_task(self):
+        """Register with username and password based on current subscription request.
+
+        :return: a DBus path of an installation task
+        """
+        # NOTE: we access self._subscription_request directly
+        #       to avoid the sensitive data clearing happening
+        #       in the subscription_request property getter
+        username = self._subscription_request.account_username
+        password = self._subscription_request.account_password.value
+        register_server_proxy = self.rhsm_observer.get_proxy(RHSM_REGISTER_SERVER)
+        task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
+                                                username=username,
+                                                password=password)
+        return task
+
+    def register_organization_key_with_task(self):
+        """Register with organization and activation key(s) based on current subscription request.
+
+        :return: a DBus path of an installation task
+        """
+        # NOTE: we access self._subscription_request directly
+        #       to avoid the sensitive data clearing happening
+        #       in the subscription_request property getter
+        organization = self._subscription_request.organization
+        activation_keys = self._subscription_request.activation_keys.value
+        register_server_proxy = self.rhsm_observer.get_proxy(RHSM_REGISTER_SERVER)
+        task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
+                                               organization=organization,
+                                               activation_keys=activation_keys)
         return task

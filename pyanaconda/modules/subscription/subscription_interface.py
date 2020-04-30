@@ -153,3 +153,21 @@ class SubscriptionInterface(KickstartModuleInterface):
         return TaskContainer.to_object_path(
             self.implementation.set_rhsm_config_with_task()
         )
+
+    def RegisterUsernamePasswordWithTask(self) -> ObjPath:
+        """Register with username & password using a runtime DBus task.
+
+        :return: a DBus path of an installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.register_username_password_with_task()
+        )
+
+    def RegisterOrganizationKeyWithTask(self) -> ObjPath:
+        """Register with organization & keys(s) using a runtime DBus task.
+
+        :return: a DBus path of an installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.register_organization_key_with_task()
+        )
