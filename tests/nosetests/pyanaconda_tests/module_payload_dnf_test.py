@@ -108,6 +108,17 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=1)
         self._check_properties(None)
 
+    def nfs_kickstart_test(self):
+        ks_in = """
+        nfs --server=gotham.city --dir=/secret/underground/base --opts=nomount
+        """
+        ks_out = """
+        # Use NFS installation media
+        nfs --server=gotham.city --dir=/secret/underground/base --opts="nomount"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_NFS)
+
 
 class DNFInterfaceTestCase(unittest.TestCase):
 

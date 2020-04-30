@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.payload import create_nfs_url, parse_nfs_url
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
@@ -45,6 +46,20 @@ class NFSSourceModule(MountingSourceBase):
     def for_publication(self):
         """Return a DBus representation."""
         return NFSSourceInterface(self)
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        nfs_url = create_nfs_url(data.nfs.server, data.nfs.dir, data.nfs.opts)
+        self.set_url(nfs_url)
+
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        (opts, host, path) = parse_nfs_url(self.url)
+
+        data.nfs.server = host
+        data.nfs.dir = path
+        data.nfs.opts = opts
+        data.nfs.seen = True
 
     @property
     def url(self):
