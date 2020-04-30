@@ -556,29 +556,6 @@ def resetRpmDb():
             log.debug("error %s removing file: %s", e, rpmfile)
 
 
-def parse_nfs_url(nfs_url):
-    """Parse NFS URL into components.
-
-    :param str nfs_url: The raw URL, including "nfs:"
-    :return: Tuple with options, host, and path
-    :rtype: (str, str, str) or None
-    """
-    options = ''
-    host = ''
-    path = ''
-    if nfs_url:
-        s = nfs_url.split(":")
-        s.pop(0)
-        if len(s) >= 3:
-            (options, host, path) = s[:3]
-        elif len(s) == 2:
-            (host, path) = s
-        else:
-            host = s[0]
-
-    return options, host, path
-
-
 def add_po_path(directory):
     """ Looks to see what translations are under a given path and tells
     the gettext module to use that path as the base dir """

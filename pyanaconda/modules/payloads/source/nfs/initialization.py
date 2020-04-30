@@ -17,7 +17,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.payload.utils import mount
-from pyanaconda.core.util import parse_nfs_url
+from pyanaconda.core.payload import parse_nfs_url
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 
 log = get_module_logger(__name__)

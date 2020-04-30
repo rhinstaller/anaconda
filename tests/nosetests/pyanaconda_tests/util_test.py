@@ -517,43 +517,6 @@ class MiscTests(unittest.TestCase):
         # at least check if a bool is returned
         self.assertIsInstance(util.isConsoleOnVirtualTerminal(), bool)
 
-    def parse_nfs_url_test(self):
-        """Test parseNfsUrl."""
-
-        # empty NFS url should return 3 blanks
-        self.assertEqual(util.parse_nfs_url(""), ("", "", ""))
-
-        # the string is delimited by :, there is one prefix and 3 parts,
-        # the prefix is discarded and all parts after the 3th part
-        # are also discarded
-        self.assertEqual(util.parse_nfs_url("discard:options:host:path"),
-                         ("options", "host", "path"))
-        self.assertEqual(util.parse_nfs_url("discard:options:host:path:foo:bar"),
-                         ("options", "host", "path"))
-        self.assertEqual(util.parse_nfs_url(":options:host:path::"),
-                         ("options", "host", "path"))
-        self.assertEqual(util.parse_nfs_url(":::::"),
-                         ("", "", ""))
-
-        # if there is only prefix & 2 parts,
-        # the two parts are host and path
-        self.assertEqual(util.parse_nfs_url("prefix:host:path"),
-                         ("", "host", "path"))
-        self.assertEqual(util.parse_nfs_url(":host:path"),
-                         ("", "host", "path"))
-        self.assertEqual(util.parse_nfs_url("::"),
-                         ("", "", ""))
-
-        # if there is only a prefix and single part,
-        # the part is the host
-
-        self.assertEqual(util.parse_nfs_url("prefix:host"),
-                         ("", "host", ""))
-        self.assertEqual(util.parse_nfs_url(":host"),
-                         ("", "host", ""))
-        self.assertEqual(util.parse_nfs_url(":"),
-                         ("", "", ""))
-
     def vt_activate_test(self):
         """Test vtActivate."""
 
