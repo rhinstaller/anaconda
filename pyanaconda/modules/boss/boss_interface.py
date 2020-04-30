@@ -29,6 +29,16 @@ from pyanaconda.modules.common.structures.kickstart import KickstartReport
 class BossInterface(InterfaceTemplate):
     """DBus interface for the Boss."""
 
+    def GetModules(self) -> List[Str]:
+        """Get service names of running modules.
+
+        Get a list of all running DBus modules (including addons)
+        that were discovered and started by the boss.
+
+        :return: a list of service names
+        """
+        return self.implementation.get_modules()
+
     def StartModulesWithTask(self) -> ObjPath:
         """Start modules with the task.
 

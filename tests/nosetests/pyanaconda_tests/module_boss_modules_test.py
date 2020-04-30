@@ -132,3 +132,20 @@ class ModuleManagerTestCase(unittest.TestCase):
 
         expected = "Service org.fedoraproject.Anaconda.Modules.A has failed to start: Fake error!"
         self.assertEqual(str(cm.exception), expected)
+
+    @patch("dasbus.client.observer.Gio")
+    def get_service_names_test(self, gio):
+        """Get service names of running modules."""
+        self.assertEqual(self._manager.get_service_names(), [])
+
+        service_names = [
+            "org.fedoraproject.Anaconda.Modules.A",
+            "org.fedoraproject.Anaconda.Modules.B",
+            "org.fedoraproject.Anaconda.Modules.C",
+        ]
+
+        task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
+        observers = self._check_started_modules(task, service_names)
+
+        self._manager.set_module_observers(observers)
+        self.assertEqual(self._manager.get_service_names(), service_names)
