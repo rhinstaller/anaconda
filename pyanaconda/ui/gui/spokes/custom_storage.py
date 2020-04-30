@@ -1201,6 +1201,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         )
         with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
+            dialog.window.destroy()
 
         if rc != 1:
             return
