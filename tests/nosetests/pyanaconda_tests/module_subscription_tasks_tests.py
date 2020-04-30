@@ -31,7 +31,8 @@ from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
 
 from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
     InsightsClientMissingError, SubscriptionTokenTransferError
-from pyanaconda.modules.common.errors.subscription import RegistrationError
+from pyanaconda.modules.common.errors.subscription import RegistrationError, \
+    SubscriptionError
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
     SubscriptionRequest
 from pyanaconda.modules.common.constants.services import RHSM
@@ -42,8 +43,7 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
     TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask
-
+    UnregisterTask, AttachSubscriptionTask
 
 
 class ConnectToInsightsTaskTestCase(unittest.TestCase):
@@ -674,3 +674,33 @@ class UnregisterTaskTestCase(unittest.TestCase):
             task.run()
         # check the unregister proxy Unregister method was called correctly
         rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
+
+
+class AttachSubscriptionTaskTestCase(unittest.TestCase):
+    """Test the subscription task."""
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def attach_subscription_task_success_test(self, environ_get):
+        """Test the AttachSubscriptionTask - success."""
+        rhsm_attach_proxy = Mock()
+        task = AttachSubscriptionTask(rhsm_attach_proxy=rhsm_attach_proxy,
+                                      sla="foo_sla")
+        task.run()
+        rhsm_attach_proxy.AutoAttach.assert_called_once_with("foo_sla",
+                                                             {},
+                                                             "en_US.UTF-8")
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def attach_subscription_task_failure_test(self, environ_get):
+        """Test the AttachSubscriptionTask - failure."""
+        rhsm_attach_proxy = Mock()
+        # raise DBusError with error message in JSON
+        json_error = '{"message": "Failed to attach subscription."}'
+        rhsm_attach_proxy.AutoAttach.side_effect = DBusError(json_error)
+        task = AttachSubscriptionTask(rhsm_attach_proxy=rhsm_attach_proxy,
+                                      sla="foo_sla")
+        with self.assertRaises(SubscriptionError):
+            task.run()
+        rhsm_attach_proxy.AutoAttach.assert_called_once_with("foo_sla",
+                                                             {},
+                                                             "en_US.UTF-8")
