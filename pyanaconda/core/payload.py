@@ -45,6 +45,25 @@ def parse_nfs_url(nfs_url):
     return options, host, path
 
 
+def create_nfs_url(host, path, options=None):
+    """Compose NFS url from components.
+
+    :param str host: NFS server
+    :param str path: path on the NFS server to the shared folder
+    :param options: NFS mount options
+    :type options: str or None if not set
+    :return: NFS url created from the components given
+    :rtype: str
+    """
+    if host == "":
+        return ""
+
+    if options:
+        return "nfs:{opts}:{server}:{path}".format(opts=options, server=host, path=path)
+
+    return "nfs:{server}:{path}".format(server=host, path=path)
+
+
 class ProxyStringError(Exception):
     pass
 

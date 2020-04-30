@@ -626,3 +626,35 @@ class PayloadUtilsTests(unittest.TestCase):
                          ("", "host", ""))
         self.assertEqual(util.parse_nfs_url(":"),
                          ("", "", ""))
+
+    def create_nfs_url_test(self):
+        """Test create_nfs_url."""
+
+        self.assertEqual(util.create_nfs_url("", ""), "")
+        self.assertEqual(util.create_nfs_url("", "", None), "")
+        self.assertEqual(util.create_nfs_url("", "", ""), "")
+
+        self.assertEqual(util.create_nfs_url("host", ""), "nfs:host:")
+        self.assertEqual(util.create_nfs_url("host", "", "options"), "nfs:options:host:")
+
+        self.assertEqual(util.create_nfs_url("host", "path"), "nfs:host:path")
+        self.assertEqual(util.create_nfs_url("host", "/path", "options"), "nfs:options:host:/path")
+
+        self.assertEqual(util.create_nfs_url("host", "/path/to/something"),
+                         "nfs:host:/path/to/something")
+        self.assertEqual(util.create_nfs_url("host", "/path/to/something", "options"),
+                         "nfs:options:host:/path/to/something")
+
+    def nfs_combine_test(self):
+        "Test combination of parse and create nfs functions."
+
+        host = "host"
+        path = "/path/to/somewhere"
+        options = "options"
+
+        url = util.create_nfs_url(host, path, options)
+        self.assertEqual(util.parse_nfs_url(url), (options, host, path))
+
+        url = "nfs:options:host:/my/path"
+        (options, host, path) = util.parse_nfs_url(url)
+        self.assertEqual(util.create_nfs_url(host, path, options), url)
