@@ -22,7 +22,7 @@ import warnings
 
 from dasbus.typing import get_native
 
-from pyanaconda.core import util
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
     SUBSCRIPTION_REQUEST_VALID_TYPES
@@ -195,7 +195,7 @@ class SubscriptionService(KickstartService):
         if data.rhsm.proxy:
             # first try to parse the proxy string from kickstart
             try:
-                proxy = util.ProxyString(data.rhsm.proxy)
+                proxy = ProxyString(data.rhsm.proxy)
                 if proxy.host:
                     # ensure port is an integer and set to -1 if unknown
                     port = int(proxy.port) if proxy.port else -1
@@ -204,7 +204,7 @@ class SubscriptionService(KickstartService):
                     subscription_request.server_proxy_port = port
                     subscription_request.server_proxy_user = proxy.username
                     subscription_request.server_proxy_password.set_secret(proxy.password)
-            except util.ProxyStringError as e:
+            except ProxyStringError as e:
                 # should not be fatal, but definitely logged as error
                 message = "Failed to parse proxy for the rhsm command: {}".format(str(e))
                 warnings.warn(message, KickstartParseWarning)

@@ -53,9 +53,9 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, DRACUT_REPODIR, DRACUT_ISODIR, \
     PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.payload import parse_nfs_url
+from pyanaconda.core.payload import parse_nfs_url, ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.core.util import ProxyString, ProxyStringError, decode_bytes
+from pyanaconda.core.util import decode_bytes
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE

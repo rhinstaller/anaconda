@@ -19,7 +19,7 @@
 #
 from pyanaconda.core.constants import BASE_REPO_NAME
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, URLType, SourceState
