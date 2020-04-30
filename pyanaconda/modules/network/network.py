@@ -637,18 +637,26 @@ class NetworkService(KickstartService):
             log.error("Get dracut arguments for %s: device not found", iface)
             return dracut_args
 
-        connections = self.nm_client.get_connections()
-
         target_connections = []
         if ibft:
-            target_connections = [con for con in connections if is_ibft_connection(con)]
+            target_connections = [con for con in self.nm_client.get_connections()
+                                  if is_ibft_connection(con)]
         else:
-            for cfg in self._device_configurations.get_for_device(iface):
-                uuid = cfg.connection_uuid
-                if uuid:
-                    connection = self.nm_client.get_connection_by_uuid(uuid)
-                    if connection:
-                        target_connections.append(connection)
+            if self._device_configurations:
+                for cfg in self._device_configurations.get_for_device(iface):
+                    uuid = cfg.connection_uuid
+                    if uuid:
+                        connection = self.nm_client.get_connection_by_uuid(uuid)
+                        if connection:
+                            target_connections.append(connection)
+            else:
+                # DeviceConfigurations are not used on LiveCD,
+                # use iface's active connection
+                device = self.nm_client.get_device_by_iface(iface)
+                if device:
+                    active_connection = device.get_active_connection()
+                    if active_connection:
+                        target_connections = [active_connection.get_connection()]
 
         if target_connections:
             if len(target_connections) > 1:
