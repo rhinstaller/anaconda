@@ -185,9 +185,7 @@ class RegisterWithUsernamePasswordTask(Task):
     def run(self):
         """Register the system with Red Hat account username and password.
 
-        :return: True on success, raises RegistrationError on failure
-        :rtype: bool
-        :raises: RegistrationError
+        :raises: RegistrationError if calling the RHSM DBus API returns an error
         """
         log.debug("subscription: registering with username and password")
         with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
@@ -238,9 +236,7 @@ class RegisterWithOrganizationKeyTask(Task):
     def run(self):
         """Register the system with organization name and activation key.
 
-        :return: True on success, raises RegistrationError on failure
-        :rtype: bool
-        :raises: RegistrationError
+        :raises: RegistrationError if calling the RHSM DBus API returns an error
         """
         log.debug("subscription: registering with organization and activation key")
         with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
