@@ -71,6 +71,10 @@ class SelectedDisksDialog(GUIObject):
         if not set_boot:
             self._set_button.hide()
 
+        # no disk is selected by default, inactivate the buttons
+        self._set_button.set_sensitive(False)
+        self._remove_button.set_sensitive(False)
+
     @property
     def disks(self):
         """Selected disks.
@@ -196,6 +200,11 @@ class SelectedDisksDialog(GUIObject):
 
     def on_selection_changed(self, *args):
         itr = self._selection.get_selected()[1]
+
+        # make the buttons (in)active if something/nothing is  selected
+        self._set_button.set_sensitive(bool(itr))
+        self._remove_button.set_sensitive(bool(itr))
+
         if not itr:
             return
 
