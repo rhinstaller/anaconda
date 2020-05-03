@@ -959,6 +959,7 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
 
     permissions.disks = \
         not device.exists \
+        and not device.raw_device.exists \
         and request.device_type not in CONTAINER_DEVICE_TYPES
 
     can_change_container = \
