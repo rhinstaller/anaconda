@@ -26,6 +26,8 @@ from tempfile import TemporaryDirectory
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadKickstartSharedTest
+
 from pyanaconda.modules.common.containers import PayloadContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError, \
     PayloadNotSetError
@@ -51,11 +53,34 @@ class PayloadsInterfaceTestCase(TestCase):
         self.payload_module = PayloadsService()
         self.payload_interface = PayloadsInterface(self.payload_module)
 
+        self.shared_ks_tests = PayloadKickstartSharedTest(self,
+                                                          self.payload_module,
+                                                          self.payload_interface)
+
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.payload_interface.KickstartCommands, ['liveimg'])
-        self.assertEqual(self.payload_interface.KickstartSections, ["packages"])
+        self.assertEqual(self.payload_interface.KickstartCommands, [
+            "cdrom",
+            "harddrive",
+            "hmc",
+            "liveimg",
+            "nfs",
+            "url"
+        ])
+        self.assertEqual(self.payload_interface.KickstartSections, [])
         self.assertEqual(self.payload_interface.KickstartAddons, [])
+
+    def no_kickstart_test(self):
+        """Test kickstart is not set to the payloads service."""
+        ks_in = None
+        ks_out = ""
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=0)
+
+    def kickstart_empty_test(self):
+        """Test kickstart is empty for the payloads service."""
+        ks_in = ""
+        ks_out = ""
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=0)
 
     def no_payload_set_test(self):
         """Test empty string is returned when no payload is set."""

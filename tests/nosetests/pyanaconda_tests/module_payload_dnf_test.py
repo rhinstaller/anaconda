@@ -21,6 +21,8 @@ import unittest
 
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 
+from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
+    SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL
 from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
@@ -29,12 +31,23 @@ from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 class DNFInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.dnf_module = DNFModule()
-        self.dnf_interface = DNFInterface(self.dnf_module)
+        self.module = DNFModule()
+        self.interface = DNFInterface(self.module)
 
         self.shared_tests = PayloadSharedTest(self,
-                                              payload=self.dnf_module,
-                                              payload_intf=self.dnf_interface)
+                                              payload=self.module,
+                                              payload_intf=self.interface)
 
     def type_test(self):
         self.shared_tests.check_type(PayloadType.DNF)
+
+    def supported_sources_test(self):
+        """Test DNF supported sources API."""
+        self.assertEqual(
+            [SOURCE_TYPE_CDROM,
+             SOURCE_TYPE_HDD,
+             SOURCE_TYPE_HMC,
+             SOURCE_TYPE_NFS,
+             SOURCE_TYPE_REPO_FILES,
+             SOURCE_TYPE_URL],
+            self.interface.SupportedSourceTypes)

@@ -77,7 +77,52 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         """Test if set source API payload."""
         sources = [self.shared_tests.prepare_source(SourceType.URL)]
 
-        self.shared_tests.check_set_sources(sources)
+        self.shared_tests.set_and_check_sources(sources)
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def add_source_test(self, publisher):
+        """Test module API to add source."""
+        source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.NOT_APPLICABLE)
+
+        sources = [source1]
+        self.shared_tests.set_and_check_sources(sources)
+
+        source2 = self.shared_tests.prepare_source(SourceType.URL)
+        self.module.add_source(source2)
+
+        sources.append(source2)
+        self.shared_tests.check_sources(sources)
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def add_source_incompatible_source_failed_test(self, publisher):
+        """Test module API to add source failed with incompatible source."""
+        source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.NOT_APPLICABLE)
+
+        sources = [source1]
+        self.shared_tests.set_and_check_sources(sources)
+
+        source2 = self.shared_tests.prepare_source(SourceType.NFS)
+        with self.assertRaises(IncompatibleSourceError):
+            self.module.add_source(source2)
+
+        self.shared_tests.check_sources(sources)
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def add_source_ready_failed_test(self, publisher):
+        """Test module API to add source failed with ready source."""
+        source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.READY)
+
+        sources = [source1]
+        self.shared_tests.set_and_check_sources(sources)
+
+        source2 = self.shared_tests.prepare_source(SourceType.URL)
+        with self.assertRaises(SourceSetupError):
+            self.module.add_source(source2)
+
+        self.shared_tests.check_sources(sources)
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL, SourceType.NFS])
     @patch_dbus_publish_object
@@ -89,7 +134,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
             self.shared_tests.prepare_source(SourceType.URL),
         ]
 
-        self.shared_tests.check_set_sources(sources)
+        self.shared_tests.set_and_check_sources(sources)
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
     @patch_dbus_publish_object
@@ -97,7 +142,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         """Test payload setting incompatible sources."""
         sources = [self.shared_tests.prepare_source(SourceType.LIVE_OS_IMAGE)]
 
-        cm = self.shared_tests.check_set_sources(sources, exception=IncompatibleSourceError)
+        cm = self.shared_tests.set_and_check_sources(sources, exception=IncompatibleSourceError)
 
         msg = "Source type {} is not supported by this payload.".format(
             SourceType.LIVE_OS_IMAGE.value)
@@ -110,17 +155,16 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         source1 = self.shared_tests.prepare_source(SourceType.NFS)
         source2 = self.shared_tests.prepare_source(SourceType.URL, state=SourceState.NOT_APPLICABLE)
 
-        self.shared_tests.check_set_sources([source1])
+        self.shared_tests.set_and_check_sources([source1])
 
         # can't switch source if attached source is ready
         source1.get_state.return_value = SourceState.READY
-        self.shared_tests.check_set_sources([source2],
-                                            exception=SourceSetupError,
-                                            expected_sources=[source1])
+        self.shared_tests.set_sources([source2], SourceSetupError)
+        self.shared_tests.check_sources([source1])
 
         # change to source2 when attached source state is UNREADY
         source1.get_state.return_value = SourceState.UNREADY
-        self.shared_tests.check_set_sources([source2])
+        self.shared_tests.set_and_check_sources([source2])
 
         # can change back anytime because source2 has state NOT_APPLICABLE
-        self.shared_tests.check_set_sources([source1])
+        self.shared_tests.set_and_check_sources([source1])

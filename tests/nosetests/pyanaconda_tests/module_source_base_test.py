@@ -52,6 +52,13 @@ class DummySetUpMountTaskSubclass(SetUpMountTask):
         pass
 
 
+class SourceBaseTestCase(unittest.TestCase):
+
+    def source_repr_test(self):
+        module = DummyMountingSourceSubclass()
+        self.assertEqual(repr(module), "Source(URL)")
+
+
 class MountingSourceBaseTestCase(unittest.TestCase):
 
     def counter_test(self):

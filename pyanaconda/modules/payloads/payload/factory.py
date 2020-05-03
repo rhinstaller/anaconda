@@ -57,7 +57,11 @@ class PayloadFactory(object):
         if data.liveimg.seen:
             return PayloadType.LIVE_IMAGE
 
-        if data.packages.seen:
+        if data.cdrom.seen or \
+           data.harddrive.seen or \
+           data.hmc.seen or \
+           data.nfs.seen or \
+           data.url.seen:
             return PayloadType.DNF
 
         return None

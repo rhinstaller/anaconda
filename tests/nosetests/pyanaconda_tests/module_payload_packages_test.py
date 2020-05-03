@@ -38,6 +38,8 @@ from pyanaconda.modules.payloads.packages.constants import TIMEOUT_UNSET, RETRIE
     LANGUAGES_DEFAULT, LANGUAGES_NONE
 
 
+# TODO: Add this back when packages section is supported by DNF module.
+@unittest.skip("Skipping until %packages are supported by payloads service")
 class PackagesKSTestCase(unittest.TestCase):
 
     def setUp(self):

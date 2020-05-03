@@ -19,7 +19,6 @@
 #
 from pykickstart.errors import KickstartParseError
 from pykickstart.sections import PackageSection
-from pykickstart.parser import Packages
 from pykickstart.constants import KS_BROKEN_IGNORE
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -47,13 +46,10 @@ class AnacondaPackageSection(PackageSection):
 class PayloadKickstartSpecification(KickstartSpecification):
 
     commands = {
-        "liveimg": COMMANDS.Liveimg
-    }
-
-    sections = {
-        "packages": AnacondaPackageSection
-    }
-
-    sections_data = {
-        "packages": Packages
+        "cdrom": COMMANDS.Cdrom,
+        "harddrive": COMMANDS.HardDrive,
+        "hmc": COMMANDS.Hmc,
+        "liveimg": COMMANDS.Liveimg,
+        "nfs": COMMANDS.NFS,
+        "url": COMMANDS.Url
     }
