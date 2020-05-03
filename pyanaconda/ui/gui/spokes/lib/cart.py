@@ -151,6 +151,8 @@ class SelectedDisksDialog(GUIObject):
 
         if reset_boot_device and len(self._store) > 0:
             self._store[0][IS_BOOT_COL] = True
+            self._previous_boot_device = self._store[0][NAME_COL]
+            self._toggle_button_text(self._store[0])
 
         self._update_summary()
 
