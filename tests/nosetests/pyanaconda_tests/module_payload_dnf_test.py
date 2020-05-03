@@ -119,6 +119,42 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_NFS)
 
+    def url_kickstart_test(self):
+        self.maxDiff = None
+        ks_in = """
+        url --proxy=https://ClarkKent:suuuperrr@earth:1 --noverifyssl --url http://super/powers --sslcacert wardrobe.cert --sslclientcert private-wardrobe.cert --sslclientkey super-key.key
+        """
+        ks_out = """
+        # Use network installation
+        url --url="http://super/powers" --proxy="https://ClarkKent:suuuperrr@earth:1" --noverifyssl --sslcacert="wardrobe.cert" --sslclientcert="private-wardrobe.cert" --sslclientkey="super-key.key"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_URL)
+
+    def url_mirrorlist_kickstart_test(self):
+        self.maxDiff = None
+        ks_in = """
+        url --mirrorlist http://cool/mirror
+        """
+        ks_out = """
+        # Use network installation
+        url --mirrorlist="http://cool/mirror"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_URL)
+
+    def url_metalink_kickstart_test(self):
+        self.maxDiff = None
+        ks_in = """
+        url --metalink http://itsjustametanotrealstuff --proxy="https://ClarkKent:suuuperrr@earth:1" --sslcacert="wardrobe.cert"
+        """
+        ks_out = """
+        # Use network installation
+        url --metalink="http://itsjustametanotrealstuff" --proxy="https://ClarkKent:suuuperrr@earth:1" --sslcacert="wardrobe.cert"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_URL)
+
 
 class DNFInterfaceTestCase(unittest.TestCase):
 
