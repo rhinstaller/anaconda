@@ -41,3 +41,8 @@ class PayloadSourceBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
          - LIVE_OS_IMAGE
         """
         return self.implementation.type.value
+
+    @property
+    def Description(self) -> Str:
+        """Get a description of this source."""
+        return self.implementation.description

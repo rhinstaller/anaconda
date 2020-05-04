@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import create_nfs_url, parse_nfs_url
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.payloads.constants import SourceType
@@ -42,6 +43,11 @@ class NFSSourceModule(MountingSourceBase):
     def type(self):
         """Get type of this source."""
         return SourceType.NFS
+
+    @property
+    def description(self):
+        """Get description of this source."""
+        return _("NFS server %s") % self.url
 
     def for_publication(self):
         """Return a DBus representation."""
