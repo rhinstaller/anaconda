@@ -976,6 +976,96 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # check the mock proxy was called only once
         config_proxy.GetAll.assert_called_once_with("")
 
+    def package_requirements_default_test(self):
+        """Test package requirements - module in default state."""
+        # by default no packages should be required
+        requirements = self.subscription_interface.CollectRequirements()
+        self.assertEqual(requirements, [])
+
+    def package_requirements_syspurpose_test(self):
+        """Test package requirements - system purpose data available and not applied."""
+        # prepare system purpose data
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.role = "foo"
+        system_purpose_data.sla = "bar"
+        system_purpose_data.usage = "baz"
+        system_purpose_data.addons = ["a", "b", "c"]
+        # feed it to the DBus interface
+        self.subscription_interface.SetSystemPurposeData(
+            SystemPurposeData.to_structure(system_purpose_data)
+        )
+        # system purpose is no applied by default
+        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
+        # the syspurpose utility should be listed amongst the requirements
+        # as system purpose data is available & not applied
+        requirements = self.subscription_interface.CollectRequirements()
+        expected_requirements = [
+            {"name": "python3-syspurpose",
+             "reason": "Needed for System Purpose configuration.",
+             "type": "package"}
+        ]
+        self.assertEqual(get_native(requirements), expected_requirements)
+
+    def package_requirements_syspurpose_applied_test(self):
+        """Test package requirements - syspurpose data available and but already applied."""
+        # prepare system purpose data
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.role = "foo"
+        system_purpose_data.sla = "bar"
+        system_purpose_data.usage = "baz"
+        system_purpose_data.addons = ["a", "b", "c"]
+        # feed it to the DBus interface
+        self.subscription_interface.SetSystemPurposeData(
+            SystemPurposeData.to_structure(system_purpose_data)
+        )
+        # mark system purpose as already applied
+        self.subscription_module.set_is_system_purpose_applied(True)
+        # the syspurpose utility should not be listed amongst the requirements
+        # as system purpose data is available & already applied
+        requirements = self.subscription_interface.CollectRequirements()
+        self.assertEqual(requirements, [])
+
+    def package_requirements_insights_test(self):
+        """Test package requirements - connect to Insights enabled."""
+        # enable connect to Insights
+        self.subscription_interface.SetInsightsEnabled(True)
+        # check the Insights client package is requested
+        requirements = self.subscription_interface.CollectRequirements()
+        expected_requirements = [
+            {"name": "insights-client",
+             "reason": "Needed to connect the target system to Red Hat Insights.",
+             "type": "package"}
+        ]
+        self.assertEqual(get_native(requirements), expected_requirements)
+
+    def package_requirements_all_test(self):
+        """Test package requirements - all expected packages."""
+        # prepare system purpose data
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.role = "foo"
+        system_purpose_data.sla = "bar"
+        system_purpose_data.usage = "baz"
+        system_purpose_data.addons = ["a", "b", "c"]
+        # feed it to the DBus interface
+        self.subscription_interface.SetSystemPurposeData(
+            SystemPurposeData.to_structure(system_purpose_data)
+        )
+        # system purpose is no applied by default
+        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
+        # enable connect to Insights
+        self.subscription_interface.SetInsightsEnabled(True)
+        # both syspurpose and Insights client should be requested
+        requirements = self.subscription_interface.CollectRequirements()
+        expected_requirements = [
+            {"name": "python3-syspurpose",
+             "reason": "Needed for System Purpose configuration.",
+             "type": "package"},
+            {"name": "insights-client",
+             "reason": "Needed to connect the target system to Red Hat Insights.",
+             "type": "package"}
+        ]
+        self.assertEqual(get_native(requirements), expected_requirements)
+
     @patch_dbus_publish_object
     def set_rhsm_config_with_task_test(self, publisher):
         """Test SetRHSMConfigurationTask creation."""
