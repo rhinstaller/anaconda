@@ -73,11 +73,11 @@ class SourceFactory(object):
             return SourceType.CDROM
         if ks_data.harddrive.seen:
             return SourceType.HDD
-        if ks_data.hmc.seen:
-            return SourceType.HMC
         if ks_data.nfs.seen:
             return SourceType.NFS
         if ks_data.url.seen:
             return SourceType.URL
+        if ks_data.hmc.seen:
+            return SourceType.HMC
 
         return None
