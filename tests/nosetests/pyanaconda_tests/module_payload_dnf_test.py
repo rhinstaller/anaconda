@@ -29,6 +29,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
     SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL
 from pyanaconda.modules.common.errors.payload import PayloadNotSetError
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
@@ -254,5 +255,38 @@ class DNFInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_sources([source])
 
         expected = [self._generate_expected_repo_configuration_dict("file:///install_source/harddrive")]
+
+        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+
+    @patch_dbus_publish_object
+    def url_get_repo_configurations_test(self, publisher):
+        """Test DNF GetRepoConfigurations for URL source."""
+        source = self.shared_tests.prepare_source(SourceType.URL)
+
+        data = RepoConfigurationData()
+        data.name = "Bernard Black"
+        data.url = "http://library.uk"
+        data.ssl_verification_enabled = False
+        data.proxy = "http://MannyBianco/"
+
+        source.set_repo_configuration(data)
+
+        self.shared_tests.set_sources([source])
+
+        expected = [{
+            "name": get_variant(Str, "Bernard Black"),
+            "url": get_variant(Str, "http://library.uk"),
+            "type": get_variant(Str, URL_TYPE_BASEURL),
+            "ssl-verification-enabled": get_variant(Bool, False),
+            "ssl-configuration": get_variant(Structure, {
+                "ca-cert-path": get_variant(Str, ""),
+                "client-cert-path": get_variant(Str, ""),
+                "client-key-path": get_variant(Str, "")
+            }),
+            "proxy": get_variant(Str, "http://MannyBianco/"),
+            "cost": get_variant(Int, 1000),
+            "excluded-packages": get_variant(List[Str], []),
+            "included-packages": get_variant(List[Str], [])
+        }]
 
         self.assertEqual(self.interface.GetRepoConfigurations(), expected)
