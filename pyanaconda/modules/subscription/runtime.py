@@ -27,7 +27,8 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
-from pyanaconda.modules.common.errors.subscription import RegistrationError
+from pyanaconda.modules.common.errors.subscription import RegistrationError, \
+    UnregistrationError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -257,3 +258,34 @@ class RegisterWithOrganizationKeyTask(Task):
                 # return a generic error message in case the RHSM provided error message is missing
                 message = exception_dict.get("message", _("Registration failed."))
                 raise RegistrationError(message) from None
+
+
+class UnregisterTask(Task):
+    """Unregister the system."""
+
+    def __init__(self, rhsm_unregister_proxy):
+        """Create a new unregistration task.
+
+        :param rhsm_unregister_proxy: DBus proxy for the RHSM Unregister object
+        """
+        super().__init__()
+        self._rhsm_unregister_proxy = rhsm_unregister_proxy
+
+    @property
+    def name(self):
+        return "Unregister the system"
+
+    def run(self):
+        """Unregister the system."""
+        log.debug("subscription: unregistering the system")
+        try:
+            locale = os.environ.get("LANG", "")
+            self._rhsm_unregister_proxy.Unregister({}, locale)
+            log.debug("subscription: the system has been unregistered")
+        except DBusError as e:
+            log.exception("subscription: failed to unregister: %s", str(e))
+            exception_dict = json.loads(str(e))
+            # return a generic error message in case the RHSM provided error message
+            # is missing
+            message = exception_dict.get("message", _("Unregistration failed."))
+            raise UnregistrationError(message) from None

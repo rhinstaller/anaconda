@@ -25,3 +25,9 @@ from pyanaconda.modules.common.errors.general import AnacondaError
 class RegistrationError(AnacondaError):
     """Registration attempt failed."""
     pass
+
+
+@dbus_error("UnregistrationError", namespace=ANACONDA_NAMESPACE)
+class UnregistrationError(AnacondaError):
+    """Unregistration attempt failed."""
+    pass

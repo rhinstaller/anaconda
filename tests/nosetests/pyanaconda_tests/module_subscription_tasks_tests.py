@@ -41,7 +41,9 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
     SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask, \
     TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
-    RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask
+    RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
+    UnregisterTask
+
 
 
 class ConnectToInsightsTaskTestCase(unittest.TestCase):
@@ -642,3 +644,33 @@ class RegistrationTasksTestCase(unittest.TestCase):
             {},
             'en_US.UTF-8'
         )
+
+
+class UnregisterTaskTestCase(unittest.TestCase):
+    """Test the unregister task."""
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def unregister_success_test(self, environ_get):
+        """Test the UnregisterTask - success."""
+        # register server proxy
+        rhsm_unregister_proxy = Mock()
+        # instantiate the task and run it
+        task = UnregisterTask(rhsm_unregister_proxy=rhsm_unregister_proxy)
+        task.run()
+        # check the unregister proxy Unregister method was called correctly
+        rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def unregister_failure_test(self, environ_get):
+        """Test the UnregisterTask - failure."""
+        # register server proxy
+        rhsm_unregister_proxy = Mock()
+        # raise DBusError with error message in JSON
+        json_error = '{"message": "Unregistration failed."}'
+        rhsm_unregister_proxy.Unregister.side_effect = DBusError(json_error)
+        # instantiate the task and run it
+        task = UnregisterTask(rhsm_unregister_proxy=rhsm_unregister_proxy)
+        with self.assertRaises(DBusError):
+            task.run()
+        # check the unregister proxy Unregister method was called correctly
+        rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
