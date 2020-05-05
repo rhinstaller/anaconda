@@ -36,6 +36,35 @@ class BossInterfaceTestCase(unittest.TestCase):
         self.module = Boss()
         self.interface = BossInterface(self.module)
 
+    def _add_module(self, service_name, available=True):
+        """Add a DBus module."""
+        observer = Mock(
+            service_name=service_name,
+            is_service_available=available
+        )
+
+        module_manager = self.module._module_manager
+        observers = list(module_manager.module_observers)
+        observers.append(observer)
+
+        module_manager.set_module_observers(observers)
+        return observer
+
+    def get_modules_test(self):
+        """Test GetModules."""
+        self.assertEqual(self.interface.GetModules(), [])
+
+        self._add_module("org.fedoraproject.Anaconda.Modules.A")
+        self._add_module("org.fedoraproject.Anaconda.Modules.B")
+        self._add_module("org.fedoraproject.Anaconda.Addons.C", available=False)
+        self._add_module("org.fedoraproject.Anaconda.Addons.D")
+
+        self.assertEqual(self.interface.GetModules(), [
+            "org.fedoraproject.Anaconda.Modules.A",
+            "org.fedoraproject.Anaconda.Modules.B",
+            "org.fedoraproject.Anaconda.Addons.D"
+        ])
+
     @patch_dbus_publish_object
     def start_modules_with_task_test(self, publisher):
         """Test StartModulesWithTask."""

@@ -54,6 +54,21 @@ class ModuleManager(object):
         )
         return task
 
+    def get_service_names(self):
+        """Get service names of running modules.
+
+        :return: a list of service names
+        """
+        names = []
+
+        for observer in self.module_observers:
+            if not observer.is_service_available:
+                continue
+
+            names.append(observer.service_name)
+
+        return names
+
     def set_modules_locale(self, locale):
         """Set locale of all modules.
 

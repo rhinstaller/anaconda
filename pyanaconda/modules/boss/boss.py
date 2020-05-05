@@ -53,6 +53,16 @@ class Boss(Service):
         DBus.publish_object(BOSS.object_path, BossInterface(self))
         DBus.register_service(BOSS.service_name)
 
+    def get_modules(self):
+        """Get service names of running modules.
+
+        Get a list of all running DBus modules (including addons)
+        that were discovered and started by the boss.
+
+        :return: a list of service names
+        """
+        return self._module_manager.get_service_names()
+
     def start_modules_with_task(self):
         """Start the modules with the task."""
         return self._module_manager.start_modules_with_task()
