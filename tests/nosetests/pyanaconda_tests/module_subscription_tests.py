@@ -294,6 +294,39 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         output = self.subscription_interface.SystemPurposeData
         self.assertEqual(output, expected_dict)
 
+    def system_purpose_data_comparison_test(self):
+        """Test SystemPurposeData instance equality comparison."""
+        # This is important as we use the comparison to decide if newly set system purpose data
+        # is different and we should set it to the system or not if it is the same.
+
+        # create the SystemPurposeData structure
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.role = "foo"
+        system_purpose_data.sla = "bar"
+        system_purpose_data.usage = "baz"
+        system_purpose_data.addons = ["a", "b", "c"]
+
+        # create a clone of the structure - new instance same data
+        system_purpose_data_clone = SystemPurposeData()
+        system_purpose_data_clone.role = "foo"
+        system_purpose_data_clone.sla = "bar"
+        system_purpose_data_clone.usage = "baz"
+        system_purpose_data_clone.addons = ["a", "b", "c"]
+
+        # create the SystemPurposeData structure
+        different_system_purpose_data = SystemPurposeData()
+        different_system_purpose_data.role = "different_foo"
+        different_system_purpose_data.sla = "different_bar"
+        different_system_purpose_data.usage = "different_baz"
+        different_system_purpose_data.addons = ["different_a", "different_b", "different_c"]
+
+        # same content should be considered the same
+        self.assertTrue(system_purpose_data == system_purpose_data_clone)
+
+        # different content should not be considered the same
+        self.assertFalse(system_purpose_data == different_system_purpose_data)
+        self.assertFalse(system_purpose_data_clone == different_system_purpose_data)
+
     def system_purpose_data_helper_test(self):
         """Test the SystemPurposeData DBus structure data availability helper method."""
 
