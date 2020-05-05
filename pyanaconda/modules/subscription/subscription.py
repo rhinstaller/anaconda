@@ -37,7 +37,7 @@ from pyanaconda.core.dbus import DBus
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_REGISTER_SERVER, \
-    RHSM_UNREGISTER
+    RHSM_UNREGISTER, RHSM_ATTACH
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 
@@ -49,7 +49,7 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask
+    UnregisterTask, AttachSubscriptionTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
 
 
@@ -621,6 +621,24 @@ class SubscriptionService(KickstartService):
         # so set the corresponding property appropriately
         task.succeeded_signal.connect(
             lambda: self.set_subscription_attached(False))
+        return task
+
+    def attach_subscription_with_task(self):
+        """Attach a subscription.
+
+        This should only be run on a system that has been successfully registered.
+        Attached subscription depends on system type, system purpose data
+        and entitlements available for the account that has been used for registration.
+
+        :return: a DBus path of an installation task
+        """
+        sla = self.system_purpose_data.sla
+        rhsm_attach_proxy = self.rhsm_observer.get_proxy(RHSM_ATTACH)
+        task = AttachSubscriptionTask(rhsm_attach_proxy=rhsm_attach_proxy,
+                                      sla=sla)
+        # if the task succeeds, it means a subscription has been attached
+        task.succeeded_signal.connect(
+            lambda: self.set_subscription_attached(True))
         return task
 
     def collect_requirements(self):
