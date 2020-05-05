@@ -103,7 +103,6 @@ class PayloadSharedTest(object):
     def check_empty_sources(self):
         """Default check for payload with no sources set."""
         self._test.assertEqual([], self.payload_interface.Sources)
-        self._test.assertFalse(self.payload_interface.HasSource())
 
     def set_and_check_sources(self, test_sources, exception=None):
         """Default check to set sources.
@@ -150,8 +149,3 @@ class PayloadSharedTest(object):
         expected_paths = PayloadSourceContainer.to_object_path_list(expected_sources)
 
         self._test.assertEqual(self.payload_interface.Sources, expected_paths)
-
-        if expected_sources:
-            self._test.assertTrue(self.payload_interface.HasSource())
-        else:
-            self._test.assertFalse(self.payload_interface.HasSource())

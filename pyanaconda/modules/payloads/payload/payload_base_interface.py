@@ -88,10 +88,6 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
             )
         )
 
-    def HasSource(self) -> Bool:
-        """Check if any source is attached to this payload."""
-        return self.implementation.has_source()
-
     def PreInstallWithTasks(self) -> List[ObjPath]:
         """Execute preparation steps.
 
