@@ -18,10 +18,11 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
 from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
-from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
+from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -29,7 +30,7 @@ log = get_module_logger(__name__)
 __all__ = ["HMCSourceModule"]
 
 
-class HMCSourceModule(MountingSourceBase):
+class HMCSourceModule(MountingSourceBase, RPMSourceMixin):
     """The SE/HMC source module."""
 
     @property
@@ -45,6 +46,10 @@ class HMCSourceModule(MountingSourceBase):
     def for_publication(self):
         """Return a DBus representation."""
         return HMCSourceInterface(self)
+
+    def generate_repo_configuration(self):
+        """Generate RepoConfigurationData structure."""
+        return RepoConfigurationData.from_directory(self.mount_point)
 
     def set_up_with_tasks(self):
         """Set up the installation source for installation.

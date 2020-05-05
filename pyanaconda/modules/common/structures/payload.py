@@ -20,6 +20,8 @@
 
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
+from pyanaconda.core.util import join_paths
 from pyanaconda.core.constants import URL_TYPE_BASEURL, DNF_DEFAULT_REPO_COST
 
 __all__ = ["RepoConfigurationData", "SSLConfigurationData"]
@@ -81,6 +83,21 @@ class RepoConfigurationData(DBusData):
         self._cost = DNF_DEFAULT_REPO_COST
         self._exclude_packages = []
         self._included_packages = []
+
+    @classmethod
+    def from_directory(cls, directory_path):
+        """Generate RepoConfigurationData url from directory path.
+
+        This will basically add file:/// to the directory and set it to url with a proper type.
+
+        :param str directory_path: directory which will be used to create url
+        :return: RepoConfigurationData instance
+        """
+        data = RepoConfigurationData()
+
+        data.url = join_paths("file:///", directory_path)
+
+        return data
 
     @property
     def name(self) -> Str:
