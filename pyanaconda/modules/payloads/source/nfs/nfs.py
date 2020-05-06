@@ -47,7 +47,7 @@ class NFSSourceModule(MountingSourceBase):
     @property
     def description(self):
         """Get description of this source."""
-        return _("NFS server %s") % self.url
+        return _("NFS server {}").format(self.url)
 
     def for_publication(self):
         """Return a DBus representation."""

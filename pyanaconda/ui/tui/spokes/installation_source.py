@@ -109,7 +109,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         if method.method == "url":
             return method.url or method.mirrorlist or method.metalink
         elif method.method == "nfs":
-            return _("NFS server %s") % method.server
+            return _("NFS server {}").format(method.server)
         elif method.method == "cdrom":
             return _("Local media")
         elif method.method == "hmc":
