@@ -22,9 +22,10 @@ from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
-    LOCALIZATION, TIMEZONE, BOSS
+    LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda import flags
 from pyanaconda.core import util
@@ -77,6 +78,16 @@ def _prepare_configuration(payload, ksdata):
     # connect progress reporting
     configuration_queue.queue_started.connect(lambda x: progress_message(x.status_message))
     configuration_queue.task_completed.connect(lambda x: progress_step(x.name))
+
+    # add installation tasks for the Subscription DBus module
+    if is_module_available(SUBSCRIPTION):
+        # we only run the tasks if the Subscription module is available
+        subscription_config = TaskQueue("Subscription configuration",
+                                        N_("Configuring Red Hat subscription"))
+        subscription_proxy = SUBSCRIPTION.get_proxy()
+        subscription_dbus_tasks = subscription_proxy.InstallWithTasks()
+        subscription_config.append_dbus_tasks(SUBSCRIPTION, subscription_dbus_tasks)
+        configuration_queue.append(subscription_config)
 
     # schedule the execute methods of ksdata that require an installed system to be present
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
