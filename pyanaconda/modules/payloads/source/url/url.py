@@ -64,6 +64,11 @@ class URLSourceModule(PayloadSourceBase):
         """Get type of this source."""
         return SourceType.URL
 
+    @property
+    def description(self):
+        """Get description of this source."""
+        return self._repo_configuration.url
+
     def for_publication(self):
         """Get the interface used to publish this source."""
         return URLSourceInterface(self)

@@ -58,6 +58,11 @@ class HardDriveSourceModule(PayloadSourceBase):
         """Get type of this source."""
         return SourceType.HDD
 
+    @property
+    def description(self):
+        """Get description of this source."""
+        return "{}:{}".format(self._device, self._directory)
+
     def get_state(self):
         """Get state of this source."""
         res = os.path.ismount(self._device_mount) and bool(self._install_tree_path)

@@ -665,7 +665,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         elif self.data.method.method == "url":
             return self.data.method.url or self.data.method.mirrorlist or self.data.method.metalink
         elif self.data.method.method == "nfs":
-            return _("NFS server %s") % self.data.method.server
+            return _("NFS server {}").format(self.data.method.server)
         elif self.data.method.method == "cdrom":
             return _("Local media")
         elif self.data.method.method == "hmc":

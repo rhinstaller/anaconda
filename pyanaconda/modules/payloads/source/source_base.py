@@ -50,7 +50,17 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """Get type of this source object.
 
         :return: type of this source
-        :type: value of payload.base.constants.SourceType
+        :rtype: value of payload.base.constants.SourceType
+        """
+        pass
+
+    @property
+    @abstractmethod
+    def description(self):
+        """Get a l10n-able description of this source object.
+
+        :return: description of this source
+        :rtype: str
         """
         pass
 

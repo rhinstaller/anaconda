@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
 from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
@@ -35,6 +36,11 @@ class HMCSourceModule(MountingSourceBase):
     def type(self):
         """Get type of this source."""
         return SourceType.HMC
+
+    @property
+    def description(self):
+        """Get description of this source."""
+        return _("Local media via SE/HMC")
 
     def for_publication(self):
         """Return a DBus representation."""

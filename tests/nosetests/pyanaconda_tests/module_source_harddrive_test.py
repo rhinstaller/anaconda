@@ -60,6 +60,12 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
         """Hard drive source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_HDD, self.interface.Type)
 
+    def description_test(self):
+        """Hard drive source description."""
+        self.interface.SetPartition("device")
+        self.interface.SetDirectory("/directory")
+        self.assertEqual("device:/directory", self.interface.Description)
+
     def empty_properties_test(self):
         """Hard drive source properties are empty when not set."""
         self.assertEqual(self.interface.Partition, "")

@@ -61,6 +61,13 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         """Test URL source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_URL, self.url_source_interface.Type)
 
+    def description_test(self):
+        """Test URL source description."""
+        rc = RepoConfigurationData()
+        rc.url = "http://example.com/"
+        self.url_source_interface.SetRepoConfiguration(rc.to_structure(rc))
+        self.assertEqual("http://example.com/", self.url_source_module.description)
+
     def set_name_properties_test(self):
         data = RepoConfigurationData()
         data.name = "Saitama"

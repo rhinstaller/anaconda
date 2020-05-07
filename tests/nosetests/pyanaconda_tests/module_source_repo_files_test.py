@@ -40,6 +40,10 @@ class RepoFilesSourceInterfaceTestCase(unittest.TestCase):
         """Test Repo files source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_REPO_FILES, self.interface.Type)
 
+    def description_test(self):
+        """Test NFS source description."""
+        self.assertEqual("Closest mirror", self.interface.Description)
+
 
 class RepoFilesSourceTestCase(unittest.TestCase):
 

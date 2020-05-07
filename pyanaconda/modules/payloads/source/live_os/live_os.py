@@ -20,6 +20,7 @@
 import os
 import stat
 
+from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.payloads.constants import SourceType
@@ -43,6 +44,11 @@ class LiveOSSourceModule(MountingSourceBase):
     def type(self):
         """Get type of this source."""
         return SourceType.LIVE_OS_IMAGE
+
+    @property
+    def description(self):
+        """Get description of this source."""
+        return _("Live OS")
 
     @property
     def image_path(self):

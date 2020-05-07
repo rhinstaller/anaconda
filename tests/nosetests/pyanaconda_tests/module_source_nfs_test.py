@@ -48,6 +48,11 @@ class NFSSourceInterfaceTestCase(unittest.TestCase):
         """Test NFS source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_NFS, self.interface.Type)
 
+    def description_test(self):
+        """Test NFS source description."""
+        self.interface.SetURL("nfs:server:/path")
+        self.assertEqual("NFS server nfs:server:/path", self.interface.Description)
+
     def url_empty_properties_test(self):
         """Test NFS source URL property when not set."""
         self.assertEqual(self.interface.URL, "")

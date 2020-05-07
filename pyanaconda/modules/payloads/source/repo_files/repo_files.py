@@ -17,16 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.i18n import _
 from pyanaconda.payload.dnf.utils import REPO_DIRS
-
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.repo_files.repo_files_interface import \
     RepoFilesSourceInterface
 from pyanaconda.modules.payloads.source.repo_files.initialization import \
     SetUpRepoFilesSourceTask
-
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 
@@ -37,6 +37,11 @@ class RepoFilesSourceModule(PayloadSourceBase):
     def type(self):
         """Get type of this source."""
         return SourceType.REPO_FILES
+
+    @property
+    def description(self):
+        """Get description of this source."""
+        return _("Closest mirror")
 
     def get_state(self):
         """Get state of this source."""

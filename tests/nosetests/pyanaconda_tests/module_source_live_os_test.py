@@ -46,6 +46,10 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         """Test Live OS source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_LIVE_OS_IMAGE, self.interface.Type)
 
+    def description_test(self):
+        """Test NFS source description."""
+        self.assertEqual("Live OS", self.interface.Description)
+
     def image_path_empty_properties_test(self):
         """Test Live OS payload image path property when not set."""
         self.assertEqual(self.interface.ImagePath, "")

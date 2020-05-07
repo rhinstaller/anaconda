@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
 from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
@@ -33,6 +34,11 @@ class CdromSourceModule(MountingSourceBase):
     def type(self):
         """Get type of this source."""
         return SourceType.CDROM
+
+    @property
+    def description(self):
+        """Get description of this source."""
+        return _("Local media")
 
     def for_publication(self):
         """Get the interface used to publish this source."""

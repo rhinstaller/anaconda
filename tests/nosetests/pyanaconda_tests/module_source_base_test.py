@@ -34,6 +34,10 @@ class DummyMountingSourceSubclass(MountingSourceBase):
     def type(self):
         return SourceType.URL
 
+    @property
+    def description(self):
+        return "description"
+
     def for_publication(self):
         return None
 

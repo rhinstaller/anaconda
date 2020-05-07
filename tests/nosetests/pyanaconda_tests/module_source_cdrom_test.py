@@ -49,10 +49,15 @@ class CdromSourceTestCase(unittest.TestCase):
 
     def setUp(self):
         self.module = CdromSourceModule()
+        self.interface = CdromSourceInterface(self.module)
 
     def type_test(self):
         """Test CD-ROM source module has a correct type."""
         self.assertEqual(SourceType.CDROM, self.module.type)
+
+    def description_test(self):
+        """Hard drive source description."""
+        self.assertEqual("Local media", self.interface.Description)
 
     def set_up_with_tasks_test(self):
         """Test CD-ROM Source set up call."""

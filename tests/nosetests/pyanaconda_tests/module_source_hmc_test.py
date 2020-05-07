@@ -40,6 +40,10 @@ class HMCSourceInterfaceTestCase(unittest.TestCase):
         """Test the type of SE/HMC."""
         self.assertEqual(SOURCE_TYPE_HMC, self.interface.Type)
 
+    def description_test(self):
+        """Test the description of SE/HMC."""
+        self.assertEqual("Local media via SE/HMC", self.interface.Description)
+
 
 class HMCSourceModuleTestCase(unittest.TestCase):
     """Test the SE/HMC source module."""
