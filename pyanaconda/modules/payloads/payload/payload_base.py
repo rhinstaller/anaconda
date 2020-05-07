@@ -138,14 +138,6 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         log.debug("New sources %s were added.", sources)
         self.sources_changed.emit()
 
-    def has_source(self):
-        """Check if any source is set.
-
-        :return: True if source object is set
-        :rtype: bool
-        """
-        return bool(self.sources)
-
     def add_source(self, source):
         """Module scope API for easier adding of sources.
 
