@@ -362,3 +362,147 @@ class SubscriptionRequest(DBusData):
     @server_proxy_password.setter
     def server_proxy_password(self, password: SecretData):
         self._server_proxy_password = password
+
+
+class AttachedSubscription(DBusData):
+    """Data for a single attached subscription."""
+
+    def __init__(self):
+        self._name = ""
+        self._service_level = ""
+        self._sku = ""
+        self._contract = ""
+        self._start_date = ""
+        self._end_date = ""
+        # we can expect at least one entitlement
+        # to be consumed per attached subscription
+        self._consumed_entitlement_count = 1
+
+    @property
+    def name(self) -> Str:
+        """Name of the attached subscription.
+
+        Example: "Red Hat Beta Access"
+
+        :return: subscription name
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name: Str):
+        self._name = name
+
+    @property
+    def service_level(self) -> Str:
+        """Service level of the attached subscription.
+
+        Example: "Premium"
+
+        :return: service level
+        :rtype: str
+        """
+        return self._service_level
+
+    @service_level.setter
+    def service_level(self, service_level: Str):
+        self._service_level = service_level
+
+    @property
+    def sku(self) -> Str:
+        """SKU id of the attached subscription.
+
+        Example: "MBT8547"
+
+        :return: SKU id
+        :rtype: str
+        """
+        return self._sku
+
+    @sku.setter
+    def sku(self, sku: Str):
+        self._sku = sku
+
+    @property
+    def contract(self) -> Str:
+        """Contract identifier.
+
+        Example: "32754658"
+
+        :return: contract identifier
+        :rtype: str
+        """
+        return self._contract
+
+    @contract.setter
+    def contract(self, contract: Str):
+        self._contract = contract
+
+    @property
+    def start_date(self) -> Str:
+        """Subscription start date.
+
+        We do not guarantee fixed date format,
+        but we aim for the date to look good
+        when displayed in a GUI and be human
+        readable.
+
+        For context see the following bug, that
+        illustrates the issues we are having with
+        the source date for this property, that
+        prevent us from providing a consistent
+        date format:
+        https://bugzilla.redhat.com/show_bug.cgi?id=1793501
+
+        Example: "Nov 04, 2019"
+
+        :return: start date of the subscription
+        :rtype: str
+        """
+        return self._start_date
+
+    @start_date.setter
+    def start_date(self, start_date: Str):
+        self._start_date = start_date
+
+    @property
+    def end_date(self) -> Str:
+        """Subscription end date.
+
+        We do not guarantee fixed date format,
+        but we aim for the date to look good
+        when displayed in a GUI and be human
+        readable.
+
+        For context see the following bug, that
+        illustrates the issues we are having with
+        the source date for this property, that
+        prevent us from providing a consistent
+        date format:
+        https://bugzilla.redhat.com/show_bug.cgi?id=1793501
+
+        Example: "Nov 04, 2020"
+
+        :return: end date of the subscription
+        :rtype: str
+        """
+        return self._end_date
+
+    @end_date.setter
+    def end_date(self, end_date: Str):
+        self._end_date = end_date
+
+    @property
+    def consumed_entitlement_count(self) -> Int:
+        """Number of consumed entitlements for this subscription.
+
+        Example: "1"
+
+        :return: consumed entitlement number
+        :rtype: int
+        """
+        return self._consumed_entitlement_count
+
+    @consumed_entitlement_count.setter
+    def consumed_entitlement_count(self, consumed_entitlement_count: Int):
+        self._consumed_entitlement_count = consumed_entitlement_count

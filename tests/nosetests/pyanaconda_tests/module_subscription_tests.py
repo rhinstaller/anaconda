@@ -32,7 +32,7 @@ from pyanaconda.core.constants import SECRET_TYPE_NONE, SECRET_TYPE_HIDDEN, SECR
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest
+    SubscriptionRequest, AttachedSubscription
 
 from pyanaconda.modules.subscription.subscription import SubscriptionService
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
@@ -797,6 +797,57 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
                          ["key_foo", "key_bar", "key_baz"])
         self.assertEqual(internal_request.server_proxy_password.value,
                          "foo_proxy_password")
+
+    def attached_subscription_defaults_test(self):
+        """Test the AttachedSubscription DBus structure defaults."""
+
+        # create empty AttachedSubscription structure
+        empty_request = AttachedSubscription()
+
+        # compare with expected default values
+        expected_default_dict = {
+            "name": get_variant(Str, ""),
+            "service-level": get_variant(Str, ""),
+            "sku": get_variant(Str, ""),
+            "contract": get_variant(Str, ""),
+            "start-date": get_variant(Str, ""),
+            "end-date": get_variant(Str, ""),
+            "consumed-entitlement-count": get_variant(Int, 1)
+        }
+        # compare the empty structure with expected default values
+        self.assertEqual(
+            AttachedSubscription.to_structure(empty_request),
+            expected_default_dict
+        )
+
+    def attached_subscription_full_test(self):
+        """Test the AttachedSubscription DBus structure that is fully populated."""
+
+        # create empty AttachedSubscription structure
+        full_request = AttachedSubscription()
+        full_request.name = "Foo Bar Beta"
+        full_request.service_level = "really good"
+        full_request.sku = "ABCD1234"
+        full_request.contract = "87654321"
+        full_request.start_date = "Jan 01, 1970"
+        full_request.end_date = "Jan 19, 2038"
+        full_request.consumed_entitlement_count = 9001
+
+        # compare with expected values
+        expected_default_dict = {
+            "name": get_variant(Str, "Foo Bar Beta"),
+            "service-level": get_variant(Str, "really good"),
+            "sku": get_variant(Str, "ABCD1234"),
+            "contract": get_variant(Str, "87654321"),
+            "start-date": get_variant(Str, "Jan 01, 1970"),
+            "end-date": get_variant(Str, "Jan 19, 2038"),
+            "consumed-entitlement-count": get_variant(Int, 9001)
+        }
+        # compare the full structure with expected values
+        self.assertEqual(
+            AttachedSubscription.to_structure(full_request),
+            expected_default_dict
+        )
 
     def insights_property_test(self):
         """Test the InsightsEnabled property."""
