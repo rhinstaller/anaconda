@@ -30,7 +30,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, TAR_SUFFIX, \
     NETWORK_CONNECTION_TIMEOUT, INSTALL_TREE, IMAGE_DIR, THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError

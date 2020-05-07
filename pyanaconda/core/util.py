@@ -28,7 +28,6 @@ import string  # pylint: disable=deprecated-module
 import shutil
 import tempfile
 import re
-from urllib.parse import quote, unquote
 import gettext
 import signal
 import sys
@@ -48,10 +47,7 @@ from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE
     IPMI_ABORTED, X_TIMEOUT, TAINT_HARDWARE_UNSUPPORTED, TAINT_SUPPORT_REMOVED, \
     WARNING_HARDWARE_UNSUPPORTED, WARNING_SUPPORT_REMOVED
 from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
-from pyanaconda.core.regexes import URL_PARSE
 from pyanaconda.errors import RemovedModuleError, ExitError
-
-from pyanaconda.core.i18n import _
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.anaconda_loggers import get_module_logger, get_program_logger
@@ -556,29 +552,6 @@ def resetRpmDb():
             log.debug("error %s removing file: %s", e, rpmfile)
 
 
-def parse_nfs_url(nfs_url):
-    """Parse NFS URL into components.
-
-    :param str nfs_url: The raw URL, including "nfs:"
-    :return: Tuple with options, host, and path
-    :rtype: (str, str, str) or None
-    """
-    options = ''
-    host = ''
-    path = ''
-    if nfs_url:
-        s = nfs_url.split(":")
-        s.pop(0)
-        if len(s) >= 3:
-            (options, host, path) = s[:3]
-        elif len(s) == 2:
-            (host, path) = s
-        else:
-            host = s[0]
-
-    return options, host, path
-
-
 def add_po_path(directory):
     """ Looks to see what translations are under a given path and tells
     the gettext module to use that path as the base dir """
@@ -712,97 +685,6 @@ def vtActivate(num):
         log.error("Failed to switch to tty%d", num)
 
     return ret == 0
-
-
-class ProxyStringError(Exception):
-    pass
-
-
-class ProxyString(object):
-    """ Handle a proxy url
-    """
-    def __init__(self, url=None, protocol="http://", host=None, port="3128",
-                 username=None, password=None):
-        """ Initialize with either url
-        ([protocol://][username[:password]@]host[:port]) or pass host and
-        optionally:
-
-        protocol    http, https, ftp
-        host        hostname without protocol
-        port        port number (defaults to 3128)
-        username    username
-        password    password
-
-        The str() of the object is the full proxy url
-
-        ProxyString.url is the full url including username:password@
-        ProxyString.noauth_url is the url without username:password@
-        """
-        self.url = ensure_str(url, keep_none=True)
-        self.protocol = ensure_str(protocol, keep_none=True)
-        self.host = ensure_str(host, keep_none=True)
-        self.port = str(port)
-        self.username = ensure_str(username, keep_none=True)
-        self.password = ensure_str(password, keep_none=True)
-        self.proxy_auth = ""
-        self.noauth_url = None
-
-        if url:
-            self.parse_url()
-        elif not host:
-            raise ProxyStringError(_("No host url"))
-        else:
-            self.parse_components()
-
-    def parse_url(self):
-        """ Parse the proxy url into its component pieces
-        """
-        # NOTE: If this changes, update tests/regex/proxy.py
-        #
-        # proxy=[protocol://][username[:password]@]host[:port][path][?query][#fragment]
-        # groups (both named and numbered)
-        # 1 = protocol
-        # 2 = username
-        # 3 = password
-        # 4 = host
-        # 5 = port
-        # 6 = path
-        # 7 = query
-        # 8 = fragment
-        m = URL_PARSE.match(self.url)
-        if not m:
-            raise ProxyStringError(_("malformed URL, cannot parse it."))
-
-        # If no protocol was given default to http.
-        self.protocol = m.group("protocol") or "http://"
-
-        if m.group("username"):
-            self.username = ensure_str(unquote(m.group("username")))
-
-        if m.group("password"):
-            self.password = ensure_str(unquote(m.group("password")))
-
-        if m.group("host"):
-            self.host = m.group("host")
-            if m.group("port"):
-                self.port = m.group("port")
-        else:
-            raise ProxyStringError(_("URL has no host component"))
-
-        self.parse_components()
-
-    def parse_components(self):
-        """ Parse the components of a proxy url into url and noauth_url
-        """
-        if self.username or self.password:
-            self.proxy_auth = "%s:%s@" % (quote(self.username or ""),
-                                          quote(self.password or ""))
-
-        self.url = self.protocol + self.proxy_auth + self.host + ":" + self.port
-        self.noauth_url = self.protocol + self.host + ":" + self.port
-
-    def __str__(self):
-        return self.url
 
 
 def strip_accents(s):

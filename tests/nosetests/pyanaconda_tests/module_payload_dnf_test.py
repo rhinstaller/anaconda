@@ -19,13 +19,141 @@
 #
 import unittest
 
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
+    PayloadKickstartSharedTest
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
     SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL
+from pyanaconda.modules.common.errors.payload import PayloadNotSetError
 from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+
+
+class DNFKSTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.module = PayloadsService()
+        self.interface = PayloadsInterface(self.module)
+
+        self.shared_ks_tests = PayloadKickstartSharedTest(self,
+                                                          self.module,
+                                                          self.interface)
+
+    def _check_properties(self, expected_source_type):
+        payload = self.shared_ks_tests.get_payload()
+
+        self.assertIsInstance(payload, DNFModule)
+
+        # verify sources set
+        if expected_source_type is None:
+            self.assertFalse(payload.has_source())
+        else:
+            self.assertTrue(payload.has_source())
+            sources = payload.sources
+            self.assertEqual(1, len(sources))
+            self.assertEqual(sources[0].type.value, expected_source_type)
+
+    def cdrom_kickstart_test(self):
+        ks_in = """
+        cdrom
+        """
+        ks_out = """
+        # Use CDROM installation media
+        cdrom
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_CDROM)
+
+    def hmc_kickstart_test(self):
+        ks_in = """
+        hmc
+        """
+        ks_out = """
+        # Use installation media via SE/HMC
+        hmc
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_HMC)
+
+    def harddrive_kickstart_test(self):
+        ks_in = """
+        harddrive --partition=nsa-device --dir=top-secret
+        """
+        ks_out = """
+        # Use hard drive installation media
+        harddrive --dir=top-secret --partition=nsa-device
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_HDD)
+
+    def harddrive_kickstart_failed_test(self):
+        ks_in = """
+        harddrive --partition=nsa-device
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=0)
+
+        with self.assertRaises(PayloadNotSetError):
+            self.interface.GetActivePayload()
+
+    def harddrive_biospart_kickstart_failed_test(self):
+        # The biospart parameter is not implemented since 2012 and it won't
+        # really work. Make it obvious for user.
+        ks_in = """
+        harddrive --biospart=007 --dir=cool/store
+        """
+        # One publisher call because the biospart support is decided in the harddrive source
+        self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=1)
+        self._check_properties(None)
+
+    def nfs_kickstart_test(self):
+        ks_in = """
+        nfs --server=gotham.city --dir=/secret/underground/base --opts=nomount
+        """
+        ks_out = """
+        # Use NFS installation media
+        nfs --server=gotham.city --dir=/secret/underground/base --opts="nomount"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_NFS)
+
+    def url_kickstart_test(self):
+        self.maxDiff = None
+        ks_in = """
+        url --proxy=https://ClarkKent:suuuperrr@earth:1 --noverifyssl --url http://super/powers --sslcacert wardrobe.cert --sslclientcert private-wardrobe.cert --sslclientkey super-key.key
+        """
+        ks_out = """
+        # Use network installation
+        url --url="http://super/powers" --proxy="https://ClarkKent:suuuperrr@earth:1" --noverifyssl --sslcacert="wardrobe.cert" --sslclientcert="private-wardrobe.cert" --sslclientkey="super-key.key"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_URL)
+
+    def url_mirrorlist_kickstart_test(self):
+        self.maxDiff = None
+        ks_in = """
+        url --mirrorlist http://cool/mirror
+        """
+        ks_out = """
+        # Use network installation
+        url --mirrorlist="http://cool/mirror"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_URL)
+
+    def url_metalink_kickstart_test(self):
+        self.maxDiff = None
+        ks_in = """
+        url --metalink http://itsjustametanotrealstuff --proxy="https://ClarkKent:suuuperrr@earth:1" --sslcacert="wardrobe.cert"
+        """
+        ks_out = """
+        # Use network installation
+        url --metalink="http://itsjustametanotrealstuff" --proxy="https://ClarkKent:suuuperrr@earth:1" --sslcacert="wardrobe.cert"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_URL)
 
 
 class DNFInterfaceTestCase(unittest.TestCase):

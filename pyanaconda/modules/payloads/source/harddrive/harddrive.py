@@ -19,7 +19,10 @@
 #
 import os
 
+from pykickstart.errors import KickstartParseError
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
@@ -59,6 +62,21 @@ class HardDriveSourceModule(PayloadSourceBase):
         """Get state of this source."""
         res = os.path.ismount(self._device_mount) and bool(self._install_tree_path)
         return SourceState.from_bool(res)
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        if data.harddrive.biospart:
+            msg = _("The --biospart parameter of harddrive command is not supported!")
+            raise KickstartParseError(msg, lineno=data.harddrive.lineno)
+
+        self.set_device(data.harddrive.partition)
+        self.set_directory(data.harddrive.dir)
+
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        data.harddrive.partition = self.device
+        data.harddrive.dir = self.directory
+        data.harddrive.seen = True
 
     def for_publication(self):
         """Get the interface used to publish this source."""

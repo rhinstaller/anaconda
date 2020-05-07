@@ -25,6 +25,8 @@ import hashlib
 import shutil
 import gi
 
+import pyanaconda.core.payload as util
+
 from tempfile import TemporaryDirectory
 from unittest.mock import patch, Mock, call
 
@@ -584,3 +586,75 @@ class RefMock(object):
                                     self._name,
                                     self._arch,
                                     self._branch)
+
+
+class PayloadUtilsTests(unittest.TestCase):
+
+    def parse_nfs_url_test(self):
+        """Test parseNfsUrl."""
+
+        # empty NFS url should return 3 blanks
+        self.assertEqual(util.parse_nfs_url(""), ("", "", ""))
+
+        # the string is delimited by :, there is one prefix and 3 parts,
+        # the prefix is discarded and all parts after the 3th part
+        # are also discarded
+        self.assertEqual(util.parse_nfs_url("discard:options:host:path"),
+                         ("options", "host", "path"))
+        self.assertEqual(util.parse_nfs_url("discard:options:host:path:foo:bar"),
+                         ("options", "host", "path"))
+        self.assertEqual(util.parse_nfs_url(":options:host:path::"),
+                         ("options", "host", "path"))
+        self.assertEqual(util.parse_nfs_url(":::::"),
+                         ("", "", ""))
+
+        # if there is only prefix & 2 parts,
+        # the two parts are host and path
+        self.assertEqual(util.parse_nfs_url("prefix:host:path"),
+                         ("", "host", "path"))
+        self.assertEqual(util.parse_nfs_url(":host:path"),
+                         ("", "host", "path"))
+        self.assertEqual(util.parse_nfs_url("::"),
+                         ("", "", ""))
+
+        # if there is only a prefix and single part,
+        # the part is the host
+
+        self.assertEqual(util.parse_nfs_url("prefix:host"),
+                         ("", "host", ""))
+        self.assertEqual(util.parse_nfs_url(":host"),
+                         ("", "host", ""))
+        self.assertEqual(util.parse_nfs_url(":"),
+                         ("", "", ""))
+
+    def create_nfs_url_test(self):
+        """Test create_nfs_url."""
+
+        self.assertEqual(util.create_nfs_url("", ""), "")
+        self.assertEqual(util.create_nfs_url("", "", None), "")
+        self.assertEqual(util.create_nfs_url("", "", ""), "")
+
+        self.assertEqual(util.create_nfs_url("host", ""), "nfs:host:")
+        self.assertEqual(util.create_nfs_url("host", "", "options"), "nfs:options:host:")
+
+        self.assertEqual(util.create_nfs_url("host", "path"), "nfs:host:path")
+        self.assertEqual(util.create_nfs_url("host", "/path", "options"), "nfs:options:host:/path")
+
+        self.assertEqual(util.create_nfs_url("host", "/path/to/something"),
+                         "nfs:host:/path/to/something")
+        self.assertEqual(util.create_nfs_url("host", "/path/to/something", "options"),
+                         "nfs:options:host:/path/to/something")
+
+    def nfs_combine_test(self):
+        "Test combination of parse and create nfs functions."
+
+        host = "host"
+        path = "/path/to/somewhere"
+        options = "options"
+
+        url = util.create_nfs_url(host, path, options)
+        self.assertEqual(util.parse_nfs_url(url), (options, host, path))
+
+        url = "nfs:options:host:/my/path"
+        (options, host, path) = util.parse_nfs_url(url)
+        self.assertEqual(util.create_nfs_url(host, path, options), url)

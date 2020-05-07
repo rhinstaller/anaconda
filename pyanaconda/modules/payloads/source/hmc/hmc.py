@@ -47,3 +47,14 @@ class HMCSourceModule(MountingSourceBase):
         :rtype: [Task]
         """
         return [SetUpHMCSourceTask(self.mount_point)]
+
+    def process_kickstart(self, data):
+        """Process the kickstart data.
+
+        This will be empty because cdrom KS command does not have any arguments.
+        """
+        pass
+
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        data.hmc.seen = True

@@ -19,7 +19,7 @@ import functools
 import tarfile
 
 from pyanaconda.payload.utils import version_cmp
-from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.constants import TAR_SUFFIX
 
 from pyanaconda.anaconda_loggers import get_module_logger

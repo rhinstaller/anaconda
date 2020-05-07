@@ -17,9 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.constants import BASE_REPO_NAME
+from pyanaconda.core.constants import BASE_REPO_NAME, URL_TYPE_BASEURL, URL_TYPE_METALINK, \
+    URL_TYPE_MIRRORLIST
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, URLType, SourceState
@@ -66,6 +67,46 @@ class URLSourceModule(PayloadSourceBase):
     def for_publication(self):
         """Get the interface used to publish this source."""
         return URLSourceInterface(self)
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        repo_data = RepoConfigurationData()
+        repo_data.name = self._url_source_name
+
+        if data.url.url:
+            repo_data.url = data.url.url
+            repo_data.type = URL_TYPE_BASEURL
+        elif data.url.mirrorlist:
+            repo_data.url = data.url.mirrorlist
+            repo_data.type = URL_TYPE_MIRRORLIST
+        elif data.url.metalink:
+            repo_data.url = data.url.metalink
+            repo_data.type = URL_TYPE_METALINK
+
+        repo_data.proxy = data.url.proxy
+        repo_data.ssl_verification_enabled = not data.url.noverifyssl
+        repo_data.ssl_configuration.ca_cert_path = data.url.sslcacert or ""
+        repo_data.ssl_configuration.client_cert_path = data.url.sslclientcert or ""
+        repo_data.ssl_configuration.client_key_path = data.url.sslclientkey or ""
+
+        self.set_repo_configuration(repo_data)
+
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        if self.repo_configuration.type == URL_TYPE_BASEURL:
+            data.url.url = self.repo_configuration.url
+        elif self.repo_configuration.type == URL_TYPE_MIRRORLIST:
+            data.url.mirrorlist = self.repo_configuration.url
+        elif self.repo_configuration.type == URL_TYPE_METALINK:
+            data.url.metalink = self.repo_configuration.url
+
+        data.url.proxy = self.repo_configuration.proxy
+        data.url.noverifyssl = not self.repo_configuration.ssl_verification_enabled
+        data.url.sslcacert = self.repo_configuration.ssl_configuration.ca_cert_path
+        data.url.sslclientcert = self.repo_configuration.ssl_configuration.client_cert_path
+        data.url.sslclientkey = self.repo_configuration.ssl_configuration.client_key_path
+
+        data.url.seen = True
 
     def set_up_with_tasks(self):
         """Set up the installation source.

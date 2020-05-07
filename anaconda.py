@@ -336,7 +336,7 @@ if __name__ == "__main__":
     from pyanaconda import startup_utils
     from pyanaconda import rescue
     from pyanaconda import geoloc
-    from pyanaconda.core.util import ProxyString, ProxyStringError
+    from pyanaconda.core.payload import ProxyString, ProxyStringError
 
     # Print the usual "startup note" that contains Anaconda version
     # and short usage & bug reporting instructions.

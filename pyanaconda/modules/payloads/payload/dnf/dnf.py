@@ -20,6 +20,7 @@
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -54,11 +55,19 @@ class DNFModule(PayloadBase):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        pass
+        source_type = SourceFactory.get_rpm_type_for_kickstart(data)
+
+        if source_type is None:
+            return
+
+        source = SourceFactory.create_source(source_type)
+        source.process_kickstart(data)
+        self.add_source(source)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        pass
+        for source in self.sources:
+            source.setup_kickstart(data)
 
     def pre_install_with_tasks(self):
         """Execute preparation steps.
