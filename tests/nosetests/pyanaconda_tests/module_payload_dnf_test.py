@@ -49,9 +49,8 @@ class DNFKSTestCase(unittest.TestCase):
 
         # verify sources set
         if expected_source_type is None:
-            self.assertFalse(payload.has_source())
+            self.assertFalse(payload.sources)
         else:
-            self.assertTrue(payload.has_source())
             sources = payload.sources
             self.assertEqual(1, len(sources))
             self.assertEqual(sources[0].type.value, expected_source_type)
