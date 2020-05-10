@@ -27,7 +27,8 @@ from dasbus.typing import get_variant, Str
 from dasbus.error import DBusError
 
 from pyanaconda.core import util
-from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
+    RHSM_SYSPURPOSE_FILE_PATH
 
 from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
     InsightsClientMissingError, SubscriptionTokenTransferError
@@ -39,11 +40,11 @@ from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
 
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask, \
-    TransferSubscriptionTokensTask
+    RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
+
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask
+    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask
 
 
 class ConnectToInsightsTaskTestCase(unittest.TestCase):
@@ -140,20 +141,41 @@ class SystemPurposeConfigurationTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.subscription.system_purpose.give_the_system_purpose")
     def system_purpose_task_test(self, give_the_system_purpose):
-        """Test the SystemPurposeConfigurationTask task."""
-        with tempfile.TemporaryDirectory() as sysroot:
-            system_purpose_data = SystemPurposeData()
-            system_purpose_data.role = "foo"
-            system_purpose_data.sla = "bar"
-            system_purpose_data.usage = "baz"
-            system_purpose_data.addons = ["a", "b", "c"]
-            task = SystemPurposeConfigurationTask(sysroot, system_purpose_data)
-            task.run()
-            give_the_system_purpose.assert_called_once_with(role="foo",
-                                                            sla="bar",
-                                                            usage="baz",
-                                                            addons=["a", "b", "c"],
-                                                            sysroot=sysroot)
+        """Test the SystemPurposeConfigurationTask task - not yet set."""
+        # prepare some system purpose data
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.role = "foo"
+        system_purpose_data.sla = "bar"
+        system_purpose_data.usage = "baz"
+        system_purpose_data.addons = ["a", "b", "c"]
+        task = SystemPurposeConfigurationTask(system_purpose_data)
+        task.run()
+        give_the_system_purpose.assert_called_once_with(sysroot="/",
+                                                        role="foo",
+                                                        sla="bar",
+                                                        usage="baz",
+                                                        addons=["a", "b", "c"])
+
+    @patch("pyanaconda.core.subscription.check_system_purpose_set")
+    @patch("pyanaconda.modules.subscription.system_purpose.give_the_system_purpose")
+    def system_purpose_task_already_set_test(self, give_the_system_purpose, check_set):
+        """Test the SystemPurposeConfigurationTask task - already set."""
+        # The task should still run give_the_system_purpose() even if system purpose
+        # has already been set to make it possible to overwrite or clear existing data.
+        check_set.return_value = True
+        # prepare some system purpose data
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.role = "foo"
+        system_purpose_data.sla = "bar"
+        system_purpose_data.usage = "baz"
+        system_purpose_data.addons = ["a", "b", "c"]
+        task = SystemPurposeConfigurationTask(system_purpose_data)
+        task.run()
+        give_the_system_purpose.assert_called_once_with(sysroot="/",
+                                                        role="foo",
+                                                        sla="bar",
+                                                        usage="baz",
+                                                        addons=["a", "b", "c"])
 
 
 class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
@@ -407,10 +429,10 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
             task._transfer_system_purpose()
             sysroot_path = util.join_paths(
                 sysroot,
-                TransferSubscriptionTokensTask.RHSM_SYSPURPOSE_FILE_PATH
+                RHSM_SYSPURPOSE_FILE_PATH
             )
             task._copy_file.assert_called_once_with(
-                TransferSubscriptionTokensTask.RHSM_SYSPURPOSE_FILE_PATH,
+                RHSM_SYSPURPOSE_FILE_PATH,
                 sysroot_path
             )
 

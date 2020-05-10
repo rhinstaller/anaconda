@@ -35,8 +35,6 @@ class SubscriptionInterface(KickstartModuleInterface):
         super().connect_signals()
         self.watch_property("SystemPurposeData",
                             self.implementation.system_purpose_data_changed)
-        self.watch_property("IsSystemPurposeApplied",
-                            self.implementation.is_system_purpose_applied_changed)
         self.watch_property("SubscriptionRequest",
                             self.implementation.subscription_request_changed)
         self.watch_property("InsightsEnabled",
@@ -90,16 +88,6 @@ class SubscriptionInterface(KickstartModuleInterface):
         """
         converted_data = SystemPurposeData.from_structure(system_purpose_data)
         self.implementation.set_system_purpose_data(converted_data)
-
-    @property
-    def IsSystemPurposeApplied(self) -> Bool:
-        """Report if system purpose data has been applied.
-
-        We don't differentiate between that installation environment and the target system in this
-        case as we will make sure the system purpose data will always end up on the target system
-        if requested by the user, regardless of where it is initially set.
-        """
-        return self.implementation.is_system_purpose_applied
 
     def SetSystemPurposeWithTask(self) -> ObjPath:
         """Set system purpose for the installed system with an installation task.
