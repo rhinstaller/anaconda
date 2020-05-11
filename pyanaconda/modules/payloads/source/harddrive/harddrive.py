@@ -64,6 +64,13 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         """Get description of this source."""
         return "{}:{}".format(self._device, self._directory)
 
+    def __repr__(self):
+        result = "Source(type='HDD', partition='{}', directory='{}')".format(
+            self._device,
+            self.directory,
+        )
+        return result
+
     def get_state(self):
         """Get state of this source."""
         res = os.path.ismount(self._device_mount) and bool(self._install_tree_path)

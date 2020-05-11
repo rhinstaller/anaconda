@@ -41,6 +41,9 @@ class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
         """Get description of this source."""
         return _("Local media")
 
+    def __repr__(self):
+        return "Source(type='CDROM')"
+
     def for_publication(self):
         """Get the interface used to publish this source."""
         return CdromSourceInterface(self)

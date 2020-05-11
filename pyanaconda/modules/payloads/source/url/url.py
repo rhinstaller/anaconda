@@ -69,6 +69,9 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
         """Get description of this source."""
         return self._repo_configuration.url
 
+    def __repr__(self):
+        return "Source(type='URL', url='{}')".format(self._repo_configuration.url)
+
     def for_publication(self):
         """Get the interface used to publish this source."""
         return URLSourceInterface(self)

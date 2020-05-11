@@ -50,6 +50,9 @@ class NFSSourceModule(MountingSourceBase, RPMSourceMixin):
         """Get description of this source."""
         return _("NFS server {}").format(self.url)
 
+    def __repr__(self):
+        return "Source(type='NFS', url='{}')".format(self.url)
+
     def for_publication(self):
         """Return a DBus representation."""
         return NFSSourceInterface(self)
