@@ -93,6 +93,31 @@ class SystemPurposeData(DBusData):
         """
         return any((self.role, self.sla, self.usage, self.addons))
 
+    def __eq__(self, other_instance):
+        """Used to determining if other SystemPurposeData instance has the same data.
+
+        Otherwise we would have to compare all the fields each time we want to check if the
+        two SystemPurposeData instances have the same data.
+
+        :param other_instance: another SystemPurposeData to compare with this one
+        :type other_instance: SystemPurposeData instance
+        :return: True if the other structure has the same system purpose data as this one,
+                 False otherwise
+        :rtype: bool
+        """
+        # addon ordering is not important
+        if set(self.addons) != set(other_instance.addons):
+            return False
+        elif(self.role != other_instance.role):
+            return False
+        elif(self.sla != other_instance.sla):
+            return False
+        elif(self.usage != other_instance.usage):
+            return False
+        else:
+            return True
+
+
 class SubscriptionRequest(DBusData):
     """Data for a subscription request.
 

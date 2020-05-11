@@ -39,10 +39,10 @@ from pyanaconda.modules.subscription.subscription_interface import SubscriptionI
 from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _normalize_field, \
     _match_field, process_field, give_the_system_purpose, SYSPURPOSE_UTILITY_PATH
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    SystemPurposeConfigurationTask, RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
+    RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask
+    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
     PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list, \
@@ -293,6 +293,39 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # compare the result with expected data
         output = self.subscription_interface.SystemPurposeData
         self.assertEqual(output, expected_dict)
+
+    def system_purpose_data_comparison_test(self):
+        """Test SystemPurposeData instance equality comparison."""
+        # This is important as we use the comparison to decide if newly set system purpose data
+        # is different and we should set it to the system or not if it is the same.
+
+        # create the SystemPurposeData structure
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.role = "foo"
+        system_purpose_data.sla = "bar"
+        system_purpose_data.usage = "baz"
+        system_purpose_data.addons = ["a", "b", "c"]
+
+        # create a clone of the structure - new instance same data
+        system_purpose_data_clone = SystemPurposeData()
+        system_purpose_data_clone.role = "foo"
+        system_purpose_data_clone.sla = "bar"
+        system_purpose_data_clone.usage = "baz"
+        system_purpose_data_clone.addons = ["a", "b", "c"]
+
+        # create the SystemPurposeData structure
+        different_system_purpose_data = SystemPurposeData()
+        different_system_purpose_data.role = "different_foo"
+        different_system_purpose_data.sla = "different_bar"
+        different_system_purpose_data.usage = "different_baz"
+        different_system_purpose_data.addons = ["different_a", "different_b", "different_c"]
+
+        # same content should be considered the same
+        self.assertTrue(system_purpose_data == system_purpose_data_clone)
+
+        # different content should not be considered the same
+        self.assertFalse(system_purpose_data == different_system_purpose_data)
+        self.assertFalse(system_purpose_data_clone == different_system_purpose_data)
 
     def system_purpose_data_helper_test(self):
         """Test the SystemPurposeData DBus structure data availability helper method."""
@@ -887,29 +920,6 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # at the end the property should be True
         self.assertTrue(self.subscription_interface.IsSubscriptionAttached)
 
-    def system_purpose_applied_property_test(self):
-        """Test the IsSystemPurposeApplied property."""
-        # should be false by default
-        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
-
-        # this property can't be set by client as it is set as the result of
-        # system purpose to be applied, so we need to call the internal module interface
-        # via a custom setter
-
-        def custom_setter(value):
-            self.subscription_module.set_is_system_purpose_applied(True)
-
-        # check the property is True and the signal was emitted
-        # - we use fake setter as there is no public setter
-        self._check_dbus_property(
-          "IsSystemPurposeApplied",
-          True,
-          setter=custom_setter
-        )
-
-        # at the end the property should be True
-        self.assertTrue(self.subscription_interface.IsSystemPurposeApplied)
-
     @patch_dbus_publish_object
     def set_system_purpose_with_task_test(self, publisher):
         """Test SystemPurposeConfigurationTask creation."""
@@ -935,50 +945,29 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         }
         self.assertEqual(SystemPurposeData.to_structure(data_from_module), expected_dict)
 
-    @patch("pyanaconda.modules.common.task.task.Task.get_result")
-    @patch("pyanaconda.modules.common.task.task.Task.run")
-    @patch_dbus_publish_object
-    def set_system_purpose_with_task_applied_test(self, publisher, mock_run, get_result):
-        """Test system purpose is applied after SystemPurposeConfigurationTask runs."""
-        # simulate successful task run
-        get_result.return_value = True
-        # should be false before the task runs
-        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
-        # run the partially mocked task
-        task = self.subscription_module.set_system_purpose_with_task()
-        task.run()
-        # simulate the task run finishing by triggering the emitted signal manually
-        task.succeeded_signal.emit()
-        # check system purpose is marked as applied
-        self.assertTrue(self.subscription_interface.IsSystemPurposeApplied)
-
-    @patch("pyanaconda.modules.common.task.task.Task.get_result")
-    @patch("pyanaconda.modules.common.task.task.Task.run")
-    @patch_dbus_publish_object
-    def set_system_purpose_with_task_applied_failure_test(self, publisher, mock_run, get_result):
-        """Test system purpose is not applied after SystemPurposeConfigurationTask fails."""
-        # simulate task failure
-        get_result.return_value = False
-        # should be false before the task runs
-        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
-        # run the partially mocked task
-        task = self.subscription_module.set_system_purpose_with_task()
-        task.run()
-        # simulate the task run finishing by triggering the emitted signal manually
-        task.succeeded_signal.emit()
-        # check system purpose is not marked as applied due to the failure
-        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
-
-    @patch("pyanaconda.modules.subscription.installation.SystemPurposeConfigurationTask")
-    def test_apply_syspurpose(self, task):
+    @patch("pyanaconda.modules.subscription.system_purpose.give_the_system_purpose")
+    def test_apply_syspurpose(self, mock_give_purpose):
         """Test applying of system purpose on the installation environment."""
         # The _apply_syspurpose() method is used the apply system purpose data immediately
-        # on the installation environment and is invoked:
-        # - if system purpose data is found in kickstart
-        # - before installation if system purpose data has been input by the user
-        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
+        # on the installation environment.
+        # create some system purpose data
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.role = "foo"
+        system_purpose_data.sla = "bar"
+        system_purpose_data.usage = "baz"
+        system_purpose_data.addons = ["a", "b", "c"]
+        # feed it to the DBus interface
+        self.subscription_interface.SetSystemPurposeData(
+            SystemPurposeData.to_structure(system_purpose_data)
+        )
         self.subscription_module._apply_syspurpose()
-        self.assertTrue(self.subscription_interface.IsSystemPurposeApplied)
+        mock_give_purpose.assert_called_once_with(
+            sysroot="/",
+            role="foo",
+            sla="bar",
+            usage="baz",
+            addons=["a", "b", "c"]
+        )
 
     def get_rhsm_config_defaults_test(self):
         """Test the get_rhsm_config_defaults() method."""
@@ -1034,49 +1023,6 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         requirements = self.subscription_interface.CollectRequirements()
         self.assertEqual(requirements, [])
 
-    def package_requirements_syspurpose_test(self):
-        """Test package requirements - system purpose data available and not applied."""
-        # prepare system purpose data
-        system_purpose_data = SystemPurposeData()
-        system_purpose_data.role = "foo"
-        system_purpose_data.sla = "bar"
-        system_purpose_data.usage = "baz"
-        system_purpose_data.addons = ["a", "b", "c"]
-        # feed it to the DBus interface
-        self.subscription_interface.SetSystemPurposeData(
-            SystemPurposeData.to_structure(system_purpose_data)
-        )
-        # system purpose is no applied by default
-        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
-        # the syspurpose utility should be listed amongst the requirements
-        # as system purpose data is available & not applied
-        requirements = self.subscription_interface.CollectRequirements()
-        expected_requirements = [
-            {"name": "python3-syspurpose",
-             "reason": "Needed for System Purpose configuration.",
-             "type": "package"}
-        ]
-        self.assertEqual(get_native(requirements), expected_requirements)
-
-    def package_requirements_syspurpose_applied_test(self):
-        """Test package requirements - syspurpose data available and but already applied."""
-        # prepare system purpose data
-        system_purpose_data = SystemPurposeData()
-        system_purpose_data.role = "foo"
-        system_purpose_data.sla = "bar"
-        system_purpose_data.usage = "baz"
-        system_purpose_data.addons = ["a", "b", "c"]
-        # feed it to the DBus interface
-        self.subscription_interface.SetSystemPurposeData(
-            SystemPurposeData.to_structure(system_purpose_data)
-        )
-        # mark system purpose as already applied
-        self.subscription_module.set_is_system_purpose_applied(True)
-        # the syspurpose utility should not be listed amongst the requirements
-        # as system purpose data is available & already applied
-        requirements = self.subscription_interface.CollectRequirements()
-        self.assertEqual(requirements, [])
-
     def package_requirements_insights_test(self):
         """Test package requirements - connect to Insights enabled."""
         # enable connect to Insights
@@ -1084,34 +1030,6 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # check the Insights client package is requested
         requirements = self.subscription_interface.CollectRequirements()
         expected_requirements = [
-            {"name": "insights-client",
-             "reason": "Needed to connect the target system to Red Hat Insights.",
-             "type": "package"}
-        ]
-        self.assertEqual(get_native(requirements), expected_requirements)
-
-    def package_requirements_all_test(self):
-        """Test package requirements - all expected packages."""
-        # prepare system purpose data
-        system_purpose_data = SystemPurposeData()
-        system_purpose_data.role = "foo"
-        system_purpose_data.sla = "bar"
-        system_purpose_data.usage = "baz"
-        system_purpose_data.addons = ["a", "b", "c"]
-        # feed it to the DBus interface
-        self.subscription_interface.SetSystemPurposeData(
-            SystemPurposeData.to_structure(system_purpose_data)
-        )
-        # system purpose is no applied by default
-        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)
-        # enable connect to Insights
-        self.subscription_interface.SetInsightsEnabled(True)
-        # both syspurpose and Insights client should be requested
-        requirements = self.subscription_interface.CollectRequirements()
-        expected_requirements = [
-            {"name": "python3-syspurpose",
-             "reason": "Needed for System Purpose configuration.",
-             "type": "package"},
             {"name": "insights-client",
              "reason": "Needed to connect the target system to Red Hat Insights.",
              "type": "package"}
@@ -1555,8 +1473,6 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
                                                   usage="BAZ",
                                                   addons=['F Product', 'B Feature'],
                                                   sysroot="/")
-        # also system purpose should be marked as applied
-        self.assertTrue(self.subscription_interface.IsSystemPurposeApplied)
 
     @patch("pyanaconda.modules.subscription.system_purpose.give_the_system_purpose")
     def ks_no_apply_syspurpose_test(self, mock_give_purpose):
@@ -1570,5 +1486,3 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # the SystemPurposeConfigurationTask should have been called,
         # which calls give_the_system_purpose()
         mock_give_purpose.assert_not_called()
-        # also system purpose should be marked as applied
-        self.assertFalse(self.subscription_interface.IsSystemPurposeApplied)

@@ -464,3 +464,6 @@ DEFAULT_SUBSCRIPTION_REQUEST_TYPE = SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
 # - in seconds
 # - based on the default 90 second systemd service activation timeout
 RHSM_SERVICE_TIMEOUT = 90.0
+
+# Path to the System Purpose configuration file on a system.
+RHSM_SYSPURPOSE_FILE_PATH = "/etc/rhsm/syspurpose/syspurpose.json"

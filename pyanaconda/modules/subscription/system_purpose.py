@@ -22,6 +22,8 @@ import os
 import json
 
 from pyanaconda.core import util
+from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
+from pyanaconda.core.subscription import check_system_purpose_set
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -158,8 +160,8 @@ def _call_syspurpose_tool(sysroot, args):
 def give_the_system_purpose(sysroot, role, sla, usage, addons):
     """Set system purpose for the installed system by calling the syspurpose tool.
 
-    The tool is called in the installed system chroot, so this method can be only
-    called once the system rootfs content is in place.
+    The tool is called in the specified system root, so this method should only
+    be called once the given system root contains the syspurpose utility.
 
     :param str sysroot: system root path
     :param role: role of the system
@@ -170,6 +172,20 @@ def give_the_system_purpose(sysroot, role, sla, usage, addons):
     :type usage: str or None
     :param list addons: any additional layered products or features
     """
+    # first check if system purpose data has already been set
+    if check_system_purpose_set(sysroot):
+        # Remove existing system purpose data.
+        #
+        # This is important, as otherwise it would be both not possible to
+        # clear existing system purpose data if say a user sets all values
+        # to "not specified" in the GUI after setting them to some values
+        # previously. Also due to syspurpose setting one value at a time
+        # one could end up with unwanted hybrid configuration combining
+        # new and old date, if not all fields are set in the most recent
+        # invocation.
+        log.debug("subscription: clearing old system purpose data")
+        syspurpose_path = util.join_paths(sysroot, RHSM_SYSPURPOSE_FILE_PATH)
+        os.remove(syspurpose_path)
 
     if role or sla or usage or addons:
         # using join_paths() as both paths are absolute
@@ -203,9 +219,9 @@ def give_the_system_purpose(sysroot, role, sla, usage, addons):
             log.debug("subscription: system purpose has been set")
             return True
         else:
-            log.error("the syspurpose tool is missing, cannot set system purpose")
+            log.error("subscription: the syspurpose tool is missing, cannot set system purpose")
             return False
     else:
-        log.warning("not calling syspurpose as no fields have been provided")
+        log.warning("subscription: not calling syspurpose as no fields have been provided")
         # doing nothing is still not a failure
         return True

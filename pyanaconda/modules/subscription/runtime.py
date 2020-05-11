@@ -30,6 +30,8 @@ from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     UnregistrationError, SubscriptionError
 
+from pyanaconda.modules.subscription import system_purpose
+
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
@@ -66,6 +68,35 @@ class RHSMPrivateBus(MessageBus):
         # so we will not log it
         log.info("Connecting to the RHSM private DBus session.")
         return self._provider.get_addressed_bus_connection(self._private_bus_address)
+
+
+class SystemPurposeConfigurationTask(Task):
+    """Installation task for setting system purpose."""
+
+    def __init__(self, system_purpose_data):
+        """Create a new system purpose configuration task.
+
+        :param system_purpose_data: system purpose data DBus structure
+        :type system_purpose_data: DBusData instance
+        """
+        super().__init__()
+        self._system_purpose_data = system_purpose_data
+
+    @property
+    def name(self):
+        return "Set system purpose"
+
+    def run(self):
+        # the task is always expected to run in the installation environment
+        # - if existing data is present, it will be cleared and then
+        #   replaced by new data
+        return system_purpose.give_the_system_purpose(
+            sysroot="/",
+            role=self._system_purpose_data.role,
+            sla=self._system_purpose_data.sla,
+            usage=self._system_purpose_data.usage,
+            addons=self._system_purpose_data.addons
+        )
 
 
 class SetRHSMConfigurationTask(Task):
