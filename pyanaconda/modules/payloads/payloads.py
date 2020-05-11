@@ -76,13 +76,6 @@ class PayloadsService(KickstartService):
         self._payload = payload
         log.debug("Payload %s used.", payload.__class__.__name__)
 
-    def is_payload_set(self):
-        """Test if any payload is created and used.
-
-        :rtype: bool
-        """
-        return self._payload is not None
-
     def get_active_payload(self):
         """Get active payload.
 

@@ -41,13 +41,6 @@ class PayloadsInterface(KickstartModuleInterface):
             self.implementation.get_active_payload()
         )
 
-    def IsPayloadSet(self) -> Bool:
-        """Test if any payload is set and used.
-
-        FIXME: This is potentially dangerous and replaceable by GetActivePayload.
-        """
-        return self.implementation.is_payload_set()
-
     def CreatePayload(self, payload_type: Str) -> ObjPath:
         """Create payload and publish it on DBus.
 

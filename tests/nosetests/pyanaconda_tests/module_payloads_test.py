@@ -99,14 +99,6 @@ class PayloadsInterfaceTestCase(TestCase):
             self.payload_interface.GetActivePayload()
 
     @patch_dbus_publish_object
-    def is_payload_set_test(self, publisher):
-        """Test IsPayloadSet API."""
-        self.assertFalse(self.payload_interface.IsPayloadSet())
-
-        self.payload_interface.CreatePayload(PayloadType.DNF.value)
-        self.assertTrue(self.payload_interface.IsPayloadSet())
-
-    @patch_dbus_publish_object
     def create_dnf_payload_test(self, publisher):
         """Test creation and publishing of the DNF payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.DNF.value)
