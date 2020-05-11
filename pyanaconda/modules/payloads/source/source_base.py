@@ -144,3 +144,17 @@ class MountingSourceBase(PayloadSourceBase, ABC):
         """
         task = TearDownMountTask(self._mount_point)
         return [task]
+
+
+class RPMSourceMixin(ABC):
+    """Interface class which has to be implemented by all sources used by DNF payload."""
+
+    @abstractmethod
+    def generate_repo_configuration(self):
+        """Generate RepoConfigurationData structure.
+
+        This structure will be used by DNF payload in the main process.
+
+        FIXME: This is a temporary solution. Will be removed after DNF payload logic is moved.
+        """
+        pass

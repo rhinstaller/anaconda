@@ -18,14 +18,19 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
+from unittest.mock import patch, PropertyMock
 
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
     PayloadKickstartSharedTest
 
+from dasbus.typing import *  # pylint: disable=wildcard-import
+
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
-    SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL
+    SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL
 from pyanaconda.modules.common.errors.payload import PayloadNotSetError
-from pyanaconda.modules.payloads.constants import PayloadType
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
@@ -178,3 +183,110 @@ class DNFInterfaceTestCase(unittest.TestCase):
              SOURCE_TYPE_REPO_FILES,
              SOURCE_TYPE_URL],
             self.interface.SupportedSourceTypes)
+
+    @staticmethod
+    def _generate_expected_repo_configuration_dict(mount_path):
+        return {
+            "name": get_variant(Str, ""),
+            "url": get_variant(Str, mount_path),
+            "type": get_variant(Str, URL_TYPE_BASEURL),
+            "ssl-verification-enabled": get_variant(Bool, True),
+            "ssl-configuration": get_variant(Structure, {
+                "ca-cert-path": get_variant(Str, ""),
+                "client-cert-path": get_variant(Str, ""),
+                "client-key-path": get_variant(Str, "")
+            }),
+            "proxy": get_variant(Str, ""),
+            "cost": get_variant(Int, 1000),
+            "excluded-packages": get_variant(List[Str], []),
+            "included-packages": get_variant(List[Str], [])
+        }
+
+    @patch("pyanaconda.modules.payloads.source.cdrom.cdrom.CdromSourceModule.mount_point",
+           new_callable=PropertyMock)
+    @patch_dbus_publish_object
+    def cdrom_get_repo_configurations_test(self, publisher, mount_point):
+        """Test DNF GetRepoConfigurations for CDROM source."""
+        mount_point.return_value = "/install_source/cdrom"
+        source = self.shared_tests.prepare_source(SourceType.CDROM)
+
+        self.shared_tests.set_sources([source])
+
+        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/cdrom")]
+
+        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+
+    @patch("pyanaconda.modules.payloads.source.hmc.hmc.HMCSourceModule.mount_point",
+           new_callable=PropertyMock)
+    @patch_dbus_publish_object
+    def hmc_get_repo_configurations_test(self, publisher, mount_point):
+        """Test DNF GetRepoConfigurations for CDROM source."""
+        mount_point.return_value = "/install_source/hmc"
+        source = self.shared_tests.prepare_source(SourceType.HMC)
+
+        self.shared_tests.set_sources([source])
+
+        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/hmc")]
+
+        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+
+    @patch("pyanaconda.modules.payloads.source.nfs.nfs.NFSSourceModule.mount_point",
+           new_callable=PropertyMock)
+    @patch_dbus_publish_object
+    def nfs_get_repo_configurations_test(self, publisher, mount_point):
+        """Test DNF GetRepoConfigurations for NFS source."""
+        mount_point.return_value = "/install_source/nfs"
+        source = self.shared_tests.prepare_source(SourceType.NFS)
+
+        self.shared_tests.set_sources([source])
+
+        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/nfs")]
+
+        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+
+    @patch("pyanaconda.modules.payloads.source.harddrive.harddrive.HardDriveSourceModule.install_tree_path",
+           new_callable=PropertyMock)
+    @patch_dbus_publish_object
+    def harddrive_get_repo_configurations_test(self, publisher, mount_point):
+        """Test DNF GetRepoConfigurations for HARDDRIVE source."""
+        mount_point.return_value = "/install_source/harddrive"
+        source = self.shared_tests.prepare_source(SourceType.HDD)
+
+        self.shared_tests.set_sources([source])
+
+        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/harddrive")]
+
+        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+
+    @patch_dbus_publish_object
+    def url_get_repo_configurations_test(self, publisher):
+        """Test DNF GetRepoConfigurations for URL source."""
+        source = self.shared_tests.prepare_source(SourceType.URL)
+
+        data = RepoConfigurationData()
+        data.name = "Bernard Black"
+        data.url = "http://library.uk"
+        data.ssl_verification_enabled = False
+        data.proxy = "http://MannyBianco/"
+
+        source.set_repo_configuration(data)
+
+        self.shared_tests.set_sources([source])
+
+        expected = [{
+            "name": get_variant(Str, "Bernard Black"),
+            "url": get_variant(Str, "http://library.uk"),
+            "type": get_variant(Str, URL_TYPE_BASEURL),
+            "ssl-verification-enabled": get_variant(Bool, False),
+            "ssl-configuration": get_variant(Structure, {
+                "ca-cert-path": get_variant(Str, ""),
+                "client-cert-path": get_variant(Str, ""),
+                "client-key-path": get_variant(Str, "")
+            }),
+            "proxy": get_variant(Str, "http://MannyBianco/"),
+            "cost": get_variant(Int, 1000),
+            "excluded-packages": get_variant(List[Str], []),
+            "included-packages": get_variant(List[Str], [])
+        }]
+
+        self.assertEqual(self.interface.GetRepoConfigurations(), expected)

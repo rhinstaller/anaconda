@@ -18,11 +18,22 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
 
 
 @dbus_interface(PAYLOAD_DNF.interface_name)
 class DNFInterface(PayloadBaseInterface):
     """DBus interface for DNF payload module."""
+
+    def GetRepoConfigurations(self) -> List[Structure]:
+        """Get RepoConfigurationData structures for all attached sources.
+
+        FIXME: This is a temporary solution. Will be removed after DNF payload logic is moved.
+        """
+        return RepoConfigurationData.to_structure_list(
+            self.implementation.get_repo_configurations()
+        )

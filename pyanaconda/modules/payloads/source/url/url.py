@@ -24,14 +24,14 @@ from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, URLType, SourceState
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class URLSourceModule(PayloadSourceBase):
+class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
     """The URL source payload module."""
 
     REPO_NAME_ID = 0
@@ -112,6 +112,10 @@ class URLSourceModule(PayloadSourceBase):
         data.url.sslclientkey = self.repo_configuration.ssl_configuration.client_key_path
 
         data.url.seen = True
+
+    def generate_repo_configuration(self):
+        """Generate RepoConfigurationData structure."""
+        return self.repo_configuration
 
     def set_up_with_tasks(self):
         """Set up the installation source.

@@ -20,10 +20,11 @@
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import create_nfs_url, parse_nfs_url
 from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
-from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
+from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -31,7 +32,7 @@ log = get_module_logger(__name__)
 __all__ = ["NFSSourceModule"]
 
 
-class NFSSourceModule(MountingSourceBase):
+class NFSSourceModule(MountingSourceBase, RPMSourceMixin):
     """The NFS source module."""
 
     def __init__(self):
@@ -66,6 +67,10 @@ class NFSSourceModule(MountingSourceBase):
         data.nfs.dir = path
         data.nfs.opts = opts
         data.nfs.seen = True
+
+    def generate_repo_configuration(self):
+        """Generate RepoConfigurationData structure."""
+        return RepoConfigurationData.from_directory(self.mount_point)
 
     @property
     def url(self):

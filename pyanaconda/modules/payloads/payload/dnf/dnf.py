@@ -69,6 +69,23 @@ class DNFModule(PayloadBase):
         for source in self.sources:
             source.setup_kickstart(data)
 
+    def get_repo_configurations(self):
+        """Get RepoConfiguration structures for all sources.
+
+        These structures will be used by DNF payload in the main process.
+
+        FIXME: This is a temporary solution. Will be removed after DNF payload logic is moved.
+
+        :return: RepoConfiguration structures for attached sources.
+        :rtype: RepoConfigurationData instances
+        """
+        structures = []
+
+        for source in self.sources:
+            structures.append(source.generate_repo_configuration())
+
+        return structures
+
     def pre_install_with_tasks(self):
         """Execute preparation steps.
 

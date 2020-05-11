@@ -24,8 +24,9 @@ from pykickstart.errors import KickstartParseError
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
     HardDriveSourceInterface
@@ -35,7 +36,7 @@ from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 log = get_module_logger(__name__)
 
 
-class HardDriveSourceModule(PayloadSourceBase):
+class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
     """The Hard drive source payload module."""
 
     def __init__(self):
@@ -86,6 +87,10 @@ class HardDriveSourceModule(PayloadSourceBase):
     def for_publication(self):
         """Get the interface used to publish this source."""
         return HardDriveSourceInterface(self)
+
+    def generate_repo_configuration(self):
+        """Generate RepoConfigurationData structure."""
+        return RepoConfigurationData.from_directory(self.install_tree_path)
 
     @property
     def directory(self):
