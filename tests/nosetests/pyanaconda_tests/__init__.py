@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from collections import defaultdict
+
 import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
@@ -244,6 +246,36 @@ def patch_dbus_get_proxy(func):
     This is a shortcut to avoid creating of DBus proxies using DBus.
     """
     return patch('pyanaconda.core.dbus.DBus.get_proxy')(func)
+
+
+def patch_dbus_get_proxy_with_cache(func):
+    """Patch DBus proxies with a cache.
+
+    This decorator will patch the get_proxy method of the DBus class.
+    The patched method will create and return an instance of Mock for
+    the given service name and object path and keep it in a cache for
+    next use. It will return the same instance of Mock for the same
+    arguments.
+
+    It means that you can use DBus identifiers to set up the state of
+    DBus modules or to check the current state. It is useful for testing
+    functions that manipulate with multiple DBus objects.
+
+    For example:
+
+        network = NETWORK.get_proxy()
+        network.Connected.return_value = True
+
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        bootloader.IsPasswordSet = False
+
+    """
+    proxies = defaultdict(Mock)
+
+    def mock_get(service_name, object_path):
+        return proxies[(service_name, object_path)]
+
+    return patch('pyanaconda.core.dbus.DBus.get_proxy', side_effect=mock_get)(func)
 
 
 class reset_boot_loader_factory(ContextDecorator):
