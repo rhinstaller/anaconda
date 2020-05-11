@@ -48,7 +48,6 @@ class DNFKSTestCase(unittest.TestCase):
 
     def _check_properties(self, expected_source_type):
         payload = self.shared_ks_tests.get_payload()
-
         self.assertIsInstance(payload, DNFModule)
 
         # verify sources set
@@ -107,7 +106,7 @@ class DNFKSTestCase(unittest.TestCase):
         """
         # One publisher call because the biospart support is decided in the harddrive source
         self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=1)
-        self._check_properties(None)
+        self.assertEqual(self.interface.ActivePayload, "")
 
     def nfs_kickstart_test(self):
         ks_in = """

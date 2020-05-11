@@ -85,11 +85,11 @@ class PayloadsService(KickstartService):
         """
         return self._active_payload
 
-    def set_payload(self, payload):
-        """Set payload."""
+    def activate_payload(self, payload):
+        """Activate the payload."""
         self._active_payload = payload
         self.active_payload_changed.emit()
-        log.debug("Payload %s used.", payload.__class__.__name__)
+        log.debug("Activated the payload %s.", payload.type)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -99,6 +99,7 @@ class PayloadsService(KickstartService):
         if payload_type:
             payload_module = self.create_payload(payload_type)
             payload_module.process_kickstart(data)
+            self.activate_payload(payload_module)
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
@@ -125,7 +126,6 @@ class PayloadsService(KickstartService):
         """
         payload = PayloadFactory.create_payload(payload_type)
         self._add_created_payload(payload)
-        self.set_payload(payload)
         return payload
 
     def create_source(self, source_type):

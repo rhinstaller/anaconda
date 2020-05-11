@@ -99,7 +99,10 @@ class PayloadsInterfaceTestCase(TestCase):
         """Test creation and publishing of the DNF payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.DNF.value)
         self.assertEqual(self.payload_interface.CreatedPayloads, [payload_path])
+
+        self.payload_interface.ActivatePayload(payload_path)
         self.assertEqual(self.payload_interface.ActivePayload, payload_path)
+
         self.assertIsInstance(PayloadContainer.from_object_path(payload_path), DNFModule)
         publisher.assert_called_once()
 
@@ -108,7 +111,10 @@ class PayloadsInterfaceTestCase(TestCase):
         """Test creation and publishing of the Live OS payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
         self.assertEqual(self.payload_interface.CreatedPayloads, [payload_path])
+
+        self.payload_interface.ActivatePayload(payload_path)
         self.assertEqual(self.payload_interface.ActivePayload, payload_path)
+
         self.assertIsInstance(PayloadContainer.from_object_path(payload_path), LiveOSModule)
         publisher.assert_called_once()
 
@@ -117,7 +123,10 @@ class PayloadsInterfaceTestCase(TestCase):
         """Test creation and publishing of the Live image payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.LIVE_IMAGE.value)
         self.assertEqual(self.payload_interface.CreatedPayloads, [payload_path])
+
+        self.payload_interface.ActivatePayload(payload_path)
         self.assertEqual(self.payload_interface.ActivePayload, payload_path)
+
         self.assertIsInstance(PayloadContainer.from_object_path(payload_path), LiveImageModule)
         publisher.assert_called_once()
 
@@ -132,12 +141,18 @@ class PayloadsInterfaceTestCase(TestCase):
         """Test creating two payloads."""
         path_1 = self.payload_interface.CreatePayload(PayloadType.DNF.value)
         self.assertEqual(self.payload_interface.CreatedPayloads, [path_1])
+        self.assertEqual(self.payload_interface.ActivePayload, "")
 
         path_2 = self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
         self.assertEqual(self.payload_interface.CreatedPayloads, [path_1, path_2])
+        self.assertEqual(self.payload_interface.ActivePayload, "")
 
-        # The last one should win
+        self.payload_interface.ActivatePayload(path_1)
+        self.assertEqual(self.payload_interface.ActivePayload, path_1)
+
+        self.payload_interface.ActivatePayload(path_2)
         self.assertEqual(self.payload_interface.ActivePayload, path_2)
+
         self.assertEqual(publisher.call_count, 2)
 
     @patch_dbus_publish_object

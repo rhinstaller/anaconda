@@ -60,6 +60,16 @@ class PayloadsInterface(KickstartModuleInterface):
             self.implementation.created_payloads
         )
 
+    @emits_properties_changed
+    def ActivatePayload(self, payload: ObjPath):
+        """Activate the payload.
+
+        :param payload: a path to a payload
+        """
+        self.implementation.activate_payload(
+            PayloadContainer.from_object_path(payload)
+        )
+
     @property
     def ActivePayload(self) -> Str:
         """The active payload.
