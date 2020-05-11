@@ -285,6 +285,10 @@ class DeviceFactoryRequest(DBusData):
         self.container_name = ""
         self.container_size_policy = 0
         self.container_raid_level = ""
+
+        if self.container_encrypted:
+            self.luks_version = ""
+
         self.container_encrypted = False
 
 
