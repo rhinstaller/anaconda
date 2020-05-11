@@ -37,6 +37,9 @@ class PayloadsService(KickstartService):
 
     def __init__(self):
         super().__init__()
+        self._created_payloads = []
+        self.created_payloads_changed = Signal()
+
         self._active_payload = None
         self.active_payload_changed = Signal()
 
@@ -55,6 +58,17 @@ class PayloadsService(KickstartService):
     def kickstart_specification(self):
         """Return the kickstart specification."""
         return PayloadKickstartSpecification
+
+    @property
+    def created_payloads(self):
+        """List of all created payload modules."""
+        return self._created_payloads
+
+    def _add_created_payload(self, module):
+        """Add a created payload module."""
+        self._created_payloads.append(module)
+        self.created_payloads_changed.emit(module)
+        log.debug("Created the payload %s.", module.type)
 
     @property
     def active_payload(self):
@@ -110,6 +124,7 @@ class PayloadsService(KickstartService):
         :type payload_type: value of the payload.base.constants.PayloadType enum
         """
         payload = PayloadFactory.create_payload(payload_type)
+        self._add_created_payload(payload)
         self.set_payload(payload)
         return payload
 

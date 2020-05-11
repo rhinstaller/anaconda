@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.base import KickstartModuleInterface
@@ -33,8 +34,10 @@ class PayloadsInterface(KickstartModuleInterface):
     def connect_signals(self):
         """Connect the signals."""
         super().connect_signals()
+        self.watch_property("CreatedPayloads", self.implementation.created_payloads_changed)
         self.watch_property("ActivePayload", self.implementation.active_payload_changed)
 
+    @emits_properties_changed
     def CreatePayload(self, payload_type: Str) -> ObjPath:
         """Create payload and publish it on DBus.
 
@@ -45,6 +48,16 @@ class PayloadsInterface(KickstartModuleInterface):
         """
         return PayloadContainer.to_object_path(
             self.implementation.create_payload(PayloadType(payload_type))
+        )
+
+    @property
+    def CreatedPayloads(self) -> List[ObjPath]:
+        """List of all created payload modules.
+
+        :return: a list of DBus paths
+        """
+        return PayloadContainer.to_object_path_list(
+            self.implementation.created_payloads
         )
 
     @property
