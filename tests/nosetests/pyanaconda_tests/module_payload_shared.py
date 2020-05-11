@@ -61,7 +61,7 @@ class PayloadKickstartSharedTest(object):
 
     def get_payload(self):
         """Get payload created."""
-        return self.payload_service.payload
+        return self.payload_service.active_payload
 
 
 class PayloadSharedTest(object):

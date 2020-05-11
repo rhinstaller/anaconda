@@ -29,8 +29,7 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_db
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadKickstartSharedTest
 
 from pyanaconda.modules.common.containers import PayloadContainer
-from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError, \
-    PayloadNotSetError
+from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_blacklist, \
@@ -84,8 +83,7 @@ class PayloadsInterfaceTestCase(TestCase):
 
     def no_payload_set_test(self):
         """Test empty string is returned when no payload is set."""
-        with self.assertRaises(PayloadNotSetError):
-            self.payload_interface.GetActivePayload()
+        self.assertEqual(self.payload_interface.ActivePayload, "")
 
     def generate_kickstart_without_payload_test(self):
         """Test kickstart parsing without payload set."""
@@ -94,15 +92,13 @@ class PayloadsInterfaceTestCase(TestCase):
     def process_kickstart_with_no_payload_test(self):
         """Test kickstart processing when no payload set or created based on KS data."""
         self.payload_interface.ReadKickstart("")
-
-        with self.assertRaises(PayloadNotSetError):
-            self.payload_interface.GetActivePayload()
+        self.assertEqual(self.payload_interface.ActivePayload, "")
 
     @patch_dbus_publish_object
     def create_dnf_payload_test(self, publisher):
         """Test creation and publishing of the DNF payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.DNF.value)
-        self.assertEqual(self.payload_interface.GetActivePayload(), payload_path)
+        self.assertEqual(self.payload_interface.ActivePayload, payload_path)
         self.assertIsInstance(PayloadContainer.from_object_path(payload_path), DNFModule)
         publisher.assert_called_once()
 
@@ -110,7 +106,7 @@ class PayloadsInterfaceTestCase(TestCase):
     def create_live_os_payload_test(self, publisher):
         """Test creation and publishing of the Live OS payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
-        self.assertEqual(self.payload_interface.GetActivePayload(), payload_path)
+        self.assertEqual(self.payload_interface.ActivePayload, payload_path)
         self.assertIsInstance(PayloadContainer.from_object_path(payload_path), LiveOSModule)
         publisher.assert_called_once()
 
@@ -118,7 +114,7 @@ class PayloadsInterfaceTestCase(TestCase):
     def create_live_image_payload_test(self, publisher):
         """Test creation and publishing of the Live image payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.LIVE_IMAGE.value)
-        self.assertEqual(self.payload_interface.GetActivePayload(), payload_path)
+        self.assertEqual(self.payload_interface.ActivePayload, payload_path)
         self.assertIsInstance(PayloadContainer.from_object_path(payload_path), LiveImageModule)
         publisher.assert_called_once()
 
@@ -135,7 +131,7 @@ class PayloadsInterfaceTestCase(TestCase):
         path = self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
 
         # The last one should win
-        self.assertEqual(self.payload_interface.GetActivePayload(), path)
+        self.assertEqual(self.payload_interface.ActivePayload, path)
         self.assertEqual(publisher.call_count, 2)
 
     @patch_dbus_publish_object

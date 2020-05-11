@@ -18,10 +18,10 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.modules.common.containers import TaskContainer, PayloadContainer
-from pyanaconda.modules.common.errors.payload import PayloadNotSetError
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
@@ -37,7 +37,8 @@ class PayloadsService(KickstartService):
 
     def __init__(self):
         super().__init__()
-        self._payload = None
+        self._active_payload = None
+        self.active_payload_changed = Signal()
 
         self._packages = PackagesModule()
 
@@ -56,8 +57,8 @@ class PayloadsService(KickstartService):
         return PayloadKickstartSpecification
 
     @property
-    def payload(self):
-        """Get payload.
+    def active_payload(self):
+        """The active payload.
 
         Payloads are handling the installation process.
 
@@ -65,26 +66,16 @@ class PayloadsService(KickstartService):
                Could it be SetPayloads() and using this list to set order of payload installation?
 
         There are a few types of payloads e.g.: DNF, LiveImage...
+
+        :return: a payload module or None
         """
-        if self._payload is None:
-            raise PayloadNotSetError()
-        else:
-            return self._payload
+        return self._active_payload
 
     def set_payload(self, payload):
         """Set payload."""
-        self._payload = payload
+        self._active_payload = payload
+        self.active_payload_changed.emit()
         log.debug("Payload %s used.", payload.__class__.__name__)
-
-    def get_active_payload(self):
-        """Get active payload.
-
-        FIXME: Merge get_active_payload and payload property. They are doing the same.
-
-        :rtype: instance of active payload
-        :raise: PayloadNotSetError if no payload is set
-        """
-        return self.payload
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -94,9 +85,6 @@ class PayloadsService(KickstartService):
         if payload_type:
             payload_module = self.create_payload(payload_type)
             payload_module.process_kickstart(data)
-
-            # FIXME: This is a temporary workaround.
-            PayloadContainer.to_object_path(payload_module)
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
@@ -110,11 +98,8 @@ class PayloadsService(KickstartService):
         log.debug("Generating temporary kickstart data...")
         data = self.get_kickstart_handler()
 
-        try:
-            self.payload.setup_kickstart(data)
-        except PayloadNotSetError:
-            log.warning("Generating kickstart data without payload set - data will be empty!")
-            return ""
+        if self.active_payload:
+            self.active_payload.setup_kickstart(data)
 
         return str(data)
 
