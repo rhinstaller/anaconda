@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from .base import UITestCase
+from tests.gui.base import UITestCase
 
 class NetworkTestCase(UITestCase):
     def check_hostname_entry(self, spoke):
