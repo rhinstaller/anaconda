@@ -88,8 +88,9 @@ class BootLoaderError(Exception):
     pass
 
 
-class Arguments(OrderedSet):
+class Arguments(OrderedSet):  # pylint: disable=duplicate-bases
     """An ordered set of arguments."""
+    # FIXME: the pylint pragma is needed since 2.5.0 for unclear reasons
 
     def _merge_ip(self):
         """Find ip= arguments targeting the same interface and merge them."""
