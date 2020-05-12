@@ -351,7 +351,7 @@ class AttachSubscriptionTask(Task):
         log.debug("subscription: auto-attaching a subscription")
         try:
             locale = os.environ.get("LANG", "")
-            result = self._rhsm_attach_proxy.AutoAttach(self._sla, {}, locale)
+            self._rhsm_attach_proxy.AutoAttach(self._sla, {}, locale)
             log.debug("subscription: auto-attached a subscription")
         except DBusError as e:
             log.debug("subscription: auto-attach failed: %s", str(e))
