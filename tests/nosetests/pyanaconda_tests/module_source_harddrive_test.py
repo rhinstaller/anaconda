@@ -138,7 +138,7 @@ class HardDriveSourceTestCase(unittest.TestCase):
         self.module._handle_setup_task_result(task)
 
         self.assertEqual(self.module.install_tree_path, iso_mount_location)
-        self.assertEqual(self.module._iso_name, "iso_name.iso")
+        self.assertEqual(self.module.is_iso_mounted, True)
 
 
 class HardDriveSourceSetupTaskTestCase(unittest.TestCase):

@@ -55,6 +55,11 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         self._iso_name = ""
 
     @property
+    def is_iso_mounted(self):
+        """Is ISO file mounted from set up task?"""
+        return bool(self._iso_name)
+
+    @property
     def type(self):
         """Get type of this source."""
         return SourceType.HDD
@@ -160,7 +165,7 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         :rtype: [Task]
         """
         tasks = []
-        if self._iso_name:
+        if self.is_iso_mounted:
             tasks.append(TearDownMountTask(self._iso_mount))
         tasks.append(TearDownMountTask(self._device_mount))
         return tasks
