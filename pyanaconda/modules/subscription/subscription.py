@@ -37,7 +37,7 @@ from pyanaconda.core.dbus import DBus
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_REGISTER_SERVER, \
-    RHSM_UNREGISTER, RHSM_ATTACH
+    RHSM_UNREGISTER, RHSM_ATTACH, RHSM_ENTITLEMENT, RHSM_SYSPURPOSE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 
@@ -49,7 +49,8 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask
+    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
+    ParseAttachedSubscriptionsTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
 
 
@@ -80,6 +81,10 @@ class SubscriptionService(KickstartService):
 
         self._subscription_request = SubscriptionRequest()
         self.subscription_request_changed = Signal()
+
+        # attached subscriptions
+        self._attached_subscriptions = []
+        self.attached_subscriptions_changed = Signal()
 
         # Insights
 
@@ -355,6 +360,32 @@ class SubscriptionService(KickstartService):
         self.subscription_request_changed.emit()
         log.debug("A subscription request set: %s", str(self._subscription_request))
 
+    @property
+    def attached_subscriptions(self):
+        """A list of attached subscriptions.
+
+        The list holds DBus structures with each structure holding information about
+        one attached subscription. A system that has been successfully registered and
+        subscribed usually has one or more subscriptions attached.
+
+        :return: list of DBus structures, one per attached subscription
+        :rtype: list of AttachedSubscription instances
+        """
+        return self._attached_subscriptions
+
+    def set_attached_subscriptions(self, attached_subscriptions):
+        """Set the list of attached subscriptions.
+
+        :param attached_subscriptions: list of attached subscriptions to be set
+        :type attached_subscriptions: list of AttachedSubscription instances
+        """
+        self._attached_subscriptions = attached_subscriptions
+        self.attached_subscriptions_changed.emit()
+        # as there is no public setter in the DBus API, we need to emit
+        # the properties changed signal here manually
+        self.module_properties_changed.emit()
+        log.debug("Attached subscriptions set: %s", str(self._attached_subscriptions))
+
     def _replace_current_subscription_request(self, new_request):
         """Replace current subscription request without loosing sensitive data.
 
@@ -572,6 +603,9 @@ class SubscriptionService(KickstartService):
         # so set the corresponding property appropriately
         task.succeeded_signal.connect(
             lambda: self.set_subscription_attached(False))
+        # and clear attached subscriptions
+        task.succeeded_signal.connect(
+            lambda: self.set_attached_subscriptions([]))
         return task
 
     def attach_subscription_with_task(self):
@@ -590,6 +624,33 @@ class SubscriptionService(KickstartService):
         # if the task succeeds, it means a subscription has been attached
         task.succeeded_signal.connect(
             lambda: self.set_subscription_attached(True))
+        return task
+
+    def _set_system_subscription_data(self, system_subscription_data):
+        """A helper method invoked in ParseAttachedSubscritionsTask completed signal.
+
+        :param system_subscription_data: a named tuple holding attached subscriptions
+                                         and final system purpose data
+        """
+        self.set_attached_subscriptions(system_subscription_data.attached_subscriptions)
+        self.set_system_purpose_data(system_subscription_data.system_purpose_data)
+
+    def parse_attached_subscriptions_with_task(self):
+        """Parse attached subscriptions with task.
+
+        Parse data about attached subscriptions and final system purpose data.
+        This data is available as JSON strings via the RHSM DBus API.
+
+        :return: a DBus path of an installation task
+        """
+        rhsm_entitlement_proxy = self.rhsm_observer.get_proxy(RHSM_ENTITLEMENT)
+        rhsm_syspurpose_proxy = self.rhsm_observer.get_proxy(RHSM_SYSPURPOSE)
+        task = ParseAttachedSubscriptionsTask(rhsm_entitlement_proxy=rhsm_entitlement_proxy,
+                                              rhsm_syspurpose_proxy=rhsm_syspurpose_proxy)
+        # if the task succeeds, set attached subscriptions and system purpose data
+        task.succeeded_signal.connect(
+            lambda: self._set_system_subscription_data(task.get_result())
+        )
         return task
 
     def collect_requirements(self):

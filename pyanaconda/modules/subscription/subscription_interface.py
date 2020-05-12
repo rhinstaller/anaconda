@@ -20,7 +20,7 @@
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest
+    SubscriptionRequest, AttachedSubscription
 from pyanaconda.modules.common.containers import TaskContainer
 from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
@@ -37,6 +37,8 @@ class SubscriptionInterface(KickstartModuleInterface):
                             self.implementation.system_purpose_data_changed)
         self.watch_property("SubscriptionRequest",
                             self.implementation.subscription_request_changed)
+        self.watch_property("AttachedSubscriptions",
+                            self.implementation.attached_subscriptions_changed)
         self.watch_property("InsightsEnabled",
                             self.implementation.connect_to_insights_changed)
         self.watch_property("IsSubscriptionAttached",
@@ -116,6 +118,13 @@ class SubscriptionInterface(KickstartModuleInterface):
         self.implementation.set_subscription_request(converted_data)
 
     @property
+    def AttachedSubscriptions(self) -> List[Structure]:
+        """Return a list of DBus structures holding data about attached subscriptions."""
+        return AttachedSubscription.to_structure_list(
+            self.implementation.attached_subscriptions
+        )
+
+    @property
     def InsightsEnabled(self) -> Int:
         """Connect the target system to Red Hat Insights."""
         return self.implementation.connect_to_insights
@@ -176,4 +185,13 @@ class SubscriptionInterface(KickstartModuleInterface):
         """
         return TaskContainer.to_object_path(
             self.implementation.attach_subscription_with_task()
+        )
+
+    def ParseAttachedSubscritionsWithTask(self) -> ObjPath:
+        """Parse attached subscriptions using a runtime DBus task.
+
+        :return: a DBus path of an installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.parse_attached_subscriptions_with_task()
         )

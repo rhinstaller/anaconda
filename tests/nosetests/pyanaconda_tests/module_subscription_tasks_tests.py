@@ -19,11 +19,12 @@
 #
 import os
 import unittest
+import json
 from unittest.mock import patch, Mock, call
 
 import tempfile
 
-from dasbus.typing import get_variant, Str
+from dasbus.typing import get_variant, get_native, Str
 from dasbus.error import DBusError
 
 from pyanaconda.core import util
@@ -35,7 +36,7 @@ from pyanaconda.modules.common.errors.installation import InsightsConnectError, 
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     SubscriptionError
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest
+    SubscriptionRequest, AttachedSubscription
 from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
 
@@ -44,7 +45,8 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
 
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask
+    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
+    ParseAttachedSubscriptionsTask
 
 
 class ConnectToInsightsTaskTestCase(unittest.TestCase):
@@ -726,3 +728,157 @@ class AttachSubscriptionTaskTestCase(unittest.TestCase):
         rhsm_attach_proxy.AutoAttach.assert_called_once_with("foo_sla",
                                                              {},
                                                              "en_US.UTF-8")
+
+
+class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
+    """Test the attached subscription parsing task."""
+
+    def pretty_date_test(self):
+        """Test the pretty date method of ParseAttachedSubscriptionsTask."""
+        pretty_date_method = ParseAttachedSubscriptionsTask._pretty_date
+        # the method expects short mm/dd/yy dates
+        self.assertEqual(pretty_date_method("12/22/15"), "Dec 22, 2015")
+        # returns the input if parsing fails
+        ambiguous_date = "noon of the twenty first century"
+        self.assertEqual(pretty_date_method(ambiguous_date), ambiguous_date)
+
+    def subscription_json_parsing_test(self):
+        """Test the subscription JSON parsing method of ParseAttachedSubscriptionsTask."""
+        parse_method = ParseAttachedSubscriptionsTask._parse_subscription_json
+        # the method should be able to survive the RHSM DBus API returning an empty string,
+        # as empty list of subscriptions is a lesser issue than crashed installation
+        self.assertEqual(parse_method(""), [])
+        # try parsing a json file containing two subscriptions
+        # - to make this look sane, we write it as a dict that we then convert to JSON
+        subscription_dict = {
+            "consumed": [
+                {
+                    "subscription_name": "Foo Bar Beta",
+                    "service_level": "very good",
+                    "sku": "ABC1234",
+                    "contract": "12345678",
+                    "starts": "05/12/20",
+                    "ends": "05/12/21",
+                    "quantity_used": "1"
+                },
+                {
+                    "subscription_name": "Foo Bar Beta NG",
+                    "service_level": "even better",
+                    "sku": "ABC4321",
+                    "contract": "87654321",
+                    "starts": "now",
+                    "ends": "never",
+                    "quantity_used": "1000"
+                }
+            ]
+
+        }
+        subscription_json = json.dumps(subscription_dict)
+        expected_structs = [
+            {
+                "name": "Foo Bar Beta",
+                "service-level": "very good",
+                "sku": "ABC1234",
+                "contract": "12345678",
+                "start-date": "May 12, 2020",
+                "end-date": "May 12, 2021",
+                "consumed-entitlement-count": 1
+            },
+            {
+                "name": "Foo Bar Beta NG",
+                "service-level": "even better",
+                "sku": "ABC4321",
+                "contract": "87654321",
+                "start-date": "now",
+                "end-date": "never",
+                "consumed-entitlement-count": 1000
+            }
+        ]
+        structs = get_native(
+            AttachedSubscription.to_structure_list(parse_method(subscription_json))
+        )
+        # check the content of the AttachedSubscription corresponds to the input JSON,
+        # including date formatting
+        self.assertEqual(structs, expected_structs)
+
+    def system_purpose_json_parsing_test(self):
+        """Test the system purpose JSON parsing method of ParseAttachedSubscriptionsTask."""
+        parse_method = ParseAttachedSubscriptionsTask._parse_system_purpose_json
+        # the parsing method should be able to survive also getting an empty string
+        expected_struct = {
+            "role": "",
+            "sla": "",
+            "usage": "",
+            "addons": []
+        }
+        struct = get_native(
+            SystemPurposeData.to_structure(parse_method(""))
+        )
+        self.assertEqual(struct, expected_struct)
+        # try parsing expected complete system purpose data
+        system_purpose_dict = {
+            "role": "important",
+            "service_level_agreement": "it will work just fine",
+            "usage": "careful",
+            "addons": ["red", "green", "blue"]
+        }
+        system_purpose_json = json.dumps(system_purpose_dict)
+        expected_struct = {
+            "role": "important",
+            "sla": "it will work just fine",
+            "usage": "careful",
+            "addons": ["red", "green", "blue"]
+        }
+        struct = get_native(
+            SystemPurposeData.to_structure(parse_method(system_purpose_json))
+        )
+        self.assertEqual(struct, expected_struct)
+        # try also partial parsing, just in case
+        system_purpose_dict = {
+            "role": "important",
+            "usage": "careful",
+        }
+        system_purpose_json = json.dumps(system_purpose_dict)
+        expected_struct = {
+            "role": "important",
+            "sla": "",
+            "usage": "careful",
+            "addons": []
+        }
+        struct = get_native(
+            SystemPurposeData.to_structure(parse_method(system_purpose_json))
+        )
+        self.assertEqual(struct, expected_struct)
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def attach_subscription_task_success_test(self, environ_get):
+        """Test the ParseAttachedSubscriptionsTask."""
+        # prepare mock proxies the task is expected to interact with
+        rhsm_entitlement_proxy = Mock()
+        rhsm_entitlement_proxy.GetPools.return_value = "foo"
+        rhsm_syspurpose_proxy = Mock()
+        rhsm_syspurpose_proxy.GetSyspurpose.return_value = "bar"
+        task = ParseAttachedSubscriptionsTask(rhsm_entitlement_proxy=rhsm_entitlement_proxy,
+                                              rhsm_syspurpose_proxy=rhsm_syspurpose_proxy)
+        # mock the parsing methods
+        subscription1 = AttachedSubscription()
+        subscription2 = AttachedSubscription()
+        task._parse_subscription_json = Mock()
+        task._parse_subscription_json.return_value = [subscription1, subscription2]
+        system_purpose_data = SystemPurposeData()
+        task._parse_system_purpose_json = Mock()
+        task._parse_system_purpose_json.return_value = system_purpose_data
+        # run the task
+        result = task.run()
+        # check DBus proxies were called as expected
+        rhsm_entitlement_proxy.GetPools.assert_called_once_with({'pool_subsets':
+                                                                get_variant(Str, "consumed")},
+                                                                {},
+                                                                "en_US.UTF-8")
+        rhsm_syspurpose_proxy.GetSyspurpose.assert_called_once_with("en_US.UTF-8")
+        # check the parsing methods were called
+        task._parse_subscription_json.assert_called_once_with("foo")
+        task._parse_system_purpose_json.assert_called_once_with("bar")
+        # check the result that has been returned is as expected
+        self.assertEqual(result.attached_subscriptions, [subscription1, subscription2])
+        self.assertEqual(result.system_purpose_data, system_purpose_data)
