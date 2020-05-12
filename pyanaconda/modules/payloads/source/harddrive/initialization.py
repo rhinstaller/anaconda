@@ -17,10 +17,11 @@
 #
 import os.path
 
+from pyanaconda.core.util import join_paths
+from pyanaconda.payload.image import find_first_iso_image
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.source.utils import find_and_mount_device, \
-    find_and_mount_iso_image
+from pyanaconda.modules.payloads.source.utils import find_and_mount_device, mount_iso_image
 from pyanaconda.payload.image import verify_valid_installtree
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -71,9 +72,15 @@ class SetUpHardDriveSourceTask(Task):
             "{}/{}".format(self._device_mount, self._directory)
         )
 
-        if find_and_mount_iso_image(full_path_on_mounted_device, self._iso_mount):
-            return self._iso_mount, True
-        elif verify_valid_installtree(full_path_on_mounted_device):
+        iso_name = find_first_iso_image(full_path_on_mounted_device)
+
+        full_path_to_iso = join_paths(full_path_on_mounted_device, iso_name)
+
+        if iso_name:
+            if mount_iso_image(full_path_to_iso, self._iso_mount):
+                return self._iso_mount, True
+
+        if verify_valid_installtree(full_path_on_mounted_device):
             return full_path_on_mounted_device, False
 
         raise SourceSetupError(
