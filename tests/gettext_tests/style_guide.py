@@ -61,6 +61,9 @@ expected_badness = {
     },
     'pyanaconda/modules/storage/devicetree/fsset.py': {
         'mountpoint': 1,  # format string specifier mount_point
+    },
+    'pyanaconda/ui/gui/spokes/subscription.glade': {
+       'hostname': 1      # hostname:port placeholder for proxy URL entry
     }
 }
 

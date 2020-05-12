@@ -181,7 +181,8 @@ class SimpleUITestCase(unittest.TestCase):
                 'CustomPartitioningSpoke',
                 'FilterSpoke',
                 'NetworkSpoke',
-                'StorageSpoke'
+                'StorageSpoke',
+                'SubscriptionSpoke'
             ],
             'UserSettingsCategory': [
                 'PasswordSpoke',
