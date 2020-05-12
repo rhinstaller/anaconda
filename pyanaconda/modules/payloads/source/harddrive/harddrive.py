@@ -24,6 +24,7 @@ from pykickstart.errors import KickstartParseError
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
@@ -169,6 +170,20 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
             tasks.append(TearDownMountTask(self._iso_mount))
         tasks.append(TearDownMountTask(self._device_mount))
         return tasks
+
+    def get_iso_path(self):
+        """Get path to the ISO from the partition root.
+
+        This could be an empty string if the source is pointing to
+        installation tree instead of ISO.
+
+        :return: path to the ISO or empty string if no ISO is involved
+        :rtype: str
+        """
+        if not self._iso_name:
+            return ""
+
+        return join_paths(self.directory, self._iso_name)
 
     def _handle_setup_task_result(self, task):
         result = task.get_result()

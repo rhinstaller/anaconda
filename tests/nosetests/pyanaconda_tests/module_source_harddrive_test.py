@@ -57,6 +57,14 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.interface.PropertiesChanged.connect(self.callback)
 
+    def _check_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            PAYLOAD_SOURCE_HARDDRIVE,
+            self.interface,
+            *args, **kwargs
+        )
+
     def type_test(self):
         """Hard drive source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_HDD, self.interface.Type)
@@ -77,13 +85,17 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
         self._check_dbus_property("Partition", "sdj9")
         self._check_dbus_property("Directory", "somewhere/on/the/partition/is/iso.iso")
 
-    def _check_dbus_property(self, *args, **kwargs):
-        check_dbus_property(
-            self,
-            PAYLOAD_SOURCE_HARDDRIVE,
-            self.interface,
-            *args, **kwargs
-        )
+    def iso_path_test(self):
+        """Hard drive source has a correct iso path."""
+        self.assertEqual(self.interface.GetIsoPath(), "")
+
+        self.module._iso_name = "GLaDOS.iso"
+        self.interface.SetDirectory("/super/secret/base")
+        self.assertEqual(self.interface.GetIsoPath(), "/super/secret/base/GLaDOS.iso")
+
+        self.module._iso_name = ""
+        self.interface.SetDirectory("/path/to/install/tree")
+        self.assertEqual(self.interface.GetIsoPath(), "")
 
 
 class HardDriveSourceTestCase(unittest.TestCase):
@@ -131,14 +143,28 @@ class HardDriveSourceTestCase(unittest.TestCase):
 
     def return_handler_test(self):
         """Hard drive source setup result propagates back."""
-        task = _create_setup_task()
-        # Test only the returning. To do that, fake what the magic in start() does.
-        # Do not run() the task at all, less mocking needed that way.
-        task._set_result(SetupHardDriveResult(iso_mount_location, "iso_name.iso"))
-        self.module._handle_setup_task_result(task)
+        task = self.module.set_up_with_tasks()[0]
+        task.get_result = Mock(
+            return_value=SetupHardDriveResult(iso_mount_location, "iso_name.iso")
+        )
+        task.succeeded_signal.emit()
 
         self.assertEqual(self.module.install_tree_path, iso_mount_location)
         self.assertEqual(self.module.is_iso_mounted, True)
+
+    def return_handler_without_iso_test(self):
+        """Hard drive source setup result propagates back when no ISO is involved.
+
+        This is happening when installation tree is used instead of ISO image.
+        """
+        task = self.module.set_up_with_tasks()[0]
+        task.get_result = Mock(
+            return_value=SetupHardDriveResult(iso_mount_location, "")
+        )
+        task.succeeded_signal.emit()
+
+        self.assertEqual(self.module.install_tree_path, iso_mount_location)
+        self.assertEqual(self.module.is_iso_mounted, False)
 
 
 class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
