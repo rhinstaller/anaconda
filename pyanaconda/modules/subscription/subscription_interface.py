@@ -39,6 +39,8 @@ class SubscriptionInterface(KickstartModuleInterface):
                             self.implementation.subscription_request_changed)
         self.watch_property("InsightsEnabled",
                             self.implementation.connect_to_insights_changed)
+        self.watch_property("IsRegistered",
+                            self.implementation.registered_changed)
         self.watch_property("IsSubscriptionAttached",
                             self.implementation.subscription_attached_changed)
 
@@ -127,6 +129,11 @@ class SubscriptionInterface(KickstartModuleInterface):
         :param bool connect_to_insights: True to connect, False not to connect
         """
         self.implementation.set_connect_to_insights(connect_to_insights)
+
+    @property
+    def IsRegistered(self) -> Bool:
+        """Report if the system is registered."""
+        return self.implementation.registered
 
     @property
     def IsSubscriptionAttached(self) -> Bool:

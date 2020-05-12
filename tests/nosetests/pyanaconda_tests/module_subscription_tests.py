@@ -897,6 +897,29 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
           False
         )
 
+    def registered_property_test(self):
+        """Test the IsRegistered property."""
+        # should be false by default
+        self.assertFalse(self.subscription_interface.IsRegistered)
+
+        # this property can't be set by client as it is set as the result of
+        # subscription attempts, so we need to call the internal module interface
+        # via a custom setter
+
+        def custom_setter(value):
+            self.subscription_module.set_registered(value)
+
+        # check the property is True and the signal was emitted
+        # - we use fake setter as there is no public setter
+        self._check_dbus_property(
+          "IsRegistered",
+          True,
+          setter=custom_setter
+        )
+
+        # at the end the property should be True
+        self.assertTrue(self.subscription_interface.IsRegistered)
+
     def subscription_attached_property_test(self):
         """Test the IsSubscriptionAttached property."""
         # should be false by default
@@ -1134,6 +1157,10 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
         self.assertEqual(obj.implementation._username, "foo_user")
         self.assertEqual(obj.implementation._password, "foo_password")
+        # trigger the succeeded signal
+        obj.implementation.succeeded_signal.emit()
+        # check this set the registered property to True
+        self.assertTrue(self.subscription_interface.IsRegistered)
 
     @patch_dbus_publish_object
     def register_with_organization_key_test(self, publisher):
@@ -1169,6 +1196,10 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
         self.assertEqual(obj.implementation._organization, "123456789")
         self.assertEqual(obj.implementation._activation_keys, ["key1", "key2", "key3"])
+        # trigger the succeeded signal
+        obj.implementation.succeeded_signal.emit()
+        # check this set the registered property to True
+        self.assertTrue(self.subscription_interface.IsRegistered)
 
     @patch_dbus_publish_object
     def unregister_test(self, publisher):
@@ -1186,7 +1217,8 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._rhsm_unregister_proxy, rhsm_unregister_proxy)
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
-        # check this set subscription_attached to False
+        # check this set the subscription-attached & registered properties to False
+        self.assertFalse(self.subscription_interface.IsRegistered)
         self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
 
     @patch_dbus_publish_object
