@@ -188,7 +188,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         valid_mock.side_effect = [False, True, False]
 
         task = SetUpCdromSourceTask(self.mount_location)
-        task.run()
+        result = task.run()
 
         # 3/4 devices tried, 1/4 untried
         self.assert_resolve_and_mount_calls(device_tree, mount_mock, 3, 1)
@@ -200,6 +200,9 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
 
         #  #1 died earlier, #2 was unmounted, #3 was left mounted, #4 never got mounted
         unmount_mock.assert_called_once_with(self.mount_location)
+
+        # Test device name returned
+        self.assertEqual(result, "test2")
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
