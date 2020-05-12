@@ -44,6 +44,16 @@ class CdromSourceInterfaceTestCase(unittest.TestCase):
         """Test CD-ROM source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_CDROM, self.interface.Type)
 
+    def device_test(self):
+        """Test CD-ROM source Device API."""
+        self.assertEqual(self.interface.DeviceName, "")
+
+        task = self.module.set_up_with_tasks()[0]
+        task.get_result = Mock(return_value="top_secret")
+        task.succeeded_signal.emit()
+
+        self.assertEqual(self.interface.DeviceName, "top_secret")
+
 
 class CdromSourceTestCase(unittest.TestCase):
 
