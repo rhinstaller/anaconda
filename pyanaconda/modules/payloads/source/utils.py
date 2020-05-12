@@ -25,7 +25,7 @@ from pyanaconda.core.util import join_paths
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["is_valid_install_disk", "find_and_mount_device", "find_and_mount_iso_image",
+__all__ = ["is_valid_install_disk", "find_and_mount_device", "mount_iso_image",
            "MountPointGenerator"]
 
 

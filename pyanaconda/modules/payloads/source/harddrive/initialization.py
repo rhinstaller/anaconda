@@ -17,6 +17,8 @@
 #
 import os.path
 
+from collections import namedtuple
+
 from pyanaconda.core.util import join_paths
 from pyanaconda.payload.image import find_first_iso_image
 from pyanaconda.modules.common.errors.payload import SourceSetupError
@@ -28,6 +30,9 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["SetUpHardDriveSourceTask"]
+
+
+SetupHardDriveResult = namedtuple("SetupHardDriveResult", ["install_tree_path", "iso_name"])
 
 
 class SetUpHardDriveSourceTask(Task):
@@ -52,8 +57,8 @@ class SetUpHardDriveSourceTask(Task):
         order again.
 
         :raise: SourceSetupError
-        :return: path to the install tree
-        :rtype: str
+        :return: named tuple with path to the install tree and name of ISO if set or empty string
+        :rtype: SetupHardDriveResult instance
         """
         log.debug("Setting up Hard drive source")
 
@@ -78,10 +83,10 @@ class SetUpHardDriveSourceTask(Task):
 
         if iso_name:
             if mount_iso_image(full_path_to_iso, self._iso_mount):
-                return self._iso_mount, True
+                return SetupHardDriveResult(self._iso_mount, iso_name)
 
         if verify_valid_installtree(full_path_on_mounted_device):
-            return full_path_on_mounted_device, False
+            return SetupHardDriveResult(full_path_on_mounted_device, "")
 
         raise SourceSetupError(
             "Nothing useful found for Hard drive ISO source at partition={} directory={}".format(

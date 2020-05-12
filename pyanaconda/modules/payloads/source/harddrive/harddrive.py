@@ -52,7 +52,7 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         self._iso_mount = MountPointGenerator.generate_mount_point(
             self.type.value.lower() + "-iso"
         )
-        self._uses_iso_mount = False
+        self._iso_name = ""
 
     @property
     def type(self):
@@ -160,12 +160,13 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         :rtype: [Task]
         """
         tasks = []
-        if self._uses_iso_mount:
+        if self._iso_name:
             tasks.append(TearDownMountTask(self._iso_mount))
         tasks.append(TearDownMountTask(self._device_mount))
         return tasks
 
     def _handle_setup_task_result(self, task):
         result = task.get_result()
-        self._install_tree_path, self._uses_iso_mount = result
+        self._install_tree_path = result.install_tree_path
+        self._iso_name = result.iso_name
         log.debug("Hard drive install tree path is set to '%s'", self._install_tree_path)

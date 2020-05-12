@@ -25,7 +25,8 @@ from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
 from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
     HardDriveSourceInterface
-from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
+from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask, \
+    SetupHardDriveResult
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 
@@ -122,7 +123,7 @@ class HardDriveSourceTestCase(unittest.TestCase):
         ismount.return_value = True
 
         task = self.module.set_up_with_tasks()[0]
-        task.get_result = Mock(return_value=("/my/path", False))
+        task.get_result = Mock(return_value=SetupHardDriveResult("/my/path", ""))
         task.succeeded_signal.emit()
 
         self.assertEqual(self.module.get_state(), SourceState.READY)
@@ -133,11 +134,11 @@ class HardDriveSourceTestCase(unittest.TestCase):
         task = _create_setup_task()
         # Test only the returning. To do that, fake what the magic in start() does.
         # Do not run() the task at all, less mocking needed that way.
-        task._set_result((iso_mount_location, True))
+        task._set_result(SetupHardDriveResult(iso_mount_location, "iso_name.iso"))
         self.module._handle_setup_task_result(task)
 
-        self.assertEqual(iso_mount_location, self.module.install_tree_path)
-        self.assertEqual(True, self.module._uses_iso_mount)
+        self.assertEqual(self.module.install_tree_path, iso_mount_location)
+        self.assertEqual(self.module._iso_name, "iso_name.iso")
 
 
 class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
@@ -173,7 +174,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
             fstype="iso9660",
             options="ro"
         )
-        self.assertEqual(result, (iso_mount_location, True))
+        self.assertEqual(result, SetupHardDriveResult(iso_mount_location, "skynet.iso"))
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
@@ -199,7 +200,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
         verify_valid_installtree_mock.assert_called_once_with(
             device_mount_location + path_on_device
         )
-        self.assertEqual(result, (device_mount_location + path_on_device, False))
+        self.assertEqual(result, SetupHardDriveResult(device_mount_location + path_on_device, ""))
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
@@ -304,7 +305,7 @@ class HardDriveSourceTearDownTestCase(unittest.TestCase):
 
     def tear_down_task_order_test(self):
         """Hard drive source tear down task order."""
-        self.source_module._uses_iso_mount = True
+        self.source_module._iso_name = "my-cool.iso"
         tasks = self.source_module.tear_down_with_tasks()
         self.assertEqual(len(tasks), 2)
         self.assertIsInstance(tasks[0], TearDownMountTask)
