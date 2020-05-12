@@ -108,6 +108,9 @@ class SubscriptionSpoke(NormalSpoke):
         if not flags.automatedInstall:
             self._subscription_module.SetInsightsEnabled(True)
 
+        # previous visit network connectivity tracking
+        self._network_connected_previously = False
+
     # common spoke properties
 
     @property
@@ -149,6 +152,11 @@ class SubscriptionSpoke(NormalSpoke):
         # (this also takes care of updating the two properties holding subscription
         #  request as well as system purpose data)
         self._update_spoke_state()
+        # check if network connectivity is available
+        # - without network connectivity the spoke is pretty much unusable
+        # - also, no need to check if registration/unregistration is in progress
+        if not self.registration_phase:
+            self._check_connectivity()
 
     # DBus structure mirrors
 
@@ -822,8 +830,38 @@ class SubscriptionSpoke(NormalSpoke):
         # TODO
 
     def _check_connectivity(self):
-        """Check network connectivity is available."""
-        # TODO
+        """Check network connectivity is available.
+
+        Network connectivity is required for using the Subscription spoke
+        for obvious reasons (eq. for communication with the remote
+        Candlepin instance & CDN).
+
+        If network is already available, this method makes the registration
+        controls sensitive and clears any previous connectivity warnings.
+
+        If network is not available it makes the registration controls
+        insensitive and displays a warning to the user.
+        """
+        network_connected = self.network_connected
+        if network_connected:
+            # make controls sensitive, unless processing is ongoing
+            self.set_registration_controls_sensitive(True)
+            if not self._network_connected_previously:
+                # clear previous connectivity warning
+                # - we only do this on connectivity state change so that we don't clear
+                #   registration error related warnings
+                log.debug("Subscription GUI: clearing connectivity warning")
+                self.clear_info()
+        else:
+            # make controls insensitive
+            self.set_registration_controls_sensitive(False)
+            # set a warning
+            log.debug("Subscription GUI: setting connectivity warning")
+            self.show_warning_message(
+                _("Please enable network access before connecting to Red Hat.")
+            )
+        # remember state
+        self._network_connected_previously = network_connected
 
     def _update_register_button_state(self):
         """Update register button state."""
