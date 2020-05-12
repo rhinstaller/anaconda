@@ -112,3 +112,8 @@ PAYLOAD_SOURCE_HARDDRIVE = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="HDD"
 )
+
+PAYLOAD_SOURCE_CDN = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="CDN"
+)

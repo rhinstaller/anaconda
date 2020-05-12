@@ -55,6 +55,9 @@ class SourceFactory(object):
             from pyanaconda.modules.payloads.source.harddrive.harddrive import \
                 HardDriveSourceModule
             return HardDriveSourceModule()
+        elif source_type == SourceType.CDN:
+            from pyanaconda.modules.payloads.source.cdn.cdn import CDNSourceModule
+            return CDNSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))
 
