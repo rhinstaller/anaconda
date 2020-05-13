@@ -147,7 +147,7 @@ class MountingSourceMixin(ABC):
 
 
 class RPMSourceMixin(ABC):
-    """Interface class which has to be implemented by all sources used by DNF payload."""
+    """Mixin class which has to be implemented by all sources used by DNF payload."""
 
     @abstractmethod
     def generate_repo_configuration(self):
