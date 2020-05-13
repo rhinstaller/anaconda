@@ -503,12 +503,7 @@ if __name__ == "__main__":
     # scripts.  Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
 
-    # cmdline flags override kickstart settings
     if anaconda.proxy:
-
-        if hasattr(ksdata.method, "proxy"):
-            ksdata.method.proxy = anaconda.proxy
-
         # Setup proxy environmental variables so that pre/post scripts use it
         # as well as libreport
         try:
@@ -526,16 +521,8 @@ if __name__ == "__main__":
             util.setenv("ftp_proxy", proxy.url)
             util.setenv("HTTPS_PROXY", proxy.url)
 
-    if not conf.payload.verify_ssl and hasattr(ksdata.method, "noverifyssl"):
-        ksdata.method.noverifyssl = not conf.payload.verify_ssl
-    if opts.multiLib:
-        # sets dnf's multilib_policy to "all" (as opposed to "best")
-        ksdata.packages.multiLib = opts.multiLib
-
-    # set ksdata.method based on anaconda.method if it isn't already set
-    # - anaconda.method is currently set by command line/boot options
-    if anaconda.methodstr and not ksdata.method.seen:
-        startup_utils.set_installation_method_from_anaconda_options(anaconda, ksdata)
+    # Set up the payload from the cmdline options.
+    anaconda.payload.set_from_opts(opts)
 
     from pyanaconda.modules.common.constants.services import SECURITY
     security_proxy = SECURITY.get_proxy()
@@ -605,6 +592,7 @@ if __name__ == "__main__":
     #       is effectively headless.
     from pyanaconda.modules.common.constants.services import SERVICES
     from pyanaconda.core.constants import TEXT_ONLY_TARGET
+
     services_proxy = SERVICES.get_proxy()
 
     if not services_proxy.DefaultTarget and (anaconda.tui_mode or flags.usevnc):
@@ -709,7 +697,8 @@ if __name__ == "__main__":
     anaconda.add_additional_repositories_to_ksdata()
 
     # Fallback to default for interactive or for a kickstart with no installation method.
-    fallback = not (flags.automatedInstall and ksdata.method.method)
+    from pyanaconda.core.constants import SOURCE_TYPE_REPO_FILES
+    fallback = not flags.automatedInstall or anaconda.payload.source_type == SOURCE_TYPE_REPO_FILES
     payloadMgr.restart_thread(anaconda.payload, fallback=fallback)
 
     # initialize the geolocation singleton

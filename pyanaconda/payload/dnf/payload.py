@@ -42,6 +42,7 @@ from fnmatch import fnmatch
 from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
 from pykickstart.parser import Group
@@ -112,6 +113,9 @@ class DNFPayload(Payload):
         self._base = None
         self._download_location = None
         self._updates_enabled = True
+
+        # FIXME: Don't call this method before set_from_opts.
+        # This will create a default source if there is none.
         self._configure()
 
         # Protect access to _base.repos to ensure that the dictionary is not
@@ -126,6 +130,46 @@ class DNFPayload(Payload):
         self._req_groups = set()
         self._req_packages = set()
         self.requirements.set_apply_callback(self._apply_requirements)
+
+    def set_from_opts(self, opts):
+        """Set the payload from the Anaconda cmdline options.
+
+        :param opts: a namespace of options
+        """
+        # Set the source based on opts.method if it isn't already set
+        # - opts.method is currently set by command line/boot options
+        if opts.method and (not self.proxy.Sources or self.source_type == SOURCE_TYPE_REPO_FILES):
+            try:
+                source = SourceFactory.parse_repo_cmdline_string(opts.method)
+            except PayloadSourceTypeUnrecognized:
+                log.error("Unknown method: %s", opts.method)
+            else:
+                source_proxy = source.create_proxy()
+                set_source(self.proxy, source_proxy)
+
+        # Set up the current source.
+        source_proxy = self.get_source_proxy()
+
+        if source_proxy.Type == SOURCE_TYPE_URL:
+            # Get the repo configuration.
+            repo_configuration = RepoConfigurationData.from_structure(
+                source_proxy.RepoConfiguration
+            )
+
+            if opts.proxy:
+                repo_configuration.proxy = opts.proxy
+
+            if not conf.payload.verify_ssl:
+                repo_configuration.ssl_verification_enabled = conf.payload.verify_ssl
+
+            # Update the repo configuration.
+            source_proxy.SetRepoConfiguration(
+                RepoConfigurationData.to_structure(repo_configuration)
+            )
+
+        # Set up packages.
+        if opts.multiLib:
+            self.data.packages.multiLib = opts.multiLib
 
     @property
     def type(self):
