@@ -58,6 +58,15 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         pass
 
+    @property
+    @abstractmethod
+    def network_required(self):
+        """Does the source require a network?
+
+        :return: True or False
+        """
+        pass
+
     @abstractmethod
     def get_state(self):
         """Get state of this source.

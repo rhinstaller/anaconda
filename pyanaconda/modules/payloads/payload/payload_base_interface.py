@@ -88,6 +88,13 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
             )
         )
 
+    def IsNetworkRequired(self) -> Bool:
+        """Do the sources require a network?
+
+        :return: True or False
+        """
+        return self.implementation.is_network_required()
+
     def PreInstallWithTasks(self) -> List[ObjPath]:
         """Execute preparation steps.
 

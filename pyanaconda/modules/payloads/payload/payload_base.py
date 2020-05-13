@@ -147,6 +147,17 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         sources.append(source)
         self.set_sources(sources)
 
+    def is_network_required(self):
+        """Do the sources require a network?
+
+        :return: True or False
+        """
+        for source in self.sources:
+            if source.network_required:
+                return True
+
+        return False
+
     @abstractmethod
     def pre_install_with_tasks(self):
         """Execute preparation steps.

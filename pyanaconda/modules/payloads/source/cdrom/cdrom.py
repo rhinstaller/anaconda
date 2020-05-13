@@ -48,6 +48,14 @@ class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
         return _("Local media")
 
     @property
+    def network_required(self):
+        """Does the source require a network?
+
+        :return: True or False
+        """
+        return False
+
+    @property
     def device_name(self):
         """Get device name of the cdrom found.
 

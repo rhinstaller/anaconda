@@ -43,6 +43,14 @@ class RepoFilesSourceModule(PayloadSourceBase):
         """Get description of this source."""
         return _("Closest mirror")
 
+    @property
+    def network_required(self):
+        """Does the source require a network?
+
+        :return: True or False
+        """
+        return True
+
     def __repr__(self):
         return "Source(type='REPO_FILES')"
 

@@ -26,6 +26,7 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, URLType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
+from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -68,6 +69,14 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
     def description(self):
         """Get description of this source."""
         return self._repo_configuration.url
+
+    @property
+    def network_required(self):
+        """Does the source require a network?
+
+        :return: True or False
+        """
+        return has_network_protocol(self._repo_configuration.url)
 
     def __repr__(self):
         return "Source(type='URL', url='{}')".format(self._repo_configuration.url)

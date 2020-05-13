@@ -25,8 +25,18 @@ from pyanaconda.core.util import join_paths
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["is_valid_install_disk", "find_and_mount_device", "mount_iso_image",
-           "MountPointGenerator"]
+
+def has_network_protocol(url):
+    """Does the given URL have a network protocol?
+
+    :param url: a string with URL
+    :return: True or False
+    """
+    if not url:
+        return False
+
+    network_protocols = ["http:", "https:", "ftp:", "nfs:", "nfsiso:"]
+    return any(url.startswith(p) for p in network_protocols)
 
 
 def is_valid_install_disk(tree_dir):

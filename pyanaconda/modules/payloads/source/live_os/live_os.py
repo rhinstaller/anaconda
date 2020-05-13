@@ -54,6 +54,14 @@ class LiveOSSourceModule(MountingSourceBase):
         return _("Live OS")
 
     @property
+    def network_required(self):
+        """Does the source require a network?
+
+        :return: True or False
+        """
+        return False
+
+    @property
     def image_path(self):
         """Path to the live OS source image.
 

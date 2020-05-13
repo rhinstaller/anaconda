@@ -70,6 +70,14 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         """Get description of this source."""
         return "{}:{}".format(self._device, self._directory)
 
+    @property
+    def network_required(self):
+        """Does the source require a network?
+
+        :return: True or False
+        """
+        return False
+
     def __repr__(self):
         result = "Source(type='HDD', partition='{}', directory='{}')".format(
             self._device,

@@ -61,7 +61,7 @@ from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError, DeviceSetupError
-from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
+from pyanaconda.modules.payloads.source.utils import is_valid_install_disk, has_network_protocol
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.utils import DNF_CACHE_DIR, DNF_PLUGINCONF_DIR, REPO_DIRS, \
@@ -191,9 +191,8 @@ class DNFPayload(Payload):
         :type sources: list
         :returns: True if any source requires network
         """
-        network_protocols = ["http:", "https:", "ftp:", "nfs:", "nfsiso:"]
         for s in sources:
-            if s and any(s.startswith(p) for p in network_protocols):
+            if has_network_protocol(s):
                 log.debug("Source %s needs network for installation", s)
                 return True
 
