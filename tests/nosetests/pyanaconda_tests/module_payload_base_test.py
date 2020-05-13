@@ -168,3 +168,18 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
         # can change back anytime because source2 has state NOT_APPLICABLE
         self.shared_tests.set_and_check_sources([source1])
+
+    @patch_dbus_publish_object
+    def is_network_required_test(self, publisher):
+        """Test IsNetworkRequired."""
+        self.assertEqual(self.interface.IsNetworkRequired(), False)
+
+        source1 = self.shared_tests.prepare_source(SourceType.CDROM, state=SourceState.UNREADY)
+        self.shared_tests.set_sources([source1])
+
+        self.assertEqual(self.interface.IsNetworkRequired(), False)
+
+        source2 = self.shared_tests.prepare_source(SourceType.NFS, state=SourceState.UNREADY)
+        self.shared_tests.set_sources([source1, source2])
+
+        self.assertEqual(self.interface.IsNetworkRequired(), True)

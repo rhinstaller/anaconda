@@ -51,6 +51,10 @@ class HMCSourceModuleTestCase(unittest.TestCase):
     def setUp(self):
         self.module = HMCSourceModule()
 
+    def network_required_test(self):
+        """Test the property network_required."""
+        self.assertEqual(self.module.network_required, False)
+
     def set_up_with_tasks_test(self):
         """Get tasks to set up SE/HMC."""
         tasks = self.module.set_up_with_tasks()

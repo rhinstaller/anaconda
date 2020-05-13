@@ -107,6 +107,10 @@ class HardDriveSourceTestCase(unittest.TestCase):
         """Hard drive source module has a correct type."""
         self.assertEqual(SourceType.HDD, self.module.type)
 
+    def network_required_test(self):
+        """Test the property network_required."""
+        self.assertEqual(self.module.network_required, False)
+
     def set_up_with_tasks_test(self):
         """Hard drive source set up task type and amount."""
         task_classes = [

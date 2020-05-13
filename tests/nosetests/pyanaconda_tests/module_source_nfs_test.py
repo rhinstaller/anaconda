@@ -77,6 +77,10 @@ class NFSSourceTestCase(unittest.TestCase):
         """Test NFS source module has a correct type."""
         self.assertEqual(SourceType.NFS, self.module.type)
 
+    def network_required_test(self):
+        """Test the property network_required."""
+        self.assertEqual(self.module.network_required, True)
+
     def set_up_with_tasks_test(self):
         """Test NFS Source set up call."""
         task_classes = [

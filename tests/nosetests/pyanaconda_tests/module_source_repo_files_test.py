@@ -55,6 +55,10 @@ class RepoFilesSourceTestCase(unittest.TestCase):
         """Test Repo files source module has a correct type."""
         self.assertEqual(SourceType.REPO_FILES, self.module.type)
 
+    def network_required_test(self):
+        """Test the property network_required."""
+        self.assertEqual(self.module.network_required, True)
+
     def repr_test(self):
         self.assertEqual(repr(self.module), "Source(type='REPO_FILES')")
 

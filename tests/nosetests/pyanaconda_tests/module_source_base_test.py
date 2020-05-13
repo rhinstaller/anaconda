@@ -38,6 +38,10 @@ class DummyMountingSourceSubclass(MountingSourceBase):
     def description(self):
         return "description"
 
+    @property
+    def network_required(self):
+        return False
+
     def for_publication(self):
         return None
 

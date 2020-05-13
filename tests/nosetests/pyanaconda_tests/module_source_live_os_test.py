@@ -103,6 +103,10 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def setUp(self):
         self.module = LiveOSSourceModule()
 
+    def network_required_test(self):
+        """Test the property network_required."""
+        self.assertEqual(self.module.network_required, False)
+
     def set_up_with_tasks_test(self):
         """Test Live OS Source set up call."""
         task_classes = [
