@@ -25,7 +25,8 @@ from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, \
+    MountingSourceMixin, RPMSourceMixin
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -33,7 +34,7 @@ log = get_module_logger(__name__)
 __all__ = ["NFSSourceModule"]
 
 
-class NFSSourceModule(MountingSourceBase, RPMSourceMixin):
+class NFSSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
     """The NFS source module."""
 
     def __init__(self):

@@ -20,40 +20,19 @@ from unittest.mock import patch
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask, TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
+from pyanaconda.modules.payloads.source.source_base import MountingSourceMixin
 
 mount_location = "/some/dir"
 
 
-class DummyMountingSourceSubclass(MountingSourceBase):
+class DummyMountingSourceSubclass(MountingSourceMixin):
     """Dummy class to test code in its abstract ancestor."""
 
     @property
     def type(self):
         return SourceType.URL
-
-    @property
-    def description(self):
-        return "description"
-
-    @property
-    def network_required(self):
-        return False
-
-    def for_publication(self):
-        return None
-
-    def get_state(self):
-        """Get state of this source."""
-        return SourceState.from_bool(self.get_mount_state())
-
-    def set_up_with_tasks(self):
-        return []
-
-    def tear_down_with_tasks(self):
-        return []
 
 
 class DummySetUpMountTaskSubclass(SetUpMountTask):
@@ -67,7 +46,7 @@ class DummySetUpMountTaskSubclass(SetUpMountTask):
         pass
 
 
-class MountingSourceBaseTestCase(unittest.TestCase):
+class MountingSourceMixinTestCase(unittest.TestCase):
 
     def counter_test(self):
         """Mount path in mount source base gets incremental numbers."""

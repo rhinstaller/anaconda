@@ -22,7 +22,8 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, \
+    MountingSourceMixin, RPMSourceMixin
 from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
 from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask
 
@@ -30,7 +31,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
+class CdromSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
     """The CD-ROM source payload module."""
 
     def __init__(self):

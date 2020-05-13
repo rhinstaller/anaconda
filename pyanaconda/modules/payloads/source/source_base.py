@@ -108,16 +108,25 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         pass
 
 
-class MountingSourceBase(PayloadSourceBase, ABC):
-    """Base class for sources that use mounting.
-
-    Implements some common functionality, most notably generation of mount point paths.
-    """
-    # pylint: disable=abstract-method
+class MountingSourceMixin(ABC):
+    """Mixin class for sources that use mounting."""
 
     def __init__(self):
         super().__init__()
         self._mount_point = MountPointGenerator.generate_mount_point(self.type.value.lower())
+
+    @property
+    @abstractmethod
+    def type(self):
+        """Get type of this source object.
+
+        This is the same property as in PayloadSourceBase so it should be implemented by
+        a subclass so or so.
+
+        :return: type of this source
+        :rtype: value of payload.base.constants.SourceType
+        """
+        pass
 
     def get_mount_state(self):
         """Return state of the mount.

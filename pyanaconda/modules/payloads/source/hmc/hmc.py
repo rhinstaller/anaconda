@@ -23,7 +23,8 @@ from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
 from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, \
+    MountingSourceMixin, RPMSourceMixin
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -31,7 +32,7 @@ log = get_module_logger(__name__)
 __all__ = ["HMCSourceModule"]
 
 
-class HMCSourceModule(MountingSourceBase, RPMSourceMixin):
+class HMCSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
     """The SE/HMC source module."""
 
     @property
