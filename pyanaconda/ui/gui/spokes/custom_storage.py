@@ -1729,7 +1729,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # this has to be done before calling populate_raid since it will need
         # the raid level combo to contain the relevant raid levels for the new
         # device type
-        self._populate_raid()
+        self._request.device_raid_level = get_default_raid_level(new_type)
+        self._populate_raid(self._request.device_raid_level)
 
         # Generate a new container configuration for the new type.
         self._request = DeviceFactoryRequest.from_structure(
