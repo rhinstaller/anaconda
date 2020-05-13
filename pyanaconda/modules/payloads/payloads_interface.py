@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.base import KickstartModuleInterface
@@ -30,24 +31,13 @@ from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 class PayloadsInterface(KickstartModuleInterface):
     """DBus interface for Payload module."""
 
-    def GetActivePayload(self) -> ObjPath:
-        """Get active payload.
+    def connect_signals(self):
+        """Connect the signals."""
+        super().connect_signals()
+        self.watch_property("CreatedPayloads", self.implementation.created_payloads_changed)
+        self.watch_property("ActivePayload", self.implementation.active_payload_changed)
 
-        TODO: Do we need to think about ActivePayload? It would be easier to remove this concept.
-
-        :raise: PayloadNotSetError if payload is not set
-        """
-        return PayloadContainer.to_object_path(
-            self.implementation.get_active_payload()
-        )
-
-    def IsPayloadSet(self) -> Bool:
-        """Test if any payload is set and used.
-
-        FIXME: This is potentially dangerous and replaceable by GetActivePayload.
-        """
-        return self.implementation.is_payload_set()
-
+    @emits_properties_changed
     def CreatePayload(self, payload_type: Str) -> ObjPath:
         """Create payload and publish it on DBus.
 
@@ -59,6 +49,39 @@ class PayloadsInterface(KickstartModuleInterface):
         return PayloadContainer.to_object_path(
             self.implementation.create_payload(PayloadType(payload_type))
         )
+
+    @property
+    def CreatedPayloads(self) -> List[ObjPath]:
+        """List of all created payload modules.
+
+        :return: a list of DBus paths
+        """
+        return PayloadContainer.to_object_path_list(
+            self.implementation.created_payloads
+        )
+
+    @emits_properties_changed
+    def ActivatePayload(self, payload: ObjPath):
+        """Activate the payload.
+
+        :param payload: a path to a payload
+        """
+        self.implementation.activate_payload(
+            PayloadContainer.from_object_path(payload)
+        )
+
+    @property
+    def ActivePayload(self) -> Str:
+        """The active payload.
+
+        :return: a DBus path or an empty string
+        """
+        payload = self.implementation.active_payload
+
+        if not payload:
+            return ""
+
+        return PayloadContainer.to_object_path(payload)
 
     def CreateSource(self, source_type: Str) -> ObjPath:
         """Create payload source and publish it on DBus.

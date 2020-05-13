@@ -28,7 +28,6 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
     SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL
-from pyanaconda.modules.common.errors.payload import PayloadNotSetError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
@@ -49,7 +48,6 @@ class DNFKSTestCase(unittest.TestCase):
 
     def _check_properties(self, expected_source_type):
         payload = self.shared_ks_tests.get_payload()
-
         self.assertIsInstance(payload, DNFModule)
 
         # verify sources set
@@ -98,9 +96,7 @@ class DNFKSTestCase(unittest.TestCase):
         harddrive --partition=nsa-device
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=0)
-
-        with self.assertRaises(PayloadNotSetError):
-            self.interface.GetActivePayload()
+        self.assertEqual(self.interface.ActivePayload, "")
 
     def harddrive_biospart_kickstart_failed_test(self):
         # The biospart parameter is not implemented since 2012 and it won't
@@ -110,7 +106,7 @@ class DNFKSTestCase(unittest.TestCase):
         """
         # One publisher call because the biospart support is decided in the harddrive source
         self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=1)
-        self._check_properties(None)
+        self.assertEqual(self.interface.ActivePayload, "")
 
     def nfs_kickstart_test(self):
         ks_in = """

@@ -48,9 +48,3 @@ class IncompatibleSourceError(AnacondaError):
 class InstallError(AnacondaError):
     """Error raised during payload installation."""
     pass
-
-
-@dbus_error("PayloadNotSetError", namespace=PAYLOADS_NAMESPACE)
-class PayloadNotSetError(AnacondaError):
-    """Payload is not set."""
-    pass

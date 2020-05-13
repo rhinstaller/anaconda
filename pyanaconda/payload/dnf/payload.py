@@ -77,6 +77,7 @@ from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.simpleconfig import SimpleConfigFile
+from pyanaconda.ui.lib.payload import get_payload
 
 log = get_packaging_logger()
 
@@ -89,6 +90,9 @@ class DNFPayload(Payload):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Get a DBus payload to use.
+        self._dnf_proxy = get_payload(self.type)
+
         self.install_device = None
         self.tx_id = None
 
@@ -124,6 +128,16 @@ class DNFPayload(Payload):
     def type(self):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_DNF
+
+    @property
+    def proxy(self):
+        """The DBus proxy of the DNF module.
+
+        FIXME: Move the property to the class Payload.
+
+        :return: a DBus proxy
+        """
+        return self._dnf_proxy
 
     @property
     def is_hmc_enabled(self):
