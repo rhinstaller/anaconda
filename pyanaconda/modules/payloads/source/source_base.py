@@ -23,7 +23,6 @@ from abc import ABC, ABCMeta, abstractmethod
 from dasbus.server.publishable import Publishable
 
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.payloads.constants import SourceState
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -121,14 +120,13 @@ class MountingSourceBase(PayloadSourceBase, ABC):
         super().__init__()
         self._mount_point = MountPointGenerator.generate_mount_point(self.type.value.lower())
 
-    def get_state(self):
-        """This source is ready for the installation to start.
+    def get_mount_state(self):
+        """Return state of the mount.
 
-        :return: one of the supported state of SourceState enum
-        :rtype: pyanaconda.modules.payloads.constants.SourceState enum value
+        :return: True if mounted
+        :rtype: bool
         """
-        res = os.path.ismount(self._mount_point)
-        return SourceState.from_bool(res)
+        return os.path.ismount(self._mount_point)
 
     @property
     def mount_point(self):

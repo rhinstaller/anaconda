@@ -20,7 +20,7 @@ from unittest.mock import patch
 
 from pyanaconda.core.constants import SOURCE_TYPE_NFS
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_NFS
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
@@ -80,6 +80,19 @@ class NFSSourceTestCase(unittest.TestCase):
     def network_required_test(self):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, True)
+
+    @patch("os.path.ismount")
+    def get_state_test(self, ismount_mock):
+        """Test NFS source state."""
+        ismount_mock.return_value = False
+        self.assertEqual(SourceState.UNREADY, self.module.get_state())
+
+        ismount_mock.reset_mock()
+        ismount_mock.return_value = True
+
+        self.assertEqual(SourceState.READY, self.module.get_state())
+
+        ismount_mock.assert_called_once_with(self.module.mount_point)
 
     def set_up_with_tasks_test(self):
         """Test NFS Source set up call."""

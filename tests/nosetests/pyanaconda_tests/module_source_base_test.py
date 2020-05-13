@@ -45,6 +45,10 @@ class DummyMountingSourceSubclass(MountingSourceBase):
     def for_publication(self):
         return None
 
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.from_bool(self.get_mount_state())
+
     def set_up_with_tasks(self):
         return []
 
@@ -74,16 +78,16 @@ class MountingSourceBaseTestCase(unittest.TestCase):
         self.assertEqual(first_counter, second_counter - 1)
 
     @patch("os.path.ismount")
-    def ready_state_test(self, ismount_mock):
-        """Mount source base ready state for set up."""
+    def mount_state_test(self, ismount_mock):
+        """Mount source state for set up."""
         ismount_mock.return_value = False
         module = DummyMountingSourceSubclass()
-        self.assertEqual(SourceState.UNREADY, module.get_state())
+        self.assertEqual(False, module.get_mount_state())
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        self.assertEqual(SourceState.READY, module.get_state())
+        self.assertEqual(True, module.get_mount_state())
 
         ismount_mock.assert_called_once_with(module.mount_point)
 

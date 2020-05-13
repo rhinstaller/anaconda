@@ -21,7 +21,7 @@ from unittest.mock import call, DEFAULT, Mock, patch
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
 from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
 from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask
@@ -64,6 +64,19 @@ class CdromSourceTestCase(unittest.TestCase):
     def type_test(self):
         """Test CD-ROM source module has a correct type."""
         self.assertEqual(SourceType.CDROM, self.module.type)
+
+    @patch("os.path.ismount")
+    def get_state_test(self, ismount_mock):
+        """Test CD-ROM source state."""
+        ismount_mock.return_value = False
+        self.assertEqual(SourceState.UNREADY, self.module.get_state())
+
+        ismount_mock.reset_mock()
+        ismount_mock.return_value = True
+
+        self.assertEqual(SourceState.READY, self.module.get_state())
+
+        ismount_mock.assert_called_once_with(self.module.mount_point)
 
     def description_test(self):
         """Hard drive source description."""

@@ -20,7 +20,7 @@
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
 from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
 from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask
@@ -70,6 +70,10 @@ class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
     def for_publication(self):
         """Get the interface used to publish this source."""
         return CdromSourceInterface(self)
+
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.from_bool(self.get_mount_state())
 
     def generate_repo_configuration(self):
         """Generate RepoConfigurationData structure."""

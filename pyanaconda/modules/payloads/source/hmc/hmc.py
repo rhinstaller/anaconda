@@ -19,7 +19,7 @@
 #
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
 from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
@@ -57,6 +57,10 @@ class HMCSourceModule(MountingSourceBase, RPMSourceMixin):
     def for_publication(self):
         """Return a DBus representation."""
         return HMCSourceInterface(self)
+
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.from_bool(self.get_mount_state())
 
     def generate_repo_configuration(self):
         """Generate RepoConfigurationData structure."""

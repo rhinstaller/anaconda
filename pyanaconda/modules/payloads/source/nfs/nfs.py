@@ -21,7 +21,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import create_nfs_url, parse_nfs_url
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
@@ -57,6 +57,10 @@ class NFSSourceModule(MountingSourceBase, RPMSourceMixin):
         :return: True or False
         """
         return True
+
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.from_bool(self.get_mount_state())
 
     def __repr__(self):
         return "Source(type='NFS', url='{}')".format(self.url)

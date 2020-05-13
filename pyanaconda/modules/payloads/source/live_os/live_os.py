@@ -23,7 +23,7 @@ import stat
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithCapture
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
@@ -70,6 +70,10 @@ class LiveOSSourceModule(MountingSourceBase):
         :rtype: str
         """
         return self._image_path
+
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.from_bool(self.get_mount_state())
 
     def set_image_path(self, image_path):
         """Set path to the live OS source image.
