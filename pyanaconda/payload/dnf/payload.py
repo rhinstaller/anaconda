@@ -41,6 +41,7 @@ from dnf.const import GROUP_PACKAGE_TYPES
 from fnmatch import fnmatch
 from glob import glob
 
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
 from pykickstart.parser import Group
@@ -50,18 +51,19 @@ from pyanaconda import isys
 from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, DRACUT_REPODIR, DRACUT_ISODIR, \
-    PAYLOAD_TYPE_DNF, SOURCE_TYPE_REPO_FILES
+from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
+    SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_HMC, SOURCE_TYPE_HDD, URL_TYPE_BASEURL, \
+    URL_TYPE_MIRRORLIST, SOURCE_TYPE_URL
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.payload import parse_nfs_url, ProxyString, ProxyStringError
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import decode_bytes
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
-from pyanaconda.modules.common.errors.storage import MountFilesystemError, DeviceSetupError
-from pyanaconda.modules.payloads.source.utils import is_valid_install_disk, has_network_protocol
+from pyanaconda.modules.payloads.source.utils import has_network_protocol
+from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.utils import DNF_CACHE_DIR, DNF_PLUGINCONF_DIR, REPO_DIRS, \
@@ -71,13 +73,13 @@ from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadInstallError, PayloadSetupError
-from pyanaconda.payload.image import find_first_iso_image, mountImage, verify_valid_installtree, \
-    find_optical_install_media
+from pyanaconda.payload.image import find_first_iso_image, mountImage
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda.ui.lib.payload import get_payload, get_source
+from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
+    set_up_sources, tear_down_sources
 
 log = get_packaging_logger()
 
@@ -93,9 +95,10 @@ class DNFPayload(Payload):
         # Get a DBus payload to use.
         self._dnf_proxy = get_payload(self.type)
 
+        # FIXME: Remove the install device.
         self.install_device = None
-        self.tx_id = None
 
+        self.tx_id = None
         self._install_tree_metadata = None
         self._rpm_macros = []
 
@@ -154,7 +157,8 @@ class DNFPayload(Payload):
 
     @property
     def is_hmc_enabled(self):
-        return self.data.method.method == "hmc"
+        # FIXME: Remove this property and check the type directly.
+        return self.source_type == SOURCE_TYPE_HMC
 
     def is_ready(self):
         """Is the payload ready?"""
@@ -170,26 +174,12 @@ class DNFPayload(Payload):
         self._configure()
         self._repoMD_list = []
         self._install_tree_metadata = None
+        tear_down_sources(self.proxy)
 
     @property
     def needs_network(self):
         """Test base and additional repositories if they require network."""
-        url = ""
-        if self.data.method.method is None:
-            # closest mirror set
-            return True
-        elif self.data.method.method == "nfs":
-            # NFS is always on network
-            return True
-        elif self.data.method.method == "url":
-            if self.data.url.url:
-                url = self.data.url.url
-            elif self.data.url.mirrorlist:
-                url = self.data.url.mirrorlist
-            elif self.data.url.metalink:
-                url = self.data.url.metalink
-
-        return (self._source_needs_network([url]) or
+        return (self.proxy.IsNetworkRequired() or
                 any(self._repo_needs_network(repo) for repo in self.data.repo.dataList()))
 
     def _repo_needs_network(self, repo):
@@ -544,15 +534,19 @@ class DNFPayload(Payload):
     def _configure_proxy(self):
         """Configure the proxy on the dnf.Base object."""
         config = self._base.conf
+        proxy_url = self._get_proxy_url()
 
-        if hasattr(self.data.method, "proxy") and self.data.method.proxy:
+        if proxy_url:
             try:
-                proxy = ProxyString(self.data.method.proxy)
+                proxy = ProxyString(proxy_url)
                 config.proxy = proxy.noauth_url
+
                 if proxy.username:
                     config.proxy_username = proxy.username
+
                 if proxy.password:
                     config.proxy_password = proxy.password
+
                 log.info("Using %s as proxy", self.data.method.proxy)
             except ProxyStringError as e:
                 log.error("Failed to parse proxy for dnf configure %s: %s",
@@ -562,6 +556,23 @@ class DNFPayload(Payload):
             config.proxy = None
             config.proxy_username = None
             config.proxy_password = None
+
+    def _get_proxy_url(self):
+        """Get a proxy of the current source.
+
+        :return: a proxy or None
+        """
+        source_proxy = self.get_source_proxy()
+        source_type = source_proxy.Type
+
+        if source_type != SOURCE_TYPE_URL:
+            return None
+
+        data = RepoConfigurationData.from_structure(
+            source_proxy.RepoConfiguration
+        )
+
+        return data.proxy
 
     def get_platform_id(self):
         """Obtain the platform id (if available).
@@ -977,21 +988,14 @@ class DNFPayload(Payload):
 
     @property
     def ISO_image(self):
-        """The location of a mounted ISO repo, or None."""
-        if not self.data.method.method == "harddrive":
+        # FIXME: Remove this property and call GetISOPath directly.
+        source_proxy = self.get_source_proxy()
+        source_type = source_proxy.Type
+
+        if source_type != SOURCE_TYPE_HDD:
             return None
 
-        # This could either be mounted to INSTALL_TREE or on
-        # DRACUT_ISODIR if dracut did the mount.
-        device_path = payload_utils.get_mount_device_path(INSTALL_TREE)
-        if device_path:
-            return device_path[len(ISO_DIR) + 1:]
-
-        device_path = payload_utils.get_mount_device_path(DRACUT_ISODIR)
-        if device_path:
-            return device_path[len(DRACUT_ISODIR) + 1:]
-
-        return None
+        return source_proxy.GetISOPath() or None
 
     @property
     def space_required(self):
@@ -1239,8 +1243,6 @@ class DNFPayload(Payload):
         for macro in self.rpm_macros:
             rpm.addMacro(macro[0], macro[1])
 
-        if self.install_device:
-            self._setup_media(self.install_device)
         try:
             self.check_software_selection()
             self._download_location = self._pick_download_location()
@@ -1364,7 +1366,7 @@ class DNFPayload(Payload):
         return list(gids)
 
     def reset(self):
-        self.reset_install_device()
+        tear_down_sources(self.proxy)
         self.reset_additional_repos()
 
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
@@ -1374,36 +1376,6 @@ class DNFPayload(Payload):
         self._base.reset(sack=True, repos=True)
         self._configure_proxy()
         self._repoMD_list = []
-
-    def reset_install_device(self):
-        """Unmount the previous base repo and reset the install_device."""
-        # cdrom: install_device.teardown (INSTALL_TREE)
-        # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
-        # nfs: umount INSTALL_TREE
-        # nfsiso: umount INSTALL_TREE, umount ISO_DIR
-        install_device_path = payload_utils.get_device_path(self.install_device)
-
-        if os.path.ismount(INSTALL_TREE):
-            if self.install_device and \
-               payload_utils.get_mount_device_path(INSTALL_TREE) == install_device_path:
-                payload_utils.teardown_device(self.install_device)
-            else:
-                payload_utils.unmount(INSTALL_TREE, raise_exc=True)
-
-        if os.path.ismount(ISO_DIR):
-            if self.install_device and \
-               payload_utils.get_mount_device_path(ISO_DIR) == install_device_path:
-                payload_utils.teardown_device(self.install_device)
-            # The below code will fail when nfsiso is the stage2 source
-            # But if we don't do this we may not be able to switch from
-            # one nfsiso repo to another nfsiso repo.  We need to have a
-            # way to detect the stage2 state and work around it.
-            # Commenting out the below is a hack for F18.  FIXME
-            # else:
-            #     # NFS
-            #     blivet.util.umount(ISO_DIR)
-
-        self.install_device = None
 
     def reset_additional_repos(self):
         for name in self._find_mounted_additional_repos():
@@ -1433,18 +1405,16 @@ class DNFPayload(Payload):
                 payload_utils.unmount(mount_point, raise_exc=True)
 
     def update_base_repo(self, fallback=True, checkmount=True):
-        """Update the base repository from ksdata.method."""
-        log.info('configuring base repo')
+        """Update the base repository from the DBus source."""
+        log.info("Configuring the base repo")
         self.reset()
-        install_tree_url, mirrorlist, metalink = self._setup_install_device(checkmount)
 
-        # Fallback to installation root
-        base_repo_url = install_tree_url
+        # Set up the source.
+        set_up_sources(self.proxy)
 
-        method = self.data.method
-        sslverify = True
-        if method.method == "url":
-            sslverify = not method.noverifyssl and conf.payload.verify_ssl
+        # Find the source and its type.
+        source_proxy = self.get_source_proxy()
+        source_type = source_proxy.Type
 
         # Read in all the repos from the installation environment, make a note of which
         # are enabled, and then disable them all.  If the user gave us a method, we want
@@ -1463,9 +1433,25 @@ class DNFPayload(Payload):
                 enabled.append(repo.id)
                 repo.disable()
 
-        if method.method:
+        # Add a new repo.
+        if source_type != SOURCE_TYPE_REPO_FILES:
+            # Get the repo configuration of the first source.
+            data = RepoConfigurationData.from_structure(
+                self.proxy.GetRepoConfigurations()[0]
+            )
+
+            log.debug("Using the repo configuration: %s", data)
+
+            # Get the URL.
+            install_tree_url = data.url if data.type == URL_TYPE_BASEURL else ""
+            mirrorlist = data.url if data.type == URL_TYPE_MIRRORLIST else ""
+            metalink = data.url if data.type == URL_TYPE_MIRRORLIST else ""
+
+            # Fallback to the installation root.
+            base_repo_url = install_tree_url
+
             try:
-                self._refresh_install_tree(install_tree_url)
+                self._refresh_install_tree(data)
                 self._base.conf.releasever = self._get_release_version(install_tree_url)
                 base_repo_url = self._get_base_repo_location(install_tree_url)
 
@@ -1474,23 +1460,25 @@ class DNFPayload(Payload):
 
                 log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
             except configparser.MissingSectionHeaderError as e:
-                log.error("couldn't set releasever from base repo (%s): "
-                          "%s", method.method, e)
+                log.error("couldn't set releasever from base repo (%s): %s", source_type, e)
 
             try:
-                proxy = getattr(method, "proxy", None)
                 base_ksrepo = self.data.RepoData(
-                    name=constants.BASE_REPO_NAME, baseurl=base_repo_url,
-                    mirrorlist=mirrorlist, metalink=metalink,
-                    noverifyssl=not sslverify, proxy=proxy,
-                    sslcacert=getattr(method, 'sslcacert', None),
-                    sslclientcert=getattr(method, 'sslclientcert', None),
-                    sslclientkey=getattr(method, 'sslclientkey', None))
+                    name=constants.BASE_REPO_NAME,
+                    baseurl=base_repo_url,
+                    mirrorlist=mirrorlist,
+                    metalink=metalink,
+                    noverifyssl=not data.ssl_verification_enabled,
+                    proxy=data.proxy,
+                    sslcacert=data.ssl_configuration.ca_cert_path,
+                    sslclientcert=data.ssl_configuration.client_cert_path,
+                    sslclientkey=data.ssl_configuration.client_key_path
+                )
                 self._add_repo(base_ksrepo)
                 self._fetch_md(base_ksrepo.name)
             except (MetadataError, PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
-                          method.method, base_repo_url)
+                          source_type, base_repo_url)
                 log.error("reason for repo removal: %s", e)
                 with self._repos_lock:
                     self._base.repos.pop(constants.BASE_REPO_NAME, None)
@@ -1500,12 +1488,18 @@ class DNFPayload(Payload):
                             self.disable_repo(repo.id)
                     return
 
-                # this preserves the method details while disabling it
-                method.method = None
-                self.install_device = None
+                # Fallback to the closest mirror.
+                tear_down_sources(self.proxy)
 
-        # We need to check this again separately in case method.method was unset above.
-        if not method.method:
+                source_type = SOURCE_TYPE_REPO_FILES
+                source_proxy = create_source(SOURCE_TYPE_REPO_FILES)
+                set_source(self.proxy, source_proxy)
+
+                set_up_sources(self.proxy)
+
+        # We need to check this again separately in case REPO_FILES were set above.
+        if source_type == SOURCE_TYPE_REPO_FILES:
+
             # If this is a kickstart install, just return now
             if flags.automatedInstall:
                 return
@@ -1551,237 +1545,6 @@ class DNFPayload(Payload):
                 if repo_name in enabled_repos:
                     self._fetch_md(repo_name)
 
-    def _setup_install_device(self, checkmount):
-        # XXX FIXME: does this need to handle whatever was set up by dracut?
-        method = self.data.method
-        url = None
-        mirrorlist = None
-        metalink = None
-
-        # See if we already have stuff mounted due to dracut
-        iso_device_path = payload_utils.get_mount_device_path(DRACUT_ISODIR)
-        repo_device_path = payload_utils.get_mount_device_path(DRACUT_REPODIR)
-
-        if method.method == "harddrive":
-            log.debug("Setting up harddrive install device")
-            url = self._setup_harddrive_device(method, iso_device_path, repo_device_path)
-        elif method.method == "nfs":
-            log.debug("Setting up nfs install device")
-            url = self._setup_nfs_device(method, iso_device_path, repo_device_path)
-        elif method.method == "url":
-            url = method.url
-            mirrorlist = method.mirrorlist
-            metalink = method.metalink
-        elif method.method == "hmc":
-            log.debug("Setting up hmc install device")
-            url = self._setup_hmc_device(method, iso_device_path, repo_device_path)
-        elif method.method == "cdrom" or (checkmount and not method.method):
-            log.debug("Setting up cdrom install device")
-            url = self._setup_cdrom_device(method, iso_device_path, repo_device_path)
-
-        return url, mirrorlist, metalink
-
-    def _setup_harddrive_device(self, method, iso_device_path, repo_device_path):
-        url = None
-        need_mount = False
-
-        if method.biospart:
-            log.warning("biospart support is not implemented")
-            dev_spec = method.biospart
-        else:
-            dev_spec = method.partition
-            need_mount = True
-            # See if we used this method for stage2, thus dracut left it
-            if iso_device_path and method.partition and \
-               method.partition in iso_device_path and \
-               DRACUT_ISODIR in repo_device_path:
-                # Everything should be setup
-                url = "file://" + DRACUT_REPODIR
-                need_mount = False
-                # We don't setup an install_device here
-                # because we can't tear it down
-
-        iso_device = payload_utils.resolve_device(dev_spec)
-        if need_mount:
-            if not iso_device:
-                raise PayloadSetupError("device for HDISO install %s does not exist" % dev_spec)
-
-            url = self._setup_media(iso_device)
-            self.install_device = iso_device
-
-        return url
-
-    def _setup_nfs_device(self, method, iso_device_path, repo_device_path):
-        # There are several possible scenarios here:
-        # 1. dracut could have mounted both the nfs repo and an iso and used
-        #    the stage2 from inside the iso to boot from.
-        #    iso_device_path and repo_device_path will be set in this case.
-        # 2. dracut could have mounted the nfs repo and used a stage2 from
-        #    the NFS mount w/o mounting the iso.
-        #    iso_device_path will be None and repo_device_path will be the nfs: path
-        # 3. dracut did not mount the nfs (eg. stage2 came from elsewhere)
-        #    iso_device_path and/or repo_device_path are None
-        # 4. The repo may not contain an iso, in that case use it as is
-        url = None
-        path = None
-
-        if iso_device_path and repo_device_path:
-            path = parse_nfs_url('nfs:%s' % iso_device_path)[2]
-            # See if the dir holding the iso is what we want
-            # and also if we have an iso mounted to /run/install/repo
-            if path and path in iso_device_path and DRACUT_ISODIR in repo_device_path:
-                # Everything should be setup
-                url = "file://" + DRACUT_REPODIR
-        else:
-            # see if the nfs dir is mounted
-            need_mount = True
-            if repo_device_path:
-                _options, host, path = parse_nfs_url('nfs:%s' % repo_device_path)
-                if method.server and method.server == host and \
-                   method.dir and method.dir == path:
-                    need_mount = False
-                    path = DRACUT_REPODIR
-            elif iso_device_path:
-                # iso_device_path with no repo_device_path can happen when options on an existing
-                # nfs mount have changed. It is already mounted, but on INSTALL_TREE
-                # which is the same as DRACUT_ISODIR, making it hard for _setup_NFS
-                # to detect that it is already mounted.
-                _options, host, path = parse_nfs_url('nfs:%s' % iso_device_path)
-                if path and path in iso_device_path:
-                    need_mount = False
-                    path = DRACUT_ISODIR
-
-            if need_mount:
-                # Mount the NFS share on INSTALL_TREE. If it ends up
-                # being nfsiso we will move the mountpoint to ISO_DIR.
-                if method.dir.endswith(".iso"):
-                    nfs_dir = os.path.dirname(method.dir)
-                else:
-                    nfs_dir = method.dir
-
-                self._setup_NFS(INSTALL_TREE, method.server, nfs_dir, method.opts)
-                path = INSTALL_TREE
-
-            # check for ISO images in the newly mounted dir
-            if method.dir.endswith(".iso"):
-                # if the given URL includes a specific ISO image file, use it
-                image_file = os.path.basename(method.dir)
-                path = os.path.normpath("%s/%s" % (path, image_file))
-
-            image = find_first_iso_image(path)
-
-            # An image was found, mount it on INSTALL_TREE
-            if image:
-                if path.startswith(INSTALL_TREE):
-                    # move the INSTALL_TREE mount to ISO_DIR so we can
-                    # mount the contents of the iso there.
-                    # work around inability to move shared filesystems
-                    util.execWithRedirect("mount",
-                                          ["--make-rprivate", "/"])
-                    util.execWithRedirect("mount",
-                                          ["--move", INSTALL_TREE, ISO_DIR])
-                    # The iso is now under ISO_DIR
-                    path = ISO_DIR
-                elif path.endswith(".iso"):
-                    path = os.path.dirname(path)
-
-                # mount the ISO on a loop
-                image = os.path.normpath("%s/%s" % (path, image))
-                mountImage(image, INSTALL_TREE)
-
-                url = "file://" + INSTALL_TREE
-            elif os.path.isdir(path):
-                # Fall back to the mount path instead of a mounted iso
-                url = "file://" + path
-            else:
-                # Do not try to use iso as source if it is not valid source
-                raise PayloadSetupError("Not a valid ISO image!")
-
-        return url
-
-    def _setup_hmc_device(self, method, iso_device_path, repo_device_path):
-        # Check if /dev/hmcdrv is already mounted.
-        if repo_device_path == "/dev/hmcdrv":
-            log.debug("HMC is already mounted at %s.", DRACUT_REPODIR)
-            url = "file://" + DRACUT_REPODIR
-        else:
-            log.debug("Trying to mount the content of HMC media drive.")
-
-            # Test the SE/HMC file access.
-            if util.execWithRedirect("/usr/sbin/lshmc", []):
-                raise PayloadSetupError("The content of HMC media drive couldn't be accessed.")
-
-            # Test if a path is a mount point.
-            if os.path.ismount(INSTALL_TREE):
-                log.debug("Don't mount the content of HMC media drive yet.")
-            else:
-                # Make sure that the directories exists.
-                util.mkdirChain(INSTALL_TREE)
-
-                # Mount the device.
-                if util.execWithRedirect("/usr/bin/hmcdrvfs", [INSTALL_TREE]):
-                    raise PayloadSetupError("The content of HMC media drive couldn't be mounted.")
-
-            log.debug("We are ready to use the HMC at %s.", INSTALL_TREE)
-            url = "file://" + INSTALL_TREE
-
-        return url
-
-    def _setup_cdrom_device(self, method, iso_device_path, repo_device_path):
-        url = None
-
-        # FIXME: We really should not talk about NFS here - regression from re-factorization?
-
-        # Check for valid optical media if we didn't boot from one
-        if not is_valid_install_disk(DRACUT_REPODIR):
-            self.install_device = find_optical_install_media()
-
-        # Only look at the dracut mount if we don't already have a cdrom
-        if repo_device_path and not self.install_device:
-            self.install_device = payload_utils.resolve_device(repo_device_path)
-            url = "file://" + DRACUT_REPODIR
-            if not method.method:
-                # See if this is a nfs mount
-                if ':' in repo_device_path:
-                    # prepend nfs: to the url as that's what the parser
-                    # wants.  Note we don't get options from this, but
-                    # that's OK for the UI at least.
-                    _options, host, path = parse_nfs_url("nfs:%s" % repo_device_path)
-                    method.method = "nfs"
-                    method.server = host
-                    method.dir = path
-                else:
-                    method.method = "cdrom"
-        else:
-            if self.install_device:
-                if not method.method:
-                    method.method = "cdrom"
-                url = self._setup_media(self.install_device)
-            elif method.method == "cdrom":
-                raise PayloadSetupError("no usable optical media found")
-
-        return url
-
-    def _setup_media(self, device):
-        method = self.data.method
-
-        if method.method == "harddrive":
-            try:
-                method.dir = self._find_and_mount_iso(device, ISO_DIR, method.dir, INSTALL_TREE)
-            except PayloadSetupError as ex:
-                log.warning(str(ex))
-
-                try:
-                    self._setup_install_tree(device, method.dir, INSTALL_TREE)
-                    return util.join_paths("file:///", INSTALL_TREE, method.dir)
-                except PayloadSetupError as ex:
-                    log.error(str(ex))
-                    raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
-        elif not (method.method == "cdrom" and self._device_is_mounted_as_source(device)):
-            payload_utils.mount_device(device, INSTALL_TREE)
-
-        return util.join_paths("file:///", INSTALL_TREE)
-
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
         """Find and mount installation source from ISO on device.
 
@@ -1822,14 +1585,6 @@ class DNFPayload(Payload):
             return result_path
 
         return iso_path
-
-    def _setup_install_tree(self, device, install_tree_path, device_mount_dir):
-        self._setup_device(device, mountpoint=device_mount_dir)
-        path = os.path.normpath("%s/%s" % (device_mount_dir, install_tree_path))
-
-        if not verify_valid_installtree(path):
-            payload_utils.teardown_device(device)
-            raise PayloadSetupError("failed to find valid installation tree")
 
     @staticmethod
     def _setup_device(device, mountpoint):
@@ -1883,11 +1638,6 @@ class DNFPayload(Payload):
 
         payload_utils.mount(url, mountpoint, fstype="nfs", options=options)
 
-    def _device_is_mounted_as_source(self, device):
-        device_path = payload_utils.get_device_path(device)
-        device_mounts = payload_utils.get_mount_paths(device_path)
-        return INSTALL_TREE in device_mounts or DRACUT_REPODIR in device_mounts
-
     def _setup_harddrive_addon_repo(self, ksrepo):
         iso_device = payload_utils.resolve_device(ksrepo.partition)
         if not iso_device:
@@ -1904,28 +1654,24 @@ class DNFPayload(Payload):
 
         return url
 
-    def _refresh_install_tree(self, url):
-        """Refresh installation tree metadata.
-
-        :param url: url of the repo
-        :type url: string
-        """
-        if not url:
+    def _refresh_install_tree(self, data: RepoConfigurationData):
+        """Refresh installation tree metadata."""
+        if data.type != URL_TYPE_BASEURL:
             return
 
-        if hasattr(self.data.method, "proxy"):
-            proxy_url = self.data.method.proxy
-        else:
-            proxy_url = None
+        if not data.url:
+            return
+
+        url = data.url
+        proxy_url = data.proxy or None
 
         # ssl_verify can be:
         #   - the path to a cert file
         #   - True, to use the system's certificates
         #   - False, to not verify
-        ssl_verify = getattr(self.data.method, "sslcacert", None) or conf.payload.verify_ssl
-
-        ssl_client_cert = getattr(self.data.method, "ssl_client_cert", None)
-        ssl_client_key = getattr(self.data.method, "ssl_client_key", None)
+        ssl_verify = data.ssl_configuration.ca_cert_path or conf.payload.verify_ssl
+        ssl_client_cert = data.ssl_configuration.client_cert_path or None
+        ssl_client_key = data.ssl_configuration.client_key_path or None
         ssl_cert = (ssl_client_cert, ssl_client_key) if ssl_client_cert else None
 
         log.debug("retrieving treeinfo from %s (proxy: %s ; ssl_verify: %s)",
@@ -2100,8 +1846,10 @@ class DNFPayload(Payload):
         """
         super().post_setup()
         self._repoMD_list = []
+        proxy_url = self._get_proxy_url()
+
         for repo in self._base.repos.iter_enabled():
-            repoMD = RepoMDMetaHash(self, repo)
+            repoMD = RepoMDMetaHash(repo, proxy_url)
             repoMD.store_repoMD_hash()
             self._repoMD_list.append(repoMD)
 

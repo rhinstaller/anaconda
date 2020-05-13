@@ -105,19 +105,6 @@ class DummyRepo(object):
         self.sslverify = True
 
 
-class DummyPayload(object):
-    def __init__(self):
-        class DummyMethod(object):
-            def __init__(self):
-                self.method = None
-
-        class DummyData(object):
-            def __init__(self):
-                self.method = DummyMethod()
-
-        self.data = DummyData()
-
-
 class DNFPayloadMDCheckTests(unittest.TestCase):
     def setUp(self):
         self._content_repomd = """
@@ -143,14 +130,14 @@ or it should be. Nah it's just a test!
         m.update(self._content_repomd.encode('ascii', 'backslashreplace'))
         reference_digest = m.digest()
 
-        r = RepoMDMetaHash(DummyPayload(), self._dummyRepo)
+        r = RepoMDMetaHash(self._dummyRepo, None)
         r.store_repoMD_hash()
 
         self.assertEqual(r.repoMD_hash, reference_digest)
 
     def verify_repo_test(self):
         """Test verification method."""
-        r = RepoMDMetaHash(DummyPayload(), self._dummyRepo)
+        r = RepoMDMetaHash(self._dummyRepo, None)
         r.store_repoMD_hash()
 
         # test if repomd comparision works properly
