@@ -52,6 +52,9 @@ class DummyMountingSourceSubclass(MountingSourceBase):
     def set_up_with_tasks(self):
         return []
 
+    def tear_down_with_tasks(self):
+        return []
+
 
 class DummySetUpMountTaskSubclass(SetUpMountTask):
     """Dummy class to test code in its abstract ancestor."""
@@ -90,13 +93,6 @@ class MountingSourceBaseTestCase(unittest.TestCase):
         self.assertEqual(True, module.get_mount_state())
 
         ismount_mock.assert_called_once_with(module.mount_point)
-
-    def tear_down_test(self):
-        """Mount source base tear down."""
-        module = DummyMountingSourceSubclass()
-        tasks = module.tear_down_with_tasks()
-        self.assertEqual(len(tasks), 1)
-        self.assertEqual(type(tasks[0]), TearDownMountTask)
 
 
 class TearDownMountTaskTestCase(unittest.TestCase):

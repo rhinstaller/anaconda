@@ -24,6 +24,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
@@ -84,6 +85,15 @@ class LiveOSSourceModule(MountingSourceBase):
         self._image_path = image_path
         self.image_path_changed.emit()
         log.debug("LiveOS image path is set to '%s'", self._image_path)
+
+    def tear_down_with_tasks(self):
+        """Tear down the installation source.
+
+        :return: list of tasks required for the source clean-up
+        :rtype: [TearDownMountTask]
+        """
+        task = TearDownMountTask(self._mount_point)
+        return [task]
 
     def for_publication(self):
         """Get the interface used to publish this source."""

@@ -22,6 +22,7 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
 from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -73,6 +74,15 @@ class HMCSourceModule(MountingSourceBase, RPMSourceMixin):
         :rtype: [Task]
         """
         return [SetUpHMCSourceTask(self.mount_point)]
+
+    def tear_down_with_tasks(self):
+        """Tear down the installation source.
+
+        :return: list of tasks required for the source clean-up
+        :rtype: [TearDownMountTask]
+        """
+        task = TearDownMountTask(self._mount_point)
+        return [task]
 
     def process_kickstart(self, data):
         """Process the kickstart data.

@@ -21,6 +21,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
 from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
 from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask
@@ -87,6 +88,15 @@ class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
         """
         task = SetUpCdromSourceTask(self.mount_point)
         task.succeeded_signal.connect(lambda: self._handle_setup_task_result(task))
+        return [task]
+
+    def tear_down_with_tasks(self):
+        """Tear down the installation source.
+
+        :return: list of tasks required for the source clean-up
+        :rtype: [TearDownMountTask]
+        """
+        task = TearDownMountTask(self._mount_point)
         return [task]
 
     def process_kickstart(self, data):

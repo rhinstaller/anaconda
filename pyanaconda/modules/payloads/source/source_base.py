@@ -23,7 +23,6 @@ from abc import ABC, ABCMeta, abstractmethod
 from dasbus.server.publishable import Publishable
 
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -136,15 +135,6 @@ class MountingSourceBase(PayloadSourceBase, ABC):
         :rtype: str
         """
         return self._mount_point
-
-    def tear_down_with_tasks(self):
-        """Tear down the installation source.
-
-        :return: list of tasks required for the source clean-up
-        :rtype: [TearDownMountTask]
-        """
-        task = TearDownMountTask(self._mount_point)
-        return [task]
 
 
 class RPMSourceMixin(ABC):
