@@ -135,6 +135,10 @@ class LiveOSSourceTestCase(unittest.TestCase):
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
 
+    def repr_test(self):
+        self.module.set_image_path("/some/path")
+        self.assertEqual(repr(self.module), "Source(type='LIVE_OS_IMAGE', image='/some/path')")
+
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
 

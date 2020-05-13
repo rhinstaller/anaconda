@@ -43,6 +43,9 @@ class RepoFilesSourceModule(PayloadSourceBase):
         """Get description of this source."""
         return _("Closest mirror")
 
+    def __repr__(self):
+        return "Source(type='REPO_FILES')"
+
     def get_state(self):
         """Get state of this source."""
         return SourceState.NOT_APPLICABLE

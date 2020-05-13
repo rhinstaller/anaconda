@@ -45,6 +45,9 @@ class LiveOSSourceModule(MountingSourceBase):
         """Get type of this source."""
         return SourceType.LIVE_OS_IMAGE
 
+    def __repr__(self):
+        return "Source(type='LIVE_OS_IMAGE', image='{}')".format(self._image_path)
+
     @property
     def description(self):
         """Get description of this source."""

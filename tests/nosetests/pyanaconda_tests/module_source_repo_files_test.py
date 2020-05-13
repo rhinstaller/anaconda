@@ -55,6 +55,9 @@ class RepoFilesSourceTestCase(unittest.TestCase):
         """Test Repo files source module has a correct type."""
         self.assertEqual(SourceType.REPO_FILES, self.module.type)
 
+    def repr_test(self):
+        self.assertEqual(repr(self.module), "Source(type='REPO_FILES')")
+
     def set_up_with_tasks_test(self):
         """Test Repo files Source set up call."""
         tasks = self.module.set_up_with_tasks()

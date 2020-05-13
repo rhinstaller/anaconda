@@ -114,6 +114,13 @@ class NFSSourceTestCase(unittest.TestCase):
         self.module.set_url(nfs_url)
         self.assertEqual(nfs_url, self.module.url)
 
+    def repr_test(self):
+        self.module.set_url(nfs_url)
+        self.assertEqual(
+            repr(self.module),
+            "Source(type='NFS', url='nfs:example.com:/some/path')"
+        )
+
 
 class NFSSourceSetupTaskTestCase(unittest.TestCase):
 

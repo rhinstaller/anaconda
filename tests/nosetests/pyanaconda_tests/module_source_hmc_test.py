@@ -68,6 +68,9 @@ class HMCSourceModuleTestCase(unittest.TestCase):
         task = tasks[0]
         self.assertIsInstance(task, TearDownMountTask)
 
+    def repr_test(self):
+        self.assertEqual(repr(self.module), "Source(type='HMC')")
+
 
 class HMCSourceTasksTestCase(unittest.TestCase):
     """Test tasks of the SE/HMC source module."""

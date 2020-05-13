@@ -59,6 +59,9 @@ class CdromSourceTestCase(unittest.TestCase):
         """Hard drive source description."""
         self.assertEqual("Local media", self.interface.Description)
 
+    def repr_test(self):
+        self.assertEqual(repr(self.module), "Source(type='CDROM')")
+
     def set_up_with_tasks_test(self):
         """Test CD-ROM Source set up call."""
         task_classes = [

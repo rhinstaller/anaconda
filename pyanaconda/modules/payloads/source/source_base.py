@@ -38,12 +38,6 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
     to be implemented by a source to be used.
     """
 
-    def __repr__(self):
-        """Print sources in a nicer way."""
-        # FIXME: Every source should implement it's repr and this should be removed.
-        # See https://docs.python.org/3/library/functions.html#repr for reasons why.
-        return "Source({})".format(self.type.value)
-
     @property
     @abstractmethod
     def type(self):

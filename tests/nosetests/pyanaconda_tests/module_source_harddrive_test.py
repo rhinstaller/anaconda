@@ -140,6 +140,15 @@ class HardDriveSourceTestCase(unittest.TestCase):
         self.assertEqual(iso_mount_location, self.module.install_tree_path)
         self.assertEqual(True, self.module._uses_iso_mount)
 
+    def repr_test(self):
+        self.module.set_device("device")
+        self.module.set_directory("directory")
+        self.module._install_tree_path = "install-tree-path"
+        self.assertEqual(
+            repr(self.module),
+            "Source(type='HDD', partition='device', directory='directory')"
+        )
+
 
 class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
 

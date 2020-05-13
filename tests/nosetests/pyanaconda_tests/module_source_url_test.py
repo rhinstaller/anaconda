@@ -329,3 +329,12 @@ class URLSourceTestCase(unittest.TestCase):
         No task is required. Will be an empty list.
         """
         self.assertEqual(self.module.tear_down_with_tasks(), [])
+
+    def repr_test(self):
+        config = RepoConfigurationData()
+        config.url = "http://some.example.com/repository"
+        self.module.set_repo_configuration(config)
+        self.assertEqual(
+            repr(self.module),
+            "Source(type='URL', url='http://some.example.com/repository')"
+        )
