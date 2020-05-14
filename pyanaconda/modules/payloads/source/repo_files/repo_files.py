@@ -33,6 +33,9 @@ log = get_module_logger(__name__)
 class RepoFilesSourceModule(PayloadSourceBase):
     """The Repo files source payload module."""
 
+    def __repr__(self):
+        return "Source(type='REPO_FILES')"
+
     @property
     def type(self):
         """Get type of this source."""
@@ -50,9 +53,6 @@ class RepoFilesSourceModule(PayloadSourceBase):
         :return: True or False
         """
         return True
-
-    def __repr__(self):
-        return "Source(type='REPO_FILES')"
 
     def get_state(self):
         """Get state of this source."""

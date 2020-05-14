@@ -55,6 +55,13 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         )
         self._iso_name = ""
 
+    def __repr__(self):
+        result = "Source(type='HDD', partition='{}', directory='{}')".format(
+            self._device,
+            self.directory,
+        )
+        return result
+
     @property
     def is_iso_mounted(self):
         """Is ISO file mounted from set up task?"""
@@ -77,13 +84,6 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         :return: True or False
         """
         return False
-
-    def __repr__(self):
-        result = "Source(type='HDD', partition='{}', directory='{}')".format(
-            self._device,
-            self.directory,
-        )
-        return result
 
     def get_state(self):
         """Get state of this source."""

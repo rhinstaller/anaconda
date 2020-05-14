@@ -41,13 +41,13 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         self._image_path = ""
         self.image_path_changed = Signal()
 
+    def __repr__(self):
+        return "Source(type='LIVE_OS_IMAGE', image='{}')".format(self._image_path)
+
     @property
     def type(self):
         """Get type of this source."""
         return SourceType.LIVE_OS_IMAGE
-
-    def __repr__(self):
-        return "Source(type='LIVE_OS_IMAGE', image='{}')".format(self._image_path)
 
     @property
     def description(self):

@@ -39,6 +39,9 @@ class CdromSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
         self._device_name = ""
         self.device_name_changed = Signal()
 
+    def __repr__(self):
+        return "Source(type='CDROM')"
+
     @property
     def type(self):
         """Get type of this source."""
@@ -65,9 +68,6 @@ class CdromSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
         :rtype: str
         """
         return self._device_name
-
-    def __repr__(self):
-        return "Source(type='CDROM')"
 
     def for_publication(self):
         """Get the interface used to publish this source."""

@@ -50,6 +50,9 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
         self._install_repo_enabled = False
         self.install_repo_enabled_changed = Signal()
 
+    def __repr__(self):
+        return "Source(type='URL', url='{}')".format(self._repo_configuration.url)
+
     def _generate_source_name(self):
         source_id = URLSourceModule.REPO_NAME_ID
         URLSourceModule.REPO_NAME_ID = URLSourceModule.REPO_NAME_ID + 1
@@ -77,9 +80,6 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
         :return: True or False
         """
         return has_network_protocol(self._repo_configuration.url)
-
-    def __repr__(self):
-        return "Source(type='URL', url='{}')".format(self._repo_configuration.url)
 
     def for_publication(self):
         """Get the interface used to publish this source."""
