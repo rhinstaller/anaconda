@@ -17,6 +17,8 @@
 #
 import os
 import json
+import datetime
+from collections import namedtuple
 
 from dasbus.typing import get_variant, Str
 from dasbus.connection import MessageBus
@@ -29,6 +31,8 @@ from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     UnregistrationError, SubscriptionError
+from pyanaconda.modules.common.structures.subscription import AttachedSubscription, \
+    SystemPurposeData
 
 from pyanaconda.modules.subscription import system_purpose
 
@@ -68,6 +72,10 @@ class RHSMPrivateBus(MessageBus):
         # so we will not log it
         log.info("Connecting to the RHSM private DBus session.")
         return self._provider.get_addressed_bus_connection(self._private_bus_address)
+
+
+SystemSubscriptionData = namedtuple("SystemSubscriptionData",
+                                    ["attached_subscriptions", "system_purpose_data"])
 
 
 class SystemPurposeConfigurationTask(Task):
@@ -360,3 +368,200 @@ class AttachSubscriptionTask(Task):
             # is missing
             message = exception_dict.get("message", _("Failed to attach subscription."))
             raise SubscriptionError(message) from None
+
+
+class ParseAttachedSubscriptionsTask(Task):
+    """Parse data about subscriptions attached to the installation environment."""
+
+    def __init__(self, rhsm_entitlement_proxy, rhsm_syspurpose_proxy):
+        """Create a new attached subscriptions parsing task.
+
+        :param rhsm_entitlement_proxy: DBus proxy for the RHSM Entitlement object
+        :param rhsm_syspurpose_proxy: DBus proxy for the RHSM Syspurpose object
+        """
+        super().__init__()
+        self._rhsm_entitlement_proxy = rhsm_entitlement_proxy
+        self._rhsm_syspurpose_proxy = rhsm_syspurpose_proxy
+
+    @property
+    def name(self):
+        return "Parse attached subscription data"
+
+    @staticmethod
+    def _pretty_date(date_from_json):
+        """Return pretty human readable date based on date from the input JSON."""
+        # fallback in case of the parsing fails
+        date_string = date_from_json
+        try:
+            # The start/end date in GetPools() output seems to be formatted as
+            # "Locale’s appropriate date representation.".
+            # See bug 1793501 for possible issues with RHSM provided date parsing.
+            date = datetime.datetime.strptime(date_from_json, "%m/%d/%y")
+            # get a nice human readable date
+            date_string = date.strftime("%b %d, %Y")
+        except ValueError:
+            log.warning("subscription: date parsing failed: %s", date_from_json)
+        return date_string
+
+    @classmethod
+    def _parse_subscription_json(cls, subscription_json):
+        """Parse the JSON into list of AttachedSubscription instances.
+
+        The expected JSON is at top level a list of rather complex dictionaries,
+        with each dictionary describing a single subscription that has been attached
+        to the system.
+
+        :param str subscription_json: JSON describing what subscriptions have been attached
+        :return: list of attached subscriptions
+        :rtype: list of AttachedSubscription instances
+        """
+        attached_subscriptions = []
+        try:
+            subscriptions = json.loads(subscription_json)
+        except json.decoder.JSONDecodeError:
+            log.warning("subscription: failed to parse GetPools() JSON output")
+            # empty attached subscription list is better than an installation
+            # ending crash
+            return []
+        # find the list of subscriptions
+        consumed_subscriptions = subscriptions.get("consumed", [])
+        log.debug("subscription: parsing %d attached subscriptions",
+                  len(consumed_subscriptions))
+        # split the list of subscriptions into separate subscription dictionaries
+        for subscription_info in consumed_subscriptions:
+            attached_subscription = AttachedSubscription()
+            # user visible product name
+            attached_subscription.name = subscription_info.get(
+                "subscription_name",
+                _("product name unknown")
+            )
+
+            # subscription support level
+            # - this does *not* seem to directly correlate to system purpose SLA attribute
+            attached_subscription.service_level = subscription_info.get(
+                "service_level",
+                _("unknown")
+            )
+
+            # SKU
+            # - looks like productId == SKU in this JSON output
+            attached_subscription.sku = subscription_info.get(
+                "sku",
+                _("unknown")
+            )
+
+            # contract number
+            attached_subscription.contract = subscription_info.get(
+                "contract",
+                _("not available")
+            )
+
+            # subscription start date
+            # - convert the raw date data from JSON to something more readable
+            start_date = subscription_info.get(
+                "starts",
+                _("unknown")
+            )
+            attached_subscription.start_date = cls._pretty_date(start_date)
+
+            # subscription end date
+            # - convert the raw date data from JSON to something more readable
+            end_date = subscription_info.get(
+                "ends",
+                _("unknown")
+            )
+            attached_subscription.end_date = cls._pretty_date(end_date)
+
+            # consumed entitlements
+            # - this seems to correspond to the toplevel "quantity" key,
+            #   not to the pool-level "consumed" key for some reason
+            #   *or* the pool-level "quantity" key
+            quantity_string = int(subscription_info.get("quantity_used", 1))
+            attached_subscription.consumed_entitlement_count = quantity_string
+            # add attached subscription to the list
+            attached_subscriptions.append(attached_subscription)
+        # return the list of attached subscriptions
+        return attached_subscriptions
+
+    @staticmethod
+    def _parse_system_purpose_json(final_syspurpose_json):
+        """Parse the JSON into a SystemPurposeData instance.
+
+        The expected JSON is a simple three key dictionary listing the final
+        System Purpose state after subscription/subscriptions have been attached.
+
+        :param str final_syspurpose_json: JSON describing final syspurpose state
+        :return: final system purpose data
+        :rtype: SystemPurposeData instance
+        """
+        system_purpose_data = SystemPurposeData()
+
+        try:
+            syspurpose_json = json.loads(final_syspurpose_json)
+        except json.decoder.JSONDecodeError:
+            log.warning("subscription: failed to parse GetSyspurpose() JSON output")
+            # empty system purpose data is better than an installation ending crash
+            return system_purpose_data
+
+        system_purpose_data.role = syspurpose_json.get(
+            "role",
+            ""
+        )
+        system_purpose_data.sla = syspurpose_json.get(
+            "service_level_agreement",
+            ""
+        )
+        system_purpose_data.usage = syspurpose_json.get(
+            "usage",
+            ""
+        )
+        system_purpose_data.addons = syspurpose_json.get(
+            "addons",
+            []
+        )
+        return system_purpose_data
+
+    def run(self):
+        """Get data from RHSM describing what subscriptions have been attached to the system.
+
+        Calling the AutoAttach() over RHSM DBus API also generally returns such data,
+        but due to bug 1790924,  we can't depend on it always being the case.
+
+        Therefore, we query subscription state separately using the GetPools() method.
+
+        We also retrieve system purpose data from the system, as registration that
+        uses an activation key with custom system purpose value attached, can result
+        in system purpose data being different after registration.
+        """
+        locale = os.environ.get("LANG", "")
+        # fetch subscription status data
+        subscription_json = self._rhsm_entitlement_proxy.GetPools(
+            {"pool_subsets": get_variant(Str, "consumed")},
+            {},
+            locale
+        )
+        subscription_data_length = 0
+        # Log how much subscription data we got for debugging purposes.
+        # By only logging length, we should be able to debug cases of no
+        # or incomplete data being logged, without logging potentially
+        # sensitive subscription status detail into the installation logs
+        # stored on the target system.
+        if subscription_json:
+            subscription_data_length = len(subscription_json)
+            log.debug("subscription: fetched subscription status data: %d characters",
+                      subscription_data_length)
+        else:
+            log.warning("subscription: fetched empty subscription status data")
+
+        # fetch final system purpose data
+        log.debug("subscription: fetching final syspurpose data")
+        final_syspurpose_json = self._rhsm_syspurpose_proxy.GetSyspurpose(locale)
+        log.debug("subscription: final syspurpose data: %s", final_syspurpose_json)
+
+        # parse the JSON strings
+        attached_subscriptions = self._parse_subscription_json(subscription_json)
+        system_purpose_data = self._parse_system_purpose_json(final_syspurpose_json)
+
+        # return the DBus structures as a named tuple
+        return SystemSubscriptionData(attached_subscriptions=attached_subscriptions,
+                                      system_purpose_data=system_purpose_data)

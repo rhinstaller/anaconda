@@ -42,7 +42,8 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
     RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask
+    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
+    ParseAttachedSubscriptionsTask, SystemSubscriptionData
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
     PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list, \
@@ -920,6 +921,50 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # at the end the property should be True
         self.assertTrue(self.subscription_interface.IsSubscriptionAttached)
 
+    def attached_subscriptions_property_test(self):
+        """Test the AttachedSubscriptions property."""
+        # should return an empty list by default
+        self.assertEqual(self.subscription_interface.AttachedSubscriptions, [])
+        # this property can't be set by client as it is set as the result of
+        # subscription attempts, so we need to call the internal module interface
+        # via a custom setter
+
+        def custom_setter(struct_list):
+            instance_list = AttachedSubscription.from_structure_list(struct_list)
+            self.subscription_module.set_attached_subscriptions(instance_list)
+
+        # prepare some testing data
+        subscription_structs = [
+            {
+                "name": get_variant(Str, "Foo Bar Beta"),
+                "service-level": get_variant(Str, "very good"),
+                "sku": get_variant(Str, "ABC1234"),
+                "contract": get_variant(Str, "12345678"),
+                "start-date": get_variant(Str, "May 12, 2020"),
+                "end-date": get_variant(Str, "May 12, 2021"),
+                "consumed-entitlement-count": get_variant(Int, 1)
+            },
+            {
+                "name": get_variant(Str, "Foo Bar Beta NG"),
+                "service-level": get_variant(Str, "even better"),
+                "sku": get_variant(Str, "ABC4321"),
+                "contract": get_variant(Str, "87654321"),
+                "start-date": get_variant(Str, "now"),
+                "end-date": get_variant(Str, "never"),
+                "consumed-entitlement-count": get_variant(Int, 1000)
+            }
+        ]
+        # check the property is True and the signal was emitted
+        # - we use fake setter as there is no public setter
+        self._check_dbus_property(
+          "AttachedSubscriptions",
+          subscription_structs,
+          setter=custom_setter
+        )
+        # at the end the property should return the expected list
+        # of AttachedSubscription structures
+        self.assertEqual(self.subscription_interface.AttachedSubscriptions, subscription_structs)
+
     @patch_dbus_publish_object
     def set_system_purpose_with_task_test(self, publisher):
         """Test SystemPurposeConfigurationTask creation."""
@@ -1218,6 +1263,62 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         obj.implementation.succeeded_signal.emit()
         # check this set subscription_attached to True
         self.assertTrue(self.subscription_interface.IsSubscriptionAttached)
+
+    @patch_dbus_publish_object
+    def parse_attached_subscriptions_test(self, publisher):
+        """Test ParseAttachedSubscriptionsTask creation."""
+        # make sure the task gets dummy rhsm entitlement and syspurpose proxies
+        observer = Mock()
+        self.subscription_module._rhsm_observer = observer
+        rhsm_entitlement_proxy = Mock()
+        rhsm_syspurpose_proxy = Mock()
+        # yes, this can be done
+        observer.get_proxy.side_effect = [rhsm_entitlement_proxy, rhsm_syspurpose_proxy]
+        # check the task is created correctly
+        task_path = self.subscription_interface.ParseAttachedSubscritionsWithTask()
+        obj = check_task_creation(self, task_path, publisher, ParseAttachedSubscriptionsTask)
+        # check all the data got propagated to the module correctly
+        self.assertEqual(obj.implementation._rhsm_entitlement_proxy, rhsm_entitlement_proxy)
+        self.assertEqual(obj.implementation._rhsm_syspurpose_proxy, rhsm_syspurpose_proxy)
+        # prepare some testing data
+        subscription_structs = [
+            {
+                "name": get_variant(Str, "Foo Bar Beta"),
+                "service-level": get_variant(Str, "very good"),
+                "sku": get_variant(Str, "ABC1234"),
+                "contract": get_variant(Str, "12345678"),
+                "start-date": get_variant(Str, "May 12, 2020"),
+                "end-date": get_variant(Str, "May 12, 2021"),
+                "consumed-entitlement-count": get_variant(Int, 1)
+            },
+            {
+                "name": get_variant(Str, "Foo Bar Beta NG"),
+                "service-level": get_variant(Str, "even better"),
+                "sku": get_variant(Str, "ABC4321"),
+                "contract": get_variant(Str, "87654321"),
+                "start-date": get_variant(Str, "now"),
+                "end-date": get_variant(Str, "never"),
+                "consumed-entitlement-count": get_variant(Int, 1000)
+            }
+        ]
+        system_purpose_struct = {
+            "role": get_variant(Str, "foo"),
+            "sla": get_variant(Str, "bar"),
+            "usage": get_variant(Str, "baz"),
+            "addons": get_variant(List[Str], ["a", "b", "c"])
+        }
+        # make sure this data is returned by get_result()
+        return_tuple = SystemSubscriptionData(
+            attached_subscriptions=AttachedSubscription.from_structure_list(subscription_structs),
+            system_purpose_data=SystemPurposeData.from_structure(system_purpose_struct)
+        )
+        obj.implementation.get_result = Mock()
+        obj.implementation.get_result.return_value = return_tuple
+        # trigger the succeeded signal
+        obj.implementation.succeeded_signal.emit()
+        # check this set attached subscription and system purpose as expected
+        self.assertEqual(self.subscription_interface.AttachedSubscriptions, subscription_structs)
+        self.assertEqual(self.subscription_interface.SystemPurposeData, system_purpose_struct)
 
     @patch_dbus_publish_object
     def install_with_tasks_default_test(self, publisher):

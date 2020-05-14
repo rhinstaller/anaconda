@@ -144,3 +144,13 @@ RHSM_ATTACH = DBusObjectIdentifier(
     namespace=RHSM_NAMESPACE,
     basename="Attach"
 )
+
+RHSM_ENTITLEMENT = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Entitlement"
+)
+
+RHSM_SYSPURPOSE = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Syspurpose"
+)
