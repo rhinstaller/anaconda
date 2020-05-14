@@ -100,6 +100,10 @@ class SubscriptionService(KickstartService):
         self._connect_to_insights = False
         self.connect_to_insights_changed = Signal()
 
+        # registration status
+        self.registered_changed = Signal()
+        self._registered = False
+
         # subscription status
         self.subscription_attached_changed = Signal()
         self._subscription_attached = False
@@ -446,6 +450,35 @@ class SubscriptionService(KickstartService):
         self.connect_to_insights_changed.emit()
         log.debug("Connect target system to Insights set to: %s", self._connect_to_insights)
 
+    # registration status
+
+    @property
+    def registered(self):
+        """Return True if the system has been registered.
+
+        NOTE: Together with the subscription_attached property
+              the registered property can be used to detect that
+              the system is registered but has not subscription
+              attached. This is generally a sign something went
+              wrong, usually when trying to attach subscription.
+
+        :return: True if the system has been registered, False otherwise
+        :rtype: bool
+        """
+        return self._registered
+
+    def set_registered(self, system_registered):
+        """Set if the system is registered.
+
+        :param bool system_registered: True if system has been registered, False otherwise
+        """
+        self._registered = system_registered
+        self.registered_changed.emit()
+        # as there is no public setter in the DBus API, we need to emit
+        # the properties changed signal here manually
+        self.module_properties_changed.emit()
+        log.debug("System registered set to: %s", system_registered)
+
     # subscription status
 
     @property
@@ -574,6 +607,9 @@ class SubscriptionService(KickstartService):
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username=username,
                                                 password=password)
+        # if the task succeeds, it means the system has been registered
+        task.succeeded_signal.connect(
+            lambda: self.set_registered(True))
         return task
 
     def register_organization_key_with_task(self):
@@ -590,6 +626,9 @@ class SubscriptionService(KickstartService):
         task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
                                                organization=organization,
                                                activation_keys=activation_keys)
+        # if the task succeeds, it means the system has been registered
+        task.succeeded_signal.connect(
+            lambda: self.set_registered(True))
         return task
 
     def unregister_with_task(self):
@@ -600,7 +639,9 @@ class SubscriptionService(KickstartService):
         rhsm_unregister_proxy = self.rhsm_observer.get_proxy(RHSM_UNREGISTER)
         task = UnregisterTask(rhsm_unregister_proxy=rhsm_unregister_proxy)
         # we will no longer be registered and subscribed if the task is successful,
-        # so set the corresponding property appropriately
+        # so set the corresponding properties appropriately
+        task.succeeded_signal.connect(
+            lambda: self.set_registered(False))
         task.succeeded_signal.connect(
             lambda: self.set_subscription_attached(False))
         # and clear attached subscriptions

@@ -691,6 +691,20 @@ if __name__ == "__main__":
     from pyanaconda import exception
     anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
+    # Start the subscription handling thread if the Subscription DBus module
+    # provides enough authentication data.
+    # - as kickstart only supports org + key authentication & nothing
+    #   else currently talks to the Subscription DBus module,
+    #   we only check if organization id & at least one activation
+    #   key are available
+    from pyanaconda.modules.common.util import is_module_available
+    from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+    if is_module_available(SUBSCRIPTION):
+        from pyanaconda.ui.lib.subscription import org_keys_sufficient, register_and_subscribe
+        if org_keys_sufficient():
+            threadMgr.add(AnacondaThread(name=constants.THREAD_SUBSCRIPTION,
+                                         target=register_and_subscribe))
+
     # add additional repositories from the cmdline to kickstart data
     anaconda.add_additional_repositories_to_ksdata()
 

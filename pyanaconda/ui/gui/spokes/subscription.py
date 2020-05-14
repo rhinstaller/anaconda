@@ -20,12 +20,16 @@
 from enum import IntEnum
 
 from pyanaconda.flags import flags
-
+from pyanaconda.threading import threadMgr, AnacondaThread
 
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \
-    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
+    THREAD_SUBSCRIPTION
 from pyanaconda.core.payload import ProxyString
+from pyanaconda.ui.lib.subscription import register_and_subscribe, \
+    unregister, SubscriptionPhase
+from pyanaconda.core.async_utils import async_action_wait
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION, NETWORK
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
@@ -120,10 +124,11 @@ class SubscriptionSpoke(NormalSpoke):
 
     @property
     def status(self):
-        # TODO: status message depends on registration/unregistration handling
-        # - shows registration phases when registration + subscription is ongoing
+        # The spoke status message:
+        # - shows registration phases when registration + subscription
+        #   or unregistration is ongoing
         # - otherwise shows not-registered/registered/error
-        return ""
+        return self._get_status_message()
 
     @property
     def mandatory(self):
@@ -310,15 +315,18 @@ class SubscriptionSpoke(NormalSpoke):
 
     def on_username_entry_changed(self, editable):
         self.subscription_request.username = editable.get_text()
+        self._update_registration_state()
 
     def on_password_entry_changed(self, editable):
         entered_text = editable.get_text()
         if entered_text:
             self.enable_password_placeholder(False)
         self.subscription_request.account_password.set_secret(entered_text)
+        self._update_registration_state()
 
     def on_organization_entry_changed(self, editable):
         self.subscription_request.organization = editable.get_text()
+        self._update_registration_state()
 
     def on_activation_key_entry_changed(self, editable):
         entered_text = editable.get_text()
@@ -329,6 +337,7 @@ class SubscriptionSpoke(NormalSpoke):
         # keys == None clears keys in the module, so deleting keys
         # in the keys field will also clear module data on apply()
         self.subscription_request.activation_keys.set_secret(keys)
+        self._update_registration_state()
 
     # system purpose related signals
 
@@ -684,6 +693,12 @@ class SubscriptionSpoke(NormalSpoke):
         if self.options_set:
             self.options_visible = True
 
+        # now that we updated the spoke with fresh data from the module, we can run the
+        # general purpose update functions that make sure the two parts of the spoke
+        # (the registration part and the subscription part) are both valid
+        self._update_registration_state()
+        self._update_subscription_state()
+
     def _update_authetication_ui(self):
         """Update the authentication part of the spoke.
 
@@ -811,15 +826,143 @@ class SubscriptionSpoke(NormalSpoke):
 
     def _register(self):
         """Try to register a system."""
-        # TODO
+        # update data in the Subscription DBUS module
+        self._set_data_to_module()
+
+        # disable controls
+        self.set_registration_controls_sensitive(False)
+
+        # try to register
+        log.debug("Subscription GUI: attempting to register")
+        threadMgr.add(AnacondaThread(name=THREAD_SUBSCRIPTION,
+                                     target=register_and_subscribe,
+                                     args=(self._subscription_progress_callback,
+                                           self._subscription_error_callback)))
 
     def _unregister(self):
         """Try to unregister a system."""
+        # update data in the Subscription DBUS module
+        self._set_data_to_module()
+
+        # disable controls
+        self.set_registration_controls_sensitive(False)
+
+        # try to unregister
+        log.debug("Subscription GUI: attempting to unregister")
+        threadMgr.add(AnacondaThread(name=THREAD_SUBSCRIPTION,
+                                     target=unregister,
+                                     args=(self._subscription_progress_callback,
+                                           self._subscription_error_callback)))
+
+    @async_action_wait
+    def _subscription_progress_callback(self, phase):
+        """Progress handling for subscription thread.
+
+        Used both for both registration + attaching subscription
+        and for unregistration.
+
+        NOTE: Using the @async_action_wait decorator as this is
+              called from the subscription thread. We need to do
+              that as GTK does bad things if non main threads
+              interact with it.
+        """
+        # clear error message from a previous attempt (if any)
+        self.registration_error = ""
+        # set registration phase
+        self.registration_phase = phase
+
+        # set spoke status according to subscription thread phase
+        if phase == SubscriptionPhase.DONE:
+            log.debug("Subscription GUI: registration & attach done")
+            # we are done, clear the phase
+            self.registration_phase = None
+            # check if an installation method is set that the
+            # Red Hat CDN should override
+            # (check if we just registered or unregistered)
+            # TODO
+
+            # restart the payload so that it picks up
+            # the new repo file generated by RHSM
+            # TODO
+
+            # update registration and subscription parts of the spoke
+            self._update_registration_state()
+            self._update_subscription_state()
+            # enable controls
+            self.set_registration_controls_sensitive(True)
+            # notify hub
+            hubQ.send_ready(self.__class__.__name__, False)
+        else:
+            # processing still ongoing, set the phase
+            self.registration_phase = phase
+            # notify hub
+            hubQ.send_ready(self.__class__.__name__, False)
+        # update spoke state
+        self._update_registration_state()
+
+    @async_action_wait
+    def _subscription_error_callback(self, error_message):
+        log.debug("Subscription GUI: registration & attach failed")
+        # store the error message
+        self.registration_error = error_message
+        # even if we fail, we are technically done,
+        # so clear the phase
+        self.registration_phase = None
+        # restart payload
         # TODO
 
+        # update registration and subscription parts of the spoke
+        self._update_registration_state()
+        self._update_subscription_state()
+        # re-enable controls, so user can try again
+        self.set_registration_controls_sensitive(True)
+        # notify hub
+        hubQ.send_ready(self.__class__.__name__, False)
+
+    def _get_status_message(self):
+        """Get status message describing current spoke state.
+
+        The registration phase is taken into account (if any)
+        as well as possible error state and subscription
+        being or not being attached.
+
+        NOTE: This method is used both for the spoke status message
+              as well as for the in-spoke status label.
+        """
+        phase = self.registration_phase
+        if phase:
+            if phase == SubscriptionPhase.UNREGISTER:
+                return _("Unregistering...")
+            elif phase == SubscriptionPhase.REGISTER:
+                return _("Registering...")
+            elif phase == SubscriptionPhase.ATTACH_SUBSCRIPTION:
+                return _("Attaching subscription...")
+            elif phase == SubscriptionPhase.DONE:
+                return _("Subscription attached.")
+        elif self.registration_error:
+            return _("Registration failed.")
+        elif self.subscription_attached:
+            return _("Registered.")
+        else:
+            return _("Not registered.")
+
     def _update_registration_state(self):
-        """Update state of the registration related part of the spoke."""
-        # TODO
+        """Update state of the registration related part of the spoke.
+
+        Hopefully this method is not too inefficient as it is running basically
+        on every keystroke in the username/password/organization/key entry.
+        """
+        subscription_attached = self.subscription_attached
+        if subscription_attached:
+            self._main_notebook.set_current_page(self.SUBSCRIPTION_STATUS_PAGE)
+        else:
+            self._main_notebook.set_current_page(self.REGISTRATION_PAGE)
+
+        # update registration status label
+        self._registration_status_label.set_text(self._get_status_message())
+
+        # update registration button state
+        self._update_register_button_state()
 
     def _update_subscription_state(self):
         """Update state of the subscription related part of the spoke.
