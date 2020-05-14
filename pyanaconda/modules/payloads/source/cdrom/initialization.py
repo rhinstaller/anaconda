@@ -59,3 +59,5 @@ class SetUpCdromSourceTask(SetUpMountTask):
 
         if not device_name:
             raise SourceSetupError("Found no CD-ROM")
+
+        return device_name

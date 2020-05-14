@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.i18n import _
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
@@ -31,6 +32,11 @@ log = get_module_logger(__name__)
 class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
     """The CD-ROM source payload module."""
 
+    def __init__(self):
+        super().__init__()
+        self._device_name = ""
+        self.device_name_changed = Signal()
+
     @property
     def type(self):
         """Get type of this source."""
@@ -40,6 +46,15 @@ class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
     def description(self):
         """Get description of this source."""
         return _("Local media")
+
+    @property
+    def device_name(self):
+        """Get device name of the cdrom found.
+
+        :return: name of the cdrom device
+        :rtype: str
+        """
+        return self._device_name
 
     def __repr__(self):
         return "Source(type='CDROM')"
@@ -59,6 +74,7 @@ class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
         :rtype: [Task]
         """
         task = SetUpCdromSourceTask(self.mount_point)
+        task.succeeded_signal.connect(lambda: self._handle_setup_task_result(task))
         return [task]
 
     def process_kickstart(self, data):
@@ -71,3 +87,8 @@ class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         data.cdrom.seen = True
+
+    def _handle_setup_task_result(self, task):
+        self._device_name = task.get_result()
+        self.device_name_changed.emit()
+        self.module_properties_changed.emit()

@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_CDROM
 from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 
@@ -25,4 +26,12 @@ from pyanaconda.modules.payloads.source.source_base_interface import PayloadSour
 @dbus_interface(PAYLOAD_SOURCE_CDROM.interface_name)
 class CdromSourceInterface(PayloadSourceBaseInterface):
     """Interface for the payload CD-ROM image source."""
-    pass
+
+    def connect_signals(self):
+        super().connect_signals()
+        self.watch_property("DeviceName", self.implementation.device_name_changed)
+
+    @property
+    def DeviceName(self) -> Str:
+        """Get device name of the cdrom found."""
+        return self.implementation.device_name
