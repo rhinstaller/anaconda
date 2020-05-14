@@ -21,12 +21,11 @@ from blivet.util import mount
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.storage import device_matches
 from pyanaconda.core.util import join_paths
-from pyanaconda.payload.image import find_first_iso_image
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["is_valid_install_disk", "find_and_mount_device", "find_and_mount_iso_image",
+__all__ = ["is_valid_install_disk", "find_and_mount_device", "mount_iso_image",
            "MountPointGenerator"]
 
 
@@ -79,21 +78,17 @@ def find_and_mount_device(device_spec, mount_point):
         return False
 
 
-def find_and_mount_iso_image(image_location, mount_point):
-    """Find a ISO image in a location and mount it.
+def mount_iso_image(image_path, mount_point):
+    """Mount ISO image.
 
-    :param str image_location: where the image ISO file is
+    :param str image_path: where the image ISO file is
     :param str mount_point: where to mount the image
 
     :return: success or not
     :rtype: bool
     """
-    image_filename = find_first_iso_image(image_location)
-    if not image_filename:
-        return False
-    full_image_path = join_paths(image_location, image_filename)
     try:
-        mount(full_image_path, mount_point, fstype='iso9660', options="ro")
+        mount(image_path, mount_point, fstype='iso9660', options="ro")
         return True
     except OSError as e:
         log.error("Mount of ISO file failed: %s", e)

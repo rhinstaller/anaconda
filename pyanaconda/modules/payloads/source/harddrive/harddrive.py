@@ -24,6 +24,7 @@ from pykickstart.errors import KickstartParseError
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
@@ -52,7 +53,12 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         self._iso_mount = MountPointGenerator.generate_mount_point(
             self.type.value.lower() + "-iso"
         )
-        self._uses_iso_mount = False
+        self._iso_name = ""
+
+    @property
+    def is_iso_mounted(self):
+        """Is ISO file mounted from set up task?"""
+        return bool(self._iso_name)
 
     @property
     def type(self):
@@ -167,12 +173,27 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         :rtype: [Task]
         """
         tasks = []
-        if self._uses_iso_mount:
+        if self.is_iso_mounted:
             tasks.append(TearDownMountTask(self._iso_mount))
         tasks.append(TearDownMountTask(self._device_mount))
         return tasks
 
+    def get_iso_path(self):
+        """Get path to the ISO from the partition root.
+
+        This could be an empty string if the source is pointing to
+        installation tree instead of ISO.
+
+        :return: path to the ISO or empty string if no ISO is involved
+        :rtype: str
+        """
+        if not self._iso_name:
+            return ""
+
+        return join_paths(self.directory, self._iso_name)
+
     def _handle_setup_task_result(self, task):
         result = task.get_result()
-        self._install_tree_path, self._uses_iso_mount = result
+        self._install_tree_path = result.install_tree_path
+        self._iso_name = result.iso_name
         log.debug("Hard drive install tree path is set to '%s'", self._install_tree_path)

@@ -25,7 +25,8 @@ from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
 from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
     HardDriveSourceInterface
-from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
+from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask, \
+    SetupHardDriveResult
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 
@@ -56,6 +57,14 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.interface.PropertiesChanged.connect(self.callback)
 
+    def _check_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            PAYLOAD_SOURCE_HARDDRIVE,
+            self.interface,
+            *args, **kwargs
+        )
+
     def type_test(self):
         """Hard drive source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_HDD, self.interface.Type)
@@ -76,13 +85,17 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
         self._check_dbus_property("Partition", "sdj9")
         self._check_dbus_property("Directory", "somewhere/on/the/partition/is/iso.iso")
 
-    def _check_dbus_property(self, *args, **kwargs):
-        check_dbus_property(
-            self,
-            PAYLOAD_SOURCE_HARDDRIVE,
-            self.interface,
-            *args, **kwargs
-        )
+    def iso_path_test(self):
+        """Hard drive source has a correct iso path."""
+        self.assertEqual(self.interface.GetIsoPath(), "")
+
+        self.module._iso_name = "GLaDOS.iso"
+        self.interface.SetDirectory("/super/secret/base")
+        self.assertEqual(self.interface.GetIsoPath(), "/super/secret/base/GLaDOS.iso")
+
+        self.module._iso_name = ""
+        self.interface.SetDirectory("/path/to/install/tree")
+        self.assertEqual(self.interface.GetIsoPath(), "")
 
 
 class HardDriveSourceTestCase(unittest.TestCase):
@@ -122,23 +135,36 @@ class HardDriveSourceTestCase(unittest.TestCase):
         ismount.return_value = True
 
         task = self.module.set_up_with_tasks()[0]
-        task.get_result = Mock(return_value=("/my/path", False))
+        task.get_result = Mock(return_value=SetupHardDriveResult("/my/path", ""))
         task.succeeded_signal.emit()
 
         self.assertEqual(self.module.get_state(), SourceState.READY)
         ismount.assert_called_once_with(self.module._device_mount)
 
-
     def return_handler_test(self):
         """Hard drive source setup result propagates back."""
-        task = _create_setup_task()
-        # Test only the returning. To do that, fake what the magic in start() does.
-        # Do not run() the task at all, less mocking needed that way.
-        task._set_result((iso_mount_location, True))
-        self.module._handle_setup_task_result(task)
+        task = self.module.set_up_with_tasks()[0]
+        task.get_result = Mock(
+            return_value=SetupHardDriveResult(iso_mount_location, "iso_name.iso")
+        )
+        task.succeeded_signal.emit()
 
-        self.assertEqual(iso_mount_location, self.module.install_tree_path)
-        self.assertEqual(True, self.module._uses_iso_mount)
+        self.assertEqual(self.module.install_tree_path, iso_mount_location)
+        self.assertEqual(self.module.is_iso_mounted, True)
+
+    def return_handler_without_iso_test(self):
+        """Hard drive source setup result propagates back when no ISO is involved.
+
+        This is happening when installation tree is used instead of ISO image.
+        """
+        task = self.module.set_up_with_tasks()[0]
+        task.get_result = Mock(
+            return_value=SetupHardDriveResult(iso_mount_location, "")
+        )
+        task.succeeded_signal.emit()
+
+        self.assertEqual(self.module.install_tree_path, iso_mount_location)
+        self.assertEqual(self.module.is_iso_mounted, False)
 
     def repr_test(self):
         self.module.set_device("device")
@@ -159,10 +185,12 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_iso_image",
-           return_value=True)
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_first_iso_image",
+           return_value="skynet.iso")
+    @patch("pyanaconda.modules.payloads.source.utils.mount")
     def success_find_iso_test(self,
-                              find_and_mount_iso_image_mock,
+                              mount_mock,
+                              find_first_iso_image_mock,
                               find_and_mount_device_mock):
         """Hard drive source setup iso found."""
         task = _create_setup_task()
@@ -172,21 +200,26 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
             device_spec,
             device_mount_location
         )
-        find_and_mount_iso_image_mock.assert_called_once_with(
-            device_mount_location + path_on_device,
-            iso_mount_location
+        find_first_iso_image_mock.assert_called_once_with(
+            device_mount_location + path_on_device
         )
-        self.assertEqual(result, (iso_mount_location, True))
+        mount_mock.assert_called_once_with(
+            device_mount_location + path_on_device + "/skynet.iso",
+            iso_mount_location,
+            fstype="iso9660",
+            options="ro"
+        )
+        self.assertEqual(result, SetupHardDriveResult(iso_mount_location, "skynet.iso"))
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_iso_image",
-           return_value=False)
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_first_iso_image",
+           return_value="")
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_installtree",
            return_value=True)
     def success_find_dir_test(self,
                               verify_valid_installtree_mock,
-                              find_and_mount_iso_image_mock,
+                              find_first_iso_image_mock,
                               find_and_mount_device_mock):
         """Hard drive source setup dir found."""
         task = _create_setup_task()
@@ -196,24 +229,23 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
             device_spec,
             device_mount_location
         )
-        find_and_mount_iso_image_mock.assert_called_once_with(
-            device_mount_location + path_on_device,
-            iso_mount_location
+        find_first_iso_image_mock.assert_called_once_with(
+            device_mount_location + path_on_device
         )
         verify_valid_installtree_mock.assert_called_once_with(
             device_mount_location + path_on_device
         )
-        self.assertEqual(result, (device_mount_location + path_on_device, False))
+        self.assertEqual(result, SetupHardDriveResult(device_mount_location + path_on_device, ""))
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_iso_image",
-           return_value=False)
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_first_iso_image",
+           return_value="")
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_installtree",
            return_value=False)
     def failure_to_find_anything_test(self,
                                       verify_valid_installtree_mock,
-                                      find_and_mount_iso_image_mock,
+                                      find_first_iso_image_mock,
                                       find_and_mount_device_mock):
         """Hard drive source setup failure to find anything."""
         task = _create_setup_task()
@@ -224,9 +256,45 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
             device_spec,
             device_mount_location
         )
-        find_and_mount_iso_image_mock.assert_called_once_with(
-            device_mount_location + path_on_device,
-            iso_mount_location
+        find_first_iso_image_mock.assert_called_once_with(
+            device_mount_location + path_on_device
+        )
+        verify_valid_installtree_mock.assert_called_once_with(
+            device_mount_location + path_on_device
+        )
+        self.assertTrue(str(cm.exception).startswith(
+            "Nothing useful found for Hard drive ISO source"
+        ))
+
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_installtree",
+           return_value=False)
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
+           return_value=True)
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_first_iso_image",
+           return_value="skynet.iso")
+    @patch("pyanaconda.modules.payloads.source.utils.mount", side_effect=OSError())
+    def failure_to_mount_iso_test(self,
+                                  mount_mock,
+                                  find_first_iso_image_mock,
+                                  find_and_mount_device_mock,
+                                  verify_valid_installtree_mock):
+        """Hard drive source setup iso found."""
+        task = _create_setup_task()
+        with self.assertRaises(SourceSetupError) as cm:
+            task.run()
+
+        find_and_mount_device_mock.assert_called_once_with(
+            device_spec,
+            device_mount_location
+        )
+        find_first_iso_image_mock.assert_called_once_with(
+            device_mount_location + path_on_device
+        )
+        mount_mock.assert_called_once_with(
+            device_mount_location + path_on_device + "/skynet.iso",
+            iso_mount_location,
+            fstype="iso9660",
+            options="ro"
         )
         verify_valid_installtree_mock.assert_called_once_with(
             device_mount_location + path_on_device
@@ -272,7 +340,7 @@ class HardDriveSourceTearDownTestCase(unittest.TestCase):
 
     def tear_down_task_order_test(self):
         """Hard drive source tear down task order."""
-        self.source_module._uses_iso_mount = True
+        self.source_module._iso_name = "my-cool.iso"
         tasks = self.source_module.tear_down_with_tasks()
         self.assertEqual(len(tasks), 2)
         self.assertIsInstance(tasks[0], TearDownMountTask)

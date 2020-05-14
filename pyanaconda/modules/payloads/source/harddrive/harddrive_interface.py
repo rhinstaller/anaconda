@@ -52,3 +52,11 @@ class HardDriveSourceInterface(PayloadSourceBaseInterface):
     def SetPartition(self, partition: Str):
         """Set the partition containing the repository."""
         self.implementation.set_device(partition)
+
+    def GetIsoPath(self) -> Str:
+        """Get path to the ISO from the partition root.
+
+        This could be an empty string if the source is pointing to
+        installation tree instead of ISO.
+        """
+        return self.implementation.get_iso_path()
