@@ -16,10 +16,12 @@
 # Red Hat, Inc.
 #
 import unittest
+from unittest.mock import patch
 
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, PAYLOAD_TYPE_DNF
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, PAYLOAD_TYPE_DNF, SOURCE_TYPE_CDROM
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.ui.lib.payload import create_payload, get_payload
+from pyanaconda.ui.lib.payload import create_payload, get_payload, create_source, set_source, \
+    get_source
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
@@ -60,3 +62,54 @@ class PayloadUITestCase(unittest.TestCase):
         # Or create a new one.
         self.assertEqual(get_payload(PAYLOAD_TYPE_DNF), payload_proxy_2)
         payloads_proxy.ActivatePayload.assert_called_once_with("/my/path2")
+
+    @patch_dbus_get_proxy_with_cache
+    def create_source_test(self, proxy_getter):
+        """Test the create_source function."""
+        payloads_proxy = PAYLOADS.get_proxy()
+        payloads_proxy.CreateSource.return_value = "/my/source"
+
+        source_proxy = PAYLOADS.get_proxy("/my/source")
+        source_proxy.Type = SOURCE_TYPE_CDROM
+
+        self.assertEqual(create_source(SOURCE_TYPE_CDROM), source_proxy)
+        payloads_proxy.CreateSource.assert_called_once_with(SOURCE_TYPE_CDROM)
+
+    @patch("pyanaconda.ui.lib.payload.get_object_path")
+    @patch_dbus_get_proxy_with_cache
+    def set_source_test(self, proxy_getter, get_object_path):
+        """Test the set_source function."""
+        payload_proxy = PAYLOADS.get_proxy("/my/payload")
+
+        source_proxy = PAYLOADS.get_proxy("/my/source")
+        get_object_path.return_value = "/my/source"
+
+        set_source(payload_proxy, source_proxy)
+        payload_proxy.SetSources.assert_called_once_with(["/my/source"])
+
+    @patch("pyanaconda.ui.lib.payload.get_object_path")
+    @patch_dbus_get_proxy_with_cache
+    def get_source_test(self, proxy_getter, get_object_path):
+        """Test the get_source function."""
+        payload_proxy = PAYLOADS.get_proxy("/my/payload")
+        source_proxy_1 = PAYLOADS.get_proxy("/my/source/1")
+
+        payload_proxy.Sources = ["/my/source/1", "/my/source/2", "/my/source/3"]
+        self.assertEqual(get_source(payload_proxy), source_proxy_1)
+
+        payload_proxy.Sources = ["/my/source/1"]
+        self.assertEqual(get_source(payload_proxy), source_proxy_1)
+
+        payload_proxy.Sources = []
+        self.assertRaises(ValueError, get_source, payload_proxy)
+
+        payloads_proxy = PAYLOADS.get_proxy()
+        payloads_proxy.CreateSource.return_value = "/my/source/4"
+
+        source_proxy_4 = PAYLOADS.get_proxy("/my/source/4")
+        get_object_path.return_value = "/my/source/4"
+
+        payload_proxy.Sources = []
+        self.assertEqual(get_source(payload_proxy, SOURCE_TYPE_CDROM), source_proxy_4)
+        payloads_proxy.CreateSource.assert_called_once_with(SOURCE_TYPE_CDROM)
+        payload_proxy.SetSources.assert_called_once_with(["/my/source/4"])
