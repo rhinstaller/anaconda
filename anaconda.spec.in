@@ -1,6 +1,6 @@
 # Avoid anaconda-core requiring gjs-console due to the GNOME welcome
 # screen that's shipped in it
-%global __requires_exclude_from ^%{_datadir}/anaconda/gnome/fedora-welcome.*$
+%global __requires_exclude_from ^%{_datadir}/anaconda/gnome/rhel-welcome.*$
 
 Summary: Graphical system installer
 Name:    anaconda
