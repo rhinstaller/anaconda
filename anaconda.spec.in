@@ -353,6 +353,46 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 14 2020 Martin Kolman <mkolman@redhat.com> - 33.14-1
+- subscription: Hook up state update methods (mkolman)
+- subscription: Make it possible to register/unregister from the GUI (mkolman)
+- subscription: Register & subscribe during automated installation (mkolman)
+- subscription: Add asynchronous registration helper functions (mkolman)
+- subscription: Add IsRegistered property (mkolman)
+- Add functions for DBus sources (vponcova)
+- Implement DeviceName API for CDrom payload source (jkonecny)
+- Return device name from SetUpCdromSourceTask (jkonecny)
+- Add GetISOPath HardDrive payload source API (jkonecny)
+- subscription: Add the ParseAttachedSubscriptionsTask (mkolman)
+- Add new Hard drive source property to tell that iso is used (jkonecny)
+- Change return of SetUpHardDriveSourceTask (jkonecny)
+- Add __repr__ to payload sources (vslavik)
+- Create a DBus proxy of the DNF module (vponcova)
+- Work around pylint 2.5.0 issue with _ in warning id (vslavik)
+- subscription: Add network connectivity check to the Subscription spoke
+  (mkolman)
+- Split find_and_mount_iso_image source helper func (jkonecny)
+- subscription: Add main Subscription spoke structure (mkolman)
+- Add the DBus method ActivatePayload (vponcova)
+- Add the DBus property CreatedPayloads (vponcova)
+- Replace the DBus method GetActivePayload with a property (vponcova)
+- subscription: Add helper functions for Subscription spoke (mkolman)
+- Remove the DBus method IsPayloadSet (vponcova)
+- subscription: Add glade file for Subscription spoke (mkolman)
+- subscription: Simplify system purpose configuration (mkolman)
+- subscription: Implement equality testing for SystemPurposeData (mkolman)
+- subscription: Add check_system_purpose_set() helper function (mkolman)
+- Add generate_repo_configuration for URL payload source (jkonecny)
+- Add gererate_repo_configuration for all mount sources (jkonecny)
+- Add GetRepoConfigurations API for DNF payload (jkonecny)
+- Create ABC class declaring interface for RPM sources (jkonecny)
+- Add the combo box for choosing a LUKS version in the container dialog
+  (#1714120) (vponcova)
+- Use the combo box for choosing a LUKS version only for encrypted devices
+  (vponcova)
+- Provide the LUKS version of the encrypted container (vponcova)
+- Add the function set_container_data (vponcova)
+
 * Thu May 07 2020 Martin Kolman <mkolman@redhat.com> - 33.13-1
 - Remove a missed use of has_source() to fix tests (vslavik)
 - Change string to new format (vslavik)
