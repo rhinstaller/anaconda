@@ -45,6 +45,10 @@ class NFSSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
     def __repr__(self):
         return "Source(type='NFS', url='{}')".format(self.url)
 
+    def for_publication(self):
+        """Return a DBus representation."""
+        return NFSSourceInterface(self)
+
     @property
     def type(self):
         """Get type of this source."""
@@ -66,10 +70,6 @@ class NFSSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
     def get_state(self):
         """Get state of this source."""
         return SourceState.from_bool(self.get_mount_state())
-
-    def for_publication(self):
-        """Return a DBus representation."""
-        return NFSSourceInterface(self)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

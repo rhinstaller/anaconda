@@ -62,6 +62,10 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         )
         return result
 
+    def for_publication(self):
+        """Get the interface used to publish this source."""
+        return HardDriveSourceInterface(self)
+
     @property
     def is_iso_mounted(self):
         """Is ISO file mounted from set up task?"""
@@ -104,10 +108,6 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         data.harddrive.partition = self.device
         data.harddrive.dir = self.directory
         data.harddrive.seen = True
-
-    def for_publication(self):
-        """Get the interface used to publish this source."""
-        return HardDriveSourceInterface(self)
 
     def generate_repo_configuration(self):
         """Generate RepoConfigurationData structure."""

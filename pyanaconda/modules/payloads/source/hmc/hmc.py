@@ -38,6 +38,10 @@ class HMCSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
     def __repr__(self):
         return "Source(type='HMC')"
 
+    def for_publication(self):
+        """Return a DBus representation."""
+        return HMCSourceInterface(self)
+
     @property
     def type(self):
         """Get type of this source."""
@@ -55,10 +59,6 @@ class HMCSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
         :return: True or False
         """
         return False
-
-    def for_publication(self):
-        """Return a DBus representation."""
-        return HMCSourceInterface(self)
 
     def get_state(self):
         """Get state of this source."""
