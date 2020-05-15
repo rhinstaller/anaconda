@@ -57,8 +57,6 @@ from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda.core import constants
 from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
-from pyanaconda.threading import threadMgr
-from pyanaconda.payload.manager import payloadMgr
 
 import copy
 
@@ -91,25 +89,15 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         self._device = None
         self._current_iso_path = None
 
-    def unset_source(self):
-        """Unset an already selected source method.
-
-        Unset the source in kickstart and notify the payload so that it can correctly
-        release all related resources (unmount iso files, drop caches, etc.).
-        """
-        self._clean_hdd_iso()
-        self.data.method.method = None
-        payloadMgr.restart_thread(self.payload, checkmount=False)   # pylint: disable=no-member
-        threadMgr.wait(constants.THREAD_PAYLOAD_RESTART)
-        threadMgr.wait(constants.THREAD_PAYLOAD)
-
     def _clean_hdd_iso(self):
         """ Clean HDD ISO usage
         This means unmounting the partition and unprotecting it,
         so it can be used for the installation.
         """
-        if self.data.method.method == "harddrive" and self.data.method.partition:
-            unmark_protected_device(self.data.method.partition)
+        source_proxy = self.payload.get_source_proxy()
+
+        if source_proxy.Type == constants.SOURCE_TYPE_HDD and source_proxy.Partition:
+            unmark_protected_device(source_proxy.Partition)
 
     def set_source_hdd_iso(self, device_name, iso_path):
         """ Switch to the HDD ISO install source

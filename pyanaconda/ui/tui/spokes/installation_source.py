@@ -533,16 +533,5 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def apply(self):
         """ Apply all of our changes. """
-
         if self._current_iso_path:
-            # If a hdd iso source has already been selected previously we need
-            # to clear it now.
-            # Otherwise we would get a crash if the same iso was selected again
-            # as _unmount_device() would try to unmount a partition that is in use
-            # due to the payload still holding on to the ISO file.
-            if self.data.method.method == "harddrive":
-                self.unset_source()
             self.set_source_hdd_iso(self._device, self._current_iso_path)
-        # unmount the device - the payload will remount it anyway
-        # (if it uses it)
-        self._unmount_device()
