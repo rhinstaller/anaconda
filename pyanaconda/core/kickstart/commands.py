@@ -24,10 +24,10 @@
 # Supported kickstart commands.
 from pykickstart.commands.authconfig import F28_Authconfig as Authconfig
 from pykickstart.commands.authselect import F28_Authselect as Authselect
-from pykickstart.commands.autopart import F29_AutoPart as AutoPart
+from pykickstart.commands.autopart import RHEL8_AutoPart as AutoPart
 from pykickstart.commands.autostep import FC3_AutoStep as AutoStep
 from pykickstart.commands.bootloader import F29_Bootloader as Bootloader
-from pykickstart.commands.btrfs import F23_BTRFS as BTRFS
+from pykickstart.commands.btrfs import RHEL8_BTRFS as BTRFS
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
 from pykickstart.commands.clearpart import F28_ClearPart as ClearPart
 from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
@@ -51,7 +51,7 @@ from pykickstart.commands.keyboard import F18_Keyboard as Keyboard
 from pykickstart.commands.lang import F19_Lang as Lang
 from pykickstart.commands.liveimg import F19_Liveimg as Liveimg
 from pykickstart.commands.logging import FC6_Logging as Logging
-from pykickstart.commands.logvol import F29_LogVol as LogVol
+from pykickstart.commands.logvol import RHEL8_LogVol as LogVol
 from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
 from pykickstart.commands.method import F28_Method as Method
 from pykickstart.commands.mount import F27_Mount as Mount
@@ -60,8 +60,8 @@ from pykickstart.commands.network import F27_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.nvdimm import F28_Nvdimm as Nvdimm
 from pykickstart.commands.ostreesetup import F21_OSTreeSetup as OSTreeSetup
-from pykickstart.commands.partition import F29_Partition as Partition
-from pykickstart.commands.raid import F29_Raid as Raid
+from pykickstart.commands.partition import RHEL8_Partition as Partition
+from pykickstart.commands.raid import RHEL8_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
 from pykickstart.commands.repo import F33_Repo as Repo
