@@ -27,6 +27,9 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
 from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadInstallError
@@ -174,6 +177,22 @@ class BaseLivePayload(Payload):
             util.execInSysroot("kernel-install", ["add",
                                                   kernel,
                                                   "/lib/modules/{0}/vmlinuz".format(kernel)])
+
+        # Update the bootloader configuration to make sure that the BLS
+        # entries will have the correct kernel cmdline and not the value
+        # taken from /proc/cmdline, that is used to boot the live image.
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        if bootloader.IsEFI():
+            grub_cfg_path = "/etc/grub2-efi.cfg"
+        else:
+            grub_cfg_path = "/etc/grub2.cfg"
+
+        # TODO: add a method to the bootloader interface that updates the
+        # configuration and avoid having bootloader specific logic here.
+        rc = util.execInSysroot("grub2-mkconfig",
+                                ["-o", grub_cfg_path])
+        if rc:
+            raise BootloaderInstallationError("failed to write boot loader configuration")
 
     def _update_kernel_version_list(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
