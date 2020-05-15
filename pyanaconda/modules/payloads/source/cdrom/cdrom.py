@@ -20,8 +20,10 @@
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, \
+    MountingSourceMixin, RPMSourceMixin
 from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
 from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask
 
@@ -29,7 +31,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
+class CdromSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
     """The CD-ROM source payload module."""
 
     def __init__(self):
@@ -71,6 +73,10 @@ class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
         """Get the interface used to publish this source."""
         return CdromSourceInterface(self)
 
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.from_bool(self.get_mount_state())
+
     def generate_repo_configuration(self):
         """Generate RepoConfigurationData structure."""
         return RepoConfigurationData.from_directory(self.mount_point)
@@ -83,6 +89,15 @@ class CdromSourceModule(MountingSourceBase, RPMSourceMixin):
         """
         task = SetUpCdromSourceTask(self.mount_point)
         task.succeeded_signal.connect(lambda: self._handle_setup_task_result(task))
+        return [task]
+
+    def tear_down_with_tasks(self):
+        """Tear down the installation source.
+
+        :return: list of tasks required for the source clean-up
+        :rtype: [TearDownMountTask]
+        """
+        task = TearDownMountTask(self._mount_point)
         return [task]
 
     def process_kickstart(self, data):

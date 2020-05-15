@@ -23,8 +23,6 @@ from abc import ABC, ABCMeta, abstractmethod
 from dasbus.server.publishable import Publishable
 
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.payloads.constants import SourceState
-from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -110,25 +108,33 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         pass
 
 
-class MountingSourceBase(PayloadSourceBase, ABC):
-    """Base class for sources that use mounting.
-
-    Implements some common functionality, most notably generation of mount point paths.
-    """
-    # pylint: disable=abstract-method
+class MountingSourceMixin(ABC):
+    """Mixin class for sources that use mounting."""
 
     def __init__(self):
         super().__init__()
         self._mount_point = MountPointGenerator.generate_mount_point(self.type.value.lower())
 
-    def get_state(self):
-        """This source is ready for the installation to start.
+    @property
+    @abstractmethod
+    def type(self):
+        """Get type of this source object.
 
-        :return: one of the supported state of SourceState enum
-        :rtype: pyanaconda.modules.payloads.constants.SourceState enum value
+        This is the same property as in PayloadSourceBase so it should be implemented by
+        a subclass so or so.
+
+        :return: type of this source
+        :rtype: value of payload.base.constants.SourceType
         """
-        res = os.path.ismount(self._mount_point)
-        return SourceState.from_bool(res)
+        pass
+
+    def get_mount_state(self):
+        """Return state of the mount.
+
+        :return: True if mounted
+        :rtype: bool
+        """
+        return os.path.ismount(self._mount_point)
 
     @property
     def mount_point(self):
@@ -139,18 +145,9 @@ class MountingSourceBase(PayloadSourceBase, ABC):
         """
         return self._mount_point
 
-    def tear_down_with_tasks(self):
-        """Tear down the installation source.
-
-        :return: list of tasks required for the source clean-up
-        :rtype: [TearDownMountTask]
-        """
-        task = TearDownMountTask(self._mount_point)
-        return [task]
-
 
 class RPMSourceMixin(ABC):
-    """Interface class which has to be implemented by all sources used by DNF payload."""
+    """Mixin class which has to be implemented by all sources used by DNF payload."""
 
     @abstractmethod
     def generate_repo_configuration(self):

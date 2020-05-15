@@ -21,10 +21,12 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import create_nfs_url, parse_nfs_url
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
-from pyanaconda.modules.payloads.source.source_base import MountingSourceBase, RPMSourceMixin
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, \
+    MountingSourceMixin, RPMSourceMixin
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -32,7 +34,7 @@ log = get_module_logger(__name__)
 __all__ = ["NFSSourceModule"]
 
 
-class NFSSourceModule(MountingSourceBase, RPMSourceMixin):
+class NFSSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
     """The NFS source module."""
 
     def __init__(self):
@@ -57,6 +59,10 @@ class NFSSourceModule(MountingSourceBase, RPMSourceMixin):
         :return: True or False
         """
         return True
+
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.from_bool(self.get_mount_state())
 
     def __repr__(self):
         return "Source(type='NFS', url='{}')".format(self.url)
@@ -112,3 +118,12 @@ class NFSSourceModule(MountingSourceBase, RPMSourceMixin):
         :rtype: [Task]
         """
         return [SetUpNFSSourceTask(self.mount_point, self._url)]
+
+    def tear_down_with_tasks(self):
+        """Tear down the installation source.
+
+        :return: list of tasks required for the source clean-up
+        :rtype: [TearDownMountTask]
+        """
+        task = TearDownMountTask(self._mount_point)
+        return [task]

@@ -23,6 +23,7 @@ from unittest.mock import patch, call
 
 from pyanaconda.core.constants import SOURCE_TYPE_HMC
 from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.payloads.constants import SourceState
 from pyanaconda.modules.payloads.source.hmc.hmc import HMCSourceModule
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
 from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
@@ -54,6 +55,19 @@ class HMCSourceModuleTestCase(unittest.TestCase):
     def network_required_test(self):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, False)
+
+    @patch("os.path.ismount")
+    def get_state_test(self, ismount_mock):
+        """Test SE/HMC source state."""
+        ismount_mock.return_value = False
+        self.assertEqual(SourceState.UNREADY, self.module.get_state())
+
+        ismount_mock.reset_mock()
+        ismount_mock.return_value = True
+
+        self.assertEqual(SourceState.READY, self.module.get_state())
+
+        ismount_mock.assert_called_once_with(self.module.mount_point)
 
     def set_up_with_tasks_test(self):
         """Get tasks to set up SE/HMC."""

@@ -42,6 +42,7 @@ class BaseModule(ABC):
     """Implementation of a base module."""
 
     def __init__(self):
+        super().__init__()
         self._module_properties_changed = Signal()
 
     @property

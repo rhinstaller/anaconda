@@ -25,6 +25,7 @@ from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.payloads.constants import SourceState
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
@@ -106,6 +107,19 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def network_required_test(self):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, False)
+
+    @patch("os.path.ismount")
+    def get_state_test(self, ismount_mock):
+        """Test LiveOS source state."""
+        ismount_mock.return_value = False
+        self.assertEqual(SourceState.UNREADY, self.module.get_state())
+
+        ismount_mock.reset_mock()
+        ismount_mock.return_value = True
+
+        self.assertEqual(SourceState.READY, self.module.get_state())
+
+        ismount_mock.assert_called_once_with(self.module.mount_point)
 
     def set_up_with_tasks_test(self):
         """Test Live OS Source set up call."""

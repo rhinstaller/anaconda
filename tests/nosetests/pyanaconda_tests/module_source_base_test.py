@@ -20,33 +20,19 @@ from unittest.mock import patch
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask, TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import MountingSourceBase
+from pyanaconda.modules.payloads.source.source_base import MountingSourceMixin
 
 mount_location = "/some/dir"
 
 
-class DummyMountingSourceSubclass(MountingSourceBase):
+class DummyMountingSourceSubclass(MountingSourceMixin):
     """Dummy class to test code in its abstract ancestor."""
 
     @property
     def type(self):
         return SourceType.URL
-
-    @property
-    def description(self):
-        return "description"
-
-    @property
-    def network_required(self):
-        return False
-
-    def for_publication(self):
-        return None
-
-    def set_up_with_tasks(self):
-        return []
 
 
 class DummySetUpMountTaskSubclass(SetUpMountTask):
@@ -60,7 +46,7 @@ class DummySetUpMountTaskSubclass(SetUpMountTask):
         pass
 
 
-class MountingSourceBaseTestCase(unittest.TestCase):
+class MountingSourceMixinTestCase(unittest.TestCase):
 
     def counter_test(self):
         """Mount path in mount source base gets incremental numbers."""
@@ -74,25 +60,18 @@ class MountingSourceBaseTestCase(unittest.TestCase):
         self.assertEqual(first_counter, second_counter - 1)
 
     @patch("os.path.ismount")
-    def ready_state_test(self, ismount_mock):
-        """Mount source base ready state for set up."""
+    def mount_state_test(self, ismount_mock):
+        """Mount source state for set up."""
         ismount_mock.return_value = False
         module = DummyMountingSourceSubclass()
-        self.assertEqual(SourceState.UNREADY, module.get_state())
+        self.assertEqual(False, module.get_mount_state())
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        self.assertEqual(SourceState.READY, module.get_state())
+        self.assertEqual(True, module.get_mount_state())
 
         ismount_mock.assert_called_once_with(module.mount_point)
-
-    def tear_down_test(self):
-        """Mount source base tear down."""
-        module = DummyMountingSourceSubclass()
-        tasks = module.tear_down_with_tasks()
-        self.assertEqual(len(tasks), 1)
-        self.assertEqual(type(tasks[0]), TearDownMountTask)
 
 
 class TearDownMountTaskTestCase(unittest.TestCase):
