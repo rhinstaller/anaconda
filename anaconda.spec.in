@@ -19,7 +19,6 @@ Source0: %{name}-%{version}.tar.bz2
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 
-%define blivetguiver 2.1.12-1
 %define dbusver 1.2.3
 %define dnfver 3.6.0
 %define dracutver 034-7
@@ -168,12 +167,6 @@ Requires: isomd5sum >= %{isomd5sum}
 %ifarch %{ix86} x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
-# likely HFS+ resize support
-%ifarch %{ix86} x86_64
-%if ! 0%{?rhel}
-Requires: hfsplus-tools
-%endif
-%endif
 # kexec support
 Requires: kexec-tools
 Requires: createrepo_c
@@ -205,7 +198,6 @@ Requires: NetworkManager-wifi
 %endif
 Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
-Requires: blivet-gui-runtime >= %{blivetguiver}
 Requires: system-logos
 
 # Needed to compile the gsettings files
