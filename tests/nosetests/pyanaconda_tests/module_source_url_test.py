@@ -309,6 +309,22 @@ class URLSourceTestCase(unittest.TestCase):
     def setUp(self):
         self.module = URLSourceModule()
 
+    def network_required_test(self):
+        """Test the property network_required."""
+        self.assertEqual(self.module.network_required, False)
+
+        self.module.repo_configuration.url = "http://my/path"
+        self.assertEqual(self.module.network_required, True)
+
+        self.module.repo_configuration.url = "https://my/path"
+        self.assertEqual(self.module.network_required, True)
+
+        self.module.repo_configuration.url = "file://my/path"
+        self.assertEqual(self.module.network_required, False)
+
+        self.module.repo_configuration.url = "ftp://my/path"
+        self.assertEqual(self.module.network_required, True)
+
     def ready_state_test(self):
         """Check ready state of URL source.
 

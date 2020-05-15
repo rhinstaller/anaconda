@@ -43,6 +43,14 @@ class HMCSourceModule(MountingSourceBase, RPMSourceMixin):
         """Get description of this source."""
         return _("Local media via SE/HMC")
 
+    @property
+    def network_required(self):
+        """Does the source require a network?
+
+        :return: True or False
+        """
+        return False
+
     def __repr__(self):
         return "Source(type='HMC')"
 

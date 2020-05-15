@@ -69,6 +69,10 @@ class CdromSourceTestCase(unittest.TestCase):
         """Hard drive source description."""
         self.assertEqual("Local media", self.interface.Description)
 
+    def network_required_test(self):
+        """Test the property network_required."""
+        self.assertEqual(self.module.network_required, False)
+
     def repr_test(self):
         self.assertEqual(repr(self.module), "Source(type='CDROM')")
 
