@@ -158,3 +158,26 @@ animation have only N discrete states with no interpolation, so there are effect
 where the look is constant. This reduces redraws significantly and saves the CPU. See rhbz#1204242
 for measurements. */
 spinner { animation-timing-function: steps(24); }
+
+/* Set colors for the subscriptions listbox:
+ * - disable background color, so that the
+ *   list box looks good even if half empty
+ * - disable border color as well
+ * - only rows should have a distinct background
+ */
+.subscriptions_listbox {
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+    border-image: none;
+}
+
+#subscriptions_listbox_row {
+    background-color: white;
+    border-color: gray;
+}
+
+#subscriptions_listbox_row_spacer {
+    background-color: transparent;
+    border-color: transparent;
+}
