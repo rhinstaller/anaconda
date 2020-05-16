@@ -16,8 +16,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+from abc import abstractmethod, ABC
 from enum import Enum
+
+from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HDD, \
+    SOURCE_TYPE_URL, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
+from pyanaconda.core.payload import create_nfs_url
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.ui.lib.payload import create_source
 
 
 class SourceType(Enum):
@@ -31,7 +37,7 @@ class SourceType(Enum):
     HMC = "hmc"
 
 
-class BasePayloadSource(object):
+class BasePayloadSource(ABC):
     """Base object for payload source.
 
     Implements common methods for payload source.
@@ -57,6 +63,14 @@ class BasePayloadSource(object):
         :rtype: str
         """
         return self._method_type
+
+    @abstractmethod
+    def create_proxy(self):
+        """Create and set up a DBus source.
+
+        :return: a DBus proxy of a source
+        """
+        pass
 
     @property
     def is_cdrom(self):
@@ -129,6 +143,13 @@ class CDRomSource(BasePayloadSource):
     def __init__(self):
         super().__init__(SourceType.CDROM, "cdrom")
 
+    def create_proxy(self):
+        """Create and set up a DBus source.
+
+        :return: a DBus proxy of a source
+        """
+        return create_source(SOURCE_TYPE_CDROM)
+
 
 class NFSSource(BasePayloadSource):
     """Source object for NFS sources."""
@@ -163,6 +184,16 @@ class NFSSource(BasePayloadSource):
         """
         return self._opts
 
+    def create_proxy(self):
+        """Create and set up a DBus source.
+
+        :return: a DBus proxy of a source
+        """
+        source_proxy = create_source(SOURCE_TYPE_NFS)
+        source_url = create_nfs_url(self.server, self.path, self.options)
+        source_proxy.SetURL(source_url)
+        return source_proxy
+
 
 class HDDSource(BasePayloadSource):
     """Source object for hard drive source."""
@@ -189,6 +220,16 @@ class HDDSource(BasePayloadSource):
         """
         return self._path
 
+    def create_proxy(self):
+        """Create and set up a DBus source.
+
+        :return: a DBus proxy of a source
+        """
+        source_proxy = create_source(SOURCE_TYPE_HDD)
+        source_proxy.SetPartition(self.partition)
+        source_proxy.SetDirectory(self.path)
+        return source_proxy
+
 
 class URLBasedSource(BasePayloadSource):
     """Base class for URL based sources."""
@@ -212,6 +253,19 @@ class URLBasedSource(BasePayloadSource):
         return self._url
 
     @property
+    def url_type(self):
+        """Get url type.
+
+        :rtype: str
+        """
+        if self.is_mirrorlist:
+            return URL_TYPE_MIRRORLIST
+        elif self.is_metalink:
+            return URL_TYPE_METALINK
+        else:
+            return URL_TYPE_BASEURL
+
+    @property
     def is_mirrorlist(self):
         """Is mirrorlist url?
 
@@ -226,6 +280,23 @@ class URLBasedSource(BasePayloadSource):
         :rtype: bool
         """
         return self._metalink
+
+    def create_proxy(self):
+        """Create and set up a DBus source.
+
+        :return: a DBus proxy of a source
+        """
+        source_proxy = create_source(SOURCE_TYPE_URL)
+
+        repo_configuration = RepoConfigurationData()
+        repo_configuration.type = self.url_type
+        repo_configuration.url = self.url
+
+        source_proxy.SetRepoConfiguration(
+            RepoConfigurationData.to_structure(repo_configuration)
+        )
+
+        return source_proxy
 
 
 class HTTPSource(URLBasedSource):
@@ -265,6 +336,23 @@ class FileSource(BasePayloadSource):
         """
         return self._path
 
+    def create_proxy(self):
+        """Create and set up a DBus source.
+
+        :return: a DBus proxy of a source
+        """
+        source_proxy = create_source(SOURCE_TYPE_URL)
+
+        repo_configuration = RepoConfigurationData()
+        repo_configuration.type = URL_TYPE_BASEURL
+        repo_configuration.url = self.path
+
+        source_proxy.SetRepoConfiguration(
+            RepoConfigurationData.to_structure(repo_configuration)
+        )
+
+        return source_proxy
+
 
 class HMCSource(BasePayloadSource):
     """Source object for HMC sources.
@@ -274,3 +362,10 @@ class HMCSource(BasePayloadSource):
 
     def __init__(self):
         super().__init__(SourceType.HMC, "hmc")
+
+    def create_proxy(self):
+        """Create and set up a DBus source.
+
+        :return: a DBus proxy of a source
+        """
+        return create_source(SOURCE_TYPE_HMC)
