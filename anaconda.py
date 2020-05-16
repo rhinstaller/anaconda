@@ -503,13 +503,13 @@ if __name__ == "__main__":
     # scripts.  Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
 
-    if anaconda.proxy:
+    if opts.proxy:
         # Setup proxy environmental variables so that pre/post scripts use it
         # as well as libreport
         try:
-            proxy = ProxyString(anaconda.proxy)
+            proxy = ProxyString(opts.proxy)
         except ProxyStringError as e:
-            log.info("Failed to parse proxy \"%s\": %s", anaconda.proxy, e)
+            log.info("Failed to parse proxy \"%s\": %s", opts.proxy, e)
         else:
             # Set environmental variables to be used by pre/post scripts
             util.setenv("PROXY", proxy.noauth_url)

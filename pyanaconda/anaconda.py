@@ -44,11 +44,9 @@ class Anaconda(object):
         self.gui_startup_failed = False
         self._intf = None
         self.ksdata = None
-        self.methodstr = None
         self.additional_repos = None
         self.opts = None
         self._payload = None
-        self.proxy = None
         self.mehConfig = None
 
         # Data for inhibiting the screensaver
@@ -66,8 +64,6 @@ class Anaconda(object):
     def set_from_opts(self, opts):
         """Load argument to variables from self.opts."""
         self.opts = opts
-        self.proxy = opts.proxy
-        self.methodstr = opts.method
         self.additional_repos = opts.addRepo
 
     @property
