@@ -21,7 +21,7 @@ from unittest.mock import patch
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, PAYLOAD_TYPE_DNF, SOURCE_TYPE_CDROM
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.ui.lib.payload import create_payload, get_payload, create_source, set_source, \
-    get_source
+    get_source, set_up_sources, tear_down_sources
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
@@ -113,3 +113,29 @@ class PayloadUITestCase(unittest.TestCase):
         self.assertEqual(get_source(payload_proxy, SOURCE_TYPE_CDROM), source_proxy_4)
         payloads_proxy.CreateSource.assert_called_once_with(SOURCE_TYPE_CDROM)
         payload_proxy.SetSources.assert_called_once_with(["/my/source/4"])
+
+    @patch_dbus_get_proxy_with_cache
+    def set_up_sources_test(self, proxy_getter):
+        payload_proxy = PAYLOADS.get_proxy("/my/payload")
+        payload_proxy.SetUpSourcesWithTask.return_value = "/my/task"
+
+        task_proxy = PAYLOADS.get_proxy("/my/task")
+        task_proxy.IsRunning = False
+
+        set_up_sources(payload_proxy)
+        payload_proxy.SetUpSourcesWithTask.assert_called_once_with()
+        task_proxy.Start.assert_called_once_with()
+        task_proxy.Finish.assert_called_once_with()
+
+    @patch_dbus_get_proxy_with_cache
+    def tear_down_sources_test(self, proxy_getter):
+        payload_proxy = PAYLOADS.get_proxy("/my/payload")
+        payload_proxy.TearDownSourcesWithTask.return_value = "/my/task"
+
+        task_proxy = PAYLOADS.get_proxy("/my/task")
+        task_proxy.IsRunning = False
+
+        tear_down_sources(payload_proxy)
+        payload_proxy.TearDownSourcesWithTask.assert_called_once_with()
+        task_proxy.Start.assert_called_once_with()
+        task_proxy.Finish.assert_called_once_with()
