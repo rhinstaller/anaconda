@@ -56,6 +56,11 @@ class Payload(metaclass=ABCMeta):
         return None
 
     @property
+    def source_type(self):
+        """The DBus type of the source."""
+        return None
+
+    @property
     def first_payload_reset(self):
         return self._first_payload_reset
 

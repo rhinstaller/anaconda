@@ -147,6 +147,12 @@ class DNFPayload(Payload):
         return get_source(self.proxy, SOURCE_TYPE_REPO_FILES)
 
     @property
+    def source_type(self):
+        """The DBus type of the source."""
+        source_proxy = self.get_source_proxy()
+        return source_proxy.Type
+
+    @property
     def is_hmc_enabled(self):
         return self.data.method.method == "hmc"
 
