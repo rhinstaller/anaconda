@@ -160,6 +160,10 @@ class DNFPayload(Payload):
         """Is the payload ready?"""
         return self.base_repo is not None
 
+    def is_complete(self):
+        """Is the payload complete?"""
+        return self.source_type != SOURCE_TYPE_REPO_FILES or self.base_repo
+
     def unsetup(self):
         super().unsetup()
         self._base = None
