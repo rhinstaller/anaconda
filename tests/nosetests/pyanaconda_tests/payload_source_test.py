@@ -22,8 +22,10 @@
 import unittest
 import enum
 
+from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.payload.source.sources import *  # pylint: disable=wildcard-import
+from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
 class TestValues(enum.Enum):
@@ -134,3 +136,57 @@ class TestSourceFactoryTests(unittest.TestCase):
                                [TestValues.hmc],
                                "hmc")
 
+    def _check_create_proxy(self, source_type, test_value):
+        payloads_proxy = PAYLOADS.get_proxy()
+        payloads_proxy.CreateSource.return_value = "my/source/1"
+
+        source = SourceFactory.parse_repo_cmdline_string(test_value)
+        source_proxy = source.create_proxy()
+
+        payloads_proxy.CreateSource.assert_called_once_with(source_type)
+        self.assertEqual(source_proxy, PAYLOADS.get_proxy("my/source/1"))
+
+        return source_proxy
+
+    @patch_dbus_get_proxy_with_cache
+    def create_proxy_cdrom_test(self, proxy_getter):
+        self._check_create_proxy(SOURCE_TYPE_CDROM, "cdrom")
+
+    @patch_dbus_get_proxy_with_cache
+    def create_proxy_harddrive_test(self, proxy_getter):
+        proxy = self._check_create_proxy(SOURCE_TYPE_HDD, "hd:/dev/sda2:/path/to/iso.iso")
+        proxy.SetPartition.assert_called_once_with("/dev/sda2")
+        proxy.SetDirectory.assert_called_once_with("/path/to/iso.iso")
+
+    @patch_dbus_get_proxy_with_cache
+    def create_proxy_nfs_test(self, proxy_getter):
+        proxy = self._check_create_proxy(SOURCE_TYPE_NFS, "nfs:server.com:/path/to/install_tree")
+        proxy.SetURL.assert_called_once_with("nfs:server.com:/path/to/install_tree")
+
+    @patch_dbus_get_proxy_with_cache
+    def create_proxy_url_test(self, proxy_getter):
+        proxy = self._check_create_proxy(SOURCE_TYPE_URL, "http://server.example.com/test")
+
+        repo_configuration = RepoConfigurationData()
+        repo_configuration.type = URL_TYPE_BASEURL
+        repo_configuration.url = "http://server.example.com/test"
+
+        proxy.SetRepoConfiguration.assert_called_once_with(
+            RepoConfigurationData.to_structure(repo_configuration)
+        )
+
+    @patch_dbus_get_proxy_with_cache
+    def create_proxy_file_test(self, proxy_getter):
+        proxy = self._check_create_proxy(SOURCE_TYPE_URL, "file:///root/extremely_secret_file.txt")
+
+        repo_configuration = RepoConfigurationData()
+        repo_configuration.type = URL_TYPE_BASEURL
+        repo_configuration.url = "file:///root/extremely_secret_file.txt"
+
+        proxy.SetRepoConfiguration.assert_called_once_with(
+            RepoConfigurationData.to_structure(repo_configuration)
+        )
+
+    @patch_dbus_get_proxy_with_cache
+    def create_proxy_hmc_test(self, proxy_getter):
+        self._check_create_proxy(SOURCE_TYPE_HMC, "hmc")
