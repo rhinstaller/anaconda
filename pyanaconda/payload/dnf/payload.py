@@ -51,7 +51,7 @@ from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, DRACUT_REPODIR, DRACUT_ISODIR, \
-    PAYLOAD_TYPE_DNF
+    PAYLOAD_TYPE_DNF, SOURCE_TYPE_REPO_FILES
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import parse_nfs_url, ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
@@ -77,7 +77,7 @@ from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda.ui.lib.payload import get_payload
+from pyanaconda.ui.lib.payload import get_payload, get_source
 
 log = get_packaging_logger()
 
@@ -139,6 +139,19 @@ class DNFPayload(Payload):
         """
         return self._dnf_proxy
 
+    def get_source_proxy(self):
+        """Get the DBus proxy of the RPM source.
+
+        :return: a DBus proxy
+        """
+        return get_source(self.proxy, SOURCE_TYPE_REPO_FILES)
+
+    @property
+    def source_type(self):
+        """The DBus type of the source."""
+        source_proxy = self.get_source_proxy()
+        return source_proxy.Type
+
     @property
     def is_hmc_enabled(self):
         return self.data.method.method == "hmc"
@@ -146,6 +159,10 @@ class DNFPayload(Payload):
     def is_ready(self):
         """Is the payload ready?"""
         return self.base_repo is not None
+
+    def is_complete(self):
+        """Is the payload complete?"""
+        return self.source_type != SOURCE_TYPE_REPO_FILES or self.base_repo
 
     def unsetup(self):
         super().unsetup()
