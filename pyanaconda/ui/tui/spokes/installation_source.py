@@ -222,7 +222,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         self.close()
 
     def _set_network_nfs(self, data):
-        self.set_source_nfs()
         new_spoke = SpecifyNFSRepoSpoke(self.data, self.storage, self.payload, self._error)
         ScreenHandler.push_screen_modal(new_spoke)
         self.apply()
@@ -376,14 +375,14 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
             self._nfs_server = self._nfs_server[6:]
 
         try:
-            (self.data.method.server, self.data.method.dir) = self._nfs_server.split(":", 2)
+            (server, directory) = self._nfs_server.split(":", 2)
         except ValueError as err:
             log.error("ValueError: %s", err)
             self._error = True
             return
 
         opts = self._nfs_opts or ""
-        self.set_source_nfs(opts)
+        self.set_source_nfs(server, directory, opts)
 
 
 class SelectDeviceSpoke(NormalTUISpoke):

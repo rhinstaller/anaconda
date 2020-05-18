@@ -56,6 +56,7 @@
 from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda.core import constants
+from pyanaconda.core.payload import create_nfs_url
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.ui.lib.payload import create_source, set_source
 from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
@@ -137,18 +138,17 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
 
         set_source(self.payload.proxy, url_source_proxy)
 
-    def set_source_nfs(self, opts=None):
+    def set_source_nfs(self, server, directory, opts):
         """ Switch to NFS install source """
         # clean any old HDD ISO sources
         self._clean_hdd_iso()
 
-        self.data.method.method = "nfs"
-        if opts is not None:
-            self.data.method.opts = opts
-        if self.data.method.server is None:
-            self.data.method.server = ""
-        if self.data.method.dir is None:
-            self.data.method.dir = ""
+        nfs_url = create_nfs_url(server, directory, opts)
+
+        nfs_source_proxy = create_source(constants.SOURCE_TYPE_NFS)
+        nfs_source_proxy.SetURL(nfs_url)
+
+        set_source(self.payload.proxy, nfs_source_proxy)
 
     def set_source_cdrom(self):
         """ Switch to cdrom install source """
