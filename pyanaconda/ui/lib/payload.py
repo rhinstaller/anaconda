@@ -19,6 +19,7 @@ from dasbus.client.proxy import get_object_path
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.modules.common.constants.services import PAYLOADS
+from pyanaconda.modules.common.task import sync_run_task
 
 log = get_module_logger(__name__)
 
@@ -115,3 +116,23 @@ def get_source(payload_proxy, default_source_type=None):
 
     # Or raise an exception.
     raise ValueError("No source found!")
+
+
+def set_up_sources(payload_proxy):
+    """Set up the sources of the given payload.
+
+    :param payload_proxy: a DBus proxy of a payload
+    """
+    task_path = payload_proxy.SetUpSourcesWithTask()
+    task_proxy = PAYLOADS.get_proxy(task_path)
+    sync_run_task(task_proxy)
+
+
+def tear_down_sources(payload_proxy):
+    """Tear down the sources of the given payload.
+
+    :param payload_proxy: a DBus proxy of a payload
+    """
+    task_path = payload_proxy.TearDownSourcesWithTask()
+    task_proxy = PAYLOADS.get_proxy(task_path)
+    sync_run_task(task_proxy)
