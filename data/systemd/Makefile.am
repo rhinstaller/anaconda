@@ -27,7 +27,8 @@ dist_systemd_DATA = anaconda.service \
                     instperf.service \
                     anaconda-sshd.service \
                     anaconda-nm-config.service \
-                    anaconda-pre.service
+                    anaconda-pre.service \
+                    anaconda-fips.service
 
 dist_generator_SCRIPTS = anaconda-generator
 
