@@ -155,7 +155,9 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         # clean any old HDD ISO sources
         self._clean_hdd_iso()
 
-        self.data.method.method = "cdrom"
+        cdrom_source_proxy = create_source(constants.SOURCE_TYPE_CDROM)
+
+        set_source(self.payload.proxy, cdrom_source_proxy)
 
     def set_source_hmc(self):
         """ Switch to install source via HMC """
