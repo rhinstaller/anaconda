@@ -173,7 +173,9 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         # clean any old HDD ISO sources
         self._clean_hdd_iso()
 
-        self.data.method.method = None
+        repo_files_source_proxy = create_source(constants.SOURCE_TYPE_REPO_FILES)
+
+        set_source(self.payload.proxy, repo_files_source_proxy)
 
 
 class InputCheck(object):
