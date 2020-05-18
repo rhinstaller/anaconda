@@ -56,6 +56,7 @@
 from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda.core import constants
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.ui.lib.payload import create_source, set_source
 from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
 
@@ -118,14 +119,23 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
 
         set_source(self.payload.proxy, new_source_proxy)
 
-    def set_source_url(self, url=None):
+    def set_source_url(self, url, url_type=constants.URL_TYPE_BASEURL, proxy=None):
         """ Switch to install source specified by URL """
         # clean any old HDD ISO sources
         self._clean_hdd_iso()
 
-        self.data.method.method = "url"
-        if url is not None:
-            self.data.method.url = url
+        url_source_proxy = create_source(constants.SOURCE_TYPE_URL)
+
+        repo_conf = RepoConfigurationData()
+        repo_conf.url = url
+        repo_conf.type = url_type
+        repo_conf.proxy = proxy or ""
+
+        url_source_proxy.SetRepoConfiguration(
+            RepoConfigurationData.to_structure(repo_conf)
+        )
+
+        set_source(self.payload.proxy, url_source_proxy)
 
     def set_source_nfs(self, opts=None):
         """ Switch to NFS install source """
