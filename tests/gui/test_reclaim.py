@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from . import base, welcome, summary, storage, progress, rootpassword
+from tests.gui import base, welcome, summary, storage, progress, rootpassword
 import subprocess
 
 from blivet.size import Size

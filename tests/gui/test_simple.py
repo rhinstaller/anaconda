@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from . import base, welcome, summary, date_time, keyboard, storage, network
-from . import progress, rootpassword
+from tests.gui import base, welcome, summary, date_time, keyboard, storage, network
+from tests.gui import progress, rootpassword
 
 from blivet.size import Size
 

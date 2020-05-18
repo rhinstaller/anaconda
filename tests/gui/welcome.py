@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from .base import UITestCase
+from tests.gui.base import UITestCase
 
 # This test case handles the basic case on the welcome language spoke where
 # everything works as intended.  On this spoke, we are testing the following:

@@ -16,7 +16,7 @@
 from dogtail.predicate import GenericPredicate
 from dogtail.utils import doDelay
 
-from .base import UITestCase
+from tests.gui.base import UITestCase
 
 class BasicStorageTestCase(UITestCase):
     def check_select_disks(self, spoke):
