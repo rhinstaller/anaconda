@@ -41,6 +41,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.subscription import fill_combobox
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.lib.subscription import username_password_sufficient, org_keys_sufficient
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -1007,5 +1008,20 @@ class SubscriptionSpoke(NormalSpoke):
         self._network_connected_previously = network_connected
 
     def _update_register_button_state(self):
-        """Update register button state."""
-        # TODO
+        """Update register button state.
+
+        The button is only sensitive if no processing is ongoing
+        and we either have enough authentication data to register
+        or the system is subscribed, so we can unregister it.
+        """
+        button_sensitive = False
+        if self._registration_controls_enabled:
+            # if we are subscribed, we can always unregister
+            if self.subscription_attached:
+                button_sensitive = True
+            # check if credentials are sufficient for registration
+            elif self.authentication_method == AuthenticationMethod.USERNAME_PASSWORD:
+                button_sensitive = username_password_sufficient(self.subscription_request)
+            elif self.authentication_method == AuthenticationMethod.ORG_KEY:
+                button_sensitive = org_keys_sufficient(self.subscription_request)
+        self._register_button.set_sensitive(button_sensitive)
