@@ -57,14 +57,16 @@ from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, \
     SOURCE_TYPE_CDN
 from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.core.util import decode_bytes
+from pyanaconda.core.util import decode_bytes, join_paths
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE, SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
+from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
@@ -1250,6 +1252,10 @@ class DNFPayload(Payload):
     def pre_install(self):
         super().pre_install()
 
+        # Set up FIPS in the target system before package installation.
+        if kernel_arguments.get("fips") == "1":
+            self._set_up_fips()
+
         # Set rpm-specific options
 
         # nofsync speeds things up at the risk of rpmdb data loss in a crash.
@@ -1281,6 +1287,69 @@ class DNFPayload(Payload):
             self.requirements.add_groups([groupid], reason="platform")
         elif groupid:
             log.warning("Platform group %s not available.", groupid)
+
+    def _set_up_fips(self):
+        """Set up FIPS in the target system.
+
+        Copy the crypto policy from the installation environment
+        to the target system before package installation. The RPM
+        scriptlets need to be executed in the FIPS mode if there
+        is fips=1 on the kernel cmdline.
+
+        FIXME: Move the FIPS support to the Security module.
+         """
+        log.debug("Copying the crypto policy.")
+
+        if not self._check_fips():
+            raise SecurityInstallationError(
+                "FIPS is not correctly set up "
+                "in the installation environment."
+            )
+
+        # Create /etc/crypto-policies.
+        src = "/etc/crypto-policies/"
+        dst = join_paths(conf.target.system_root, src)
+        util.mkdirChain(dst)
+
+        # Copy the config file.
+        src = "/etc/crypto-policies/config"
+        dst = join_paths(conf.target.system_root, src)
+        shutil.copyfile(src, dst)
+
+        # Log the file content on the target system.
+        util.execWithRedirect("/bin/cat", [dst])
+
+        # Copy the back-ends.
+        src = "/etc/crypto-policies/back-ends/"
+        dst = join_paths(conf.target.system_root, src)
+        shutil.copytree(src, dst, symlinks=True)
+
+        # Log the directory content on the target system.
+        util.execWithRedirect("/bin/ls", ["-l", dst])
+
+    def _check_fips(self):
+        """Check FIPS in the installation environment."""
+
+        # Check the config file.
+        config_path = "/etc/crypto-policies/config"
+
+        if not os.path.exists(config_path):
+            log.error("File '%s' doesn't exist.", config_path)
+            return False
+
+        with open(config_path) as f:
+            if f.read().strip() != "FIPS":
+                log.error("The crypto policy is not set to FIPS.")
+                return False
+
+        # Check one of the back-end symlinks.
+        symlink_path = "/etc/crypto-policies/back-ends/opensshserver.config"
+
+        if "FIPS" not in os.path.realpath(symlink_path):
+            log.error("The back ends are not set to FIPS.")
+            return False
+
+        return True
 
     def install(self):
         progress_message(N_('Starting package installation process'))
