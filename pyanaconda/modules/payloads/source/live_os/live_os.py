@@ -41,13 +41,17 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         self._image_path = ""
         self.image_path_changed = Signal()
 
+    def __repr__(self):
+        return "Source(type='LIVE_OS_IMAGE', image='{}')".format(self._image_path)
+
+    def for_publication(self):
+        """Get the interface used to publish this source."""
+        return LiveOSSourceInterface(self)
+
     @property
     def type(self):
         """Get type of this source."""
         return SourceType.LIVE_OS_IMAGE
-
-    def __repr__(self):
-        return "Source(type='LIVE_OS_IMAGE', image='{}')".format(self._image_path)
 
     @property
     def description(self):
@@ -94,10 +98,6 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         """
         task = TearDownMountTask(self._mount_point)
         return [task]
-
-    def for_publication(self):
-        """Get the interface used to publish this source."""
-        return LiveOSSourceInterface(self)
 
     def detect_live_os_image(self):
         """Detect live os image in the system."""

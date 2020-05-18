@@ -33,6 +33,13 @@ log = get_module_logger(__name__)
 class RepoFilesSourceModule(PayloadSourceBase):
     """The Repo files source payload module."""
 
+    def __repr__(self):
+        return "Source(type='REPO_FILES')"
+
+    def for_publication(self):
+        """Get the interface used to publish this source."""
+        return RepoFilesSourceInterface(self)
+
     @property
     def type(self):
         """Get type of this source."""
@@ -51,16 +58,9 @@ class RepoFilesSourceModule(PayloadSourceBase):
         """
         return True
 
-    def __repr__(self):
-        return "Source(type='REPO_FILES')"
-
     def get_state(self):
         """Get state of this source."""
         return SourceState.NOT_APPLICABLE
-
-    def for_publication(self):
-        """Get the interface used to publish this source."""
-        return RepoFilesSourceInterface(self)
 
     def set_up_with_tasks(self):
         """Set up the installation source.
