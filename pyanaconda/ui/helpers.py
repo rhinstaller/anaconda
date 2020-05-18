@@ -164,7 +164,9 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         # clean any old HDD ISO sources
         self._clean_hdd_iso()
 
-        self.data.method.method = "hmc"
+        hmc_source_proxy = create_source(constants.SOURCE_TYPE_HMC)
+
+        set_source(self.payload.proxy, hmc_source_proxy)
 
     def set_source_closest_mirror(self):
         """ Switch to the closest mirror install source """
