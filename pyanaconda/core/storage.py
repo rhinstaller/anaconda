@@ -20,8 +20,6 @@ import os
 from decimal import Decimal
 
 from blivet import udev
-from blivet.devicefactory import DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_PARTITION, \
-    DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_DISK, is_supported_device_type
 from blivet.size import Size
 from blivet.util import total_memory
 
@@ -34,6 +32,16 @@ log = get_module_logger(__name__)
 
 # Maximum ratio of swap size to disk size (10 %).
 MAX_SWAP_DISK_RATIO = Decimal('0.1')
+
+SIZE_POLICY_MAX = -1
+SIZE_POLICY_AUTO = 0
+
+DEVICE_TYPE_LVM = 0
+DEVICE_TYPE_MD = 1
+DEVICE_TYPE_PARTITION = 2
+DEVICE_TYPE_BTRFS = 3
+DEVICE_TYPE_DISK = 4
+DEVICE_TYPE_LVM_THINP = 5
 
 NAMED_DEVICE_TYPES = (
     DEVICE_TYPE_BTRFS,
@@ -121,7 +129,11 @@ def device_type_from_autopart(autopart_type):
 
 
 def get_supported_autopart_choices():
-    """Get the supported autopart choices."""
+    """Get the supported autopart choices.
+
+    # FIXME: Move this function to the Storage module.
+    """
+    from blivet.devicefactory import is_supported_device_type
     return [c for c in AUTOPART_CHOICES if is_supported_device_type(AUTOPART_DEVICE_TYPES[c[1]])]
 
 
