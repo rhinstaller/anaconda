@@ -11,7 +11,8 @@ ConditionKernelCommandLine=!sshd=0
 ConditionPathIsDirectory=|/sys/hypervisor/s390
 
 [Service]
-EnvironmentFile=/etc/sysconfig/sshd
+EnvironmentFile=-/etc/crypto-policies/back-ends/opensshserver.config
+EnvironmentFile=-/etc/sysconfig/sshd
 ExecStartPre=/usr/sbin/handle-sshpw
-ExecStart=/usr/sbin/sshd -D $OPTIONS -f /etc/ssh/sshd_config.anaconda
+ExecStart=/usr/sbin/sshd -D $OPTIONS $CRYPTO_POLICY -f /etc/ssh/sshd_config.anaconda
 ExecReload=/bin/kill -HUP $MAINPID
