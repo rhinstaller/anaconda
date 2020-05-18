@@ -218,8 +218,8 @@ class AnacondaConfiguration(Configuration):
             variant_name = ""
 
         # Or use the default product name.
-        elif loader.check_product("Fedora"):
-            product_name = "Fedora"
+        elif loader.check_product("Red Hat Enterprise Linux"):
+            product_name = "Red Hat Enterprise Linux"
             variant_name = ""
 
         # Or fail.
