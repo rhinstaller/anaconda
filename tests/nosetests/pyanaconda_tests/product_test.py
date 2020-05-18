@@ -144,6 +144,19 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         self.assertListEqual(difference, expected_difference)
 
+    def product_module_blacklist_test(self):
+        """Test for expected CentOS & RHEL module list differences."""
+        centos_config = self._get_config("CentOS Linux")
+        centos_modules = centos_config.anaconda.kickstart_modules
+
+        rhel_config = self._get_config("Red Hat Enterprise Linux")
+        rhel_modules = rhel_config.anaconda.kickstart_modules
+
+        difference = list(set(rhel_modules) - set(centos_modules))
+        expected_difference = ["org.fedoraproject.Anaconda.Modules.Subscription"]
+
+        self.assertListEqual(difference, expected_difference)
+
     def _compare_product_files(self, file_name, other_file_name):
         parser = create_parser()
         read_config(parser, os.path.join(PRODUCT_DIR, file_name))

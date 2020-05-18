@@ -54,7 +54,13 @@ class AnacondaSection(Section):
     @property
     def kickstart_modules(self):
         """List of enabled kickstart modules."""
-        return self._get_option("kickstart_modules").split()
+        return [i for i in self._get_option("kickstart_modules").split()
+                if i not in self.blacklist_kickstart_modules]
+
+    @property
+    def blacklist_kickstart_modules(self):
+        """List of disabled kickstart modules."""
+        return self._get_option("blacklist_kickstart_modules").split()
 
 
 class AnacondaConfiguration(Configuration):
