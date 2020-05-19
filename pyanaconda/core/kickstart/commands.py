@@ -88,7 +88,7 @@ from pykickstart.commands.zfcp import F14_ZFCP as ZFCP
 from pykickstart.commands.zipl import RHEL8_Zipl as Zipl
 
 # Supported kickstart data.
-from pykickstart.commands.btrfs import RHEL8_BTRFSData as BTRFSData
+from pykickstart.commands.btrfs import F23_BTRFSData as BTRFSData
 from pykickstart.commands.driverdisk import F14_DriverDiskData as DriverDiskData
 from pykickstart.commands.device import F8_DeviceData as DeviceData
 from pykickstart.commands.dmraid import FC6_DmRaidData as DmRaidData
