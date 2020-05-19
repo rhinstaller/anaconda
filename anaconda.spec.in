@@ -349,6 +349,36 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 19 2020 Martin Kolman <mkolman@redhat.com> - 33.15-1
+- Update the bootloader configuration after live installation (javierm)
+- subscription: Registration button sensitivity handling (mkolman)
+- subscription: Make credential checking functions usable in GUI (mkolman)
+- Add exclude to the dependency_solver (jkonecny)
+- Add the method is_complete to the class DNFPayload (vponcova)
+- Add the property source_type to the class DNFPayload (vponcova)
+- Add the method get_source_proxy to the class DNFPayload (vponcova)
+- Fix call to super() with missing parameters (vslavik)
+- Change string according to translator comments (vslavik)
+- Remove gjs dependency exclude which is no more needed with anaconda-live
+  (rvykydal)
+- Remove sphinx test dependency (jkonecny)
+- Extend the objects for parsing the cmdline installation method (vponcova)
+- Add functions to set up and tear down of DBus sources (vponcova)
+- Switch call of pip3 to python3 -m pip (jkonecny)
+- Move for_publication as second method in sources (jkonecny)
+- Move sources private methods on top of the file (jkonecny)
+- Fix RPMSourceMixin class documentation (jkonecny)
+- Switch MountingSourceBase to MountingSourceMixin (jkonecny)
+- Remove tear_down_with_tasks from MountingSourceBase (jkonecny)
+- Do not implement get_state in MountingSourceBase (jkonecny)
+- Change gui test relative imports to absolute (vslavik)
+- Disable spurious pylint warning (vslavik)
+- Add CDN source (vslavik)
+- Test the DBus method IsNetworkRequired (vponcova)
+- Add the DBus method IsNetworkRequired (vponcova)
+- Detect HTTPS as a protocol that requires the network (michel)
+- Remove unused variable (vslavik)
+
 * Thu May 14 2020 Martin Kolman <mkolman@redhat.com> - 33.14-1
 - subscription: Hook up state update methods (mkolman)
 - subscription: Make it possible to register/unregister from the GUI (mkolman)
