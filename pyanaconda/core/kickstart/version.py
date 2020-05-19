@@ -18,6 +18,6 @@
 # Red Hat, Inc.
 #
 
-from pykickstart.version import DEVEL as VERSION
+from pykickstart.version import RHEL8 as VERSION
 
 __all__ = ["VERSION"]
