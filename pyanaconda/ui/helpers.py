@@ -58,7 +58,7 @@ from abc import ABCMeta, abstractproperty, abstractmethod
 from pyanaconda.core import constants
 from pyanaconda.core.payload import create_nfs_url
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.ui.lib.payload import create_source, set_source
+from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
 
 
@@ -82,15 +82,13 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         self._device = None
         self._current_iso_path = None
 
-    def _clean_hdd_iso(self):
-        """ Clean HDD ISO usage
-        This means unmounting the partition and unprotecting it,
-        so it can be used for the installation.
-        """
+    def _tear_down_existing_source(self):
         source_proxy = self.payload.get_source_proxy()
 
         if source_proxy.Type == constants.SOURCE_TYPE_HDD and source_proxy.Partition:
             unmark_protected_device(source_proxy.Partition)
+
+        tear_down_sources(self.payload.proxy)
 
     def set_source_hdd_iso(self, device_name, iso_path):
         """ Switch to the HDD ISO install source
@@ -100,7 +98,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         :param iso_path: full path to the source ISO file
         :type iso_path: string
         """
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
         new_source_proxy = create_source(constants.SOURCE_TYPE_HDD)
         new_source_proxy.SetPartition(device_name)
@@ -115,7 +113,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
     def set_source_url(self, url, url_type=constants.URL_TYPE_BASEURL, proxy=None):
         """ Switch to install source specified by URL """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
         url_source_proxy = create_source(constants.SOURCE_TYPE_URL)
 
@@ -133,7 +131,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
     def set_source_nfs(self, server, directory, opts):
         """ Switch to NFS install source """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
         nfs_url = create_nfs_url(server, directory, opts)
 
@@ -145,7 +143,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
     def set_source_cdrom(self):
         """ Switch to cdrom install source """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
         cdrom_source_proxy = create_source(constants.SOURCE_TYPE_CDROM)
 
@@ -154,7 +152,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
     def set_source_hmc(self):
         """ Switch to install source via HMC """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
         hmc_source_proxy = create_source(constants.SOURCE_TYPE_HMC)
 
@@ -163,7 +161,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
     def set_source_closest_mirror(self):
         """ Switch to the closest mirror install source """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
         repo_files_source_proxy = create_source(constants.SOURCE_TYPE_REPO_FILES)
 
