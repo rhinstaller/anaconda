@@ -28,13 +28,17 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common import task
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
-from pyanaconda.modules.common.structures.secret import SECRET_TYPE_HIDDEN
+from pyanaconda.modules.common.structures.secret import SECRET_TYPE_HIDDEN, \
+    SECRET_TYPE_TEXT
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     UnregistrationError, SubscriptionError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+# The following secret types mean a secret has been set
+# (and it is either in plaintext or hidden in the module).
+SECRET_SET_TYPES = (SECRET_TYPE_TEXT, SECRET_TYPE_HIDDEN)
 
 # Asynchronous subscription state tracking
 class SubscriptionPhase(Enum):
@@ -76,31 +80,39 @@ def dummy_error_callback(error_message):
     pass
 
 
-def org_keys_sufficient():
+def org_keys_sufficient(subscription_request=None):
     """Report if sufficient credentials are set for org & keys registration attempt.
 
+    :param subscription_request: an subscription request, if None a fresh subscription request
+                                 will be fetched from the Subscription module over DBus
+    :type subscription_request: SubscriptionRequest instance
     :return: True if sufficient, False otherwise
     :rtype: bool
     """
-    subscription_proxy = SUBSCRIPTION.get_proxy()
-    subscription_request_struct = subscription_proxy.SubscriptionRequest
-    subscription_request = SubscriptionRequest.from_structure(subscription_request_struct)
+    if subscription_request is None:
+        subscription_proxy = SUBSCRIPTION.get_proxy()
+        subscription_request_struct = subscription_proxy.SubscriptionRequest
+        subscription_request = SubscriptionRequest.from_structure(subscription_request_struct)
     organization_set = bool(subscription_request.organization)
-    key_set = subscription_request.activation_keys.type == SECRET_TYPE_HIDDEN
+    key_set = subscription_request.activation_keys.type in SECRET_SET_TYPES
     return organization_set and key_set
 
 
-def username_password_sufficient():
+def username_password_sufficient(subscription_request=None):
     """Report if sufficient credentials are set for username & password registration attempt.
 
+    :param subscription_request: an subscription request, if None a fresh subscription request
+                                 will be fetched from the Subscription module over DBus
+    :type subscription_request: SubscriptionRequest instance
     :return: True if sufficient, False otherwise
     :rtype: bool
     """
-    subscription_proxy = SUBSCRIPTION.get_proxy()
-    subscription_request_struct = subscription_proxy.SubscriptionRequest
-    subscription_request = SubscriptionRequest.from_structure(subscription_request_struct)
+    if subscription_request is None:
+        subscription_proxy = SUBSCRIPTION.get_proxy()
+        subscription_request_struct = subscription_proxy.SubscriptionRequest
+        subscription_request = SubscriptionRequest.from_structure(subscription_request_struct)
     username_set = bool(subscription_request.account_username)
-    password_set = subscription_request.account_password.type == SECRET_TYPE_HIDDEN
+    password_set = subscription_request.account_password.type in SECRET_SET_TYPES
     return username_set and password_set
 
 
