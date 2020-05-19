@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
@@ -112,10 +113,10 @@ class DNFModule(PayloadBase):
 
     def set_up_sources_with_task(self):
         """Set up installation sources."""
-        # TODO: Implement this method
-        pass
+        # FIXME: Move the implementation to the base class.
+        return SetUpSourcesTask(self._sources)
 
     def tear_down_sources_with_task(self):
         """Tear down installation sources."""
-        # TODO: Implement this method
-        pass
+        # FIXME: Move the implementation to the base class.
+        return TearDownSourcesTask(self._sources)
