@@ -79,7 +79,7 @@ class SubscriptionSpoke(NormalSpoke):
         return is_module_available(SUBSCRIPTION)
 
     def __init__(self, *args):
-        super().__init__()
+        super().__init__(*args)
 
         # connect to the Subscription DBus module API
         self._subscription_module = SUBSCRIPTION.get_proxy()
