@@ -22,9 +22,9 @@
 """Module with the BlivetGuiSpoke class."""
 from threading import Lock
 
-from blivetgui.osinstall import BlivetGUIAnaconda
-from blivetgui.communication.client import BlivetGUIClient
-from blivetgui.config import config
+from blivetgui.osinstall import BlivetGUIAnaconda  # pylint: disable=import-error
+from blivetgui.communication.client import BlivetGUIClient  # pylint: disable=import-error
+from blivetgui.config import config  # pylint: disable=import-error
 
 from dasbus.client.proxy import get_object_path
 from dasbus.typing import unwrap_variant
