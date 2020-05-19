@@ -32,6 +32,7 @@ from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH, \
 
 from pyanaconda.modules.common.errors.subscription import UnregistrationError, \
     RegistrationError, SubscriptionError
+from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 
 from pyanaconda.core.subscription import check_system_purpose_set
 
@@ -123,7 +124,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
                          "value": get_variant(Str, "")}),
         "activation-keys":
             get_variant(Structure,
-                        {"type": get_variant(Str, "HIDDEN"),
+                        {"type": get_variant(Str, "TEXT"),
                          "value": get_variant(List[Str], [])}),
         "server-proxy-password":
             get_variant(Structure,
@@ -172,6 +173,16 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # run the function
         self.assertFalse(org_keys_sufficient())
 
+    def org_keys_sufficient_direct_request_test(self):
+        """Test the org_keys_sufficient() helper method - direct request."""
+        # run the function with sufficient authentication data
+        request = SubscriptionRequest.from_structure(self.KEY_REQUEST)
+        self.assertTrue(org_keys_sufficient(subscription_request=request))
+        # run the function with insufficient authentication data
+        request = SubscriptionRequest.from_structure(self.KEY_MISSING_REQUEST)
+        self.assertFalse(org_keys_sufficient(subscription_request=request))
+
+
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def username_password_sufficient_test(self, get_proxy):
         """Test the username_password_sufficient() helper method."""
@@ -189,6 +200,15 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.SubscriptionRequest = self.PASSWORD_MISSING_REQUEST
         # run the function
         self.assertFalse(username_password_sufficient())
+
+    def username_password_sufficient_direct_request_test(self):
+        """Test the username_password_sufficient() helper method - direct request."""
+        # run the function with sufficient authentication data
+        request = SubscriptionRequest.from_structure(self.PASSWORD_REQUEST)
+        self.assertTrue(username_password_sufficient(subscription_request=request))
+        # run the function with insufficient authentication data
+        request = SubscriptionRequest.from_structure(self.PASSWORD_MISSING_REQUEST)
+        self.assertFalse(username_password_sufficient(subscription_request=request))
 
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
