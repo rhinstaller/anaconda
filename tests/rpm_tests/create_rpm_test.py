@@ -24,7 +24,7 @@ from tests.rpm_tests import RPMTestCase
 
 
 # list of source files which should be ignored in tests
-IGNORED_SOURCE_FILES = []
+IGNORED_SOURCE_FILES = ["pyanaconda/ui/gui/spokes/blivet_gui.py"]
 
 
 class InstallRPMTestCase(RPMTestCase):
