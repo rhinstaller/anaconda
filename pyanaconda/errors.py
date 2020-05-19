@@ -117,7 +117,7 @@ class ErrorHandler(object):
 
     def _storage_reset_handler(self, exn):
         message = (_("There is a problem with your existing storage "
-                     "configuration."
+                     "configuration. "
                      "You must resolve this matter before the installation can "
                      "proceed. There is a shell available for use which you "
                      "can access by pressing ctrl-alt-f1 and then ctrl-b 2."
