@@ -46,6 +46,8 @@ TEST_DEPENDENCIES = [
 
 # This is useful to remove dependencies from spec file.
 EXCLUDE_SPEC_DEPENDENCIES = [
+    "blivet-gui-runtime",
+    "hfsplus-tools",
 ]
 
 PIP_DEPENDENCIES = [
