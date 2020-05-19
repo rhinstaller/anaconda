@@ -54,7 +54,6 @@ PIP_DEPENDENCIES = [
     "dogtail",
     "pocketlint",
     "nose-testconfig",
-    "sphinx_rtd_theme",
     "lxml",
     "coverage",
     "pycodestyle",  # pep8 check
