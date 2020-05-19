@@ -75,14 +75,6 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
     """
 
     @abstractproperty
-    def data(self):
-        pass
-
-    @abstractproperty
-    def storage(self):
-        pass
-
-    @abstractproperty
     def payload(self):
         pass
 
