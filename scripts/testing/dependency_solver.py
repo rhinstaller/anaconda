@@ -43,6 +43,10 @@ TEST_DEPENDENCIES = [
     "policycoreutils",  # contains restorecon which was removed in Fedora 28 mock
 ]
 
+# This is useful to remove dependencies from spec file.
+EXCLUDE_SPEC_DEPENDENCIES = [
+]
+
 PIP_DEPENDENCIES = [
     "rpmfluff",
     "dogtail",
@@ -71,6 +75,10 @@ def _read_spec_file():
         spec_content = f.read()
 
     return spec_content
+
+
+def _filter_out_excludes(pkgs):
+    return list(filter(lambda x: x not in EXCLUDE_SPEC_DEPENDENCIES, pkgs))
 
 
 def parse_args():
@@ -102,6 +110,8 @@ def runtime_dependencies(spec_content):
         if "anaconda" not in pkg and "%{" not in pkg:
             result.add(pkg.strip())
 
+    result = _filter_out_excludes(result)
+
     return result
 
 
@@ -114,6 +124,8 @@ def build_dependencies(spec_content, is_s390):
         if not is_s390 and "s390utils" in pkg:
             continue
         result.add(pkg.strip())
+
+    result = _filter_out_excludes(result)
 
     return result
 
