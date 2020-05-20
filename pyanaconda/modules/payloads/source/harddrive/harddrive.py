@@ -180,10 +180,10 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         :return: list of tasks required for the source clean-up
         :rtype: [Task]
         """
-        tasks = []
-        if self.is_iso_mounted:
-            tasks.append(TearDownMountTask(self._iso_mount))
-        tasks.append(TearDownMountTask(self._device_mount))
+        tasks = [
+            TearDownMountTask(self._iso_mount),
+            TearDownMountTask(self._device_mount),
+        ]
         return tasks
 
     def get_iso_path(self):

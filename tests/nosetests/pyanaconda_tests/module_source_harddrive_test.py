@@ -344,7 +344,6 @@ class HardDriveSourceTearDownTestCase(unittest.TestCase):
 
     def tear_down_task_order_test(self):
         """Hard drive source tear down task order."""
-        self.source_module._iso_name = "my-cool.iso"
         tasks = self.source_module.tear_down_with_tasks()
         self.assertEqual(len(tasks), 2)
         self.assertIsInstance(tasks[0], TearDownMountTask)
@@ -352,11 +351,3 @@ class HardDriveSourceTearDownTestCase(unittest.TestCase):
         name_suffixes = ["-iso", "-device"]
         for task, fragment in zip(tasks, name_suffixes):
             self.assertTrue(task._target_mount.endswith(fragment))
-
-    def single_tear_down_task_test(self):
-        """Hard drive source single tear down task."""
-        self.source_module._uses_iso_mount = False
-        tasks = self.source_module.tear_down_with_tasks()
-        self.assertEqual(len(tasks), 1)
-        self.assertIsInstance(tasks[0], TearDownMountTask)
-        self.assertTrue(tasks[0]._target_mount.endswith("-device"))
