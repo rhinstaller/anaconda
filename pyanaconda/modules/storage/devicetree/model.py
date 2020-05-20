@@ -301,8 +301,7 @@ class InstallerStorage(Blivet):
         # storage disks as ignored so they are protected from teardown.
         # Here we protect also cdrom devices from tearing down that, in case of
         # cdroms, involves unmounting which is undesirable (see bug #1671713).
-        if conf.target.is_image:
-            protected.extend(dev for dev in self.devicetree.devices if dev.type == "cdrom")
+        protected.extend(dev for dev in self.devicetree.devices if dev.type == "cdrom")
 
         # Mark the collected devices as protected.
         for dev in protected:
