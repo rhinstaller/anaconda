@@ -33,12 +33,13 @@ from pyanaconda.core.async_utils import async_action_wait
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION, NETWORK
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest
+    SubscriptionRequest, AttachedSubscription
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.common.task import sync_run_task
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.spokes.lib.subscription import fill_combobox
+from pyanaconda.ui.gui.spokes.lib.subscription import fill_combobox, \
+    populate_attached_subscriptions_listbox
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.subscription import username_password_sufficient, org_keys_sufficient
@@ -971,7 +972,64 @@ class SubscriptionSpoke(NormalSpoke):
         Update state of the part of the spoke, that shows data about the
         currently attached subscriptions.
         """
-        # TODO
+        # authentication method
+        if self.authentication_method == AuthenticationMethod.USERNAME_PASSWORD:
+            method_string = _("Registered with account {}").format(
+                self.subscription_request.account_username
+            )
+        else:  # org + key
+            method_string = _("Registered with organization {}").format(
+                self.subscription_request.organization
+            )
+        self._method_status_label.set_text(method_string)
+
+        # final syspurpose data
+
+        # role
+        final_role_string = _("Role: {}").format(self.system_purpose_data.role)
+        self._role_status_label.set_text(final_role_string)
+
+        # SLA
+        final_sla_string = _("SLA: {}").format(self.system_purpose_data.sla)
+        self._sla_status_label.set_text(final_sla_string)
+
+        # usage
+        final_usage_string = _("Usage: {}").format(self.system_purpose_data.usage)
+        self._usage_status_label.set_text(final_usage_string)
+
+        # Insights
+        # - this strings are referring to the desired target system state,
+        #   the installation environment itself is not expected to be
+        #   connected to Insights
+        if self._subscription_module.InsightsEnabled:
+            insights_string = _("Connected to Red Hat Insights")
+        else:
+            insights_string = _("Not connected to Red Hat Insights")
+        self._insights_status_label.set_text(insights_string)
+
+        # get attached subscriptions as a list of structs
+        attached_subscriptions = self._subscription_module.AttachedSubscriptions
+        # turn the structs to more useful AttachedSubscription instances
+        attached_subscriptions = AttachedSubscription.from_structure_list(attached_subscriptions)
+
+        # check how many we have & set the subscription status string accordingly
+        subscription_count = len(attached_subscriptions)
+        if subscription_count == 0:
+            subscription_string = _("No subscriptions are attached to the system")
+        elif subscription_count == 1:
+            subscription_string = _("1 subscription attached to the system")
+        else:
+            subscription_string = _("{} subscriptions attached to the system").format(
+                subscription_count
+            )
+
+        self._attached_subscriptions_label.set_text(subscription_string)
+
+        # populate the attached subscriptions listbox
+        populate_attached_subscriptions_listbox(
+            self._subscriptions_listbox,
+            attached_subscriptions
+        )
 
     def _check_connectivity(self):
         """Check network connectivity is available.
