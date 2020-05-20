@@ -51,7 +51,7 @@ class UsersService(KickstartService):
         self.root_account_locked_changed = Signal()
         self._root_account_locked = True
 
-        self._root_password_ssh_login_allowed = False
+        self._root_password_ssh_login_allowed = True
         self.root_password_ssh_login_allowed_changed = Signal()
 
         self.users_changed = Signal()
