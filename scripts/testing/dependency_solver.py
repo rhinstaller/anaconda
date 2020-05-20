@@ -40,6 +40,7 @@ TEST_DEPENDENCIES = [
     "rpm-ostree",
     "pykickstart",
     "python3-pip",
+    "python3-lxml",
     "policycoreutils",  # contains restorecon which was removed in Fedora 28 mock
 ]
 
@@ -54,7 +55,6 @@ PIP_DEPENDENCIES = [
     "dogtail",
     "pocketlint",
     "nose-testconfig",
-    "lxml",
     "coverage",
     "pycodestyle",  # pep8 check
 ]
