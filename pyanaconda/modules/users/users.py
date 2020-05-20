@@ -401,7 +401,7 @@ class UsersService(KickstartService):
             return True
         # if not set by kickstart root must not be
         # locked to be cosnidered admin
-        elif not self.root_account_locked:
+        elif self.root_password and not self.root_account_locked:
             return True
 
         # let's check all users
