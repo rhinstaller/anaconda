@@ -15,7 +15,9 @@ Source0: %{name}-%{version}.tar.bz2
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 
+%if ! 0%{?rhel}
 %define blivetguiver 2.1.12-1
+%endif
 %define dbusver 1.2.3
 %define dnfver 3.6.0
 %define dracutver 034-7
@@ -201,7 +203,9 @@ Requires: NetworkManager-wifi
 %endif
 Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
+%if ! 0%{?rhel}
 Requires: blivet-gui-runtime >= %{blivetguiver}
+%endif
 Requires: system-logos
 
 # Needed to compile the gsettings files
@@ -323,6 +327,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{python3_sitearch}/pyanaconda/ui/gui/*
 %{_datadir}/anaconda/pixmaps
 %{_datadir}/anaconda/ui
+%if 0%{?rhel}
+# Remove blivet-gui
+%exclude %{_datadir}/anaconda/ui/spokes/blivet_gui.*
+%exclude %{python3_sitearch}/pyanaconda/ui/gui/spokes/blivet_gui.*
+%endif
 %{_datadir}/anaconda/window-manager
 %{_datadir}/anaconda/anaconda-gtk.css
 
