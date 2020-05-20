@@ -58,7 +58,7 @@ __all__ = ["TimeSpoke"]
 
 
 class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
-    helpFile = "DateTimeSpoke.txt"
+    help_id = "DateTimeSpoke"
     category = LocalizationCategory
 
     def __init__(self, data, storage, payload):

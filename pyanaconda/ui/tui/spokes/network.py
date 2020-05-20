@@ -195,7 +195,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
        .. inheritance-diagram:: NetworkSpoke
           :parts: 3
     """
-    helpFile = "NetworkSpoke.txt"
+    help_id = "NetworkSpoke"
     category = SystemCategory
     configurable_device_types = [
         NM.DeviceType.ETHERNET,

@@ -402,7 +402,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                       "dirImage", "repoStore"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/installation_source.glade"
-    helpFile = "SourceSpoke.xml"
+    help_id = "InstallationSourceSpoke"
 
     category = SoftwareCategory
 

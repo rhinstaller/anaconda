@@ -73,7 +73,7 @@ class StorageSpoke(NormalTUISpoke):
        .. inheritance-diagram:: StorageSpoke
           :parts: 3
     """
-    helpFile = "StorageSpoke.txt"
+    help_id = "StorageSpoke"
     category = SystemCategory
 
     def __init__(self, data, storage, payload):
