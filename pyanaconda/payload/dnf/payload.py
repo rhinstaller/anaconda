@@ -54,7 +54,7 @@ from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_HMC, SOURCE_TYPE_HDD, URL_TYPE_BASEURL, \
-    URL_TYPE_MIRRORLIST, SOURCE_TYPE_URL
+    URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_TYPE_URL
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
@@ -1489,7 +1489,7 @@ class DNFPayload(Payload):
             # Get the URL.
             install_tree_url = data.url if data.type == URL_TYPE_BASEURL else ""
             mirrorlist = data.url if data.type == URL_TYPE_MIRRORLIST else ""
-            metalink = data.url if data.type == URL_TYPE_MIRRORLIST else ""
+            metalink = data.url if data.type == URL_TYPE_METALINK else ""
 
             # Fallback to the installation root.
             base_repo_url = install_tree_url
