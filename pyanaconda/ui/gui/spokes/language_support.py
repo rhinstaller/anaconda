@@ -46,7 +46,7 @@ __all__ = ["LangsupportSpoke"]
 _HIGHLIGHT_COLOR = Gdk.RGBA(red=0.992157, green=0.984314, blue=0.752941, alpha=1.0)
 
 
-class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
+class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
     """
        .. inheritance-diagram:: LangsupportSpoke
           :parts: 3
@@ -64,7 +64,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
-        LangLocaleHandler.__init__(self, self.payload)
+        LangLocaleHandler.__init__(self)
         self._selected_locales = set()
 
         self._l12_module = LOCALIZATION.get_proxy()
