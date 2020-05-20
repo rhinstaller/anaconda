@@ -915,9 +915,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             combo = self.builder.get_object("isoPartitionCombo")
             combo.set_active(active_idx)
 
-        # We default to the mirror list, and then if the method tells us
-        # something different later, we can change it.
+        # We defaults and if the method tells us something different later, we can change it.
         self._protocol_combo_box.set_active_id(PROTOCOL_MIRROR)
+        self._url_type_combo_box.set_active_id(URL_TYPE_BASEURL)
 
         if source_type == SOURCE_TYPE_URL:
             self._network_button.set_active(True)
