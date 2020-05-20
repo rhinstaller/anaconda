@@ -271,7 +271,7 @@ class KeyboardSpoke(NormalSpoke):
                       "layoutTestBuffer"]
     mainWidgetName = "keyboardWindow"
     uiFile = "spokes/keyboard.glade"
-    helpFile = "KeyboardSpoke.xml"
+    help_id = "KeyboardSpoke"
 
     category = LocalizationCategory
 

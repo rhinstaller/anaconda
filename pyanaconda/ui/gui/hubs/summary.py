@@ -35,7 +35,7 @@ class SummaryHub(Hub):
     builderObjects = ["summaryWindow"]
     mainWidgetName = "summaryWindow"
     uiFile = "hubs/summary.glade"
-    helpFile = "SummaryHub.xml"
+    help_id = "SummaryHub"
 
     def __init__(self, data, storage, payload):
         """Create a new Hub instance.
