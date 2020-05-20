@@ -181,7 +181,7 @@ class SetUpSourcesTask(Task):
 
             for task in tasks:
                 log.debug("Running task %s", task.name)
-                task.run()
+                task.run_with_signals()
 
 
 class TearDownSourcesTask(Task):

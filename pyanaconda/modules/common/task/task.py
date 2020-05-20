@@ -25,6 +25,8 @@ from abc import abstractmethod
 
 from pyanaconda.core.constants import THREAD_DBUS_TASK
 from dasbus.server.publishable import Publishable
+
+from pyanaconda.modules.common.errors.task import NoResultError
 from pyanaconda.modules.common.task.task_interface import TaskInterface, ValidationTaskInterface
 from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.modules.common.task.progress import ProgressReporter
@@ -106,6 +108,32 @@ class Task(AbstractTask):
         formatted_info = "".join(traceback.format_exception(*exc_info))
         log.error("Thread %s has failed: %s", self._thread_name, formatted_info)
         super()._task_failed_callback()
+
+    def run_with_signals(self):
+        """Run the task in the current thread with enabled signals.
+
+        Call this method to run the task synchronously in the current
+        thread. It will emit all signals in the same order as the start
+        method.
+
+        :raise: an error if the task fails
+        :return: a result of the task if the task succeeds
+        """
+        try:
+            self._task_started_callback()
+            self._task_run_callback()
+        except Exception:  # pylint: disable=broad-except
+            self._task_failed_callback()
+            raise
+        else:
+            self._task_succeeded_callback()
+        finally:
+            self._task_stopped_callback()
+
+        try:
+            return self.get_result()
+        except NoResultError:
+            return None
 
     @abstractmethod
     def run(self):
