@@ -93,7 +93,7 @@ from pykickstart.commands.driverdisk import F14_DriverDiskData as DriverDiskData
 from pykickstart.commands.device import F8_DeviceData as DeviceData
 from pykickstart.commands.dmraid import FC6_DmRaidData as DmRaidData
 from pykickstart.commands.module import RHEL8_ModuleData as ModuleData
-from pykickstart.commands.fcoe import F28_FcoeData as FcoeData
+from pykickstart.commands.fcoe import RHEL8_FcoeData as FcoeData
 from pykickstart.commands.group import F12_GroupData as GroupData
 from pykickstart.commands.iscsi import F17_IscsiData as IscsiData
 from pykickstart.commands.logvol import RHEL8_LogVolData as LogVolData
