@@ -147,6 +147,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         #   we use the _refresh_running atribute to differentiate
         #   it from "real" clicks
         self._lock.set_active(self._users_module.IsRootAccountLocked)
+        self._root_password_ssh_login_override.set_active(
+            self._users_module.RootPasswordSSHLoginAllowed
+        )
         if not self._lock.get_active():
             # rerun checks so that we have a correct status message, if any
             self.checker.run_checks()
