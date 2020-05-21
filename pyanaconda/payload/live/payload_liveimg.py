@@ -52,6 +52,17 @@ class LiveImagePayload(BaseLivePayload):
         self._proxies = {}
         self.image_path = conf.target.system_root + "/disk.img"
 
+    def set_from_opts(self, opts):
+        """Set the payload from the Anaconda cmdline options.
+
+        :param opts: a namespace of options
+        """
+        if opts.proxy:
+            self.data.liveimg.proxy = opts.proxy
+
+        if not conf.payload.verify_ssl:
+            self.data.liveimg.noverifyssl = not conf.payload.verify_ssl
+
     @property
     def type(self):
         """The DBus type of the payload."""

@@ -33,9 +33,9 @@ class RepoMDMetaHash(object):
     """Class that holds hash of a repomd.xml file content from a repository.
     This class can test availability of this repository by comparing hashes.
     """
-    def __init__(self, dnf_payload, repo):
+    def __init__(self, repo, proxy_url):
         self._repoId = repo.id
-        self._method = dnf_payload.data.method
+        self._proxy_url = proxy_url
         self._ssl_verify = repo.sslverify
         self._urls = repo.baseurl
         self._repomd_hash = ""
@@ -52,12 +52,12 @@ class RepoMDMetaHash(object):
 
     def store_repoMD_hash(self):
         """Download and store hash of the repomd.xml file content."""
-        repomd = self._download_repoMD(self._method)
+        repomd = self._download_repoMD()
         self._repomd_hash = self._calculate_hash(repomd)
 
     def verify_repoMD(self):
         """Download and compare with stored repomd.xml file."""
-        new_repomd = self._download_repoMD(self._method)
+        new_repomd = self._download_repoMD()
         new_repomd_hash = self._calculate_hash(new_repomd)
         return new_repomd_hash == self._repomd_hash
 
@@ -66,20 +66,19 @@ class RepoMDMetaHash(object):
         m.update(data.encode('ascii', 'backslashreplace'))
         return m.digest()
 
-    def _download_repoMD(self, method):
+    def _download_repoMD(self):
         proxies = {}
         repomd = ""
         headers = {"user-agent": USER_AGENT}
 
-        if hasattr(method, "proxy"):
-            proxy_url = method.proxy
+        if self._proxy_url is not None:
             try:
-                proxy = ProxyString(proxy_url)
+                proxy = ProxyString(self._proxy_url)
                 proxies = {"http": proxy.url,
                            "https": proxy.url}
             except ProxyStringError as e:
                 log.info("Failed to parse proxy for test if repo available %s: %s",
-                         proxy_url, e)
+                         self._proxy_url, e)
 
         session = util.requests_session()
 

@@ -20,6 +20,7 @@
 import threading
 from enum import IntEnum
 
+from dasbus.error import DBusError
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
     THREAD_WAIT_FOR_CONNECTING_NM, PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import _, N_
@@ -204,7 +205,7 @@ class PayloadManager(object):
         try:
             payload.update_base_repo(fallback=fallback, checkmount=checkmount)
             payload.add_driver_repos()
-        except (OSError, PayloadError) as e:
+        except (OSError, DBusError, PayloadError) as e:
             log.error("PayloadError: %s", e)
             self._error = self.ERROR_SETUP
             self._set_state(PayloadState.ERROR)

@@ -39,8 +39,6 @@ from pyanaconda import kickstart
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
 
-from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-
 import blivet
 
 
@@ -289,41 +287,6 @@ def live_startup(anaconda):
         log.info("Unable to connect to DBus session bus: %s", e)
     else:
         anaconda.dbus_inhibit_id = inhibit_screensaver(anaconda.dbus_session_connection)
-
-
-def set_installation_method_from_anaconda_options(anaconda, ksdata):
-    """Set the installation method from Anaconda options.
-
-    This basically means to set the installation method from options provided
-    to Anaconda via command line/boot options.
-
-    :param anaconda: instance of the Anaconda class
-    :param ksdata: data model corresponding to the installation kickstart
-    """
-    try:
-        source = SourceFactory.parse_repo_cmdline_string(anaconda.methodstr)
-    except PayloadSourceTypeUnrecognized:
-        log.error("Unknown method: %s", anaconda.methodstr)
-        return
-
-    ksdata.method.method = source.method_type
-
-    if source.is_nfs:
-        ksdata.method.server = source.server
-        ksdata.method.dir = source.path
-        ksdata.method.opts = source.options
-    elif source.is_harddrive:
-        ksdata.method.partition = source.partition
-        ksdata.method.dir = source.path
-    elif source.is_http or source.is_https or source.is_ftp:
-        ksdata.method.url = source.url
-        ksdata.method.mirrorlist = None
-        ksdata.method.metalink = None
-    # file is not url based but it is stored same way
-    elif source.is_file:
-        ksdata.method.url = source.path
-        ksdata.method.mirrorlist = None
-        ksdata.method.metalink = None
 
 
 def find_kickstart(options):

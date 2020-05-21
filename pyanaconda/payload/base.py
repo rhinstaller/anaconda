@@ -49,6 +49,13 @@ class Payload(metaclass=ABCMeta):
         # Additional packages required by installer based on used features
         self.requirements = PayloadRequirements()
 
+    def set_from_opts(self, opts):
+        """Set the payload from the Anaconda cmdline options.
+
+        :param opts: a namespace of options
+        """
+        pass
+
     @property
     @abstractmethod
     def type(self):
