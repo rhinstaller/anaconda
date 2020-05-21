@@ -22,7 +22,7 @@ from enum import IntEnum
 
 from dasbus.error import DBusError
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
-    THREAD_WAIT_FOR_CONNECTING_NM, PAYLOAD_TYPE_DNF
+    THREAD_WAIT_FOR_CONNECTING_NM, THREAD_SUBSCRIPTION, PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.errors import PayloadError
@@ -182,6 +182,9 @@ class PayloadManager(object):
         # FIXME: condition for cases where we don't want network
         # (set and use payload.needs_network ?)
         threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
+
+        # Wait for subscription
+        threadMgr.wait(THREAD_SUBSCRIPTION)
 
         payload.setup()
 

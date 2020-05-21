@@ -690,8 +690,13 @@ if __name__ == "__main__":
     if is_module_available(SUBSCRIPTION):
         from pyanaconda.ui.lib.subscription import org_keys_sufficient, register_and_subscribe
         if org_keys_sufficient():
-            threadMgr.add(AnacondaThread(name=constants.THREAD_SUBSCRIPTION,
-                                         target=register_and_subscribe))
+            threadMgr.add(
+                AnacondaThread(
+                    name=constants.THREAD_SUBSCRIPTION,
+                    target=register_and_subscribe,
+                    args=[anaconda.payload]
+                )
+            )
 
     # add additional repositories from the cmdline to kickstart data
     anaconda.add_additional_repositories_to_ksdata()
