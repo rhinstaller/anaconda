@@ -196,9 +196,9 @@ class PayloadSharedTasksTest(TestCase):
         set_up_task2 = create_autospec(Task)
         set_up_task3 = create_autospec(Task)
 
-        set_up_task1.run.side_effect = lambda: save_position("task1")
-        set_up_task2.run.side_effect = lambda: save_position("task2")
-        set_up_task3.run.side_effect = lambda: save_position("task3")
+        set_up_task1.run_with_signals.side_effect = lambda: save_position("task1")
+        set_up_task2.run_with_signals.side_effect = lambda: save_position("task2")
+        set_up_task3.run_with_signals.side_effect = lambda: save_position("task3")
 
         source1 = create_autospec(PayloadSourceBase)
         source2 = create_autospec(PayloadSourceBase)
@@ -214,9 +214,9 @@ class PayloadSharedTasksTest(TestCase):
 
         source1.set_up_with_tasks.assert_called_once()
         source2.set_up_with_tasks.assert_called_once()
-        set_up_task1.run.assert_called_once()
-        set_up_task2.run.assert_called_once()
-        set_up_task3.run.assert_called_once()
+        set_up_task1.run_with_signals.assert_called_once()
+        set_up_task2.run_with_signals.assert_called_once()
+        set_up_task3.run_with_signals.assert_called_once()
         self.assertEqual(["source1", "task1", "task2", "source2", "task3"], called_position)
 
     def set_up_sources_task_without_sources_test(self):
@@ -232,7 +232,7 @@ class PayloadSharedTasksTest(TestCase):
         set_up_task2 = create_autospec(Task)
         set_up_task3 = create_autospec(Task)
 
-        set_up_task2.run.side_effect = SourceSetupError("task2 error")
+        set_up_task2.run_with_signals.side_effect = SourceSetupError("task2 error")
 
         source1 = create_autospec(PayloadSourceBase)
         source2 = create_autospec(PayloadSourceBase)
@@ -245,9 +245,9 @@ class PayloadSharedTasksTest(TestCase):
         with self.assertRaises(SourceSetupError):
             task.run()
 
-        set_up_task1.run.assert_called_once()
-        set_up_task2.run.assert_called_once()
-        set_up_task3.run.assert_not_called()
+        set_up_task1.run_with_signals.assert_called_once()
+        set_up_task2.run_with_signals.assert_called_once()
+        set_up_task3.run_with_signals.assert_not_called()
 
     def tear_down_sources_task_test(self):
         """Test task to tear down installation sources."""
