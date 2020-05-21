@@ -22,6 +22,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
@@ -103,20 +104,22 @@ class PayloadsService(KickstartService):
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
-        pass
-
-    def generate_temporary_kickstart(self):
-        """Return the temporary kickstart string.
-
-        FIXME: This is a temporary workaround.
-        """
-        log.debug("Generating temporary kickstart data...")
-        data = self.get_kickstart_handler()
-
         if self.active_payload:
             self.active_payload.setup_kickstart(data)
 
-        return str(data)
+    def generate_kickstart(self):
+        """Return a kickstart string."""
+        # FIXME: This is a temporary workaround for RPM sources.
+        if self.active_payload and self.active_payload.type != PayloadType.DNF:
+            log.debug("Generating kickstart... (skip)")
+            return ""
+
+        return super().generate_kickstart()
+
+    def generate_temporary_kickstart(self):
+        """Return the temporary kickstart string."""
+        # FIXME: This is a temporary workaround for testing.
+        return super().generate_kickstart()
 
     def create_payload(self, payload_type):
         """Create payload based on the passed type.

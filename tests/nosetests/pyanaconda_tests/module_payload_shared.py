@@ -39,19 +39,21 @@ class PayloadKickstartSharedTest(object):
         self.payload_service = payload_service
         self.payload_service_interface = payload_service_intf
 
-    def check_kickstart(self, ks_in, ks_out=None, ks_valid=True, expected_publish_calls=1):
+    def check_kickstart(self, ks_in, ks_out=None, ks_valid=True, ks_tmp=None,
+                        expected_publish_calls=1):
         """Test kickstart processing.
 
-        :param test_obj: TestCase object (probably self)
         :param ks_in: input kickstart for testing
         :param ks_out: expected output kickstart
+        :param ks_valid: True if the input kickstart is valid, otherwise False
+        :param ks_tmp: string with the temporary output kickstart
         :param expected_publish_calls: how many times times the publisher should be called
         :type expected_publish_calls: int
         """
         with patch('pyanaconda.core.dbus.DBus.publish_object') as publisher:
             result = check_kickstart_interface(self._test,
                                                self.payload_service_interface,
-                                               ks_in, "", ks_valid, ks_tmp=ks_out)
+                                               ks_in, ks_out, ks_valid, ks_tmp)
 
             if ks_valid and expected_publish_calls != 0:
                 publisher.assert_called()
