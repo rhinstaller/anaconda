@@ -18,15 +18,13 @@
 #
 from collections import namedtuple
 
-from blivet.devicefactory import SIZE_POLICY_AUTO, SIZE_POLICY_MAX, DEVICE_TYPE_LVM, \
-    DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD
-from blivet.size import Size
 from dasbus.structure import get_fields
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_, C_
-from pyanaconda.core.storage import PROTECTED_FORMAT_TYPES
+from pyanaconda.core.storage import PROTECTED_FORMAT_TYPES, SIZE_POLICY_AUTO, SIZE_POLICY_MAX, \
+    DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD, Size
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions

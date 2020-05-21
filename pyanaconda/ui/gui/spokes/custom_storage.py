@@ -27,9 +27,6 @@
 # - Activating reformat should always enable resize for existing devices.
 import copy
 
-from blivet.devicefactory import DEVICE_TYPE_BTRFS, DEVICE_TYPE_MD
-from blivet.size import Size
-
 from dasbus.client.proxy import get_object_path
 from dasbus.structure import compare_data
 from dasbus.typing import unwrap_variant
@@ -53,7 +50,8 @@ from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning, filter_disks_by_names
 from pyanaconda.core.storage import DEVICE_TYPE_UNSUPPORTED, DEVICE_TEXT_MAP, \
     MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, \
-    PROTECTED_FORMAT_TYPES
+    PROTECTED_FORMAT_TYPES, DEVICE_TYPE_BTRFS, DEVICE_TYPE_MD, Size
+
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ

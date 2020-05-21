@@ -18,11 +18,9 @@
 #
 from enum import Enum
 
-from blivet.devicefactory import DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_PARTITION, \
-    DEVICE_TYPE_BTRFS, DEVICE_TYPE_DISK, DEVICE_TYPE_LVM_THINP
-from blivet.size import Size
-
 from pyanaconda.core.configuration.base import Section
+from pyanaconda.core.storage import DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_PARTITION, \
+    DEVICE_TYPE_BTRFS, DEVICE_TYPE_DISK, DEVICE_TYPE_LVM_THINP, Size
 
 
 class DeviceType(Enum):
