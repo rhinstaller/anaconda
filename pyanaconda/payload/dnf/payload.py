@@ -53,8 +53,8 @@ from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_HMC, SOURCE_TYPE_HDD, URL_TYPE_BASEURL, \
-    URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_TYPE_URL
+    SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_HMC, SOURCE_TYPE_URL, \
+    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
@@ -1029,17 +1029,6 @@ class DNFPayload(Payload):
             for line in f:
                 package = line.strip()
                 self.requirements.add_packages([package], reason="driver disk")
-
-    @property
-    def ISO_image(self):
-        # FIXME: Remove this property and call GetISOPath directly.
-        source_proxy = self.get_source_proxy()
-        source_type = source_proxy.Type
-
-        if source_type != SOURCE_TYPE_HDD:
-            return None
-
-        return source_proxy.GetIsoPath() or None
 
     @property
     def space_required(self):
