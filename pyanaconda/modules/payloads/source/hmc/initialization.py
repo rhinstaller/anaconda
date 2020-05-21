@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.util import execWithRedirect
+from pyanaconda.core.util import execWithRedirect, mkdirChain
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 
@@ -39,6 +39,9 @@ class SetUpHMCSourceTask(SetUpMountTask):
         # Test the SE/HMC file access.
         if execWithRedirect("/usr/sbin/lshmc", []):
             raise SourceSetupError("The content of HMC media drive couldn't be accessed.")
+
+        # Make sure that the directories exists.
+        mkdirChain(self._target_mount)
 
         # Mount the device.
         if execWithRedirect("/usr/bin/hmcdrvfs", [self._target_mount]):
