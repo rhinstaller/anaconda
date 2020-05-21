@@ -107,6 +107,10 @@ class PayloadSourceBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         pass
 
+    def __repr__(self):
+        """The default string representation of the source."""
+        return "Source(type='{}')".format(self.type.value)
+
 
 class MountingSourceMixin(ABC):
     """Mixin class for sources that use mounting."""

@@ -31,10 +31,13 @@ log = get_module_logger(__name__)
 
 
 class RepoFilesSourceModule(PayloadSourceBase):
-    """The Repo files source payload module."""
+    """The source payload module for local repo files.
 
-    def __repr__(self):
-        return "Source(type='REPO_FILES')"
+    This is a general class for working with local repo files.
+    Special cases like the CDN or the closest mirror should be
+    handled in sources of different types. This source can be
+    used for example for additional repositories.
+    """
 
     def for_publication(self):
         """Get the interface used to publish this source."""
@@ -48,7 +51,7 @@ class RepoFilesSourceModule(PayloadSourceBase):
     @property
     def description(self):
         """Get description of this source."""
-        return _("Closest mirror")
+        return _("Local repositories")
 
     @property
     def network_required(self):
