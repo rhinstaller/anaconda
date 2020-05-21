@@ -587,22 +587,15 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # Etc/XXXXXX timezone is selected
         region = self._get_active_region()
         city = self._get_active_city()
-        # nothing selected, just leave the spoke and
-        # return to hub without changing anything
+
+        # nothing selected, just leave the spoke and return to hub without changing anything
         if not region or not city:
             return
 
-        old_tz = self._timezone_module.Timezone
-        new_tz = region + "/" + city
-
-        self._timezone_module.SetTimezone(new_tz)
-
-        if old_tz != new_tz:
-            # new values, not from kickstart
-            # TODO: seen should be set from the module
-            self._kickstarted = False
-
+        self._timezone_module.SetTimezone(region + "/" + city)
         self._timezone_module.SetNTPEnabled(self._ntpSwitch.get_active())
+
+        self._kickstarted = False
 
     def execute(self):
         if self._update_datetime_timer is not None:
