@@ -56,11 +56,10 @@
 from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda.core import constants
+from pyanaconda.core.payload import create_nfs_url
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
-from pyanaconda.threading import threadMgr
-from pyanaconda.payload.manager import payloadMgr
-
-import copy
 
 
 class StorageCheckHandler(object, metaclass=ABCMeta):
@@ -76,36 +75,20 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
     """
 
     @abstractproperty
-    def data(self):
-        pass
-
-    @abstractproperty
-    def storage(self):
+    def payload(self):
         pass
 
     def __init__(self):
         self._device = None
         self._current_iso_path = None
 
-    def unset_source(self):
-        """Unset an already selected source method.
+    def _tear_down_existing_source(self):
+        source_proxy = self.payload.get_source_proxy()
 
-        Unset the source in kickstart and notify the payload so that it can correctly
-        release all related resources (unmount iso files, drop caches, etc.).
-        """
-        self._clean_hdd_iso()
-        self.data.method.method = None
-        payloadMgr.restart_thread(self.payload, checkmount=False)   # pylint: disable=no-member
-        threadMgr.wait(constants.THREAD_PAYLOAD_RESTART)
-        threadMgr.wait(constants.THREAD_PAYLOAD)
+        if source_proxy.Type == constants.SOURCE_TYPE_HDD and source_proxy.Partition:
+            unmark_protected_device(source_proxy.Partition)
 
-    def _clean_hdd_iso(self):
-        """ Clean HDD ISO usage
-        This means unmounting the partition and unprotecting it,
-        so it can be used for the installation.
-        """
-        if self.data.method.method == "harddrive" and self.data.method.partition:
-            unmark_protected_device(self.data.method.partition)
+        tear_down_sources(self.payload.proxy)
 
     def set_source_hdd_iso(self, device_name, iso_path):
         """ Switch to the HDD ISO install source
@@ -115,67 +98,74 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         :param iso_path: full path to the source ISO file
         :type iso_path: string
         """
-        partition = device_name
-        # the GUI source spoke also does the copy
-        old_source = copy.copy(self.data.method)
+        self._tear_down_existing_source()
 
-        # if a different partition was used previously, unprotect it
-        if old_source.method == "harddrive" and old_source.partition != partition:
-            self._clean_hdd_iso()
+        new_source_proxy = create_source(constants.SOURCE_TYPE_HDD)
+        new_source_proxy.SetPartition(device_name)
+        # the / gets stripped off by payload.ISO_image
+        new_source_proxy.SetDirectory("/" + iso_path)
 
         # protect current device_name
         mark_protected_device(device_name)
 
-        self.data.method.method = "harddrive"
-        self.data.method.partition = partition
-        # the / gets stripped off by payload.ISO_image
-        self.data.method.dir = "/" + iso_path
+        set_source(self.payload.proxy, new_source_proxy)
 
-        # as we already made the device_name protected when
-        # switching to it, we don't need to protect it here
-
-    def set_source_url(self, url=None):
+    def set_source_url(self, url, url_type=constants.URL_TYPE_BASEURL, proxy=None):
         """ Switch to install source specified by URL """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
-        self.data.method.method = "url"
-        if url is not None:
-            self.data.method.url = url
+        url_source_proxy = create_source(constants.SOURCE_TYPE_URL)
 
-    def set_source_nfs(self, opts=None):
+        repo_conf = RepoConfigurationData()
+        repo_conf.url = url
+        repo_conf.type = url_type
+        repo_conf.proxy = proxy or ""
+
+        url_source_proxy.SetRepoConfiguration(
+            RepoConfigurationData.to_structure(repo_conf)
+        )
+
+        set_source(self.payload.proxy, url_source_proxy)
+
+    def set_source_nfs(self, server, directory, opts):
         """ Switch to NFS install source """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
-        self.data.method.method = "nfs"
-        if opts is not None:
-            self.data.method.opts = opts
-        if self.data.method.server is None:
-            self.data.method.server = ""
-        if self.data.method.dir is None:
-            self.data.method.dir = ""
+        nfs_url = create_nfs_url(server, directory, opts)
+
+        nfs_source_proxy = create_source(constants.SOURCE_TYPE_NFS)
+        nfs_source_proxy.SetURL(nfs_url)
+
+        set_source(self.payload.proxy, nfs_source_proxy)
 
     def set_source_cdrom(self):
         """ Switch to cdrom install source """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
-        self.data.method.method = "cdrom"
+        cdrom_source_proxy = create_source(constants.SOURCE_TYPE_CDROM)
+
+        set_source(self.payload.proxy, cdrom_source_proxy)
 
     def set_source_hmc(self):
         """ Switch to install source via HMC """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
-        self.data.method.method = "hmc"
+        hmc_source_proxy = create_source(constants.SOURCE_TYPE_HMC)
+
+        set_source(self.payload.proxy, hmc_source_proxy)
 
     def set_source_closest_mirror(self):
         """ Switch to the closest mirror install source """
         # clean any old HDD ISO sources
-        self._clean_hdd_iso()
+        self._tear_down_existing_source()
 
-        self.data.method.method = None
+        repo_files_source_proxy = create_source(constants.SOURCE_TYPE_REPO_FILES)
+
+        set_source(self.payload.proxy, repo_files_source_proxy)
 
 
 class InputCheck(object):

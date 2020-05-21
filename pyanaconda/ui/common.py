@@ -212,7 +212,7 @@ class Spoke(object, metaclass=ABCMeta):
                            install, and in carrying out the actual installation.
         """
         self._storage = storage
-        self.payload = payload
+        self._payload = payload
         self.applyOnSkip = False
 
         self.visitedSinceApplied = True
@@ -233,6 +233,10 @@ class Spoke(object, metaclass=ABCMeta):
     @property
     def storage(self):
         return self._storage
+
+    @property
+    def payload(self):
+        return self._payload
 
     @classmethod
     def should_run(cls, environment, data):

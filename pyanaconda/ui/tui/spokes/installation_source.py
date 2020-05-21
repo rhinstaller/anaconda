@@ -222,7 +222,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         self.close()
 
     def _set_network_nfs(self, data):
-        self.set_source_nfs()
         new_spoke = SpecifyNFSRepoSpoke(self.data, self.storage, self.payload, self._error)
         ScreenHandler.push_screen_modal(new_spoke)
         self.apply()
@@ -376,14 +375,14 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
             self._nfs_server = self._nfs_server[6:]
 
         try:
-            (self.data.method.server, self.data.method.dir) = self._nfs_server.split(":", 2)
+            (server, directory) = self._nfs_server.split(":", 2)
         except ValueError as err:
             log.error("ValueError: %s", err)
             self._error = True
             return
 
         opts = self._nfs_opts or ""
-        self.set_source_nfs(opts)
+        self.set_source_nfs(server, directory, opts)
 
 
 class SelectDeviceSpoke(NormalTUISpoke):
@@ -533,16 +532,5 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def apply(self):
         """ Apply all of our changes. """
-
         if self._current_iso_path:
-            # If a hdd iso source has already been selected previously we need
-            # to clear it now.
-            # Otherwise we would get a crash if the same iso was selected again
-            # as _unmount_device() would try to unmount a partition that is in use
-            # due to the payload still holding on to the ISO file.
-            if self.data.method.method == "harddrive":
-                self.unset_source()
             self.set_source_hdd_iso(self._device, self._current_iso_path)
-        # unmount the device - the payload will remount it anyway
-        # (if it uses it)
-        self._unmount_device()
