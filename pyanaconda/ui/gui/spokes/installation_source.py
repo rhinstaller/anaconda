@@ -463,6 +463,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
             self.set_source_cdrom()
         elif self._hmc_button.get_active():
+            if source_type == SOURCE_TYPE_HMC:
+                return False
+
             self.set_source_hmc()
         elif self._iso_button.get_active():
             # If the user didn't select a partition (not sure how that would
