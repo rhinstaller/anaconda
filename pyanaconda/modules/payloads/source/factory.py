@@ -58,6 +58,10 @@ class SourceFactory(object):
         elif source_type == SourceType.CDN:
             from pyanaconda.modules.payloads.source.cdn.cdn import CDNSourceModule
             return CDNSourceModule()
+        elif source_type == SourceType.CLOSEST_MIRROR:
+            from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
+                ClosestMirrorSourceModule
+            return ClosestMirrorSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))
 
