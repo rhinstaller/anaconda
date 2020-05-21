@@ -16,9 +16,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.payload import parse_nfs_url
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.payload.utils import get_device_path
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
@@ -26,12 +29,13 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
-from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
+from pyanaconda.payload.image import find_potential_hdiso_sources, \
     get_hdiso_source_info, get_hdiso_source_description
 
-from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD, PAYLOAD_TYPE_DNF
+from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD, PAYLOAD_TYPE_DNF, \
+    SOURCE_TYPE_URL, SOURCE_TYPE_NFS
 from pyanaconda.core.constants import THREAD_STORAGE_WATCHER
-from pyanaconda.core.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR, DRACUT_REPODIR
+from pyanaconda.core.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR
 from pyanaconda.core.constants import PAYLOAD_STATUS_PROBING_STORAGE
 
 from pyanaconda.ui.helpers import SourceSwitchHandler
@@ -68,7 +72,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         self._container = None
         self._ready = False
         self._error = False
-        self._cdrom = None
         self._hmc = False
 
     def initialize(self):
@@ -82,14 +85,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
     def _initialize(self):
         """ Private initialize. """
         threadMgr.wait(THREAD_PAYLOAD)
-        # If we've previously set up to use a CD/DVD method, the media has
-        # already been mounted by payload.setup.  We can't try to mount it
-        # again.  So just use what we already know to create the selector.
-        # Otherwise, check to see if there's anything available.
-        if self.data.method.method == "cdrom":
-            self._cdrom = self.payload.install_device
-        elif not flags.automatedInstall:
-            self._cdrom = find_optical_install_media()
 
         # Enable the SE/HMC option.
         if self.payload.is_hmc_enabled:
@@ -103,26 +98,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
     def _payload_error(self):
         self._error = True
 
-    def _repo_status(self):
-        """ Return a string describing repo url or lack of one. """
-        method = self.data.method
-        if method.method == "url":
-            return method.url or method.mirrorlist or method.metalink
-        elif method.method == "nfs":
-            return _("NFS server {}").format(method.server)
-        elif method.method == "cdrom":
-            return _("Local media")
-        elif method.method == "hmc":
-            return _("Local media via SE/HMC")
-        elif method.method == "harddrive":
-            if not method.dir:
-                return _("Error setting up software source")
-            return os.path.basename(method.dir)
-        elif self.payload.base_repo:
-            return _("Closest mirror")
-        else:
-            return _("Nothing selected")
-
     @property
     def showable(self):
         return self.payload.type == PAYLOAD_TYPE_DNF
@@ -133,37 +108,30 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
             return _("Error setting up software source")
         elif not self.ready:
             return _("Processing...")
+        elif not self.payload.is_complete():
+            return _("Nothing selected")
         else:
-            return self._repo_status()
+            source_proxy = self.payload.get_source_proxy()
+            return source_proxy.Description
 
     @property
     def completed(self):
         if flags.automatedInstall and self.ready and not self.payload.base_repo:
             return False
-        else:
-            return (not self._error
-                    and self.ready
-                    and (self.data.method.method or self.payload.base_repo))
+
+        return not self._error and self.ready and self.payload.is_complete()
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
-
         threadMgr.wait(THREAD_PAYLOAD)
 
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
-
-        if self.data.method.method == "harddrive" and \
-           payload_utils.get_mount_device_path(DRACUT_ISODIR) == \
-                payload_utils.get_mount_device_path(DRACUT_REPODIR):
-            message = _("The installation source is in use by the installer and "
-                        "cannot be changed.")
-            self.window.add_with_separator(TextWidget(message))
-            return
 
         if args == self.SET_NETWORK_INSTALL_MODE:
             if self.payload.mirrors_available:
                 self._container.add(TextWidget(_("Closest mirror")),
                                     self._set_network_close_mirror)
+
             self._container.add(TextWidget("http://"),
                                 self._set_network_url,
                                 SpecifyRepoSpoke.HTTP)
@@ -190,7 +158,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def _set_cd_install_source(self, data):
         self.set_source_cdrom()
-        self.payload.install_device = self._cdrom
         self.apply()
         self.close()
 
@@ -264,8 +231,20 @@ class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
         self.title = N_("Specify Repo Options")
         self.protocol = protocol
         self._container = None
+        self._url = self._get_url()
 
-        self._url = self.data.url.url
+    def _get_url(self):
+        """Get the URL of the current source."""
+        source_proxy = self.payload.get_source_proxy()
+
+        if source_proxy.Type == SOURCE_TYPE_URL:
+            repo_configuration = RepoConfigurationData.from_structure(
+                source_proxy.RepoConfiguration
+            )
+
+            return repo_configuration.url
+
+        return ""
 
     def refresh(self, args=None):
         """ Refresh window. """
@@ -318,14 +297,18 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
         self._container = None
         self._error = error
 
-        nfs = self.data.method
+        options, host, path = self._get_nfs()
+        self._nfs_opts = options
+        self._nfs_server = "{}:{}".format(host, path) if host else ""
 
-        self._nfs_opts = ""
-        self._nfs_server = ""
+    def _get_nfs(self):
+        """Get the NFS options, host and path of the current source."""
+        source_proxy = self.payload.get_source_proxy()
 
-        if nfs.method == "nfs" and (nfs.server and nfs.dir):
-            self._nfs_server = "%s:%s" % (nfs.server, nfs.dir)
-            self._nfs_opts = nfs.opts
+        if source_proxy.Type == SOURCE_TYPE_NFS:
+            return parse_nfs_url(source_proxy.URL)
+
+        return "", "", ""
 
     def refresh(self, args=None):
         """ Refresh window. """
@@ -465,10 +448,8 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
         SourceSwitchHandler.__init__(self)
         self.title = N_("Select an ISO to use as install source")
         self._container = None
-        self.args = self.data.method
         self._device = device
-        self._mount_device()
-        self._isos = self._getISOs()
+        self._isos = self._collect_iso_files()
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
@@ -503,9 +484,20 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
     def indirect(self):
         return True
 
+    def _collect_iso_files(self):
+        """Collect *.iso files."""
+        try:
+            self._mount_device()
+            return self._getISOs()
+        finally:
+            self._unmount_device()
+
     def _mount_device(self):
         """ Mount the device so we can search it for ISOs. """
-        mounts = payload_utils.get_mount_paths(self._device.path)
+        # FIXME: Use a unique mount point.
+        device_path = get_device_path(self._device)
+        mounts = payload_utils.get_mount_paths(device_path)
+
         # We have to check both ISO_DIR and the DRACUT_ISODIR because we
         # still reference both, even though /mnt/install is a symlink to
         # /run/install.  Finding mount points doesn't handle the symlink
@@ -514,6 +506,7 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
             payload_utils.mount_device(self._device, ISO_DIR)
 
     def _unmount_device(self):
+        # FIXME: Unmount a specific mount point.
         payload_utils.unmount_device(self._device, mount_point=None)
 
     def _getISOs(self):
