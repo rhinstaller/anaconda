@@ -433,10 +433,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._treeinfo_repos_already_disabled = False
 
     def apply(self):
-        payloadMgr.restart_thread(self.payload, checkmount=False)
+        source_changed = self._update_payload_source()
+        repo_changed = self._update_payload_repos()
+
+        if source_changed or repo_changed or self._error:
+            payloadMgr.restart_thread(self.payload, checkmount=False)
+        else:
+            log.debug("Nothing has changed - skipping payload restart.")
+
         self.clear_info()
 
-    def _method_changed(self):
+    def _update_payload_source(self):
         """ Check to see if the install method has changed.
 
             :returns: True if it changed, False if not
@@ -592,12 +599,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 return row
 
         return None
-
-    @property
-    def changed(self):
-        method_changed = self._method_changed()
-        update_payload_repos = self._update_payload_repos()
-        return method_changed or update_payload_repos or self._error
 
     @property
     def completed(self):
