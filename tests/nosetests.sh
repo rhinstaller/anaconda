@@ -11,4 +11,4 @@ if [ $# -eq 0 ] && [ -z $NOSE_TESTS_ARGS ]; then
     set -- "${top_srcdir}"/tests/nosetests/*_tests
 fi
 
-exec nosetests-3 -v --exclude=logpicker -a \!acceptance,\!slow $NOSE_TESTS_ARGS "$@"
+exec python3 -m nose -v --exclude=logpicker -a \!acceptance,\!slow $NOSE_TESTS_ARGS "$@"
