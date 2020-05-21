@@ -154,7 +154,7 @@ class HardDriveSourceTestCase(unittest.TestCase):
         task.succeeded_signal.emit()
 
         self.assertEqual(self.module.install_tree_path, iso_mount_location)
-        self.assertEqual(self.module.is_iso_mounted, True)
+        self.assertEqual(self.module._iso_name, "iso_name.iso")
 
     def return_handler_without_iso_test(self):
         """Hard drive source setup result propagates back when no ISO is involved.
@@ -168,7 +168,7 @@ class HardDriveSourceTestCase(unittest.TestCase):
         task.succeeded_signal.emit()
 
         self.assertEqual(self.module.install_tree_path, iso_mount_location)
-        self.assertEqual(self.module.is_iso_mounted, False)
+        self.assertEqual(self.module._iso_name, "")
 
     def repr_test(self):
         self.module.set_device("device")

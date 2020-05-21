@@ -67,11 +67,6 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         return HardDriveSourceInterface(self)
 
     @property
-    def is_iso_mounted(self):
-        """Is ISO file mounted from set up task?"""
-        return bool(self._iso_name)
-
-    @property
     def type(self):
         """Get type of this source."""
         return SourceType.HDD
