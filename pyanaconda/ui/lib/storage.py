@@ -225,7 +225,7 @@ def mark_protected_device(spec):
     protected_devices = disk_selection_proxy.ProtectedDevices
 
     if spec not in protected_devices:
-        protected_devices.add(spec)
+        protected_devices.append(spec)
 
     disk_selection_proxy.SetProtectedDevices(protected_devices)
 
