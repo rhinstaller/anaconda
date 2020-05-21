@@ -100,6 +100,10 @@ Requires: python3-systemd
 Requires: python3-productmd
 Requires: python3-dasbus >= %{dasbusver}
 Requires: flatpak-libs
+%if 0%{?rhel}
+Requires: python3-syspurpose
+Requires: subscription-manager >= 1.26
+%endif
 
 # pwquality only "recommends" the dictionaries it needs to do anything useful,
 # which is apparently great for containers but unhelpful for the rest of us
