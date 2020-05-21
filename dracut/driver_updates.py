@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/libexec/platform-python
 #
 # Copyright (C) 2015 by Red Hat, Inc.  All rights reserved.
 #
