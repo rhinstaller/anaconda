@@ -54,7 +54,7 @@ from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_HMC, SOURCE_TYPE_URL, \
-    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
+    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
@@ -210,7 +210,7 @@ class DNFPayload(Payload):
 
     def is_complete(self):
         """Is the payload complete?"""
-        return self.source_type != SOURCE_TYPE_REPO_FILES or self.base_repo
+        return self.source_type not in SOURCE_REPO_FILE_TYPES or self.base_repo
 
     def unsetup(self):
         super().unsetup()
@@ -1467,7 +1467,7 @@ class DNFPayload(Payload):
                 repo.disable()
 
         # Add a new repo.
-        if source_type != SOURCE_TYPE_REPO_FILES:
+        if source_type not in SOURCE_REPO_FILE_TYPES:
             # Get the repo configuration of the first source.
             data = RepoConfigurationData.from_structure(
                 self.proxy.GetRepoConfigurations()[0]
@@ -1531,7 +1531,7 @@ class DNFPayload(Payload):
                 set_up_sources(self.proxy)
 
         # We need to check this again separately in case REPO_FILES were set above.
-        if source_type == SOURCE_TYPE_REPO_FILES:
+        if source_type in SOURCE_REPO_FILE_TYPES:
 
             # If this is a kickstart install, just return now
             if flags.automatedInstall:
