@@ -48,7 +48,7 @@ log = get_module_logger(__name__)
 __all__ = ["WelcomeLanguageSpoke"]
 
 
-class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
+class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     """
        .. inheritance-diagram:: WelcomeLanguageSpoke
           :parts: 3
@@ -65,7 +65,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
-        LangLocaleHandler.__init__(self, self.payload)
+        LangLocaleHandler.__init__(self)
         self._origStrings = {}
 
         self._l12_module = LOCALIZATION.get_proxy()

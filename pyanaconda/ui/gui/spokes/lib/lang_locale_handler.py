@@ -27,6 +27,7 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("Pango", "1.0")
 gi.require_version("GdkPixbuf", "2.0")
 
+from abc import abstractproperty
 from gi.repository import Gtk, Pango, GdkPixbuf
 
 from pyanaconda import localization
@@ -41,7 +42,7 @@ class LangLocaleHandler(object):
 
     """
 
-    def __init__(self, payload):
+    def __init__(self):
         # the class inheriting from this class is responsible for populating
         # these items with actual objects
         self._languageStore = None
@@ -58,7 +59,10 @@ class LangLocaleHandler(object):
         self._right_arrow = None
         self._left_arrow = None
 
-        self.payload = payload
+    @abstractproperty
+    def payload(self):
+        """Get payload class."""
+        pass
 
     def initialize(self):
         # Load arrows from resources. Unfortunately, Gtk.Image.new_from_resource does not
