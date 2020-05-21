@@ -822,7 +822,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self._show_autodetect_box_with_device(self._cdrom)
 
         if source_type == SOURCE_TYPE_HDD:
-            self._current_iso_file = source_proxy.GetISOPath() or None
+            self._current_iso_file = source_proxy.GetIsoPath() or None
 
             if not self._current_iso_file:
                 # Installation from an expanded install tree

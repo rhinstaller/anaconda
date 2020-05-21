@@ -1039,7 +1039,7 @@ class DNFPayload(Payload):
         if source_type != SOURCE_TYPE_HDD:
             return None
 
-        return source_proxy.GetISOPath() or None
+        return source_proxy.GetIsoPath() or None
 
     @property
     def space_required(self):
