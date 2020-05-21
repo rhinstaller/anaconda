@@ -814,7 +814,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # again.  So just use what we already know to create the selector.
         # Otherwise, check to see if there's anything available.
         if source_type == SOURCE_TYPE_CDROM:
-            self._cdrom = source_type.DeviceName
+            self._cdrom = source_proxy.DeviceName
         elif not flags.automatedInstall:
             self._cdrom = find_optical_install_media()
 
