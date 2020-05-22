@@ -180,6 +180,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/payloads/source/Makefile
                  pyanaconda/modules/payloads/source/cdn/Makefile
                  pyanaconda/modules/payloads/source/cdrom/Makefile
+                 pyanaconda/modules/payloads/source/closest_mirror/Makefile
                  pyanaconda/modules/payloads/source/harddrive/Makefile
                  pyanaconda/modules/payloads/source/hmc/Makefile
                  pyanaconda/modules/payloads/source/live_os/Makefile

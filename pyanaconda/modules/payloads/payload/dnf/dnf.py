@@ -51,6 +51,8 @@ class DNFModule(PayloadBase):
             SourceType.HMC,
             SourceType.NFS,
             SourceType.REPO_FILES,
+            SourceType.CLOSEST_MIRROR,
+            SourceType.CDN,
             SourceType.URL
         ]
 

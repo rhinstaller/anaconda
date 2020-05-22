@@ -42,7 +42,7 @@ class RepoFilesSourceInterfaceTestCase(unittest.TestCase):
 
     def description_test(self):
         """Test NFS source description."""
-        self.assertEqual("Closest mirror", self.interface.Description)
+        self.assertEqual("Local repositories", self.interface.Description)
 
 
 class RepoFilesSourceTestCase(unittest.TestCase):

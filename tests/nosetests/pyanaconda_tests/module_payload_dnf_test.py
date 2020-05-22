@@ -27,7 +27,8 @@ from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadShared
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
-    SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL
+    SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL, \
+    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
@@ -177,6 +178,8 @@ class DNFInterfaceTestCase(unittest.TestCase):
              SOURCE_TYPE_HMC,
              SOURCE_TYPE_NFS,
              SOURCE_TYPE_REPO_FILES,
+             SOURCE_TYPE_CLOSEST_MIRROR,
+             SOURCE_TYPE_CDN,
              SOURCE_TYPE_URL],
             self.interface.SupportedSourceTypes)
 

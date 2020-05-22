@@ -53,8 +53,8 @@ from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_HMC, SOURCE_TYPE_URL, \
-    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
+    DNF_DEFAULT_SOURCE_TYPE, SOURCE_TYPE_HMC, SOURCE_TYPE_URL, \
+    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
@@ -138,7 +138,7 @@ class DNFPayload(Payload):
         """
         # Set the source based on opts.method if it isn't already set
         # - opts.method is currently set by command line/boot options
-        if opts.method and (not self.proxy.Sources or self.source_type == SOURCE_TYPE_REPO_FILES):
+        if opts.method and (not self.proxy.Sources or self.source_type == DNF_DEFAULT_SOURCE_TYPE):
             try:
                 source = SourceFactory.parse_repo_cmdline_string(opts.method)
             except PayloadSourceTypeUnrecognized:
@@ -191,7 +191,7 @@ class DNFPayload(Payload):
 
         :return: a DBus proxy
         """
-        return get_source(self.proxy, SOURCE_TYPE_REPO_FILES)
+        return get_source(self.proxy, DNF_DEFAULT_SOURCE_TYPE)
 
     @property
     def source_type(self):
@@ -210,7 +210,7 @@ class DNFPayload(Payload):
 
     def is_complete(self):
         """Is the payload complete?"""
-        return self.source_type != SOURCE_TYPE_REPO_FILES or self.base_repo
+        return self.source_type not in SOURCE_REPO_FILE_TYPES or self.base_repo
 
     def unsetup(self):
         super().unsetup()
@@ -1467,7 +1467,7 @@ class DNFPayload(Payload):
                 repo.disable()
 
         # Add a new repo.
-        if source_type != SOURCE_TYPE_REPO_FILES:
+        if source_type not in SOURCE_REPO_FILE_TYPES:
             # Get the repo configuration of the first source.
             data = RepoConfigurationData.from_structure(
                 self.proxy.GetRepoConfigurations()[0]
@@ -1524,14 +1524,14 @@ class DNFPayload(Payload):
                 # Fallback to the closest mirror.
                 tear_down_sources(self.proxy)
 
-                source_type = SOURCE_TYPE_REPO_FILES
-                source_proxy = create_source(SOURCE_TYPE_REPO_FILES)
+                source_type = DNF_DEFAULT_SOURCE_TYPE
+                source_proxy = create_source(source_type)
                 set_source(self.proxy, source_proxy)
 
                 set_up_sources(self.proxy)
 
         # We need to check this again separately in case REPO_FILES were set above.
-        if source_type == SOURCE_TYPE_REPO_FILES:
+        if source_type in SOURCE_REPO_FILE_TYPES:
 
             # If this is a kickstart install, just return now
             if flags.automatedInstall:

@@ -28,8 +28,8 @@ from urllib.parse import urlsplit
 
 from pyanaconda.core import glib, constants
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
-    SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, SOURCE_TYPE_REPO_FILES, \
-    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
+    SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
+    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_, CN_
@@ -472,7 +472,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
             self.set_source_hdd_iso(partition, "/" + self._current_iso_file)
         elif self._mirror_active():
-            if source_type == SOURCE_TYPE_REPO_FILES \
+            if source_type == SOURCE_TYPE_CLOSEST_MIRROR \
                     and self.payload.base_repo \
                     and not self._proxy_change \
                     and not self._updates_change:
@@ -978,7 +978,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 source_type = SOURCE_TYPE_CDROM
             else:
                 self._network_button.set_active(True)
-                source_type = SOURCE_TYPE_REPO_FILES
+                source_type = SOURCE_TYPE_CLOSEST_MIRROR
 
             tear_down_sources(self.payload.proxy)
             source_proxy = create_source(source_type)
