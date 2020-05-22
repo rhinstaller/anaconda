@@ -307,8 +307,12 @@ def _prepare_installation(payload, ksdata):
         # add package requirements from modules
         # - iterate over all modules we know have valid package requirements
         # - add any requirements found to the payload requirement tracking
-        modules_with_package_requirements = [SECURITY, NETWORK, TIMEZONE, STORAGE]
+        modules_with_package_requirements = [SECURITY, NETWORK, TIMEZONE, STORAGE, SUBSCRIPTION]
         for module in modules_with_package_requirements:
+            # Skip unavailable modules.
+            if not is_module_available(module):
+                continue
+
             module_proxy = module.get_proxy()
             module_requirements = Requirement.from_structure_list(module_proxy.CollectRequirements())
             log.debug("Adding requirements for module %s : %s", module, module_requirements)
