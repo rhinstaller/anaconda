@@ -26,6 +26,7 @@ from pykickstart.parser import KickstartParser
 from pykickstart.version import makeVersion
 from pykickstart.sections import NullSection
 import pyanaconda.core.users as users
+from pyanaconda.core.kickstart.version import VERSION
 
 ksfile = '/run/install/ks.cfg'
 
@@ -33,7 +34,7 @@ ksfile = '/run/install/ks.cfg'
 if not os.path.exists(ksfile):
     sys.exit()
 
-handler = makeVersion()
+handler = makeVersion(VERSION)
 ksparser = KickstartParser(handler, missingIncludeIsFatal=False)
 ksparser.registerSection(NullSection(handler, sectionOpen="%addon"))
 ksparser.registerSection(NullSection(handler, sectionOpen="%anaconda"))
