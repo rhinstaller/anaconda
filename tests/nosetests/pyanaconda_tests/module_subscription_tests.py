@@ -328,6 +328,12 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertFalse(system_purpose_data == different_system_purpose_data)
         self.assertFalse(system_purpose_data_clone == different_system_purpose_data)
 
+        # comparing with something else than a SystemPurposeData instance should
+        # not crash & always return False
+        self.assertNotEqual(system_purpose_data, "foo")
+        self.assertNotEqual(system_purpose_data, None)
+        self.assertNotEqual(system_purpose_data, object())
+
     def system_purpose_data_helper_test(self):
         """Test the SystemPurposeData DBus structure data availability helper method."""
 
