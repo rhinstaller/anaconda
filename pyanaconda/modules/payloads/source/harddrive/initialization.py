@@ -79,9 +79,8 @@ class SetUpHardDriveSourceTask(Task):
 
         iso_name = find_first_iso_image(full_path_on_mounted_device)
 
-        full_path_to_iso = join_paths(full_path_on_mounted_device, iso_name)
-
         if iso_name:
+            full_path_to_iso = join_paths(full_path_on_mounted_device, iso_name)
             if mount_iso_image(full_path_to_iso, self._iso_mount):
                 log.debug("Using the ISO '%s' mounted at '%s'.", iso_name, self._iso_mount)
                 return SetupHardDriveResult(self._iso_mount, iso_name)
