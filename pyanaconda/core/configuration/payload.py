@@ -72,19 +72,6 @@ class PayloadSection(Section):
         return self._get_option("enable_closest_mirror", bool)
 
     @property
-    def enable_ignore_broken_packages(self):
-        """Enable possibility to skip packages with conflicts and broken dependencies.
-
-        This enables --ignorebroken parameter of the packages section and related DBus API.
-
-        If this feature is disabled Anaconda won't start the installation when
-        --ignorebroken paramater is used. Instead print error message to user
-        when Anaconda is started and quit the installation process.
-        It will also block use of related DBus API.
-        """
-        return self._get_option("enable_ignore_broken_packages", bool)
-
-    @property
     def check_supported_locales(self):
         """Check if payload supports the locales.
 

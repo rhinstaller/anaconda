@@ -27,8 +27,7 @@ from pyanaconda.modules.payloads.packages.constants import MultilibPolicy, TIMEO
     RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 from pyanaconda.modules.payloads.packages.packages_interface import PackagesInterface
 
-from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, GROUP_DEFAULT, \
-    KS_BROKEN_IGNORE, KS_BROKEN_REPORT
+from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, GROUP_DEFAULT
 from pykickstart.parser import Group
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -105,11 +104,6 @@ class PackagesModule(KickstartBaseModule):
         else:
             self.set_missing_ignored(False)
 
-        if packages.handleBroken == KS_BROKEN_IGNORE:
-            self.set_broken_ignored(True)
-        else:
-            self.set_broken_ignored(False)
-
         if packages.instLangs is None:
             self.set_languages(LANGUAGES_DEFAULT)
         elif packages.instLangs == "":
@@ -142,7 +136,6 @@ class PackagesModule(KickstartBaseModule):
         packages.excludeDocs = self.docs_excluded
         packages.excludeWeakdeps = self.weakdeps_excluded
         packages.handleMissing = KS_MISSING_IGNORE if self.missing_ignored else KS_MISSING_PROMPT
-        packages.handleBroken = KS_BROKEN_IGNORE if self.broken_ignored else KS_BROKEN_REPORT
 
         if self.languages == LANGUAGES_DEFAULT:
             packages.instLangs = None
@@ -366,30 +359,6 @@ class PackagesModule(KickstartBaseModule):
         self._missing_ignored = missing_ignored
         self.missing_ignored_changed.emit()
         log.debug("Ignore missing is set to %s.", missing_ignored)
-
-    @property
-    def broken_ignored(self):
-        """Ignore packages that have conflicts with other packages.
-
-        :rtype: bool
-        """
-        return self._broken_ignored
-
-    def set_broken_ignored(self, broken_ignored):
-        """Set if the packages that have conflicts with other packages should be ignored.
-
-        :param broken_ignored: True if broken packages should be ignored.
-        :type broken_ignored: bool
-        :raise: UnsupportedValueError if ignorebroken is disabled on this product.
-        """
-        if not conf.payload.enable_ignore_broken_packages:
-            raise UnsupportedValueError(
-                "The ignore broken packages feature is not supported on this product"
-            )
-
-        self._broken_ignored = broken_ignored
-        self.broken_ignored_changed.emit()
-        log.debug("Ignore broken is set to %s.", broken_ignored)
 
     @property
     def languages(self):
