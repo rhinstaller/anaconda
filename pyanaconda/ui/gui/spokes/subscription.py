@@ -824,7 +824,7 @@ class SubscriptionSpoke(NormalSpoke):
 
     def _set_insights(self):
         """Configure Insights in DBus module based on GUI state."""
-        self._subscription_module.InsightsEnabled(self._insights_checkbox.get_active())
+        self._subscription_module.SetInsightsEnabled(self._insights_checkbox.get_active())
 
     def _register(self):
         """Try to register a system."""
