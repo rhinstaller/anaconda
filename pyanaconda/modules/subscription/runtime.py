@@ -25,7 +25,6 @@ from dasbus.connection import MessageBus
 from dasbus.error import DBusError
 
 from pyanaconda.core.i18n import _
-
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
@@ -33,10 +32,13 @@ from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     UnregistrationError, SubscriptionError
 from pyanaconda.modules.common.structures.subscription import AttachedSubscription, \
     SystemPurposeData
-
 from pyanaconda.modules.subscription import system_purpose
-
 from pyanaconda.anaconda_loggers import get_module_logger
+
+import gi
+gi.require_version("Gio", "2.0")
+from gi.repository import Gio
+
 log = get_module_logger(__name__)
 
 
@@ -71,7 +73,10 @@ class RHSMPrivateBus(MessageBus):
         # the RHSM private bus address is potentially sensitive
         # so we will not log it
         log.info("Connecting to the RHSM private DBus session.")
-        return self._provider.get_addressed_bus_connection(self._private_bus_address)
+        return self._provider.get_addressed_bus_connection(
+            bus_address=self._private_bus_address,
+            flags=Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT
+        )
 
 
 SystemSubscriptionData = namedtuple("SystemSubscriptionData",
