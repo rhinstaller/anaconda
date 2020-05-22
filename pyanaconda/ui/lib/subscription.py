@@ -178,6 +178,13 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None)
     # to finish, in case it is running, usually early
     # during Anaconda startup.
     threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
+
+    # Next we make sure to set RHSM config options
+    # to be in sync with the current subscription request.
+    task_path = subscription_proxy.SetRHSMConfigWithTask()
+    task_proxy = SUBSCRIPTION.get_proxy(task_path)
+    task.sync_run_task(task_proxy)
+
     # Then check if we are not already registered.
     #
     # In some fairly bizarre cases it is apparently
@@ -291,6 +298,13 @@ def unregister(progress_callback=None, error_callback=None):
 
     if subscription_proxy.IsRegistered:
         log.debug("subscription thread: unregistering the system")
+        # Make sure to set RHSM config options to be in sync
+        # with the current subscription request in the unlikely
+        # case of someone doing a valid change in the subscription
+        # request since we registered.
+        task_path = subscription_proxy.SetRHSMConfigWithTask()
+        task_proxy = SUBSCRIPTION.get_proxy(task_path)
+        task.sync_run_task(task_proxy)
         progress_callback(SubscriptionPhase.UNREGISTER)
         task_path = subscription_proxy.UnregisterWithTask()
         task_proxy = SUBSCRIPTION.get_proxy(task_path)

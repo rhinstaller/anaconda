@@ -239,6 +239,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we were successful, so no error callback calls
         error_callback.assert_not_called()
         # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsTask.assert_called_once()
@@ -277,6 +278,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we were successful, so no error callback calls
         error_callback.assert_not_called()
         # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsTask.assert_called_once()
@@ -316,6 +318,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we were successful, so no error callback calls
         error_callback.assert_not_called()
         # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.UnregisterWithTask.assert_called_once()
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
@@ -341,7 +344,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.KEY_REQUEST
         # make the first (unregistration) task fail
-        run_task.side_effect = [UnregistrationError("unregistration failed")]
+        run_task.side_effect = [True, UnregistrationError("unregistration failed")]
         # run the function
         register_and_subscribe(payload=payload,
                                progress_callback=progress_callback,
@@ -355,6 +358,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # and the error callback should have been triggered
         error_callback.assert_called_once_with("unregistration failed")
         # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.UnregisterWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
@@ -377,7 +381,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.KEY_REQUEST
         # make the first (registration) task fail
-        run_task.side_effect = [RegistrationError("registration failed")]
+        run_task.side_effect = [True, RegistrationError("registration failed")]
         # run the function
         register_and_subscribe(payload=payload,
                                progress_callback=progress_callback,
@@ -391,6 +395,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # and the error callback should have been triggered
         error_callback.assert_called_once_with("registration failed")
         # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
@@ -424,9 +429,10 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         )
         # and the error callback should have been triggered
         error_callback.assert_called_once()
-        # int this case we fails before requesting any task and we should not
-        # attempt to run any
-        run_task.assert_not_called()
+        # in this case we fail before requesting any other task than
+        # the config one
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
+        run_task.assert_called()
         # setting CDN as installation source does not make sense
         # when we were not able to attach a subscription
         set_cdn.assert_not_called()
@@ -447,7 +453,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
         # make the first (registration) task fail
-        run_task.side_effect = [RegistrationError("registration failed")]
+        run_task.side_effect = [True, RegistrationError("registration failed")]
         # run the function
         register_and_subscribe(payload=payload,
                                progress_callback=progress_callback,
@@ -461,6 +467,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # and the error callback should have been triggered
         error_callback.assert_called_once_with("registration failed")
         # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
@@ -494,9 +501,10 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         )
         # and the error callback should have been triggered
         error_callback.assert_called_once()
-        # int this case we fails before requesting any task and we should not
-        # attempt to run any
-        run_task.assert_not_called()
+        # in this case we fail before requesting any other task than
+        # the config one
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
+        run_task.assert_called()
         # setting CDN as installation source does not make sense
         # when we were not able to attach a subscription
         set_cdn.assert_not_called()
@@ -516,7 +524,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
         # make the second (subscription) task fail
-        run_task.side_effect = [True, SubscriptionError("failed to attach subscription")]
+        run_task.side_effect = [True, True, SubscriptionError("failed to attach subscription")]
         # run the function
         register_and_subscribe(payload=payload,
                                progress_callback=progress_callback,
@@ -531,6 +539,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # and the error callback should have been triggered
         error_callback.assert_called_once_with("failed to attach subscription")
         # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         # and tried to run them
@@ -559,6 +568,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # the error callback should not have been called
         error_callback.assert_not_called()
         # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.UnregisterWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
@@ -595,7 +605,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate the system being registered,
         subscription_proxy.IsRegistered = True
         # make the unregistration task fail
-        run_task.side_effect = [UnregistrationError("unregistration failed")]
+        run_task.side_effect = [True, UnregistrationError("unregistration failed")]
         # run the function
         unregister(progress_callback=progress_callback,
                    error_callback=error_callback)
@@ -606,6 +616,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # and the error callback should have been triggered
         error_callback.assert_called_once_with("unregistration failed")
         # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.UnregisterWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
