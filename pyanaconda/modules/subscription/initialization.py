@@ -65,7 +65,8 @@ class StartRHSMTask(Task):
         # set RHSM log levels to debug
         # - otherwise the RHSM log output is not usable for debugging subscription issues
         log.debug("subscription: setting RHSM log level to DEBUG")
-        rhsm_config_proxy.Set("logging.default_log_level", get_variant(Str, "DEBUG"), "")
+        config_dict = {"logging.default_log_level": get_variant(Str, "DEBUG")}
+        rhsm_config_proxy.SetAll(config_dict, "")
         # all seems fine
         log.debug("subscription: RHSM service start successfully.")
         return True
