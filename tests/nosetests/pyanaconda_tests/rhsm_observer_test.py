@@ -25,9 +25,6 @@ from dasbus.typing import get_variant, Str
 from dasbus.client.observer import DBusObserverError
 
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
-
-from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
-
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
 
@@ -39,7 +36,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
     so lets test it here.
     """
 
-    @patch("pyanaconda.modules.common.constants.services.RHSM.get_proxy")
+    @patch("pyanaconda.modules.subscription.initialization.get_rhsm_configuration_proxy")
     @patch("pyanaconda.core.util.start_service")
     def success_test(self, start_service, get_proxy):
         """Test StartRHSMTask - successful task."""
@@ -56,7 +53,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
         # check service was started correctly
         start_service.assert_called_once_with("rhsm.service")
         # check proxy was requested
-        get_proxy.assert_called_once_with(RHSM_CONFIG)
+        get_proxy.assert_called_once_with()
         # check expected values were set on the RHSM config proxy
         config_proxy.Set.assert_called_once_with(
             'logging.default_log_level',
