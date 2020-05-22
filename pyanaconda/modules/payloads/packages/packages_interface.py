@@ -41,7 +41,6 @@ class PackagesInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("DocsExcluded", self.implementation.docs_excluded_changed)
         self.watch_property("WeakdepsExcluded", self.implementation.weakdeps_excluded_changed)
         self.watch_property("MissingIgnored", self.implementation.missing_ignored_changed)
-        self.watch_property("BrokenIgnored", self.implementation.broken_ignored_changed)
         self.watch_property("Languages", self.implementation.languages_changed)
         self.watch_property("MultilibPolicy", self.implementation.multilib_policy_changed)
         self.watch_property("Timeout", self.implementation.timeout_changed)
@@ -151,19 +150,6 @@ class PackagesInterface(KickstartModuleInterfaceTemplate):
     def SetMissingIgnored(self, missing_ignored: Bool):
         """Set if the missing packages should be ignored."""
         self.implementation.set_missing_ignored(missing_ignored)
-
-    @property
-    def BrokenIgnored(self) -> Bool:
-        """Should the broken packages be ignored?"""
-        return self.implementation.broken_ignored
-
-    @emits_properties_changed
-    def SetBrokenIgnored(self, broken_ignored: Bool):
-        """Set if the broken packages should be ignored.
-
-        :raise: UnsupportedValueError if this feature is not supported on this product.
-        """
-        self.implementation.set_broken_ignored(broken_ignored)
 
     @property
     def Languages(self) -> Str:
