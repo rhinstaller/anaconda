@@ -48,6 +48,10 @@ from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
     ParseAttachedSubscriptionsTask
 
+import gi
+gi.require_version("Gio", "2.0")
+from gi.repository import Gio
+
 
 class ConnectToInsightsTaskTestCase(unittest.TestCase):
     """Test the ConnectToInsights task."""
@@ -557,7 +561,11 @@ class RHSMPrivateBusTestCase(unittest.TestCase):
             private_register_proxy = private_bus.connection.get_proxy(RHSM.service_name,
                                                                       RHSM_REGISTER.object_path)
             # check correct address was used
-            get_address_bus.assert_called_with("abcdefgh")
+            get_address_bus.assert_called_with(
+                bus_address="abcdefgh",
+                flags=Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT
+            )
+
             # check correct proxy was requested from the connection
             connection.get_proxy.assert_called_once_with(RHSM.service_name,
                                                          RHSM_REGISTER.object_path)
