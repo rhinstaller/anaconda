@@ -26,6 +26,7 @@ from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.size import Size
 from blivet.static_data import luks_data
 from bytesize.bytesize import KiB
+from pykickstart.base import DeprecatedCommand
 from pykickstart.constants import AUTOPART_TYPE_PLAIN
 from pykickstart.errors import KickstartParseError
 
@@ -1191,6 +1192,10 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         :param storage: an instance of the Blivet's storage object
         :param data: an instance of kickstart data
         """
+        if isinstance(data.btrfs, DeprecatedCommand):
+            log.debug("Skipping the deprecated command 'btrfs'.")
+            return
+
         for btrfs_data in data.btrfs.btrfsList:
             self._execute_btrfs_data(storage, data, btrfs_data)
 
