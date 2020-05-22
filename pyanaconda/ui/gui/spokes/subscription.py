@@ -666,11 +666,11 @@ class SubscriptionSpoke(NormalSpoke):
         # role
         fill_combobox(self._system_purpose_role_combobox,
                       self.system_purpose_data.role,
-                      self._subscription_module.proxy.GetValidRoles())
+                      self._subscription_module.GetValidRoles())
         # SLA
         fill_combobox(self._system_purpose_sla_combobox,
                       self.system_purpose_data.sla,
-                      self._subscription_module.proxy.GetValidSLAs())
+                      self._subscription_module.GetValidSLAs())
         # usage
         fill_combobox(self._system_purpose_usage_combobox,
                       self.system_purpose_data.usage,
