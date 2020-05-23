@@ -131,7 +131,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ["rhel.conf", "scientific-linux.conf"]
         )
 
-    def product_module_list_difference_test(self):
+    def product_module_list_difference_fedora_rhel_test(self):
         """Test for expected Fedora & RHEL module list differences."""
         fedora_config = self._get_config("Fedora")
         fedora_modules = fedora_config.anaconda.kickstart_modules
@@ -140,6 +140,19 @@ class ProductConfigurationTestCase(unittest.TestCase):
         rhel_modules = rhel_config.anaconda.kickstart_modules
 
         difference = list(set(rhel_modules) - set(fedora_modules))
+        expected_difference = ["org.fedoraproject.Anaconda.Modules.Subscription"]
+
+        self.assertListEqual(difference, expected_difference)
+
+    def product_module_difference_centos_rhel_test(self):
+        """Test for expected CentOS & RHEL module list differences."""
+        centos_config = self._get_config("CentOS Linux")
+        centos_modules = centos_config.anaconda.kickstart_modules
+
+        rhel_config = self._get_config("Red Hat Enterprise Linux")
+        rhel_modules = rhel_config.anaconda.kickstart_modules
+
+        difference = list(set(rhel_modules) - set(centos_modules))
         expected_difference = ["org.fedoraproject.Anaconda.Modules.Subscription"]
 
         self.assertListEqual(difference, expected_difference)
