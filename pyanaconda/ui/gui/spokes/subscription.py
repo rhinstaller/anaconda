@@ -316,7 +316,7 @@ class SubscriptionSpoke(NormalSpoke):
             self.authentication_method = AuthenticationMethod.ORG_KEY
 
     def on_username_entry_changed(self, editable):
-        self.subscription_request.username = editable.get_text()
+        self.subscription_request.account_username = editable.get_text()
         self._update_registration_state()
 
     def on_password_entry_changed(self, editable):
