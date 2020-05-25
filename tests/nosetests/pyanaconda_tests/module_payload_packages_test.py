@@ -19,17 +19,12 @@
 #
 import unittest
 
-from unittest.mock import patch, create_autospec
-
 from tests.nosetests.pyanaconda_tests import check_dbus_property, patch_dbus_publish_object, \
     PropertiesChangedCallback
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadKickstartSharedTest
 
-from dasbus.typing import *  # pylint: disable=wildcard-import
-
-from pyanaconda.core.configuration.payload import PayloadSection
 from pyanaconda.modules.common.constants.objects import PAYLOAD_PACKAGES
-from pyanaconda.modules.common.errors.general import InvalidValueError, UnsupportedValueError
+from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.packages.packages import PackagesModule
