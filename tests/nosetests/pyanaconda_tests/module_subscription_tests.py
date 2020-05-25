@@ -1099,8 +1099,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
     def package_requirements_insights_test(self):
         """Test package requirements - connect to Insights enabled."""
-        # enable connect to Insights
+        # enable connect to Insights & mark system as subscribed
         self.subscription_interface.SetInsightsEnabled(True)
+        self.subscription_module.set_subscription_attached(True)
         # check the Insights client package is requested
         requirements = self.subscription_interface.CollectRequirements()
         expected_requirements = [
