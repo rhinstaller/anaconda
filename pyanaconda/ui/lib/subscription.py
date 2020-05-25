@@ -263,7 +263,7 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None)
 
     # parse attached subscription data
     log.debug("subscription thread: parsing attached subscription data")
-    task_path = subscription_proxy.ParseAttachedSubscriptionsTask()
+    task_path = subscription_proxy.ParseAttachedSubscriptionsWithTask()
     task_proxy = SUBSCRIPTION.get_proxy(task_path)
     task.sync_run_task(task_proxy)
 
