@@ -18,6 +18,8 @@
 # Red Hat, Inc.
 #
 
+import os
+
 from dasbus.typing import get_variant, Str
 
 from pyanaconda.core import util
@@ -45,6 +47,13 @@ class StartRHSMTask(Task):
 
         And also some related tasks, such as setting RHSM log levels.
         """
+        # Due to a RHSM bug (https://bugzilla.redhat.com/show_bug.cgi?id=1700441)
+        # we need to create /etc/yum.repos.d if it does not exist. Otherwise RHSM
+        # will not create the expected redhat.repo file inside it.
+        if not os.path.exists("/etc/yum.repos.d"):
+            log.debug("subscription: creating /etc/yum.repos.d")
+            os.mkdir("/etc/yum.repos.d")
+
         # start the rhsm.service
         # - this is blocking, but as we are effectively running in a thread
         # it should not be an issue
