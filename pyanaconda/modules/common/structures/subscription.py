@@ -105,6 +105,10 @@ class SystemPurposeData(DBusData):
                  False otherwise
         :rtype: bool
         """
+        # if the other instance is not instance of SubscriptionRequest,
+        # then it is always considered to be different
+        if not isinstance(other_instance, SystemPurposeData):
+            return False
         # addon ordering is not important
         if set(self.addons) != set(other_instance.addons):
             return False
