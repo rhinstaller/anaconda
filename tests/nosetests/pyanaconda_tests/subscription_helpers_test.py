@@ -210,11 +210,13 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         request = SubscriptionRequest.from_structure(self.PASSWORD_MISSING_REQUEST)
         self.assertFalse(username_password_sufficient(subscription_request=request))
 
+    @patch("pyanaconda.ui.lib.subscription.set_source_cdn")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_org_key_test(self, get_proxy, thread_mgr_wait, run_task):
+    def register_org_key_test(self, get_proxy, thread_mgr_wait, run_task, set_cdn):
         """Test the register_and_subscribe() helper method - org & key."""
+        payload = Mock()
         progress_callback = Mock()
         error_callback = Mock()
         subscription_proxy = get_proxy.return_value
@@ -223,7 +225,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.KEY_REQUEST
         # run the function
-        register_and_subscribe(progress_callback=progress_callback,
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -239,14 +242,18 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsTask.assert_called_once()
+        # tried to set the CDN source
+        set_cdn.assert_called_once()
         # and tried to run them
         run_task.assert_called()
 
+    @patch("pyanaconda.ui.lib.subscription.set_source_cdn")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_username_password_test(self, get_proxy, thread_mgr_wait, run_task):
+    def register_username_password_test(self, get_proxy, thread_mgr_wait, run_task, set_cdn):
         """Test the register_and_subscribe() helper method - username & password."""
+        payload = Mock()
         progress_callback = Mock()
         error_callback = Mock()
         subscription_proxy = get_proxy.return_value
@@ -255,7 +262,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
         # run the function
-        register_and_subscribe(progress_callback=progress_callback,
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -272,14 +280,18 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsTask.assert_called_once()
+        # tried to set the CDN source
+        set_cdn.assert_called_once()
         # and tried to run them
         run_task.assert_called()
 
+    @patch("pyanaconda.ui.lib.subscription.set_source_cdn")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_register_test(self, get_proxy, thread_mgr_wait, run_task):
+    def unregister_register_test(self, get_proxy, thread_mgr_wait, run_task, set_cdn):
         """Test the register_and_subscribe() helper method - registered system."""
+        payload = Mock()
         progress_callback = Mock()
         error_callback = Mock()
         subscription_proxy = get_proxy.return_value
@@ -289,7 +301,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.KEY_REQUEST
         # run the function
-        register_and_subscribe(progress_callback=progress_callback,
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -307,14 +320,18 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsTask.assert_called_once()
+        # tried to set the CDN source
+        set_cdn.assert_called_once()
         # and tried to run them
         run_task.assert_called()
 
+    @patch("pyanaconda.ui.lib.subscription.set_source_cdn")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_task_failed_test(self, get_proxy, thread_mgr_wait, run_task):
+    def unregister_task_failed_test(self, get_proxy, thread_mgr_wait, run_task, set_cdn):
         """Test the register_and_subscribe() helper method - unregistration failed."""
+        payload = Mock()
         progress_callback = Mock()
         error_callback = Mock()
         subscription_proxy = get_proxy.return_value
@@ -326,7 +343,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # make the first (unregistration) task fail
         run_task.side_effect = [UnregistrationError("unregistration failed")]
         # run the function
-        register_and_subscribe(progress_callback=progress_callback,
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -340,12 +358,17 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.UnregisterWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
+        # setting CDN as installation source does not make sense
+        # when we were not able to attach a subscription
+        set_cdn.assert_not_called()
 
+    @patch("pyanaconda.ui.lib.subscription.set_source_cdn")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_org_key_task_failed_test(self, get_proxy, thread_mgr_wait, run_task):
+    def register_org_key_task_failed_test(self, get_proxy, thread_mgr_wait, run_task, set_cdn):
         """Test the register_and_subscribe() helper method - org & key failed."""
+        payload = Mock()
         progress_callback = Mock()
         error_callback = Mock()
         subscription_proxy = get_proxy.return_value
@@ -356,7 +379,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # make the first (registration) task fail
         run_task.side_effect = [RegistrationError("registration failed")]
         # run the function
-        register_and_subscribe(progress_callback=progress_callback,
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -370,12 +394,17 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
+        # setting CDN as installation source does not make sense
+        # when we were not able to attach a subscription
+        set_cdn.assert_not_called()
 
+    @patch("pyanaconda.ui.lib.subscription.set_source_cdn")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_key_missing_test(self, get_proxy, thread_mgr_wait, run_task):
+    def register_key_missing_test(self, get_proxy, thread_mgr_wait, run_task, set_cdn):
         """Test the register_and_subscribe() helper method - key missing."""
+        payload = Mock()
         progress_callback = Mock()
         error_callback = Mock()
         subscription_proxy = get_proxy.return_value
@@ -384,7 +413,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.KEY_MISSING_REQUEST
         # run the function
-        register_and_subscribe(progress_callback=progress_callback,
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -397,12 +427,18 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # int this case we fails before requesting any task and we should not
         # attempt to run any
         run_task.assert_not_called()
+        # setting CDN as installation source does not make sense
+        # when we were not able to attach a subscription
+        set_cdn.assert_not_called()
 
+    @patch("pyanaconda.ui.lib.subscription.set_source_cdn")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_username_password_task_failed_test(self, get_proxy, thread_mgr_wait, run_task):
+    def register_username_password_task_failed_test(self, get_proxy, thread_mgr_wait,
+                                                    run_task, set_cdn):
         """Test the register_and_subscribe() helper method - username & password failed."""
+        payload = Mock()
         progress_callback = Mock()
         error_callback = Mock()
         subscription_proxy = get_proxy.return_value
@@ -413,7 +449,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # make the first (registration) task fail
         run_task.side_effect = [RegistrationError("registration failed")]
         # run the function
-        register_and_subscribe(progress_callback=progress_callback,
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -427,12 +464,17 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
+        # setting CDN as installation source does not make sense
+        # when we were not able to attach a subscription
+        set_cdn.assert_not_called()
 
+    @patch("pyanaconda.ui.lib.subscription.set_source_cdn")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_password_missing_test(self, get_proxy, thread_mgr_wait, run_task):
+    def register_password_missing_test(self, get_proxy, thread_mgr_wait, run_task, set_cdn):
         """Test the register_and_subscribe() helper method - password missing."""
+        payload = Mock()
         progress_callback = Mock()
         error_callback = Mock()
         subscription_proxy = get_proxy.return_value
@@ -441,7 +483,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_MISSING_REQUEST
         # run the function
-        register_and_subscribe(progress_callback=progress_callback,
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -454,12 +497,17 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # int this case we fails before requesting any task and we should not
         # attempt to run any
         run_task.assert_not_called()
+        # setting CDN as installation source does not make sense
+        # when we were not able to attach a subscription
+        set_cdn.assert_not_called()
 
+    @patch("pyanaconda.ui.lib.subscription.set_source_cdn")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def attach_subscription_task_failed_test(self, get_proxy, thread_mgr_wait, run_task):
+    def attach_subscription_task_failed_test(self, get_proxy, thread_mgr_wait, run_task, set_cdn):
         """Test the register_and_subscribe() helper method - failed to attach subscription."""
+        payload = Mock()
         progress_callback = Mock()
         error_callback = Mock()
         subscription_proxy = get_proxy.return_value
@@ -470,7 +518,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # make the second (subscription) task fail
         run_task.side_effect = [True, SubscriptionError("failed to attach subscription")]
         # run the function
-        register_and_subscribe(progress_callback=progress_callback,
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -486,6 +535,9 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
+        # setting CDN as installation source does not make sense
+        # when we were not able to attach a subscription
+        set_cdn.assert_not_called()
 
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")

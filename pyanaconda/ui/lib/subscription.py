@@ -22,8 +22,11 @@ from enum import Enum
 from pyanaconda.threading import threadMgr
 
 from pyanaconda.core.constants import THREAD_WAIT_FOR_CONNECTING_NM, \
-    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
+    SOURCE_TYPE_HDD, SOURCE_TYPE_CDN
 from pyanaconda.core.i18n import _
+from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
+from pyanaconda.ui.lib.storage import unmark_protected_device
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common import task
@@ -46,6 +49,41 @@ class SubscriptionPhase(Enum):
     REGISTER = 2
     ATTACH_SUBSCRIPTION = 3
     DONE = 4
+
+# temporary methods for Subscription/CDN related source switching
+
+
+def _tear_down_existing_source(payload):
+    """Tear down existing payload, so we can set a new one.
+
+    :param payload: Anaconda payload instance
+    """
+    source_proxy = payload.get_source_proxy()
+
+    if source_proxy.Type == SOURCE_TYPE_HDD and source_proxy.Partition:
+        unmark_protected_device(source_proxy.Partition)
+
+    tear_down_sources(payload.proxy)
+
+
+def set_source_cdn(payload):
+    """Switch to the CDN installation source.
+
+    :param payload: Anaconda payload instance
+    """
+    _tear_down_existing_source(payload)
+
+    new_source_proxy = create_source(SOURCE_TYPE_CDN)
+    set_source(payload.proxy, new_source_proxy)
+
+
+def check_cdn_is_installation_source(payload):
+    """Check if Red Hat CDN is the current installation source.
+
+    :param payload: Anaconda payload instance
+    """
+    source_proxy = payload.get_source_proxy()
+    return source_proxy.Type == SOURCE_TYPE_CDN
 
 # Asynchronous registration + subscription & unregistration handling
 #
@@ -116,9 +154,10 @@ def username_password_sufficient(subscription_request=None):
     return username_set and password_set
 
 
-def register_and_subscribe(progress_callback=None, error_callback=None):
+def register_and_subscribe(payload, progress_callback=None, error_callback=None):
     """Try to register and subscribe the installation environment.
 
+    :param payload: Anaconda payload instance
     :param progress_callback: progress callback function, takes one argument, subscription phase
     :type progress_callback: callable(subscription_phase)
     :param error_callback: error callback function, takes one argument, the error message
@@ -221,8 +260,12 @@ def register_and_subscribe(progress_callback=None, error_callback=None):
     task_proxy = SUBSCRIPTION.get_proxy(task_path)
     task.sync_run_task(task_proxy)
 
-    # and done
+    # report attaching subscription was successful
     log.debug("subscription thread: auto attach succeeded")
+    # set CDN as installation source now that we can use it
+    log.debug("subscription thread: setting CDN as installation source")
+    set_source_cdn(payload)
+    # and done
     progress_callback(SubscriptionPhase.DONE)
 
 
