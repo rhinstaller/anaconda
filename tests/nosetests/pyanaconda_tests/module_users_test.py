@@ -75,7 +75,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.assertEqual(self.users_interface.IsRootPasswordCrypted, False)
-        self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, False)
+        self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, True)
         self.assertEqual(self.users_interface.CanChangeRootPassword, True)
 
     def users_property_test(self):
