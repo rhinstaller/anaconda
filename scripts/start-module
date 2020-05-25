@@ -15,4 +15,4 @@ fi
 export PYTHONPATH
 
 # Start a Python module in the detached mode.
-python3 -m $1 &
+/usr/libexec/platform-python -m $1 &

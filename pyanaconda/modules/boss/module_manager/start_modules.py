@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from queue import SimpleQueue
+from queue import Queue
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from dasbus.constants import DBUS_FLAG_NONE, DBUS_START_REPLY_SUCCESS
@@ -51,7 +51,7 @@ class StartModulesTask(Task):
         self._module_names = module_names
         self._addons_enabled = addons_enabled
         self._module_observers = []
-        self._callbacks = SimpleQueue()
+        self._callbacks = Queue()
 
     @property
     def name(self):

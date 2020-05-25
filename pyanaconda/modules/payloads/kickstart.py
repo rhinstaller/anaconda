@@ -17,30 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.errors import KickstartParseError
-from pykickstart.sections import PackageSection
-from pykickstart.constants import KS_BROKEN_IGNORE
-
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
-
-
-class AnacondaPackageSection(PackageSection):
-
-    def handleHeader(self, lineno, args):
-        """Process packages section header.
-
-        Add checks based on configuration settings.
-        """
-        super().handleHeader(lineno, args)
-
-        if not conf.payload.enable_ignore_broken_packages \
-           and self.handler.packages.handleBroken == KS_BROKEN_IGNORE:
-            raise KickstartParseError(
-                _("The %packages --ignorebroken feature is not supported on your product!"),
-                lineno=lineno
-            )
 
 
 class PayloadKickstartSpecification(KickstartSpecification):

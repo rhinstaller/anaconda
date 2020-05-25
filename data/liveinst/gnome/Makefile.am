@@ -16,24 +16,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 welcomedir              = $(datadir)/$(PACKAGE_NAME)/gnome
-dist_welcome_DATA       = fedora-welcome.desktop
-dist_welcome_SCRIPTS    = fedora-welcome.js
+dist_welcome_DATA       = rhel-welcome.desktop
+dist_welcome_SCRIPTS    = rhel-welcome.js
 
 MAINTAINERCLEANFILES = Makefile.in
 
 # Merge the translations into the desktop file
 # Use the merged translations in $(builddir). If no merged translations exist,
 # just exit.
-# Rename fedora-welcome.js to just fedora-welcome
+# Rename rhel-welcome.js to just rhel-welcome
 install-data-hook:
 	for p in $(top_builddir)/po/*.mpo ; do \
 	    [ -e $$p ] || exit 0 ; \
-	    $(MSGFMT) --desktop --template=$(DESTDIR)$(welcomedir)/fedora-welcome.desktop \
+	    $(MSGFMT) --desktop --template=$(DESTDIR)$(welcomedir)/rhel-welcome.desktop \
 	        --locale=$$(basename $$p .mpo) \
-		-o $(DESTDIR)$(welcomedir)/fedora-welcome.desktop.new $$p || exit 1 ; \
-	    mv $(DESTDIR)$(welcomedir)/fedora-welcome.desktop.new $(DESTDIR)$(welcomedir)/fedora-welcome.desktop || exit 1 ; \
+		-o $(DESTDIR)$(welcomedir)/rhel-welcome.desktop.new $$p || exit 1 ; \
+	    mv $(DESTDIR)$(welcomedir)/rhel-welcome.desktop.new $(DESTDIR)$(welcomedir)/rhel-welcome.desktop || exit 1 ; \
 	done
-	cd $(DESTDIR)$(welcomedir) && mv fedora-welcome.js fedora-welcome
+	cd $(DESTDIR)$(welcomedir) && mv rhel-welcome.js rhel-welcome
 
 uninstall-hook:
-	-cd $(DESTDIR)$(welcomedir) && rm -f fedora-welcome
+	-cd $(DESTDIR)$(welcomedir) && rm -f rhel-welcome

@@ -72,6 +72,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._password_label = self.builder.get_object("password_label")
         self._lock = self.builder.get_object("lock")
         self._root_password_ssh_login_override = self.builder.get_object("root_password_ssh_login_override")
+        # Do not expose root account options in RHEL, #1819844
+        self._hide_root_account_options()
 
         # Install the password checks:
         # - Has a password been specified?
@@ -138,6 +140,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
         # report that we are done
         self.initialize_done()
+
+    def _hide_root_account_options(self):
+        self._lock.set_visible(False)
+        self._lock.set_no_show_all(True)
+        self._root_password_ssh_login_override.set_visible(False)
+        self._root_password_ssh_login_override.set_no_show_all(True)
 
     def refresh(self):
         # report refresh is running
