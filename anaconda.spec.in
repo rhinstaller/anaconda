@@ -362,6 +362,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 25 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.1-1
+- Rebase to upstream 33.16 version (rvykydal)
+
 * Mon May 25 2020 Martin Kolman <mkolman@redhat.com> - 33.16-1
 - subscription: Only require Insights package if subscribed (mkolman)
 - subscription: Do not pass payload to unregister() helper function (mkolman)
