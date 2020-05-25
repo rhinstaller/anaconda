@@ -702,7 +702,7 @@ class SubscriptionService(KickstartService):
         requirements = []
         # check if we need the insights-client package, which is needed to connect the
         # target system to Red Hat Insights
-        if self.connect_to_insights:
+        if self.subscription_attached and self.connect_to_insights:
             # establishing a connection to Red Hat Insights has been requested
             # and we need the insights-client package to be present in the
             # target system chroot for that
