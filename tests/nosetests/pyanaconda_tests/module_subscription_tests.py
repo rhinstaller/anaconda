@@ -1313,7 +1313,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # yes, this can be done
         observer.get_proxy.side_effect = [rhsm_entitlement_proxy, rhsm_syspurpose_proxy]
         # check the task is created correctly
-        task_path = self.subscription_interface.ParseAttachedSubscritionsWithTask()
+        task_path = self.subscription_interface.ParseAttachedSubscriptionsWithTask()
         obj = check_task_creation(self, task_path, publisher, ParseAttachedSubscriptionsTask)
         # check all the data got propagated to the module correctly
         self.assertEqual(obj.implementation._rhsm_entitlement_proxy, rhsm_entitlement_proxy)

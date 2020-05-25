@@ -194,7 +194,7 @@ class SubscriptionInterface(KickstartModuleInterface):
             self.implementation.attach_subscription_with_task()
         )
 
-    def ParseAttachedSubscritionsWithTask(self) -> ObjPath:
+    def ParseAttachedSubscriptionsWithTask(self) -> ObjPath:
         """Parse attached subscriptions using a runtime DBus task.
 
         :return: a DBus path of an installation task

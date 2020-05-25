@@ -242,7 +242,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
-        subscription_proxy.ParseAttachedSubscriptionsTask.assert_called_once()
+        subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # tried to set the CDN source
         set_cdn.assert_called_once()
         # and tried to run them
@@ -281,7 +281,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
-        subscription_proxy.ParseAttachedSubscriptionsTask.assert_called_once()
+        subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # tried to set the CDN source
         set_cdn.assert_called_once()
         # and tried to run them
@@ -322,7 +322,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.UnregisterWithTask.assert_called_once()
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
         subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
-        subscription_proxy.ParseAttachedSubscriptionsTask.assert_called_once()
+        subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # tried to set the CDN source
         set_cdn.assert_called_once()
         # and tried to run them
