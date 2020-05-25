@@ -309,10 +309,12 @@ class SubscriptionSpoke(NormalSpoke):
     # authentication related signals
 
     def on_account_radio_button_toggled(self, radio):
+        self._account_revealer.set_reveal_child(radio.get_active())
         if radio.get_active():
             self.authentication_method = AuthenticationMethod.USERNAME_PASSWORD
 
     def on_activation_key_radio_button_toggled(self, radio):
+        self._activation_key_revealer.set_reveal_child(radio.get_active())
         if radio.get_active():
             self.authentication_method = AuthenticationMethod.ORG_KEY
 
