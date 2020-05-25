@@ -17,6 +17,7 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import os
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -57,8 +58,8 @@ class AnacondaDBusConnectionTestCase(unittest.TestCase):
             with patch("pyanaconda.core.dbus.ANACONDA_BUS_ADDR_FILE", f.name):
                 self._check_addressed_connection(message_bus, getter, "ADDRESS")
 
-        with patch.dict("os.environ") as environment:
-            environment[DBUS_ANACONDA_SESSION_ADDRESS] = "ADDRESS"
+        with patch.dict("os.environ"):
+            os.environ[DBUS_ANACONDA_SESSION_ADDRESS] = "ADDRESS"  # pylint: disable=environment-modify
             self._check_addressed_connection(message_bus, getter, "ADDRESS")
 
     @patch("dasbus.connection.Gio.DBusConnection.new_for_address_sync")
@@ -72,8 +73,8 @@ class AnacondaDBusConnectionTestCase(unittest.TestCase):
         """Test the default bus."""
         message_bus = DefaultMessageBus()
 
-        with patch.dict("os.environ") as environment:
-            environment[DBUS_STARTER_ADDRESS] = "ADDRESS"
+        with patch.dict("os.environ"):
+            os.environ[DBUS_STARTER_ADDRESS] = "ADDRESS"  # pylint: disable=environment-modify
             self._check_addressed_connection(message_bus, getter, "ADDRESS")
 
         self._check_anaconda_connection(message_bus, getter)
