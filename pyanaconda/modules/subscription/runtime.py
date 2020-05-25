@@ -63,7 +63,7 @@ class RHSMPrivateBus(MessageBus):
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         log.debug("subscription: shutting down the RHSM private DBus session")
-        self.connection.disconnect()
+        self.disconnect()
         locale = os.environ.get("LANG", "")
         self._rhsm_register_server_proxy.Stop(locale)
         log.debug("subscription: RHSM private DBus session has been shutdown")
