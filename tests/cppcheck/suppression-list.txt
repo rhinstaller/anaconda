@@ -1,0 +1,9 @@
+// suppress unused functions
+unusedFunction:*/widgets/src/*
+unusedFunction:widgets/src/*
+unusedFunction:*/widgets/glade/*
+unusedFunction:widgets/glade/*
+
+// stop whining about G_DEFINE macros
+constStatement:*/widgets/src/*
+constStatement:widgets/src/*
