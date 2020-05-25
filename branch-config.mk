@@ -23,4 +23,4 @@
 GIT_BRANCH ?= master
 
 # Directory for this anaconda branch in anaconda-l10n repository. This could be master, fXX, rhel-8 etc.
-L10N_DIR ?= master
+L10N_DIR ?= rhel-8
