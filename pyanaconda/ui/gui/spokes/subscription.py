@@ -864,7 +864,6 @@ class SubscriptionSpoke(NormalSpoke):
                 name=THREAD_SUBSCRIPTION,
                 target=unregister,
                 kwargs={
-                    "payload": self.payload,
                     "progress_callback": self._subscription_progress_callback,
                     "error_callback": self._subscription_error_callback
                 }
