@@ -545,6 +545,7 @@ class RHSMPrivateBusTestCase(unittest.TestCase):
         # prepare a mock bus backend now so we can check later that
         # disconnect() was called after exiting the context manager
         provider = Mock()
+        disconnect = Mock()
         get_address_bus = provider.get_addressed_bus_connection
         connection = get_address_bus.return_value
         # enter the context manager
@@ -557,6 +558,8 @@ class RHSMPrivateBusTestCase(unittest.TestCase):
             # now mock the backend of the bus instance to prevent it from
             # trying to get an actual connection
             private_bus._provider = provider
+            # also mock the disconnect method so we can check it was called
+            private_bus.disconnect = disconnect
             # and try to get a proxy
             private_register_proxy = private_bus.connection.get_proxy(RHSM.service_name,
                                                                       RHSM_REGISTER.object_path)
@@ -571,7 +574,7 @@ class RHSMPrivateBusTestCase(unittest.TestCase):
                                                          RHSM_REGISTER.object_path)
             self.assertEqual(private_register_proxy, connection.get_proxy.return_value)
         # exit the context manager and check cleanup happened as expected
-        connection.disconnect.assert_called_once()
+        disconnect.assert_called_once()
         register_server_proxy.Stop.assert_called_once_with("en_US.UTF-8")
 
 
