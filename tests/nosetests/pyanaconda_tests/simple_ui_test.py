@@ -177,7 +177,6 @@ class SimpleUITestCase(unittest.TestCase):
                 'SourceSpoke'
             ],
             'SystemCategory': [
-                'BlivetGuiSpoke',
                 'CustomPartitioningSpoke',
                 'FilterSpoke',
                 'NetworkSpoke',
