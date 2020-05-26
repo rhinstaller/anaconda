@@ -23,6 +23,7 @@ import os
 
 from productmd.treeinfo import TreeInfo
 from pyanaconda.core import util, constants
+from pyanaconda.core.payload import split_protocol
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
 log = get_packaging_logger()
@@ -31,6 +32,7 @@ MAX_TREEINFO_DOWNLOAD_RETRIES = 6
 
 
 class InstallTreeMetadata(object):
+    # TODO: Add tests for InstallTreeMetadata class
 
     def __init__(self):
         self._tree_info = TreeInfo()
@@ -236,7 +238,10 @@ class RepoMetadata(object):
         if self.relative_path == ".":
             return self._root_path
         else:
-            return os.path.normpath(os.path.join(self._root_path, self.relative_path))
+            protocol, url = split_protocol(os.path.join(self._root_path, self.relative_path))
+            # resolve problems with relative path especially useful for NFS (root/path/../new_path)
+            url = os.path.normpath(url)
+            return protocol + url
 
     def is_valid(self):
         """Quick check if the repo is a valid repository.
