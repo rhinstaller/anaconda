@@ -34,10 +34,7 @@ cppcheck_output="$(echo "$filelist" |
         --template='{id}:{file}:{line}: {message}' \
         --inline-suppr \
         --enable=warning,unusedFunction \
-        --suppress=unusedFunction:*/widgets/src/* \
-        --suppress=unusedFunction:widgets/src/* \
-        --suppress=unusedFunction:*/widgets/glade/* \
-        --suppress=unusedFunction:widgets/glade/* \
+        --suppressions-list=cppcheck/suppression-list.txt \
         -DG_DEFINE_TYPE \
         -DHAVE_WORKING_FORK \
         --force \
