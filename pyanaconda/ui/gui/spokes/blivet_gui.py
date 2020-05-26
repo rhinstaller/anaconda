@@ -21,10 +21,14 @@
 
 """Module with the BlivetGuiSpoke class."""
 from threading import Lock
+from pyanaconda.errors import RemovedModuleError
 
-from blivetgui.osinstall import BlivetGUIAnaconda  # pylint: disable=import-error
-from blivetgui.communication.client import BlivetGUIClient  # pylint: disable=import-error
-from blivetgui.config import config  # pylint: disable=import-error
+try:
+    from blivetgui.osinstall import BlivetGUIAnaconda  # pylint: disable=import-error
+    from blivetgui.communication.client import BlivetGUIClient  # pylint: disable=import-error
+    from blivetgui.config import config  # pylint: disable=import-error
+except ImportError:
+    raise RemovedModuleError("This module is not supported!")
 
 from dasbus.client.proxy import get_object_path
 from dasbus.typing import unwrap_variant

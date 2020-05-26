@@ -39,7 +39,7 @@ class SimpleImportTestCase(unittest.TestCase):
     def tearDown(self):
         sys.modules.pop("gi.repository.TimezoneMap")
 
-    def _check_package(self, package, expected_imports):
+    def _check_package(self, package, expected_imports, skipped_imports):
         """Check if all submodules of the package can be imported."""
         failed = set()
         missing = set(expected_imports)
@@ -48,6 +48,9 @@ class SimpleImportTestCase(unittest.TestCase):
 
         for _, name, _ in walk_packages(path, prefix, failed.add):
             if name.endswith(".__main__"):
+                continue
+
+            if name in skipped_imports:
                 continue
 
             print(name)
@@ -77,4 +80,7 @@ class SimpleImportTestCase(unittest.TestCase):
             "pyanaconda.ui.gui.spokes.lib.cart",
             "pyanaconda.ui.tui.spokes.askvnc",
             "pyanaconda.rescue"
+        ], [
+            "pyanaconda.modules.storage.partitioning.blivet.blivet_handler",
+            "pyanaconda.ui.gui.spokes.blivet_gui"
         ])
