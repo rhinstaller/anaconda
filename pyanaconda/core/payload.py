@@ -64,6 +64,34 @@ def create_nfs_url(host, path, options=None):
     return "nfs:{server}:{path}".format(server=host, path=path)
 
 
+def split_protocol(url):
+    """Split protocol from url
+
+    The function will look for ://.
+
+    - If found more than once in the url then raising an error.
+    - If found exactly once it will return tuple with [protocol, rest_of_url].
+    - If an empty string is given it will return tuple with empty strings ("", "").
+
+    :param str url: base url we want to split protocol from
+    :return: tuple of (protocol, rest of url)
+    :raise: ValueError if url is invalid
+    """
+    ret = url.split("://")
+
+    if len(ret) > 2:
+        raise ValueError("Invalid url to split protocol '{}'".format(url))
+
+    if len(ret) == 2:
+        # return back part removed when splitting
+        return (ret[0] + "://", ret[1])
+
+    if len(ret) == 1:
+        return ("", ret[0])
+
+    return ("", "")
+
+
 class ProxyStringError(Exception):
     pass
 

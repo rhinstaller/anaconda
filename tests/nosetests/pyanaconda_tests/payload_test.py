@@ -633,7 +633,7 @@ class PayloadUtilsTests(unittest.TestCase):
                          "nfs:options:host:/path/to/something")
 
     def nfs_combine_test(self):
-        "Test combination of parse and create nfs functions."
+        """Test combination of parse and create nfs functions."""
 
         host = "host"
         path = "/path/to/somewhere"
@@ -645,3 +645,23 @@ class PayloadUtilsTests(unittest.TestCase):
         url = "nfs:options:host:/my/path"
         (options, host, path) = util.parse_nfs_url(url)
         self.assertEqual(util.create_nfs_url(host, path, options), url)
+
+    def split_protocol_test(self):
+        """Test split protocol test."""
+
+        self.assertEqual(util.split_protocol("http://abc/cde"),
+                         ("http://", "abc/cde"))
+        self.assertEqual(util.split_protocol("https://yay/yay"),
+                         ("https://", "yay/yay"))
+        self.assertEqual(util.split_protocol("ftp://ups/spu"),
+                         ("ftp://", "ups/spu"))
+        self.assertEqual(util.split_protocol("file:///test/file"),
+                         ("file://", "/test/file"))
+        self.assertEqual(util.split_protocol("nfs:ups/spu:/abc:opts"),
+                         ("", "nfs:ups/spu:/abc:opts"))
+        self.assertEqual(util.split_protocol("http:/typo/test"),
+                         ("", "http:/typo/test"))
+        self.assertEqual(util.split_protocol(""), ("", ""))
+
+        with self.assertRaises(ValueError):
+            util.split_protocol("http://ftp://ups/this/is/not/correct")
