@@ -113,6 +113,7 @@ class NFSSourceTestCase(unittest.TestCase):
     def tear_down_with_tasks_test(self):
         """Test NFS Source ready state for tear down."""
         task_classes = [
+            TearDownMountTask,
             TearDownMountTask
         ]
 
