@@ -19,7 +19,7 @@ import unittest
 from unittest.mock import patch
 
 from pyanaconda.core.constants import INSTALL_TREE
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask, TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceMixin
@@ -81,12 +81,26 @@ class TearDownMountTaskTestCase(unittest.TestCase):
         task = TearDownMountTask(mount_location)
         self.assertEqual(task.name, "Tear down mount installation source")
 
+    @patch("pyanaconda.modules.payloads.source.mount_tasks.os.path.ismount", return_value=False)
     @patch("pyanaconda.modules.payloads.source.mount_tasks.unmount", return_value=True)
-    def run_success_test(self, unmount_mock):
+    def run_success_test(self, unmount_mock, ismount_mock):
         """Tear down mount source task execution."""
         task = TearDownMountTask(mount_location)
         task.run()
         unmount_mock.assert_called_once_with(mount_location)
+        ismount_mock.assert_called_once_with(mount_location)
+
+    @patch("pyanaconda.modules.payloads.source.mount_tasks.os.path.ismount", return_value=True)
+    @patch("pyanaconda.modules.payloads.source.mount_tasks.unmount", return_value=True)
+    def run_failure_test(self, unmount_mock, ismount_mock):
+        """Tear down mount source task failure."""
+        task = TearDownMountTask(mount_location)
+        with self.assertRaises(SourceTearDownError) as cm:
+            task.run()
+
+        self.assertEqual(str(cm.exception), "The mount point /some/dir is still in use.")
+        unmount_mock.assert_called_once_with(mount_location)
+        ismount_mock.assert_called_once_with(mount_location)
 
 
 class SetUpMountTaskTestCase(unittest.TestCase):

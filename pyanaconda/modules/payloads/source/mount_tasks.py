@@ -21,7 +21,7 @@ import os.path
 from abc import ABC, abstractmethod
 
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 
 from pyanaconda.payload.utils import unmount
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -46,7 +46,19 @@ class TearDownMountTask(Task):
     def run(self):
         """Run source un-setup."""
         log.debug("Unmounting installation source")
+        self._do_unmount()
+        self._check_mount()
+
+    def _do_unmount(self):
+        """Unmount the source."""
         unmount(self._target_mount)
+
+    def _check_mount(self):
+        """Check if the source is unmounted."""
+        if os.path.ismount(self._target_mount):
+            raise SourceTearDownError("The mount point {} is still in use.".format(
+                self._target_mount
+            ))
 
 
 class SetUpMountTask(Task, ABC):
