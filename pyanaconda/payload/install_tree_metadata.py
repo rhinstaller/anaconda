@@ -93,6 +93,7 @@ class InstallTreeMetadata(object):
                                                                    sslverify, sslcert)
             if response:
                 break
+
             # Downloading treeinfo
             log.info("Trying to download 'treeinfo'")
             (response, ret_code[1]) = self._download_treeinfo_file(session, url, "treeinfo",
@@ -123,11 +124,7 @@ class InstallTreeMetadata(object):
 
         if response:
             # get the treeinfo contents
-            text = response.text
-
-            response.close()
-
-            self._tree_info.loads(text)
+            self._tree_info.loads(response)
             self._path = url
             return True
 
@@ -139,15 +136,23 @@ class InstallTreeMetadata(object):
             result = session.get("%s/%s" % (url, file_name), headers=headers,
                                  proxies=proxies, verify=verify, cert=cert,
                                  timeout=constants.NETWORK_CONNECTION_TIMEOUT)
+
+            status_code = result.status_code
+
             # Server returned HTTP 4XX or 5XX codes
-            if 400 <= result.status_code < 600:
-                log.info("Server returned %i code", result.status_code)
-                return None, result.status_code
-            log.debug("Retrieved '%s' from %s", file_name, url)
+            if 400 <= status_code < 600:
+                log.info("Server returned %i code", status_code)
+                result_text = None
+            else:
+                result_text = result.text
+
+            result.close()
         except requests.exceptions.RequestException as e:
             log.info("Error downloading '%s': %s", file_name, e)
-            return (None, None)
-        return result, result.status_code
+            return None, None
+
+        log.debug("Retrieved '%s' from %s", file_name, url)
+        return result_text, status_code
 
     def _clear(self):
         """Clear metadata repositories."""

@@ -90,10 +90,12 @@ class RepoMDMetaHash(object):
                                      timeout=constants.NETWORK_CONNECTION_TIMEOUT)
                 if result.ok:
                     repomd = result.text
+                    result.close()
                     break
                 else:
                     log.debug("Server returned %i code when downloading repomd",
                               result.status_code)
+                    result.close()
                     continue
             except RequestException as e:
                 log.debug("Can't download new repomd.xml from %s with proxy: %s. Error: %s",
