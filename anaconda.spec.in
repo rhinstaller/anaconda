@@ -362,6 +362,28 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 27 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.2-1
+- subscription: Make sure CDN repos are loaded and usable (mkolman)
+  Related: rhbz#1691319
+- Fix issue that unified ISO from URL is not loaded (jkonecny)
+  Related: rhbz#1691319
+- Add split_protocol payload helper function (jkonecny)
+  Related: rhbz#1691319
+- Fix imports of Blivet-GUI in unit tests (vponcova)
+  Related: rhbz#1691319
+- Make cppcheck ignore the G_DEFINE_TYPE macros (vslavik)
+  Related: rhbz#1691319
+- Fix test to not use Python 3.8 feature (vslavik)
+  Related: rhbz#1691319
+- Fix test for root SSH login allowed (vslavik)
+  Related: rhbz#1691319
+- Remove blivet-GUI tests (vslavik)
+  Related: rhbz#1691319
+- Ignore no return from BTRFS (vslavik)
+  Related: rhbz#1691319
+- Remove unused imports (vslavik)
+  Related: rhbz#1691319
+
 * Mon May 25 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.1-1
 - Rebase to upstream 33.16 version (rvykydal)
 
