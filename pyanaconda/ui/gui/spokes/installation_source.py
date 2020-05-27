@@ -55,7 +55,6 @@ from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.core.storage import device_matches
-from pyanaconda.ui.lib.payload import set_source, tear_down_sources, create_source
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -973,20 +972,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 self._iso_chooser_button.set_use_underline(False)
         elif source_type == SOURCE_TYPE_HMC:
             self._hmc_button.set_active(True)
-        else:
-            # No method was given in advance, so now we need to make a sensible
-            # guess.  Go with autodetected media if that was provided, and then
-            # fall back to closest mirror.
+        elif source_type == SOURCE_TYPE_CDROM:
+            # Go with autodetected media if that was provided,
+            # otherwise fall back to the closest mirror.
             if not self._autodetect_button.get_no_show_all():
                 self._autodetect_button.set_active(True)
-                source_type = SOURCE_TYPE_CDROM
             else:
                 self._network_button.set_active(True)
-                source_type = SOURCE_TYPE_CLOSEST_MIRROR
-
-            tear_down_sources(self.payload.proxy)
-            source_proxy = create_source(source_type)
-            set_source(self.payload.proxy, source_proxy)
+        elif source_type == SOURCE_TYPE_CLOSEST_MIRROR:
+            self._network_button.set_active(True)
+        else:
+            ValueError("Unsupported source type: '{}'".format(source_type))
 
         self._setup_updates()
 
