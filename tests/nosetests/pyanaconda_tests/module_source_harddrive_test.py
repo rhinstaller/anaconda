@@ -189,12 +189,10 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_first_iso_image",
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_iso_image",
            return_value="skynet.iso")
-    @patch("pyanaconda.modules.payloads.source.utils.mount")
     def success_find_iso_test(self,
-                              mount_mock,
-                              find_first_iso_image_mock,
+                              find_and_mount_iso_image_mock,
                               find_and_mount_device_mock):
         """Hard drive source setup iso found."""
         task = _create_setup_task()
@@ -204,26 +202,20 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
             device_spec,
             device_mount_location
         )
-        find_first_iso_image_mock.assert_called_once_with(
-            device_mount_location + path_on_device
-        )
-        mount_mock.assert_called_once_with(
-            device_mount_location + path_on_device + "/skynet.iso",
-            iso_mount_location,
-            fstype="iso9660",
-            options="ro"
+        find_and_mount_iso_image_mock.assert_called_once_with(
+            device_mount_location + path_on_device, iso_mount_location
         )
         self.assertEqual(result, SetupHardDriveResult(iso_mount_location, "skynet.iso"))
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_first_iso_image",
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_iso_image",
            return_value="")
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_installtree",
            return_value=True)
     def success_find_dir_test(self,
                               verify_valid_installtree_mock,
-                              find_first_iso_image_mock,
+                              find_and_mount_iso_image_mock,
                               find_and_mount_device_mock):
         """Hard drive source setup dir found."""
         task = _create_setup_task()
@@ -233,8 +225,8 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
             device_spec,
             device_mount_location
         )
-        find_first_iso_image_mock.assert_called_once_with(
-            device_mount_location + path_on_device
+        find_and_mount_iso_image_mock.assert_called_once_with(
+            device_mount_location + path_on_device, iso_mount_location
         )
         verify_valid_installtree_mock.assert_called_once_with(
             device_mount_location + path_on_device
@@ -243,13 +235,13 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_first_iso_image",
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_iso_image",
            return_value="")
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_installtree",
            return_value=False)
     def failure_to_find_anything_test(self,
                                       verify_valid_installtree_mock,
-                                      find_first_iso_image_mock,
+                                      find_and_mount_iso_image_mock,
                                       find_and_mount_device_mock):
         """Hard drive source setup failure to find anything."""
         task = _create_setup_task()
@@ -260,45 +252,8 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
             device_spec,
             device_mount_location
         )
-        find_first_iso_image_mock.assert_called_once_with(
-            device_mount_location + path_on_device
-        )
-        verify_valid_installtree_mock.assert_called_once_with(
-            device_mount_location + path_on_device
-        )
-        self.assertTrue(str(cm.exception).startswith(
-            "Nothing useful found for Hard drive ISO source"
-        ))
-
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_installtree",
-           return_value=False)
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
-           return_value=True)
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_first_iso_image",
-           return_value="skynet.iso")
-    @patch("pyanaconda.modules.payloads.source.utils.mount", side_effect=OSError())
-    def failure_to_mount_iso_test(self,
-                                  mount_mock,
-                                  find_first_iso_image_mock,
-                                  find_and_mount_device_mock,
-                                  verify_valid_installtree_mock):
-        """Hard drive source setup iso found."""
-        task = _create_setup_task()
-        with self.assertRaises(SourceSetupError) as cm:
-            task.run()
-
-        find_and_mount_device_mock.assert_called_once_with(
-            device_spec,
-            device_mount_location
-        )
-        find_first_iso_image_mock.assert_called_once_with(
-            device_mount_location + path_on_device
-        )
-        mount_mock.assert_called_once_with(
-            device_mount_location + path_on_device + "/skynet.iso",
-            iso_mount_location,
-            fstype="iso9660",
-            options="ro"
+        find_and_mount_iso_image_mock.assert_called_once_with(
+            device_mount_location + path_on_device, iso_mount_location
         )
         verify_valid_installtree_mock.assert_called_once_with(
             device_mount_location + path_on_device
@@ -310,7 +265,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=False)
     def failure_to_find_mount_device_test(self, find_and_mount_device_mock):
-        """Hard drive source setup failure to find or mount partition device."""
+        """Hard drive source setup failure to find partition device."""
         task = _create_setup_task()
         with self.assertRaises(SourceSetupError) as cm:
             task.run()
@@ -326,7 +281,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.os.path.ismount",
            return_value=True)
     def failure_mount_already_used_test(self, ismount_mock):
-        """Hard drive source setup failure to find or mount partition device."""
+        """Hard drive source setup failure to mount partition device."""
         task = _create_setup_task()
         with self.assertRaises(SourceSetupError) as cm:
             task.run()
