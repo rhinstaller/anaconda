@@ -77,7 +77,7 @@ def check_memory(anaconda, options, display_mode=None):
     reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
                       "install, but you only have %(total_ram)s MB on this machine.\n")
     reason_graphical = _("The %(product_name)s graphical installer requires %(needed_ram)s "
-                         "MB of memory, but you only have %(total_ram)s MB\n.")
+                         "MB of memory, but you only have %(total_ram)s MB.\n")
 
     reboot_extra = _('\n'
                      'Press [Enter] to reboot your system.\n')
