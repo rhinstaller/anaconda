@@ -239,7 +239,9 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
            return_value="")
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_installtree",
            return_value=False)
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.unmount")
     def failure_to_find_anything_test(self,
+                                      unmount_mock,
                                       verify_valid_installtree_mock,
                                       find_and_mount_iso_image_mock,
                                       find_and_mount_device_mock):
@@ -257,6 +259,9 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
         )
         verify_valid_installtree_mock.assert_called_once_with(
             device_mount_location + path_on_device
+        )
+        unmount_mock.assert_called_once_with(
+            device_mount_location
         )
         self.assertTrue(str(cm.exception).startswith(
             "Nothing useful found for Hard drive ISO source"
