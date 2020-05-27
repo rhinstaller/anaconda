@@ -24,6 +24,7 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.utils import find_and_mount_device, \
     find_and_mount_iso_image
 from pyanaconda.payload.image import verify_valid_installtree
+from pyanaconda.payload.utils import unmount
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -86,6 +87,8 @@ class SetUpHardDriveSourceTask(Task):
             log.debug("Using the directory at '%s'.", full_path_on_mounted_device)
             return SetupHardDriveResult(full_path_on_mounted_device, "")
 
+        # nothing found unmount the existing device
+        unmount(self._device_mount)
         raise SourceSetupError(
             "Nothing useful found for Hard drive ISO source at partition={} directory={}".format(
                 self._partition, self._directory))
