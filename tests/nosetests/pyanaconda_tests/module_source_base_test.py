@@ -23,6 +23,7 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTea
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask, TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceMixin
+from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image
 
 mount_location = "/some/dir"
 
@@ -121,3 +122,65 @@ class SetUpMountTaskTestCase(unittest.TestCase):
 
         self.assertEqual(str(cm.exception), "The mount point /some/dir is already in use.")
         ismount_mock.assert_called_once_with(mount_location)
+
+
+class UtilitiesTestCase(unittest.TestCase):
+
+    @patch("pyanaconda.modules.payloads.source.utils.find_first_iso_image",
+           return_value="skynet.iso")
+    @patch("pyanaconda.modules.payloads.source.utils.mount")
+    def find_and_mount_iso_image_test(self,
+                                      mount_mock,
+                                      find_first_iso_image_mock,):
+        """Test find_and_mount_iso_image basic run."""
+        source_path = "/super/cool/secret/base"
+        mount_path = "/less/cool/secret/base"
+
+        iso_name = find_and_mount_iso_image(source_path, mount_path)
+
+        find_first_iso_image_mock.assert_called_once_with(source_path)
+        mount_mock.assert_called_once_with(
+            source_path + "/" + "skynet.iso",
+            mount_path,
+            fstype="iso9660",
+            options="ro"
+        )
+
+        self.assertEqual(iso_name, "skynet.iso")
+
+    @patch("pyanaconda.modules.payloads.source.utils.find_first_iso_image",
+           return_value="")
+    def find_and_mount_iso_image_fail_find_test(self,
+                                                find_first_iso_image_mock,):
+        """Test find_and_mount_iso_image failure to find iso."""
+        source_path = "/super/cool/secret/base"
+        mount_path = "/less/cool/secret/base"
+
+        iso_name = find_and_mount_iso_image(source_path, mount_path)
+
+        find_first_iso_image_mock.assert_called_once_with(source_path)
+
+        self.assertEqual(iso_name, "")
+
+    @patch("pyanaconda.modules.payloads.source.utils.find_first_iso_image",
+           return_value="skynet.iso")
+    @patch("pyanaconda.modules.payloads.source.utils.mount",
+           side_effect=OSError)
+    def find_and_mount_iso_image_fail_mount_test(self,
+                                                 mount_mock,
+                                                 find_first_iso_image_mock,):
+        """Test find_and_mount_iso_image failure to mount iso."""
+        source_path = "/super/cool/secret/base"
+        mount_path = "/less/cool/secret/base"
+
+        iso_name = find_and_mount_iso_image(source_path, mount_path)
+
+        find_first_iso_image_mock.assert_called_once_with(source_path)
+        mount_mock.assert_called_once_with(
+            source_path + "/" + "skynet.iso",
+            mount_path,
+            fstype="iso9660",
+            options="ro"
+        )
+
+        self.assertEqual(iso_name, "")
