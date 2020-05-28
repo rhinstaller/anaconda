@@ -15,37 +15,71 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os.path
+
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.payload.utils import mount
 from pyanaconda.core.payload import parse_nfs_url
-from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
+from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image
+from pyanaconda.payload.errors import PayloadSetupError
+from pyanaconda.payload.image import verify_valid_installtree
+from pyanaconda.payload.utils import mount, unmount
 
 log = get_module_logger(__name__)
 
 __all__ = ["SetUpNFSSourceTask"]
 
 
-class SetUpNFSSourceTask(SetUpMountTask):
+class SetUpNFSSourceTask(Task):
     """Task to set up the NFS source."""
 
-    def __init__(self, target_mount, url):
-        super().__init__(target_mount)
+    def __init__(self, device_mount, iso_mount, url):
+        super().__init__()
+        self._device_mount = device_mount
+        self._iso_mount = iso_mount
         self._url = url
 
     @property
     def name(self):
         return "Set up NFS installation source"
 
-    def _do_mount(self):
+    def run(self):
         """Set up the installation source."""
-        log.debug("Trying to mount NFS: %s", self._url)
+        log.debug("Setting up NFS source: %s", self._url)
 
+        for mount_point in [self._device_mount, self._iso_mount]:
+            if os.path.ismount(mount_point):
+                raise SourceSetupError("The mount point {} is already in use.".format(
+                    mount_point
+                ))
+
+        try:
+            self._mount_nfs()
+        except PayloadSetupError:
+            raise SourceSetupError("Could not mount NFS url '{}'".format(self._url))
+
+        iso_name = find_and_mount_iso_image(self._device_mount, self._iso_mount)
+
+        if iso_name:
+            log.debug("Using the ISO '%s' mounted at '%s'.", iso_name, self._iso_mount)
+            return self._iso_mount
+
+        if verify_valid_installtree(self._device_mount):
+            log.debug("Using the directory at '%s'.", self._device_mount)
+            return self._device_mount
+
+        # nothing found unmount the existing device
+        unmount(self._device_mount)
+        raise SourceSetupError(
+            "Nothing useful found for NFS source at {}".format(self._url))
+
+    def _mount_nfs(self):
         options, host, path = parse_nfs_url(self._url)
+
         if not options:
             options = "nolock"
         elif "nolock" not in options:
             options += ",nolock"
 
-        mount("{}:{}".format(host, path), self._target_mount, fstype="nfs", options=options)
-
-        log.debug("We are ready to use NFS at %s.", self._target_mount)
+        mount("{}:{}".format(host, path), self._device_mount, fstype="nfs", options=options)

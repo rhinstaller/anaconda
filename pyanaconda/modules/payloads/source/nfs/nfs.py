@@ -141,7 +141,7 @@ class NFSSourceModule(PayloadSourceBase, RPMSourceMixin):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        task = SetUpNFSSourceTask(self._device_mount, self._url)
+        task = SetUpNFSSourceTask(self._device_mount, self._iso_mount, self._url)
         task.succeeded_signal.connect(lambda: self._handle_setup_task_result(task))
         return [task]
 
