@@ -229,12 +229,12 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetRepoConfigurations(), expected)
 
-    @patch("pyanaconda.modules.payloads.source.nfs.nfs.NFSSourceModule.mount_point",
+    @patch("pyanaconda.modules.payloads.source.nfs.nfs.NFSSourceModule.install_tree_path",
            new_callable=PropertyMock)
     @patch_dbus_publish_object
-    def nfs_get_repo_configurations_test(self, publisher, mount_point):
+    def nfs_get_repo_configurations_test(self, publisher, install_tree_path_mock):
         """Test DNF GetRepoConfigurations for NFS source."""
-        mount_point.return_value = "/install_source/nfs"
+        install_tree_path_mock.return_value = "/install_source/nfs"
         source = self.shared_tests.prepare_source(SourceType.NFS)
 
         self.shared_tests.set_sources([source])
@@ -246,9 +246,9 @@ class DNFInterfaceTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.harddrive.harddrive.HardDriveSourceModule.install_tree_path",
            new_callable=PropertyMock)
     @patch_dbus_publish_object
-    def harddrive_get_repo_configurations_test(self, publisher, mount_point):
+    def harddrive_get_repo_configurations_test(self, publisher, install_tree_path_mock):
         """Test DNF GetRepoConfigurations for HARDDRIVE source."""
-        mount_point.return_value = "/install_source/harddrive"
+        install_tree_path_mock.return_value = "/install_source/harddrive"
         source = self.shared_tests.prepare_source(SourceType.HDD)
 
         self.shared_tests.set_sources([source])

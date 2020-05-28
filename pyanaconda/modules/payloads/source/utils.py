@@ -15,12 +15,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os.path
+
 from blivet.arch import get_arch
 from blivet.util import mount
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.storage import device_matches
 from pyanaconda.core.util import join_paths
+from pyanaconda.payload.image import find_first_iso_image
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -91,6 +94,24 @@ def find_and_mount_device(device_spec, mount_point):
         return False
 
 
+def find_and_mount_iso_image(source_path, mount_path):
+    """Find ISO image and mount it.
+
+    :param str source_path: path to where to look for the iso; it could point to iso directly
+    :param str mount_path: where to mount the ISO image
+    :return: name of the ISO image file or empty string if ISO can't be used
+    """
+    iso_name = find_first_iso_image(source_path)
+
+    if iso_name:
+        path_to_iso = _create_iso_path(source_path, iso_name)
+
+        if mount_iso_image(path_to_iso, mount_path):
+            return iso_name
+
+    return ""
+
+
 def mount_iso_image(image_path, mount_point):
     """Mount ISO image.
 
@@ -106,6 +127,25 @@ def mount_iso_image(image_path, mount_point):
     except OSError as e:
         log.error("Mount of ISO file failed: %s", e)
         return False
+
+
+def _create_iso_path(path, iso_name):
+    """Get path to the ISO with the iso_name and path to the ISO.
+
+    The problem of this is that path could point to the ISO directly. So this way
+    we want to avoid situations like /abc/dvd.iso/dvd.iso
+
+    :param str path: path where the iso is or path to the iso image file
+    :param str iso_name: name of the iso
+    :return: path to the iso image
+    :rtype: str
+    """
+    # The directory parameter is not pointing directly to ISO
+    if not path.endswith(iso_name):
+        return os.path.normpath(join_paths(path, iso_name))
+
+    # The directory parameter is pointing directly to ISO
+    return path
 
 
 class MountPointGenerator:
