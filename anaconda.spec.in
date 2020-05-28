@@ -124,6 +124,9 @@ Requires: systemd
 Requires: python3-pid
 Requires: python3-ordered-set >= 2.0.0
 
+# Required by the systemd service anaconda-fips.
+Requires: crypto-policies
+
 # required because of the rescue mode and VNC question
 Requires: anaconda-tui = %{version}-%{release}
 

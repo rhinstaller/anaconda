@@ -1,0 +1,10 @@
+[Unit]
+# This service sets up the FIPS mode in the installation environment.
+Description=Anaconda FIPS service
+ConditionKernelCommandLine=fips=1
+Before=network.target
+Before=NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/update-crypto-policies --set FIPS

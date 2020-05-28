@@ -28,6 +28,7 @@ dist_systemd_DATA = anaconda.service \
                     anaconda-sshd.service \
                     anaconda-nm-config.service \
                     anaconda-pre.service \
+                    anaconda-fips.service \
                     zram.service
 
 dist_generator_SCRIPTS = anaconda-generator
