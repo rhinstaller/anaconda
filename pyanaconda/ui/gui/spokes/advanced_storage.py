@@ -503,7 +503,7 @@ class FilterSpoke(NormalSpoke):
                       "searchModel", "multipathModel", "otherModel", "zModel", "nvdimmModel"]
     mainWidgetName = "filterWindow"
     uiFile = "spokes/advanced_storage.glade"
-    helpFile = "FilterSpoke.xml"
+    help_id = "AdvancedStorageSpoke"
 
     category = SystemCategory
 

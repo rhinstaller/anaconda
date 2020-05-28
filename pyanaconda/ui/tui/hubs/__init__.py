@@ -18,10 +18,8 @@
 #
 from pyanaconda import lifecycle
 from pyanaconda.ui.tui.tuiobject import TUIObject
-from pyanaconda.ui.lib.help import get_help_path
 from pyanaconda.ui import common
 
-from simpleline.render.adv_widgets import HelpScreen
 from simpleline.render.containers import ListRowContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
@@ -139,9 +137,7 @@ class TUIHub(TUIObject, common.Hub):
             # TRANSLATORS: 'h' to help
             elif key == Prompt.HELP:
                 if self.has_help:
-                    help_path = get_help_path(self.helpFile, True)
-                    ScreenHandler.push_screen_modal(HelpScreen(help_path))
-                    return InputState.PROCESSED_AND_REDRAW
+                    raise NotImplementedError("Help system currently not available in TUI")
             return key
 
     def prompt(self, args=None):

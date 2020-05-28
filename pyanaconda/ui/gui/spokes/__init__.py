@@ -19,7 +19,7 @@
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_call_once
-from pyanaconda.ui.lib.help import start_yelp, get_help_path
+from pyanaconda.ui.lib.help import start_yelp
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -73,7 +73,7 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
     def _on_help_clicked(self, window):
         # the help button has been clicked, start the yelp viewer with
         # content for the current spoke
-        start_yelp(get_help_path(self.helpFile))
+        start_yelp(self.help_id)
 
     def on_back_clicked(self, button):
         # Notify the hub that we're finished.
