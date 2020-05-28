@@ -365,6 +365,49 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 28 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.3-1
+- Convert help system to use help id (mkolman)
+  Related: rhbz#1691319
+- Remove unused constants (mkolman)
+  Related: rhbz#1691319
+- Adjust help related configuration options (mkolman)
+  Related: rhbz#1691319
+- Replace helpFile property with help_id (mkolman)
+  Related: rhbz#1691319
+- Close responses from session.get (vponcova)
+  Related: rhbz#1691319
+- Improve the documentation of the SetUpMountTask class (vponcova)
+  Related: rhbz#1691319
+- Raise an exception if the source's mount point is not unmounted (vponcova)
+  Related: rhbz#1691319
+- Change the default source to CDROM (vponcova)
+  Related: rhbz#1691319
+- Don't set up sources in the refresh method of the Source spoke (vponcova)
+  Related: rhbz#1691319
+- Set up FIPS in the target system (vponcova)
+  Related: rhbz#1800697
+- Update the service anaconda-sshd (vponcova)
+  Related: rhbz#1800697
+- Set up FIPS in the installation environment (vponcova)
+  Resolves: rhbz#1800697
+- Add NFS ISO support back to the NFS SetupSourceTask (jkonecny)
+  Resolves: rhbz#1840346
+- Add NFS ISO support to the NFSSourceModule (jkonencny)
+  Related: rhbz#1840346
+- Fix changelog to keep rhel history (rvykydal)
+  Related: rhbz#1691319
+- Tear down HDD device mount if no valid installation source is found
+  (jkonecny)
+  Related: rhbz#1840346
+- Extract ISO find algorith from harddrive (jkonecny)
+  Related: rhbz#1840346
+- Update required ack in makebumpver script for rhel > 7 (rvykydal)
+  Related: rhbz#1691319
+- Fix string based on translator comments (vslavik)
+  Related: rhbz#1691319
+- subscription: Fix authentication method switching in GUI (mkolman)
+  Related: rhbz#1691319
+
 * Wed May 27 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.2-1
 - subscription: Make sure CDN repos are loaded and usable (mkolman)
   Related: rhbz#1691319
