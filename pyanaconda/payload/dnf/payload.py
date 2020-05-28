@@ -53,7 +53,8 @@ from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     DNF_DEFAULT_SOURCE_TYPE, SOURCE_TYPE_HMC, SOURCE_TYPE_URL, SOURCE_TYPE_CDN, \
-    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES
+    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, \
+    SOURCE_TYPE_CDROM
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.payload import ProxyString, ProxyStringError
@@ -75,7 +76,7 @@ from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadInstallError, PayloadSetupError
-from pyanaconda.payload.image import find_first_iso_image, mountImage
+from pyanaconda.payload.image import find_first_iso_image, mountImage, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
@@ -1512,12 +1513,19 @@ class DNFPayload(Payload):
         log.info("Configuring the base repo")
         self.reset()
 
-        # Set up the source.
-        set_up_sources(self.proxy)
-
         # Find the source and its type.
         source_proxy = self.get_source_proxy()
         source_type = source_proxy.Type
+
+        # Change the default source to CDROM if there is a valid install media.
+        # FIXME: Set up the default source earlier.
+        if checkmount and source_type == DNF_DEFAULT_SOURCE_TYPE and find_optical_install_media():
+            source_type = SOURCE_TYPE_CDROM
+            source_proxy = create_source(source_type)
+            set_source(self.proxy, source_proxy)
+
+        # Set up the source.
+        set_up_sources(self.proxy)
 
         # Read in all the repos from the installation environment, make a note of which
         # are enabled, and then disable them all.  If the user gave us a method, we want
