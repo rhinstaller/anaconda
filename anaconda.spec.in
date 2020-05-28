@@ -385,2688 +385,767 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
   Related: rhbz#1691319
 
 * Mon May 25 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.1-1
+- Change git branch configuration (jkonecny)
+  Related: rhbz#1805757
+- Update translation badge (jkonecny)
+  Related: rhbz#1805757
+- Use rhel-8 weblate translation repository (jkonecny)
+  Resolves: rhbz#1805757
+- Use platform-python instead of python3 (vslavik)
+  Related: rhbz#1691319
+- root spoke gui: do not expose some root account options (eg locking) (rvykydal)
+  Related: rhbz#1691319
+- Modify locking of root defauls for rhel (rvykydal)
+  Related: rhbz#1691319
+- Update required version of blivet (rvykydal)
+  Related: rhbz#1691319
+- Remove tests for --ignorebroken %packages section option (rvykydal)
+  Related: rhbz#1691319
+- Remove support for --ignorebroken %packages option (rvykydal)
+  Related: rhbz#1691319
+- Use F25_Timezone (rvykydal)
+  Related: rhbz#1691319
+- Make sure rhsm.service is running at Anaconda startup (mkolman)
+  Related: rhbz#1691319
+- Replace SimpleQueue with Queue (vponcova)
+  Related: rhbz#1691319
+- Change fedora-welcome to rhel-welcome (bcl)
+  Related: rhbz#1691319
+- Make RHEL the default (fallback) product (vslavik)
+  Related: rhbz#1691319
+- Exclude blivet gui source from rpm_test (rvykydal)
+  Related: rhbz#1691319
+- Exclude dependencies for tests from RHEL-8 (jkonecny)
+  Related: rhbz#1691319
+- Update pykickstart version for rhel (rvykydal)
+  Related: rhbz#1691319
+- Use RHEL8 versions of commands (rvykydal)
+  Related: rhbz#1691319
+- Use RHEL8 kickstart handler (rvykydal)
+  Related: rhbz#1691319
+- Remove kickstart btrfs support (rvykydal)
+  Related: rhbz#1691319
 - Rebase to upstream 33.16 version (rvykydal)
+  Resolves: rhbz#1691319
 
-* Mon May 25 2020 Martin Kolman <mkolman@redhat.com> - 33.16-1
-- subscription: Only require Insights package if subscribed (mkolman)
-- subscription: Do not pass payload to unregister() helper function (mkolman)
-- subscription: Fix typos related to ParseAttachedSubscriptions task (mkolman)
-- subscription: Make sure /etc/yum.repos.d exists (mkolman)
-- subscription: Fix disconnect() for RHSM observer (mkolman)
-- subscription: Fix SystemPurposeData equality checking (mkolman)
-- subscription: Set RHSM configuration before registration attempt (mkolman)
-- subscription: Initial CDN source switching (mkolman)
-- subscription: Fix Insights configuration in GUI (mkolman)
-- subscription: Fix setting username to SubscriptionRequest in GUI (mkolman)
-- Change connection flags for the RHSM private bus (vponcova)
-- Create a proxy of the RHSM Config object for a specific interface (vponcova)
-- Skip the btrfs command if deprecated (vponcova)
-- Use a specific kickstart version in handle-sshpw (vponcova)
-- Avoid concatenation of iso name twice (jkonecny)
-- Do not mount harddrive sources as RO (jkonecny)
-- Fix the access to a DBus proxy of the Subscription module (vponcova)
-- Set up LANG for tests (vponcova)
-- Resolve traceback when HDD ISO is not found (jkonecny)
-- Don't set up the HMC source again (vponcova)
-- Remove the changed property of the Source spoke in GUI (vponcova)
-- Specify the default source type for the DNF payload (vponcova)
-- Support all source types based on repo files (vponcova)
-- Use the closest mirror source in UI (vponcova)
-- Add a new source for the closest mirror (vponcova)
-- Change the description of the repo files source (vponcova)
-- Fix adding to the protected devices list (jkonecny)
-- Remove not used API of dnf payload (jkonecny)
-- Rename GetISOPath to GetIsoPath which is correct API name (jkonecny)
-- Fix python3 requires in spec file (rvykydal)
-- Use the source proxy to get the device name (vponcova)
-- Collect package requirements of the Subscription module (vponcova)
-- Add ignored field to rpm_tests (rvykydal)
-- Require subscription manager on rhel (rvykydal)
-- Remove the property is_iso_mounted (vponcova)
-- Run the set-up tasks of sources with signals enabled (vponcova)
-- Set default url type combobox value (jkonecny)
-- Fix lang_locale_handler have payload property from parents (jkonecny)
-- Remove kickstart sources from GUI (vponcova)
-- Remove kickstart sources from TUI (vponcova)
-- Log the result of the HDD set-up task (vponcova)
-- Always try to unmount the HDD ISO (vponcova)
-- Fix typo resulting to use mirrorlist instead of metalink (jkonecny)
-- Handle DBus errors of the task returned by SetUpSourcesWithTask (vponcova)
-- Remove useless attributes from the class Anaconda (vponcova)
-- Remove kickstart sources from anaconda.py (vponcova)
-- Remove kickstart sources from the class DNFPayload (vponcova)
-- Call nose python module instead of nosetests binary (jkonecny)
-- root spoke: set value of root ssh login checkbox from module (rvykydal)
-- users module: fix check of existence of admin user (rvykydal)
-- Always clear kickstarted status for GUI time&date spoke (vslavik)
-- Always protect CD-ROM devices (vponcova)
-- Fix the DBus task that sets up the SE/HMC source (vponcova)
-- Move lxml test dependency from pip to RPM (jkonecny)
-- subscription: Show data about attached subscriptions (mkolman)
-- Setup RHEL rebuilds to exclude
-  org.fedoraproject.Anaconda.Modules.Subscription (riehecky)
-- Tear down sources before setting new one in SourceSwitchHandler (jkonecny)
-- Remove unused properties from SourceSwitchHandler (jkonecny)
-- Migrate set Closest mirror of SourceSwitchHandler (jkonecny)
-- Migrate set HMC of SourceSwitchHandler to source modules (jkonecny)
-- Migrate set CDROM of SourceSwitchHandler to source modules (jkonecny)
-- Migrate set NFS of SourceSwitchHandler to source modules (jkonecny)
-- Migrate set URL of SourceSwitchhandler to source modules (jkonecny)
-- Implement the DBus methods SetUpSourcesWithTask and TearDownSourcesWithTask
-  (vponcova)
-- Move removal of blivet-gui in rhel upstream (rvykydal)
-- Migrate set HDD of SourceSwitchHandler to source modules (jkonecny)
-- Migrate SourceSwitchHandler to use module for cleanups (jkonecny)
-- Add payload property to SourceSwitchHandler (jkonecny)
-- Avoid imports from blivet.devicefactory (vponcova)
-- Mark kickstart commands of RPM sources as useless (vponcova)
-- Generate kickstart from the Payloads module (vponcova)
+* Fri Mar 13 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.17-1
+- Make sure rhsm.service is running at Anaconda startup (mkolman)
+  Resolves: rhbz#1805266
 
-* Tue May 19 2020 Martin Kolman <mkolman@redhat.com> - 33.15-1
-- Update the bootloader configuration after live installation (javierm)
-- subscription: Registration button sensitivity handling (mkolman)
-- subscription: Make credential checking functions usable in GUI (mkolman)
-- Add exclude to the dependency_solver (jkonecny)
-- Add the method is_complete to the class DNFPayload (vponcova)
-- Add the property source_type to the class DNFPayload (vponcova)
-- Add the method get_source_proxy to the class DNFPayload (vponcova)
-- Fix call to super() with missing parameters (vslavik)
-- Change string according to translator comments (vslavik)
-- Remove gjs dependency exclude which is no more needed with anaconda-live
+* Fri Feb 21 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.16-1
+- Fix crash on single disk selection in GUI (rvykydal)
+  Resolves: rhbz#1805613
+
+* Thu Feb 20 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.15-1
+- Fix installation source switching to/from CDN (mkolman)
+  Resolves: rhbz#1788487
+  Resolves: rhbz#1790383
+  Resolves: rhbz#1791376
+
+* Thu Feb 20 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.14-1
+- Do not allow selecting ignored disk in GUI even if it is the only one
   (rvykydal)
-- Remove sphinx test dependency (jkonecny)
-- Extend the objects for parsing the cmdline installation method (vponcova)
-- Add functions to set up and tear down of DBus sources (vponcova)
-- Switch call of pip3 to python3 -m pip (jkonecny)
-- Move for_publication as second method in sources (jkonecny)
-- Move sources private methods on top of the file (jkonecny)
-- Fix RPMSourceMixin class documentation (jkonecny)
-- Switch MountingSourceBase to MountingSourceMixin (jkonecny)
-- Remove tear_down_with_tasks from MountingSourceBase (jkonecny)
-- Do not implement get_state in MountingSourceBase (jkonecny)
-- Change gui test relative imports to absolute (vslavik)
-- Disable spurious pylint warning (vslavik)
-- Add CDN source (vslavik)
-- Test the DBus method IsNetworkRequired (vponcova)
-- Add the DBus method IsNetworkRequired (vponcova)
-- Detect HTTPS as a protocol that requires the network (michel)
-- Remove unused variable (vslavik)
+  Resolves: rhbz#1786561
 
-* Thu May 14 2020 Martin Kolman <mkolman@redhat.com> - 33.14-1
-- subscription: Hook up state update methods (mkolman)
-- subscription: Make it possible to register/unregister from the GUI (mkolman)
-- subscription: Register & subscribe during automated installation (mkolman)
-- subscription: Add asynchronous registration helper functions (mkolman)
-- subscription: Add IsRegistered property (mkolman)
-- Add functions for DBus sources (vponcova)
-- Implement DeviceName API for CDrom payload source (jkonecny)
-- Return device name from SetUpCdromSourceTask (jkonecny)
-- Add GetISOPath HardDrive payload source API (jkonecny)
-- subscription: Add the ParseAttachedSubscriptionsTask (mkolman)
-- Add new Hard drive source property to tell that iso is used (jkonecny)
-- Change return of SetUpHardDriveSourceTask (jkonecny)
-- Add __repr__ to payload sources (vslavik)
-- Create a DBus proxy of the DNF module (vponcova)
-- Work around pylint 2.5.0 issue with _ in warning id (vslavik)
-- subscription: Add network connectivity check to the Subscription spoke
-  (mkolman)
-- Split find_and_mount_iso_image source helper func (jkonecny)
-- subscription: Add main Subscription spoke structure (mkolman)
-- Add the DBus method ActivatePayload (vponcova)
-- Add the DBus property CreatedPayloads (vponcova)
-- Replace the DBus method GetActivePayload with a property (vponcova)
-- subscription: Add helper functions for Subscription spoke (mkolman)
-- Remove the DBus method IsPayloadSet (vponcova)
-- subscription: Add glade file for Subscription spoke (mkolman)
-- subscription: Simplify system purpose configuration (mkolman)
-- subscription: Implement equality testing for SystemPurposeData (mkolman)
-- subscription: Add check_system_purpose_set() helper function (mkolman)
-- Add generate_repo_configuration for URL payload source (jkonecny)
-- Add gererate_repo_configuration for all mount sources (jkonecny)
-- Add GetRepoConfigurations API for DNF payload (jkonecny)
-- Create ABC class declaring interface for RPM sources (jkonecny)
-- Add the combo box for choosing a LUKS version in the container dialog
-  (#1714120) (vponcova)
-- Use the combo box for choosing a LUKS version only for encrypted devices
-  (vponcova)
-- Provide the LUKS version of the encrypted container (vponcova)
-- Add the function set_container_data (vponcova)
+* Tue Feb 11 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.13-1
+- Disable package download to / /tmp (jkonecny)
+  Resolves: rhbz#1781517
 
-* Thu May 07 2020 Martin Kolman <mkolman@redhat.com> - 33.13-1
-- Remove a missed use of has_source() to fix tests (vslavik)
-- Change string to new format (vslavik)
-- Add DBus property Description for all sources (vslavik)
-- subscription: Add AttachedSubscription DBus structure (mkolman)
-- Pre-select disk initialization mode in TUI (honza.stodola)
-- Remove the HasSource D-Bus function (vslavik)
-- Add kickstart support to URL payload source (jkonecny)
-- Add NFS source kickstart support (jkonecny)
-- Add function to create NFS from components (jkonecny)
-- Move ProxyString to core.payload (jkonecny)
-- Move parse_nfs_url to the new core/payload file (jkonecny)
-- Fail on harddrive --biospart in HDD payload source (jkonecny)
-- Add kickstart support for HDD payload source (jkonecny)
-- Add SE/HMC payload source kickstart support (jkonecny)
-- Add CDROM payload source kickstart support (jkonecny)
-- Pick HMC as the last DNF source when processing KS data (jkonecny)
-- Add DNF module kickstart processing for sources (jkonecny)
-- subscription: Run installation tasks of the Subscription module (mkolman)
-- subscription: Add is_module_available() utility function (mkolman)
-- Ignore the required package dmraid in RHEL (honza.stodola)
-- subscription: Attach subscription task (mkolman)
-- subscription: Add unregistration task (mkolman)
-- Activate the set/remove buttons in the "Select disks and boot loader" window
-  only when a disk is selected (honza.stodola)
-- Properly update UI after removing the boot device (honza.stodola)
-- Do not offer disk selection when encrypting existing partition
-  (honza.stodola)
-- Destroy the disk selection dialog on escape (honza.stodola)
-- Add the DBus method GetModules to the Boss service (vponcova)
-- subscription: Fix registration tasks docstring typo (mkolman)
-- Add payload source __repr__ support to improve logging (jkonecny)
-- Fix calling payloads service with empty kickstart (jkonecny)
-- Rename check_set_sources to set_and_check_sources (jkonecny)
-- Create two parts of the set_check_sources payload test (jkonecny)
-- Add payload base add_source() module scope API (jkonecny)
-- Fix payload log message (jkonecny)
-- Add new commands for DNF payload recognition (jkonecny)
-- Disable %%packages from DNF module (jkonecny)
-- Add new supported sources to DNF payload (jkonecny)
-- Add kickstart commands for DNF payload (jkonecny)
-- Use new F33 Repo command from pykickstart (jkonecny)
-- subscription: Add subscription related package requirements (mkolman)
-- subscription: Add registration tasks (mkolman)
-- subscription: Add RegistrationError exception (mkolman)
-- network: don't try to use DeviceConfigurations on live cd (#1827999)
-  (rvykydal)
-- subscription: Add TransferSubscriptionTokensTask (mkolman)
-- subscription: Add RestoreRHSMLogLevelTask (mkolman)
-
-* Wed Apr 29 2020 Martin Kolman <mkolman@redhat.com> - 33.12-1
-- Add tests for ReadKickstart (vponcova)
-- Remove pyanaconda.storage (vponcova)
-- Move the initialization functions from pyanaconda.storage (vponcova)
-- Move create_storage from pyanaconda.storage (vponcova)
-- Move the model from pyanaconda.storage (vponcova)
-- Move the utils from pyanaconda.storage (vponcova)
-- Move the installation functions from pyanaconda.storage (vponcova)
-- Move the storage checker from pyanaconda.storage (vponcova)
-- Move pyanaconda.platform (vponcova)
-- Move PartSpec from pyanaconda.storage (vponcova)
-- Don't use pyanaconda.platform in UI (vponcova)
-- Separate the "Reset All" button from the edge of the screen (honza.stodola)
-- Fix the warning messages from ReadKickstart (vponcova)
-- Unify module source test variable names (vslavik)
-- Add resolv.conf to log-capture (riehecky)
-- Reload NTP server list in dialog on every run (vslavik)
-- Fix the line number in the kickstart message data (vponcova)
-- Remove TODO to solve is_ready for payload sources (jkonecny)
-- Use the new task class with the harddrive source (vslavik)
-- Detect the live OS image automatically (vponcova)
-- Add constants for the source types (vponcova)
-- Exclude liveimg from the kickstart command method (vponcova)
-- Access the kickstart command liveimg directly (vponcova)
-- Create a base class for live payloads (vponcova)
-- Remove pyanaconda.payload.livepayload (vponcova)
-- Run %%onerror and %%traceback scripts for all types of exceptions (vponcova)
-- gui source spoke: fix the key used to check proxy for additional repo
-  (rvykydal)
-- Respect changesok password policy for root password (#1584145) (rvykydal)
-- rootpw gui: make root spoke insensitive if rootpw is set in ks (#1584145)
-  (rvykydal)
-- subscription: RHSM runtime configuration support (mkolman)
-- Move the bootloader-related code to the module (vponcova)
-- Add the is_ready method to the Payload class (vponcova)
-- Rename NOT_SUPPORTED to NOT_APPLICABLE (jkonecny)
-- subscription: Add missing declaration for rhsm_observer property (mkolman)
-- subscription: Fixup a docstring (mkolman)
-- Remove payload tests for empty sources (jkonecny)
-- Improve HDD payload source test (jkonecny)
-- Change tests for new payload ready states (jkonecny)
-- Use new source states in payload sources (jkonecny)
-- Create source state enum (jkonecny)
-- date time gui: no empty space in combo for day and month selection (#1823130)
-  (rvykydal)
-- Reset the partitioning of Blivet-GUI (#1826286) (vponcova)
-- Remove the logic with sources from the network standalone spoke (vponcova)
-- Move remaining DNF-related code to the DNF payload (vponcova)
-- subscription: Add SystemPurposeConfigurationTask (mkolman)
-- Rename payload source is_ready to get_state (jkonecny)
-- Remove the tip about the user name (#1823015) (vponcova)
-- Add payload base tests (jkonecny)
-- Improve payload shared test source creation (jkonecny)
-- Fix exception string when incompatible payload source (jkonecny)
-- Translate names of OS installations on demand (#1823126) (vponcova)
-- subscription: Add helper function to SystemPurposeData DBus structure
-  (mkolman)
-- network tui: fix getting of network device configurations (#1823011)
-  (rvykydal)
-
-* Tue Apr 21 2020 Martin Kolman <mkolman@redhat.com> - 33.11-1
-- Reset the partitioning of Blivet-GUI (#1826286) (vponcova)
-- Fix the validation of a device label (#1823221) (vponcova)
-- Use the new base classes in sources (vslavik)
-- Add base classes for mounting sources (vslavik)
-- Add test if the spokes ordering is correct (jkonecny)
-- Fix ordering of spokes with the same priority (jkonecny)
-- Fix TUI Kernel and Unsupported HW spokes ordering (jkonecny)
-- Switch collecting & ordering action classes to static (jkonecny)
-- Add TUI/GUI tests for standalone spokes priority (jkonecny)
-- Use join_paths instead of os.path.join in sources (vslavik)
-- Get ui/__init__.py closer to pep8 (jkonecny)
-- Allow to remove incomplete devices (#1823232) (vponcova)
-- subscription: RHSMObserver & StartRHSMTask (mkolman)
-- Make sure that the summary button is really hidden (#1823467) (vponcova)
-- Use default priority in the GUI spokes (jkonecny)
-- Fix TUI spokes priorities (jkonecny)
-- Add back default priority for standalone spokes (jkonecny)
-- subscription: Add initial RHSM DBus API identifiers (mkolman)
-- Install scripts at /usr/bin (vponcova)
-- Remove mock from the test dependencies (vponcova)
-- Install test dependencies from pip when possible (vponcova)
-- Fix the indentation of the test dependencies (vponcova)
-- Expand the selector with swap (#1823127) (vponcova)
-- Fix default value for pwpolicy emptyok (#1664704) (mkolman)
-- Only quit GTK mainloop on GUI quit request (#1643111) (mkolman)
-- Print correct message if no linux partitions were found in rescue mode
-  (#1823222) (honza.stodola)
-- Use black color for errors in bottom bar (#1823004) (honza.stodola)
-
-* Thu Apr 16 2020 Martin Kolman <mkolman@redhat.com> - 33.10-1
-- subscription: Implement install_with_tasks() method (mkolman)
-- subscription: Add the IsSubscriptionAttached property (mkolman)
-- subscription: Add ConnectToInsights task (mkolman)
-- Create product configuration files for Red Hat Virtualization (vponcova)
-- Create the configuration section Storage Constraints (vponcova)
-- Extend tests for the default storage checker (vponcova)
-- Represent the constraint STORAGE_MIN_RAM by an instance of Size (vponcova)
-- Remove the constraint STORAGE_MIN_ROOT (vponcova)
-- Extend support for custom storage checking (vponcova)
-- Add a new type of the default partitioning for virtualizations (vponcova)
-- Add the configuration option default_scheme (vponcova)
-- Add the configuration option help_directory (vponcova)
-- Accept `harddrive --dir` without absolute paths (jkonecny)
-- Make the kickstart support for the btrfs command optional (vponcova)
-- Fix non-root dir of install tree HD installation (#1689194) (jkonecny)
-- subscription: Add missing pieces for the Subscription DBus module (mkolman)
-- Add UI support for the ZIPL Secure boot (vponcova)
-- Add DBus support for the ZIPL Secure Boot (vponcova)
-- Add code convention to prefer join_paths over os.path.join (jkonecny)
-- Add helper function force_path_join (jkonecny)
-- Fix get anaconda version test after test file rename (vponcova)
-- Rename iutil_test to util_test (jkonecny)
-
-* Wed Apr 08 2020 Martin Kolman <mkolman@redhat.com> - 33.9-1
-- Fix bad import of general errors (jkonecny)
-- Improve code convention code formatting (jkonecny)
-
-* Wed Apr 08 2020 Martin Kolman <mkolman@redhat.com> - 33.8-1
-- Fix the indentation of false positives (vponcova)
-- Don't try to format FBA DASD devices (#1715303) (vponcova)
-- Disable the SMT warning by default (vponcova)
-- Detect and warn if SMT is enabled (#1684056) (vponcova)
-- Use constants to check the type of the payload object (#1820418) (vponcova)
-- Provide the DBus types of the payloads (vponcova)
-- Add Harddrive (HDD, HDISO) source (vslavik)
-- Add utility functions for sources (vslavik)
-- subscription: SubscriptionRequest DBus structure (mkolman)
-- Remove the abstraction for the event loop (vponcova)
-- Upgrade findFirstIsoImage (vslavik)
-- Make sure that all Anaconda's DBus errors are registered (vponcova)
-- Remove the mapping to a DBus error for KickstartError (vponcova)
-- Don't use the default error register (vponcova)
-- Set new repo configuration after validation is done (jkonecny)
-- Add packaging constrains to URL payload source (jkonecny)
-- Add repo cost to the URL payload source (jkonecny)
-- Add proxy url to URL payload source (jkonecny)
-- Add ssl configuration structure to URL payload source (jkonecny)
-- Add ssl verification flag to URL payload source (jkonecny)
-- Add Name to the URL payload source (jkonecny)
-- Add URL repo configuration to the url source (jkonecny)
-- Add empty repository configuration DBus structure (jkonecny)
-- Add install_repo_enabled flag to URL payload source (jkonecny)
-- Add tests for set up and tear down for url source (jkonecny)
-- Add is_ready tests for URL source module (jkonecny)
-- Add simple tests for a new URL payload source (jkonecny)
-- Add payload URL source base structure (jkonecny)
-
-* Fri Apr 03 2020 Martin Kolman <mkolman@redhat.com> - 33.7-1
-- Don't clear errors by expanding pages in the custom spoke (vponcova)
-- Fix the permission for changing a mount point (#1818500) (vponcova)
-- Allow to use an existing unlocked LUKS in one special case (#1772902)
-  (vponcova)
-- Fix the encryption checkbox in the custom spoke (#1819360) (vponcova)
-- Don't manually trigger a device encryption change (vponcova)
-
-* Thu Apr 02 2020 Martin Kolman <mkolman@redhat.com> - 33.6-1
-- Fix the test for complex data with secrets (vponcova)
-- Update generate_request_description (vponcova)
-- Add support for secrets in DBus structures (vponcova)
-- Rename _test_dbus_property to _check_dbus_property (jkonecny)
-- Fix text color on info bars (mkolman)
-- Add NFS source (vslavik)
-
-* Tue Mar 31 2020 Martin Kolman <mkolman@redhat.com> - 33.5-1
-- Don't call the DBus method IsNodeFromIbft from the Storage module (#1817529)
-  (vponcova)
-- Use the right partitioning method in the storage spoke (vponcova)
-- Improve logging of storage spokes in GUI and TUI (vponcova)
-- Don't log an empty string (vponcova)
-- Handle translation of an empty string in widgets (#1815461) (vponcova)
-- Replace lambda by partial (jkonecny)
-- Implement updating changed Anaconda files in a mock (jkonecny)
-- Add possibility to add/remove specific dir in mock (jkonecny)
-- Remove prepare parameter disable when running tests (jkonecny)
-- Add missing arguments from the main command check (jkonecny)
-- Move check for required setup-mock commands (jkonecny)
-- Simplify test calling in setup-mock-test-env script (jkonecny)
-- storage gui: keep expanded mountpoints info on actions in UI by default
-  (#1210944) (rvykydal)
-- Support updating Anaconda files in the mock (jkonecny)
-- Handle invalid disk selection (vponcova)
-- Set up advanced storage on the right device tree (#1812561) (vponcova)
-- Remove storage tests (jkonecny)
-- Use the right field of DiskStoreRow (#1816256) (vponcova)
-- Add Repo files source (vslavik)
-- Clean up and rename parseNfsUrl (vslavik)
-- Do not show quarterly release part of the version in UI. (rvykydal)
-- Add license to the __main__.py file for DBus modules (mkolman)
-- Pass nosmt boot option to installed system (rvykydal)
-- Adapt makebumpver to rhel-devel -> rhel-8 branch renaming. (rvykydal)
-- Revert "Fix PR tests with mock version 2" (jkonecny)
-- Remove the class PackagePayload (vponcova)
-- Remove pyanaconda.payload.dnfpayload (vponcova)
-- Improve help of dd_extract tool (jkonecny)
-- Add missing period in iscsi login failure message. (rvykydal)
-- Rename add-ons to additional software (#1674011) (rvykydal)
-- Fix dd test RPM generation with binary files (jkonecny)
-- Enable back skipped DD test (jkonecny)
-- Fix translation of one nvdimm related GUI string (rvykydal)
-- Fix memory leak in utils (yubihong)
-- Fix code formatting of DUD tests (jkonecny)
-- Fix dud test names (jkonecny)
-- Small optimization in setup-mock-test-env script (jkonecny)
-- Fix setup-test-env for other than pyanaconda tests (jkonecny)
-- Create pyanaconda.payload.dnf (vponcova)
-- Create pyanaconda.payload.__init__ (vponcova)
-- Rename pyanaconda.payload.__init__ (vponcova)
-- subscription: add system purpose support (mkolman)
-- subscription: run Subscription module on RHEL (mkolman)
-- subscription: add initial subscription module structure (mkolman)
-- Wrap iscsi login error messages in GUI (#1811382) (rvykydal)
-- Add tests for CD-ROM source (vslavik)
-- Add CD-ROM source (vslavik)
-- Add tests for the new utils file (vslavik)
-- Move verifyMedia to sources as is_valid_install_disk (vslavik)
-- Add the DBus module for SE/HMC (vponcova)
-- Don't return anything from setup_kickstart (vponcova)
-- Fix fd leak while fchmod failed (yubihong)
-
-* Tue Mar 17 2020 Martin Kolman <mkolman@redhat.com> - 33.4-1
-- Remove the configuration of the Blivet's logger (vponcova)
-- Support logging of Anaconda DBus modules to files (#1812380) (vponcova)
-- Fix a typo in s390 znet options configuration (rvykydal)
-- Remove empty lines at the test source file (jkonecny)
-- Source type is already tested by Interface (jkonecny)
-- Remove the logging from the method process_kickstart (vponcova)
-- Don't override the method generate_kickstart (vponcova)
-- Show the help again (#1812896) (vponcova)
-- gui: make description column of disk list resizable (#1530410) (rvykydal)
-- gui: add tooltip to descriptions in disk list (#1530410) (rvykydal)
-- gui: ellipsize description in disk list (#1530410) (rvykydal)
-- Fix '\' is correctly forwarded by udev rules (jkonecny)
-- Add debug print to dracut driver_updates (jkonecny)
-- Escape spaces in dracut partition specifications (bcl)
-- Rename the file with unit tests for the Payloads module (vponcova)
-- Split the code for the source and payload factories (vponcova)
-- Remove BaseFactory (vponcova)
-- Simplify kickstart processing in the Payloads module (vponcova)
-- Replace stat.ST_SIZE by .st_size (jkonecny)
-- Module backport to better handling of sparse images (jkonecny)
-- Avoid downloading payload image in set up phase (jkonecny)
-- Add fallbacks for the source and payload factories (vponcova)
-- Test the source and payload factories for all types (vponcova)
-- Rename the file with unit tests for the Live OS module (vponcova)
-- Test the LVM storage check. (vslavik)
-- Verify that LVM destruction is orderly (vslavik)
-- Don't set up the locale if none is selected (#1649956) (vponcova)
-- network: fix crash during connections consolidation (#1811649) (rvykydal)
-- Execute a kickstarted partitioning (#1811242) (vponcova)
-- Remove extra quotes from the doc strings (vponcova)
-- Remove unused code (vponcova)
-- Remove dead dracut code (jkonecny)
-- Set liveimg min_size to be x3 the real size (yturgema)
-
-* Mon Mar 09 2020 Martin Kolman <mkolman@redhat.com> - 33.3-1
-- Fix typos, comments and style in the storage-related code (vponcova)
-- Don't add None values to a combo box (#1810679) (vponcova)
-- Fix the unit tests for BTRFS (vponcova)
-- Adjust documentation for new localization solution (jkonecny)
-- Check pykickstart imports are correct in branching (jkonecny)
-- Be able to disable correct branch in check-branching (jkonecny)
-- Add check for branch setting (jkonecny)
-- Add localization branch testing (jkonecny)
-- Move functions to pyanaconda.core.storage (vponcova)
-- Move functions to pyanaconda.ui.lib.storage (vponcova)
-- Update action buttons only for the selected row (vponcova)
-- Fix action buttons in the resize dialog (#1809950) (vponcova)
-- Add branch specific configuration to a separate file (jkonecny)
-- Always use the Anaconda's kickstart version (vponcova)
-- Remove the Baz module (vponcova)
-- Add small badges for Read the Docs and translations (vponcova)
-- Remove the temporary workaround for StorageError (vponcova)
-- Remove the error handler from the storage-related code (vponcova)
-- Handle storage installation errors (vponcova)
-- Remove the handler for FSTabTypeMismatchError (vponcova)
-- Handle ZIPL errors as a bootloader installation error (vponcova)
-- Remove the handler for NoDisksError (vponcova)
-- Remove the handler for PartitioningError (vponcova)
-- Handle the unusable storage module in UI (#1808650) (vponcova)
-- Don't mention new-kernel-pkg anymore in /etc/sysconfig/kernel (rvykydal)
-- Don't print warnings for new-kernel-pkg not being present (javierm)
-- Handle the unusable storage module in the DBus Storage module (vponcova)
-- network: add network module tests for installation tasks (rvykydal)
-- Fix incorrect docstrings (vslavik)
-- Use the latest kernel version list (#1807252) (vponcova)
-- Check free space in the correct device tree (#1807339) (vponcova)
-- Change log-capture script date to remove `:` symbol (jkonecny)
-- Add missing logs to the log-capture utility (jkonecny)
-
-* Tue Mar 03 2020 Martin Kolman <mkolman@redhat.com> - 33.2-1
-- prefixdevname: add to unit tests (rvykydal)
-- prefixdevname: pass persistent configuration to installed system (rvykydal)
-- Add L10N dir constant to makefile (jkonecny)
-- Remove auto-discover of git branch (jkonecny)
-- Adapt Makefile to new L10N repository structure (jkonecny)
-- prefixdevname: pass net.ifnames.prefix option to installed system (rvykydal)
-- prefixdevname: install package to target system if needed (rvykydal)
-- prefixdevname: import state from initramfs to stage 2 (rvykydal)
-- Handle invalid optical install media (#1806520) (vponcova)
-- Start live CD with explicit GUI (#1765650) (vslavik)
+* Thu Feb 06 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.12-1
 - network: fix GUI crash on invalid devices in the list (rvykydal)
-- Add translation badge (vslavik)
-- Remove -devel and -release for L10N repository (jkonecny)
-- Use git url instead of http for pot files creation (jkonecny)
-- Fix documentation changes in release.rst (jkonecny)
-- Ignore the required package btrfs-progs in RHEL (vponcova)
+  Resolves: rhbz#1697256
 
-* Mon Feb 24 2020 Martin Kolman <mkolman@redhat.com> - 33.1-1
-- Fix the multiselection in the custom spoke (vponcova)
-- Handle installation errors from DBus tasks (vponcova)
-- Wait for entropy in the DBus Storage module (vponcova)
-- Don't remove unknown devices (#1806233) (vponcova)
-- Call GetFormatData instead of GetFormatTypeData (vponcova)
-- Show progress messages from DBus tasks (vponcova)
-- Report Blivet's messages during the storage installation (vponcova)
-- Handle a failed bootloader installation (#1806103) (vponcova)
-- Fix the exit handler (#1805916) (vponcova)
-- Add DBus methods GetDeviceMountOptions and SetDeviceMountOptions (vponcova)
-- Don't show the disk free space in bytes (vponcova)
-- Fix the default disk selection (#1805553) (vponcova)
+* Mon Feb 03 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.11-1
+- Fix DBus error detection (mkolman)
+  Related: rhbz#1794767
+- Make sure RHSM HTTP proxy port from kickstart is an integer (mkolman)
+  Resolves: rhbz#1794025
 
-* Thu Feb 20 2020 Martin Kolman <mkolman@redhat.com> - 32.24-1
-- Initialize disks in interactive and Blivet partitioning modules (vponcova)
-- Fix the function get_device_partitions (vponcova)
-- Fix the function unlock_device (vponcova)
-- Apply extra arguments before the bootloader installation (vponcova)
-- Remove configure_storage (vponcova)
-- Remove the support for resetting the custom storage data (vponcova)
-- Remove the support for on-disk snapshots of storage (vponcova)
-- Remove collect_selected_disks (vponcova)
-- Remove the local storage object from the custom spoke (vponcova)
-- Remove the local storage object from the custom storage helpers (vponcova)
-- Update the storage model of device tree modules (vponcova)
-- Use the exception DeviceSetupError (vponcova)
-- Change the task MountExistingSystemTask (vponcova)
-- Change the task AddDeviceTask (vponcova)
-- Extend the task ChangeDeviceTask (vponcova)
-- Add the container specification to the device factory request (vponcova)
-- Extend the DBus method ValidateContainerName (vponcova)
-- Add the DBus method UpdateContainerData (vponcova)
-- Add the DBus method GenerateContainerData (vponcova)
-- Add the DBus method GenerateContainerName (vponcova)
-- Add the method reset_container_data to the device factory request (vponcova)
-- Add the DBus method GetContainerFreeSpace (vponcova)
-- Add the DBus method CollectContainers (vponcova)
-- Add permissions for changing the container (vponcova)
-- Filter unsupported disklabel devices (vponcova)
-- Add the DBus method IsDeviceEditable (vponcova)
-- Add the DBus method CheckCompleteness (vponcova)
-- Add the DBus method IsDeviceLocked (vponcova)
-- Add a new permission for changing a list of disks (vponcova)
-- Update the permission for the device encryption (vponcova)
-- Add the DBus method ResetDevice (vponcova)
-- Add the DBus method DestroyDevice (vponcova)
-- Add the DBus method SchedulePartitionsWithTask (vponcova)
-- Remove the local storage object from the accordion (vponcova)
-- Remove the local storage object from the source spoke in GUI (vponcova)
-- TUI: Use get_hdiso_source_description (vponcova)
-- Remove the local storage object from the storage spoke (vponcova)
-- Remove the local storage object from the advanced storage spoke (vponcova)
-- Use the Blivet partitioning module in Blivet-GUI (vponcova)
-- Remove the local storage object from the resize dialog (vponcova)
-- Remove the local storage object from the action dialog (vponcova)
-- Extend the class DeviceActionData (vponcova)
-- Remove the local storage object from the selected disks dialog (vponcova)
-- Remove the local storage object from the refresh dialog (vponcova)
-- Remove the local storage object from dialogs for specialized disks (vponcova)
-- Remove the local storage object from run_installation (vponcova)
-- Remove the local storage object from FileSystemSpaceChecker (vponcova)
-- TUI: Use create_partitioning (vponcova)
-- TUI: Extend apply_disk_selection (vponcova)
-- TUI: Simplify default disk selection in Storage spoke (vponcova)
-- Move is_local_disk to pyanaconda.ui.lib (vponcova)
-- Use apply_partitioning from pyanaconda.ui.lib (vponcova)
-- Move try_populate_devicetree to pyanaconda.ui.lib (vponcova)
-- Move the UI support for device protection to pyanaconda.ui.lib (vponcova)
-- Move get_disks_summary to pyanaconda.ui.lib (vponcova)
-- Move apply_disk_selection to pyanaconda.ui.lib (vponcova)
-- Move the UI support for storage initizalization to pyanaconda.ui.lib
-  (vponcova)
-- Remove the storage argument from the storage initialization (vponcova)
-- Move the UI support for DASD formatting to pyanaconda.ui.lib (vponcova)
-- Remove the storage and data arguments from DasdFormatting (vponcova)
-- Add the function find_partitioning (vponcova)
-- Remove the static partitioning modules (vponcova)
-- Remove the Enabled property from the partitioning modules (vponcova)
-- Mark storage kickstart commands as useless (vponcova)
-- Remove the UI workaround for storage kickstart data (vponcova)
-- Remove the UI code for the storage configuration (vponcova)
-- Remove the local storage object from TUI (vponcova)
-- Don't use the local storage object in storage utils (vponcova)
-- Don't use the local storage object for the installation (vponcova)
-- Don't use the local storage object for formatting DASDs from UI (vponcova)
-- Remove automatic push of pot files during release (jkonecny)
-- Remove zanata from release.rst (jkonecny)
-- Remove deprecated translations.txt document (jkonecny)
-- Update Readme link to translation project (jkonecny)
-- Remove Zanata from translation canary (jkonecny)
-- Remove zanata from setup test env scripts (jkonecny)
-- Remove zanata from makebumpver (jkonecny)
-- Remove zanata configuration file (jkonecny)
-- Remove Zanata from po/Makefile (jkonecny)
-- Remove zanata from Makefile (jkonecny)
-- Remove unnecessary sed from configure.ac (jkonecny)
-- Use l10n repository for pushing changed pot file (jkonecny)
-- Pull po files from our l10n repo instead of Zanata (jkonecny)
-- Offer only supported sector sizes in NVDIMM reconfiguration dialog (rvykydal)
-- Fix PR tests with mock version 2 (jkonecny)
-- Don't use the local storage object for the storage initialization (vponcova)
-- Don't use device objects in the payload classes (vponcova)
-- Remove the attribute for storage from the payload classes (vponcova)
-- Don't use local storage objects in the image utils (vponcova)
-- Don't use the local storage objects in the payload utils (vponcova)
-- Run a DBus task to create the pre-installation snapshot (vponcova)
-- Don't set up the local storage checker object (vponcova)
-- Don't use the local storage object during the start of anaconda (vponcova)
-- Remove the local storage object from the rescue mode (vponcova)
-- Don't use the local storage object to initialize time (vponcova)
-- Don't reset the local storage object (vponcova)
-- Don't create the local storage object (vponcova)
-- Don't modify the list of device names (vponcova)
+* Thu Jan 23 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.10-1
+- Log exceptions raised in subscription data fetching method (mkolman)
+  Related: rhbz#1788036
+- Fix subscription status not being displayed in some cases (mkolman)
+  Resolves: rhbz#1788036
+- Make sure syspurpose is set before registration in GUI (mkolman)
+  Resolves: rhbz#1788207
+  Related: rhbz#1788036
+- Update pep8speaks checker configuration for the branch (rvykydal)
+  Related: rhbz#1788036
 
-* Thu Feb 13 2020 Martin Kolman <mkolman@redhat.com> - 32.23-1
-- Test kickstart warnings from modules (vslavik)
-- Use kickstart parsing warnings coming from boss (vslavik)
-- Log kickstart warnings in modules (vslavik)
-- Disable package download to / /tmp (#1781517) (jkonecny)
-- Handle the variant in SetConstraint (vponcova)
-- Handle the variant from GetResult (#1798392) (vponcova)
-- Fix the function _del_xdg_runtime_dir (vponcova)
-- Do not crash on adding fcoe device in gui when there are no nics (#1798402)
-  (rvykydal)
-- Fix checking of network device type in Add FCoE gui dialog (#1798876)
-  (rvykydal)
-- Use check_task_creation_task in timezone tests (rvykydal)
-- Move timezone setup kickstart method to dbus module (rvykydal)
-- Do not restart NTP service during its installation (rvykydal)
-- Add fixme to ntp from dhcp setting (rvykydal)
-- Change "not...in" to "...not in" (vslavik)
-- Line length fixes (PEP8) + typos (vslavik)
-- Add the DBus method GenerateDeviceFactoryPermissions (vponcova)
-- Generate the device factory permissions (vponcova)
-- Add the DBus structure DeviceFactoryPermissions (vponcova)
-- Move the class DeviceFactoryRequest to a new file (vponcova)
-- Set up the environment for pylint (vponcova)
-- Unify geoloc logging and enable/disable decision logic (vslavik)
-- Disable geoloc by opts.geoloc instead of kernel cmdline (vslavik)
-- Add a fallback for a disk of the live device (vponcova)
-- If no usable boot drive is found, raise an exception (vponcova)
+* Thu Jan 16 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.9-1
+- Fix RHSM HTTP proxy configuration clearing (mkolman)
+  Resolves: rhbz#1789814
+- Add scrolling for the registration tab (mkolman)
+  Resolves: rhbz#1788422
 
-* Mon Feb 03 2020 Martin Kolman <mkolman@redhat.com> - 32.22-1
-- Don't set the device names (#1797274) (vponcova)
-- Fix line spacing in UI (vslavik)
-- Fix line spacing in pyanaconda (vslavik)
-- Extend the start-module script (vponcova)
-- Remove start() from pylint defining attrs methods (jkonecny)
-- Refactor pylintrc file a bit (jkonecny)
-- Remove pylint CVS ignore directory (jkonecny)
-- Add TODO to enable C and R in pylint (jkonecny)
-- Remove bad-option-value disables from pylint (jkonecny)
-- Add TODO for future work (jkonecny)
-- Remove use of eval from pylint disabled (jkonecny)
-- Ignore attributes of Namespace class (jkonecny)
-- Fix GError message False positive (jkonecny)
-- Move unnecessary pass statement from false positives (jkonecny)
-- Add mock to the list of pylint deprecated modules (jkonecny)
-- Fix pylint errors (jkonecny)
-- Adapt runpylint to use pocketlint replacement (jkonecny)
-- Add pylint censorship - replacement of pocketlint (jkonecny)
+* Thu Jan 09 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.8-1
+- Fix output kickstart generation for subscription commands (mkolman)
+  Resolves: rhbz#1788579
+  Resolves: rhbz#1788513
+- Fix GTK access from subscription thread (mkolman)
+  Resolves: rhbz#1787615
 
-* Wed Jan 29 2020 Martin Kolman <mkolman@redhat.com> - 32.21-1
-- Add the path-id attribute to the DBus structure for device data (vponcova)
-- Use id_path as a long identifier of a disk (vponcova)
-- Migrate authselect to dbus tasks (mkolman)
-- Remove pyanaconda.flags.cmdline and KernelArguments.getbool() (vslavik)
-- Remove duplicated definition of PayloadContainer (vslavik)
-- Fix typos in docstrings (vslavik)
-- Fix setup-mock-test-env with multiple test commands (jkonecny)
-- Add support to run pylint only check (jkonecny)
-- Fix most of pep8 issues in pyanaconda/modules subfolder (rvykydal)
-- Convert VG reserved_space to Size (vtrefny)
-- Do not set default fstype for blivet-gui (vtrefny)
+* Mon Jan 06 2020 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.7-1
+- Fix branding in the Connect to Red Hat spoke (mkolman)
+  Resolves: rhbz#1787342
 
-* Mon Jan 20 2020 Martin Kolman <mkolman@redhat.com> - 32.20-1
-- Add the DBus method ChangeDevice (vponcova)
-- Add the task ChangeDeviceTask (vponcova)
-- Add pep8 check (rvykydal)
-- Fix max-line-length setting for pep8speaks (rvykydal)
-- Extend PayloadFactory tests (jkonecny)
-- Add test for payload type DBus API (jkonecny)
-- Rename payload shared testing objects (jkonecny)
-- Add type property to payloads (jkonecny)
-- Rename payload dnf tests to packages tests (jkonecny)
-- Add FIXME/TODO about GetActivePayload (jkonecny)
-- Move Publishable to PayloadBase (jkonecny)
-- Adapt tests to a new Payload publishing (jkonecny)
-- Generate %%packages only when DNF module was used (jkonecny)
-- Fix payloads shared testing class (jkonecny)
-- Move payload Packages kickstart processing to Payloads (jkonecny)
-- Change GetActivePayloadPath to GetActivePayload (jkonecny)
-- Publish payload instead of payload path (jkonecny)
-- Change payloads objects to interfaces (jkonecny)
-- Migrate LiveOS payload to dynamic publishing (jkonecny)
-- Migrate LiveImage payload to dynamic publishing (jkonecny)
-- Migrate DNF payload for dynamic publishing (jkonecny)
-- Use container to publish payloads (jkonecny)
-- Add payload container (jkonecny)
-- Rename PAYLOAD_BASE to PAYLOAD (jkonecny)
-- Remove unnecessary space (jkonecny)
-- Remove DNF DBus namespace (jkonecny)
-- Move Packages module publishing to Payloads service (jkonecny)
-- Move payload packages out of DNF module (jkonecny)
-- Add basic configuration for pep8speaks github app (rvykydal)
-- Be more strict when checking for mounted dvd source (rvykydal)
-- Protect cdroms during tree population for image installs (rvykydal)
-- Finish code conventions rules migration to upstream (jkonecny)
-- Require new pykickstart version (jkonecny)
-- Revert "Revert "Fix Timezone pykickstart command version"" (jkonecny)
-- Add the task AddDeviceTask (vponcova)
-- Add the DBus method ValidateDeviceFactoryRequest (vponcova)
-- Add the DBus field 'reformat' to the device factory request (vponcova)
-- Add the DBus method GetDeviceTypesForDevice (vponcova)
-- Add the DBus method GetFileSystemsForDevice (vponcova)
-- Add the DBus method GetRawDevice (vponcova)
-- Add the DBus method GenerateDeviceName (vponcova)
-- Add the DBus method GetDefaultLUKSVersion (vponcova)
-- Add the DBus method GenerateDeviceFactoryRequest (vponcova)
-- Add the DBus method ValidateRaidLevel (vponcova)
-- Add the DBus method ValidateContainerName (vponcova)
-- Add the DBus method AddDevice (vponcova)
-- Add the DBus method ValidateMountPoint (vponcova)
-- Add the DBus method CollectUnusedMountPoints (vponcova)
-- Add the DBus method GetSupportedRaidLevels (vponcova)
-- Add the DBus method GetDefaultFileSystem (vponcova)
-- Add the DBus method CollectSupportedSystems (vponcova)
-- Add the DBus method GetDiskTotalSpace (vponcova)
-- Add the DBus method CollectBootLoaderDevices (vponcova)
-- Add the DBus method CollectUnusedDevices (vponcova)
-- Add the DBus method CollectNewDevices (vponcova)
-- Add the DBus method GetPartitioned (vponcova)
-- Add the DBus method GenerateSystemData (vponcova)
-- Add the DBus method GenerateSystemName (vponcova)
-- Create the device tree scheduler (vponcova)
-- Always create and publish the DASD and ZFCP modules (vponcova)
-- Add the DBus method IsSupported to the zFCP module (vponcova)
-- Add the DBus method IsSupported to the NVDIMM module (vponcova)
-- Add the DBus method IsSupported to the DASD module (vponcova)
-- Add the DBus method IsSupported to the iSCSI module (vponcova)
-- Add the DBus method IsSupported to the FCoE module (vponcova)
-- Allow arch filtering for comps (jmracek)
-- Remove duplicated exception handler usage (vslavik)
+* Fri Dec 13 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.6-1
+- Fix RHSM HTTP proxy setup (mkolman)
+  Related: rhbz#1748281
+- Fix text color on info bars (mkolman)
+  Resolves: rhbz#1782174
 
-* Mon Jan 13 2020 Martin Kolman <mkolman@redhat.com> - 32.19-1
-- Revert "Fix Timezone pykickstart command version" (vponcova)
-- Improve payload packages test for languages (jkonecny)
-- Update payload Packages properties tests (jkonecny)
-- Update payload LiveImage properties tests (jkonecny)
-- Fix Timezone pykickstart command version (jkonecny)
-- Fix failed tests introduced by merging multiple PRs (jkonecny)
-- Clean up for PEP257, PEP8, etc. in localization and its tests (vslavik)
-- Add tests for the rewritten localization module (vslavik)
-- Fix wrong code in localization found while writing tests (vslavik)
-- Remove parse_langcode(), LANGCODE_RE, and associated tests (vslavik)
-- Fix dosctrings by removing mentions of LANGCODE_RE (vslavik)
-- Replace remaining uses of parse_langcode by langtable's parsing (vslavik)
-- Add and use a convenience function to get language id (vslavik)
-- Add and use a mechanism for aborting early with invalid locale (vslavik)
-- Add failure tests for %%packages --ignorebroken (jkonecny)
-- Raise error on --ignorebroken when is disabled (jkonecny)
-- Fail to set packages IgnoreBroken when disabled (jkonecny)
-- Add enable_ignore_broken_packages configuration (jkonecny)
-- Add test for the new Packages API (jkonecny)
-- Support --ignorebroken by packages module (#1642013) (jkonecny)
-- Support possibility to skip broken packages (#1642013) (jkonecny)
-- Do not crash on disk.wwn value being None (#1711571) (rvykydal)
-- Fix a callback of the PropertiesChanged signal (vponcova)
-- Test unwrapped DBus values (vponcova)
-- Replace the default DBus error (vponcova)
-- Extend check_task_creation_list (vponcova)
-- Simplify langtable method calls (vslavik)
-- Require langtable 0.0.49 for its new parsing method (vslavik)
-- Fix import, add license statement in dracut driver updates test (vslavik)
+* Tue Dec 10 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.5-1
+- Adjust unit tests (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Extend list of false positives in the style guide (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Subscription support - changes in GUI (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Extend the anaconda-gtk.css (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Subscription support - changes in installation payload (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Subscription support - changes in DBus modules (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Subscription support - changes outside of DBus modules (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Add temporary subscription scheduling module (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Add basic CDN support to Payload DBus module (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Add support for custom interface for DBus Tasks (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Backport locale support for modules (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
+- Add subscription manager as an Anaconda dependency (mkolman)
+  Resolves: rhbz#1748281
+  Resolves: rhbz#1746391
 
-* Tue Jan 07 2020 Martin Kolman <mkolman@redhat.com> - 32.18-1
-- Fix cppcheck problem with undefined macros (jkonecny)
-- Fix C variable use before check for NULL (jkonecny)
-- Calculate ip address for kickstart URL ending in / (imsedgar)
-- Enable /boot on btrfs subvolume with GRUB2 (ngompa13)
-- Remove the workaround in the Resize dialog (vponcova)
-- Move the support for resizing devices (vponcova)
-- Add KernelArguments.is_enabled() as a replacement for getbool() (vslavik)
-- Fix tests broken by renamed modules (vslavik)
-- keyboard: pass shared module instance of localed wrapper to tasks (rvykydal)
-- keyboard: replace safe_dbus with dasbus in LocaledWrapper (rvykydal)
-- Add tests for the KernelArguments class (vslavik)
-- Stop KernelArguments inheriting from a dictionary (vslavik)
-- Change tests to use kernel.cmdline instead of flags.cmdline (vslavik)
-- Change all uses of flags.cmdline to kernel.kernel_arguments (vslavik)
-- Rename variables to prevent conflict with importing "kernel_arguments"
-  (vslavik)
-- Change flags.cmdline to use kernel.kernel_arguments (vslavik)
-- Add kernel.kernel_arguments providing same functionality as flags.cmdline
-  (vslavik)
+* Tue Nov 12 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.4-1
+- Add UI support for the ZIPL Secure boot (vponcova)
+  Related: rhbz#1659400
+- Add DBus support for the ZIPL Secure Boot (vponcova)
+  Resolves: rhbz#1659400
+- Don't mention new-kernel-pkg anymore in /etc/sysconfig/kernel (javierm)
+  Resolves: rhbz#1747382
+- Don't print warnings for new-kernel-pkg not being present (javierm)
+  Related: rhbz#1747382
+
+* Tue Oct 22 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.3-1
 - Only attempt to open the ibm,max-boot-devices sysfs entry if it exists
   (javierm)
+  Related: rhbz#1748756
+
+* Mon Oct 21 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.2-1
 - Don't add more devices in boot-device NVRAM than the maximum allowed
   (javierm)
+  Resolves: rhbz#1748756
+- Fix local repo files aren't enabled (jkonecny)
+  Resolves: rhbz#1641620
+- Remove ldconfig spec macros (jkonecny)
+  Resolves: rhbz#1700685
+- Don't try to format FBA DASD devices (mmatsuya)
+  Resolves: rhbz#1715303
 
-* Thu Dec 12 2019 Martin Kolman <mkolman@redhat.com> - 32.17-1
-- Calculate the space on uninitialized disks (#1782449) (vponcova)
-- Define a method required by _schedule_actions (#1782463) (vponcova)
-- Split the partitioning code (vponcova)
-- Add the attribute children to the device data (vponcova)
-
-* Tue Dec 10 2019 Martin Kolman <mkolman@redhat.com> - 32.16-1
-- Add a DBus method for checking resizable devices (vponcova)
-- Add DBus methods for partitioned devices (vponcova)
-- Add a DBus method for getting device size limits (vponcova)
-- Add the attribute protected to the device data (vponcova)
-- keyboard: make populating of missing values part of installation task
-  (rvykydal)
-- keyboard: fix write_x_configuration method (rvykydal)
-- Reduce progress spinner repaints to save CPU (rhbz#1204242) (vslavik)
-- Document the storage setters (vponcova)
-- Rename the file with tests for the Blivet partitioning method (vponcova)
-- Change the type of AppliedPartitioning (vponcova)
-- Rename the callbacks on_storage_reset (vponcova)
-- Add the DBus method ResetPartitioning (vponcova)
-- Rename the DBus method for resetting the storage (vponcova)
-- Test the boot loader factory (vponcova)
-- Set up the boot loader factory (vponcova)
-- Create the boot loader factory (vponcova)
-- Add a new configuration option for the type of the bootloader (vponcova)
-- network: wrap IPv4 addresses showed in GUI (#1777706) (rvykydal)
-- keyboard: do not return None value from apply configuration task (rvykydal)
-- keyboard: fix reference before assignment in apply keyboard task (rvykydal)
-- keyboard: add localization module unit tests for keyboard (rvykydal)
-- keyboard: fix return value of LocaledWrapper.layouts_variants property
-  (rvykydal)
-- keyboard: fix setting from generic keyboard in ks parsing (rvykydal)
-- keyboard: move setting of default value into related task (rvykydal)
-- Raise MountFilesystemError from DBus methods (vponcova)
-- keyboard: make update_settings_from_task private (rvykydal)
-- Add the mount point attribute to the device format data (vponcova)
-- Change mock imports to use the unittest.mock full import path (vslavik)
-- Rename an attribute of the action data structure (vponcova)
-- Change service_start_timeout (vponcova)
-- keyboard: update a comment for future refactorisations (rvykydal)
-- keyboard: remove superfluous call to write_x_configuration (rvykydal)
-- Calculate the space on disks with supported disk labels (vponcova)
-- keyboard: guard activation of keyboard configuration in the module (rvykydal)
-- keyboard: when converting values restore both console and X (#1775712)
-  (rvykydal)
-- keyboard: do not store generic keyboard setting at all (rvykydal)
-- keyboard: split populating of missing keyboard values (rvykydal)
-- Fix __all__ in pyanaconda.modules.common.structure.* (vponcova)
-- keyboard: do not convert from X value if we have vconsole in apply (#1776148)
-  (rvykydal)
-- Change the DBus support for collecting ancestors (vponcova)
-- Add the attribute removable to the device data (vponcova)
-- Extend the attributes of the device data (vponcova)
-- keyboard: fix getting options from LocaledWrapper (rvykydal)
-- keyboard: move LocaledWrapper into localization module (rvykydal)
-- keyboard: apply configuration with a task (rvykydal)
-- keyboard: populate missing keyboard items with a task (rvykydal)
-- keyboard: write configuration with module task (rvykydal)
-- keyboard: split out populating of missing values into separate task
-  (rvykydal)
-- keyboard: remove doc for unused weight parameter. (rvykydal)
-- keyboard: remove keyboard command from anaconda (rvykydal)
-- Rename payload sources to source (jkonecny)
-- Rename PayloadService to PayloadsService (jkonecny)
-- Rename payloads.payloads to payload.payload (jkonecny)
-- Rename payload to payloads for DBus services (jkonecny)
-- Rename payload module to payloads (jkonecny)
-- Publish main payload under Payloads (jkonecny)
-- Create PayloadContainer for dynamic provisioning (jkonecny)
-- Rename payload base to payload (jkonecny)
-- Use a variable when calling Zanata client in makefile (mkolman)
-- Clean up the spoke for the advanced storage (vponcova)
-- Rename payload DBus constants (jkonecny)
-- Remove handler word from payload leftovers (jkonecny)
-- Remove handler word from tests (jkonecny)
-- Rename LiveOSHandler* classes to LiveOS* (jkonecny)
-- Rename LiveImageHandler* classes to LiveImage* (jkonecny)
-- Rename DNFHandler* classes to DNF* (jkonecny)
-- Rename handlers from DNF internal variables (jkonecny)
-- Rename PackagesHandler* classes to Packages* (jkonecny)
-- Rename handler to payload in PayloadBase class (jkonecny)
-- Rename publish_handler to publish_payload (jkonecny)
-- Rename create_handler to create_payload (jkonecny)
-- Rename get_active_handler_path to payload path (jkonecny)
-- Rename is_handler_set to is_payload_set (jkonecny)
-- Rename payload handler getter and setter to payload (jkonecny)
-- Rename HandlerFactory to PayloadFactory (jkonecny)
-- Rename HandlerType to PayloadType (jkonecny)
-- Remove handler from factories variables (jkonecny)
-- Rename HandlerNotSetError to PayloadNotSetError (jkonecny)
-- Rename handler in logs for payload service class (jkonecny)
-- Rename payload handler internals in payload service (jkonecny)
-
-* Mon Nov 18 2019 Martin Kolman <mkolman@redhat.com> - 32.15-1
-- Fix wrong kdump boot option in boot options docs (vslavik)
-- Remove unused pylint false positive (jkonecny)
-- Remove the DBus library (vponcova)
-- Remove the extra support for PropertiesChanged (vponcova)
-- Normalize the pretty XML output (vponcova)
-- Update the unit tests (vponcova)
-- Reorganize the DBus library (vponcova)
-- Remove signal subscriptions from anaconda (vponcova)
-- Add support for disconnection of a DBus proxy (vponcova)
-- Clean up the anaconda's signal (vponcova)
-- Remove the anaconda's DBus from the DBus library (vponcova)
-- Remove the anaconda's signal from the DBus library (vponcova)
-- Remove the anaconda's logger from DBus library (vponcova)
-- Create the DBus library (vponcova)
-
-* Tue Nov 12 2019 Martin Kolman <mkolman@redhat.com> - 32.14-1
-- network: restrict applying of config from ks in initramfs with NM (#1768791)
-  (rvykydal)
-- network: try to apply kickstart in initramfs only if neeeded (#1768791)
-  (rvykydal)
-- Use default required space solution for LiveOS payload (jkonecny)
-- Fix Live Image module required value default (jkonecny)
-- Add defaults to payload required space base (jkonecny)
-- Move set up and tear down sources to payload base (jkonecny)
-- Move installation task API to base payload (jkonecny)
-- Move SpaceRequired API to payload base (jkonecny)
-- Add tests payload shared API for sources handling (jkonecny)
-- Add payload shared test API for sources (jkonecny)
-- Tweak payload_shared test class (jkonecny)
-- Use payload base interface for existing payloads (jkonecny)
-- Add payload base interface implementation (jkonecny)
-- Move payload base to payloads folder (jkonecny)
-- Move source base classes to payload.sources (jkonecny)
-- Add names to the network tests (vslavik)
-- Forbid trailing period (dot) in hostname (#1648107) (vslavik)
-- Remove the enum PartitioningMethod from the Storage spoke in GUI (vponcova)
-- Collections of callbacks in signals can be changed during emitting (vponcova)
-- Run the installation tasks of the DBus addons (vponcova)
-- Add DBus support for installation tasks for addons in the Boss (vponcova)
-- Provide fake installation tasks for the Baz addon (vponcova)
-- Add DBus support for installation tasks for addons (vponcova)
-- Add support for running DBus tasks in one task (vponcova)
-- Don't enable BLS for Xen machines (javierm)
-
-* Tue Nov 05 2019 Martin Kolman <mkolman@redhat.com> - 32.13-1
-- Clean up ancient timezone tests (vslavik)
-- Add missing quotation mark to tmux.conf (jkonecny)
-- Fix too long lines in timezone module tests for PEP8 compliance (vslavik)
-- Add timezone interface tests for creation of timezone and NTP tasks (vslavik)
-- Add tests for the NTP D-Bus task (timezone module) (vslavik)
-- Add tests for the timezone D-Bus task (timezone module) (vslavik)
-- Move timezone and NTP from execute() to D-Bus configuration tasks (vslavik)
-- Add Neal Gompa as community feature maintainer (jkonecny)
-- Add pure community features documentation (jkonecny)
-
-* Tue Oct 29 2019 Martin Kolman <mkolman@redhat.com> - 32.12-1
-- Add a temporary hack to fix installations on ppc64le and aarch64 (#1764666)
-  (mkolman)
-
-* Thu Oct 24 2019 Martin Kolman <mkolman@redhat.com> - 32.11-1
-- Fix the timeout of DBus calls (vponcova)
-- Remove pydbus from the spec file (vponcova)
-- Test DBus support with Gio.TestDBus (vponcova)
-- Update the support for DBus properties (vponcova)
-- Create variants for the signal PropertiesChanged (vponcova)
-- Test the extended support for the DBus observer (vponcova)
-- Remove PropertiesCache (vponcova)
-- Extend the DBus observer (vponcova)
-- Test the extended support for DBus connection (vponcova)
-- Extend the support for DBus connections (vponcova)
-- Don't use pydbus in the function get_object_path (vponcova)
-- Test the client support for DBus objects (vponcova)
-- Add the client support for DBus objects (vponcova)
-- Test the server support for DBus objects (vponcova)
-- Add the server support for DBus objects (vponcova)
-- Extend DBus constants (vponcova)
-- Test the extended support for DBus specification (vponcova)
-- Extend the support for DBus specification (vponcova)
-- Test the support for parsing the XML specification (vponcova)
-- Add support for parsing the XML specification (vponcova)
-- Test the DBus signals (vponcova)
-- Extend the Signal class (vponcova)
-- Don't use signals from pydbus (vponcova)
-- Test the DBus error registration (vponcova)
-- Don't use DBus error registration from pydbus (vponcova)
-- Remove pydbus from the comments (vponcova)
-- Test the extended support for DBus typing (vponcova)
-- Extend the support for DBus typing (vponcova)
-- Don't import Variant from pydbus (vponcova)
-- Fix other payload module cyclic imports (vponcova)
-- Add code conventions to upstream (jkonecny)
-- Fix payload module cyclic imports (jkonecny)
-- Enable networking in the testing environment by default (vponcova)
-- network: adapt network config via kickstart from disk to NM in initramfs
-  (#1757781) (rvykydal)
+* Mon Oct 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.2.1-1
+- Skip buildins when processing kernel boot args (jkonecny)
+  Resolves: rhbz#1637472
 - network: fix handling of ksdevice=bootif in initramfs (rvykydal)
+  Related: rhbz#1649359
 - Make sure we work with fresh data when trying to do netroot (vpodzime)
-- Make our manual triggering on network in dracut work (#1082500) (vpodzime)
-- iscsi: do not generate initiator for generated kickstart if iscsi is not used
-  (rvykydal)
-- network: remove useless function (rvykydal)
-- network: remove Network command from anaconda (rvykydal)
-- network: remove parse method from Network command (rvykydal)
-- network: remove packages attribute from Network command (rvykydal)
-- Move payload live_os source under its directory (jkonecny)
-- Create an empty payload source live_os folder (jkonecny)
-- Move payload service constants to the main dir (jkonecny)
-- Remove modules.payload.live folder (jkonecny)
-- Move rest of payload utils to live_image utils (jkonecny)
-- Move create_rescue_image to payload base utils (jkonecny)
-- Move get_kernel_version_list to payload base (jkonecny)
-- Move InstallFromTarTask to live_image payload (jkonecny)
-- Move InstallFromImageTask to payload.base (jkonecny)
-- Move UpdateBLSConfigurationTask to payload base (jkonecny)
-- Move DownloadProgress to payload live_image (jkonecny)
-- Move TeardownInstallationSourceImageTask to payload (jkonecny)
-- Move SetupInstallationSourceImageTask to payload (jkonecny)
-- Move CheckInstallationSourceImageTask to payload (jkonecny)
-- Fix imports after move of live_image payload (jkonecny)
-- Move lime_image code to the payloads folder (jkonecny)
-- Fix imports after move of live_os payload (jkonecny)
-- Move live_os code to the payloads folder (jkonecny)
-- Fix imports after move of DNF payload (jkonecny)
-- Move DNF handler to payloads folder (jkonecny)
-- Remove useless support for boot loader update (vponcova)
+  Resolves: rhbz#1649359
+- Make our manual triggering on network in dracut work (vpodzime)
+  Resolves: rhbz#1649359
 
-* Fri Oct 18 2019 Martin Kolman <mkolman@redhat.com> - 32.10-1
-- Return back AutoPart kickstart command (#1761901) (jkonecny)
-- Update pyanaconda/exception.py (japokorn)
-- Fix links to a new pykickstart GitHub group (jkonecny)
-- Rename main modules to services (vponcova)
-- don't treat s390 as headless when selecting UI mode (dan)
-- Add link to the blog website to our README (jkonecny)
-- Add links on our blog to upstream documentation (jkonecny)
-- Add PARTUUID to lsblk_output log (japokorn)
-- Fix a unit test for a boot loader task (vponcova)
-- Test the DBus method FindFormattable (vponcova)
-- Add DBus method that finds DASDs for formatting (vponcova)
-- Move tests for the zFCP module (vponcova)
-- Move tests for the FCoE module (vponcova)
-- Move tests for the ISCSI module (vponcova)
-- Move tests for the DASD module (vponcova)
+* Fri Sep 27 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.13-1
+- Change the bases of the install classes for RHVH (vponcova)
+  Related: rhbz#1753316
 
-* Tue Oct 15 2019 Martin Kolman <mkolman@redhat.com> - 32.9-1
-- Don't mark the network command as removed (vponcova)
+* Tue Sep 24 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.12-1
+- Add the install class for Red Hat Virtualization (vponcova)
+  Resolves: rhbz#1753316
+- Extend support for custom storage checking (vponcova)
+  Related: rhbz#1753316
+- Enable to define the autopart type in an install class (vponcova)
+  Related: rhbz#1753316
 
-* Mon Oct 14 2019 Martin Kolman <mkolman@redhat.com> - 32.8-1
-- Do not use module_debsolv_errors DNF method (jkonecny)
-- Update pyanaconda/rescue.py (slavik.vladimir)
-- Make small fixes in the errors file code (jkonecny)
-- Make error string wrap more sane (jkonecny)
-- Remove make updates (jkonecny)
-- Fix regexp for iscsi initiator iqn name validation (#1750865) (rvykydal)
-- Disable kickstart output from the Payload module (vponcova)
-- Extend the tests for the Boss module (vponcova)
-- Mark the network command as removed (vponcova)
-- Generate the complete kickstart using the Boss (vponcova)
-- Add DBus support for generating a complete kickstart (vponcova)
-- Improve the DBus return value for reading a kickstart file (vponcova)
-- Add DBus structure for a kickstart report (vponcova)
-- Simplify the DBus support for reading a kickstart file (vponcova)
-- Don't reimplement the run method in the Boss (vponcova)
-- Start DBus modules in a task (vponcova)
-- Remove AnacondaBossInterface (vponcova)
-- Don't represent the modules observers by their DBus path (vponcova)
-- Use a signal to propagate the module observers in the Boss (vponcova)
-- Make the nomount boot option work again (vslavik)
-- Skip buildins when processing kernel boot args (#1637472) (jkonecny)
-- Remove ldconfig scriptlet from a spec file (jkonecny)
-- Switch the makeupdates script to Python 3 (mkolman)
-- Fix a couple issues identified by Pylint (mkolman)
-- PEP8 for function names (mkolman)
-- Remove disused support for automatically fetching packages from Koji
-  (mkolman)
-- Support basic nested DBus structures (vponcova)
-- Support resolving of simple type hints (vponcova)
-- Generate DBus fields with DBusFieldFactory (vponcova)
-- Fix a missing patch in unit tests (vponcova)
-- Increase test coverage for payload sources (jkonecny)
-- Improve docstring on payload source (jkonecny)
-- Add logging to the payload source ready state (jkonecny)
-- Adapt tests to a new is_ready solution (jkonecny)
-- Implement is_ready for live os payload source (jkonecny)
-- Switch payload source ready property to method (jkonecny)
-- Remove payload source ready setter (jkonecny)
-- Add tests for payload sources error propagation (jkonecny)
-- Raise exception at the end of sources tear down (jkonecny)
-- Payload sources can't be set when initialized (jkonecny)
-- Fix doc strings in Live OS payload source (jkonecny)
-- Fix doc strings in Payload module (jkonecny)
-- Adapt tests to a new payload grouping tasks (jkonecny)
-- Use TearDownSourcesTask in LiveOS payload (jkonecny)
-- Add tear down payload sources task (jkonecny)
-- Use SetUpSourcesTask in LiveOS payload (jkonecny)
-- Add set up payload sources task (jkonecny)
-- Rename Live OS Source specific tasks (jkonecny)
-- Change test for Live payload source readiness (jkonecny)
-- Adapt tests to new Installation task with source (jkonecny)
-- Check source readiness in Payload install task (jkonecny)
-- Remove handler check for source readiness (jkonecny)
-- Remove payload sources validate API (jkonecny)
-- Replace payload attach_source by set_sources (jkonecny)
-- Rename kind to type (jkonecny)
-- Rename tear down Live OS source task (jkonecny)
-- Add source tests to Live OS (jkonecny)
-- Adapt tests to the new Live OS source solution (jkonecny)
-- Add check_task_creation_list helper function (jkonecny)
-- Add source checkers to Live OS handler (jkonecny)
-- Use source object in the Live OS handler (jkonecny)
-- Add is source set method to payload handler base (jkonecny)
-- Adapt Live OS test for detect image migration (jkonecny)
-- Move Live OS image detection to source (jkonecny)
-- Adapt payload Live OS handler/source tests (jkonecny)
-- Migrate image path from Live OS handler to source (jkonecny)
-- Live OS source can have only one source attached (jkonecny)
-- Fix line longer than 99 characters in payload (jkonecny)
-- Add check if payload source is supported (jkonecny)
-- Add payload source type tests (jkonecny)
-- Implement type to the payload source base (jkonecny)
-- Move payload handler/sources types to constants (jkonecny)
-- Implement source attach to the payload handlers (jkonecny)
-- Add test for payload CreateSource API (jkonecny)
-- Wrap payload source creation to DBusContainer (jkonecny)
-- Add support for source creation to Payload module (jkonecny)
-- Add payload SourceFactory test (jkonecny)
-- Add payload source factory (jkonecny)
-- Add test for the payload HandlerFactory class (jkonecny)
-- Make payload HandlerFactory class more generic (jkonecny)
-- Remove required parameter from the Live OS Source (jkonecny)
-- Add Live OS source tear down test (jkonecny)
-- Use moved tear down task in Live OS source (jkonecny)
-- Move Live OS tear down task to Live OS source (jkonecny)
-- Add test for Live OS source validation method (jkonecny)
-- Learn Live OS source how to validate source (jkonecny)
-- Add Validate API to the payload source base (jkonecny)
-- Add test for Live OS Source set up task (jkonecny)
-- Move and fix Live OS init source test (jkonecny)
-- Use set up source task in the Live OS source (jkonecny)
-- Rename set up task for live os source (jkonecny)
-- Move set up source live os image task to sources (jkonecny)
-- Add empty classes for Live OS payload interface (jkonecny)
-- Add base payload source module (jkonecny)
-- Add a new python module for payload sources (jkonecny)
+* Mon Aug 26 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.11-1
+- Fix noverifyssl when downloading .treeinfo file (jkonecny)
+  Resolves: rhbz#1726156
+  Resolves: rhbz#1723811
 
-* Fri Oct 04 2019 Martin Kolman <mkolman@redhat.com> - 32.7-1
-- network: split configure hostname task out of network installation task
-  (#1757960) (rvykydal)
-- Switch to pypi pylint from RPM (jkonecny)
-- Allow to handle the return value of subprocess.run (vponcova)
-- Remove the unexpected keyword argument 'env' (vponcova)
-- Remove the assignment of the same variable to itself (vponcova)
-- Remove unused false positives (vponcova)
-- Improve updates repo configuration in GUI (#1670471) (mkolman)
-- Don't touch storage until it is ready (vponcova)
-- Run the manual partitioning task for the given requests (vponcova)
-- Set the locale for unit tests (vponcova)
-- Deprecate the current kickstart support for addons (vponcova)
-- Add kickstart support for the Baz module (vponcova)
-- Support the %%addon sections in the kickstart specification (vponcova)
-- Handle the bootloader reset in the partitioning task (vponcova)
-- Fix the DBus patching functions (vponcova)
-- Patch DBus proxies in GUI and TUI simple import tests (vponcova)
-- Add DBus method for validation of selected disks (vponcova)
-- Enable faulthandler in DBus modules (vponcova)
-- Reset the storage and the playground of partitioning modules (vponcova)
-- Add support for getting an object path of a DBus proxy (vponcova)
-- Remove pointless '../../' to clean up NFS mounts (riehecky)
+* Fri Aug 02 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.10-1
+- Do not try to mount cdrom source also if it has been mounted in dracut.
+  (rvykydal)
+  Resolves: rhbz#1733507
 
-* Wed Sep 25 2019 Martin Kolman <mkolman@redhat.com> - 32.6-1
-- Switch between layouts without confirmation (#1333984) (vponcova)
-- Remove the old and broken zram-stats script (#1561773) (mkolman)
-- Rename _test_dbus_partitioning and _test_dbus_property (vponcova)
-- Remove attributes for the static partitioning modules (vponcova)
-- Test the custom partitioning from kickstart (vponcova)
-- Test the property AppliedPartitioning (vponcova)
-- Test the property CreatedPartitioning (vponcova)
-- Test the dynamic partitioning modules (vponcova)
-- Test the partitioning factory with kickstart (vponcova)
-- Generate kickstart from the applied partitioning (vponcova)
-- Create a partitioning module for the kickstart data (vponcova)
-- Add tests for the storage installation tasks (vponcova)
-- Add the installation task for BTRFS (vponcova)
-- Add a simple import test for pyanaconda (vponcova)
-- Fix the implementation of patch_dbus_publish_object (vponcova)
-- Use the validation report for the storage validation (vponcova)
-- Remove get_object_path of TaskInterface (vponcova)
-- Add support for validation tasks (vponcova)
-- Move the partitioning validation to the base class (vponcova)
-- Add the installation task for ZIPL (vponcova)
-- Improve installation tasks of the Storage module (vponcova)
-- Don't initialize PartTypeSpoke from the Summary hub (vponcova)
-- Add DBus support for the device ancestors (vponcova)
-- Fix the DBus method GetUsableDisks (vponcova)
-- network: split function for generating dracut arguments (#1751189) (rvykydal)
-- network: generate dracut arguments from connections (#1751189) (rvykydal)
-- network: do not touch iBFT connections created in initramfs (#1751189)
-  (rvykydal)
-- Increase EFI System Partition (ESP) size to 200-600 MiB (javierm)
-
-* Tue Sep 17 2019 Martin Kolman <mkolman@redhat.com> - 32.5-1
-- payload module: update live image tar payload options with --numeric-owner
-  (rvykydal)
-- payload module: add tests for live image payload interface (rvykydal)
-- Only partitions have the is_magic attribute (#1625154) (vponcova)
-- network gui: wrap multiple IP addresses in network spoke (#1593561)
-  (rvykydal)
-- Don't use update_storage_ksdata in tests (vponcova)
-- Verify existing unlocked LUKS devices without keys (#1624617) (vponcova)
-- network tui: fix addr_str referenced before assignment (#1731415) (rvykydal)
-- Fix the second screen of Welcome to Fedora (#1748203) (vponcova)
-- Add a space after the comma in the description (junjieyuanxiling)
-- Use numbers for user/group names when unpacking tar live image (356889)
-
-* Thu Sep 05 2019 Martin Kolman <mkolman@redhat.com> - 32.4-1
-- Add tests for the device factory requests (vponcova)
-- Raise an exception if the device type is unsupported (vponcova)
-- Fix: Move the code for getting the device LUKS versions (vponcova)
-- Use a device factory request to populate the right side (vponcova)
-- Improve logging of the custom spoke (vponcova)
-- Use the device factory request to change devices (vponcova)
-- Generate a device factory request (vponcova)
-- Use a device factory request to add a mount point (vponcova)
-- Add support for transforming device factory requests to arguments (vponcova)
-- Add DBus support for the device factory request (vponcova)
-- Fix tests after using flatpak format_ref method (jkonecny)
-- Use flatpak API to create ref string (jkonecny)
-- network: make sure configuration from boot options has ONBOOT=yes (#1727904)
-  (rvykydal)
-- network: fix dumping of generic "Wired connection" created in initramfs
-  (#1727904) (rvykydal)
-- Make clear where repo names are used not objects (jkonecny)
-- Remove __main__ functions for testing (vponcova)
-- Drop dhclient requirement (pbrobinson)
-- Compare normalized XML strings (vponcova)
-- Add temporal pylint false positive (jkonecny)
-- Make default state of treeinfo repos configurable by product (riehecky)
-- Fix pylint test by loading C extensions (jkonecny)
-- Drop dhclient requirement (pbrobinson)
-- Fall back to a boot drive with a valid stage1 device (#1168118) (vponcova)
-- Use test dependencies from Fedora instead of pip (jkonecny)
-- Do not crash test env setup in case of empty list (jkonecny)
-- Fix parsing of hostname from cmdline for ipv6. (rvykydal)
-- dnfpayload: repo in _fetch_md is a dnf repo not ksrepo (awilliam)
-- Don't set up a warning label to None (#1745933) (vponcova)
-- Add DBus support for shrinking devices (vponcova)
-- Add DBus support for removing devices (vponcova)
-- Devices to be shrinked are always resizable (vponcova)
-- Identify devices by theirs names in the resize dialog (vponcova)
-- Refactorize the ResizeDialog (vponcova)
-- network module: guard onboot configuration task by environment (rvykydal)
-- network: modify autoactivate via NM API with a separate task (rvykydal)
-- network: get ONBOOT values from NM connections (rvykydal)
-- network: activate connections during initramfs consolidation synchronously
-  (rvykydal)
-- network: block autoactivation also when updating iniramfs connection
-  (rvykydal)
-- network: find initramfs connections even without ifcfg files (#1727904)
-  (rvykydal)
-- network: block autoactivation when adding connection from kickstart
-  (rvykydal)
-- network: split the function for adding a connection from kickstart (rvykydal)
-- network: implement NM connection change commit using Update2() (rvykydal)
-- network: fix setting real ONBOOT for inactive vlan devices (rvykydal)
-- network: modify ONBOOT via libnm during network initialization (rvykydal)
-- network: set autoconnect/ONBOOT to yes for default connection in tui
-  (rvykydal)
-- network: get rid of ONBOOT workaround in tui (rvykydal)
-- More detailed addon logging (riehecky)
-- Revert "Keep getSysroot for kdump-anaconda-addon" (vponcova)
-
-* Mon Aug 26 2019 Martin Kolman <mkolman@redhat.com> - 32.3-1
-- Use the task container to publish tasks (vponcova)
-- Remove publish_task (vponcova)
-- Make tasks publishable (vponcova)
-- Create and set up the DBus container for tasks (vponcova)
-- Add note to fix time consuming live os dbus task (jkonecny)
-- Add notes for the future work on the module payloads (jkonecny)
-- Move constants specific for copy dd task (jkonecny)
-- Add test for updating bls entries task (jkonecny)
-- Add test for Live OS post installation task (jkonecny)
-- Add test for create_rescue_image function (jkonecny)
-- Add Live OS handler test for install with task (jkonecny)
-- Add live payload handler test for InstallWithImageTask (jkonecny)
-- Improve tests for live os image detection code (jkonecny)
-- Add live os test for kernel version list (jkonecny)
-- Make consistent imports (jkonecny)
-- Replace getSysroot by conf value (jkonecny)
-- Move get_dir_size test to the payload module tests (jkonecny)
-- Move get_dir_size function to the payload.base.utils (jkonecny)
-- Rename GetDirSize to get_dir_size (jkonecny)
-- Add sysroot param to the copy DD files task (jkonecny)
-- Change write module blacklist to take sysroot param (jkonecny)
-- Change create root dir func to take sysroot param (jkonecny)
-- Add sysroot param to prepare installation task (jkonecny)
-- Rename payload shared to base (jkonecny)
-- Add Live OS handler space required test (jkonecny)
-- Inline copy driver disk payload function to task (jkonecny)
-- Add API for required space to live os payload handler (jkonecny)
-- Add copy DD files task to live image payload handler (jkonecny)
-- Use new task copy driver disks files to old payload (jkonecny)
-- Add copy DD files as post install task to live os handler (jkonecny)
-- Add post-installation task to live os payload handler (jkonecny)
-- Do a facelift to the old copy driver disk function (jkonecny)
-- Moved copy driver disk to the payload module shared (jkonecny)
-- Use new shared task in the old payload module (jkonecny)
-- Add test for prepare installation payload task (jkonecny)
-- Add tests for payload module shared utils (jkonecny)
-- Create and use task to prepare installation for LiveOS (jkonecny)
-- Move payload shared code for handlers to a directory (jkonecny)
-- Move write module blacklist to paylod module (jkonecny)
-- Move create root directory to its own function (jkonecny)
-- Add install task with API to Live OS handler (jkonecny)
-- Add kernel version list support to live os handler (jkonecny)
-- Fix noverifyssl when downloading .treeinfo file (#1723811) (jkonecny)
-- Add the DBus property PartitioningMethod (vponcova)
-- Add support for dynamic partitioning modules (vponcova)
-- Make partitioning modules publishable (vponcova)
-- Create the partitioning factory (vponcova)
-- Use a DBus container for the device trees (vponcova)
-- Add support for DBus containers (vponcova)
-- Add a simple unit test for TUI and GUI (vponcova)
-- Add logic to create flatpaks rpmostree payload (#1734970) (jkonecny)
-- Move flatpak code to a new ostree payload class (#1734970) (jkonecny)
-- Create flatpak in ostree payload only if available (#1734970) (jkonecny)
-- Update tests for new class method is_available (#1734970) (jkonecny)
-- Make flatpak is_available() a static method (#1734970) (jkonecny)
-- Remove the fixed file:// from the flatpak remote (#1734970) (jkonecny)
-- Fix payload prepare mount targets install task (#1734970) (jkonecny)
-- Merge rpmostreepayload installation under one task (#1734970) (jkonecny)
-- Move progress messaging from flatpak to rpmostree (#1734970) (jkonecny)
-- Add test for flatpak change remote for refs (#1734970) (jkonecny)
-- Replace remote for installed refs in rpmpayload (#1734970) (jkonecny)
-- Use new flatpak replace remote on installed refs (#1734970) (jkonecny)
-- Add flatpak remote replace for installed refs (#1734970) (jkonecny)
-- Make flatpak ref full format method more generic (#1734970) (jkonecny)
-- Create an flatpak base ref list object (#1734970) (jkonecny)
-- Use flatpak add/remove remotes in ostree payload (#1734970) (jkonecny)
-- Add flatpak tests for adding and removing remotes (#1734970) (jkonecny)
-- Implement flatpak adding and removing remotes (#1734970) (jkonecny)
-- Adapt flatpak tests to the new changes (#1734970) (jkonecny)
-- Change flatpak remote logic (#1734970) (jkonecny)
-- Rename flatpak REMOTE_NAME to LOCAL_REMOTE_NAME (#1734970) (jkonecny)
-- Make flatpak ref lists object consistent (#1734970) (jkonecny)
-- Implement object to get installed flatpak refs (#1734970) (jkonecny)
-- Add flatpak error reporting implementation (#1734970) (jkonecny)
-- Cleanup temp repository of flatpak before install (#1734970) (jkonecny)
-- Add and fix tests for newly added flatpak cleanup (#1734970) (jkonecny)
-- Add flatpak cleanup method (#1734970) (jkonecny)
-- Split flatpak setup to two initialization methods (#1734970) (jkonecny)
-- Fix tests after connecting to flatpak signals (#1734970) (jkonecny)
-- Add callbacks to monitor flatpak transactions (#1734970) (jkonecny)
-- Install flatpaks as part of ostree installation (#1734970) (jkonecny)
-- Add test for the flatpak install method (#1734970) (jkonecny)
-- Add support to install all remote flatpaks (#1734970) (jkonecny)
-- Add flatpak required space test (#1734970) (jkonecny)
-- Add get_required_space to the flatpak payload (#1734970) (jkonecny)
-- Add flatpak object to abstract flatpak Ref list (#1734970) (jkonecny)
-- Don't configure the default target without systemd (#1744115) (vponcova)
-- Change flatpak remote name to constant (#1734970) (jkonecny)
-- Use FlatpakPayload from the RPMOStreePayload (#1734970) (jkonecny)
-- Add test for the flatpak setup method (#1734970) (jkonecny)
-- Add method to setup flatpak objects (#1734970) (jkonecny)
-- Add flatpak test for remote availability (#1734970) (jkonecny)
-- Add check if flatpak remote repo is available (#1734970) (jkonecny)
-- Add libflatpak dependency to the anaconda spec (#1734970) (jkonecny)
-- Add an empty class to handle flatpak (#1734970) (jkonecny)
-- Look for existing installations on existing devices (vponcova)
-- Require a mount point only for mountable formats (vponcova)
-- Handle the missing mountpoint attribute (#1743853) (vponcova)
-
-* Mon Aug 19 2019 Jiri Konecny <jkonecny@redhat.com> - 32.2-1
-- Set the minimum required entropy only once (vponcova)
-- Rename the icon (#1740864) (vponcova)
-- Format strings with format in interactive utils (vponcova)
-- Rename _get_device_info_description in the custom spoke (vponcova)
-- Remove pyanaconda.storage.partitioning (vponcova)
-- Use the partitioning request in TUI (vponcova)
-- Use the partitioning request in GUI (vponcova)
-- Update the storage initialization and configuration (vponcova)
-- Use the partitioning request in the tests (vponcova)
-- Use the partitioning request in the automatic partitioning module (vponcova)
-- Use the partitioning request in the automatic partitioning task (vponcova)
-- Exclude mount points from the automatic partitioning (vponcova)
-- Create a DBus structure for the partitioning request (vponcova)
-- Don't load the repo device path twice in the Payload class (vponcova)
-- Rename device_path to repo_device_path in the Payload class (vponcova)
-- Rename get_mount_device in payload utils (vponcova)
-- Remove a redundant condition in the Payload class (vponcova)
-- Specify types of arguments in the payload utils (vponcova)
-- Use the payload utils in UI (vponcova)
-- Add a new function unmount_device to payload utils (vponcova)
-- Add a new function setup_device to payload utils (vponcova)
-- Add a new function mount_device to payload utils (vponcova)
-- Add a new function teardown_device to payload utils (vponcova)
-- Move the support methods for image installations (vponcova)
-- Change the method for finding potential HDISO sources (vponcova)
-- Change the method for finding a valid optical install media (vponcova)
-- Add a new function resolve_device to payload utils (vponcova)
-- Rename variables and arguments in the Payload class (vponcova)
-- Provide a documentation for the payload utils (vponcova)
-- Don't propagate the storage and data to the payload again (vponcova)
-- Collect addons after running the %%pre section (vponcova)
-- Fix: Merge the code for the device info validation (vponcova)
-- Fix: Generate the device info in interactive utils (vponcova)
-- Fix: Simplify the code for validating mount points (vponcova)
-- Handle a missing value of the mount point attribute (vponcova)
-- Improve logging of the device info changes (vponcova)
-- Remove the constants for the device type strings (vponcova)
-- Move the code for collecting supported RAID levels (vponcova)
-- Move the code for the device info validation (vponcova)
-- Move the code for the raid level validation (vponcova)
-- Simplify the code for validating mount points (vponcova)
-- Move the code for validating mount points (vponcova)
-- Generate the device info in interactive utils (vponcova)
-- Simplify overriding disk set with container's (vponcova)
-- Simplify the removal of the device (vponcova)
-- Merge the code for changing the size (vponcova)
-- Move code to the function revert_reformat (vponcova)
-- Change arguments of the method for reformatting (vponcova)
-- Merge the code for the device info validation (vponcova)
-- Split the code for collecting the new device info (vponcova)
-- Move the code for collecting the new device info (vponcova)
-- Apply the device info changes in new methods (vponcova)
-- Remove the code for comparing the device info (vponcova)
-- Remove variables for new device info (vponcova)
-- Remove variables for old device info (vponcova)
-- Move the code for comparing the device info (vponcova)
-- Simplify logging of the device infos (vponcova)
-- Move the code for the new device info (vponcova)
-- Move the code for the old device info (vponcova)
-- Add squashfs+overlayfs base live image detection (bcl)
-- liveinst: Add support for plain squashfs root filesystem (bcl)
-
-* Wed Aug 14 2019 Martin Kolman <mkolman@redhat.com> - 32.1-1
-- Use append_dbus_tasks() for DBus Task scheduling (mkolman)
-- Add append_dbus_task method to TaskQueue (mkolman)
-- Replace Firewall and Network command setup() method (mkolman)
-- Add support for localization of modules (rvykydal)
-- Don't measure code coverage during the installation (vponcova)
-- Use the new discovery & join DBUS tasks (mkolman)
-- Increase network timeout constant (jkonecny)
-- Add DBUS Tasks for realm discovery & joining a realm (mkolman)
-- Add the add_requirements() method for PayloadRequirements (mkolman)
-- Extend RealmData (mkolman)
-- Set timeout for all session.get calls (jkonecny)
-- Add support for disabling modules via module --disable (mkolman)
-- Don't check the format status in UI (vponcova)
-- Fix updating of ifcfg files for ifname= bound devices (#1727904) (rvykydal)
-- network module: be more strict when adding physical device configuration
-  (#1727904) (rvykydal)
-- Adapt to changes caused by NM in initramfs (#1727904) (rvykydal)
-- Change the documentation of the 'reason' attribute (vponcova)
-- Fix traceback in network module installation task. (rvykydal)
-- Remove the connect method of DBusObserver (vponcova)
-- Remember which modules are addons (vponcova)
-- Simplify the initialization of the module observer (vponcova)
-- Remove the support for the object observer (vponcova)
-- Move the module manager to a new subpackage (vponcova)
-
-* Wed Jul 31 2019 Martin Kolman <mkolman@redhat.com> - 31.22-1
-- Fix pylint warning (vponcova)
-- Keep getSysroot for kdump-anaconda-addon (vponcova)
-- Specify sizes of nonexistent devices in tests (vponcova)
-- network tui: fix a typo concerning inifiniband device configuration
-  (rvykydal)
-- Remove the object observers from UI (vponcova)
-- Remove the method changed (vponcova)
-- Move the preserved arguments to the Anaconda configuration file (vponcova)
-- Remove system root from DBus methods (vponcova)
-- Rename setSysroot (vponcova)
-- Replace getSysroot (vponcova)
-- Replace getTargetPhysicalRoot (vponcova)
-- Replace publisher patches with the new solution (jkonecny)
-- Handle disk selection errors in get_candidate_disks (vponcova)
-- Don't verify mounted partitions of protected disks (vponcova)
-- Always protect the live backing device (#1706335) (vponcova)
-- Don't change the storage if the reset fails (vponcova)
-- Remove support for teardown before storage reset (vponcova)
-
-* Thu Jul 25 2019 Jiri Konecny <jkonecny@redhat.com> - 31.21-1
-- Always schedule the installation task for joining realm (#1732620) (vponcova)
-- Fix issue raised by giving publisher as last parameter (jkonecny)
-- Use the new publisher patch decorator in a tests (jkonecny)
-- Add decorator as shortcut for a publisher patching (jkonecny)
-- Add test for creating invalid payload handler (jkonecny)
-- Fix tests after removing handlers publish method (jkonecny)
-- Remove _publish_handler method from payload module (jkonecny)
-- Fix tests because of new payload API change (jkonecny)
-- Remove get_handler_path from payload handlers (jkonecny)
-- Return path from payload handler publish methods (jkonecny)
-- Join all the payload handler create methods (jkonecny)
-- Publish payload handler after KS data are parsed (jkonecny)
-- Add handler factory and use that in payload module (jkonecny)
-- Add tests for new payload API (jkonecny)
-- Do not create payload handler if already set (jkonecny)
-- Add API to test if there is a payload handler set (jkonecny)
-- Do not set default payload handler (jkonecny)
-- Don't prune and sort actions in the partitioning task (vponcova)
-- Fix imports in the tests (jkonecny)
-- Adapt payload tests to a new task check function (jkonecny)
-- Adapt network tests to a new task check function (jkonecny)
-- Adapt localization tests to a new task check function (jkonecny)
-- Adapt bootloader test to a new task check function (jkonecny)
-- Adapt storage tests to a new check task function (jkonecny)
-- Make a new test func to check task creation (jkonecny)
-- Add test for new payload API on live image creation (jkonecny)
-- Add new payload API to create live image handler (jkonecny)
-- Add tests for new payload handlers solution (jkonecny)
-- Fix tests after payload handler logic change (jkonecny)
-- Add support to create DNF payload handler (jkonecny)
-- Improve payload handler creation abstraction (jkonecny)
-- Publish payload handler before it is set (jkonecny)
-- Fix payload generate_kickstart with no handler (jkonecny)
-- Add payload module API to get active handler (jkonecny)
-- Publish handler in the creation method call (jkonecny)
-- Propagate DBus path when creating handler (jkonecny)
-- Use base handler class by the handler modules (jkonecny)
-- Add payload handler base class (jkonecny)
-- Change main payload handlers to property (jkonecny)
-- Add root password SSH login override checkbox (#1716282) (mkolman)
-
-* Mon Jul 22 2019 Jiri Konecny <jkonecny@redhat.com> - 31.20-1
-- Move code to exctract kernel version from tar to utils (jkonecny)
-- Add link for our translations to README (#1729788) (jkonecny)
-- Change Makefile zanata client check from pkg to bin (jkonecny)
-- Add recommendation to release process guide (jkonecny)
-- Remove unnecessary step from release in mock doc (jkonecny)
-- Fix mock release dependency in a mock (jkonecny)
-- Fix: Simplify the code for creating container store rows (vponcova)
-- Fix a docstring of add_device (vponcova)
-- Get the current device type only once (vponcova)
-- Move the code for getting the name of the new root (vponcova)
-- LiveImagePayload: move some functions to utils.py (rvykydal)
-- LiveImagePayload: replace PostInstallTask with UpdateBLSConfigurationTask
-  (rvykydal)
-- LiveImageHandler: make API and implementation method names consistent
-  (rvykydal)
-- LiveImageHandler: use more descriptive names for installation tasks
-  (rvykydal)
-- LiveImagePayload: Do not provide API for setting of required space (rvykydal)
-- LiveImageHandler: prevent reusing of DownloadProgress instance (rvykydal)
-- LiveImageHandler: simplify using of SetupInstallationSourceImageTask result
-  (rvykydal)
-- LiveImageHandler: simplify using of CheckInstallationSourceImageTask result
-  (rvykydal)
-- LiveImageHandler: remove interfaces for task results we don't need (rvykydal)
-- Add logging to interactive utils (vponcova)
-- Fix the FIXME comment for collect_selected_disks (vponcova)
-- Rename the argument for the boot drive (vponcova)
-- Remove empty lines in collect_used_devices (vponcova)
-- Fix: Move the code for collecting device types (vponcova)
-- Fix: Move the code for completing the device info (vponcova)
-- Fix: Move the code for hiding protected disks to InstallerStorage (vponcova)
-- Move the code for suggesting device names (vponcova)
-- Fix: Move the code for getting a container device (vponcova)
-- Fix: Move the code for collecting device types (vponcova)
-- Fix pylint issues in the custom spoke (vponcova)
-- Move the code for label validation (vponcova)
-- Move the code for collecting supported mount points (vponcova)
-- Show a detailed warning in the custom spoke (vponcova)
-- Show a detailed error in the custom spoke (vponcova)
-- Move the code for collecting containers (vponcova)
-- Move the code for getting a container device (vponcova)
-- Populate a container for the given device (vponcova)
-- Simplify the code for creating container store rows (vponcova)
-- Move the code for renaming containers (vponcova)
-- Move the code for destroying devices (vponcova)
-- Remove the method for removing empty parents (vponcova)
-- Move the code for completing the device info (vponcova)
-- Move the code for creating devices (vponcova)
-- Move the function get_device_raid_level (vponcova)
-- Refactor the code for setting up the device types (vponcova)
-- Move the code for collecting device types (vponcova)
-- Move the code for collecting file system types (vponcova)
-- Move the code for getting the device LUKS version (vponcova)
-- Move the code for the device reformatting (vponcova)
-- Move the code for changed encryption (vponcova)
-- Move the code for changing the device size (vponcova)
-- Move the code for reverting reformat (vponcova)
-- Collect roots with supported devices (vponcova)
-- Move the code for adding the unknown page (vponcova)
-- Move the code for adding the root page (vponcova)
-- Move the code for creating a new root (vponcova)
-- Move the code for adding the initial page (vponcova)
-- Move the code for collecting roots to interactive utils (vponcova)
-- Move constants and function from custom_storage.py (vponcova)
-- Optimize the method _update_space_display of the custom spoke (vponcova)
-- Remove the method _current_total_space from the custom spoke (vponcova)
-- Remove the method _set_current_free_space of the custom spoke (vponcova)
-- Move the code for hiding protected disks to InstallerStorage (vponcova)
-- Don't check if disks have media present (vponcova)
-- Rename _clearpart_devices in CustomPartitioningSpoke (vponcova)
-- Rename get_new_devices in CustomPartitioningSpoke (vponcova)
-- Fix: Remove bootloader_devices from CustomPartitioningSpoke (vponcova)
-- Fix: Remove unused_devices from CustomPartitioningSpoke (vponcova)
-- Remove bootloader_devices from CustomPartitioningSpoke (vponcova)
-- Remove the attribute _devices from CustomPartitioningSpoke (vponcova)
-- Remove unused_devices from CustomPartitioningSpoke (vponcova)
-- Remove the property unused_devices from InstallerStorage (vponcova)
-- Remove banners (vponcova)
-- Replace the Progress hub (vponcova)
-- Remove useless class attributes from SpokeCategory (vponcova)
-- LiveImageHandler: add progress reporting of download (rvykydal)
-- LiveImageHandler: split out Teardown task from PostInstall (rvykydal)
-- LiveImageHandler: pass source image mount point as argument to tasks
-  (rvykydal)
-- LiveImageHandler: PostInstallWithTask() 2/2 (rvykydal)
-- LiveImagehandler: InstallWithTask() (rvykydal)
-- LiveImageHandler: UpdateKernelVersionList() (rvykydal)
-- LiveImageHandler: PostInstallWithTask() 1/2 (rvykydal)
-- Change the sort order of the User Settings category (vponcova)
-- Move all spokes to the Summary hub (vponcova)
-- LiveImageHandler: PreInstallWithTask() (rvykydal)
-- LiveImageHandler: SetupWithTask() (CheckInstallationSourceImage) (rvykydal)
-
-* Thu Jul 11 2019 Jiri Konecny <jkonecny@redhat.com> - 31.19-1
-- Call teardown_all explicitly (vponcova)
-- Don't publish the module in the loop (vponcova)
-- Start swap on ZRAM service (cmurf)
-- Use %%autosetup instead of %%setup (mkolman)
+* Tue Jul 02 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.9-1
 - Adjust the exclude arguments for livepayloads (bcl)
+  Related: rhbz#1684542
 - Recreate the BLS entries when using liveimg (bcl)
+  Resolves: rhbz#1684542
 - Cache the liveimg tar kernel list (bcl)
+  Related: rhbz#1684542
 - Add common function for creating rescue images (bcl)
-- move comment into docstring for PowerNVGRUB2 install method (dan)
-- add PowerNV into BootloaderClassTestCase (dan)
-- LiveImage payload: clean up directory used for image mounting (rvykydal)
-- LiveImage payload: mount live image privately (rvykydal)
-- introduce PowerNV variant for grub2 class (dan)
-- initial PowerNV class support (dan)
-- Add the option decorated_window to the Anaconda configuration (vponcova)
-- Add test for Live OS detect live os image feature (jkonecny)
-- Add Live OS base image detection code (jkonecny)
-- Add tests for the new Live OS tasks (jkonecny)
-- Add Live OS handler tests for ImagePath property (jkonecny)
-- Implement teardown to Live OS payload handler (jkonecny)
-- Add support to create Live OS handler manually (jkonecny)
-- Implement SetupInstallationSource Live OS task (jkonecny)
-- Add ImagePath property to the Live OS handler (jkonecny)
-- Add an empty LiveOS payload handler (jkonecny)
-- Don't use the auto partitioning module in the custom spoke (vponcova)
-- Add support for decomposing DBus values (vponcova)
-- Use the default file system type for /boot (vponcova)
-- Move updates reponames to constants (riehecky)
-- Fix setting and reporting ready state in Source Spoke. (rvykydal)
+  Related: rhbz#1684542
+- Re-generate BLS loader file snippets on live installs (awilliam)
+  Related: rhbz#1684542
 
-* Tue Jun 25 2019 Jiri Konecny <jkonecny@redhat.com> - 31.18-1
-- Add comprehensive unit tests for ConfigureFirewallTask (mkolman)
-- Fix a typo (mkolman)
-- Use FirewallMode enum firewall configuration DBus Task (#1722979) (mkolman)
-- Don't encrypt devices in the interactive partitioning by default (vponcova)
-- Provide a default passphrase for the PassphraseDialog (vponcova)
-- Set the passphrase for the automatic partitioning from the dialog (vponcova)
-- Don't use the global encryption passphrase (vponcova)
-- Add support for passphrases in the device tree module (vponcova)
-- Handle the passphrase requirements in the partitioning modules (vponcova)
-- Use _get_passphrase in the custom partitioning task (vponcova)
-- Don't generate passphrases in a kickstart file (vponcova)
-- Fix the unit tests for the Services module (vponcova)
-- Convert names of attributes and variables in custom storage helpers
-  (vponcova)
-- Fix code alignment in the custom storage helpers (vponcova)
-- Convert names of attributes and variables in the custom spoke (vponcova)
-- Remove local variables with unused values in the custom spoke (vponcova)
-- Fix code alignment in the custom spoke (vponcova)
-- Initialize attributes in the __init__ method of the custom spoke (vponcova)
-- Reorganize imports in the custom spoke (vponcova)
+* Tue Jul 02 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.8-1
+- Respect changesok password policy for root password (mkolman)
+  Resolves: rhbz#1584145
+- Fix default value for pwpolicy emptyok (mkolman)
+  Resolves: rhbz#1664704
 
-* Mon Jun 24 2019 Martin Kolman <mkolman@redhat.com> - 31.17-1
-- Move graphical login detection to a DBus Task (#1722950) (mkolman)
-- Add DBus support for device trees of partitioning modules (vponcova)
-- Create the interactive partitioning module (vponcova)
-- Fix misleading comment (riehecky)
+* Tue Jun 25 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.7-1
+- Add support for disabling modules via module --disable (mkolman)
+  Resolves: rhbz#1655523
+  Related: rhbz#1719347
 
-* Thu Jun 20 2019 Martin Kolman <mkolman@redhat.com> - 31.16-1
-- Replace the XConfig execute() method by DBus Tasks (mkolman)
-- Fix list-screens script reference (gpchelkin)
-- Fix protecting of the live device (#1699387) (vponcova)
-- Adapt tests for new Live payload handler changes (jkonecny)
-- Add setters to LiveImage payload handler (jkonecny)
-- Rename Live payload handler to LiveImage (jkonecny)
-- Extend payload live handler with new properties (jkonecny)
-- Add read only properties to payload Live handler (jkonecny)
-- Add the apply-updates script (vponcova)
-- Add payload live handler tests (jkonecny)
-- Update payload DNF handler tests (jkonecny)
-- Create a new payload handler mixin class for tests (jkonecny)
-- Improve the documentation of inst.stage2.all and inst.ks.all (vponcova)
-- Add DBus support for teardown tasks (vponcova)
-- Tear down images with teardown_disk_images (vponcova)
-- Move get_anaconda_version_string to util (vponcova)
-- Support multiple payload handlers (jkonecny)
-- Add kickstart processing to payload live handler (jkonecny)
-- Create Live payload handler module (jkonecny)
-- Deprecate the method changed (vponcova)
-- Calculate free space for the physical root in dir installations (vponcova)
-- Use the actual sysroot to pick up a mount point for downloading (vponcova)
-- Use the physical root for mounting existing systems (vponcova)
-- Change the path to the system root (vponcova)
-- Read files in /etc/anaconda/conf.d on demand (vponcova)
+* Fri Jun 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.6-1
+- Require blivet with flags.protect_cdrom support (rvykydal)
+  Related: rhbz#1671713
+- Be more strict when checking for mounted dvd source. (rvykydal)
+  Resolves: rhbz#1671713
+- Protect cdroms during tree population for image installs. (rvykydal)
+  Resolves: rhbz#1671713
 
-* Thu Jun 13 2019 Martin Kolman <mkolman@redhat.com> - 31.15-1
-- iscsi: require relevant blivet version for iscsi module (rvykydal)
-- iscsi: add unit tests for iscsi module (rvykydal)
-- iscsi: fix name of some method arguments (target -> portal) (rvykydal)
-- iscsi: use proper iscsi interface mode constants in ui (rvykydal)
-- iscsi: update the CanSetInitiator docstring to reflect the reality (rvykydal)
-- iscsi: move conversion to IscsiInterfacesMode from implementation to
-  interface (rvykydal)
-- iscsi: use better name for a NodeIsFromIbft method (rvykydal)
-- iscsi: move kickstart iscsi processing into the iSCSI module (rvykydal)
-- iscsi: attach iBFT targets in early kickstart by the iSCSI module (rvykydal)
-- iscsi gui: show target in Target column (not initiator) (rvykydal)
-- iscsi: rename iSCSI node info attribute holding name of iscsi interface
-  (rvykydal)
-- iscsi: move dracut argument generating into the iSCSI module (rvykydal)
-- iscsi: get info about target being added from iBFT from the iSCSI module
-  (rvykydal)
-- iscsi: use attributes added blivet iscsi device replacing iscsi node object
-  (rvykydal)
-- iscsi: rename Target to Portal where appropriate (rvykydal)
-- iscsi: move kickstart data update to the iSCSI module (rvykydal)
-- iscsi: write configuration by the iSCSI module (rvykydal)
-- iscsi: use the iSCSI module by kickstart iscsi command (rvykydal)
-- iscsi: use the iSCSI module in GUI (rvykydal)
-- Adapt iSCSI structures to dbus structure updates (rvykydal)
-- Use the ISCSI module in the ISCSIDialog (vponcova)
-- Create DBus tasks for discovering iSCSI nodes (vponcova)
-- Create the basic structure for the iSCSI module (vponcova)
-- Hide spokes in Silverblue and Workstation (vponcova)
-- Remove the screen access management (vponcova)
-- Hide spokes with the Anaconda configuration file (vponcova)
-- Run the DBus task for configuration of post-installation tools (vponcova)
-- Replace the lang execute() method (mkolman)
-- Collect requirements of the Storage module (vponcova)
-- Add DBus support for module requirements (vponcova)
-- Replace the Services execute() method by a DBus Task (mkolman)
-- Replace the SELinux execute() method by a DBus Task (mkolman)
-- Replace the Firewall execute() method by a DBus Task (mkolman)
-- Add FirewallConfigurationTask DBus Task (mkolman)
-- Add root parameter to execInSysroot utility function (mkolman)
-- Improve post install tools configuration (mkolman)
+* Thu Jun 13 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.5-1
+- Fix the rescue mode (vponcova)
+  Resolves: rhbz#1628653
 
-* Fri May 31 2019 Martin Kolman <mkolman@redhat.com> - 31.14-1
-- Require langtable-0.0.44, drop langtable-data requirement (mfabian)
-- Extend the format data with the mountable property (vponcova)
-- Add DBus support for supported file system types (vponcova)
-- Add DBus support for getting format type data (vponcova)
-- Add DBus support for gathering mount point requests (vponcova)
-- Move tests for partitioning modules to new files (vponcova)
-- Add DBus support for populating a device tree (vponcova)
-- Don't define the __eq__ method of DBusData (vponcova)
-- Add DBus support for mounting the existing system (vponcova)
-- Extend the function mount_existing_system (vponcova)
-- Add DBus support for finding existing operating system (vponcova)
-- Simplify generate_string_from_data (vponcova)
-- Define the __eq__ method of DBusData (vponcova)
-
-* Mon May 27 2019 Martin Kolman <mkolman@redhat.com> - 31.13-1
-- Parse the output of df correctly (#1708701) (vponcova)
-- Skip scaling if there is no primary monitor (#1592014) (vponcova)
-- Document how to report a bug (vponcova)
-- Handle post inst tools toggling in screen access manager (mkolman)
-- Fix a typo in Initial Setup configuration task (mkolman)
-- Remove methods _setup_mount_data and _process_mount_data (vponcova)
-- Rename MountPoint to MountPointRequest (vponcova)
-- Add tests for the storage checker module (vponcova)
-- Add DBus support for setting a constraint (vponcova)
-- Don't check the storage in a separate thread (vponcova)
-- Remove HMC from flags (jkonecny)
-- Rename the method add_new_constraint (vponcova)
-- Rename the method add_constraint (vponcova)
-- Remove the update_constraint method (vponcova)
-- Create the DBus module for the storage checker (vponcova)
-- Use MountPoint in TUI (vponcova)
-- Use MountPoint in ManualPartitioningTask (vponcova)
-- Use MountPoint in tests (vponcova)
-- Use MountPoint as DBus structure (vponcova)
-- Cleanup long removed "headless" option from docs (mkolman)
-
-* Wed May 15 2019 Martin Kolman <mkolman@redhat.com> - 31.12-1
-- Fix condition for running GUI User spoke in Initial Setup (mkolman)
-- Expose individual user group, user and root password DBus tasks (mkolman)
-- Use a DBus task for Initial Setup configuration (mkolman)
-- Add ConfigureInitialSetupTask (mkolman)
-- Sysroot support for enable_service() and disable_service() (mkolman)
-- Fix documentation for nosslverify (jkonecny)
-- Replace noverifyssl flag in anaconda (jkonecny)
-- Adjust verify_ssl config from cmdline (jkonecny)
-- Move payload nosslverify to the config files (jkonecny)
-- Skip some of the driver disk tests (vponcova)
-- Use the absolute paths to set the testing environment (vponcova)
-- Use DBus consistently (mkolman)
-- Test generate_string_from_data with invalid argument (vponcova)
-- Make from_structure and to_structure more strict (vponcova)
-
-* Thu May 02 2019 Martin Kolman <mkolman@redhat.com> - 31.11-1
-- Remove no longer needed kickstart command overrides (mkolman)
-- Use Users DBUS module for user configuration in GUI (mkolman)
-- Use Users DBUS module for user configuration in TUI (mkolman)
-- Adjust Users module DBus API for better kickstart root configuration
-  (mkolman)
-- Use DBusData base class for data holders (mkolman)
-- Add a string representation for UserData (mkolman)
-- Add ui/lib/users.py (mkolman)
-- Use a constant for the UID/GID not set value (mkolman)
-- Improve ksdata <-> user data methods in Users DBUS module (mkolman)
-- Do root, group, user and SSH key configuration with DBUS tasks (mkolman)
-- Add tasks for root, user, group and ssh key configuration (mkolman)
-- Fix indentation for user creation method docstring (mkolman)
-- Drop support for using custom password crypt algorithm (mkolman)
-- Make clear_root_password() into set_root_password() alias (mkolman)
-- Lock root & user accounts if password in kickstart is empty (mkolman)
-- Convert create_user() from kwargs to optional args (mkolman)
-- Convert create_group() from kwargs to optional args (mkolman)
-- Mark the root account as locked by default (mkolman)
-- Add docstrings & some signature tweaking in users.py (mkolman)
-- Move methods from User class to module top-level (mkolman)
-- Apply PEP8 for method names in users.py (mkolman)
-- Move user management code to core (mkolman)
-- Use Pykickstart data classes via handler (mkolman)
-- Add API for easy admin user detection (mkolman)
-- Add support for SSH key management via the users DBUS module (mkolman)
-- Add support for group management via the users DBUS module (mkolman)
-- Add support for managing multiple users to the users module (mkolman)
-
-* Tue Apr 30 2019 Martin Kolman <mkolman@redhat.com> - 31.10-1
-- get_iface_from_hwaddr: be more careful about hwaddr (#1703152) (awilliam)
-- network: fix a typo in infiniband connections creating (#1698937) (rvykydal)
-- network: do not crash on --device bootif when BOOTIF is not specified
-  (#1699091) (rvykydal)
-- Add DBus support for the device specifier for use in /etc/fstab (vponcova)
-- Set swap devices for fstab in the interactive partitioning (vponcova)
-- Refactor the passphrase setup on unconfigured LUKS devices (vponcova)
-- Add DBus support for UUID (vponcova)
-- Add DBus support for device format (vponcova)
-- Add DBus support for unlocking LUKS devices (vponcova)
-- Add DBus support for finding mountable partitions (vponcova)
-- We inherit self.data.repo.dataList() from parent class. (riehecky)
-
-* Thu Apr 11 2019 Martin Kolman <mkolman@redhat.com> - 31.9-1
-- Remove the function get_structure (vponcova)
-- Remove the function apply_structure (vponcova)
-- Remove the decorator (vponcova)
-- Add the class DBusData (vponcova)
-- Give payload a hook for adding disabled repos. (riehecky)
-- Extend the function generate_string_from_data (vponcova)
-- Blivet-GUI should wait for the storage threads to finish (#1696478)
-  (vponcova)
-- network: do not pass None value from NM device object to data holder
-  (#1695967) (rvykydal)
-- Handle bytes and strings from RPM (#1693766) (vponcova)
-- network module: add network module unit tests (rvykydal)
-
-* Tue Apr 09 2019 Martin Kolman <mkolman@redhat.com> - 31.8-1
-- network: create systemd .link files for ifname= boot options (#1695894)
-  (rvykydal)
-- Bump Workstation root partition max size to 70 GiB (klember)
-- Add DBus support for finding optical media (vponcova)
-- Add DBus support for handling a device (vponcova)
-- Do not use ISO source as install tree root (#1691832) (jkonecny)
-- Fix bad assumption about base repo identification (#1691832) (jkonecny)
-- network tui: fix updating of a connection from UI (#1692677) (rvykydal)
-- network: fix copying of resolv.conf for cases where target /etc does not
-  exist (#1695990) (rvykydal)
-- network: fix crash ensuring single connections for unplugged devices
-  (#1695899) (rvykydal)
-- Add support for skipping attributes in the string representation (vponcova)
-- Raise the UnknownDeviceError exception (vponcova)
-- Add DBus support for resolving devices (vponcova)
-- Add DBus support for the available space (vponcova)
-- Move GetRequiredDeviceSize to the device tree module (vponcova)
-- Create the device tree module (vponcova)
-- Don't set the __repr__ methods of data classes (vponcova)
-- network: for vlan set DEVICE only if interfacename is specified in kickstart
-  (rvykydal)
-- Change fips package requirement reason (jkonecny)
-- payload: raise exception on invalid Languages (jkonecny)
-- payload: Mark DefaultEnvironment API as temporary (jkonecny)
-- payload: fix default values for packages section (jkonecny)
-- Remove unused import for DNF (jkonecny)
-- payload: add converter for kickstart groups (jkonecny)
-- payload: switch multilib policy to names (jkonecny)
-- payload: add rest of the DNF/Packages attributes (jkonecny)
-- payload: add packages controlling properties (jkonecny)
-- payload: add package groups interface to Packages (jkonecny)
-- payload: adjust packages section attributes (jkonecny)
-- payload: move %%packages parsing to DNF/Packages (jkonecny)
-- payload: add DBus packages dnf submodule (jkonecny)
-- payload: add the empty DNF handler (jkonecny)
-- payload: create internal Packages class (jkonecny)
-- payload: parse %%packages section in module (jkonecny)
-
-* Tue Apr 02 2019 Martin Kolman <mkolman@redhat.com> - 31.7-1
-- Create the initialization config in _get_initialization_config (vponcova)
-- Remove config from InstallerStorage (vponcova)
-- Update DiskInitializationConfig only before clearpart (vponcova)
-- Create the method can_initialize (vponcova)
-- Remove should_clear from InstallerStorage (vponcova)
-- Remove clear_partitions from InstallerStorage (vponcova)
-- Replace StorageDiscoveryConfig (vponcova)
-- Update the protected devices in the Storage module (vponcova)
-- Import the bootloader classes on demand (vponcova)
-- Remove bootloader_device from InstallerStorage (vponcova)
-- Remove update_bootloader_disk_list from InstallerStorage (vponcova)
-- Remove boot_fstypes of InstallerStorage (vponcova)
-- Remove set_up_bootloader from InstallerStorage (vponcova)
-- Define all bootloader attributes in the __init__ method (vponcova)
-- Remove workarounds for the unset bootloader (vponcova)
-- Clean up the do_it method of the storage (vponcova)
-- Validate the GRUB2 configuration in the Bootloader module (vponcova)
-- Add DBus support for the bootloader arguments (vponcova)
-- Add DBus support for detecting Windows OS (vponcova)
-- Add DBus support for EFI (vponcova)
-- Add DBus support for the bootloader installation tasks (vponcova)
-- Add DBus support for usable disks (vponcova)
-- Apply the disks selection in the partitioning modules (vponcova)
-- Remove the function get_available_disks (vponcova)
-- Organize actions in InteractivePartitioningTask (vponcova)
-- Add DBus support for device actions (vponcova)
-- Simplify ActionSummaryDialog (vponcova)
-- Set up the clearpart command from the storage (vponcova)
-- payload: request /usr/bin/fips-mode-setup (zbyszek)
-- Fix the entry for swap in /etc/fstab (#1258322) (vponcova)
-- Add DBus support for disk images (vponcova)
-- Remove askmethod flag (jkonecny)
-- Fix two typos (zbyszek)
-- Disable updates-testing (#1670091) (vponcova)
-- network module: return slaves in set and order them predictably in generated
-  ks (rvykydal)
-- network module: update ifcfg.py unit tests for getting ifcfg file on s390
-  (rvykydal)
-- network module: fix getting ifcfg file for s390 (rvykydal)
-- network module: remove unused functionality from get_ifcfg_file (rvykydal)
-- network module: unit tests for update onboot functions in ifcfg.py (rvykydal)
-- network module: add TODO to ifcfg.py tests (rvykydal)
-- network module: ifcfg.py tests - no need for ifcfg for vlan bound to device
-  (rvykydal)
-- network module: add ifcfg.py unit tests (rvykydal)
-- network module: do not try to generate ksdata from wireless device ifcfg
-  (rvykydal)
-- network module: fix a typo in function name (rvykydal)
-- network module: allow to generate ifcfg files in optional root (rvykydal)
-- network module: fix thinko (rvykydal)
-- network module: rename _ifcfg_files method (rvykydal)
-- network module: fix a super call (rvykydal)
-- Fix the unit tests (vponcova)
-
-* Thu Mar 21 2019 Martin Kolman <mkolman@redhat.com> - 31.6-1
-- Test the DBus support for the device tree (vponcova)
-- Add DBus support for the device tree (vponcova)
-- Fix the initialization of BootInfo (#1599378) (vponcova)
-- network module: update module API unit tests (rvykydal)
-- network module: guard some methods on NM availability (rvykydal)
-- Remove useless swapoff (vponcova)
-- Always specify the LUKS version in CustomPartitioningSpoke (#1689699)
-  (vponcova)
-- Remove the property free_space_snapshot from InstallerStorage (vponcova)
-- network: fix setting of NetworkDeviceInfo from NM Device (rvykydal)
-- Hide the encryption checkbox for the interactive partitioning (vponcova)
-- Deprecate DBusObjectObserver (vponcova)
-- Remove DBusCachedObserver (vponcova)
-- Add the method get_file_system_free_space to InstallerStorage (vponcova)
-- Use get_disk_free_space and get_disk_reclaimable_space in StorageSpoke
-  (vponcova)
-- Use get_disk_free_space in ResizeDialog (vponcova)
-- Use get_disk_free_space in CustomPartitioningSpoke (vponcova)
-- Use get_disk_free_space in SelectedDisksDialog (vponcova)
-- network: adapt a unit test to get_supported_devices change (rvykydal)
-- Don't estimate the free space based on the clearpart settings (vponcova)
-- Update the kickstart data for iSCSI and NVDIMM during the installation
-  (vponcova)
-- network: share single NM Client in anaconda (rvykydal)
-- network: handle ONBOOT in ifcfg by network module (rvykydal)
-- network: network.py cleanup (rvykydal)
-- Don't generate temporary kickstart in the Storage module (vponcova)
-- Remove attributes for autopart encryption from the InstallerStorage
-  (vponcova)
-- Make invalid installation from HDD more visible (jkonecny)
-- network module: fix updating of ONBOOT value on installed system (rvykydal)
-- network: remove nm.py (rvykydal)
-- network: use libnm to get device IP addresses (rvykydal)
-- network: use libnm to get ntp servers from dhcp options (rvykydal)
-- network module: provide and use GetActivatedInterfaces (rvykydal)
-- network: remove unused stuff from nm.py (rvykydal)
-- network: use GetSupportedDevices API (rvykydal)
-- network module: provide GetSupportedDevices (rvykydal)
-- Remove the encrypted_autopart property of the InstallerStorage (vponcova)
-- Remove the autopart_type property of the InstallerStorage (vponcova)
-- Remove the autopart_requests property of the InstallerStorage (vponcova)
-- Remove the do_autopart property of the InstallerStorage (vponcova)
-- Move the support for scheduling partitions to the Storage module (vponcova)
-- Move do_autopart to the Storage module (vponcova)
-- Move do_reqpart to the Storage module (vponcova)
-- Add a new task for interactive auto partitioning (vponcova)
-- Replace the function do_kickstart_storage (vponcova)
-- Replace partitioning executors with tasks (vponcova)
-- Move partitioning executors to the Storage module (vponcova)
-- Move swap_suggestion to pyanaconda.storage.utils (vponcova)
-- network: remove ifcfg.log (rvykydal)
-- network module: log configuration state after installation task (rvykydal)
-- network: remove low-level debug logging on IfcfgFile modifications (rvykydal)
-- network module: use module for logging of configuration state (rvykydal)
-- network module: move ifcfg logging into the module (rvykydal)
-- network module: do not log secrets (rvykydal)
-- network module: rename and add doc to network initialization task interface
-  (rvykydal)
-- network module: guard initialization tasks by anaconda system configuration
-  (rvykydal)
-- network: log network initialization better (rvykydal)
-- network module: use task to dump missing ifcfg files (rvykydal)
-- network module: use task to set real onboot values (rvykydal)
-- network module: use task for initramfs connections consolidation (rvykydal)
-- network module: use task for apply kickstart (rvykydal)
-- payload: separate blivet.utils & blivet.arch call (jkonecny)
-- Improve content of the top-level README file (mkolman)
-
-* Tue Mar 12 2019 Martin Kolman <mkolman@redhat.com> - 31.5-1
-- Don't run the storage checker to check autopart (vponcova)
-- Remove the SnapshotValidateTask class (vponcova)
-- Validate post-installation snapshot requests with the storage checker
-  (vponcova)
-- Add a new type of the installation system for the initial setup (vponcova)
-- Simplify update_storage_ksdata (vponcova)
-- Don't set anything if the partitioning fails (vponcova)
-- Reset the bootloader with reset_bootloader (vponcova)
-- Add support for scanning all devices in the system (vponcova)
-- Add the ExclusiveDisks property (vponcova)
-- Move tests for the disk selection module to a new file (vponcova)
-- Replace initialize_storage with reset_storage (vponcova)
-- Remove the shutdown method (vponcova)
-- payload: don't force host-only mode when executing dracut (javierm)
-- Simplify the code for protected devices (vponcova)
-- Define the quit message in TUI (#1686116) (vponcova)
-- efi: don't include the grub2-pc package on EFI installs (javierm)
-- Small optimization in boot arg parsing method (jkonecny)
-- Fix bad --addrepo command line parsing (jkonecny)
-- Raise correct exception on bad addrepo boot param (jkonecny)
-- payload: migrate TUI software spoke to pep8 (jkonecny)
-- payload: switch from CamelCase in software spoke (jkonecny)
-- payload: remove unused radio button (jkonecny)
-- payload: solve basic pep 8 errors (jkonecny)
-
-* Wed Mar 06 2019 Martin Kolman <mkolman@redhat.com> - 31.4-1
-- Add tests for UnsupportedPartitioningError (vponcova)
-- Handle missing support for Blivet-GUI in the Storage module (#1685645)
-  (vponcova)
-- Create the default partitioning requests on demand (vponcova)
-
-* Tue Mar 05 2019 Martin Kolman <mkolman@redhat.com> - 31.3-1
-- Fix live payload error introduced by clean-up (#1685258) (jkonecny)
-
-* Mon Mar 04 2019 Martin Kolman <mkolman@redhat.com> - 31.2-1
-- Get the summary about selected disks from a function (vponcova)
-- Replace warnings about disks with constants (vponcova)
-- Rename and reorganize members of the storage spoke in TUI and GUI (vponcova)
-- Add tests for the Blivet partitioning module (vponcova)
-- Add DBus support for Blivet-GUI (vponcova)
-- Create the Blivet partitioning module (vponcova)
-- Don't override bg color of gtk-themes (mate)
-- Fix the import of ZFCP (#1684583) (vponcova)
-- Set up the disk initialization module from the partitioned storage (vponcova)
-- Move the tests for the disk initialization module (vponcova)
-- Set the default filesystem type for /boot in the Storage module (vponcova)
-- Replace the default autopart type in the Storage module (vponcova)
-- Set the correct attribute of the bootloader kickstart data (vponcova)
-- network: Get FCoE nics from the DBus module (vponcova)
-- Set up the kickstart partitioning from the storage by default (vponcova)
-- Get the required device size for the given space from DBus (vponcova)
-- network module: remove DisableIPV6 API (rvykydal)
-- network module: fix disabling of ipv6 (rvykydal)
-- Fixes for pylint-2.3.0 (vponcova)
-- network module: remove API for applying boot options (rvykydal)
-- network: use DEVICETYPE for team when updating virtual slaves ifcfgs
-  (rvykydal)
-- dracut/parse-kickstart: Set DEVICETYPE instead of TYPE in a team master ifcfg
-  file (ptalbert)
-- network module: take DEVICETYPE for team into account (rvykydal)
-- payload: fix pep8 errors in TUI source spoke (jkonecny)
-- network: fix network spoke status message (rvykydal)
-- payload: switch source spoke from CamelCase (jkonecny)
-- payload: solve pep8 errors in GUI source spoke (jkonecny)
-- network module: fix missing argument in a log message (rvykydal)
-- network module: honor ifname boot option for kickstart %%pre and missing
-  ifcfg (rvykydal)
-
-* Mon Feb 25 2019 Martin Kolman <mkolman@redhat.com> - 31.1-1
-- Use apply_disk_selection (vponcova)
-- Use filter_disks_by_names (vponcova)
-- Exclude zFCP and NVDIMM devices in is_local_disk (vponcova)
-- Move code from pyanaconda.ui.lib.disks (vponcova)
-- Remove the support for fake disks (vponcova)
-- Add tests for the Snapshot module (vponcova)
-- Remove the extra code for protecting live devices (vponcova)
-- payload: switch from CamelCase in utils.py (jkonecny)
-- payload: switch from CamelCase in rpmostreepayload.py (jkonecny)
-- payload: switch from CamelCase in manager.py (jkonecny)
-- payload: switch from CamelCase in livepayload.py (jkonecny)
-- payload: switch from CamelCase in dnfpayload.py (jkonecny)
-- payload: switch from CamelCase in the __init__.py (jkonecny)
-- payload: move versionCmp to a separate file (jkonecny)
-- payload: convert manager states to enum (jkonecny)
-- payload: use ABCMeta for abstract classes (jkonecny)
-- payload: move manager to a separate file (jkonecny)
-- payload: remove ImagePayload abstract class (jkonecny)
-- payload: move requirements code to a separate file (jkonecny)
-- payload: move requirements exception to payload.errors (jkonecny)
-- payload: import exceptions directly in dnf payload (jkonecny)
-- payload: move exceptions to a separate file (jkonecny)
-- payload: remove unused code parts (jkonecny)
-- payload: fix pep8 issues (jkonecny)
-- Specify the sysroot when you call the DBus method InstallWithTasks (vponcova)
-- Remove the obsolete check for unknown sources (vponcova)
-- network tui: guard use of NMClient by system configuration (rvykydal)
-- network tui: handle device configuration in proper spoke (rvykydal)
-- Use unformatted DASDs for the partitioning (vponcova)
-- Fix the storage reset in TUI (vponcova)
-- Use the Snapshot module in UI (vponcova)
-- Use the Snapshot module in the Storage module (vponcova)
-- Create a task for creation of snapshots (vponcova)
-- Create a task for validation of snapshot requests (vponcova)
-- Handle the command snapshot in the Snapshot module (vponcova)
-- Create the Snapshot module (vponcova)
-- network: rename sanityCheckHostname function (rvykydal)
-- network: remove code which is no more needed/used with network module
-  (rvykydal)
-- network ui: share some code (will be provided by module) (rvykydal)
-- network gui: update model instead of recreating it on config changes
-  (rvykydal)
-- network gui: connect to network module DeviceConfigurations (rvykydal)
-- network: use NM Client for networking status message (rvykydal)
-- network tui: use NetworkDeviceConfiguration structure (rvykydal)
-- network tui: let network module handle updating kickstart data (rvykydal)
-- network: remove no more used code (rvykydal)
-- network tui: use network module and libnm (rvykydal)
-- Add tests for the NVDIMM module (vponcova)
-- Use the NVDIMM module in the NVDIMMDialog (vponcova)
-- Create a task for the NVDIMM namespace reconfiguration (vponcova)
-- Move the support for setting NVDIMM namespaces to use on DBus (vponcova)
-- Move the support for updating NVDIMM actions on DBus (vponcova)
-- Move the support for ignoring NVDIMM devices on DBus (vponcova)
-- Create the NVDIMM module (vponcova)
-
-* Tue Feb 19 2019 Martin Kolman <mkolman@redhat.com> - 30.25-1
-- Remove one more obsolete group tag (mkolman)
-
-* Tue Feb 19 2019 Martin Kolman <mkolman@redhat.com> - 30.24-1
-- Add tests for the bootloader installation tasks (vponcova)
-- Move the bootloader tests to a new file (vponcova)
-- Create the DBus installation tasks for the bootloader (vponcova)
-- Check for dirinstall target on s390 (bcl)
-- Remove the menu_auto_hide attribute from Bootloader (vponcova)
-- Remove the efi_dir attribute from EFIBase (vponcova)
-- Clean up the Anaconda class (vponcova)
-- Move pyanaconda.ihelp (vponcova)
-- Update the stylesheet data (vponcova)
-- Add tests for new methods of the Storage module (vponcova)
-- Apply the partitioning in the Storage module (vponcova)
-- Fix missing space in translatable string (mail)
-
-* Wed Feb 13 2019 Martin Kolman <mkolman@redhat.com> - 30.23-1
-- Reorganize the code for the boot loader installation (vponcova)
-- Remove a useless argument from write_boot_loader (vponcova)
-- Remove useless arguments from methods of the kickstart commands (vponcova)
-- Create installation tasks for the Storage module (vponcova)
-- Add tests for the custom partitioning module (vponcova)
-- Create the custom partitioning module (vponcova)
-- Process the btrfs command in the Storage module (vponcova)
-- Remove the data from the execute method of the partitioning executors
-  (vponcova)
-- Remove unmaintained signal handler (#1676683) (vponcova)
-- Change a confusing message for headless systems (vponcova)
-- Mount the file systems in a different installation task (vponcova)
-- Write the escrow packets later (vponcova)
-- Replace the writeStorageEarly and writeStorageLater methods (vponcova)
-
-* Tue Feb 12 2019 Martin Kolman <mkolman@redhat.com> - 30.22-1
-- Don't use the network manager client in a mock environment (vponcova)
-- Don't load storage plugins in dir installations (#1674605) (vponcova)
-- Test the storage configuration and validation in the Storage module
-  (vponcova)
-- Implement configuration and validation in the partitioning modules (vponcova)
-- Create the storage validation task (vponcova)
-- Create the storage configuration task (vponcova)
-- Create base classes for the partitioning modules (vponcova)
-- Check if we can access a DBus service (vponcova)
-
-* Thu Feb 07 2019 Martin Kolman <mkolman@redhat.com> - 30.21-1
-- Drop the temporary anaconda-live dependency (mkolman)
-- network module: update tests for generating dracut arguments (rvykydal)
-- network_module: return set from function for getting dracut arguments
-  (rvykydal)
-- network module: pass ifcfg to the function for getting dracut arguments
-  (rvykydal)
-- network module: split add_connection_from_ksdata function (rvykydal)
-- network module: split bind_connection function (rvykydal)
-- network module: move looking for first device with link into a function
-  (rvykydal)
-- network module: split and fix device configuration functions (rvykydal)
-- network module: fix device configuration update for GUI (rvykydal)
-- network module: add docstring to ifcfg.py (rvykydal)
-- network module: use super() (rvykydal)
-- network module: update docstrings and style of kickstart.py (rvykydal)
-- network module: do not generate kickstart data for onboot value tweaking
-  (rvykydal)
-- network module: decide better when to apply onboot policy (rvykydal)
-- network module: move functions getting network data to better places
-  (rvykydal)
-- network module: update docstrings of installation task methods (rvykydal)
-- network module: remove unused return values from installation task methods
-  (rvykydal)
-- network module: fix ONBOOT log message for installation task (rvykydal)
-- network module: remove devel debugging log messages (rvykydal)
-- network module: transform device configurations to structures in interface
-  (rvykydal)
-- network module: update doc strings for DeviceConfigurations API (rvykydal)
-- network module: connect DisableIPv6 to implementation signal (rvykydal)
-- network module: fix generating of kickstart --activate option (rvykydal)
-- network module: clean up typos and style (rvykydal)
-- network module: use already existing function (rvykydal)
-- Reset the storage object in the Storage module (vponcova)
-- Protect devices in the Storage module (vponcova)
-- Create the storage object in the Storage module (vponcova)
-- Initialize Blivet in the Storage module (vponcova)
-- Create a task with a result in the Baz module (vponcova)
-- Allow to publish a task with a different interface (vponcova)
-- Add the GetResult method (vponcova)
-- Add the Succeeded signal (vponcova)
-- network module: update unit tests (rvykydal)
-- newtork module: put use of NM client under control of network module
-  (rvykydal)
-- network module: use constant for nm connection uuid length (rvykydal)
-- network module: use network module to get dracut arguments (rvykydal)
-- network module: add support for getting dracut arguments (rvykydal)
-- network module: support renaming of devices with ifname= boot option
-  (rvykydal)
-- network module: generate kickstart from network module (rvykydal)
-- network module: set current hostname using network module directly (rvykydal)
-- network module: remove dependency of configuration task on nm_client
-  (rvykydal)
-- network module: use module task for network configuration writing (rvykydal)
-- network module: ifcfg.py cleanup (rvykydal)
-- network module: dump missing ifcfg files via network module (rvykydal)
-- network module: add support for dumping missing ifcfg files (rvykydal)
-- network module: set real ONBOOT values via network module (rvykydal)
-- network module: add support for updating ONBOOT ifcfg value (rvykydal)
-- network module: apply kickstart via network module (rvykydal)
-- network module: fix list of devices for which kickstart was applied
-  (rvykydal)
-- network module: work with ifcfg file objects, not paths (rvykydal)
-- network module: set bootif kickstart value from boot options (rvykydal)
-- network module: provide apply_kickstart (rvykydal)
-- network module: consolidate initramfs connections via Network module
-  (rvykydal)
-- network module: provide initramfs connections consolidation (rvykydal)
-- network module: set default value for missing network --device from ksdevice.
-  (rvykydal)
-- network module: handle default network --device value (rvykydal)
-- network module: handle hostname only network commands correctly (rvykydal)
-- network module: use DBus Structure for DeviceConfiguration (rvykydal)
-- network module: provide dbus API for DeviceConfigurations (rvykydal)
-- network module: fix looking up vlan parent if specified by UUID (rvykydal)
-- network module: fix kickstart generating for vlan interface name (rvykydal)
-- network module: generate kickstart data from DeviceConfigurations (rvykydal)
-- network module: add a module providing NM.Client (rvykydal)
-- network module: connect DeviceConfigurations to signals from NM (rvykydal)
-- network module: add DeviceConfigurations for persistent config state
-  (rvykydal)
-
-* Wed Feb 06 2019 Martin Kolman <mkolman@redhat.com> - 30.20-1
-- Remove obsolete Group tag & obsolete scriptlets (mkolman)
-- Move the write method of the InstallerStorage class (vponcova)
-- Clean up the reset method of the InstallerStorage class (vponcova)
-- Allow non-ASCII characters in passphrases again (#1619813) (vponcova)
-- Remove the argument protected from initialize_storage (vponcova)
-- Remove multiboot support for tboot (javierm)
-- Move the code for ignoring disks labeled OEMDRV (vponcova)
+* Wed Jun 12 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.4-1
 - Set default entry to the BLS id instead of the entry index (javierm)
-- Remove the ksdata argument from the initialize_storage function (vponcova)
-- Remove the ksdata attribute from the InstallerStorage class (vponcova)
-- Move the code for ignoring nvdimm devices to pyanaconda.storage.utils
-  (vponcova)
+  Resolves: rhbz#1671047
+- Fix non-root dir of install tree HD installation (jkonecny)
+  Resolves: rhbz#1689194
+
+* Tue Jun 11 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.3-1
+- Handle bytes and strings from RPM (vponcova)
+  Resolves: rhbz#1689909
+- Set the flag lvm_metadata_backup (vponcova)
+  Resolves: rhbz#1673901
+- Rename add-ons to additional software (jkonecny)
+  Resolves: rhbz#1674011
+- Move product version modifications for ui into function and add unit test.
+  (rvykydal)
+  Resolves: rhbz#1671384
+- Do not show quarterly release part of the version in UI. (rvykydal)
+  Resolves: rhbz#1671384
+
+* Mon Jun 10 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.2-1
+- Rename zanata rhel-devel version (rvykydal)
+  Related: rhbz#1666319
+- Adapt makebumpver to rhel-devel -> rhel-8 branch renaming. (rvykydal)
+  Resolves: rhbz#1666319
+
+* Thu Jun 06 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.1.1-1
 - Use new ssl certificate kickstart options (lars)
-- Remove the data argument from the do_autopart function (vponcova)
-- Call refreshAutoSwapSize from the do_autopart function (vponcova)
-- Move getAvailableDiskSpace to pyanaconda.storage.utils (vponcova)
-- Move lookupAlias to pyanaconda.storage.utils (vponcova)
-- Move getEscrowCertificate to pyanaconda.storage.utils (vponcova)
-- Move get_ignored_nvdimm_blockdevs to pyanaconda.storage.utils (vponcova)
-- Remove update_ksdata from the InstallerStorage class (vponcova)
-- Remove obsolete ldconfig scriptlets (mkolman)
-- Do not try to use disks without partition slots for autopart (vtrefny)
-- dracut: Add deps for fetch-kickstart-disk (walters)
+  Resolves: rhbz#1663954
 
-* Mon Jan 28 2019 Martin Kolman <mkolman@redhat.com> - 30.19-1
-- Move code for the storage creation (vponcova)
-- Move code for the storage initialization (vponcova)
-- Remove the GRUB class (javierm)
-- Remove support for deprecated bootloaders (javierm)
-- Spelling fix in Boot Options documentation (josephvoss14)
-- Put 'lock' checkbox under 'Confirmation field' (frederic.pierret)
-- Don't create an extra instance of the bootloader (vponcova)
-- Remove the preStorage method in payload (vponcova)
-- Use LUKS2 by default (vponcova)
-- Clean up the space checkers (#1520749) (vponcova)
-- Don't show time and date controls in live installations (#1510425) (vponcova)
-- anaconda: add option to lock root account (frederic.epitre)
+* Thu Mar 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.40-1
+- Pull in new translations (rvykydal)
+  Related: rhbz#1684056
 
-* Mon Jan 21 2019 Martin Kolman <mkolman@redhat.com> - 30.18-1
-- Relabel X11/xorg.conf.d directory (#1666892) (jkonecny)
-- Reorder items in selinux relabeling post script (#1666892) (jkonecny)
-- Fix jumping boxes in root password spoke (jkonecny)
-- Move the execute method of the bootloader command (vponcova)
-- Remove ksdata from the execute method of the bootloader command (vponcova)
-- Move writeBootLoader to pyanaconda.bootloader.installation (vponcova)
-- Move EXTLINUX to pyanaconda.bootloader.extlinux (vponcova)
-- Move ZIPL to pyanaconda.bootloader.zipl (vponcova)
-- Move Yaboot to pyanaconda.bootloader.yaboot (vponcova)
-- Move EFIBase to pyanaconda.bootloader.efi (vponcova)
-- Move GRUB2 to pyanaconda.bootloader.grub2 (vponcova)
-- Move GRUB to pyanaconda.bootloader.grub (vponcova)
-- Move Bootloader to pyanaconda.bootloader.base (vponcova)
-- Move BootLoaderImage to pyanaconda.bootloader.image (vponcova)
-- Create the pyanaconda.bootloader module (vponcova)
-- Tweak tests documentation (jkonecny)
-- Fix requires in dependency solver (jkonecny)
-- Remove the unused method add_re_check (vponcova)
-- Remove the unused attribute _lHome (vponcova)
-- Remove the unused attribute _actionStore (vponcova)
-- Remove unused constants ERROR_WEAK and ERROR_NOT_MATCHING (vponcova)
-- Remove the unused attributes _repoNameWarningBox and _repoNameWarningLabel
-  (vponcova)
-- Remove the unused attribute _configureBox (vponcova)
-- Remove the unused attribute _addDisksButton (vponcova)
-- Remove the unused attribute orig_fstab (vponcova)
-- Remove the unused attribute ignore_disk_interactive (vponcova)
-- Remove the unused class TarPayload (vponcova)
-- Remove the unused method environmentGroups (vponcova)
-- Remove the unused exception NoSuchPackage (vponcova)
-- Remove the unused function get_locale_territory (vponcova)
-- Remove the unused variable upgrade_log (vponcova)
-- Remove unused classes RegexpCheck and FunctionCheck (vponcova)
-- Remove the unused property check_request (vponcova)
-- Remove the unused constant PASSWORD_DONE_TO_CONTINUE (vponcova)
-- Remove the unused constant SECRET_MIN_LEN (vponcova)
-- Remove the unused variable bugzillaUrl (vponcova)
-- Remove the unused attribute stage1_device_types (vponcova)
-- Move attributes from the Blivet class to Anaconda (vponcova)
-- Remove the Blivet's gpt flag (vponcova)
+* Tue Mar 12 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.39-1
+- Make SMT warning message smaller (jkonecny)
+  Related: rhbz#1684056
+- Remove blank line in the SMT warning (jkonecny)
+  Related: rhbz#1684056
+
+* Mon Mar 11 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.38-1
+- Pull in new translations (rvykydal)
+  Related: rhbz#1684056
+
+* Fri Mar 08 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.37-1
+- Update the SMT warning message (rvykydal)
+  Related: rhbz#1684056
+- Detect and warn if SMT is enabled (vponcova)
+  Resolves: rhbz#1684056
+
+* Mon Feb 25 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.36-1
+- Pass nosmt boot option to installed system. (rvykydal)
+  Resolves: rhbz#1677411
+- Use unformatted DASDs for the partitioning (vponcova)
+  Resolves: rhbz#1676630
+
+* Fri Feb 22 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.35-1
+- Check for dirinstall target on s390 (bcl)
+  Resolves: rhbz#1677417
+
+* Thu Feb 14 2019 Martin Kolman <mkolman@redhat.com> - 29.19.0.34-3
+- Change the overflow color (vponcova)
+  Related: rhbz#1637686
+
+* Mon Feb 11 2019 Martin Kolman <mkolman@redhat.com> - 29.19.0.34-2
+- Remove a confusing message for headless systems (#1638791) (vponcova)
+  Resolves: rhbz#1638791
+
+* Wed Jan 30 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.34-1
+- Restore RHEL-specific stylesheet data (vponcova)
+  Resolves: rhbz#1638383
+- Do not crash on missing multipath device wwn. (rvykydal)
+  Resolves: rhbz#1666242
+
+* Wed Jan 16 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.33-1
+- Relabel X11/xorg.conf.d directory (jkonecny)
+  Resolves: rhbz#1660436
+- Reorder items in selinux relabeling post script (jkonecny)
+  Related: rhbz#1660436
+
+* Mon Jan 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.32-1
+- Update gjs dependency filter for fedora->rhel filename changes (rvykydal)
+  Related: rhbz#1650295
+
+* Mon Jan 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.31-1
+- Change fedora-welcome to rhel-welcome (bcl)
+  Related: rhbz#1650295
+
+* Tue Jan 08 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.30-1
+- Add python3-coverage to testing dependencies (jkonecny)
+  Related: rhbz#1502323
 - Set Automatic Installation Media for HDD not ISO (jkonecny)
+  Related: rhbz#1502323
 - Adapt old code to new partition name translation (jkonecny)
+  Related: rhbz#1502323
 - Fix source spoke status for expanded tree on HDD (jkonecny)
+  Related: rhbz#1502323
 - Enable installation from install tree on HDD (jkonecny)
-- Remove the unused class IPSeriesYaboot (vponcova)
-- Fix the name of the attribute stage2_device_raid_levels (vponcova)
-- Remove the useless attribute stage2_max_end_mb (vponcova)
-- Remove the unused attribute problems (vponcova)
-- Remove the unused logger to stderr (vponcova)
-- Move the code from format_by_default to the storage checker (vponcova)
-- Move the code from must_format to the storage checker (vponcova)
+  Resolves: rhbz#1502323
 
-* Wed Jan 09 2019 Martin Kolman <mkolman@redhat.com> - 30.17-1
-- Fix anaconda-live package temporary Requires: (mkolman)
-- Add a new configuration option allow_imperfect_devices (vponcova)
-- Remove the selinux flag (vponcova)
-- Rename the Services section (vponcova)
-- Fix Arm EFI package selection and 32 bit status (pbrobinson)
-- Remove support for the undocumented option force_efi_dir (vponcova)
-- Remove the flag extlinux (vponcova)
-- Remove the flag nombr (vponcova)
-- Remove the flag leavebootorder (vponcova)
-- Remove the flag nonibftiscsiboot (vponcova)
+* Mon Dec 17 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.29-1
+- Pull in fixed translations
+  Resolves: rhbz#1659890
 
-* Tue Jan 08 2019 Martin Kolman <mkolman@redhat.com> - 30.16-1
-- Use the file system type provided by Blivet by default (#1663585) (vponcova)
-- Move remaining GUI related files to anaconda-gui (mkolman)
-- Create anaconda-live sub-package (mkolman)
-- Don't acquire the imp's lock (#1644936) (vponcova)
-
-* Thu Jan 03 2019 Martin Kolman <mkolman@redhat.com> - 30.15-1
-- Remove install classes from the code (vponcova)
-- Remove files with install classes (vponcova)
-- Use the Anaconda configuration to configure the storage (vponcova)
-- Use the Anaconda configuration to configure the bootloader (vponcova)
-- Use the correct name of the variant AtomicHost (vponcova)
-- Use the Anaconda configuration to configure payload (vponcova)
-- Use the Anaconda configuration to configure network devices (vponcova)
-- Use the Anaconda configuration to customize the user interface (vponcova)
-- Use the Anaconda configuration to show EULA (vponcova)
-- Use the Anaconda configuration to detect unsupported hardware (vponcova)
-- Remove the kickstart command installclass (vponcova)
-- Fix the anaconda documentation (vponcova)
-- Add support for inst.product and inst.variant (vponcova)
-- Use the product configuration files in Anaconda (vponcova)
-
-* Wed Jan 02 2019 Martin Kolman <mkolman@redhat.com> - 30.14-1
-- Require password confirmation in GUI (#1584064) (mkolman)
-- Run zipl again after generating initramfs (#1652727) (vponcova)
-- Preserve the boot option zfcp.allow_lun_scan (#1561662) (vponcova)
-- Don't allow /boot on LVM (#1641986) (vponcova)
-- The encoding should be always set to UTF-8 (#1642857) (vponcova)
-- Make sure fips is correctly enabled on target system (#1619568) (mkolman)
-- Remove workaround for bd_s390_dasd_online (vponcova)
-- Clean up /run/install (#1562239) (vponcova)
-- Make it possible to exit empty user spoke (#1620135) (mkolman)
-- Don't allow to use LDL DASD disks (#1635825) (vponcova)
-- Remove initThreading method from pyanaconda.threading (vponcova)
+* Fri Dec 14 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.28-1
+- Update python-coverage dependency (rvykydal)
+  Resolves: rhbz#1658777
+- Require password confirmation in GUI (mkolman)
+  Resolves: rhbz#1584064
+- Only quit GTK mainloop on GUI quit request (mkolman)
+  Resolves: rhbz#1643111
 - Drop the inst.noblscfg option (javierm)
-
-* Tue Dec 04 2018 Martin Kolman <mkolman@redhat.com> - 30.13-1
-- Extend tests for the configuration support (vponcova)
-- Split the Anaconda configuration handler to more files (vponcova)
-- Add tests for the product configurations (vponcova)
-- Read only *.conf files from /etc/anaconda/conf.d (vponcova)
-- Create the product configuration loader (vponcova)
-- Disable BLS config if new-kernel-pkg script is installed (javierm)
-- Drop xorg-x11-server-Xorg check from graphical target detection (#1583958)
-  (mkolman)
-- Create a basic structure of the product configuration files (vponcova)
+  Resolves: rhbz#1658980
+- Don't allow to use LDL DASD disks (vponcova)
+  Resolves: rhbz#1635825
+- Don't allow /boot on LVM (vponcova)
+  Resolves: rhbz#1641986
+- Use the default LUKS version for auto partitioning (vponcova)
+  Resolves: rhbz#1628519
+- Make it possible to exit empty user spoke (mkolman)
+  Resolves: rhbz#1620135
 - Fix pylint errors (vponcova)
-- dracut/parse-kickstart: don't abort on --device=link (lkundrak)
-- Add provides_network_config system property (rvykydal)
-- Get rid of network system capability which does not make sense. (rvykydal)
-- Prohibit network configuration on Live OS. (rvykydal)
-- Use check_supported_locales to filter unsupported locales (vponcova)
-- Replace filterSupportedLangs and filterSupportedLocales (vponcova)
-- Remove help-related constants from install classes (vponcova)
-- Remove setup_on_boot from the install classes (vponcova)
-- Convert a keymap into a list of layouts (vponcova)
-- RPM: anaconda-core requires dbus-daemon (awilliam)
-- Remove use_geolocation_with_kickstart from install classes (vponcova)
+  Related: rhbz#1652727
 
-* Thu Nov 22 2018 Martin Kolman <mkolman@redhat.com> - 30.12-1
-- Simplify the task Activate filesystems (vponcova)
-- Remove the flag livecdInstall (vponcova)
-- Overwrite network configuration for the live image payload (vponcova)
-- Write tests for the installation system configuration (vponcova)
-- Resolve the name conflicts in exception.py (vponcova)
-- Use the Anaconda configuration in the network module (vponcova)
-- Revert "Don't try to get hostnamed proxy in non-installer-image environments
-  (#1616214)" (vponcova)
-- Remove the function can_touch_runtime_system (vponcova)
-- Add rules for the installation system (vponcova)
-- Configure the installation system (vponcova)
-- Replace setNetworkOnbootDefault (vponcova)
-- Add tests for the FCoE module (vponcova)
-- Discover an FCoE device with a DBus task (vponcova)
-- Reload the FCoE module on the storage reset (vponcova)
-- Let the FCoE module to provide the dracut arguments (vponcova)
-- Let the FCoE module to write the configuration (vponcova)
-- Move kickstart support to the FCoE module (vponcova)
-- Create the basic structure for the FCoE module (vponcova)
+* Wed Dec 12 2018 Martin Kolman <mkolman@redhat.com> - 29.19.0.27-2
+- Run zipl again after generating initramfs (#1652727) (vponcova)
+  Resolves: rhbz#1652727
 
-* Mon Nov 19 2018 Martin Kolman <mkolman@redhat.com> - 30.11-1
-- Install grubby-deprecated when using the extlinux bootloader (javierm)
-- Remove configurePayload (vponcova)
-- Resolve the name conflicts with conf (vponcova)
-- Write tests for the target support (vponcova)
-- Simplify the code (vponcova)
-- Replace the dirInstall flag (vponcova)
-- Replace the imageInstall flag (vponcova)
-- Configure the installation target (vponcova)
-- Write tests for the default partitioning (vponcova)
-- Define the default partitioning statically (vponcova)
-- Remove l10n_domain from the install classes (vponcova)
-- Re-generate BLS loader file snippets on live installs (#1648472) (awilliam)
-- Remove the attribute bootloaderTimeoutDefault (vponcova)
-- Remove the attribute bootloaderExtraArgs (vponcova)
-- Remove the method setPackageSelection (vponcova)
-- Remove the setStorageChecker method (vponcova)
-- Remove the getBackend method (vponcova)
-- Add doc to make a release in a mock environment (jkonecny)
-- Support in our scripts creating release in a mock (jkonecny)
-- Add dependencies to make a new release to dependency_solver (jkonecny)
+* Wed Dec 05 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.27-1
+- Fix module installation error reporting (mkolman)
+  Resolves: rhbz#1644635
+- Drop xorg-x11-server-Xorg check from graphical target detection (mkolman)
+  Resolves: rhbz#1583958
 
-* Tue Nov 06 2018 Martin Kolman <mkolman@redhat.com> - 30.10-1
+* Mon Nov 19 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.26-1
+- Pull in fixed translations
+  Resolves: rhbz#1650431
+
+* Tue Nov 06 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.25-1
+- Hotfix - disable unsupported hardware detection (mkolman)
+  Resolves: rhbz#1645686
+
+* Thu Oct 18 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.24-1
 - Make the pyanaconda/image.py more pep8 (jkonecny)
+  Related: rhbz#1631673
 - Test image repodata folder based on treeinfo file (jkonecny)
+  Resolves: rhbz#1631673
 - Use var instead of strings in findFirstIsoImage (jkonecny)
+  Related: rhbz#1631673
 - Use new InstallTreeMetadata instead of TreeInfo (jkonecny)
+  Related: rhbz#1631673
 - Add InstallTreeMetadata class (jkonecny)
+  Related: rhbz#1631673
 - Move DEFAULT_REPOS to the constants (jkonecny)
+  Related: rhbz#1631673
+
+* Mon Oct 15 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.23-1
+- nvdimm: update ks data for actions in UI (rvykydal)
+  Resolves: rhbz#1620093
+- nvdimm: use pykickstart constant for setting reconfigure mode (rvykydal)
+  Related: rhbz#1620093
+- Fix strings not marked for translation (jkonecny)
+  Resolves: rhbz#1637399
+- Increase EFI System Partition (ESP) size to 200-600 MiB (javierm)
+  Resolves: rhbz#1633640
+- Save lsblk output to the Anaconda traceback file (vtrefny)
+  Resolves: rhbz#1627220
+
+* Thu Oct 11 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.22-1
+- Remove EXPERIMENTAL label for mountpoint assignment in TUI (mkolman)
+  Resolves: rhbz#1636940
+- Wrap line in storage/osinstall.py to 99 chars (jkonecny)
+  Related: rhbz#1637096
+- Add missing pylint false positive (jkonecny)
+  Related: rhbz#1637096
+- Make syspurpose description text size biger (mkolman)
+  Related: rhbz#1612060
+- Fix double quoting in syspurpose values (mkolman)
+  Resolves: rhbz#1637135
+- Fix ihelp pylint issues (jkonecny)
+  Related: rhbz#1637096
+- Add ignored field to rpm_tests (jkonecny)
+  Related: rhbz#1637096
+- Remove unused false positives (jkonecny)
+  Related: rhbz#1637096
+- Use new BTRFS pykickstart version (jkonecny)
+  Related: rhbz#1637096
+- Add back missing import (jkonecny)
+  Related: rhbz#1637096
+- Add --no-pip to setup-mock-test-env script (jkonecny)
+  Related: rhbz#1637096
+- Rename coverage3 to coverage-3.6 (jkonecny)
+  Related: rhbz#1637096
+- Fix error message in setup-mock-test-env script (jkonecny)
+  Related: rhbz#1637096
+- Rename nosetests binary to 3.6 - link is missing (jkonecny)
+  Resolves: rhbz#1637096
+- Remove not used BuildRequires for RHEL (jkonecny)
+  Related: rhbz#1637096
+- Add shortcut function to get dependency script (jkonecny)
+  Related: rhbz#1637096
+- Add install-pip parameter to setup-mock-test-env (jkonecny)
+  Related: rhbz#1637096
+- Add initial 32-bit ARMv7 EFI support (pbrobinson)
+  Resolves: rhbz#1637618
+- Drop legacy get_arm_machine pieces (pbrobinson)
+  Related: rhbz#1637618
+- arch: arm: drop omap checks and specifics (pbrobinson)
+  Related: rhbz#1637618
+- Small optimalization in setup-mock-test-env (jkonecny)
+  Related: rhbz#1637096
+- Add package installation from pip for test script (jkonecny)
+  Related: rhbz#1637096
+- Remove hfsplus-tools not used on RHEL (jkonecny)
+  Related: rhbz#1637096
+
+* Wed Oct 10 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.21-1
+- Add Not Specified option for System Purpose lists (mkolman)
+  Resolves: rhbz#1637602
+- Set the VNC password directly (vponcova)
+  Resolves: rhbz#1634667
+
+* Mon Oct 08 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.20-1
+- Ignore errors when trying to activate unsupported swaps (vtrefny)
+  Resolves: rhbz#1635253
+- Adapt built in help system to new content structure (mkolman)
+  Resolves: rhbz#1593723
+- Update help folder paths (mkolman)
+  Related: rhbz#1593723
+- Replace helpFile property with help_id (mkolman)
+  Related: rhbz#1593723
+- Small optimization in boot arg parsing method (jkonecny)
+  Related: rhbz#1622429
+- Fix bad --addrepo command line parsing (jkonecny)
+  Related: rhbz#1622429
+- Raise correct exception on bad addrepo boot param (jkonecny)
+  Resolves: rhbz#1622429
+
+* Thu Oct 04 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.19-1
+- Add option to set kernel.hung_task_timeout_secs option (rvykydal)
+  Resolves: rhbz#1633549
+- Change default install class to RHEL (jkonecny)
+  Resolves: rhbz#1634094
 - Don't check for firmware compatibility to enable BootLoaderSpec support
   (javierm)
+  Resolves: rhbz#1635547
+
+* Tue Oct 02 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.18-1
 - Update kernel command line parameters in BLS files (javierm)
+  Resolves: rhbz#1635180
+- Drop attempt to add 'nocrypto' to tsflags (#1634791) (awilliam)
+  Resolves: rhbz#1634791
+- Make sure fips is correctly enabled on target system (#1619568) (mkolman)
+  Resolves: rhbz#1619568
+
+* Mon Oct 01 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.17-1
+- Syspurpose related test & pylint fixes (mkolman)
+  Related: rhbz#1612060
+- Add missing folder to Makefile (mkolman)
+  Related: rhbz#1612060
+- Add system purpose support (mkolman)
+  Resolves: rhbz#1612060
+
+* Wed Sep 26 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.16-1
+- Sync spec file (rvykydal)
+  Related: rhbz#1619153
+- Fix python3 requires in spec file (rvykydal)
+  Resolves: rhbz#1619153
+- Revert "Add system purpose support" (rvykydal)
+  Related: rhbz#1619153
 - Add support for GRUB_ENABLE_BLSCFG and inst.noblscfg (pjones)
+  Resolves: rhbz#1615442
 - Get rid of new-kernel-pkg invocations (pjones)
+  Related: rhbz#1615442
 - Minor pylint cleanups (pjones)
+  Related: rhbz#1615442
 
-* Mon Nov 05 2018 Martin Kolman <mkolman@redhat.com> - 30.9-1
-- Load configuration files from /etc/anaconda/conf.d (vponcova)
-- Let the DBus launcher to set up the modules (vponcova)
-- Start modules that are enabled in the configuration file (vponcova)
-- Enable the DBus modules and addons via the configuration file (vponcova)
+* Mon Sep 24 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.15-1
+- Add system purpose support (mkolman)
+  Resolves: rhbz#1612060
 
-* Thu Nov 01 2018 Jiri Konecny <jkonecny@redhat.com> - 30.8-1
-- Remove flags from anaconda_logging (vponcova)
-- Remove blivet-specific flags from pyanaconda.flags (vponcova)
-- The armplatform option is deprecated (vponcova)
-- Create a class for the Anaconda bus connection (vponcova)
-- Fix local repo files aren't enabled (#1636739) (jkonecny)
-- Write RPM tests for the Anaconda configuration file (vponcova)
-- Write tests for the configuration support (vponcova)
-- Create a class for handling the Anaconda configuration (vponcova)
-- Provide a better support for handling the configuration files (vponcova)
-- Create the Anaconda configuration file (vponcova)
+* Wed Sep 19 2018 Tomas Orsava <torsava@redhat.com> - 29.19.0.14-2
+- Require the Python interpreter directly instead of using the package name
+- Related: rhbz#1619153
 
-* Thu Oct 18 2018 Martin Kolman <mkolman@redhat.com> - 30.7-1
-- installclass: fix variant string for Atomic Host (#1640409) (dusty)
-- Remove EXPERIMENTAL label for mountpoint assignment in TUI (#1636940)
-  (mkolman)
-
-* Mon Oct 15 2018 Martin Kolman <mkolman@redhat.com> - 30.6-1
-- nvdimm: update ks data for actions in UI (rvykydal)
-- nvdimm: use pykickstart constant for setting reconfigure mode (rvykydal)
-- Revert "Don't allow booting from nvdimm devices" (rvykydal)
-- Add --no-pip to setup-mock-test-env script (jkonecny)
-- Fix error message in setup-mock-test-env script (jkonecny)
-- Add shortcut function to get dependency script (jkonecny)
-- Add install-pip parameter to setup-mock-test-env (jkonecny)
-- Small optimalization in setup-mock-test-env (jkonecny)
-- Add package installation from pip for test script (jkonecny)
-- Fix wrong pylint false positive regex (jkonecny)
-
-* Mon Oct 08 2018 Martin Kolman <mkolman@redhat.com> - 30.5-1
-- Adjust to some DNF 3.6 changes (#1637021) (mkolman)
-- Ignore errors when trying to activate unsupported swaps (#1635252) (vtrefny)
-- Add option to set kernel.hung_task_timeout_secs option (rvykydal)
-- Move the glade adaptor to a separate plugin (dshea)
-
-* Wed Oct 03 2018 Martin Kolman <mkolman@redhat.com> - 30.4-1
-- Fix strings not marked for translation (jkonecny)
-- Drop attempt to add 'nocrypto' to tsflags (awilliam)
-- Fix librepo logging with new DNF (jkonecny)
-- Revert "Remove librepo imports from Anaconda (#1626609)" (jkonecny)
-- Set the VNC password directly (#1592686) (vponcova)
+* Wed Sep 19 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.14-1
 - Update the spoke for unsupported hardware in TUI (#1601545) (vponcova)
+  Resolves: rhbz#1601545
 - Update the dialog for unsupported hardware in GUI (#1601545) (vponcova)
+  Resolves: rhbz#1601545
 - Support detection of kernel taints (vponcova)
-- Fix the rescue mode (#1631749) (vponcova)
-- Fix the sanity check verify_gpt_biosboot (#1593446) (vponcova)
-- Flags shouldn't process the kernel options (vponcova)
-- Fully support the inst.gpt option (vponcova)
-- Don't set Anaconda-specific flags in Blivet (vponcova)
-- Remove the class for kernel arguments from pyanaconda.flags (vponcova)
-- Remove unused false positives (vponcova)
-- Don't connect to signals of the Network Manager DBus objects (#1582233)
-  (vponcova)
-- Fix documentation for setting Pykickstart command version (mkolman)
-- Don't try to get hostnamed proxy in non-installer-image environments
-  (#1616214) (rvykydal)
-- Use realm data in UI (vponcova)
-- Use realm data in the DBus module (vponcova)
-- Create a DBus structure for realm data (vponcova)
-- Add support for DBus structures (vponcova)
-- docs/commit-log.rst: Don't wrap example firstlines (ferdnyc)
-- Detect that there is not enough space on a device (#1613232) (vponcova)
-- Add Silverblue InstallClass (jkonecny)
+  Resolves: rhbz#1601545
 
-* Tue Sep 11 2018 Martin Kolman <mkolman@redhat.com> - 30.3-1
-- Save lsblk output to the Anaconda traceback file (vtrefny)
-- Remove librepo imports from Anaconda (#1626609) (jkonecny)
+* Tue Sep 18 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.13-1
+- prefixdevname: fix a typo in filename (rvykydal)
+  Related: rhbz#1615997
+- prefixdevname: pass persistent configuration to installed system (rvykydal)
+  Resolves: rhbz#1615997
+- prefixdevname: pass net.ifnames.prefix option to installed system (rvykydal)
+  Resolves: rhbz#1615997
+- prefixdevname: install package to target system if needed (rvykydal)
+  Resolves: rhbz#1615997
+- prefixdevname: import state from initramfs to stage 2 (rvykydal)
+  Resolves: rhbz#1615997
+
+* Mon Sep 17 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.12-1
+- Don't connect to signals of the Network Manager DBus objects
+  (vponcova)
+  Resolves: rhbz#1582233
+- Fix librepo logging with new DNF (jkonecny)
+  Resolves: rhbz#1626609
+
+* Fri Sep 07 2018 Josh Boyer <jwboyer@redhat.com> - 29.19.0.11-2
+- Require python3-librepo
+  Resolves: rhbz#1626609
+
+* Fri Sep 07 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.11-1
 - DNF 3.5 compatibility (mkolman)
-- Use the default LUKS version for auto partitioning (#1624680) (vponcova)
-- Remove the testing flag (vponcova)
-
-* Thu Aug 30 2018 Martin Kolman <mkolman@redhat.com> - 30.2-1
-- Add initial 32-bit ARMv7 EFI support (pbrobinson)
-- Drop legacy get_arm_machine pieces (pbrobinson)
-- arch: arm: drop omap checks and specifics (pbrobinson)
-
-* Mon Aug 27 2018 Martin Kolman <mkolman@redhat.com> - 30.1-1
-- Fix the processing of the live CD source (#1622248) (vponcova)
-
-* Wed Aug 22 2018 Martin Kolman <mkolman@redhat.com> - 29.24-1
-- Fix crash in tui when default partitioning scheme is not supported.
+  Related: rhbz#1613296
+- Don't try to get hostnamed proxy in non-installer-image environments
   (rvykydal)
-- Fix pylint errors (vponcova)
-- Add libtool build dependency (jkonecny)
-- Remove shebang from DUD test (jkonecny)
-- Add inst.addrepo documentation for HD variant (jkonecny)
-- Warn when repo names are not unique (jkonecny)
-- HD addon repos have mount directories permanent (jkonecny)
-- Unmount hard drive additional repositories (jkonecny)
-- Move RepoData copy creation to the RepoData class (jkonecny)
-- Show empty file protocol on HD addon repo fail (jkonecny)
-- Mount and use HDD additional repositories (jkonecny)
-- Separate _find_and_mount_iso from _setup_media (jkonecny)
-- Load hard drive repo type from inst.addrepo (jkonecny)
-- Do not fail if .discinfo file can't be read (jkonecny)
-- Use productmd to parse .discinfo file (jkonecny)
-- Add payload sources tests (jkonecny)
-- Cleanup payload tests source file (jkonecny)
-- Add documentation for inst.addrepo boot option (jkonecny)
-- Add additional repositories to KS data (jkonecny)
-- Use new source solution (jkonecny)
-- Add payload sources implementation (jkonecny)
-- Don't resize a device if the size is same as the old size (#1572828)
-  (vponcova)
-- Mark disks with additional repos as protected (jkonecny)
-- Support boot args parsing to list (jkonecny)
-- Add inst.addrepo new options (jkonecny)
-- Make parenthesis consistent (jkonecny)
-- Remove unused parameter from live_startup method (jkonecny)
-- Disable treeinfo based repos only once (jkonecny)
-- Disable treeinfo repos when base repo change (jkonecny)
-- Treeinfo repos can't be changed nor removed (jkonecny)
-- Add all repositories from the treeinfo file (jkonecny)
-- Load base repository location from treeinfo (jkonecny)
-- Add limited file:// protocol to GUI Source spoke (jkonecny)
-- Add BaseOS between default base repositories (jkonecny)
-- Split _setupInstallDevice method in payload (jkonecny)
-- Check the LUKS2 memory requirements (vponcova)
-- Add an option for choosing version of LUKS in GUI (vponcova)
-- Add tests for LUKS2 in the auto partitioning module (vponcova)
-- Apply the LUKS2 options from the auto partitioning module (vponcova)
-- Support LUKS2 options in the auto partitioning module (vponcova)
-- Support LUKS2 options in logvol, part and raid commands (vponcova)
-- Enable to set a default version of LUKS (vponcova)
-- Update dependencies and kickstart commands to support LUKS2 (#1547908)
-  (vponcova)
-- Revert back to running DNF in a subprocess (mkolman)
-- Use SimpleConfigFile to get PLATFORM_ID from /etc/os-release (mkolman)
-- Fix a 5 year old typo in the spec file (mkolman)
-- Use wwn attr instead of removed wwid. (#1565693) (dlehman)
+  Resolves: rhbz#1622917
 
-* Tue Aug 07 2018 Martin Kolman <mkolman@redhat.com> - 29.23-1
+* Fri Aug 24 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.10-1
+- Revert "Don't allow booting from nvdimm devices" (rvykydal)
+  Resolves: rhbz#1620566
+- Fix pylint errors (vponcova)
+  Related: rhbz#1618633
+
+* Wed Aug 22 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.9-1
+- Fix crash in tui when default partitioning scheme is not supported
+  (rvykydal)
+  Related: rhbz#1617958
+
+* Thu Aug 16 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.8-1
+- Add inst.addrepo documentation for HD variant (jkonecny)
+  Related: rhbz#1595415
+- Warn when repo names are not unique (jkonecny)
+  Related: rhbz#1595415
+- HD addon repos have mount directories permanent (jkonecny)
+  Related: rhbz#1595415
+- Unmount hard drive additional repositories (jkonecny)
+  Related: rhbz#1595415
+- Move RepoData copy creation to the RepoData class (jkonecny)
+  Related: rhbz#1595415
+- Show empty file protocol on HD addon repo fail (jkonecny)
+  Related: rhbz#1595415
+- Mount and use HDD additional repositories (jkonecny)
+  Related: rhbz#1595415
+- Separate _find_and_mount_iso from _setup_media (jkonecny)
+  Related: rhbz#1595415
+- Load hard drive repo type from inst.addrepo (jkonecny)
+  Related: rhbz#1595415
+- Do not fail if .discinfo file can't be read (jkonecny)
+  Related: rhbz#1595415
+- Use productmd to parse .discinfo file (jkonecny)
+  Related: rhbz#1595415
+- Add payload sources tests (jkonecny)
+  Related: rhbz#1595415
+- Cleanup payload tests source file (jkonecny)
+  Related: rhbz#1595415
+- Add documentation for inst.addrepo boot option (jkonecny)
+  Related: rhbz#1595415
+- Add additional repositories to KS data (jkonecny)
+  Resolves: rhbz#1595415
+- Use new source solution (jkonecny)
+  Related: rhbz#1595415
+- Add payload sources implementation (jkonecny)
+  Related: rhbz#1595415
+- Mark disks with additional repos as protected (jkonecny)
+  Related: rhbz#1595415
+- Support boot args parsing to list (jkonecny)
+  Related: rhbz#1595415
+- Add inst.addrepo new options (jkonecny)
+  Related: rhbz#1595415
+- Make parenthesis consistent (jkonecny)
+  Related: rhbz#1595415
+- Remove unused parameter from live_startup method (jkonecny)
+  Related: rhbz#1595415
+- Disable treeinfo based repos only once (jkonecny)
+  Related: rhbz#1610806
+- Disable treeinfo repos when base repo change (jkonecny)
+  Related: rhbz#1610806
+- Treeinfo repos can't be changed nor removed (jkonecny)
+  Related: rhbz#1610806
+- Add all repositories from the treeinfo file (jkonecny)
+  Resolves: rhbz#1610806
+- Load base repository location from treeinfo (jkonecny)
+  Related: rhbz#1610806
+- Add limited file:// protocol to GUI Source spoke (jkonecny)
+  Related: rhbz#1610806
+- Add BaseOS between default base repositories (jkonecny)
+  Related: rhbz#1610806
+- Split _setupInstallDevice method in payload (jkonecny)
+  Related: rhbz#1610806
+
+* Mon Aug 13 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.7-1
+- Revert back to running DNF in a subprocess (mkolman)
+  Related: rhbz#1613296
+- Add back reverted patches for modularity support (rvykydal)
+  Related: rhbz#1613296
+
+* Mon Aug 13 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.6-1
+- Check the LUKS2 memory requirements (vponcova)
+  Related: rhbz#1547908
+- Add an option for choosing version of LUKS in GUI (vponcova)
+  Related: rhbz#1547908
+- Add tests for LUKS2 in the auto partitioning module (vponcova)
+  Related: rhbz#1547908
+- Apply the LUKS2 options from the auto partitioning module (vponcova)
+  Related: rhbz#1547908
+- Support LUKS2 options in the auto partitioning module (vponcova)
+  Related: rhbz#1547908
+- Support LUKS2 options in logvol, part and raid commands (vponcova)
+  Related: rhbz#1547908
+- Enable to set a default version of LUKS (vponcova)
+  Related: rhbz#1547908
+- Update dependencies and kickstart commands to support LUKS2 (vponcova)
+  Resolves: rhbz#1547908
+- Use SimpleConfigFile to get PLATFORM_ID from /etc/os-release (mkolman)
+  Related: rhbz#1613296
+- Use wwn attr instead of removed wwid. (#1565693) (dlehman)
+  Resolves: rhbz#1615408
+
+* Thu Aug 09 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.5-1
+- Fix a 5 year old typo in the spec file (mkolman)
+  Resolves: rhbz#1613488
 - Bump required DNF version (mkolman)
+  Related: rhbz#1613296
 - Fix some small issues with the platform id patch (mkolman)
+  Related: rhbz#1613296
 - Set platform id for DNF (mkolman)
+  Related: rhbz#1613296
 - Fix crash when software environment is False (jkonecny)
+  Resolves: rhbz#1612942
 - Allow to delete all file systems used by Unknown (#1597199) (vponcova)
+  Resolves: rhbz#1597199
+
+* Mon Aug 06 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.4-1
 - DD: Use text mode when calling tools with subprocess (rvykydal)
+  Resolves: rhbz#1609744
 - Update RHEL placeholder names (mkolman)
+  Related: rhbz#1593723
+
+* Thu Aug 02 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.3-3
+- Revert Use productmd library to parse .treeinfo (rvykydal)
+  Related: rhbz#1611622
+
+* Wed Aug 01 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.3-2
+- Revert of module support enablement (install specs DNF API) (rvykydal)
+
+* Wed Aug 01 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.3-1
 - Typo fixup (rvykydal)
 - Define if blivet-gui is supported via installclasses (rvykydal)
+  Related: rhbz#1599838
 - Offer Blivet-GUI partitioning only if supported (rvykydal)
+  Related: rhbz#1599838
 - Only show the "closest mirror" source option where appropriate (mkolman)
+  Resolves: rhbz#1608241
 - Starting from 3.0 DNF expects strings in comps queries (mkolman)
+- Remove blivet-gui spoke and its dependencies (rvykydal)
+  Resolves: rhbz#1599838
 - Use the manual partitioning module in TUI (vponcova)
 - Use the manual partitioning module in UI (vponcova)
 - Add tests for the manual partitioning module (vponcova)
 - Create the manual partitioning module (vponcova)
-- Reserve enough static space for 2 lines in spoke status on hub (#1584160)
-  (rvykydal)
+- Reserve enough static space for 2 lines in spoke status on hub (#1584160) (rvykydal)
+- Handle new module specific error states (mkolman)
+- Handle missing package errors reported by the install_specs() function (mkolman)
+- Initial module enablement and installation support (mkolman)
 - Fix disable additional repositories (jkonecny)
 - Show better messages for NoSuchPackage and NoSuchGroup (#1599190) (vponcova)
+  Resolves: rhbz#1599190
 - Bootloader stage2 can't be on btrfs on rhel (#1533904) (rvykydal)
-
-* Fri Jul 27 2018 Martin Kolman <mkolman@redhat.com> - 29.22-1
-- Handle new module specific error states (mkolman)
-- Handle missing package errors reported by the install_specs() function
-  (mkolman)
-- Initial module enablement and installation support (mkolman)
+  Related: rhbz#1533904
+- Remove --fstype=btrfs support from LogVol, Raid and Partition (rvykydal)
+  Resolves: rhbz#1533904
+- Remove btrfs support. (rvykydal)
+  Resolves: rhbz#1533904
+- Use RHEL8 versions of commands added to RHEL8 handler for test (rvykydal)
+- Use RHEL8 kickstart handler (rvykydal)
 - Use productmd library to parse .treeinfo (#1411673) (jkonecny)
 - Import kickstart classes as version-less in the dracut script (vponcova)
 - Use only version-less kickstart classes (vponcova)
 - Define version-less variants of kickstart classes (vponcova)
-
-* Wed Jul 25 2018 Martin Kolman <mkolman@redhat.com> - 29.21-1
 - Pylint should skip the file livepayload.py (vponcova)
 - Fix pylint errors (vponcova)
+
+* Wed Jul 25 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.2-1
 - Change the pop-up text with the pre-release warning (#1542998) (vpodzime)
+  Resolves: rhbz#1608243
 - Sort categories on the hub by defined order (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
 - Show a note about EULA where relevant (mkolman)
+  Resolves: rhbz#1569596
 - Change message log level to INFO when adding repo (jkonecny)
+  Related: rhbz#1603178
 - Set packaging log level to DEBUG by default (jkonecny)
+  Resolves: rhbz#1603178
 - Remove the python-wrapt dependency (vponcova)
 - Do not use capitals for spoke names (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
 - Wrap category label and add space between columns (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
 - Use 32 px icons (instead of 16 px) on hubs (#1584160) (rvykydal)
-- Replace deprecated dracut options for booting with ibft. (rvykydal)
-- Improve handling of unsupported filesystems in UI. (rvykydal)
-- Reserve two lines for status message (#1584160) (rvykydal)
-- Use three spoke columns on hub for better scaling (#1584160) (rvykydal)
-
-* Wed Jul 18 2018 Martin Kolman <mkolman@redhat.com> - 29.20-1
+  Resolves: rhbz#1584166
 - Make pyanaconda.dbus.typing work with Python 3.7 (#1598574) (awilliam)
+- Use Platform Python where appropriate (mkolman)
+- Replace deprecated dracut options for booting with ibft. (rvykydal)
+  Resolves: rhbz#1566052
 - Protected devices might be hidden (#1561766) (vponcova)
+- Improve handling of unsupported filesystems in UI. (rvykydal)
+  Resolves: rhbz#1533904
+- Reserve two lines for status message (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
+- Use three spoke columns on hub for better scaling (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
 - fstab: include a note about systemctl daemon-reload (zbyszek)
 - Access the ZFCP module only on s390x (vponcova)
 - Tell libreport if it is a final release or not (#1596392) (vpodzime)
+  Resolves: rhbz#1596392
 - bootloader: GRUB2: Set menu_auto_hide when enabled by the instClass
   (hdegoede)
 - installclass: Add bootloader_menu_autohide property (hdegoede)
@@ -3075,6 +1154,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 - Use the zFCP discovery task in UI (vponcova)
 - Create the zFCP discovery task (vponcova)
 - Create the zFCP module (vponcova)
+
+* Mon Jul 16 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.1-1
+- Define zanata branch statically for rhel-devel branch (rvykydal)
 
 * Wed Jun 27 2018 Martin Kolman <mkolman@redhat.com> - 29.19-1
 - DNF 3: progress callback constants moved to dnf.transaction (awilliam)
