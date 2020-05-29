@@ -1195,7 +1195,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._resolv_conf_dir = os.path.dirname(NetworkInstallationTask.RESOLV_CONF_FILE_PATH)
         self._network_scripts_dir = NetworkInstallationTask.NETWORK_SCRIPTS_DIR_PATH
         self._prefixdevname_dir = NetworkInstallationTask.PREFIXDEVNAME_DIR_PATH
-        self._rename_dir = os.path.dirname(NetworkInstallationTask.INTERFACE_RENAME_FILE_TEMPLATE)
+        self._rename_dir = NetworkInstallationTask.SYSTEMD_NETWORK_CONFIG_DIR
         self._dhclient_dir = os.path.dirname(NetworkInstallationTask.DHCLIENT_FILE_TEMPLATE)
 
     def _create_config_dirs(self, installer_dirs, target_system_dirs):
@@ -1243,8 +1243,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         task.NETWORK_SCRIPTS_DIR_PATH = self._mocked_root + "/etc/sysconfig/network-scripts"
         task.PREFIXDEVNAME_DIR_PATH = self._mocked_root + "/etc/systemd/network"
         task.DHCLIENT_FILE_TEMPLATE = self._mocked_root + "/etc/dhcp/dhclient-{}.conf"
-        task.INTERFACE_RENAME_FILE_TEMPLATE = self._mocked_root \
-            + "/etc/systemd/network/10-anaconda-ifname-{}.link"
+        task.SYSTEMD_NETWORK_CONFIG_DIR = self._mocked_root + "/etc/systemd/network"
 
     def _create_all_expected_dirs(self):
         # Create directories that are expected to be existing in installer
