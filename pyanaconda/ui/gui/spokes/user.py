@@ -254,6 +254,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         GUISpokeInputCheckHandler.__init__(self)
 
         self._users_module = USERS.get_proxy()
+        self._password_is_required = True
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -325,6 +326,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._validity_check.result.status_text_changed.connect(self.set_password_status)
         # check if the password contains non-ascii characters
         self._ascii_check = input_checking.PasswordASCIICheck()
+        # Skip the empty and validity password checks if no username is set
+        self._empty_check.skip = True
+        self._validity_check.skip = True
 
         # register the individual checks with the checker in proper order
         # 0) is the username and fullname valid ?
@@ -501,11 +505,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         password_is_required = togglebutton.get_active()
         self.password_entry.set_sensitive(password_is_required)
         self.password_confirmation_entry.set_sensitive(password_is_required)
-
+        self._password_is_required = password_is_required
+        
         # also disable/enable corresponding password checks
-        self._empty_check.skip = not password_is_required
+        self._empty_check.skip = not password_is_required or not self.username
         self._confirm_check.skip = not password_is_required
-        self._validity_check.skip = not password_is_required
+        self._validity_check.skip = not password_is_required or not self.username
         self._ascii_check.skip = not password_is_required
 
         # and rerun the checks
@@ -544,8 +549,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # Skip the empty password checks if no username is set,
         # otherwise the user will not be able to leave the
         # spoke if password is not set but policy requires that.
-        self._empty_check.skip = not new_username
-        self._validity_check.skip = not new_username
+        self._empty_check.skip = not new_username or not self._password_is_required
+        self._validity_check.skip = not new_username or not self._password_is_required
         # Re-run the password checks against the new username
         self.checker.run_checks()
 
