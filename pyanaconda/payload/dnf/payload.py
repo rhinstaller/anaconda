@@ -54,7 +54,8 @@ from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     DNF_DEFAULT_SOURCE_TYPE, SOURCE_TYPE_HMC, SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, \
-    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES
+    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, \
+    SOURCE_TYPE_CDN
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
@@ -62,9 +63,10 @@ from pyanaconda.core.util import decode_bytes
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
+from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE, SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.utils import DNF_CACHE_DIR, DNF_PLUGINCONF_DIR, REPO_DIRS, \
@@ -823,9 +825,25 @@ class DNFPayload(Payload):
         # is any locking needed here?
         repo_names = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS
         with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                if repo.id in repo_names:
-                    return repo.id
+            if self.source_type == SOURCE_TYPE_CDN:
+                if is_module_available(SUBSCRIPTION):
+                    subscription_proxy = SUBSCRIPTION.get_proxy()
+                    if subscription_proxy.IsSubscriptionAttached:
+                        # If CDN is used as the installation source and we have
+                        # a subscription attached then any of the enabled repos
+                        # should be fine as the base repo.
+                        # If CDN is used but subscription has not been attached
+                        # there will be no redhat.repo file to parse and we
+                        # don't need to do anything.
+                        for repo in self._base.repos.iter_enabled():
+                            return repo.id
+                else:
+                    log.error("CDN install source set but Subscription module is not available")
+            else:
+                for repo in self._base.repos.iter_enabled():
+                    if repo.id in repo_names:
+                        return repo.id
+
         return None
 
     ###
@@ -1540,8 +1558,20 @@ class DNFPayload(Payload):
         # We need to check this again separately in case REPO_FILES were set above.
         if source_type in SOURCE_REPO_FILE_TYPES:
 
-            # If this is a kickstart install, just return now
-            if flags.automatedInstall:
+            # If this is a kickstart install, just return now as we normally do not
+            # want to read the on media repo files in such a case. On the other hand,
+            # the local repo files are a valid use case if the system is subscribed
+            # and the CDN is selected as the installation source.
+            if self.source_type == SOURCE_TYPE_CDN and is_module_available(SUBSCRIPTION):
+                # only check if the Subscription module is available & CDN is the
+                # installation source
+                subscription_proxy = SUBSCRIPTION.get_proxy()
+                load_cdn_repos = subscription_proxy.IsSubscriptionAttached
+            else:
+                # if the Subscription module is not available, we simply can't use
+                # the CDN repos, making our decision here simple
+                load_cdn_repos = False
+            if flags.automatedInstall and not load_cdn_repos:
                 return
 
             # Otherwise, fall back to the default repos that we disabled above
