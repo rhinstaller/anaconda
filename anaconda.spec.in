@@ -362,6 +362,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 01 2020 Martin Kolman <mkolman@redhat.com> - 33.17-1
+- Update required ack in makebumpver script for rhel > 7 (rvykydal)
+- Close responses from session.get (vponcova)
+- Improve the documentation of the SetUpMountTask class (vponcova)
+- Raise an exception if the source's mount point is not unmounted (vponcova)
+- Change the default source to CDROM (vponcova)
+- Don't set up sources in the refresh method of the Source spoke (vponcova)
+- Make cppcheck ignore the G_DEFINE_TYPE macros (vslavik)
+- Fix issue that unified ISO from URL is not loaded (jkonecny)
+- Add split_protocol payload helper function (jkonecny)
+- Fix string based on translator comments (vslavik)
+
 * Mon May 25 2020 Martin Kolman <mkolman@redhat.com> - 33.16-1
 - subscription: Only require Insights package if subscribed (mkolman)
 - subscription: Do not pass payload to unregister() helper function (mkolman)
