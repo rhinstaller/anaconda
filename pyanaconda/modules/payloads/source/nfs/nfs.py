@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os.path
+
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import create_nfs_url, parse_nfs_url
 from pyanaconda.core.signal import Signal
@@ -25,8 +27,8 @@ from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, \
-    MountingSourceMixin, RPMSourceMixin
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
+from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -34,13 +36,24 @@ log = get_module_logger(__name__)
 __all__ = ["NFSSourceModule"]
 
 
-class NFSSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
-    """The NFS source module."""
+class NFSSourceModule(PayloadSourceBase, RPMSourceMixin):
+    """The NFS source module.
+
+    TODO: Merge code from HardDriveSourceModule and this one.
+    TODO: Add install_tree_path property.
+    """
 
     def __init__(self):
         super().__init__()
         self._url = ""
         self.url_changed = Signal()
+        self._install_tree_path = ""
+        self._device_mount = MountPointGenerator.generate_mount_point(
+            self.type.value.lower() + "-device"
+        )
+        self._iso_mount = MountPointGenerator.generate_mount_point(
+            self.type.value.lower() + "-iso"
+        )
 
     def __repr__(self):
         return "Source(type='NFS', url='{}')".format(self.url)
@@ -69,7 +82,8 @@ class NFSSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
 
     def get_state(self):
         """Get state of this source."""
-        return SourceState.from_bool(self.get_mount_state())
+        res = os.path.ismount(self._device_mount) and bool(self._install_tree_path)
+        return SourceState.from_bool(res)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -87,7 +101,7 @@ class NFSSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
 
     def generate_repo_configuration(self):
         """Generate RepoConfigurationData structure."""
-        return RepoConfigurationData.from_directory(self.mount_point)
+        return RepoConfigurationData.from_directory(self.install_tree_path)
 
     @property
     def url(self):
@@ -111,13 +125,25 @@ class NFSSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
         self.url_changed.emit()
         log.debug("NFS URL is set to %s", self._url)
 
+    @property
+    def install_tree_path(self):
+        """Path to the install tree.
+
+        Read only, and available only after the setup task finishes successfully.
+
+        :rtype: str
+        """
+        return self._install_tree_path
+
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
 
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        return [SetUpNFSSourceTask(self.mount_point, self._url)]
+        task = SetUpNFSSourceTask(self._device_mount, self._iso_mount, self._url)
+        task.succeeded_signal.connect(lambda: self._handle_setup_task_result(task))
+        return [task]
 
     def tear_down_with_tasks(self):
         """Tear down the installation source.
@@ -125,5 +151,13 @@ class NFSSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
         :return: list of tasks required for the source clean-up
         :rtype: [TearDownMountTask]
         """
-        task = TearDownMountTask(self._mount_point)
-        return [task]
+        tasks = [
+            TearDownMountTask(self._iso_mount),
+            TearDownMountTask(self._device_mount),
+        ]
+        return tasks
+
+    def _handle_setup_task_result(self, task):
+        result = task.get_result()
+        self._install_tree_path = result
+        log.debug("NFS install tree path is set to '%s'", self._install_tree_path)
