@@ -20,6 +20,10 @@
 from pyanaconda.modules.common import init
 init()
 
+import os
+if "LD_PRELOAD" in os.environ:
+    del os.environ["LD_PRELOAD"]
+
 from pyanaconda.modules.payloads.payloads import PayloadsService
 service = PayloadsService()
 service.run()
