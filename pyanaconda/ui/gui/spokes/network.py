@@ -515,11 +515,11 @@ class NetworkControlBox(GObject.GObject):
         if device_type == NM.DeviceType.WIFI:
             if not self.selected_ap:
                 return
-            ssid = self.selected_ap.get_ssid().get_data()
             con = self._find_first_ap_setting(device, self.selected_ap)
             if not con:
                 log.debug("on_edit_connection: connection for ap %s not found", self.selected_ap)
                 return
+            ssid = self.selected_ap.get_ssid().get_data()
             # 871132 auto activate wireless connection after editing if it is not
             # already activated (assume entering secrets)
             condition = lambda: self.selected_ap != device.get_active_access_point()
