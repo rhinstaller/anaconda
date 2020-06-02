@@ -1237,13 +1237,13 @@ class InstallationTaskTestCase(unittest.TestCase):
 
     def _mock_task_paths(self, task):
         # Mock the paths in the task
-        task.SYSCONF_NETWORK_FILE_PATH = self._mocked_root + "/etc/sysconfig/network"
-        task.ANACONDA_SYSCTL_FILE_PATH = self._mocked_root + "/etc/sysctl.d/anaconda.conf"
-        task.RESOLV_CONF_FILE_PATH = self._mocked_root + "/etc/resolv.conf"
-        task.NETWORK_SCRIPTS_DIR_PATH = self._mocked_root + "/etc/sysconfig/network-scripts"
-        task.PREFIXDEVNAME_DIR_PATH = self._mocked_root + "/etc/systemd/network"
-        task.DHCLIENT_FILE_TEMPLATE = self._mocked_root + "/etc/dhcp/dhclient-{}.conf"
-        task.SYSTEMD_NETWORK_CONFIG_DIR = self._mocked_root + "/etc/systemd/network"
+        task.SYSCONF_NETWORK_FILE_PATH = self._mocked_root + type(task).SYSCONF_NETWORK_FILE_PATH
+        task.ANACONDA_SYSCTL_FILE_PATH = self._mocked_root + type(task).ANACONDA_SYSCTL_FILE_PATH
+        task.RESOLV_CONF_FILE_PATH = self._mocked_root + type(task).RESOLV_CONF_FILE_PATH
+        task.NETWORK_SCRIPTS_DIR_PATH = self._mocked_root + type(task).NETWORK_SCRIPTS_DIR_PATH
+        task.PREFIXDEVNAME_DIR_PATH = self._mocked_root + type(task).PREFIXDEVNAME_DIR_PATH
+        task.DHCLIENT_FILE_TEMPLATE = self._mocked_root + type(task).DHCLIENT_FILE_TEMPLATE
+        task.SYSTEMD_NETWORK_CONFIG_DIR = self._mocked_root + type(task).SYSTEMD_NETWORK_CONFIG_DIR
 
     def _create_all_expected_dirs(self):
         # Create directories that are expected to be existing in installer
