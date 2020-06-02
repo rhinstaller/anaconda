@@ -1,6 +1,26 @@
 #!/bin/bash
 # Start the Anaconda's Python module $1.
-# For example: ./start-module pyanaconda.modules.boss
+#
+# Examples:
+#   ./start-module pyanaconda.modules.boss
+#   ./start-module --env LD_PRELOAD=libgomp.so.1 pyanaconda.modules.payloads
+#
+
+# Process the arguments.
+while true
+do
+  case $1 in
+    # Set up the environment.
+    --env)
+      export $2
+      shift 2
+    ;;
+    # Nothing else to do.
+    *)
+      break
+    ;;
+  esac
+done
 
 # Add Anaconda addons to the PYTHONPATH.
 PYTHONPATH="$PYTHONPATH:/usr/share/anaconda/addons"
