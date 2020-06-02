@@ -99,7 +99,6 @@ class NetworkInstallationTask(Task):
     ANACONDA_SYSCTL_FILE_PATH = "/etc/sysctl.d/anaconda.conf"
     RESOLV_CONF_FILE_PATH = "/etc/resolv.conf"
     NETWORK_SCRIPTS_DIR_PATH = "/etc/sysconfig/network-scripts"
-    PREFIXDEVNAME_DIR_PATH = "/etc/systemd/network"
     PREFIXDEVNAME_CONFIG_FILE_PREFIX = "71-net-ifnames-prefix-"
     DEVICE_CONFIG_FILE_PREFIXES = ("ifcfg-", "keys-", "route-")
     DHCLIENT_FILE_TEMPLATE = "/etc/dhcp/dhclient-{}.conf"
@@ -276,10 +275,10 @@ Name={}
         :param root: path to the root of the target system
         :type root: str
         """
-        config_files = os.listdir(self.PREFIXDEVNAME_DIR_PATH)
+        config_files = os.listdir(self.SYSTEMD_NETWORK_CONFIG_DIR)
         for config_file in config_files:
             if config_file.startswith(self.PREFIXDEVNAME_CONFIG_FILE_PREFIX):
-                config_file_path = os.path.join(self.PREFIXDEVNAME_DIR_PATH,
+                config_file_path = os.path.join(self.SYSTEMD_NETWORK_CONFIG_DIR,
                                                 config_file)
                 self._copy_file_to_root(root, config_file_path)
 
