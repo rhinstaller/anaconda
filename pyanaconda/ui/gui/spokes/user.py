@@ -505,7 +505,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         password_is_required = togglebutton.get_active()
         self.password_entry.set_sensitive(password_is_required)
         self.password_confirmation_entry.set_sensitive(password_is_required)
-        self._password_is_required = password_is_required        
+        self._password_is_required = password_is_required
         # also disable/enable corresponding password checks
         self._empty_check.skip = not password_is_required or not self.username
         self._confirm_check.skip = not password_is_required
