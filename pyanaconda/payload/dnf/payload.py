@@ -593,10 +593,9 @@ class DNFPayload(Payload):
                 if proxy.password:
                     config.proxy_password = proxy.password
 
-                log.info("Using %s as proxy", self.data.method.proxy)
+                log.info("Using %s as proxy", proxy_url)
             except ProxyStringError as e:
-                log.error("Failed to parse proxy for dnf configure %s: %s",
-                          self.data.method.proxy, e)
+                log.error("Failed to parse proxy for dnf configure %s: %s", proxy_url, e)
         else:
             # No proxy configured
             config.proxy = None
