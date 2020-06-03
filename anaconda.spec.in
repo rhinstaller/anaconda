@@ -362,6 +362,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 03 2020 Martin Kolman <mkolman@redhat.com> - 33.18-1
+- Set up LD_PRELOAD for the Payloads module (vponcova)
+- Extend the start-module script (vponcova)
+- subscription: Fix authentication method switching in GUI (mkolman)
+- subscription: Make sure CDN repos are loaded and usable (mkolman)
+- Add NFS ISO support back to the NFS SetupSourceTask (jkonecny)
+- Add NFS ISO support to the NFSSourceModule (jkonecny)
+- Tear down HDD device mount if no valid installation source is found
+  (jkonecny)
+- Extract ISO find algorith from harddrive (jkonecny)
+
 * Mon Jun 01 2020 Martin Kolman <mkolman@redhat.com> - 33.17-1
 - Update required ack in makebumpver script for rhel > 7 (rvykydal)
 - Close responses from session.get (vponcova)
