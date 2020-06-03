@@ -18,7 +18,8 @@
 from pyanaconda.core.dbus import SystemBus
 from pyanaconda.modules.common.constants.services import LOCALED
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.keyboard import join_layout_variant, parse_layout_variant
+from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, \
+    InvalidLayoutVariantSpec
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -160,11 +161,20 @@ class LocaledWrapper(object):
 
         layouts = []
         variants = []
+        parsing_failed = False
 
         for layout_variant in (nonempty for nonempty in layouts_variants if nonempty):
-            (layout, variant) = parse_layout_variant(layout_variant)
+            try:
+                (layout, variant) = parse_layout_variant(layout_variant)
+            except InvalidLayoutVariantSpec as e:
+                log.debug("Parsing of %s failed: %s", layout_variant, e)
+                parsing_failed = True
+                continue
             layouts.append(layout)
             variants.append(variant)
+
+        if not layouts and parsing_failed:
+            return
 
         layouts_str = ",".join(layouts)
         variants_str = ",".join(variants)
