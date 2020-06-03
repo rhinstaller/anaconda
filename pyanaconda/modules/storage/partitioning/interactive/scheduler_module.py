@@ -348,13 +348,7 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :raise: StorageConfigurationError in case of failure
         """
         device = self._get_device(device_name)
-
-        if device.exists:
-            # Revert changes done to an existing device.
-            self.storage.reset_device(device)
-        else:
-            # Destroy a non-existing device.
-            utils.destroy_device(self.storage, device)
+        utils.reset_device(self.storage, device)
 
     def destroy_device(self, device_name):
         """Destroy the specified device in the storage model.

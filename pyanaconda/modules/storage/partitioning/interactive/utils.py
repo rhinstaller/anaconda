@@ -1000,6 +1000,29 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     return permissions
 
 
+def reset_device(storage, device):
+    """Reset the given device in the storage model.
+
+    FIXME: Merge with destroy_device.
+
+    :param storage: an instance of Blivet
+    :param device: an instance of a device
+    :raise: StorageConfigurationError in case of failure
+    """
+    log.debug("Reset device: %s", device.name)
+
+    try:
+        if device.exists:
+            # Revert changes done to an existing device.
+            storage.reset_device(device)
+        else:
+            # Destroy a non-existing device.
+            _destroy_device(storage, device)
+    except (StorageError, ValueError) as e:
+        log.error("Failed to reset a device: %s", e)
+        raise StorageConfigurationError(str(e)) from None
+
+
 def destroy_device(storage, device):
     """Destroy the given device in the storage model.
 
