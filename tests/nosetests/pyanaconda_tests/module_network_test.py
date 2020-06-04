@@ -1194,8 +1194,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._sysctl_dir = os.path.dirname(NetworkInstallationTask.ANACONDA_SYSCTL_FILE_PATH)
         self._resolv_conf_dir = os.path.dirname(NetworkInstallationTask.RESOLV_CONF_FILE_PATH)
         self._network_scripts_dir = NetworkInstallationTask.NETWORK_SCRIPTS_DIR_PATH
-        self._prefixdevname_dir = NetworkInstallationTask.PREFIXDEVNAME_DIR_PATH
-        self._rename_dir = os.path.dirname(NetworkInstallationTask.INTERFACE_RENAME_FILE_TEMPLATE)
+        self._systemd_network_dir = NetworkInstallationTask.SYSTEMD_NETWORK_CONFIG_DIR
         self._dhclient_dir = os.path.dirname(NetworkInstallationTask.DHCLIENT_FILE_TEMPLATE)
 
     def _create_config_dirs(self, installer_dirs, target_system_dirs):
@@ -1237,14 +1236,12 @@ class InstallationTaskTestCase(unittest.TestCase):
 
     def _mock_task_paths(self, task):
         # Mock the paths in the task
-        task.SYSCONF_NETWORK_FILE_PATH = self._mocked_root + "/etc/sysconfig/network"
-        task.ANACONDA_SYSCTL_FILE_PATH = self._mocked_root + "/etc/sysctl.d/anaconda.conf"
-        task.RESOLV_CONF_FILE_PATH = self._mocked_root + "/etc/resolv.conf"
-        task.NETWORK_SCRIPTS_DIR_PATH = self._mocked_root + "/etc/sysconfig/network-scripts"
-        task.PREFIXDEVNAME_DIR_PATH = self._mocked_root + "/etc/systemd/network"
-        task.DHCLIENT_FILE_TEMPLATE = self._mocked_root + "/etc/dhcp/dhclient-{}.conf"
-        task.INTERFACE_RENAME_FILE_TEMPLATE = self._mocked_root \
-            + "/etc/systemd/network/10-anaconda-ifname-{}.link"
+        task.SYSCONF_NETWORK_FILE_PATH = self._mocked_root + type(task).SYSCONF_NETWORK_FILE_PATH
+        task.ANACONDA_SYSCTL_FILE_PATH = self._mocked_root + type(task).ANACONDA_SYSCTL_FILE_PATH
+        task.RESOLV_CONF_FILE_PATH = self._mocked_root + type(task).RESOLV_CONF_FILE_PATH
+        task.NETWORK_SCRIPTS_DIR_PATH = self._mocked_root + type(task).NETWORK_SCRIPTS_DIR_PATH
+        task.DHCLIENT_FILE_TEMPLATE = self._mocked_root + type(task).DHCLIENT_FILE_TEMPLATE
+        task.SYSTEMD_NETWORK_CONFIG_DIR = self._mocked_root + type(task).SYSTEMD_NETWORK_CONFIG_DIR
 
     def _create_all_expected_dirs(self):
         # Create directories that are expected to be existing in installer
@@ -1255,8 +1252,7 @@ class InstallationTaskTestCase(unittest.TestCase):
                 self._sysctl_dir,
                 self._resolv_conf_dir,
                 self._network_scripts_dir,
-                self._prefixdevname_dir,
-                self._rename_dir,
+                self._systemd_network_dir,
                 self._dhclient_dir,
             ],
             target_system_dirs=[
@@ -1264,8 +1260,7 @@ class InstallationTaskTestCase(unittest.TestCase):
                 self._sysctl_dir,
                 self._resolv_conf_dir,
                 self._network_scripts_dir,
-                self._prefixdevname_dir,
-                self._rename_dir,
+                self._systemd_network_dir,
                 self._dhclient_dir,
             ]
         )
@@ -1347,7 +1342,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             (("resolv.conf", "nomen"),)
         )
         self._dump_config_files(
-            self._prefixdevname_dir,
+            self._systemd_network_dir,
             (
                 ("71-net-ifnames-prefix-XYZ", "bla"),
                 ("70-shouldnt-be-copied", "blabla"),
@@ -1446,7 +1441,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             "file_that_shoudnt_be_copied.conf"
         )
         self._check_config_file(
-            self._prefixdevname_dir,
+            self._systemd_network_dir,
             "71-net-ifnames-prefix-XYZ",
             """
             bla
@@ -1454,12 +1449,12 @@ class InstallationTaskTestCase(unittest.TestCase):
         )
         content_template = NetworkInstallationTask.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE
         self._check_config_file(
-            self._rename_dir,
+            self._systemd_network_dir,
             "10-anaconda-ifname-ens3.link",
             content_template.format("00:15:17:96:75:0a", "ens3")
         )
         self._check_config_file_does_not_exist(
-            self._prefixdevname_dir,
+            self._systemd_network_dir,
             "70-shouldnt-be-copied"
         )
 
@@ -1473,7 +1468,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             (("network", "original target system content"),)
         )
         self._dump_config_files_in_target(
-            self._rename_dir,
+            self._systemd_network_dir,
             (("10-anaconda-ifname-ens3.link", "original target system content"),)
         )
         self._dump_config_files_in_target(
@@ -1485,7 +1480,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             (("dhclient-ens3.conf", "original target system content"),)
         )
         self._dump_config_files_in_target(
-            self._prefixdevname_dir,
+            self._systemd_network_dir,
             (("71-net-ifnames-prefix-XYZ", "original target system content"),)
         )
 
@@ -1502,7 +1497,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             (("dhclient-ens3.conf", "installer environment content"),)
         )
         self._dump_config_files(
-            self._prefixdevname_dir,
+            self._systemd_network_dir,
             (("71-net-ifnames-prefix-XYZ", "installer environment content"),)
         )
 
@@ -1533,7 +1528,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         )
         content_template = NetworkInstallationTask.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE
         self._check_config_file(
-            self._rename_dir,
+            self._systemd_network_dir,
             "10-anaconda-ifname-ens3.link",
             content_template.format("00:15:17:96:75:0a", "ens3")
         )
@@ -1562,7 +1557,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             """
         )
         self._check_config_file(
-            self._prefixdevname_dir,
+            self._systemd_network_dir,
             "71-net-ifnames-prefix-XYZ",
             """
             original target system content
@@ -1601,7 +1596,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             """
         )
         self._check_config_file(
-            self._rename_dir,
+            self._systemd_network_dir,
             "10-anaconda-ifname-ens3.link",
             """
             original target system content
@@ -1622,7 +1617,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             """
         )
         self._check_config_file(
-            self._prefixdevname_dir,
+            self._systemd_network_dir,
             "71-net-ifnames-prefix-XYZ",
             """
             original target system content
@@ -1654,7 +1649,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._create_config_dirs(
             installer_dirs=[
                 self._network_scripts_dir,
-                self._prefixdevname_dir,
+                self._systemd_network_dir,
             ],
             target_system_dirs=[
                 self._sysconf_dir,
@@ -1664,7 +1659,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         )
 
         self._dump_config_files(
-            self._prefixdevname_dir,
+            self._systemd_network_dir,
             (("71-net-ifnames-prefix-XYZ", "bla"),)
         )
 
@@ -1681,7 +1676,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         task.run()
 
         self._check_config_file(
-            self._prefixdevname_dir,
+            self._systemd_network_dir,
             "71-net-ifnames-prefix-XYZ",
             """
             bla
