@@ -1,9 +1,10 @@
 Testing Anaconda
 ================
 
-This document describes how to run Anaconda tests. Anaconda has various tests such as
-unit tests, rpm tests and translation tests. All the tests will be run together if you follow
-the steps below.
+This document describes how to run Anaconda tests. Anaconda has various tests
+such as unit tests, rpm tests and translation tests.  All the tests will be run
+together if you follow the steps below.  For integration tests there is a
+separate repository kickstart-tests_ containing also tooling for running the tests.
 
 You have two possible ways how to run these tests:
 
@@ -106,3 +107,5 @@ represents a different class of tests. They are
 
     Some tests require root privileges and will be skipped if running as regular
     user!
+
+.. _kickstart-tests: https://github.com/rhinstaller/kickstart-tests
