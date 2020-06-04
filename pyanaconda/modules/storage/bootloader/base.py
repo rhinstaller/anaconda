@@ -788,19 +788,25 @@ class BootLoader(object):
                     network_args = []
                     ibft = False
                     nic = ""
+                    host_address = dep.host_address or ""
                     if isinstance(dep, blivet.devices.iScsiDiskDevice):
                         if dep.iface == "default" or ":" in dep.iface:
                             node = _get_iscsi_node_from_device(dep)
                             if iscsi_proxy.IsNodeFromIbft(Node.to_structure(node)):
                                 ibft = True
                             else:
-                                nic = iface_for_host_ip(dep.host_address)
+                                nic = iface_for_host_ip(host_address)
                         else:
                             nic = iscsi_proxy.GetInterface(dep.iface)
                     else:
                         nic = dep.nic
                     if nic or ibft:
-                        network_args = network_proxy.GetDracutArguments(nic, dep.host_address, "", ibft)
+                        network_args = network_proxy.GetDracutArguments(
+                            nic,
+                            host_address,
+                            "",
+                            ibft
+                        )
 
                     self.boot_args.update(network_args)
                     self.dracut_args.update(network_args)
