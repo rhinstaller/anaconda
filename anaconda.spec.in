@@ -366,6 +366,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 04 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.5-1
+- Don't use data.method.proxy (vponcova)
+  Related: rhbz#1691319
+- Fix more SElinux contexts (vslavik)
+  Resolves: rhbz#1834189
+  Resolves: rhbz#1775975
+- localization: do not crash on failed parsing of X layout (rvykydal)
+  Resolves: rhbz#1843379
+
+
+
 * Fri May 29 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.4-1
 - Create /etc/systemd/network dir for ifname= renaming if needed. (rvykydal)
   Resolves: rhbz#1841469
