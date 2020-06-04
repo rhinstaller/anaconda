@@ -32,8 +32,11 @@ from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
     AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.storage import ProtectedDeviceError
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
+from pyanaconda.modules.storage.platform import platform
 
 log = get_module_logger(__name__)
 
@@ -251,6 +254,36 @@ def schedule_implicit_partitions(storage, disks, scheme, encrypted=False, luks_f
         log.debug("Created the implicit partition %s for %s.", part.name, disk.name)
 
     return devs
+
+
+def get_default_partitioning():
+    """Get the default partitioning requests.
+
+    :return: a list of partitioning specs
+    """
+    # Get the platform-specific partitioning.
+    partitioning = list(platform.set_default_partitioning())
+
+    # Get the product-specific partitioning.
+    for attrs in conf.storage.default_partitioning:
+        name = attrs.get("name")
+        swap = name == "swap"
+        spec = PartSpec(
+            mountpoint=name if not swap else None,
+            fstype=None if not swap else "swap",
+            lv=True,
+            thin=not swap,
+            btr=not swap,
+            size=attrs.get("min") or attrs.get("size"),
+            max_size=attrs.get("max"),
+            grow="min" in attrs,
+            required_space=attrs.get("free") or 0,
+            encrypted=True,
+        )
+
+        partitioning.append(spec)
+
+    return partitioning
 
 
 def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encrypted=False,

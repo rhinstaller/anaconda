@@ -21,6 +21,12 @@ import os
 import tempfile
 import unittest
 from textwrap import dedent
+from unittest.mock import patch
+
+from blivet.size import Size
+
+from pyanaconda.modules.storage.partitioning.automatic.utils import get_default_partitioning
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
 
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
 from pyanaconda.core.configuration.base import ConfigurationError, create_parser, read_config
@@ -29,12 +35,115 @@ from pyanaconda.product import trim_product_version_for_ui
 
 PRODUCT_DIR = os.path.join(os.environ.get("ANACONDA_DATA"), "product.d")
 
+SERVER_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("2GiB"),
+        max_size=Size("15GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        fstype="swap",
+        lv=True,
+        encrypted=True
+    )
+]
+
+WORKSTATION_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("1GiB"),
+        max_size=Size("70GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        mountpoint="/home",
+        size=Size("500MiB"), grow=True,
+        required_space=Size("50GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        fstype="swap",
+        lv=True,
+        encrypted=True
+    )
+]
+
+VIRTUALIZATION_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("6GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        mountpoint="/home",
+        size=Size("1GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        mountpoint="/tmp",
+        size=Size("1GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        mountpoint="/var",
+        size=Size("15GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        mountpoint="/var/log",
+        size=Size("8GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        mountpoint="/var/log/audit",
+        size=Size("2GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        fstype="swap",
+        lv=True,
+        encrypted=True
+    )
+]
+
 
 class ProductConfigurationTestCase(unittest.TestCase):
     """Test the default product configurations."""
 
     def setUp(self):
         """Set up the default loader."""
+        self.maxDiff = None
         self._loader = ProductLoader()
         self._loader.load_products(PRODUCT_DIR)
 
@@ -54,7 +163,14 @@ class ProductConfigurationTestCase(unittest.TestCase):
         config_paths = self._loader.collect_configurations(product_name, variant_name)
         self.assertEqual(file_paths, config_paths)
 
-    def _check_default_product(self, product_name, variant_name, file_names):
+    def _check_partitioning(self, config, partitioning):
+        with patch("pyanaconda.modules.storage.partitioning.automatic.utils.platform") as platform:
+            platform.set_default_partitioning.return_value = []
+
+            with patch("pyanaconda.modules.storage.partitioning.automatic.utils.conf", new=config):
+                self.assertEqual(get_default_partitioning(), partitioning)
+
+    def _check_default_product(self, product_name, variant_name, file_names, partitioning):
         """Check a default product."""
         self._check_product(
             product_name, variant_name,
@@ -68,6 +184,8 @@ class ProductConfigurationTestCase(unittest.TestCase):
             config.read(path)
 
         config.validate()
+
+        self._check_partitioning(config, partitioning)
 
     def _get_config(self, product_name, variant_name=""):
         """Get parsed config file."""
@@ -84,51 +202,62 @@ class ProductConfigurationTestCase(unittest.TestCase):
     def fedora_products_test(self):
         self._check_default_product(
             "Fedora", "",
-            ["fedora.conf"]
+            ["fedora.conf"],
+            WORKSTATION_PARTITIONING
         )
         self._check_default_product(
             "Fedora", "Server",
-            ["fedora.conf", "fedora-server.conf"]
+            ["fedora.conf", "fedora-server.conf"],
+            SERVER_PARTITIONING
         )
         self._check_default_product(
             "Fedora", "Workstation",
-            ["fedora.conf", "fedora-workstation.conf"]
+            ["fedora.conf", "fedora-workstation.conf"],
+            WORKSTATION_PARTITIONING
         )
         self._check_default_product(
             "Fedora", "Workstation Live",
-            ["fedora.conf", "fedora-workstation.conf", "fedora-workstation-live.conf"]
+            ["fedora.conf", "fedora-workstation.conf", "fedora-workstation-live.conf"],
+            WORKSTATION_PARTITIONING
         )
         self._check_default_product(
             "Fedora", "AtomicHost",
-            ["fedora.conf", "fedora-atomic-host.conf"]
+            ["fedora.conf", "fedora-atomic-host.conf"],
+            SERVER_PARTITIONING
 
         )
         self._check_default_product(
             "Fedora", "Silverblue",
             ["fedora.conf", "fedora-workstation.conf", "fedora-workstation-live.conf",
-             "fedora-silverblue.conf"]
+             "fedora-silverblue.conf"],
+            WORKSTATION_PARTITIONING
         )
 
     def rhel_products_test(self):
         self._check_default_product(
             "Red Hat Enterprise Linux", "",
-            ["rhel.conf"]
+            ["rhel.conf"],
+            WORKSTATION_PARTITIONING
         )
         self._check_default_product(
             "CentOS Linux", "",
-            ["rhel.conf", "centos.conf"]
+            ["rhel.conf", "centos.conf"],
+            WORKSTATION_PARTITIONING
         )
         self._check_default_product(
             "Red Hat Virtualization", "",
-            ["rhel.conf", "rhev.conf"]
+            ["rhel.conf", "rhev.conf"],
+            VIRTUALIZATION_PARTITIONING
         )
         self._check_default_product(
             "oVirt Node Next", "",
-            ["rhel.conf", "centos.conf", "ovirt.conf"]
+            ["rhel.conf", "centos.conf", "ovirt.conf"],
+            VIRTUALIZATION_PARTITIONING
         )
         self._check_default_product(
             "Scientific Linux", "",
-            ["rhel.conf", "scientific-linux.conf"]
+            ["rhel.conf", "scientific-linux.conf"],
+            WORKSTATION_PARTITIONING
         )
 
     def product_module_list_difference_fedora_rhel_test(self):
