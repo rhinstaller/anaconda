@@ -12,7 +12,9 @@ restorecon -ir /etc/sysconfig/network-scripts /etc/lvm /etc/X11/xorg.conf.d \
                /var/lib /var/lib/iscsi /var/lock /var/log /var/spool \
                /var/cache/yum \
                /dev \
-               /root
+               /root \
+               /boot \
+               /etc/dnf/modules.d
 
 # Also relabel the OSTree variants of the traditional mounts if present
 restorecon -ir /var/roothome /var/home /var/opt /var/srv /var/media /var/mnt
