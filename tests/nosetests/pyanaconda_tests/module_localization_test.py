@@ -853,6 +853,7 @@ class LocaledWrapperTestCase(unittest.TestCase):
                                     convert=True)
         localed_wrapper.set_and_convert_layouts(["cz (qwerty)", "us (euro)"])
         localed_wrapper.convert_layouts(["cz (qwerty)", "us (euro)"])
+        localed_wrapper.set_layouts(["us-altgr-intl"])
 
     @patch("pyanaconda.modules.localization.localed.SystemBus")
     @patch("pyanaconda.modules.localization.localed.LOCALED")
@@ -889,6 +890,43 @@ class LocaledWrapperTestCase(unittest.TestCase):
         self.assertEqual(localed_wrapper.keymap, "")
         self.assertEqual(localed_wrapper.options, [])
         self.assertEqual(localed_wrapper.layouts_variants, [])
+
+    @patch("pyanaconda.modules.localization.localed.SystemBus")
+    @patch("pyanaconda.modules.localization.localed.LOCALED")
+    @patch("pyanaconda.modules.localization.localed.conf")
+    def localed_wrapper_safe_calls_test(self, mocked_conf, mocked_localed_service,
+                                        mocked_system_bus):
+        """Test calling LocaledWrapper with invalid values does not raise exception."""
+        mocked_system_bus.check_connection.return_value = True
+        mocked_conf.system.provides_system_bus = True
+        mocked_localed_proxy = Mock()
+        mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
+        mocked_localed_proxy.VConsoleKeymap = "cz"
+        mocked_localed_proxy.X11Layout = "cz,fi,us,fr"
+        mocked_localed_proxy.X11Variant = "qwerty,,euro"
+        mocked_localed_proxy.X11Options = "grp:alt_shift_toggle,grp:ctrl_alt_toggle"
+        localed_wrapper = LocaledWrapper()
+        # valid values
+        localed_wrapper.set_keymap("cz")
+        localed_wrapper.set_keymap("cz", convert=True)
+        localed_wrapper.convert_keymap("cz")
+        localed_wrapper.set_and_convert_keymap("cz")
+        # invalid values
+        localed_wrapper.set_keymap("iinvalid")
+        localed_wrapper.set_keymap("iinvalid", convert=True)
+        localed_wrapper.convert_keymap("iinvalid")
+        localed_wrapper.set_and_convert_keymap("iinvalid")
+        # valid values
+        localed_wrapper.set_layouts(["cz (qwerty)", "us (euro)"],
+                                    options="grp:alt_shift_toggle",
+                                    convert=True)
+        localed_wrapper.set_and_convert_layouts(["cz (qwerty)", "us (euro)"])
+        localed_wrapper.convert_layouts(["cz (qwerty)", "us (euro)"])
+        # invalid values
+        # rhbz#1843379
+        localed_wrapper.set_layouts(["us-altgr-intl"])
+        localed_wrapper.set_and_convert_layouts(["us-altgr-intl"])
+        localed_wrapper.convert_layouts(["us-altgr-intl"])
 
     @patch("pyanaconda.modules.localization.localed.SystemBus")
     def localed_wrapper_no_systembus_test(self, mocked_system_bus):
