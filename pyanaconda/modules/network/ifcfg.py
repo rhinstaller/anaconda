@@ -281,7 +281,7 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
     :rtype: network_data_class object instance
     """
     ifcfg.read()
-    kwargs = {}
+    network_data = network_data_class()
 
     # no network command for non-virtual device slaves
     if ifcfg.get("TYPE") not in ("Bond", "Team") and ifcfg.get("DEVICETYPE") != "Team":
@@ -294,54 +294,54 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
 
     # ipv4 and ipv6
     if ifcfg.get("ONBOOT") and ifcfg.get("ONBOOT") == "no":
-        kwargs["onboot"] = False
+        network_data.onboot = False
     if ifcfg.get('MTU') and ifcfg.get('MTU') != "0":
-        kwargs["mtu"] = ifcfg.get('MTU')
+        network_data.mtu = ifcfg.get('MTU')
     # ipv4
     if not ifcfg.get('BOOTPROTO'):
-        kwargs["noipv4"] = True
+        network_data.noipv4 = True
     else:
         if util.lowerASCII(ifcfg.get('BOOTPROTO')) == 'dhcp':
-            kwargs["bootProto"] = "dhcp"
+            network_data.bootProto = "dhcp"
             if ifcfg.get('DHCPCLASS'):
-                kwargs["dhcpclass"] = ifcfg.get('DHCPCLASS')
+                network_data.dhcpclass = ifcfg.get('DHCPCLASS')
         elif ifcfg.get('IPADDR'):
-            kwargs["bootProto"] = "static"
-            kwargs["ip"] = ifcfg.get('IPADDR')
+            network_data.bootProto = "static"
+            network_data.ip = ifcfg.get('IPADDR')
             netmask = ifcfg.get('NETMASK')
             prefix = ifcfg.get('PREFIX')
             if not netmask and prefix:
                 netmask = prefix2netmask(int(prefix))
             if netmask:
-                kwargs["netmask"] = netmask
+                network_data.netmask = netmask
             # note that --gateway is common for ipv4 and ipv6
             if ifcfg.get('GATEWAY'):
-                kwargs["gateway"] = ifcfg.get('GATEWAY')
+                network_data.gateway = ifcfg.get('GATEWAY')
         elif ifcfg.get('IPADDR0'):
-            kwargs["bootProto"] = "static"
-            kwargs["ip"] = ifcfg.get('IPADDR0')
+            network_data.bootProto = "static"
+            network_data.ip = ifcfg.get('IPADDR0')
             prefix = ifcfg.get('PREFIX0')
             if prefix:
                 netmask = prefix2netmask(int(prefix))
-                kwargs["netmask"] = netmask
+                network_data.netmask = netmask
             # note that --gateway is common for ipv4 and ipv6
             if ifcfg.get('GATEWAY0'):
-                kwargs["gateway"] = ifcfg.get('GATEWAY0')
+                network_data.gateway = ifcfg.get('GATEWAY0')
 
     # ipv6
     if not ifcfg.get('IPV6INIT') or ifcfg.get('IPV6INIT') == "no":
-        kwargs["noipv6"] = True
+        network_data.noipv6 = True
     else:
         if ifcfg.get('IPV6_AUTOCONF') in ("yes", ""):
-            kwargs["ipv6"] = "auto"
+            network_data.ipv6 = "auto"
         else:
             if ifcfg.get('IPV6ADDR'):
-                kwargs["ipv6"] = ifcfg.get('IPV6ADDR')
+                network_data.ipv6 = ifcfg.get('IPV6ADDR')
                 if ifcfg.get('IPV6_DEFAULTGW') \
                         and ifcfg.get('IPV6_DEFAULTGW') != "::":
-                    kwargs["ipv6gateway"] = ifcfg.get('IPV6_DEFAULTGW')
+                    network_data.ipv6gateway = ifcfg.get('IPV6_DEFAULTGW')
             if ifcfg.get('DHCPV6C') == "yes":
-                kwargs["ipv6"] = "dhcp"
+                network_data.ipv6 = "dhcp"
 
     # ipv4 and ipv6
     dnsline = ''
@@ -352,17 +352,17 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
             else:
                 dnsline += "," + ifcfg.get(key)
     if dnsline:
-        kwargs["nameserver"] = dnsline
+        network_data.nameserver = dnsline
 
     if ifcfg.get("ETHTOOL_OPTS"):
-        kwargs["ethtool"] = ifcfg.get("ETHTOOL_OPTS")
+        network_data.ethtool = ifcfg.get("ETHTOOL_OPTS")
 
     if ifcfg.get("ESSID"):
-        kwargs["essid"] = ifcfg.get("ESSID")
+        network_data.essid = ifcfg.get("ESSID")
 
     # hostname
     if ifcfg.get("DHCP_HOSTNAME"):
-        kwargs["hostname"] = ifcfg.get("DHCP_HOSTNAME")
+        network_data.hostname = ifcfg.get("DHCP_HOSTNAME")
 
     iface = ifcfg.get("DEVICE")
     if not iface:
@@ -370,7 +370,7 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
         if hwaddr:
             iface = get_iface_from_hwaddr(nm_client, hwaddr)
     if iface:
-        kwargs["device"] = iface
+        network_data.device = iface
 
     # bonding
     # FIXME: dracut has only BOND_OPTS
@@ -380,25 +380,25 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
                                                [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
                                                root_path=root_path))
         if slaves:
-            kwargs["bondslaves"] = ",".join(iface for iface, uuid in slaves)
+            network_data.bondslaves = ",".join(iface for iface, uuid in slaves)
         bondopts = ifcfg.get("BONDING_OPTS")
         if bondopts:
             sep = ","
             if sep in bondopts:
                 sep = ";"
-            kwargs["bondopts"] = sep.join(bondopts.split())
+            network_data.bondopts = sep.join(bondopts.split())
 
     # vlan
     if ifcfg.get("VLAN") == "yes" or ifcfg.get("TYPE") == "Vlan":
         physdev = ifcfg.get("PHYSDEV")
         if len(physdev) == NM_CONNECTION_UUID_LENGTH:
             physdev = get_iface_from_connection(nm_client, physdev)
-        kwargs["device"] = physdev
-        kwargs["vlanid"] = ifcfg.get("VLAN_ID")
+        network_data.device = physdev
+        network_data.vlanid = ifcfg.get("VLAN_ID")
         interface_name = ifcfg.get("DEVICE")
-        default_name = default_ks_vlan_interface_name(kwargs["device"], kwargs["vlanid"])
+        default_name = default_ks_vlan_interface_name(network_data.device, network_data.vlanid)
         if interface_name and interface_name != default_name:
-            kwargs["interfacename"] = interface_name
+            network_data.interfacename = interface_name
 
     # bridging
     if ifcfg.get("TYPE") == "Bridge":
@@ -407,7 +407,7 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
                                                [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
                                                root_path=root_path))
         if slaves:
-            kwargs["bridgeslaves"] = ",".join(iface for iface, uuid in slaves)
+            network_data.bridgeslaves = ",".join(iface for iface, uuid in slaves)
 
         bridgeopts = ifcfg.get("BRIDGING_OPTS").replace('_', '-').split()
         if ifcfg.get("STP"):
@@ -415,9 +415,7 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
         if ifcfg.get("DELAY"):
             bridgeopts.append("%s=%s" % ("forward-delay", ifcfg.get("DELAY")))
         if bridgeopts:
-            kwargs["bridgeopts"] = ",".join(bridgeopts)
-
-    nd = network_data_class(**kwargs)
+            network_data.bridgeopts = ",".join(bridgeopts)
 
     # teaming
     if ifcfg.get("TYPE") == "Team" or ifcfg.get("DEVICETYPE") == "Team":
@@ -427,11 +425,11 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
                                                root_path=root_path))
         for iface, uuid in slaves:
             team_port_cfg = get_team_port_config_from_connection(nm_client, uuid)
-            nd.teamslaves.append((iface, team_port_cfg))
+            network_data.teamslaves.append((iface, team_port_cfg))
         teamconfig = get_team_config_from_connection(nm_client, ifcfg.get("UUID"))
         if teamconfig:
-            nd.teamconfig = teamconfig
-    return nd
+            network_data.teamconfig = teamconfig
+    return network_data
 
 
 def get_master_slaves_from_ifcfgs(nm_client, master_devname, root_path="", uuid=None):
