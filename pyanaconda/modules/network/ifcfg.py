@@ -317,16 +317,6 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
             # note that --gateway is common for ipv4 and ipv6
             if ifcfg.get('GATEWAY'):
                 network_data.gateway = ifcfg.get('GATEWAY')
-        elif ifcfg.get('IPADDR0'):
-            network_data.bootProto = "static"
-            network_data.ip = ifcfg.get('IPADDR0')
-            prefix = ifcfg.get('PREFIX0')
-            if prefix:
-                netmask = prefix2netmask(int(prefix))
-                network_data.netmask = netmask
-            # note that --gateway is common for ipv4 and ipv6
-            if ifcfg.get('GATEWAY0'):
-                network_data.gateway = ifcfg.get('GATEWAY0')
 
     # ipv6
     if not ifcfg.get('IPV6INIT') or ifcfg.get('IPV6INIT') == "no":
