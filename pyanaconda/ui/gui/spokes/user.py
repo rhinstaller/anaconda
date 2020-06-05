@@ -118,8 +118,8 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self._tHome.set_text(homedir)
         self._origHome = homedir
 
-        self._cUid.set_active(bool(self.user.uid))
-        self._cGid.set_active(bool(self.user.gid))
+        self._cUid.set_active(self.user.uid != USER_UID_NOT_SET)
+        self._cGid.set_active(self.user.gid != USER_GID_NOT_SET)
 
         self._spinUid.update()
         self._spinGid.update()
