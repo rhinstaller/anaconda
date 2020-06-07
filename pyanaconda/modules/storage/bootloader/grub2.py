@@ -116,7 +116,7 @@ class GRUB2(BootLoader):
     stage2_must_be_primary = False
 
     # requirements for boot devices
-    stage2_device_types = ["partition", "mdarray", "btrfs subvolume"]
+    stage2_device_types = ["partition", "mdarray", "btrfs volume", "btrfs subvolume"]
     stage2_raid_levels = [raid.RAID0, raid.RAID1, raid.RAID4,
                           raid.RAID5, raid.RAID6, raid.RAID10]
     stage2_raid_member_types = ["partition"]
