@@ -183,8 +183,23 @@ def setup_logging_from_options(options):
             log.error("Could not setup remotelog with %s", options.remotelog)
 
 
-def prompt_for_ssh():
-    """Prompt the user to ssh to the installation environment on the s390."""
+def prompt_for_ssh(options):
+    """Prompt the user to ssh to the installation environment on the s390.
+
+    :param options: Anaconda command line/boot options
+    :return: True if the prompt is printed, otherwise False
+    """
+    if not blivet.arch.is_s390():
+        return False
+
+    if not conf.target.is_hardware:
+        return False
+
+    if 'TMUX' in os.environ:
+        return False
+
+    if options.ksfile:
+        return False
 
     # Do some work here to get the ip addr / hostname to pass
     # to the user.
@@ -222,6 +237,8 @@ def prompt_for_ssh():
         stdout_log.info(_("Please ssh install@%s to begin the install."), connxinfo)
     else:
         stdout_log.info(_("Please ssh install@HOSTNAME to continue installation."))
+
+    return True
 
 
 def clean_pstore():
