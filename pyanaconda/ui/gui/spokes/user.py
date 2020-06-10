@@ -24,6 +24,7 @@ from pyanaconda.core.users import crypt_password, guess_username, check_groupnam
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.constants.services import USERS
+from pyanaconda.modules.common.structures.user import USER_GID_NOT_SET, USER_UID_NOT_SET
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
@@ -117,8 +118,8 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self._tHome.set_text(homedir)
         self._origHome = homedir
 
-        self._cUid.set_active(bool(self.user.uid))
-        self._cGid.set_active(bool(self.user.gid))
+        self._cUid.set_active(self.user.uid != USER_UID_NOT_SET)
+        self._cGid.set_active(self.user.gid != USER_GID_NOT_SET)
 
         self._spinUid.update()
         self._spinGid.update()
@@ -148,12 +149,12 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         if self._cUid.get_active():
             self.user.uid = int(self._uid.get_value())
         else:
-            self.user.uid = None
+            self.user.uid = USER_UID_NOT_SET
 
         if self._cGid.get_active():
             self.user.gid = int(self._gid.get_value())
         else:
-            self.user.gid = None
+            self.user.gid = USER_GID_NOT_SET
 
         # ''.split(',') returns [''] instead of [], which is not what we want
         self.user.groups = [g.strip() for g in self._tGroups.get_text().split(",") if g]
