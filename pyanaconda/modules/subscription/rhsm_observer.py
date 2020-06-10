@@ -37,7 +37,7 @@ def get_rhsm_configuration_proxy():
     :return: a DBus proxy
     """
     return InterfaceProxy(
-        RHSM._message_bus,
+        RHSM.message_bus,
         RHSM.service_name,
         RHSM_CONFIG.object_path,
         RHSM_CONFIG.interface_name
@@ -63,7 +63,7 @@ class RHSMObserver(DBusObserver):
                                      otherwise
         :param float timeout: how long to wait for RHSM service to start in seconds
         """
-        super().__init__(RHSM._message_bus, RHSM.service_name)
+        super().__init__(RHSM.message_bus, RHSM.service_name)
         self._startup_check_method = startup_check_method
         self._timeout = timeout
 
