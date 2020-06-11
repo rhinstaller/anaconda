@@ -159,9 +159,12 @@ def _prepare_configuration(payload, ksdata):
     # been created, fixing the kernel root and subvol args and adding the missing initrd entry.
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
-    if payload.type in PAYLOAD_LIVE_TYPES:
+    def fix_btrfs_bootloader():
         btrfs_task = bootloader_proxy.FixBTRFSWithTask(payload.kernel_version_list)
-        generate_initramfs.append_dbus_tasks(STORAGE, [btrfs_task])
+        sync_run_task(STORAGE.get_proxy(btrfs_task))
+
+    if payload.type in PAYLOAD_LIVE_TYPES:
+        generate_initramfs.append(Task("Fix bootloader on BTRFS", fix_btrfs_bootloader))
 
     # Invoking zipl should be the last thing done on a s390x installation (see #1652727).
     zipl_task = bootloader_proxy.FixZIPLWithTask()
