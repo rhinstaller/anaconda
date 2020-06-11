@@ -27,6 +27,7 @@ from dasbus.client.observer import DBusObserverError
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
+from tests.nosetests.pyanaconda_tests import patch_system_dbus_get_proxy
 
 
 class StartRHSMTaskTestCase(unittest.TestCase):
@@ -36,7 +37,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
     so lets test it here.
     """
 
-    @patch("pyanaconda.modules.subscription.initialization.get_rhsm_configuration_proxy")
+    @patch_system_dbus_get_proxy
     @patch("pyanaconda.core.util.start_service")
     def success_test(self, start_service, get_proxy):
         """Test StartRHSMTask - successful task."""
@@ -53,7 +54,11 @@ class StartRHSMTaskTestCase(unittest.TestCase):
         # check service was started correctly
         start_service.assert_called_once_with("rhsm.service")
         # check proxy was requested
-        get_proxy.assert_called_once_with()
+        get_proxy.assert_called_once_with(
+            "com.redhat.RHSM1",
+            "/com/redhat/RHSM1/Config",
+            "com.redhat.RHSM1.Config",
+        )
         # check expected values were set on the RHSM config proxy
         config_proxy.Set.assert_called_once_with(
             'logging.default_log_level',
@@ -196,7 +201,7 @@ class RHSMObserverTestCase(unittest.TestCase):
         observer._service_available.emit.assert_not_called()
         observer._service_available.reset_mock()
 
-    @patch("pyanaconda.modules.common.constants.services.RHSM.get_proxy")
+    @patch_system_dbus_get_proxy
     def service_available_test(self, get_proxy):
         """Test that RHSMObserver returns proxy if service is available."""
 
@@ -208,9 +213,9 @@ class RHSMObserverTestCase(unittest.TestCase):
 
         # check the observer is returning a reasonably looking proxy
         observer.get_proxy("BAZ")
-        get_proxy.assert_called_once_with("BAZ")
+        get_proxy.assert_called_once_with("com.redhat.RHSM1", "BAZ", "BAZ")
 
-    @patch("pyanaconda.modules.common.constants.services.RHSM.get_proxy")
+    @patch_system_dbus_get_proxy
     def service_not_available_success_test(self, get_proxy):
         """Test that RHSMObserver checks service startup status and succeeds."""
 
@@ -224,12 +229,12 @@ class RHSMObserverTestCase(unittest.TestCase):
 
         # check the observer is returning a reasonably looking proxy
         observer.get_proxy("BAZ")
-        get_proxy.assert_called_once_with("BAZ")
+        get_proxy.assert_called_once_with("com.redhat.RHSM1", "BAZ", "BAZ")
 
         # check that the startup check method was called
         startup_check_method.assert_called_once_with(RHSM_SERVICE_TIMEOUT)
 
-    @patch("pyanaconda.modules.common.constants.services.RHSM.get_proxy")
+    @patch_system_dbus_get_proxy
     def service_not_available_failure_test(self, get_proxy):
         """Test that RHSMObserver checks service startup status and fails."""
 

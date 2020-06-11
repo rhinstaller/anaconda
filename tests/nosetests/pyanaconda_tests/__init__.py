@@ -248,6 +248,14 @@ def patch_dbus_get_proxy(func):
     return patch('pyanaconda.core.dbus.DBus.get_proxy')(func)
 
 
+def patch_system_dbus_get_proxy(func):
+    """Patch DBus proxies on the system message bus.
+
+    This is a shortcut to avoid creating of DBus proxies using DBus.
+    """
+    return patch('pyanaconda.core.dbus.SystemBus.get_proxy')(func)
+
+
 def patch_dbus_get_proxy_with_cache(func):
     """Patch DBus proxies with a cache.
 

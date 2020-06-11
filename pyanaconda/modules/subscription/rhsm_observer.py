@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from dasbus.client.proxy import InterfaceProxy
-from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
 from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -23,25 +21,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from dasbus.client.observer import DBusObserver, DBusObserverError
 
 log = get_module_logger(__name__)
-
-
-def get_rhsm_configuration_proxy():
-    """Get the RHSM configuration proxy.
-
-    The DBus object Config re-defines methods of the standard
-    interface org.freedesktop.DBus.Properties, so create a proxy
-    only with the Config's interface.
-
-    FIXME: Dasbus should prioritize the custom interfaces.
-
-    :return: a DBus proxy
-    """
-    return InterfaceProxy(
-        RHSM.message_bus,
-        RHSM.service_name,
-        RHSM_CONFIG.object_path,
-        RHSM_CONFIG.interface_name
-    )
 
 
 class RHSMObserver(DBusObserver):
@@ -78,7 +57,5 @@ class RHSMObserver(DBusObserver):
         if not self.is_service_available and not self._startup_check_method(self._timeout):
             raise DBusObserverError("The RHSM DBus API is not available.")
 
-        if object_identifier == RHSM_CONFIG:
-            return get_rhsm_configuration_proxy()
-
-        return RHSM.get_proxy(object_identifier)
+        # get a proxy of a specific DBus interface
+        return RHSM.get_proxy(object_identifier, interface_name=object_identifier)
