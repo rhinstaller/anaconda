@@ -7,6 +7,7 @@
 # - ostree payloads, where all of the labeling of /var is the installer's
 #   responsibility (see https://github.com/ostreedev/ostree/pull/872 )
 
+echo "Restoring SElinux contexts on directories..."
 restorecon -ir /etc/sysconfig/network-scripts /etc/lvm /etc/X11/xorg.conf.d \
                /etc/iscsi /etc/modprobe.d /etc/sysconfig \
                /var/lib /var/lib/iscsi /var/lock /var/log /var/spool \
@@ -17,6 +18,7 @@ restorecon -ir /etc/sysconfig/network-scripts /etc/lvm /etc/X11/xorg.conf.d \
 # Also relabel the OSTree variants of the traditional mounts if present
 restorecon -ir /var/roothome /var/home /var/opt /var/srv /var/media /var/mnt
 
+echo "Restoring SElinux contexts on files..."
 restorecon -i /etc/rpm/macros /etc/dasd.conf /etc/zfcp.conf /etc/blkid.tab* \
               /etc/mtab /etc/fstab /etc/resolv.conf /etc/modprobe.conf* \
               /etc/crypttab /etc/mdadm.conf /etc/sysconfig/network \
@@ -28,7 +30,10 @@ restorecon -i /etc/rpm/macros /etc/dasd.conf /etc/zfcp.conf /etc/blkid.tab* \
               /root/install.log*
 
 if [ -e /etc/zipl.conf ]; then
+    echo "Restoring SElinux contexts on zipl.conf..."
     restorecon -i /etc/zipl.conf
 fi
+
+echo "Finished."
 
 %end

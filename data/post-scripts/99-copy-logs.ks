@@ -1,6 +1,8 @@
 # Note, this script log will not be copied to the installed system.
 %post --nochroot
 
+echo "Copying logs from the installation environment..."
+
 NOSAVE_INPUT_KS_FILE=/tmp/NOSAVE_INPUT_KS
 NOSAVE_LOGS_FILE=/tmp/NOSAVE_LOGS
 PRE_ANA_LOGS=/tmp/pre-anaconda-logs
@@ -21,10 +23,15 @@ else
     chmod 0600 $ANA_INSTALL_PATH/var/log/anaconda/*
 fi
 
+echo "Done."
+echo "Copying generated kickstart file..."
+
 if [ -e ${NOSAVE_INPUT_KS_FILE} ]; then
+    echo "Nosave used, skipping."
     rm -f ${NOSAVE_INPUT_KS_FILE}
 elif [ -e /run/install/ks.cfg ]; then
     cp /run/install/ks.cfg $ANA_INSTALL_PATH/root/original-ks.cfg
+    echo "Done."
 fi
 
 %end
