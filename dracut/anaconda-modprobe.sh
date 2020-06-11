@@ -38,6 +38,10 @@ MODULE_LIST+=" raid0 raid1 raid5 raid6 raid456 raid10 linear dm-mod dm-zero  \
               sha256 lrw xts "
 
 for m in $MODULE_LIST; do
+    if ! modinfo $m >/dev/null 2>&1 ; then
+        echo "anaconda-modprobe: Module $m not found" >&2
+        continue
+    fi
     if modprobe $m ; then
         debug_msg "$m was loaded"
     else
