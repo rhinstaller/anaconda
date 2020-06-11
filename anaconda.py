@@ -296,11 +296,8 @@ if __name__ == "__main__":
         util.touch('/tmp/NOSAVE_LOGS')
 
     # see if we're on s390x and if we've got an ssh connection
-    uname = os.uname()
-    if uname[4] == 's390x':
-        if 'TMUX' not in os.environ and 'ks' not in kernel_arguments and conf.target.is_hardware:
-            startup_utils.prompt_for_ssh()
-            sys.exit(0)
+    if startup_utils.prompt_for_ssh(opts):
+        sys.exit(0)
 
     log.info("%s %s", sys.argv[0], util.get_anaconda_version_string(build_time_version=True))
     if os.path.exists("/tmp/updates"):
