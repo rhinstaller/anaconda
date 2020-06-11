@@ -837,6 +837,9 @@ class SubscriptionSpoke(NormalSpoke):
         # disable controls
         self.set_registration_controls_sensitive(False)
 
+        # wait for the previous subscription thread to finish
+        threadMgr.wait(THREAD_SUBSCRIPTION)
+
         # try to register
         log.debug("Subscription GUI: attempting to register")
         threadMgr.add(
@@ -858,6 +861,9 @@ class SubscriptionSpoke(NormalSpoke):
 
         # disable controls
         self.set_registration_controls_sensitive(False)
+
+        # wait for the previous subscription thread to finish
+        threadMgr.wait(THREAD_SUBSCRIPTION)
 
         # try to unregister
         log.debug("Subscription GUI: attempting to unregister")
