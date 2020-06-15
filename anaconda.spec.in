@@ -362,6 +362,34 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 15 2020 Martin Kolman <mkolman@redhat.com> - 33.19-1
+- Document common issues and bugs (vponcova)
+- Add logging messages to %%post scripts (vslavik)
+- Don't prompt the user to ssh in VNC installations (vponcova)
+- Extend the function prompt_for_ssh (vponcova)
+- Allow having /boot on a btrfs volume (i.gnatenko.brain)
+- network: do not parse IPADDR0 anymore (rvykydal)
+- Do not use kwargs when creating network_data from ifcfg file (rvykydal)
+- Extend unit tests for generating network data from ifcfg file (rvykydal)
+- Fix updating of user gid/uid value checkbox in gui (rvykydal)
+- Fix crash on user uid/gid unchecked in gui (rvykydal)
+- Add daily build status badge (jkonecny)
+- Fix the pylint warning in the Payloads module (vponcova)
+- Add pointer to kickstart tests to tests README (rvykydal)
+- resolved a user created password verification issue that could not exit
+  (57519382+huzunhao)
+- Don't use data.method.proxy (vponcova)
+- Use sshd_config drop in directory to allow root login (jjelen)
+- localization: do not crash on failed parsing of X layout (#1836047)
+  (rvykydal)
+- Catch Blivet's exceptions when we reset a device (#1843278) (vponcova)
+- Fix wireless network configuration on get_ssid() returning None (#1838357)
+  (rvykydal)
+- Unify definition of directory for ifname and prefixdevname config (rvykydal)
+- Use constants when mocking paths for network installation test (rvykydal)
+- Create /etc/systemd/network dir for ifname= renaming if needed. (rvykydal)
+- Use the Blivet's property is_empty (vponcova)
+
 * Wed Jun 03 2020 Martin Kolman <mkolman@redhat.com> - 33.18-1
 - Set up LD_PRELOAD for the Payloads module (vponcova)
 - Extend the start-module script (vponcova)
