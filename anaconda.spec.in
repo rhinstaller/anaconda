@@ -371,6 +371,22 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 15 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.6-1
+- Fix regression reading kernel list when collecting configurations (jkonecny)
+  Resolves: rhbz#1846156
+- Prevent crash on unregistration (mkolman)
+  Resolves: rhbz#1845962
+- Check Subscription module is available before use in payload code (mkolman)
+  Related: rhbz#1845605
+- Fix updating of user gid/uid value checkbox in gui (rvykydal)
+  Related: rhbz#1844386
+- Fix crash on user uid/gid unchecked in gui (rvykydal)
+  Resolves: rhbz#1844386
+- Fix passing of arguments when creating dracut arguments for FCoE (rvykydal)
+  Resolves: rhbz#1843741
+- Do not build Anaconda on i686 (mkolman)
+  Related: rhbz#1691319
+
 * Thu Jun 04 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.5-1
 - Don't use data.method.proxy (vponcova)
   Related: rhbz#1691319
