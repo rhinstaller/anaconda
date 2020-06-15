@@ -67,6 +67,7 @@ from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE, 
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.utils import DNF_CACHE_DIR, DNF_PLUGINCONF_DIR, REPO_DIRS, \
@@ -812,18 +813,21 @@ class DNFPayload(Payload):
         """Get the identifier of the current base repo or None."""
         # is any locking needed here?
         repo_names = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS
-        subscription_proxy = SUBSCRIPTION.get_proxy()
         with self._repos_lock:
             if self.source_type == SOURCE_TYPE_CDN:
-                if subscription_proxy.IsSubscriptionAttached:
-                    # If CDN is used as the installation source and we have
-                    # a subscription attached then any of the enabled repos
-                    # should be fine as the base repo.
-                    # If CDN is used but subscription has not been attached
-                    # there will be no redhat.repo file to parse and we
-                    # don't need to do anything.
-                    for repo in self._base.repos.iter_enabled():
-                        return repo.id
+                if is_module_available(SUBSCRIPTION):
+                    subscription_proxy = SUBSCRIPTION.get_proxy()
+                    if subscription_proxy.IsSubscriptionAttached:
+                        # If CDN is used as the installation source and we have
+                        # a subscription attached then any of the enabled repos
+                        # should be fine as the base repo.
+                        # If CDN is used but subscription has not been attached
+                        # there will be no redhat.repo file to parse and we
+                        # don't need to do anything.
+                        for repo in self._base.repos.iter_enabled():
+                            return repo.id
+                else:
+                    log.error("CDN install source set but Subscription module is not available")
             else:
                 for repo in self._base.repos.iter_enabled():
                     if repo.id in repo_names:
@@ -1614,9 +1618,15 @@ class DNFPayload(Payload):
             # want to read the on media repo files in such a case. On the other hand,
             # the local repo files are a valid use case if the system is subscribed
             # and the CDN is selected as the installation source.
-            subscription_proxy = SUBSCRIPTION.get_proxy()
-            is_cdn_source = self.source_type == SOURCE_TYPE_CDN
-            load_cdn_repos = is_cdn_source and subscription_proxy.IsSubscriptionAttached
+            if self.source_type == SOURCE_TYPE_CDN and is_module_available(SUBSCRIPTION):
+                # only check if the Subscription module is available & CDN is the
+                # installation source
+                subscription_proxy = SUBSCRIPTION.get_proxy()
+                load_cdn_repos = subscription_proxy.IsSubscriptionAttached
+            else:
+                # if the Subscription module is not available, we simply can't use
+                # the CDN repos, making our decision here simple
+                load_cdn_repos = False
             if flags.automatedInstall and not load_cdn_repos:
                 return
 
