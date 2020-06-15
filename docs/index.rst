@@ -15,6 +15,7 @@ Contents:
    boot-options
    kickstart
    How to report a bug <reporting>
+   common-bugs
    How to contribute <contributing>
    commit-log
    release
