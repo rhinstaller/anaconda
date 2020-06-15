@@ -6,35 +6,51 @@
 #   /var/log/anaconda)
 # - ostree payloads, where all of the labeling of /var is the installer's
 #   responsibility (see https://github.com/ostreedev/ostree/pull/872 )
+# - OSTree variants of the traditional mounts if present
 
-echo "Restoring SElinux contexts on directories..."
-restorecon -ir /etc/sysconfig/network-scripts /etc/lvm /etc/X11/xorg.conf.d \
-               /etc/iscsi /etc/modprobe.d /etc/sysconfig \
-               /var/lib /var/lib/iscsi /var/lock /var/log /var/spool \
-               /var/cache/yum \
-               /dev \
-               /root \
-               /boot \
-               /etc/dnf/modules.d
+echo "Restoring SElinux contexts..."
 
-# Also relabel the OSTree variants of the traditional mounts if present
-restorecon -ir /var/roothome /var/home /var/opt /var/srv /var/media /var/mnt
-
-echo "Restoring SElinux contexts on files..."
-restorecon -i /etc/rpm/macros /etc/dasd.conf /etc/zfcp.conf /etc/blkid.tab* \
-              /etc/mtab /etc/fstab /etc/resolv.conf /etc/modprobe.conf* \
-              /etc/crypttab /etc/mdadm.conf /etc/sysconfig/network \
-              /etc/*shadow* /etc/group* /etc/passwd* /etc/dhcp/dhclient-*.conf \
-              /etc/localtime /etc/hostname /root/install.log* \
-              /var/run /var/log/*tmp \
-              /usr/lib64 \
-              /lib64 \
-              /root/install.log*
-
-if [ -e /etc/zipl.conf ]; then
-    echo "Restoring SElinux contexts on zipl.conf..."
-    restorecon -i /etc/zipl.conf
-fi
+restorecon -ir \
+  /boot \
+  /dev \
+  /etc/*shadow* \
+  /etc/X11/xorg.conf.d \
+  /etc/blkid.tab* \
+  /etc/crypttab \
+  /etc/dasd.conf \
+  /etc/dhcp/dhclient-*.conf \
+  /etc/dnf/modules.d \
+  /etc/fstab \
+  /etc/group* \
+  /etc/hostname \
+  /etc/iscsi \
+  /etc/localtime \
+  /etc/lvm \
+  /etc/mdadm.conf \
+  /etc/modprobe.conf* \
+  /etc/modprobe.d \
+  /etc/mtab \
+  /etc/passwd* \
+  /etc/resolv.conf \
+  /etc/rpm/macros \
+  /etc/sysconfig \
+  /etc/zfcp.conf \
+  /etc/zipl.conf \
+  /lib64 \
+  /root \
+  /usr/lib64 \
+  /var/cache/yum \
+  /var/home \
+  /var/lib \
+  /var/lock \
+  /var/log \
+  /var/media \
+  /var/mnt \
+  /var/opt \
+  /var/roothome \
+  /var/run \
+  /var/spool \
+  /var/srv \
 
 echo "Finished."
 
