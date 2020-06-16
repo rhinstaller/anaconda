@@ -11,29 +11,7 @@
 restorecon -ir \
   /boot \
   /dev \
-  /etc/*shadow* \
-  /etc/X11/xorg.conf.d \
-  /etc/blkid.tab* \
-  /etc/crypttab \
-  /etc/dasd.conf \
-  /etc/dhcp/dhclient-*.conf \
-  /etc/dnf/modules.d \
-  /etc/fstab \
-  /etc/group* \
-  /etc/hostname \
-  /etc/iscsi \
-  /etc/localtime \
-  /etc/lvm \
-  /etc/mdadm.conf \
-  /etc/modprobe.conf* \
-  /etc/modprobe.d \
-  /etc/mtab \
-  /etc/passwd* \
-  /etc/resolv.conf \
-  /etc/rpm/macros \
-  /etc/sysconfig \
-  /etc/zfcp.conf \
-  /etc/zipl.conf \
+  /etc/ \
   /lib64 \
   /root \
   /usr/lib64 \
