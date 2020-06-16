@@ -424,8 +424,8 @@ class Hub(GUIObject, common.Hub):
 
         # Enter the spoke
         self._inSpoke = True
-        spoke.refresh()
         self.main_window.enterSpoke(spoke)
+        spoke.refresh()
         # the new spoke should be now visible, trigger the entered signal
         spoke.entered.emit(spoke)
 
