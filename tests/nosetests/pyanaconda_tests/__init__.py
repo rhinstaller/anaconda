@@ -272,7 +272,7 @@ def patch_dbus_get_proxy_with_cache(func):
     """
     proxies = defaultdict(Mock)
 
-    def mock_get(service_name, object_path):
+    def mock_get(service_name, object_path, *args, **kwargs):
         return proxies[(service_name, object_path)]
 
     return patch('pyanaconda.core.dbus.DBus.get_proxy', side_effect=mock_get)(func)
