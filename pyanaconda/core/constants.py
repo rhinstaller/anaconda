@@ -439,6 +439,17 @@ SOURCE_REPO_FILE_TYPES = (
     SOURCE_TYPE_CDN,
 )
 
+# Payload sources overriden by the CDN
+
+# This set lists sources the Red Hat CDN should automatically
+# override if the system gets registered during installation.
+# At the moment there is just the CDROM source, as almost
+# always the CDN content will be much more up to date and
+# more secure than the local content on the DVD image.
+SOURCE_TYPES_OVERRIDEN_BY_CDN = (
+    SOURCE_TYPE_CDROM
+)
+
 # Payload URL source types.
 URL_TYPE_BASEURL = "BASEURL"
 URL_TYPE_MIRRORLIST = "MIRRORLIST"
