@@ -192,9 +192,13 @@ class DNFPayload(Payload):
     def get_source_proxy(self):
         """Get the DBus proxy of the RPM source.
 
+        The default source for the DNF payload is set via
+        the default_source option in the payload section
+        of the Anaconda config file.
+
         :return: a DBus proxy
         """
-        return get_source(self.proxy, DNF_DEFAULT_SOURCE_TYPE)
+        return get_source(self.proxy, conf.payload.default_source)
 
     @property
     def source_type(self):
