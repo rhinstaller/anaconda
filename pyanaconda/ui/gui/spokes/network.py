@@ -1019,8 +1019,9 @@ class NetworkControlBox(GObject.GObject):
 
         switch = self.builder.get_object("device_%s_off_switch" % dev_type_str)
         if dev_type_str == "wired":
-            switch.set_visible(state not in (NM.DeviceState.UNAVAILABLE,
-                                             NM.DeviceState.UNMANAGED))
+            visible = state not in (NM.DeviceState.UNAVAILABLE, NM.DeviceState.UNMANAGED)
+            switch.set_visible(visible)
+            switch.set_no_show_all(not visible)
             self._updating_device = True
             switch.set_active(state not in (NM.DeviceState.UNMANAGED,
                                             NM.DeviceState.UNAVAILABLE,
