@@ -136,23 +136,23 @@ class StorageConstraints(Section):
         return set(self._get_option("must_not_be_on_root").split())
 
     @property
-    def reformat_whitelist(self):
+    def reformat_allowlist(self):
         """Mount point prefixes that are recommended to be reformatted.
 
         It will be recommended to create a new file system on a mount point
-        that has a whitelisted prefix, but doesn't have a blacklisted one.
+        that has an allowed prefix, but doesn't have a blocked one.
 
         :return: a set of mount point prefixes
         """
-        return set(self._get_option("reformat_whitelist").split())
+        return set(self._get_option("reformat_allowlist").split())
 
     @property
-    def reformat_blacklist(self):
+    def reformat_blocklist(self):
         """Mount point prefixes that are NOT recommended to be reformatted.
 
         It will be recommended to create a new file system on a mount point
-        that has a whitelisted prefix, but doesn't have a blacklisted one.
+        that has an allowed prefix, but doesn't have a blocked one.
 
         :return: a set of mount point prefixes
         """
-        return set(self._get_option("reformat_blacklist").split())
+        return set(self._get_option("reformat_blocklist").split())

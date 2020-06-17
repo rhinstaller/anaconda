@@ -27,8 +27,8 @@ from blivet.size import Size
 
 from pyanaconda import isys
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLACKLIST, \
-    STORAGE_REFORMAT_WHITELIST, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_RAM, \
+from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLOCKLIST, \
+    STORAGE_REFORMAT_ALLOWLIST, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_RAM, \
     STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
     STORAGE_LUKS2_MIN_RAM, STORAGE_ROOT_DEVICE_TYPES, STORAGE_REQ_PARTITION_SIZES, \
     STORAGE_MUST_NOT_BE_ON_ROOT
@@ -113,8 +113,8 @@ def verify_partition_formatting(storage, constraints, report_error, report_warni
         mount for mount, device in storage.mountpoints.items()
         if device.format.exists
         and device.format.linux_native
-        and not any(filter(mount.startswith, constraints[STORAGE_REFORMAT_BLACKLIST]))
-        and any(filter(mount.startswith, constraints[STORAGE_REFORMAT_WHITELIST]))
+        and not any(filter(mount.startswith, constraints[STORAGE_REFORMAT_BLOCKLIST]))
+        and any(filter(mount.startswith, constraints[STORAGE_REFORMAT_ALLOWLIST]))
     ]
 
     for mount in mountpoints:
@@ -646,8 +646,8 @@ class StorageChecker(object):
             STORAGE_MUST_BE_ON_LINUXFS,
             STORAGE_MUST_BE_ON_ROOT,
             STORAGE_MUST_NOT_BE_ON_ROOT,
-            STORAGE_REFORMAT_WHITELIST,
-            STORAGE_REFORMAT_BLACKLIST,
+            STORAGE_REFORMAT_ALLOWLIST,
+            STORAGE_REFORMAT_BLOCKLIST,
             STORAGE_SWAP_IS_RECOMMENDED,
             STORAGE_LUKS2_MIN_RAM,
         ]

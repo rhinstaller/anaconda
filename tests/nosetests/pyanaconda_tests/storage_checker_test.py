@@ -245,10 +245,10 @@ class StorageCheckerTests(unittest.TestCase):
                 '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
             },
             checks.STORAGE_MUST_NOT_BE_ON_ROOT: set(),
-            checks.STORAGE_REFORMAT_WHITELIST: {
+            checks.STORAGE_REFORMAT_ALLOWLIST: {
                 '/boot', '/var', '/tmp', '/usr'
             },
-            checks.STORAGE_REFORMAT_BLACKLIST: {
+            checks.STORAGE_REFORMAT_BLOCKLIST: {
                 '/home', '/usr/local', '/opt', '/var/www'
             },
             checks.STORAGE_SWAP_IS_RECOMMENDED: True,
