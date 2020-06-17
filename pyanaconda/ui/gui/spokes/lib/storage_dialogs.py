@@ -49,7 +49,7 @@ class InstallOptionsDialogBase(GUIObject):
 
     def _modify_sw_link_clicked(self, label, uri):
         if self._software_is_ready():
-            self.window.response(RESPONSE_MODIFY_SW)
+            self.window.response(RESPONSE_MODIFY_SW)  # pylint: disable=undefined-variable
 
         return True
 
