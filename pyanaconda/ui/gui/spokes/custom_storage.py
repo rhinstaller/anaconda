@@ -1520,8 +1520,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def on_encrypt_toggled(self, widget):
         self._encryptCheckbox.set_inconsistent(False)
         self._request.device_encrypted = self._encryptCheckbox.get_active()
-        self.on_luks_version_changed(self._luksCombo)
-        self._update_luks_combo()
+        self._populate_luks(self._request.luks_version)
         self.on_value_changed()
 
     def _update_luks_combo(self):
