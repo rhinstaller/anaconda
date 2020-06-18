@@ -1,4 +1,4 @@
-# Storage configuration spoke classes
+# Storage configuration spoke
 #
 # Copyright (C) 2011-2014  Red Hat, Inc.
 #
@@ -25,10 +25,8 @@ from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_BLIVET, \
-    PAYLOAD_LIVE_TYPES
+    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_BLIVET
 from pyanaconda.core.i18n import _, C_, CN_
-from pyanaconda.core.timer import Timer
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, DEVICE_TREE
@@ -36,12 +34,10 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.product import productName
 from pyanaconda.core.storage import suggest_swap_size
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
@@ -49,12 +45,13 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
-from pyanaconda.ui.gui.utils import escape_markup, ignoreEscape
+from pyanaconda.ui.gui.utils import ignoreEscape
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.ui.lib.storage import find_partitioning, apply_partitioning, \
     select_default_disks, apply_disk_selection, get_disks_summary, create_partitioning, \
     is_local_disk, filter_disks_by_names
+from pyanaconda.ui.gui.spokes.lib.storage_dialogs import NeedSpaceDialog, NoSpaceDialog
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -75,150 +72,6 @@ RESPONSE_QUIT = 4
 DASD_FORMAT_NO_CHANGE = -1
 DASD_FORMAT_REFRESH = 1
 DASD_FORMAT_RETURN_TO_HUB = 2
-
-
-class InstallOptionsDialogBase(GUIObject):
-    uiFile = "spokes/storage.glade"
-
-    def __init__(self, *args, **kwargs):
-        self.payload = kwargs.pop("payload", None)
-        super().__init__(*args, **kwargs)
-        self._grabObjects()
-
-    def _grabObjects(self):
-        pass
-
-    def run(self):
-        rc = self.window.run()
-        self.window.destroy()
-        return rc
-
-    def _modify_sw_link_clicked(self, label, uri):
-        if self._software_is_ready():
-            self.window.response(RESPONSE_MODIFY_SW)
-
-        return True
-
-    def _get_sw_needs_text(self, required_space, sw_space, auto_swap):
-        tooltip = _("Please wait... software metadata still loading.")
-
-        if self.payload.type in PAYLOAD_LIVE_TYPES:
-            sw_text = (_("Your current <b>%(product)s</b> software "
-                         "selection requires <b>%(total)s</b> of available "
-                         "space, including <b>%(software)s</b> for software and "
-                         "<b>%(swap)s</b> for swap space.")
-                       % {"product": escape_markup(productName),
-                          "total": escape_markup(str(required_space)),
-                          "software": escape_markup(str(sw_space)),
-                          "swap": escape_markup(str(auto_swap))})
-        else:
-            sw_text = (_("Your current <a href=\"\" title=\"%(tooltip)s\"><b>%(product)s</b> software "
-                         "selection</a> requires <b>%(total)s</b> of available "
-                         "space, including <b>%(software)s</b> for software and "
-                         "<b>%(swap)s</b> for swap space.")
-                       % {"tooltip": escape_markup(tooltip),
-                          "product": escape_markup(productName),
-                          "total": escape_markup(str(required_space)),
-                          "software": escape_markup(str(sw_space)),
-                          "swap": escape_markup(str(auto_swap))})
-        return sw_text
-
-    # Methods to handle sensitivity of the modify button.
-    def _software_is_ready(self):
-        # FIXME:  Would be nicer to just ask the spoke if it's ready.
-        return (not threadMgr.get(constants.THREAD_PAYLOAD) and
-                not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
-                not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
-                self.payload.is_ready())
-
-    def _check_for_storage_thread(self, button):
-        if self._software_is_ready():
-            button.set_has_tooltip(False)
-
-            # False means this function should never be called again.
-            return False
-        else:
-            return True
-
-    def _add_modify_watcher(self, widget):
-        # If the payload fetching thread is still running, the user can't go to
-        # modify the software selection screen.  Thus, we have to set the button
-        # insensitive and wait until software selection is ready to go.
-        if not self._software_is_ready():
-            Timer().timeout_sec(1, self._check_for_storage_thread, widget)
-
-
-class NeedSpaceDialog(InstallOptionsDialogBase):
-    builderObjects = ["need_space_dialog"]
-    mainWidgetName = "need_space_dialog"
-
-    def _grabObjects(self):
-        self.disk_free_label = self.builder.get_object("need_space_disk_free_label")
-        self.fs_free_label = self.builder.get_object("need_space_fs_free_label")
-
-    def _set_free_space_labels(self, disk_free, fs_free):
-        self.disk_free_label.set_text(str(disk_free))
-        self.fs_free_label.set_text(str(fs_free))
-
-    # pylint: disable=arguments-differ
-    def refresh(self, required_space, sw_space, auto_swap, disk_free, fs_free):
-        sw_text = self._get_sw_needs_text(required_space, sw_space, auto_swap)
-        label_text = _("%s The disks you've selected have the following "
-                       "amounts of free space:") % sw_text
-        label = self.builder.get_object("need_space_desc_label")
-        label.set_markup(label_text)
-
-        if self.payload.type not in PAYLOAD_LIVE_TYPES:
-            label.connect("activate-link", self._modify_sw_link_clicked)
-
-        self._set_free_space_labels(disk_free, fs_free)
-
-        label_text = _("<b>You don't have enough space available to install "
-                       "%s</b>.  You can shrink or remove existing partitions "
-                       "via our guided reclaim space tool, or you can adjust your "
-                       "partitions on your own in the custom partitioning "
-                       "interface.") % escape_markup(productName)
-        self.builder.get_object("need_space_options_label").set_markup(label_text)
-        self._add_modify_watcher(label)
-
-
-class NoSpaceDialog(InstallOptionsDialogBase):
-    builderObjects = ["no_space_dialog"]
-    mainWidgetName = "no_space_dialog"
-
-    def _grabObjects(self):
-        self.disk_free_label = self.builder.get_object("no_space_disk_free_label")
-        self.fs_free_label = self.builder.get_object("no_space_fs_free_label")
-
-    def _set_free_space_labels(self, disk_free, fs_free):
-        self.disk_free_label.set_text(str(disk_free))
-        self.fs_free_label.set_text(str(fs_free))
-
-    # pylint: disable=arguments-differ
-    def refresh(self, required_space, sw_space, auto_swap, disk_free, fs_free):
-        label_text = self._get_sw_needs_text(required_space, sw_space, auto_swap)
-        label_text += (_("  You don't have enough space available to install "
-                         "<b>%(product)s</b>, even if you used all of the free space "
-                         "available on the selected disks.")
-                       % {"product": escape_markup(productName)})
-        label = self.builder.get_object("no_space_desc_label")
-        label.set_markup(label_text)
-
-        if self.payload.type not in PAYLOAD_LIVE_TYPES:
-            label.connect("activate-link", self._modify_sw_link_clicked)
-
-        self._set_free_space_labels(disk_free, fs_free)
-
-        label_text = _("<b>You don't have enough space available to install "
-                       "%(productName)s</b>, even if you used all of the free space "
-                       "available on the selected disks.  You could add more "
-                       "disks for additional space, "
-                       "modify your software selection to install a smaller "
-                       "version of <b>%(productName)s</b>, or quit the installer.") % \
-                               {"productName": escape_markup(productName)}
-        self.builder.get_object("no_space_options_label").set_markup(label_text)
-
-        self._add_modify_watcher(label)
 
 
 class StorageSpoke(NormalSpoke, StorageCheckHandler):
