@@ -570,7 +570,8 @@ class IPSeriesGRUB2(GRUB2):
         log.debug("updateNVRAMBootList: self.stage1_device.path = %s", self.stage1_device.path)
 
         buf = util.execWithCapture("nvram",
-                                   ["--print-config=boot-device"])
+                                   ["--print-config=boot-device"],
+                                   filter_stderr=True)
 
         if len(buf) == 0:
             log.error("Failed to determine nvram boot device")
@@ -580,7 +581,8 @@ class IPSeriesGRUB2(GRUB2):
         log.debug("updateNVRAMBootList: boot_list = %s", boot_list)
 
         buf = util.execWithCapture("ofpathname",
-                                   [self.stage1_device.path])
+                                   [self.stage1_device.path],
+                                   filter_stderr=True)
 
         if len(buf) > 0:
             boot_disk = buf.strip()
