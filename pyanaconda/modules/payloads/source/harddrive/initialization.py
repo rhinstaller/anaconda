@@ -22,8 +22,7 @@ from collections import namedtuple
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.utils import find_and_mount_device, \
-    find_and_mount_iso_image
-from pyanaconda.payload.image import verify_valid_installtree
+    find_and_mount_iso_image, verify_valid_installtree
 from pyanaconda.payload.utils import unmount
 from pyanaconda.anaconda_loggers import get_module_logger
 
