@@ -28,6 +28,7 @@ import blivet.arch
 from blivet.size import Size
 
 from pyanaconda import isys
+from pyanaconda.core.util import join_paths
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -129,16 +130,15 @@ def find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
 
 
 def verify_valid_installtree(path):
-    """Check if the given path is a valid installtree repository
+    """Check if the given path is a valid installtree repository.
 
     :param str path: install tree path
     :returns: True if repository is valid false otherwise
     :rtype: bool
     """
-    # TODO: This can be enhanced to check for repodata folder.
-    if os.path.exists(os.path.join(path, ".treeinfo")):
-        return True
-    elif os.path.exists(os.path.join(path, "treeinfo")):
+    repomd_path = join_paths(path, "repodata/repomd.xml")
+
+    if os.path.exists(repomd_path) and os.path.isfile(repomd_path):
         return True
 
     return False
