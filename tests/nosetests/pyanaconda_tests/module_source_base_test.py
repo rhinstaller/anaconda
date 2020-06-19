@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from pyanaconda.core.constants import INSTALL_TREE
@@ -23,7 +25,8 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTea
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask, TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceMixin
-from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image
+from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image, \
+    verify_valid_installtree
 
 mount_location = "/some/dir"
 
@@ -184,3 +187,21 @@ class UtilitiesTestCase(unittest.TestCase):
         )
 
         self.assertEqual(iso_name, "")
+
+    def verify_valid_installtree_success_test(self):
+        """Test verify_valid_installtree functionality success."""
+        with TemporaryDirectory() as tmp:
+            repodir_path = Path(tmp, "repodata")
+            repodir_path.mkdir()
+            repomd_path = Path(repodir_path, "repomd.xml")
+            repomd_path.write_text("This is a cool repomd file!")
+
+            self.assertTrue(verify_valid_installtree(tmp))
+
+    def verify_valid_installtree_failed_test(self):
+        """Test verify_valid_installtree functionality failed."""
+        with TemporaryDirectory() as tmp:
+            repodir_path = Path(tmp, "repodata")
+            repodir_path.mkdir()
+
+            self.assertFalse(verify_valid_installtree(tmp))
