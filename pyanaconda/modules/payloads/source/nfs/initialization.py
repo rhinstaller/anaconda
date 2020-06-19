@@ -21,9 +21,9 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.payload import parse_nfs_url
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image
+from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image, \
+    verify_valid_installtree
 from pyanaconda.payload.errors import PayloadSetupError
-from pyanaconda.payload.image import verify_valid_installtree
 from pyanaconda.payload.utils import mount, unmount
 
 log = get_module_logger(__name__)
