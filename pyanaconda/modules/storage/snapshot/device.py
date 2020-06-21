@@ -40,7 +40,7 @@ def get_snapshot_device(request, devicetree):
     log.debug("Snapshot: name %s has origin %s", request.name, origin_dev)
 
     if origin_dev is None:
-        raise KickstartParseError(_("Snapshot: origin \"%s\" doesn't exists!")
+        raise KickstartParseError(_("Snapshot: origin \"%s\" doesn't exist!")
                                   % request.origin, lineno=request.lineno)
 
     if not origin_dev.is_thin_lv:
