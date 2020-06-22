@@ -371,6 +371,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 22 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.7-1
+- Fix wireless network configuration on get_ssid() returning None (rvykydal)
+  Resolves: rhbz#1847681
+- Relabel whole /etc instead of only some parts (vslavik)
+  Related: rhbz#1775975
+  Related: rhbz#1834189
+- Clean up lists of files and directories to relabel (vslavik)
+  Related: rhbz#1775975
+  Related: rhbz#1834189
+- Fix spanish translations (rvykydal)
+  Resolves: rhbz#1847977
+
 * Mon Jun 15 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.6-1
 - Fix regression reading kernel list when collecting configurations (jkonecny)
   Resolves: rhbz#1846156
@@ -395,8 +407,6 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
   Resolves: rhbz#1775975
 - localization: do not crash on failed parsing of X layout (rvykydal)
   Resolves: rhbz#1843379
-
-
 
 * Fri May 29 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.4-1
 - Create /etc/systemd/network dir for ifname= renaming if needed. (rvykydal)
