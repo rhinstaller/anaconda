@@ -211,10 +211,10 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
            return_value=True)
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_iso_image",
            return_value="")
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_installtree",
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_repository",
            return_value=True)
     def success_find_dir_test(self,
-                              verify_valid_installtree_mock,
+                              verify_valid_repository_mock,
                               find_and_mount_iso_image_mock,
                               find_and_mount_device_mock):
         """Hard drive source setup dir found."""
@@ -228,7 +228,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
         find_and_mount_iso_image_mock.assert_called_once_with(
             device_mount_location + path_on_device, iso_mount_location
         )
-        verify_valid_installtree_mock.assert_called_once_with(
+        verify_valid_repository_mock.assert_called_once_with(
             device_mount_location + path_on_device
         )
         self.assertEqual(result, SetupHardDriveResult(device_mount_location + path_on_device, ""))
@@ -237,12 +237,12 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
            return_value=True)
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_iso_image",
            return_value="")
-    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_installtree",
+    @patch("pyanaconda.modules.payloads.source.harddrive.initialization.verify_valid_repository",
            return_value=False)
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.unmount")
     def failure_to_find_anything_test(self,
                                       unmount_mock,
-                                      verify_valid_installtree_mock,
+                                      verify_valid_repository_mock,
                                       find_and_mount_iso_image_mock,
                                       find_and_mount_device_mock):
         """Hard drive source setup failure to find anything."""
@@ -257,7 +257,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
         find_and_mount_iso_image_mock.assert_called_once_with(
             device_mount_location + path_on_device, iso_mount_location
         )
-        verify_valid_installtree_mock.assert_called_once_with(
+        verify_valid_repository_mock.assert_called_once_with(
             device_mount_location + path_on_device
         )
         unmount_mock.assert_called_once_with(
