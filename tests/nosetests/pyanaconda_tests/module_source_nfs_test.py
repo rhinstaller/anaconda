@@ -200,7 +200,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
 
         self.assertEqual(result, ISO_MOUNT_LOCATION)
 
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.verify_valid_installtree",
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.verify_valid_repository",
            return_value=True)
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
            return_value="")
@@ -208,7 +208,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
     def success_find_dir_test(self,
                               mount_mock,
                               find_and_mount_iso_image_mock,
-                              verify_valid_installtree_mock):
+                              verify_valid_repository_mock):
         """Test NFS source setup find installation tree success"""
         task = _create_setup_task()
         result = task.run()
@@ -221,7 +221,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
         find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION,
                                                               ISO_MOUNT_LOCATION)
 
-        verify_valid_installtree_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION)
+        verify_valid_repository_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION)
 
         self.assertEqual(result, DEVICE_MOUNT_LOCATION)
 
@@ -272,7 +272,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
                                            options="nolock")
 
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.unmount")
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.verify_valid_installtree",
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.verify_valid_repository",
            return_value=False)
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
            return_value="")
@@ -280,7 +280,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
     def setup_install_source_task_find_anything_failure_test(self,
                                                              mount_mock,
                                                              find_and_mount_iso_image_mock,
-                                                             verify_valid_installtree_mock,
+                                                             verify_valid_repository_mock,
                                                              unmount_mock):
         """Test NFS can't find anything to install from"""
         task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION, ISO_MOUNT_LOCATION, NFS_URL)
@@ -294,7 +294,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
         find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION,
                                                               ISO_MOUNT_LOCATION)
 
-        verify_valid_installtree_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION)
+        verify_valid_repository_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION)
 
         unmount_mock.assert_called_once_with(
             DEVICE_MOUNT_LOCATION

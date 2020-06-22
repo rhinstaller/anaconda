@@ -23,7 +23,7 @@ from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image, \
-    verify_valid_installtree
+    verify_valid_repository
 from pyanaconda.payload.errors import PayloadSetupError
 from pyanaconda.payload.utils import mount, unmount
 
@@ -70,7 +70,7 @@ class SetUpNFSSourceTask(Task):
             log.debug("Using the ISO '%s' mounted at '%s'.", iso_name, self._iso_mount)
             return self._iso_mount
 
-        if verify_valid_installtree(self._device_mount):
+        if verify_valid_repository(self._device_mount):
             log.debug("Using the directory at '%s'.", self._device_mount)
             return self._device_mount
 

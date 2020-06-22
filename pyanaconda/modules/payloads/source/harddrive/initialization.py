@@ -22,7 +22,7 @@ from collections import namedtuple
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.utils import find_and_mount_device, \
-    find_and_mount_iso_image, verify_valid_installtree
+    find_and_mount_iso_image, verify_valid_repository
 from pyanaconda.payload.utils import unmount
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -82,7 +82,7 @@ class SetUpHardDriveSourceTask(Task):
             log.debug("Using the ISO '%s' mounted at '%s'.", iso_name, self._iso_mount)
             return SetupHardDriveResult(self._iso_mount, iso_name)
 
-        if verify_valid_installtree(full_path_on_mounted_device):
+        if verify_valid_repository(full_path_on_mounted_device):
             log.debug("Using the directory at '%s'.", full_path_on_mounted_device)
             return SetupHardDriveResult(full_path_on_mounted_device, "")
 

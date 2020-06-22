@@ -148,10 +148,10 @@ def _create_iso_path(path, iso_name):
     return path
 
 
-def verify_valid_installtree(path):
-    """Check if the given path is a valid installtree repository.
+def verify_valid_repository(path):
+    """Check if the given path is a valid repository.
 
-    :param str path: install tree path
+    :param str path: path to the repository
     :returns: True if repository is valid false otherwise
     :rtype: bool
     """

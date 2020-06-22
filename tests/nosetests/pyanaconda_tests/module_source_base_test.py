@@ -26,7 +26,7 @@ from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask, TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import MountingSourceMixin
 from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image, \
-    verify_valid_installtree
+    verify_valid_repository
 
 mount_location = "/some/dir"
 
@@ -188,20 +188,20 @@ class UtilitiesTestCase(unittest.TestCase):
 
         self.assertEqual(iso_name, "")
 
-    def verify_valid_installtree_success_test(self):
-        """Test verify_valid_installtree functionality success."""
+    def verify_valid_repository_success_test(self):
+        """Test verify_valid_repository functionality success."""
         with TemporaryDirectory() as tmp:
             repodir_path = Path(tmp, "repodata")
             repodir_path.mkdir()
             repomd_path = Path(repodir_path, "repomd.xml")
             repomd_path.write_text("This is a cool repomd file!")
 
-            self.assertTrue(verify_valid_installtree(tmp))
+            self.assertTrue(verify_valid_repository(tmp))
 
-    def verify_valid_installtree_failed_test(self):
-        """Test verify_valid_installtree functionality failed."""
+    def verify_valid_repository_failed_test(self):
+        """Test verify_valid_repository functionality failed."""
         with TemporaryDirectory() as tmp:
             repodir_path = Path(tmp, "repodata")
             repodir_path.mkdir()
 
-            self.assertFalse(verify_valid_installtree(tmp))
+            self.assertFalse(verify_valid_repository(tmp))
