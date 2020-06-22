@@ -362,6 +362,29 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 22 2020 Martin Kolman <mkolman@redhat.com> - 33.20-1
+- Add test for NFS URL with ISO in path (#1848718) (jkonecny)
+- Fix issue when NFS path is pointing directly to ISO (#1848718) (jkonecny)
+- Rename function for a simple check for DNF repository (jkonecny)
+- Add tests for verify_valid_installtree function (#1844287) (jkonecny)
+- Move verify_valid_installtree to source module utils (#1844287) (jkonecny)
+- Do not test if repo is valid based on .treeinfo file (#1844287) (jkonecny)
+- Relabel whole /etc instead of only some parts (vslavik)
+- Clean up lists of files and directories to relabel (vslavik)
+- Use allowlist and blocklist in the Anaconda configuration file (vponcova)
+- Correctly set up the LUKS version when we click on a mount point (#1689699)
+  (vponcova)
+- Fix the mock function for DBus.get_proxy (vponcova)
+- Fix the mock function for DBus.get_proxy (vponcova)
+- Simplify the workaround for the RHSM configuration proxy (vponcova)
+- Show pylint version in logs (vslavik)
+- Don't use the private attribute for a message bus (vponcova)
+- Ignore unknown variable (vslavik)
+- Split storage spoke dialogs to a separate module (vslavik)
+- Fix more SElinux contexts (vslavik)
+- Fix regression reading kernel list when collecting configurations (#1846156)
+  (jkonecny)
+
 * Mon Jun 15 2020 Martin Kolman <mkolman@redhat.com> - 33.19-1
 - Document common issues and bugs (vponcova)
 - Add logging messages to %%post scripts (vslavik)
