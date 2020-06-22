@@ -24,10 +24,11 @@ from dasbus.typing import get_variant, Str
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
+from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
+from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.threading import threadMgr
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.task import NoResultError
-from pyanaconda.modules.subscription.rhsm_observer import get_rhsm_configuration_proxy
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -65,8 +66,9 @@ class StartRHSMTask(Task):
                 rc
             )
             return False
+
         # create a temporary proxy to set the log levels
-        rhsm_config_proxy = get_rhsm_configuration_proxy()
+        rhsm_config_proxy = RHSM.get_proxy(RHSM_CONFIG, interface_name=RHSM_CONFIG)
 
         # set RHSM log levels to debug
         # - otherwise the RHSM log output is not usable for debugging subscription issues
