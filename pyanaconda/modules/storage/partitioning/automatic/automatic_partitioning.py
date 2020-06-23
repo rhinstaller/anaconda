@@ -292,7 +292,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         devs = schedule_partitions(storage, disks, devs, scheme, requests, encrypted, luks_fmt_args)
 
         # run the autopart function to allocate and grow partitions
-        do_partitioning(storage)
+        do_partitioning(storage, boot_disk=storage.bootloader.stage1_disk)
         schedule_volumes(storage, devs, scheme, requests, encrypted)
 
         # grow LVs
