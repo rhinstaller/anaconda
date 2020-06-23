@@ -216,11 +216,6 @@ def setup_environment():
     # make sure we have /sbin and /usr/sbin in our path
     os.environ["PATH"] += ":/sbin:/usr/sbin"
 
-    # we can't let the LD_PRELOAD hang around because it will leak into
-    # rpm %post and the like.  ick :/
-    if "LD_PRELOAD" in os.environ:
-        del os.environ["LD_PRELOAD"]
-
     # Go ahead and set $DISPLAY whether we're going to use X or not
     if "DISPLAY" in os.environ:
         flags.preexisting_x11 = True
