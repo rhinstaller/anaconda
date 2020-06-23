@@ -371,6 +371,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 23 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.8-1
+- Move Subscription spoke under Software (vslavik)
+  Resolves: rhbz#1845493
+- Fix hiding of network device activation switch (rvykydal)
+  Resolves: rhbz#1628521
+
 * Mon Jun 22 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.7-1
 - Fix wireless network configuration on get_ssid() returning None (rvykydal)
   Resolves: rhbz#1847681
