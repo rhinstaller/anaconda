@@ -174,14 +174,14 @@ class SimpleUITestCase(unittest.TestCase):
             ],
             'SoftwareCategory': [
                 'SoftwareSelectionSpoke',
-                'SourceSpoke'
+                'SourceSpoke',
+                'SubscriptionSpoke'
             ],
             'SystemCategory': [
                 'CustomPartitioningSpoke',
                 'FilterSpoke',
                 'NetworkSpoke',
-                'StorageSpoke',
-                'SubscriptionSpoke'
+                'StorageSpoke'
             ],
             'UserSettingsCategory': [
                 'PasswordSpoke',

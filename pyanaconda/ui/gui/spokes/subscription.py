@@ -41,7 +41,7 @@ from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.subscription import fill_combobox, \
     populate_attached_subscriptions_listbox
-from pyanaconda.ui.categories.system import SystemCategory
+from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.subscription import username_password_sufficient, org_keys_sufficient, \
     check_cdn_is_installation_source
@@ -67,7 +67,7 @@ class SubscriptionSpoke(NormalSpoke):
     uiFile = "spokes/subscription.glade"
     help_id = "SubscriptionSpoke"
 
-    category = SystemCategory
+    category = SoftwareCategory
 
     icon = "application-certificate-symbolic"
     title = CN_("GUI|Spoke", "_Connect to Red Hat")
