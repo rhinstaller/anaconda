@@ -38,6 +38,11 @@ from pyanaconda import safe_dbus
 from pyanaconda import kickstart
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.task import sync_run_task
 
 import blivet
 
@@ -373,3 +378,38 @@ def parse_kickstart(ks, addon_paths, strict_mode=False):
         kickstart.parseKickstart(ksdata, ks, strict_mode=strict_mode, pass_to_boss=True)
 
     return ksdata
+
+
+def collect_optical_media():
+    """Collect all optical media.
+
+    :return: a list of device names
+    """
+    optical_media = []
+
+    try:
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+
+        for device_name in device_tree.FindOpticalMedia():
+            device_data = DeviceData.from_structure(
+                device_tree.GetDeviceData(device_name)
+            )
+            optical_media.append(device_data.path)
+
+    except UnavailableStorageError:
+        log.warning("No storage model is available.")
+
+    return optical_media
+
+
+def tear_down_storage():
+    """Tear down the storage module."""
+    try:
+        storage_proxy = STORAGE.get_proxy()
+
+        for task_path in storage_proxy.TeardownWithTasks():
+            task_proxy = STORAGE.get_proxy(task_path)
+            sync_run_task(task_proxy)
+
+    except UnavailableStorageError:
+        log.warning("No storage model is available.")

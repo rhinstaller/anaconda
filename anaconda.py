@@ -55,24 +55,11 @@ def exitHandler(rebootData):
     if anaconda.payload:
         anaconda.payload.unsetup()
 
-    # Collect all optical media.
-    from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-    from pyanaconda.modules.common.structures.storage import DeviceData
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    optical_media = []
-
-    for device_name in device_tree.FindOpticalMedia():
-        device_data = DeviceData.from_structure(
-            device_tree.GetDeviceData(device_name)
-        )
-        optical_media.append(device_data.path)
+    # Collect all optical media before tearing down the storage.
+    optical_media = startup_utils.collect_optical_media()
 
     # Tear down the storage module.
-    storage_proxy = STORAGE.get_proxy()
-
-    for task_path in storage_proxy.TeardownWithTasks():
-        task_proxy = STORAGE.get_proxy(task_path)
-        sync_run_task(task_proxy)
+    startup_utils.tear_down_storage()
 
     # Stop the DBus session.
     anaconda.dbus_launcher.stop()
