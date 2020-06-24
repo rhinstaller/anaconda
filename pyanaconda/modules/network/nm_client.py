@@ -1180,7 +1180,7 @@ def _get_dracut_znet_argument_from_connection(connection):
         subchannels = wired_setting.get_s390_subchannels()
         if nettype and subchannels:
             argument = "rd.znet={},{}".format(nettype, subchannels)
-            options = wired_setting.get_s390_options()
+            options = wired_setting.get_property(NM.SETTING_WIRED_S390_OPTIONS)
             if options:
                 options_string = ','.join("{}={}".format(key, val) for key, val in options.items())
                 argument += ",{}".format(options_string)
