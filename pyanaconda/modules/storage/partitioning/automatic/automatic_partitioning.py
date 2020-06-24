@@ -16,137 +16,20 @@
 # Red Hat, Inc.
 #
 from blivet.partitioning import do_partitioning, grow_lvm
-from blivet.size import Size
 from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.configuration.storage import PartitioningType
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
     NonInteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
-    schedule_implicit_partitions, schedule_volumes, schedule_partitions, get_pbkdf_args
-from pyanaconda.modules.storage.platform import platform
-from pyanaconda.modules.storage.partitioning.specification import PartSpec
+    schedule_implicit_partitions, schedule_volumes, schedule_partitions, get_pbkdf_args, \
+    get_default_partitioning
 from pyanaconda.core.storage import suggest_swap_size
 
 log = get_module_logger(__name__)
 
 __all__ = ["AutomaticPartitioningTask"]
-
-
-SERVER_PARTITIONING = [
-    PartSpec(
-        mountpoint="/",
-        size=Size("2GiB"),
-        max_size=Size("15GiB"),
-        grow=True,
-        btr=True,
-        lv=True,
-        thin=True,
-        encrypted=True
-    ),
-    PartSpec(
-        fstype="swap",
-        grow=False,
-        lv=True,
-        encrypted=True
-    )
-]
-
-WORKSTATION_PARTITIONING = [
-    PartSpec(
-        mountpoint="/",
-        size=Size("1GiB"),
-        max_size=Size("70GiB"),
-        grow=True,
-        btr=True,
-        lv=True,
-        thin=True,
-        encrypted=True),
-    PartSpec(
-        mountpoint="/home",
-        size=Size("500MiB"), grow=True,
-        required_space=Size("50GiB"),
-        btr=True,
-        lv=True,
-        thin=True,
-        encrypted=True),
-    PartSpec(
-        fstype="swap",
-        grow=False,
-        lv=True,
-        encrypted=True
-    )
-]
-
-VIRTUALIZATION_PARTITIONING = [
-    PartSpec(
-        mountpoint="/",
-        size=Size("6GiB"),
-        grow=True,
-        lv=True,
-        thin=True
-    ),
-    PartSpec(
-        mountpoint="/home",
-        size=Size("1GiB"),
-        lv=True,
-        thin=True
-    ),
-    PartSpec(
-        mountpoint="/tmp",
-        size=Size("1GiB"),
-        lv=True,
-        thin=True
-    ),
-    PartSpec(
-        mountpoint="/var",
-        size=Size("15GiB"),
-        lv=True,
-        thin=True
-    ),
-    PartSpec(
-        mountpoint="/var/log",
-        size=Size("8GiB"),
-        lv=True,
-        thin=True
-    ),
-    PartSpec(
-        mountpoint="/var/log/audit",
-        size=Size("2GiB"),
-        lv=True,
-        thin=True
-    ),
-    PartSpec(
-        fstype="swap",
-        grow=False,
-        lv=True,
-        encrypted=True
-    )
-]
-
-
-def get_default_partitioning(partitioning_type=None):
-    """Get the default partitioning requests.
-
-    :param partitioning_type: a type of the partitioning
-    :return: a list of partitioning specs
-    """
-    if not partitioning_type:
-        partitioning_type = conf.storage.default_partitioning
-
-    if partitioning_type is PartitioningType.SERVER:
-        return platform.set_default_partitioning() + SERVER_PARTITIONING
-
-    if partitioning_type is PartitioningType.WORKSTATION:
-        return platform.set_default_partitioning() + WORKSTATION_PARTITIONING
-
-    if partitioning_type is PartitioningType.VIRTUALIZATION:
-        return platform.set_default_partitioning() + VIRTUALIZATION_PARTITIONING
-
-    raise ValueError("Invalid partitioning type: {}".format(conf.storage.default_partitioning))
 
 
 class AutomaticPartitioningTask(NonInteractivePartitioningTask):

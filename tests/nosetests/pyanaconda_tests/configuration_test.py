@@ -22,10 +22,13 @@ import tempfile
 import unittest
 from textwrap import dedent
 
+from blivet.size import Size
+
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
 from pyanaconda.core.configuration.base import create_parser, read_config, write_config, \
     get_option, set_option, ConfigurationError, ConfigurationDataError, ConfigurationFileError, \
     Configuration
+from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.modules.common.constants import services
 
 
@@ -313,3 +316,67 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def bootloader_test(self):
         conf = AnacondaConfiguration.from_defaults()
         self.assertIn("selinux", conf.bootloader.preserved_arguments)
+
+    def default_partitioning_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+        self.assertEqual(conf.storage.default_partitioning, [
+            {
+                'name': '/',
+                'min': Size("1024 MiB"),
+                'max': Size("70 GiB"),
+                'encrypted': True,
+            }, {
+                'name': '/home',
+                'min': Size("500 MiB"),
+                'free': Size("50 GiB"),
+                'encrypted': True
+            }, {
+                'name': 'swap',
+                'encrypted': True
+            }
+        ])
+
+    def convert_partitioning_test(self):
+        convert_line = StorageSection._convert_partitioning_line
+
+        self.assertEqual(convert_line("/ (min 1 GiB, max 2 GiB, free 20 GiB)"), {
+            "name": "/",
+            "min": Size("1 GiB"),
+            "max": Size("2 GiB"),
+            "free": Size("20 GiB")
+        })
+
+        self.assertEqual(convert_line("/home (size 1 GiB)"), {
+            "name": "/home",
+            "size": Size("1 GiB")
+        })
+
+        self.assertEqual(convert_line("swap (encrypted)"), {
+            "name": "swap",
+            "encrypted": True
+        })
+
+        self.assertEqual(convert_line("swap"), {
+            "name": "swap"
+        })
+
+        with self.assertRaises(ValueError):
+            convert_line("")
+
+        with self.assertRaises(ValueError):
+            convert_line("(encrypted)")
+
+        with self.assertRaises(ValueError):
+            convert_line("/home (encrypted 1)")
+
+        with self.assertRaises(ValueError):
+            convert_line("/home (size)")
+
+        with self.assertRaises(ValueError):
+            convert_line("/home (invalid 1 GiB)")
+
+        with self.assertRaises(ValueError):
+            convert_line("/home  (size 1 GiB, min 2 GiB)")
+
+        with self.assertRaises(ValueError):
+            convert_line("/home  (max 2 GiB)")
