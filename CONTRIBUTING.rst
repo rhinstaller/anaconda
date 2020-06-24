@@ -41,6 +41,19 @@ How to Contribute to the Anaconda Installer (the short version)
 
 If you want to contribute a change to both the upstream and RHEL Anaconda then follow both a) and b) separately.
 
+Which is my target git branch?
+------------------------------
+
+Depending on where you want to make your contribution please choose your correct branch based on the table below.
+
++--------------------------+--------------+
+| Fedora Rawhide           | master       |
++--------------------------+--------------+
+| Fedora XX                | fXX-devel    |
++--------------------------+--------------+
+| RHEL-X / CentOS Stream X | rhel-x       |
++--------------------------+--------------+
+
 Finding Bugs to Fix
 -------------------
 
