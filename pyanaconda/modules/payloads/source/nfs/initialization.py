@@ -19,6 +19,7 @@ import os.path
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.payload import parse_nfs_url
+from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image
@@ -54,12 +55,16 @@ class SetUpNFSSourceTask(Task):
                     mount_point
                 ))
 
+        options, host, path = parse_nfs_url(self._url)
+        path, image = self._split_iso_from_path(path)
         try:
-            self._mount_nfs()
+            self._mount_nfs(host, options, path)
         except PayloadSetupError:
             raise SourceSetupError("Could not mount NFS url '{}'".format(self._url))
 
-        iso_name = find_and_mount_iso_image(self._device_mount, self._iso_mount)
+        iso_source_path = join_paths(self._device_mount, image) if image else self._device_mount
+
+        iso_name = find_and_mount_iso_image(iso_source_path, self._iso_mount)
 
         if iso_name:
             log.debug("Using the ISO '%s' mounted at '%s'.", iso_name, self._iso_mount)
@@ -74,9 +79,24 @@ class SetUpNFSSourceTask(Task):
         raise SourceSetupError(
             "Nothing useful found for NFS source at {}".format(self._url))
 
-    def _mount_nfs(self):
-        options, host, path = parse_nfs_url(self._url)
+    @staticmethod
+    def _split_iso_from_path(path):
+        """Split ISO from NFS path.
 
+        NFS path could also contain pointer to ISO which should be mounted. Problem of this
+        is that NFS path with ISO cannot be mounted as NFS mount. We have to split these
+        before mount.
+
+        :param path: path on the NFS server which could point to ISO
+        :return: tuple of path, iso_file_name; is_file_name is empty if no ISO is part of the path
+        :rtype: tuple (str, str)
+        """
+        if path.endswith(".iso"):
+            return path.rsplit("/", maxsplit=1)
+
+        return path, ""
+
+    def _mount_nfs(self, host, options, path):
         if not options:
             options = "nolock"
         elif "nolock" not in options:
