@@ -141,7 +141,7 @@ class NMClientTestCase(unittest.TestCase):
         wired_setting_attrs = {
             "get_s390_nettype.return_value": "",
             "get_s390_subchannels.return_value": "",
-            "get_s390_options.return_value": "",
+            "get_property.return_value": {},
         }
         wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
 
@@ -163,9 +163,9 @@ class NMClientTestCase(unittest.TestCase):
         wired_setting_attrs = {
             "get_s390_nettype.return_value": "qeth",
             "get_s390_subchannels.return_value": "0.0.0900,0.0.0901,0.0.0902",
-            "get_s390_options.return_value": {"layer2": "1",
-                                              "portname": "FOOBAR",
-                                              "portno": "0"},
+            "get_property.return_value": {"layer2": "1",
+                                          "portname": "FOOBAR",
+                                          "portno": "0"},
         }
         wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
 
@@ -240,9 +240,9 @@ class NMClientTestCase(unittest.TestCase):
             "get_mac_address.return_value": None,
             "get_s390_nettype.return_value": "qeth",
             "get_s390_subchannels.return_value": "0.0.0900,0.0.0901,0.0.0902",
-            "get_s390_options.return_value": {"layer2": "1",
-                                              "portname": "FOOBAR",
-                                              "portno": "0"},
+            "get_property.return_value": {"layer2": "1",
+                                          "portname": "FOOBAR",
+                                          "portno": "0"},
         }
         wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
         cons_attrs = [
@@ -372,9 +372,9 @@ class NMClientTestCase(unittest.TestCase):
             "get_mac_address.return_value": None,
             "get_s390_nettype.return_value": "qeth",
             "get_s390_subchannels.return_value": "0.0.0900,0.0.0901,0.0.0902",
-            "get_s390_options.return_value": {"layer2": "1",
-                                              "portname": "FOOBAR",
-                                              "portno": "0"},
+            "get_property.return_value": {"layer2": "1",
+                                          "portname": "FOOBAR",
+                                          "portno": "0"},
         }
         wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
         parent_cons_attrs = [
@@ -458,9 +458,9 @@ class NMClientTestCase(unittest.TestCase):
             "get_mac_address.return_value": None,
             "get_s390_nettype.return_value": "qeth",
             "get_s390_subchannels.return_value": "0.0.0900,0.0.0901,0.0.0902",
-            "get_s390_options.return_value": {"layer2": "1",
-                                              "portname": "FOOBAR",
-                                              "portno": "0"},
+            "get_property.return_value": {"layer2": "1",
+                                          "portname": "FOOBAR",
+                                          "portno": "0"},
         }
         wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
         parent_cons_attrs = [
