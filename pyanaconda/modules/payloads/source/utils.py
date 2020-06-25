@@ -20,7 +20,7 @@ import os.path
 from blivet.arch import get_arch
 from blivet.util import mount
 
-from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.core.constants import SOURCES_DIR
 from pyanaconda.core.storage import device_matches
 from pyanaconda.core.util import join_paths
 from pyanaconda.payload.image import find_first_iso_image
@@ -177,7 +177,7 @@ class MountPointGenerator:
         :rtype: str
         """
         path = "{}/mount-{:0>4}-{}".format(
-            INSTALL_TREE,
+            SOURCES_DIR,
             cls._counter,
             suffix
         )

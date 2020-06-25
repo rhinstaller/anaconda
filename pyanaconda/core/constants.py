@@ -53,6 +53,7 @@ DRACUT_ISODIR = "/run/install/source"
 ISO_DIR = MOUNT_DIR + "/isodir"
 IMAGE_DIR = MOUNT_DIR + "/image"
 INSTALL_TREE = MOUNT_DIR + "/source"
+SOURCES_DIR = MOUNT_DIR + "/sources"
 BASE_REPO_NAME = "anaconda"
 
 # Get list of repo names witch should be used as base repo
