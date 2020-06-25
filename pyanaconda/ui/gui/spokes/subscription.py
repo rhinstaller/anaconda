@@ -26,7 +26,7 @@ from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
     THREAD_SUBSCRIPTION, SOURCE_TYPES_OVERRIDEN_BY_CDN
-from pyanaconda.core.payload import ProxyString
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.ui.lib.subscription import register_and_subscribe, \
     unregister, SubscriptionPhase
 from pyanaconda.core.async_utils import async_action_wait
@@ -393,20 +393,25 @@ class SubscriptionSpoke(NormalSpoke):
             # the subscription request structure, but keep it in the entries in case
             # the user tries to show them again before next spoke entry clears them
             self._subscription_request.server_proxy_hostname = ""
-            self._subscription_request.server_proxy_posr = -1
+            self._subscription_request.server_proxy_port = -1
             self._subscription_request.server_proxy_user = ""
-            self._subscription_request.server_proxy_password = ""
+            self._subscription_request.server_proxy_password.set_secret(None)
 
     def on_http_proxy_location_entry_changed(self, editable):
-        hostname = ""
-        port = -1  # not set == -1
-        entered_text = editable.get_text()
-        if entered_text:
-            proxy_obj = ProxyString(url=entered_text)
+        # Incorrect hostnames, including empty strings, will
+        # throw an exception we need to catch and switch
+        # to defaults. This can happen often as the user
+        # types the hostname to the field.
+        try:
+            proxy_obj = ProxyString(url=editable.get_text())
             hostname = proxy_obj.host
             if proxy_obj.port:
                 # the DBus API expects an integer
                 port = int(proxy_obj.port)
+        except ProxyStringError:
+            hostname = ""
+            port = -1  # not set == -1
+        # set the resulting values to the DBus structure
         self.subscription_request.server_proxy_hostname = hostname
         self.subscription_request.server_proxy_port = port
 
@@ -414,7 +419,9 @@ class SubscriptionSpoke(NormalSpoke):
         self.subscription_request.server_proxy_user = editable.get_text()
 
     def on_http_proxy_password_entry_changed(self, editable):
-        self.subscription_request.server_proxy_password = editable.get_text()
+        password = editable.get_text()
+        # if password is set in the field, set it, or set None to clear the password
+        self.subscription_request.server_proxy_password.set_secret(password or None)
 
     # custom server hostname and rhsm baseurl signals
 
