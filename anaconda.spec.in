@@ -371,6 +371,29 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 25 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.9-1
+- network: fix obtaining of s390 options of a wired connection (rvykydal)
+  Resolves: rhbz#1850199
+- Always specify the boot disk (vponcova)
+  Resolves: rhbz#1630299
+- Remove the workaround with LD_PRELOAD (vponcova)
+  Resolves: rhbz#1843533
+- Exclude stderr from returned output when executing powerpc-utils tools
+  (javierm)
+  Related: rhbz#1847604
+- Rename function for a simple check for DNF repository (jkonecny)
+  Related: rhbz#1849093
+- Add tests for verify_valid_installtree function (jkonecny)
+  Related: rhbz#1849093
+- Move verify_valid_installtree to source module utils (jkonecny)
+  Related: rhbz#1849093
+- Do not test if repo is valid based on .treeinfo file (jkonencny)
+  Resolves: rhbz#1849093
+- Add test for NFS URL with ISO in path (jkonecny)
+  Related: rhbz#1849083
+- Fix issue when NFS path is pointing directly to ISO (jkonencny)
+  Resolves: rhbz#1849083
+
 * Tue Jun 23 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.8-1
 - Move Subscription spoke under Software (vslavik)
   Resolves: rhbz#1845493
