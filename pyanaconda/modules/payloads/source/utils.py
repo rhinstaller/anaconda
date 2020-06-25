@@ -148,6 +148,21 @@ def _create_iso_path(path, iso_name):
     return path
 
 
+def verify_valid_repository(path):
+    """Check if the given path is a valid repository.
+
+    :param str path: path to the repository
+    :returns: True if repository is valid false otherwise
+    :rtype: bool
+    """
+    repomd_path = join_paths(path, "repodata/repomd.xml")
+
+    if os.path.exists(repomd_path) and os.path.isfile(repomd_path):
+        return True
+
+    return False
+
+
 class MountPointGenerator:
     _counter = 0
 
