@@ -313,12 +313,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
                     return _("Invalid environment specified in kickstart")
             # we have no packages section in the kickstart and no environment has been set
             elif not self.environment:
-                return _("Nothing selected")
+                return _("Please confirm software selection")
 
         if not flags.automatedInstall:
             if not self.environment:
                 # No environment yet set
-                return _("Nothing selected")
+                return _("Please confirm software selection")
             elif not self.environment_valid:
                 # selected environment is not valid, this can happen when a valid environment
                 # is selected (by default, manually or from kickstart) and then the installation
