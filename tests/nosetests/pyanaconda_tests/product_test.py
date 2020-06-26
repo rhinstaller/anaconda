@@ -44,7 +44,7 @@ SERVER_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
-        encrypted=True
+        encrypted=True,
     )
 ]
 
@@ -57,7 +57,8 @@ WORKSTATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
-        encrypted=True),
+        encrypted=True,
+    ),
     PartSpec(
         mountpoint="/home",
         size=Size("500MiB"), grow=True,
@@ -65,7 +66,8 @@ WORKSTATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
-        encrypted=True),
+        encrypted=True
+    ),
 ]
 
 VIRTUALIZATION_PARTITIONING = [
@@ -75,46 +77,53 @@ VIRTUALIZATION_PARTITIONING = [
         grow=True,
         btr=True,
         lv=True,
-        thin=True
+        thin=True,
+        encrypted=True,
     ),
     PartSpec(
         mountpoint="/home",
         size=Size("1GiB"),
         btr=True,
         lv=True,
-        thin=True
+        thin=True,
+        encrypted=True,
     ),
     PartSpec(
         mountpoint="/tmp",
         size=Size("1GiB"),
         btr=True,
         lv=True,
-        thin=True
+        thin=True,
+        encrypted=True,
     ),
     PartSpec(
         mountpoint="/var",
         size=Size("15GiB"),
         btr=True,
         lv=True,
-        thin=True
+        thin=True,
+        encrypted=True,
     ),
     PartSpec(
         mountpoint="/var/log",
         size=Size("8GiB"),
         btr=True,
         lv=True,
-        thin=True
+        thin=True,
+        encrypted=True,
     ),
     PartSpec(
         mountpoint="/var/log/audit",
         size=Size("2GiB"),
         btr=True,
         lv=True,
-        thin=True
+        thin=True,
+        encrypted=True,
     ),
     PartSpec(
         fstype="swap",
-        lv=True
+        lv=True,
+        encrypted=True,
     )
 ]
 
