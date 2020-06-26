@@ -212,12 +212,6 @@ class ProductConfigurationTestCase(unittest.TestCase):
             WORKSTATION_PARTITIONING
         )
         self._check_default_product(
-            "Fedora", "AtomicHost",
-            ["fedora.conf", "fedora-atomic-host.conf"],
-            SERVER_PARTITIONING
-
-        )
-        self._check_default_product(
             "Fedora", "Silverblue",
             ["fedora.conf", "fedora-workstation.conf", "fedora-workstation-live.conf",
              "fedora-silverblue.conf"],
