@@ -26,7 +26,6 @@ import pyanaconda.errors as errors
 from pyanaconda.core import util
 from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
-from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_and_modifier
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.progress import progressQ
@@ -54,7 +53,6 @@ class RPMOSTreePayload(Payload):
         super().__init__(*args, **kwargs)
         self._remoteOptions = None
         self._internal_mounts = []
-        self._locale_map = None
 
     @property
     def type(self):
@@ -79,32 +77,6 @@ class RPMOSTreePayload(Payload):
     def needs_network(self):
         """Test ostree repository if it requires network."""
         return not (self.data.ostreesetup.url and self.data.ostreesetup.url.startswith("file://"))
-
-    def _get_locale_map(self):
-        """Return a map of supported languages and locales."""
-        if self._locale_map is None:
-            self._locale_map = get_locale_map_from_ostree(
-                self.data.ostreesetup.url,
-                self.data.ostreesetup.ref
-            )
-
-        return self._locale_map
-
-    def is_language_supported(self, language):
-        """Is the given language supported by the payload?"""
-        if not conf.payload.check_supported_locales:
-            return True
-
-        return language in self._get_locale_map()
-
-    def is_locale_supported(self, language, locale):
-        """Is the given locale supported by the payload?"""
-        if not conf.payload.check_supported_locales:
-            return True
-
-        locale_map = self._get_locale_map()
-        locale = strip_codeset_and_modifier(locale)
-        return locale in locale_map.get(language, [])
 
     def _safe_exec_with_redirect(self, cmd, argv, **kwargs):
         """Like util.execWithRedirect, but treat errors as fatal"""

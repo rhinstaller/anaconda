@@ -85,15 +85,6 @@ class PayloadSection(Section):
         return self._get_option("enable_ignore_broken_packages", bool)
 
     @property
-    def check_supported_locales(self):
-        """Check if payload supports the locales.
-
-        Should the installer check if the available locales and languages
-        are supported by the payload?
-        """
-        return self._get_option("check_supported_locales", bool)
-
-    @property
     def verify_ssl(self):
         """Global option if the ssl verification is enabled.
 
