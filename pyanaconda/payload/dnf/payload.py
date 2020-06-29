@@ -1204,7 +1204,7 @@ class DNFPayload(Payload):
         grp = self._base.comps.group_by_pattern(grpid)
         if grp is None:
             raise NoSuchGroup(grpid)
-        return (grp.ui_name, grp.ui_description)
+        return (grp.ui_name, grp.ui_description or "")
 
     def group_id(self, group_name):
         """Translate group name to group ID.
