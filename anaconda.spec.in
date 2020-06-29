@@ -371,6 +371,25 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 29 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.10-1
+- Fix RHSM HTTP proxy configuration crash in the GUI (mkolman)
+  Resolves: rhbz#1849792
+- subscription: Handle cases where CDN should not be the default (mkolman)
+  Related: rhbz#1845605
+- subscription: Set DNF payload source via config file option (mkolman)
+  Related: rhbz#1845605
+- subscription: Manual CDN selection support (mkolman)
+  Related: rhbz#1845605
+- subscription: Handle source switching at registration/unregistration
+  (mkolman)
+  Related: rhbz#1845605
+- subscription: Introduce the default_source configuration option (mkolman)
+  Related: rhbz#1845605
+- network: do not enforce network standalone spoke on default source (rvykydal)
+  Resolves: rhbz#1848069
+- Don't mount DBus sources at /run/install/source (vponcova)
+  Resolves: rhbz#1851037
+
 * Thu Jun 25 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.9-1
 - network: fix obtaining of s390 options of a wired connection (rvykydal)
   Resolves: rhbz#1850199
