@@ -20,7 +20,6 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask, TearDownMountTask
@@ -55,7 +54,7 @@ class MountingSourceMixinTestCase(unittest.TestCase):
     def counter_test(self):
         """Mount path in mount source base gets incremental numbers."""
         module = DummyMountingSourceSubclass()
-        self.assertTrue(module.mount_point.startswith(INSTALL_TREE + "/mount-"))
+        self.assertTrue(module.mount_point.startswith("/run/install/sources/mount-"))
         first_counter = int(module.mount_point.split("-")[1])
 
         module = DummyMountingSourceSubclass()
