@@ -610,12 +610,12 @@ def change_encryption(storage, device, encrypted, luks_version):
     :param device: a device to change
     :param encrypted: should we encrypt the device?
     :param luks_version: a version of LUKS
-    :return: a LUKS device or a device slave
+    :return: a LUKS device or a LUKS device parent device
     """
     if not encrypted:
         log.info("Removing encryption from %s.", device.name)
         storage.destroy_device(device)
-        return device.slave
+        return device.raw_device
     else:
         log.info("Applying encryption to %s.", device.name)
         new_fmt = get_format("luks", device=device.path, luks_version=luks_version)
