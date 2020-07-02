@@ -106,13 +106,6 @@ class Payload(metaclass=ABCMeta):
     def needs_network(self):
         return False
 
-    def is_language_supported(self, language):
-        """Is the given language supported by the payload?
-
-        :param language: a name of the language
-        """
-        return True
-
     def language_groups(self):
         return []
 
