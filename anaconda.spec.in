@@ -371,6 +371,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 02 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.11-1
+- Fix displaying of empty software group description (rvykydal)
+  Resolves: rhbz#1812061
+- Fix software spoke message when source changes (mkolman)
+  Resolves: rhbz#1788458
+
 * Mon Jun 29 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.10-1
 - Fix RHSM HTTP proxy configuration crash in the GUI (mkolman)
   Resolves: rhbz#1849792
