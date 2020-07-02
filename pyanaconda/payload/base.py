@@ -113,14 +113,6 @@ class Payload(metaclass=ABCMeta):
         """
         return True
 
-    def is_locale_supported(self, language, locale):
-        """Is the given locale supported by the payload?
-
-        :param language: a name of the language
-        :param locale: a name of the locale
-        """
-        return True
-
     def language_groups(self):
         return []
 

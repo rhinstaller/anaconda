@@ -130,10 +130,6 @@ class LangLocaleHandler(object):
 
         raise NotImplementedError()
 
-    def _filter_locales(self, lang, locales):
-        """Override this method with a valid implementation"""
-        return list(filter(lambda l: self.payload.is_locale_supported(lang, l), locales))
-
     def _add_locale(self, store, native, locale):
         """Override this method with a valid implementation"""
 
@@ -169,7 +165,7 @@ class LangLocaleHandler(object):
 
         self._localeStore.clear()
         locales = localization.get_language_locales(lang)
-        locales = self._filter_locales(lang, locales)
+
         for locale in locales:
             self._add_locale(self._localeStore,
                              localization.get_native_name(locale),
