@@ -18,10 +18,12 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import TIME_SOURCE_SERVER
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.timezone import NTP_PACKAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -48,8 +50,8 @@ class TimezoneService(KickstartService):
         self.ntp_enabled_changed = Signal()
         self._ntp_enabled = True
 
-        self.ntp_servers_changed = Signal()
-        self._ntp_servers = []
+        self.time_sources_changed = Signal()
+        self._time_sources = []
 
         # FIXME: temporary workaround until PAYLOAD module is available
         self._ntp_excluded = False
@@ -70,7 +72,17 @@ class TimezoneService(KickstartService):
         self.set_timezone(data.timezone.timezone)
         self.set_is_utc(data.timezone.isUtc)
         self.set_ntp_enabled(not data.timezone.nontp)
-        self.set_ntp_servers(data.timezone.ntpservers)
+
+        servers = []
+
+        for hostname in data.timezone.ntpservers:
+            server = TimeSourceData()
+            server.type = TIME_SOURCE_SERVER
+            server.hostname = hostname
+            server.options = ["iburst"]
+            servers.append(server)
+
+        self.set_time_sources(servers)
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
@@ -78,8 +90,12 @@ class TimezoneService(KickstartService):
         data.timezone.isUtc = self.is_utc
         data.timezone.nontp = not self.ntp_enabled
 
-        if self.ntp_enabled:
-            data.timezone.ntpservers = list(self.ntp_servers)
+        if not self.ntp_enabled:
+            return
+
+        data.timezone.ntpservers = [
+            server.hostname for server in self.time_sources
+        ]
 
     @property
     def timezone(self):
@@ -115,15 +131,15 @@ class TimezoneService(KickstartService):
         log.debug("NTP is set to %s.", ntp_enabled)
 
     @property
-    def ntp_servers(self):
-        """Return a list of NTP servers."""
-        return self._ntp_servers
+    def time_sources(self):
+        """Return a list of time sources."""
+        return self._time_sources
 
-    def set_ntp_servers(self, servers):
-        """Set NTP servers."""
-        self._ntp_servers = list(servers)
-        self.ntp_servers_changed.emit()
-        log.debug("NTP servers are set to %s.", servers)
+    def set_time_sources(self, servers):
+        """Set time sources."""
+        self._time_sources = list(servers)
+        self.time_sources_changed.emit()
+        log.debug("Time sources are set to: %s", servers)
 
     def collect_requirements(self):
         """Return installation requirements for this module.
@@ -168,6 +184,6 @@ class TimezoneService(KickstartService):
             ConfigureNTPTask(
                 sysroot=conf.target.system_root,
                 ntp_enabled=self.ntp_enabled,
-                ntp_servers=self.ntp_servers
+                ntp_servers=self.time_sources
             )
         ]

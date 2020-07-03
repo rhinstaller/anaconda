@@ -145,12 +145,14 @@ class ConfigureNTPTask(Task):
             return
 
         chronyd_conf_path = os.path.normpath(self._sysroot + ntp.NTP_CONFIG_FILE)
-        pools, servers = ntp.internal_to_pools_and_servers(self._ntp_servers)
 
         if os.path.exists(chronyd_conf_path):
             log.debug("Modifying installed chrony configuration")
             try:
-                ntp.save_servers_to_config(pools, servers, conf_file_path=chronyd_conf_path)
+                ntp.save_servers_to_config(
+                    self._ntp_servers,
+                    conf_file_path=chronyd_conf_path
+                )
             except ntp.NTPconfigError as ntperr:
                 log.warning("Failed to save NTP configuration: %s", ntperr)
 
@@ -160,9 +162,11 @@ class ConfigureNTPTask(Task):
             log.debug("Creating chrony configuration based on the "
                       "configuration from installation environment")
             try:
-                ntp.save_servers_to_config(pools, servers,
-                                           conf_file_path=ntp.NTP_CONFIG_FILE,
-                                           out_file_path=chronyd_conf_path)
+                ntp.save_servers_to_config(
+                    self._ntp_servers,
+                    conf_file_path=ntp.NTP_CONFIG_FILE,
+                    out_file_path=chronyd_conf_path
+                )
             except ntp.NTPconfigError as ntperr:
                 log.warning("Failed to save NTP configuration without chrony package: %s",
                             ntperr)
