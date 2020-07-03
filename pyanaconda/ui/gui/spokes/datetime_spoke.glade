@@ -87,6 +87,8 @@
       <column type="gint"/>
       <!-- column-name use -->
       <column type="gboolean"/>
+      <!-- column-name object -->
+      <column type="PyObject"/>
     </columns>
   </object>
   <object class="GtkDialog" id="ntpConfigDialog">
@@ -242,6 +244,8 @@
                       <object class="GtkCellRendererText" id="hostnameRenderer">
                         <property name="editable">True</property>
                         <signal name="edited" handler="on_server_edited" swapped="no"/>
+                        <signal name="editing-started" handler="on_server_editing_started" swapped="no"/>
+                        <signal name="editing-canceled" handler="on_server_editing_canceled" swapped="no"/>
                       </object>
                       <attributes>
                         <attribute name="text">0</attribute>
