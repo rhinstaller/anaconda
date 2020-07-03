@@ -31,6 +31,7 @@ import socket
 from pyanaconda import isys
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.constants import THREAD_SYNC_TIME_BASENAME
+from pyanaconda.modules.common.structures.timezone import TimeSourceData
 
 NTP_CONFIG_FILE = "/etc/chrony.conf"
 
@@ -47,21 +48,18 @@ class NTPconfigError(Exception):
     pass
 
 
-def ntp_server_working(server):
-    """
-    Tries to do an NTP request to the $server (timeout may take some time).
+def ntp_server_working(server_hostname):
+    """Tries to do an NTP request to the server (timeout may take some time).
 
-    :param server: hostname or IP address of an NTP server
-    :type server: string
+    :param server_hostname: a host name or an IP address of an NTP server
+    :type server_hostname: string
     :return: True if the given server is reachable and working, False otherwise
     :rtype: bool
-
     """
-
     client = ntplib.NTPClient()
 
     try:
-        client.request(server)
+        client.request(server_hostname)
     except ntplib.NTPException:
         return False
     # address related error
@@ -75,118 +73,89 @@ def ntp_server_working(server):
     return True
 
 
-def pools_servers_to_internal(pools, servers):
-    ret = []
-    for pool in pools:
-        ret.extend(SERVERS_PER_POOL * [pool])
-    ret.extend(servers)
+def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE):
+    """Get NTP servers from a configuration file.
 
-    return ret
-
-
-def internal_to_pools_and_servers(pools_servers):
-    server_nums = dict()
-    pools = []
-    servers = []
-
-    for item in pools_servers:
-        server_nums[item] = server_nums.get(item, 0) + 1
-
-    for item in server_nums.keys():
-        if server_nums[item] >= SERVERS_PER_POOL:
-            pools.extend((server_nums[item] // SERVERS_PER_POOL) * [item])
-            servers.extend((server_nums[item] % SERVERS_PER_POOL) * [item])
-        else:
-            servers.extend(server_nums[item] * [item])
-
-    return (pools, servers)
-
-
-def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
-                            srv_regexp=SRV_LINE_REGEXP):
-    """
     Goes through the chronyd's configuration file looking for lines starting
     with 'server'.
 
+    :param conf_file_path: a path to the chronyd's configuration file
     :return: servers found in the chronyd's configuration
-    :rtype: list
-
+    :rtype: a list of TimeSourceData instances
     """
-
-    pools = list()
-    servers = list()
+    servers = []
 
     try:
         with open(conf_file_path, "r") as conf_file:
             for line in conf_file:
-                match = srv_regexp.match(line)
-                if match:
-                    if match.group(1) == "pool":
-                        pools.append(match.group(2))
-                    else:
-                        servers.append(match.group(2))
+                match = SRV_LINE_REGEXP.match(line)
+
+                if not match:
+                    continue
+
+                server = TimeSourceData()
+                server.type = match.group(1).upper()
+                server.hostname = match.group(2)
+                server.options = ["iburst"]
+                servers.append(server)
 
     except IOError as ioerr:
-        msg = "Cannot open config file %s for reading (%s)" % (conf_file_path,
-                                                               ioerr.strerror)
-        raise NTPconfigError(msg)
+        msg = "Cannot open config file {} for reading ({})."
+        raise NTPconfigError(msg.format(conf_file_path, ioerr.strerror))
 
-    return (pools, servers)
+    return servers
 
 
-def save_servers_to_config(pools, servers, conf_file_path=NTP_CONFIG_FILE,
-                           srv_regexp=SRV_LINE_REGEXP, out_file_path=None):
-    """
+def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE, out_file_path=None):
+    """Save NTP servers to a configuration file.
+
     Replaces the pools and servers defined in the chronyd's configuration file
     with the given ones. If the out_file is not None, then it is used for the
     resulting config.
 
-    :type pools: iterable
-    :type servers: iterable
-    :param out_file_path: path to the file used for the resulting config
-
+    :param servers: a list of NTP servers and pools
+    :type servers: a list of TimeSourceData instances
+    :param conf_file_path: a path to the chronyd's configuration file
+    :param out_file_path: a path to the file used for the resulting config
     """
+    temp_path = None
 
     try:
         old_conf_file = open(conf_file_path, "r")
-
     except IOError as ioerr:
-        msg = "Cannot open config file %s for reading (%s)" % (conf_file_path,
-                                                               ioerr.strerror)
-        raise NTPconfigError(msg)
+        msg = "Cannot open config file {} for reading ({})."
+        raise NTPconfigError(msg.format(conf_file_path, ioerr.strerror))
 
-    try:
-        if out_file_path:
+    if out_file_path:
+        try:
             new_conf_file = open(out_file_path, "w")
-        else:
-            (fildes, temp_path) = tempfile.mkstemp()
-            new_conf_file = os.fdopen(fildes, "w")
-
-    except IOError as ioerr:
-        if out_file_path:
-            msg = "Cannot open new config file %s "\
-                  "for writing (%s)" % (out_file_path, ioerr.strerror)
-        else:
-            msg = "Cannot open temporary file %s "\
-                  "for writing (%s)" % (temp_path, ioerr.strerror)
-
-        raise NTPconfigError(msg)
+        except IOError as ioerr:
+            msg = "Cannot open new config file {} for writing ({})."
+            raise NTPconfigError(msg.format(out_file_path, ioerr.strerror))
+    else:
+        try:
+            (fields, temp_path) = tempfile.mkstemp()
+            new_conf_file = os.fdopen(fields, "w")
+        except IOError as ioerr:
+            msg = "Cannot open temporary file {} for writing ({})."
+            raise NTPconfigError(msg.format(temp_path, ioerr.strerror))
 
     heading = "# These servers were defined in the installation:\n"
 
-    #write info about the origin of the following lines
+    # write info about the origin of the following lines
     new_conf_file.write(heading)
 
-    #write new servers and pools
-    for pool in pools:
-        new_conf_file.write("pool " + pool + " iburst\n")
-
+    # write new servers and pools
     for server in servers:
-        new_conf_file.write("server " + server + " iburst\n")
+        args = [server.type.lower(), server.hostname] + server.options
+        line = " ".join(args) + "\n"
+        new_conf_file.write(line)
 
-    #copy non-server lines from the old config and skip our heading
+    new_conf_file.write("\n")
+
+    # copy non-server lines from the old config and skip our heading
     for line in old_conf_file:
-        if not srv_regexp.match(line) and line != heading:
+        if not SRV_LINE_REGEXP.match(line) and line != heading:
             new_conf_file.write(line)
 
     old_conf_file.close()
@@ -199,28 +168,27 @@ def save_servers_to_config(pools, servers, conf_file_path=NTP_CONFIG_FILE,
             os.unlink(temp_path)
 
         except OSError as oserr:
-            msg = "Cannot replace the old config with "\
-                  "the new one (%s)" % (oserr.strerror)
-
-            raise NTPconfigError(msg)
+            msg = "Cannot replace the old config with the new one ({})."
+            raise NTPconfigError(msg.format(oserr.strerror))
 
 
-def one_time_sync(server, callback=None):
-    """
+def _one_time_sync(server, callback=None):
+    """Synchronize the system time with a given NTP server.
+
     Synchronize the system time with a given NTP server. Note that this
     function is blocking and will not return until the time gets synced or
     querying server fails (may take some time before timeouting).
 
-    :param server: NTP server
+    :param server: an NTP server
+    :type server: an instance of TimeSourceData
     :param callback: callback function to run after sync or failure
     :type callback: a function taking one boolean argument (success)
     :return: True if the sync was successful, False otherwise
-
     """
 
     client = ntplib.NTPClient()
     try:
-        results = client.request(server)
+        results = client.request(server.hostname)
         isys.set_system_time(int(results.tx_time))
         success = True
     except ntplib.NTPException:
@@ -235,22 +203,26 @@ def one_time_sync(server, callback=None):
 
 
 def one_time_sync_async(server, callback=None):
-    """
+    """Asynchronously synchronize the system time with a given NTP server.
+
     Asynchronously synchronize the system time with a given NTP server. This
     function is non-blocking it starts a new thread for synchronization and
     returns. Use callback argument to specify the function called when the
     new thread finishes if needed.
 
-    :param server: NTP server
+    :param server: an NTP server
+    :type server: an instance of TimeSourceData
     :param callback: callback function to run after sync or failure
     :type callback: a function taking one boolean argument (success)
-
     """
+    thread_name = "%s_%s" % (THREAD_SYNC_TIME_BASENAME, server.hostname)
 
-    thread_name = "%s_%s" % (THREAD_SYNC_TIME_BASENAME, server)
+    # syncing with the same server running
     if threadMgr.get(thread_name):
-        #syncing with the same server running
         return
 
-    threadMgr.add(AnacondaThread(name=thread_name, target=one_time_sync,
-                                 args=(server, callback)))
+    threadMgr.add(AnacondaThread(
+        name=thread_name,
+        target=_one_time_sync,
+        args=(server, callback)
+    ))
