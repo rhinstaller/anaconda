@@ -65,7 +65,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.timezone_interface.KickstartCommands, ["timezone"])
+        self.assertEqual(self.timezone_interface.KickstartCommands, ["timezone", "timesource"])
         self.assertEqual(self.timezone_interface.KickstartSections, [])
         self.assertEqual(self.timezone_interface.KickstartAddons, [])
         self.callback.assert_not_called()
@@ -143,19 +143,90 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         timezone --utc --nontp Europe/Prague
         """
         ks_out = """
+        timesource --ntp-disable
         # System timezone
-        timezone Europe/Prague --utc --nontp
+        timezone Europe/Prague --utc
         """
         self._test_kickstart(ks_in, ks_out)
 
     def kickstart3_test(self):
-        """Test the timezone command with ntp servers.."""
+        """Test the timezone command with ntp servers."""
         ks_in = """
         timezone --ntpservers ntp.cesnet.cz Europe/Prague
         """
         ks_out = """
+        timesource --ntp-server=ntp.cesnet.cz
         # System timezone
-        timezone Europe/Prague --ntpservers=ntp.cesnet.cz
+        timezone Europe/Prague
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_ntp_disabled_test(self):
+        """Test the timesource command with ntp disabled."""
+        ks_in = """
+        timesource --ntp-disable
+        """
+        ks_out = """
+        timesource --ntp-disable
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_ntp_server_test(self):
+        """Test the timesource command with ntp servers."""
+        ks_in = """
+        timesource --ntp-server ntp.cesnet.cz
+        """
+        ks_out = """
+        timesource --ntp-server=ntp.cesnet.cz
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_ntp_pool_test(self):
+        """Test the timesource command with ntp pools."""
+        ks_in = """
+        timesource --ntp-pool ntp.cesnet.cz
+        """
+        ks_out = """
+        timesource --ntp-pool=ntp.cesnet.cz
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_nts_test(self):
+        """Test the timesource command with the nts option."""
+        ks_in = """
+        timesource --ntp-pool ntp.cesnet.cz --nts
+        """
+        ks_out = """
+        timesource --ntp-pool=ntp.cesnet.cz --nts
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_all_test(self):
+        """Test the timesource commands."""
+        ks_in = """
+        timesource --ntp-server ntp.cesnet.cz
+        timesource --ntp-pool 0.fedora.pool.ntp.org
+        """
+        ks_out = """
+        timesource --ntp-server=ntp.cesnet.cz
+        timesource --ntp-pool=0.fedora.pool.ntp.org
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timezone_timesource_test(self):
+        """Test the combination of timezone and timesource commands."""
+        ks_in = """
+        timezone --ntpservers ntp.cesnet.cz,0.fedora.pool.ntp.org Europe/Prague
+        timesource --ntp-server ntp.cesnet.cz --nts
+        timesource --ntp-pool 0.fedora.pool.ntp.org
+        """
+        ks_out = """
+        timesource --ntp-server=ntp.cesnet.cz
+        timesource --ntp-server=0.fedora.pool.ntp.org
+        timesource --ntp-server=ntp.cesnet.cz --nts
+        timesource --ntp-pool=0.fedora.pool.ntp.org
+        # System timezone
+        timezone Europe/Prague
         """
         self._test_kickstart(ks_in, ks_out)
 

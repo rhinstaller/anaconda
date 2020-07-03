@@ -17,8 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.errors import KickstartParseError
+
+from pyanaconda.core.i18n import _
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import TIME_SOURCE_SERVER
+from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
@@ -73,29 +76,69 @@ class TimezoneService(KickstartService):
         self.set_is_utc(data.timezone.isUtc)
         self.set_ntp_enabled(not data.timezone.nontp)
 
-        servers = []
+        sources = []
 
         for hostname in data.timezone.ntpservers:
-            server = TimeSourceData()
-            server.type = TIME_SOURCE_SERVER
-            server.hostname = hostname
-            server.options = ["iburst"]
-            servers.append(server)
+            source = TimeSourceData()
+            source.type = TIME_SOURCE_SERVER
+            source.hostname = hostname
+            source.options = ["iburst"]
+            sources.append(source)
 
-        self.set_time_sources(servers)
+        for source_data in data.timesource.dataList():
+            if source_data.ntp_disable:
+                self.set_ntp_enabled(False)
+                continue
+
+            source = TimeSourceData()
+            source.options = ["iburst"]
+
+            if source_data.ntp_server:
+                source.type = TIME_SOURCE_SERVER
+                source.hostname = source_data.ntp_server
+            elif source_data.ntp_pool:
+                source.type = TIME_SOURCE_POOL
+                source.hostname = source_data.ntp_pool
+            else:
+                KickstartParseError(
+                    _("Invalid time source."),
+                    lineno=source_data.lineno
+                )
+
+            if source_data.nts:
+                source.options.append("nts")
+
+            sources.append(source)
+
+        self.set_time_sources(sources)
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
         data.timezone.timezone = self.timezone
         data.timezone.isUtc = self.is_utc
-        data.timezone.nontp = not self.ntp_enabled
+        source_data_list = data.timesource.dataList()
 
         if not self.ntp_enabled:
+            source_data = data.TimesourceData()
+            source_data.ntp_disable = True
+            source_data_list.append(source_data)
             return
 
-        data.timezone.ntpservers = [
-            server.hostname for server in self.time_sources
-        ]
+        for source in self.time_sources:
+            source_data = data.TimesourceData()
+
+            if source.type == TIME_SOURCE_SERVER:
+                source_data.ntp_server = source.hostname
+            elif source.type == TIME_SOURCE_POOL:
+                source_data.ntp_pool = source.hostname
+            else:
+                log.warning("Skipping %s.", source)
+                continue
+
+            if "nts" in source.options:
+                source_data.nts = True
+
+            source_data_list.append(source_data)
 
     @property
     def timezone(self):

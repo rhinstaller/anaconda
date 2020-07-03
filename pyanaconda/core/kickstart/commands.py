@@ -76,7 +76,8 @@ from pykickstart.commands.snapshot import F26_Snapshot as Snapshot
 from pykickstart.commands.sshpw import F24_SshPw as SshPw
 from pykickstart.commands.sshkey import F22_SshKey as SshKey
 from pykickstart.commands.syspurpose import RHEL8_Syspurpose as Syspurpose
-from pykickstart.commands.timezone import F32_Timezone as Timezone
+from pykickstart.commands.timezone import F33_Timezone as Timezone
+from pykickstart.commands.timesource import F33_Timesource as Timesource
 from pykickstart.commands.updates import F7_Updates as Updates
 from pykickstart.commands.url import F30_Url as Url
 from pykickstart.commands.user import F24_User as User
@@ -107,6 +108,7 @@ from pykickstart.commands.repo import F30_RepoData as RepoData
 from pykickstart.commands.snapshot import F26_SnapshotData as SnapshotData
 from pykickstart.commands.sshpw import F24_SshPwData as SshPwData
 from pykickstart.commands.sshkey import F22_SshKeyData as SshKeyData
+from pykickstart.commands.timesource import F33_TimesourceData as TimesourceData
 from pykickstart.commands.user import F19_UserData as UserData
 from pykickstart.commands.volgroup import F21_VolGroupData as VolGroupData
 from pykickstart.commands.zfcp import F14_ZFCPData as ZFCPData

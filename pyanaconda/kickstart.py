@@ -372,6 +372,7 @@ commandMap = {
     "sshkey" : UselessCommand,
     "skipx": UselessCommand,
     "snapshot": UselessCommand,
+    "timesource": UselessCommand,
     "timezone": UselessCommand,
     "url": UselessCommand,
     "user": UselessCommand,
