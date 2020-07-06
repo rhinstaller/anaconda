@@ -60,6 +60,41 @@ class NTPconfigError(Exception):
     pass
 
 
+def get_ntp_server_summary(server, states):
+    """Generate a summary of an NTP server and its status.
+
+    :param server: an NTP server
+    :type server: an instance of TimeSourceData
+    :param states: a cache of NTP server states
+    :type states: an instance of NTPServerStatusCache
+    :return: a string with a summary
+    """
+    return "{} ({})".format(
+        server.hostname,
+        states.get_status_description(server)
+    )
+
+
+def get_ntp_servers_summary(servers, states):
+    """Generate a summary of NTP servers and their states.
+
+    :param servers: a list of NTP servers
+    :type servers: a list of TimeSourceData
+    :param states: a cache of NTP server states
+    :type states: an instance of NTPServerStatusCache
+    :return: a string with a summary
+    """
+    summary = _("NTP servers:")
+
+    for server in servers:
+        summary += "\n" + get_ntp_server_summary(server, states)
+
+    if not servers:
+        summary += " " + _("not configured")
+
+    return summary
+
+
 def ntp_server_working(server_hostname):
     """Tries to do an NTP request to the server (timeout may take some time).
 
