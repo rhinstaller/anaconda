@@ -29,9 +29,12 @@ import ntplib
 import socket
 
 from pyanaconda import isys
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.core.constants import THREAD_SYNC_TIME_BASENAME
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.constants import THREAD_SYNC_TIME_BASENAME, NTP_SERVER_QUERY, \
+    THREAD_NTP_SERVER_CHECK, NTP_SERVER_OK, NTP_SERVER_NOK
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.threading import threadMgr, AnacondaThread
 
 NTP_CONFIG_FILE = "/etc/chrony.conf"
 
@@ -41,6 +44,15 @@ SRV_LINE_REGEXP = re.compile(r"^\s*(server|pool)\s*([-a-zA-Z.0-9]+)\s*[a-zA-Z]+\
 
 #treat pools as four servers with the same name
 SERVERS_PER_POOL = 4
+
+# Description of an NTP server status.
+NTP_SERVER_STATUS_DESCRIPTIONS = {
+    NTP_SERVER_OK: N_("status: working"),
+    NTP_SERVER_NOK: N_("status: not working"),
+    NTP_SERVER_QUERY: N_("checking status")
+}
+
+log = get_module_logger(__name__)
 
 
 class NTPconfigError(Exception):
@@ -226,3 +238,71 @@ def one_time_sync_async(server, callback=None):
         target=_one_time_sync,
         args=(server, callback)
     ))
+
+
+class NTPServerStatusCache(object):
+    """The cache of NTP server states."""
+
+    def __init__(self):
+        self._cache = {}
+
+    def get_status(self, server):
+        """Get the status of the given NTP server.
+
+        :param TimeSourceData server: an NTP server
+        :return int: a status of the NTP server
+        """
+        return self._cache.get(
+            server.hostname,
+            NTP_SERVER_QUERY
+        )
+
+    def get_status_description(self, server):
+        """Get the status description of the given NTP server.
+
+        :param TimeSourceData server: an NTP server
+        :return str: a status description of the NTP server
+        """
+        status = self.get_status(server)
+        return _(NTP_SERVER_STATUS_DESCRIPTIONS[status])
+
+    def check_status(self, server):
+        """Asynchronously check if given NTP servers appear to be working.
+
+        :param TimeSourceData server: an NTP server
+        """
+        # Get a hostname.
+        hostname = server.hostname
+
+        # Reset the current status.
+        self._set_status(hostname, NTP_SERVER_QUERY)
+
+        # Start the check.
+        threadMgr.add(AnacondaThread(
+            prefix=THREAD_NTP_SERVER_CHECK,
+            target=self._check_status,
+            args=(hostname, ))
+        )
+
+    def _set_status(self, hostname, status):
+        """Set the status of the given NTP server.
+
+        :param str hostname: a hostname of an NTP server
+        :return int: a status of the NTP server
+        """
+        self._cache[hostname] = status
+
+    def _check_status(self, hostname):
+        """Check if an NTP server appears to be working.
+
+        :param str hostname: a hostname of an NTP server
+        """
+        log.debug("Checking NTP server %s", hostname)
+        result = ntp_server_working(hostname)
+
+        if result:
+            log.debug("NTP server %s appears to be working.", hostname)
+            self._set_status(hostname, NTP_SERVER_OK)
+        else:
+            log.debug("NTP server %s appears not to be working.", hostname)
+            self._set_status(hostname, NTP_SERVER_NOK)
