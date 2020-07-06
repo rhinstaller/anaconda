@@ -133,6 +133,10 @@ class StorageService(KickstartService):
             self.on_protected_devices_changed
         )
 
+        # After connecting modules to signals, create the initial
+        # storage model. It will be propagated to all modules.
+        self._set_storage(create_storage())
+
     def _add_module(self, storage_module):
         """Add a base kickstart module."""
         self._modules.append(storage_module)
