@@ -487,6 +487,8 @@ class BootLoader(object):
         if device is None:
             return False
 
+        log.debug("Is %s a valid stage1 target device?", device.name)
+
         if not self._device_type_match(device, constraint["device_types"]):
             log.debug("stage1 device cannot be of type %s", device.type)
             return False
@@ -611,6 +613,8 @@ class BootLoader(object):
 
         if device is None:
             return False
+
+        log.debug("Is %s a valid stage2 target device?", device.name)
 
         if device.protected:
             valid = False
