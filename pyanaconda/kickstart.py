@@ -195,10 +195,6 @@ class UselessCommand(RemovedCommand):
         raise TypeError("It is not allowed to subclass the UselessCommand class.")
 
 
-# no overrides needed here
-Eula = COMMANDS.Eula
-
-
 class Logging(COMMANDS.Logging):
     def execute(self):
         if anaconda_logging.logger.loglevel == anaconda_logging.DEFAULT_LEVEL:
@@ -347,7 +343,6 @@ commandMap = {
     "bootloader": UselessCommand,
     "cdrom": UselessCommand,
     "clearpart": UselessCommand,
-    "eula": Eula,
     "fcoe": UselessCommand,
     "firewall": UselessCommand,
     "firstboot": UselessCommand,
