@@ -114,6 +114,7 @@ class Hub(GUIObject, common.Hub):
         self._gridColumns = 3
 
     def _createBox(self):
+        """Create and fill the list of categories and spokes."""
         import gi
 
         gi.require_version("Gtk", "3.0")
@@ -129,8 +130,9 @@ class Hub(GUIObject, common.Hub):
                         halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER,
                         row_homogeneous=True)
 
-        max_row = category_row = 0
         col = 0
+
+        row_in_column = [-1] * self._gridColumns
 
         for c in sorted(categories, key=lambda c: c.sortOrder):
             obj = c()
@@ -171,7 +173,7 @@ class Hub(GUIObject, common.Hub):
                     continue
 
                 spoke.selector = AnacondaWidgets.SpokeSelector(C_("GUI|Spoke", spoke.title),
-                        spoke.icon)
+                                                               spoke.icon)
 
                 # Set all selectors to insensitive before initialize runs.  The call to
                 # _updateCompleteness later will take care of setting it straight.
@@ -198,24 +200,18 @@ class Hub(GUIObject, common.Hub):
             if not selectors:
                 continue
 
-            row = category_row
-
             label = Gtk.Label(label="<span size=\"larger\" weight=\"bold\">%s</span>" % escape_markup(_(obj.title)),
                               use_markup=True, halign=Gtk.Align.START, valign=Gtk.Align.END,
                               margin_bottom=6, wrap=True, xalign=0.0)
 
-            grid.attach(label, col, category_row, 1, 1)
-            row += 1
+            grid.attach(label, col, row_in_column[col], 1, 1)
+            row_in_column[col] += 1
 
             for selector in selectors:
-                grid.attach(selector, col, row, 1, 1)
-                row += 1
-
-            max_row = max(row, max_row)
+                grid.attach(selector, col, row_in_column[col], 1, 1)
+                row_in_column[col] += 1
 
             col = (col + 1) % self._gridColumns
-            if col == 0:
-                category_row = max_row
 
         # initialization of all expected spokes has been started, so notify the controller
         hub_controller = lifecycle.get_controller_by_name(self.__class__.__name__)
