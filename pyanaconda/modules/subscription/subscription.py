@@ -211,7 +211,10 @@ class SubscriptionService(KickstartService):
 
                     subscription_request.server_proxy_hostname = proxy.host
                     subscription_request.server_proxy_port = port
-                    subscription_request.server_proxy_user = proxy.username
+
+                    # ensure no username translates to the expected ""
+                    # instead of the None returned by the ProxyString class
+                    subscription_request.server_proxy_user = proxy.username or ""
                     subscription_request.server_proxy_password.set_secret(proxy.password)
             except ProxyStringError as e:
                 # should not be fatal, but definitely logged as error
