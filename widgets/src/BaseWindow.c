@@ -420,7 +420,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* Last thing for the main_box is a revealer for the info bar */
     win->priv->info_revealer = gtk_revealer_new();
-    gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->info_revealer, FALSE, FALSE, 0);
+    gtk_box_pack_end(GTK_BOX(win->priv->main_box), win->priv->info_revealer, FALSE, FALSE, 0);
 
     /* Make the info bar slide up from the bottom of the window */
     gtk_revealer_set_transition_type(GTK_REVEALER(win->priv->info_revealer), GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
