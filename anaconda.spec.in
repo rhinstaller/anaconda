@@ -362,6 +362,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 08 2020 Martin Kolman <mkolman@redhat.com> - 33.21-1
+- Use Btrfs for all Fedora variants installed by Anaconda except Server
+  (ngompa13)
+- Remove the support for language filtering (vponcova)
+- Remove the support for locale filtering (vponcova)
+- Don't override the eula command with the same command (vponcova)
+- Improve logs for validation of stage1 and stage2 devices (vponcova)
+- Document an issue with invalid partitioning in the output kickstart file
+  (vponcova)
+- Remove support for check_supported_locales (vponcova)
+- Remove the support for Fedora Atomic Host (vponcova)
+- Move Subscription spoke under Software (vslavik)
+- Update the function get_default_partitioning (vponcova)
+- Update the property default_partitioning (vponcova)
+- Change the default_partitioning option (vponcova)
+- Fix hiding of network device activation switch (#1847493) (rvykydal)
+- Typo fix (sh.yaron)
+
 * Mon Jun 22 2020 Martin Kolman <mkolman@redhat.com> - 33.20-1
 - Add test for NFS URL with ISO in path (#1848718) (jkonecny)
 - Fix issue when NFS path is pointing directly to ISO (#1848718) (jkonecny)
