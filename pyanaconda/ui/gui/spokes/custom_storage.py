@@ -1837,21 +1837,33 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             dlg.run()
             dlg.destroy()
 
-    @timed_action(delay=50, threshold=100)
     def on_update_settings_clicked(self, button):
+        self._update_settings(self._accordion.current_selector)
+
+    @timed_action(delay=50, threshold=100)
+    def _update_settings(self, selector):
         """ call _save_right_side, then, perhaps, populate_right_side. """
+        if not selector:
+            return
+
         # Clear any existing errors
         self.clear_errors()
 
         # Save anything from the currently displayed mount point.
-        self._save_right_side(self._accordion.current_selector)
+        self._save_right_side(selector)
         self._applyButton.set_sensitive(False)
 
-    @timed_action(delay=50, threshold=100)
     def on_unlock_clicked(self, *args):
+        self._unlock_device(self._accordion.current_selector)
+
+    @timed_action(delay=50, threshold=100)
+    def _unlock_device(self, selector):
         """ try to open the luks device, populate, then call _do_refresh. """
+        if not selector:
+            return
+
         self.clear_errors()
-        device_name = self._accordion.current_selector.device_name
+        device_name = selector.device_name
         passphrase = self._passphraseEntry.get_text()
 
         log.info("Trying to unlock device %s.", device_name)
