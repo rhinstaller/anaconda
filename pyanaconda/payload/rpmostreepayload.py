@@ -28,6 +28,7 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload import utils as payload_utils
@@ -445,11 +446,19 @@ class RPMOSTreePayload(Payload):
             # such.
             bootloader = STORAGE.get_proxy(BOOTLOADER)
             device_tree = STORAGE.get_proxy(DEVICE_TREE)
-            root_device = device_tree.GetRootDevice()
+
+            root_name = device_tree.GetRootDevice()
+            root_data = DeviceData.from_structure(
+                device_tree.GetDeviceData(root_name)
+            )
 
             set_kargs_args = ["admin", "instutil", "set-kargs"]
             set_kargs_args.extend(bootloader.GetArguments())
-            set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_device))
+            set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_name))
+
+            if root_data.type == "btrfs subvolume":
+                set_kargs_args.append("rootflags=subvol=" + root_name)
+
             self._safe_exec_with_redirect("ostree", set_kargs_args, root=conf.target.system_root)
 
 
