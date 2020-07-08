@@ -371,6 +371,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 08 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.12-1
+- subscription: Fix rhsm --proxy kickstart command usage with no username
+  specified (mkolman)
+  Resolves: rhbz#1849792
+- Create the initial storage model during the initialization (vponcova)
+  Resolves: rhbz#1844098
+- Make spoke tiles stack more tightly (vslavik)
+  Resolves: rhbz#1845493
+- Reconfigure DNF payload after options are set (vslavik)
+  Resolves: rhbz#1847603
+
 * Thu Jul 02 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.11-1
 - Fix displaying of empty software group description (rvykydal)
   Resolves: rhbz#1812061
