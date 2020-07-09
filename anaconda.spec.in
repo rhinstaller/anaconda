@@ -168,7 +168,7 @@ Requires: libblockdev-plugins-all >= %{libblockdevver}
 Requires: realmd
 Requires: isomd5sum >= %{isomd5sum}
 %ifarch %{ix86} x86_64
-Requires: fcoe-utils >= %{fcoeutilsver}
+Recommends: fcoe-utils >= %{fcoeutilsver}
 %endif
 # likely HFS+ resize support
 %ifarch %{ix86} x86_64
