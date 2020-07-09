@@ -9,7 +9,6 @@ Wants=rsyslog.service
 Wants=systemd-udev-settle.service
 Wants=NetworkManager.service
 Wants=plymouth-quit.service plymouth-quit-wait.service
-Wants=zram.service
 Wants=systemd-logind.service
 
 [Service]

@@ -184,6 +184,7 @@ Requires: tmux
 # install time crash handling
 Requires: gdb
 Requires: rsync
+Recommends: zram-generator-defaults
 
 %description install-env-deps
 The anaconda-install-env-deps metapackage lists all installation environment dependencies.

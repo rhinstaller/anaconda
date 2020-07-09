@@ -658,13 +658,6 @@ will be used by default, if found.
 
 See the |anacondalogging|_ for more info on setting up logging via virtio.
 
-.. inst.zram:
-
-inst.zram
-^^^^^^^^^
-
-Forces/disables (on/off) usage of zRAM swap for the installation process.
-
 
 Boot loader options
 -------------------
@@ -1002,3 +995,10 @@ inst.repo=hd:<device>:<path> for installable tree
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Anaconda can't use this option with installable tree but only with an ISO file.
+
+.. inst.zram:
+
+inst.zram
+^^^^^^^^^
+
+Anaconda doesn't run ``zram.service`` anymore. See ``zram-generator`` for more information.
