@@ -371,6 +371,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 09 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.13-1
+- Fix the position of the info bar in standalone spokes (vponcova)
+  Resolves: rhbz#1847423
+- Add workaround to fix support for installtree without repo (jkonecny)
+  Resolves: rhbz#1854825
+- Revert "Update pyanaconda/exception.py" (jstodola)
+  Resolves: rhbz#1853470
+- network: fix configuration of virtual devices by boot options (rvykydal)
+  Resolves: rhbz#1851218
+
 * Wed Jul 08 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.12-1
 - subscription: Fix rhsm --proxy kickstart command usage with no username
   specified (mkolman)
