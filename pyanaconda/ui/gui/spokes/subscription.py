@@ -25,7 +25,8 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    THREAD_SUBSCRIPTION, THREAD_PAYLOAD, SOURCE_TYPES_OVERRIDEN_BY_CDN
+    THREAD_SUBSCRIPTION, THREAD_PAYLOAD, SOURCE_TYPES_OVERRIDEN_BY_CDN, \
+    THREAD_SUBSCRIPTION_SPOKE_INIT
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.ui.lib.subscription import register_and_subscribe, \
     unregister, SubscriptionPhase
@@ -126,8 +127,16 @@ class SubscriptionSpoke(NormalSpoke):
 
     @property
     def ready(self):
-        """The subscription spoke is always ready."""
-        return True
+        """The subscription spoke is ready once its initialization thread finishes.
+
+        We do this to avoid the Subscription spoke being set mandatory in cases
+        where the current installation source is the CDN, but payload refresh is still
+        running and it might change to CDROM later one. We achieve this by waiting
+        for tha payload refresh thread to finish in the Subscription spoke initialization
+        thread.
+        """
+        return not threadMgr.get(THREAD_SUBSCRIPTION_SPOKE_INIT)
+
 
     @property
     def status(self):
@@ -634,6 +643,13 @@ class SubscriptionSpoke(NormalSpoke):
         # setup spoke state based on data from the Subscription DBus module
         self._update_spoke_state()
 
+        # start the rest of spoke initialization which might take some time
+        # (mainly due to waiting for various initialization threads to finish)
+        # in a separate thread
+        threadMgr.add(AnacondaThread(name=THREAD_SUBSCRIPTION_SPOKE_INIT,
+                                     target=self._initialize))
+
+    def _initialize(self):
         # wait for subscription thread to finish (if any)
         threadMgr.wait(THREAD_SUBSCRIPTION)
         # also wait for the payload thread, which migh still be processing
@@ -998,6 +1014,7 @@ class SubscriptionSpoke(NormalSpoke):
         else:
             return _("Not registered.")
 
+    @async_action_wait
     def _update_registration_state(self):
         """Update state of the registration related part of the spoke.
 
@@ -1016,6 +1033,7 @@ class SubscriptionSpoke(NormalSpoke):
         # update registration button state
         self._update_register_button_state()
 
+    @async_action_wait
     def _update_subscription_state(self):
         """Update state of the subscription related part of the spoke.
 
