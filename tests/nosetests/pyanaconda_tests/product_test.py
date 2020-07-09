@@ -45,11 +45,6 @@ SERVER_PARTITIONING = [
         lv=True,
         thin=True,
         encrypted=True
-    ),
-    PartSpec(
-        fstype="swap",
-        lv=True,
-        encrypted=True
     )
 ]
 
@@ -71,11 +66,6 @@ WORKSTATION_PARTITIONING = [
         lv=True,
         thin=True,
         encrypted=True),
-    PartSpec(
-        fstype="swap",
-        lv=True,
-        encrypted=True
-    )
 ]
 
 VIRTUALIZATION_PARTITIONING = [

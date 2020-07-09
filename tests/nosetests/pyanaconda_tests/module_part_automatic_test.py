@@ -248,7 +248,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         platform.set_default_partitioning.return_value = [PartSpec("/boot")]
         requests = get_default_partitioning()
 
-        self.assertEqual(["/boot", "/", "/home", None], [spec.mountpoint for spec in requests])
+        self.assertEqual(["/boot", "/", "/home"], [spec.mountpoint for spec in requests])
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.suggest_swap_size')
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
@@ -280,14 +280,14 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         )
 
         self.assertEqual(
-            ["/boot", "/", "/home", None],
+            ["/boot", "/", "/home"],
             [spec.mountpoint for spec in requests]
         )
         self.assertEqual(
-            ["xfs", "ext4", "ext4", "swap"],
+            ["xfs", "ext4", "ext4"],
             [spec.fstype for spec in requests]
         )
         self.assertEqual(
-            [Size("1GiB"), Size("1GiB"), Size("500MiB"), Size("1024MiB")],
+            [Size("1GiB"), Size("1GiB"), Size("500MiB")],
             [spec.size for spec in requests]
         )
