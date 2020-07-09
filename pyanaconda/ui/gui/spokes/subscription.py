@@ -25,7 +25,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    THREAD_SUBSCRIPTION, SOURCE_TYPES_OVERRIDEN_BY_CDN
+    THREAD_SUBSCRIPTION, THREAD_PAYLOAD, SOURCE_TYPES_OVERRIDEN_BY_CDN
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.ui.lib.subscription import register_and_subscribe, \
     unregister, SubscriptionPhase
@@ -636,6 +636,10 @@ class SubscriptionSpoke(NormalSpoke):
 
         # wait for subscription thread to finish (if any)
         threadMgr.wait(THREAD_SUBSCRIPTION)
+        # also wait for the payload thread, which migh still be processing
+        # a CDROM source, to avoid the Subscription being mandatory by mistake
+        # due to CDN still being default at the time of evaulation
+        threadMgr.wait(THREAD_PAYLOAD)
 
         # update overall state
         self._update_registration_state()
