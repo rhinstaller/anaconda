@@ -18,6 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import warnings
 from textwrap import dedent
 
 from pykickstart.errors import KickstartParseError
@@ -395,6 +396,11 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         UsersKickstartSpecification,
     ]
 
+    # Names of the kickstart commands and data that should be temporarily ignored.
+    IGNORED_NAMES = {
+        "timezone",
+    }
+
     def setUp(self):
         pykickstart_handler = kickstart.superclass
         self.pykickstart_commands = pykickstart_handler.commandMap
@@ -403,6 +409,10 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
     def assert_compare_versions(self, children, parents):
         """Check if children inherit from parents."""
         for name in children:
+            if name in self.IGNORED_NAMES:
+                warnings.warn("Skipping the kickstart name {}.".format(name))
+                continue
+
             print("Checking command {}...".format(name))
             self.assertIsInstance(children[name](), parents[name])
 
