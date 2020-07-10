@@ -121,6 +121,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.storage_module.partitioning_reset.connect(storage_reset_callback)
 
         self.assertIsNotNone(self.storage_module.storage)
+        storage_changed_callback.assert_not_called()
+        storage_reset_callback.assert_not_called()
+
+        self.storage_module._current_storage = None
+        self.assertIsNotNone(self.storage_module.storage)
         storage_changed_callback.assert_called_once()
         storage_reset_callback.assert_not_called()
 
