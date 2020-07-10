@@ -47,7 +47,8 @@ class SetUpCdromSourceTask(SetUpMountTask):
             try:
                 device_data = DeviceData.from_structure(device_tree.GetDeviceData(dev_name))
                 mount(device_data.path, self._target_mount, "iso9660", "ro")
-            except PayloadSetupError:
+            except PayloadSetupError as e:
+                log.debug("Failed to mount %s: %s", dev_name, str(e))
                 continue
 
             if is_valid_install_disk(self._target_mount):
