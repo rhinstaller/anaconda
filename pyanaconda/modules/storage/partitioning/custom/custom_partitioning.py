@@ -136,7 +136,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             self._execute_partition_data(storage, data, partition_data)
 
         if data.partition.partitions:
-            do_partitioning(storage)
+            do_partitioning(storage, boot_disk=storage.bootloader.stage1_disk)
 
     def _execute_partition_data(self, storage, data, partition_data):
         """Execute the partition data.
