@@ -217,6 +217,11 @@ class ProductConfigurationTestCase(unittest.TestCase):
              "fedora-silverblue.conf"],
             WORKSTATION_PARTITIONING
         )
+        self._check_default_product(
+            "Fedora", "IoT",
+            ["fedora.conf", "fedora-iot.conf"],
+            WORKSTATION_PARTITIONING
+        )
 
     def rhel_products_test(self):
         self._check_default_product(
