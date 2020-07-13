@@ -569,27 +569,8 @@ class IPSeriesGRUB2(GRUB2):
 
         log.debug("updateNVRAMBootList: self.stage1_device.path = %s", self.stage1_device.path)
 
-        buf = util.execWithCapture("ofpathname",
-                                   [self.stage1_device.path],
-                                   filter_stderr=True)
-
-        if len(buf) > 0:
-            boot_list = buf.strip()
-        else:
-            log.error("Failed to translate boot path into device name")
-            return
-
-        # The boot-device NVRAM variable has a maximum number of devices allowed,
-        # don't add more than the limit in the ibm,max-boot-devices OF property.
-        max_dev_path = "/sys/firmware/devicetree/base/ibm,max-boot-devices"
-        if os.access(max_dev_path, os.F_OK):
-            with open(max_dev_path, "rb") as f:
-                limit = int.from_bytes(f.read(4), byteorder='big')
-                boot_list = boot_list[:limit]
-
-        update_value = "boot-device=%s" % " ".join(boot_list)
-
-        rc = util.execWithRedirect("nvram", ["--update-config", update_value])
+        rc = util.execWithRedirect("bootlist",
+                                   ["-m", "normal", "-o", self.stage1_device.path])
         if rc:
             log.error("Failed to update new boot device order")
 
