@@ -173,6 +173,9 @@ class DNFPayload(Payload):
         if opts.multiLib:
             self.data.packages.multiLib = opts.multiLib
 
+        # Reset all the other things now that we have new configuration.
+        self._configure()
+
     @property
     def type(self):
         """The DBus type of the payload."""
