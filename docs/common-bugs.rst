@@ -187,6 +187,16 @@ Failing hardware
 :Solution: It looks like a hardware failure. Please, check your hardware.
 :Example: `rhbz#1685047 <https://bugzilla.redhat.com/show_bug.cgi?id=1685047>`_
 
+LVM on disks with inconsistent sector size
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Detection: The storage configuration fails with an error message mentioning "inconsistent sector
+    size".
+:Solution: LVM is now demanding that all disks have consistent sector size, otherwise they can't
+    be used together. Please adjust your disk selection to use only disks with the consistent
+    sector size.
+:Example: `rhbz#1754683 <https://bugzilla.redhat.com/show_bug.cgi?id=1754683>`_
+
 Unlocked LUKS
 ^^^^^^^^^^^^^
 
