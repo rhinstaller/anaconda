@@ -330,9 +330,6 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                 'min': Size("500 MiB"),
                 'free': Size("50 GiB"),
                 'encrypted': True
-            }, {
-                'name': 'swap',
-                'encrypted': True
             }
         ])
 

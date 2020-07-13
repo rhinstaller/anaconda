@@ -251,7 +251,7 @@ class StorageCheckerTests(unittest.TestCase):
             checks.STORAGE_REFORMAT_BLOCKLIST: {
                 '/home', '/usr/local', '/opt', '/var/www'
             },
-            checks.STORAGE_SWAP_IS_RECOMMENDED: True,
+            checks.STORAGE_SWAP_IS_RECOMMENDED: False,
             checks.STORAGE_LUKS2_MIN_RAM: Size("128 MiB"),
         })
 
