@@ -129,6 +129,7 @@ THREAD_ADD_LAYOUTS_INIT = "AnaAddLayoutsInitThread"
 THREAD_NTP_SERVER_CHECK = "AnaNTPserver"
 THREAD_DBUS_TASK = "AnaTaskThread"
 THREAD_SUBSCRIPTION = "AnaSubscriptionThread"
+THREAD_SUBSCRIPTION_SPOKE_INIT = "AnaSubscriptionSpokeInitThread"
 
 # Geolocation constants
 
