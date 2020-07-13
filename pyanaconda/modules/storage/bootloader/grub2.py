@@ -569,30 +569,15 @@ class IPSeriesGRUB2(GRUB2):
 
         log.debug("updateNVRAMBootList: self.stage1_device.path = %s", self.stage1_device.path)
 
-        buf = util.execWithCapture("nvram",
-                                   ["--print-config=boot-device"],
-                                   filter_stderr=True)
-
-        if len(buf) == 0:
-            log.error("Failed to determine nvram boot device")
-            return
-
-        boot_list = buf.strip().replace("\"", "").split()
-        log.debug("updateNVRAMBootList: boot_list = %s", boot_list)
-
         buf = util.execWithCapture("ofpathname",
                                    [self.stage1_device.path],
                                    filter_stderr=True)
 
         if len(buf) > 0:
-            boot_disk = buf.strip()
+            boot_list = buf.strip()
         else:
             log.error("Failed to translate boot path into device name")
             return
-
-        # Place the disk containing the PReP partition first.
-        # Remove all other occurances of it.
-        boot_list = [boot_disk] + [x for x in boot_list if x != boot_disk]
 
         # The boot-device NVRAM variable has a maximum number of devices allowed,
         # don't add more than the limit in the ibm,max-boot-devices OF property.
