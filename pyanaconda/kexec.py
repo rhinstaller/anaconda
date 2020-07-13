@@ -72,6 +72,11 @@ def run_grubby(args=None):
     if boot_info_fields:
         raise GrubbyInfoError("Missing values: %s" % ", ".join(boot_info_fields))
 
+    # There could be multiple initrd images defined for a boot entry, but
+    # the kexec command line tool only supports passing a single initrd.
+    if "initrd" in boot_info_args:
+        boot_info_args["initrd"] = boot_info_args["initrd"].split(" ")[0]
+
     boot_info = boot_info_class(**boot_info_args)
     log.info("grubby boot info for (%s): %s", args, boot_info)
     return boot_info
