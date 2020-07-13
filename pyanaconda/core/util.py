@@ -478,10 +478,10 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
 ## Run a shell.
 def execConsole():
     try:
-        proc = startProgram(["/bin/sh"], stdout=None, stderr=None, reset_lang=False)
+        proc = startProgram(["/bin/bash"], stdout=None, stderr=None, reset_lang=False)
         proc.wait()
     except OSError as e:
-        raise RuntimeError("Error running /bin/sh: " + e.strerror)
+        raise RuntimeError("Error running /bin/bash: " + e.strerror)
 
 
 ## Create a directory path.  Don't fail if the directory already exists.
