@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
-dist_scripts_SCRIPTS = upd-updates run-anaconda zramswapon zramswapoff \
+dist_scripts_SCRIPTS = upd-updates run-anaconda \
                        anaconda-pre-log-gen log-capture start-module apply-updates
 
 dist_noinst_SCRIPTS  = upd-kernel makeupdates makebumpver
