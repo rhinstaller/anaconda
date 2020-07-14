@@ -24,4 +24,9 @@ class TimezoneKickstartSpecification(KickstartSpecification):
 
     commands = {
         "timezone": COMMANDS.Timezone,
+        "timesource": COMMANDS.Timesource,
+    }
+
+    commands_data = {
+        "TimesourceData": COMMANDS.TimesourceData,
     }

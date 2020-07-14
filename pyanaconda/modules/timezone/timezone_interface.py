@@ -17,12 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.constants.services import TIMEZONE
-from pyanaconda.modules.common.containers import TaskContainer
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.base import KickstartModuleInterface
 from dasbus.server.interface import dbus_interface
+
+from pyanaconda.modules.common.base import KickstartModuleInterface
+from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.timezone import TimeSourceData
 
 
 @dbus_interface(TIMEZONE.interface_name)
@@ -34,7 +36,7 @@ class TimezoneInterface(KickstartModuleInterface):
         self.watch_property("Timezone", self.implementation.timezone_changed)
         self.watch_property("IsUTC", self.implementation.is_utc_changed)
         self.watch_property("NTPEnabled", self.implementation.ntp_enabled_changed)
-        self.watch_property("NTPServers", self.implementation.ntp_servers_changed)
+        self.watch_property("TimeSources", self.implementation.time_sources_changed)
 
     @property
     def Timezone(self) -> Str:
@@ -91,22 +93,26 @@ class TimezoneInterface(KickstartModuleInterface):
         self.implementation.set_ntp_enabled(ntp_enabled)
 
     @property
-    def NTPServers(self) -> List[Str]:
-        """A list of NTP servers.
+    def TimeSources(self) -> List[Structure]:
+        """A list of time sources.
 
-        :return: a list of servers
+        :return: a list of time source data
+        :rtype: a list of structures of the type TimeSourceData
         """
-        return self.implementation.ntp_servers
+        return TimeSourceData.to_structure_list(
+            self.implementation.time_sources
+        )
 
     @emits_properties_changed
-    def SetNTPServers(self, servers: List[Str]):
-        """Set the NTP servers.
+    def SetTimeSources(self, sources: List[Structure]):
+        """Set the time sources.
 
-        Example: [ntp.cesnet.cz]
-
-        :param servers: a list of servers
+        :param sources: a list of time sources
+        :type sources: a list of structures of the type TimeSourceData
         """
-        self.implementation.set_ntp_servers(servers)
+        self.implementation.set_time_sources(
+            TimeSourceData.from_structure_list(sources)
+        )
 
     def ConfigureNTPServiceEnablementWithTask(self, ntp_excluded: Bool) -> ObjPath:
         """Enable or disable NTP service.

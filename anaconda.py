@@ -325,7 +325,6 @@ if __name__ == "__main__":
 
     from pyanaconda import vnc
     from pyanaconda import kickstart
-    from pyanaconda import ntp
     from pyanaconda import keyboard
     # we are past the --version and --help shortcut so we can import display &
     # startup_utils, which import Blivet, without slowing down anything critical
@@ -714,15 +713,7 @@ if __name__ == "__main__":
         geoloc.geoloc.refresh()
 
     # setup ntp servers and start NTP daemon if not requested otherwise
-    if conf.system.can_set_time_synchronization:
-        kickstart_ntpservers = timezone_proxy.NTPServers
-
-        if kickstart_ntpservers:
-            pools, servers = ntp.internal_to_pools_and_servers(kickstart_ntpservers)
-            ntp.save_servers_to_config(pools, servers)
-
-        if timezone_proxy.NTPEnabled:
-            util.start_service("chronyd")
+    startup_utils.start_chronyd()
 
     # Finish the initialization of the setup on boot action.
     # This should be done sooner and somewhere else once it is possible.

@@ -23,8 +23,13 @@ import unittest
 from shutil import copytree, copyfile
 from unittest.mock import Mock, patch
 
+from dasbus.structure import compare_data
+from dasbus.typing import *  # pylint: disable=wildcard-import
+
+from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
+from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask, \
     ConfigureNTPServiceEnablementTask
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
@@ -33,7 +38,7 @@ from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.ntp import NTP_CONFIG_FILE, NTPconfigError
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, \
     patch_dbus_publish_object, PropertiesChangedCallback, check_task_creation, \
-    patch_dbus_get_proxy, check_task_creation_list
+    patch_dbus_get_proxy, check_task_creation_list, check_dbus_property
 from pyanaconda.timezone import NTP_SERVICE
 
 
@@ -50,9 +55,17 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.timezone_interface.PropertiesChanged.connect(self.callback)
 
+    def _check_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            TIMEZONE,
+            self.timezone_interface,
+            *args, **kwargs
+        )
+
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.timezone_interface.KickstartCommands, ["timezone"])
+        self.assertEqual(self.timezone_interface.KickstartCommands, ["timezone", "timesource"])
         self.assertEqual(self.timezone_interface.KickstartSections, [])
         self.assertEqual(self.timezone_interface.KickstartAddons, [])
         self.callback.assert_not_called()
@@ -76,12 +89,24 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.timezone_interface.NTPEnabled, False)
         self.callback.assert_called_once_with(TIMEZONE.interface_name, {'NTPEnabled': False}, [])
 
-    def ntp_servers_property_test(self):
-        """Test the NTPServers property."""
-        self.timezone_interface.SetNTPServers(["ntp.cesnet.cz"])
-        self.assertEqual(self.timezone_interface.NTPServers, ["ntp.cesnet.cz"])
-        self.callback.assert_called_once_with(
-            TIMEZONE.interface_name, {'NTPServers': ["ntp.cesnet.cz"]}, [])
+    def time_sources_property_test(self):
+        """Test the TimeSources property."""
+        server = {
+            "type": get_variant(Str, TIME_SOURCE_SERVER),
+            "hostname": get_variant(Str, "ntp.cesnet.cz"),
+            "options": get_variant(List[Str], ["iburst"]),
+        }
+
+        pool = {
+            "type": get_variant(Str, TIME_SOURCE_POOL),
+            "hostname": get_variant(Str, "0.fedora.pool.ntp.org"),
+            "options": get_variant(List[Str], []),
+        }
+
+        self._check_dbus_property(
+            "TimeSources",
+            [server, pool]
+        )
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.timezone_interface, ks_in, ks_out)
@@ -118,19 +143,90 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         timezone --utc --nontp Europe/Prague
         """
         ks_out = """
+        timesource --ntp-disable
         # System timezone
-        timezone Europe/Prague --utc --nontp
+        timezone Europe/Prague --utc
         """
         self._test_kickstart(ks_in, ks_out)
 
     def kickstart3_test(self):
-        """Test the timezone command with ntp servers.."""
+        """Test the timezone command with ntp servers."""
         ks_in = """
         timezone --ntpservers ntp.cesnet.cz Europe/Prague
         """
         ks_out = """
+        timesource --ntp-server=ntp.cesnet.cz
         # System timezone
-        timezone Europe/Prague --ntpservers=ntp.cesnet.cz
+        timezone Europe/Prague
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_ntp_disabled_test(self):
+        """Test the timesource command with ntp disabled."""
+        ks_in = """
+        timesource --ntp-disable
+        """
+        ks_out = """
+        timesource --ntp-disable
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_ntp_server_test(self):
+        """Test the timesource command with ntp servers."""
+        ks_in = """
+        timesource --ntp-server ntp.cesnet.cz
+        """
+        ks_out = """
+        timesource --ntp-server=ntp.cesnet.cz
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_ntp_pool_test(self):
+        """Test the timesource command with ntp pools."""
+        ks_in = """
+        timesource --ntp-pool ntp.cesnet.cz
+        """
+        ks_out = """
+        timesource --ntp-pool=ntp.cesnet.cz
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_nts_test(self):
+        """Test the timesource command with the nts option."""
+        ks_in = """
+        timesource --ntp-pool ntp.cesnet.cz --nts
+        """
+        ks_out = """
+        timesource --ntp-pool=ntp.cesnet.cz --nts
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timesource_all_test(self):
+        """Test the timesource commands."""
+        ks_in = """
+        timesource --ntp-server ntp.cesnet.cz
+        timesource --ntp-pool 0.fedora.pool.ntp.org
+        """
+        ks_out = """
+        timesource --ntp-server=ntp.cesnet.cz
+        timesource --ntp-pool=0.fedora.pool.ntp.org
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def kickstart_timezone_timesource_test(self):
+        """Test the combination of timezone and timesource commands."""
+        ks_in = """
+        timezone --ntpservers ntp.cesnet.cz,0.fedora.pool.ntp.org Europe/Prague
+        timesource --ntp-server ntp.cesnet.cz --nts
+        timesource --ntp-pool 0.fedora.pool.ntp.org
+        """
+        ks_out = """
+        timesource --ntp-server=ntp.cesnet.cz
+        timesource --ntp-server=0.fedora.pool.ntp.org
+        timesource --ntp-server=ntp.cesnet.cz --nts
+        timesource --ntp-pool=0.fedora.pool.ntp.org
+        # System timezone
+        timezone Europe/Prague
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -162,10 +258,19 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self.timezone_interface.SetNTPEnabled(False)
         # --nontp and --ntpservers are mutually exclusive in kicstart but
         # there is no such enforcement in the module so for testing this is ok
-        self.timezone_interface.SetNTPServers([
-            "clock1.example.com",
-            "clock2.example.com",
-        ])
+
+        server = TimeSourceData()
+        server.type = TIME_SOURCE_SERVER
+        server.hostname = "clock1.example.com"
+        server.options = ["iburst"]
+
+        pool = TimeSourceData()
+        pool.type = TIME_SOURCE_POOL
+        pool.hostname = "clock2.example.com"
+
+        self.timezone_interface.SetTimeSources(
+            TimeSourceData.to_structure_list([server, pool])
+        )
 
         task_classes = [
             ConfigureTimezoneTask,
@@ -182,10 +287,9 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         # ConfigureNTPTask
         obj = task_objs[1]
         self.assertEqual(obj.implementation._ntp_enabled, False)
-        self.assertEqual(obj.implementation._ntp_servers, [
-            "clock1.example.com",
-            "clock2.example.com",
-        ])
+        self.assertEqual(len(obj.implementation._ntp_servers), 2)
+        self.assertTrue(compare_data(obj.implementation._ntp_servers[0], server))
+        self.assertTrue(compare_data(obj.implementation._ntp_servers[1], pool))
 
     @patch_dbus_publish_object
     def configure_ntp_service_enablement_default_test(self, publisher):
@@ -354,19 +458,38 @@ class NTPTasksTestCase(unittest.TestCase):
 
     def ntp_task_success_test(self):
         """Test the success cases for NTP setup D-Bus task."""
-        self._test_ntp_inputs(False, False, ["unique.ntp.server", "another.unique.server"])
-        self._test_ntp_inputs(False, True, ["unique.ntp.server", "another.unique.server"])
+        self._test_ntp_inputs(False, False)
+        self._test_ntp_inputs(False, True)
 
     def ntp_overwrite_test(self):
         """Test overwriting existing config for NTP setup D-Bus task."""
-        self._test_ntp_inputs(True, True, ["unique.ntp.server", "another.unique.server"])
-        self._test_ntp_inputs(True, False, ["unique.ntp.server", "another.unique.server"])
+        self._test_ntp_inputs(True, True)
+        self._test_ntp_inputs(True, False)
 
     def ntp_save_failure_test(self):
         """Test failure when saving NTP config in D-Bus task."""
         # pylint: disable=no-value-for-parameter
         self._test_ntp_exception(True)
         self._test_ntp_exception(False)
+
+    def _get_test_sources(self):
+        """Get a list of sources"""
+        server = TimeSourceData()
+        server.type = TIME_SOURCE_SERVER
+        server.hostname = "unique.ntp.server"
+        server.options = ["iburst"]
+
+        pool = TimeSourceData()
+        pool.type = TIME_SOURCE_POOL
+        pool.hostname = "another.unique.server"
+
+        return [server, pool]
+
+    def _get_expected_lines(self):
+        return [
+            "server unique.ntp.server iburst\n",
+            "pool another.unique.server\n"
+        ]
 
     @patch("pyanaconda.modules.timezone.installation.ntp.save_servers_to_config",
            side_effect=NTPconfigError)
@@ -376,11 +499,14 @@ class NTPTasksTestCase(unittest.TestCase):
             with self.assertLogs("anaconda.modules.timezone.installation", level="WARNING"):
                 self._execute_task(sysroot, True, ["ntp.example.com"])
 
-    def _test_ntp_inputs(self, make_chronyd, ntp_enabled, ntp_servers):
+    def _test_ntp_inputs(self, make_chronyd, ntp_enabled):
+        ntp_servers = self._get_test_sources()
+        expected_lines = self._get_expected_lines()
+
         with tempfile.TemporaryDirectory() as sysroot:
             self._setup_environment(sysroot, make_chronyd)
             self._execute_task(sysroot, ntp_enabled, ntp_servers)
-            self._validate_ntp_config(sysroot, make_chronyd, ntp_enabled, ntp_servers)
+            self._validate_ntp_config(sysroot, make_chronyd, ntp_enabled, expected_lines)
 
     def _setup_environment(self, sysroot, make_chronyd):
         os.mkdir(sysroot + "/etc")
@@ -395,12 +521,14 @@ class NTPTasksTestCase(unittest.TestCase):
         )
         task.run()
 
-    def _validate_ntp_config(self, sysroot, was_present, was_enabled, expected_servers):
+    def _validate_ntp_config(self, sysroot, was_present, was_enabled, expected_lines):
         if was_enabled:
             with open(sysroot + NTP_CONFIG_FILE) as fobj:
-                all_lines = "\n".join(fobj.readlines())
-                for server in expected_servers:
-                    self.assertIn(server, all_lines)
+                all_lines = fobj.readlines()
+
+            for line in expected_lines:
+                self.assertIn(line, all_lines)
+
         elif not was_present:
             self.assertFalse(os.path.exists(sysroot + NTP_CONFIG_FILE))
 

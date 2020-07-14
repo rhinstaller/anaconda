@@ -16,14 +16,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-import gi
-gi.require_version("NM", "1.0")
-
-from gi.repository import NM
-
 import shutil
-from pyanaconda.core import util, constants
 import socket
 import itertools
 import os
@@ -34,17 +27,24 @@ import ipaddress
 
 from dasbus.typing import get_native
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util, constants
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
     IPV6_ADDRESS_IN_DRACUT_IP_OPTION
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import TIME_SOURCE_SERVER
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE, STORAGE
 from pyanaconda.modules.common.constants.objects import FCOE
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
+from pyanaconda.modules.common.structures.timezone import TimeSourceData
 
-from pyanaconda.anaconda_loggers import get_module_logger
+import gi
+gi.require_version("NM", "1.0")
+from gi.repository import NM
+
 log = get_module_logger(__name__)
 
 DEFAULT_HOSTNAME = "localhost.localdomain"
@@ -347,9 +347,20 @@ def _set_ntp_servers_from_dhcp():
         hostnames.append(hostname)
 
     # check if some NTP servers were specified from kickstart
-    if not timezone_proxy.NTPServers and conf.target.is_hardware:
+    if not timezone_proxy.TimeSources and conf.target.is_hardware:
         # no NTP servers were specified, add those from DHCP
-        timezone_proxy.SetNTPServers(hostnames)
+        servers = []
+
+        for hostname in hostnames:
+            server = TimeSourceData()
+            server.type = TIME_SOURCE_SERVER
+            server.hostname = hostname
+            server.options = ["iburst"]
+            servers.append(server)
+
+        timezone_proxy.SetTimeSources(
+            TimeSourceData.to_structure_list(servers)
+        )
 
 
 def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_connecting=False):

@@ -17,29 +17,28 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.i18n import _
-
-from pyanaconda.anaconda_loggers import get_stdout_logger, get_storage_logger, get_packaging_logger
-stdout_log = get_stdout_logger()
-
-from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
-
 import sys
 import time
 import os
+import blivet
 
-from pyanaconda.core import util, constants
-from pyanaconda import product
+from pyanaconda import product, ntp
 from pyanaconda import anaconda_logging
 from pyanaconda import network
 from pyanaconda import safe_dbus
 from pyanaconda import kickstart
+from pyanaconda.anaconda_loggers import get_stdout_logger, get_storage_logger, \
+    get_packaging_logger, get_module_logger
+from pyanaconda.core import util, constants
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
+from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.constants.services import TIMEZONE
 
-import blivet
+stdout_log = get_stdout_logger()
+log = get_module_logger(__name__)
 
 
 def gtk_warning(title, reason):
@@ -373,3 +372,25 @@ def parse_kickstart(ks, addon_paths, strict_mode=False):
         kickstart.parseKickstart(ksdata, ks, strict_mode=strict_mode, pass_to_boss=True)
 
     return ksdata
+
+
+def start_chronyd():
+    """Start the NTP daemon chronyd.
+
+    Set up NTP servers and start NTP daemon if not requested otherwise.
+    """
+    if not conf.system.can_set_time_synchronization:
+        log.debug("Skip the time synchronization.")
+        return
+
+    timezone_proxy = TIMEZONE.get_proxy()
+    enabled = timezone_proxy.NTPEnabled
+    servers = TimeSourceData.from_structure_list(
+        timezone_proxy.TimeSources
+    )
+
+    if servers:
+        ntp.save_servers_to_config(servers)
+
+    if enabled:
+        util.start_service("chronyd")

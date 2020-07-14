@@ -16,9 +16,39 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import datetime
+import re
+import time
+import locale as locale_mod
+import functools
+import copy
 
+from pyanaconda import isys
+from pyanaconda import network
+from pyanaconda import ntp
+from pyanaconda import flags
 from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
+from pyanaconda.core import util, constants
+from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import TIME_SOURCE_POOL, TIME_SOURCE_SERVER
+from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.timer import Timer
+from pyanaconda.localization import get_xlated_timezone, resolve_date_format
+from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.constants.services import TIMEZONE, NETWORK
+from pyanaconda.ntp import NTPServerStatusCache
+from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.categories.localization import LocalizationCategory
+from pyanaconda.ui.gui.utils import override_cell_property
+from pyanaconda.ui.gui.utils import blockedHandler
+from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
+from pyanaconda.ui.helpers import InputCheck
+from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
+from pyanaconda.threading import threadMgr, AnacondaThread
 
 import gi
 gi.require_version("Gdk", "3.0")
@@ -27,36 +57,7 @@ gi.require_version("TimezoneMap", "1.0")
 
 from gi.repository import Gdk, Gtk, TimezoneMap
 
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import gtk_call_once, override_cell_property
-from pyanaconda.ui.gui.utils import blockedHandler
-from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
-from pyanaconda.ui.helpers import InputCheck
-
-from pyanaconda.core import util, constants
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda import isys
-from pyanaconda import network
-from pyanaconda import ntp
-from pyanaconda import flags
-from pyanaconda.modules.common.constants.services import TIMEZONE, NETWORK
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.core.i18n import _, CN_
-from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
-from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
-from pyanaconda.localization import get_xlated_timezone, resolve_date_format
-from pyanaconda.core.timer import Timer
-
-import datetime
-import re
-import threading
-import time
-import locale as locale_mod
-import functools
+log = get_module_logger(__name__)
 
 __all__ = ["DatetimeSpoke"]
 
@@ -64,6 +65,7 @@ SERVER_HOSTNAME = 0
 SERVER_POOL = 1
 SERVER_WORKING = 2
 SERVER_USE = 3
+SERVER_OBJECT = 4
 
 DEFAULT_TZ = "America/New_York"
 
@@ -156,48 +158,40 @@ def _new_date_field_box(store):
     return (box, combo, suffix_label)
 
 
-class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
+class NTPConfigDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["ntpConfigDialog", "addImage", "serversStore"]
     mainWidgetName = "ntpConfigDialog"
     uiFile = "spokes/datetime_spoke.glade"
 
-    def __init__(self, data, timezone_module):
+    def __init__(self, data, servers, states):
         GUIObject.__init__(self, data)
+        self._servers = servers
+        self._active_server = None
+        self._states = states
 
         # Use GUIDIalogInputCheckHandler to manipulate the sensitivity of the
         # add button, and check for valid input in on_entry_activated
         add_button = self.builder.get_object("addButton")
         GUIDialogInputCheckHandler.__init__(self, add_button)
 
-        #epoch is increased when serversStore is repopulated
-        self._epoch = 0
-        self._epoch_lock = threading.Lock()
-        self._timezone_module = timezone_module
+        self.window.set_size_request(500, 400)
 
-    @property
-    def working_server(self):
-        for row in self._serversStore:
-            if row[SERVER_WORKING] == constants.NTP_SERVER_OK and row[SERVER_USE]:
-                #server is checked and working
-                return row[SERVER_HOSTNAME]
+        working_column = self.builder.get_object("workingColumn")
+        working_renderer = self.builder.get_object("workingRenderer")
+        override_cell_property(working_column, working_renderer, "icon-name", self._render_working)
 
-        return None
+        self._serverEntry = self.builder.get_object("serverEntry")
+        self._serversStore = self.builder.get_object("serversStore")
+        self._addButton = self.builder.get_object("addButton")
+        self._poolCheckButton = self.builder.get_object("poolCheckButton")
 
-    @property
-    def pools_servers(self):
-        pools = list()
-        servers = list()
+        self._serverCheck = self.add_check(self._serverEntry, self._validate_server)
+        self._serverCheck.update_check_status()
 
-        for used_row in (row for row in self._serversStore if row[SERVER_USE]):
-            if used_row[SERVER_POOL]:
-                pools.append(used_row[SERVER_HOSTNAME])
-            else:
-                servers.append(used_row[SERVER_HOSTNAME])
-
-        return (pools, servers)
+        self._update_timer = Timer()
 
     def _render_working(self, column, renderer, model, itr, user_data=None):
-        value = model[itr][SERVER_WORKING]
+        value = self._serversStore[itr][SERVER_WORKING]
 
         if value == constants.NTP_SERVER_QUERY:
             return "dialog-question"
@@ -206,47 +200,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         else:
             return "dialog-error"
 
-    def initialize(self):
-        self.window.set_size_request(500, 400)
-
-        workingColumn = self.builder.get_object("workingColumn")
-        workingRenderer = self.builder.get_object("workingRenderer")
-        override_cell_property(workingColumn, workingRenderer, "icon-name",
-                self._render_working)
-
-        self._serverEntry = self.builder.get_object("serverEntry")
-        self._serversStore = self.builder.get_object("serversStore")
-
-        self._addButton = self.builder.get_object("addButton")
-
-        self._poolCheckButton = self.builder.get_object("poolCheckButton")
-
-        # Validate the server entry box
-        self._serverCheck = self.add_check(self._serverEntry, self._validateServer)
-        self._serverCheck.update_check_status()
-
-        self._initialize_store_from_config()
-
-    def _initialize_store_from_config(self):
-        self._serversStore.clear()
-
-        kickstart_ntp_servers = self._timezone_module.NTPServers
-
-        if kickstart_ntp_servers:
-            pools, servers = ntp.internal_to_pools_and_servers(kickstart_ntp_servers)
-        else:
-            try:
-                pools, servers = ntp.get_servers_from_config()
-            except ntp.NTPconfigError:
-                log.warning("Failed to load NTP servers configuration")
-                return
-
-        for pool in pools:
-            self._add_server(pool, True)
-        for server in servers:
-            self._add_server(server, False)
-
-    def _validateServer(self, inputcheck):
+    def _validate_server(self, inputcheck):
         server = self.get_input(inputcheck.input_obj)
 
         # If not set, fail the check to keep the button insensitive, but don't
@@ -261,108 +215,97 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             return InputCheck.CHECK_OK
 
     def refresh(self):
-        self._initialize_store_from_config()
-        self._serverEntry.grab_focus()
+        # Update the store.
+        self._serversStore.clear()
 
-    def refresh_servers_state(self):
-        itr = self._serversStore.get_iter_first()
-        while itr:
-            self._refresh_server_working(itr)
-            itr = self._serversStore.iter_next(itr)
+        for server in self._servers:
+            self._add_row(server)
+
+        # Start to update the status.
+        self._update_timer.timeout_sec(1, self._update_rows)
+
+        # Focus on the server entry.
+        self._serverEntry.grab_focus()
 
     def run(self):
         self.window.show()
         rc = self.window.run()
         self.window.hide()
 
-        #OK clicked
+        # OK clicked
         if rc == 1:
-            new_pools, new_servers = self.pools_servers
+            # Remove servers.
+            for row in self._serversStore:
+                if not row[SERVER_USE]:
+                    server = row[SERVER_OBJECT]
+                    self._servers.remove(server)
 
+            # Restart the NTP service.
             if conf.system.can_set_time_synchronization:
-                ntp.save_servers_to_config(new_pools, new_servers)
+                ntp.save_servers_to_config(self._servers)
                 util.restart_service(NTP_SERVICE)
-
-        #Cancel clicked, window destroyed...
-        else:
-            self._epoch_lock.acquire()
-            self._epoch += 1
-            self._epoch_lock.release()
 
         return rc
 
-    def _set_server_ok_nok(self, itr, epoch_started):
+    def _add_row(self, server):
+        """Add a new row for the given NTP server.
+
+        :param server: an NTP server
+        :type server: an instance of TimeSourceData
         """
-        If the server is working, set its data to NTP_SERVER_OK, otherwise set its
-        data to NTP_SERVER_NOK.
+        itr = self._serversStore.append([
+            "",
+            False,
+            constants.NTP_SERVER_QUERY,
+            True,
+            server
+        ])
 
-        :param itr: iterator of the $server's row in the self._serversStore
+        self._refresh_row(itr)
 
+    def _refresh_row(self, itr):
+        """Refresh the given row."""
+        server = self._serversStore[itr][SERVER_OBJECT]
+        self._serversStore.set_value(itr, SERVER_HOSTNAME, server.hostname)
+        self._serversStore.set_value(itr, SERVER_POOL, server.type == TIME_SOURCE_POOL)
+
+    def _update_rows(self):
+        """Periodically update the status of all rows.
+
+        :return: True to repeat, otherwise False
         """
+        for row in self._serversStore:
+            server = row[SERVER_OBJECT]
 
-        @async_action_nowait
-        def set_store_value(arg_tuple):
-            """
-            We need a function for this, because this way it can be added to
-            the MainLoop with thread-safe async_action_nowait (but only with one
-            argument).
+            if server is self._active_server:
+                continue
 
-            :param arg_tuple: (store, itr, column, value)
+            status = self._states.get_status(server)
+            row[SERVER_WORKING] = status
 
-            """
-
-            (store, itr, column, value) = arg_tuple
-            store.set_value(itr, column, value)
-
-        orig_hostname = self._serversStore[itr][SERVER_HOSTNAME]
-        server_working = ntp.ntp_server_working(self._serversStore[itr][SERVER_HOSTNAME])
-
-        #do not let dialog change epoch while we are modifying data
-        self._epoch_lock.acquire()
-
-        #check if we are in the same epoch as the dialog (and the serversStore)
-        #and if the server wasn't changed meanwhile
-        if epoch_started == self._epoch:
-            actual_hostname = self._serversStore[itr][SERVER_HOSTNAME]
-
-            if orig_hostname == actual_hostname:
-                if server_working:
-                    set_store_value((self._serversStore,
-                                     itr, SERVER_WORKING, constants.NTP_SERVER_OK))
-                else:
-                    set_store_value((self._serversStore,
-                                     itr, SERVER_WORKING, constants.NTP_SERVER_NOK))
-        self._epoch_lock.release()
-
-    @async_action_nowait
-    def _refresh_server_working(self, itr):
-        """ Runs a new thread with _set_server_ok_nok(itr) as a taget. """
-
-        self._serversStore.set_value(itr, SERVER_WORKING, constants.NTP_SERVER_QUERY)
-        threadMgr.add(AnacondaThread(prefix=constants.THREAD_NTP_SERVER_CHECK,
-                                     target=self._set_server_ok_nok,
-                                     args=(itr, self._epoch)))
-
-    def _add_server(self, server, pool=False):
-        """
-        Checks if a given server is a valid hostname and if yes, adds it
-        to the list of servers.
-
-        :param server: string containing hostname
-
-        """
-
-        itr = self._serversStore.append([server, pool, constants.NTP_SERVER_QUERY, True])
-
-        #do not block UI while starting thread (may take some time)
-        self._refresh_server_working(itr)
+        return True
 
     def on_entry_activated(self, entry, *args):
         # Check that the input check has passed
-        if self._serverCheck.check_status == InputCheck.CHECK_OK:
-            self._add_server(entry.get_text(), self._poolCheckButton.get_active())
-            entry.set_text("")
-            self._poolCheckButton.set_active(False)
+        if self._serverCheck.check_status != InputCheck.CHECK_OK:
+            return
+
+        server = TimeSourceData()
+
+        if self._poolCheckButton.get_active():
+            server.type = TIME_SOURCE_POOL
+        else:
+            server.type = TIME_SOURCE_SERVER
+
+        server.hostname = entry.get_text()
+        server.options = ["iburst"]
+
+        self._servers.append(server)
+        self._states.check_status(server)
+        self._add_row(server)
+
+        entry.set_text("")
+        self._poolCheckButton.set_active(False)
 
     def on_add_clicked(self, *args):
         self._serverEntry.emit("activate")
@@ -370,16 +313,29 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
     def on_use_server_toggled(self, renderer, path, *args):
         itr = self._serversStore.get_iter(path)
         old_value = self._serversStore[itr][SERVER_USE]
-
         self._serversStore.set_value(itr, SERVER_USE, not old_value)
 
     def on_pool_toggled(self, renderer, path, *args):
         itr = self._serversStore.get_iter(path)
-        old_value = self._serversStore[itr][SERVER_POOL]
+        server = self._serversStore[itr][SERVER_OBJECT]
 
-        self._serversStore.set_value(itr, SERVER_POOL, not old_value)
+        if server.type == TIME_SOURCE_SERVER:
+            server.type = TIME_SOURCE_POOL
+        else:
+            server.type = TIME_SOURCE_SERVER
+
+        self._refresh_row(itr)
+
+    def on_server_editing_started(self, renderer, editable, path):
+        itr = self._serversStore.get_iter(path)
+        self._active_server = self._serversStore[itr][SERVER_OBJECT]
+
+    def on_server_editing_canceled(self, renderer):
+        self._active_server = None
 
     def on_server_edited(self, renderer, path, new_text, *args):
+        self._active_server = None
+
         if not path:
             return
 
@@ -389,14 +345,14 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             return
 
         itr = self._serversStore.get_iter(path)
+        server = self._serversStore[itr][SERVER_OBJECT]
 
-        if self._serversStore[itr][SERVER_HOSTNAME] == new_text:
+        if server.hostname == new_text:
             return
 
-        self._serversStore.set_value(itr, SERVER_HOSTNAME, new_text)
-        self._serversStore.set_value(itr, SERVER_WORKING, constants.NTP_SERVER_QUERY)
-
-        self._refresh_server_working(itr)
+        server.hostname = new_text
+        self._states.check_status(server)
+        self._refresh_row(itr)
 
 
 class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
@@ -439,6 +395,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._timezone_module = TIMEZONE.get_proxy()
         self._network_module = NETWORK.get_proxy()
+
+        self._ntp_servers = []
+        self._ntp_servers_states = NTPServerStatusCache()
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -511,9 +470,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if not conf.system.can_set_system_clock:
             self._hide_date_time_setting()
-
-        self._config_dialog = NTPconfigDialog(self.data, self._timezone_module)
-        self._config_dialog.initialize()
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_DATE_TIME,
                                      target=self._initialize))
@@ -634,12 +590,27 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._update_datetime()
 
+        # update the ntp configuration
+        self._ntp_servers = TimeSourceData.from_structure_list(
+            self._timezone_module.TimeSources
+        )
+
+        if not self._ntp_servers:
+            try:
+                self._ntp_servers = ntp.get_servers_from_config()
+            except ntp.NTPconfigError:
+                log.warning("Failed to load NTP servers configuration")
+
+        self._ntp_servers_states = NTPServerStatusCache()
         has_active_network = self._network_module.Connected
+
         if not has_active_network:
             self._show_no_network_warning()
         else:
             self.clear_info()
-            gtk_call_once(self._config_dialog.refresh_servers_state)
+
+            for server in self._ntp_servers:
+                self._ntp_servers_states.check_status(server)
 
         if conf.system.can_set_time_synchronization:
             ntp_working = has_active_network and util.service_running(NTP_SERVICE)
@@ -867,13 +838,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         return False
 
     def _get_combo_selection(self, combo):
-        """
-        Get the selected item of the combobox.
+        """Get the selected item of the combobox.
 
         :return: selected item or None
-
         """
-
         model = combo.get_model()
         itr = combo.get_active_iter()
         if not itr or not model:
@@ -946,9 +914,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def on_region_changed(self, combo, *args):
         """
         :see: on_city_changed
-
         """
-
         region = self._get_active_region()
 
         if not region or region == self._old_region:
@@ -974,9 +940,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         hit etc.; 'London' chosen in the expanded combobox => update timezone
         map and do all necessary actions). Fortunately when entry is being
         edited, self._get_active_city returns None.
-
         """
-
         timezone = None
 
         region = self._get_active_region()
@@ -1107,8 +1071,17 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         footer_alignment = self.builder.get_object("footerAlignment")
         footer_alignment.set_sensitive(sensitive)
 
+    def _get_working_server(self):
+        """Get a working NTP server."""
+        for server in self._ntp_servers:
+            status = self._ntp_servers_states.get_status(server)
+            if status == constants.NTP_SERVER_OK:
+                return server
+
+        return None
+
     def _show_no_network_warning(self):
-        self.set_warning(_("You need to set up networking first if you "\
+        self.set_warning(_("You need to set up networking first if you "
                            "want to use NTP"))
 
     def _show_no_ntp_server_warning(self):
@@ -1127,13 +1100,13 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 return
             else:
                 self.clear_info()
+                working_server = self._get_working_server()
 
-                working_server = self._config_dialog.working_server
                 if working_server is None:
                     self._show_no_ntp_server_warning()
                 else:
-                    #we need a one-time sync here, because chronyd would not change
-                    #the time as drastically as we need
+                    # We need a one-time sync here, because chronyd would
+                    # not change the time as drastically as we need.
                     ntp.one_time_sync_async(working_server)
 
             ret = util.start_service(NTP_SERVICE)
@@ -1161,16 +1134,24 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.clear_info()
 
     def on_ntp_config_clicked(self, *args):
-        self._config_dialog.refresh()
+        servers = copy.deepcopy(self._ntp_servers)
+        states = self._ntp_servers_states
 
-        with self.main_window.enlightbox(self._config_dialog.window):
-            response = self._config_dialog.run()
+        dialog = NTPConfigDialog(self.data, servers, states)
+        dialog.refresh()
+
+        with self.main_window.enlightbox(dialog.window):
+            response = dialog.run()
 
         if response == 1:
-            pools, servers = self._config_dialog.pools_servers
-            self._timezone_module.SetNTPServers(ntp.pools_servers_to_internal(pools, servers))
+            self._timezone_module.SetTimeSources(
+                TimeSourceData.to_structure_list(servers)
+            )
 
-            if self._config_dialog.working_server is None:
+            self._ntp_servers = servers
+            working_server = self._get_working_server()
+
+            if working_server is None:
                 self._show_no_ntp_server_warning()
             else:
                 self.clear_info()

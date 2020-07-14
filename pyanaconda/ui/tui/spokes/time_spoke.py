@@ -16,7 +16,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.constants import TIME_SOURCE_SERVER
 from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.ntp import NTPServerStatusCache
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -24,11 +27,9 @@ from pyanaconda import timezone
 from pyanaconda import ntp
 from pyanaconda.core import constants
 from pyanaconda.core.i18n import N_, _, C_
-from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.flags import flags
 
-from collections import OrderedDict, namedtuple
-from threading import RLock
+from collections import namedtuple
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
@@ -39,22 +40,10 @@ from simpleline.render.prompt import Prompt
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-CallbackTimezoneArgs = namedtuple("CallbackTimezoneArgs", ["region", "timezone"])
-
-
-def format_ntp_status_list(servers):
-    ntp_server_states = {
-        constants.NTP_SERVER_OK: _("status: working"),
-        constants.NTP_SERVER_NOK: _("status: not working"),
-        constants.NTP_SERVER_QUERY: _("checking status")
-    }
-    status_list = []
-    for server, server_state in servers.items():
-        status_list.append("%s (%s)" % (server, ntp_server_states[server_state]))
-    return status_list
-
-
 __all__ = ["TimeSpoke"]
+
+
+CallbackTimezoneArgs = namedtuple("CallbackTimezoneArgs", ["region", "timezone"])
 
 
 class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
@@ -66,10 +55,8 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self.title = N_("Time settings")
         self._timezone_spoke = None
         self._container = None
-        # we use an ordered dict to keep the NTP server insertion order
-        self._ntp_servers = OrderedDict()
-        self._ntp_servers_lock = RLock()
-
+        self._ntp_servers = []
+        self._ntp_servers_states = NTPServerStatusCache()
         self._timezone_module = TIMEZONE.get_proxy()
 
     @property
@@ -83,102 +70,23 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         #   during the installation
         # - from config files when running in Initial Setup
         #   after the installation
-        ntp_servers = []
-
         if constants.ANACONDA_ENVIRON in flags.environs:
-            ntp_servers = self._timezone_module.NTPServers
+            self._ntp_servers = TimeSourceData.from_structure_list(
+                self._timezone_module.TimeSources
+            )
         elif constants.FIRSTBOOT_ENVIRON in flags.environs:
-            ntp_servers = ntp.get_servers_from_config()[1]  # returns a (NPT pools, NTP servers) tupple
+            self._ntp_servers = ntp.get_servers_from_config()
         else:
             log.error("tui time spoke: unsupported environment configuration %s,"
                       "can't decide where to get initial NTP servers", flags.environs)
 
-        # check if the NTP servers appear to be working or not
-        if ntp_servers:
-            for server in ntp_servers:
-                self._ntp_servers[server] = constants.NTP_SERVER_QUERY
-
-            # check if the newly added NTP servers work fine
-            self._check_ntp_servers_async(self._ntp_servers.keys())
+        # check if the newly added NTP servers work fine
+        for server in self._ntp_servers:
+            self._ntp_servers_states.check_status(server)
 
         # we assume that the NTP spoke is initialized enough even if some NTP
         # server check threads might still be running
         self.initialize_done()
-
-    def _check_ntp_servers_async(self, servers):
-        """Asynchronously check if given NTP servers appear to be working.
-
-        :param list servers: list of servers to check
-        """
-        for server in servers:
-            threadMgr.add(AnacondaThread(prefix=constants.THREAD_NTP_SERVER_CHECK,
-                                         target=self._check_ntp_server,
-                                         args=(server,)))
-
-    def _check_ntp_server(self, server):
-        """Check if an NTP server appears to be working.
-
-        :param str server: NTP server address
-        :returns: True if the server appears to be working, False if not
-        :rtype: bool
-        """
-        log.debug("checking NTP server %s", server)
-        result = ntp.ntp_server_working(server)
-        if result:
-            log.debug("NTP server %s appears to be working", server)
-            self.set_ntp_server_status(server, constants.NTP_SERVER_OK)
-        else:
-            log.debug("NTP server %s appears not to be working", server)
-            self.set_ntp_server_status(server, constants.NTP_SERVER_NOK)
-
-    @property
-    def ntp_servers(self):
-        """Return a list of NTP servers known to the Time spoke.
-
-        :returns: a list of NTP servers
-        :rtype: list of strings
-        """
-        return self._ntp_servers
-
-    def add_ntp_server(self, server):
-        """Add NTP server address to our internal NTP server tracking dictionary.
-
-        :param str server: NTP server address to add
-        """
-        # the add & remove operations should (at least at the moment) be never
-        # called from different threads at the same time, but lets just use
-        # a lock there when we are at it
-        with self._ntp_servers_lock:
-            if server not in self._ntp_servers:
-                self._ntp_servers[server] = constants.NTP_SERVER_QUERY
-                self._check_ntp_servers_async([server])
-
-    def remove_ntp_server(self, server):
-        """Remove NTP server address from our internal NTP server tracking dictionary.
-
-        :param str server: NTP server address to remove
-        """
-        # the remove-server and set-server-status operations need to be atomic,
-        # so that we avoid reintroducing removed servers by setting their status
-        with self._ntp_servers_lock:
-            if server in self._ntp_servers:
-                del self._ntp_servers[server]
-
-    def set_ntp_server_status(self, server, status):
-        """Set status for an NTP server in the NTP server dict.
-
-        The status can be "working", "not working" or "check in progress",
-        and is defined by three constants defined in constants.py.
-
-        :param str server: an NTP server
-        :param int status: status of the NTP server
-        """
-
-        # the remove-server and set-server-status operations need to be atomic,
-        # so that we avoid reintroducing removed server by setting their status
-        with self._ntp_servers_lock:
-            if server in self._ntp_servers:
-                self._ntp_servers[server] = status
 
     @property
     def timezone_spoke(self):
@@ -210,6 +118,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         :rtype: str
         """
         msg = ""
+
         # timezone
         kickstart_timezone = self._timezone_module.Timezone
         timezone_msg = _("not set")
@@ -222,12 +131,10 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         msg += "\n"
 
         # NTP
-        msg += _("NTP servers:")
-        if self._ntp_servers:
-            for status in format_ntp_status_list(self._ntp_servers):
-                msg += "\n%s" % status
-        else:
-            msg += _("not configured")
+        msg += ntp.get_ntp_servers_summary(
+            self._ntp_servers,
+            self._ntp_servers_states
+        )
 
         return msg
 
@@ -244,8 +151,15 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
-        self._container.add(TextWidget(timezone_option), callback=self._timezone_callback)
-        self._container.add(TextWidget(_("Configure NTP servers")), callback=self._configure_ntp_server_callback)
+        self._container.add(
+            TextWidget(timezone_option),
+            callback=self._timezone_callback
+        )
+
+        self._container.add(
+            TextWidget(_("Configure NTP servers")),
+            callback=self._configure_ntp_server_callback
+        )
 
         self.window.add_with_separator(self._container)
 
@@ -254,7 +168,13 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self.close()
 
     def _configure_ntp_server_callback(self, data):
-        new_spoke = NTPServersSpoke(self.data, self.storage, self.payload, self)
+        new_spoke = NTPServersSpoke(
+            self.data,
+            self.storage,
+            self.payload,
+            self._ntp_servers,
+            self._ntp_servers_states
+        )
         ScreenHandler.push_screen_modal(new_spoke)
         self.apply()
         self.close()
@@ -268,7 +188,9 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         # update the NTP server list in kickstart
-        self._timezone_module.SetNTPServers(list(self.ntp_servers.keys()))
+        self._timezone_module.SetTimeSources(
+            TimeSourceData.to_structure_list(self._ntp_servers)
+        )
 
 
 class TimeZoneSpoke(NormalTUISpoke):
@@ -375,49 +297,55 @@ class TimeZoneSpoke(NormalTUISpoke):
 class NTPServersSpoke(NormalTUISpoke):
     category = LocalizationCategory
 
-    def __init__(self, data, storage, payload, time_spoke):
+    def __init__(self, data, storage, payload, servers, states):
         super().__init__(data, storage, payload)
         self.title = N_("NTP configuration")
         self._container = None
-        self._time_spoke = time_spoke
+        self._servers = servers
+        self._states = states
 
     @property
     def indirect(self):
         return True
 
-    def _summary_text(self):
-        """Return summary of NTP configuration."""
-        msg = _("NTP servers:")
-        if self._time_spoke.ntp_servers:
-            for status in format_ntp_status_list(self._time_spoke.ntp_servers):
-                msg += "\n%s" % status
-        else:
-            msg += _("no NTP servers have been configured")
-        return msg
-
     def refresh(self, args=None):
         super().refresh(args)
 
-        summary = self._summary_text()
+        summary = ntp.get_ntp_servers_summary(
+            self._servers,
+            self._states
+        )
+
         self.window.add_with_separator(TextWidget(summary))
 
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
-
         self._container.add(TextWidget(_("Add NTP server")), self._add_ntp_server)
 
         # only add the remove option when we can remove something
-        if self._time_spoke.ntp_servers:
+        if self._servers:
             self._container.add(TextWidget(_("Remove NTP server")), self._remove_ntp_server)
 
         self.window.add_with_separator(self._container)
 
     def _add_ntp_server(self, data):
-        new_spoke = AddNTPServerSpoke(self.data, self.storage, self.payload, self._time_spoke)
+        new_spoke = AddNTPServerSpoke(
+            self.data,
+            self.storage,
+            self.payload,
+            self._servers,
+            self._states
+        )
         ScreenHandler.push_screen_modal(new_spoke)
         self.redraw()
 
     def _remove_ntp_server(self, data):
-        new_spoke = RemoveNTPServerSpoke(self.data, self.storage, self.payload, self._time_spoke)
+        new_spoke = RemoveNTPServerSpoke(
+            self.data,
+            self.storage,
+            self.payload,
+            self._servers,
+            self._states
+        )
         ScreenHandler.push_screen_modal(new_spoke)
         self.redraw()
 
@@ -434,12 +362,12 @@ class NTPServersSpoke(NormalTUISpoke):
 class AddNTPServerSpoke(NormalTUISpoke):
     category = LocalizationCategory
 
-    def __init__(self, data, storage, payload, time_spoke):
+    def __init__(self, data, storage, payload, servers, states):
         super().__init__(data, storage, payload)
         self.title = N_("Add NTP server address")
-        self._time_spoke = time_spoke
-        self._new_ntp_server = None
-        self.value = None
+        self._servers = servers
+        self._states = states
+        self._value = None
 
     @property
     def indirect(self):
@@ -447,76 +375,80 @@ class AddNTPServerSpoke(NormalTUISpoke):
 
     def refresh(self, args=None):
         super().refresh(args)
-        self.value = None
+        self._value = None
 
     def prompt(self, args=None):
         # the title is enough, no custom prompt is needed
-        if self.value is None:  # first run or nothing entered
+        if self._value is None:  # first run or nothing entered
             return Prompt(_("Enter an NTP server address and press %s") % Prompt.ENTER)
 
         # an NTP server address has been entered
-        self._new_ntp_server = self.value
+        self._add_ntp_server(self._value)
 
-        self.apply()
         self.close()
+
+    def _add_ntp_server(self, server_hostname):
+        for server in self._servers:
+            if server.hostname == server_hostname:
+                return
+
+        server = TimeSourceData()
+        server.type = TIME_SOURCE_SERVER
+        server.hostname = server_hostname
+        server.options = ["iburst"]
+
+        self._servers.append(server)
+        self._states.check_status(server)
 
     def input(self, args, key):
         # we accept any string as NTP server address, as we do an automatic
         # working/not-working check on the address later
-        self.value = key
+        self._value = key
         return InputState.DISCARDED
 
     def apply(self):
-        if self._new_ntp_server:
-            self._time_spoke.add_ntp_server(self._new_ntp_server)
+        pass
 
 
 class RemoveNTPServerSpoke(NormalTUISpoke):
     category = LocalizationCategory
 
-    def __init__(self, data, storage, payload, timezone_spoke):
+    def __init__(self, data, storage, payload, servers, states):
         super().__init__(data, storage, payload)
         self.title = N_("Select an NTP server to remove")
-        self._time_spoke = timezone_spoke
-        self._ntp_server_index = None
+        self._servers = servers
+        self._states = states
+        self._container = None
 
     @property
     def indirect(self):
         return True
 
-    def _summary_text(self):
-        """Return a numbered listing of NTP servers."""
-        msg = ""
-        for index, status in enumerate(format_ntp_status_list(self._time_spoke.ntp_servers), start=1):
-            msg += "%d) %s" % (index, status)
-            if index < len(self._time_spoke.ntp_servers):
-                msg += "\n"
-        return msg
-
     def refresh(self, args=None):
         super().refresh(args)
-        summary = self._summary_text()
-        self.window.add_with_separator(TextWidget(summary))
+        self._container = ListColumnContainer(1)
+
+        for server in self._servers:
+            description = ntp.get_ntp_server_summary(
+                server, self._states
+            )
+
+            self._container.add(
+                TextWidget(description),
+                self._remove_ntp_server,
+                server
+            )
+
+        self.window.add_with_separator(self._container)
+
+    def _remove_ntp_server(self, server):
+        self._servers.remove(server)
 
     def input(self, args, key):
-        try:
-            num = int(key)
-        except ValueError:
-            return super().input(args, key)
-
-        # we expect a number corresponding to one of the NTP servers
-        # in the listing - the server corresponding to the number will be
-        # removed from the NTP server tracking (ordered) dict
-        if num > 0 and num <= len(self._time_spoke.ntp_servers):
-            self._ntp_server_index = num - 1
-            self.apply()
+        if self._container.process_user_input(key):
             return InputState.PROCESSED_AND_CLOSE
-        else:
-            # the user enter a number that is out of range of the
-            # available NTP servers, ignore it and stay in spoke
-            return InputState.DISCARDED
+
+        return super().input(args, key)
 
     def apply(self):
-        if self._ntp_server_index is not None:
-            ntp_server_address = list(self._time_spoke.ntp_servers.keys())[self._ntp_server_index]
-            self._time_spoke.remove_ntp_server(ntp_server_address)
+        pass
