@@ -363,6 +363,41 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 14 2020 Martin Kolman <mkolman@redhat.com> - 33.22-1
+- Add support for the timesource kickstart command (vponcova)
+- Use the structure for time sources in GUI (vponcova)
+- Use the structure for time sources in TUI (vponcova)
+- Add support for generating a summary of the NTP servers (vponcova)
+- Add support for the NTP server status cache (vponcova)
+- Use the structure for time sources in network.py (vponcova)
+- Use the structure for time sources in anaconda.py (vponcova)
+- Use the structure for time sources in the Timezone module (vponcova)
+- Use the structure for time sources in ntp.py (vponcova)
+- Create a new DBus structure for time sources (vponcova)
+- Replace the zram service (vponcova)
+- Fix software spoke message when source changes (mkolman)
+- ostree: set rootflags when installing on btrfs (#1753485) (dcavalca)
+- Only pass one initrd image to kexec (javierm)
+- Prevent crash on unregistration (mkolman)
+- Add LVM with inconsistent sector size disks to common bugs (jkonecny)
+- Don't create swap by default (vponcova)
+- Don't require fcoe-utils (vponcova)
+- Temporarily ignore the new timezone kickstart command (vponcova)
+- Schedule timed actions with the right selector (#1851647) (vponcova)
+- Reconfigure DNF payload after options are set (vslavik)
+- Fix displaying of empty software group description (rvykydal)
+- Fix passing of arguments when creating dracut arguments for FCoE (rvykydal)
+- network: fix obtaining of s390 options of a wired connection (rvykydal)
+- Exclude stderr from returned output when executing powerpc-utils tools
+  (javierm)
+- Fix imports of Blivet-GUI in unit tests (vponcova)
+- Don't mount DBus sources at /run/install/source (vponcova)
+- Always specify the boot disk (vponcova)
+- Create the initial storage model during the initialization (vponcova)
+- Use LUKSDevice.raw_device instead of LUKSDevice.slave (vtrefny)
+- Use modinfo to check ko before modprobe (t.feng94)
+- Fix EFI bootloader install (#1575957) (butirsky)
+
 * Wed Jul 08 2020 Martin Kolman <mkolman@redhat.com> - 33.21-1
 - Use Btrfs for all Fedora variants installed by Anaconda except Server
   (ngompa13)
