@@ -40,7 +40,9 @@ NTP_CONFIG_FILE = "/etc/chrony.conf"
 
 #example line:
 #server 0.fedora.pool.ntp.org iburst
-SRV_LINE_REGEXP = re.compile(r"^\s*(server|pool)\s*([-a-zA-Z.0-9]+)\s*[a-zA-Z]+\s*$")
+SRV_LINE_REGEXP = re.compile(r"^\s*(server|pool)\s*([-a-zA-Z.0-9]+)\s?([a-zA-Z0-9\s]*)$")
+SRV_NOARG_OPTIONS = ["burst", "iburst", "nts", "prefer", "require", "trust", "noselect", "xleave"]
+SRV_ARG_OPTIONS = ["key", "minpoll", "maxpoll"]
 
 #treat pools as four servers with the same name
 SERVERS_PER_POOL = 4
@@ -143,7 +145,23 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE):
                 server = TimeSourceData()
                 server.type = match.group(1).upper()
                 server.hostname = match.group(2)
-                server.options = ["iburst"]
+                server.options = []
+
+                words = match.group(3).lower().split()
+                skip_argument = False
+
+                for i in range(len(words)):
+                    if skip_argument:
+                        skip_argument = False
+                        continue
+                    if words[i] in SRV_NOARG_OPTIONS:
+                        server.options.append(words[i])
+                    elif words[i] in SRV_ARG_OPTIONS and i + 1 < len(words):
+                        server.options.append(' '.join(words[i:i+2]))
+                        skip_argument = True
+                    else:
+                        log.debug("Unknown NTP server option %s", words[i])
+
                 servers.append(server)
 
     except IOError as ioerr:
