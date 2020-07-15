@@ -97,18 +97,24 @@ def get_ntp_servers_summary(servers, states):
     return summary
 
 
-def ntp_server_working(server_hostname):
+def ntp_server_working(server_hostname, nts_enabled):
     """Tries to do an NTP request to the server (timeout may take some time).
+
+    If NTS is enabled, try making a TCP connection to the NTS-KE port instead.
 
     :param server_hostname: a host name or an IP address of an NTP server
     :type server_hostname: string
     :return: True if the given server is reachable and working, False otherwise
     :rtype: bool
     """
-    client = ntplib.NTPClient()
-
     try:
-        client.request(server_hostname)
+        # ntplib doesn't support NTS
+        if nts_enabled:
+            s = socket.create_connection((server_hostname, 4460), 2)
+            s.close()
+        else:
+            client = ntplib.NTPClient()
+            client.request(server_hostname)
     except ntplib.NTPException:
         return False
     # address related error
@@ -324,8 +330,9 @@ class NTPServerStatusCache(object):
 
         :param TimeSourceData server: an NTP server
         """
-        # Get a hostname.
+        # Get a hostname and NTS option.
         hostname = server.hostname
+        nts_enabled = "nts" in server.options
 
         # Reset the current status.
         self._set_status(hostname, NTP_SERVER_QUERY)
@@ -334,7 +341,7 @@ class NTPServerStatusCache(object):
         threadMgr.add(AnacondaThread(
             prefix=THREAD_NTP_SERVER_CHECK,
             target=self._check_status,
-            args=(hostname, ))
+            args=(hostname, nts_enabled))
         )
 
     def _set_status(self, hostname, status):
@@ -345,13 +352,13 @@ class NTPServerStatusCache(object):
         """
         self._cache[hostname] = status
 
-    def _check_status(self, hostname):
+    def _check_status(self, hostname, nts_enabled):
         """Check if an NTP server appears to be working.
 
         :param str hostname: a hostname of an NTP server
         """
         log.debug("Checking NTP server %s", hostname)
-        result = ntp_server_working(hostname)
+        result = ntp_server_working(hostname, nts_enabled)
 
         if result:
             log.debug("NTP server %s appears to be working.", hostname)
