@@ -218,7 +218,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
             WORKSTATION_PARTITIONING
         )
         self._check_default_product(
-            "Fedora", "IoT",
+            "Fedora-IoT", "IoT",
             ["fedora.conf", "fedora-iot.conf"],
             WORKSTATION_PARTITIONING
         )
