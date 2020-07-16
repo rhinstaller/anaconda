@@ -19,6 +19,7 @@
 #
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.storage import blivet_version
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import TaskContainer
@@ -180,6 +181,16 @@ class StorageService(KickstartService):
 
         if self.applied_partitioning:
             self.applied_partitioning.setup_kickstart(data)
+
+    def generate_kickstart(self):
+        """Generate kickstart string representation of this module's data
+
+        Adds Blivet version to the output because most of the strings come from Blivet anyway.
+        """
+        return "# Generated using Blivet version {}\n{}".format(
+            blivet_version,
+            super().generate_kickstart()
+        )
 
     @property
     def storage(self):

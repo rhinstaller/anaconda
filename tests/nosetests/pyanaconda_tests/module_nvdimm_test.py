@@ -25,7 +25,8 @@ import unittest
 from textwrap import dedent
 from unittest.mock import patch, Mock
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
+    clear_version_from_kickstart_string
 
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.storage.nvdimm import NVDIMMModule
@@ -134,7 +135,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
     def _check(self, expected_ks):
         """Check the generated kickstart."""
         self.assertEqual(
-            self.storage_module.generate_kickstart().strip(),
+            clear_version_from_kickstart_string(self.storage_module.generate_kickstart()).strip(),
             dedent(expected_ks).strip()
         )
 
