@@ -14,6 +14,7 @@ Contents:
    intro
    boot-options
    kickstart
+   configuration-files
    How to report a bug <reporting>
    common-bugs
    How to contribute <contributing>
