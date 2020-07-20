@@ -148,11 +148,6 @@ Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}
 Obsoletes: booty <= 0.107-1
 
-# native i686 installations are not supported on RHEL8 and Anaconda
-# is not a i686 compatibility library, so building it for i686 does not
-# make sense
-ExcludeArch: i686
-
 %description core
 The anaconda-core package contains the program which was used to install your
 system.
