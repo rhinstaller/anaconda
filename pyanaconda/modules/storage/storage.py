@@ -31,7 +31,7 @@ from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_stora
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
-from pyanaconda.modules.storage.installation import MountFilesystemsTask, ActivateFilesystemsTask, \
+from pyanaconda.modules.storage.installation import MountFilesystemsTask, CreateStorageLayoutTask, \
     WriteConfigurationTask
 from pyanaconda.modules.storage.iscsi import ISCSIModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
@@ -376,7 +376,7 @@ class StorageService(KickstartService):
         storage = self.storage
 
         return [
-            ActivateFilesystemsTask(storage),
+            CreateStorageLayoutTask(storage),
             MountFilesystemsTask(storage)
         ]
 

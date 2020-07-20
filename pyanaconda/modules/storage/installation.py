@@ -42,11 +42,11 @@ from gi.repository import BlockDev as blockdev
 log = get_module_logger(__name__)
 
 
-__all__ = ["ActivateFilesystemsTask", "MountFilesystemsTask", "WriteConfigurationTask"]
+__all__ = ["CreateStorageLayoutTask", "MountFilesystemsTask", "WriteConfigurationTask"]
 
 
-class ActivateFilesystemsTask(Task):
-    """Installation task for activation of the storage configuration."""
+class CreateStorageLayoutTask(Task):
+    """Installation task for execution of the storage configuration."""
 
     def __init__(self, storage, entropy_timeout=600):
         """Create a new task.
@@ -60,15 +60,15 @@ class ActivateFilesystemsTask(Task):
 
     @property
     def name(self):
-        return "Activate filesystems"
+        return "Create storage layout"
 
     def run(self):
-        """Do the activation.
+        """Do the execution.
 
-        :raise: StorageInstallationError if the activation fails
+        :raise: StorageInstallationError if the execution fails
         """
         if conf.target.is_directory:
-            log.debug("Don't activate file systems during "
+            log.debug("Don't create the storage layout during "
                       "the installation to a directory.")
             return
 
@@ -90,7 +90,7 @@ class ActivateFilesystemsTask(Task):
             )
             raise StorageInstallationError(message) from None
         except StorageError as e:
-            log.exception("Failed to activate filesystems: %s", str(e))
+            log.exception("Failed to create storage layout: %s", str(e))
             raise StorageInstallationError(str(e)) from None
 
     def _report_message(self, data):
@@ -151,7 +151,7 @@ class ActivateFilesystemsTask(Task):
         self.report_progress(message)
 
     def _turn_on_filesystems(self, storage, callbacks=None):
-        """Perform installer-specific activation of storage configuration.
+        """Perform installer-specific execution of storage configuration.
 
         :param storage: the storage object
         :type storage: an instance of InstallerStorage
