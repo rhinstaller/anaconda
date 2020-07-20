@@ -161,5 +161,5 @@ class AddDeviceTask(Task):
             log.error("The device creation has failed: %s", e)
             raise
         except OverflowError as e:
-            log.error("Invalid partition size set: %s", str(e))
+            log.exception("Invalid partition size set: %s", str(e))
             raise StorageError("Invalid partition size set. Use a valid integer.") from None

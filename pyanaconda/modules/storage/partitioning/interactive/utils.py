@@ -545,7 +545,7 @@ def resize_device(storage, device, new_size, old_size):
         try:
             storage.resize_device(device.raw_device, use_size)
         except (StorageError, ValueError) as e:
-            log.error("Failed to schedule device resize: %s", e)
+            log.exception("Failed to schedule device resize: %s", e)
             device.raw_device.size = use_old_size
             raise StorageError(str(e)) from None
 
@@ -648,7 +648,7 @@ def reformat_device(storage, device, fstype, mountpoint, label):
     try:
         storage.format_device(device, new_format)
     except (StorageError, ValueError) as e:
-        log.error("Failed to register device format action: %s", e)
+        log.exception("Failed to register device format action: %s", e)
         device.format = old_format
         raise StorageError(str(e)) from None
 
@@ -1019,7 +1019,7 @@ def reset_device(storage, device):
             # Destroy a non-existing device.
             _destroy_device(storage, device)
     except (StorageError, ValueError) as e:
-        log.error("Failed to reset a device: %s", e)
+        log.exception("Failed to reset a device: %s", e)
         raise StorageConfigurationError(str(e)) from None
 
 
@@ -1035,7 +1035,7 @@ def destroy_device(storage, device):
     try:
         _destroy_device(storage, device)
     except (StorageError, ValueError) as e:
-        log.error("Failed to destroy a device: %s", e)
+        log.exception("Failed to destroy a device: %s", e)
         raise StorageConfigurationError(str(e)) from None
 
 
@@ -1120,6 +1120,7 @@ def rename_container(storage, container, name):
     try:
         container.name = name
     except ValueError as e:
+        log.exception("Failed to rename container: %s", str(e))
         raise StorageError(str(e)) from None
 
     # Fix the btrfs label.
