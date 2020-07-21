@@ -23,5 +23,5 @@ Contents:
    iscsi
    multipath
    list-harddrives
-   User interaction config spec <user-interaction-config-file-spec>
+   sysconfig-file
    Testing <testing>
