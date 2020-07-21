@@ -124,6 +124,8 @@ class CdromSourceTestCase(unittest.TestCase):
 
 class CdromSourceSetupTaskTestCase(unittest.TestCase):
 
+    # TODO: To avoid so much patching it would be great to split tests to parts and test those
+
     mount_location = "/mnt/put-cdrom-here"
 
     def setup_install_source_task_name_test(self):
@@ -156,8 +158,15 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         device_tree.FindOpticalMedia = Mock()
         device_tree.FindOpticalMedia.return_value = [dev.name for dev in devices]
 
+        def _find_device_by_name(name):
+            for dev in devices:
+                if dev.name == name:
+                    return DeviceData.to_structure(dev)
+
+            return None
+
         device_tree.GetDeviceData = Mock()
-        device_tree.GetDeviceData.side_effect = [DeviceData.to_structure(dev) for dev in devices]
+        device_tree.GetDeviceData.side_effect = _find_device_by_name
 
         return device_tree
 
@@ -172,42 +181,261 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         This matches the logic in tested method.
         """
         for n in range(num_called):
-            self.assertIn(
-                call("test{}".format(n)),
-                device_tree_mock.GetDeviceData.mock_calls
-            )
-            self.assertIn(
-                call("/dev/cdrom-test{}".format(n), self.mount_location, "iso9660", "ro"),
-                mount_mock.mock_calls
-            )
+            self._check_if_device_was_tried(device_tree_mock,
+                                            mount_mock,
+                                            "test{}".format(n))
 
         for n in range(num_called, num_called + num_untouched):
-            self.assertNotIn(
-                call("test{}".format(n)),
-                device_tree_mock.GetDeviceData.mock_calls
-            )
-            self.assertNotIn(
-                call("/dev/cdrom-test{}".format(n), self.mount_location, "iso9660", "ro"),
-                mount_mock.mock_calls
-            )
+            self._check_if_device_was_not_tried(device_tree_mock,
+                                                mount_mock,
+                                                "test{}".format(n))
 
         self.assertEqual(device_tree_mock.GetDeviceData.call_count, num_called)
         self.assertEqual(mount_mock.call_count, num_called)
 
+    def _check_if_device_was_tried(self,
+                                   device_tree_mock,
+                                   mount_mock,
+                                   device_name):
+        self.assertIn(
+            call(device_name),
+            device_tree_mock.GetDeviceData.mock_calls
+        )
+
+        self.assertIn(
+            call("/dev/cdrom-{}".format(device_name), self.mount_location, "iso9660", "ro"),
+            mount_mock.mock_calls
+        )
+
+    def _check_if_device_was_not_tried(self,
+                                       device_tree_mock,
+                                       mount_mock,
+                                       device_name):
+        self.assertNotIn(
+            call(device_name),
+            device_tree_mock.GetDeviceData.mock_calls
+        )
+
+        self.assertNotIn(
+            call("/dev/cdrom-{}".format(device_name), self.mount_location, "iso9660", "ro"),
+            mount_mock.mock_calls
+        )
+
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def choose_from_multiple_cdroms_test(self, proxy_getter, mount_mock, unmount_mock, valid_mock):
+    def priority_stage2_cdrom_test(self,
+                                   proxy_getter,
+                                   mount_mock,
+                                   unmount_mock,
+                                   valid_mock,
+                                   kernel_arguments_mock):
+        """Test CD-ROM Source setup installation source task run - prioritize inst.stage2 CD-ROMs.
+
+        Add valid stage2 CDROM device and it has to be tested first.
+        """
+        kernel_arguments_mock.get.return_value = "hd:LABEL=my-cool-dvd"
+        device_tree = self.set_up_device_tree(2)
+        device_tree.ResolveDevice.return_value = "test1"
+        proxy_getter.return_value = device_tree
+        valid_mock.return_value = True
+
+        task = SetUpCdromSourceTask(self.mount_location)
+        result = task.run()
+
+        # Only one device was checked
+        device_tree.ResolveDevice.assert_called_once_with("LABEL=my-cool-dvd")
+
+        self._check_if_device_was_tried(device_tree, mount_mock, "test1")
+        self._check_if_device_was_not_tried(device_tree, mount_mock, "test0")
+
+        # First device (stage2 device) is valid one
+        valid_mock.assert_called_once()
+
+        # First device works so no unmount is called here
+        unmount_mock.assert_not_called()
+
+        # Test device name returned
+        self.assertEqual(result, "test1")
+
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
+    @patch_dbus_get_proxy
+    def priority_stage2_unrecognized_source_cdrom_test(self,
+                                                       proxy_getter,
+                                                       mount_mock,
+                                                       unmount_mock,
+                                                       valid_mock,
+                                                       kernel_arguments_mock):
+        """Test CD-ROM Source setup installation source task run - unrecognized stage2 source.
+
+        This should not happen but when we have the code there let's check it.
+        """
+        kernel_arguments_mock.get.return_value = "wrong source!"
+        device_tree = self.set_up_device_tree(1)
+        proxy_getter.return_value = device_tree
+        valid_mock.return_value = True
+
+        task = SetUpCdromSourceTask(self.mount_location)
+        result = task.run()
+
+        device_tree.ResolveDevice.assert_not_called()
+
+        # 1/2 devices tried, 1/2 untried
+        self.assert_resolve_and_mount_calls(device_tree, mount_mock, 1, 1)
+
+        # Only first was mounted
+        self.assertEqual(valid_mock.call_count, 1)
+
+        #  First device was used no unmount should be called
+        unmount_mock.assert_not_called()
+
+        # Test device name returned
+        self.assertEqual(result, "test0")
+
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
+    @patch_dbus_get_proxy
+    def priority_stage2_not_hdd_source_cdrom_test(self,
+                                                  proxy_getter,
+                                                  mount_mock,
+                                                  unmount_mock,
+                                                  valid_mock,
+                                                  kernel_arguments_mock):
+        """Test CD-ROM Source setup installation source task run - stage2 is not HDD source.
+
+        We are testing HDD because DVD ISOs are created with inst.stage2=hd: . We want to change
+        this behavior on master so let's change this test too then.
+
+        TODO: Change this test when DVD ISOs will use cdrom:<device> instead of inst.stage2=hd:...
+        """
+        kernel_arguments_mock.get.return_value = "nfs:test.org:/super/cool/path"
+        device_tree = self.set_up_device_tree(1)
+        proxy_getter.return_value = device_tree
+        valid_mock.return_value = True
+
+        task = SetUpCdromSourceTask(self.mount_location)
+        result = task.run()
+
+        device_tree.ResolveDevice.assert_not_called()
+
+        # 1/2 devices tried, 1/2 untried
+        self.assert_resolve_and_mount_calls(device_tree, mount_mock, 1, 1)
+
+        # Only first was mounted
+        self.assertEqual(valid_mock.call_count, 1)
+
+        #  First device was used no unmount should be called
+        unmount_mock.assert_not_called()
+
+        # Test device name returned
+        self.assertEqual(result, "test0")
+
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
+    @patch_dbus_get_proxy
+    def priority_stage2_cant_be_resolved_source_cdrom_test(self,
+                                                           proxy_getter,
+                                                           mount_mock,
+                                                           unmount_mock,
+                                                           valid_mock,
+                                                           kernel_arguments_mock):
+        """Test CD-ROM Source setup installation source task run - can't resolve stage2 device.
+
+        Stage2 device can't be resolved. This should not happen but let's make sure the code works.
+        """
+        kernel_arguments_mock.get.return_value = "hd:LABEL=my-cool-dvd"
+        device_tree = self.set_up_device_tree(1)
+        proxy_getter.return_value = device_tree
+        # When device can't be resolved it returns an empty string.
+        device_tree.ResolveDevice.return_value = ""
+        valid_mock.return_value = True
+
+        task = SetUpCdromSourceTask(self.mount_location)
+        result = task.run()
+
+        self._check_if_device_was_not_tried(device_tree, mount_mock, "")
+
+        # 1/2 devices tried, 1/2 untried
+        self.assert_resolve_and_mount_calls(device_tree, mount_mock, 1, 1)
+
+        # Only first was mounted
+        self.assertEqual(valid_mock.call_count, 1)
+
+        #  First device was used no unmount should be called
+        unmount_mock.assert_not_called()
+
+        # Test device name returned
+        self.assertEqual(result, "test0")
+
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
+    @patch_dbus_get_proxy
+    def priority_stage2_not_optical_media_cdrom_test(self,
+                                                     proxy_getter,
+                                                     mount_mock,
+                                                     unmount_mock,
+                                                     valid_mock,
+                                                     kernel_arguments_mock):
+        """Test CD-ROM Source setup installation source task run - stage2 is not optical media.
+
+        We should not pick stage2 device if it is not an optical_media which means type iso9660.
+        """
+        kernel_arguments_mock.get.return_value = "hd:LABEL=correct-device"
+        device_tree = self.set_up_device_tree(1)
+        device_tree.ResolveDevice.return_value = "not-optical-media"
+        proxy_getter.return_value = device_tree
+        valid_mock.return_value = True
+
+        task = SetUpCdromSourceTask(self.mount_location)
+        result = task.run()
+
+        device_tree.ResolveDevice.assert_called_once_with("LABEL=correct-device")
+
+        self._check_if_device_was_not_tried(device_tree, mount_mock, "correct-device")
+
+        # 1/2 devices tried, 1/2 untried
+        self.assert_resolve_and_mount_calls(device_tree, mount_mock, 1, 1)
+
+        # Only first was mounted
+        self.assertEqual(valid_mock.call_count, 1)
+
+        #  First device was used no unmount should be called
+        unmount_mock.assert_not_called()
+
+        # Test device name returned
+        self.assertEqual(result, "test0")
+
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
+    @patch_dbus_get_proxy
+    def choose_from_multiple_cdroms_test(self,
+                                         proxy_getter,
+                                         mount_mock,
+                                         unmount_mock,
+                                         valid_mock,
+                                         kernel_arguments_mock):
         """Test CD-ROM Source setup installation source task run - choice from multiple CD-ROMs.
 
         Fake four CD-ROM devices: First fails to mount, second has nothing useful, third has what
         we want so is left mounted, fourth is entirely skipped.
         The other two tests below are needed only to test the exit when nothing is found.
         """
+        kernel_arguments_mock.get.return_value = None
         device_tree = self.set_up_device_tree(4)
         proxy_getter.return_value = device_tree
-
         mount_mock.side_effect = \
             [PayloadSetupError("Mocked failure"), DEFAULT, DEFAULT, DEFAULT]
 
@@ -231,18 +459,24 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         # Test device name returned
         self.assertEqual(result, "test2")
 
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def failure_to_mount_test(self, proxy_getter, mount_mock, unmount_mock, valid_mock):
+    def failure_to_mount_test(self,
+                              proxy_getter,
+                              mount_mock,
+                              unmount_mock,
+                              valid_mock,
+                              kernel_arguments_mock):
         """Test CD-ROM Source setup installation source task run - mount failure.
 
         Mocks one disk which fails to mount, expect exception.
         """
+        kernel_arguments_mock.get.return_value = None
         device_tree = self.set_up_device_tree(1)
         proxy_getter.return_value = device_tree
-
         mount_mock.side_effect = PayloadSetupError("Mocked failure")
         valid_mock.return_value = True
 
@@ -258,18 +492,24 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         # exception happened due to no disk
         self.assertEqual(str(cm.exception), "Found no CD-ROM")
 
+    @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def no_cdrom_with_valid_source_test(self, proxy_getter, mount_mock, unmount_mock, valid_mock):
+    def no_cdrom_with_valid_source_test(self,
+                                        proxy_getter,
+                                        mount_mock,
+                                        unmount_mock,
+                                        valid_mock,
+                                        kernel_arguments_mock):
         """Test CD-ROM Source setup installation source task run - no valid source CD-ROMs.
 
         Mocks one CD-ROM device which has nothing useful, expect exception.
         """
+        kernel_arguments_mock.get.return_value = None
         device_tree = self.set_up_device_tree(1)
         proxy_getter.return_value = device_tree
-
         valid_mock.return_value = False
 
         with self.assertRaises(SourceSetupError) as cm:
