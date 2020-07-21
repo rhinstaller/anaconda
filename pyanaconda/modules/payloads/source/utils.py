@@ -84,10 +84,10 @@ def find_and_mount_device(device_spec, mount_point):
     device_path = "/dev/" + matches[0]
 
     try:
-        # FIXME: Add back RO mounting. This was removed because we can't mount one source
-        # RW and RO at the same time. This source is also mounted by IsoChooser dialog in the
-        # SourceSpoke.
-        mount(device_path, mount_point, "auto")
+        mount(device=device_path,
+              mountpoint=mount_point,
+              fstype="auto",
+              options="defaults,ro")
         return True
     except OSError as e:
         log.error("Mount of device failed: %s", e)
