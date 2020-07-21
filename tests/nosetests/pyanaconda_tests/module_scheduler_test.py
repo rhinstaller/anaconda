@@ -807,6 +807,10 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.assertGreater(free_space, Size("9 GiB").get_bytes())
         self.assertLess(free_space, Size("10 GiB").get_bytes())
 
+        dev2.reserved_percent = 110
+        free_space = self.interface.GetContainerFreeSpace("dev2")
+        self.assertEqual(free_space, Size("0 GiB").get_bytes())
+
     @patch_dbus_get_proxy
     def generate_container_name_test(self, proxy_getter):
         """Test GenerateContainerName."""
