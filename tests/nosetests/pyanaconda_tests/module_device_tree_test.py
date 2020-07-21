@@ -582,12 +582,29 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
 
         with tempfile.TemporaryDirectory() as d:
-            self.interface.MountDevice("dev1", d)
-            mount.assert_called_once_with(mountpoint=d)
+            self.interface.MountDevice("dev1", d, "")
+            mount.assert_called_once_with(mountpoint=d, options=None)
 
         mount.side_effect = FSError("Fake error.")
         with self.assertRaises(MountFilesystemError) as cm:
-            self.interface.MountDevice("dev1", "/path")
+            self.interface.MountDevice("dev1", "/path", "")
+
+        self.assertEqual(
+            str(cm.exception), "Failed to mount dev1 at /path: Fake error."
+        )
+
+    @patch.object(FS, "mount")
+    def mount_device_with_options_test(self, mount):
+        """Test MountDevice with options specified."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
+
+        with tempfile.TemporaryDirectory() as d:
+            self.interface.MountDevice("dev1", d, "ro,auto")
+            mount.assert_called_once_with(mountpoint=d, options="ro,auto")
+
+        mount.side_effect = FSError("Fake error.")
+        with self.assertRaises(MountFilesystemError) as cm:
+            self.interface.MountDevice("dev1", "/path", "ro,auto")
 
         self.assertEqual(
             str(cm.exception), "Failed to mount dev1 at /path: Fake error."
