@@ -32,7 +32,12 @@ log = get_module_logger(__name__)
 
 
 class CdromSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
-    """The CD-ROM source payload module."""
+    """The CD-ROM source payload module.
+
+    This source will try to automatically detect installation source. First it tries to look only
+    stage2 device used to boot the environment then it will use first valid iso9660 media with a
+    valid structure.
+    """
 
     def __init__(self):
         super().__init__()
