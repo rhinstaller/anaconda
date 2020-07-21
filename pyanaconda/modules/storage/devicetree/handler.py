@@ -82,16 +82,17 @@ class DeviceTreeHandler(ABC):
             msg = "Failed to tear down {}: {}".format(device_name, str(e))
             raise DeviceSetupError(msg) from None
 
-    def mount_device(self, device_name, mount_point):
+    def mount_device(self, device_name, mount_point, options):
         """Mount a filesystem on the device.
 
         :param device_name: a name of the device
         :param mount_point: a path to the mount point
+        :param options: a string with mount options or an empty string to use defaults
         :raise: MountFilesystemError if mount fails
         """
         device = self._get_device(device_name)
         try:
-            device.format.mount(mountpoint=mount_point)
+            device.format.mount(mountpoint=mount_point, options=options or None)
         except FSError as e:
             msg = "Failed to mount {} at {}: {}". format(
                 device_name,
