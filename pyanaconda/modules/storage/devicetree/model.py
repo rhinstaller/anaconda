@@ -303,6 +303,11 @@ class InstallerStorage(Blivet):
         # cdroms, involves unmounting which is undesirable (see bug #1671713).
         protected.extend(dev for dev in self.devicetree.devices if dev.type == "cdrom")
 
+        # Protect also all devices with an iso9660 file system. It will protect
+        # NVDIMM devices that can be used only as an installation source anyway
+        # (see the bug #1856264).
+        protected.extend(dev for dev in self.devicetree.devices if dev.format.type == "iso9660")
+
         # Mark the collected devices as protected.
         for dev in protected:
             log.debug("Marking device %s as protected.", dev.name)
