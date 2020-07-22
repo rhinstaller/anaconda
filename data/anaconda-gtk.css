@@ -95,7 +95,7 @@ infobar.error {
 
 /* theme colors/images */
 
-@define-color product_bg_color @fedora;
+@define-color product_bg_color @redhat;
 
 /* logo and sidebar classes */
 
@@ -126,7 +126,7 @@ infobar.error {
 AnacondaSpokeWindow #nav-box {
     background-color: @product_bg_color;
     background-image: url('/usr/share/anaconda/pixmaps/topbar-bg.png');
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     color: white;
 }
 
