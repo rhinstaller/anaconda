@@ -24,10 +24,10 @@ from unittest.mock import patch, Mock, PropertyMock
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
-    LUKSDevice, iScsiDiskDevice, NVDIMMNamespaceDevice, FcoeDiskDevice
+    LUKSDevice, iScsiDiskDevice, NVDIMMNamespaceDevice, FcoeDiskDevice, OpticalDevice
 from blivet.errors import StorageError, FSError
 from blivet.formats import get_format
-from blivet.formats.fs import FS
+from blivet.formats.fs import FS, Iso9660FS
 from blivet.formats.luks import LUKS
 from blivet.size import Size
 
@@ -610,9 +610,28 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             str(cm.exception), "Failed to unmount dev1 from /path: Fake error."
         )
 
-    def find_install_media_test(self):
+    @patch.object(Iso9660FS, "check_module")
+    def find_install_media_test(self, check_module):
         """Test FindInstallMedia."""
-        self.assertEqual(self.interface.FindOpticalMedia(), [])
+        dev1 = OpticalDevice("dev1")
+        dev1.size = Size("2 GiB")
+        dev1.format = get_format("iso9660")
+        dev1.controllable = True
+        self._add_device(dev1)
+
+        dev2 = StorageDevice("dev2")
+        dev2.size = Size("2 GiB")
+        dev2.format = get_format("iso9660")
+        dev2.controllable = True
+        self._add_device(dev2)
+
+        dev3 = StorageDevice("dev3")
+        dev3.size = Size("2 GiB")
+        dev3.format = get_format("ext4")
+        dev3.controllable = True
+        self._add_device(dev3)
+
+        self.assertEqual(self.interface.FindOpticalMedia(), ["dev1", "dev2"])
 
     @patch.object(FS, "update_size_info")
     def find_mountable_partitions_test(self, update_size_info):
