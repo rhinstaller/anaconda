@@ -25,7 +25,12 @@ from pyanaconda.modules.payloads.source.source_base_interface import PayloadSour
 
 @dbus_interface(PAYLOAD_SOURCE_CDROM.interface_name)
 class CdromSourceInterface(PayloadSourceBaseInterface):
-    """Interface for the payload CD-ROM image source."""
+    """Interface for the payload CD-ROM image source.
+
+    This source will try to automatically detect installation source. First it tries to look only
+    stage2 device used to boot the environment then it will use first valid iso9660 media with a
+    valid structure.
+    """
 
     def connect_signals(self):
         super().connect_signals()
