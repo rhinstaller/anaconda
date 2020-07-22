@@ -111,7 +111,12 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: a size in bytes
         """
         container = self._get_device(container_name)
-        return Size(getattr(container, "free_space", 0)).get_bytes()
+        free_space = getattr(container, "free_space", 0)
+
+        if free_space < 0:
+            free_space = 0
+
+        return Size(free_space).get_bytes()
 
     def generate_system_name(self):
         """Generate a name of the new installation.
