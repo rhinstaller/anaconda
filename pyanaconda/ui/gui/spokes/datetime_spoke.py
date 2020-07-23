@@ -63,9 +63,10 @@ __all__ = ["DatetimeSpoke"]
 
 SERVER_HOSTNAME = 0
 SERVER_POOL = 1
-SERVER_WORKING = 2
-SERVER_USE = 3
-SERVER_OBJECT = 4
+SERVER_NTS = 2
+SERVER_WORKING = 3
+SERVER_USE = 4
+SERVER_OBJECT = 5
 
 DEFAULT_TZ = "America/New_York"
 
@@ -184,6 +185,7 @@ class NTPConfigDialog(GUIObject, GUIDialogInputCheckHandler):
         self._serversStore = self.builder.get_object("serversStore")
         self._addButton = self.builder.get_object("addButton")
         self._poolCheckButton = self.builder.get_object("poolCheckButton")
+        self._ntsCheckButton = self.builder.get_object("ntsCheckButton")
 
         self._serverCheck = self.add_check(self._serverEntry, self._validate_server)
         self._serverCheck.update_check_status()
@@ -256,6 +258,7 @@ class NTPConfigDialog(GUIObject, GUIDialogInputCheckHandler):
         itr = self._serversStore.append([
             "",
             False,
+            False,
             constants.NTP_SERVER_QUERY,
             True,
             server
@@ -268,6 +271,7 @@ class NTPConfigDialog(GUIObject, GUIDialogInputCheckHandler):
         server = self._serversStore[itr][SERVER_OBJECT]
         self._serversStore.set_value(itr, SERVER_HOSTNAME, server.hostname)
         self._serversStore.set_value(itr, SERVER_POOL, server.type == TIME_SOURCE_POOL)
+        self._serversStore.set_value(itr, SERVER_NTS, "nts" in server.options)
 
     def _update_rows(self):
         """Periodically update the status of all rows.
@@ -300,12 +304,16 @@ class NTPConfigDialog(GUIObject, GUIDialogInputCheckHandler):
         server.hostname = entry.get_text()
         server.options = ["iburst"]
 
+        if self._ntsCheckButton.get_active():
+            server.options.append("nts")
+
         self._servers.append(server)
         self._states.check_status(server)
         self._add_row(server)
 
         entry.set_text("")
         self._poolCheckButton.set_active(False)
+        self._ntsCheckButton.set_active(False)
 
     def on_add_clicked(self, *args):
         self._serverEntry.emit("activate")
@@ -324,6 +332,18 @@ class NTPConfigDialog(GUIObject, GUIDialogInputCheckHandler):
         else:
             server.type = TIME_SOURCE_SERVER
 
+        self._refresh_row(itr)
+
+    def on_nts_toggled(self, renderer, path, *args):
+        itr = self._serversStore.get_iter(path)
+        server = self._serversStore[itr][SERVER_OBJECT]
+
+        if "nts" in server.options:
+            server.options.remove("nts")
+        else:
+            server.options.append("nts")
+
+        self._states.check_status(server)
         self._refresh_row(itr)
 
     def on_server_editing_started(self, renderer, editable, path):

@@ -83,6 +83,8 @@
       <column type="gchararray"/>
       <!-- column-name pool -->
       <column type="gboolean"/>
+      <!-- column-name nts -->
+      <column type="gboolean"/>
       <!-- column-name working -->
       <column type="gint"/>
       <!-- column-name use -->
@@ -221,6 +223,21 @@
           </packing>
         </child>
         <child>
+          <object class="GtkCheckButton" id="ntsCheckButton">
+            <property name="label" translatable="yes">Server supports Network Time Security (NTS) authentication</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkScrolledWindow" id="scrolledWindow">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -267,6 +284,19 @@
                   </object>
                 </child>
                 <child>
+                  <object class="GtkTreeViewColumn" id="nts">
+                    <property name="title">NTS</property>
+                    <child>
+                      <object class="GtkCellRendererToggle" id="ntsRenderer">
+                        <signal name="toggled" handler="on_nts_toggled" swapped="no"/>
+                      </object>
+                      <attributes>
+                        <attribute name="active">2</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
                   <object class="GtkTreeViewColumn" id="workingColumn">
                     <property name="title" translatable="yes">Working</property>
                     <child>
@@ -282,7 +312,7 @@
                         <signal name="toggled" handler="on_use_server_toggled" swapped="no"/>
                       </object>
                       <attributes>
-                        <attribute name="active">3</attribute>
+                        <attribute name="active">4</attribute>
                       </attributes>
                     </child>
                   </object>
@@ -293,7 +323,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">4</property>
+            <property name="position">5</property>
           </packing>
         </child>
       </object>
