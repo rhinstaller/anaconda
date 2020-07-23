@@ -39,8 +39,6 @@ class Payload(metaclass=ABCMeta):
         """
         self.data = data
 
-        self._first_payload_reset = True
-
         # A list of verbose error strings from the subclass
         self.verbose_errors = []
 
@@ -67,10 +65,6 @@ class Payload(metaclass=ABCMeta):
         """The DBus type of the source."""
         return None
 
-    @property
-    def first_payload_reset(self):
-        return self._first_payload_reset
-
     def is_ready(self):
         """Is the payload ready?"""
         return True
@@ -89,7 +83,7 @@ class Payload(metaclass=ABCMeta):
 
         This method could be overriden.
         """
-        self._first_payload_reset = False
+        pass
 
     def release(self):
         """Release any resources in use by this object, but do not do final
