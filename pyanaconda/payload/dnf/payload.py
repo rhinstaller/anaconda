@@ -1531,6 +1531,8 @@ class DNFPayload(Payload):
         log.info("Configuring the base repo")
         self.reset()
 
+        self._cleanup_old_treeinfo_repositories()
+
         # Find the source and its type.
         source_proxy = self.get_source_proxy()
         source_type = source_proxy.Type
@@ -1583,11 +1585,9 @@ class DNFPayload(Payload):
                 self._refresh_install_tree(data)
                 self._base.conf.releasever = self._get_release_version(install_tree_url)
                 base_repo_url = self._get_base_repo_location(install_tree_url)
-
-                if self.first_payload_reset:
-                    self._add_treeinfo_repositories(install_tree_url, base_repo_url)
-
                 log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
+
+                self._load_treeinfo_repositories(base_repo_url)
             except configparser.MissingSectionHeaderError as e:
                 log.error("couldn't set releasever from base repo (%s): %s", source_type, e)
 
@@ -1896,12 +1896,11 @@ class DNFPayload(Payload):
         log.debug("No base repository found in treeinfo file. Using installation tree root.")
         return install_tree_url
 
-    def _add_treeinfo_repositories(self, install_tree_url, base_repo_url=None):
-        """Add all repositories from treeinfo file which are not already loaded.
+    def _load_treeinfo_repositories(self, base_repo_url):
+        """Load new repositories from treeinfo file.
 
-        :param install_tree_url: Url to the installation tree root.
-        :param base_repo_url: Base repository url. This is not saved anywhere when the function
-        is called. It will be add to the existing urls if not None.
+        :param base_repo_url: base repository url. This is not saved anywhere when the function
+                              is called. It will be add to the existing urls if not None.
         """
         if self._install_tree_metadata:
             existing_urls = []
@@ -1922,9 +1921,19 @@ class DNFPayload(Payload):
                     repo = RepoData(name=repo_md.name, baseurl=repo_md.path,
                                     install=False, enabled=repo_enabled)
                     repo.treeinfo_origin = True
+                    log.debug("Adding new treeinfo repository %s", repo_md.name)
                     self.add_repo(repo)
 
-        return install_tree_url
+    def _cleanup_old_treeinfo_repositories(self):
+        """Remove all old treeinfo repositories before loading new ones.
+
+        Find all repositories added from treeinfo file and remove them. After this step new
+        repositories will be loaded from the new link.
+        """
+        for ks_repo_name in self.addons:
+            if self.get_addon_repo(ks_repo_name).treeinfo_origin:
+                log.debug("Removing old treeinfo repository %s", ks_repo_name)
+                self.remove_repo(ks_repo_name)
 
     def _write_dnf_repo(self, repo, repo_path):
         """Write a repo object to a DNF repo.conf file.
