@@ -184,6 +184,13 @@ class RPMOSTreePayload(Payload):
         # We don't support resuming from interrupted installs
         repo.set_disable_fsync(True)
 
+        # https://github.com/coreos/coreos-assembler/commit/311768c2b14775f4ad18dad05a9e4dfd2e6387b6
+        # Tells OSTree to trust the bootloader (e.g. grub2) to
+        # read the BLS configs it generates
+        repoconf = repo.get_config()
+        repoconf.set_string("sysroot", "bootloader", "none")
+        repo.write_config(repoconf)
+
         self._remoteOptions = {}
 
         if hasattr(ostreesetup, 'nogpg') and ostreesetup.nogpg:
