@@ -49,7 +49,7 @@ from pyanaconda.modules.storage.bootloader.zipl import ZIPL
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, \
+from pyanaconda.modules.storage.installation import CreateStorageLayoutTask, \
     MountFilesystemsTask, WriteConfigurationTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import ScanDevicesTask
@@ -310,7 +310,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
     def install_with_tasks_test(self, publisher):
         """Test InstallWithTask."""
         task_classes = [
-            ActivateFilesystemsTask,
+            CreateStorageLayoutTask,
             MountFilesystemsTask
         ]
 
@@ -1456,11 +1456,11 @@ class StorageTasksTestCase(unittest.TestCase):
         storage = create_storage()
         storage._bootloader = Mock()
         patched_conf.target.is_directory = False
-        ActivateFilesystemsTask(storage).run()
+        CreateStorageLayoutTask(storage).run()
 
         storage = Mock()
         patched_conf.target.is_directory = True
-        ActivateFilesystemsTask(storage).run()
+        CreateStorageLayoutTask(storage).run()
         storage.assert_not_called()
 
     @patch("pyanaconda.core.util.mkdirChain")
