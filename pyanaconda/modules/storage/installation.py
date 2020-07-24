@@ -84,13 +84,13 @@ class ActivateFilesystemsTask(Task):
                 callbacks=register
             )
         except (FSResizeError, FormatResizeError) as e:
-            log.error("Failed to resize device %s: %s", e.details, str(e))
+            log.exception("Failed to resize device %s: %s", e.details, str(e))
             message = _("An error occurred while resizing the device {}: {}").format(
                 e.details, str(e)
             )
             raise StorageInstallationError(message) from None
         except StorageError as e:
-            log.error("Failed to activate filesystems: %s", str(e))
+            log.exception("Failed to activate filesystems: %s", str(e))
             raise StorageInstallationError(str(e)) from None
 
     def _report_message(self, data):
