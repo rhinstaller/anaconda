@@ -238,7 +238,7 @@ def get_default_partitioning():
             max_size=attrs.get("max"),
             grow="min" in attrs,
             required_space=attrs.get("free") or 0,
-            encrypted=attrs.get("encrypted") or False,
+            encrypted=True,
         )
 
         partitioning.append(spec)

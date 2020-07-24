@@ -324,12 +324,10 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                 'name': '/',
                 'min': Size("1024 MiB"),
                 'max': Size("70 GiB"),
-                'encrypted': True,
             }, {
                 'name': '/home',
                 'min': Size("500 MiB"),
                 'free': Size("50 GiB"),
-                'encrypted': True
             }
         ])
 
@@ -348,11 +346,6 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             "size": Size("1 GiB")
         })
 
-        self.assertEqual(convert_line("swap (encrypted)"), {
-            "name": "swap",
-            "encrypted": True
-        })
-
         self.assertEqual(convert_line("swap"), {
             "name": "swap"
         })
@@ -361,10 +354,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             convert_line("")
 
         with self.assertRaises(ValueError):
-            convert_line("(encrypted)")
-
-        with self.assertRaises(ValueError):
-            convert_line("/home (encrypted 1)")
+            convert_line("(size 1 GiB)")
 
         with self.assertRaises(ValueError):
             convert_line("/home (size)")
