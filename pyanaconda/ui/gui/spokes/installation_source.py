@@ -763,6 +763,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self.initialize_start()
 
         self._grab_objects()
+        self._initialize_closest_mirror()
 
         # I shouldn't have to do this outside GtkBuilder, but it really doesn't
         # want to let me pass in user data.
@@ -838,9 +839,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
 
-    def _initialize(self):
-        threadMgr.wait(constants.THREAD_PAYLOAD)
-
+    def _initialize_closest_mirror(self):
         # If there's no fallback mirror to use, we should just disable that option
         # in the UI.
         if not self.payload.mirrors_available:
@@ -851,6 +850,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
             if itr:
                 model.remove(itr)
+
+    def _initialize(self):
+        threadMgr.wait(constants.THREAD_PAYLOAD)
 
         # If there is no Subscriptiopn DBus module, disable the CDN radio button
         if is_module_available(SUBSCRIPTION):
