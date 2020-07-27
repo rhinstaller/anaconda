@@ -366,6 +366,32 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jul 27 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.14-1
+- Fix everything in payload should be mounted as read only (jkonecny)
+  Related: rhbz#1856264
+- Add support for mount options to device_tree.MountDevice (jkonecny)
+  Related: rhbz#1856264
+- Adapt tests for CDRom for the new inst.stage2 discovery (jkonecny)
+  Related: rhbz#1856264
+- CDRom source should prioritize stage2 device during discover (jkonecny)
+  Resolves: rhbz#1856264
+- Protect all devices with the iso9660 file system (vponcova)
+  Related: rhbz#1856264
+- Don't ignore NVDIMM devices with the iso9660 file system (vponcova)
+  Related: rhbz#1856264
+- Add tests for the DBus method FindOpticalMedia (vponcova)
+  Related: rhbz#1856264
+- Don't return negative container free space (vponcova)
+  Resolves: rhbz#1853071
+- Revert "Do not build Anaconda on i686" (mkolman)
+  Resolves: rhbz#1857180
+- Move slower part of Subscription spoke initialization to a thread (mkolman)
+  Related: rhbz#1823578
+- Only pass one initrd image to kexec (javierm)
+  Resolves: rhbz#1855290
+- Wait for payload initialization to finish in Subscription spoke (mkolman)
+  Related: rhbz#1823578
+
 * Thu Jul 09 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.13-1
 - Fix the position of the info bar in standalone spokes (vponcova)
   Resolves: rhbz#1847423
