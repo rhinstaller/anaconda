@@ -1694,10 +1694,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         # Remove the input validation checks for this repo
         repo = self._repo_store[itr][REPO_OBJ]
-        self.remove_check(self._repo_checks[repo.repo_id].name_check)
-        self.remove_check(self._repo_checks[repo.repo_id].url_check)
-        self.remove_check(self._repo_checks[repo.repo_id].proxy_check)
-        del self._repo_checks[repo.repo_id]
+        # avoid crash when the source is changed because of initialization
+        if repo.repo_id in self._repo_checks:
+            self.remove_check(self._repo_checks[repo.repo_id].name_check)
+            self.remove_check(self._repo_checks[repo.repo_id].url_check)
+            self.remove_check(self._repo_checks[repo.repo_id].proxy_check)
+            del self._repo_checks[repo.repo_id]
 
         self._repo_store.remove(itr)
         if len(self._repo_store) == 0:
