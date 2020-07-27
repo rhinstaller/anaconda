@@ -844,7 +844,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # provided a URL.
         # FIXME
 
-        self._reset_repo_store()
+        gtk_call_once(self._reset_repo_store)
 
         self._ready = True
         # Wait to make sure the other threads are done before sending ready, otherwise
