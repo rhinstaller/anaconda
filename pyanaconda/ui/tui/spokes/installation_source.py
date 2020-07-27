@@ -16,6 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.payload import parse_nfs_url
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
@@ -128,7 +129,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
         if args == self.SET_NETWORK_INSTALL_MODE:
-            if self.payload.mirrors_available:
+            if conf.payload.enable_closest_mirror:
                 self._container.add(TextWidget(_("Closest mirror")),
                                     self._set_network_close_mirror)
 
