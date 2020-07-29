@@ -372,9 +372,6 @@ class NetworkService(KickstartService):
         # Not if any network device was configured via kickstart.
         if self._original_network_data:
             return False
-        # Not if any network device was configured in UI.
-        if self._use_device_configurations:
-            return False
         # Not if there is no configuration to apply the policy to
         if not self._device_configurations or not self._device_configurations.get_all():
             return False
