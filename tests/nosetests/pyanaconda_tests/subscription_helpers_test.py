@@ -29,7 +29,7 @@ from pyanaconda.core import util
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH, \
     THREAD_WAIT_FOR_CONNECTING_NM, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, \
     SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, SOURCE_TYPE_CLOSEST_MIRROR, \
-    SOURCE_TYPE_CDN, SOURCE_TYPE_CDROM
+    SOURCE_TYPE_CDN, SOURCE_TYPE_CDROM, PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_RPM_OSTREE
 
 from pyanaconda.modules.common.errors.subscription import UnregistrationError, \
     RegistrationError, SubscriptionError
@@ -39,7 +39,7 @@ from pyanaconda.core.subscription import check_system_purpose_set
 
 from pyanaconda.ui.lib.subscription import SubscriptionPhase, \
     register_and_subscribe, unregister, org_keys_sufficient, \
-    username_password_sufficient
+    username_password_sufficient, check_cdn_is_installation_source
 
 
 class CheckSystemPurposeSetTestCase(unittest.TestCase):
@@ -523,6 +523,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     def register_override_cdrom_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - override CDROM source."""
         payload = Mock()
+        payload.type = PAYLOAD_TYPE_DNF
         payload.data.repo.dataList = MagicMock(return_value=[])
         source_proxy = payload.get_source_proxy.return_value
         source_proxy.Type = SOURCE_TYPE_CDROM
@@ -685,6 +686,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     def unregister_back_to_cdrom_test(self, get_proxy, run_task, switch_source):
         """Test the unregister() helper method - roll back to CDROM source."""
         payload = Mock()
+        payload.type = PAYLOAD_TYPE_DNF
         source_proxy = payload.get_source_proxy.return_value
         source_proxy.Type = SOURCE_TYPE_CDN
         progress_callback = Mock()
@@ -711,3 +713,95 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         run_task.assert_called()
         # also we should have tried switching back to the CDROM source
         switch_source.assert_called_once_with(payload, SOURCE_TYPE_CDROM)
+
+    def check_cdn_is_installation_source_test(self):
+        """Test the check_cdn_is_installation_source function."""
+        # check CDN is reported as used
+        dnf_payload = Mock()
+        dnf_payload.type = PAYLOAD_TYPE_DNF
+        source_proxy = dnf_payload.get_source_proxy.return_value
+        source_proxy.Type = SOURCE_TYPE_CDN
+        self.assertTrue(check_cdn_is_installation_source(dnf_payload))
+        # check CDN is not reported as used
+        dnf_payload = Mock()
+        dnf_payload.type = PAYLOAD_TYPE_DNF
+        source_proxy = dnf_payload.get_source_proxy.return_value
+        source_proxy.Type = SOURCE_TYPE_CDROM
+        self.assertFalse(check_cdn_is_installation_source(dnf_payload))
+        # check an unsupported (non DNF) source is handled correctly
+        ostree_payload = Mock()
+        ostree_payload.type = PAYLOAD_TYPE_RPM_OSTREE
+        self.assertFalse(check_cdn_is_installation_source(ostree_payload))
+
+    @patch("pyanaconda.ui.lib.subscription.switch_source")
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.threading.threadMgr.wait")
+    @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
+    def unsupported_payload_reg_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+        """Test registration handles unsupported payload."""
+        payload = Mock()
+        payload.type = PAYLOAD_TYPE_RPM_OSTREE
+        progress_callback = Mock()
+        error_callback = Mock()
+        subscription_proxy = get_proxy.return_value
+        # simulate the system not being registered
+        subscription_proxy.IsRegistered = False
+        # simulate subscription request
+        subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
+        # run the function
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
+                               error_callback=error_callback)
+        # we should have waited on network
+        thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
+        # system was no registered, so no unregistration phase
+        print(error_callback.mock_calls)
+        progress_callback.assert_has_calls(
+            [call(SubscriptionPhase.REGISTER),
+             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
+             call(SubscriptionPhase.DONE)]
+        )
+        # we were successful, so no error callback calls
+        error_callback.assert_not_called()
+        # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
+        subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
+        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
+        subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
+        # not tried to set the CDN source
+        switch_source.assert_not_called()
+        # and tried to run them
+        run_task.assert_called()
+
+    @patch("pyanaconda.ui.lib.subscription.switch_source")
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
+    def unsupported_payload_unregister_test(self, get_proxy, run_task, switch_source):
+        """Test that unregister() survives unsupported payload."""
+        payload = Mock()
+        payload.type = PAYLOAD_TYPE_RPM_OSTREE
+        progress_callback = Mock()
+        error_callback = Mock()
+        subscription_proxy = get_proxy.return_value
+        # simulate the system being registered,
+        subscription_proxy.IsRegistered = True
+        # run the function
+        unregister(payload=payload,
+                   overridden_source_type=SOURCE_TYPE_CDROM,
+                   progress_callback=progress_callback,
+                   error_callback=error_callback)
+        # there should be the unregistration & done phases
+        progress_callback.assert_has_calls(
+            [call(SubscriptionPhase.UNREGISTER),
+             call(SubscriptionPhase.DONE)]
+        )
+        # the error callback should not have been called
+        error_callback.assert_not_called()
+        # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
+        subscription_proxy.UnregisterWithTask.assert_called_once()
+        # and tried to run them
+        run_task.assert_called()
+        # but we should have not tried to switch source as this
+        # payload is not supported
+        switch_source.assert_not_called()
