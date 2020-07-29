@@ -1852,7 +1852,11 @@ class DNFPayload(Payload):
                     repo.treeinfo_origin = True
                     log.debug("Adding new treeinfo repository: %s enabled: %s",
                               repo_md.name, repo_enabled)
-                    self.add_repo(repo)
+
+                    if repo_enabled:
+                        self.add_repo(repo)
+                    else:
+                        self.add_disabled_repo(repo)
 
     def _cleanup_old_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.
