@@ -366,6 +366,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 30 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.15-1
+- Apply onboot policy even when network was configured in UI. (rvykydal)
+  Resolves: rhbz#1856632
+- Fix creating cached LVs on encrypted PVs (vtrefny)
+  Resolves: rhbz#1855973
+
 * Mon Jul 27 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.14-1
 - Fix everything in payload should be mounted as read only (jkonecny)
   Related: rhbz#1856264
