@@ -19,6 +19,7 @@
 from collections import namedtuple
 from blivet.size import Size
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _, C_, N_, P_
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.storage import OSData, DeviceData, DeviceFormatData
@@ -54,6 +55,8 @@ PRESERVE = N_("Preserve")
 SHRINK = N_("Shrink")
 DELETE = N_("Delete")
 NOTHING = ""
+
+log = get_module_logger(__name__)
 
 
 class ResizeDialog(GUIObject):
@@ -521,7 +524,8 @@ class ResizeDialog(GUIObject):
         self._update_reclaim_button(self._selected_reclaimable_space)
         self._update_action_buttons()
 
-    def _schedule_actions(self, model, path, itr, *args):
+    def _collect_actionable_rows(self, model, path, itr, rows):
+        """Collect rows that can be transformed into actions."""
         obj = PartStoreRow(*model[itr])
 
         if not obj.name:
@@ -530,17 +534,32 @@ class ResizeDialog(GUIObject):
         if not obj.editable:
             return False
 
-        if obj.action == _(PRESERVE):
-            pass
-        elif obj.action == _(SHRINK):
-            self._device_tree.ShrinkDevice(obj.name, obj.target)
-        elif obj.action == _(DELETE):
-            self._device_tree.RemoveDevice(obj.name)
-
+        rows.append(obj)
         return False
 
+    def _schedule_actions(self, obj):
+        """Schedule actions for the given row object."""
+        if obj.action == _(PRESERVE):
+            log.debug("Preserve %s.", obj.name)
+        elif obj.action == _(SHRINK):
+            log.debug("Shrink %s to %s.", obj.name, Size(obj.target))
+            self._device_tree.ShrinkDevice(obj.name, obj.target)
+        elif obj.action == _(DELETE):
+            log.debug("Remove %s.", obj.name)
+            self._device_tree.RemoveDevice(obj.name)
+
     def on_resize_clicked(self, *args):
-        self._disk_store.foreach(self._schedule_actions, None)
+        rows = []
+
+        # Collect the rows.
+        self._disk_store.foreach(self._collect_actionable_rows, rows)
+
+        # Process rows in the reversed order. If there is a disk with
+        # two logical partitions sda5 and sda6 and we remove sda5, Blivet
+        # renames the partition sda6 to sda5, so the actions for sda6 are
+        # no longer valid. See the bug 1856496.
+        for obj in reversed(rows):
+            self._schedule_actions(obj)
 
     def on_delete_all_clicked(self, button, *args):
         if button.get_label() == C_("GUI|Reclaim Dialog", "Delete _all"):
