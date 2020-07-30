@@ -275,11 +275,6 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None)
     if source_proxy.Type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
         log.debug("subscription thread: overriding current installation source by CDN")
         switch_source(payload, SOURCE_TYPE_CDN)
-        # disable automatically added treeinfo repos so that
-        # they do not interfere with the CDN
-        for repo in payload.data.repo.dataList():
-            if repo.treeinfo_origin:
-                repo.enabled = False
 
     # and done, report attaching subscription was successful
     log.debug("subscription thread: auto attach succeeded")
