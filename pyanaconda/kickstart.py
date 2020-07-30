@@ -51,11 +51,12 @@ from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.storage.kickstart import IgnoreDisk
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, SUBSCRIPTION, NETWORK
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, FIREWALL, \
-    AUTO_PARTITIONING, MANUAL_PARTITIONING
+    AUTO_PARTITIONING, MANUAL_PARTITIONING, DISK_SELECTION
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -955,6 +956,24 @@ class Iscsi(COMMANDS.Iscsi):
             raise KickstartParseError(lineno=self.lineno, msg=str(e))
 
         return tg
+
+class IgnoreDiskFix(IgnoreDisk):
+    """The fix for the ignoredisk kickstart command."""
+
+    def parse(self, args):
+        # Parse the command after setting up all devices.
+        retval = super().parse(args)
+
+        # Update the Disk Selection module.
+        disk_selection = STORAGE.get_proxy(DISK_SELECTION)
+        disk_selection.SetSelectedDisks(self.onlyuse)
+        disk_selection.SetIgnoredDisks(self.ignoredisk)
+
+        return retval
+
+    def __str__(self):
+        # Don't return anything.
+        return ""
 
 class IscsiName(COMMANDS.IscsiName):
     def parse(self, args):
@@ -2562,7 +2581,7 @@ commandMap = {
     "firewall": Firewall,
     "firstboot": Firstboot,
     "group": Group,
-    "ignoredisk": UselessCommand,
+    "ignoredisk": IgnoreDiskFix,
     "iscsi": Iscsi,
     "iscsiname": IscsiName,
     "keyboard": Keyboard,

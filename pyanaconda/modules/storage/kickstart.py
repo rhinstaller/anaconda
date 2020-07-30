@@ -144,7 +144,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "autopart": AutoPart,
         "bootloader": COMMANDS.Bootloader,
         "clearpart": ClearPart,
-        "ignoredisk": IgnoreDisk,
+        "ignoredisk": COMMANDS.IgnoreDisk,
         "logvol": COMMANDS.LogVol,
         "mount": COMMANDS.Mount,
         "part": COMMANDS.Partition,
