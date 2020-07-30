@@ -958,13 +958,6 @@ class DNFPayload(Payload):
         return [r.name for r in self.data.repo.dataList()]
 
     @property
-    def mirrors_available(self):
-        """Is the closest/fastest mirror option enabled?  This does not make
-        sense for those payloads that do not support this concept.
-        """
-        return conf.payload.enable_closest_mirror
-
-    @property
     def disabled_repos(self):
         """A list of names of the disabled repos."""
         disabled = []

@@ -720,6 +720,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self.initialize_start()
 
         self._grab_objects()
+        self._initialize_closest_mirror()
 
         # I shouldn't have to do this outside GtkBuilder, but it really doesn't
         # want to let me pass in user data.
@@ -794,12 +795,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
 
-    def _initialize(self):
-        threadMgr.wait(constants.THREAD_PAYLOAD)
-
+    def _initialize_closest_mirror(self):
         # If there's no fallback mirror to use, we should just disable that option
         # in the UI.
-        if not self.payload.mirrors_available:
+        if not conf.payload.enable_closest_mirror:
             model = self._protocol_combo_box.get_model()
             itr = model.get_iter_first()
             while itr and model[itr][self._protocol_combo_box.get_id_column()] != PROTOCOL_MIRROR:
@@ -807,6 +806,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
             if itr:
                 model.remove(itr)
+
+    def _initialize(self):
+        threadMgr.wait(constants.THREAD_PAYLOAD)
 
         # Get the current source.
         source_proxy = self.payload.get_source_proxy()
@@ -842,7 +844,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # provided a URL.
         # FIXME
 
-        self._reset_repo_store()
+        gtk_call_once(self._reset_repo_store)
 
         self._ready = True
         # Wait to make sure the other threads are done before sending ready, otherwise
