@@ -1050,17 +1050,36 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         # create a default config
         default_config = {
+            "server":
+                {
+                    "hostname": "server.example.com",
+                    "proxy_hostname": "proxy.example.com",
+                    "proxy_port": "1000",
+                    "proxy_user": "foo_user",
+                    "proxy_password": "foo_password",
+                },
+            "rhsm":
+                {
+                    "baseurl": "cdn.example.com",
+                    "key_anaconda_does_not_use_1": "foo1",
+                    "key_anaconda_does_not_use_2": "foo2"
+                }
+        }
+
+        # create expected output - flat version of the nested default config
+        flat_default_config = {
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_HOSTNAME: "server.example.com",
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_HOSTNAME: "proxy.example.com",
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PORT: "1000",
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_USER: "foo_user",
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PASSWORD: "foo_password",
             SetRHSMConfigurationTask.CONFIG_KEY_RHSM_BASEURL: "cdn.example.com",
-            "key_anaconda_does_not_use_1": "foo1",
-            "key_anaconda_does_not_use_2": "foo2"
+            "rhsm.key_anaconda_does_not_use_1": "foo1",
+            "rhsm.key_anaconda_does_not_use_2": "foo2"
         }
+
         # turn it to variant, which is what RHSM DBus API will return
-        default_variant = get_variant(Dict[Str, Str], default_config)
+        default_variant = get_variant(Dict[Str, Dict[Str, Str]], default_config)
 
         # mock the rhsm config proxy
         observer = Mock()
@@ -1082,8 +1101,8 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # - even though GetAll() returns a variant, the
         #   get_rhsm_config_default() should convert it
         #   to a native Python dict
-        self.assertEqual(result1, default_config)
-        self.assertEqual(result2, default_config)
+        self.assertEqual(result1, flat_default_config)
+        self.assertEqual(result2, flat_default_config)
 
         # check the property requested the correct DBus object
         observer.get_proxy.assert_called_once_with(RHSM_CONFIG)
@@ -1116,14 +1135,32 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         """Test SetRHSMConfigurationTask creation."""
         # prepare the module with dummy data
         default_config = {
+            "server":
+                {
+                    "hostname": "server.example.com",
+                    "proxy_hostname": "proxy.example.com",
+                    "proxy_port": "1000",
+                    "proxy_user": "foo_user",
+                    "proxy_password": "foo_password",
+                },
+            "rhsm":
+                {
+                    "baseurl": "cdn.example.com",
+                    "key_anaconda_does_not_use_1": "foo1",
+                    "key_anaconda_does_not_use_2": "foo2"
+                }
+        }
+
+        # create expected output - flat version of the nested default config
+        flat_default_config = {
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_HOSTNAME: "server.example.com",
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_HOSTNAME: "proxy.example.com",
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PORT: "1000",
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_USER: "foo_user",
             SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PASSWORD: "foo_password",
             SetRHSMConfigurationTask.CONFIG_KEY_RHSM_BASEURL: "cdn.example.com",
-            "key_anaconda_does_not_use_1": "foo1",
-            "key_anaconda_does_not_use_2": "foo2"
+            "rhsm.key_anaconda_does_not_use_1": "foo1",
+            "rhsm.key_anaconda_does_not_use_2": "foo2"
         }
 
         full_request = SubscriptionRequest()
@@ -1173,7 +1210,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(
                 get_native(SubscriptionRequest.to_structure(task_request)),
                 expected_full_dict)
-        self.assertEqual(obj.implementation._rhsm_config_defaults, default_config)
+        self.assertEqual(obj.implementation._rhsm_config_defaults, flat_default_config)
 
     @patch_dbus_publish_object
     def register_with_username_password_test(self, publisher):
