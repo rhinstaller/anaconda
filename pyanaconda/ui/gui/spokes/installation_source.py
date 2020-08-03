@@ -432,8 +432,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._network_module = NETWORK.get_proxy()
         self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
-        self._treeinfo_repos_already_disabled = False
-
     def apply(self):
         source_changed = self._update_payload_source()
         repo_changed = self._update_payload_repos()
@@ -765,6 +763,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self.initialize_start()
 
         self._grab_objects()
+        self._initialize_closest_mirror()
 
         # I shouldn't have to do this outside GtkBuilder, but it really doesn't
         # want to let me pass in user data.
@@ -840,9 +839,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
 
-    def _initialize(self):
-        threadMgr.wait(constants.THREAD_PAYLOAD)
-
+    def _initialize_closest_mirror(self):
         # If there's no fallback mirror to use, we should just disable that option
         # in the UI.
         if not self.payload.mirrors_available:
@@ -853,6 +850,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
             if itr:
                 model.remove(itr)
+
+    def _initialize(self):
+        threadMgr.wait(constants.THREAD_PAYLOAD)
 
         # If there is no Subscriptiopn DBus module, disable the CDN radio button
         if is_module_available(SUBSCRIPTION):
@@ -892,7 +892,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # provided a URL.
         # FIXME
 
-        self._reset_repo_store()
+        gtk_call_once(self._reset_repo_store)
 
         self._ready = True
         # Wait to make sure the other threads are done before sending ready, otherwise
@@ -1260,7 +1260,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # the newly enabled button as well as the previously enabled (now
         # disabled) button.
         self._on_source_toggled(button, relatedBox)
-        self._disable_treeinfo_repositories()
+        self._remove_treeinfo_repositories()
 
     def _on_source_toggled(self, button, relatedBox):
         enabled = button.get_active()
@@ -1338,7 +1338,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             button.set_label(os.path.basename(iso_file))
             button.set_use_underline(False)
             self._verify_iso_button.set_sensitive(True)
-            self._disable_treeinfo_repositories()
+            self._remove_treeinfo_repositories()
 
     def on_proxy_clicked(self, button):
         dialog = ProxyDialog(self.data, self._proxy_url)
@@ -1386,7 +1386,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def on_protocol_changed(self, combo):
         self._on_protocol_changed()
-        self._disable_treeinfo_repositories()
+        self._remove_treeinfo_repositories()
 
     def _on_protocol_changed(self):
         # Only allow the URL entry to be used if we're using an HTTP/FTP
@@ -1486,8 +1486,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self._clear_repo_info()
             self._repo_entry_box.set_sensitive(False)
 
-        self._treeinfo_repos_already_disabled = False
-
     def _unique_repo_name(self, name):
         """ Return a unique variation of the name if it already
             exists in the repo store.
@@ -1546,13 +1544,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._repo_store[repo_model_path][REPO_ENABLED_COL] = enabled
         self._repo_store[repo_model_path][REPO_OBJ].enabled = enabled
 
-    def _disable_treeinfo_repositories(self):
+    def _remove_treeinfo_repositories(self):
         """Disable all repositories loaded from the .treeinfo file"""
-        if not self._treeinfo_repos_already_disabled:
-            self._treeinfo_repos_already_disabled = True
-            for repo_item in self._repo_store:
-                if repo_item[REPO_OBJ].treeinfo_origin:
-                    self._set_repo_enabled(repo_item.path, False)
+        removal_repo_list = []
+
+        for repo_item in self._repo_store:
+            if repo_item[REPO_OBJ].treeinfo_origin:
+                removal_repo_list.append(repo_item.path)
+
+        for path in removal_repo_list:
+            self._remove_repository(path)
 
     def _clear_repo_info(self):
         """ Clear the text from the repo entry fields
@@ -1644,7 +1645,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     def on_urlEntry_changed(self, editable, data=None):
         # Check for and remove a URL prefix that matches the protocol dropdown
         self._on_urlEtry_changed(editable)
-        self._disable_treeinfo_repositories()
+        self._remove_treeinfo_repositories()
 
     def _on_urlEtry_changed(self, editable):
         self._remove_url_prefix(editable, self._protocol_combo_box, self.on_urlEntry_changed)
@@ -1674,18 +1675,33 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._repo_entry_box.set_sensitive(True)
 
     def on_removeRepo_clicked(self, button):
-        """ Remove the selected repository
+        """Remove the selected repository"""
+        self._remove_repository()
+
+    def _remove_repository(self, repo_model_path=None):
+        """Remove repository on repo_model_path or current selection.
+
+        If repo_model_path is not specified then current selection will be used.
+
+        :param repo_model_path: repo_model_path of what we can remove or None
+        :type repo_model_path: repo_store repo_model_path
         """
-        itr = self._repo_selection.get_selected()[1]
+        if repo_model_path is None:
+            itr = self._repo_store[repo_model_path].iter
+        else:
+            itr = self._repo_selection.get_selected()[1]
+
         if not itr:
             return
 
         # Remove the input validation checks for this repo
         repo = self._repo_store[itr][REPO_OBJ]
-        self.remove_check(self._repo_checks[repo.repo_id].name_check)
-        self.remove_check(self._repo_checks[repo.repo_id].url_check)
-        self.remove_check(self._repo_checks[repo.repo_id].proxy_check)
-        del self._repo_checks[repo.repo_id]
+        # avoid crash when the source is changed because of initialization
+        if repo.repo_id in self._repo_checks:
+            self.remove_check(self._repo_checks[repo.repo_id].name_check)
+            self.remove_check(self._repo_checks[repo.repo_id].url_check)
+            self.remove_check(self._repo_checks[repo.repo_id].proxy_check)
+            del self._repo_checks[repo.repo_id]
 
         self._repo_store.remove(itr)
         if len(self._repo_store) == 0:

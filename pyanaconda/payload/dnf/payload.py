@@ -1531,6 +1531,8 @@ class DNFPayload(Payload):
         log.info("Configuring the base repo")
         self.reset()
 
+        disabled_treeinfo_repo_names = self._cleanup_old_treeinfo_repositories()
+
         # Find the source and its type.
         source_proxy = self.get_source_proxy()
         source_type = source_proxy.Type
@@ -1583,11 +1585,9 @@ class DNFPayload(Payload):
                 self._refresh_install_tree(data)
                 self._base.conf.releasever = self._get_release_version(install_tree_url)
                 base_repo_url = self._get_base_repo_location(install_tree_url)
-
-                if self.first_payload_reset:
-                    self._add_treeinfo_repositories(install_tree_url, base_repo_url)
-
                 log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
+
+                self._load_treeinfo_repositories(base_repo_url, disabled_treeinfo_repo_names)
             except configparser.MissingSectionHeaderError as e:
                 log.error("couldn't set releasever from base repo (%s): %s", source_type, e)
 
@@ -1896,12 +1896,13 @@ class DNFPayload(Payload):
         log.debug("No base repository found in treeinfo file. Using installation tree root.")
         return install_tree_url
 
-    def _add_treeinfo_repositories(self, install_tree_url, base_repo_url=None):
-        """Add all repositories from treeinfo file which are not already loaded.
+    def _load_treeinfo_repositories(self, base_repo_url, repo_names_to_disable):
+        """Load new repositories from treeinfo file.
 
-        :param install_tree_url: Url to the installation tree root.
-        :param base_repo_url: Base repository url. This is not saved anywhere when the function
-        is called. It will be add to the existing urls if not None.
+        :param base_repo_url: base repository url. This is not saved anywhere when the function
+                              is called. It will be add to the existing urls if not None.
+        :param repo_names_to_disable: list of repository names which should be disabled after load
+        :type repo_names_to_disable: [str]
         """
         if self._install_tree_metadata:
             existing_urls = []
@@ -1918,13 +1919,46 @@ class DNFPayload(Payload):
             for repo_md in self._install_tree_metadata.get_metadata_repos():
                 if repo_md.path not in existing_urls:
                     repo_treeinfo = self._install_tree_metadata.get_treeinfo_for(repo_md.name)
-                    repo_enabled = repo_treeinfo.type in enabled_repositories_from_treeinfo
+
+                    # disable repositories disabled by user manually before
+                    if repo_md.name in repo_names_to_disable:
+                        repo_enabled = False
+                    else:
+                        repo_enabled = repo_treeinfo.type in enabled_repositories_from_treeinfo
+
                     repo = RepoData(name=repo_md.name, baseurl=repo_md.path,
                                     install=False, enabled=repo_enabled)
                     repo.treeinfo_origin = True
-                    self.add_repo(repo)
+                    log.debug("Adding new treeinfo repository: %s enabled: %s",
+                              repo_md.name, repo_enabled)
 
-        return install_tree_url
+                    if repo_enabled:
+                        self.add_repo(repo)
+                    else:
+                        self.add_disabled_repo(repo)
+
+    def _cleanup_old_treeinfo_repositories(self):
+        """Remove all old treeinfo repositories before loading new ones.
+
+        Find all repositories added from treeinfo file and remove them. After this step new
+        repositories will be loaded from the new link.
+
+        :return: list of repository names which were disabled before removal
+        :rtype: [str]
+        """
+        disabled_repo_names = []
+
+        for ks_repo_name in self.addons:
+            repo = self.get_addon_repo(ks_repo_name)
+            if repo.treeinfo_origin:
+                log.debug("Removing old treeinfo repository %s", ks_repo_name)
+
+                if not repo.enabled:
+                    disabled_repo_names.append(ks_repo_name)
+
+                self.remove_repo(ks_repo_name)
+
+        return disabled_repo_names
 
     def _write_dnf_repo(self, repo, repo_path):
         """Write a repo object to a DNF repo.conf file.
