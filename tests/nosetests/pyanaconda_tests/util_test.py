@@ -39,15 +39,6 @@ ANACONDA_TEST_DIR = '/tmp/anaconda_tests_dir'
 
 class UpcaseFirstLetterTests(unittest.TestCase):
 
-    def setUp(self):
-        # create the directory used for file/folder tests
-        if not os.path.exists(ANACONDA_TEST_DIR):
-            os.makedirs(ANACONDA_TEST_DIR)
-
-    def tearDown(self):
-        # remove the testing directory
-        shutil.rmtree(ANACONDA_TEST_DIR)
-
     def upcase_first_letter_test(self):
         """Upcasing first letter should work as expected."""
 
@@ -465,6 +456,15 @@ done
 
 
 class MiscTests(unittest.TestCase):
+
+    def setUp(self):
+        # create the directory used for file/folder tests
+        if not os.path.exists(ANACONDA_TEST_DIR):
+            os.makedirs(ANACONDA_TEST_DIR)
+
+    def tearDown(self):
+        # remove the testing directory
+        shutil.rmtree(ANACONDA_TEST_DIR)
 
     def mkdir_chain_test(self):
         """Test mkdirChain."""
