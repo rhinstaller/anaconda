@@ -389,6 +389,4 @@ class URLRegexTestCase(unittest.TestCase):
                   ( "http://fe80::1234:56:78/blah/blah", None)
                 ]
 
-
-        if not regex_group(URL_PARSE, tests):
-            self.fail()
+        self.assertTrue(regex_group(URL_PARSE, tests))

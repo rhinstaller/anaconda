@@ -51,8 +51,7 @@ class ZFCPNameRegexTestCase(unittest.TestCase):
                 '',
                 ]
 
-        if not regex_match(ZFCP_LUN_NUMBER, good_tests, bad_tests):
-            self.fail()
+        self.assertTrue(regex_match(ZFCP_LUN_NUMBER, good_tests, bad_tests))
 
     def wwpn_name_test(self):
         good_tests = [
@@ -81,5 +80,4 @@ class ZFCPNameRegexTestCase(unittest.TestCase):
             '',
         ]
 
-        if not regex_match(ZFCP_WWPN_NUMBER, good_tests, bad_tests):
-            self.fail()
+        self.assertTrue(regex_match(ZFCP_WWPN_NUMBER, good_tests, bad_tests))

@@ -23,23 +23,20 @@ import re
 from pyanaconda.core.regexes import IPV4_NETMASK_WITHOUT_ANCHORS
 
 def _run_tests(testcase, expression, goodlist, badlist):
-    got_error = False
+    errors = []
     for good in goodlist:
         try:
             testcase.assertIsNotNone(expression.match(good))
         except AssertionError:
-            got_error = True
-            print("Good string %s did not match expression" % good)
+            errors.append("Good string %s did not match expression" % good)
 
     for bad in badlist:
         try:
             testcase.assertIsNone(expression.match(bad))
         except AssertionError:
-            got_error = True
-            print("Bad string %s matched expression" % bad)
+            errors.append("Bad string %s matched expression" % bad)
 
-    if got_error:
-        testcase.fail()
+    testcase.assertEqual(errors, [])
 
 class IPv4NetmaskTestCase(unittest.TestCase):
     def netmask_test(self):

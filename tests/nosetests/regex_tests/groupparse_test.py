@@ -48,5 +48,4 @@ class GroupParseTestCase(unittest.TestCase):
                  ("", ("", None)),
                  ]
 
-        if not regex_group(GROUPLIST_FANCY_PARSE, tests):
-            self.fail()
+        self.assertTrue(regex_group(GROUPLIST_FANCY_PARSE, tests))

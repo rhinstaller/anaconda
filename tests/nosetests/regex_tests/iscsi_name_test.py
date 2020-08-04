@@ -51,8 +51,8 @@ class iSCSIiqnnameRegexTestCase(unittest.TestCase):
                 'iqn.2014-15.com.example:iscsi no space allowed',
                 ]
 
-        if not regex_match(ISCSI_IQN_NAME_REGEX, good_tests, bad_tests):
-            self.fail()
+        self.assertTrue(regex_match(ISCSI_IQN_NAME_REGEX, good_tests, bad_tests))
+
 
 class iSCSIeuinameRegexTestCase(unittest.TestCase):
     def euiname_test(self):
@@ -71,5 +71,4 @@ class iSCSIeuinameRegexTestCase(unittest.TestCase):
                 'eui.AAAABBBBCCCCD4567'
                 ]
 
-        if not regex_match(ISCSI_EUI_NAME_REGEX, good_tests, bad_tests):
-            self.fail()
+        self.assertTrue(regex_match(ISCSI_EUI_NAME_REGEX, good_tests, bad_tests))
