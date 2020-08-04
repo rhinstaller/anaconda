@@ -28,18 +28,17 @@ class BaseTestCase(unittest.TestCase):
 
     def tearDown(self):
         # remove the testing directory
-        if self.tmpdir and os.path.isdir(self.tmpdir):
-            try:
-                with open(self.tmpdir + "/ks.info") as f:
-                    for line in f:
-                        if line.startswith("parsed_kickstart="):
-                            filename = line.partition("=")[2].strip().replace('"', "")
-                            os.remove(filename)
-                            break
-            except OSError:
-                pass
+        try:
+            with open(self.tmpdir + "/ks.info") as f:
+                for line in f:
+                    if line.startswith("parsed_kickstart="):
+                        filename = line.partition("=")[2].strip().replace('"', "")
+                        os.remove(filename)
+                        break
+        except OSError:
+            pass
 
-            shutil.rmtree(self.tmpdir)
+        shutil.rmtree(self.tmpdir)
 
 class ParseKickstartTestCase(BaseTestCase):
     @classmethod
