@@ -366,6 +366,33 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 04 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.16-1
+- Implement get_source_proxy() in payload base class (mkolman)
+  Resolves: rhbz#1861456
+- Restore RHEL-specific stylesheet data (vponcova)
+  Resolves: rhbz#1865882
+- subscription: Convert the RHSM default config values to expected format
+  (mkolman)
+  Resolves: rhbz#1862116
+- Create ssh user using only existing fields (vslavik)
+  Resolves: rhbz#1860058
+- Remove subscription workaround to not use treeinfo repositories (jkonecny)
+  Related: rhbz#1851207
+- Fix issue that treeinfo repositories were never disabled (jkonecny)
+  Related: rhbz#1851207
+- Keep treeinfo repositories disabled after payload reset (jkonecny)
+  Related: rhbz#1851207
+- Reset repositories from the main thread (vponcova)
+  Related: rhbz#1851207
+- Initialize the closest mirror from the main thread (vponcova)
+  Related: rhbz#1851207
+- Fix crash on first entering of source spoke (jkonecny)
+  Related: rhbz#1851207
+- Remove treeinfo repositories instead of disabling (jkonecny)
+  Related: rhbz#1851207
+- Reload treeinfo repositories on every payload reset (jkonecny)
+  Resolves: rhbz#1851207
+
 * Thu Jul 30 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.15-1
 - Apply onboot policy even when network was configured in UI. (rvykydal)
   Resolves: rhbz#1856632
