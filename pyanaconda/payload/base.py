@@ -60,6 +60,17 @@ class Payload(metaclass=ABCMeta):
         """The DBus type of the payload."""
         return None
 
+    def get_source_proxy(self):
+        """Get the DBus proxy of the installation source (if any).
+
+        There may be payloads that do not have an installation source
+        and thus also no source proxy. It is still beter to define
+        this method also for those payloads and have it return None.
+
+        :return: a DBus proxy or None
+        """
+        return None
+
     @property
     def source_type(self):
         """The DBus type of the source."""
