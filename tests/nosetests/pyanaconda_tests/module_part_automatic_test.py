@@ -55,15 +55,6 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.module = AutoPartitioningModule()
         self.interface = AutoPartitioningInterface(self.module)
 
-    @property
-    def storage(self):
-        """Get the storage object."""
-        return self.module.storage
-
-    def _add_device(self, device):
-        """Add a device to the device tree."""
-        self.storage.devicetree._add_device(device)
-
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
             self,

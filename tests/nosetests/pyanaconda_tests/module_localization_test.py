@@ -496,7 +496,8 @@ class LocalizationTasksTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.localization.runtime.get_missing_keyboard_configuration")
-    def _get_missing_keyboard_configuration_task_test(self, get_missing_mock):
+    def get_missing_keyboard_configuration_task_test(self, get_missing_mock):
+        """Test GetMissingKeyboardConfigurationTask."""
         x_layouts_result = "[cz (qwerty)]"
         vc_keymap_result = "cz-qwerty"
         get_missing_mock.return_value = (x_layouts_result, vc_keymap_result)

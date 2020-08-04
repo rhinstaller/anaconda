@@ -82,16 +82,13 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
         self.assertListEqual(expected, self.task_life_cycle)
 
-    def _check_progress_changed(self, step, msg, changed=True):
+    def _check_progress_changed(self, step, msg):
         # Check the Progress property.
         self.assertEqual(self.task_interface.Progress, (step, msg))
 
         # Check the ProgressChanged signal.
-        if changed:
-            self.progress_changed_callback.assert_called_once_with(step, msg)
-            self.progress_changed_callback.reset_mock()
-        else:
-            self.progress_changed_callback.assert_not_called()
+        self.progress_changed_callback.assert_called_once_with(step, msg)
+        self.progress_changed_callback.reset_mock()
 
     def _check_no_result(self):
         with self.assertRaises(NoResultError):
