@@ -562,13 +562,13 @@ echo POST1
 
         for element in result.all_elements:
             kickstart_line = kickstart_file_lines_map[element.filename][element.lineno-1]
-            if element.is_addon or element.is_section:
+            if element.is_addon() or element.is_section():
                 # We keep only references to headers.
                 header = element.content.strip().split("\n")[0]
                 # Headers are not stored as source lines but go through shlex
                 # parsing before we can store them in result.
                 self.assertEqual(shlex.split(header), shlex.split(kickstart_line))
-            elif element.is_command:
+            elif element.is_command():
                 self.assertEqual(element.content, kickstart_line)
 
     def _split_kickstart_parser_test(self, ksparser, kickstart_files, expected_output=None):
