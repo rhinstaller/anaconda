@@ -608,6 +608,28 @@ def service_running(service):
     return ret == 0
 
 
+def is_service_installed(service, root=None):
+    """Is a systemd service installed in the sysroot?
+
+    :param str service: name of the service to check
+    :param str root: path to the sysroot or None to use default sysroot path
+    """
+    if root is None:
+        root = conf.target.system_root
+
+    if not service.endswith(".service"):
+        service += ".service"
+
+    args = ["list-unit-files", service, "--no-legend"]
+
+    if root != "/":
+        args += ["--root", root]
+
+    unit_file = execWithCapture("systemctl", args)
+
+    return bool(unit_file)
+
+
 def enable_service(service, root=None):
     """ Enable a systemd service in the sysroot.
 
