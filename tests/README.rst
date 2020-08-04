@@ -81,10 +81,6 @@ represents a different class of tests. They are
 - *gettext/* - sanity tests of files used for translation; Written in Python and
   Bash;
 - *glade/* - sanity tests for .glade files. Written in Python;
-- *gui/* - specialized test suite for the graphical interface of anaconda. This
-  is written in Python and uses the `dogtail <https://fedorahosted.org/dogtail/>`_
-  accessibility module. All tests are executed using ./anaconda.py from the local
-  directory;
 - *install/* - basic RPM sanity test. Checks if anaconda.rpm can be installed in
   a temporary directory without failing dependencies or other RPM issues;
 - *lib/* - helper modules used during testing;
