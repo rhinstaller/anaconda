@@ -30,8 +30,7 @@ from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.timezone import NTP_PACKAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask, \
-    ConfigureNTPServiceEnablementTask
+from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 
@@ -55,9 +54,6 @@ class TimezoneService(KickstartService):
 
         self.time_sources_changed = Signal()
         self._time_sources = []
-
-        # FIXME: temporary workaround until PAYLOAD module is available
-        self._ntp_excluded = False
 
     def publish(self):
         """Publish the module."""
@@ -192,26 +188,12 @@ class TimezoneService(KickstartService):
         requirements = []
 
         # Add ntp service requirements.
-        if self._ntp_enabled and not self._ntp_excluded:
+        if self._ntp_enabled:
             requirements.append(
                 Requirement.for_package(NTP_PACKAGE, reason="Needed to run NTP service.")
             )
 
         return requirements
-
-    def configure_ntp_service_enablement_with_task(self, ntp_excluded):
-        """Enable or disable NTP service.
-
-        FIXME: replace with asking PAYLOAD module when available
-        :param ntp_excluded: the NTP service package was explicitly excluded
-
-        return: task for ntp service enablement
-        """
-        self._ntp_excluded = ntp_excluded
-        return ConfigureNTPServiceEnablementTask(
-            ntp_excluded=ntp_excluded,
-            ntp_enabled=self.ntp_enabled
-        )
 
     def install_with_tasks(self):
         """Return the installation tasks of this module.
