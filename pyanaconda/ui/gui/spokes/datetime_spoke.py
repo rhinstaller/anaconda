@@ -1124,10 +1124,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
                 if working_server is None:
                     self._show_no_ntp_server_warning()
-                else:
-                    # We need a one-time sync here, because chronyd would
-                    # not change the time as drastically as we need.
-                    ntp.one_time_sync_async(working_server)
 
             ret = util.start_service(NTP_SERVICE)
             self._set_date_time_setting_sensitive(False)
