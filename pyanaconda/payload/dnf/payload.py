@@ -872,8 +872,7 @@ class DNFPayload(Payload):
         """Add an enabled repo to dnf and kickstart repo lists.
 
         Add the repo given by the pykickstart Repo object ksrepo to the
-        system.  The repo will be automatically enabled and its metadata
-        fetched.
+        system.
 
         Duplicate repos will not raise an error.  They should just silently
         take the place of the previous value.
@@ -882,11 +881,11 @@ class DNFPayload(Payload):
         :type ksrepo: Kickstart RepoData object.
         :returns: None
         """
-        self._add_repo(ksrepo)
-        self._fetch_md(ksrepo.name)
+        if ksrepo.enabled:
+            self._add_repo(ksrepo)
+            self._fetch_md(ksrepo.name)
 
         # Add the repo to the ksdata so it'll appear in the output ks file.
-        ksrepo.enabled = True
         self.data.repo.dataList().append(ksrepo)
 
     def _add_repo(self, ksrepo):
@@ -986,16 +985,6 @@ class DNFPayload(Payload):
 
         log.info("enabled repo: '%s' - %s and got repomd", repo.id,
                  repo.baseurl or repo.mirrorlist or repo.metalink)
-
-    def add_disabled_repo(self, ksrepo):
-        """Add the repo given by the pykickstart Repo object ksrepo to the
-        list of known repos.  The repo will be automatically disabled.
-
-        Duplicate repos will not raise an error.  They should just silently
-        take the place of the previous value.
-        """
-        ksrepo.enabled = False
-        self.data.repo.dataList().append(ksrepo)
 
     def remove_repo(self, repo_id):
         repos = self.data.repo.dataList()
@@ -1853,10 +1842,7 @@ class DNFPayload(Payload):
                     log.debug("Adding new treeinfo repository: %s enabled: %s",
                               repo_md.name, repo_enabled)
 
-                    if repo_enabled:
-                        self.add_repo(repo)
-                    else:
-                        self.add_disabled_repo(repo)
+                    self.add_repo(repo)
 
     def _cleanup_old_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.
