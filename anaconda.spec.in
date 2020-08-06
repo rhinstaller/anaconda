@@ -366,6 +366,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 06 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.17-1
+- Revert root password spoke to 8.2 behavior (vslavik)
+  Resolves: rhbz#1851220
+- Remove the DBus method ConfigureNTPServiceEnablementWithTask (vponcova)
+  Resolves: rhbz#1862492
+- Add the function is_service_installed (vponcova)
+  Related: rhbz#1862492
+
 * Tue Aug 04 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.16-1
 - Implement get_source_proxy() in payload base class (mkolman)
   Resolves: rhbz#1861456
