@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.common.constants.services import TIMEZONE
-from pyanaconda.modules.common.containers import TaskContainer
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
@@ -107,13 +106,3 @@ class TimezoneInterface(KickstartModuleInterface):
         :param servers: a list of servers
         """
         self.implementation.set_ntp_servers(servers)
-
-    def ConfigureNTPServiceEnablementWithTask(self, ntp_excluded: Bool) -> ObjPath:
-        """Enable or disable NTP service.
-
-        FIXME: replace with asking PAYLOAD module when available
-        :param ntp_excluded: the NTP service package was explicitly excluded
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.configure_ntp_service_enablement_with_task(ntp_excluded)
-        )

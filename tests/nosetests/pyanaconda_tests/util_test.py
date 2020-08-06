@@ -67,6 +67,32 @@ class UpcaseFirstLetterTests(unittest.TestCase):
                          "Czech Republic")
 
 
+class RunSystemctlTests(unittest.TestCase):
+
+    def is_service_installed_test(self):
+        """Test the is_service_installed function."""
+        with patch('pyanaconda.core.util.execWithCapture') as execute:
+            execute.return_value = "fake.service enabled enabled"
+            self.assertEqual(util.is_service_installed("fake"), True)
+            execute.assert_called_once_with("systemctl", [
+                "list-unit-files", "fake.service", "--no-legend", "--root", "/mnt/sysroot"
+            ])
+
+        with patch('pyanaconda.core.util.execWithCapture') as execute:
+            execute.return_value = "fake.service enabled enabled"
+            self.assertEqual(util.is_service_installed("fake.service", root="/"), True)
+            execute.assert_called_once_with("systemctl", [
+                "list-unit-files", "fake.service", "--no-legend"
+            ])
+
+        with patch('pyanaconda.core.util.execWithCapture') as execute:
+            execute.return_value = ""
+            self.assertEqual(util.is_service_installed("fake", root="/"), False)
+            execute.assert_called_once_with("systemctl", [
+                "list-unit-files", "fake.service", "--no-legend"
+            ])
+
+
 class RunProgramTests(unittest.TestCase):
     def run_program_test(self):
         """Test the _run_program method."""
