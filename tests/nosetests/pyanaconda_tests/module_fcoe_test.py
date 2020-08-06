@@ -44,7 +44,7 @@ class FCOEInterfaceTestCase(unittest.TestCase):
         """Test the get nics method."""
         self.assertEqual(self.fcoe_interface.GetNics(), list())
 
-    def get_dracut_arguments(self):
+    def get_dracut_arguments_test(self):
         """Test the get dracut arguments method."""
         self.assertEqual(self.fcoe_interface.GetDracutArguments("eth0"), list())
 

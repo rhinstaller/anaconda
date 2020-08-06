@@ -34,10 +34,7 @@ from driver_updates import append_line, mkdir_seq
 
 
 def touch(path):
-    try:
-        open(path, 'a')
-    except IOError as e:
-        if e.errno != 17: raise
+    open(path, 'a')
 
 
 def makedir(path):
@@ -256,12 +253,13 @@ class TestMkdirSeq(FileTestCaseBase):
 
 from driver_updates import find_repos, save_repo, ARCH
 # As far as we know, this is what makes a valid repo: rhdd3 + rpms/`uname -m`/
-def makerepo(topdir, desc=None):
+def makerepo(topdir):
     descfile = makefile(topdir+'/rhdd3')
-    if not desc:
-        desc = os.path.basename(topdir)
+    desc = os.path.basename(topdir)
+
     with open(descfile, "w") as outf:
         outf.write(desc+"\n")
+
     makedir(topdir+'/rpms/'+ARCH)
 
 
@@ -802,13 +800,7 @@ class DeviceInfoTestCase(unittest.TestCase):
 
 # TODO: test TextMenu itself
 
-# py2/3 compat
-if sys.version_info.major == 3:
-    from io import StringIO
-else:
-    from io import BytesIO as StringIO
-
-
+from io import StringIO
 from driver_updates import device_menu
 class DeviceMenuTestCase(unittest.TestCase):
     def setUp(self):

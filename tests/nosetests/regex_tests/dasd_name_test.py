@@ -57,5 +57,4 @@ class DASDNameRegexTestCase(unittest.TestCase):
                 '',
                 ]
 
-        if not regex_match(DASD_DEVICE_NUMBER, good_tests, bad_tests):
-            self.fail()
+        self.assertTrue(regex_match(DASD_DEVICE_NUMBER, good_tests, bad_tests))

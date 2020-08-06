@@ -80,8 +80,8 @@ class IPv4RegexTestCase(unittest.TestCase):
                 ]
 
         ipv4_re = re.compile('^(' + IPV4_PATTERN_WITHOUT_ANCHORS + ')$')
-        if not regex_match(ipv4_re, good_tests, bad_tests):
-            self.fail()
+        self.assertTrue(regex_match(ipv4_re, good_tests, bad_tests))
+
 
 class IPv6RegexTestCase(unittest.TestCase):
     def ipv6_test(self):
@@ -169,5 +169,4 @@ class IPv6RegexTestCase(unittest.TestCase):
                 ]
 
         ipv6_re = re.compile('^(' + IPV6_PATTERN_WITHOUT_ANCHORS + ')$')
-        if not regex_match(ipv6_re, good_tests, bad_tests):
-            self.fail()
+        self.assertTrue(regex_match(ipv6_re, good_tests, bad_tests))

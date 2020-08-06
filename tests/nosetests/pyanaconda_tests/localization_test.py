@@ -28,6 +28,10 @@ from io import StringIO
 # required due to mocking os.environ
 
 class LangcodeLocaleParsingTests(unittest.TestCase):
+
+    def tearDown(self):
+        locale_mod.setlocale(locale_mod.LC_ALL, DEFAULT_LANG)
+
     def is_valid_test(self):
 
         self.assertTrue(localization.is_valid_langcode("en"))
@@ -89,6 +93,9 @@ class LangcodeLocaleParsingTests(unittest.TestCase):
 
 
 class SetupLocaleTest(unittest.TestCase):
+
+    def tearDown(self):
+        locale_mod.setlocale(locale_mod.LC_ALL, DEFAULT_LANG)
 
     @patch("pyanaconda.localization.setenv")
     @patch("pyanaconda.localization.locale_mod.setlocale")
@@ -222,6 +229,10 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 
 
 class LangcodeLocaleMatchingTests(unittest.TestCase):
+
+    def tearDown(self):
+        locale_mod.setlocale(locale_mod.LC_ALL, DEFAULT_LANG)
+
     def langcode_matches_locale_test(self):
         """Langcode-locale matching should work as expected."""
         # should match
@@ -283,21 +294,8 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
         """All locales' date formats should be properly resolved."""
         locales = (line.strip() for line in execWithCaptureBinary("locale", ["-a"]).splitlines())
         for locale in locales:
-            # "locale -a" might return latin-1 encoded local identifiers:
-            # https://bugzilla.redhat.com/show_bug.cgi?id=1184168
-            # once that bug is fixed we should be able to remove the latin-1 decoding
-            # fallback
-            try:
-                decoded_locale = locale.decode("utf-8")
-            except UnicodeDecodeError:
-                decoded_locale = locale.decode("latin-1")
-
-            try:
-                locale_mod.setlocale(locale_mod.LC_ALL, decoded_locale)
-            except locale_mod.Error:
-                # cannot set locale (a bug in the locale module?)
-                continue
-
+            decoded_locale = locale.decode("utf-8")
+            locale_mod.setlocale(locale_mod.LC_ALL, decoded_locale)
             order = localization.resolve_date_format(1, 2, 3, fail_safe=False)[0]
             for i in (1, 2, 3):
                 self.assertIn(i, order)

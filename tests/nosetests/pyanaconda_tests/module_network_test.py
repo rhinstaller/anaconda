@@ -609,9 +609,6 @@ class FirewallInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def _test_kickstart(self, ks_in, ks_out):
-        check_kickstart_interface(self, self.firewall_interface, ks_in, ks_out)
-
     def default_property_values_test(self):
         """Test the default firewall module values are as expected."""
         self.assertEqual(self.firewall_interface.FirewallMode, FIREWALL_DEFAULT)

@@ -43,5 +43,4 @@ class RepoNameTestCase(unittest.TestCase):
                 '[reponame]'
                 ]
 
-        if not regex_match(REPO_NAME_VALID, good_tests, bad_tests):
-            self.fail()
+        self.assertTrue(regex_match(REPO_NAME_VALID, good_tests, bad_tests))

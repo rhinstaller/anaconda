@@ -97,16 +97,9 @@ class StorageInterfaceTestCase(unittest.TestCase):
         check_kickstart_interface, because the partitioning created from
         the kickstart data will be used to generate a new kickstart data.
         """
-        def _apply_partitioning(module):
-            # Disable all static partitioning modules.
-            for m in self.storage_module._modules:
-                if isinstance(m, (AutoPartitioningModule, ManualPartitioningModule)):
-                    m.set_enabled(False)
-
-            # Apply the new dynamic partitioning module.
-            self.storage_module._set_applied_partitioning(module)
-
-        self.storage_module.created_partitioning_changed.connect(_apply_partitioning)
+        self.storage_module.created_partitioning_changed.connect(
+            self.storage_module._set_applied_partitioning
+        )
 
     def initialization_test(self):
         """Test the Blivet initialization."""

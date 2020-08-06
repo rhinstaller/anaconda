@@ -177,9 +177,8 @@ class LiveTasksTestCase(unittest.TestCase):
         os.makedirs(entries_path)
         os.makedirs(lib_modules_path)
 
-        if bls_entries:
-            for entry in bls_entries:
-                open(os.path.join(entries_path, entry), "wt").close()
+        for entry in bls_entries:
+            open(os.path.join(entries_path, entry), "wt").close()
 
     @patch("pyanaconda.modules.payloads.base.installation.create_rescue_image")
     @patch("pyanaconda.modules.payloads.base.installation.execWithRedirect")
