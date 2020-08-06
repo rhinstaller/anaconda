@@ -48,14 +48,12 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     $(srcdir)/lib/*.sh \
 		     nosetests.sh \
 		     nosetests_root.sh \
-		     run_gui_tests.sh \
 		     rpm_tests.sh \
 		     pylint/runpylint.py \
 		     cppcheck/runcppcheck.sh \
 		     testenv.sh \
 		     $(srcdir)/gettext_tests/*.py \
 		     gettext_tests/canary_tests.sh \
-		     $(srcdir)/gui/*.py \
 		     $(srcdir)/*_tests/*.py \
 		     $(srcdir)/nosetests/*_tests/*.py \
 		     pep8/runpep8.sh
