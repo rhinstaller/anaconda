@@ -117,7 +117,6 @@ THREAD_STORAGE_WATCHER = "AnaStorageWatcher"
 THREAD_WAIT_FOR_CONNECTING_NM = "AnaWaitForConnectingNMThread"
 THREAD_PAYLOAD = "AnaPayloadThread"
 THREAD_PAYLOAD_RESTART = "AnaPayloadRestartThread"
-THREAD_SYNC_TIME_BASENAME = "AnaSyncTime"
 THREAD_EXCEPTION_HANDLING_TEST = "AnaExceptionHandlingTest"
 THREAD_LIVE_PROGRESS = "AnaLiveProgressThread"
 THREAD_SOFTWARE_WATCHER = "AnaSoftwareWatcher"
@@ -314,6 +313,9 @@ TIME_SOURCE_POOL = "POOL"
 NTP_SERVER_OK = 0
 NTP_SERVER_NOK = 1
 NTP_SERVER_QUERY = 2
+
+# Timeout for the NTP server check
+NTP_SERVER_TIMEOUT = 5
 
 # Storage checker constraints
 STORAGE_MIN_RAM = "min_ram"
