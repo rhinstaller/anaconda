@@ -28,6 +28,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import unmark_protected_device
+from pyanaconda.payload.manager import payloadMgr
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common import task
@@ -77,6 +78,21 @@ def switch_source(payload, source_type):
 
     new_source_proxy = create_source(source_type)
     set_source(payload.proxy, new_source_proxy)
+
+
+def _do_payload_restart(payload):
+    """Restart the Anaconda payload.
+
+    This should be done after changing the installation sorce,
+    such as when switching to and from the CDN.
+
+    :param payload: Anaconda payload instance
+    """
+    # restart payload
+    payloadMgr.restart_thread(payload,
+                              fallback=False,
+                              checkmount=False,
+                              onlyOnChange=False)
 
 
 def check_cdn_is_installation_source(payload):
@@ -161,7 +177,8 @@ def username_password_sufficient(subscription_request=None):
     return username_set and password_set
 
 
-def register_and_subscribe(payload, progress_callback=None, error_callback=None):
+def register_and_subscribe(payload, progress_callback=None, error_callback=None,
+                           restart_payload=False):
     """Try to register and subscribe the installation environment.
 
     :param payload: Anaconda payload instance
@@ -278,16 +295,23 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None)
     # the CDN source we can now use
     # - at the moment this is true only for the CDROM source
     source_proxy = payload.get_source_proxy()
-    if payload.type == PAYLOAD_TYPE_DNF and source_proxy.Type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
-        log.debug("subscription thread: overriding current installation source by CDN")
-        switch_source(payload, SOURCE_TYPE_CDN)
+    if payload.type == PAYLOAD_TYPE_DNF:
+        if source_proxy.Type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
+            log.debug("subscription thread: overriding current installation source by CDN")
+            switch_source(payload, SOURCE_TYPE_CDN)
+        # If requested, also restart the payload if CDN is the installation source
+        # The CDN either already was the installation source or we just switched to it.
+        if restart_payload and source_proxy.Type == SOURCE_TYPE_CDN:
+            log.debug("subscription thread: restarting payload after registration")
+            _do_payload_restart(payload)
 
     # and done, report attaching subscription was successful
     log.debug("subscription thread: auto attach succeeded")
     progress_callback(SubscriptionPhase.DONE)
 
 
-def unregister(payload, overridden_source_type, progress_callback=None, error_callback=None):
+def unregister(payload, overridden_source_type, progress_callback=None, error_callback=None,
+               restart_payload=False):
     """Try to unregister the installation environment.
 
     NOTE: Unregistering also removes any attached subscriptions and
@@ -334,10 +358,23 @@ def unregister(payload, overridden_source_type, progress_callback=None, error_ca
         # If the CDN overrode an installation source we should revert that
         # on unregistration, provided CDN is the current source.
         source_proxy = payload.get_source_proxy()
-        should_override = source_proxy.Type == SOURCE_TYPE_CDN and overridden_source_type
-        if payload.type == PAYLOAD_TYPE_DNF and should_override:
-            log.debug("subscription thread: rolling back installation source override by the CDN")
-            switch_source(payload, overridden_source_type)
+        switched_source = False
+        if payload.type == PAYLOAD_TYPE_DNF:
+            if source_proxy.Type == SOURCE_TYPE_CDN and overridden_source_type:
+                log.debug(
+                    "subscription thread: rolling back CDN installation source override"
+                )
+                switch_source(payload, overridden_source_type)
+                switched_source = True
+
+            # If requested, also restart the payload if:
+            # - installation source switch occured
+            # - the current source is CDN, which can no longer be used
+            #   after unregistration, so we need to refresh the Source
+            #   and Software spokes
+            if restart_payload and (source_proxy.Type == SOURCE_TYPE_CDN or switched_source):
+                log.debug("subscription thread: restarting payload after unregistration")
+                _do_payload_restart(payload)
 
         log.debug("Subscription GUI: unregistration succeeded")
         progress_callback(SubscriptionPhase.DONE)
