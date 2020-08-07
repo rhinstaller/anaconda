@@ -10,7 +10,9 @@ from abc import ABC
 
 from contextlib import contextmanager
 from collections import namedtuple
-from rpmfluff import SourceFile, GeneratedSourceFile, SimpleRpmBuild, expectedArch, make_elf
+from rpmfluff import SourceFile, GeneratedSourceFile, SimpleRpmBuild
+from rpmfluff.utils import expectedArch
+from rpmfluff.make import make_elf
 from shutup import shutup
 
 TOP_SRCDIR = os.environ.get("top_builddir", "../..")
