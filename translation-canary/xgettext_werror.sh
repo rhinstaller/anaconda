@@ -37,7 +37,7 @@ returncode=0
 xgettext_output="$(LC_MESSAGES=C xgettext "$@" 2>&1)" || returncode=$?
 
 # Look for warnings
-if echo "$xgettext_output" | fgrep -q "warning: "; then
+if echo "$xgettext_output" | awk '/warning: / && !/fallback ITS rule/{rc=1}; END {exit !rc}'; then
     returncode=1
 fi
 
