@@ -23,7 +23,6 @@ from dasbus.server.interface import dbus_interface
 
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import TIMEZONE
-from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
 
 
@@ -112,14 +111,4 @@ class TimezoneInterface(KickstartModuleInterface):
         """
         self.implementation.set_time_sources(
             TimeSourceData.from_structure_list(sources)
-        )
-
-    def ConfigureNTPServiceEnablementWithTask(self, ntp_excluded: Bool) -> ObjPath:
-        """Enable or disable NTP service.
-
-        FIXME: replace with asking PAYLOAD module when available
-        :param ntp_excluded: the NTP service package was explicitly excluded
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.configure_ntp_service_enablement_with_task(ntp_excluded)
         )

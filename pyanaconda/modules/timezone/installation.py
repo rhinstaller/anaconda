@@ -19,7 +19,7 @@ import os
 import os.path
 
 from pyanaconda import ntp
-from pyanaconda.modules.common.constants.services import SERVICES
+from pyanaconda.core import util
 from pyanaconda.timezone import NTP_SERVICE
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
@@ -28,7 +28,7 @@ from pyanaconda.timezone import is_valid_timezone
 
 from blivet import arch
 
-__all__ = ["ConfigureNTPTask", "ConfigureTimezoneTask", "ConfigureNTPServiceEnablementTask"]
+__all__ = ["ConfigureNTPTask", "ConfigureTimezoneTask"]
 
 log = get_module_logger(__name__)
 
@@ -141,7 +141,24 @@ class ConfigureNTPTask(Task):
 
     def run(self):
         """Perform the actual work of setting up NTP."""
+        self._enable_service()
+        self._write_configuration()
+
+    def _enable_service(self):
+        """Enable or disable the chrony service."""
+        if not util.is_service_installed(NTP_SERVICE, root=self._sysroot):
+            log.debug("The NTP service is not installed.")
+            return
+
+        if self._ntp_enabled:
+            util.enable_service(NTP_SERVICE, root=self._sysroot)
+        else:
+            util.disable_service(NTP_SERVICE, root=self._sysroot)
+
+    def _write_configuration(self):
+        """Write the chrony configuration."""
         if not (self._ntp_enabled and self._ntp_servers):
+            log.debug("The NTP service is not enabled or configured.")
             return
 
         chronyd_conf_path = os.path.normpath(self._sysroot + ntp.NTP_CONFIG_FILE)
@@ -170,36 +187,3 @@ class ConfigureNTPTask(Task):
             except ntp.NTPconfigError as ntperr:
                 log.warning("Failed to save NTP configuration without chrony package: %s",
                             ntperr)
-
-
-class ConfigureNTPServiceEnablementTask(Task):
-    """Installation task for NTP service enablement."""
-
-    def __init__(self, ntp_enabled, ntp_excluded):
-        """Create a new task.
-
-        :param bool ntp_enabled: is NTP enabled or not
-        # FIXME replace with asking PAYLOAD when available
-        :param bool ntp_excluded: is NTP service package explicitly excluded?
-        """
-        super().__init__()
-        self._ntp_enabled = ntp_enabled
-        self._ntp_excluded = ntp_excluded
-
-    @property
-    def name(self):
-        return "Configure NTP service enablement"
-
-    def run(self):
-        services_proxy = SERVICES.get_proxy()
-        enabled_services = services_proxy.EnabledServices
-        disabled_services = services_proxy.DisabledServices
-
-        if self._ntp_enabled and not self._ntp_excluded:
-            if NTP_SERVICE not in enabled_services and NTP_SERVICE not in disabled_services:
-                enabled_services.append(NTP_SERVICE)
-                services_proxy.SetEnabledServices(enabled_services)
-        else:
-            if NTP_SERVICE not in disabled_services:
-                disabled_services.append(NTP_SERVICE)
-                services_proxy.SetDisabledServices(disabled_services)

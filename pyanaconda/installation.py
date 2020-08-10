@@ -97,15 +97,16 @@ def _prepare_configuration(payload, ksdata):
     security_dbus_tasks = security_proxy.InstallWithTasks()
     os_config.append_dbus_tasks(SECURITY, security_dbus_tasks)
 
+    # add installation tasks for the Timezone DBus module
+    # run these tasks before tasks of the Services module
+    timezone_proxy = TIMEZONE.get_proxy()
+    timezone_dbus_tasks = timezone_proxy.InstallWithTasks()
+    os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
+
     # add installation tasks for the Services DBus module
     services_proxy = SERVICES.get_proxy()
     services_dbus_tasks = services_proxy.InstallWithTasks()
     os_config.append_dbus_tasks(SERVICES, services_dbus_tasks)
-
-    # add installation tasks for the Timezone DBus module
-    timezone_proxy = TIMEZONE.get_proxy()
-    timezone_dbus_tasks = timezone_proxy.InstallWithTasks()
-    os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
 
     # add installation tasks for the Localization DBus module
     localization_proxy = LOCALIZATION.get_proxy()
@@ -278,13 +279,6 @@ def _prepare_installation(payload, ksdata):
     # - try to discover a realm (if any)
     # - check for possibly needed additional packages.
     pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
-    # Setup timezone and add chrony as package if timezone was set in KS
-    # and "-chrony" wasn't in packages section and/or --nontp wasn't set.
-    timezone_proxy = TIMEZONE.get_proxy()
-    ntp_excluded = timezone.NTP_PACKAGE in ksdata.packages.excludedList
-    pre_install.append_dbus_tasks(
-        TIMEZONE, [timezone_proxy.ConfigureNTPServiceEnablementWithTask(ntp_excluded)]
-    )
 
     # make name resolution work for rpm scripts in chroot
     if conf.system.provides_resolver_config:
