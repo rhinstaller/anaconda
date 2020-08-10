@@ -35,6 +35,7 @@ log = get_module_logger(__name__)
 
 
 IFCFG_DIR = "/etc/sysconfig/network-scripts"
+KEYFILE_DIR = "/etc/NetworkManager/system-connections"
 
 
 class IfcfgFile(SimpleConfigFile):
@@ -118,6 +119,14 @@ def get_ifcfg_files_paths(directory):
         if name.startswith("ifcfg-"):
             if name == "ifcfg-lo":
                 continue
+            rv.append(os.path.join(directory, name))
+    return rv
+
+
+def get_keyfile_files_paths(directory):
+    rv = []
+    for name in os.listdir(directory):
+        if name.endswith(".nmconnection"):
             rv.append(os.path.join(directory, name))
     return rv
 
@@ -452,9 +461,11 @@ def get_master_slaves_from_ifcfgs(nm_client, master_devname, root_path="", uuid=
     return slaves
 
 
-def get_ifcfg_files_content(root_path=""):
+def get_config_files_content(root_path=""):
     fragments = []
-    for file_path in get_ifcfg_files_paths(os.path.normpath(root_path + IFCFG_DIR)):
+    file_paths = get_ifcfg_files_paths(os.path.normpath(root_path + IFCFG_DIR)) + \
+        get_keyfile_files_paths(os.path.normpath(root_path + KEYFILE_DIR))
+    for file_path in file_paths:
         fragments.append("{}:".format(file_path))
         with open(file_path, "r") as f:
             fragments.append(f.read().strip("\n"))

@@ -36,7 +36,7 @@ from pyanaconda.modules.network.device_configuration import DeviceConfigurations
 from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump, \
     get_dracut_arguments_from_connection, is_ibft_connection
 from pyanaconda.modules.network.ifcfg import get_kickstart_network_data, \
-    get_ifcfg_file, get_ifcfg_files_content
+    get_ifcfg_file, get_config_files_content
 from pyanaconda.modules.network.installation import NetworkInstallationTask, \
     ConfigureActivationOnBootTask, HostnameConfigurationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
@@ -706,10 +706,10 @@ class NetworkService(KickstartService):
     def log_configuration_state(self, msg_header, root_path=""):
         """Log the current network configuration state.
 
-        Logs ifcfg files and NM connections
+        Logs NM config files and NM connections
         """
         log.debug("Dumping configuration state - %s", msg_header)
-        for line in get_ifcfg_files_content(root_path=root_path).splitlines():
+        for line in get_config_files_content(root_path=root_path).splitlines():
             log.debug(line)
         if self.nm_available:
             for line in get_connections_dump(self.nm_client).splitlines():
