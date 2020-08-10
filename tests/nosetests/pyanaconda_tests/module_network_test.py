@@ -1191,6 +1191,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._sysctl_dir = os.path.dirname(NetworkInstallationTask.ANACONDA_SYSCTL_FILE_PATH)
         self._resolv_conf_dir = os.path.dirname(NetworkInstallationTask.RESOLV_CONF_FILE_PATH)
         self._network_scripts_dir = NetworkInstallationTask.NETWORK_SCRIPTS_DIR_PATH
+        self._nm_syscons_dir = NetworkInstallationTask.NM_SYSTEM_CONNECTIONS_DIR_PATH
         self._systemd_network_dir = NetworkInstallationTask.SYSTEMD_NETWORK_CONFIG_DIR
         self._dhclient_dir = os.path.dirname(NetworkInstallationTask.DHCLIENT_FILE_TEMPLATE)
 
@@ -1237,6 +1238,8 @@ class InstallationTaskTestCase(unittest.TestCase):
         task.ANACONDA_SYSCTL_FILE_PATH = self._mocked_root + type(task).ANACONDA_SYSCTL_FILE_PATH
         task.RESOLV_CONF_FILE_PATH = self._mocked_root + type(task).RESOLV_CONF_FILE_PATH
         task.NETWORK_SCRIPTS_DIR_PATH = self._mocked_root + type(task).NETWORK_SCRIPTS_DIR_PATH
+        task.NM_SYSTEM_CONNECTIONS_DIR_PATH = self._mocked_root + \
+            type(task).NM_SYSTEM_CONNECTIONS_DIR_PATH
         task.DHCLIENT_FILE_TEMPLATE = self._mocked_root + type(task).DHCLIENT_FILE_TEMPLATE
         task.SYSTEMD_NETWORK_CONFIG_DIR = self._mocked_root + type(task).SYSTEMD_NETWORK_CONFIG_DIR
 
@@ -1249,6 +1252,7 @@ class InstallationTaskTestCase(unittest.TestCase):
                 self._sysctl_dir,
                 self._resolv_conf_dir,
                 self._network_scripts_dir,
+                self._nm_syscons_dir,
                 self._systemd_network_dir,
                 self._dhclient_dir,
             ],
@@ -1257,6 +1261,7 @@ class InstallationTaskTestCase(unittest.TestCase):
                 self._sysctl_dir,
                 self._resolv_conf_dir,
                 self._network_scripts_dir,
+                self._nm_syscons_dir,
                 self._systemd_network_dir,
                 self._dhclient_dir,
             ]
@@ -1323,6 +1328,15 @@ class InstallationTaskTestCase(unittest.TestCase):
             )
         )
         self._dump_config_files(
+            self._nm_syscons_dir,
+            (
+                ("ens10.nmconnection", "content1"),
+                ("ens11.nmconnection", "content2"),
+                ("ens10.whatever", "content3"),
+                ("whatever", "content4"),
+            )
+        )
+        self._dump_config_files(
             self._dhclient_dir,
             (
                 ("dhclient-ens3.conf", "ens3conf"),
@@ -1355,7 +1369,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             sysroot=self._target_root,
             disable_ipv6=True,
             overwrite=True,
-            network_ifaces=["ens3", "ens7"],
+            network_ifaces=["ens3", "ens7", "ens10", "ens11"],
             ifname_option_values=["ens3:00:15:17:96:75:0a"],
             # Perhaps does not make sense together with ifname option, but for
             # test it is fine
@@ -1433,6 +1447,34 @@ class InstallationTaskTestCase(unittest.TestCase):
             ens7conf
             """
         )
+        self._check_config_file(
+            self._nm_syscons_dir,
+            "ens10.nmconnection",
+            """
+            content1
+            """
+        )
+        self._check_config_file(
+            self._nm_syscons_dir,
+            "ens11.nmconnection",
+            """
+            content2
+            """
+        )
+        self._check_config_file(
+            self._nm_syscons_dir,
+            "ens10.whatever",
+            """
+            content3
+            """
+        )
+        self._check_config_file(
+            self._nm_syscons_dir,
+            "whatever",
+            """
+            content4
+            """
+        )
         self._check_config_file_does_not_exist(
             self._dhclient_dir,
             "file_that_shoudnt_be_copied.conf"
@@ -1473,6 +1515,10 @@ class InstallationTaskTestCase(unittest.TestCase):
             (("ifcfg-ens3", "original target system content"),)
         )
         self._dump_config_files_in_target(
+            self._nm_syscons_dir,
+            (("ens10.nmconnection", "original target system content"),)
+        )
+        self._dump_config_files_in_target(
             self._dhclient_dir,
             (("dhclient-ens3.conf", "original target system content"),)
         )
@@ -1488,6 +1534,10 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._dump_config_files(
             self._network_scripts_dir,
             (("ifcfg-ens3", "installer environment content"),)
+        )
+        self._dump_config_files(
+            self._nm_syscons_dir,
+            (("ens10.nmconnection", "installer environment content"),)
         )
         self._dump_config_files(
             self._dhclient_dir,
@@ -1508,7 +1558,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             sysroot=self._target_root,
             disable_ipv6=False,
             overwrite=True,
-            network_ifaces=["ens3", "ens7"],
+            network_ifaces=["ens3", "ens7", "ens10"],
             ifname_option_values=["ens3:00:15:17:96:75:0a"],
             configure_persistent_device_names=False,
         )
@@ -1542,6 +1592,13 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._check_config_file(
             self._network_scripts_dir,
             "ifcfg-ens3",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._nm_syscons_dir,
+            "ens10.nmconnection",
             """
             original target system content
             """
@@ -1607,6 +1664,13 @@ class InstallationTaskTestCase(unittest.TestCase):
             """
         )
         self._check_config_file(
+            self._nm_syscons_dir,
+            "ens10.nmconnection",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
             self._dhclient_dir,
             "dhclient-ens3.conf",
             """
@@ -1646,6 +1710,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._create_config_dirs(
             installer_dirs=[
                 self._network_scripts_dir,
+                self._nm_syscons_dir,
                 self._systemd_network_dir,
             ],
             target_system_dirs=[
