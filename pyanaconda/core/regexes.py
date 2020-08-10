@@ -191,3 +191,6 @@ ZFCP_WWPN_NUMBER = re.compile(r'^(?:0x|)[0-9A-Fa-f]{16}$')
 
 # IPv6 address in dracut IP option (including the square brackets)
 IPV6_ADDRESS_IN_DRACUT_IP_OPTION = re.compile(r'\[[^\]]+\]')
+
+# Octet of MAC address
+MAC_OCTET = re.compile(r'[a-fA-F0-9][a-fA-F0-9]')
