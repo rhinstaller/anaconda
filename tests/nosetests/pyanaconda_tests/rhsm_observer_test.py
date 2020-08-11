@@ -60,9 +60,42 @@ class StartRHSMTaskTestCase(unittest.TestCase):
             "com.redhat.RHSM1.Config",
         )
         # check expected values were set on the RHSM config proxy
-        config_proxy.Set.assert_called_once_with(
-            'logging.default_log_level',
-            get_variant(Str, 'DEBUG'),
+        # - logging should be always set to DEBUG
+        # - SSL certificate validation should be enabled by default
+        #   (insecure == 0)
+        config_proxy.SetAll.assert_called_once_with(
+            {
+                'logging.default_log_level': get_variant(Str, 'DEBUG'),
+            },
+            ''
+        )
+
+    @patch("pyanaconda.modules.common.constants.services.RHSM.get_proxy")
+    @patch("pyanaconda.core.util.start_service")
+    def insecure_test(self, start_service, get_proxy):
+        """Test StartRHSMTask - setting the server.insecure RHSM config key."""
+        # create the task & disable SSL certificate validation
+        task = StartRHSMTask(verify_ssl=False)
+        # simulate successful systemd service start
+        start_service.return_value = 0
+        # return mock proxy
+        config_proxy = Mock()
+        get_proxy.return_value = config_proxy
+        # run the task and expect it to succeed
+        self.assertTrue(task.run())
+        # check service was started correctly
+        start_service.assert_called_once_with("rhsm.service")
+        # check proxy was requested
+        get_proxy.assert_called_once()
+        # check expected values were set on the RHSM config proxy
+        # - logging should be always set to DEBUG
+        # - SSL certificate validation should be disabled if requested
+        #   (insecure == 1)
+        config_proxy.SetAll.assert_called_once_with(
+            {
+                'logging.default_log_level': get_variant(Str, 'DEBUG'),
+                'server.insecure': get_variant(Str, '1'),
+            },
             ''
         )
 

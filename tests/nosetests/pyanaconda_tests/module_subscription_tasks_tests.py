@@ -41,7 +41,7 @@ from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
 
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
+    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask
 
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
@@ -280,17 +280,18 @@ class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
         mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")
 
 
-class RestoreRHSMLogLevelTaskTestCase(unittest.TestCase):
-    """Test the RestoreRHSMLogLevelTask task."""
+class RestoreRHSMDefaultsTaskTestCase(unittest.TestCase):
+    """Test the RestoreRHSMDefaultsTask task."""
 
     def restore_rhsm_log_level_task_test(self):
-        """Test the RestoreRHSMLogLevelTask task."""
+        """Test the RestoreRHSMDefaultsTask task."""
         mock_config_proxy = Mock()
-        task = RestoreRHSMLogLevelTask(rhsm_config_proxy=mock_config_proxy)
+        task = RestoreRHSMDefaultsTask(rhsm_config_proxy=mock_config_proxy)
         task.run()
-        mock_config_proxy.Set.assert_called_once_with("logging.default_log_level",
-                                                      get_variant(Str, "INFO"),
-                                                      "")
+        mock_config_proxy.SetAll.assert_called_once_with({
+            "logging.default_log_level": get_variant(Str, "INFO"),
+            "server.insecure": get_variant(Str, "0")
+        }, "")
 
 
 class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
