@@ -11,4 +11,5 @@ Wants=plymouth-quit.service plymouth-quit-wait.service
 Wants=anaconda-direct.service anaconda.service
 Wants=anaconda-sshd.service
 Wants=anaconda-pre.service
+Wants=anaconda-fips.service
 Wants=systemd-logind.service
