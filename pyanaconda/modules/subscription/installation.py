@@ -81,8 +81,14 @@ class ConnectToInsightsTask(Task):
             raise InsightsConnectError("Connecting to Red Hat Insights failed.")
 
 
-class RestoreRHSMLogLevelTask(Task):
-    """Restore RHSM log level back to INFO."""
+class RestoreRHSMDefaultsTask(Task):
+    """Restore RHSM defaults we changed for install time purposes.
+
+    At the moment this means setting the RHSM log level back to INFO
+    from DEBUG and making sure SSL certificate validation is enabled
+    (as we might turn it off for the installation run if requested by
+     the user).
+    """
 
     def __init__(self, rhsm_config_proxy):
         """Create a new task.
@@ -93,21 +99,31 @@ class RestoreRHSMLogLevelTask(Task):
 
     @property
     def name(self):
-        return "Restoring subscription manager log level"
+        return "Restoring subscription manager defaults"
 
     def run(self):
-        """Set RHSM log level back to INFO.
+        """Restore RHSM defaults we changed.
 
         We previously set the RHSM log level to DEBUG, which is also
         reflected in rhsm.conf. This would mean RHSM would continue to
         log in debug mode also on the system once rhsm.conf has been
         copied over to the target system.
 
-        So set the log level back to INFO before we copy the config file.
+        The same thing needs to be done for the server.insecure key
+        that we migh set to "1" previously on user request.
+
+        So set the log level back to INFO before we copy the config file
+        and make sure server.insecure is equal to "0".
         """
         log.debug("subscription: setting RHSM log level back to INFO")
-        self._rhsm_config_proxy.Set("logging.default_log_level",
-                                    get_variant(Str, "INFO"), "")
+        log.debug("subscription: making sure RHSM SSL certificate validation is enabled")
+        config_dict = {
+            "logging.default_log_level": get_variant(Str, "INFO"),
+            "server.insecure": get_variant(Str, "0")
+        }
+
+        # set all the values at once atomically
+        self._rhsm_config_proxy.SetAll(config_dict, "")
 
 
 class TransferSubscriptionTokensTask(Task):

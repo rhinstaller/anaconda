@@ -39,7 +39,7 @@ from pyanaconda.modules.subscription.subscription_interface import SubscriptionI
 from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _normalize_field, \
     _match_field, process_field, give_the_system_purpose, SYSPURPOSE_UTILITY_PATH
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
+    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
     UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
@@ -1407,14 +1407,14 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         observer.get_proxy.return_value = config_proxy
 
         task_classes = [
-            RestoreRHSMLogLevelTask,
+            RestoreRHSMDefaultsTask,
             TransferSubscriptionTokensTask,
             ConnectToInsightsTask
         ]
         task_paths = self.subscription_interface.InstallWithTasks()
         task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
 
-        # RestoreRHSMLogLevelTask
+        # RestoreRHSMDefaultsTask
         obj = task_objs[0]
         self.assertEqual(obj.implementation._rhsm_config_proxy, config_proxy)
 
@@ -1442,14 +1442,14 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         observer.get_proxy.return_value = config_proxy
 
         task_classes = [
-            RestoreRHSMLogLevelTask,
+            RestoreRHSMDefaultsTask,
             TransferSubscriptionTokensTask,
             ConnectToInsightsTask
         ]
         task_paths = self.subscription_interface.InstallWithTasks()
         task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
 
-        # RestoreRHSMLogLevelTask
+        # RestoreRHSMDefaultsTask
         obj = task_objs[0]
         self.assertEqual(obj.implementation._rhsm_config_proxy, config_proxy)
 

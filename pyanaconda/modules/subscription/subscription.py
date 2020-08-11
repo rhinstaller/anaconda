@@ -45,7 +45,7 @@ from pyanaconda.modules.subscription import system_purpose
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMLogLevelTask, TransferSubscriptionTokensTask
+    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
@@ -109,7 +109,7 @@ class SubscriptionService(KickstartService):
         self._subscription_attached = False
 
         # RHSM service startup and access
-        self._rhsm_startup_task = StartRHSMTask()
+        self._rhsm_startup_task = StartRHSMTask(verify_ssl=conf.payload.verify_ssl)
         self._rhsm_observer = RHSMObserver(self._rhsm_startup_task.is_service_available)
 
         # RHSM config default values cache
@@ -523,7 +523,7 @@ class SubscriptionService(KickstartService):
         :returns: list of installation tasks
         """
         return [
-            RestoreRHSMLogLevelTask(
+            RestoreRHSMDefaultsTask(
                 rhsm_config_proxy=self.rhsm_observer.get_proxy(RHSM_CONFIG)
             ),
             TransferSubscriptionTokensTask(
