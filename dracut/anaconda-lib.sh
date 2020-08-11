@@ -117,14 +117,15 @@ anaconda_net_root() {
         info "anaconda: successfully fetched stage2 from $repo"
 
         # NOTE: Should be the same as anaconda_auto_updates()
-        updates=$(fetch_url $repo/images/updates.img 2> /tmp/updates_err)
-        [ -z "$updates" ] && debug_msg $(cat /tmp/updates_err)
-        [ -n "$updates" ] && unpack_updates_img $updates /updates
+        if ! getargbool 0 updates inst.updates; then
+            updates=$(fetch_url $repo/images/updates.img 2> /tmp/updates_err)
+            [ -z "$updates" ] && debug_msg $(cat /tmp/updates_err)
+            [ -n "$updates" ] && unpack_updates_img $updates /updates
 
-        product=$(fetch_url $repo/images/product.img 2> /tmp/product_err)
-        [ -z "$product" ] && debug_msg $(cat /tmp/product_err)
-        [ -n "$product" ] && unpack_updates_img $product /updates
-
+            product=$(fetch_url $repo/images/product.img 2> /tmp/product_err)
+            [ -z "$product" ] && debug_msg $(cat /tmp/product_err)
+            [ -n "$product" ] && unpack_updates_img $product /updates
+        fi
         anaconda_mount_sysroot $runtime
         return 0
     fi
@@ -146,6 +147,10 @@ anaconda_mount_sysroot() {
 # find updates.img/product.img/RHUpdates and unpack/copy them so they'll
 # end up in the location(s) that anaconda expects them
 anaconda_auto_updates() {
+    if getargbool 0 updates inst.updates; then
+        info "anaconda: skip auto updates since inst.updates is given"
+        return
+    fi
     local dir="$1"
     if [ -d $dir/RHupdates ]; then
         copytree $dir/RHupdates /updates
