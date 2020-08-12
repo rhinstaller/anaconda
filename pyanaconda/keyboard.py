@@ -171,8 +171,10 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
         # store it normalized
         new_layouts = [normalize_layout_variant(layouts[0])]
         if not langtable.supports_ascii(layouts[0]):
-            # does not support typing ASCII chars, append the default layout
-            new_layouts.append(DEFAULT_KEYBOARD)
+            # The default keymap setting should have "us" before the native layout
+            # which does not support ascii,
+            # refer: https://bugzilla.redhat.com/show_bug.cgi?id=1039185
+            new_layouts.insert(0, DEFAULT_KEYBOARD)
     else:
         log.error("Failed to get layout for chosen locale '%s'", locale)
         new_layouts = [DEFAULT_KEYBOARD]
