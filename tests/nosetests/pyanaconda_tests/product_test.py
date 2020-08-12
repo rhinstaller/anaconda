@@ -236,6 +236,11 @@ class ProductConfigurationTestCase(unittest.TestCase):
             WORKSTATION_PARTITIONING
         )
         self._check_default_product(
+            "CentOS Stream", "",
+            ["rhel.conf", "centos.conf", "centos-stream.conf"],
+            WORKSTATION_PARTITIONING
+        )
+        self._check_default_product(
             "Red Hat Virtualization", "",
             ["rhel.conf", "rhev.conf"],
             VIRTUALIZATION_PARTITIONING
