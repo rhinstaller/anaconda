@@ -366,6 +366,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 12 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.18-1
+- subscription: Only restart payload when needed (mkolman)
+  Resolves: rhbz#1861351
+- Reset the state of the custom partitioning spoke (vponcova)
+  Resolves: rhbz#1868330
+- network: fix parsing of hostname from ip= if mac is defined in dhcp
+  (rvykydal)
+  Resolves: rhbz#1852560
+
 * Thu Aug 06 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.17-1
 - Revert root password spoke to 8.2 behavior (vslavik)
   Resolves: rhbz#1851220
