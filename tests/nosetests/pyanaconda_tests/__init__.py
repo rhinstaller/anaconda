@@ -17,6 +17,8 @@
 #
 from collections import defaultdict
 
+import re
+
 import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
@@ -71,6 +73,20 @@ class run_in_glib(object):
         return create_loop
 
 
+def clear_version_from_kickstart_string(ks_in):
+    """Remove leading line comment with version from kickstart, if present.
+
+    :param str ks_in: string with input kickstart
+    :return str: string with output kickstart
+    """
+
+    return re.sub(
+        r"# Generated [^\n]+\n",
+        "",
+        ks_in
+    )
+
+
 def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True, ks_tmp=None):
     """Test the parsing and generating of a kickstart module.
 
@@ -102,7 +118,8 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
 
     # Generate a kickstart
     ks_out = dedent(ks_out).strip()
-    test.assertEqual(ks_out, interface.GenerateKickstart().strip())
+    ks_generated = clear_version_from_kickstart_string(interface.GenerateKickstart()).strip()
+    test.assertEqual(ks_out, ks_generated)
 
     # Test the properties changed callback.
     if ks_in is not None:
