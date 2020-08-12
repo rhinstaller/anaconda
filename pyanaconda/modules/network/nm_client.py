@@ -498,7 +498,7 @@ def create_slave_connection(slave_type, slave_idx, slave, master, settings=None)
     :rtype: NM.SimpleConnection
     """
     settings = settings or []
-    slave_name = "%s slave %d" % (master, slave_idx)
+    slave_name = "%s_slave_%d" % (master, slave_idx)
 
     con = NM.SimpleConnection.new()
     s_con = NM.SettingConnection.new()
