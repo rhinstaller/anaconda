@@ -1114,12 +1114,13 @@ def _get_dracut_team_argument_from_connection(nm_client, connection, iface):
     """
     argument = ""
     if connection.get_connection_type() == "team":
-        slaves = sorted(get_slaves_from_connections(
+        slaves = get_slaves_from_connections(
             nm_client,
-            "team",
+            ["team"],
             [iface, connection.get_uuid()]
-        ))
-        argument = "team={}:{}".format(iface, ",".join(s_iface for s_iface, _uuid in slaves))
+        )
+        slave_ifaces = sorted(s_iface for _name, s_iface, _uuid in slaves if s_iface)
+        argument = "team={}:{}".format(iface, ",".join(slave_ifaces))
     return argument
 
 
@@ -1195,27 +1196,27 @@ def _get_dracut_znet_argument_from_connection(connection):
     return argument
 
 
-def get_slaves_from_connections(nm_client, slave_type, master_specs):
+def get_slaves_from_connections(nm_client, slave_types, master_specs):
     """Get slaves of master of given type specified by uuid or interface.
 
     :param nm_client: instance of NetworkManager client
     :type nm_client: NM.Client
-    :param slave_type: type of the slave - NM setting "slave-type" value (eg. "team")
-    :type slave_type: str
+    :param slave_types: type of the slave - NM setting "slave-type" value (eg. "team")
+    :type slave_types: list(str)
     :param master_specs: a list containing sepcification of master:
                          interface name or connection uuid or both
     :type master_specs: list(str)
-    :returns: slaves specified by interface and connection uuid
-    :rtype: set((str,str))
+    :returns: slaves specified by name, interface and connection uuid
+    :rtype: set((str,str,str))
     """
     slaves = set()
     for con in nm_client.get_connections():
-        if not con.get_setting_connection().get_slave_type() == slave_type:
+        if not con.get_setting_connection().get_slave_type() in slave_types:
             continue
         if con.get_setting_connection().get_master() in master_specs:
             iface = get_iface_from_connection(nm_client, con.get_uuid())
-            if iface:
-                slaves.add((iface, con.get_uuid()))
+            name = con.get_id()
+            slaves.add((name, iface, con.get_uuid()))
     return slaves
 
 

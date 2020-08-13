@@ -58,21 +58,25 @@ class NMClientTestCase(unittest.TestCase):
             {
                 "get_setting_connection.return_value.get_slave_type.return_value": "",
                 "get_setting_connection.return_value.get_master.return_value": "",
+                "get_id.return_value": "ens3",
                 "get_uuid.return_value": ENS3_UUID,
             },
             {
                 "get_setting_connection.return_value.get_slave_type.return_value": "team",
                 "get_setting_connection.return_value.get_master.return_value": "team0",
+                "get_id.return_value": "team_0_slave_1",
                 "get_uuid.return_value": ENS7_UUID,
             },
             {
                 "get_setting_connection.return_value.get_slave_type.return_value": "team",
                 "get_setting_connection.return_value.get_master.return_value": "team0",
+                "get_id.return_value": "team_0_slave_2",
                 "get_uuid.return_value": ENS8_UUID,
             },
             {
                 "get_setting_connection.return_value.get_slave_type.return_value": "team",
                 "get_setting_connection.return_value.get_master.return_value": TEAM1_UUID,
+                "get_id.return_value": "ens11",
                 "get_uuid.return_value": ENS11_UUID,
             },
         ]
@@ -102,15 +106,15 @@ class NMClientTestCase(unittest.TestCase):
         # Matching of any specification is enough
         self.assertSetEqual(
             get_slaves_from_connections(nm_client, "team", ["team_nonexisting", TEAM1_UUID]),
-            set([("ens11", ENS11_UUID)])
+            set([("ens11", "ens11", ENS11_UUID)])
         )
         self.assertSetEqual(
             get_slaves_from_connections(nm_client, "team", ["team0"]),
-            set([("ens7", ENS7_UUID), ("ens8", ENS8_UUID)])
+            set([("team_0_slave_1", "ens7", ENS7_UUID), ("team_0_slave_2", "ens8", ENS8_UUID)])
         )
         self.assertSetEqual(
             get_slaves_from_connections(nm_client, "team", [TEAM1_UUID]),
-            set([("ens11", ENS11_UUID)])
+            set([("ens11", "ens11", ENS11_UUID)])
         )
 
     @patch("pyanaconda.modules.network.nm_client.get_connections_available_for_iface")
@@ -336,8 +340,8 @@ class NMClientTestCase(unittest.TestCase):
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
         get_slaves_from_connections_mock.return_value = set([
-            ("ens7", "6a6b4586-1e4c-451f-87fa-09b059ceba3d"),
-            ("ens8", "ac4a0747-d1ea-4119-903b-18f3adad9116"),
+            ("ens7", "ens7", "6a6b4586-1e4c-451f-87fa-09b059ceba3d"),
+            ("ens8", "ens8", "ac4a0747-d1ea-4119-903b-18f3adad9116"),
         ])
         # IPv4 target
         self.assertSetEqual(

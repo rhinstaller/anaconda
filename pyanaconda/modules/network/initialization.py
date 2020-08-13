@@ -24,8 +24,7 @@ from pyanaconda.modules.network.nm_client import get_device_name_from_network_da
     ensure_active_connection_for_device, update_connection_from_ksdata, \
     add_connection_from_ksdata, bound_hwaddr_of_device, get_connections_available_for_iface, \
     update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection, \
-    get_config_file_connection_of_device
-from pyanaconda.modules.network.ifcfg import get_master_slaves_from_ifcfgs
+    get_config_file_connection_of_device, get_slaves_from_connections
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -342,21 +341,25 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                         master_uuid = cons[0].get_uuid()
                     else:
                         log.debug("%s: %d connections found for %s", self.name, n_cons, master)
+                if not master_uuid:
+                    master_uuid = get_config_file_connection_of_device(self._nm_client, master)
+                master_specs = [master, master_uuid] if master_uuid else [master]
 
-                for name, con_uuid in get_master_slaves_from_ifcfgs(self._nm_client,
-                                                                    master, uuid=master_uuid):
-                    con = self._nm_client.get_connection_by_uuid(con_uuid)
+                for name, _iface, uuid in get_slaves_from_connections(self._nm_client,
+                                                                      ["bond", "bridge", "team"],
+                                                                      master_specs):
+                    con = self._nm_client.get_connection_by_uuid(uuid)
                     cons_to_update.append((name, con))
 
-            for devname, con in cons_to_update:
+            for con_name, con in cons_to_update:
                 log.debug("updating ONBOOT values of connection %s for device %s",
-                          con.get_uuid(), devname)
+                          con.get_uuid(), con_name)
                 update_connection_values(
                     con,
                     [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)]
                 )
                 commit_changes_with_autoconnection_blocked(con)
-                updated_devices.append(devname)
+                updated_devices.append(con_name)
 
         return updated_devices
 
