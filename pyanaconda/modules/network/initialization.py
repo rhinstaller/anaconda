@@ -25,8 +25,7 @@ from pyanaconda.modules.network.nm_client import get_device_name_from_network_da
     add_connection_from_ksdata, bound_hwaddr_of_device, get_connections_available_for_iface, \
     update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection, \
     get_config_file_connection_of_device
-from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
-    get_master_slaves_from_ifcfgs
+from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device, get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -101,21 +100,23 @@ class ApplyKickstartTask(Task):
                 log.warning("%s: --device %s not found", self.name, network_data.device)
                 continue
 
-            ifcfg_file = get_ifcfg_file_of_device(self._nm_client, device_name)
-            if ifcfg_file and ifcfg_file.is_from_kickstart:
+            config_uuid = get_config_file_connection_of_device(self._nm_client, device_name)
+            # Assuming the config file is from kickstart generated in initramfs
+            # TODO - can it be something else? default autoconnection?
+            if config_uuid:
                 if network_data.activate:
-                    if ensure_active_connection_for_device(self._nm_client, ifcfg_file.uuid,
+                    if ensure_active_connection_for_device(self._nm_client, config_uuid,
                                                            device_name):
                         applied_devices.append(device_name)
                 continue
 
-            # If there is no kickstart ifcfg from initramfs the command was added
+            # If there is no kickstart config from initramfs the command was added
             # in %pre section after switch root, so apply it now
             applied_devices.append(device_name)
 
             connection = None
-            if ifcfg_file:
-                connection = self._nm_client.get_connection_by_uuid(ifcfg_file.uuid)
+            if config_uuid:
+                connection = self._nm_client.get_connection_by_uuid(config_uuid)
             if not connection:
                 connection = self._find_initramfs_connection_of_iface(device_name)
 
