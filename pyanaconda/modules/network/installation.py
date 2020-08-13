@@ -24,8 +24,8 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.nm_client import update_connection_values, \
     commit_changes_with_autoconnection_blocked
-from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device
 from pyanaconda.modules.network.utils import guard_by_system_configuration
+from pyanaconda.modules.network.nm_client import get_config_file_connection_of_device
 
 log = get_module_logger(__name__)
 
@@ -313,7 +313,7 @@ class ConfigureActivationOnBootTask(Task):
             return None
 
         for iface in self._onboot_ifaces:
-            con_uuid = find_ifcfg_uuid_of_device(self._nm_client, iface)
+            con_uuid = get_config_file_connection_of_device(self._nm_client, iface)
             if con_uuid:
                 con = self._nm_client.get_connection_by_uuid(con_uuid)
                 update_connection_values(
@@ -322,4 +322,4 @@ class ConfigureActivationOnBootTask(Task):
                 )
                 commit_changes_with_autoconnection_blocked(con)
             else:
-                log.warning("Configure ONBOOT: can't find ifcfg for %s", iface)
+                log.warning("Configure ONBOOT: can't find config for %s", iface)
