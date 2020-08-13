@@ -44,10 +44,9 @@ set_http_header "X-Anaconda-System-Release" "$product"
 # convenience function to warn the user about old argument names.
 warn_renamed_arg() {
     local arg=""
-    arg="$(getarg $1)" && warn "'$1=$arg'" && warn "$1 has been renamed to $2"
+    arg="$(getarg $1)" && warn "'$1=$arg'" && \
+        warn "$1 has been deprecated and will be removed. Please use $2 instead."
 }
-
-warn_renamed_arg() { :; } # XXX REMOVE WHEN WE'RE READY FOR THE NEW NAMES.
 
 # check for deprecated arg, warn user, and write new arg to /etc/cmdline
 check_depr_arg() {
