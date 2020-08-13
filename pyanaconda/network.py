@@ -295,8 +295,8 @@ def initialize_network():
 
     # Create device configuration tracking in the module.
     # It will be used to generate kickstart from persistent network configuration
-    # managed by NM (ifcfgs) and updated by NM signals on device configuration
-    # changes.
+    # managed by NM (having config files) and updated by NM signals on device
+    # configuration changes.
     log.debug("Creating network configurations.")
     network_proxy.CreateDeviceConfigurations()
 

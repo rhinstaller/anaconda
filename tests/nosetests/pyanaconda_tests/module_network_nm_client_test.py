@@ -19,9 +19,12 @@
 #
 import unittest
 from unittest.mock import Mock, patch
+from textwrap import dedent
 
 from pyanaconda.modules.network.nm_client import get_slaves_from_connections, \
-    get_dracut_arguments_from_connection, get_config_file_connection_of_device
+    get_dracut_arguments_from_connection, get_config_file_connection_of_device, \
+    get_kickstart_network_data, NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS
+from pyanaconda.core.kickstart.commands import NetworkData
 
 import gi
 gi.require_version("NM", "1.0")
@@ -712,3 +715,249 @@ class NMClientTestCase(unittest.TestCase):
             get_config_file_connection_of_device(nm_client, "ens33"),
             ENS33_UUID
         )
+
+    @patch("pyanaconda.modules.network.nm_client.get_team_port_config_from_connection")
+    @patch("pyanaconda.modules.network.nm_client.get_slaves_from_connections")
+    @patch("pyanaconda.modules.network.nm_client.get_iface_from_connection")
+    def get_kicstart_network_data_test(self, get_iface_from_connection,
+                                       get_slaves_from_connections_mock,
+                                       get_team_port_config_from_connection):
+        """Test get_kickstart_network_data."""
+        nm_client = Mock()
+
+        ENS3_UUID = "50f1ddc3-cfa5-441d-8afe-729213f5ca92"
+        ENS7_UUID = "d9e90dce-93bb-4c30-be16-8f4e77744742"
+        ENS8_UUID = "12740d58-c17f-4e8a-a449-2affc6298853"
+        ENS11_UUID = "1ea657e7-98a5-4b1a-bb1e-e1763f0140a9"
+        BOND0_UUID = "1ea657e7-98a5-4b1a-bb1e-e1763f0140ab"
+        BRIDGE0_UUID = "20d375f0-53c7-44a0-ad30-304649bf2c15"
+        TEAM0_UUID = "20d375f0-53c7-44a0-ad30-304649bf2c16"
+        VLAN223_UUID = "5f825617-33cb-4230-8a74-9149d51916fc"
+
+        uuid_to_iface = {
+            ENS3_UUID: "ens3",
+            ENS7_UUID: "ens7",
+            ENS8_UUID: "ens8",
+            ENS11_UUID: "ens11",
+            BOND0_UUID: "bond0",
+            BRIDGE0_UUID: "bridge0",
+            TEAM0_UUID: "team0",
+            VLAN223_UUID: "vlan223"
+        }
+        get_iface_from_connection.side_effect = lambda nm_client, uuid: uuid_to_iface[uuid]
+
+        ip4_addr_1 = Mock()
+        ip4_addr_1.get_address.return_value = "192.168.141.131"
+        ip4_addr_1.get_prefix.return_value = 24
+
+        ip6_addr_1 = Mock()
+        ip6_addr_1.get_address.return_value = "2400:c980:0000:0002::3"
+        ip6_addr_1.get_prefix.return_value = 64
+
+        ip4_dns_list = ["192.168.154.3", "10.216.106.3"]
+        ip6_dns_list = ["2001:cafe::1", "2001:cafe::2"]
+
+        bond_options_1 = [(True, "mode", "active-backup"),
+                          (True, "primary", "ens8"),
+                          (False, "", "")]
+
+        slaves_of_iface = {
+            "bond0": set([("bond0_slave_2", "ens8", ENS8_UUID),
+                          ("bond0_slave_1", "ens7", ENS7_UUID)]),
+            "team0": set([("team0_slave_1", "ens7", ENS7_UUID),
+                          ("team0_slave_2", "ens8", ENS8_UUID)]),
+            "bridge0": set([("bridge0_slave_1", "ens8", ENS8_UUID)]),
+        }
+        get_slaves_from_connections_mock.side_effect = \
+            lambda _client, _types, ids: slaves_of_iface[ids[0]]
+
+        uuid_to_port_config = {
+            ENS7_UUID: '{"prio":100,"sticky":true}',
+            ENS8_UUID: '{"prio":200}',
+        }
+        get_team_port_config_from_connection.side_effect = \
+            lambda _client, uuid: uuid_to_port_config[uuid]
+
+        bridge_properties_1 = NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS.copy()
+        bridge_properties_1[NM.SETTING_BRIDGE_PRIORITY] = 32769
+        bridge_properties_1[NM.SETTING_BRIDGE_MAX_AGE] = 21
+        bridge_properties_1[NM.SETTING_BRIDGE_FORWARD_DELAY] = 16
+
+        cons_to_test = [
+         ([{
+            "get_connection_type.return_value": "802-3-ethernet",
+            "get_setting_connection.return_value.get_master.return_value": "team0",
+            "get_interface_name.return_value": "ens3",
+          }],
+          ""),
+         ([{
+            "get_connection_type.return_value": "802-11-wireless",
+            "get_interface_name.return_value": "wlp61s0",
+          }],
+          ""),
+         ([{
+            "get_connection_type.return_value": "802-3-ethernet",
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_setting_wired.return_value.get_mtu.return_value": 1500,
+            "get_uuid.return_value": ENS3_UUID,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+          }],
+          "network  --bootproto=dhcp --device=ens3 --mtu=1500 --ipv6=auto"),
+         # dhcp-hostname setting the hostname is debatable and should be reviewed
+         ([{
+            "get_connection_type.return_value": "802-3-ethernet",
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_uuid.return_value": ENS3_UUID,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": "dhcp.hostname",
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_DHCP,
+          }],
+          "network  --bootproto=dhcp --device=ens3 --hostname=dhcp.hostname --ipv6=dhcp"),
+         ([{
+            "get_connection_type.return_value": "802-3-ethernet",
+            "get_setting_connection.return_value.get_autoconnect.return_value": False,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_uuid.return_value": ENS7_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_MANUAL,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 2,
+            "get_setting_ip4_config.return_value.get_dns.side_effect": lambda i: ip4_dns_list[i],
+            "get_setting_ip4_config.return_value.get_num_addresses.return_value": 1,
+            "get_setting_ip4_config.return_value.get_gateway.return_value": "192.168.141.1",
+            "get_setting_ip4_config.return_value.get_address.side_effect": lambda i: ip4_addr_1,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_DISABLED,
+          }],
+          "network  --bootproto=static --device=ens7 --gateway=192.168.141.1 --ip=192.168.141.131 --nameserver=192.168.154.3,10.216.106.3 --netmask=255.255.255.0 --onboot=off --noipv6"),
+         ([{
+            "get_connection_type.return_value": "802-3-ethernet",
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_uuid.return_value": ENS7_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 2,
+            "get_setting_ip4_config.return_value.get_dns.side_effect": lambda i: ip4_dns_list[i],
+            "get_setting_ip6_config.return_value.get_num_addresses.return_value": 1,
+            "get_setting_ip6_config.return_value.get_address.side_effect": lambda i: ip6_addr_1,
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 2,
+            "get_setting_ip6_config.return_value.get_gateway.return_value": "2400:c980:0000:0002::1",
+            "get_setting_ip6_config.return_value.get_dns.side_effect": lambda i: ip6_dns_list[i],
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_MANUAL,
+          }],
+          "network  --bootproto=dhcp --device=ens7 --nameserver=192.168.154.3,10.216.106.3,2001:cafe::1,2001:cafe::2 --ipv6=2400:c980:0000:0002::3/64 --ipv6gateway=2400:c980:0000:0002::1"),
+         ([{
+            "get_connection_type.return_value": "bond",
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_uuid.return_value": BOND0_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_bond.return_value.get_num_options.return_value": 2,
+            "get_setting_bond.return_value.get_option.side_effect": lambda i: bond_options_1[i],
+          }],
+          "network  --bootproto=dhcp --device=bond0 --ipv6=auto --bondslaves=ens7,ens8 --bondopts=mode=active-backup,primary=ens8"),
+         ([{
+            "get_connection_type.return_value": "bridge",
+            "get_setting_connection.return_value.get_autoconnect.return_value": False,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_uuid.return_value": BRIDGE0_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_bridge.return_value.get_property.side_effect": lambda i: bridge_properties_1[i],
+          }],
+          "network  --bootproto=dhcp --device=bridge0 --onboot=off --ipv6=auto --bridgeslaves=ens8 --bridgeopts=priority=32769,forward-delay=16,max-age=21"),
+         ([{
+            "get_connection_type.return_value": "team",
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_uuid.return_value": TEAM0_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_team.return_value.get_config.return_value": '{\n    "runner": {\n        "name": "activebackup",\n        "hwaddr_policy": "same_all"\n    },\n    "link_watch": {\n        "name": "ethtool"\n    }\n}',
+          }],
+          "network  --bootproto=dhcp --device=team0 --ipv6=auto --teamslaves=\"ens7'{\\\"prio\\\":100,\\\"sticky\\\":true}',ens8'{\\\"prio\\\":200}'\" --teamconfig=\"{\\\"runner\\\":{\\\"name\\\":\\\"activebackup\\\",\\\"hwaddr_policy\\\":\\\"same_all\\\"},\\\"link_watch\\\":{\\\"name\\\":\\\"ethtool\\\"}}\""),
+         # vlan
+         ([{
+            "get_connection_type.return_value": "vlan",
+            "get_setting_connection.return_value.get_interface_name.return_value": "vlan233",
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_uuid.return_value": VLAN223_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_vlan.return_value.get_id.return_value": 233,
+            "get_setting_vlan.return_value.get_parent.return_value": "ens7",
+          }],
+          "network  --bootproto=dhcp --device=ens7 --ipv6=auto --vlanid=233 --interfacename=vlan233"),
+         # vlan, parent specified by UUID
+         ([{
+            "get_connection_type.return_value": "vlan",
+            "get_setting_connection.return_value.get_interface_name.return_value": "vlan233",
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_uuid.return_value": VLAN223_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_vlan.return_value.get_id.return_value": 233,
+            "get_setting_vlan.return_value.get_parent.return_value": ENS7_UUID,
+          }],
+          "network  --bootproto=dhcp --device=ens7 --ipv6=auto --vlanid=233 --interfacename=vlan233"),
+         # vlan, no interface name set
+         ([{
+            "get_connection_type.return_value": "vlan",
+            "get_setting_connection.return_value.get_interface_name.return_value": None,
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_uuid.return_value": VLAN223_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_vlan.return_value.get_id.return_value": 233,
+            "get_setting_vlan.return_value.get_parent.return_value": ENS7_UUID,
+          }],
+          "network  --bootproto=dhcp --device=ens7 --ipv6=auto --vlanid=233"),
+        ]
+
+        for cons_specs, expected_ks in cons_to_test:
+            connection = self._get_mock_objects_from_attrs(cons_specs)[0]
+            generated_ks = get_kickstart_network_data(connection, nm_client, NetworkData) or ""
+            if expected_ks:
+                expected_ks = dedent(expected_ks).strip()
+            if generated_ks:
+                generated_ks = dedent(str(generated_ks)).strip()
+            self.assertEqual(generated_ks, expected_ks)

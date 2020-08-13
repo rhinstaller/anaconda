@@ -416,7 +416,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """Apply all of our settings."""
         # Inform network module that device configurations might have been changed
         # and we want to generate kickstart from device configurations
-        # (persistent NM / ifcfg configuration), instead of using original kickstart.
+        # (persistent NM / config files configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
 
         (valid, error) = network.is_valid_hostname(self.hostname, local=True)

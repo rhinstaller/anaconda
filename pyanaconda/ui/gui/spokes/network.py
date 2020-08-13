@@ -1457,7 +1457,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def apply(self):
         # Inform network module that device configurations might have been changed
         # and we want to generate kickstart from device configurations
-        # (persistent NM / ifcfg configuration), instead of using original kickstart.
+        # (persistent NM / config files configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
         self._network_module.SetHostname(self.network_control_box.hostname)
 
@@ -1609,7 +1609,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def apply(self):
         # Inform network module that device configurations might have been changed
         # and we want to generate kickstart from device configurations
-        # (persistent NM / ifcfg configuration), instead of using original kickstart.
+        # (persistent NM / config files configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
         self._network_module.SetHostname(self.network_control_box.hostname)
 

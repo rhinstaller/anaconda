@@ -34,9 +34,8 @@ from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, \
     supported_device_types, supported_wired_device_types
 from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump, \
-    get_dracut_arguments_from_connection, is_ibft_connection
-from pyanaconda.modules.network.ifcfg import get_kickstart_network_data, \
-    get_ifcfg_file, get_config_files_content
+    get_dracut_arguments_from_connection, is_ibft_connection, get_kickstart_network_data
+from pyanaconda.modules.network.ifcfg import get_config_files_content
 from pyanaconda.modules.network.installation import NetworkInstallationTask, \
     ConfigureActivationOnBootTask, HostnameConfigurationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
@@ -165,13 +164,19 @@ class NetworkService(KickstartService):
         for cfg in self._device_configurations.get_all():
             network_data = None
             if cfg.device_type != NM.DeviceType.WIFI and cfg.connection_uuid:
-                ifcfg = get_ifcfg_file([("UUID", cfg.connection_uuid)])
-                if not ifcfg:
-                    log.debug("Ifcfg file for %s not found.")
+                uuid = cfg.connection_uuid
+                con = self.nm_client.get_connection_by_uuid(uuid)
+                filename = con.get_filename() or ""
+                if not filename.startswith("/etc"):
+                    log.debug("Config file for %s not found, not generating ks command.", uuid)
                     continue
-                network_data = get_kickstart_network_data(ifcfg,
-                                                          self.nm_client,
-                                                          network_data_class)
+                connection = self.nm_client.get_connection_by_uuid(uuid)
+                if connection:
+                    network_data = get_kickstart_network_data(connection,
+                                                              self.nm_client,
+                                                              network_data_class)
+                else:
+                    log.debug("Connection %s for kickstart data generating not found", uuid)
             if not network_data:
                 log.debug("Device configuration %s does not generate any kickstart data", cfg)
                 continue
@@ -562,12 +567,12 @@ class NetworkService(KickstartService):
         return task
 
     def set_real_onboot_values_from_kickstart_with_task(self):
-        """Update ifcfg ONBOOT values according to kickstart configuration.
+        """Update config ONBOOT values according to kickstart configuration.
 
         So it reflects the --onboot option.
 
         This is needed because:
-        1) For ifcfg files created in initramfs we use ONBOOT for --activate
+        1) For config files created in initramfs we use ONBOOT for --activate
         2) For kickstart applied in stage 2 we can't set the autoconnect
            setting of connection because the device would be activated immediately.
 
