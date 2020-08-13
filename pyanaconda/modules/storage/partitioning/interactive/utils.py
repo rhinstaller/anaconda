@@ -808,6 +808,7 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     if device_type is None:
         raise UnsupportedDeviceError("Unsupported type of {}.".format(device.name))
 
+    # Generate the device data.
     request = DeviceFactoryRequest()
     request.device_spec = device.name
     request.device_name = getattr(device.raw_device, "lvname", device.raw_device.name)
@@ -828,6 +829,10 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
 
     request.disks = [d.name for d in disks]
 
+    if request.device_type not in CONTAINER_DEVICE_TYPES:
+        return request
+
+    # Generate the container data.
     factory = devicefactory.get_device_factory(
         storage,
         device_type=device_type,
