@@ -25,7 +25,7 @@ from pyanaconda.modules.network.nm_client import get_device_name_from_network_da
     add_connection_from_ksdata, bound_hwaddr_of_device, get_connections_available_for_iface, \
     update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection, \
     get_config_file_connection_of_device
-from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device, get_master_slaves_from_ifcfgs
+from pyanaconda.modules.network.ifcfg import get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -324,8 +324,9 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                 else:
                     log.debug("%s: %d connections found for %s", self.name, n_cons, devname)
                     if n_cons > 1:
-                        ifcfg_uuid = find_ifcfg_uuid_of_device(self._nm_client, devname) or ""
-                        con = self._nm_client.get_connection_by_uuid(ifcfg_uuid)
+                        config_uuid = get_config_file_connection_of_device(
+                            self._nm_client, devname)
+                        con = self._nm_client.get_connection_by_uuid(config_uuid)
                         if con:
                             cons_to_update.append((devname, con))
 
