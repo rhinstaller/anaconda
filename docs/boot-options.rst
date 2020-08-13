@@ -30,8 +30,7 @@ Anaconda bootup is handled by dracut, so most of the kernel arguments handled
 by dracut are also valid. See |dracutkernel|_ for details on those options.
 
 Throughout this guide, installer-specific options are prefixed with
-``inst`` (e.g. ``inst.ks``). Options specified without the ``inst`` prefix are
-recognized, but the prefix may be required in a future release.
+``inst`` (e.g. ``inst.ks``).
 
 .. _repo:
 
