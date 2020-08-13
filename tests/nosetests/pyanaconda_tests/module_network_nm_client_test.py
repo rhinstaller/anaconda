@@ -21,7 +21,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from pyanaconda.modules.network.nm_client import get_slaves_from_connections, \
-    get_dracut_arguments_from_connection
+    get_dracut_arguments_from_connection, get_config_file_connection_of_device
 
 import gi
 gi.require_version("NM", "1.0")
@@ -481,4 +481,230 @@ class NMClientTestCase(unittest.TestCase):
             set(["ip=ens13.111:dhcp",
                  "vlan=ens13.111:ens13",
                  "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
+        )
+
+    @patch("pyanaconda.modules.network.nm_client.get_vlan_interface_name_from_connection")
+    @patch("pyanaconda.modules.network.nm_client.is_config_file_for_system")
+    @patch("pyanaconda.modules.network.nm_client.get_iface_from_hwaddr")
+    @patch("pyanaconda.modules.network.nm_client.is_s390")
+    def get_config_file_connection_of_device_test(self, is_s390, get_iface_from_hwaddr,
+                                                  is_config_file_for_system,
+                                                  get_vlan_interface_name_from_connection):
+        nm_client = Mock()
+
+        ENS3_UUID = "50f1ddc3-cfa5-441d-8afe-729213f5ca92"
+        ENS3_UUID2 = "50f1ddc3-cfa5-441d-8afe-729213f5ca93"
+        ENS7_UUID = "d9e90dce-93bb-4c30-be16-8f4e77744742"
+        ENS7_SLAVE_UUID = "d9e90dce-93bb-4c30-be16-8f4e77744743"
+        ENS8_UUID = "12740d58-c17f-4e8a-a449-2affc6298853"
+        ENS9_SLAVE_UUID = "12740d58-c17f-4e8a-a449-2affc6298854"
+        ENS11_UUID = "1ea657e7-98a5-4b1a-bb1e-e1763f0140a9"
+        ENS12_UUID = "1ea657e7-98a5-4b1a-bb1e-e1763f0140aa"
+        VLAN222_UUID = "5f825617-33cb-4230-8a74-9149d51916fb"
+        VLAN223_UUID = "5f825617-33cb-4230-8a74-9149d51916fc"
+        TEAM0_UUID = "b7a1ae80-3acb-4390-b4b6-0e505c897576"
+        TEAM1_UUID = "b7a1ae80-3acb-4390-b4b6-0e505c897577"
+        BOND0_UUID = "19b938fe-c1b3-4742-86b7-9e5339ebf7da"
+        BOND1_UUID = "19b938fe-c1b3-4742-86b7-9e5339ebf7db"
+        BRIDGE0_UUID = "20d375f0-53c7-44a0-ad30-304649bf2c15"
+        BRIDGE1_UUID = "20d375f0-53c7-44a0-ad30-304649bf2c16"
+        ENS33_UUID = "cc067154-d3b9-4208-b0c9-8262940d2380"
+        ENS33_UUID2 = "cc067154-d3b9-4208-b0c9-8262940d2381"
+
+        HWADDR_ENS3 = "52:54:00:0c:77:e4"
+        HWADDR_ENS8 = "52:54:00:35:BF:0F"
+        HWADDR_ENS11 = "52:54:00:0c:77:e3"
+
+        cons_specs = [
+            {
+                "get_connection_type.return_value": "802-3-ethernet",
+                "get_interface_name.return_value": "ens3",
+                "get_setting_wired.return_value.get_mac_address.return_value": None,
+                "get_setting_connection.return_value.get_master.return_value": None,
+                "get_uuid.return_value": ENS3_UUID,
+            },
+            {
+                "get_connection_type.return_value": "802-3-ethernet",
+                "get_setting_wired.return_value.get_mac_address.return_value": HWADDR_ENS3,
+                "get_setting_connection.return_value.get_master.return_value": None,
+                "get_interface_name.return_value": None,
+                "get_uuid.return_value": ENS3_UUID2,
+            },
+            {
+                "get_connection_type.return_value": "802-3-ethernet",
+                "get_interface_name.return_value": "ens7",
+                "get_setting_wired.return_value.get_mac_address.return_value": None,
+                "get_setting_connection.return_value.get_master.return_value": "team0",
+                "get_uuid.return_value": ENS7_SLAVE_UUID,
+            },
+            {
+                "get_connection_type.return_value": "802-3-ethernet",
+                "get_interface_name.return_value": "ens7",
+                "get_setting_connection.return_value.get_master.return_value": None,
+                "get_setting_wired.return_value.get_mac_address.return_value": None,
+                "get_uuid.return_value": ENS7_UUID,
+            },
+            {
+                "get_connection_type.return_value": "802-3-ethernet",
+                "get_setting_connection.return_value.get_master.return_value": None,
+                "get_setting_wired.return_value.get_mac_address.return_value": HWADDR_ENS8,
+                "get_interface_name.return_value": None,
+                "get_uuid.return_value": ENS8_UUID,
+            },
+            {
+                "get_connection_type.return_value": "802-3-ethernet",
+                "get_interface_name.return_value": "ens9",
+                "get_setting_wired.return_value.get_mac_address.return_value": None,
+                "get_setting_connection.return_value.get_master.return_value": "team0",
+                "get_uuid.return_value": ENS9_SLAVE_UUID,
+            },
+            {
+                "get_connection_type.return_value": "802-3-ethernet",
+                "get_setting_connection.return_value.get_master.return_value": None,
+                "get_setting_wired.return_value.get_mac_address.return_value": HWADDR_ENS11,
+                "get_interface_name.return_value": None,
+                "get_uuid.return_value": ENS11_UUID,
+            },
+            {
+                "get_connection_type.return_value": "802-3-ethernet",
+                "get_setting_connection.return_value.get_master.return_value": None,
+                "get_setting_wired.return_value.get_mac_address.return_value": None,
+                "get_interface_name.return_value": None,
+                "get_id.return_value": "ens12",
+                "get_uuid.return_value": ENS12_UUID,
+            },
+            {
+                "get_connection_type.return_value": "vlan",
+                "get_interface_name.return_value": "vlan222",
+                "get_uuid.return_value": VLAN222_UUID,
+            },
+            {
+                "get_connection_type.return_value": "vlan",
+                "get_interface_name.return_value": "vlan223",
+                "get_uuid.return_value": VLAN223_UUID,
+            },
+            {
+                "get_connection_type.return_value": "bond",
+                "get_interface_name.return_value": "bond0",
+                "get_uuid.return_value": BOND0_UUID,
+            },
+            {
+                "get_connection_type.return_value": "bond",
+                "get_interface_name.return_value": "bond1",
+                "get_uuid.return_value": BOND1_UUID,
+            },
+            {
+                "get_connection_type.return_value": "bridge",
+                "get_interface_name.return_value": "bridge0",
+                "get_uuid.return_value": BRIDGE0_UUID,
+            },
+            {
+                "get_connection_type.return_value": "bridge",
+                "get_interface_name.return_value": "bridge1",
+                "get_uuid.return_value": BRIDGE1_UUID,
+            },
+            {
+                "get_connection_type.return_value": "team",
+                "get_interface_name.return_value": "team0",
+                "get_uuid.return_value": TEAM0_UUID,
+            },
+            {
+                "get_connection_type.return_value": "team",
+                "get_interface_name.return_value": "team1",
+                "get_uuid.return_value": TEAM1_UUID,
+            },
+            {
+                "get_connection_type.return_value": "infiniband",
+                "get_interface_name.return_value": "ens33",
+                "get_uuid.return_value": ENS33_UUID,
+            },
+            {
+                "get_connection_type.return_value": "infiniband",
+                "get_interface_name.return_value": "ens33",
+                "get_uuid.return_value": ENS33_UUID2,
+            },
+        ]
+        cons = self._get_mock_objects_from_attrs(cons_specs)
+        nm_client.get_connections.return_value = cons
+
+        # No config files
+        is_config_file_for_system.return_value = False
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "ens3"),
+            ""
+        )
+
+        is_config_file_for_system.return_value = True
+        is_s390.return_value = False
+
+        # ethernet
+        # interface name has precedence
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "ens3"),
+            ENS3_UUID
+        )
+        # slave conections are ignored
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "ens7"),
+            ENS7_UUID
+        )
+        # slave conections are ignored
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "ens9"),
+            ""
+        )
+        # config bound to hwaddr
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "ens8", device_hwaddr=HWADDR_ENS8),
+            ENS8_UUID
+        )
+        # config bound to hwaddr, no hint
+        hwaddr_to_iface = {
+            HWADDR_ENS3: "ens3",
+            HWADDR_ENS8: "ens8",
+            HWADDR_ENS11: "ens11",
+        }
+        get_iface_from_hwaddr.side_effect = lambda nm_client, hwaddr: hwaddr_to_iface[hwaddr]
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "ens11"),
+            ENS11_UUID
+        )
+        # config not bound
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "ens12"),
+            ""
+        )
+        # config not bound, use id (s390)
+        is_s390.return_value = True
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "ens12"),
+            ENS12_UUID
+        )
+        is_s390.return_value = False
+
+        # vlan
+        get_vlan_interface_name_from_connection.return_value = "vlan222"
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "vlan222"),
+            VLAN222_UUID
+        )
+        # team
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "team0"),
+            TEAM0_UUID
+        )
+        # bond
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "bond0"),
+            BOND0_UUID
+        )
+        # bridge
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "bridge0"),
+            BRIDGE0_UUID
+        )
+        # infiniband, first wins
+        self.assertEqual(
+            get_config_file_connection_of_device(nm_client, "ens33"),
+            ENS33_UUID
         )

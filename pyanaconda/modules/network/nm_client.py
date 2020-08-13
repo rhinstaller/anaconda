@@ -1217,3 +1217,75 @@ def get_slaves_from_connections(nm_client, slave_type, master_specs):
             if iface:
                 slaves.add((iface, con.get_uuid()))
     return slaves
+
+
+def get_config_file_connection_of_device(nm_client, device_name, device_hwaddr=None):
+    """Find connection of the device's configuration file.
+
+    :param nm_client: instance of NetworkManager client
+    :type nm_client: NM.Client
+    :param device_name: name of the device
+    :type device_name: str
+    :param device_hwaddr: hardware address of the device
+    :type device_hwaddr: str
+    :returns: uuid of NetworkManager connection
+    :rtype: str
+    """
+
+    cons = []
+    for con in nm_client.get_connections():
+
+        filename = con.get_filename() or ""
+        # Ignore connections from initramfs in
+        # /run/NetworkManager/system-connections
+        if filename.startswith("/run"):
+            continue
+        con_type = con.get_connection_type()
+
+        if con_type == '802-3-ethernet':
+
+            # Ignore slaves
+            if con.get_setting_connection().get_master():
+                continue
+
+            interface_name = con.get_interface_name()
+            mac_address = None
+            wired_setting = con.get_setting_wired()
+            if wired_setting:
+                mac_address = wired_setting.get_mac_address()
+
+            if interface_name:
+                if interface_name == device_name:
+                    cons.append(con)
+            elif mac_address:
+                if device_hwaddr:
+                    if device_hwaddr.upper() == mac_address.upper():
+                        cons.append(con)
+                else:
+                    iface = get_iface_from_hwaddr(nm_client, mac_address)
+                    if iface == device_name:
+                        cons.append(con)
+            elif is_s390():
+                # s390 setting generated in dracut with net.ifnames=0
+                # has neither DEVICE/interface-name nor HWADDR/mac-address set (#1249750)
+                if con.get_id() == device_name:
+                    cons.append(con)
+
+        elif con_type in ('bond', 'team', 'bridge', 'infiniband'):
+            if con.get_interface_name() == device_name:
+                cons.append(con)
+
+        elif con_type == 'vlan':
+            interface_name = get_vlan_interface_name_from_connection(nm_client, con)
+            if interface_name and interface_name == device_name:
+                cons.append(con)
+
+    if len(cons) > 1:
+        log.debug("Unexpected number of config files found for %s: %s", device_name,
+                  [con.get_filename() for con in cons])
+
+    if cons:
+        return cons[0].get_uuid()
+    else:
+        log.debug("Config file for %s not found", device_name)
+        return ""

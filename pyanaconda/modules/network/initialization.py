@@ -23,7 +23,8 @@ from pyanaconda.modules.network.network_interface import NetworkInitializationTa
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, \
     add_connection_from_ksdata, bound_hwaddr_of_device, get_connections_available_for_iface, \
-    update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection
+    update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection, \
+    get_config_file_connection_of_device
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
@@ -362,8 +363,8 @@ class SetRealOnbootValuesFromKickstartTask(Task):
         return updated_devices
 
 
-class DumpMissingIfcfgFilesTask(Task):
-    """Task for dumping of missing ifcfg files."""
+class DumpMissingConfigFilesTask(Task):
+    """Task for dumping of missing config files."""
 
     def __init__(self, nm_client, default_network_data, ifname_option_values):
         """Create a new task.
@@ -382,7 +383,7 @@ class DumpMissingIfcfgFilesTask(Task):
 
     @property
     def name(self):
-        return "Dump missing ifcfg files"
+        return "Dump missing config files"
 
     def for_publication(self):
         """Return a DBus representation."""
@@ -421,16 +422,16 @@ class DumpMissingIfcfgFilesTask(Task):
 
     @guard_by_system_configuration(return_value=[])
     def run(self):
-        """Run dumping of missing ifcfg files.
+        """Run dumping of missing config files.
 
-        :returns: names of devices for which ifcfg file was created
+        :returns: names of devices for which config file was created
         :rtype: list(str)
         """
-        new_ifcfgs = []
+        new_configs = []
 
         if not self._nm_client:
             log.debug("%s: No NetworkManager available.", self.name)
-            return new_ifcfgs
+            return new_configs
 
         dumped_device_types = supported_wired_device_types + virtual_device_types
         for device in self._nm_client.get_devices():
@@ -438,7 +439,7 @@ class DumpMissingIfcfgFilesTask(Task):
                 continue
 
             iface = device.get_iface()
-            if get_ifcfg_file_of_device(self._nm_client, iface):
+            if get_config_file_connection_of_device(self._nm_client, iface):
                 continue
 
             cons = device.get_available_connections()
@@ -484,7 +485,7 @@ class DumpMissingIfcfgFilesTask(Task):
                         con,
                         [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, True)]
                     )
-                log.debug("%s: dumping connection %s to ifcfg file for %s",
+                log.debug("%s: dumping connection %s to config file for %s",
                           self.name, con.get_uuid(), iface)
                 con.commit_changes(True, None)
             else:
@@ -500,9 +501,9 @@ class DumpMissingIfcfgFilesTask(Task):
                     ifname_option_values=self._ifname_option_values
                 )
 
-            new_ifcfgs.append(iface)
+            new_configs.append(iface)
 
-        return new_ifcfgs
+        return new_configs
 
     def _is_initramfs_connection(self, con, iface):
         return con.get_id() in ["Wired Connection", iface]

@@ -41,7 +41,7 @@ from pyanaconda.modules.network.installation import NetworkInstallationTask, \
     ConfigureActivationOnBootTask, HostnameConfigurationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
-    DumpMissingIfcfgFilesTask
+    DumpMissingConfigFilesTask
 from pyanaconda.modules.network.utils import get_default_route_iface
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
@@ -582,30 +582,30 @@ class NetworkService(KickstartService):
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
 
-    def dump_missing_ifcfg_files_with_task(self):
-        """Dump missing default ifcfg file for wired devices.
+    def dump_missing_config_files_with_task(self):
+        """Dump missing default config file for wired devices.
 
-        Make sure each supported wired device has ifcfg file.
+        Make sure each supported wired device has config file.
 
         For default auto connections created by NM upon start (which happens in
-        case of missing ifcfg file, eg the file was not created in initramfs)
+        case of missing config file, eg the file was not created in initramfs)
         rename the in-memory connection using device name and dump it into
-        ifcfg file.
+        config file.
 
         If default auto connections are turned off by NM configuration (based
         on policy, eg on RHEL or server), the connection will be created by Anaconda
-        and dumped into ifcfg file.
+        and dumped into config file.
 
-        The connection id (and consequently ifcfg file name) is set to device
+        The connection id (and consequently config file name) is set to device
         name.
 
         :returns: a task dumping the files
         """
         data = self.get_kickstart_handler()
         default_network_data = data.NetworkData(onboot=False, ipv6="auto")
-        task = DumpMissingIfcfgFilesTask(self.nm_client,
-                                         default_network_data,
-                                         self.ifname_option_values)
+        task = DumpMissingConfigFilesTask(self.nm_client,
+                                          default_network_data,
+                                          self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
 
