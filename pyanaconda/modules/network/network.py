@@ -442,11 +442,11 @@ class NetworkService(KickstartService):
     def consolidate_initramfs_connections_with_task(self):
         """Ensure devices configured in initramfs have no more than one NM connection.
 
-        In case of multiple connections for device having ifcfg configuration from
-        boot options, the connection should correspond to the ifcfg file.
+        In case of multiple connections for device having configuration from
+        boot options, the connection should correspond to the config file.
         NetworkManager can be generating additional in-memory connection in case it
-        fails to match device configuration to the ifcfg (#1433891).  By
-        reactivating the device with ifcfg connection the generated in-memory
+        fails to match device configuration to the config (#1433891).  By
+        reactivating the device with config connection the generated in-memory
         connection will be deleted by NM.
 
         Don't enforce on slave devices for which having multiple connections can be

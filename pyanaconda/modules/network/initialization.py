@@ -201,30 +201,26 @@ class ConsolidateInitramfsConnectionsTask(Task):
                           self.name, number_of_connections, iface)
                 continue
 
-            ifcfg_file = get_ifcfg_file_of_device(self._nm_client, iface)
-            if not ifcfg_file:
-                log.debug("%s: %d for %s - no ifcfg file found",
-                          self.name, number_of_connections, iface)
-                con_for_iface = self._select_persistent_connection_for_iface(iface, cons)
-                if not con_for_iface:
-                    log.debug("%s: %d for %s - no suitable connection for the interface found",
-                              self.name, number_of_connections, iface)
-                    continue
-                else:
-                    con_uuid = con_for_iface.get_uuid()
-            else:
-                # Handle only ifcfgs created from boot options in initramfs
-                # (Kickstart based ifcfgs are handled when applying kickstart)
-                if ifcfg_file.is_from_kickstart:
-                    continue
-                con_uuid = ifcfg_file.uuid
+            config_uuid = get_config_file_connection_of_device(self._nm_client, iface)
+            if config_uuid:
+                # There is a connection from kickstart generated in intramfs,
+                # the device will be handled when applying kickstart
+                continue
 
-            log.debug("%s: %d for %s - ensure active ifcfg connection",
+            log.debug("%s: %d for %s - no config file found",
+                      self.name, number_of_connections, iface)
+            con_for_iface = self._select_persistent_connection_for_iface(iface, cons)
+            if not con_for_iface:
+                log.debug("%s: %d for %s - no suitable connection for the interface found",
+                          self.name, number_of_connections, iface)
+                continue
+
+            log.debug("%s: %d for %s - ensure connection with config is active",
                       self.name, number_of_connections, iface)
 
             ensure_active_connection_for_device(
                 self._nm_client,
-                con_uuid,
+                con_for_iface.get_uuid(),
                 iface,
                 only_replace=True
             )
