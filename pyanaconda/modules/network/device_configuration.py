@@ -22,9 +22,8 @@ import copy
 
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device
 from pyanaconda.modules.network.nm_client import get_iface_from_connection, \
-    get_vlan_interface_name_from_connection
+    get_vlan_interface_name_from_connection, get_config_file_connection_of_device
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
 
 import gi
@@ -208,7 +207,7 @@ class DeviceConfigurations(object):
     def _find_connection_uuid_of_device(self, device):
         """Find uuid of connection that should be bound to the device.
 
-        Assumes existence of no more than one ifcfg file per non-slave physical
+        Assumes existence of no more than one config file per non-slave physical
         device.
 
         :param device: NetworkManager device object
@@ -231,7 +230,7 @@ class DeviceConfigurations(object):
         # cases.
         else:
             cons = device.get_available_connections()
-            ifcfg_uuid = None
+            config_uuid = None
             if not cons:
                 log.debug("no available connection for physical device %s", iface)
             elif len(cons) > 1:
@@ -240,15 +239,16 @@ class DeviceConfigurations(object):
                 log.debug("physical device %s has multiple connections: %s",
                           iface, [c.get_uuid() for c in cons])
                 hwaddr = device.get_hw_address()
-                ifcfg_uuid = find_ifcfg_uuid_of_device(self.nm_client, iface, hwaddr=hwaddr)
+                config_uuid = get_config_file_connection_of_device(
+                    self.nm_client, iface, device_hwaddr=hwaddr)
 
             for c in cons:
                 # Ignore slave connections
                 if c.get_setting_connection() and c.get_setting_connection().get_slave_type():
                     continue
                 candidate_uuid = c.get_uuid()
-                # In case of multiple connections choose the ifcfg connection
-                if not ifcfg_uuid or candidate_uuid == ifcfg_uuid:
+                # In case of multiple connections choose the config connection
+                if not config_uuid or candidate_uuid == config_uuid:
                     uuid = candidate_uuid
 
         return uuid
