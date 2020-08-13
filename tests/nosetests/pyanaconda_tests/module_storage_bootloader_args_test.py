@@ -18,14 +18,14 @@
 
 import unittest
 
-from pyanaconda.modules.storage.bootloader.base import Arguments
+from pyanaconda.modules.storage.bootloader.base import BootLoaderArguments
 
 
 class BootLoaderArgsTestCase(unittest.TestCase):
 
     def add_test(self):
-        """Arguments.add reorders things as expected."""
-        args = Arguments()
+        """BootLoaderArguments.add reorders things as expected."""
+        args = BootLoaderArguments()
 
         args.add("first")
         args.add("second")
@@ -37,8 +37,8 @@ class BootLoaderArgsTestCase(unittest.TestCase):
         self.assertEqual(list(args), ["second", "first"])
 
     def update_test(self):
-        """Arguments.update reorders things as expected."""
-        args = Arguments()
+        """BootLoaderArguments.update reorders things as expected."""
+        args = BootLoaderArguments()
 
         args.update(["one", "two", "three"])
         args.update("abc")
@@ -47,8 +47,8 @@ class BootLoaderArgsTestCase(unittest.TestCase):
         self.assertEqual(str(args), "one a b c three two")
 
     def ip_merge_test(self):
-        """Arguments.__str__ reorders ip= as expected."""
-        args = Arguments()
+        """BootLoaderArguments.__str__ reorders ip= as expected."""
+        args = BootLoaderArguments()
         args.update(["start", "blah"])
         args.update(["ip=ens0p3:dhcp6", "ip=::::tester::dhcp", "ip=ens0p3:dhcp"])
         args.add("end")

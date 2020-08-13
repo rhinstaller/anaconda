@@ -40,7 +40,7 @@ from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
 log = get_module_logger(__name__)
 
-__all__ = ["BootLoaderError", "Arguments", "BootLoader"]
+__all__ = ["BootLoaderError", "BootLoaderArguments", "BootLoader"]
 
 
 def _is_on_sw_iscsi(device):
@@ -87,7 +87,7 @@ class BootLoaderError(Exception):
     pass
 
 
-class Arguments:
+class BootLoaderArguments:
     """An ordered set of bootloader arguments."""
 
     def __init__(self):
@@ -186,8 +186,8 @@ class BootLoader(object):
 
     def __init__(self):
         super().__init__()
-        self.boot_args = Arguments()
-        self.dracut_args = Arguments()
+        self.boot_args = BootLoaderArguments()
+        self.dracut_args = BootLoaderArguments()
 
         # the device the bootloader will be installed on
         self.stage1_device = None

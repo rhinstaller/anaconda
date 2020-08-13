@@ -18,7 +18,8 @@
 import os
 import re
 
-from pyanaconda.modules.storage.bootloader.base import BootLoader, Arguments, BootLoaderError
+from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderArguments,\
+    BootLoaderError
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.product import productName
@@ -112,7 +113,7 @@ class ZIPL(BootLoader):
                 # no need to create bootloader entries for kdump
                 continue
 
-            args = Arguments()
+            args = BootLoaderArguments()
             args.add("root=%s" % image.device.fstab_spec)
             args.update(self.boot_args)
             if image.device.type == "btrfs subvolume":

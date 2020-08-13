@@ -17,7 +17,8 @@
 #
 import os
 
-from pyanaconda.modules.storage.bootloader.base import BootLoader, Arguments, BootLoaderError
+from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderArguments,\
+    BootLoaderError
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.product import productName
@@ -66,7 +67,7 @@ class EXTLINUX(BootLoader):
     def write_config_images(self, config):
         self.write_config_console(config)
         for image in self.images:
-            args = Arguments()
+            args = BootLoaderArguments()
             args.update(["root=%s" % image.device.fstab_spec, "ro"])
             if image.device.type == "btrfs subvolume":
                 args.update(["rootflags=subvol=%s" % image.device.name])
