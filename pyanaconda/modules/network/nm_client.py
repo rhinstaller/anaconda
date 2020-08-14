@@ -30,6 +30,7 @@ from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH, \
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, get_s390_settings, netmask2prefix, \
     prefix2netmask
+from pyanaconda.modules.network.config_file import is_config_file_for_system
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -1252,7 +1253,7 @@ def get_config_file_connection_of_device(nm_client, device_name, device_hwaddr=N
         filename = con.get_filename() or ""
         # Ignore connections from initramfs in
         # /run/NetworkManager/system-connections
-        if filename.startswith("/run"):
+        if not is_config_file_for_system(filename):
             continue
         con_type = con.get_connection_type()
 

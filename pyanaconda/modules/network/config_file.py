@@ -1,5 +1,5 @@
 #
-# Handling of ifcfg files
+# Handling of NM connection configuration files
 #
 # Copyright (C) 2019 Red Hat, Inc.
 #
@@ -23,35 +23,46 @@ import os
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+__all__ = ["get_config_files_content", "is_config_file_for_system", "IFCFG_DIR", "KEYFILE_DIR"]
 
 IFCFG_DIR = "/etc/sysconfig/network-scripts"
 KEYFILE_DIR = "/etc/NetworkManager/system-connections"
 
 
-def get_ifcfg_files_paths(directory):
-    rv = []
-    for name in os.listdir(directory):
-        if name.startswith("ifcfg-"):
-            if name == "ifcfg-lo":
-                continue
-            rv.append(os.path.join(directory, name))
-    return rv
-
-
-def get_keyfile_files_paths(directory):
-    rv = []
-    for name in os.listdir(directory):
-        if name.endswith(".nmconnection"):
-            rv.append(os.path.join(directory, name))
-    return rv
-
-
 def get_config_files_content(root_path=""):
+    """Get content of all network device config files."""
     fragments = []
-    file_paths = get_ifcfg_files_paths(os.path.normpath(root_path + IFCFG_DIR)) + \
-        get_keyfile_files_paths(os.path.normpath(root_path + KEYFILE_DIR))
-    for file_path in file_paths:
+    for file_path in get_config_files_paths(root_path):
         fragments.append("{}:".format(file_path))
         with open(file_path, "r") as f:
             fragments.append(f.read().strip("\n"))
     return "\n".join(fragments)
+
+
+def get_config_files_paths(root_path=""):
+    """Get paths of all network device config files found."""
+    paths = []
+    for directory in (os.path.normpath(root_path + IFCFG_DIR),
+                      os.path.normpath(root_path + KEYFILE_DIR)):
+        for filename in os.listdir(directory):
+            if not (_has_keyfile_basename(filename) or _has_ifcfg_basename(filename)):
+                continue
+            paths.append(os.path.join(directory, filename))
+    return paths
+
+
+def is_config_file_for_system(filename):
+    """Checks if the file stores configuration for target system."""
+    dirname = os.path.dirname(filename)
+    return (dirname == IFCFG_DIR and _has_ifcfg_basename(filename) or
+            dirname == KEYFILE_DIR and _has_keyfile_basename(filename))
+
+
+def _has_ifcfg_basename(name):
+    basename = os.path.basename(name)
+    return basename.startswith("ifcfg-") and basename != "ifcfg-lo"
+
+
+def _has_keyfile_basename(name):
+    basename = os.path.basename(name)
+    return basename.endswith(".nmconnection")

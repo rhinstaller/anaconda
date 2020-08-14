@@ -35,7 +35,8 @@ from pyanaconda.modules.network.device_configuration import DeviceConfigurations
     supported_device_types, supported_wired_device_types
 from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump, \
     get_dracut_arguments_from_connection, is_ibft_connection, get_kickstart_network_data
-from pyanaconda.modules.network.ifcfg import get_config_files_content
+from pyanaconda.modules.network.config_file import get_config_files_content, \
+    is_config_file_for_system
 from pyanaconda.modules.network.installation import NetworkInstallationTask, \
     ConfigureActivationOnBootTask, HostnameConfigurationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
@@ -167,7 +168,7 @@ class NetworkService(KickstartService):
                 uuid = cfg.connection_uuid
                 con = self.nm_client.get_connection_by_uuid(uuid)
                 filename = con.get_filename() or ""
-                if not filename.startswith("/etc"):
+                if not is_config_file_for_system(filename):
                     log.debug("Config file for %s not found, not generating ks command.", uuid)
                     continue
                 connection = self.nm_client.get_connection_by_uuid(uuid)
