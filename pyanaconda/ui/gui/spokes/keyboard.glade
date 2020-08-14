@@ -393,13 +393,12 @@
     <columns>
       <!-- column-name name -->
       <column type="gchararray"/>
+      <!-- column-name separator -->
+      <column type="gboolean"/>
     </columns>
   </object>
   <object class="GtkTreeModelFilter" id="newLayoutStoreFilter">
     <property name="child_model">newLayoutStore</property>
-  </object>
-  <object class="GtkTreeModelSort" id="newLayoutStoreSort">
-    <property name="model">newLayoutStoreFilter</property>
   </object>
   <object class="GtkDialog" id="addLayoutDialog">
     <property name="can_focus">False</property>
@@ -503,7 +502,7 @@
                   <object class="GtkTreeView" id="newLayoutView">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="model">newLayoutStoreSort</property>
+                    <property name="model">newLayoutStoreFilter</property>
                     <property name="headers_visible">False</property>
                     <property name="headers_clickable">False</property>
                     <property name="enable_search">False</property>
@@ -532,6 +531,9 @@
                         <property name="AtkObject::accessible-name" translatable="yes">Available Layouts</property>
                       </object>
                     </child>
+                    <style>
+                      <class name="solid-separator"/>
+                    </style>
                   </object>
                 </child>
               </object>

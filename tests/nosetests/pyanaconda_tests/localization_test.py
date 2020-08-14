@@ -77,6 +77,12 @@ class LangcodeLocaleParsingTests(unittest.TestCase):
         self.assertEqual(localization.get_locale_keyboards("en_US"), ["us"])
         self.assertEqual(localization.get_locale_keyboards("en_GB"), ["gb"])
 
+    def common_keyboard_layouts_test(self):
+        layouts = localization.get_common_keyboard_layouts()
+        self.assertIn("us", layouts)
+        self.assertIn("fr(oss)", layouts)
+        self.assertIn("de(nodeadkeys)", layouts)
+
     def locale_timezones_test(self):
         self.assertIn("Europe/Oslo", localization.get_locale_timezones("no"))
 

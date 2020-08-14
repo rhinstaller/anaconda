@@ -40,8 +40,10 @@ from collections import namedtuple
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
-from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, KeyboardConfigError, InvalidLayoutVariantSpec
+from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, \
+    KeyboardConfigError, InvalidLayoutVariantSpec, normalize_layout_variant
 from pyanaconda.core.async_utils import async_action_wait
+from pyanaconda import localization
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -209,6 +211,13 @@ class XklWrapper(object):
 
         with self._layout_infos_lock:
             return list(self._layout_infos.keys())
+
+    def get_common_layouts(self):
+        """A list of common layouts"""
+
+        return list(set(map(
+            normalize_layout_variant, localization.get_common_keyboard_layouts()
+        )).intersection(set(self.get_available_layouts())))
 
     def get_switching_options(self):
         """Method returning list of available layout switching options"""

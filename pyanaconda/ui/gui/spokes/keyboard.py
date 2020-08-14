@@ -22,6 +22,7 @@ gi.require_version("Gkbd", "3.0")
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gkbd, Gtk
+import locale as locale_mod
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -38,8 +39,6 @@ from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.util import strip_accents, have_word_match
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.threading import threadMgr, AnacondaThread
-
-import locale as locale_mod
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -65,7 +64,7 @@ def _show_description(column, renderer, model, itr, wrapper):
 
 class AddLayoutDialog(GUIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore",
-                      "newLayoutStoreFilter", "newLayoutStoreSort"]
+                      "newLayoutStoreFilter"]
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.glade"
 
@@ -89,19 +88,20 @@ class AddLayoutDialog(GUIObject):
         return have_word_match(entry_text, eng_value) or have_word_match(entry_text, xlated_value) \
             or have_word_match(entry_text, translit_value)
 
-    def compare_layouts(self, model, itr1, itr2, user_data=None):
+    def _row_is_separator(self, model, itr, *args):
+        return model[itr][1]
+
+    def _sort_layout(self, layout):
         """
-        We want to sort layouts by their show strings not their names.
-        This function is an instance of GtkTreeIterCompareFunc().
+        Method to sort layouts by their show strings.
+
+        :param layout: either 'layout' or 'layout (variant)'
+        :type layout: str
 
         """
-
-        value1 = model[itr1][0]
-        value2 = model[itr2][0]
-        show_str1 = self._xkl_wrapper.get_layout_variant_description(value1)
-        show_str2 = self._xkl_wrapper.get_layout_variant_description(value2)
-
-        return locale_mod.strcoll(show_str1, show_str2)
+        return locale_mod.strxfrm(
+            self._xkl_wrapper.get_layout_variant_description(layout)
+        )
 
     def refresh(self):
         selected = self._newLayoutSelection.count_selected_rows()
@@ -112,14 +112,16 @@ class AddLayoutDialog(GUIObject):
         # We want to store layouts' names but show layouts as
         # 'language (description)'.
         self._entry = self.builder.get_object("addLayoutEntry")
+        self._newLayoutView = self.builder.get_object("newLayoutView")
         layoutColumn = self.builder.get_object("newLayoutColumn")
         layoutRenderer = self.builder.get_object("newLayoutRenderer")
         override_cell_property(layoutColumn, layoutRenderer, "text", _show_layout,
                                self._xkl_wrapper)
         self._treeModelFilter = self.builder.get_object("newLayoutStoreFilter")
         self._treeModelFilter.set_visible_func(self.matches_entry, None)
-        self._treeModelSort = self.builder.get_object("newLayoutStoreSort")
-        self._treeModelSort.set_default_sort_func(self.compare_layouts, None)
+
+        # we attach a row separator method to the newLayoutView
+        self._newLayoutView.set_row_separator_func(self._row_is_separator, None)
 
         self._confirmAddButton = self.builder.get_object("confirmAddButton")
         self._newLayoutSelection = self.builder.get_object("newLayoutSelection")
@@ -129,8 +131,18 @@ class AddLayoutDialog(GUIObject):
                                      target=self._initialize))
 
     def _initialize(self):
-        gtk_batch_map(self._addLayout, self._xkl_wrapper.get_available_layouts(),
-                      args=(self._store,), batch_size=20)
+        common_layouts = self._xkl_wrapper.get_common_layouts()
+        available_layouts = self._xkl_wrapper.get_available_layouts()
+
+        arranged_layouts = sorted(common_layouts, key=self._sort_layout) + \
+            sorted(list(set(available_layouts) - set(common_layouts)), key=self._sort_layout)
+
+        # we add arranged layouts in the treeview store
+        gtk_batch_map(self._addLayout, arranged_layouts, args=(self._store,), batch_size=20)
+
+        # then, we add a separator after common keyboard layouts
+        sep_itr = self._store.insert(len(common_layouts))
+        self._store.set(sep_itr, 0, DEFAULT_KEYBOARD, 1, True)
 
     def wait_initialize(self):
         threadMgr.wait(THREAD_ADD_LAYOUTS_INIT)
@@ -173,7 +185,7 @@ class AddLayoutDialog(GUIObject):
         self._confirmAddButton.emit("clicked")
 
     def _addLayout(self, name, store):
-        store.append([name])
+        store.append([name, False])
 
 
 class ConfigureSwitchingDialog(GUIObject):
