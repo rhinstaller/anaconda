@@ -383,7 +383,7 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
         _update_bond_connection_from_ksdata(con, network_data)
 
         for i, slave in enumerate(network_data.bondslaves.split(","), 1):
-            slave_con = create_slave_connection('bond', i, slave, device_name)
+            slave_con = create_slave_connection('bond', i, slave, device_name, network_data.onboot)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
             connections.append((slave_con, slave))
 
@@ -395,7 +395,7 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
             s_team_port = NM.SettingTeamPort.new()
             s_team_port.props.config = cfg
             slave_con = create_slave_connection('team', i, slave, device_name,
-                                                settings=[s_team_port])
+                                                network_data.onboot, settings=[s_team_port])
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
             connections.append((slave_con, slave))
 
@@ -409,7 +409,8 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
         _update_bridge_connection_from_ksdata(con, network_data)
 
         for i, slave in enumerate(network_data.bridgeslaves.split(","), 1):
-            slave_con = create_slave_connection('bridge', i, slave, device_name)
+            slave_con = create_slave_connection('bridge', i, slave, device_name,
+                                                network_data.onboot)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
             connections.append((slave_con, slave))
 
@@ -494,7 +495,7 @@ def _connection_added_cb(client, result, device_to_activate=None):
         client.activate_connection_async(con, device, None, None)
 
 
-def create_slave_connection(slave_type, slave_idx, slave, master, settings=None):
+def create_slave_connection(slave_type, slave_idx, slave, master, autoconnect, settings=None):
     """Create a slave NM connection for virtual connection (bond, team, bridge).
 
     :param slave_type: type of slave ("bond", "team", "bridge")
@@ -505,6 +506,8 @@ def create_slave_connection(slave_type, slave_idx, slave, master, settings=None)
     :type slave: str
     :param master: slave's master device name
     :type master: str
+    :param autoconnect: connection autoconnect value
+    :type autoconnect: bool
     :param settings: list of other settings to be added to the connection
     :type settings: list(NM.Setting)
 
@@ -521,10 +524,7 @@ def create_slave_connection(slave_type, slave_idx, slave, master, settings=None)
     s_con.props.slave_type = slave_type
     s_con.props.master = master
     s_con.props.type = '802-3-ethernet'
-    # HACK preventing NM to autoactivate the connection
-    # The real network --onboot value (ifcfg ONBOOT) will be set later by
-    # update_onboot
-    s_con.props.autoconnect = False
+    s_con.props.autoconnect = autoconnect
     con.add_setting(s_con)
 
     s_wired = NM.SettingWired.new()
