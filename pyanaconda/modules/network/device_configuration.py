@@ -241,6 +241,7 @@ class DeviceConfigurations(object):
                 hwaddr = device.get_hw_address()
                 config_uuid = get_config_file_connection_of_device(
                     self.nm_client, iface, device_hwaddr=hwaddr)
+                log.debug("config file connection for %s: %s", iface, config_uuid)
 
             for c in cons:
                 # Ignore slave connections

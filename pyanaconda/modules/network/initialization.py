@@ -390,20 +390,22 @@ class DumpMissingConfigFilesTask(Task):
         """Return a DBus representation."""
         return NetworkInitializationTaskInterface(self)
 
-    def _select_persistent_connection_for_device(self, device, cons):
+    def _select_persistent_connection_for_device(self, device, cons, allow_slaves=False):
         """Select the connection suitable to store configuration for the device."""
         iface = device.get_iface()
         ac = device.get_active_connection()
         if ac:
             con = ac.get_connection()
             if con.get_interface_name() == iface and con in cons:
-                return con
+                if allow_slaves or not con.get_setting_connection().get_master():
+                    return con
             else:
                 log.debug("%s: active connection for %s can't be used as persistent",
                           self.name, iface)
         for con in cons:
             if con.get_interface_name() == iface:
-                return con
+                if allow_slaves or not con.get_setting_connection().get_master():
+                    return con
         return None
 
     def _update_connection(self, con, iface):
@@ -447,6 +449,7 @@ class DumpMissingConfigFilesTask(Task):
             log.debug("%s: %s connections found for device %s", self.name,
                       [con.get_uuid() for con in cons], iface)
             n_cons = len(cons)
+            con = None
 
             device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
             if device_is_slave:
@@ -454,30 +457,19 @@ class DumpMissingConfigFilesTask(Task):
                 if n_cons == 1 and self._is_initramfs_connection(cons[0], iface):
                     log.debug("%s: device %s has an initramfs slave connection",
                               self.name, iface)
+                    con = self._select_persistent_connection_for_device(
+                        device, cons, allow_slaves=True)
                 else:
-                    log.debug("%s: not creating default connection for slave device %s",
+                    log.debug("%s: creating default connection for slave device %s",
                               self.name, iface)
-                    continue
+
+            if not con:
+                con = self._select_persistent_connection_for_device(device, cons)
 
             # Devices activated in initramfs should have ONBOOT=yes
             has_initramfs_con = any(self._is_initramfs_connection(con, iface) for con in cons)
             if has_initramfs_con:
                 log.debug("%s: device %s has initramfs connection", self.name, iface)
-
-            con = self._select_persistent_connection_for_device(device, cons)
-
-            if not con:
-                log.debug("%s: none of the connections can be dumped as persistent",
-                          self.name)
-                if n_cons == 1:
-                    # TODO: Try to clone the persistent connection for the device
-                    # from the connection which should be a generic (not bound
-                    # to iface) connection created by NM in initramfs
-                    pass
-                elif n_cons > 1:
-                    log.warning("%s: unexpected number of connections, not dumping any",
-                                self.name)
-                    continue
 
             if con:
                 self._update_connection(con, iface)
@@ -490,6 +482,15 @@ class DumpMissingConfigFilesTask(Task):
                           self.name, con.get_uuid(), iface)
                 con.commit_changes(True, None)
             else:
+                log.debug("%s: none of the connections can be dumped as persistent",
+                          self.name)
+                if n_cons > 1 and not device_is_slave:
+                    log.warning("%s: unexpected number of connections, not dumping any",
+                                self.name)
+                    continue
+                # TODO: Try to clone the persistent connection for the device
+                # from the connection which should be a generic (not bound
+                # to iface) connection created by NM in initramfs
                 log.debug("%s: creating default connection for %s", self.name, iface)
                 network_data = copy.deepcopy(self._default_network_data)
                 if has_initramfs_con:
