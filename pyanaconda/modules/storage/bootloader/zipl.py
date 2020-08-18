@@ -117,7 +117,7 @@ class ZIPL(BootLoader):
             args.add("root=%s" % image.device.fstab_spec)
             args.update(self.boot_args)
             if image.device.type == "btrfs subvolume":
-                args.update(["rootflags=subvol=%s" % image.device.name])
+                args.add("rootflags=subvol=%s" % image.device.name)
             log.info("bootloader.py: used boot args: %s ", args)
 
             if self.use_bls:
