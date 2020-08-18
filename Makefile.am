@@ -63,7 +63,8 @@ RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 MOCKCHROOT ?= fedora-$(DIST_NAME)-$(ARCH_NAME)
 MOCK_EXTRA_ARGS ?=
 
-COVERAGE ?= coverage3
+PYTHON ?= python3
+COVERAGE ?= $(PYTHON) -m coverage
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
 USER_SITE_PACKAGES ?= $(shell PYTHONUSERBASE=$(USER_SITE_BASE) $(PYTHON) -m site --user-site)
 
@@ -83,7 +84,7 @@ SKIP_BRANCHING_CHECK ?= "false"
 dist-hook:
 	for p in $(distdir)/po/*.po ; do \
 	    if [ -e "$$p" ]; then \
-		PYTHONPATH=$(srcdir)/translation-canary python3 -m translation_canary.translated \
+		PYTHONPATH=$(srcdir)/translation-canary $(PYTHON) -m translation_canary.translated \
 		    --release $(distdir)/po ; \
 	    fi ; \
 	    break ; \
