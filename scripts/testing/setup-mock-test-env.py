@@ -371,7 +371,7 @@ def install_pip_packages_to_mock(mock_command, packages):
 
     cmd = _run_cmd_in_chroot(cmd)
     cmd.append(
-        'python3 -m pip install --install-option="--install-scripts=/usr/bin" {}'.format(packages)
+        'python3 -m pip install {}'.format(packages)
     )
 
     _check_subprocess(cmd, "Can't install packages via pip to mock.")
