@@ -272,125 +272,6 @@ class DNFPayload(Payload):
 
         return None
 
-    def _add_repo(self, ksrepo):
-        """Add a repo to the dnf repo object.
-
-        :param ksrepo: Kickstart Repository to add
-        :type ksrepo: Kickstart RepoData object.
-        :returns: None
-        """
-        repo = dnf.repo.Repo(ksrepo.name, self._base.conf)
-        url = self._replace_vars(ksrepo.baseurl)
-        mirrorlist = self._replace_vars(ksrepo.mirrorlist)
-        metalink = self._replace_vars(ksrepo.metalink)
-
-        if url and url.startswith("nfs://"):
-            (server, path) = url[6:].split(":", 1)
-            # DNF is dynamically creating properties which seems confusing for Pylint here
-            # pylint: disable=no-member
-            mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, repo.name)
-            self._setup_NFS(mountpoint, server, path, None)
-
-            url = "file://" + mountpoint
-
-        if url:
-            repo.baseurl = [url]
-        if mirrorlist:
-            repo.mirrorlist = mirrorlist
-        if metalink:
-            repo.metalink = metalink
-        repo.sslverify = not ksrepo.noverifyssl and conf.payload.verify_ssl
-        if ksrepo.proxy:
-            try:
-                repo.proxy = ProxyString(ksrepo.proxy).url
-            except ProxyStringError as e:
-                log.error("Failed to parse proxy for _add_repo %s: %s",
-                          ksrepo.proxy, e)
-
-        if ksrepo.cost:
-            repo.cost = ksrepo.cost
-
-        if ksrepo.includepkgs:
-            repo.include = ksrepo.includepkgs
-
-        if ksrepo.excludepkgs:
-            repo.exclude = ksrepo.excludepkgs
-
-        if ksrepo.sslcacert:
-            repo.sslcacert = ksrepo.sslcacert
-
-        if ksrepo.sslclientcert:
-            repo.sslclientcert = ksrepo.sslclientcert
-
-        if ksrepo.sslclientkey:
-            repo.sslclientkey = ksrepo.sslclientkey
-
-        # If this repo is already known, it's one of two things:
-        # (1) The user is trying to do "repo --name=updates" in a kickstart file
-        #     and we should just know to enable the already existing on-disk
-        #     repo config.
-        # (2) It's a duplicate, and we need to delete the existing definition
-        #     and use this new one.  The highest profile user of this is livecd
-        #     kickstarts.
-        if repo.id in self._base.repos:
-            if not url and not mirrorlist and not metalink:
-                self._base.repos[repo.id].enable()
-            else:
-                with self._repos_lock:
-                    self._base.repos.pop(repo.id)
-                    self._base.repos.add(repo)
-        # If the repo's not already known, we've got to add it.
-        else:
-            with self._repos_lock:
-                self._base.repos.add(repo)
-
-        if not ksrepo.enabled:
-            self.disable_repo(repo.id)
-
-        log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
-
-    def _fetch_md(self, repo_name):
-        """Download repo metadata
-
-        :param repo_name: name/id of repo to fetch
-        :type repo_name: str
-        :returns: None
-        """
-        repo = self._base.repos[repo_name]
-        repo.enable()
-        try:
-            # Load the metadata to verify that the repo is valid
-            repo.load()
-        except dnf.exceptions.RepoError as e:
-            repo.disable()
-            log.debug("repo: '%s' - %s failed to load repomd", repo.id,
-                     repo.baseurl or repo.mirrorlist or repo.metalink)
-            raise MetadataError(e)
-
-        log.info("enabled repo: '%s' - %s and got repomd", repo.id,
-                 repo.baseurl or repo.mirrorlist or repo.metalink)
-
-    def add_repo(self, ksrepo):
-        """Add an enabled repo to dnf and kickstart repo lists.
-
-        Add the repo given by the pykickstart Repo object ksrepo to the
-        system.  The repo will be automatically enabled and its metadata
-        fetched.
-
-        Duplicate repos will not raise an error.  They should just silently
-        take the place of the previous value.
-
-        :param ksrepo: Kickstart Repository to add
-        :type ksrepo: Kickstart RepoData object.
-        :returns: None
-        """
-        self._add_repo(ksrepo)
-        self._fetch_md(ksrepo.name)
-
-        # Add the repo to the ksdata so it'll appear in the output ks file.
-        ksrepo.enabled = True
-        self.data.repo.dataList().append(ksrepo)
-
     def _process_module_command(self):
         """Enable/disable modules (if any)."""
         # convert data from kickstart to module specs
@@ -989,15 +870,123 @@ class DNFPayload(Payload):
 
         return repo
 
-    def add_disabled_repo(self, ksrepo):
-        """Add the repo given by the pykickstart Repo object ksrepo to the
-        list of known repos.  The repo will be automatically disabled.
+    def add_repo(self, ksrepo):
+        """Add an enabled repo to dnf and kickstart repo lists.
+
+        Add the repo given by the pykickstart Repo object ksrepo to the
+        system.
 
         Duplicate repos will not raise an error.  They should just silently
         take the place of the previous value.
+
+        :param ksrepo: Kickstart Repository to add
+        :type ksrepo: Kickstart RepoData object.
+        :returns: None
         """
-        ksrepo.enabled = False
+        if ksrepo.enabled:
+            self._add_repo(ksrepo)
+            self._fetch_md(ksrepo.name)
+
+        # Add the repo to the ksdata so it'll appear in the output ks file.
         self.data.repo.dataList().append(ksrepo)
+
+    def _add_repo(self, ksrepo):
+        """Add a repo to the dnf repo object.
+
+        :param ksrepo: Kickstart Repository to add
+        :type ksrepo: Kickstart RepoData object.
+        :returns: None
+        """
+        repo = dnf.repo.Repo(ksrepo.name, self._base.conf)
+        url = self._replace_vars(ksrepo.baseurl)
+        mirrorlist = self._replace_vars(ksrepo.mirrorlist)
+        metalink = self._replace_vars(ksrepo.metalink)
+
+        if url and url.startswith("nfs://"):
+            (server, path) = url[6:].split(":", 1)
+            # DNF is dynamically creating properties which seems confusing for Pylint here
+            # pylint: disable=no-member
+            mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, repo.name)
+            self._setup_NFS(mountpoint, server, path, None)
+
+            url = "file://" + mountpoint
+
+        if url:
+            repo.baseurl = [url]
+        if mirrorlist:
+            repo.mirrorlist = mirrorlist
+        if metalink:
+            repo.metalink = metalink
+        repo.sslverify = not ksrepo.noverifyssl and conf.payload.verify_ssl
+        if ksrepo.proxy:
+            try:
+                repo.proxy = ProxyString(ksrepo.proxy).url
+            except ProxyStringError as e:
+                log.error("Failed to parse proxy for _add_repo %s: %s",
+                          ksrepo.proxy, e)
+
+        if ksrepo.cost:
+            repo.cost = ksrepo.cost
+
+        if ksrepo.includepkgs:
+            repo.include = ksrepo.includepkgs
+
+        if ksrepo.excludepkgs:
+            repo.exclude = ksrepo.excludepkgs
+
+        if ksrepo.sslcacert:
+            repo.sslcacert = ksrepo.sslcacert
+
+        if ksrepo.sslclientcert:
+            repo.sslclientcert = ksrepo.sslclientcert
+
+        if ksrepo.sslclientkey:
+            repo.sslclientkey = ksrepo.sslclientkey
+
+        # If this repo is already known, it's one of two things:
+        # (1) The user is trying to do "repo --name=updates" in a kickstart file
+        #     and we should just know to enable the already existing on-disk
+        #     repo config.
+        # (2) It's a duplicate, and we need to delete the existing definition
+        #     and use this new one.  The highest profile user of this is livecd
+        #     kickstarts.
+        if repo.id in self._base.repos:
+            if not url and not mirrorlist and not metalink:
+                self._base.repos[repo.id].enable()
+            else:
+                with self._repos_lock:
+                    self._base.repos.pop(repo.id)
+                    self._base.repos.add(repo)
+        # If the repo's not already known, we've got to add it.
+        else:
+            with self._repos_lock:
+                self._base.repos.add(repo)
+
+        if not ksrepo.enabled:
+            self.disable_repo(repo.id)
+
+        log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
+
+    def _fetch_md(self, repo_name):
+        """Download repo metadata
+
+        :param repo_name: name/id of repo to fetch
+        :type repo_name: str
+        :returns: None
+        """
+        repo = self._base.repos[repo_name]
+        repo.enable()
+        try:
+            # Load the metadata to verify that the repo is valid
+            repo.load()
+        except dnf.exceptions.RepoError as e:
+            repo.disable()
+            log.debug("repo: '%s' - %s failed to load repomd", repo.id,
+                      repo.baseurl or repo.mirrorlist or repo.metalink)
+            raise MetadataError(e)
+
+        log.info("enabled repo: '%s' - %s and got repomd", repo.id,
+                 repo.baseurl or repo.mirrorlist or repo.metalink)
 
     def remove_repo(self, repo_id):
         repos = self.data.repo.dataList()
@@ -1524,6 +1513,8 @@ class DNFPayload(Payload):
         log.info("Configuring the base repo")
         self.reset()
 
+        disabled_treeinfo_repo_names = self._cleanup_old_treeinfo_repositories()
+
         # Find the source and its type.
         source_proxy = self.get_source_proxy()
         source_type = source_proxy.Type
@@ -1576,11 +1567,9 @@ class DNFPayload(Payload):
                 self._refresh_install_tree(data)
                 self._base.conf.releasever = self._get_release_version(install_tree_url)
                 base_repo_url = self._get_base_repo_location(install_tree_url)
-
-                if self.first_payload_reset:
-                    self._add_treeinfo_repositories(install_tree_url, base_repo_url)
-
                 log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
+
+                self._load_treeinfo_repositories(base_repo_url, disabled_treeinfo_repo_names)
             except configparser.MissingSectionHeaderError as e:
                 log.error("couldn't set releasever from base repo (%s): %s", source_type, e)
 
@@ -1886,12 +1875,13 @@ class DNFPayload(Payload):
         log.debug("No base repository found in treeinfo file. Using installation tree root.")
         return install_tree_url
 
-    def _add_treeinfo_repositories(self, install_tree_url, base_repo_url=None):
-        """Add all repositories from treeinfo file which are not already loaded.
+    def _load_treeinfo_repositories(self, base_repo_url, repo_names_to_disable):
+        """Load new repositories from treeinfo file.
 
-        :param install_tree_url: Url to the installation tree root.
-        :param base_repo_url: Base repository url. This is not saved anywhere when the function
-        is called. It will be add to the existing urls if not None.
+        :param base_repo_url: base repository url. This is not saved anywhere when the function
+                              is called. It will be add to the existing urls if not None.
+        :param repo_names_to_disable: list of repository names which should be disabled after load
+        :type repo_names_to_disable: [str]
         """
         if self._install_tree_metadata:
             existing_urls = []
@@ -1908,13 +1898,43 @@ class DNFPayload(Payload):
             for repo_md in self._install_tree_metadata.get_metadata_repos():
                 if repo_md.path not in existing_urls:
                     repo_treeinfo = self._install_tree_metadata.get_treeinfo_for(repo_md.name)
-                    repo_enabled = repo_treeinfo.type in enabled_repositories_from_treeinfo
+
+                    # disable repositories disabled by user manually before
+                    if repo_md.name in repo_names_to_disable:
+                        repo_enabled = False
+                    else:
+                        repo_enabled = repo_treeinfo.type in enabled_repositories_from_treeinfo
+
                     repo = RepoData(name=repo_md.name, baseurl=repo_md.path,
                                     install=False, enabled=repo_enabled)
                     repo.treeinfo_origin = True
+                    log.debug("Adding new treeinfo repository: %s enabled: %s",
+                              repo_md.name, repo_enabled)
+
                     self.add_repo(repo)
 
-        return install_tree_url
+    def _cleanup_old_treeinfo_repositories(self):
+        """Remove all old treeinfo repositories before loading new ones.
+
+        Find all repositories added from treeinfo file and remove them. After this step new
+        repositories will be loaded from the new link.
+
+        :return: list of repository names which were disabled before removal
+        :rtype: [str]
+        """
+        disabled_repo_names = []
+
+        for ks_repo_name in self.addons:
+            repo = self.get_addon_repo(ks_repo_name)
+            if repo.treeinfo_origin:
+                log.debug("Removing old treeinfo repository %s", ks_repo_name)
+
+                if not repo.enabled:
+                    disabled_repo_names.append(ks_repo_name)
+
+                self.remove_repo(ks_repo_name)
+
+        return disabled_repo_names
 
     def _write_dnf_repo(self, repo, repo_path):
         """Write a repo object to a DNF repo.conf file.
