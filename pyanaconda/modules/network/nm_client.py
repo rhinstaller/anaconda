@@ -23,9 +23,10 @@ gi.require_version("NM", "1.0")
 from gi.repository import NM
 
 import socket
-from queue import Queue
+from queue import Queue, Empty
 from pykickstart.constants import BIND_TO_MAC
-from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
+from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH, \
+    CONNECTION_ACTIVATION_TIMEOUT
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, get_s390_settings, netmask2prefix, \
     prefix2netmask
@@ -939,7 +940,13 @@ def activate_connection_sync(nm_client, connection, device):
         sync_queue
     )
 
-    return sync_queue.get()
+    try:
+        ret = sync_queue.get(timeout=CONNECTION_ACTIVATION_TIMEOUT)
+    except Empty:
+        log.error("Activation of a connection timed out.")
+        ret = None
+
+    return ret
 
 
 def get_dracut_arguments_from_connection(nm_client, connection, iface, target_ip,
