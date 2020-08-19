@@ -366,6 +366,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 19 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.19-1
+- Propagate verify_ssl to RHSM (mkolman)
+  Resolves: rhbz#1858126
+
 * Wed Aug 12 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.18-1
 - subscription: Only restart payload when needed (mkolman)
   Resolves: rhbz#1861351
