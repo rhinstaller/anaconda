@@ -785,8 +785,9 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
             active_uuid = ac.get_uuid() if ac else None
             if uuid != active_uuid:
                 ifcfg_con = nm_client.get_connection_by_uuid(uuid)
-                activate_connection_sync(nm_client, ifcfg_con, None)
-                activated = True
+                if ifcfg_con:
+                    activate_connection_sync(nm_client, ifcfg_con, None)
+                    activated = True
     msg = "activated" if activated else "not activated"
     log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
               device_name, active_uuid, uuid, msg)
