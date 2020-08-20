@@ -366,6 +366,31 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 20 2020 Martin Kolman <mkolman@redhat.com> - 33.25.1-1
+- Adjust configuration options for Fedora 33 (mkolman)
+- network: do not try to activate connection that has not been found (rvykydal)
+- network: add timeout for synchronous activation of a connection (rvykydal)
+- network: fix configuration of virtual devices by boot options (rvykydal)
+- Handle exceptions from threads without new instances (vslavik)
+- Do not use disabled --install-scripts command of pip (jkonecny)
+- Use bootlist command to update the PowerPC-64 Boot Order (javierm)
+- Discard current boot list when updating the boot-device NRVAM variable
+  (javierm)
+- Automatically break lines in labels in software selection spoke (vslavik)
+- Set up FIPS in the target system (vponcova)
+- Update the service anaconda-sshd (vponcova)
+- Set up FIPS in the installation environment (vponcova)
+- Add Blivet version to generated kickstart (vslavik)
+- Add Anaconda version to saved kickstart (vslavik)
+- Fix kickstart file error with user groups (kai.kang)
+- Get rid of add_disable_repo (jkonecny)
+- Move parts together in the DNF repo (jkonecny)
+- Fix issue that treeinfo repositories were never disabled (jkonecny)
+- Keep treeinfo repositories disabled after payload reset (jkonecny)
+- Fix crash on first entering of source spoke (jkonecny)
+- Remove treeinfo repositories instead of disabling (jkonecny)
+- Reload treeinfo repositories on every payload reset (jkonecny)
+
 * Mon Aug 10 2020 Martin Kolman <mkolman@redhat.com> - 33.25-1
 - Fix our tests with a newer rpmfluff library (jkonecny)
 - network: pass also keyfile NM configuration to target system (#1858439)
