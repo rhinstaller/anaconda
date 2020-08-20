@@ -69,14 +69,7 @@ def verify_root(storage, constraints, report_error, report_warning):
 def verify_s390_constraints(storage, constraints, report_error, report_warning):
     """ Verify constraints for s390x.
 
-        Prevent users from installing on s390x with (a) no /boot volume, (b) the
-        root volume on LVM, (c) the root volume not restricted to a single PV,
-        and (d) LDL DASD disks.
-
-        NOTE: There is not really a way for users to create a / volume
-        restricted to a single PV.  The backend support is there, but there are
-        no UI hook-ups to drive that functionality, but I do not personally
-        care.  --dcantrell
+        Prevent users from installing on s390x with LDL DASD disks.
 
         :param storage: a storage to check
         :param constraints: a dictionary of constraints
@@ -85,14 +78,6 @@ def verify_s390_constraints(storage, constraints, report_error, report_warning):
     """
     if not arch.is_s390():
         return
-
-    root = storage.fsset.root_device
-    if '/boot' not in storage.mountpoints and root:
-        if root.type == 'lvmlv' and not root.single_pv:
-            report_error(_("This platform requires /boot on a dedicated "
-                           "partition or logical volume. If you do not "
-                           "want a /boot volume, you must place / on a "
-                           "dedicated non-LVM partition."))
 
     for disk in storage.disks:
         if disk.type == "dasd" and blockdev.s390.dasd_is_ldl(disk.name):
