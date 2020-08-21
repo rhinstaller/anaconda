@@ -287,7 +287,7 @@ class LiveImagePayload(BaseLivePayload):
             Otherwise fall back to rsync of INSTALL_TREE
         """
         # If it doesn't look like a tarfile use the super's install()
-        if not self.is_tarfile:
+        if not self.is_tarfile and not self.is_plain_squashfs_image:
             super().install()
             return
 

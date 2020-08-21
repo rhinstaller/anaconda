@@ -16,18 +16,23 @@
 # Red Hat, Inc.
 #
 import os
+import re
 import stat
 
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, INSTALL_TREE, \
+    SOURCE_TYPE_LIVE_OS_IMAGE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
+from pyanaconda.core.util import execInSysroot, execWithCapture, execWithRedirect
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.live.payload_base import BaseLivePayload
 from pyanaconda.progress import progressQ
+from pyanaconda.threading import threadMgr, AnacondaThread
 
 log = get_packaging_logger()
 
@@ -55,6 +60,27 @@ class LiveOSPayload(BaseLivePayload):
 
         source_proxy = PAYLOADS.get_proxy(source_path)
         return source_proxy.DetectLiveOSImage()
+
+    def get_number_of_inodes(self):
+        """ Examine the contents of the filename to determine whether it's a plain squashfs.
+        " If the return value is True, then the image is considered plain. This means
+        " it does not contain any embedded filesystem inside. If the value returned is False,
+        " it means that the filesystem has an embedded, in Fedora -- ext4, filesystem inside
+        " a squashfs image.
+        " :param: self.osimg_path -- a path to the target file or a block device
+        " :returns: bool
+        """
+        search_string = r"Number of inodes (\d+)"
+        file_squashfs_information = execWithCapture("unsquashfs", ["-s", self.osimg_path])
+        match_obj = re.search(search_string, file_squashfs_information)
+        try:
+            number_of_inodes = int(match_obj.group(1))
+        except AttributeError as e:
+            log.debug("The filesystem is either non-plain or an error has occured")
+            debug_message = str(e)
+            log.debug(debug_message)
+            return -1
+        return number_of_inodes
 
     def setup(self):
         super().setup()
@@ -94,6 +120,48 @@ class LiveOSPayload(BaseLivePayload):
         """ Perform pre-installation tasks. """
         super().pre_install()
         progressQ.send_message(_("Installing software") + (" %d%%") % (0,))
+
+    def install(self):
+        # Define a number of files from which a filesystem is considered plain
+        plain_squashfs_threshold = 50
+        if self.get_number_of_inodes() < plain_squashfs_threshold:
+            # Proceed with the standard installation.
+            super().install()
+            return
+        # Use an optimization in case the SQUASHFS image is plain.
+        # Include only the directories from the squashfs as specified below.
+
+        cmd = "unsquashfs"
+        args = ["-f", "-n", "-d", conf.target.system_root, self.osimg_path]
+
+        try:
+            rc = execWithRedirect(cmd, args)
+        except (OSError, RuntimeError) as e:
+            msg = None
+            err = str(e)
+            log.error(err)
+        else:
+            err = None
+            msg = "%s exited with code %d" % (cmd, rc)
+            log.info(msg)
+        if err or rc == 11:
+            exn = PayloadInstallError(err or msg)
+            if errorHandler.cb(exn) == ERROR_RAISE:
+                raise exn
+        # Wait for progress thread to finish
+        with self.pct_lock:
+            self.pct = 100
+        threadMgr.wait(THREAD_LIVE_PROGRESS)
+
+        # This will cleanup files that are by default in the SquashFS image
+        # and are not wanted in the target system. The parent directories will be preserved
+        # Ideally those should be not present in the image in the first place.
+        find_arguments = ["/boot/loader", "/tmp", "-mindepth", "1", "-delete"]
+        execInSysroot("find", find_arguments)
+        # Live needs to create the rescue image before bootloader is written
+        self._create_rescue_image()
+
+
 
     @property
     def space_required(self):
