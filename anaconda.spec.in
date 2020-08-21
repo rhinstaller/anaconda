@@ -366,6 +366,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 21 2020 Martin Kolman <mkolman@redhat.com> - 34.2-1
+- Fix dependency_solver failure with spec file boolean logic syntax (jkonecny)
+- Avoid unnecessarily pulling in glibc-langpack-en (sgallagh)
+- Set up the ignored_device_names variable (vponcova)
+
 * Thu Aug 20 2020 Martin Kolman <mkolman@redhat.com> - 34.1-1
 - network: do not try to activate connection that has not been found (rvykydal)
 - network: add timeout for synchronous activation of a connection (rvykydal)
