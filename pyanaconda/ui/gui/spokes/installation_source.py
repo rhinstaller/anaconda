@@ -1629,7 +1629,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         :param repo_model_path: repo_model_path of what we can remove or None
         :type repo_model_path: repo_store repo_model_path
         """
-        if repo_model_path is None:
+        if repo_model_path is not None:
             itr = self._repo_store[repo_model_path].iter
         else:
             itr = self._repo_selection.get_selected()[1]
