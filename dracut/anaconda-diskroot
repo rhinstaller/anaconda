@@ -64,6 +64,6 @@ if [ -e /tmp/dd_interactive -a ! -e /tmp/dd.done ]; then
 fi
 
 info "anaconda using disk root at $dev"
-mount $dev $repodir || warn "Couldn't mount $dev"
+mount -o ro $dev $repodir || warn "Couldn't mount $dev"
 anaconda_live_root_dir $repodir $path
 run_checkisomd5 $dev
