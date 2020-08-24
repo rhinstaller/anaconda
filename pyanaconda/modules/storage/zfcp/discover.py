@@ -64,11 +64,11 @@ class ZFCPDiscoverTask(Task):
             self._wwpn = blockdev.s390.zfcp_sanitize_wwpn_input(self._wwpn)
             self._lun = blockdev.s390.zfcp_sanitize_lun_input(self._lun)
         except (blockdev.S390Error, ValueError) as err:
-            raise StorageDiscoveryError(str(err))
+            raise StorageDiscoveryError(str(err)) from err
 
     def _discover_device(self):
         """Discover the device."""
         try:
             zfcp.add_fcp(self._device_number, self._wwpn, self._lun)
         except ValueError as e:
-            raise StorageDiscoveryError(str(e))
+            raise StorageDiscoveryError(str(e)) from e

@@ -165,9 +165,10 @@ def total_memory():
 
             try:
                 memsize = int(fields[1])
-            except ValueError:
-                log.error("ivalid value of MemTotal /proc/meminfo: %s", fields[1])
-                raise RuntimeError("ivalid value of MemTotal /proc/meminfo: %s" % fields[1])
+            except ValueError as err:
+                log.error("invalid value of MemTotal /proc/meminfo: %s", fields[1])
+                raise RuntimeError("invalid value of MemTotal /proc/meminfo: %s" % fields[1]) \
+                    from err
 
             # Because /proc/meminfo only gives us the MemTotal (total physical
             # RAM minus the kernel binary code), we need to round this

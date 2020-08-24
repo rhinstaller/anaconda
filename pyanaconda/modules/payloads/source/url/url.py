@@ -177,13 +177,14 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
         try:
             ProxyString(url=proxy)
         except ProxyStringError as e:
-            raise InvalidValueError("Proxy URL does not have valid format: {}".format(str(e)))
+            raise InvalidValueError("Proxy URL does not have valid format: {}".format(str(e))) \
+                from e
 
     def _validate_url(self, url_type):
         try:
             URLType(url_type)
-        except ValueError:
-            raise InvalidValueError("Invalid source type set '{}'".format(url_type))
+        except ValueError as e:
+            raise InvalidValueError("Invalid source type set '{}'".format(url_type)) from e
 
     @property
     def install_repo_enabled(self):

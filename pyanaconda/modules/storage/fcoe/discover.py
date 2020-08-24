@@ -44,7 +44,7 @@ class FCOEDiscoverTask(Task):
         try:
             error_message = fcoe.add_san(self._nic, self._dcb, self._auto_vlan)
         except (IOError, OSError) as e:
-            raise StorageDiscoveryError(str(e))
+            raise StorageDiscoveryError(str(e)) from e
 
         if error_message:
             raise StorageDiscoveryError(error_message)

@@ -481,7 +481,7 @@ def execConsole():
         proc = startProgram(["/bin/bash"], stdout=None, stderr=None, reset_lang=False)
         proc.wait()
     except OSError as e:
-        raise RuntimeError("Error running /bin/bash: " + e.strerror)
+        raise RuntimeError("Error running /bin/bash: " + e.strerror) from e
 
 
 ## Create a directory path.  Don't fail if the directory already exists.

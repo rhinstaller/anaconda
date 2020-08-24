@@ -76,7 +76,7 @@ class CheckInstallationSourceImageTask(Task):
             if response.headers.get('content-length'):
                 size = int(response.headers.get('content-length')) * 4
         except IOError as e:
-            raise SourceSetupError("Error opening liveimg: {}".format(e))
+            raise SourceSetupError("Error opening liveimg: {}".format(e)) from e
         else:
             if response.status_code != 200:
                 raise SourceSetupError("http request returned: {}".format(response.status_code))
@@ -176,7 +176,7 @@ class SetupInstallationSourceImageTask(Task):
         except RequestException as e:
             error = "Error downloading liveimg: {}".format(e)
             log.error(error)
-            raise SourceSetupError(error)
+            raise SourceSetupError(error) from e
         else:
             if not os.path.exists(image_path):
                 error = "Failed to download {}, file doesn't exist".format(self._url)

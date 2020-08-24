@@ -107,7 +107,7 @@ class ISCSIDiscoverTask(Task):
                 r_password=credentials.reverse_password
             )
         except SafeDBusError as e:
-            raise StorageDiscoveryError(str(e).split(':')[-1])
+            raise StorageDiscoveryError(str(e).split(':')[-1]) from e
 
         if not nodes:
             raise StorageDiscoveryError("No nodes discovered.")

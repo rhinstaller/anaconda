@@ -71,7 +71,7 @@ def get_new_session_connection():
             Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
             None, None)
     except GError as gerr:
-        raise DBusCallError("Unable to connect to session bus: {}".format(gerr))
+        raise DBusCallError("Unable to connect to session bus: {}".format(gerr)) from gerr
     finally:
         if old_euid is not None:
             os.seteuid(old_euid)
@@ -116,7 +116,7 @@ def call_sync(service, obj_path, iface, method, args, connection):
     except GError as gerr:
         msg = "Failed to call %s method on %s with %s arguments: %s" % (method, obj_path,
                                                                         args, str(gerr))
-        raise DBusCallError(msg)
+        raise DBusCallError(msg) from gerr
 
     if ret is None:
         msg = "No return from %s method on %s with %s arguments" % (method, obj_path, args)

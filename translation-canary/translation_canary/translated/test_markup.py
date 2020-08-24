@@ -47,15 +47,15 @@ def test_markup(pofile):
                 try:
                     # pylint: disable=unescaped-markup
                     ET.fromstring('<markup>%s</markup>' % msgstr)
-                except ET.ParseError:
+                except ET.ParseError as e:
                     if entry.msgid_plural:
                         raise AssertionError(
                             "Invalid markup translation for {} translation of msgid {}\n{}".
-                            format(plural_id, entry.msgid, msgstr))
+                            format(plural_id, entry.msgid, msgstr)) from e
                     else:
                         raise AssertionError(
                             "Invalid markup translation for msgid {}\n{}".
-                            format(entry.msgid, msgstr))
+                            format(entry.msgid, msgstr)) from e
 
                 # Check if the markup has the same number and kind of tags
                 if not markup_match(entry.msgid, msgstr):
