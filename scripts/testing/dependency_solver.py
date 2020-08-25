@@ -104,11 +104,9 @@ def runtime_dependencies(spec_content):
     """Find all Requires from spec file."""
     # find all Requires: statements
     # take first word from these statements to avoid these problems:
-    # - Requires: (take_package or not_taken)             # take first from the boolean is the
-    #                                                       best what we can do
-    # - Requires: ( taken_package or not_taken_package )  # work even with space after bracket
+    # - Requires: (take_package or not_taken)             # take the whole (...)
     # - Requires: taken_package >= 3.2.1                  # not taking the version
-    packages = re.findall(r"\n *Requires:[ (]*([^ \n]*)", spec_content)
+    packages = re.findall(r"\n *Requires: +([^#><=\n]*)", spec_content)
     result = set()
 
     for pkg in packages:
