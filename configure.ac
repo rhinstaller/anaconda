@@ -33,7 +33,10 @@ AS_IF([test $ANACONDA_RELEASE],
 # This needs to be set before initializing automake
 AC_DISABLE_STATIC
 
-AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 tar-ustar])
+# UIDs in an openshift pod are bigger than what tar-ustar can handle
+# tar-pax can deal with it though
+# https://github.com/hpcng/singularity/issues/670#issuecomment-346104684
+AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 tar-pax])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])

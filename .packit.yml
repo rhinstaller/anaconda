@@ -8,7 +8,7 @@ actions:
     - bash -c "git describe --tags --match '*.*' | awk -F '-' '{ print $2}' "
   create-archive:
     - "make release"
-    - "bash -c 'ls | grep tar.bz2'"
+    - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 jobs:
   - job: tests
     trigger: pull_request
