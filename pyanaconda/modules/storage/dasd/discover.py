@@ -54,7 +54,7 @@ class DASDDiscoverTask(Task):
         try:
             self._device_number = blockdev.s390.sanitize_dev_input(self._device_number)
         except blockdev.S390Error as e:
-            raise StorageDiscoveryError(str(e))
+            raise StorageDiscoveryError(str(e)) from e
 
     def _discover_device(self):
         """Discover the device."""
@@ -62,4 +62,4 @@ class DASDDiscoverTask(Task):
         try:
             blockdev.s390.dasd_online(self._device_number)
         except blockdev.S390Error as e:
-            raise StorageDiscoveryError(str(e))
+            raise StorageDiscoveryError(str(e)) from e

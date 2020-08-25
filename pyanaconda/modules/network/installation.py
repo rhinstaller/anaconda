@@ -89,7 +89,7 @@ def _write_config_file(root, path, content, error_msg, overwrite):
             fobj.write(content)
     except IOError as ioerr:
         msg = "{}: {}".format(error_msg, ioerr.strerror)
-        raise NetworkInstallationError(msg)
+        raise NetworkInstallationError(msg) from ioerr
 
 
 class NetworkInstallationTask(Task):
@@ -214,7 +214,7 @@ Name={}
 
         except IOError as ioerr:
             msg = "Cannot disable ipv6 on the system: {}".format(ioerr.strerror)
-            raise NetworkInstallationError(msg)
+            raise NetworkInstallationError(msg) from ioerr
 
     def _copy_resolv_conf(self, root, overwrite):
         """Copy resolf.conf file to target system.

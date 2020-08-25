@@ -68,7 +68,7 @@ class LanguageInstallationTask(Task):
 
         except IOError as ioerr:
             msg = "Cannot write language configuration file: {}".format(ioerr.strerror)
-            raise LanguageInstallationError(msg)
+            raise LanguageInstallationError(msg) from ioerr
 
 
 class KeyboardInstallationTask(Task):
@@ -203,4 +203,4 @@ def write_vc_configuration(vc_keymap, root):
 
     except IOError as ioerr:
         msg = "Cannot write vconsole configuration file: {}".format(ioerr.strerror)
-        raise KeyboardInstallationError(msg)
+        raise KeyboardInstallationError(msg) from ioerr

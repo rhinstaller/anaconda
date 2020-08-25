@@ -116,7 +116,7 @@ class ConfigureTimezoneTask(Task):
                     fobj.write("LOCAL\n")
         except IOError as ioerr:
             msg = "Error while writing /etc/adjtime file: {}".format(ioerr.strerror)
-            raise TimezoneConfigurationError(msg)
+            raise TimezoneConfigurationError(msg) from ioerr
 
 
 class ConfigureNTPTask(Task):

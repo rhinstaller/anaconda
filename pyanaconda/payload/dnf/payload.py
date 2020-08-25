@@ -782,11 +782,12 @@ class DNFPayload(Payload):
                 ret.append(self.group_id(grp))
             return ret
         # Translation feature is not implemented for this payload.
-        except NotImplementedError:
+        except NotImplementedError as ex:
             raise PayloadError(("Can't translate group names to group ID - "
-                                "Group translation is not implemented for %s payload." % self))
+                                "Group translation is not implemented for %s payload." % self)) \
+                from ex
         except PayloadError as ex:
-            raise PayloadError("Can't translate group names to group ID - {}".format(ex))
+            raise PayloadError("Can't translate group names to group ID - {}".format(ex)) from ex
 
     def group_selected(self, groupid):
         return Group(groupid) in self.data.packages.groupList
@@ -983,7 +984,7 @@ class DNFPayload(Payload):
             repo.disable()
             log.debug("repo: '%s' - %s failed to load repomd", repo.id,
                       repo.baseurl or repo.mirrorlist or repo.metalink)
-            raise MetadataError(e)
+            raise MetadataError(e) from e
 
         log.info("enabled repo: '%s' - %s and got repomd", repo.id,
                  repo.baseurl or repo.mirrorlist or repo.metalink)
@@ -1105,7 +1106,7 @@ class DNFPayload(Payload):
         except dnf.exceptions.DepsolveError as e:
             msg = str(e)
             log.warning(msg)
-            raise DependencyError(msg)
+            raise DependencyError(msg) from e
 
         log.info("%d packages selected totalling %s",
                  len(self._base.transaction), self.space_required)
@@ -1733,7 +1734,7 @@ class DNFPayload(Payload):
         except (DeviceSetupError, MountFilesystemError) as e:
             log.error("mount failed: %s", e)
             payload_utils.teardown_device(device)
-            raise PayloadSetupError(str(e))
+            raise PayloadSetupError(str(e)) from e
 
     @staticmethod
     def _setup_NFS(mountpoint, server, path, options):

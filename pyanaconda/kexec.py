@@ -67,7 +67,7 @@ def run_grubby(args=None):
                 break
     except OSError as e:
         log.error("run_grubby failed: %s", e)
-        raise GrubbyInfoError(e)
+        raise GrubbyInfoError(e) from e
 
     if boot_info_fields:
         raise GrubbyInfoError("Missing values: %s" % ", ".join(boot_info_fields))

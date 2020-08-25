@@ -176,7 +176,7 @@ class FlatpakPayload(object):
         try:
             self._transaction.run()
         except GError as exn:
-            raise FlatpakInstallError(str(exn))
+            raise FlatpakInstallError(str(exn)) from exn
 
     def _stuff_refs_to_transaction(self):
         for ref in self._remote_refs_list.get_refs_full_format():

@@ -160,7 +160,7 @@ def mount(device_path, mount_point, fstype, options):
     try:
         return blivet.util.mount(device_path, mount_point, fstype=fstype, options=options)
     except OSError as e:
-        raise PayloadSetupError(str(e))
+        raise PayloadSetupError(str(e)) from e
 
 
 def arch_is_x86():
