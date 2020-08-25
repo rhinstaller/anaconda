@@ -192,5 +192,5 @@ def try_to_load_keymap(keymap):
         ret = execWithRedirect("loadkeys", [keymap])
     except OSError as oserr:
         msg = "'loadkeys' command not available (%s)" % oserr.strerror
-        raise KeyboardConfigurationError(msg)
+        raise KeyboardConfigurationError(msg) from oserr
     return ret == 0

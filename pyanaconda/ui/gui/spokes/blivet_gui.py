@@ -28,7 +28,7 @@ try:
     from blivetgui.communication.client import BlivetGUIClient  # pylint: disable=import-error
     from blivetgui.config import config  # pylint: disable=import-error
 except ImportError:
-    raise RemovedModuleError("This module is not supported!")
+    raise RemovedModuleError("This module is not supported!") from None
 
 from dasbus.client.proxy import get_object_path
 from dasbus.typing import unwrap_variant

@@ -204,7 +204,7 @@ class Iscsi(COMMANDS.Iscsi):
                              target=tg.target,
                              iface=tg.iface)
         except (IOError, ValueError) as e:
-            raise KickstartParseError(lineno=self.lineno, msg=str(e))
+            raise KickstartParseError(lineno=self.lineno, msg=str(e)) from e
 
         return tg
 

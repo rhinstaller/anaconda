@@ -73,10 +73,11 @@ def download_escrow_certificate(url):
     try:
         request = util.requests_session().get(url, verify=True)
     except requests.exceptions.SSLError as e:
-        raise KickstartError(_("SSL error while downloading the escrow certificate:\n\n%s") % e)
+        raise KickstartError(_("SSL error while downloading the escrow certificate:\n\n%s") % e) \
+            from e
     except requests.exceptions.RequestException as e:
         raise KickstartError(_("The following error was encountered while downloading the "
-                               "escrow certificate:\n\n%s") % e)
+                               "escrow certificate:\n\n%s") % e) from e
 
     try:
         certificate = request.content

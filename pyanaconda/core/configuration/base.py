@@ -71,7 +71,7 @@ def read_config(parser, path):
             parser.read_file(f, path)
 
     except (configparser.Error, IOError) as e:
-        raise ConfigurationFileError(str(e), path)
+        raise ConfigurationFileError(str(e), path) from e
 
 
 def write_config(parser, path):
@@ -86,7 +86,7 @@ def write_config(parser, path):
             parser.write(f)
 
     except (configparser.Error, IOError) as e:
-        raise ConfigurationFileError(str(e), path)
+        raise ConfigurationFileError(str(e), path) from e
 
 
 def get_option(parser, section_name, option_name, converter=None):
@@ -115,7 +115,7 @@ def get_option(parser, section_name, option_name, converter=None):
         return converter(parser.get(section_name, option_name))
 
     except (configparser.Error, ValueError) as e:
-        raise ConfigurationDataError(str(e), section_name, option_name)
+        raise ConfigurationDataError(str(e), section_name, option_name) from e
 
 
 def set_option(parser, section_name, option_name, value):
@@ -135,7 +135,7 @@ def set_option(parser, section_name, option_name, value):
         parser[section_name][option_name] = str(value)
 
     except (configparser.Error, ValueError) as e:
-        raise ConfigurationDataError(str(e), section_name, option_name)
+        raise ConfigurationDataError(str(e), section_name, option_name) from e
 
 
 class Section(ABC):

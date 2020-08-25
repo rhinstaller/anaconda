@@ -296,7 +296,7 @@ class XklWrapper(object):
             #we can get 'layout' or 'layout (variant)'
             (layout, variant) = parse_layout_variant(layout)
         except InvalidLayoutVariantSpec as ilverr:
-            raise XklWrapperError("Failed to add layout: %s" % ilverr)
+            raise XklWrapperError("Failed to add layout: %s" % ilverr) from ilverr
 
         #do not add the same layout-variant combinanion multiple times
         if (layout, variant) in list(zip(self._rec.layouts, self._rec.variants)):
