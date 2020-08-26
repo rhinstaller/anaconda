@@ -24,7 +24,6 @@ from blivet.devices import NetworkStorageDevice
 from blivet.formats.disklabel import DiskLabel
 from blivet.iscsi import iscsi
 from blivet.size import Size
-from ordered_set import OrderedSet
 
 from pyanaconda.network import iface_for_host_ip
 from pyanaconda.modules.storage.platform import platform
@@ -41,7 +40,7 @@ from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
 log = get_module_logger(__name__)
 
-__all__ = ["BootLoaderError", "Arguments", "BootLoader"]
+__all__ = ["BootLoaderError", "BootLoaderArguments", "BootLoader"]
 
 
 def _is_on_sw_iscsi(device):
@@ -88,9 +87,11 @@ class BootLoaderError(Exception):
     pass
 
 
-class Arguments(OrderedSet):  # pylint: disable=duplicate-bases
-    """An ordered set of arguments."""
-    # FIXME: the pylint pragma is needed since 2.5.0 for unclear reasons
+class BootLoaderArguments:
+    """An ordered set of bootloader arguments."""
+
+    def __init__(self):
+        self._arguments = []
 
     def _merge_ip(self):
         """Find ip= arguments targeting the same interface and merge them."""
@@ -101,8 +102,8 @@ class Arguments(OrderedSet):  # pylint: disable=duplicate-bases
             # automatic network setup:
             return arg.startswith("ip=") and arg.count(":") == 1
 
-        ip_params = filter(partition_p, self)
-        rest = OrderedSet(filter(lambda p: not partition_p(p), self))
+        ip_params = list(filter(partition_p, self._arguments))
+        rest = list(filter(lambda p: not partition_p(p), self._arguments))
 
         # split at the colon:
         ip_params = map(lambda p: p.split(":"), ip_params)
@@ -116,23 +117,40 @@ class Arguments(OrderedSet):  # pylint: disable=duplicate-bases
         for nic in config:
             ip_params.add("%s:%s" % (nic, ",".join(sorted(config[nic]))))
 
-        # update the set
-        self.clear()
-        self.update(rest)
-        self.update(ip_params)
-        return self
+        # update the list
+        self._arguments.clear()
+        self._arguments.extend(rest)
+        self._arguments.extend(ip_params)
+        return self._arguments
 
     def __str__(self):
+        """Convert the argument list to string.
+
+        Merges ip= arguments targeting the same interface as a side effect.
+        """
         self._merge_ip()
-        return " ".join(list(self))
+        return " ".join(list(self._arguments))
+
+    def __iter__(self):
+        return iter(self._arguments)
 
     def add(self, key):
-        self.discard(key)
-        super().add(key)
+        """Add a single argument string.
+
+        :param str key: argument to add
+        """
+        try:
+            self._arguments.remove(key)
+        except ValueError:
+            pass
+        self._arguments.append(key)
 
     def update(self, sequence):
+        """Add arguments from some other iterable object.
+
+        :param sequence: iterable object
+        """
         for key in sequence:
-            self.discard(key)
             self.add(key)
 
 
@@ -168,8 +186,8 @@ class BootLoader(object):
 
     def __init__(self):
         super().__init__()
-        self.boot_args = Arguments()
-        self.dracut_args = Arguments()
+        self.boot_args = BootLoaderArguments()
+        self.dracut_args = BootLoaderArguments()
 
         # the device the bootloader will be installed on
         self.stage1_device = None
