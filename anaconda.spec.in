@@ -25,7 +25,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define gettextver 0.19.8
 %define gtk3ver 3.22.17
 %define helpver 22.1-1
-%define isomd5sum 1.0.10
+%define isomd5sumver 1.0.10
 %define langtablever 0.0.49
 %define libarchivever 3.0.4
 %define libblockdevver 2.1
@@ -168,7 +168,7 @@ Requires: udisks2-iscsi
 Requires: libblockdev-plugins-all >= %{libblockdevver}
 # active directory/freeipa join support
 Requires: realmd
-Requires: isomd5sum >= %{isomd5sum}
+Requires: isomd5sum >= %{isomd5sumver}
 %ifarch %{ix86} x86_64
 Recommends: fcoe-utils >= %{fcoeutilsver}
 %endif
