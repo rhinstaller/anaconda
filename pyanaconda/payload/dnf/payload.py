@@ -53,7 +53,7 @@ from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    DNF_DEFAULT_SOURCE_TYPE, SOURCE_TYPE_HMC, SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, \
+    SOURCE_TYPE_HMC, SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, \
     URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, \
     SOURCE_TYPE_CDN
 from pyanaconda.core.i18n import N_, _
@@ -142,7 +142,7 @@ class DNFPayload(Payload):
         """
         # Set the source based on opts.method if it isn't already set
         # - opts.method is currently set by command line/boot options
-        if opts.method and (not self.proxy.Sources or self.source_type == DNF_DEFAULT_SOURCE_TYPE):
+        if opts.method and (not self.proxy.Sources or self.is_source_default()):
             try:
                 source = SourceFactory.parse_repo_cmdline_string(opts.method)
             except PayloadSourceTypeUnrecognized:
@@ -196,9 +196,13 @@ class DNFPayload(Payload):
     def get_source_proxy(self):
         """Get the DBus proxy of the RPM source.
 
+        The default source for the DNF payload is set via
+        the default_source option in the payload section
+        of the Anaconda config file.
+
         :return: a DBus proxy
         """
-        return get_source(self.proxy, DNF_DEFAULT_SOURCE_TYPE)
+        return get_source(self.proxy, conf.payload.default_source)
 
     @property
     def source_type(self):
@@ -1509,6 +1513,14 @@ class DNFPayload(Payload):
             else:
                 payload_utils.unmount(mount_point, raise_exc=True)
 
+    def is_source_default(self):
+        """Report if the current source type is the default source type.
+
+        NOTE: If no source was set previously a new default one
+              will be created.
+        """
+        return self.source_type == conf.payload.default_source
+
     def update_base_repo(self, fallback=True, checkmount=True):
         """Update the base repository from the DBus source."""
         log.info("Configuring the base repo")
@@ -1522,7 +1534,7 @@ class DNFPayload(Payload):
 
         # Change the default source to CDROM if there is a valid install media.
         # FIXME: Set up the default source earlier.
-        if checkmount and source_type == DNF_DEFAULT_SOURCE_TYPE and find_optical_install_media():
+        if checkmount and self.is_source_default() and find_optical_install_media():
             source_type = SOURCE_TYPE_CDROM
             source_proxy = create_source(source_type)
             set_source(self.proxy, source_proxy)
@@ -1600,10 +1612,13 @@ class DNFPayload(Payload):
                             self.disable_repo(repo.id)
                     return
 
-                # Fallback to the closest mirror.
+                # Fallback to the default source
+                #
+                # This is at the moment CDN on RHEL
+                # and closest mirror everywhere else.
                 tear_down_sources(self.proxy)
 
-                source_type = DNF_DEFAULT_SOURCE_TYPE
+                source_type = conf.payload.default_source
                 source_proxy = create_source(source_type)
                 set_source(self.proxy, source_proxy)
 

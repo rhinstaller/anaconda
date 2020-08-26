@@ -25,7 +25,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    THREAD_SUBSCRIPTION
+    THREAD_SUBSCRIPTION, SOURCE_TYPES_OVERRIDEN_BY_CDN
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.ui.lib.subscription import register_and_subscribe, \
     unregister, SubscriptionPhase
@@ -118,6 +118,9 @@ class SubscriptionSpoke(NormalSpoke):
 
         # previous visit network connectivity tracking
         self._network_connected_previously = False
+
+        # overriden source tracking
+        self._overridden_source_type = None
 
     # common spoke properties
 
@@ -847,6 +850,16 @@ class SubscriptionSpoke(NormalSpoke):
         # wait for the previous subscription thread to finish
         threadMgr.wait(THREAD_SUBSCRIPTION)
 
+        # check if the current installation source will be overriden
+        # and remember it if it is the case
+        source_proxy = self.payload.get_source_proxy()
+        source_type = source_proxy.Type
+        if source_type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
+            self._overridden_source_type = source_type
+        else:
+            # no override will happen, so clear the variable
+            self._overridden_source_type = None
+
         # try to register
         log.debug("Subscription GUI: attempting to register")
         threadMgr.add(
@@ -879,6 +892,8 @@ class SubscriptionSpoke(NormalSpoke):
                 name=THREAD_SUBSCRIPTION,
                 target=unregister,
                 kwargs={
+                    "payload": self.payload,
+                    "overridden_source_type": self._overridden_source_type,
                     "progress_callback": self._subscription_progress_callback,
                     "error_callback": self._subscription_error_callback
                 }

@@ -29,17 +29,19 @@ from urllib.parse import urlsplit
 from pyanaconda.core import glib, constants
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
     SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR
+    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
     get_hdiso_source_info, get_hdiso_source_description
 from pyanaconda.core.payload import ProxyString, ProxyStringError, parse_nfs_url, create_nfs_url
 from pyanaconda.core.util import cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
+from pyanaconda.ui.lib.subscription import switch_source
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler, GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -54,6 +56,7 @@ from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.core.storage import device_matches
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -432,8 +435,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     def apply(self):
         source_changed = self._update_payload_source()
         repo_changed = self._update_payload_repos()
-
-        if source_changed or repo_changed or self._error:
+        source_proxy = self.payload.get_source_proxy()
+        cdn_source = source_proxy.Type == SOURCE_TYPE_CDN
+        # If CDN is the current installation source but no subscription is
+        # attached there is no need to refresh the installation source,
+        # as without the subscription tokens the refresh would fail anyway.
+        if cdn_source and not self.subscribed:
+            log.debug("CDN source but no subscribtion attached - skipping payload restart.")
+        elif source_changed or repo_changed or self._error:
             payloadMgr.restart_thread(self.payload, checkmount=False)
         else:
             log.debug("Nothing has changed - skipping payload restart.")
@@ -449,7 +458,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         source_proxy = self.payload.get_source_proxy()
         source_type = source_proxy.Type
 
-        if self._autodetect_button.get_active():
+        if self._cdn_button.get_active():
+            if source_type == SOURCE_TYPE_CDN:
+                return False
+            switch_source(self.payload, SOURCE_TYPE_CDN)
+        elif self._autodetect_button.get_active():
             if not self._cdrom:
                 return False
 
@@ -605,7 +618,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         """ WARNING: This can be called before _initialize is done, make sure that it
             doesn't access things that are not setup (eg. payload.*) until it is ready
         """
-        if flags.automatedInstall and self.ready and not self.payload.base_repo:
+        source_proxy = self.payload.get_source_proxy()
+        if source_proxy.Type == SOURCE_TYPE_CDN:
+            return True
+        elif flags.automatedInstall and self.ready and not self.payload.base_repo:
             return False
 
         return not self._error and self.ready and self.payload.is_complete()
@@ -622,8 +638,36 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 not threadMgr.get(constants.THREAD_CHECK_SOFTWARE))
 
     @property
+    def subscribed(self):
+        """Report if the system is currently subscribed.
+
+        NOTE: This will be always False when the Subscription
+              module is no available.
+
+        :return: True if subscribed, False otherwise
+        :rtype: bool
+        """
+        subscribed = False
+        if is_module_available(SUBSCRIPTION):
+            subscription_proxy = SUBSCRIPTION.get_proxy()
+            subscribed = subscription_proxy.IsSubscriptionAttached
+        return subscribed
+
+    @property
     def status(self):
-        if threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
+        # When CDN is selected as installation source and system
+        # is not yet subscribed, the automatic repo refresh will
+        # fail. This is expected as CDN can't be used until the
+        # system has been registered. So prevent the error
+        # message and show CDN is used instead. If CDN still
+        # fails after registration, the regular error message
+        # will be displayed.
+        source_proxy = self.payload.get_source_proxy()
+        cdn_source = source_proxy.Type == SOURCE_TYPE_CDN
+        if cdn_source and not self.subscribed:
+            source_proxy = self.payload.get_source_proxy()
+            return source_proxy.Description
+        elif threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
             return _("Checking software dependencies...")
         elif not self.ready:
             return _(BASEREPO_SETUP_MESSAGE)
@@ -653,6 +697,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._autodetect_box = self.builder.get_object("autodetectBox")
         self._autodetect_device_label = self.builder.get_object("autodetectDeviceLabel")
         self._autodetect_label = self.builder.get_object("autodetectLabel")
+        self._cdn_button = self.builder.get_object("cdnRadioButton")
         self._hmc_button = self.builder.get_object("hmcRadioButton")
         self._iso_button = self.builder.get_object("isoRadioButton")
         self._iso_box = self.builder.get_object("isoBox")
@@ -724,6 +769,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # want to let me pass in user data.
         # See also: https://bugzilla.gnome.org/show_bug.cgi?id=727919
         self._autodetect_button.connect("toggled", self.on_source_toggled, self._autodetect_box)
+        self._cdn_button.connect("toggled", self.on_source_toggled, None)
         self._hmc_button.connect("toggled", self.on_source_toggled, None)
         self._iso_button.connect("toggled", self.on_source_toggled, self._iso_box)
         self._network_button.connect("toggled", self.on_source_toggled, self._network_box)
@@ -807,6 +853,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def _initialize(self):
         threadMgr.wait(constants.THREAD_PAYLOAD)
+
+        # If there is no Subscriptiopn DBus module, disable the CDN radio button
+        if is_module_available(SUBSCRIPTION):
+            gtk_call_once(self._cdn_button.set_no_show_all, True)
 
         # Get the current source.
         source_proxy = self.payload.get_source_proxy()
@@ -922,7 +972,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._protocol_combo_box.set_active_id(PROTOCOL_MIRROR)
         self._url_type_combo_box.set_active_id(URL_TYPE_BASEURL)
 
-        if source_type == SOURCE_TYPE_URL:
+        if source_type == SOURCE_TYPE_CDN:
+            self._cdn_button.set_active(True)
+        elif source_type == SOURCE_TYPE_URL:
             self._network_button.set_active(True)
 
             # Get the current configuration.
@@ -1036,6 +1088,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._updates_box.set_sensitive(self._mirror_active())
         active = self._mirror_active() or self.payload.is_repo_enabled("updates")
         self._updates_radio_button.set_active(active)
+
+    def _update_CDN_usage(self):
+        """Notify Payload module and Subscription spoke about possible CDN usage change."""
+        # notify Subscription spoke about possible change
+        hubQ.send_ready("SubscriptionSpoke", False)
 
     @property
     def showable(self):
