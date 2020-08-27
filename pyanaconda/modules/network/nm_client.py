@@ -647,6 +647,8 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
     connection.remove_setting(NM.SettingIP6Config)
     s_ip6 = NM.SettingIP6Config.new()
     s_ip6.set_property(NM.SETTING_IP_CONFIG_METHOD, method6)
+    s_ip6.set_property(NM.SETTING_IP6_CONFIG_ADDR_GEN_MODE,
+                       NM.SettingIP6ConfigAddrGenMode.EUI64)
     if method6 == "manual":
         addr6, _slash, prefix6 = network_data.ipv6.partition("/")
         if prefix6:
