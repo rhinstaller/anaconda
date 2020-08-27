@@ -47,7 +47,7 @@ from pykickstart.version import DEVEL as VERSION
 
 # Import all kickstart commands as version-less.
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
-from pykickstart.commands.harddrive import FC3_HardDrive as HardDrive
+from pykickstart.commands.harddrive import F33_HardDrive as HardDrive
 from pykickstart.commands.hmc import F28_Hmc as Hmc
 from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.url import F30_Url as Url
