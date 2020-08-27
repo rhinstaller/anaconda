@@ -25,6 +25,7 @@ from pyanaconda.core.constants import THREAD_WAIT_FOR_CONNECTING_NM, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
     SOURCE_TYPE_HDD, SOURCE_TYPE_CDN, SOURCE_TYPES_OVERRIDEN_BY_CDN
 from pyanaconda.core.i18n import _
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import unmark_protected_device
 
@@ -83,8 +84,13 @@ def check_cdn_is_installation_source(payload):
 
     :param payload: Anaconda payload instance
     """
-    source_proxy = payload.get_source_proxy()
-    return source_proxy.Type == SOURCE_TYPE_CDN
+    if payload.type == PAYLOAD_TYPE_DNF:
+        source_proxy = payload.get_source_proxy()
+        return source_proxy.Type == SOURCE_TYPE_CDN
+    else:
+        # the CDN source pretty much only supports
+        # DNF payload at the moment
+        return False
 
 # Asynchronous registration + subscription & unregistration handling
 #
@@ -272,7 +278,7 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None)
     # the CDN source we can now use
     # - at the moment this is true only for the CDROM source
     source_proxy = payload.get_source_proxy()
-    if source_proxy.Type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
+    if payload.type == PAYLOAD_TYPE_DNF and source_proxy.Type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
         log.debug("subscription thread: overriding current installation source by CDN")
         switch_source(payload, SOURCE_TYPE_CDN)
 
@@ -328,7 +334,8 @@ def unregister(payload, overridden_source_type, progress_callback=None, error_ca
         # If the CDN overrode an installation source we should revert that
         # on unregistration, provided CDN is the current source.
         source_proxy = payload.get_source_proxy()
-        if source_proxy.Type == SOURCE_TYPE_CDN and overridden_source_type:
+        should_override = source_proxy.Type == SOURCE_TYPE_CDN and overridden_source_type
+        if payload.type == PAYLOAD_TYPE_DNF and should_override:
             log.debug("subscription thread: rolling back installation source override by the CDN")
             switch_source(payload, overridden_source_type)
 
