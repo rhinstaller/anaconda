@@ -26,7 +26,7 @@ import os
 import sys
 import subprocess
 
-from functools import partial
+from functools import partial, reduce
 
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
@@ -361,9 +361,42 @@ def install_packages_to_mock(mock_command, packages):
     cmd = _prepare_command(mock_command)
 
     cmd.append('--install')
-    cmd.extend(packages.split(" "))
+    cmd.extend(_prepare_packages(packages))
 
     _check_subprocess(cmd, "Can't install packages to mock.")
+
+
+def _prepare_packages(packages_str):
+    """Split packages and package groups to a list.
+
+    Problem is that we can have (package1 or package2) in a spec file and we want to use this
+    as a whole and let DNF to decide what to do.
+
+    :param str packages_str: all packages for installation as one string
+    """
+
+    def _merge_groups(acc, package):
+        groups_num = acc[0]
+        result = acc[1]
+
+        if groups_num > 0:
+            # we are in groups so concatenate package name to the previous package
+            result[-1] = result[-1] + " " + package
+        else:  # not inside a group, just add new package
+            result.append(package)
+
+        # increase number of groups recursion because of '('
+        groups_num += package.count("(")
+
+        # reduce number of groups recursion because of ')'
+        groups_num -= package.count(")")
+
+        return (groups_num, result)
+
+    result = reduce(_merge_groups, packages_str.split(" "), (0, []))
+
+    # do not take number of groups that was just helper value
+    return result[1]
 
 
 def install_pip_packages_to_mock(mock_command, packages):
