@@ -136,12 +136,9 @@ class DracutCdrom(Cdrom, DracutArgsMixin):
 
 class DracutHardDrive(HardDrive, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
-        if self.biospart:
-            return "inst.repo=bd:%s:%s" % (self.partition, self.dir)
-        else:
-            args = "inst.repo=hd:%s:%s" % (self.partition, self.dir)
-            # Escape spaces
-            return args.replace(" ", "\\x20")
+        args = "inst.repo=hd:%s:%s" % (self.partition, self.dir)
+        # Escape spaces
+        return args.replace(" ", "\\x20")
 
 class DracutHmc(Hmc, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
