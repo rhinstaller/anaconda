@@ -192,6 +192,7 @@ class DracutDriverDisk(DriverDisk, DracutArgsMixin):
                 dd_args.append("inst.dd=hd:%s" % dd.partition)
             elif dd.source:
                 dd_args.append("inst.dd=%s" % dd.source)
+            # TODO: find out if biospart is support is required for DD and remove this code if not
             elif dd.biospart:
                 dd_args.append("inst.dd=bd:%s" % dd.biospart)
 
