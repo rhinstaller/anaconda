@@ -556,6 +556,26 @@ class SubscriptionService(KickstartService):
         """
         return self._rhsm_observer
 
+    def _flatten_rhsm_nested_dict(self, nested_dict):
+        """Convert the GetAll() returned nested dict into a flat one.
+
+        RHSM returns a nested dict with categories on top
+        and category keys & values inside. This is not convenient
+        for setting keys based on original values, so
+        let's normalize the dict to the flat key based
+        structure similar to what's used by SetAll().
+
+        :param dict nested_dict: the nested dict returned by GetAll()
+        :return: flat key/value dictionary, similar to format used by SetAll()
+        :rtype: dict
+        """
+        flat_dict = {}
+        for category_key, category_dict in nested_dict.items():
+            for key, value in category_dict.items():
+                flat_key = "{}.{}".format(category_key, key)
+                flat_dict[flat_key] = value
+        return flat_dict
+
     def get_rhsm_config_defaults(self):
         """Return RHSM config default values.
 
@@ -572,6 +592,10 @@ class SubscriptionService(KickstartService):
         or else the method might return non-default (Anaconda overwritten)
         data.
 
+        NOTE: While RHSM GetAll() DBus call returns a nested dictionary,
+              we turn it into a flat key/value dict, in the same format SetAll()
+              uses.
+
         :return : dictionary of default RHSM configuration values
         :rtype: dict
         """
@@ -579,7 +603,10 @@ class SubscriptionService(KickstartService):
             # config defaults cache not yet populated, do it now
             proxy = self.rhsm_observer.get_proxy(RHSM_CONFIG)
             # turn the variant into a dict with get_native()
-            self._rhsm_config_defaults = get_native(proxy.GetAll(""))
+            nested_dict = get_native(proxy.GetAll(""))
+            # flatten the nested dict
+            flat_dict = self._flatten_rhsm_nested_dict(nested_dict)
+            self._rhsm_config_defaults = flat_dict
         return self._rhsm_config_defaults
 
     def set_rhsm_config_with_task(self):
