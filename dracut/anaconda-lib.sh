@@ -137,9 +137,20 @@ anaconda_mount_sysroot() {
     local img="$1"
     if [ -e "$img" ]; then
         /sbin/dmsquash-live-root $img
-        # dracut & systemd only mount things with root=live: so we have to do this ourselves
-        # See https://bugzilla.redhat.com/show_bug.cgi?id=1232411
-        printf 'mount /dev/mapper/live-rw %s\n' "$NEWROOT" > $hookdir/mount/01-$$-anaconda.sh
+        if [ -d /run/rootfsbase ]; then
+            # /run/rootfsbase has been created
+            # Which means that the Squash filesystem is plain
+            # and does not contain the embedded EXT4 inside.
+            # Also known as flattened SquashFS or directly compressed SquashFS.
+            printf "mount -t overlay LiveOS_rootfs \
+                   -o lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork \
+                   ${NEWROOT}" > ${hookdir}/mount/01-$$-anaconda.sh
+        else
+            # Otherwise, assumption is that /dev/mapper/live-rw should have been created.
+            # dracut & systemd only mount things with root=live: so we have to do this ourselves
+            # See https://bugzilla.redhat.com/show_bug.cgi?id=1232411
+            printf 'mount /dev/mapper/live-rw %s\n' "$NEWROOT" > $hookdir/mount/01-$$-anaconda.sh
+        fi
     fi
 }
 
