@@ -315,6 +315,10 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
             switch_source(payload, SOURCE_TYPE_CDN)
         # If requested, also restart the payload if CDN is the installation source
         # The CDN either already was the installation source or we just switched to it.
+        #
+        # Make sure to get fresh source proxy as the old one might be stale after
+        # after a source switch.
+        source_proxy = payload.get_source_proxy()
         if restart_payload and source_proxy.Type == SOURCE_TYPE_CDN:
             log.debug("subscription thread: restarting payload after registration")
             _do_payload_restart(payload)
