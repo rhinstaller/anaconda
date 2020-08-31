@@ -5,7 +5,7 @@
 ANACONDA_TARGET="/lib/systemd/system/anaconda.target"
 CURRENT_DEFAULT_TARGET=$(readlink /etc/systemd/system/default.target)
 
-if [ "$ANACONDA_TARGET" != "$CURRENT_DEFAULT_TARGET" ]; then
+if ! { [ "$ANACONDA_TARGET" = "$CURRENT_DEFAULT_TARGET" ] || grep -q 'systemd.unit=anaconda.target' /proc/cmdline ;} ; then
     exit 0
 fi
 
