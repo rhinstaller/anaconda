@@ -318,7 +318,7 @@ class NetworkControlBox(GObject.GObject):
         model = combobox.get_model()
         model.set_sort_column_id(2, Gtk.SortType.ASCENDING)
         combobox.connect("changed", self.on_wireless_ap_changed_cb)
-        self.selected_ap = None
+        self.selected_ssid = b""
 
         self.builder.get_object("device_wired_off_switch").connect("notify::active",
                                                              self.on_device_off_toggled)
@@ -465,10 +465,12 @@ class NetworkControlBox(GObject.GObject):
 
         device = self.client.get_device_by_iface(dev_cfg.device_name)
 
-        ap, ssid_target = combobox.get_model().get(itr, 0, 1)
-        self.selected_ap = ap
+        ssid, ssid_target = combobox.get_model().get(itr, 0, 1)
+        self.selected_ssid = ssid
 
         log.info("selected access point: %s", ssid_target)
+
+        ap = self._get_strongest_ap_for_ssid(device.get_access_points(), ssid)
 
         cons = ap.filter_connections(device.filter_connections(self.client.get_connections()))
         if cons:
@@ -494,13 +496,13 @@ class NetworkControlBox(GObject.GObject):
             else:
                 self.client.add_and_activate_connection_async(None, device, ap.get_path(), None)
 
-    def _find_first_ap_setting(self, device, ap):
+    def _find_first_ssid_connection(self, device, ssid):
         for con in device.filter_connections(self.client.get_connections()):
             wireless_setting = con.get_setting_wireless()
             if not wireless_setting or not wireless_setting.get_ssid():
                 # setting is None or non-broadcast AP, we ignore these
                 return
-            if wireless_setting.get_ssid().get_data() == ap.get_ssid().get_data():
+            if wireless_setting.get_ssid().get_data() == ssid:
                 return con
 
     def on_edit_connection(self, *args):
@@ -513,19 +515,19 @@ class NetworkControlBox(GObject.GObject):
         device_type = dev_cfg.device_type
         iface = dev_cfg.device_name
         activate = None
-        ssid = ""
 
         if device_type == NM.DeviceType.WIFI:
-            if not self.selected_ap:
+            if not self.selected_ssid:
                 return
-            con = self._find_first_ap_setting(device, self.selected_ap)
+            con = self._find_first_ssid_connection(device, self.selected_ssid)
             if not con:
-                log.debug("on_edit_connection: connection for ap %s not found", self.selected_ap)
+                log.debug("on_edit_connection: connection for ap %s not found", self.selected_ssid)
                 return
-            ssid = self.selected_ap.get_ssid().get_data()
             # 871132 auto activate wireless connection after editing if it is not
             # already activated (assume entering secrets)
-            condition = lambda: self.selected_ap != device.get_active_access_point()
+            condition = lambda: not device.get_active_access_point() or \
+                self.selected_ssid != device.get_active_access_point().get_ssid().get_data()
+
             activate = (con, device, condition)
         else:
             if not con:
@@ -546,7 +548,7 @@ class NetworkControlBox(GObject.GObject):
                 activate = (con, device, settings_changed)
 
         log.info("configuring connection %s device %s ssid %s",
-                 con.get_uuid(), iface, ssid)
+                 con.get_uuid(), iface, self.selected_ssid)
         self._run_nmce(con.get_uuid(), activate)
 
     def _default_connection_added_cb(self, client, result, activate):
@@ -865,8 +867,10 @@ class NetworkControlBox(GObject.GObject):
             active_ap = device.get_active_access_point()
             if active_ap:
                 ap_str = self._ap_security_string(active_ap)
+                active_ssid = active_ap.get_ssid().get_data()
             else:
                 ap_str = ""
+                active_ssid = b""
 
         self._set_device_info_value("wireless", "security", ap_str)
 
@@ -882,14 +886,14 @@ class NetworkControlBox(GObject.GObject):
             store.clear()
             aps = self._get_strongest_unique_aps(device.get_access_points())
             for ap in aps:
-                self._add_ap(ap, active_ap == ap)
+                self._add_ap(ap, active_ssid)
             # TODO: add access point other...
             if active_ap:
                 combobox = self.builder.get_object("combobox_wireless_network_name")
                 for i in combobox.get_model():
-                    if i[0] == active_ap:
+                    if i[0] == active_ssid:
                         combobox.set_active_iter(i.iter)
-                        self.selected_ap = active_ap
+                        self.selected_ssid = active_ssid
                         break
             self._updating_device = False
 
@@ -986,7 +990,9 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("remove_toolbutton").set_sensitive(True)
         elif dev_type == NM.DeviceType.WIFI:
             notebook.set_current_page(1)
-            self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ap is not None)
+            self.builder.get_object("button_wireless_options").set_sensitive(
+                not self.selected_ssid
+            )
 
     def _refresh_carrier_info(self):
         for row in self.dev_cfg_store:
@@ -1046,7 +1052,7 @@ class NetworkControlBox(GObject.GObject):
             really_show(value_label)
             value_label.set_label(value_str)
 
-    def _add_ap(self, ap, active=False):
+    def _add_ap(self, ap, active_ssid):
         ssid = ap.get_ssid()
         if not ssid:
             # get_ssid can return None if AP does not broadcast.
@@ -1067,13 +1073,13 @@ class NetworkControlBox(GObject.GObject):
         ssid_str = NM.utils_ssid_to_utf8(ssid)
 
         # the third column is for sorting
-        itr = store.append([ap,
+        itr = store.append([ssid,
                             ssid_str,
                             ssid_str,
                             ap.get_strength(),
                             mode,
                             security])
-        if active:
+        if active_ssid == ssid:
             self.builder.get_object("combobox_wireless_network_name").set_active_iter(itr)
 
     def _get_strongest_unique_aps(self, access_points):
@@ -1090,6 +1096,18 @@ class NetworkControlBox(GObject.GObject):
                 strongest_aps[ssid] = ap
 
         return strongest_aps.values()
+
+    def _get_strongest_ap_for_ssid(self, access_points, ssid):
+        strongest_ap = None
+        for ap in access_points:
+            if not ap.get_ssid():
+                # non-broadcasting AP. We don't do anything with these
+                continue
+            if ap.get_ssid().get_data() == ssid:
+                if not strongest_ap or strongest_ap.get_strength() < ap.get_strength():
+                    strongest_ap = ap
+
+        return strongest_ap
 
     def _ap_security(self, ap):
         ty = NM_AP_SEC_UNKNOWN
