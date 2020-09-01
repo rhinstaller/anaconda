@@ -280,7 +280,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._storage_module.ResetPartitioning()
 
     def refresh(self):
-        self.clear_errors()
+        self.reset_state()
         NormalSpoke.refresh(self)
 
         # Make sure the storage spoke execute method has finished before we
@@ -293,8 +293,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             # the storage spoke would use it as a default partitioning.
             self._partitioning = create_partitioning(PARTITIONING_METHOD_INTERACTIVE)
             self._device_tree = STORAGE.get_proxy(self._partitioning.GetDeviceTree())
-
-        self._back_already_clicked = False
 
         # Get the name of the new installation.
         self._os_name = self._device_tree.GenerateSystemName()
@@ -556,8 +554,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             # just-removed device
             return
 
-        self.clear_errors()
-        self._back_already_clicked = False
+        self.reset_state()
 
         log.debug("Saving the right side for device: %s", device_name)
 
@@ -981,7 +978,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def on_add_clicked(self, button):
         # Clear any existing errors
-        self.clear_errors()
+        self.reset_state()
 
         # Save anything from the currently displayed mount point.
         self._save_right_side(self._accordion.current_selector)
@@ -998,8 +995,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 dialog.window.destroy()
                 return
 
-        self._back_already_clicked = False
-
         # Gather data about the added mount point.
         request = DeviceFactoryRequest()
         request.mount_point = dialog.mount_point
@@ -1008,7 +1003,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         request.disks = self._selected_disks
 
         # Clear errors and try to add the mountpoint/device.
-        self.clear_errors()
+        self.reset_state()
 
         try:
             self._device_tree.AddDevice(
@@ -1067,7 +1062,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         # Remove selected items.
-        self.clear_errors()
+        self.reset_state()
 
         try:
             self._remove_selected_devices()
@@ -1189,7 +1184,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             # disk set management happens through container edit on RHS
             return
 
-        self.clear_errors()
+        self.reset_state()
 
         dialog = DisksDialog(
             self.data,
@@ -1450,7 +1445,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
            Note: There are never any non-existent devices around when this runs.
         """
-        self.clear_errors()
+        self.reset_state()
 
         # Create the partitioning request.
         request = PartitioningRequest()
@@ -1764,6 +1759,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._error = None
         self.clear_info()
 
+    def reset_state(self):
+        self.clear_errors()
+        self._back_already_clicked = False
+
     # This callback is for the button that just resets the UI to anaconda's
     # current understanding of the disk layout.
     def on_reset_clicked(self, *args):
@@ -1848,7 +1847,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         # Clear any existing errors
-        self.clear_errors()
+        self.reset_state()
 
         # Save anything from the currently displayed mount point.
         self._save_right_side(selector)
@@ -1863,7 +1862,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not selector:
             return
 
-        self.clear_errors()
+        self.reset_state()
+
         device_name = selector.device_name
         passphrase = self._passphraseEntry.get_text()
 
