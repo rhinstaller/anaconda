@@ -30,6 +30,7 @@ from pyanaconda.core.configuration.base import create_parser, read_config, write
     Configuration
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.modules.common.constants import services
+from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR
 
 
 class ConfigurationTestCase(unittest.TestCase):
@@ -367,3 +368,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             convert_line("/home  (max 2 GiB)")
+
+    def default_installation_source_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+        self.assertEqual(conf.payload.default_source, SOURCE_TYPE_CLOSEST_MIRROR)

@@ -18,6 +18,7 @@
 #  Author(s):  Vendula Poncova <vponcova@redhat.com>
 #
 from pyanaconda.core.configuration.base import Section
+from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
 
 
 class PayloadSection(Section):
@@ -70,6 +71,22 @@ class PayloadSection(Section):
         the "closest mirror" option in the UI.
         """
         return self._get_option("enable_closest_mirror", bool)
+
+    @property
+    def default_source(self):
+        """Default installation source.
+
+        Valid values:
+
+        CLOSEST_MIRROR  Use closest public repository mirror.
+        CDN             Use Content Delivery Network (CDN).
+        """
+        value = self._get_option("default_source", str)
+
+        if value not in (SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN):
+            raise ValueError("Invalid value: {}".format(value))
+
+        return value
 
     @property
     def enable_ignore_broken_packages(self):

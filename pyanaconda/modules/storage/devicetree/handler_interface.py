@@ -46,14 +46,15 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         """
         self.implementation.teardown_device(device_name)
 
-    def MountDevice(self, device_name: Str, mount_point: Str):
+    def MountDevice(self, device_name: Str, mount_point: Str, options: Str):
         """Mount a filesystem on the device.
 
         :param device_name: a name of the device
         :param mount_point: a path to the mount point
+        :param options: a string with mount options or an empty string to use defaults
         :raise: MountFilesystemError if mount fails
         """
-        self.implementation.mount_device(device_name, mount_point)
+        self.implementation.mount_device(device_name, mount_point, options)
 
     def UnmountDevice(self, device_name: Str, mount_point: Str):
         """Unmount a filesystem on the device.

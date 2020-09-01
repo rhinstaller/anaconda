@@ -21,6 +21,7 @@ import gi
 gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
+from blivet import udev
 from blivet.static_data import nvdimm
 
 from pykickstart.constants import NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
@@ -90,6 +91,9 @@ class NVDIMMModule(KickstartBaseModule):
         installation, the device(s) must be specified by nvdimm kickstart
         command. Also, only devices in sector mode are allowed.
 
+        Don't ignore devices that have an iso9660 file system. We might
+        want to use them as an installation source.
+
         :return: a set of device names
         """
         namespaces_to_use = self.get_namespaces_to_use()
@@ -97,7 +101,13 @@ class NVDIMMModule(KickstartBaseModule):
         devices_to_ignore = set()
 
         for ns_name, ns_info in nvdimm.namespaces.items():
-            if ns_info.mode != blockdev.NVDIMMNamespaceMode.SECTOR:
+            info = udev.get_device(device_node="/dev/" + ns_info.blockdev)
+
+            if info and udev.device_get_format(info) == "iso9660":
+                log.debug("%s / %s won't be ignored - NVDIMM device has "
+                          "an iso9660 file system", ns_name, ns_info.blockdev)
+                continue
+            elif ns_info.mode != blockdev.NVDIMMNamespaceMode.SECTOR:
                 log.debug("%s / %s will be ignored - NVDIMM device is not "
                           "in sector mode", ns_name, ns_info.blockdev)
             elif ns_name not in namespaces_to_use and ns_info.blockdev not in devices_to_use:

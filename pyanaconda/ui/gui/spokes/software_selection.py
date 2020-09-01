@@ -35,6 +35,10 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.ui.lib.subscription import check_cdn_is_installation_source
+
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.util import is_module_available
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -295,6 +299,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def status(self):
         if self._error_msgs:
             return _("Error checking software selection")
+
+        cdn_source = check_cdn_is_installation_source(self.payload)
+
+        subscribed = False
+        if is_module_available(SUBSCRIPTION):
+            subscription_proxy = SUBSCRIPTION.get_proxy()
+            subscribed = subscription_proxy.IsSubscriptionAttached
+
+        if cdn_source and not subscribed:
+            return _("Red Hat CDN requires registration.")
 
         if not self.ready:
             return _("Installation source not set up")
