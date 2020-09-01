@@ -25,6 +25,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.network.nm_client import get_iface_from_connection, \
     get_vlan_interface_name_from_connection, get_config_file_connection_of_device
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
+from pyanaconda.modules.network.constants import NMConnectionType
 
 import gi
 gi.require_version("NM", "1.0")
@@ -86,13 +87,13 @@ class DeviceConfigurations(object):
 
     # Maps types of connections to types of devices (both provided by NM)
     setting_types = {
-        '802-11-wireless': NM.DeviceType.WIFI,
-        '802-3-ethernet': NM.DeviceType.ETHERNET,
-        'vlan': NM.DeviceType.VLAN,
-        'bond': NM.DeviceType.BOND,
-        'team': NM.DeviceType.TEAM,
-        'bridge': NM.DeviceType.BRIDGE,
-        'infiniband': NM.DeviceType.INFINIBAND,
+        NMConnectionType.WIFI: NM.DeviceType.WIFI,
+        NMConnectionType.ETHERNET: NM.DeviceType.ETHERNET,
+        NMConnectionType.VLAN: NM.DeviceType.VLAN,
+        NMConnectionType.BOND: NM.DeviceType.BOND,
+        NMConnectionType.TEAM: NM.DeviceType.TEAM,
+        NMConnectionType.BRIDGE: NM.DeviceType.BRIDGE,
+        NMConnectionType.INFINIBAND: NM.DeviceType.INFINIBAND,
     }
 
     def __init__(self, nm_client=None):
