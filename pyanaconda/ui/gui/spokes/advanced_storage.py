@@ -632,6 +632,7 @@ class FilterSpoke(NormalSpoke):
         if count > 0:
             really_show(summary_button)
             label.set_text(summary)
+            label.set_use_underline(True)
         else:
             really_hide(summary_button)
 
