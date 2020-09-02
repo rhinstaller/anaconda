@@ -1492,3 +1492,40 @@ def restorecon(paths, root, skip_nonexistent=False):
         return False
     else:
         return True
+
+
+class LazyObject(object):
+    """The lazy object."""
+
+    def __init__(self, getter):
+        """Create a proxy of an object.
+
+        The object might not exist until we call the given
+        function. The function is called only when we try
+        to access the attributes of the object.
+
+        The returned object is not cached in this class.
+        We call the function every time.
+
+        :param getter: a function that returns the object
+        """
+        self._getter = getter
+
+    @property
+    def _object(self):
+        return self._getter()
+
+    def __eq__(self, other):
+        return self._object == other
+
+    def __hash__(self):
+        return self._object.__hash__()
+
+    def __getattr__(self, name):
+        return getattr(self._object, name)
+
+    def __setattr__(self, name, value):
+        if name in ("_getter", ):
+            return super().__setattr__(name, value)
+
+        return setattr(self._object, name, value)

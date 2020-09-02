@@ -17,12 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from abc import abstractmethod, abstractproperty
+from abc import abstractmethod
 
 from blivet.devices import PartitionDevice, TmpFSDevice, LVMLogicalVolumeDevice, \
     LVMVolumeGroupDevice, MDRaidArrayDevice, BTRFSDevice
 
 from dasbus.server.publishable import Publishable
+from pyanaconda.core.util import LazyObject
 from pyanaconda.modules.common.base.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -45,7 +46,8 @@ class PartitioningModule(KickstartBaseModule, Publishable):
         self._selected_disks = []
         self._device_tree_module = None
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def partitioning_method(self):
         """Type of the partitioning method."""
         return None
@@ -67,8 +69,22 @@ class PartitioningModule(KickstartBaseModule, Publishable):
 
         return self._storage_playground
 
+    @property
+    def lazy_storage(self):
+        """The lazy storage model.
+
+        Provides a lazy access to the storage model. This property will not
+        trigger a creation of the storage playground. The playground will be
+        created on the first access of the storage attributes.
+        """
+        return LazyObject(lambda: self.storage)
+
     def _create_storage_playground(self):
         """Prepare the current storage model for partitioning."""
+        log.debug(
+            "Creating a new storage playground for %s with "
+            "selected disks %s.", self, self._selected_disks
+        )
         storage = self._current_storage.copy()
         storage.select_disks(self._selected_disks)
         return storage
@@ -77,15 +93,9 @@ class PartitioningModule(KickstartBaseModule, Publishable):
         """Update the current storage."""
         self._current_storage = storage
 
-        if self._device_tree_module:
-            self._device_tree_module.on_storage_changed(self.storage)
-
     def on_partitioning_reset(self):
         """Drop the storage playground."""
         self._storage_playground = None
-
-        if self._device_tree_module:
-            self._device_tree_module.on_storage_changed(self.storage)
 
     def on_selected_disks_changed(self, selection):
         """Keep the current disk selection."""
@@ -100,7 +110,7 @@ class PartitioningModule(KickstartBaseModule, Publishable):
 
         if not module:
             module = self._create_device_tree()
-            module.on_storage_changed(self.storage)
+            module.on_storage_changed(self.lazy_storage)
             self._device_tree_module = module
 
         return module
