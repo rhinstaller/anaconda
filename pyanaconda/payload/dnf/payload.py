@@ -1477,6 +1477,7 @@ class DNFPayload(Payload):
     def reset(self):
         tear_down_sources(self.proxy)
         self.reset_additional_repos()
+        self._install_tree_metadata = None
 
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
