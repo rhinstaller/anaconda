@@ -47,7 +47,7 @@ from pykickstart.version import DEVEL as VERSION
 
 # Import all kickstart commands as version-less.
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
-from pykickstart.commands.harddrive import FC3_HardDrive as HardDrive
+from pykickstart.commands.harddrive import F33_HardDrive as HardDrive
 from pykickstart.commands.hmc import F28_Hmc as Hmc
 from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.url import F30_Url as Url
@@ -136,12 +136,9 @@ class DracutCdrom(Cdrom, DracutArgsMixin):
 
 class DracutHardDrive(HardDrive, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
-        if self.biospart:
-            return "inst.repo=bd:%s:%s" % (self.partition, self.dir)
-        else:
-            args = "inst.repo=hd:%s:%s" % (self.partition, self.dir)
-            # Escape spaces
-            return args.replace(" ", "\\x20")
+        args = "inst.repo=hd:%s:%s" % (self.partition, self.dir)
+        # Escape spaces
+        return args.replace(" ", "\\x20")
 
 class DracutHmc(Hmc, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
@@ -195,6 +192,7 @@ class DracutDriverDisk(DriverDisk, DracutArgsMixin):
                 dd_args.append("inst.dd=hd:%s" % dd.partition)
             elif dd.source:
                 dd_args.append("inst.dd=%s" % dd.source)
+            # TODO: find out if biospart is support is required for DD and remove this code if not
             elif dd.biospart:
                 dd_args.append("inst.dd=bd:%s" % dd.biospart)
 

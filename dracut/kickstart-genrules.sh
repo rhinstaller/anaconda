@@ -27,9 +27,6 @@ case "${kickstart%%:*}" in
         fi
         wait_for_kickstart
     ;;
-    bd) # bd:<dev>:<path> - biospart (TODO... if anyone uses this anymore)
-        warn "inst.ks: can't get kickstart - biospart (bd:) isn't supported yet"
-    ;;
     "")
         if [ -z "$kickstart" -a -z "$(getarg ks= inst.ks=)" ]; then
             when_diskdev_appears $(disk_to_dev_path LABEL=OEMDRV) \

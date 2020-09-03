@@ -41,7 +41,7 @@ from pykickstart.commands.fcoe import F28_Fcoe as Fcoe
 from pykickstart.commands.firewall import F28_Firewall as Firewall
 from pykickstart.commands.firstboot import FC3_Firstboot as Firstboot
 from pykickstart.commands.group import F12_Group as Group
-from pykickstart.commands.harddrive import FC3_HardDrive as HardDrive
+from pykickstart.commands.harddrive import F33_HardDrive as HardDrive
 from pykickstart.commands.hmc import F28_Hmc as Hmc
 from pykickstart.commands.ignoredisk import F29_IgnoreDisk as IgnoreDisk
 from pykickstart.commands.install import F29_Install as Install
