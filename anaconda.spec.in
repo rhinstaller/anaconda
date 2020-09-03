@@ -366,6 +366,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 03 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.22-1
+- network: fix inst.dhcpclass boot option (rvykydal)
+  Resolves: rhbz#1870692
+- network: fix kickstart network --dhcpclass option (rvykydal)
+  Resolves: rhbz#1869224
+
 * Mon Aug 24 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.21-1
 - Fix traceback when removing additional repository (jkonecny)
   Resolves: rhbz#1871037
