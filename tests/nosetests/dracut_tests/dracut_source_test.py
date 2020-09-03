@@ -34,11 +34,13 @@ REPO_DIR = dirname(os.path.realpath(pyanaconda.__file__))
 class SourcesTestCase(unittest.TestCase):
 
     def find_rw_mounts_test(self):
+        """Test that only RO mounts of install sources are in Dracut."""
         # everything what starts by string in this list will not be tested
         ignore_prefixes = ("Makefile", "README", "python-deps", "module-setup.sh")
         # define false positives
         false_positives = (re.compile(r'\bmount +(--move|--make-rprivate)'),
-                           re.compile(r'\bmount /dev/mapper/live-rw'))
+                           re.compile(r'\bmount /dev/mapper/live-rw'),
+                           re.compile(r'\bmount +-t *overlay'))
 
         # filter not interesting content
         comment_regex = re.compile(r'#[^\n]*')
