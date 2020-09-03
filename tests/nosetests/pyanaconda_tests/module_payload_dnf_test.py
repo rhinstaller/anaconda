@@ -99,16 +99,6 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=0)
         self.assertEqual(self.interface.ActivePayload, "")
 
-    def harddrive_biospart_kickstart_failed_test(self):
-        # The biospart parameter is not implemented since 2012 and it won't
-        # really work. Make it obvious for user.
-        ks_in = """
-        harddrive --biospart=007 --dir=cool/store
-        """
-        # One publisher call because the biospart support is decided in the harddrive source
-        self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=1)
-        self.assertEqual(self.interface.ActivePayload, "")
-
     def nfs_kickstart_test(self):
         ks_in = """
         nfs --server=gotham.city --dir=/secret/underground/base --opts=nomount
