@@ -44,7 +44,7 @@ from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTa
 from pyanaconda.modules.network.kickstart import DEFAULT_DEVICE_SPECIFICATION
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
-    SetRealOnbootValuesFromKickstartTask, DumpMissingIfcfgFilesTask, \
+    SetRealOnbootValuesFromKickstartTask, DumpMissingConfigFilesTask, \
     ConsolidateInitramfsConnectionsTask
 
 import gi
@@ -229,8 +229,8 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     @patch_dbus_publish_object
     @patch('pyanaconda.modules.network.installation.update_connection_values')
-    @patch('pyanaconda.modules.network.installation.find_ifcfg_uuid_of_device')
-    def configure_activation_on_boot_with_task_test(self, find_ifcfg_uuid_of_device,
+    @patch('pyanaconda.modules.network.installation.get_config_file_connection_of_device')
+    def configure_activation_on_boot_with_task_test(self, get_config_file_connection_of_device,
                                                     update_connection_values, publisher):
         """Test ConfigureActivationOnBootWithTask."""
         self.network_module.nm_client = Mock()
@@ -304,10 +304,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     @patch_dbus_publish_object
     def dump_missing_ifcfg_files_with_task_test(self, publisher):
-        """Test DumpMissingIfcfgFilesWithTask."""
-        task_path = self.network_interface.DumpMissingIfcfgFilesWithTask()
+        """Test DumpMissingConfigFilesWithTask."""
+        task_path = self.network_interface.DumpMissingConfigFilesWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, DumpMissingIfcfgFilesTask)
+        obj = check_task_creation(self, task_path, publisher, DumpMissingConfigFilesTask)
 
         self.network_module.log_task_result = Mock()
 

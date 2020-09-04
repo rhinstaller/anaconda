@@ -23,9 +23,8 @@ from pyanaconda.modules.network.network_interface import NetworkInitializationTa
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, \
     add_connection_from_ksdata, bound_hwaddr_of_device, get_connections_available_for_iface, \
-    update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection
-from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
-    get_master_slaves_from_ifcfgs
+    update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection, \
+    get_config_file_connection_of_device, get_slaves_from_connections
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -100,21 +99,23 @@ class ApplyKickstartTask(Task):
                 log.warning("%s: --device %s not found", self.name, network_data.device)
                 continue
 
-            ifcfg_file = get_ifcfg_file_of_device(self._nm_client, device_name)
-            if ifcfg_file and ifcfg_file.is_from_kickstart:
+            config_uuid = get_config_file_connection_of_device(self._nm_client, device_name)
+            # Assuming the config file is from kickstart generated in initramfs
+            # TODO - can it be something else? default autoconnection?
+            if config_uuid:
                 if network_data.activate:
-                    if ensure_active_connection_for_device(self._nm_client, ifcfg_file.uuid,
+                    if ensure_active_connection_for_device(self._nm_client, config_uuid,
                                                            device_name):
                         applied_devices.append(device_name)
                 continue
 
-            # If there is no kickstart ifcfg from initramfs the command was added
+            # If there is no kickstart config from initramfs the command was added
             # in %pre section after switch root, so apply it now
             applied_devices.append(device_name)
 
             connection = None
-            if ifcfg_file:
-                connection = self._nm_client.get_connection_by_uuid(ifcfg_file.uuid)
+            if config_uuid:
+                connection = self._nm_client.get_connection_by_uuid(config_uuid)
             if not connection:
                 connection = self._find_initramfs_connection_of_iface(device_name)
 
@@ -200,30 +201,26 @@ class ConsolidateInitramfsConnectionsTask(Task):
                           self.name, number_of_connections, iface)
                 continue
 
-            ifcfg_file = get_ifcfg_file_of_device(self._nm_client, iface)
-            if not ifcfg_file:
-                log.debug("%s: %d for %s - no ifcfg file found",
-                          self.name, number_of_connections, iface)
-                con_for_iface = self._select_persistent_connection_for_iface(iface, cons)
-                if not con_for_iface:
-                    log.debug("%s: %d for %s - no suitable connection for the interface found",
-                              self.name, number_of_connections, iface)
-                    continue
-                else:
-                    con_uuid = con_for_iface.get_uuid()
-            else:
-                # Handle only ifcfgs created from boot options in initramfs
-                # (Kickstart based ifcfgs are handled when applying kickstart)
-                if ifcfg_file.is_from_kickstart:
-                    continue
-                con_uuid = ifcfg_file.uuid
+            config_uuid = get_config_file_connection_of_device(self._nm_client, iface)
+            if config_uuid:
+                # There is a connection from kickstart generated in intramfs,
+                # the device will be handled when applying kickstart
+                continue
 
-            log.debug("%s: %d for %s - ensure active ifcfg connection",
+            log.debug("%s: %d for %s - no config file found",
+                      self.name, number_of_connections, iface)
+            con_for_iface = self._select_persistent_connection_for_iface(iface, cons)
+            if not con_for_iface:
+                log.debug("%s: %d for %s - no suitable connection for the interface found",
+                          self.name, number_of_connections, iface)
+                continue
+
+            log.debug("%s: %d for %s - ensure connection with config is active",
                       self.name, number_of_connections, iface)
 
             ensure_active_connection_for_device(
                 self._nm_client,
-                con_uuid,
+                con_for_iface.get_uuid(),
                 iface,
                 only_replace=True
             )
@@ -326,8 +323,9 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                 else:
                     log.debug("%s: %d connections found for %s", self.name, n_cons, devname)
                     if n_cons > 1:
-                        ifcfg_uuid = find_ifcfg_uuid_of_device(self._nm_client, devname) or ""
-                        con = self._nm_client.get_connection_by_uuid(ifcfg_uuid)
+                        config_uuid = get_config_file_connection_of_device(
+                            self._nm_client, devname)
+                        con = self._nm_client.get_connection_by_uuid(config_uuid)
                         if con:
                             cons_to_update.append((devname, con))
 
@@ -343,27 +341,31 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                         master_uuid = cons[0].get_uuid()
                     else:
                         log.debug("%s: %d connections found for %s", self.name, n_cons, master)
+                if not master_uuid:
+                    master_uuid = get_config_file_connection_of_device(self._nm_client, master)
+                master_specs = [master, master_uuid] if master_uuid else [master]
 
-                for name, con_uuid in get_master_slaves_from_ifcfgs(self._nm_client,
-                                                                    master, uuid=master_uuid):
-                    con = self._nm_client.get_connection_by_uuid(con_uuid)
+                for name, _iface, uuid in get_slaves_from_connections(self._nm_client,
+                                                                      ["bond", "bridge", "team"],
+                                                                      master_specs):
+                    con = self._nm_client.get_connection_by_uuid(uuid)
                     cons_to_update.append((name, con))
 
-            for devname, con in cons_to_update:
+            for con_name, con in cons_to_update:
                 log.debug("updating ONBOOT values of connection %s for device %s",
-                          con.get_uuid(), devname)
+                          con.get_uuid(), con_name)
                 update_connection_values(
                     con,
                     [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)]
                 )
                 commit_changes_with_autoconnection_blocked(con)
-                updated_devices.append(devname)
+                updated_devices.append(con_name)
 
         return updated_devices
 
 
-class DumpMissingIfcfgFilesTask(Task):
-    """Task for dumping of missing ifcfg files."""
+class DumpMissingConfigFilesTask(Task):
+    """Task for dumping of missing config files."""
 
     def __init__(self, nm_client, default_network_data, ifname_option_values):
         """Create a new task.
@@ -382,26 +384,28 @@ class DumpMissingIfcfgFilesTask(Task):
 
     @property
     def name(self):
-        return "Dump missing ifcfg files"
+        return "Dump missing config files"
 
     def for_publication(self):
         """Return a DBus representation."""
         return NetworkInitializationTaskInterface(self)
 
-    def _select_persistent_connection_for_device(self, device, cons):
+    def _select_persistent_connection_for_device(self, device, cons, allow_slaves=False):
         """Select the connection suitable to store configuration for the device."""
         iface = device.get_iface()
         ac = device.get_active_connection()
         if ac:
             con = ac.get_connection()
             if con.get_interface_name() == iface and con in cons:
-                return con
+                if allow_slaves or not con.get_setting_connection().get_master():
+                    return con
             else:
                 log.debug("%s: active connection for %s can't be used as persistent",
                           self.name, iface)
         for con in cons:
             if con.get_interface_name() == iface:
-                return con
+                if allow_slaves or not con.get_setting_connection().get_master():
+                    return con
         return None
 
     def _update_connection(self, con, iface):
@@ -422,16 +426,16 @@ class DumpMissingIfcfgFilesTask(Task):
 
     @guard_by_system_configuration(return_value=[])
     def run(self):
-        """Run dumping of missing ifcfg files.
+        """Run dumping of missing config files.
 
-        :returns: names of devices for which ifcfg file was created
+        :returns: names of devices for which config file was created
         :rtype: list(str)
         """
-        new_ifcfgs = []
+        new_configs = []
 
         if not self._nm_client:
             log.debug("%s: No NetworkManager available.", self.name)
-            return new_ifcfgs
+            return new_configs
 
         dumped_device_types = supported_wired_device_types + virtual_device_types
         for device in self._nm_client.get_devices():
@@ -439,13 +443,14 @@ class DumpMissingIfcfgFilesTask(Task):
                 continue
 
             iface = device.get_iface()
-            if get_ifcfg_file_of_device(self._nm_client, iface):
+            if get_config_file_connection_of_device(self._nm_client, iface):
                 continue
 
             cons = device.get_available_connections()
             log.debug("%s: %s connections found for device %s", self.name,
                       [con.get_uuid() for con in cons], iface)
             n_cons = len(cons)
+            con = None
 
             device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
             if device_is_slave:
@@ -453,30 +458,19 @@ class DumpMissingIfcfgFilesTask(Task):
                 if n_cons == 1 and self._is_initramfs_connection(cons[0], iface):
                     log.debug("%s: device %s has an initramfs slave connection",
                               self.name, iface)
+                    con = self._select_persistent_connection_for_device(
+                        device, cons, allow_slaves=True)
                 else:
-                    log.debug("%s: not creating default connection for slave device %s",
+                    log.debug("%s: creating default connection for slave device %s",
                               self.name, iface)
-                    continue
+
+            if not con:
+                con = self._select_persistent_connection_for_device(device, cons)
 
             # Devices activated in initramfs should have ONBOOT=yes
             has_initramfs_con = any(self._is_initramfs_connection(con, iface) for con in cons)
             if has_initramfs_con:
                 log.debug("%s: device %s has initramfs connection", self.name, iface)
-
-            con = self._select_persistent_connection_for_device(device, cons)
-
-            if not con:
-                log.debug("%s: none of the connections can be dumped as persistent",
-                          self.name)
-                if n_cons == 1:
-                    # TODO: Try to clone the persistent connection for the device
-                    # from the connection which should be a generic (not bound
-                    # to iface) connection created by NM in initramfs
-                    pass
-                elif n_cons > 1:
-                    log.warning("%s: unexpected number of connections, not dumping any",
-                                self.name)
-                    continue
 
             if con:
                 self._update_connection(con, iface)
@@ -485,10 +479,19 @@ class DumpMissingIfcfgFilesTask(Task):
                         con,
                         [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, True)]
                     )
-                log.debug("%s: dumping connection %s to ifcfg file for %s",
+                log.debug("%s: dumping connection %s to config file for %s",
                           self.name, con.get_uuid(), iface)
                 con.commit_changes(True, None)
             else:
+                log.debug("%s: none of the connections can be dumped as persistent",
+                          self.name)
+                if n_cons > 1 and not device_is_slave:
+                    log.warning("%s: unexpected number of connections, not dumping any",
+                                self.name)
+                    continue
+                # TODO: Try to clone the persistent connection for the device
+                # from the connection which should be a generic (not bound
+                # to iface) connection created by NM in initramfs
                 log.debug("%s: creating default connection for %s", self.name, iface)
                 network_data = copy.deepcopy(self._default_network_data)
                 if has_initramfs_con:
@@ -501,9 +504,9 @@ class DumpMissingIfcfgFilesTask(Task):
                     ifname_option_values=self._ifname_option_values
                 )
 
-            new_ifcfgs.append(iface)
+            new_configs.append(iface)
 
-        return new_ifcfgs
+        return new_configs
 
     def _is_initramfs_connection(self, con, iface):
         return con.get_id() in ["Wired Connection", iface]
