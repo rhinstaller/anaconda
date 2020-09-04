@@ -366,6 +366,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 04 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.23-1
+- subscription: Assure payload restart on DVD install after registration
+  (mkolman)
+  Resolves: rhbz#1873164
+- Document the restart_payload argument of subscription helper functions
+  (mkolman)
+  Related: rhbz#1873164
+
 * Thu Sep 03 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.22-1
 - network: fix inst.dhcpclass boot option (rvykydal)
   Resolves: rhbz#1870692
