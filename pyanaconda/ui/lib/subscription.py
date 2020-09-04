@@ -186,6 +186,20 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
     :type progress_callback: callable(subscription_phase)
     :param error_callback: error callback function, takes one argument, the error message
     :type error_callback: callable(error_message)
+    :param bool restart_payload: should payload restart be attempted if it appears necessary ?
+
+    NOTE: The restart_payload attribute controls if the subscription helper function should
+          attempt to restart the payload thread if it deems it necessary (DVD -> CDN switch,
+          registration with CDN source, etc.). If restart_payload is True, it might restart
+          the payload. If it is False, it well never try to do that.
+
+          The main usecase of this at the moment is when the subscription helper function
+          is invoked during early Anaconda kickstart installation. At this stage the initial
+          payload restart has not yet been run and starting it too early could lead to various
+          issues. At this stage we don't want the helper function to restart payload, so we keep
+          restart_payload at default value (False). Later on during manual user interaction we
+          definitely want payload to be restarted as needed (the initial restart long done)
+          and so we pass restart_payload=True.
     """
 
     # assign dummy callback functions if none were provided by caller
@@ -301,6 +315,10 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
             switch_source(payload, SOURCE_TYPE_CDN)
         # If requested, also restart the payload if CDN is the installation source
         # The CDN either already was the installation source or we just switched to it.
+        #
+        # Make sure to get fresh source proxy as the old one might be stale after
+        # after a source switch.
+        source_proxy = payload.get_source_proxy()
         if restart_payload and source_proxy.Type == SOURCE_TYPE_CDN:
             log.debug("subscription thread: restarting payload after registration")
             _do_payload_restart(payload)
@@ -325,6 +343,10 @@ def unregister(payload, overridden_source_type, progress_callback=None, error_ca
     :type progress_callback: callable(subscription_phase)
     :param error_callback: error callback function, takes one argument, the error message
     :type error_callback: callable(error_message)
+    :param bool restart_payload: should payload restart be attempted if it appears necessary ?
+
+    NOTE: For more information about the restart_payload attribute, see the
+          register_and_subscribe() function doc string.
     """
 
     # assign dummy callback functions if none were provided by caller
