@@ -213,7 +213,7 @@ def _update_bond_connection_from_ksdata(connection, network_data):
     :type network_data: pykickstart NetworkData
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = NMConnectionType.BOND
+    s_con.props.type = NMConnectionType.BOND.value
 
     s_bond = NM.SettingBond.new()
     opts = network_data.bondopts
@@ -251,7 +251,7 @@ def _update_vlan_connection_from_ksdata(connection, network_data):
     :rtype: str
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = NMConnectionType.VLAN
+    s_con.props.type = NMConnectionType.VLAN.value
     if network_data.interfacename:
         s_con.props.id = network_data.interfacename
         s_con.props.interface_name = network_data.interfacename
@@ -275,7 +275,7 @@ def _update_bridge_connection_from_ksdata(connection, network_data):
     :type network_data: pykickstart NetworkData
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = NMConnectionType.BRIDGE
+    s_con.props.type = NMConnectionType.BRIDGE.value
 
     s_bridge = NM.SettingBridge.new()
     for opt in network_data.bridgeopts.split(","):
@@ -304,7 +304,7 @@ def _update_infiniband_connection_from_ksdata(connection, network_data):
     :type network_data: pykickstart NetworkData
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = NMConnectionType.INFINIBAND
+    s_con.props.type = NMConnectionType.INFINIBAND.value
 
     s_ib = NM.SettingInfiniband.new()
     s_ib.props.transport_mode = "datagram"
@@ -322,7 +322,7 @@ def _update_ethernet_connection_from_ksdata(connection, network_data, bound_mac)
     :type bound_mac: str
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = NMConnectionType.ETHERNET
+    s_con.props.type = NMConnectionType.ETHERNET.value
 
     s_wired = NM.SettingWired.new()
     if bound_mac:
@@ -387,7 +387,7 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
             connections.append((slave_con, slave))
 
-    # type NMConnectionType.VLAN
+    # type "team"
     elif network_data.teamslaves:
         _update_team_connection_from_ksdata(con, network_data)
 
@@ -523,7 +523,7 @@ def create_slave_connection(slave_type, slave_idx, slave, master, autoconnect, s
     s_con.props.id = slave_name
     s_con.props.slave_type = slave_type
     s_con.props.master = master
-    s_con.props.type = NMConnectionType.ETHERNET
+    s_con.props.type = NMConnectionType.ETHERNET.value
     s_con.props.autoconnect = autoconnect
     con.add_setting(s_con)
 
@@ -832,7 +832,7 @@ def get_connections_available_for_iface(nm_client, iface):
             # non-real team - try to look them up in all connections.
             for con in nm_client.get_connections():
                 interface_name = con.get_interface_name()
-                if not interface_name and con.get_connection_type() == NMConnectionType.VLAN:
+                if not interface_name and con.get_connection_type() == NMConnectionType.VLAN.value:
                     interface_name = get_vlan_interface_name_from_connection(nm_client, con)
                 if interface_name == iface:
                     cons.append(con)
@@ -1127,7 +1127,7 @@ def _get_dracut_team_argument_from_connection(nm_client, connection, iface):
     :rtype: str
     """
     argument = ""
-    if connection.get_connection_type() == NMConnectionType.TEAM:
+    if connection.get_connection_type() == NMConnectionType.TEAM.value:
         slaves = get_slaves_from_connections(
             nm_client,
             ["team"],
@@ -1156,7 +1156,7 @@ def _get_dracut_vlan_argument_from_connection(nm_client, connection, iface):
     """
     argument = ""
     parent_con = None
-    if connection.get_connection_type() == NMConnectionType.VLAN:
+    if connection.get_connection_type() == NMConnectionType.VLAN.value:
         setting_vlan = connection.get_setting_vlan()
         parent_spec = setting_vlan.get_parent()
         parent = None
@@ -1257,7 +1257,7 @@ def get_config_file_connection_of_device(nm_client, device_name, device_hwaddr=N
             continue
         con_type = con.get_connection_type()
 
-        if con_type == NMConnectionType.ETHERNET:
+        if con_type == NMConnectionType.ETHERNET.value:
 
             # Ignore slaves
             if con.get_setting_connection().get_master():
@@ -1286,12 +1286,12 @@ def get_config_file_connection_of_device(nm_client, device_name, device_hwaddr=N
                 if con.get_id() == device_name:
                     cons.append(con)
 
-        elif con_type in (NMConnectionType.BOND, NMConnectionType.TEAM,
-                          NMConnectionType.BRIDGE, NMConnectionType.INFINIBAND):
+        elif con_type in (NMConnectionType.BOND.value, NMConnectionType.TEAM.value,
+                          NMConnectionType.BRIDGE.value, NMConnectionType.INFINIBAND.value):
             if con.get_interface_name() == device_name:
                 cons.append(con)
 
-        elif con_type == NMConnectionType.VLAN:
+        elif con_type == NMConnectionType.VLAN.value:
             interface_name = get_vlan_interface_name_from_connection(nm_client, con)
             if interface_name and interface_name == device_name:
                 cons.append(con)
@@ -1320,12 +1320,12 @@ def get_kickstart_network_data(connection, nm_client, network_data_class):
     :rtype: network_data_class object instance
     """
     # no network command for non-virtual device slaves
-    if connection.get_connection_type() not in (NMConnectionType.BOND, NMConnectionType.TEAM):
+    if connection.get_connection_type() not in (NMConnectionType.BOND.value, NMConnectionType.TEAM.value):
         if connection.get_setting_connection().get_master():
             return None
 
     # no support for wireless
-    if connection.get_connection_type() == NMConnectionType.WIFI:
+    if connection.get_connection_type() == NMConnectionType.WIFI.value:
         return None
 
     network_data = network_data_class()
@@ -1347,19 +1347,19 @@ def get_kickstart_network_data(connection, nm_client, network_data_class):
             network_data.mtu = s_wired.get_mtu()
 
     # vlan
-    if connection.get_connection_type() == NMConnectionType.VLAN:
+    if connection.get_connection_type() == NMConnectionType.VLAN.value:
         _update_vlan_kickstart_network_data(nm_client, connection, network_data)
 
     # bonding
-    if connection.get_connection_type() == NMConnectionType.BOND:
+    if connection.get_connection_type() == NMConnectionType.BOND.value:
         _update_bond_kickstart_network_data(nm_client, iface, connection, network_data)
 
     # bridging
-    if connection.get_connection_type() == NMConnectionType.BRIDGE:
+    if connection.get_connection_type() == NMConnectionType.BRIDGE.value:
         _update_bridge_kickstart_network_data(nm_client, iface, connection, network_data)
 
     # teaming
-    if connection.get_connection_type() == NMConnectionType.TEAM:
+    if connection.get_connection_type() == NMConnectionType.TEAM.value:
         _update_team_kickstart_network_data(nm_client, iface, connection, network_data)
 
     return network_data

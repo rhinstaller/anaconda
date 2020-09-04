@@ -479,7 +479,7 @@ class NetworkControlBox(GObject.GObject):
                 s_con = NM.SettingConnection.new()
                 s_con.set_property('uuid', str(uuid4()))
                 s_con.set_property('id', ssid_target)
-                s_con.set_property('type', NMConnectionType.WIFI)
+                s_con.set_property('type', NMConnectionType.WIFI.value)
                 s_wireless = NM.SettingWireless.new()
                 s_wireless.set_property('ssid', ap.get_ssid())
                 s_wireless.set_property('mode', 'infrastructure')
@@ -567,7 +567,7 @@ class NetworkControlBox(GObject.GObject):
         s_con.set_property('id', iface)
         s_con.set_property('interface-name', iface)
         s_con.set_property('autoconnect', autoconnect)
-        s_con.set_property('type', NMConnectionType.ETHERNET)
+        s_con.set_property('type', NMConnectionType.ETHERNET.value)
         s_wired = NM.SettingWired.new()
         con.add_setting(s_con)
         con.add_setting(s_wired)
@@ -1320,7 +1320,7 @@ class SecretAgent(dbus.service.Object):
     def _get_content(self, setting_name, connection_hash):
         content = {}
         connection_type = connection_hash['connection']['type']
-        if connection_type == NMConnectionType.WIFI:
+        if connection_type == NMConnectionType.WIFI.value:
             content['title'] = _("Authentication required by wireless network")
             content['message'] = _("Passwords or encryption keys are required to access\n"
                                    "the wireless network '%(network_id)s'.") \

@@ -87,13 +87,13 @@ class DeviceConfigurations(object):
 
     # Maps types of connections to types of devices (both provided by NM)
     setting_types = {
-        NMConnectionType.WIFI: NM.DeviceType.WIFI,
-        NMConnectionType.ETHERNET: NM.DeviceType.ETHERNET,
-        NMConnectionType.VLAN: NM.DeviceType.VLAN,
-        NMConnectionType.BOND: NM.DeviceType.BOND,
-        NMConnectionType.TEAM: NM.DeviceType.TEAM,
-        NMConnectionType.BRIDGE: NM.DeviceType.BRIDGE,
-        NMConnectionType.INFINIBAND: NM.DeviceType.INFINIBAND,
+        NMConnectionType.WIFI.value: NM.DeviceType.WIFI,
+        NMConnectionType.ETHERNET.value: NM.DeviceType.ETHERNET,
+        NMConnectionType.VLAN.value: NM.DeviceType.VLAN,
+        NMConnectionType.BOND.value: NM.DeviceType.BOND,
+        NMConnectionType.TEAM.value: NM.DeviceType.TEAM,
+        NMConnectionType.BRIDGE.value: NM.DeviceType.BRIDGE,
+        NMConnectionType.INFINIBAND.value: NM.DeviceType.INFINIBAND,
     }
 
     def __init__(self, nm_client=None):

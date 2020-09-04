@@ -211,7 +211,7 @@ class NMClientTestCase(unittest.TestCase):
                 "get_setting_ip4_config.return_value": ip4_config,
                 "get_setting_ip6_config.return_value": ip6_config,
                 "get_setting_wired.return_value": wired_setting,
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
@@ -258,7 +258,7 @@ class NMClientTestCase(unittest.TestCase):
                 "get_uuid.return_value": CON_UUID,
                 "get_setting_ip4_config.return_value": ip4_config,
                 "get_setting_wired.return_value": wired_setting,
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
@@ -284,7 +284,7 @@ class NMClientTestCase(unittest.TestCase):
                 "get_uuid.return_value": CON_UUID,
                 "get_setting_ip6_config.return_value": ip6_config,
                 "get_setting_wired.return_value": wired_setting,
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
@@ -317,7 +317,7 @@ class NMClientTestCase(unittest.TestCase):
                 "get_uuid.return_value": CON_UUID,
                 "get_setting_ip6_config.return_value": ip6_config,
                 "get_setting_wired.return_value": wired_setting,
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
@@ -339,7 +339,7 @@ class NMClientTestCase(unittest.TestCase):
                 "get_uuid.return_value": CON_UUID,
                 "get_setting_ip4_config.return_value": ip4_config,
                 "get_setting_wired.return_value": None,
-                "get_connection_type.return_value": NMConnectionType.TEAM,
+                "get_connection_type.return_value": NMConnectionType.TEAM.value,
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
@@ -370,7 +370,7 @@ class NMClientTestCase(unittest.TestCase):
                 "get_uuid.return_value": CON_UUID,
                 "get_setting_ip4_config.return_value": ip4_config,
                 "get_setting_wired.return_value": None,
-                "get_connection_type.return_value": NMConnectionType.VLAN,
+                "get_connection_type.return_value": NMConnectionType.VLAN.value,
                 "get_setting_vlan.return_value": setting_vlan,
             },
         ]
@@ -389,7 +389,7 @@ class NMClientTestCase(unittest.TestCase):
             {
                 "get_uuid.return_value": CON_UUID,
                 "get_setting_wired.return_value": wired_setting,
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             },
         ]
         parent_cons = self._get_mock_objects_from_attrs(parent_cons_attrs)
@@ -419,7 +419,7 @@ class NMClientTestCase(unittest.TestCase):
                 "get_uuid.return_value": CON_UUID,
                 "get_setting_ip4_config.return_value": ip4_config,
                 "get_setting_wired.return_value": None,
-                "get_connection_type.return_value": NMConnectionType.VLAN,
+                "get_connection_type.return_value": NMConnectionType.VLAN.value,
                 "get_setting_vlan.return_value": setting_vlan,
             },
         ]
@@ -456,7 +456,7 @@ class NMClientTestCase(unittest.TestCase):
                 "get_uuid.return_value": CON_UUID,
                 "get_setting_ip4_config.return_value": ip4_config,
                 "get_setting_wired.return_value": None,
-                "get_connection_type.return_value": NMConnectionType.VLAN,
+                "get_connection_type.return_value": NMConnectionType.VLAN.value,
                 "get_setting_vlan.return_value": setting_vlan,
             },
         ]
@@ -477,7 +477,7 @@ class NMClientTestCase(unittest.TestCase):
                 "get_interface_name.return_value": None,
                 "get_id.return_value": "ens13",
                 "get_setting_wired.return_value": wired_setting,
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             },
         ]
         parent_cons = self._get_mock_objects_from_attrs(parent_cons_attrs)
@@ -525,56 +525,56 @@ class NMClientTestCase(unittest.TestCase):
 
         cons_specs = [
             {
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
                 "get_interface_name.return_value": "ens3",
                 "get_setting_wired.return_value.get_mac_address.return_value": None,
                 "get_setting_connection.return_value.get_master.return_value": None,
                 "get_uuid.return_value": ENS3_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
                 "get_setting_wired.return_value.get_mac_address.return_value": HWADDR_ENS3,
                 "get_setting_connection.return_value.get_master.return_value": None,
                 "get_interface_name.return_value": None,
                 "get_uuid.return_value": ENS3_UUID2,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
                 "get_interface_name.return_value": "ens7",
                 "get_setting_wired.return_value.get_mac_address.return_value": None,
                 "get_setting_connection.return_value.get_master.return_value": "team0",
                 "get_uuid.return_value": ENS7_SLAVE_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
                 "get_interface_name.return_value": "ens7",
                 "get_setting_connection.return_value.get_master.return_value": None,
                 "get_setting_wired.return_value.get_mac_address.return_value": None,
                 "get_uuid.return_value": ENS7_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
                 "get_setting_connection.return_value.get_master.return_value": None,
                 "get_setting_wired.return_value.get_mac_address.return_value": HWADDR_ENS8,
                 "get_interface_name.return_value": None,
                 "get_uuid.return_value": ENS8_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
                 "get_interface_name.return_value": "ens9",
                 "get_setting_wired.return_value.get_mac_address.return_value": None,
                 "get_setting_connection.return_value.get_master.return_value": "team0",
                 "get_uuid.return_value": ENS9_SLAVE_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
                 "get_setting_connection.return_value.get_master.return_value": None,
                 "get_setting_wired.return_value.get_mac_address.return_value": HWADDR_ENS11,
                 "get_interface_name.return_value": None,
                 "get_uuid.return_value": ENS11_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.ETHERNET,
+                "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
                 "get_setting_connection.return_value.get_master.return_value": None,
                 "get_setting_wired.return_value.get_mac_address.return_value": None,
                 "get_interface_name.return_value": None,
@@ -582,52 +582,52 @@ class NMClientTestCase(unittest.TestCase):
                 "get_uuid.return_value": ENS12_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.VLAN,
+                "get_connection_type.return_value": NMConnectionType.VLAN.value,
                 "get_interface_name.return_value": "vlan222",
                 "get_uuid.return_value": VLAN222_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.VLAN,
+                "get_connection_type.return_value": NMConnectionType.VLAN.value,
                 "get_interface_name.return_value": "vlan223",
                 "get_uuid.return_value": VLAN223_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.BOND,
+                "get_connection_type.return_value": NMConnectionType.BOND.value,
                 "get_interface_name.return_value": "bond0",
                 "get_uuid.return_value": BOND0_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.BOND,
+                "get_connection_type.return_value": NMConnectionType.BOND.value,
                 "get_interface_name.return_value": "bond1",
                 "get_uuid.return_value": BOND1_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.BRIDGE,
+                "get_connection_type.return_value": NMConnectionType.BRIDGE.value,
                 "get_interface_name.return_value": "bridge0",
                 "get_uuid.return_value": BRIDGE0_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.BRIDGE,
+                "get_connection_type.return_value": NMConnectionType.BRIDGE.value,
                 "get_interface_name.return_value": "bridge1",
                 "get_uuid.return_value": BRIDGE1_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.TEAM,
+                "get_connection_type.return_value": NMConnectionType.TEAM.value,
                 "get_interface_name.return_value": "team0",
                 "get_uuid.return_value": TEAM0_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.TEAM,
+                "get_connection_type.return_value": NMConnectionType.TEAM.value,
                 "get_interface_name.return_value": "team1",
                 "get_uuid.return_value": TEAM1_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.INFINIBAND,
+                "get_connection_type.return_value": NMConnectionType.INFINIBAND.value,
                 "get_interface_name.return_value": "ens33",
                 "get_uuid.return_value": ENS33_UUID,
             },
             {
-                "get_connection_type.return_value": NMConnectionType.INFINIBAND,
+                "get_connection_type.return_value": NMConnectionType.INFINIBAND.value,
                 "get_interface_name.return_value": "ens33",
                 "get_uuid.return_value": ENS33_UUID2,
             },
@@ -786,18 +786,18 @@ class NMClientTestCase(unittest.TestCase):
 
         cons_to_test = [
          ([{
-            "get_connection_type.return_value": NMConnectionType.ETHERNET,
+            "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             "get_setting_connection.return_value.get_master.return_value": "team0",
             "get_interface_name.return_value": "ens3",
           }],
           ""),
          ([{
-            "get_connection_type.return_value": NMConnectionType.WIFI,
+            "get_connection_type.return_value": NMConnectionType.WIFI.value,
             "get_interface_name.return_value": "wlp61s0",
           }],
           ""),
          ([{
-            "get_connection_type.return_value": NMConnectionType.ETHERNET,
+            "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             "get_setting_connection.return_value.get_autoconnect.return_value": True,
             "get_setting_connection.return_value.get_master.return_value": None,
             "get_setting_wired.return_value.get_mtu.return_value": 1500,
@@ -811,7 +811,7 @@ class NMClientTestCase(unittest.TestCase):
           "network  --bootproto=dhcp --device=ens3 --mtu=1500 --ipv6=auto"),
          # dhcp-hostname setting the hostname is debatable and should be reviewed
          ([{
-            "get_connection_type.return_value": NMConnectionType.ETHERNET,
+            "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             "get_setting_connection.return_value.get_autoconnect.return_value": True,
             "get_setting_connection.return_value.get_master.return_value": None,
             "get_setting_wired.return_value.get_mtu.return_value": None,
@@ -824,7 +824,7 @@ class NMClientTestCase(unittest.TestCase):
           }],
           "network  --bootproto=dhcp --device=ens3 --hostname=dhcp.hostname --ipv6=dhcp"),
          ([{
-            "get_connection_type.return_value": NMConnectionType.ETHERNET,
+            "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             "get_setting_connection.return_value.get_autoconnect.return_value": False,
             "get_setting_connection.return_value.get_master.return_value": None,
             "get_uuid.return_value": ENS7_UUID,
@@ -841,7 +841,7 @@ class NMClientTestCase(unittest.TestCase):
           }],
           "network  --bootproto=static --device=ens7 --gateway=192.168.141.1 --ip=192.168.141.131 --nameserver=192.168.154.3,10.216.106.3 --netmask=255.255.255.0 --onboot=off --noipv6"),
          ([{
-            "get_connection_type.return_value": NMConnectionType.ETHERNET,
+            "get_connection_type.return_value": NMConnectionType.ETHERNET.value,
             "get_setting_connection.return_value.get_autoconnect.return_value": True,
             "get_setting_connection.return_value.get_master.return_value": None,
             "get_uuid.return_value": ENS7_UUID,
@@ -859,7 +859,7 @@ class NMClientTestCase(unittest.TestCase):
           }],
           "network  --bootproto=dhcp --device=ens7 --nameserver=192.168.154.3,10.216.106.3,2001:cafe::1,2001:cafe::2 --ipv6=2400:c980:0000:0002::3/64 --ipv6gateway=2400:c980:0000:0002::1"),
          ([{
-            "get_connection_type.return_value": NMConnectionType.BOND,
+            "get_connection_type.return_value": NMConnectionType.BOND.value,
             "get_setting_connection.return_value.get_autoconnect.return_value": True,
             "get_setting_connection.return_value.get_master.return_value": None,
             "get_uuid.return_value": BOND0_UUID,
@@ -874,7 +874,7 @@ class NMClientTestCase(unittest.TestCase):
           }],
           "network  --bootproto=dhcp --device=bond0 --ipv6=auto --bondslaves=ens7,ens8 --bondopts=mode=active-backup,primary=ens8"),
          ([{
-            "get_connection_type.return_value": NMConnectionType.BRIDGE,
+            "get_connection_type.return_value": NMConnectionType.BRIDGE.value,
             "get_setting_connection.return_value.get_autoconnect.return_value": False,
             "get_setting_connection.return_value.get_master.return_value": None,
             "get_uuid.return_value": BRIDGE0_UUID,
@@ -888,7 +888,7 @@ class NMClientTestCase(unittest.TestCase):
           }],
           "network  --bootproto=dhcp --device=bridge0 --onboot=off --ipv6=auto --bridgeslaves=ens8 --bridgeopts=priority=32769,forward-delay=16,max-age=21"),
          ([{
-            "get_connection_type.return_value": NMConnectionType.TEAM,
+            "get_connection_type.return_value": NMConnectionType.TEAM.value,
             "get_setting_connection.return_value.get_autoconnect.return_value": True,
             "get_setting_connection.return_value.get_master.return_value": None,
             "get_uuid.return_value": TEAM0_UUID,
@@ -903,7 +903,7 @@ class NMClientTestCase(unittest.TestCase):
           "network  --bootproto=dhcp --device=team0 --ipv6=auto --teamslaves=\"ens7'{\\\"prio\\\":100,\\\"sticky\\\":true}',ens8'{\\\"prio\\\":200}'\" --teamconfig=\"{\\\"runner\\\":{\\\"name\\\":\\\"activebackup\\\",\\\"hwaddr_policy\\\":\\\"same_all\\\"},\\\"link_watch\\\":{\\\"name\\\":\\\"ethtool\\\"}}\""),
          # vlan
          ([{
-            "get_connection_type.return_value": NMConnectionType.VLAN,
+            "get_connection_type.return_value": NMConnectionType.VLAN.value,
             "get_setting_connection.return_value.get_interface_name.return_value": "vlan233",
             "get_setting_connection.return_value.get_autoconnect.return_value": True,
             "get_setting_connection.return_value.get_master.return_value": None,
@@ -920,7 +920,7 @@ class NMClientTestCase(unittest.TestCase):
           "network  --bootproto=dhcp --device=ens7 --ipv6=auto --vlanid=233 --interfacename=vlan233"),
          # vlan, parent specified by UUID
          ([{
-            "get_connection_type.return_value": NMConnectionType.VLAN,
+            "get_connection_type.return_value": NMConnectionType.VLAN.value,
             "get_setting_connection.return_value.get_interface_name.return_value": "vlan233",
             "get_setting_connection.return_value.get_autoconnect.return_value": True,
             "get_setting_connection.return_value.get_master.return_value": None,
@@ -937,7 +937,7 @@ class NMClientTestCase(unittest.TestCase):
           "network  --bootproto=dhcp --device=ens7 --ipv6=auto --vlanid=233 --interfacename=vlan233"),
          # vlan, no interface name set
          ([{
-            "get_connection_type.return_value": NMConnectionType.VLAN,
+            "get_connection_type.return_value": NMConnectionType.VLAN.value,
             "get_setting_connection.return_value.get_interface_name.return_value": None,
             "get_setting_connection.return_value.get_autoconnect.return_value": True,
             "get_setting_connection.return_value.get_master.return_value": None,
