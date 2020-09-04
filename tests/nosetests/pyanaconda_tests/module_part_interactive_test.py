@@ -72,6 +72,24 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.PartitioningMethod, PARTITIONING_METHOD_INTERACTIVE)
 
     @patch_dbus_publish_object
+    def lazy_storage_test(self, publisher):
+        """Make sure that the storage playground is created lazily."""
+        self.module.on_storage_changed(create_storage())
+
+        device_tree_module = self.module.get_device_tree()
+        self.assertIsNone(self.module._storage_playground)
+
+        device_tree_module.get_disks()
+        self.assertIsNotNone(self.module._storage_playground)
+
+        self.module.on_partitioning_reset()
+        self.module.on_storage_changed(create_storage())
+        self.assertIsNone(self.module._storage_playground)
+
+        device_tree_module.get_actions()
+        self.assertIsNotNone(self.module._storage_playground)
+
+    @patch_dbus_publish_object
     def get_device_tree_test(self, publisher):
         """Test GetDeviceTree."""
         DeviceTreeContainer._counter = 0
