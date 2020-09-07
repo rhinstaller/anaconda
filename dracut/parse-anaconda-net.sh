@@ -65,6 +65,6 @@ fi
 
 # set dhcp vendor class
 dhcpclass=$(getarg inst.dhcpclass) || dhcpclass="anaconda-$(uname -srm)"
-echo "rd.net.dhcp.vendor-class=\"$dhcpclass\"" >> $net_conf
+echo "rd.net.dhcp.vendor-class=$dhcpclass" >> $net_conf
 
 unset CMDLINE
