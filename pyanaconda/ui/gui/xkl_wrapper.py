@@ -237,7 +237,7 @@ class XklWrapper(object):
         # translate language and upcase its first letter, translate the
         # layout-variant description
         if xlated:
-            lang = util.upcase_first_letter(iso_(layout_info.lang))
+            lang = iso_(layout_info.lang)
             description = Xkb_(layout_info.desc)
         else:
             lang = util.upcase_first_letter(layout_info.lang)
