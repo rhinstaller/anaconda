@@ -66,5 +66,7 @@ productVersion = trim_product_version_for_ui(productVersion)
 
 
 def distributionText():
-    return _("%(productName)s %(productVersion)s INSTALLATION") % \
-             {"productName": productName, "productVersion": productVersion}
+    return _("%(productName)s %(productVersion)s INSTALLATION") % {
+        "productName": productName.upper(),
+        "productVersion": productVersion.upper()
+    }

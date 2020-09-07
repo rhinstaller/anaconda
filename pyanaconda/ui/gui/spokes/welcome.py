@@ -251,7 +251,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         languageEntry.set_placeholder_text(_(self._origStrings[languageEntry]))
 
         # And of course, don't forget the underlying window.
-        self.window.set_property("distribution", distributionText().upper())
+        self.window.set_property("distribution", distributionText())
         self.window.retranslate()
 
         # Retranslate the window title text
