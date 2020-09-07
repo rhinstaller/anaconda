@@ -18,9 +18,11 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from unittest.mock import patch
 
 from blivet.devices import StorageDevice, DiskDevice, PartitionDevice
 from blivet.formats import get_format
+from blivet.formats.fs import FS
 from blivet.size import Size
 
 from pyanaconda.modules.storage.partitioning.automatic.resizable_interface import \
@@ -66,13 +68,28 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         self.assertEqual(self.interface.IsDevicePartitioned("dev1"), False)
         self.assertEqual(self.interface.IsDevicePartitioned("dev2"), True)
 
-    def is_device_resizable_test(self):
-        """Test IsDeviceResizable."""
+    @patch.object(FS, "update_size_info")
+    def is_device_shrinkable_test(self, update_size_info):
+        """Test IsDeviceShrinkable."""
         self.module.on_storage_changed(create_storage())
-        self._add_device(StorageDevice(
-            "dev1"
-        ))
-        self.assertEqual(self.interface.IsDeviceResizable("dev1"), False)
+
+        dev1 = StorageDevice(
+            "dev1",
+            exists=True,
+            size=Size("10 GiB"),
+            fmt=get_format(None, exists=True)
+        )
+
+        self._add_device(dev1)
+        self.assertEqual(self.interface.IsDeviceShrinkable("dev1"), False)
+
+        dev1._resizable = True
+        dev1.format._resizable = True
+        dev1.format._min_size = Size("1 GiB")
+        self.assertEqual(self.interface.IsDeviceShrinkable("dev1"), True)
+
+        dev1.format._min_size = Size("10 GiB")
+        self.assertEqual(self.interface.IsDeviceShrinkable("dev1"), False)
 
     def get_device_partitions_test(self):
         """Test GetDevicePartitions."""
