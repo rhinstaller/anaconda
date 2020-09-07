@@ -1631,10 +1631,10 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     @property
     def completed(self):
-        # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
                 or self._network_module.GetActivatedInterfaces()
-                or not self.payload.needs_network)
+                or not (self.payload.source_type != conf.payload.default_source
+                        and self.payload.needs_network))
 
     def initialize(self):
         register_secret_agent(self)
