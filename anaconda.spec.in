@@ -366,6 +366,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 07 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.24-1
+- network: do not add superfluous quotes to inst.dhcpclass identifier
+  (rvykydal)
+  Related: rhbz#1870692
+
 * Fri Sep 04 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.23-1
 - subscription: Assure payload restart on DVD install after registration
   (mkolman)
