@@ -539,12 +539,7 @@ def ksnet_to_ifcfg(net, filename=None):
             shutil.copyfile(srcpath, dstpath)
 
         if net.dhcpclass:
-            dstdir = "/etc/dhcp"
-            if not os.path.isdir(dstdir):
-                os.makedirs(dstdir)
-
-            with open("%s/dhclient-%s.conf" % (dstdir, dev), "w") as f:
-                f.write("send vendor-class-identifier \"%s\";" % net.dhcpclass)
+            ifcfg['DHCP_VENDOR_CLASS_IDENTIFIER'] = net.dhcpclass
 
     if net.bondslaves:
         ifcfg.pop('HWADDR', None)
