@@ -375,6 +375,15 @@ def get_locale_keyboards(locale):
     return langtable.list_keyboards(languageId=locale)
 
 
+def get_common_keyboard_layouts():
+    """Function returning common keyboard layouts carrying high ranks.
+
+    :return: list of common keyboard layouts
+    :rtype: list of strings
+    """
+    return langtable.list_common_keyboards()
+
+
 def get_locale_timezones(locale):
     """Function returning preferred timezones for the given locale.
 
