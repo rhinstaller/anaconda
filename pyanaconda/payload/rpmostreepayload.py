@@ -61,10 +61,6 @@ class RPMOSTreePayload(Payload):
         return PAYLOAD_TYPE_RPM_OSTREE
 
     @property
-    def handles_bootloader_configuration(self):
-        return True
-
-    @property
     def kernel_version_list(self):
         # OSTree handles bootloader configuration
         return []

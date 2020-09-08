@@ -149,13 +149,6 @@ class Payload(metaclass=ABCMeta):
         """
         return False
 
-    @property
-    def handles_bootloader_configuration(self):
-        """Whether this payload backend writes the bootloader configuration itself; if
-        False (the default), the generic bootloader configuration code will be used.
-        """
-        return False
-
     def post_install(self):
         """Perform post-installation tasks."""
 
