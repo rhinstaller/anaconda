@@ -386,12 +386,6 @@ class RPMOSTreePayload(Payload):
             except CalledProcessError as e:
                 log.debug("unmounting %s failed: %s", mount, str(e))
 
-    def recreate_initrds(self):
-        # For rpmostree payloads, we're replicating an initramfs from
-        # a compose server, and should never be regenerating them
-        # per-machine.
-        pass
-
     def post_install(self):
         super().post_install()
 

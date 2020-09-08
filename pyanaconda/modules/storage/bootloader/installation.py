@@ -19,6 +19,7 @@
 #
 from blivet import arch
 from blivet.devices import BTRFSDevice
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE
 from pyanaconda.modules.storage.bootloader import BootLoaderError
 
 from pyanaconda.core.util import execInSysroot
@@ -26,7 +27,8 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.storage.bootloader.utils import configure_boot_loader, install_boot_loader
+from pyanaconda.modules.storage.bootloader.utils import configure_boot_loader, \
+    install_boot_loader, recreate_initrds
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 
@@ -34,7 +36,7 @@ log = get_module_logger(__name__)
 
 
 __all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask", "FixBTRFSBootloaderTask",
-           "FixZIPLBootloaderTask"]
+           "FixZIPLBootloaderTask", "RecreateInitrdsTask"]
 
 
 class ConfigureBootloaderTask(Task):
@@ -104,6 +106,35 @@ class InstallBootloaderTask(Task):
         except BootLoaderError as e:
             log.exception("Bootloader installation has failed: %s", e)
             raise BootloaderInstallationError(str(e)) from None
+
+
+class RecreateInitrdsTask(Task):
+    """Installation task that recreates the initrds."""
+
+    def __init__(self, payload_type, kernel_versions, sysroot):
+        """Create a new task."""
+        super().__init__()
+        self._payload_type = payload_type
+        self._versions = kernel_versions
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Recreate the initrds"
+
+    def run(self):
+        """Run the task."""
+        # For rpm-ostree payloads, we're replicating an initramfs
+        # from a compose server, and should never be regenerating
+        # them per-machine.
+        if self._payload_type == PAYLOAD_TYPE_RPM_OSTREE:
+            log.debug("Don't regenerate initramfs on rpm-ostree systems.")
+            return
+
+        recreate_initrds(
+            sysroot=self._sysroot,
+            kernel_versions=self._versions
+        )
 
 
 class FixBTRFSBootloaderTask(Task):

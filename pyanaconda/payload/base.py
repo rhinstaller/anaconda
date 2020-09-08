@@ -16,12 +16,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core import util
-from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -157,52 +155,6 @@ class Payload(metaclass=ABCMeta):
         False (the default), the generic bootloader configuration code will be used.
         """
         return False
-
-    def recreate_initrds(self):
-        """Recreate the initrds by calling new-kernel-pkg or dracut
-
-        This needs to be done after all configuration files have been
-        written, since dracut depends on some of them.
-
-        :returns: None
-        """
-        if os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
-            use_dracut = False
-        else:
-            log.debug("new-kernel-pkg does not exist, using dracut instead.")
-            use_dracut = True
-
-        for kernel in self.kernel_version_list:
-            log.info("recreating initrd for %s", kernel)
-            if not conf.target.is_image:
-                if use_dracut:
-                    util.execInSysroot("depmod", ["-a", kernel])
-                    util.execInSysroot("dracut",
-                                       ["-f",
-                                        "/boot/initramfs-%s.img" % kernel,
-                                        kernel])
-                else:
-                    util.execInSysroot("new-kernel-pkg",
-                                       ["--mkinitrd", "--dracut", "--depmod",
-                                        "--update", kernel])
-
-                # if the installation is running in fips mode then make sure
-                # fips is also correctly enabled in the installed system
-                if kernel_arguments.get("fips") == "1":
-                    # We use the --no-bootcfg option as we don't want fips-mode-setup to
-                    # modify the bootloader configuration.
-                    # Anaconda already does everything needed & it would require grubby to
-                    # be available on the system.
-                    util.execInSysroot("fips-mode-setup", ["--enable", "--no-bootcfg"])
-
-            else:
-                # hostonly is not sensible for disk image installations
-                # using /dev/disk/by-uuid/ is necessary due to disk image naming
-                util.execInSysroot("dracut",
-                                   ["-N",
-                                    "--persistent-policy", "by-uuid",
-                                    "-f", "/boot/initramfs-%s.img" % kernel,
-                                    kernel])
 
     def post_install(self):
         """Perform post-installation tasks."""

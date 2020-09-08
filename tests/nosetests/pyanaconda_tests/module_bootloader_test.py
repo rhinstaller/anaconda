@@ -17,8 +17,11 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import os
 import tempfile
 import unittest
+
+from unittest import mock
 from unittest.mock import Mock, patch
 
 from blivet.devices import BTRFSDevice, DiskDevice
@@ -40,12 +43,13 @@ from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
-from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_LOCATION_PARTITION
+from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_LOCATION_PARTITION, \
+    PAYLOAD_TYPE_RPM_OSTREE, PAYLOAD_TYPE_LIVE_IMAGE
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
-    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask
+    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):
@@ -278,6 +282,96 @@ class BootloaderTasksTestCase(unittest.TestCase):
         InstallBootloaderTask(storage, BootloaderMode.ENABLED).run()
         bootloader.set_boot_args.assert_called_once()
         bootloader.write.assert_called_once()
+
+    @patch('pyanaconda.modules.storage.bootloader.utils.kernel_arguments')
+    @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
+    @patch('pyanaconda.modules.storage.bootloader.utils.conf')
+    def recreate_initrds_test(self, conf_mock, exec_mock, args_mock):
+        """Test the installation task that recreates initrds."""
+        version = "4.17.7-200.fc28.x86_64"
+
+        with tempfile.TemporaryDirectory() as root:
+            task = RecreateInitrdsTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+                kernel_versions=[version]
+            )
+            task.run()
+            exec_mock.assert_not_called()
+
+        exec_mock.reset_mock()
+        conf_mock.target.is_image = False
+        args_mock.get.return_value = None
+
+        with tempfile.TemporaryDirectory() as root:
+            task = RecreateInitrdsTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "depmod", [
+                        "-a", "4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+                mock.call(
+                    "dracut", [
+                        "-f", "/boot/initramfs-4.17.7-200.fc28.x86_64.img",
+                        "4.17.7-200.fc28.x86_64"
+                    ], root=root)
+            ])
+
+        exec_mock.reset_mock()
+        conf_mock.target.is_image = False
+        args_mock.get.return_value = "1"
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/usr/sbin/", exist_ok=True)
+            open(root + "/usr/sbin/new-kernel-pkg", 'wb').close()
+
+            task = RecreateInitrdsTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "new-kernel-pkg", [
+                        "--mkinitrd", "--dracut", "--depmod",
+                        "--update", "4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+                mock.call(
+                    "fips-mode-setup", [
+                        "--enable", "--no-bootcfg"
+                    ], root=root
+                )
+            ])
+
+        exec_mock.reset_mock()
+        conf_mock.target.is_image = True
+
+        with tempfile.TemporaryDirectory() as root:
+            task = RecreateInitrdsTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_called_once_with(
+                "dracut", [
+                    "-N", "--persistent-policy", "by-uuid",
+                    "-f", "/boot/initramfs-4.17.7-200.fc28.x86_64.img",
+                    "4.17.7-200.fc28.x86_64"
+                ],
+                root=root
+            )
 
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
     @patch('pyanaconda.modules.storage.bootloader.installation.InstallBootloaderTask')
