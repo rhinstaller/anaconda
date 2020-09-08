@@ -30,7 +30,7 @@ from blivet.size import Size
 
 from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_task_creation, reset_boot_loader_factory
+    check_task_creation, reset_boot_loader_factory, check_task_creation_list
 
 from pyanaconda.modules.storage import platform
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
@@ -216,28 +216,24 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._storage, storage)
 
     @patch_dbus_publish_object
-    def fix_btrfs_with_task_test(self, publisher):
-        """Test FixBTRFSWithTask."""
+    def generate_initramfs_with_tasks_test(self, publisher):
+        """Test GenerateInitramfsWithTasks."""
         storage = Mock()
         version = "4.17.7-200.fc28.x86_64"
 
         self.bootloader_module.on_storage_changed(storage)
-        task_path = self.bootloader_interface.FixBTRFSWithTask([version])
 
-        obj = check_task_creation(self, task_path, publisher, FixBTRFSBootloaderTask)
-        self.assertEqual(obj.implementation._storage, storage)
-        self.assertEqual(obj.implementation._versions, [version])
+        task_classes = [
+            RecreateInitrdsTask,
+            FixBTRFSBootloaderTask,
+            FixZIPLBootloaderTask,
+        ]
 
-    @patch_dbus_publish_object
-    def fix_zipl_with_task_test(self, publisher):
-        """Test FixZIPLWithTask."""
-        storage = Mock()
+        task_paths = self.bootloader_interface.GenerateInitramfsWithTasks(
+            PAYLOAD_TYPE_LIVE_IMAGE, [version]
+        )
 
-        self.bootloader_module.on_storage_changed(storage)
-        task_path = self.bootloader_interface.FixZIPLWithTask()
-
-        obj = check_task_creation(self, task_path, publisher, FixZIPLBootloaderTask)
-        self.assertEqual(obj.implementation._mode, self.bootloader_module.bootloader_mode)
+        check_task_creation_list(self, task_paths, publisher, task_classes)
 
 
 class BootloaderTasksTestCase(unittest.TestCase):
@@ -383,17 +379,46 @@ class BootloaderTasksTestCase(unittest.TestCase):
         version = "4.17.7-200.fc28.x86_64"
 
         conf.target.is_directory = True
-        FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.ENABLED,
+            payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
+        configure.assert_not_called()
+        install.assert_not_called()
+
+        conf.target.is_directory = True
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.ENABLED,
+            payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
         configure.assert_not_called()
         install.assert_not_called()
 
         conf.target.is_directory = False
-        FixBTRFSBootloaderTask(storage, BootloaderMode.DISABLED, [version], sysroot).run()
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.DISABLED,
+            payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
         configure.assert_not_called()
         install.assert_not_called()
 
         conf.target.is_directory = False
-        FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.ENABLED,
+            payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
         configure.assert_not_called()
         install.assert_not_called()
 
@@ -416,7 +441,13 @@ class BootloaderTasksTestCase(unittest.TestCase):
         dev2.format._mount = Mock(available=True)
 
         conf.target.is_directory = False
-        FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.ENABLED,
+            payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
         configure.assert_called_once_with(storage, BootloaderMode.ENABLED, [version], sysroot)
         install.assert_called_once_with(storage, BootloaderMode.ENABLED)
 

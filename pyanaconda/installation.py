@@ -154,23 +154,18 @@ def _prepare_configuration(payload, ksdata):
 
     # Initramfs generation
     generate_initramfs = TaskQueue("Initramfs generation", N_("Generating initramfs"))
-    generate_initramfs.append(Task("Generate initramfs", payload.recreate_initrds))
-
-    # This works around 2 problems, /boot on BTRFS and BTRFS installations where the initrd is
-    # recreated after the first writeBootLoader call. This reruns it after the new initrd has
-    # been created, fixing the kernel root and subvol args and adding the missing initrd entry.
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
-    def fix_btrfs_bootloader():
-        btrfs_task = bootloader_proxy.FixBTRFSWithTask(payload.kernel_version_list)
-        sync_run_task(STORAGE.get_proxy(btrfs_task))
+    def run_generate_initramfs():
+        tasks = bootloader_proxy.GenerateInitramfsWithTasks(
+            payload.type,
+            payload.kernel_version_list
+        )
 
-    if payload.type in PAYLOAD_LIVE_TYPES:
-        generate_initramfs.append(Task("Fix bootloader on BTRFS", fix_btrfs_bootloader))
+        for task in tasks:
+            sync_run_task(STORAGE.get_proxy(task))
 
-    # Invoking zipl should be the last thing done on a s390x installation (see #1652727).
-    zipl_task = bootloader_proxy.FixZIPLWithTask()
-    generate_initramfs.append_dbus_tasks(STORAGE, [zipl_task])
+    generate_initramfs.append(Task("Generate initramfs", run_generate_initramfs))
     configuration_queue.append(generate_initramfs)
 
     # realm join

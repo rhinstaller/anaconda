@@ -19,7 +19,7 @@
 #
 from blivet import arch
 from blivet.devices import BTRFSDevice
-from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, PAYLOAD_LIVE_TYPES
 from pyanaconda.modules.storage.bootloader import BootLoaderError
 
 from pyanaconda.core.util import execInSysroot
@@ -146,11 +146,12 @@ class FixBTRFSBootloaderTask(Task):
     kernel root and subvol args and adding the missing initrd entry.
     """
 
-    def __init__(self, storage, mode, kernel_versions, sysroot):
+    def __init__(self, storage, mode, payload_type, kernel_versions, sysroot):
         """Create a new task."""
         super().__init__()
         self._storage = storage
         self._mode = mode
+        self._payload_type = payload_type
         self._versions = kernel_versions
         self._sysroot = sysroot
 
@@ -160,6 +161,10 @@ class FixBTRFSBootloaderTask(Task):
 
     def run(self):
         """Run the task."""
+        if self._payload_type not in PAYLOAD_LIVE_TYPES:
+            log.debug("Only live payloads require this fix.")
+            return
+
         if conf.target.is_directory:
             log.debug("The bootloader installation is disabled for dir installations.")
             return
