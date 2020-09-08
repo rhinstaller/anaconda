@@ -233,9 +233,11 @@ class NetworkTests(unittest.TestCase):
         cmdline = {"ip": "10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none",
                    "hostname": "hostname_bootopt"}
         self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")
-        cmdline = {"ip": "ens3:dhcp "}
+        cmdline = {"ip": "ens3:dhcp"}
         self.assertEqual(network.hostname_from_cmdline(cmdline), "")
-        cmdline = {"ip": "ens3:dhcp ",
+        cmdline = {"ip": "ens3:dhcp:1500"}
+        self.assertEqual(network.hostname_from_cmdline(cmdline), "")
+        cmdline = {"ip": "ens3:dhcp",
                    "hostname": "hostname_bootopt"}
         self.assertEqual(network.hostname_from_cmdline(cmdline), "hostname_bootopt")
         # two ip configurations
@@ -248,6 +250,9 @@ class NetworkTests(unittest.TestCase):
         self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")
         cmdline = {"ip": "[fd00:10:100::84:5]::[fd00:10:100::86:49]:80::ens50:none"}
         self.assertEqual(network.hostname_from_cmdline(cmdline), "")
-        cmdline = {"ip": "[fd00:10:100::84:5]::[fd00:10:100::86:49]:80::ens50:none"
+        cmdline = {"ip": "[fd00:10:100::84:5]::[fd00:10:100::86:49]:80::ens50:none "
                          "ens3:dhcp 10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none"}
         self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")
+        # automatic ip= whith MAC address set
+        cmdline = {"ip": "ens3:dhcp::52:54:00:12:34:56"}
+        self.assertEqual(network.hostname_from_cmdline(cmdline), "")
