@@ -122,38 +122,6 @@ class BaseLivePayload(Payload):
             self.pct = 100
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
-        # Live needs to create the rescue image before bootloader is written
-        self._create_rescue_image()
-
-    def _create_rescue_image(self):
-        """Create the rescue initrd images for each installed kernel. """
-        # Always make sure the new system has a new machine-id, it won't boot without it
-        # (and nor will some of the subsequent commands like grub2-mkconfig and kernel-install)
-        log.info("Generating machine ID")
-        if os.path.exists(conf.target.system_root + "/etc/machine-id"):
-            os.unlink(conf.target.system_root + "/etc/machine-id")
-        util.execInSysroot("systemd-machine-id-setup", [])
-
-        if os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
-            use_nkp = True
-        else:
-            log.debug("new-kernel-pkg does not exist, calling scripts directly.")
-            use_nkp = False
-
-        for kernel in self.kernel_version_list:
-            log.info("Generating rescue image for %s", kernel)
-            if use_nkp:
-                util.execInSysroot("new-kernel-pkg",
-                                   ["--rpmposttrans", kernel])
-            else:
-                files = glob.glob(conf.target.system_root + "/etc/kernel/postinst.d/*")
-                srlen = len(conf.target.system_root)
-                files = sorted([f[srlen:] for f in files
-                                if os.access(f, os.X_OK)])
-                for file in files:
-                    util.execInSysroot(file,
-                                       [kernel, "/boot/vmlinuz-%s" % kernel])
-
     def post_install(self):
         """ Perform post-installation tasks. """
         progressQ.send_message(_("Performing post-installation setup tasks"))

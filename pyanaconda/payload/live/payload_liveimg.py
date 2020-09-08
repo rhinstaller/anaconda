@@ -328,9 +328,6 @@ class LiveImagePayload(BaseLivePayload):
             self.pct = 100
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
-        # Live needs to create the rescue image before bootloader is written
-        self._create_rescue_image()
-
     def post_install(self):
         """ Unmount and remove image
 

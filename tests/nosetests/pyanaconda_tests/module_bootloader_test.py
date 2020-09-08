@@ -49,7 +49,8 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
-    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask
+    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
+    CreateRescueImagesTask
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):
@@ -238,6 +239,93 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
 
 class BootloaderTasksTestCase(unittest.TestCase):
     """Test tasks for the boot loader."""
+
+    @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
+    def create_rescue_images_test(self, exec_mock):
+        """Test the installation task that creates rescue images."""
+        version = "4.17.7-200.fc28.x86_64"
+
+        with tempfile.TemporaryDirectory() as root:
+            task = CreateRescueImagesTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_not_called()
+
+        exec_mock.reset_mock()
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/etc/", exist_ok=True)
+            open(root + "/etc/machine-id", 'wb').close()
+
+            os.makedirs(root + "/usr/sbin/", exist_ok=True)
+            open(root + "/usr/sbin/new-kernel-pkg", 'wb').close()
+
+            task = CreateRescueImagesTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "systemd-machine-id-setup",
+                    [],
+                    root=root
+                ),
+                mock.call(
+                    "new-kernel-pkg", [
+                        "--rpmposttrans", "4.17.7-200.fc28.x86_64"
+                    ], root=root
+                )
+            ])
+
+        exec_mock.reset_mock()
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/etc/kernel/postinst.d/", exist_ok=True)
+
+            for name in ["c", "a", "b"]:
+                path = root + "/etc/kernel/postinst.d/" + name
+                open(path, 'wb').close()
+                os.chmod(path, 0o775)
+
+            task = CreateRescueImagesTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "systemd-machine-id-setup",
+                    [],
+                    root=root
+                ),
+                mock.call(
+                    "/etc/kernel/postinst.d/a", [
+                        "4.17.7-200.fc28.x86_64",
+                        "/boot/vmlinuz-4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+                mock.call(
+                    "/etc/kernel/postinst.d/b", [
+                        "4.17.7-200.fc28.x86_64",
+                        "/boot/vmlinuz-4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+                mock.call(
+                    "/etc/kernel/postinst.d/c", [
+                        "4.17.7-200.fc28.x86_64",
+                        "/boot/vmlinuz-4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+            ])
 
     def configure_test(self):
         """Test the final configuration of the boot loader."""

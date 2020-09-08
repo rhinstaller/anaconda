@@ -28,7 +28,7 @@ from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.bootloader.utils import configure_boot_loader, \
-    install_boot_loader, recreate_initrds
+    install_boot_loader, recreate_initrds, create_rescue_images
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 
@@ -36,7 +36,35 @@ log = get_module_logger(__name__)
 
 
 __all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask", "FixBTRFSBootloaderTask",
-           "FixZIPLBootloaderTask", "RecreateInitrdsTask"]
+           "FixZIPLBootloaderTask", "RecreateInitrdsTask", "CreateRescueImagesTask"]
+
+
+class CreateRescueImagesTask(Task):
+    """Installation task that creates rescue images."""
+
+    def __init__(self, payload_type, kernel_versions, sysroot):
+        """Create a new task."""
+        super().__init__()
+        self._payload_type = payload_type
+        self._versions = kernel_versions
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Create rescue images"
+
+    def run(self):
+        """Run the task."""
+        #  Live payloads need to create rescue images
+        #  before the bootloader is written on the system.
+        if self._payload_type not in PAYLOAD_LIVE_TYPES:
+            log.debug("Only live payloads require this fix.")
+            return
+
+        create_rescue_images(
+            sysroot=self._sysroot,
+            kernel_versions=self._versions
+        )
 
 
 class ConfigureBootloaderTask(Task):

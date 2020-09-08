@@ -27,7 +27,55 @@ from pyanaconda.product import productName
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["configure_boot_loader", "install_boot_loader", "recreate_initrds"]
+__all__ = ["configure_boot_loader", "install_boot_loader", "recreate_initrds",
+           "create_rescue_images"]
+
+
+def create_rescue_images(sysroot, kernel_versions):
+    """Create the rescue initrd images for each installed kernel."""
+    # Always make sure the new system has a new machine-id, it
+    # won't boot without it and some of the subsequent commands
+    # like grub2-mkconfig and kernel-install will not work as well.
+    log.info("Generating a new machine id.")
+
+    if os.path.exists(sysroot + "/etc/machine-id"):
+        os.unlink(sysroot + "/etc/machine-id")
+
+    execWithRedirect(
+        "systemd-machine-id-setup",
+        [],
+        root=sysroot
+    )
+
+    if os.path.exists(sysroot + "/usr/sbin/new-kernel-pkg"):
+        use_nkp = True
+    else:
+        log.debug("new-kernel-pkg does not exist, calling scripts directly.")
+        use_nkp = False
+
+    for kernel in kernel_versions:
+        log.info("Generating rescue image for %s.", kernel)
+
+        if use_nkp:
+            execWithRedirect(
+                "new-kernel-pkg",
+                ["--rpmposttrans", kernel],
+                root=sysroot
+            )
+        else:
+            files = glob(sysroot + "/etc/kernel/postinst.d/*")
+            srlen = len(sysroot)
+            files = sorted([
+                f[srlen:] for f in files
+                if os.access(f, os.X_OK)]
+            )
+
+            for file in files:
+                execWithRedirect(
+                    file,
+                    [kernel, "/boot/vmlinuz-%s" % kernel],
+                    root=sysroot
+                )
 
 
 def configure_boot_loader(sysroot, storage, kernel_versions):
