@@ -273,28 +273,21 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.detect_windows()
 
-    def ConfigureWithTask(self, kernel_versions: List[Str]) -> ObjPath:
-        """Configure the bootloader.
+    def InstallBootloaderWithTasks(self, payload_type: Str, kernel_versions: List[Str]) \
+            -> List[ObjPath]:
+        """Install the bootloader with a list of tasks.
 
         FIXME: This is just a temporary method.
 
+        :param payload_type: a string with the payload type
         :param kernel_versions: a list of kernel versions
-        :return: a path to a DBus task
+        :return: a list of paths to DBus tasks
         """
-        return TaskContainer.to_object_path(
-            self.implementation.configure_with_task(kernel_versions)
+        tasks = self.implementation.install_bootloader_with_tasks(
+            payload_type,
+            kernel_versions
         )
-
-    def InstallWithTask(self) -> ObjPath:
-        """Install the bootloader.
-
-        FIXME: This is just a temporary method.
-
-        :return: a path to a DBus task
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.install_with_task()
-        )
+        return TaskContainer.to_object_path_list(tasks)
 
     def GenerateInitramfsWithTasks(self, payload_type: Str, kernel_versions: List[Str]) \
             -> List[ObjPath]:

@@ -70,11 +70,12 @@ class CreateRescueImagesTask(Task):
 class ConfigureBootloaderTask(Task):
     """Installation task for the bootloader configuration."""
 
-    def __init__(self, storage, mode, kernel_versions, sysroot):
+    def __init__(self, storage, mode, payload_type, kernel_versions, sysroot):
         """Create a new task."""
         super().__init__()
         self._storage = storage
         self._mode = mode
+        self._payload_type = payload_type
         self._versions = kernel_versions
         self._sysroot = sysroot
 
@@ -84,6 +85,10 @@ class ConfigureBootloaderTask(Task):
 
     def run(self):
         """Run the task."""
+        if self._payload_type == PAYLOAD_TYPE_RPM_OSTREE:
+            log.debug("Don't configure bootloader on rpm-ostree systems.")
+            return
+
         if conf.target.is_directory:
             log.debug("The bootloader configuration is disabled for dir installations.")
             return
@@ -208,6 +213,7 @@ class FixBTRFSBootloaderTask(Task):
         ConfigureBootloaderTask(
             self._storage,
             self._mode,
+            self._payload_type,
             self._versions,
             self._sysroot
         ).run()

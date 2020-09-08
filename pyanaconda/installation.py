@@ -331,15 +331,16 @@ def _prepare_installation(payload, ksdata):
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
 
-    def configure_bootloader():
-        boot_task = bootloader_proxy.ConfigureWithTask(payload.kernel_version_list)
-        sync_run_task(STORAGE.get_proxy(boot_task))
+    def run_install_bootloader():
+        tasks = bootloader_proxy.InstallBootloaderWithTasks(
+            payload.type,
+            payload.kernel_version_list
+        )
 
-    if not payload.handles_bootloader_configuration:
-        # FIXME: This is a temporary workaround, run the DBus task directly.
-        bootloader_install.append(Task("Configure the bootloader", configure_bootloader))
+        for task in tasks:
+            sync_run_task(STORAGE.get_proxy(task))
 
-    bootloader_install.append_dbus_tasks(STORAGE, [bootloader_proxy.InstallWithTask()])
+    bootloader_install.append(Task("Install bootloader", run_install_bootloader))
     installation_queue.append(bootloader_install)
 
     post_install = TaskQueue("Post-installation setup tasks", (N_("Performing post-installation setup tasks")))

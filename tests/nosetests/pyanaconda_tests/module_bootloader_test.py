@@ -30,7 +30,7 @@ from blivet.size import Size
 
 from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_task_creation, reset_boot_loader_factory, check_task_creation_list
+    reset_boot_loader_factory, check_task_creation_list
 
 from pyanaconda.modules.storage import platform
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
@@ -191,30 +191,24 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.bootloader_interface.DetectWindows(), True)
 
     @patch_dbus_publish_object
-    def configure_with_task_test(self, publisher):
-        """Test ConfigureWithTask."""
+    def install_bootloader_with_tasks_test(self, publisher):
+        """Test InstallBootloaderWithTasks."""
         storage = Mock()
         version = "4.17.7-200.fc28.x86_64"
 
         self.bootloader_module.on_storage_changed(storage)
-        task_path = self.bootloader_interface.ConfigureWithTask([version])
 
-        obj = check_task_creation(self, task_path, publisher, ConfigureBootloaderTask)
+        task_classes = [
+            CreateRescueImagesTask,
+            ConfigureBootloaderTask,
+            InstallBootloaderTask,
+        ]
 
-        self.assertEqual(obj.implementation._storage, storage)
-        self.assertEqual(obj.implementation._versions, [version])
+        task_paths = self.bootloader_interface.InstallBootloaderWithTasks(
+            PAYLOAD_TYPE_LIVE_IMAGE, [version]
+        )
 
-    @patch_dbus_publish_object
-    def install_with_task_test(self, publisher):
-        """Test InstallWithTask."""
-        storage = Mock()
-
-        self.bootloader_module.on_storage_changed(storage)
-        task_path = self.bootloader_interface.InstallWithTask()
-
-        obj = check_task_creation(self, task_path, publisher, InstallBootloaderTask)
-
-        self.assertEqual(obj.implementation._storage, storage)
+        check_task_creation_list(self, task_paths, publisher, task_classes)
 
     @patch_dbus_publish_object
     def generate_initramfs_with_tasks_test(self, publisher):
@@ -331,16 +325,38 @@ class BootloaderTasksTestCase(unittest.TestCase):
         """Test the final configuration of the boot loader."""
         bootloader = Mock()
         storage = Mock(bootloader=bootloader)
-
         version = "4.17.7-200.fc28.x86_64"
 
         with tempfile.TemporaryDirectory() as root:
-            ConfigureBootloaderTask(storage, BootloaderMode.DISABLED, [version], root).run()
+            ConfigureBootloaderTask(
+                storage=storage,
+                mode=BootloaderMode.ENABLED,
+                payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+                kernel_versions=[version],
+                sysroot=root
+            ).run()
 
         bootloader.add_image.assert_not_called()
 
         with tempfile.TemporaryDirectory() as root:
-            ConfigureBootloaderTask(storage, BootloaderMode.ENABLED, [version], root).run()
+            ConfigureBootloaderTask(
+                storage=storage,
+                mode=BootloaderMode.DISABLED,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version],
+                sysroot=root
+            ).run()
+
+        bootloader.add_image.assert_not_called()
+
+        with tempfile.TemporaryDirectory() as root:
+            ConfigureBootloaderTask(
+                storage=storage,
+                mode=BootloaderMode.ENABLED,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version],
+                sysroot=root
+            ).run()
 
         bootloader.add_image.assert_called_once()
         image = bootloader.add_image.call_args[0][0]
@@ -536,8 +552,17 @@ class BootloaderTasksTestCase(unittest.TestCase):
             kernel_versions=[version],
             sysroot=sysroot
         ).run()
-        configure.assert_called_once_with(storage, BootloaderMode.ENABLED, [version], sysroot)
-        install.assert_called_once_with(storage, BootloaderMode.ENABLED)
+        configure.assert_called_once_with(
+            storage,
+            BootloaderMode.ENABLED,
+            PAYLOAD_TYPE_LIVE_IMAGE,
+            [version],
+            sysroot
+        )
+        install.assert_called_once_with(
+            storage,
+            BootloaderMode.ENABLED
+        )
 
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
     @patch("pyanaconda.modules.storage.bootloader.installation.arch.is_s390")
