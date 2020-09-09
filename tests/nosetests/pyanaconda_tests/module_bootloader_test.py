@@ -202,6 +202,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             CreateRescueImagesTask,
             ConfigureBootloaderTask,
             InstallBootloaderTask,
+            CreateBLSEntriesTask
         ]
 
         task_paths = self.bootloader_interface.InstallBootloaderWithTasks(
