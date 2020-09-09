@@ -39,6 +39,19 @@ class StartRHSMTask(Task):
 
     RHSM_SYSTEMD_UNIT_NAME = "rhsm.service"
 
+    def __init__(self, verify_ssl=True):
+        """Create a new task for starting the RHSM DBus service.
+
+        :param bool verify_ssl: True if RHSM should be configured to verify SSL certificates,
+                                False if RHSM should be set to *not* verify SSL certificates
+
+        NOTE: If RHSM SSL verification is disabled, this is install time only, as we will
+              always turn it back on unconditionally at the same time we roll back the RHSM
+              log level change.
+        """
+        super().__init__()
+        self._verify_ssl = verify_ssl
+
     @property
     def name(self):
         return "Start RHSM DBus service"
@@ -73,7 +86,15 @@ class StartRHSMTask(Task):
         # set RHSM log levels to debug
         # - otherwise the RHSM log output is not usable for debugging subscription issues
         log.debug("subscription: setting RHSM log level to DEBUG")
-        rhsm_config_proxy.Set("logging.default_log_level", get_variant(Str, "DEBUG"), "")
+        config_dict = {"logging.default_log_level": get_variant(Str, "DEBUG")}
+        # turn OFF SSL certificate validation (if requested)
+        if not self._verify_ssl:
+            log.debug("subscription: disabling RHSM SSL certificate validation")
+            config_dict["server.insecure"] = get_variant(Str, "1")
+
+        # set all the values at once atomically
+        rhsm_config_proxy.SetAll(config_dict, "")
+
         # all seems fine
         log.debug("subscription: RHSM service start successfully.")
         return True
