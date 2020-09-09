@@ -28,7 +28,7 @@ from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.bootloader.utils import configure_boot_loader, \
-    install_boot_loader, recreate_initrds, create_rescue_images
+    install_boot_loader, recreate_initrds, create_rescue_images, create_bls_entries
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 
@@ -36,7 +36,8 @@ log = get_module_logger(__name__)
 
 
 __all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask", "FixBTRFSBootloaderTask",
-           "FixZIPLBootloaderTask", "RecreateInitrdsTask", "CreateRescueImagesTask"]
+           "FixZIPLBootloaderTask", "RecreateInitrdsTask", "CreateRescueImagesTask",
+           "CreateBLSEntriesTask"]
 
 
 class CreateRescueImagesTask(Task):
@@ -139,6 +140,34 @@ class InstallBootloaderTask(Task):
         except BootLoaderError as e:
             log.exception("Bootloader installation has failed: %s", e)
             raise BootloaderInstallationError(str(e)) from None
+
+
+class CreateBLSEntriesTask(Task):
+    """The installation task that creates BLS entries."""
+
+    def __init__(self, storage, payload_type, kernel_versions, sysroot):
+        """Create a new task."""
+        super().__init__()
+        self._storage = storage
+        self._payload_type = payload_type
+        self._versions = kernel_versions
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Create the BLS entries"
+
+    def run(self):
+        """Run the task."""
+        if self._payload_type not in PAYLOAD_LIVE_TYPES:
+            log.debug("Only live payloads require this fix.")
+            return
+
+        create_bls_entries(
+            sysroot=self._sysroot,
+            storage=self._storage,
+            kernel_versions=self._versions
+        )
 
 
 class RecreateInitrdsTask(Task):

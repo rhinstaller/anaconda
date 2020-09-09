@@ -19,6 +19,8 @@ import os
 from glob import glob
 
 from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
+from pyanaconda.modules.storage.bootloader.efi import EFIBase
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import decode_bytes, execWithRedirect
@@ -213,6 +215,52 @@ def install_boot_loader(storage):
 
     # Install the bootloader.
     storage.bootloader.write()
+
+
+def create_bls_entries(sysroot, storage, kernel_versions):
+    """Create BLS entries.
+
+    :param sysroot: a path to the root of the installed system
+    :param storage: an instance of the storage
+    :param kernel_versions: a list of kernel versions
+    """
+    # Not using BLS configuration, skip it
+    if os.path.exists(sysroot + "/usr/sbin/new-kernel-pkg"):
+        return
+
+    # Remove any existing BLS entries, they will not match the new system's
+    # machine-id or /boot mountpoint.
+    for file in glob(sysroot + "/boot/loader/entries/*.conf"):
+        log.info("Removing old BLS entry: %s", file)
+        os.unlink(file)
+
+    # Create new BLS entries for this system
+    for kernel in kernel_versions:
+        log.info("Regenerating BLS info for %s", kernel)
+        execWithRedirect(
+            "kernel-install",
+            ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
+            root=sysroot
+        )
+
+    # Update the bootloader configuration to make sure that the BLS
+    # entries will have the correct kernel cmdline and not the value
+    # taken from /proc/cmdline, that is used to boot the live image.
+    if isinstance(storage.bootloader, EFIBase):
+        grub_cfg_path = "/etc/grub2-efi.cfg"
+    else:
+        grub_cfg_path = "/etc/grub2.cfg"
+
+    rc = execWithRedirect(
+        "grub2-mkconfig",
+        ["-o", grub_cfg_path],
+        root=sysroot
+    )
+
+    if rc:
+        raise BootloaderInstallationError(
+            "failed to write boot loader configuration"
+        )
 
 
 def recreate_initrds(sysroot, kernel_versions):

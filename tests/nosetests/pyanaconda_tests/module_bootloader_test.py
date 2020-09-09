@@ -50,7 +50,7 @@ from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
     InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
-    CreateRescueImagesTask
+    CreateRescueImagesTask, CreateBLSEntriesTask
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):
@@ -382,6 +382,95 @@ class BootloaderTasksTestCase(unittest.TestCase):
         InstallBootloaderTask(storage, BootloaderMode.ENABLED).run()
         bootloader.set_boot_args.assert_called_once()
         bootloader.write.assert_called_once()
+
+    @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
+    def create_bls_entries_test(self, exec_mock):
+        """Test the installation task that creates BLS entries."""
+        version = "4.17.7-200.fc28.x86_64"
+        storage=Mock()
+
+        with tempfile.TemporaryDirectory() as root:
+            task = CreateBLSEntriesTask(
+                storage=storage,
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+                kernel_versions=[version]
+            )
+            task.run()
+            exec_mock.assert_not_called()
+
+        exec_mock.reset_mock()
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/usr/sbin/", exist_ok=True)
+            open(root + "/usr/sbin/new-kernel-pkg", 'wb').close()
+
+            task = CreateBLSEntriesTask(
+                storage=storage,
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+            task.run()
+            exec_mock.assert_not_called()
+
+        exec_mock.reset_mock()
+        exec_mock.return_value = 0
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/boot/loader/entries/", exist_ok=True)
+            open(root + "/boot/loader/entries/fake.conf", 'wb').close()
+
+            task = CreateBLSEntriesTask(
+                storage=storage,
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+            task.run()
+
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "kernel-install", [
+                        "add", "4.17.7-200.fc28.x86_64",
+                        "/lib/modules/4.17.7-200.fc28.x86_64/vmlinuz"
+                    ], root=root
+                ),
+                mock.call(
+                    "grub2-mkconfig", [
+                        "-o", "/etc/grub2.cfg"
+                    ], root=root
+                )
+            ])
+            self.assertFalse(os.path.exists(
+                root + "/boot/loader/entries/fake.conf"
+            ))
+
+        exec_mock.reset_mock()
+        exec_mock.return_value = 0
+        storage = Mock(bootloader=EFIGRUB())
+
+        with tempfile.TemporaryDirectory() as root:
+            task = CreateBLSEntriesTask(
+                storage=storage,
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "kernel-install", [
+                        "add", "4.17.7-200.fc28.x86_64",
+                        "/lib/modules/4.17.7-200.fc28.x86_64/vmlinuz"
+                    ], root=root
+                ),
+                mock.call(
+                    "grub2-mkconfig", [
+                        "-o", "/etc/grub2-efi.cfg"
+                    ], root=root
+                )
+            ])
 
     @patch('pyanaconda.modules.storage.bootloader.utils.kernel_arguments')
     @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
