@@ -49,6 +49,16 @@ CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
 CONTAINER_DIALOG_TITLE = N_("CONFIGURE %(container_type)s")
 CONTAINER_DIALOG_TEXT = N_("Please create a name for this %(container_type)s "
                            "and select at least one disk below.")
+DESIRED_CAPACITY_ERROR = N_(
+    "Specify the Desired Capacity in whole or decimal numbers, with an appropriate unit.\n\n"
+    "Spaces separating digit groups are not allowed. Units consist of a decimal or binary "
+    "prefix, and optionally the letter B. Letter case does not matter for units. The default "
+    "unit used when units are left out is MiB.\n\n"
+    "Examples of valid input:\n"
+    "'100 GiB' = 100 gibibytes\n"
+    "'512m' = 512 megabytes\n"
+    "'123456789' = 123 terabytes and a bit less than a half\n"
+)
 
 ContainerType = namedtuple("ContainerType", ["name", "label"])
 
