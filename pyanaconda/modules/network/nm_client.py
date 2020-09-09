@@ -695,7 +695,11 @@ def bind_settings_to_mac(nm_client, s_connection, s_wired, device_name=None, bin
             return False
         device = nm_client.get_device_by_iface(iface)
         if device:
-            hwaddr = device.get_permanent_hw_address() or device.get_hw_address()
+            try:
+                perm_hwaddr = device.get_permanent_hw_address()
+            except AttributeError:
+                perm_hwaddr = None
+            hwaddr = perm_hwaddr or device.get_hw_address()
             s_wired.props.mac_address = hwaddr
             log.debug("Bind to mac: bound to %s", hwaddr)
             modified = True
