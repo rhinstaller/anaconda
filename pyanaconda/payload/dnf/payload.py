@@ -100,9 +100,6 @@ class DNFPayload(Payload):
         # Get a DBus payload to use.
         self._payload_proxy = get_payload(self.type)
 
-        # FIXME: Remove the install device.
-        self.install_device = None
-
         self.tx_id = None
         self._install_tree_metadata = None
         self._rpm_macros = []
