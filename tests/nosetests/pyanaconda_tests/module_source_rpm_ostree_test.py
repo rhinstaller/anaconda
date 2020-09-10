@@ -17,11 +17,16 @@
 #
 import unittest
 
+from dasbus.typing import get_variant, Str, Bool
+
 from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_RPM_OSTREE
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import RPMOSTreeSourceModule
 from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import \
     RPMOSTreeSourceInterface
+
+from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
 class OSTreeSourceInterfaceTestCase(unittest.TestCase):
@@ -31,6 +36,14 @@ class OSTreeSourceInterfaceTestCase(unittest.TestCase):
         self.module = RPMOSTreeSourceModule()
         self.interface = RPMOSTreeSourceInterface(self.module)
 
+    def _check_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            PAYLOAD_SOURCE_RPM_OSTREE,
+            self.interface,
+            *args, **kwargs
+        )
+
     def type_test(self):
         """Test the Type property."""
         self.assertEqual(SOURCE_TYPE_RPM_OSTREE, self.interface.Type)
@@ -38,6 +51,21 @@ class OSTreeSourceInterfaceTestCase(unittest.TestCase):
     def description_test(self):
         """Test the Description property."""
         self.assertEqual("RPM OS Tree", self.interface.Description)
+
+    def configuration_test(self):
+        """Test the configuration property."""
+        data = {
+            "osname": get_variant(Str, "fedora-atomic"),
+            "remote": get_variant(Str, "fedora-atomic-28"),
+            "url": get_variant(Str, "https://kojipkgs.fedoraproject.org/atomic/repo"),
+            "ref": get_variant(Str, "fedora/28/x86_64/atomic-host"),
+            "gpg-verification-enabled": get_variant(Bool, False)
+        }
+
+        self._check_dbus_property(
+            "Configuration",
+            data
+        )
 
 
 class OSTreeSourceTestCase(unittest.TestCase):

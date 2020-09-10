@@ -19,6 +19,8 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
+from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import \
     RPMOSTreeSourceInterface
@@ -31,6 +33,11 @@ __all__ = ["RPMOSTreeSourceModule"]
 
 class RPMOSTreeSourceModule(PayloadSourceBase):
     """The RPM OSTree source module."""
+
+    def __init__(self):
+        super().__init__()
+        self._configuration = RPMOSTreeConfigurationData()
+        self.configuration_changed = Signal()
 
     @property
     def type(self):
@@ -45,6 +52,23 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
     def for_publication(self):
         """Return a DBus representation."""
         return RPMOSTreeSourceInterface(self)
+
+    @property
+    def configuration(self):
+        """The source configuration.
+
+        :return: an instance of RPMOSTreeConfigurationData
+        """
+        return self._configuration
+
+    def set_configuration(self, configuration):
+        """Set the source configuration.
+
+        :param configuration: an instance of RPMOSTreeConfigurationData
+        """
+        self._configuration = configuration
+        self.configuration_changed.emit()
+        log.debug("Configuration is set to '%s'.", configuration)
 
     @property
     def network_required(self):
