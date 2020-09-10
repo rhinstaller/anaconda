@@ -151,15 +151,6 @@ class Payload(metaclass=ABCMeta):
         """Install the payload."""
         raise NotImplementedError()
 
-    @property
-    def needs_storage_configuration(self):
-        """Should we write the storage before doing the installation?
-
-        Some payloads require that the storage configuration will be written out
-        before doing installation. Right now, this is basically just the dnfpayload.
-        """
-        return False
-
     def post_install(self):
         """Perform post-installation tasks."""
 

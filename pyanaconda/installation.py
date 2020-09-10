@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
+from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
@@ -260,7 +260,7 @@ def _prepare_installation(payload, ksdata):
     early_storage = TaskQueue("Early storage configuration", N_("Configuring storage"))
     early_storage.append_dbus_tasks(STORAGE, storage_proxy.InstallWithTasks())
 
-    if payload.needs_storage_configuration:
+    if payload.type == PAYLOAD_TYPE_DNF:
         conf_task = storage_proxy.WriteConfigurationWithTask()
         early_storage.append_dbus_tasks(STORAGE, [conf_task])
 
@@ -321,7 +321,7 @@ def _prepare_installation(payload, ksdata):
     installation_queue.append(payload_install)
 
     # for some payloads storage is configured after the payload is installed
-    if not payload.needs_storage_configuration:
+    if payload.type != PAYLOAD_TYPE_DNF:
         late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
         conf_task = storage_proxy.WriteConfigurationWithTask()
         late_storage.append_dbus_tasks(STORAGE, [conf_task])

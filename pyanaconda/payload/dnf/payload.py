@@ -1986,11 +1986,6 @@ class DNFPayload(Payload):
             if ks_repo.excludepkgs:
                 f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
 
-    @property
-    def needs_storage_configuration(self):
-        """Should we write the storage before doing the installation?"""
-        return True
-
     def post_setup(self):
         """Perform post-setup tasks.
 
