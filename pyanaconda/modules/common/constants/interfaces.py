@@ -122,3 +122,8 @@ PAYLOAD_SOURCE_CDN = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="CDN"
 )
+
+PAYLOAD_SOURCE_RPM_OSTREE = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="RPMOSTree"
+)

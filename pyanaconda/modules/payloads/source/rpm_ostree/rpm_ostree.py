@@ -1,0 +1,92 @@
+#
+# The RPM OSTree source module.
+#
+# Copyright (C) 2020 Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import \
+    RPMOSTreeSourceInterface
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+
+log = get_module_logger(__name__)
+
+__all__ = ["RPMOSTreeSourceModule"]
+
+
+class RPMOSTreeSourceModule(PayloadSourceBase):
+    """The RPM OSTree source module."""
+
+    @property
+    def type(self):
+        """Get type of this source."""
+        return SourceType.RPM_OSTREE
+
+    @property
+    def description(self):
+        """Get description of this source."""
+        return _("RPM OS Tree")
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return RPMOSTreeSourceInterface(self)
+
+    @property
+    def network_required(self):
+        """Does the source require a network?
+
+        :return: True or False
+        """
+        # TODO: Implement this method
+        return False
+
+    def get_state(self):
+        """Get state of this source."""
+        # TODO: Implement this method
+        return SourceState.NOT_APPLICABLE
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        # TODO: Implement this method
+        pass
+
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        # TODO: Implement this method
+        pass
+
+    def set_up_with_tasks(self):
+        """Set up the installation source for installation.
+
+        :return: list of tasks required for the source setup
+        :rtype: [Task]
+        """
+        # TODO: Implement this method
+        return []
+
+    def tear_down_with_tasks(self):
+        """Tear down the installation source.
+
+        :return: list of tasks required for the source clean-up
+        :rtype: [Task]
+        """
+        # TODO: Implement this method
+        return []
+
+    def __repr__(self):
+        return "Source(type='RPM_OSTREE')"

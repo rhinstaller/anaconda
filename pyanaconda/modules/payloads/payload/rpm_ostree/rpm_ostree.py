@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.payloads.constants import PayloadType
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
 
@@ -43,7 +43,9 @@ class RPMOSTreeModule(PayloadBase):
     @property
     def supported_source_types(self):
         """Get list of sources supported by the RPM OSTree module."""
-        return []
+        return [
+            SourceType.RPM_OSTREE
+        ]
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

@@ -187,6 +187,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/payloads/source/live_os/Makefile
                  pyanaconda/modules/payloads/source/nfs/Makefile
                  pyanaconda/modules/payloads/source/repo_files/Makefile
+                 pyanaconda/modules/payloads/source/rpm_ostree/Makefile
                  pyanaconda/modules/payloads/source/url/Makefile
                  pyanaconda/modules/storage/Makefile
                  pyanaconda/modules/storage/bootloader/Makefile

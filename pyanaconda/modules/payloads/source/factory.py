@@ -62,6 +62,10 @@ class SourceFactory(object):
             from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
                 ClosestMirrorSourceModule
             return ClosestMirrorSourceModule()
+        elif source_type == SourceType.RPM_OSTREE:
+            from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import \
+                RPMOSTreeSourceModule
+            return RPMOSTreeSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))
 
