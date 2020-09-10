@@ -53,9 +53,8 @@ from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_HMC, SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, \
-    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, \
-    SOURCE_TYPE_CDN
+    SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
+    URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.payload import ProxyString, ProxyStringError
@@ -196,11 +195,6 @@ class DNFPayload(Payload):
         """The DBus type of the source."""
         source_proxy = self.get_source_proxy()
         return source_proxy.Type
-
-    @property
-    def is_hmc_enabled(self):
-        # FIXME: Remove this property and check the type directly.
-        return self.source_type == SOURCE_TYPE_HMC
 
     def is_ready(self):
         """Is the payload ready?"""

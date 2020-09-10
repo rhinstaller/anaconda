@@ -34,7 +34,7 @@ from pyanaconda.payload.image import find_potential_hdiso_sources, \
     get_hdiso_source_info, get_hdiso_source_description
 
 from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_URL, SOURCE_TYPE_NFS
+    SOURCE_TYPE_URL, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC
 from pyanaconda.core.constants import THREAD_STORAGE_WATCHER
 from pyanaconda.core.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR
 from pyanaconda.core.constants import PAYLOAD_STATUS_PROBING_STORAGE
@@ -88,7 +88,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         threadMgr.wait(THREAD_PAYLOAD)
 
         # Enable the SE/HMC option.
-        if self.payload.is_hmc_enabled:
+        if self.payload.source_type == SOURCE_TYPE_HMC:
             self._hmc = True
 
         self._ready = True
