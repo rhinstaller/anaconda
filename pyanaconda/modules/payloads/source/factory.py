@@ -92,3 +92,15 @@ class SourceFactory(object):
             return SourceType.HMC
 
         return None
+
+    @staticmethod
+    def get_rpm_ostree_type_for_kickstart(ks_data):
+        """Generate source type from RPM OSTree kickstart data.
+
+        :param ks_data: kickstart data from DNF payload
+        :return: SourceType value
+        """
+        if ks_data.ostreesetup.seen:
+            return SourceType.RPM_OSTREE
+
+        return None

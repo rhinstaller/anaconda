@@ -86,13 +86,21 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        # TODO: Implement this method
-        pass
+        configuration = RPMOSTreeConfigurationData()
+        configuration.osname = data.ostreesetup.osname
+        configuration.remote = data.ostreesetup.remote
+        configuration.url = data.ostreesetup.url
+        configuration.ref = data.ostreesetup.ref
+        configuration.gpg_verification_enabled = not data.ostreesetup.nogpg
+        self.set_configuration(configuration)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        # TODO: Implement this method
-        pass
+        data.ostreesetup.osname = self.configuration.osname
+        data.ostreesetup.remote = self.configuration.remote
+        data.ostreesetup.url = self.configuration.url
+        data.ostreesetup.ref = self.configuration.ref
+        data.ostreesetup.nogpg = not self.configuration.gpg_verification_enabled
 
     def set_up_with_tasks(self):
         """Set up the installation source for installation.

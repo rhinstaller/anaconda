@@ -21,6 +21,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 log = get_module_logger(__name__)
 
@@ -49,13 +50,19 @@ class RPMOSTreeModule(PayloadBase):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        # TODO: Implement this method
-        pass
+        source_type = SourceFactory.get_rpm_ostree_type_for_kickstart(data)
+
+        if source_type is None:
+            return
+
+        source = SourceFactory.create_source(source_type)
+        source.process_kickstart(data)
+        self.add_source(source)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        # TODO: Implement this method
-        pass
+        for source in self.sources:
+            source.setup_kickstart(data)
 
     def pre_install_with_tasks(self):
         """Execute preparation steps.

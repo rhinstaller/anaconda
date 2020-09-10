@@ -21,8 +21,11 @@ from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import RPMOSTreeModule
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
+    PayloadKickstartSharedTest
 
 
 class RPMOSTreeInterfaceTestCase(unittest.TestCase):
@@ -47,3 +50,39 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.SupportedSourceTypes, [
             SOURCE_TYPE_RPM_OSTREE
         ])
+
+
+class RPMOSTreeKickstartTestCase(unittest.TestCase):
+    """Test the RPM OSTree kickstart commands."""
+
+    def setUp(self):
+        self.maxDiff = None
+        self.module = PayloadsService()
+        self.interface = PayloadsInterface(self.module)
+        self.shared_ks_tests = PayloadKickstartSharedTest(
+            test=self,
+            payload_service=self.module,
+            payload_service_intf=self.interface
+        )
+
+    def _check_properties(self, expected_source_type):
+        payload = self.shared_ks_tests.get_payload()
+        self.assertIsInstance(payload, RPMOSTreeModule)
+
+        if expected_source_type is None:
+            self.assertFalse(payload.sources)
+        else:
+            sources = payload.sources
+            self.assertEqual(1, len(sources))
+            self.assertEqual(sources[0].type.value, expected_source_type)
+
+    def ostree_kickstart_test(self):
+        ks_in = """
+        ostreesetup --osname="fedora-atomic" --remote="fedora-atomic-28" --url="file:///ostree/repo" --ref="fedora/28/x86_64/atomic-host" --nogpg
+        """
+        ks_out = """
+        # OSTree setup
+        ostreesetup --osname="fedora-atomic" --remote="fedora-atomic-28" --url="file:///ostree/repo" --ref="fedora/28/x86_64/atomic-host" --nogpg
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out="", ks_tmp=ks_out)
+        self._check_properties(SOURCE_TYPE_RPM_OSTREE)

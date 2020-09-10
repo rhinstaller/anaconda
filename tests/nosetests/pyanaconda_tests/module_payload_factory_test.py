@@ -75,6 +75,11 @@ class PayloadFactoryTestCase(TestCase):
         )
 
         self._check_payload_type(
+            PayloadType.RPM_OSTREE,
+            "ostreesetup --osname=atomic --url=file:///repo --ref=fedora/atomic-host"
+        )
+
+        self._check_payload_type(
             None,
             ""
         )

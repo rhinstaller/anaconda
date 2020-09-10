@@ -68,4 +68,7 @@ class PayloadFactory(object):
            data.url.seen:
             return PayloadType.DNF
 
+        if data.ostreesetup.seen:
+            return PayloadType.RPM_OSTREE
+
         return None
