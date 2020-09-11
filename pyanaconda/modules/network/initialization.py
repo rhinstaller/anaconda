@@ -423,6 +423,11 @@ class DumpMissingConfigFilesTask(Task):
                 s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, bound_mac)
                 log.debug("%s: iface %s bound to mac address %s by ifname boot option",
                           self.name, iface, bound_mac)
+        log.debug("%s: updating addr-gen-mode of connection %s for %s",
+                  self.name, con.get_uuid(), iface)
+        s_ipv6 = con.get_setting_ip6_config()
+        s_ipv6.set_property(NM.SETTING_IP6_CONFIG_ADDR_GEN_MODE,
+                            NM.SettingIP6ConfigAddrGenMode.EUI64)
 
     @guard_by_system_configuration(return_value=[])
     def run(self):
