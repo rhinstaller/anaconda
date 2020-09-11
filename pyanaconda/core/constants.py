@@ -468,8 +468,36 @@ URL_TYPE_BASEURL = "BASEURL"
 URL_TYPE_MIRRORLIST = "MIRRORLIST"
 URL_TYPE_METALINK = "METALINK"
 
-# Default values of DNF repository configuration
+# Default values of DNF configuration.
 DNF_DEFAULT_REPO_COST = 1000
+DNF_DEFAULT_TIMEOUT = -1
+DNF_DEFAULT_RETRIES = -1
+
+# Group package types.
+GROUP_PACKAGE_TYPE_MANDATORY = "mandatory"
+GROUP_PACKAGE_TYPE_CONDITIONAL = "conditional"
+GROUP_PACKAGE_TYPE_DEFAULT = "default"
+GROUP_PACKAGE_TYPE_OPTIONAL = "optional"
+
+GROUP_PACKAGE_TYPES_ALL = [
+    GROUP_PACKAGE_TYPE_MANDATORY,
+    GROUP_PACKAGE_TYPE_CONDITIONAL,
+    GROUP_PACKAGE_TYPE_DEFAULT,
+    GROUP_PACKAGE_TYPE_OPTIONAL,
+]
+
+GROUP_PACKAGE_TYPES_REQUIRED = [
+    GROUP_PACKAGE_TYPE_MANDATORY,
+    GROUP_PACKAGE_TYPE_CONDITIONAL,
+]
+
+# The multilib policy.
+MULTILIB_POLICY_ALL = "all"
+MULTILIB_POLICY_BEST = "best"
+
+# Languages marked for installation via RPM macros.
+RPM_LANGUAGES_NONE = "none"  # represents %{nil}
+RPM_LANGUAGES_ALL = "all"
 
 # Subscription request types
 #
