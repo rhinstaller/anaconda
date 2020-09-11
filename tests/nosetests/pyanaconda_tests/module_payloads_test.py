@@ -67,7 +67,9 @@ class PayloadsInterfaceTestCase(TestCase):
             "ostreesetup",
             "url"
         ])
-        self.assertEqual(self.payload_interface.KickstartSections, [])
+        self.assertEqual(self.payload_interface.KickstartSections, [
+            "packages"
+        ])
         self.assertEqual(self.payload_interface.KickstartAddons, [])
 
     def no_kickstart_test(self):

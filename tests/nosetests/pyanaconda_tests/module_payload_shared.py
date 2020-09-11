@@ -58,6 +58,8 @@ class PayloadKickstartSharedTest(object):
             if ks_valid and expected_publish_calls != 0:
                 publisher.assert_called()
                 self._test.assertEqual(publisher.call_count, expected_publish_calls)
+            else:
+                publisher.assert_not_called()
 
             return result
 

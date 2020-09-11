@@ -43,6 +43,7 @@ from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadShared
 class DNFKSTestCase(unittest.TestCase):
 
     def setUp(self):
+        self.maxDiff = None
         self.module = PayloadsService()
         self.interface = PayloadsInterface(self.module)
 
@@ -114,7 +115,6 @@ class DNFKSTestCase(unittest.TestCase):
         self._check_properties(SOURCE_TYPE_NFS)
 
     def url_kickstart_test(self):
-        self.maxDiff = None
         ks_in = """
         url --proxy=https://ClarkKent:suuuperrr@earth:1 --noverifyssl --url http://super/powers --sslcacert wardrobe.cert --sslclientcert private-wardrobe.cert --sslclientkey super-key.key
         """
@@ -126,7 +126,6 @@ class DNFKSTestCase(unittest.TestCase):
         self._check_properties(SOURCE_TYPE_URL)
 
     def url_mirrorlist_kickstart_test(self):
-        self.maxDiff = None
         ks_in = """
         url --mirrorlist http://cool/mirror
         """
@@ -138,7 +137,6 @@ class DNFKSTestCase(unittest.TestCase):
         self._check_properties(SOURCE_TYPE_URL)
 
     def url_metalink_kickstart_test(self):
-        self.maxDiff = None
         ks_in = """
         url --metalink http://itsjustametanotrealstuff --proxy="https://ClarkKent:suuuperrr@earth:1" --sslcacert="wardrobe.cert"
         """
@@ -148,6 +146,181 @@ class DNFKSTestCase(unittest.TestCase):
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
+
+    def packages_section_empty_kickstart_test(self):
+        """Test the empty packages section."""
+        ks_in = """
+        %packages
+        %end
+        """
+        ks_out = """
+        %packages
+
+        %end
+        """
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out="", ks_tmp=ks_out
+        )
+
+    def packages_attributes_ignore_test(self):
+        """Test the packages section with attributes for ignoring."""
+        ks_in = """
+        %packages --ignoremissing --ignorebroken
+        %end
+        """
+        ks_out = """
+        %packages --ignoremissing --ignorebroken
+
+        %end
+        """
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out="", ks_tmp=ks_out
+        )
+
+    def packages_attributes_exclude_test(self):
+        """Test the packages section with attributes for exclusion."""
+        ks_in = """
+        %packages --excludedocs --nocore --inst-langs= --exclude-weakdeps
+        %end
+        """
+        ks_out = """
+        %packages --excludedocs --nocore --inst-langs= --exclude-weakdeps
+
+        %end
+        """
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out="", ks_tmp=ks_out
+        )
+
+    def packages_attributes_other_kickstart_test(self):
+        """Test the packages section with other attributes."""
+        ks_in = """
+        %packages --default --inst-langs en,es --multilib --timeout 10 --retries 5
+
+        %end
+        """
+        ks_out = """
+        %packages --default --inst-langs=en,es --multilib --timeout=10 --retries=5
+
+        %end
+        """
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out="", ks_tmp=ks_out
+        )
+
+    def packages_section_include_kickstart_test(self):
+        """Test the packages section."""
+        ks_in = """
+        %packages
+        package
+        @group
+        @module:10
+        @module2:1.5/server
+        @^environment
+        %end
+        """
+        ks_out = """
+        %packages
+        @^environment
+        @group
+        @module2:1.5/server
+        @module:10
+        package
+
+        %end
+        """
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out="", ks_tmp=ks_out
+        )
+
+    def packages_section_complex_include_kickstart_test(self):
+        """Test the packages section with duplicates."""
+        ks_in = """
+        %packages
+        @^environment1
+        package1
+        @group1 --nodefaults
+        package2
+
+        # Only this environment will stay (last specified wins)
+        @^environment2
+        @group2
+        @group3 --optional
+
+        # duplicates
+        package2
+        @group2
+
+        # modules
+        @module:4
+        @module:3.5/server
+
+        %end
+        """
+        # The last specified environment wins, you can't specify two environments
+        # Same package or group specified twice will be deduplicated
+        ks_out = """
+        %packages
+        @^environment2
+        @group1 --nodefaults
+        @group2
+        @group3 --optional
+        @module:3.5/server
+        @module:4
+        package1
+        package2
+
+        %end
+        """
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out="", ks_tmp=ks_out
+        )
+
+    def packages_section_exclude_kickstart_test(self):
+        """Test the packages section with excludes."""
+        ks_in = """
+        %packages
+        -vim
+        %end
+        """
+        ks_out = """
+        %packages
+        -vim
+
+        %end
+        """
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out="", ks_tmp=ks_out
+        )
+
+    def packages_section_complex_exclude_kickstart_test(self):
+        """Test the packages section with complex exclude example."""
+        ks_in = """
+        %packages
+        @^environment1
+        @group1
+        package1
+        -package2
+        -@group2
+        @group3
+        package3
+        %end
+        """
+        ks_out = """
+        %packages
+        @^environment1
+        @group1
+        @group3
+        package1
+        package3
+        -@group2
+        -package2
+
+        %end
+        """
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out="", ks_tmp=ks_out
+        )
 
 
 class DNFInterfaceTestCase(unittest.TestCase):
