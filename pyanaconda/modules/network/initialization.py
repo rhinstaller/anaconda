@@ -24,7 +24,7 @@ from pyanaconda.modules.network.nm_client import get_device_name_from_network_da
     ensure_active_connection_for_device, update_connection_from_ksdata, \
     add_connection_from_ksdata, bound_hwaddr_of_device, get_connections_available_for_iface, \
     update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection, \
-    get_config_file_connection_of_device, get_slaves_from_connections
+    get_config_file_connection_of_device, get_slaves_from_connections, clone_connection_sync
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -426,8 +426,10 @@ class DumpMissingConfigFilesTask(Task):
         log.debug("%s: updating addr-gen-mode of connection %s for %s",
                   self.name, con.get_uuid(), iface)
         s_ipv6 = con.get_setting_ip6_config()
-        s_ipv6.set_property(NM.SETTING_IP6_CONFIG_ADDR_GEN_MODE,
-                            NM.SettingIP6ConfigAddrGenMode.EUI64)
+        # For example slave connections do not have ipv6 setting present
+        if s_ipv6:
+            s_ipv6.set_property(NM.SETTING_IP6_CONFIG_ADDR_GEN_MODE,
+                                NM.SettingIP6ConfigAddrGenMode.EUI64)
 
     @guard_by_system_configuration(return_value=[])
     def run(self):
@@ -476,13 +478,28 @@ class DumpMissingConfigFilesTask(Task):
             has_initramfs_con = any(self._is_initramfs_connection(con, iface) for con in cons)
             if has_initramfs_con:
                 log.debug("%s: device %s has initramfs connection", self.name, iface)
+                if not con and n_cons == 1:
+                    # Try to clone the persistent connection for the device
+                    # from the connection which should be a generic (not bound
+                    # to iface) connection created by NM in initramfs
+                    con = clone_connection_sync(self._nm_client, cons[0], con_id=iface)
 
             if con:
                 self._update_connection(con, iface)
                 if has_initramfs_con:
                     update_connection_values(
                         con,
-                        [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, True)]
+                        [
+                            (NM.SETTING_CONNECTION_SETTING_NAME,
+                             NM.SETTING_CONNECTION_AUTOCONNECT,
+                             True),
+                            (NM.SETTING_CONNECTION_SETTING_NAME,
+                             NM.SETTING_CONNECTION_MULTI_CONNECT,
+                             0),
+                            (NM.SETTING_CONNECTION_SETTING_NAME,
+                             NM.SETTING_CONNECTION_WAIT_DEVICE_TIMEOUT,
+                             -1)
+                        ]
                     )
                 log.debug("%s: dumping connection %s to config file for %s",
                           self.name, con.get_uuid(), iface)
@@ -494,9 +511,6 @@ class DumpMissingConfigFilesTask(Task):
                     log.warning("%s: unexpected number of connections, not dumping any",
                                 self.name)
                     continue
-                # TODO: Try to clone the persistent connection for the device
-                # from the connection which should be a generic (not bound
-                # to iface) connection created by NM in initramfs
                 log.debug("%s: creating default connection for %s", self.name, iface)
                 network_data = copy.deepcopy(self._default_network_data)
                 if has_initramfs_con:
