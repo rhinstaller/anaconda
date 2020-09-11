@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
@@ -29,6 +31,11 @@ log = get_module_logger(__name__)
 
 class DNFModule(PayloadBase):
     """The DNF payload module."""
+
+    def __init__(self):
+        super().__init__()
+        self._packages = PackagesConfigurationData()
+        self.packages_changed = Signal()
 
     def for_publication(self):
         """Get the interface used to publish this source."""
@@ -55,6 +62,23 @@ class DNFModule(PayloadBase):
             SourceType.CDN,
             SourceType.URL
         ]
+
+    @property
+    def packages(self):
+        """The packages configuration.
+
+        :return: an instance of PackagesConfigurationData
+        """
+        return self._packages
+
+    def set_packages(self, packages):
+        """Set the packages configuration.
+
+        :param packages: an instance of PackagesConfigurationData
+        """
+        self._packages = packages
+        self.packages_changed.emit()
+        log.debug("Packages are set to '%s'.", packages)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

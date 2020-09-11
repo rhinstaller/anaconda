@@ -20,21 +20,24 @@
 import unittest
 from unittest.mock import patch, PropertyMock
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
-    PayloadKickstartSharedTest
-
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
     SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL, \
-    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, GROUP_PACKAGE_TYPES_REQUIRED, \
+    GROUP_PACKAGE_TYPES_ALL, MULTILIB_POLICY_ALL
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
+    PackagesConfigurationData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
+    PayloadKickstartSharedTest
 
 
 class DNFKSTestCase(unittest.TestCase):
@@ -172,6 +175,60 @@ class DNFInterfaceTestCase(unittest.TestCase):
              SOURCE_TYPE_CDN,
              SOURCE_TYPE_URL],
             self.interface.SupportedSourceTypes)
+
+    def _check_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            PAYLOAD_DNF,
+            self.interface,
+            *args, **kwargs
+        )
+
+    def packages_property_test(self):
+        """Test the Packages property."""
+        data = {
+            "core-group-enabled": get_variant(Bool, False),
+            "default-environment-enabled": get_variant(Bool, False),
+            "environment": get_variant(Str, "environment"),
+            "groups": get_variant(List[Str], [
+                "g1", "g2"
+            ]),
+            "groups-package-types": get_variant(Dict[Str, List[Str]], {
+                "g1": GROUP_PACKAGE_TYPES_ALL,
+                "g2": GROUP_PACKAGE_TYPES_REQUIRED
+            }),
+            "excluded-groups": get_variant(List[Str], [
+                "g3", "g4"
+            ]),
+            "packages": get_variant(List[Str], [
+                "p1", "p2"
+            ]),
+            "excluded-packages": get_variant(List[Str], [
+                "p3", "p4"
+            ]),
+            "docs-excluded": get_variant(Bool, True),
+            "weakdeps-excluded": get_variant(Bool, True),
+            "missing-ignored": get_variant(Bool, True),
+            "broken-ignored": get_variant(Bool, True),
+            "languages": get_variant(Str, "en,es"),
+            "multilib-policy": get_variant(Str, MULTILIB_POLICY_ALL),
+            "timeout": get_variant(Int, 10),
+            "retries": get_variant(Int, 5),
+        }
+
+        self._check_dbus_property(
+            "Packages",
+            data
+        )
+
+        data = PackagesConfigurationData.to_structure(
+            PackagesConfigurationData()
+        )
+
+        self._check_dbus_property(
+            "Packages",
+            data
+        )
 
     @staticmethod
     def _generate_expected_repo_configuration_dict(mount_path):
