@@ -417,11 +417,15 @@ def verify_luks2_memory_requirements(storage, constraints, report_error, report_
 def verify_mounted_partitions(storage, constraints, report_error, report_warning):
     """ Check the selected disks to make sure all their partitions are unmounted.
 
+    Check both the currently known and original partitions.
+
     :param storage: a storage to check
     :param constraints: a dictionary of constraints
     :param report_error: a function for error reporting
     :param report_warning: a function for warning reporting
     """
+    partitions_to_check = {}
+
     for disk in storage.disks:
         if disk.protected:
             continue
@@ -430,14 +434,24 @@ def verify_mounted_partitions(storage, constraints, report_error, report_warning
             continue
 
         for part in disk.format.partitions:
-            part_dev = storage.devicetree.get_device_by_path(part.path)
-            if part_dev and part_dev.protected:
-                log.debug("Not checking protected %s for being mounted, assuming live "
-                          "image mount", part.path)
-                continue
-            if part.busy:
-                report_error(_("%s is currently mounted and cannot be used for the "
-                               "installation. Please unmount it and retry.") % part.path)
+            if part.path not in partitions_to_check:
+                partitions_to_check[part.path] = part
+
+        if hasattr(disk.original_format, "partitions"):
+            for part in disk.original_format.partitions:
+                if part.path not in partitions_to_check:
+                    partitions_to_check[part.path] = part
+
+    for path, part in partitions_to_check.items():
+        part_dev = storage.devicetree.get_device_by_path(path)
+        if part_dev and part_dev.protected:
+            log.debug("Not checking protected %s for being mounted, assuming live "
+                      "image mount", path)
+            return
+
+        if part.busy:
+            report_error(_("%s is currently mounted and cannot be used for the "
+                           "installation. Please unmount it and retry.") % path)
 
 
 def verify_lvm_destruction(storage, constraints, report_error, report_warning):
