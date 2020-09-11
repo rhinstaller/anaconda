@@ -31,8 +31,6 @@ os.urandom = ks_random
 
 import sys
 import logging
-import shutil
-import uuid
 import glob
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.sections import NullSection
@@ -111,15 +109,6 @@ def first_device_with_link():
 
 def setting_only_hostname(net, args):
     return net.hostname and (len(args) == 2 or (len(args) == 3 and "--hostname" in args))
-
-def nm_type_of_device(dev):
-    arp_hw_id = readsysfile("/sys/class/net/%s/type" % dev)
-    if arp_hw_id == ARPHRD_ETHER:
-        return "Ethernet"
-    elif arp_hw_id == ARPHRD_INFINIBAND:
-        return "Infiniband"
-    else:
-        return None
 
 proc_cmdline = read_cmdline("/proc/cmdline")
 
@@ -242,9 +231,6 @@ class DracutNetwork(Network, DracutArgsMixin):
                 log.error("'%s': missing --device", " ".join(args))
                 return
 
-        # write ifcfg so NM will set up the device correctly later
-        ksnet_to_ifcfg(net)
-
         return netline
 
 class DracutDisplayMode(DisplayMode, DracutArgsMixin):
@@ -321,38 +307,6 @@ def find_devname(mac):
         thismac = readsysfile("/sys/class/net/%s/address" % netif)
         if thismac.lower() == mac.lower():
             return netif
-
-# We duplicate this in pyanaconda/network.py
-def s390_settings(device):
-    cfg = {
-        'SUBCHANNELS': '',
-        'NETTYPE': '',
-        'OPTIONS': ''
-        }
-
-    subchannels = []
-    for symlink in sorted(glob.glob("/sys/class/net/%s/device/cdev[0-9]*" % device)):
-        subchannels.append(os.path.basename(os.readlink(symlink)))
-    if not subchannels:
-        return cfg
-    cfg['SUBCHANNELS'] = ','.join(subchannels)
-
-    ## cat /etc/ccw.conf
-    #qeth,0.0.0900,0.0.0901,0.0.0902,layer2=0,portname=FOOBAR,portno=0
-    #
-    #SUBCHANNELS="0.0.0900,0.0.0901,0.0.0902"
-    #NETTYPE="qeth"
-    #OPTIONS="layer2=1 portname=FOOBAR portno=0"
-    with open('/etc/ccw.conf') as f:
-        # pylint: disable=redefined-outer-name
-        for line in f:
-            if cfg['SUBCHANNELS'] in line:
-                items = line.strip().split(',')
-                cfg['NETTYPE'] = items[0]
-                cfg['OPTIONS'] = " ".join(i for i in items[1:] if '=' in i)
-                break
-
-    return cfg
 
 def ksnet_to_dracut(args, lineno, net, bootdev=False):
     '''Translate the kickstart network data into dracut network data.'''
@@ -439,264 +393,6 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
         line.append("bridge=%s:%s" % (net.device, net.bridgeslaves))
 
     return " ".join(line)
-
-def add_s390_settings(dev, ifcfg):
-    s390cfg = s390_settings(dev)
-    if s390cfg['SUBCHANNELS']:
-        ifcfg.pop('HWADDR', None)
-        ifcfg['SUBCHANNELS'] = s390cfg['SUBCHANNELS']
-    if s390cfg['NETTYPE']:
-        ifcfg['NETTYPE'] = s390cfg['NETTYPE']
-    if s390cfg['OPTIONS']:
-        ifcfg['OPTIONS'] = s390cfg['OPTIONS']
-
-def ksnet_to_ifcfg(net, filename=None):
-    '''Write an ifcfg file for the given kickstart network config'''
-    dev = net.device
-    if is_mac(dev):
-        dev = find_devname(dev)
-    if not dev:
-        return
-    if (not os.path.isdir("/sys/class/net/%s" % dev)
-        and not net.bondslaves and not net.teamslaves and not net.bridgeslaves):
-        log.info("can't find device %s", dev)
-        return
-    ifcfg = dict()
-    if filename is None:
-        filename = TMPDIR+"/ifcfg/ifcfg-%s" % dev
-        if not os.path.isdir(TMPDIR+"/ifcfg"):
-            os.makedirs(TMPDIR+"/ifcfg")
-    hwaddr = readsysfile("/sys/class/net/%s/address" % dev)
-    devtype = nm_type_of_device(dev)
-    if devtype:
-        ifcfg['TYPE'] = devtype
-    if net.bindto == BIND_TO_MAC and not (net.bridgeslaves or net.bondslaves or net.teamslaves or net.vlanid):
-        ifcfg['HWADDR'] = hwaddr
-        # ifcfg-rh requires DEVICE or TYPE to be set
-        # fall back to Ethernet rather then crash the installation later
-        if 'TYPE' not in ifcfg:
-            ifcfg['TYPE'] = "Ethernet"
-    else:
-        ifcfg['DEVICE'] = dev
-    if "ifname={0}:{1}".format(dev, hwaddr).upper() in open("/proc/cmdline").read().upper():
-        # rename by initscript's 60-net-rules on target system after switchroot
-        ifcfg['DEVICE'] = dev
-        ifcfg['HWADDR'] = hwaddr
-
-    ifcfg['UUID'] = str(uuid.uuid4())
-    # we set real ONBOOT value in anaconda, here
-    # we use it to activate devcies by NM on start
-    ifcfg['ONBOOT'] = "yes" if net.activate else "no"
-
-    add_s390_settings(dev, ifcfg)
-
-    # dhcp etc.
-    if net.bootProto != "":
-        ifcfg['BOOTPROTO'] = net.bootProto
-    if net.bootProto == 'static':
-        ifcfg['IPADDR'] = net.ip
-        ifcfg['NETMASK'] = net.netmask
-        ifcfg['GATEWAY'] = net.gateway
-    if net.bootProto == 'dhcp':
-        if net.hostname:
-            ifcfg['DHCP_HOSTNAME'] = net.hostname
-
-    # ipv6 settings
-    if net.noipv6:
-        ifcfg['IPV6INIT'] = "no"
-    else:
-        ifcfg['IPV6INIT'] = "yes"
-
-        if net.ipv6 == 'dhcp':
-            ifcfg['DHCPV6C'] = "yes"
-            ifcfg['IPV6_AUTOCONF'] = "no"
-        elif net.ipv6 == 'auto':
-            ifcfg['IPV6_AUTOCONF'] = "yes" # NOTE: redundant (this is the default)
-        elif ':' in net.ipv6:
-            ifcfg['IPV6ADDR'] = net.ipv6
-            ifcfg['IPV6_AUTOCONF'] = "no"
-            if net.ipv6gateway:
-                ifcfg['IPV6_DEFAULTGW'] = net.ipv6gateway
-
-    # misc stuff
-    if net.mtu:
-        ifcfg['MTU'] = net.mtu
-    if net.nameserver:
-        for i, ip in enumerate(net.nameserver.split(",")):
-            ifcfg["DNS%d" % (i+1)] = ip
-    if net.nodefroute:
-        ifcfg['DEFROUTE'] = "no"
-
-    # FUTURE: ethtool, essid/wepkey/wpakey, etc.
-
-    if net.bootProto == 'dhcp':
-        srcpath = TMPDIR+"/dhclient.%s.lease" % dev
-        dstdir = TMPDIR+"/ifcfg-leases"
-        dstpath = "%s/dhclient-%s-%s.lease" % (dstdir, ifcfg['UUID'], dev)
-        if os.path.exists(srcpath):
-            if not os.path.isdir(dstdir):
-                os.makedirs(dstdir)
-            shutil.copyfile(srcpath, dstpath)
-
-        if net.dhcpclass:
-            ifcfg['DHCP_VENDOR_CLASS_IDENTIFIER'] = net.dhcpclass
-
-    if net.bondslaves:
-        ifcfg.pop('HWADDR', None)
-        ifcfg['TYPE'] = "Bond"
-        ifcfg['BONDING_MASTER'] = "yes"
-        ifcfg['NAME'] = "Bond connection %s" % dev
-        if ';' in net.bondopts:
-            sep = ";"
-        else:
-            sep = ","
-        ifcfg['BONDING_OPTS'] = " ".join(net.bondopts.split(sep))
-
-        for i, slave in enumerate(net.bondslaves.split(","), 1):
-            slave_ifcfg = {
-                            'TYPE' : "Ethernet",
-                            'NAME' : "%s slave %s" % (dev, i),
-                            'UUID' : str(uuid.uuid4()),
-                            'ONBOOT' : "yes" if net.activate else "no",
-                            'MASTER' : ifcfg['UUID'],
-                          }
-
-            add_connection_binding_setting(slave_ifcfg, slave, bindto=net.bindto)
-            add_s390_settings(slave, slave_ifcfg)
-            slave_filename = TMPDIR+"/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
-            log.info("writing ifcfg %s for slave %s of bond %s", slave_filename, slave, dev)
-            write_ifcfg(slave_filename, slave_ifcfg)
-
-    if net.teamslaves:
-
-        ifcfg.pop('HWADDR', None)
-        ifcfg['DEVICETYPE'] = "Team"
-        ifcfg['NAME'] = "Team connection %s" % dev
-        ifcfg['TEAM_CONFIG'] = net.teamconfig
-
-        for i, (slave, cfg) in enumerate(net.teamslaves, 1):
-            slave_ifcfg = {
-                            'DEVICETYPE' : "TeamPort",
-                            'NAME' : "%s slave %s" % (dev, i),
-                            'UUID' : str(uuid.uuid4()),
-                            'ONBOOT' : "yes" if net.activate else "no",
-                            'TEAM_MASTER' : dev,
-                          }
-            if cfg:
-                slave_ifcfg['TEAM_PORT_CONFIG'] = cfg
-            add_connection_binding_setting(slave_ifcfg, slave, bindto=net.bindto)
-            slave_filename = TMPDIR+"/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
-            log.info("writing ifcfg %s for slave %s of team %s", slave_filename, slave, dev)
-            write_ifcfg(slave_filename, slave_ifcfg)
-
-    if net.bridgeslaves:
-
-        ifcfg.pop('HWADDR', None)
-        ifcfg['TYPE'] = "Bridge"
-        ifcfg['NAME'] = "Bridge connection %s" % dev
-
-        options = {}
-        if net.bridgeopts:
-            for opt in net.bridgeopts.split(","):
-                key, _, value = opt.partition("=")
-                if not value:
-                    log.error("Invalid bridge option %s", opt)
-                    continue
-                key = key.replace('-', '_')
-                options[key] = value
-        stp = options.pop("stp", None)
-        if stp:
-            ifcfg['STP'] = stp
-        delay = options.pop("forward_delay", None)
-        if delay:
-            ifcfg['DELAY'] = delay
-        if options:
-            keyvalues = ["%s=%s" % (key, options[key]) for key in options]
-            ifcfg['BRIDGING_OPTS'] = " ".join(keyvalues)
-
-        for i, slave in enumerate(net.bridgeslaves.split(","), 1):
-            # Handle virtual slaves created by preceding network commands (eg bond)
-            if update_virtual_slave_ifcfg(slave, setting="BRIDGE=%s" % dev):
-                continue
-            slave_ifcfg = {
-                            'TYPE' : "Ethernet",
-                            'NAME' : "%s slave %s" % (dev, i),
-                            'UUID' : str(uuid.uuid4()),
-                            'ONBOOT' : "yes" if net.activate else "no",
-                            'BRIDGE' : dev,
-                          }
-            add_connection_binding_setting(slave_ifcfg, slave, bindto=net.bindto)
-            slave_filename = TMPDIR+"/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
-            log.info("writing ifcfg %s for slave %s of bridge %s", slave_filename, slave, dev)
-            write_ifcfg(slave_filename, slave_ifcfg)
-
-    if net.vlanid:
-        interface_name = net.interfacename or "%s.%s" % (dev, net.vlanid)
-        ifcfg.pop('HWADDR', None)
-        ifcfg['TYPE'] = "Vlan"
-        ifcfg['VLAN'] = "yes"
-        ifcfg['VLAN_ID'] = net.vlanid
-        ifcfg['NAME'] = "VLAN connection %s" % interface_name
-        if net.interfacename:
-            ifcfg['DEVICE'] = interface_name
-        else:
-            ifcfg.pop('DEVICE', None)
-        ifcfg['PHYSDEV'] = dev
-        filename = TMPDIR+"/ifcfg/ifcfg-%s" % interface_name
-        if net.bondslaves:
-            bond_ifcfg = {
-                           'TYPE' : "Bond",
-                           'NAME' : "Bond connection %s" % dev,
-                           'UUID' : ifcfg['UUID'],
-                           'ONBOOT' : ifcfg['ONBOOT'],
-                           'BONDING_MASTER' : ifcfg['BONDING_MASTER'],
-                           'BONDING_OPTS' : ifcfg['BONDING_OPTS'],
-                           'DEVICE' : dev,
-                         }
-            bond_filename = TMPDIR+"/ifcfg/ifcfg-%s" % dev
-            log.info("writing parent bond ifcfg %s for vlan %s", bond_filename, interface_name)
-            write_ifcfg(bond_filename, bond_ifcfg)
-        ifcfg.pop('BONDING_OPTS', None)
-        ifcfg.pop('BONDING_MASTER', None)
-        ifcfg['UUID'] = str(uuid.uuid4())
-
-    log.info("writing ifcfg %s for %s", filename, dev)
-    if write_ifcfg(filename, ifcfg):
-        return filename
-
-def add_connection_binding_setting(ifcfg, devname, bindto=None):
-    if bindto == BIND_TO_MAC:
-        hwaddr = readsysfile("/sys/class/net/%s/address" % devname)
-        ifcfg['HWADDR'] = hwaddr
-    else:
-        ifcfg['DEVICE'] = devname
-
-def write_ifcfg(filename, ifcfg):
-    try:
-        with open(filename, "w") as f:
-            f.write('# Generated by parse-kickstart\n')
-            for k,v in list(ifcfg.items()):
-                f.write('%s="%s"\n' % (k,v.replace('"', '\\"')))
-    except IOError as e:
-        log.error("can't write %s: %s", filename, e)
-        return False
-    return True
-
-def update_virtual_slave_ifcfg(slave, setting):
-    update = False
-    filename = "/tmp/ifcfg/ifcfg-%s" % slave
-    if os.path.exists(filename):
-        with open(filename, "r+") as f:
-            # pylint: disable=redefined-outer-name
-            for line in f:
-                key, _sep, val = line.strip().partition("=")
-                value = val.strip('"')
-                if (key == "TYPE" and value == "Bond") or (key == "DEVICETYPE" and value == "Team"):
-                    update = True
-            if update:
-                f.write("%s\n" % setting)
-                log.info("updated ifcfg %s with %s", filename, setting)
-    return update
 
 def process_kickstart(ksfile):
     handler = DracutHandler()
