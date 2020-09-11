@@ -64,6 +64,7 @@ class WiredTUIConfigurationData():
         self.ipv6 = "auto"
         self.ipv6gateway = ""
         self.nameserver = ""
+        self.ipv6addrgenmode = NM.SettingIP6ConfigAddrGenMode.EUI64
         self.onboot = False
 
     def set_from_connection(self, connection):
@@ -93,6 +94,7 @@ class WiredTUIConfigurationData():
         self.gateway = ip4_config.get_gateway() or ""
 
         ip6_config = connection.get_setting_ip6_config()
+        self.ipv6addrgenmode = ip6_config.get_addr_gen_mode()
         ip6_method = ip6_config.get_method()
         if ip6_method == NM.SETTING_IP6_CONFIG_METHOD_AUTO:
             self.ipv6 = "auto"
@@ -157,6 +159,7 @@ class WiredTUIConfigurationData():
 
         connection.remove_setting(NM.SettingIP6Config)
         s_ip6 = NM.SettingIP6Config.new()
+        s_ip6.set_property(NM.SETTING_IP6_CONFIG_ADDR_GEN_MODE, self.ipv6addrgenmode)
         s_ip6.set_property(NM.SETTING_IP_CONFIG_METHOD, method6)
         if method6 == NM.SETTING_IP6_CONFIG_METHOD_MANUAL:
             addr6, _slash, prefix6 = self.ipv6.partition("/")
@@ -185,8 +188,10 @@ class WiredTUIConfigurationData():
 
     def __str__(self):
         return "WiredTUIConfigurationData ip:{} netmask:{} gateway:{} ipv6:{} ipv6gateway:{} " \
-            "nameserver:{} onboot:{}".format(self.ip, self.netmask, self.gateway, self.ipv6,
-                                             self.ipv6gateway, self.nameserver, self.onboot)
+            "nameserver:{} onboot:{} addr-gen-mode:{}".format(self.ip, self.netmask, self.gateway,
+                                                              self.ipv6, self.ipv6gateway,
+                                                              self.nameserver, self.onboot,
+                                                              self.ipv6addrgenmode)
 
 
 class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
