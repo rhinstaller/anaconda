@@ -37,7 +37,8 @@ from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
-    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask
+    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
+    CreateRescueImagesTask, CreateBLSEntriesTask
 from pyanaconda.modules.storage.constants import BootloaderMode, ZIPLSecureBoot
 
 log = get_module_logger(__name__)
@@ -457,55 +458,63 @@ class BootloaderModule(KickstartBaseModule):
 
         return requirements
 
-    def configure_with_task(self, kernel_versions):
-        """Configure the bootloader.
+    def install_bootloader_with_tasks(self, payload_type, kernel_versions):
+        """Install the bootloader with a list of tasks.
 
         FIXME: This is just a temporary method.
 
+        :param payload_type: a string with the payload type
         :param kernel_versions: a list of kernel versions
-        :return: a task
+        :return: a list of tasks
         """
-        return ConfigureBootloaderTask(
-            storage=self.storage,
-            mode=self.bootloader_mode,
-            kernel_versions=kernel_versions,
-            sysroot=conf.target.system_root
-        )
+        return [
+            CreateRescueImagesTask(
+                payload_type=payload_type,
+                kernel_versions=kernel_versions,
+                sysroot=conf.target.system_root
+            ),
+            ConfigureBootloaderTask(
+                storage=self.storage,
+                mode=self.bootloader_mode,
+                payload_type=payload_type,
+                kernel_versions=kernel_versions,
+                sysroot=conf.target.system_root
+            ),
+            InstallBootloaderTask(
+                storage=self.storage,
+                mode=self.bootloader_mode
+            ),
+            CreateBLSEntriesTask(
+                storage=self.storage,
+                payload_type=payload_type,
+                kernel_versions=kernel_versions,
+                sysroot=conf.target.system_root
+            )
+        ]
 
-    def install_with_task(self):
-        """Install the bootloader.
+    def generate_initramfs_with_tasks(self, payload_type, kernel_versions):
+        """Generate initramfs with a list of tasks.
 
         FIXME: This is just a temporary method.
 
-        :return: a task
-        """
-        return InstallBootloaderTask(
-            storage=self.storage,
-            mode=self.bootloader_mode
-        )
-
-    def fix_btrfs_with_task(self, kernel_versions):
-        """Fix the bootloader on BTRFS.
-
-        FIXME: This is just a temporary method.
-
+        :param payload_type: a string with the payload type
         :param kernel_versions: a list of kernel versions
-        :return: a task
+        :return: a list of tasks
         """
-        return FixBTRFSBootloaderTask(
-            storage=self.storage,
-            mode=self.bootloader_mode,
-            kernel_versions=kernel_versions,
-            sysroot=conf.target.system_root
-        )
-
-    def fix_zipl_with_task(self):
-        """Fix the ZIPL bootloader.
-
-        FIXME: This is just a temporary method.
-
-        :return: a task
-        """
-        return FixZIPLBootloaderTask(
-            mode=self.bootloader_mode
-        )
+        return [
+            RecreateInitrdsTask(
+                payload_type=payload_type,
+                kernel_versions=kernel_versions,
+                sysroot=conf.target.system_root
+            ),
+            FixBTRFSBootloaderTask(
+                storage=self.storage,
+                mode=self.bootloader_mode,
+                payload_type=payload_type,
+                kernel_versions=kernel_versions,
+                sysroot=conf.target.system_root
+            ),
+            FixZIPLBootloaderTask(
+                mode=self.bootloader_mode
+            )
+        ]

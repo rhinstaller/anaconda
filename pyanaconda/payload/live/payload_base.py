@@ -27,9 +27,6 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
 from pyanaconda.errors import errorHandler, ERROR_RAISE
-from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadInstallError
@@ -122,77 +119,12 @@ class BaseLivePayload(Payload):
             self.pct = 100
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
-        # Live needs to create the rescue image before bootloader is written
-        self._create_rescue_image()
-
-    def _create_rescue_image(self):
-        """Create the rescue initrd images for each installed kernel. """
-        # Always make sure the new system has a new machine-id, it won't boot without it
-        # (and nor will some of the subsequent commands like grub2-mkconfig and kernel-install)
-        log.info("Generating machine ID")
-        if os.path.exists(conf.target.system_root + "/etc/machine-id"):
-            os.unlink(conf.target.system_root + "/etc/machine-id")
-        util.execInSysroot("systemd-machine-id-setup", [])
-
-        if os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
-            use_nkp = True
-        else:
-            log.debug("new-kernel-pkg does not exist, calling scripts directly.")
-            use_nkp = False
-
-        for kernel in self.kernel_version_list:
-            log.info("Generating rescue image for %s", kernel)
-            if use_nkp:
-                util.execInSysroot("new-kernel-pkg",
-                                   ["--rpmposttrans", kernel])
-            else:
-                files = glob.glob(conf.target.system_root + "/etc/kernel/postinst.d/*")
-                srlen = len(conf.target.system_root)
-                files = sorted([f[srlen:] for f in files
-                                if os.access(f, os.X_OK)])
-                for file in files:
-                    util.execInSysroot(file,
-                                       [kernel, "/boot/vmlinuz-%s" % kernel])
-
     def post_install(self):
         """ Perform post-installation tasks. """
         progressQ.send_message(_("Performing post-installation setup tasks"))
         payload_utils.unmount(INSTALL_TREE, raise_exc=True)
 
         super().post_install()
-
-        # Not using BLS configuration, skip it
-        if os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
-            return
-
-        # Remove any existing BLS entries, they will not match the new system's
-        # machine-id or /boot mountpoint.
-        for file in glob.glob(conf.target.system_root + "/boot/loader/entries/*.conf"):
-            log.info("Removing old BLS entry: %s", file)
-            os.unlink(file)
-
-        # Create new BLS entries for this system
-        for kernel in self.kernel_version_list:
-            log.info("Regenerating BLS info for %s", kernel)
-            util.execInSysroot("kernel-install", ["add",
-                                                  kernel,
-                                                  "/lib/modules/{0}/vmlinuz".format(kernel)])
-
-        # Update the bootloader configuration to make sure that the BLS
-        # entries will have the correct kernel cmdline and not the value
-        # taken from /proc/cmdline, that is used to boot the live image.
-        bootloader = STORAGE.get_proxy(BOOTLOADER)
-        if bootloader.IsEFI():
-            grub_cfg_path = "/etc/grub2-efi.cfg"
-        else:
-            grub_cfg_path = "/etc/grub2.cfg"
-
-        # TODO: add a method to the bootloader interface that updates the
-        # configuration and avoid having bootloader specific logic here.
-        rc = util.execInSysroot("grub2-mkconfig",
-                                ["-o", grub_cfg_path])
-        if rc:
-            raise BootloaderInstallationError("failed to write boot loader configuration")
 
     def _update_kernel_version_list(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")

@@ -18,15 +18,66 @@
 import os
 from glob import glob
 
+from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
+from pyanaconda.modules.storage.bootloader.efi import EFIBase
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.util import decode_bytes
+from pyanaconda.core.util import decode_bytes, execWithRedirect
 from pyanaconda.product import productName
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["configure_boot_loader", "install_boot_loader"]
+__all__ = ["configure_boot_loader", "install_boot_loader", "recreate_initrds",
+           "create_rescue_images"]
+
+
+def create_rescue_images(sysroot, kernel_versions):
+    """Create the rescue initrd images for each installed kernel."""
+    # Always make sure the new system has a new machine-id, it
+    # won't boot without it and some of the subsequent commands
+    # like grub2-mkconfig and kernel-install will not work as well.
+    log.info("Generating a new machine id.")
+
+    if os.path.exists(sysroot + "/etc/machine-id"):
+        os.unlink(sysroot + "/etc/machine-id")
+
+    execWithRedirect(
+        "systemd-machine-id-setup",
+        [],
+        root=sysroot
+    )
+
+    if os.path.exists(sysroot + "/usr/sbin/new-kernel-pkg"):
+        use_nkp = True
+    else:
+        log.debug("new-kernel-pkg does not exist, calling scripts directly.")
+        use_nkp = False
+
+    for kernel in kernel_versions:
+        log.info("Generating rescue image for %s.", kernel)
+
+        if use_nkp:
+            execWithRedirect(
+                "new-kernel-pkg",
+                ["--rpmposttrans", kernel],
+                root=sysroot
+            )
+        else:
+            files = glob(sysroot + "/etc/kernel/postinst.d/*")
+            srlen = len(sysroot)
+            files = sorted([
+                f[srlen:] for f in files
+                if os.access(f, os.X_OK)]
+            )
+
+            for file in files:
+                execWithRedirect(
+                    file,
+                    [kernel, "/boot/vmlinuz-%s" % kernel],
+                    root=sysroot
+                )
 
 
 def configure_boot_loader(sysroot, storage, kernel_versions):
@@ -164,3 +215,110 @@ def install_boot_loader(storage):
 
     # Install the bootloader.
     storage.bootloader.write()
+
+
+def create_bls_entries(sysroot, storage, kernel_versions):
+    """Create BLS entries.
+
+    :param sysroot: a path to the root of the installed system
+    :param storage: an instance of the storage
+    :param kernel_versions: a list of kernel versions
+    """
+    # Not using BLS configuration, skip it
+    if os.path.exists(sysroot + "/usr/sbin/new-kernel-pkg"):
+        return
+
+    # Remove any existing BLS entries, they will not match the new system's
+    # machine-id or /boot mountpoint.
+    for file in glob(sysroot + "/boot/loader/entries/*.conf"):
+        log.info("Removing old BLS entry: %s", file)
+        os.unlink(file)
+
+    # Create new BLS entries for this system
+    for kernel in kernel_versions:
+        log.info("Regenerating BLS info for %s", kernel)
+        execWithRedirect(
+            "kernel-install",
+            ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
+            root=sysroot
+        )
+
+    # Update the bootloader configuration to make sure that the BLS
+    # entries will have the correct kernel cmdline and not the value
+    # taken from /proc/cmdline, that is used to boot the live image.
+    if isinstance(storage.bootloader, EFIBase):
+        grub_cfg_path = "/etc/grub2-efi.cfg"
+    else:
+        grub_cfg_path = "/etc/grub2.cfg"
+
+    rc = execWithRedirect(
+        "grub2-mkconfig",
+        ["-o", grub_cfg_path],
+        root=sysroot
+    )
+
+    if rc:
+        raise BootloaderInstallationError(
+            "failed to write boot loader configuration"
+        )
+
+
+def recreate_initrds(sysroot, kernel_versions):
+    """Recreate the initrds by calling new-kernel-pkg or dracut.
+
+    This needs to be done after all configuration files have been
+    written, since dracut depends on some of them.
+
+    :param sysroot: a path to the root of the installed system
+    :param kernel_versions: a list of kernel versions
+    """
+    if os.path.exists(sysroot + "/usr/sbin/new-kernel-pkg"):
+        use_dracut = False
+    else:
+        log.debug("new-kernel-pkg does not exist, using dracut instead")
+        use_dracut = True
+
+    for kernel in kernel_versions:
+        log.info("Recreating initrd for %s", kernel)
+
+        if conf.target.is_image:
+            # Dracut runs in the host-only mode by default, so we need to
+            # turn it off by passing the -N option, because the mode is not
+            # sensible for disk image installations. Using /dev/disk/by-uuid/
+            # is necessary due to disk image naming.
+            execWithRedirect(
+                "dracut", [
+                    "-N", "--persistent-policy", "by-uuid",
+                    "-f", "/boot/initramfs-%s.img" % kernel, kernel
+                ],
+                root=sysroot
+            )
+        else:
+            if use_dracut:
+                execWithRedirect(
+                    "depmod", ["-a", kernel], root=sysroot
+                )
+                execWithRedirect(
+                    "dracut",
+                    ["-f", "/boot/initramfs-%s.img" % kernel, kernel],
+                    root=sysroot
+                )
+            else:
+                execWithRedirect(
+                    "new-kernel-pkg",
+                    ["--mkinitrd", "--dracut", "--depmod", "--update", kernel],
+                    root=sysroot
+                )
+
+            # if the installation is running in fips mode then make sure
+            # fips is also correctly enabled in the installed system
+            if kernel_arguments.get("fips") == "1":
+                # We use the --no-bootcfg option as we don't want fips-mode-setup
+                # to modify the bootloader configuration. Anaconda already does
+                # everything needed & it would require grubby to be available on
+                # the system.
+                execWithRedirect(
+                    "fips-mode-setup",
+                    ["--enable", "--no-bootcfg"],
+                    root=sysroot
+                )

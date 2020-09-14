@@ -61,10 +61,6 @@ class RPMOSTreePayload(Payload):
         return PAYLOAD_TYPE_RPM_OSTREE
 
     @property
-    def handles_bootloader_configuration(self):
-        return True
-
-    @property
     def kernel_version_list(self):
         # OSTree handles bootloader configuration
         return []
@@ -385,12 +381,6 @@ class RPMOSTreePayload(Payload):
                 payload_utils.unmount(mount)
             except CalledProcessError as e:
                 log.debug("unmounting %s failed: %s", mount, str(e))
-
-    def recreate_initrds(self):
-        # For rpmostree payloads, we're replicating an initramfs from
-        # a compose server, and should never be regenerating them
-        # per-machine.
-        pass
 
     def post_install(self):
         super().post_install()

@@ -17,8 +17,11 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import os
 import tempfile
 import unittest
+
+from unittest import mock
 from unittest.mock import Mock, patch
 
 from blivet.devices import BTRFSDevice, DiskDevice
@@ -27,7 +30,7 @@ from blivet.size import Size
 
 from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_task_creation, reset_boot_loader_factory
+    reset_boot_loader_factory, check_task_creation_list
 
 from pyanaconda.modules.storage import platform
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
@@ -40,12 +43,14 @@ from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
-from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_LOCATION_PARTITION
+from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_LOCATION_PARTITION, \
+    PAYLOAD_TYPE_RPM_OSTREE, PAYLOAD_TYPE_LIVE_IMAGE
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
-    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask
+    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
+    CreateRescueImagesTask, CreateBLSEntriesTask
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):
@@ -186,73 +191,173 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.bootloader_interface.DetectWindows(), True)
 
     @patch_dbus_publish_object
-    def configure_with_task_test(self, publisher):
-        """Test ConfigureWithTask."""
+    def install_bootloader_with_tasks_test(self, publisher):
+        """Test InstallBootloaderWithTasks."""
         storage = Mock()
         version = "4.17.7-200.fc28.x86_64"
 
         self.bootloader_module.on_storage_changed(storage)
-        task_path = self.bootloader_interface.ConfigureWithTask([version])
 
-        obj = check_task_creation(self, task_path, publisher, ConfigureBootloaderTask)
+        task_classes = [
+            CreateRescueImagesTask,
+            ConfigureBootloaderTask,
+            InstallBootloaderTask,
+            CreateBLSEntriesTask
+        ]
 
-        self.assertEqual(obj.implementation._storage, storage)
-        self.assertEqual(obj.implementation._versions, [version])
+        task_paths = self.bootloader_interface.InstallBootloaderWithTasks(
+            PAYLOAD_TYPE_LIVE_IMAGE, [version]
+        )
 
-    @patch_dbus_publish_object
-    def install_with_task_test(self, publisher):
-        """Test InstallWithTask."""
-        storage = Mock()
-
-        self.bootloader_module.on_storage_changed(storage)
-        task_path = self.bootloader_interface.InstallWithTask()
-
-        obj = check_task_creation(self, task_path, publisher, InstallBootloaderTask)
-
-        self.assertEqual(obj.implementation._storage, storage)
+        check_task_creation_list(self, task_paths, publisher, task_classes)
 
     @patch_dbus_publish_object
-    def fix_btrfs_with_task_test(self, publisher):
-        """Test FixBTRFSWithTask."""
+    def generate_initramfs_with_tasks_test(self, publisher):
+        """Test GenerateInitramfsWithTasks."""
         storage = Mock()
         version = "4.17.7-200.fc28.x86_64"
 
         self.bootloader_module.on_storage_changed(storage)
-        task_path = self.bootloader_interface.FixBTRFSWithTask([version])
 
-        obj = check_task_creation(self, task_path, publisher, FixBTRFSBootloaderTask)
-        self.assertEqual(obj.implementation._storage, storage)
-        self.assertEqual(obj.implementation._versions, [version])
+        task_classes = [
+            RecreateInitrdsTask,
+            FixBTRFSBootloaderTask,
+            FixZIPLBootloaderTask,
+        ]
 
-    @patch_dbus_publish_object
-    def fix_zipl_with_task_test(self, publisher):
-        """Test FixZIPLWithTask."""
-        storage = Mock()
+        task_paths = self.bootloader_interface.GenerateInitramfsWithTasks(
+            PAYLOAD_TYPE_LIVE_IMAGE, [version]
+        )
 
-        self.bootloader_module.on_storage_changed(storage)
-        task_path = self.bootloader_interface.FixZIPLWithTask()
-
-        obj = check_task_creation(self, task_path, publisher, FixZIPLBootloaderTask)
-        self.assertEqual(obj.implementation._mode, self.bootloader_module.bootloader_mode)
+        check_task_creation_list(self, task_paths, publisher, task_classes)
 
 
 class BootloaderTasksTestCase(unittest.TestCase):
     """Test tasks for the boot loader."""
 
+    @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
+    def create_rescue_images_test(self, exec_mock):
+        """Test the installation task that creates rescue images."""
+        version = "4.17.7-200.fc28.x86_64"
+
+        with tempfile.TemporaryDirectory() as root:
+            task = CreateRescueImagesTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_not_called()
+
+        exec_mock.reset_mock()
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/etc/", exist_ok=True)
+            open(root + "/etc/machine-id", 'wb').close()
+
+            os.makedirs(root + "/usr/sbin/", exist_ok=True)
+            open(root + "/usr/sbin/new-kernel-pkg", 'wb').close()
+
+            task = CreateRescueImagesTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "systemd-machine-id-setup",
+                    [],
+                    root=root
+                ),
+                mock.call(
+                    "new-kernel-pkg", [
+                        "--rpmposttrans", "4.17.7-200.fc28.x86_64"
+                    ], root=root
+                )
+            ])
+
+        exec_mock.reset_mock()
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/etc/kernel/postinst.d/", exist_ok=True)
+
+            for name in ["c", "a", "b"]:
+                path = root + "/etc/kernel/postinst.d/" + name
+                open(path, 'wb').close()
+                os.chmod(path, 0o775)
+
+            task = CreateRescueImagesTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "systemd-machine-id-setup",
+                    [],
+                    root=root
+                ),
+                mock.call(
+                    "/etc/kernel/postinst.d/a", [
+                        "4.17.7-200.fc28.x86_64",
+                        "/boot/vmlinuz-4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+                mock.call(
+                    "/etc/kernel/postinst.d/b", [
+                        "4.17.7-200.fc28.x86_64",
+                        "/boot/vmlinuz-4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+                mock.call(
+                    "/etc/kernel/postinst.d/c", [
+                        "4.17.7-200.fc28.x86_64",
+                        "/boot/vmlinuz-4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+            ])
+
     def configure_test(self):
         """Test the final configuration of the boot loader."""
         bootloader = Mock()
         storage = Mock(bootloader=bootloader)
-
         version = "4.17.7-200.fc28.x86_64"
 
         with tempfile.TemporaryDirectory() as root:
-            ConfigureBootloaderTask(storage, BootloaderMode.DISABLED, [version], root).run()
+            ConfigureBootloaderTask(
+                storage=storage,
+                mode=BootloaderMode.ENABLED,
+                payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+                kernel_versions=[version],
+                sysroot=root
+            ).run()
 
         bootloader.add_image.assert_not_called()
 
         with tempfile.TemporaryDirectory() as root:
-            ConfigureBootloaderTask(storage, BootloaderMode.ENABLED, [version], root).run()
+            ConfigureBootloaderTask(
+                storage=storage,
+                mode=BootloaderMode.DISABLED,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version],
+                sysroot=root
+            ).run()
+
+        bootloader.add_image.assert_not_called()
+
+        with tempfile.TemporaryDirectory() as root:
+            ConfigureBootloaderTask(
+                storage=storage,
+                mode=BootloaderMode.ENABLED,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version],
+                sysroot=root
+            ).run()
 
         bootloader.add_image.assert_called_once()
         image = bootloader.add_image.call_args[0][0]
@@ -279,6 +384,185 @@ class BootloaderTasksTestCase(unittest.TestCase):
         bootloader.set_boot_args.assert_called_once()
         bootloader.write.assert_called_once()
 
+    @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
+    def create_bls_entries_test(self, exec_mock):
+        """Test the installation task that creates BLS entries."""
+        version = "4.17.7-200.fc28.x86_64"
+        storage=Mock()
+
+        with tempfile.TemporaryDirectory() as root:
+            task = CreateBLSEntriesTask(
+                storage=storage,
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+                kernel_versions=[version]
+            )
+            task.run()
+            exec_mock.assert_not_called()
+
+        exec_mock.reset_mock()
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/usr/sbin/", exist_ok=True)
+            open(root + "/usr/sbin/new-kernel-pkg", 'wb').close()
+
+            task = CreateBLSEntriesTask(
+                storage=storage,
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+            task.run()
+            exec_mock.assert_not_called()
+
+        exec_mock.reset_mock()
+        exec_mock.return_value = 0
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/boot/loader/entries/", exist_ok=True)
+            open(root + "/boot/loader/entries/fake.conf", 'wb').close()
+
+            task = CreateBLSEntriesTask(
+                storage=storage,
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+            task.run()
+
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "kernel-install", [
+                        "add", "4.17.7-200.fc28.x86_64",
+                        "/lib/modules/4.17.7-200.fc28.x86_64/vmlinuz"
+                    ], root=root
+                ),
+                mock.call(
+                    "grub2-mkconfig", [
+                        "-o", "/etc/grub2.cfg"
+                    ], root=root
+                )
+            ])
+            self.assertFalse(os.path.exists(
+                root + "/boot/loader/entries/fake.conf"
+            ))
+
+        exec_mock.reset_mock()
+        exec_mock.return_value = 0
+        storage = Mock(bootloader=EFIGRUB())
+
+        with tempfile.TemporaryDirectory() as root:
+            task = CreateBLSEntriesTask(
+                storage=storage,
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "kernel-install", [
+                        "add", "4.17.7-200.fc28.x86_64",
+                        "/lib/modules/4.17.7-200.fc28.x86_64/vmlinuz"
+                    ], root=root
+                ),
+                mock.call(
+                    "grub2-mkconfig", [
+                        "-o", "/etc/grub2-efi.cfg"
+                    ], root=root
+                )
+            ])
+
+    @patch('pyanaconda.modules.storage.bootloader.utils.kernel_arguments')
+    @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
+    @patch('pyanaconda.modules.storage.bootloader.utils.conf')
+    def recreate_initrds_test(self, conf_mock, exec_mock, args_mock):
+        """Test the installation task that recreates initrds."""
+        version = "4.17.7-200.fc28.x86_64"
+
+        with tempfile.TemporaryDirectory() as root:
+            task = RecreateInitrdsTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+                kernel_versions=[version]
+            )
+            task.run()
+            exec_mock.assert_not_called()
+
+        exec_mock.reset_mock()
+        conf_mock.target.is_image = False
+        args_mock.get.return_value = None
+
+        with tempfile.TemporaryDirectory() as root:
+            task = RecreateInitrdsTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "depmod", [
+                        "-a", "4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+                mock.call(
+                    "dracut", [
+                        "-f", "/boot/initramfs-4.17.7-200.fc28.x86_64.img",
+                        "4.17.7-200.fc28.x86_64"
+                    ], root=root)
+            ])
+
+        exec_mock.reset_mock()
+        conf_mock.target.is_image = False
+        args_mock.get.return_value = "1"
+
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/usr/sbin/", exist_ok=True)
+            open(root + "/usr/sbin/new-kernel-pkg", 'wb').close()
+
+            task = RecreateInitrdsTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_has_calls([
+                mock.call(
+                    "new-kernel-pkg", [
+                        "--mkinitrd", "--dracut", "--depmod",
+                        "--update", "4.17.7-200.fc28.x86_64"
+                    ], root=root
+                ),
+                mock.call(
+                    "fips-mode-setup", [
+                        "--enable", "--no-bootcfg"
+                    ], root=root
+                )
+            ])
+
+        exec_mock.reset_mock()
+        conf_mock.target.is_image = True
+
+        with tempfile.TemporaryDirectory() as root:
+            task = RecreateInitrdsTask(
+                sysroot=root,
+                payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+                kernel_versions=[version]
+            )
+
+            task.run()
+            exec_mock.assert_called_once_with(
+                "dracut", [
+                    "-N", "--persistent-policy", "by-uuid",
+                    "-f", "/boot/initramfs-4.17.7-200.fc28.x86_64.img",
+                    "4.17.7-200.fc28.x86_64"
+                ],
+                root=root
+            )
+
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
     @patch('pyanaconda.modules.storage.bootloader.installation.InstallBootloaderTask')
     @patch('pyanaconda.modules.storage.bootloader.installation.ConfigureBootloaderTask')
@@ -289,17 +573,46 @@ class BootloaderTasksTestCase(unittest.TestCase):
         version = "4.17.7-200.fc28.x86_64"
 
         conf.target.is_directory = True
-        FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.ENABLED,
+            payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
+        configure.assert_not_called()
+        install.assert_not_called()
+
+        conf.target.is_directory = True
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.ENABLED,
+            payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
         configure.assert_not_called()
         install.assert_not_called()
 
         conf.target.is_directory = False
-        FixBTRFSBootloaderTask(storage, BootloaderMode.DISABLED, [version], sysroot).run()
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.DISABLED,
+            payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
         configure.assert_not_called()
         install.assert_not_called()
 
         conf.target.is_directory = False
-        FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.ENABLED,
+            payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
         configure.assert_not_called()
         install.assert_not_called()
 
@@ -322,9 +635,24 @@ class BootloaderTasksTestCase(unittest.TestCase):
         dev2.format._mount = Mock(available=True)
 
         conf.target.is_directory = False
-        FixBTRFSBootloaderTask(storage, BootloaderMode.ENABLED, [version], sysroot).run()
-        configure.assert_called_once_with(storage, BootloaderMode.ENABLED, [version], sysroot)
-        install.assert_called_once_with(storage, BootloaderMode.ENABLED)
+        FixBTRFSBootloaderTask(
+            storage=storage,
+            mode=BootloaderMode.ENABLED,
+            payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
+            kernel_versions=[version],
+            sysroot=sysroot
+        ).run()
+        configure.assert_called_once_with(
+            storage,
+            BootloaderMode.ENABLED,
+            PAYLOAD_TYPE_LIVE_IMAGE,
+            [version],
+            sysroot
+        )
+        install.assert_called_once_with(
+            storage,
+            BootloaderMode.ENABLED
+        )
 
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
     @patch("pyanaconda.modules.storage.bootloader.installation.arch.is_s390")

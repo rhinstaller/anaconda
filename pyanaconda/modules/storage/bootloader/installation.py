@@ -19,6 +19,7 @@
 #
 from blivet import arch
 from blivet.devices import BTRFSDevice
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, PAYLOAD_LIVE_TYPES
 from pyanaconda.modules.storage.bootloader import BootLoaderError
 
 from pyanaconda.core.util import execInSysroot
@@ -26,7 +27,8 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.storage.bootloader.utils import configure_boot_loader, install_boot_loader
+from pyanaconda.modules.storage.bootloader.utils import configure_boot_loader, \
+    install_boot_loader, recreate_initrds, create_rescue_images, create_bls_entries
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 
@@ -34,17 +36,47 @@ log = get_module_logger(__name__)
 
 
 __all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask", "FixBTRFSBootloaderTask",
-           "FixZIPLBootloaderTask"]
+           "FixZIPLBootloaderTask", "RecreateInitrdsTask", "CreateRescueImagesTask",
+           "CreateBLSEntriesTask"]
+
+
+class CreateRescueImagesTask(Task):
+    """Installation task that creates rescue images."""
+
+    def __init__(self, payload_type, kernel_versions, sysroot):
+        """Create a new task."""
+        super().__init__()
+        self._payload_type = payload_type
+        self._versions = kernel_versions
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Create rescue images"
+
+    def run(self):
+        """Run the task."""
+        #  Live payloads need to create rescue images
+        #  before the bootloader is written on the system.
+        if self._payload_type not in PAYLOAD_LIVE_TYPES:
+            log.debug("Only live payloads require this fix.")
+            return
+
+        create_rescue_images(
+            sysroot=self._sysroot,
+            kernel_versions=self._versions
+        )
 
 
 class ConfigureBootloaderTask(Task):
     """Installation task for the bootloader configuration."""
 
-    def __init__(self, storage, mode, kernel_versions, sysroot):
+    def __init__(self, storage, mode, payload_type, kernel_versions, sysroot):
         """Create a new task."""
         super().__init__()
         self._storage = storage
         self._mode = mode
+        self._payload_type = payload_type
         self._versions = kernel_versions
         self._sysroot = sysroot
 
@@ -54,6 +86,10 @@ class ConfigureBootloaderTask(Task):
 
     def run(self):
         """Run the task."""
+        if self._payload_type == PAYLOAD_TYPE_RPM_OSTREE:
+            log.debug("Don't configure bootloader on rpm-ostree systems.")
+            return
+
         if conf.target.is_directory:
             log.debug("The bootloader configuration is disabled for dir installations.")
             return
@@ -106,6 +142,63 @@ class InstallBootloaderTask(Task):
             raise BootloaderInstallationError(str(e)) from None
 
 
+class CreateBLSEntriesTask(Task):
+    """The installation task that creates BLS entries."""
+
+    def __init__(self, storage, payload_type, kernel_versions, sysroot):
+        """Create a new task."""
+        super().__init__()
+        self._storage = storage
+        self._payload_type = payload_type
+        self._versions = kernel_versions
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Create the BLS entries"
+
+    def run(self):
+        """Run the task."""
+        if self._payload_type not in PAYLOAD_LIVE_TYPES:
+            log.debug("Only live payloads require this fix.")
+            return
+
+        create_bls_entries(
+            sysroot=self._sysroot,
+            storage=self._storage,
+            kernel_versions=self._versions
+        )
+
+
+class RecreateInitrdsTask(Task):
+    """Installation task that recreates the initrds."""
+
+    def __init__(self, payload_type, kernel_versions, sysroot):
+        """Create a new task."""
+        super().__init__()
+        self._payload_type = payload_type
+        self._versions = kernel_versions
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Recreate the initrds"
+
+    def run(self):
+        """Run the task."""
+        # For rpm-ostree payloads, we're replicating an initramfs
+        # from a compose server, and should never be regenerating
+        # them per-machine.
+        if self._payload_type == PAYLOAD_TYPE_RPM_OSTREE:
+            log.debug("Don't regenerate initramfs on rpm-ostree systems.")
+            return
+
+        recreate_initrds(
+            sysroot=self._sysroot,
+            kernel_versions=self._versions
+        )
+
+
 class FixBTRFSBootloaderTask(Task):
     """Installation task fixing the bootloader on BTRFS.
 
@@ -115,11 +208,12 @@ class FixBTRFSBootloaderTask(Task):
     kernel root and subvol args and adding the missing initrd entry.
     """
 
-    def __init__(self, storage, mode, kernel_versions, sysroot):
+    def __init__(self, storage, mode, payload_type, kernel_versions, sysroot):
         """Create a new task."""
         super().__init__()
         self._storage = storage
         self._mode = mode
+        self._payload_type = payload_type
         self._versions = kernel_versions
         self._sysroot = sysroot
 
@@ -129,6 +223,10 @@ class FixBTRFSBootloaderTask(Task):
 
     def run(self):
         """Run the task."""
+        if self._payload_type not in PAYLOAD_LIVE_TYPES:
+            log.debug("Only live payloads require this fix.")
+            return
+
         if conf.target.is_directory:
             log.debug("The bootloader installation is disabled for dir installations.")
             return
@@ -144,6 +242,7 @@ class FixBTRFSBootloaderTask(Task):
         ConfigureBootloaderTask(
             self._storage,
             self._mode,
+            self._payload_type,
             self._versions,
             self._sysroot
         ).run()
