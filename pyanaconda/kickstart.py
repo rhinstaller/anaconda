@@ -1194,7 +1194,7 @@ class MountData(commands.mount.RHEL7_MountData):
         dev.format.options = self.mount_opts
 
         # make sure swaps end up in /etc/fstab
-        if fmt.type == "swap":
+        if dev.format.type == "swap":
             storage.addFstabSwap(dev)
 
 class Network(commands.network.RHEL7_Network):
