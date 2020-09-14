@@ -169,7 +169,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         # value from the kickstart changed
         # NOTE: yet again, this stops to be valid once multiple
         #       commands are supported by a single DBUS module
-        #self._users_module.SetRootpwKickstarted(False) # !!!!
         self.password_kickstarted = False
 
         self._users_module.SetRootAccountLocked(False)
@@ -190,7 +189,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def completed(self):
-        return bool(self._users_module.IsRootPasswordSet or self._users_module.IsRootAccountLocked)
+        return bool(
+            self._users_module.IsRootPasswordSet or
+            (self._users_module.IsRootAccountLocked and flags.automatedInstall)
+        )
 
     @property
     def sensitive(self):
