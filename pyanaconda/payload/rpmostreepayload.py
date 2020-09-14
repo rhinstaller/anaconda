@@ -24,10 +24,11 @@ from subprocess import CalledProcessError
 
 import pyanaconda.errors as errors
 from pyanaconda.core import util
-from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
@@ -36,6 +37,7 @@ from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
 from pyanaconda.payload.flatpak import FlatpakPayload
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
+from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
 
 from blivet.size import Size
 
@@ -52,6 +54,7 @@ class RPMOSTreePayload(Payload):
     onto the target system."""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self._payload_proxy = get_payload(self.type)
         self._remoteOptions = None
         self._internal_mounts = []
 
@@ -59,6 +62,27 @@ class RPMOSTreePayload(Payload):
     def type(self):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_RPM_OSTREE
+
+    def get_source_proxy(self):
+        """Get the DBus proxy of the RPM source."""
+        return get_source(self.proxy, SOURCE_TYPE_RPM_OSTREE)
+
+    @property
+    def source_type(self):
+        """The DBus type of the source."""
+        source_proxy = self.get_source_proxy()
+        return source_proxy.Type
+
+    def _get_source_configuration(self):
+        """Get the configuration of the RPM OSTree source.
+
+        :return: an instance of RPMOSTreeConfigurationData
+        """
+        source_proxy = self.get_source_proxy()
+
+        return RPMOSTreeConfigurationData.from_structure(
+            source_proxy.Configuration
+        )
 
     @property
     def kernel_version_list(self):
@@ -73,7 +97,12 @@ class RPMOSTreePayload(Payload):
     @property
     def needs_network(self):
         """Test ostree repository if it requires network."""
-        return not (self.data.ostreesetup.url and self.data.ostreesetup.url.startswith("file://"))
+        return self.proxy.IsNetworkRequired()
+
+    def setup(self):
+        """Do any payload-specific setup."""
+        super().setup()
+        set_up_sources(self.proxy)
 
     def _safe_exec_with_redirect(self, cmd, argv, **kwargs):
         """Like util.execWithRedirect, but treat errors as fatal"""
@@ -148,14 +177,15 @@ class RPMOSTreePayload(Payload):
     def install(self):
         # This is top installation method
         # TODO: Broke this to pieces when ostree payload is migrated to the DBus solution
+        data = self._get_source_configuration()
 
         # download and install the ostree image
-        self._install()
+        self._install(data)
 
         # prepare mountpoints of the installed system
-        self._prepare_mount_targets()
+        self._prepare_mount_targets(data)
 
-    def _install(self):
+    def _install(self, data):
         mainctx = create_new_context()
         mainctx.push_thread_default()
 
@@ -163,8 +193,7 @@ class RPMOSTreePayload(Payload):
         gi.require_version("OSTree", "1.0")
         gi.require_version("RpmOstree", "1.0")
         from gi.repository import OSTree, RpmOstree
-        ostreesetup = self.data.ostreesetup
-        log.info("executing ostreesetup=%r", ostreesetup)
+        log.info("executing ostreesetup=%r", data)
 
         # Initialize the filesystem - this will create the repo as well
         self._safe_exec_with_redirect("ostree",
@@ -182,22 +211,22 @@ class RPMOSTreePayload(Payload):
 
         self._remoteOptions = {}
 
-        if hasattr(ostreesetup, 'nogpg') and ostreesetup.nogpg:
+        if not data.gpg_verification_enabled:
             self._remoteOptions['gpg-verify'] = Variant('b', False)
 
         if not conf.payload.verify_ssl:
             self._remoteOptions['tls-permissive'] = Variant('b', True)
 
         repo.remote_change(None, OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-                           ostreesetup.remote, ostreesetup.url,
+                           data.remote, data.url,
                            Variant('a{sv}', self._remoteOptions),
                            cancellable)
 
         # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
-        ref = RpmOstree.varsubst_basearch(ostreesetup.ref)
+        ref = RpmOstree.varsubst_basearch(data.ref)
 
         progressQ.send_message(_("Starting pull of %(branchName)s from %(source)s") %
-                               {"branchName": ref, "source": ostreesetup.remote})
+                               {"branchName": ref, "source": data.remote})
 
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pull_progress_cb)
@@ -214,7 +243,7 @@ class RPMOSTreePayload(Payload):
                     break
 
         try:
-            repo.pull_with_options(ostreesetup.remote,
+            repo.pull_with_options(data.remote,
                                    Variant('a{sv}', pull_opts),
                                    progress, cancellable)
         except GError as e:
@@ -234,16 +263,16 @@ class RPMOSTreePayload(Payload):
         # we'll re-add it in post.  Ideally, ostree would support a
         # pull without adding a remote, but that would get quite
         # complex.
-        repo.remote_delete(self.data.ostreesetup.remote, None)
+        repo.remote_delete(data.remote, None)
 
         self._safe_exec_with_redirect("ostree",
                                       ["admin", "--sysroot=" + conf.target.physical_root,
-                                       "os-init", ostreesetup.osname])
+                                       "os-init", data.osname])
 
         admin_deploy_args = ["admin", "--sysroot=" + conf.target.physical_root,
-                             "deploy", "--os=" + ostreesetup.osname]
+                             "deploy", "--os=" + data.osname]
 
-        admin_deploy_args.append(ostreesetup.remote + ':' + ref)
+        admin_deploy_args.append(data.remote + ':' + ref)
 
         log.info("ostree admin deploy starting")
         progressQ.send_message(_("Deployment starting: %s") % (ref, ))
@@ -311,9 +340,8 @@ class RPMOSTreePayload(Payload):
                                           [bindopt, src, dest])
         self._internal_mounts.append(src if bind_ro else dest)
 
-    def _prepare_mount_targets(self):
+    def _prepare_mount_targets(self, data):
         """ Prepare the ostree root """
-        ostreesetup = self.data.ostreesetup
         mount_points = payload_utils.get_mount_points()
 
         # Currently, blivet sets up mounts in the physical root.
@@ -333,7 +361,7 @@ class RPMOSTreePayload(Payload):
         # Handle /var; if the admin didn't specify a mount for /var, we need
         # to do the default ostree one.
         # https://github.com/ostreedev/ostree/issues/855
-        var_root = '/ostree/deploy/' + ostreesetup.osname + '/var'
+        var_root = '/ostree/deploy/' + data.osname + '/var'
         if mount_points.get("/var") is None:
             self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
         else:
@@ -374,6 +402,7 @@ class RPMOSTreePayload(Payload):
         self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
 
     def unsetup(self):
+        """Invalidate a previously setup payload."""
         super().unsetup()
 
         for mount in reversed(self._internal_mounts):
@@ -382,8 +411,11 @@ class RPMOSTreePayload(Payload):
             except CalledProcessError as e:
                 log.debug("unmounting %s failed: %s", mount, str(e))
 
+        tear_down_sources(self.proxy)
+
     def post_install(self):
         super().post_install()
+        data = self._get_source_configuration()
 
         gi.require_version("OSTree", "1.0")
         from gi.repository import OSTree
@@ -405,7 +437,7 @@ class RPMOSTreePayload(Payload):
         repo = sysroot.get_repo(None)[1]
         repo.remote_change(sysroot_file,
                            OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-                           self.data.ostreesetup.remote, self.data.ostreesetup.url,
+                           data.remote, data.url,
                            Variant('a{sv}', self._remoteOptions),
                            cancellable)
 

@@ -24,9 +24,10 @@ from tempfile import mkstemp
 import threading
 
 from pyanaconda import addons
-from pyanaconda.core.constants import DisplayModes
+from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE
 from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
+from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.payload.flatpak import FlatpakPayload
 
@@ -78,7 +79,10 @@ class Anaconda(object):
         # Try to find the payload class.  First try the install
         # class.  If it doesn't give us one, fall back to the default.
         if not self._payload:
-            if self.ksdata.ostreesetup.seen:
+            # Get the type of the DBus payload module if any.
+            payload_type = self._get_dbus_payload_type()
+
+            if payload_type == PAYLOAD_TYPE_RPM_OSTREE:
                 if FlatpakPayload.is_available():
                     from pyanaconda.payload.rpmostreepayload import RPMOSTreePayloadWithFlatpaks
                     klass = RPMOSTreePayloadWithFlatpaks
@@ -98,6 +102,17 @@ class Anaconda(object):
             self._payload = klass(self.ksdata)
 
         return self._payload
+
+    @staticmethod
+    def _get_dbus_payload_type():
+        payloads_proxy = PAYLOADS.get_proxy()
+        object_path = payloads_proxy.ActivePayload
+
+        if not object_path:
+            return None
+
+        object_proxy = PAYLOADS.get_proxy(object_path)
+        return object_proxy.Type
 
     @staticmethod
     def get_protected_devices(opts):
