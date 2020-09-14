@@ -884,7 +884,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 self._show_autodetect_box(device_name, device_spec)
 
         # Enable the SE/HMC option.
-        if self.payload.is_hmc_enabled:
+        if self.payload.source_type == SOURCE_TYPE_HMC:
             gtk_call_once(self._hmc_button.set_no_show_all, False)
 
         # Add the mirror manager URL in as the default for HTTP and HTTPS.

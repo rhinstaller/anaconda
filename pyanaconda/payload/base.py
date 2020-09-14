@@ -45,6 +45,9 @@ class Payload(metaclass=ABCMeta):
         # Additional packages required by installer based on used features
         self.requirements = PayloadRequirements()
 
+        # A DBus proxy of the payload.
+        self._payload_proxy = None
+
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
 
@@ -57,6 +60,14 @@ class Payload(metaclass=ABCMeta):
     def type(self):
         """The DBus type of the payload."""
         return None
+
+    @property
+    def proxy(self):
+        """The DBus proxy of the DNF module.
+
+        :return: a DBus proxy
+        """
+        return self._payload_proxy
 
     def get_source_proxy(self):
         """Get the DBus proxy of the installation source (if any).
@@ -139,15 +150,6 @@ class Payload(metaclass=ABCMeta):
     def install(self):
         """Install the payload."""
         raise NotImplementedError()
-
-    @property
-    def needs_storage_configuration(self):
-        """Should we write the storage before doing the installation?
-
-        Some payloads require that the storage configuration will be written out
-        before doing installation. Right now, this is basically just the dnfpayload.
-        """
-        return False
 
     def post_install(self):
         """Perform post-installation tasks."""

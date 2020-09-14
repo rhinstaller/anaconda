@@ -53,9 +53,8 @@ from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_HMC, SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, \
-    URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, \
-    SOURCE_TYPE_CDN
+    SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
+    URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.payload import ProxyString, ProxyStringError
@@ -98,10 +97,7 @@ class DNFPayload(Payload):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Get a DBus payload to use.
-        self._dnf_proxy = get_payload(self.type)
-
-        # FIXME: Remove the install device.
-        self.install_device = None
+        self._payload_proxy = get_payload(self.type)
 
         self.tx_id = None
         self._install_tree_metadata = None
@@ -183,16 +179,6 @@ class DNFPayload(Payload):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_DNF
 
-    @property
-    def proxy(self):
-        """The DBus proxy of the DNF module.
-
-        FIXME: Move the property to the class Payload.
-
-        :return: a DBus proxy
-        """
-        return self._dnf_proxy
-
     def get_source_proxy(self):
         """Get the DBus proxy of the RPM source.
 
@@ -209,11 +195,6 @@ class DNFPayload(Payload):
         """The DBus type of the source."""
         source_proxy = self.get_source_proxy()
         return source_proxy.Type
-
-    @property
-    def is_hmc_enabled(self):
-        # FIXME: Remove this property and check the type directly.
-        return self.source_type == SOURCE_TYPE_HMC
 
     def is_ready(self):
         """Is the payload ready?"""
@@ -2004,11 +1985,6 @@ class DNFPayload(Payload):
 
             if ks_repo.excludepkgs:
                 f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
-
-    @property
-    def needs_storage_configuration(self):
-        """Should we write the storage before doing the installation?"""
-        return True
 
     def post_setup(self):
         """Perform post-setup tasks.
