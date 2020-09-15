@@ -855,3 +855,34 @@ class MiscTests(unittest.TestCase):
         )
         self.assertEqual(get_anaconda_version_string(), "1.0")
         self.assertEqual(get_anaconda_version_string(build_time_version=True), "1.0-1")
+
+    def get_os_version_test(self):
+        """Test get_os_version."""
+        with tempfile.TemporaryDirectory() as root:
+            # prepare paths
+            util.mkdirChain(root + "/usr/lib")
+            util.mkdirChain(root + "/etc")
+
+            # backup file only
+            with open(root + "/usr/lib/os-release", "w") as f:
+                f.write("# blah\nVERSION_ID=foo256bar  \n VERSION_ID = wrong\n\n")
+            version = util.get_os_version(root)
+            self.assertEqual(version, "foo256bar")
+
+            # main file and backup too
+            with open(root + "/etc/os-release", "w") as f:
+                f.write("# blah\nVERSION_ID=more-important\n")
+            version = util.get_os_version(root)
+            self.assertEqual(version, "more-important")
+
+            # both, main file twice
+            with open(root + "/etc/os-release", "w") as f:
+                f.write("# blah\nVERSION_ID=more-important\nVERSION_ID=not-reached\n \n")
+            version = util.get_os_version(root)
+            self.assertEqual(version, "more-important")
+
+            # no files
+            os.remove(root + "/usr/lib/os-release")
+            os.remove(root + "/etc/os-release")
+            version = util.get_os_version(root)
+            self.assertEqual(version, None)
