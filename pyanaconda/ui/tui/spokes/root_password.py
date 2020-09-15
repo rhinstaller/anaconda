@@ -53,7 +53,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        return bool(self._users_module.IsRootPasswordSet or self._users_module.IsRootAccountLocked)
+        return bool(
+            self._users_module.IsRootPasswordSet or
+            (self._users_module.IsRootAccountLocked and flags.automatedInstall)
+        )
 
     @property
     def showable(self):
