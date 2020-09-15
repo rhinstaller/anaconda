@@ -635,7 +635,11 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     s_con = connection.get_setting_connection()
     s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)
 
-    bind_connection(nm_client, connection, network_data.bindto, device_name)
+    if connection.get_connection_type() not in (NM_CONNECTION_TYPE_BOND,
+                                                NM_CONNECTION_TYPE_TEAM,
+                                                NM_CONNECTION_TYPE_VLAN,
+                                                NM_CONNECTION_TYPE_BRIDGE):
+        bind_connection(nm_client, connection, network_data.bindto, device_name)
 
     commit_changes_with_autoconnection_blocked(connection)
 
