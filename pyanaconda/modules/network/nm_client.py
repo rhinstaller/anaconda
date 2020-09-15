@@ -647,6 +647,8 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
     connection.remove_setting(NM.SettingIP6Config)
     s_ip6 = NM.SettingIP6Config.new()
     s_ip6.set_property(NM.SETTING_IP_CONFIG_METHOD, method6)
+    s_ip6.set_property(NM.SETTING_IP6_CONFIG_ADDR_GEN_MODE,
+                       NM.SettingIP6ConfigAddrGenMode.EUI64)
     if method6 == "manual":
         addr6, _slash, prefix6 = network_data.ipv6.partition("/")
         if prefix6:
@@ -697,7 +699,11 @@ def bind_settings_to_mac(nm_client, s_connection, s_wired, device_name=None, bin
             return False
         device = nm_client.get_device_by_iface(iface)
         if device:
-            hwaddr = device.get_permanent_hw_address() or device.get_hw_address()
+            try:
+                perm_hwaddr = device.get_permanent_hw_address()
+            except AttributeError:
+                perm_hwaddr = None
+            hwaddr = perm_hwaddr or device.get_hw_address()
             s_wired.props.mac_address = hwaddr
             log.debug("Bind to mac: bound to %s", hwaddr)
             modified = True
