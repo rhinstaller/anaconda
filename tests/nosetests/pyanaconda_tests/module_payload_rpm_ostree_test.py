@@ -84,5 +84,5 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         # OSTree setup
         ostreesetup --osname="fedora-atomic" --remote="fedora-atomic-28" --url="file:///ostree/repo" --ref="fedora/28/x86_64/atomic-host" --nogpg
         """
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out="", ks_tmp=ks_out)
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_RPM_OSTREE)
