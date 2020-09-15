@@ -102,3 +102,24 @@ class OSTreeSourceTestCase(unittest.TestCase):
     def tear_down_with_tasks_test(self):
         """Test the tear-down tasks."""
         self.assertEqual(self.module.tear_down_with_tasks(), [])
+
+    def repr_test(self):
+        """Test the string representation."""
+        self.assertEqual(repr(self.module), str(
+            "Source("
+            "type='RPM_OSTREE', "
+            "osname='', "
+            "url=''"
+            ")"
+        ))
+
+        self.module.configuration.osname = "fedora-atomic"
+        self.module.configuration.url = "https://kojipkgs.fedoraproject.org/atomic/repo"
+
+        self.assertEqual(repr(self.module), str(
+            "Source("
+            "type='RPM_OSTREE', "
+            "osname='fedora-atomic', "
+            "url='https://kojipkgs.fedoraproject.org/atomic/repo'"
+            ")"
+        ))
