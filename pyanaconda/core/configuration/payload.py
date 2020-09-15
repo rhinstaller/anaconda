@@ -111,3 +111,8 @@ class PayloadSection(Section):
         this option.
         """
         return self._get_option("verify_ssl", bool)
+
+    @property
+    def default_rpm_gpg_keys(self):
+        """List of GPG keys to import into RPM database at end of installation."""
+        return self._get_option("default_rpm_gpg_keys", str).split()
