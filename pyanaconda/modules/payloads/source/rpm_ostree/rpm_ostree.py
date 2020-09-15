@@ -25,6 +25,7 @@ from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import \
     RPMOSTreeSourceInterface
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
 log = get_module_logger(__name__)
 
@@ -76,8 +77,7 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
 
         :return: True or False
         """
-        # TODO: Implement this method
-        return False
+        return has_network_protocol(self.configuration.url)
 
     def get_state(self):
         """Get state of this source."""

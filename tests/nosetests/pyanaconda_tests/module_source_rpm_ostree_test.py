@@ -82,6 +82,15 @@ class OSTreeSourceTestCase(unittest.TestCase):
         """Test the network_required property."""
         self.assertEqual(self.module.network_required, False)
 
+        self.module.configuration.url = "file://my/path"
+        self.assertEqual(self.module.network_required, False)
+
+        self.module.configuration.url = "http://my/path"
+        self.assertEqual(self.module.network_required, True)
+
+        self.module.configuration.url = "https://my/path"
+        self.assertEqual(self.module.network_required, True)
+
     def get_state_test(self):
         """Test the source state."""
         self.assertEqual(SourceState.NOT_APPLICABLE, self.module.get_state())
