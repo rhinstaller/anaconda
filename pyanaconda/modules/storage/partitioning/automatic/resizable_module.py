@@ -52,14 +52,14 @@ class ResizableDeviceTreeModule(DeviceTreeModule):
         """Is the specified device partitioned?"""
         return device.is_disk and device.partitioned and device.format.supported
 
-    def is_device_resizable(self, device_name):
-        """Is the specified device resizable?
+    def is_device_shrinkable(self, device_name):
+        """Is the specified device shrinkable?
 
         :param device_name: a name of the device
         :return: True or False
         """
         device = self._get_device(device_name)
-        return device.resizable
+        return device.resizable and device.min_size < device.size
 
     def get_device_partitions(self, device_name):
         """Get partitions of the specified device.

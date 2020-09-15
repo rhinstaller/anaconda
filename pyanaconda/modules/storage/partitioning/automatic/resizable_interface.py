@@ -37,13 +37,13 @@ class ResizableDeviceTreeInterface(DeviceTreeInterface):
         """
         return self.implementation.is_device_partitioned(device_name)
 
-    def IsDeviceResizable(self, device_name: Str) -> Bool:
-        """Is the specified device resizable?
+    def IsDeviceShrinkable(self, device_name: Str) -> Bool:
+        """Is the specified device shrinkable?
 
         :param device_name: a name of the device
         :return: True or False
         """
-        return self.implementation.is_device_resizable(device_name)
+        return self.implementation.is_device_shrinkable(device_name)
 
     def GetDevicePartitions(self, device_name: Str) -> List[Str]:
         """Get partitions of the specified device.

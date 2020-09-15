@@ -24,7 +24,7 @@ from pyanaconda.modules.common.errors.configuration import StorageConfigurationE
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.storage.partitioning.interactive.utils import \
-    get_device_raid_level_name, get_container_size_policy, get_device_factory_arguments
+    get_container_raid_level_name, get_container_size_policy, get_device_factory_arguments
 from pyanaconda.core.storage import PARTITION_ONLY_FORMAT_TYPES
 
 log = get_module_logger(__name__)
@@ -141,7 +141,7 @@ class AddDeviceTask(Task):
             # Don't override user-initiated changes to a defined container.
             request.disks = [d.name for d in container.disks]
             request.container_encrypted = container.encrypted
-            request.container_raid_level = get_device_raid_level_name(container)
+            request.container_raid_level = get_container_raid_level_name(container)
             request.container_size_policy = get_container_size_policy(container)
 
             # The existing container has a name.

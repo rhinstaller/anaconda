@@ -222,7 +222,7 @@ def _update_bond_connection_from_ksdata(connection, network_data):
     for option in opts.split(';' if ';' in opts else ','):
         key, _sep, value = option.partition("=")
         if not s_bond.add_option(key, value):
-            log.warning("adding bond option %s failed (invalid?)")
+            log.warning("adding bond option %s failed (invalid?)", key)
     connection.add_setting(s_bond)
 
 
@@ -630,6 +630,8 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
         s_ip4.add_address(addr4)
         if network_data.gateway:
             s_ip4.props.gateway = network_data.gateway
+    if network_data.nodefroute:
+        s_ip4.props.never_default = True
     connection.add_setting(s_ip4)
 
     # ipv6 settings

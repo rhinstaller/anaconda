@@ -28,6 +28,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import unmark_protected_device
+from pyanaconda.payload.manager import payloadMgr
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common import task
@@ -77,6 +78,21 @@ def switch_source(payload, source_type):
 
     new_source_proxy = create_source(source_type)
     set_source(payload.proxy, new_source_proxy)
+
+
+def _do_payload_restart(payload):
+    """Restart the Anaconda payload.
+
+    This should be done after changing the installation sorce,
+    such as when switching to and from the CDN.
+
+    :param payload: Anaconda payload instance
+    """
+    # restart payload
+    payloadMgr.restart_thread(payload,
+                              fallback=False,
+                              checkmount=False,
+                              onlyOnChange=False)
 
 
 def check_cdn_is_installation_source(payload):
@@ -161,7 +177,8 @@ def username_password_sufficient(subscription_request=None):
     return username_set and password_set
 
 
-def register_and_subscribe(payload, progress_callback=None, error_callback=None):
+def register_and_subscribe(payload, progress_callback=None, error_callback=None,
+                           restart_payload=False):
     """Try to register and subscribe the installation environment.
 
     :param payload: Anaconda payload instance
@@ -169,6 +186,20 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None)
     :type progress_callback: callable(subscription_phase)
     :param error_callback: error callback function, takes one argument, the error message
     :type error_callback: callable(error_message)
+    :param bool restart_payload: should payload restart be attempted if it appears necessary ?
+
+    NOTE: The restart_payload attribute controls if the subscription helper function should
+          attempt to restart the payload thread if it deems it necessary (DVD -> CDN switch,
+          registration with CDN source, etc.). If restart_payload is True, it might restart
+          the payload. If it is False, it well never try to do that.
+
+          The main usecase of this at the moment is when the subscription helper function
+          is invoked during early Anaconda kickstart installation. At this stage the initial
+          payload restart has not yet been run and starting it too early could lead to various
+          issues. At this stage we don't want the helper function to restart payload, so we keep
+          restart_payload at default value (False). Later on during manual user interaction we
+          definitely want payload to be restarted as needed (the initial restart long done)
+          and so we pass restart_payload=True.
     """
 
     # assign dummy callback functions if none were provided by caller
@@ -278,16 +309,27 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None)
     # the CDN source we can now use
     # - at the moment this is true only for the CDROM source
     source_proxy = payload.get_source_proxy()
-    if payload.type == PAYLOAD_TYPE_DNF and source_proxy.Type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
-        log.debug("subscription thread: overriding current installation source by CDN")
-        switch_source(payload, SOURCE_TYPE_CDN)
+    if payload.type == PAYLOAD_TYPE_DNF:
+        if source_proxy.Type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
+            log.debug("subscription thread: overriding current installation source by CDN")
+            switch_source(payload, SOURCE_TYPE_CDN)
+        # If requested, also restart the payload if CDN is the installation source
+        # The CDN either already was the installation source or we just switched to it.
+        #
+        # Make sure to get fresh source proxy as the old one might be stale after
+        # a source switch.
+        source_proxy = payload.get_source_proxy()
+        if restart_payload and source_proxy.Type == SOURCE_TYPE_CDN:
+            log.debug("subscription thread: restarting payload after registration")
+            _do_payload_restart(payload)
 
     # and done, report attaching subscription was successful
     log.debug("subscription thread: auto attach succeeded")
     progress_callback(SubscriptionPhase.DONE)
 
 
-def unregister(payload, overridden_source_type, progress_callback=None, error_callback=None):
+def unregister(payload, overridden_source_type, progress_callback=None, error_callback=None,
+               restart_payload=False):
     """Try to unregister the installation environment.
 
     NOTE: Unregistering also removes any attached subscriptions and
@@ -301,6 +343,10 @@ def unregister(payload, overridden_source_type, progress_callback=None, error_ca
     :type progress_callback: callable(subscription_phase)
     :param error_callback: error callback function, takes one argument, the error message
     :type error_callback: callable(error_message)
+    :param bool restart_payload: should payload restart be attempted if it appears necessary ?
+
+    NOTE: For more information about the restart_payload attribute, see the
+          register_and_subscribe() function doc string.
     """
 
     # assign dummy callback functions if none were provided by caller
@@ -334,10 +380,23 @@ def unregister(payload, overridden_source_type, progress_callback=None, error_ca
         # If the CDN overrode an installation source we should revert that
         # on unregistration, provided CDN is the current source.
         source_proxy = payload.get_source_proxy()
-        should_override = source_proxy.Type == SOURCE_TYPE_CDN and overridden_source_type
-        if payload.type == PAYLOAD_TYPE_DNF and should_override:
-            log.debug("subscription thread: rolling back installation source override by the CDN")
-            switch_source(payload, overridden_source_type)
+        switched_source = False
+        if payload.type == PAYLOAD_TYPE_DNF:
+            if source_proxy.Type == SOURCE_TYPE_CDN and overridden_source_type:
+                log.debug(
+                    "subscription thread: rolling back CDN installation source override"
+                )
+                switch_source(payload, overridden_source_type)
+                switched_source = True
+
+            # If requested, also restart the payload if:
+            # - installation source switch occured
+            # - the current source is CDN, which can no longer be used
+            #   after unregistration, so we need to refresh the Source
+            #   and Software spokes
+            if restart_payload and (source_proxy.Type == SOURCE_TYPE_CDN or switched_source):
+                log.debug("subscription thread: restarting payload after unregistration")
+                _do_payload_restart(payload)
 
         log.debug("Subscription GUI: unregistration succeeded")
         progress_callback(SubscriptionPhase.DONE)

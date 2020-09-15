@@ -854,9 +854,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     def _initialize(self):
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
-        # If there is no Subscriptiopn DBus module, disable the CDN radio button
+        # If there is the Subscriptiopn DBus module, make the CDN radio button visible
         if is_module_available(SUBSCRIPTION):
-            gtk_call_once(self._cdn_button.set_no_show_all, True)
+            gtk_call_once(self._cdn_button.set_no_show_all, False)
 
         # Get the current source.
         source_proxy = self.payload.get_source_proxy()

@@ -228,13 +228,13 @@ class ResizeDialog(GUIObject):
 
         # Calculate the free size.
         # Devices that are not resizable are still deletable.
-        is_resizable = self._device_tree.IsDeviceResizable(device_name)
+        is_shrinkable = self._device_tree.IsDeviceShrinkable(device_name)
         size_limits = self._device_tree.GetDeviceSizeLimits(device_name)
 
         min_size = Size(size_limits[0])
         device_size = Size(device_data.size)
 
-        if is_resizable:
+        if is_shrinkable:
             free_size = device_size - min_size
             resize_string = _("%(freeSize)s of %(devSize)s") % {
                 "freeSize": free_size.human_readable(max_places=1),
@@ -394,10 +394,10 @@ class ResizeDialog(GUIObject):
 
         # If the selected filesystem does not support shrinking, make that
         # button insensitive.
-        is_resizable = self._device_tree.IsDeviceResizable(device_name)
-        self._shrink_button.set_sensitive(is_resizable)
+        is_shrinkable = self._device_tree.IsDeviceShrinkable(device_name)
+        self._shrink_button.set_sensitive(is_shrinkable)
 
-        if is_resizable:
+        if is_shrinkable:
             min_size = self._device_tree.GetDeviceSizeLimits(device_name)[0]
             self._setup_slider(min_size, device_data.size, Size(obj.target))
 
