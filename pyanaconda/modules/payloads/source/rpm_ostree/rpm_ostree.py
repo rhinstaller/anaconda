@@ -81,7 +81,6 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
 
     def get_state(self):
         """Get state of this source."""
-        # TODO: Implement this method
         return SourceState.NOT_APPLICABLE
 
     def process_kickstart(self, data):
@@ -108,7 +107,6 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        # TODO: Implement this method
         return []
 
     def tear_down_with_tasks(self):
@@ -117,7 +115,6 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source clean-up
         :rtype: [Task]
         """
-        # TODO: Implement this method
         return []
 
     def __repr__(self):
