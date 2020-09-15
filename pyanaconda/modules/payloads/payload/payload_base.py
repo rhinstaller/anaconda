@@ -24,6 +24,7 @@ from dasbus.server.publishable import Publishable
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
 from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.constants import SourceState
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -182,12 +183,10 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         pass
 
-    @abstractmethod
     def set_up_sources_with_task(self):
         """Set up installation sources."""
-        pass
+        return SetUpSourcesTask(self.sources)
 
-    @abstractmethod
     def tear_down_sources_with_task(self):
         """Tear down installation sources."""
-        pass
+        return TearDownSourcesTask(self.sources)

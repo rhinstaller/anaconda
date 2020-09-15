@@ -23,13 +23,15 @@
 import unittest
 from unittest.mock import patch
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
-
+from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType, SourceState
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 
 
 class PayloadBaseInterfaceTestCase(unittest.TestCase):
@@ -183,3 +185,23 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_sources([source1, source2])
 
         self.assertEqual(self.interface.IsNetworkRequired(), True)
+
+    @patch_dbus_publish_object
+    def set_up_sources_with_task_test(self, publisher):
+        """Test SetUpSourcesWithTask."""
+        source = SourceFactory.create_source(SourceType.CDROM)
+        self.module.add_source(source)
+
+        task_path = self.interface.SetUpSourcesWithTask()
+        obj = check_task_creation(self, task_path, publisher, SetUpSourcesTask)
+        self.assertEqual(obj.implementation._sources, [source])
+
+    @patch_dbus_publish_object
+    def tear_down_sources_with_task_test(self, publisher):
+        """Test TearDownSourcesWithTask."""
+        source = SourceFactory.create_source(SourceType.CDROM)
+        self.module.add_source(source)
+
+        task_path = self.interface.TearDownSourcesWithTask()
+        obj = check_task_creation(self, task_path, publisher, TearDownSourcesTask)
+        self.assertEqual(obj.implementation._sources, [source])
