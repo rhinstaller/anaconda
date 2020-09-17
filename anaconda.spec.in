@@ -368,6 +368,63 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 17 2020 Martin Kolman <mkolman@redhat.com> - 34.5-1
+- Fix the combo box for an URL type of additional repositories (#1879127)
+  (vponcova)
+- Add DBus support for the ostreesetup kickstart command (vponcova)
+- Create the structure for RPM OSTree configuration (vponcova)
+- Create the RPM OSTree source module (vponcova)
+- Create the RPM OSTree module (vponcova)
+- network: clone connections from intramfs to persistent config (rvykydal)
+- network: set addr-gen-mode of Anaconda default connections to eui64
+  (rvykydal)
+- network: default to addr-gen-mode eui64 (rvykydal)
+- network: do not reset ipv6.addr-gen-mode in tui network configuration
+  (rvykydal)
+- network: get hwadddr when binding to mac more robustly (rvykydal)
+- Improve the error dialog for storage reset (vponcova)
+- Remove the needs_storage_configuration property (vponcova)
+- Remove the is_hmc_enabled property (vponcova)
+- Remove the install_device attribute (vponcova)
+- Move the proxy property to the base payload class (vponcova)
+- Fix CDN button visibility (mkolman)
+- subscription: Assure payload restart on DVD install after registration
+  (mkolman)
+- Remove the handles_bootloader_configuration property (vponcova)
+- Run the CreateBLSEntriesTask task (vponcova)
+- Add the CreateBLSEntriesTask task (vponcova)
+- Call the DBus method InstallBootloaderWithTasks (vponcova)
+- Add the CreateRescueImagesTask task (vponcova)
+- Call the DBus method GenerateInitramfsWithTasks (vponcova)
+- Add the RecreateInitrdsTask task (vponcova)
+- network: set addr-gen-mode of Anaconda default connections to eui64
+  (rvykydal)
+- network: default to addr-gen-mode eui64 (rvykydal)
+- network: do not reset ipv6.addr-gen-mode in tui network configuration
+  (rvykydal)
+- network: get hwadddr when binding to mac more robustly (rvykydal)
+- subscription: Only restart payload when needed (mkolman)
+- Document the restart_payload argument of subscription helper functions
+  (mkolman)
+- network: fix missing log message argument (rvykydal)
+- Propagate verify_ssl to RHSM (mkolman)
+- Check if original partitions are mounted, too (vslavik)
+- network: do not add superfluous quotes to inst.dhcpclass identifier
+  (rvykydal)
+- Add the DBus method IsDeviceShrinkable (#1875677) (vponcova)
+- Show warning message when entered size is not valid (vslavik)
+- Extend unit tests for generate_device_factory_request (vponcova)
+- Differentiate between RAID levels of a device and its container (vponcova)
+- Don't generate container data for non-container device types (vponcova)
+- network: fix parsing of hostname from ip= if mac is defined in dhcp
+  (rvykydal)
+- network: fix inst.dhcpclass boot option (rvykydal)
+- Do not push pot files just tell user that he should update (jkonecny)
+- Add support for booting installation media with plain SquashFS (bkhomuts)
+- Do not check ro mount in Dracut for overlay (jkonecny)
+- network: apply kickstart network --nodefroute also from stage2 (rvykydal)
+- list major common keyboard layouts first (suanand)
+
 * Mon Sep 07 2020 Martin Kolman <mkolman@redhat.com> - 34.4-1
 - Apply onboot policy even when network was configured in UI. (rvykydal)
 - network: fix kickstart network --dhcpclass option (rvykydal)
