@@ -366,6 +366,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 17 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.25-1
+- Root password is mandatory if there is *not* admin user. (rvykydal)
+  Related: rhbz#1876727
+- Make locked root be completed only for kickstart (vslavik)
+  Resolves: rhbz#1876727
+
 * Mon Sep 07 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.24-1
 - network: do not add superfluous quotes to inst.dhcpclass identifier
   (rvykydal)
