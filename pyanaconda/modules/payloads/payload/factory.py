@@ -45,6 +45,10 @@ class PayloadFactory(object):
             from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
             return DNFModule()
 
+        if payload_type == PayloadType.RPM_OSTREE:
+            from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import RPMOSTreeModule
+            return RPMOSTreeModule()
+
         raise ValueError("Unknown payload type: {}".format(payload_type))
 
     @classmethod
@@ -63,5 +67,8 @@ class PayloadFactory(object):
            data.nfs.seen or \
            data.url.seen:
             return PayloadType.DNF
+
+        if data.ostreesetup.seen:
+            return PayloadType.RPM_OSTREE
 
         return None

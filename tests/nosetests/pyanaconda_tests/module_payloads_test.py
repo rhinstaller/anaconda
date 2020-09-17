@@ -64,6 +64,7 @@ class PayloadsInterfaceTestCase(TestCase):
             "hmc",
             "liveimg",
             "nfs",
+            "ostreesetup",
             "url"
         ])
         self.assertEqual(self.payload_interface.KickstartSections, [])

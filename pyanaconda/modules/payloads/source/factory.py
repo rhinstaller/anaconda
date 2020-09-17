@@ -62,6 +62,10 @@ class SourceFactory(object):
             from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
                 ClosestMirrorSourceModule
             return ClosestMirrorSourceModule()
+        elif source_type == SourceType.RPM_OSTREE:
+            from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import \
+                RPMOSTreeSourceModule
+            return RPMOSTreeSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))
 
@@ -86,5 +90,17 @@ class SourceFactory(object):
             return SourceType.URL
         if ks_data.hmc.seen:
             return SourceType.HMC
+
+        return None
+
+    @staticmethod
+    def get_rpm_ostree_type_for_kickstart(ks_data):
+        """Generate source type from RPM OSTree kickstart data.
+
+        :param ks_data: kickstart data from DNF payload
+        :return: SourceType value
+        """
+        if ks_data.ostreesetup.seen:
+            return SourceType.RPM_OSTREE
 
         return None
