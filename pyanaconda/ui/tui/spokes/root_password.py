@@ -64,8 +64,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def mandatory(self):
-        """Root password spoke is mandatory if no users with admin rights have been requested."""
-        return self._users_module.CheckAdminUserExists()
+        """Only mandatory if no admin user has been requested."""
+        return not self._users_module.CheckAdminUserExists()
 
     @property
     def status(self):
