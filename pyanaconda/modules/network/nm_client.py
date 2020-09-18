@@ -206,6 +206,21 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
     return device_name
 
 
+def _create_vlan_bond_connection_from_ksdata(network_data):
+    con = _create_new_connection(network_data, network_data.device)
+    _update_bond_connection_from_ksdata(con, network_data)
+    # No ip configuration on vlan parent (bond)
+    s_ip4 = NM.SettingIP4Config.new()
+    s_ip4.set_property(NM.SETTING_IP_CONFIG_METHOD,
+                       NM.SETTING_IP4_CONFIG_METHOD_DISABLED)
+    con.add_setting(s_ip4)
+    s_ip6 = NM.SettingIP6Config.new()
+    s_ip6.set_property(NM.SETTING_IP_CONFIG_METHOD,
+                       NM.SETTING_IP6_CONFIG_METHOD_DISABLED)
+    con.add_setting(s_ip6)
+    return con
+
+
 def _update_bond_connection_from_ksdata(connection, network_data):
     """Update connection with values from bond kickstart configuration.
 
@@ -352,6 +367,18 @@ def _update_wired_connection_with_s390_settings(connection, s390cfg):
         s_wired.props.s390_options = opts_dict
 
 
+def _create_new_connection(network_data, device_name):
+    con_uuid = NM.utils_uuid_generate()
+    con = NM.SimpleConnection.new()
+    s_con = NM.SettingConnection.new()
+    s_con.props.uuid = con_uuid
+    s_con.props.id = device_name
+    s_con.props.interface_name = device_name
+    s_con.props.autoconnect = network_data.onboot
+    con.add_setting(s_con)
+    return con
+
+
 def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_option_values=None):
     """Create NM connections from kickstart configuration.
 
@@ -365,32 +392,34 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
     :rtype: list((NM.RemoteConnection, str))
     """
     ifname_option_values = ifname_option_values or []
+    slave_connections = []
     connections = []
     device_to_activate = device_name
 
-    con_uuid = NM.utils_uuid_generate()
-    con = NM.SimpleConnection.new()
+    con = _create_new_connection(network_data, device_name)
+    bond_con = None
 
     update_connection_ip_settings_from_ksdata(con, network_data)
 
-    s_con = NM.SettingConnection.new()
-    s_con.props.uuid = con_uuid
-    s_con.props.id = device_name
-    s_con.props.interface_name = device_name
-    s_con.props.autoconnect = network_data.onboot
-    con.add_setting(s_con)
-
     # type "bond"
     if network_data.bondslaves:
-        _update_bond_connection_from_ksdata(con, network_data)
+        # vlan over bond
+        if network_data.vlanid:
+            # create bond connection, vlan connection will be created later
+            bond_master = network_data.device
+            bond_con = _create_vlan_bond_connection_from_ksdata(network_data)
+            connections.append((bond_con, bond_master))
+        else:
+            bond_master = device_name
+            _update_bond_connection_from_ksdata(con, network_data)
 
         for i, slave in enumerate(network_data.bondslaves.split(","), 1):
-            slave_con = create_slave_connection('bond', i, slave, device_name, network_data.onboot)
+            slave_con = create_slave_connection('bond', i, slave, bond_master, network_data.onboot)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            connections.append((slave_con, slave))
+            slave_connections.append((slave_con, slave))
 
     # type "team"
-    elif network_data.teamslaves:
+    if network_data.teamslaves:
         _update_team_connection_from_ksdata(con, network_data)
 
         for i, (slave, cfg) in enumerate(network_data.teamslaves, 1):
@@ -399,14 +428,16 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
             slave_con = create_slave_connection('team', i, slave, device_name,
                                                 network_data.onboot, settings=[s_team_port])
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            connections.append((slave_con, slave))
+            slave_connections.append((slave_con, slave))
 
     # type "vlan"
-    elif network_data.vlanid:
-        device_to_activate = _update_vlan_connection_from_ksdata(con, network_data)
+    if network_data.vlanid:
+        device_to_activate = _update_vlan_connection_from_ksdata(con, network_data) \
+            or device_to_activate
+
 
     # type "bridge"
-    elif network_data.bridgeslaves:
+    if network_data.bridgeslaves:
         # bridge connection is autoactivated
         _update_bridge_connection_from_ksdata(con, network_data)
 
@@ -414,14 +445,14 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
             slave_con = create_slave_connection('bridge', i, slave, device_name,
                                                 network_data.onboot)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            connections.append((slave_con, slave))
+            slave_connections.append((slave_con, slave))
 
     # type "infiniband"
-    elif is_infiniband_device(nm_client, device_name):
+    if is_infiniband_device(nm_client, device_name):
         _update_infiniband_connection_from_ksdata(con, network_data)
 
     # type "802-3-ethernet"
-    else:
+    if is_ethernet_device(nm_client, device_name):
         bound_mac = bound_hwaddr_of_device(nm_client, device_name, ifname_option_values)
         _update_ethernet_connection_from_ksdata(con, network_data, bound_mac)
         if bound_mac:
@@ -435,7 +466,8 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
             s390cfg = get_s390_settings(device_name)
             _update_wired_connection_with_s390_settings(con, s390cfg)
 
-    connections.insert(0, (con, device_to_activate))
+    connections.append((con, device_to_activate))
+    connections.extend(slave_connections)
 
     return connections
 
@@ -542,6 +574,14 @@ def is_infiniband_device(nm_client, device_name):
     """Is the type of the device infiniband?"""
     device = nm_client.get_device_by_iface(device_name)
     if device and device.get_device_type() == NM.DeviceType.INFINIBAND:
+        return True
+    return False
+
+
+def is_ethernet_device(nm_client, device_name):
+    """Is the type of the device ethernet?"""
+    device = nm_client.get_device_by_iface(device_name)
+    if device and device.get_device_type() == NM.DeviceType.ETHERNET:
         return True
     return False
 
