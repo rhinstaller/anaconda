@@ -285,7 +285,6 @@ def initialize_network():
     log.debug("Devices found: %s",
               [dev.device_name for dev in get_supported_devices()])
 
-    run_network_initialization_task(network_proxy.ConsolidateInitramfsConnectionsWithTask())
     run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
     run_network_initialization_task(network_proxy.DumpMissingConfigFilesWithTask())
 

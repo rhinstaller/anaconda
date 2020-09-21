@@ -44,7 +44,7 @@ from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTa
 from pyanaconda.modules.network.kickstart import DEFAULT_DEVICE_SPECIFICATION
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
-    DumpMissingConfigFilesTask, ConsolidateInitramfsConnectionsTask
+    DumpMissingConfigFilesTask
 
 import gi
 gi.require_version("NM", "1.0")
@@ -262,18 +262,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             dev.device_type = dev_type
             ret_val.append(dev)
         self.network_module.get_supported_devices = Mock(return_value=ret_val)
-
-    @patch_dbus_publish_object
-    def consolidate_initramfs_connections_with_task_test(self, publisher):
-        """Test ConsolidateInitramfsConnectionsWithTask."""
-        task_path = self.network_interface.ConsolidateInitramfsConnectionsWithTask()
-
-        obj = check_task_creation(self, task_path, publisher, ConsolidateInitramfsConnectionsTask)
-
-        self.network_module.log_task_result = Mock()
-
-        obj.implementation.succeeded_signal.emit()
-        self.network_module.log_task_result.assert_called_once()
 
     @patch_dbus_publish_object
     def apply_kickstart_with_task_test(self, publisher):

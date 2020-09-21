@@ -202,17 +202,6 @@ class NetworkInterface(KickstartModuleInterface):
         """Signal change of network devices configurations."""
         pass
 
-    def ConsolidateInitramfsConnectionsWithTask(self) -> ObjPath:
-        """Ensure devices configured in initramfs have no more than one NM connection.
-
-        This should be used only in installer environment.
-
-        :returns: DBus path of the task consolidating the connections
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.consolidate_initramfs_connections_with_task()
-        )
-
     def ApplyKickstartWithTask(self) -> ObjPath:
         """Apply kickstart configuration which has not already been applied.
 

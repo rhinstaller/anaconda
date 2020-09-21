@@ -23,8 +23,8 @@ from pyanaconda.modules.network.network_interface import NetworkInitializationTa
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, \
     add_connection_from_ksdata, bound_hwaddr_of_device, update_connection_values, \
-    commit_changes_with_autoconnection_blocked, is_ibft_connection, \
-    get_config_file_connection_of_device, clone_connection_sync
+    commit_changes_with_autoconnection_blocked, get_config_file_connection_of_device, \
+    clone_connection_sync
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -146,103 +146,6 @@ class ApplyKickstartTask(Task):
                 if con.get_interface_name() == iface and con.get_id() == iface:
                     return con
         return None
-
-
-class ConsolidateInitramfsConnectionsTask(Task):
-    """Task for consolidation of initramfs connections."""
-
-    def __init__(self, nm_client):
-        """Create a new task.
-
-        :param nm_client: NetworkManager client used as configuration backend
-        :type nm_client: NM.Client
-        """
-        super().__init__()
-        self._nm_client = nm_client
-
-    @property
-    def name(self):
-        return "Consolidate initramfs connections"
-
-    def for_publication(self):
-        """Return a DBus representation."""
-        return NetworkInitializationTaskInterface(self)
-
-    @guard_by_system_configuration(return_value=[])
-    def run(self):
-        """Run the connections consolidation.
-
-        :returns: names of devices of which the connections have been consolidated
-        :rtype: list(str)
-        """
-        consolidated_devices = []
-
-        if not self._nm_client:
-            log.debug("%s: No NetworkManager available.", self.name)
-            return consolidated_devices
-
-        for device in self._nm_client.get_devices():
-            cons = device.get_available_connections()
-            number_of_connections = len(cons)
-            iface = device.get_iface()
-
-            if number_of_connections < 2:
-                continue
-
-            # Ignore devices which are slaves
-            if any(con.get_setting_connection().get_master() for con in cons):
-                log.debug("%s: %d for %s - it is OK, device is a slave",
-                          self.name, number_of_connections, iface)
-                continue
-
-            # Ignore devices with iBFT connections
-            if self._device_has_ibft_connection(device):
-                log.debug("%s: %d for %s - it is OK, device was configured from iBFT",
-                          self.name, number_of_connections, iface)
-                continue
-
-            config_uuid = get_config_file_connection_of_device(self._nm_client, iface)
-            if config_uuid:
-                # There is a connection from kickstart generated in intramfs,
-                # the device will be handled when applying kickstart
-                continue
-
-            log.debug("%s: %d for %s - no config file found",
-                      self.name, number_of_connections, iface)
-            con_for_iface = self._select_persistent_connection_for_iface(iface, cons)
-            if not con_for_iface:
-                log.debug("%s: %d for %s - no suitable connection for the interface found",
-                          self.name, number_of_connections, iface)
-                continue
-
-            log.debug("%s: %d for %s - ensure connection with config is active",
-                      self.name, number_of_connections, iface)
-
-            ensure_active_connection_for_device(
-                self._nm_client,
-                con_for_iface.get_uuid(),
-                iface,
-                only_replace=True
-            )
-
-            consolidated_devices.append(iface)
-
-        return consolidated_devices
-
-    def _select_persistent_connection_for_iface(self, iface, cons):
-        """Select the connection suitable to store configuration for the interface."""
-        for con in cons:
-            if con.get_interface_name() == iface:
-                return con
-        return None
-
-    def _device_has_ibft_connection(self, device):
-        ac = device.get_active_connection()
-        if ac:
-            con = ac.get_connection()
-            if is_ibft_connection(con):
-                return True
-        return False
 
 
 class DumpMissingConfigFilesTask(Task):
