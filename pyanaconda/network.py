@@ -288,7 +288,6 @@ def initialize_network():
     run_network_initialization_task(network_proxy.ConsolidateInitramfsConnectionsWithTask())
     run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
     run_network_initialization_task(network_proxy.DumpMissingConfigFilesWithTask())
-    run_network_initialization_task(network_proxy.SetRealOnbootValuesFromKickstartWithTask())
 
     if network_proxy.Hostname == DEFAULT_HOSTNAME:
         bootopts_hostname = hostname_from_cmdline(kernel_arguments)
