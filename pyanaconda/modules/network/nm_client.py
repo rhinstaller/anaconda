@@ -899,35 +899,6 @@ def bind_connection(nm_client, connection, bindto, device_name=None, bind_exclus
     return modified
 
 
-def ensure_active_connection_for_device(nm_client, uuid, device_name, only_replace=False):
-    """Make sure active connection of a device is the one specified by uuid.
-
-    :param uuid: uuid of the connection to be applied
-    :type uuid: str
-    :param device_name: name of device to apply the connection to
-    :type device_name: str
-    :param only_replace: apply the connection only if the device has different
-                         active connection
-    :type only_replace: bool
-    """
-    activated = False
-    active_uuid = None
-    device = nm_client.get_device_by_iface(device_name)
-    if device:
-        ac = device.get_active_connection()
-        if ac or not only_replace:
-            active_uuid = ac.get_uuid() if ac else None
-            if uuid != active_uuid:
-                config_con = nm_client.get_connection_by_uuid(uuid)
-                if config_con:
-                    activate_connection_sync(nm_client, config_con, None)
-                    activated = True
-    msg = "activated" if activated else "not activated"
-    log.debug("ensure active config connection for %s (%s -> %s): %s",
-              device_name, active_uuid, uuid, msg)
-    return activated
-
-
 def get_connections_available_for_iface(nm_client, iface):
     """Get all connections available for given interface.
 
@@ -1047,41 +1018,6 @@ def commit_changes_with_autoconnection_blocked(connection, save_to_disk=True):
     )
 
     return sync_queue.get()
-
-
-def activate_connection_sync(nm_client, connection, device):
-    """Activate a connection synchronously.
-
-    Synchronous wrapper of ActivateConnection() NM method.
-
-    :param connection: NetworkManager connection
-    :type connection: NM.RemoteConnection
-    :param device: the preferred device to apply the connection to
-                   None if not needed
-    :type device: NM.Device
-    """
-    sync_queue = Queue()
-
-    def finish_callback(nm_client, result, sync_queue):
-        ret = nm_client.activate_connection_finish(result)
-        sync_queue.put(ret)
-
-    nm_client.activate_connection_async(
-        connection,
-        device,
-        None,
-        None,
-        finish_callback,
-        sync_queue
-    )
-
-    try:
-        ret = sync_queue.get(timeout=CONNECTION_ACTIVATION_TIMEOUT)
-    except Empty:
-        log.error("Activation of a connection timed out.")
-        ret = None
-
-    return ret
 
 
 def clone_connection_sync(nm_client, connection, con_id=None, uuid=None):

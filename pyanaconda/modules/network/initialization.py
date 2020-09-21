@@ -21,10 +21,9 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.network_interface import NetworkInitializationTaskInterface
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
-    ensure_active_connection_for_device, update_connection_from_ksdata, \
-    add_connection_from_ksdata, bound_hwaddr_of_device, update_connection_values, \
-    commit_changes_with_autoconnection_blocked, get_config_file_connection_of_device, \
-    clone_connection_sync
+    update_connection_from_ksdata, add_connection_from_ksdata, bound_hwaddr_of_device, \
+    update_connection_values, commit_changes_with_autoconnection_blocked, \
+    get_config_file_connection_of_device, clone_connection_sync
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -99,39 +98,23 @@ class ApplyKickstartTask(Task):
                 log.warning("%s: --device %s not found", self.name, network_data.device)
                 continue
 
-            config_uuid = get_config_file_connection_of_device(self._nm_client, device_name)
-            # Assuming the config file is from kickstart generated in initramfs
-            # TODO - can it be something else? default autoconnection?
-            if config_uuid:
-                if network_data.activate:
-                    if ensure_active_connection_for_device(self._nm_client, config_uuid,
-                                                           device_name):
-                        applied_devices.append(device_name)
-                continue
-
-            # If there is no kickstart config from initramfs the command was added
-            # in %pre section after switch root, so apply it now
             applied_devices.append(device_name)
 
-            connection = None
-            if config_uuid:
-                connection = self._nm_client.get_connection_by_uuid(config_uuid)
-            if not connection:
-                connection = self._find_initramfs_connection_of_iface(device_name)
+            connection = self._find_initramfs_connection_of_iface(device_name)
 
             if connection:
                 # if the device was already configured in initramfs update the settings
-                log.debug("%s: pre kickstart - updating connection %s of device %s",
+                log.debug("%s: updating connection %s of device %s",
                           self.name, connection.get_uuid(), device_name)
                 update_connection_from_ksdata(self._nm_client, connection, network_data,
                                               device_name=device_name)
                 if network_data.activate:
                     device = self._nm_client.get_device_by_iface(device_name)
                     self._nm_client.activate_connection_async(connection, device, None, None)
-                    log.debug("%s: pre kickstart - activating connection %s with device %s",
+                    log.debug("%s: activating updated connection %s with device %s",
                               self.name, connection.get_uuid(), device_name)
             else:
-                log.debug("%s: pre kickstart - adding connection for %s", self.name, device_name)
+                log.debug("%s: adding connection for %s", self.name, device_name)
                 add_connection_from_ksdata(self._nm_client, network_data, device_name,
                                            activate=network_data.activate,
                                            ifname_option_values=self._ifname_option_values)
