@@ -571,6 +571,13 @@ installation progresses to debug or monitor its progress.
 Debugging and Troubleshooting
 -----------------------------
 
+.. inst.debug:
+
+inst.debug
+^^^^^^^^^^
+
+Run the installer in the debugging mode.
+
 .. inst.rescue:
 
 inst.rescue
@@ -597,15 +604,6 @@ inst.nokill
 
 A debugging option that prevents anaconda from and rebooting when a fatal error
 occurs or at the end of the installation process.
-
-.. inst.loglevel:
-
-inst.loglevel
-^^^^^^^^^^^^^
-
-``inst.loglevel=<debug|info|warning|error|critical>``
-    Set the minimum level required for messages to be logged on a terminal (log
-    files always contain messages of all levels). The default value is ``info``.
 
 .. inst.noshell:
 
@@ -927,6 +925,13 @@ gdb
 
 This was used to debug ``loader``, so it has been removed. There are plenty of
 options for debugging dracut-based initramfs - see the |dracutdebug|.
+
+.. inst.loglevel:
+
+inst.loglevel
+^^^^^^^^^^^^^
+
+The log level is always set to ``debug``.
 
 .. inst.mediacheck:
 

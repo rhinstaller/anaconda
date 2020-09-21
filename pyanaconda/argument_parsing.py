@@ -492,7 +492,6 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--lang", metavar="LANG", help=help_parser.help_text("lang"))
 
     # Obvious
-    ap.add_argument("--loglevel", metavar="LEVEL", help=help_parser.help_text("loglevel"))
     ap.add_argument("--syslog", metavar="HOST[:PORT]", help=help_parser.help_text("syslog"))
     ap.add_argument("--remotelog", metavar="HOST:PORT", help=help_parser.help_text("remotelog"))
     ap.add_argument("--virtiolog", metavar="/dev/virtio-ports/NAME", default=VIRTIO_PORT,
