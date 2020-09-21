@@ -54,17 +54,6 @@ logLevelMap = {"debug": logging.DEBUG,
                "critical": logging.CRITICAL}
 
 
-# sets autoSetLevel for the given handler
-def autoSetLevel(handler, value):
-    handler.autoSetLevel = value
-
-
-# all handlers of given logger with autoSetLevel == True are set to level
-def setHandlersLevel(logr, level):
-    for handler in filter(lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers):
-        handler.setLevel(level)
-
-
 class _AnacondaLogFixer(object):
     """ A mixin for logging.StreamHandler that does not lock during format.
 
@@ -168,7 +157,6 @@ class AnacondaLog(object):
     SYSLOG_CFGFILE = "/etc/rsyslog.conf"
 
     def __init__(self, write_to_journal=False):
-        self.loglevel = DEFAULT_LEVEL
         self.remote_syslog = None
         self.write_to_journal = write_to_journal
         # Rename the loglevels so they are the same as in syslog.
@@ -245,7 +233,6 @@ class AnacondaLog(object):
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler(self, dest, addToLogger, minLevel=DEFAULT_LEVEL,
                        fmtStr=ENTRY_FORMAT,
-                       autoLevel=False,
                        log_filter=None):
         try:
             if isinstance(dest, str):
@@ -257,7 +244,6 @@ class AnacondaLog(object):
                 logfile_handler.addFilter(log_filter)
             logfile_handler.setLevel(minLevel)
             logfile_handler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
-            autoSetLevel(logfile_handler, autoLevel)
             addToLogger.addHandler(logfile_handler)
         except IOError:
             pass

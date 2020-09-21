@@ -27,8 +27,7 @@ from pyanaconda import anaconda_logging
 from pyanaconda import network
 from pyanaconda import safe_dbus
 from pyanaconda import kickstart
-from pyanaconda.anaconda_loggers import get_stdout_logger, get_storage_logger, \
-    get_packaging_logger, get_module_logger, get_anaconda_root_logger
+from pyanaconda.anaconda_loggers import get_stdout_logger, get_module_logger
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
@@ -156,20 +155,6 @@ def setup_logging_from_options(options):
 
     :param options: Anaconda command line/boot options
     """
-    if (options.debug or options.updateSrc) and not options.loglevel:
-        # debugging means debug logging if an explicit level hasn't been st
-        options.loglevel = "debug"
-
-    if options.loglevel and options.loglevel in anaconda_logging.logLevelMap:
-        log.info("Switching logging level to %s", options.loglevel)
-        level = anaconda_logging.logLevelMap[options.loglevel]
-        anaconda_logging.logger.loglevel = level
-        anaconda_logging.setHandlersLevel(log, level)
-        storage_log = get_storage_logger()
-        anaconda_logging.setHandlersLevel(storage_log, level)
-        packaging_log = get_packaging_logger()
-        anaconda_logging.setHandlersLevel(packaging_log, level)
-
     if conf.system.can_modify_syslog:
         if options.syslog:
             anaconda_logging.logger.updateRemote(options.syslog)
@@ -188,16 +173,8 @@ def setup_logging_from_kickstart(data):
 
     :param data: kickstart data
     """
-    level = data.logging.level
     host = data.logging.host
     port = data.logging.port
-
-    if anaconda_logging.logger.loglevel == anaconda_logging.DEFAULT_LEVEL:
-        # not set from the command line
-        level = anaconda_logging.logLevelMap[level]
-        anaconda_logging.logger.loglevel = level
-        # set log level for the "anaconda" root logger
-        anaconda_logging.setHandlersLevel(get_anaconda_root_logger(), level)
 
     if anaconda_logging.logger.remote_syslog is None and len(host) > 0:
         # not set from the command line, ok to use kickstart
