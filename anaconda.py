@@ -472,9 +472,8 @@ if __name__ == "__main__":
     if ksdata.reboot.kexec:
         flags.kexec = True
 
-    # Some kickstart commands must be executed immediately, as they affect
-    # how anaconda operates.
-    ksdata.logging.execute()
+    # Change the logging configuration based on the kickstart.
+    startup_utils.setup_logging_from_kickstart(ksdata)
 
     anaconda.ksdata = ksdata
 

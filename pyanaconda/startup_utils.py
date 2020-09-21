@@ -28,7 +28,7 @@ from pyanaconda import network
 from pyanaconda import safe_dbus
 from pyanaconda import kickstart
 from pyanaconda.anaconda_loggers import get_stdout_logger, get_storage_logger, \
-    get_packaging_logger, get_module_logger
+    get_packaging_logger, get_module_logger, get_anaconda_root_logger
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
@@ -180,6 +180,30 @@ def setup_logging_from_options(options):
             anaconda_logging.logger.setup_remotelog(host, port)
         except ValueError:
             log.error("Could not setup remotelog with %s", options.remotelog)
+
+
+def setup_logging_from_kickstart(data):
+    """Configure logging according to the kickstart.
+
+    :param data: kickstart data
+    """
+    level = data.logging.level
+    host = data.logging.host
+    port = data.logging.port
+
+    if anaconda_logging.logger.loglevel == anaconda_logging.DEFAULT_LEVEL:
+        # not set from the command line
+        level = anaconda_logging.logLevelMap[level]
+        anaconda_logging.logger.loglevel = level
+        # set log level for the "anaconda" root logger
+        anaconda_logging.setHandlersLevel(get_anaconda_root_logger(), level)
+
+    if anaconda_logging.logger.remote_syslog is None and len(host) > 0:
+        # not set from the command line, ok to use kickstart
+        remote_server = host
+        if port:
+            remote_server = "%s:%s" % (host, port)
+        anaconda_logging.logger.updateRemote(remote_server)
 
 
 def prompt_for_ssh(options):

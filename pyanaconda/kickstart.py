@@ -31,6 +31,7 @@ import warnings
 
 from contextlib import contextmanager
 
+from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
@@ -52,12 +53,7 @@ from pykickstart.sections import NullSection, PackageSection, PostScriptSection,
                                  OnErrorScriptSection, TracebackScriptSection, Section
 from pykickstart.version import returnClassForVersion
 
-from pyanaconda import anaconda_logging
-from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, \
-    get_anaconda_root_logger
-
 log = get_module_logger(__name__)
-
 stdoutLog = get_stdout_logger()
 
 # kickstart parsing and kickstart script
@@ -193,23 +189,6 @@ class UselessCommand(RemovedCommand):
 
     def __init_subclass__(cls, **kwargs):
         raise TypeError("It is not allowed to subclass the UselessCommand class.")
-
-
-class Logging(COMMANDS.Logging):
-    def execute(self):
-        if anaconda_logging.logger.loglevel == anaconda_logging.DEFAULT_LEVEL:
-            # not set from the command line
-            level = anaconda_logging.logLevelMap[self.level]
-            anaconda_logging.logger.loglevel = level
-            # set log level for the "anaconda" root logger
-            anaconda_logging.setHandlersLevel(get_anaconda_root_logger(), level)
-
-        if anaconda_logging.logger.remote_syslog is None and len(self.host) > 0:
-            # not set from the command line, ok to use kickstart
-            remote_server = self.host
-            if self.port:
-                remote_server = "%s:%s" % (self.host, self.port)
-            anaconda_logging.logger.updateRemote(remote_server)
 
 
 class RepoData(COMMANDS.RepoData):
@@ -354,7 +333,6 @@ commandMap = {
     "iscsiname": UselessCommand,
     "keyboard": UselessCommand,
     "lang": UselessCommand,
-    "logging": Logging,
     "logvol": UselessCommand,
     "method": UselessCommand,
     "mount": UselessCommand,
