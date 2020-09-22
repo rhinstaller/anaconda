@@ -435,7 +435,6 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
         device_to_activate = _update_vlan_connection_from_ksdata(con, network_data) \
             or device_to_activate
 
-
     # type "bridge"
     if network_data.bridgeslaves:
         # bridge connection is autoactivated
@@ -1015,6 +1014,17 @@ def activate_connection_sync(nm_client, connection, device):
 
 
 def clone_connection_sync(nm_client, connection, con_id=None, uuid=None):
+    """Clone a connection synchronously.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param con_id: id of the cloned connection
+    :type con_id: str
+    :param uuid: uuid of the cloned connection (None to be generated)
+    :type uuid: str
+    :return: NetworkManager connection or None on timeout
+    :rtype: NM.RemoteConnection
+    """
     sync_queue = Queue()
 
     def finish_callback(nm_client, result, sync_queue):
