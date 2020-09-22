@@ -241,7 +241,6 @@ class DumpMissingConfigFilesTask(Task):
             if not con:
                 con = self._select_persistent_connection_for_device(device, cons)
 
-            # Devices activated in initramfs should have ONBOOT=yes
             has_initramfs_con = any(self._is_initramfs_connection(con, iface) for con in cons)
             if has_initramfs_con:
                 log.debug("%s: device %s has initramfs connection", self.name, iface)
@@ -253,16 +252,21 @@ class DumpMissingConfigFilesTask(Task):
 
             if con:
                 self._update_connection(con, iface)
+                # Update some values of connection generated in initramfs so it
+                # can be used as persistent configuration.
                 if has_initramfs_con:
                     update_connection_values(
                         con,
                         [
+                            # Make sure ONBOOT is yes
                             (NM.SETTING_CONNECTION_SETTING_NAME,
                              NM.SETTING_CONNECTION_AUTOCONNECT,
                              True),
+                            # Update cloned generic connection from initramfs
                             (NM.SETTING_CONNECTION_SETTING_NAME,
                              NM.SETTING_CONNECTION_MULTI_CONNECT,
                              0),
+                            # Update cloned generic connection from initramfs
                             (NM.SETTING_CONNECTION_SETTING_NAME,
                              NM.SETTING_CONNECTION_WAIT_DEVICE_TIMEOUT,
                              -1)
