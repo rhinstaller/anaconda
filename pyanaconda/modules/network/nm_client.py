@@ -449,28 +449,35 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
         log.debug("add connection (activate=%s): %s for %s\n%s",
                   activate, connection.get_uuid(), device_name,
                   connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
-        device_to_activate = device_name if activate else None
-        add_and_activate_connection_sync(
+        added_connection = add_connection_sync(
             nm_client,
             connection,
-            activate,
-            device_to_activate
         )
+
+        if not added_connection:
+            continue
+
+        if activate:
+            if device_name:
+                device = nm_client.get_device_by_iface(device_name)
+                if device:
+                    log.debug("activating with device %s", device.get_iface())
+                else:
+                    log.debug("activating without device specified - device %s not found",
+                              device_name)
+            else:
+                device = None
+                log.debug("activating without device specified")
+            nm_client.activate_connection_async(added_connection, device, None, None)
 
     return connections
 
 
-def add_and_activate_connection_sync(nm_client, connection, activate=True,
-                                     device_to_activate=None):
-    """Add a connection synchronously and optionally activate asynchronously.
+def add_connection_sync(nm_client, connection):
+    """Add a connection synchronously.
 
     :param connection: connection to be added
     :type connection: NM.SimpleConnection
-    :param activate: activate the connection asynchronously after it is created
-    :type activate: bool
-    :param device_to_activate: name of the device which should be used for activating
-                               None if not needed
-    :type device_to_activate: str
     :return: added connection or None on timeout
     :rtype: NM.RemoteConnection
     """
@@ -480,16 +487,6 @@ def add_and_activate_connection_sync(nm_client, connection, activate=True,
         con, result = nm_client.add_connection2_finish(result)
         log.debug("connection %s added:\n%s", con.get_uuid(),
                   con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
-        if activate:
-            if device_to_activate:
-                device = nm_client.get_device_by_iface(device_to_activate)
-                if device:
-                    log.debug("activating with device %s", device.get_iface())
-                else:
-                    log.debug("activating without device specified - device not found")
-            else:
-                log.debug("activating without device specified")
-            nm_client.activate_connection_async(con, device, None, None)
         sync_queue.put(con)
 
     nm_client.add_connection2(
