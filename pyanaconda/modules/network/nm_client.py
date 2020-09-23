@@ -683,7 +683,8 @@ def bound_hwaddr_of_device(nm_client, device_name, ifname_option_values):
     return None
 
 
-def update_connection_from_ksdata(nm_client, connection, network_data, device_name=None):
+def update_connection_from_ksdata(nm_client, connection, network_data, device_name,
+                                  ifname_option_values=None):
     """Update NM connection specified by uuid from kickstart configuration.
 
     :param connection: existing NetworkManager connection to be updated
@@ -692,9 +693,13 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     :type network_data: pykickstart NetworkData
     :param device_name: device name the connection should be bound to eventually
     :type device_name: str
+    :param ifname_option_values: list of ifname boot option values
+    :type ifname_option_values: list(str)
     """
     log.debug("updating connection %s:\n%s", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
+
+    ifname_option_values = ifname_option_values or []
 
     # IP configuration
     update_connection_ip_settings_from_ksdata(connection, network_data)
@@ -706,7 +711,15 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
                                                 NM_CONNECTION_TYPE_TEAM,
                                                 NM_CONNECTION_TYPE_VLAN,
                                                 NM_CONNECTION_TYPE_BRIDGE):
-        bind_connection(nm_client, connection, network_data.bindto, device_name)
+        bound_mac = bound_hwaddr_of_device(nm_client, device_name, ifname_option_values)
+        if bound_mac:
+            log.debug("update connection: mac %s is bound to name %s", bound_mac, device_name)
+            # The connection is already bound to iface name by NM in initramfs,
+            # still bind also to MAC until this method of renaming is abandoned (rhbz#1875485)
+            bind_connection(nm_client, connection, BIND_TO_MAC, device_name,
+                            bind_exclusively=False)
+        else:
+            bind_connection(nm_client, connection, network_data.bindto, device_name)
 
     commit_changes_with_autoconnection_blocked(connection)
 

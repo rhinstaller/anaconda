@@ -106,8 +106,13 @@ class ApplyKickstartTask(Task):
                 # if the device was already configured in initramfs update the settings
                 log.debug("%s: updating connection %s of device %s",
                           self.name, connection.get_uuid(), device_name)
-                update_connection_from_ksdata(self._nm_client, connection, network_data,
-                                              device_name=device_name)
+                update_connection_from_ksdata(
+                    self._nm_client,
+                    connection,
+                    network_data,
+                    device_name,
+                    ifname_option_values=self._ifname_option_values
+                )
                 if network_data.activate:
                     device = self._nm_client.get_device_by_iface(device_name)
                     self._nm_client.activate_connection_async(connection, device, None, None)
@@ -115,9 +120,13 @@ class ApplyKickstartTask(Task):
                               self.name, connection.get_uuid(), device_name)
             else:
                 log.debug("%s: adding connection for %s", self.name, device_name)
-                add_connection_from_ksdata(self._nm_client, network_data, device_name,
-                                           activate=network_data.activate,
-                                           ifname_option_values=self._ifname_option_values)
+                add_connection_from_ksdata(
+                    self._nm_client,
+                    network_data,
+                    device_name,
+                    activate=network_data.activate,
+                    ifname_option_values=self._ifname_option_values
+                )
 
         return applied_devices
 
