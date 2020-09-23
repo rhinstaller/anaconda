@@ -972,6 +972,8 @@ def upcase_first_letter(text):
     lowercases all the others. string.title() capitalizes all words in the
     string.
 
+    Note: Never use on translated strings!
+
     :type text: str
     :return: the given text with the first letter upcased
     :rtype: str
