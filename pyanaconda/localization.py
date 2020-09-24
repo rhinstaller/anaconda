@@ -301,8 +301,7 @@ def get_native_name(locale):
     """
     raise_on_invalid_locale(locale)
 
-    name = langtable.language_name(languageId=locale)
-    return upcase_first_letter(name)
+    return langtable.language_name(languageId=locale)
 
 
 def get_available_translations(localedir=None):
