@@ -253,6 +253,28 @@ dev_is_cdrom() {
     udevadm info --query=property --name=$1 | grep -q 'ID_CDROM=1'
 }
 
+dev_is_on_disk_with_iso9660() {
+    # Get the name of the device.
+    local dev_name="${1}"
+
+    # Get the path of the device.
+    local dev_path="$(udevadm info -q path --name ${dev_name})"
+
+    # Is the device a partition?
+    udevadm info -q property --path ${dev_path} | grep -q 'DEVTYPE=partition' || return 1
+
+    # Get the path of the parent.
+    local disk_path="${dev_path%/*}"
+
+    # Is the parent a disk?
+    udevadm info -q property --path ${disk_path} | grep -q 'DEVTYPE=disk' || return 1
+
+    # Does the parent has the iso9660 filesystem?
+    udevadm info -q property --path ${disk_path} | grep -q 'ID_FS_TYPE=iso9660' || return 1
+
+    return 0
+}
+
 # dracut doesn't bring up the network unless:
 #   a) $netroot is set (i.e. you have a network root device), or
 #   b) /tmp/net.ifaces exists.
