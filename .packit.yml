@@ -1,0 +1,17 @@
+specfile_path: anaconda.spec
+upstream_package_name: anaconda
+actions:
+  post-upstream-clone:
+    - ./autogen.sh
+    - ./configure
+  get-current-version:
+    - bash -c "git describe --tags --match '*.*' | awk -F '-' '{ print $2}' "
+  create-archive:
+    - "make release"
+    - 'bash -c "ls -1 anaconda-*.tar.bz2"'
+jobs:
+  - job: tests
+    trigger: pull_request
+    metadata:
+      targets:
+        - fedora-rawhide
