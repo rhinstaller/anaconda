@@ -18,7 +18,11 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
+from dasbus.typing import Structure
+
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_IMAGE
+from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 
 __all__ = ["LiveImageSourceInterface"]
@@ -27,3 +31,28 @@ __all__ = ["LiveImageSourceInterface"]
 @dbus_interface(PAYLOAD_SOURCE_LIVE_IMAGE.interface_name)
 class LiveImageSourceInterface(PayloadSourceBaseInterface):
     """DBus interface for the live image source module."""
+
+    def connect_signals(self):
+        """Connect the signals."""
+        super().connect_signals()
+        self.watch_property("Configuration", self.implementation.configuration_changed)
+
+    @property
+    def Configuration(self) -> Structure:
+        """The source configuration.
+
+        :return: a structure of the type LiveImageConfigurationData
+        """
+        return LiveImageConfigurationData.to_structure(
+            self.implementation.configuration
+        )
+
+    @emits_properties_changed
+    def SetConfiguration(self, data: Structure):
+        """Set the source configuration.
+
+        :param data: a structure of the type LiveImageConfigurationData
+        """
+        self.implementation.set_configuration(
+            LiveImageConfigurationData.from_structure(data)
+        )

@@ -17,6 +17,8 @@
 #
 import unittest
 
+from dasbus.typing import get_variant, Str, Bool
+
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_IMAGE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_IMAGE
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
@@ -50,6 +52,20 @@ class LiveImageSourceInterfaceTestCase(unittest.TestCase):
         """Test the Description property."""
         self.assertEqual("Live image", self.interface.Description)
 
+    def configuration_test(self):
+        """Test the configuration property."""
+        data = {
+            "url": get_variant(Str, "http://my/image.img"),
+            "proxy": get_variant(Str, "http://user:pass@example.com/proxy"),
+            "checksum": get_variant(Str, "1234567890"),
+            "ssl-verification-enabled": get_variant(Bool, False)
+        }
+
+        self._check_dbus_property(
+            "Configuration",
+            data
+        )
+
 
 class LiveImageSourceTestCase(unittest.TestCase):
     """Test the live image source module."""
@@ -65,6 +81,15 @@ class LiveImageSourceTestCase(unittest.TestCase):
         """Test the network_required property."""
         self.assertEqual(self.module.network_required, False)
 
+        self.module.configuration.url = "file://my/path"
+        self.assertEqual(self.module.network_required, False)
+
+        self.module.configuration.url = "http://my/path"
+        self.assertEqual(self.module.network_required, True)
+
+        self.module.configuration.url = "https://my/path"
+        self.assertEqual(self.module.network_required, True)
+
     def get_state_test(self):
         """Test the source state."""
         self.assertEqual(SourceState.NOT_APPLICABLE, self.module.get_state())
@@ -79,4 +104,10 @@ class LiveImageSourceTestCase(unittest.TestCase):
 
     def repr_test(self):
         """Test the string representation."""
-        self.assertEqual(repr(self.module), str("Source(type='LIVE_IMAGE')"))
+        self.module.configuration.url = "file://my/path"
+        self.assertEqual(repr(self.module), str(
+            "Source("
+            "type='LIVE_IMAGE', "
+            "url='file://my/path'"
+            ")"
+        ))

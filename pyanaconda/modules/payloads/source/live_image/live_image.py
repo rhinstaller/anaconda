@@ -19,7 +19,10 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
+from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.payloads.source.live_image.live_image_interface import \
     LiveImageSourceInterface
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
@@ -31,6 +34,11 @@ __all__ = ["LiveImageSourceModule"]
 
 class LiveImageSourceModule(PayloadSourceBase):
     """The live image source module."""
+
+    def __init__(self):
+        super().__init__()
+        self._configuration = LiveImageConfigurationData()
+        self.configuration_changed = Signal()
 
     @property
     def type(self):
@@ -47,13 +55,29 @@ class LiveImageSourceModule(PayloadSourceBase):
         return LiveImageSourceInterface(self)
 
     @property
+    def configuration(self):
+        """The source configuration.
+
+        :return: an instance of LiveImageConfigurationData
+        """
+        return self._configuration
+
+    def set_configuration(self, configuration):
+        """Set the source configuration.
+
+        :param configuration: an instance of LiveImageConfigurationData
+        """
+        self._configuration = configuration
+        self.configuration_changed.emit()
+        log.debug("Configuration is set to '%s'.", configuration)
+
+    @property
     def network_required(self):
         """Does the source require a network?
 
         :return: True or False
         """
-        # TODO: Implement this method
-        return False
+        return has_network_protocol(self.configuration.url)
 
     def get_state(self):
         """Get state of this source."""
@@ -79,4 +103,8 @@ class LiveImageSourceModule(PayloadSourceBase):
         return []
 
     def __repr__(self):
-        return "Source(type='LIVE_IMAGE')"
+        """Return a string representation of the source."""
+        return "Source(type='{}', url='{}')".format(
+            self.type.value,
+            self.configuration.url
+        )
