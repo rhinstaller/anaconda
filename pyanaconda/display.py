@@ -50,6 +50,20 @@ log = get_module_logger(__name__)
 stdout_log = get_stdout_logger()
 
 
+def start_user_systemd():
+    """Start the user instance of systemd.
+
+    The service org.a11y.Bus runs the dbus-broker-launch in
+    the user scope that requires the user instance of systemd.
+    """
+    if not conf.system.can_start_user_systemd:
+        log.debug("Don't start the user instance of systemd.")
+        return
+
+    childproc = util.startProgram(["/usr/lib/systemd/systemd", "--user"])
+    WatchProcesses.watch_process(childproc, "systemd")
+
+
 # Spice
 
 def start_spice_vd_agent():
@@ -193,6 +207,7 @@ def do_extra_x11_actions(runres, gui_mode):
     # Load the system-wide Xresources
     util.execWithRedirect("xrdb", ["-nocpp", "-merge", "/etc/X11/Xresources"])
 
+    start_user_systemd()
     start_spice_vd_agent()
 
 
