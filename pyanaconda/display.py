@@ -177,9 +177,9 @@ def do_startup_x11_actions():
     else:
         xdg_data_dirs = datadir + '/window-manager:/usr/share'
 
-    childproc = util.startProgram(["metacity", "--display", ":1", "--sm-disable"],
+    childproc = util.startProgram(["mutter", "--display", ":1", "--sm-disable", "--x11"],
                                   env_add={'XDG_DATA_DIRS': xdg_data_dirs})
-    WatchProcesses.watch_process(childproc, "metacity")
+    WatchProcesses.watch_process(childproc, "mutter")
 
 
 def set_x_resolution(runres):
