@@ -25,7 +25,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payloads.constants import PayloadType
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFilesTask, \
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
@@ -39,6 +39,7 @@ from pyanaconda.modules.payloads.payload.live_image.initialization import \
 from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromTarTask
 from pyanaconda.modules.payloads.payload.live_image.utils import \
     get_kernel_version_list_from_tar, url_target_is_tarfile
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -88,28 +89,25 @@ class LiveImageModule(PayloadBase):
     @property
     def supported_source_types(self):
         """Get list of sources supported by Live Image module."""
-        # TODO: Add supported sources when implemented
-        return None
+        return [
+            SourceType.LIVE_IMAGE
+        ]
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        liveimg = data.liveimg
+        source_type = SourceFactory.get_live_image_type_for_kickstart(data)
 
-        self.set_url(liveimg.url)
-        self.set_proxy(liveimg.proxy)
-        self.set_checksum(liveimg.checksum)
+        if source_type is None:
+            return
 
-        if liveimg.noverifyssl:
-            self.set_verifyssl(not liveimg.noverifyssl)
+        source = SourceFactory.create_source(source_type)
+        source.process_kickstart(data)
+        self.add_source(source)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        liveimg = data.liveimg
-        liveimg.url = self.url
-        liveimg.proxy = self.proxy
-        liveimg.checksum = self.checksum
-        liveimg.noverifyssl = not self.verifyssl
-        liveimg.seen = True
+        for source in self.sources:
+            source.setup_kickstart(data)
 
     @property
     def url(self):

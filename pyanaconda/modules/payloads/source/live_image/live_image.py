@@ -84,6 +84,23 @@ class LiveImageSourceModule(PayloadSourceBase):
         # TODO: Implement this method
         return SourceState.NOT_APPLICABLE
 
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        configuration = LiveImageConfigurationData()
+        configuration.url = data.liveimg.url or ""
+        configuration.proxy = data.liveimg.proxy or ""
+        configuration.checksum = data.liveimg.checksum or ""
+        configuration.ssl_verification_enabled = not data.liveimg.noverifyssl
+        self.set_configuration(configuration)
+
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        data.liveimg.seen = True
+        data.liveimg.url = self.configuration.url
+        data.liveimg.proxy = self.configuration.proxy
+        data.liveimg.checksum = self.configuration.checksum
+        data.liveimg.noverifyssl = not self.configuration.ssl_verification_enabled
+
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
 
