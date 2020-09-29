@@ -80,6 +80,11 @@ class PayloadFactoryTestCase(TestCase):
         )
 
         self._check_payload_type(
+            PayloadType.DNF,
+            "%packages\n%end"
+        )
+
+        self._check_payload_type(
             None,
             ""
         )

@@ -26,7 +26,6 @@ from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
-from pyanaconda.modules.payloads.packages.packages import PackagesModule
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -44,14 +43,9 @@ class PayloadsService(KickstartService):
         self._active_payload = None
         self.active_payload_changed = Signal()
 
-        self._packages = PackagesModule()
-
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(PAYLOADS.namespace)
-
-        self._packages.publish()
-
         DBus.publish_object(PAYLOADS.object_path, PayloadsInterface(self))
         DBus.register_service(PAYLOADS.service_name)
 
@@ -109,12 +103,20 @@ class PayloadsService(KickstartService):
 
     def generate_kickstart(self):
         """Return a kickstart string."""
+        # Generate only the parts of kickstart that were removed from UI.
         # FIXME: This is a temporary workaround for RPM sources.
         if self.active_payload and self.active_payload.type != PayloadType.DNF:
             log.debug("Generating kickstart... (skip)")
             return ""
 
-        return super().generate_kickstart()
+        log.debug("Generating kickstart...")
+        handler = self.get_kickstart_handler()
+        self.setup_kickstart(handler)
+
+        # FIXME: This is a temporary workaround for packages.
+        handler.packages.__str__ = lambda: ""
+
+        return str(handler)
 
     def generate_temporary_kickstart(self):
         """Return the temporary kickstart string."""

@@ -65,7 +65,8 @@ class PayloadFactory(object):
            data.harddrive.seen or \
            data.hmc.seen or \
            data.nfs.seen or \
-           data.url.seen:
+           data.url.seen or \
+           data.packages.seen:
             return PayloadType.DNF
 
         if data.ostreesetup.seen:

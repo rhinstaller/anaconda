@@ -18,8 +18,9 @@
 # Red Hat, Inc.
 #
 from pykickstart.errors import KickstartParseError
+from pykickstart.parser import Packages, Group
 from pykickstart.sections import PackageSection
-from pykickstart.constants import KS_BROKEN_IGNORE
+from pykickstart.constants import KS_BROKEN_IGNORE, GROUP_DEFAULT
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
@@ -27,6 +28,7 @@ from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMAN
 
 
 class AnacondaPackageSection(PackageSection):
+    """The parser of the %packages kickstart section."""
 
     def handleHeader(self, lineno, args):
         """Process packages section header.
@@ -43,6 +45,19 @@ class AnacondaPackageSection(PackageSection):
             )
 
 
+class AnacondaPackages(Packages):
+    """The representation of the %packages kickstart section."""
+
+    def create_group(self, name, include=GROUP_DEFAULT):
+        """Create a new instance of a group.
+
+        :param name: a name of the group
+        :param include: a level of inclusion
+        :return: a group object
+        """
+        return Group(name=name, include=include)
+
+
 class PayloadKickstartSpecification(KickstartSpecification):
 
     commands = {
@@ -53,4 +68,12 @@ class PayloadKickstartSpecification(KickstartSpecification):
         "nfs": COMMANDS.NFS,
         "ostreesetup": COMMANDS.OSTreeSetup,
         "url": COMMANDS.Url
+    }
+
+    sections = {
+        "packages": AnacondaPackageSection
+    }
+
+    sections_data = {
+        "packages": AnacondaPackages
     }
