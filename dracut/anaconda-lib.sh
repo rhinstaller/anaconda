@@ -137,9 +137,20 @@ anaconda_mount_sysroot() {
     local img="$1"
     if [ -e "$img" ]; then
         /sbin/dmsquash-live-root $img
-        # dracut & systemd only mount things with root=live: so we have to do this ourselves
-        # See https://bugzilla.redhat.com/show_bug.cgi?id=1232411
-        printf 'mount /dev/mapper/live-rw %s\n' "$NEWROOT" > $hookdir/mount/01-$$-anaconda.sh
+        if [ -d /run/rootfsbase ]; then
+            # /run/rootfsbase has been created
+            # Which means that the Squash filesystem is plain
+            # and does not contain the embedded EXT4 inside.
+            # Also known as flattened SquashFS or directly compressed SquashFS.
+            printf "mount -t overlay LiveOS_rootfs \
+                   -o lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork \
+                   ${NEWROOT}" > ${hookdir}/mount/01-$$-anaconda.sh
+        else
+            # Otherwise, assumption is that /dev/mapper/live-rw should have been created.
+            # dracut & systemd only mount things with root=live: so we have to do this ourselves
+            # See https://bugzilla.redhat.com/show_bug.cgi?id=1232411
+            printf 'mount /dev/mapper/live-rw %s\n' "$NEWROOT" > $hookdir/mount/01-$$-anaconda.sh
+        fi
     fi
 }
 
@@ -240,6 +251,28 @@ debug_msg() {
 
 dev_is_cdrom() {
     udevadm info --query=property --name=$1 | grep -q 'ID_CDROM=1'
+}
+
+dev_is_on_disk_with_iso9660() {
+    # Get the name of the device.
+    local dev_name="${1}"
+
+    # Get the path of the device.
+    local dev_path="$(udevadm info -q path --name ${dev_name})"
+
+    # Is the device a partition?
+    udevadm info -q property --path ${dev_path} | grep -q 'DEVTYPE=partition' || return 1
+
+    # Get the path of the parent.
+    local disk_path="${dev_path%/*}"
+
+    # Is the parent a disk?
+    udevadm info -q property --path ${disk_path} | grep -q 'DEVTYPE=disk' || return 1
+
+    # Does the parent has the iso9660 filesystem?
+    udevadm info -q property --path ${disk_path} | grep -q 'ID_FS_TYPE=iso9660' || return 1
+
+    return 0
 }
 
 # dracut doesn't bring up the network unless:

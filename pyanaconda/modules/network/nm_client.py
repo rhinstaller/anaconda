@@ -26,13 +26,29 @@ import socket
 from queue import Queue, Empty
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH, \
-    CONNECTION_ACTIVATION_TIMEOUT
+    CONNECTION_ACTIVATION_TIMEOUT, NM_CONNECTION_TYPE_WIFI, NM_CONNECTION_TYPE_ETHERNET, \
+    NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND,  NM_CONNECTION_TYPE_TEAM, \
+    NM_CONNECTION_TYPE_BRIDGE, NM_CONNECTION_TYPE_INFINIBAND, CONNECTION_ADDING_TIMEOUT
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, get_s390_settings, netmask2prefix, \
     prefix2netmask
+from pyanaconda.modules.network.config_file import is_config_file_for_system
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+
+NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS = {
+    NM.SETTING_BRIDGE_MAC_ADDRESS: None,
+    NM.SETTING_BRIDGE_STP: True,
+    NM.SETTING_BRIDGE_PRIORITY: 32768,
+    NM.SETTING_BRIDGE_FORWARD_DELAY: 15,
+    NM.SETTING_BRIDGE_HELLO_TIME: 2,
+    NM.SETTING_BRIDGE_MAX_AGE: 20,
+    NM.SETTING_BRIDGE_AGEING_TIME: 300,
+    NM.SETTING_BRIDGE_GROUP_FORWARD_MASK: 0,
+    NM.SETTING_BRIDGE_MULTICAST_SNOOPING: True
+}
 
 
 def get_iface_from_connection(nm_client, uuid):
@@ -190,6 +206,21 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
     return device_name
 
 
+def _create_vlan_bond_connection_from_ksdata(network_data):
+    con = _create_new_connection(network_data, network_data.device)
+    _update_bond_connection_from_ksdata(con, network_data)
+    # No ip configuration on vlan parent (bond)
+    s_ip4 = NM.SettingIP4Config.new()
+    s_ip4.set_property(NM.SETTING_IP_CONFIG_METHOD,
+                       NM.SETTING_IP4_CONFIG_METHOD_DISABLED)
+    con.add_setting(s_ip4)
+    s_ip6 = NM.SettingIP6Config.new()
+    s_ip6.set_property(NM.SETTING_IP_CONFIG_METHOD,
+                       NM.SETTING_IP6_CONFIG_METHOD_DISABLED)
+    con.add_setting(s_ip6)
+    return con
+
+
 def _update_bond_connection_from_ksdata(connection, network_data):
     """Update connection with values from bond kickstart configuration.
 
@@ -199,15 +230,54 @@ def _update_bond_connection_from_ksdata(connection, network_data):
     :type network_data: pykickstart NetworkData
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = "bond"
+    s_con.props.type = NM_CONNECTION_TYPE_BOND
 
     s_bond = NM.SettingBond.new()
     opts = network_data.bondopts
     for option in opts.split(';' if ';' in opts else ','):
         key, _sep, value = option.partition("=")
         if not s_bond.add_option(key, value):
-            log.warning("adding bond option %s failed (invalid?)")
+            log.warning("adding bond option %s failed (invalid?)", key)
     connection.add_setting(s_bond)
+
+
+def _add_existing_virtual_device_to_bridge(nm_client, device_name, bridge_spec):
+    """Add existing virtual device to a bridge.
+
+    :param device_name: name of the virtual device to be added
+    :type device_name: str
+    :param bridge_spec: specification of the bridge (interface name or connection uuid)
+    :type bridge_spec: str
+    :returns: uuid of the updated connection or None
+    :rtype: str
+    """
+    supported_virtual_types = (
+        NM_CONNECTION_TYPE_BOND,
+    )
+    slave_connection = None
+    cons = nm_client.get_connections()
+    for con in cons:
+        if con.get_interface_name() == device_name \
+                and con.get_connection_type() in supported_virtual_types:
+            slave_connection = con
+            break
+
+    if not slave_connection:
+        return None
+
+    update_connection_values(
+        slave_connection,
+        [
+            (NM.SETTING_CONNECTION_SETTING_NAME,
+             NM.SETTING_CONNECTION_SLAVE_TYPE,
+             'bridge'),
+            (NM.SETTING_CONNECTION_SETTING_NAME,
+             NM.SETTING_CONNECTION_MASTER,
+             bridge_spec),
+        ]
+    )
+    commit_changes_with_autoconnection_blocked(slave_connection)
+    return slave_connection.get_uuid()
 
 
 def _update_team_connection_from_ksdata(connection, network_data):
@@ -237,7 +307,7 @@ def _update_vlan_connection_from_ksdata(connection, network_data):
     :rtype: str
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = "vlan"
+    s_con.props.type = NM_CONNECTION_TYPE_VLAN
     if network_data.interfacename:
         s_con.props.id = network_data.interfacename
         s_con.props.interface_name = network_data.interfacename
@@ -261,7 +331,7 @@ def _update_bridge_connection_from_ksdata(connection, network_data):
     :type network_data: pykickstart NetworkData
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = "bridge"
+    s_con.props.type = NM_CONNECTION_TYPE_BRIDGE
 
     s_bridge = NM.SettingBridge.new()
     for opt in network_data.bridgeopts.split(","):
@@ -290,7 +360,7 @@ def _update_infiniband_connection_from_ksdata(connection, network_data):
     :type network_data: pykickstart NetworkData
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = "infiniband"
+    s_con.props.type = NM_CONNECTION_TYPE_INFINIBAND
 
     s_ib = NM.SettingInfiniband.new()
     s_ib.props.transport_mode = "datagram"
@@ -308,7 +378,7 @@ def _update_ethernet_connection_from_ksdata(connection, network_data, bound_mac)
     :type bound_mac: str
     """
     s_con = connection.get_setting_connection()
-    s_con.props.type = "802-3-ethernet"
+    s_con.props.type = NM_CONNECTION_TYPE_ETHERNET
 
     s_wired = NM.SettingWired.new()
     if bound_mac:
@@ -336,6 +406,18 @@ def _update_wired_connection_with_s390_settings(connection, s390cfg):
         s_wired.props.s390_options = opts_dict
 
 
+def _create_new_connection(network_data, device_name):
+    con_uuid = NM.utils_uuid_generate()
+    con = NM.SimpleConnection.new()
+    s_con = NM.SettingConnection.new()
+    s_con.props.uuid = con_uuid
+    s_con.props.id = device_name
+    s_con.props.interface_name = device_name
+    s_con.props.autoconnect = network_data.onboot
+    con.add_setting(s_con)
+    return con
+
+
 def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_option_values=None):
     """Create NM connections from kickstart configuration.
 
@@ -349,62 +431,67 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
     :rtype: list((NM.RemoteConnection, str))
     """
     ifname_option_values = ifname_option_values or []
+    slave_connections = []
     connections = []
     device_to_activate = device_name
 
-    con_uuid = NM.utils_uuid_generate()
-    con = NM.SimpleConnection.new()
+    con = _create_new_connection(network_data, device_name)
+    bond_con = None
 
     update_connection_ip_settings_from_ksdata(con, network_data)
 
-    s_con = NM.SettingConnection.new()
-    s_con.props.uuid = con_uuid
-    s_con.props.id = device_name
-    s_con.props.interface_name = device_name
-    s_con.props.autoconnect = network_data.onboot
-    con.add_setting(s_con)
-
     # type "bond"
     if network_data.bondslaves:
-        _update_bond_connection_from_ksdata(con, network_data)
+        # vlan over bond
+        if network_data.vlanid:
+            # create bond connection, vlan connection will be created later
+            bond_master = network_data.device
+            bond_con = _create_vlan_bond_connection_from_ksdata(network_data)
+            connections.append((bond_con, bond_master))
+        else:
+            bond_master = device_name
+            _update_bond_connection_from_ksdata(con, network_data)
 
         for i, slave in enumerate(network_data.bondslaves.split(","), 1):
-            slave_con = create_slave_connection('bond', i, slave, device_name)
+            slave_con = create_slave_connection('bond', i, slave, bond_master, network_data.onboot)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            connections.append((slave_con, slave))
+            slave_connections.append((slave_con, slave))
 
     # type "team"
-    elif network_data.teamslaves:
+    if network_data.teamslaves:
         _update_team_connection_from_ksdata(con, network_data)
 
         for i, (slave, cfg) in enumerate(network_data.teamslaves, 1):
             s_team_port = NM.SettingTeamPort.new()
             s_team_port.props.config = cfg
             slave_con = create_slave_connection('team', i, slave, device_name,
-                                                settings=[s_team_port])
+                                                network_data.onboot, settings=[s_team_port])
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            connections.append((slave_con, slave))
+            slave_connections.append((slave_con, slave))
 
     # type "vlan"
-    elif network_data.vlanid:
-        device_to_activate = _update_vlan_connection_from_ksdata(con, network_data)
+    if network_data.vlanid:
+        device_to_activate = _update_vlan_connection_from_ksdata(con, network_data) \
+            or device_to_activate
 
     # type "bridge"
-    elif network_data.bridgeslaves:
+    if network_data.bridgeslaves:
         # bridge connection is autoactivated
         _update_bridge_connection_from_ksdata(con, network_data)
 
         for i, slave in enumerate(network_data.bridgeslaves.split(","), 1):
-            slave_con = create_slave_connection('bridge', i, slave, device_name)
-            bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            connections.append((slave_con, slave))
+            if not _add_existing_virtual_device_to_bridge(nm_client, slave, device_name):
+                slave_con = create_slave_connection('bridge', i, slave, device_name,
+                                                    network_data.onboot)
+                bind_connection(nm_client, slave_con, network_data.bindto, slave)
+                slave_connections.append((slave_con, slave))
 
     # type "infiniband"
-    elif is_infiniband_device(nm_client, device_name):
+    if is_infiniband_device(nm_client, device_name):
         _update_infiniband_connection_from_ksdata(con, network_data)
 
     # type "802-3-ethernet"
-    else:
+    if is_ethernet_device(nm_client, device_name):
         bound_mac = bound_hwaddr_of_device(nm_client, device_name, ifname_option_values)
         _update_ethernet_connection_from_ksdata(con, network_data, bound_mac)
         if bound_mac:
@@ -418,7 +505,8 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
             s390cfg = get_s390_settings(device_name)
             _update_wired_connection_with_s390_settings(con, s390cfg)
 
-    connections.insert(0, (con, device_to_activate))
+    connections.append((con, device_to_activate))
+    connections.extend(slave_connections)
 
     return connections
 
@@ -443,44 +531,71 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
         ifname_option_values
     )
 
-    for con, device_name in connections:
-        log.debug("add connection: %s for %s\n%s", con.get_uuid(), device_name,
-                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
-        device_to_activate = device_name if activate else None
-        nm_client.add_connection2(
-            con.to_dbus(NM.ConnectionSerializationFlags.ALL),
-            (NM.SettingsAddConnection2Flags.TO_DISK |
-             NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
-            None,
-            False,
-            None,
-            _connection_added_cb,
-            device_to_activate
+    for connection, device_name in connections:
+        log.debug("add connection (activate=%s): %s for %s\n%s",
+                  activate, connection.get_uuid(), device_name,
+                  connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
+        added_connection = add_connection_sync(
+            nm_client,
+            connection,
         )
+
+        if not added_connection:
+            continue
+
+        if activate:
+            if device_name:
+                device = nm_client.get_device_by_iface(device_name)
+                if device:
+                    log.debug("activating with device %s", device.get_iface())
+                else:
+                    log.debug("activating without device specified - device %s not found",
+                              device_name)
+            else:
+                device = None
+                log.debug("activating without device specified")
+            nm_client.activate_connection_async(added_connection, device, None, None)
 
     return connections
 
 
-def _connection_added_cb(client, result, device_to_activate=None):
-    """Finish asynchronous adding of a connection and activate eventually.
+def add_connection_sync(nm_client, connection):
+    """Add a connection synchronously and optionally activate asynchronously.
 
-    :param device_to_activate: name of the device to be activated with the
-                                added connection.
-    :type device_to_activate: str
+    :param connection: connection to be added
+    :type connection: NM.SimpleConnection
+    :return: added connection or None on timeout
+    :rtype: NM.RemoteConnection
     """
-    con, result = client.add_connection2_finish(result)
-    log.debug("connection %s added:\n%s", con.get_uuid(),
-              con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
-    if device_to_activate:
-        device = client.get_device_by_iface(device_to_activate)
-        if device:
-            log.debug("activating with device %s", device.get_iface())
-        else:
-            log.debug("activating without device specified (not found)")
-        client.activate_connection_async(con, device, None, None)
+    sync_queue = Queue()
+
+    def finish_callback(nm_client, result, sync_queue):
+        con, result = nm_client.add_connection2_finish(result)
+        log.debug("connection %s added:\n%s", con.get_uuid(),
+                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
+        sync_queue.put(con)
+
+    nm_client.add_connection2(
+        connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
+        (NM.SettingsAddConnection2Flags.TO_DISK |
+         NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
+        None,
+        False,
+        None,
+        finish_callback,
+        sync_queue
+    )
+
+    try:
+        ret = sync_queue.get(timeout=CONNECTION_ADDING_TIMEOUT)
+    except Empty:
+        log.error("Adding of connection %s timed out.", connection.get_uuid())
+        ret = None
+
+    return ret
 
 
-def create_slave_connection(slave_type, slave_idx, slave, master, settings=None):
+def create_slave_connection(slave_type, slave_idx, slave, master, autoconnect, settings=None):
     """Create a slave NM connection for virtual connection (bond, team, bridge).
 
     :param slave_type: type of slave ("bond", "team", "bridge")
@@ -491,6 +606,8 @@ def create_slave_connection(slave_type, slave_idx, slave, master, settings=None)
     :type slave: str
     :param master: slave's master device name
     :type master: str
+    :param autoconnect: connection autoconnect value
+    :type autoconnect: bool
     :param settings: list of other settings to be added to the connection
     :type settings: list(NM.Setting)
 
@@ -498,7 +615,7 @@ def create_slave_connection(slave_type, slave_idx, slave, master, settings=None)
     :rtype: NM.SimpleConnection
     """
     settings = settings or []
-    slave_name = "%s slave %d" % (master, slave_idx)
+    slave_name = "%s_slave_%d" % (master, slave_idx)
 
     con = NM.SimpleConnection.new()
     s_con = NM.SettingConnection.new()
@@ -506,11 +623,8 @@ def create_slave_connection(slave_type, slave_idx, slave, master, settings=None)
     s_con.props.id = slave_name
     s_con.props.slave_type = slave_type
     s_con.props.master = master
-    s_con.props.type = '802-3-ethernet'
-    # HACK preventing NM to autoactivate the connection
-    # The real network --onboot value (ifcfg ONBOOT) will be set later by
-    # update_onboot
-    s_con.props.autoconnect = False
+    s_con.props.type = NM_CONNECTION_TYPE_ETHERNET
+    s_con.props.autoconnect = autoconnect
     con.add_setting(s_con)
 
     s_wired = NM.SettingWired.new()
@@ -526,6 +640,14 @@ def is_infiniband_device(nm_client, device_name):
     """Is the type of the device infiniband?"""
     device = nm_client.get_device_by_iface(device_name)
     if device and device.get_device_type() == NM.DeviceType.INFINIBAND:
+        return True
+    return False
+
+
+def is_ethernet_device(nm_client, device_name):
+    """Is the type of the device ethernet?"""
+    device = nm_client.get_device_by_iface(device_name)
+    if device and device.get_device_type() == NM.DeviceType.ETHERNET:
         return True
     return False
 
@@ -580,7 +702,11 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     s_con = connection.get_setting_connection()
     s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)
 
-    bind_connection(nm_client, connection, network_data.bindto, device_name)
+    if connection.get_connection_type() not in (NM_CONNECTION_TYPE_BOND,
+                                                NM_CONNECTION_TYPE_TEAM,
+                                                NM_CONNECTION_TYPE_VLAN,
+                                                NM_CONNECTION_TYPE_BRIDGE):
+        bind_connection(nm_client, connection, network_data.bindto, device_name)
 
     commit_changes_with_autoconnection_blocked(connection)
 
@@ -614,6 +740,8 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
         s_ip4.add_address(addr4)
         if network_data.gateway:
             s_ip4.props.gateway = network_data.gateway
+    if network_data.nodefroute:
+        s_ip4.props.never_default = True
     connection.add_setting(s_ip4)
 
     # ipv6 settings
@@ -629,6 +757,8 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
     connection.remove_setting(NM.SettingIP6Config)
     s_ip6 = NM.SettingIP6Config.new()
     s_ip6.set_property(NM.SETTING_IP_CONFIG_METHOD, method6)
+    s_ip6.set_property(NM.SETTING_IP6_CONFIG_ADDR_GEN_MODE,
+                       NM.SettingIP6ConfigAddrGenMode.EUI64)
     if method6 == "manual":
         addr6, _slash, prefix6 = network_data.ipv6.partition("/")
         if prefix6:
@@ -679,7 +809,11 @@ def bind_settings_to_mac(nm_client, s_connection, s_wired, device_name=None, bin
             return False
         device = nm_client.get_device_by_iface(iface)
         if device:
-            hwaddr = device.get_permanent_hw_address() or device.get_hw_address()
+            try:
+                perm_hwaddr = device.get_permanent_hw_address()
+            except AttributeError:
+                perm_hwaddr = None
+            hwaddr = perm_hwaddr or device.get_hw_address()
             s_wired.props.mac_address = hwaddr
             log.debug("Bind to mac: bound to %s", hwaddr)
             modified = True
@@ -784,12 +918,12 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
         if ac or not only_replace:
             active_uuid = ac.get_uuid() if ac else None
             if uuid != active_uuid:
-                ifcfg_con = nm_client.get_connection_by_uuid(uuid)
-                if ifcfg_con:
-                    activate_connection_sync(nm_client, ifcfg_con, None)
+                config_con = nm_client.get_connection_by_uuid(uuid)
+                if config_con:
+                    activate_connection_sync(nm_client, config_con, None)
                     activated = True
     msg = "activated" if activated else "not activated"
-    log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
+    log.debug("ensure active config connection for %s (%s -> %s): %s",
               device_name, active_uuid, uuid, msg)
     return activated
 
@@ -818,7 +952,7 @@ def get_connections_available_for_iface(nm_client, iface):
             # non-real team - try to look them up in all connections.
             for con in nm_client.get_connections():
                 interface_name = con.get_interface_name()
-                if not interface_name and con.get_connection_type() == "vlan":
+                if not interface_name and con.get_connection_type() == NM_CONNECTION_TYPE_VLAN:
                     interface_name = get_vlan_interface_name_from_connection(nm_client, con)
                 if interface_name == iface:
                     cons.append(con)
@@ -945,6 +1079,50 @@ def activate_connection_sync(nm_client, connection, device):
         ret = sync_queue.get(timeout=CONNECTION_ACTIVATION_TIMEOUT)
     except Empty:
         log.error("Activation of a connection timed out.")
+        ret = None
+
+    return ret
+
+
+def clone_connection_sync(nm_client, connection, con_id=None, uuid=None):
+    """Clone a connection synchronously.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param con_id: id of the cloned connection
+    :type con_id: str
+    :param uuid: uuid of the cloned connection (None to be generated)
+    :type uuid: str
+    :return: NetworkManager connection or None on timeout
+    :rtype: NM.RemoteConnection
+    """
+    sync_queue = Queue()
+
+    def finish_callback(nm_client, result, sync_queue):
+        con, result = nm_client.add_connection2_finish(result)
+        log.debug("connection %s cloned:\n%s", con.get_uuid(),
+                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
+        sync_queue.put(con)
+
+    cloned_connection = NM.SimpleConnection.new_clone(connection)
+    s_con = cloned_connection.get_setting_connection()
+    s_con.props.uuid = uuid or NM.utils_uuid_generate()
+    s_con.props.id = con_id or "{}-clone".format(connection.get_id())
+    nm_client.add_connection2(
+        cloned_connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
+        (NM.SettingsAddConnection2Flags.TO_DISK |
+         NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
+        None,
+        False,
+        None,
+        finish_callback,
+        sync_queue
+    )
+
+    try:
+        ret = sync_queue.get(timeout=CONNECTION_ACTIVATION_TIMEOUT)
+    except Empty:
+        log.error("Cloning of a connection timed out.")
         ret = None
 
     return ret
@@ -1113,13 +1291,14 @@ def _get_dracut_team_argument_from_connection(nm_client, connection, iface):
     :rtype: str
     """
     argument = ""
-    if connection.get_connection_type() == "team":
-        slaves = sorted(get_slaves_from_connections(
+    if connection.get_connection_type() == NM_CONNECTION_TYPE_TEAM:
+        slaves = get_slaves_from_connections(
             nm_client,
-            "team",
+            ["team"],
             [iface, connection.get_uuid()]
-        ))
-        argument = "team={}:{}".format(iface, ",".join(s_iface for s_iface, _uuid in slaves))
+        )
+        slave_ifaces = sorted(s_iface for _name, s_iface, _uuid in slaves if s_iface)
+        argument = "team={}:{}".format(iface, ",".join(slave_ifaces))
     return argument
 
 
@@ -1141,7 +1320,7 @@ def _get_dracut_vlan_argument_from_connection(nm_client, connection, iface):
     """
     argument = ""
     parent_con = None
-    if connection.get_connection_type() == "vlan":
+    if connection.get_connection_type() == NM_CONNECTION_TYPE_VLAN:
         setting_vlan = connection.get_setting_vlan()
         parent_spec = setting_vlan.get_parent()
         parent = None
@@ -1195,25 +1374,338 @@ def _get_dracut_znet_argument_from_connection(connection):
     return argument
 
 
-def get_slaves_from_connections(nm_client, slave_type, master_specs):
+def get_slaves_from_connections(nm_client, slave_types, master_specs):
     """Get slaves of master of given type specified by uuid or interface.
 
     :param nm_client: instance of NetworkManager client
     :type nm_client: NM.Client
-    :param slave_type: type of the slave - NM setting "slave-type" value (eg. "team")
-    :type slave_type: str
+    :param slave_types: type of the slave - NM setting "slave-type" value (eg. "team")
+    :type slave_types: list(str)
     :param master_specs: a list containing sepcification of master:
                          interface name or connection uuid or both
     :type master_specs: list(str)
-    :returns: slaves specified by interface and connection uuid
-    :rtype: set((str,str))
+    :returns: slaves specified by name, interface and connection uuid
+    :rtype: set((str,str,str))
     """
     slaves = set()
     for con in nm_client.get_connections():
-        if not con.get_setting_connection().get_slave_type() == slave_type:
+        if not con.get_setting_connection().get_slave_type() in slave_types:
             continue
         if con.get_setting_connection().get_master() in master_specs:
             iface = get_iface_from_connection(nm_client, con.get_uuid())
-            if iface:
-                slaves.add((iface, con.get_uuid()))
+            name = con.get_id()
+            slaves.add((name, iface, con.get_uuid()))
     return slaves
+
+
+def get_config_file_connection_of_device(nm_client, device_name, device_hwaddr=None):
+    """Find connection of the device's configuration file.
+
+    :param nm_client: instance of NetworkManager client
+    :type nm_client: NM.Client
+    :param device_name: name of the device
+    :type device_name: str
+    :param device_hwaddr: hardware address of the device
+    :type device_hwaddr: str
+    :returns: uuid of NetworkManager connection
+    :rtype: str
+    """
+
+    cons = []
+    for con in nm_client.get_connections():
+
+        filename = con.get_filename() or ""
+        # Ignore connections from initramfs in
+        # /run/NetworkManager/system-connections
+        if not is_config_file_for_system(filename):
+            continue
+        con_type = con.get_connection_type()
+
+        if con_type == NM_CONNECTION_TYPE_ETHERNET:
+
+            # Ignore slaves
+            if con.get_setting_connection().get_master():
+                continue
+
+            interface_name = con.get_interface_name()
+            mac_address = None
+            wired_setting = con.get_setting_wired()
+            if wired_setting:
+                mac_address = wired_setting.get_mac_address()
+
+            if interface_name:
+                if interface_name == device_name:
+                    cons.append(con)
+            elif mac_address:
+                if device_hwaddr:
+                    if device_hwaddr.upper() == mac_address.upper():
+                        cons.append(con)
+                else:
+                    iface = get_iface_from_hwaddr(nm_client, mac_address)
+                    if iface == device_name:
+                        cons.append(con)
+            elif is_s390():
+                # s390 setting generated in dracut with net.ifnames=0
+                # has neither DEVICE/interface-name nor HWADDR/mac-address set (#1249750)
+                if con.get_id() == device_name:
+                    cons.append(con)
+
+        elif con_type in (NM_CONNECTION_TYPE_BOND, NM_CONNECTION_TYPE_TEAM,
+                          NM_CONNECTION_TYPE_BRIDGE, NM_CONNECTION_TYPE_INFINIBAND):
+            if con.get_interface_name() == device_name:
+                cons.append(con)
+
+        elif con_type == NM_CONNECTION_TYPE_VLAN:
+            interface_name = get_vlan_interface_name_from_connection(nm_client, con)
+            if interface_name and interface_name == device_name:
+                cons.append(con)
+
+    if len(cons) > 1:
+        log.debug("Unexpected number of config files found for %s: %s", device_name,
+                  [con.get_filename() for con in cons])
+
+    if cons:
+        return cons[0].get_uuid()
+    else:
+        log.debug("Config file for %s not found", device_name)
+        return ""
+
+
+def get_kickstart_network_data(connection, nm_client, network_data_class):
+    """Get kickstart data from NM connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param nm_client: instance of NetworkManager client
+    :type nm_client: NM.Client
+    :param network_data_class: pykickstart network command data class
+    :type: pykickstart BaseData
+    :returns: network_data object corresponding to the connection
+    :rtype: network_data_class object instance
+    """
+    # no network command for non-virtual device slaves
+    if connection.get_connection_type() not in (NM_CONNECTION_TYPE_BOND, NM_CONNECTION_TYPE_TEAM):
+        if connection.get_setting_connection().get_master():
+            return None
+
+    # no support for wireless
+    if connection.get_connection_type() == NM_CONNECTION_TYPE_WIFI:
+        return None
+
+    network_data = network_data_class()
+
+    # connection
+    network_data.onboot = connection.get_setting_connection().get_autoconnect()
+    iface = get_iface_from_connection(nm_client, connection.get_uuid())
+    if iface:
+        network_data.device = iface
+
+    _update_ip4_config_kickstart_network_data(connection, network_data)
+    _update_ip6_config_kickstart_network_data(connection, network_data)
+    _update_nameserver_kickstart_network_data(connection, network_data)
+
+    # --mtu
+    s_wired = connection.get_setting_wired()
+    if s_wired:
+        if s_wired.get_mtu():
+            network_data.mtu = s_wired.get_mtu()
+
+    # vlan
+    if connection.get_connection_type() == NM_CONNECTION_TYPE_VLAN:
+        _update_vlan_kickstart_network_data(nm_client, connection, network_data)
+
+    # bonding
+    if connection.get_connection_type() == NM_CONNECTION_TYPE_BOND:
+        _update_bond_kickstart_network_data(nm_client, iface, connection, network_data)
+
+    # bridging
+    if connection.get_connection_type() == NM_CONNECTION_TYPE_BRIDGE:
+        _update_bridge_kickstart_network_data(nm_client, iface, connection, network_data)
+
+    # teaming
+    if connection.get_connection_type() == NM_CONNECTION_TYPE_TEAM:
+        _update_team_kickstart_network_data(nm_client, iface, connection, network_data)
+
+    return network_data
+
+
+def _update_nameserver_kickstart_network_data(connection, network_data):
+    """Update nameserver configuration of network data from connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param network_data: kickstart configuration to be modified
+    :type network_data: pykickstart NetworkData
+    """
+    # --nameserver is used both for ipv4 and ipv6
+    dns_list = []
+    s_ip4_config = connection.get_setting_ip4_config()
+    s_ip6_config = connection.get_setting_ip6_config()
+    for i in range(s_ip4_config.get_num_dns()):
+        dns_list.append(s_ip4_config.get_dns(i))
+    for i in range(s_ip6_config.get_num_dns()):
+        dns_list.append(s_ip6_config.get_dns(i))
+    dns_str = ','.join(dns_list)
+    if dns_str:
+        network_data.nameserver = dns_str
+
+
+def _update_ip4_config_kickstart_network_data(connection, network_data):
+    """Update IPv4 configuration of network data from connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param network_data: kickstart configuration to be modified
+    :type network_data: pykickstart NetworkData
+    """
+    s_ip4_config = connection.get_setting_ip4_config()
+    ip4_method = s_ip4_config.get_method()
+    if ip4_method == NM.SETTING_IP4_CONFIG_METHOD_DISABLED:
+        network_data.noipv4 = True
+    elif ip4_method == NM.SETTING_IP4_CONFIG_METHOD_AUTO:
+        network_data.bootProto = "dhcp"
+    elif ip4_method == NM.SETTING_IP4_CONFIG_METHOD_MANUAL:
+        network_data.bootProto = "static"
+        if s_ip4_config.get_num_addresses() > 0:
+            addr = s_ip4_config.get_address(0)
+            network_data.ip = addr.get_address()
+            netmask = prefix2netmask(addr.get_prefix())
+            if netmask:
+                network_data.netmask = netmask
+            gateway = s_ip4_config.get_gateway()
+            if gateway:
+                network_data.gateway = gateway
+
+    # --hostname
+    ip4_dhcp_hostname = s_ip4_config.get_dhcp_hostname()
+    if ip4_dhcp_hostname:
+        network_data.hostname = ip4_dhcp_hostname
+
+
+def _update_ip6_config_kickstart_network_data(connection, network_data):
+    """Update IPv6 configuration of network data from connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param network_data: kickstart configuration to be modified
+    :type network_data: pykickstart NetworkData
+    """
+    s_ip6_config = connection.get_setting_ip6_config()
+    ip6_method = s_ip6_config.get_method()
+    if ip6_method == NM.SETTING_IP6_CONFIG_METHOD_DISABLED:
+        network_data.noipv6 = True
+    elif ip6_method == NM.SETTING_IP6_CONFIG_METHOD_AUTO:
+        network_data.ipv6 = "auto"
+    elif ip6_method == NM.SETTING_IP6_CONFIG_METHOD_DHCP:
+        network_data.ipv6 = "dhcp"
+    elif ip6_method == NM.SETTING_IP6_CONFIG_METHOD_MANUAL:
+        if s_ip6_config.get_num_addresses() > 0:
+            addr = s_ip6_config.get_address(0)
+            network_data.ipv6 = "{}/{}".format(addr.get_address(), addr.get_prefix())
+        gateway = s_ip6_config.get_gateway()
+        if gateway:
+            network_data.ipv6gateway = gateway
+
+
+def _update_vlan_kickstart_network_data(nm_client, connection, network_data):
+    """Update vlan configuration of network data from connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param network_data: kickstart configuration to be modified
+    :type network_data: pykickstart NetworkData
+    """
+    setting_vlan = connection.get_setting_vlan()
+    if setting_vlan:
+        interface_name = connection.get_setting_connection().get_interface_name()
+        vlanid = setting_vlan.get_id()
+        parent = setting_vlan.get_parent()
+        # if parent is specified by UUID
+        if len(parent) == NM_CONNECTION_UUID_LENGTH:
+            parent = get_iface_from_connection(nm_client, parent)
+        default_name = default_ks_vlan_interface_name(parent, vlanid)
+        if interface_name and interface_name != default_name:
+            network_data.interfacename = interface_name
+        network_data.vlanid = vlanid
+        network_data.device = parent
+
+
+def _update_bond_kickstart_network_data(nm_client, iface, connection, network_data):
+    """Update bond configuration of network data from connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param network_data: kickstart configuration to be modified
+    :type network_data: pykickstart NetworkData
+    """
+    slaves = get_slaves_from_connections(
+        nm_client,
+        ['bond'],
+        [iface, connection.get_uuid()]
+    )
+    if slaves:
+        slave_ifaces = sorted(s_iface for _name, s_iface, _uuid in slaves if s_iface)
+        network_data.bondslaves = ",".join(slave_ifaces)
+    s_bond = connection.get_setting_bond()
+    if s_bond:
+        option_list = []
+        for i in range(s_bond.get_num_options()):
+            _result, _name, _value = s_bond.get_option(i)
+            if _result:
+                option_list.append("{}={}".format(_name, _value))
+        if option_list:
+            network_data.bondopts = ",".join(option_list)
+
+
+def _update_bridge_kickstart_network_data(nm_client, iface, connection, network_data):
+    """Update bridge configuration of network data from connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param network_data: kickstart configuration to be modified
+    :type network_data: pykickstart NetworkData
+    """
+    slaves = get_slaves_from_connections(
+        nm_client,
+        ['bridge'],
+        [iface, connection.get_uuid()]
+    )
+    if slaves:
+        slave_ifaces = sorted(s_iface for _name, s_iface, _uuid in slaves if s_iface)
+        network_data.bridgeslaves = ",".join(slave_ifaces)
+    s_bridge = connection.get_setting_bridge()
+    if s_bridge:
+        bridge_options = []
+        for setting, default_value in NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS.items():
+            value = s_bridge.get_property(setting)
+            if value != default_value:
+                bridge_options.append("{}={}".format(setting, value))
+        if bridge_options:
+            network_data.bridgeopts = ",".join(bridge_options)
+
+
+def _update_team_kickstart_network_data(nm_client, iface, connection, network_data):
+    """Update team configuration of network data from connection.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param network_data: kickstart configuration to be modified
+    :type network_data: pykickstart NetworkData
+    """
+    slaves = get_slaves_from_connections(
+        nm_client,
+        ['team'],
+        [iface, connection.get_uuid()]
+    )
+    if slaves:
+        slave_list = sorted((s_iface, s_uuid) for _name, s_iface, s_uuid in slaves if s_iface)
+
+    for s_iface, s_uuid in slave_list:
+        team_port_cfg = get_team_port_config_from_connection(nm_client, s_uuid)
+        network_data.teamslaves.append((s_iface, team_port_cfg))
+
+    s_team = connection.get_setting_team()
+    if s_team:
+        teamconfig = s_team.get_config().replace("\n", "").replace(" ", "")
+    if teamconfig:
+        network_data.teamconfig = teamconfig

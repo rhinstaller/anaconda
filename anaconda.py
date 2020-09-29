@@ -303,11 +303,11 @@ if __name__ == "__main__":
     if os.path.exists("/tmp/updates"):
         log.info("Using updates in /tmp/updates/ from %s", opts.updateSrc)
 
-    # TODO: uncomment this when we're sure that we're doing the right thing
-    # with kernel_arguments *everywhere* it appears...
-    #for arg in depr:
-    #    stdout_log.warn("Boot argument '%s' is deprecated. "
-    #                   "In the future, use 'inst.%s'.", arg, arg)
+    # warn users that they should use inst. prefix all the time
+    for arg in depr:
+        stdout_log.warning("Boot argument '%s' is deprecated and will be removed in the future. "
+                           "Please use 'inst.%s' instead.",
+                           arg, arg)
 
     from pyanaconda import isys
 
@@ -698,10 +698,8 @@ if __name__ == "__main__":
     anaconda.add_additional_repositories_to_ksdata()
 
     # Fallback to default for interactive or for a kickstart with no installation method.
-    from pyanaconda.core.constants import DNF_DEFAULT_SOURCE_TYPE
-
     fallback = not flags.automatedInstall \
-        or anaconda.payload.source_type == DNF_DEFAULT_SOURCE_TYPE
+        or anaconda.payload.source_type == conf.payload.default_source
 
     payloadMgr.restart_thread(anaconda.payload, fallback=fallback)
 

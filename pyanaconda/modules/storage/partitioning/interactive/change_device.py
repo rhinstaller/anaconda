@@ -105,7 +105,7 @@ class ChangeDeviceTask(Task):
             rename_container(self._storage, container, container_name)
         except StorageError as e:
             log.error("Invalid container name: %s", e)
-            raise StorageError(str(e))
+            raise StorageError(str(e)) from e
 
     def _replace_device(self):
         """Replace the nonexistent device with a new one.
@@ -304,4 +304,4 @@ class ChangeDeviceTask(Task):
             self._device.raw_device.name = name
         except ValueError as e:
             log.error("Invalid device name: %s", e)
-            raise StorageError(str(e))
+            raise StorageError(str(e)) from e

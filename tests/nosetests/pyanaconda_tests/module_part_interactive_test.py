@@ -23,7 +23,7 @@ from unittest.mock import patch
 from blivet import devicefactory
 from blivet.devicelibs import raid
 from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LVMVolumeGroupDevice, \
-    LVMLogicalVolumeDevice
+    LVMLogicalVolumeDevice, MDRaidArrayDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
@@ -70,6 +70,24 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
     def method_property_test(self):
         """Test Method property."""
         self.assertEqual(self.interface.PartitioningMethod, PARTITIONING_METHOD_INTERACTIVE)
+
+    @patch_dbus_publish_object
+    def lazy_storage_test(self, publisher):
+        """Make sure that the storage playground is created lazily."""
+        self.module.on_storage_changed(create_storage())
+
+        device_tree_module = self.module.get_device_tree()
+        self.assertIsNone(self.module._storage_playground)
+
+        device_tree_module.get_disks()
+        self.assertIsNotNone(self.module._storage_playground)
+
+        self.module.on_partitioning_reset()
+        self.module.on_storage_changed(create_storage())
+        self.assertIsNone(self.module._storage_playground)
+
+        device_tree_module.get_actions()
+        self.assertIsNotNone(self.module._storage_playground)
 
     @patch_dbus_publish_object
     def get_device_tree_test(self, publisher):
@@ -119,12 +137,14 @@ class InteractiveUtilsTestCase(unittest.TestCase):
         """Add a device to the device tree."""
         self.storage.devicetree._add_device(device)
 
-    @patch("blivet.devices.dm.blockdev")
-    def generate_device_factory_request_test(self, blockdev):
+    def generate_device_factory_request_unsupported_test(self):
         device = StorageDevice("dev1")
+
         with self.assertRaises(UnsupportedDeviceError):
             utils.generate_device_factory_request(self.storage, device)
 
+    @patch("blivet.devices.dm.blockdev")
+    def generate_device_factory_request_partition_test(self, blockdev):
         disk = DiskDevice("dev2")
 
         request = utils.generate_device_factory_request(self.storage, disk)
@@ -176,6 +196,8 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "container-raid-level": get_variant(Str, ""),
         })
 
+    @patch("blivet.devices.dm.blockdev")
+    def generate_device_factory_request_lvm_test(self, blockdev):
         pv1 = StorageDevice(
             "pv1",
             size=Size("1025 MiB"),
@@ -219,6 +241,83 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "container-size-policy": get_variant(Int64, Size("1.5 GiB")),
             "container-encrypted": get_variant(Bool, False),
             "container-raid-level": get_variant(Str, ""),
+        })
+
+    @patch("blivet.devices.dm.blockdev")
+    def generate_device_factory_request_raid_test(self, blockdev):
+        disk1 = DiskDevice(
+            "dev1",
+            fmt=get_format("mdmember")
+        )
+        disk2 = DiskDevice(
+            "dev2",
+            fmt=get_format("mdmember")
+        )
+        device = MDRaidArrayDevice(
+            "dev3",
+            level="raid1",
+            parents=[disk1, disk2]
+        )
+
+        request = utils.generate_device_factory_request(self.storage, device)
+        self.assertEqual(DeviceFactoryRequest.to_structure(request), {
+            "device-spec": get_variant(Str, "dev3"),
+            "disks": get_variant(List[Str], ["dev1", "dev2"]),
+            "mount-point": get_variant(Str, ""),
+            "reformat": get_variant(Bool, True),
+            "format-type": get_variant(Str, ""),
+            "label": get_variant(Str, ""),
+            "luks-version": get_variant(Str, ""),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_MD),
+            "device-name": get_variant(Str, "dev3"),
+            "device-size": get_variant(UInt64, 0),
+            "device-encrypted": get_variant(Bool, False),
+            "device-raid-level": get_variant(Str, "raid1"),
+            "container-spec": get_variant(Str, ""),
+            "container-name": get_variant(Str, ""),
+            "container-size-policy": get_variant(Int64, 0),
+            "container-encrypted": get_variant(Bool, False),
+            "container-raid-level": get_variant(Str, ""),
+        })
+
+    @patch("blivet.devices.dm.blockdev")
+    def generate_device_factory_request_btrfs_test(self, blockdev):
+        dev1 = StorageDevice(
+            "dev1",
+            fmt=get_format("btrfs"),
+            size=Size("10 GiB")
+        )
+
+        dev2 = BTRFSVolumeDevice(
+            "dev2",
+            data_level="single",
+            parents=[dev1]
+        )
+
+        dev3 = BTRFSSubVolumeDevice(
+            parents=[dev2],
+            fmt=get_format("btrfs", mountpoint="/boot"),
+        )
+
+        request = utils.generate_device_factory_request(self.storage, dev3)
+        self.assertEqual(DeviceFactoryRequest.to_structure(request), {
+            "device-spec": get_variant(Str, dev3.name),
+            "disks": get_variant(List[Str], []),
+            "mount-point": get_variant(Str, "/boot"),
+            "reformat": get_variant(Bool, True),
+            "format-type": get_variant(Str, "btrfs"),
+            "label": get_variant(Str, ""),
+            "luks-version": get_variant(Str, ""),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_BTRFS),
+            "device-name": get_variant(Str, dev3.name),
+            "device-size": get_variant(UInt64, Size("10 GiB").get_bytes()),
+            "device-encrypted": get_variant(Bool, False),
+            "device-raid-level": get_variant(Str, ""),
+            "container-spec": get_variant(Str, dev2.name),
+            "container-name": get_variant(Str, dev2.name),
+            "container-size-policy": get_variant(Int64, Size("10 GiB").get_bytes()),
+            "container-encrypted": get_variant(Bool, False),
+            "container-raid-level": get_variant(Str, "single"),
         })
 
     def get_device_factory_arguments_test(self):

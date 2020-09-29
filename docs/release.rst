@@ -230,6 +230,12 @@ Create a new localization directory from ``master`` directory:
 
    cp -r master f<version>
 
+Add the new folder to git:
+
+::
+
+   git add f<version>
+
 Commit these changes:
 
 ::
@@ -316,7 +322,12 @@ If everything works correctly you can push the branches to the origin (``-u`` ma
 
 ::
 
+    git checkout f<version>-devel
     git push -u origin f<version>-devel
+
+::
+
+    git checkout f<version>-release
     git push -u origin f<version>-release
 
 
@@ -366,18 +377,17 @@ For example, for the F27 branching:
 - at the time of branching the Rawhide version was ``27.20``
 - after the bump the version is ``28.1``
 
+Make sure you are in the Rawhide branch:
+
+::
+
+    git checkout master
 
 Do the major version bump and verify that the output looks correct:
 
 ::
 
     ./scripts/makebumpver -c --bump-major-version
-
-You can run checks if branching is correctly handled by running:
-
-::
-
-   make check-branching
 
 If everything looks fine (changelog, new major version & the tag) push the changes to the origin:
 

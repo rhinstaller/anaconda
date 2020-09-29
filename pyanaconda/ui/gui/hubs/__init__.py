@@ -147,7 +147,7 @@ class Hub(GUIObject, common.Hub):
                 # From here on, this Spoke will always exist.
                 spoke = spokeClass(self.data, self.storage, self.payload)
                 spoke.window.set_beta(self.window.get_beta())
-                spoke.window.set_property("distribution", distributionText().upper())
+                spoke.window.set_property("distribution", distributionText())
 
                 # If a spoke is not showable, it is unreachable in the UI.  We
                 # might as well get rid of it.

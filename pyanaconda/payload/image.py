@@ -176,10 +176,10 @@ def mountImage(isodir, tree):
 
         try:
             blivet.util.mount(image, tree, fstype='iso9660', options="ro")
-        except OSError:
+        except OSError as oserr:
             exn = MissingImageError()
             if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+                raise exn from oserr
             else:
                 continue
         else:

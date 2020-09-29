@@ -71,7 +71,7 @@ def mount_device(device_name, mount_point):
     :param str mount_point: a path to the mount point
     """
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    device_tree.MountDevice(device_name, mount_point)
+    device_tree.MountDevice(device_name, mount_point, "ro")
 
 
 def unmount_device(device_name, mount_point):
@@ -160,7 +160,7 @@ def mount(device_path, mount_point, fstype, options):
     try:
         return blivet.util.mount(device_path, mount_point, fstype=fstype, options=options)
     except OSError as e:
-        raise PayloadSetupError(str(e))
+        raise PayloadSetupError(str(e)) from e
 
 
 def arch_is_x86():

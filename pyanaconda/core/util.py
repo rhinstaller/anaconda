@@ -481,7 +481,7 @@ def execConsole():
         proc = startProgram(["/bin/bash"], stdout=None, stderr=None, reset_lang=False)
         proc.wait()
     except OSError as e:
-        raise RuntimeError("Error running /bin/bash: " + e.strerror)
+        raise RuntimeError("Error running /bin/bash: " + e.strerror) from e
 
 
 ## Create a directory path.  Don't fail if the directory already exists.
@@ -972,6 +972,8 @@ def upcase_first_letter(text):
     lowercases all the others. string.title() capitalizes all words in the
     string.
 
+    Note: Never use on translated strings!
+
     :type text: str
     :return: the given text with the first letter upcased
     :rtype: str
@@ -1453,3 +1455,40 @@ def is_smt_enabled():
     except (IOError, ValueError):
         log.warning("Failed to detect SMT.")
         return False
+
+
+class LazyObject(object):
+    """The lazy object."""
+
+    def __init__(self, getter):
+        """Create a proxy of an object.
+
+        The object might not exist until we call the given
+        function. The function is called only when we try
+        to access the attributes of the object.
+
+        The returned object is not cached in this class.
+        We call the function every time.
+
+        :param getter: a function that returns the object
+        """
+        self._getter = getter
+
+    @property
+    def _object(self):
+        return self._getter()
+
+    def __eq__(self, other):
+        return self._object == other
+
+    def __hash__(self):
+        return self._object.__hash__()
+
+    def __getattr__(self, name):
+        return getattr(self._object, name)
+
+    def __setattr__(self, name, value):
+        if name in ("_getter", ):
+            return super().__setattr__(name, value)
+
+        return setattr(self._object, name, value)

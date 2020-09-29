@@ -32,7 +32,7 @@ from pyanaconda.core import util, constants
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
-    IPV6_ADDRESS_IN_DRACUT_IP_OPTION
+    IPV6_ADDRESS_IN_DRACUT_IP_OPTION, MAC_OCTET
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TIME_SOURCE_SERVER
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE, STORAGE
@@ -209,7 +209,7 @@ def hostname_from_cmdline(kernel_args):
     """
     # legacy hostname= option
     hostname = kernel_args.get('hostname', "")
-    # ip= option
+    # ip= option (man dracut.cmdline)
     ipopts = kernel_args.get('ip')
     # Example (2 options):
     # ens3:dhcp 10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none
@@ -219,10 +219,13 @@ def hostname_from_cmdline(kernel_args):
                 # Replace ipv6 addresses with empty string, example of ipv6 config:
                 # [fd00:10:100::84:5]::[fd00:10:100::86:49]:80:myhostname:ens9:none
                 ipopt = IPV6_ADDRESS_IN_DRACUT_IP_OPTION.sub('', ipopt)
-            try:
+            elements = ipopt.split(':')
+            # Hostname can be defined only in option having more than 6 elements.
+            # But filter out auto ip= with mac address set by MAC_OCTET matching, eg:
+            # ip=<interface>:dhcp::52:54:00:12:34:56
+            # where the 4th element is not hostname.
+            if len(elements) > 6 and not re.match(MAC_OCTET, elements[6]):
                 hostname = ipopt.split(':')[4]
-            except IndexError:
-                pass
     return hostname
 
 
@@ -284,7 +287,7 @@ def initialize_network():
 
     run_network_initialization_task(network_proxy.ConsolidateInitramfsConnectionsWithTask())
     run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
-    run_network_initialization_task(network_proxy.DumpMissingIfcfgFilesWithTask())
+    run_network_initialization_task(network_proxy.DumpMissingConfigFilesWithTask())
     run_network_initialization_task(network_proxy.SetRealOnbootValuesFromKickstartWithTask())
 
     if network_proxy.Hostname == DEFAULT_HOSTNAME:
@@ -295,8 +298,8 @@ def initialize_network():
 
     # Create device configuration tracking in the module.
     # It will be used to generate kickstart from persistent network configuration
-    # managed by NM (ifcfgs) and updated by NM signals on device configuration
-    # changes.
+    # managed by NM (having config files) and updated by NM signals on device
+    # configuration changes.
     log.debug("Creating network configurations.")
     network_proxy.CreateDeviceConfigurations()
 

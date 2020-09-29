@@ -839,7 +839,7 @@ class GraphicalUserInterface(UserInterface):
             self._currentAction.refresh()
 
             self._currentAction.window.set_beta(not self._isFinal)
-            self._currentAction.window.set_property("distribution", self._distributionText().upper())
+            self._currentAction.window.set_property("distribution", self._distributionText())
 
             # Set some program-wide settings.
             settings = Gtk.Settings.get_default()
@@ -1005,7 +1005,7 @@ class GraphicalUserInterface(UserInterface):
 
         nextAction.initialize()
         nextAction.window.set_beta(self._currentAction.window.get_beta())
-        nextAction.window.set_property("distribution", self._distributionText().upper())
+        nextAction.window.set_property("distribution", self._distributionText())
 
         if not nextAction.showable:
             self._currentAction.window.hide()

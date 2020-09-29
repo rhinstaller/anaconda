@@ -237,7 +237,7 @@ class XklWrapper(object):
         # translate language and upcase its first letter, translate the
         # layout-variant description
         if xlated:
-            lang = util.upcase_first_letter(iso_(layout_info.lang))
+            lang = iso_(layout_info.lang)
             description = Xkb_(layout_info.desc)
         else:
             lang = util.upcase_first_letter(layout_info.lang)
@@ -296,7 +296,7 @@ class XklWrapper(object):
             #we can get 'layout' or 'layout (variant)'
             (layout, variant) = parse_layout_variant(layout)
         except InvalidLayoutVariantSpec as ilverr:
-            raise XklWrapperError("Failed to add layout: %s" % ilverr)
+            raise XklWrapperError("Failed to add layout: %s" % ilverr) from ilverr
 
         #do not add the same layout-variant combinanion multiple times
         if (layout, variant) in list(zip(self._rec.layouts, self._rec.variants)):

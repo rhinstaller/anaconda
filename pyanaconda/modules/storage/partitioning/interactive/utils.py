@@ -696,18 +696,39 @@ def get_device_raid_level(device):
     if hasattr(device, "data_level"):
         return device.data_level
 
-    if hasattr(device, "volume"):
-        return device.volume.data_level
-
-    if not hasattr(device, "vg") and hasattr(device, "lvs") and len(device.parents) == 1:
-        return get_device_raid_level(device.parents[0])
-
     return None
 
 
 def get_device_raid_level_name(device):
     """Get the RAID level name of the given device."""
     raid_level = get_device_raid_level(device)
+    return raid_level.name if raid_level else ""
+
+
+def get_container_raid_level(container):
+    """Get the RAID level of the given container.
+
+    :param container: a container
+    :return: a RAID level
+    """
+    # Try to get a RAID level of this device.
+    raid_level = get_device_raid_level(container)
+
+    if raid_level:
+        return raid_level
+
+    device = container.raw_device
+
+    # Or get a RAID level of the LVM container.
+    if hasattr(device, "lvs") and len(device.parents) == 1:
+        return get_container_raid_level(device.parents[0])
+
+    return None
+
+
+def get_container_raid_level_name(device):
+    """Get the RAID level name of the given container."""
+    raid_level = get_container_raid_level(device)
     return raid_level.name if raid_level else ""
 
 
@@ -808,6 +829,7 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     if device_type is None:
         raise UnsupportedDeviceError("Unsupported type of {}.".format(device.name))
 
+    # Generate the device data.
     request = DeviceFactoryRequest()
     request.device_spec = device.name
     request.device_name = getattr(device.raw_device, "lvname", device.raw_device.name)
@@ -828,6 +850,10 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
 
     request.disks = [d.name for d in disks]
 
+    if request.device_type not in CONTAINER_DEVICE_TYPES:
+        return request
+
+    # Generate the container data.
     factory = devicefactory.get_device_factory(
         storage,
         device_type=device_type,
@@ -850,7 +876,7 @@ def set_container_data(request: DeviceFactoryRequest, container):
     request.container_spec = container.name
     request.container_name = container.name
     request.container_encrypted = container.encrypted
-    request.container_raid_level = get_device_raid_level_name(container)
+    request.container_raid_level = get_container_raid_level_name(container)
     request.container_size_policy = get_container_size_policy(container)
 
     if request.container_encrypted:
@@ -1095,7 +1121,7 @@ def _destroy_device(storage, device):
             disks=container.disks,
             container_name=container.name,
             container_encrypted=container.encrypted,
-            container_raid_level=get_device_raid_level(container),
+            container_raid_level=get_container_raid_level(container),
             container_size=container.size_policy,
         )
 

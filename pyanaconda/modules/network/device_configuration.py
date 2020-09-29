@@ -22,10 +22,12 @@ import copy
 
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device
 from pyanaconda.modules.network.nm_client import get_iface_from_connection, \
-    get_vlan_interface_name_from_connection
+    get_vlan_interface_name_from_connection, get_config_file_connection_of_device
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
+from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
+    NM_CONNECTION_TYPE_ETHERNET, NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND, \
+    NM_CONNECTION_TYPE_TEAM, NM_CONNECTION_TYPE_BRIDGE, NM_CONNECTION_TYPE_INFINIBAND
 
 import gi
 gi.require_version("NM", "1.0")
@@ -87,13 +89,13 @@ class DeviceConfigurations(object):
 
     # Maps types of connections to types of devices (both provided by NM)
     setting_types = {
-        '802-11-wireless': NM.DeviceType.WIFI,
-        '802-3-ethernet': NM.DeviceType.ETHERNET,
-        'vlan': NM.DeviceType.VLAN,
-        'bond': NM.DeviceType.BOND,
-        'team': NM.DeviceType.TEAM,
-        'bridge': NM.DeviceType.BRIDGE,
-        'infiniband': NM.DeviceType.INFINIBAND,
+        NM_CONNECTION_TYPE_WIFI: NM.DeviceType.WIFI,
+        NM_CONNECTION_TYPE_ETHERNET: NM.DeviceType.ETHERNET,
+        NM_CONNECTION_TYPE_VLAN: NM.DeviceType.VLAN,
+        NM_CONNECTION_TYPE_BOND: NM.DeviceType.BOND,
+        NM_CONNECTION_TYPE_TEAM: NM.DeviceType.TEAM,
+        NM_CONNECTION_TYPE_BRIDGE: NM.DeviceType.BRIDGE,
+        NM_CONNECTION_TYPE_INFINIBAND: NM.DeviceType.INFINIBAND,
     }
 
     def __init__(self, nm_client=None):
@@ -208,7 +210,7 @@ class DeviceConfigurations(object):
     def _find_connection_uuid_of_device(self, device):
         """Find uuid of connection that should be bound to the device.
 
-        Assumes existence of no more than one ifcfg file per non-slave physical
+        Assumes existence of no more than one config file per non-slave physical
         device.
 
         :param device: NetworkManager device object
@@ -231,7 +233,7 @@ class DeviceConfigurations(object):
         # cases.
         else:
             cons = device.get_available_connections()
-            ifcfg_uuid = None
+            config_uuid = None
             if not cons:
                 log.debug("no available connection for physical device %s", iface)
             elif len(cons) > 1:
@@ -240,15 +242,17 @@ class DeviceConfigurations(object):
                 log.debug("physical device %s has multiple connections: %s",
                           iface, [c.get_uuid() for c in cons])
                 hwaddr = device.get_hw_address()
-                ifcfg_uuid = find_ifcfg_uuid_of_device(self.nm_client, iface, hwaddr=hwaddr)
+                config_uuid = get_config_file_connection_of_device(
+                    self.nm_client, iface, device_hwaddr=hwaddr)
+                log.debug("config file connection for %s: %s", iface, config_uuid)
 
             for c in cons:
                 # Ignore slave connections
                 if c.get_setting_connection() and c.get_setting_connection().get_slave_type():
                     continue
                 candidate_uuid = c.get_uuid()
-                # In case of multiple connections choose the ifcfg connection
-                if not ifcfg_uuid or candidate_uuid == ifcfg_uuid:
+                # In case of multiple connections choose the config connection
+                if not config_uuid or candidate_uuid == config_uuid:
                     uuid = candidate_uuid
 
         return uuid

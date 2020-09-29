@@ -34,14 +34,14 @@ from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, \
     supported_device_types, supported_wired_device_types
 from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump, \
-    get_dracut_arguments_from_connection, is_ibft_connection
-from pyanaconda.modules.network.ifcfg import get_kickstart_network_data, \
-    get_ifcfg_file, get_ifcfg_files_content
+    get_dracut_arguments_from_connection, is_ibft_connection, get_kickstart_network_data
+from pyanaconda.modules.network.config_file import get_config_files_content, \
+    is_config_file_for_system
 from pyanaconda.modules.network.installation import NetworkInstallationTask, \
     ConfigureActivationOnBootTask, HostnameConfigurationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
-    DumpMissingIfcfgFilesTask
+    DumpMissingConfigFilesTask
 from pyanaconda.modules.network.utils import get_default_route_iface
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
@@ -165,13 +165,19 @@ class NetworkService(KickstartService):
         for cfg in self._device_configurations.get_all():
             network_data = None
             if cfg.device_type != NM.DeviceType.WIFI and cfg.connection_uuid:
-                ifcfg = get_ifcfg_file([("UUID", cfg.connection_uuid)])
-                if not ifcfg:
-                    log.debug("Ifcfg file for %s not found.")
+                uuid = cfg.connection_uuid
+                con = self.nm_client.get_connection_by_uuid(uuid)
+                filename = con.get_filename() or ""
+                if not is_config_file_for_system(filename):
+                    log.debug("Config file for %s not found, not generating ks command.", uuid)
                     continue
-                network_data = get_kickstart_network_data(ifcfg,
-                                                          self.nm_client,
-                                                          network_data_class)
+                connection = self.nm_client.get_connection_by_uuid(uuid)
+                if connection:
+                    network_data = get_kickstart_network_data(connection,
+                                                              self.nm_client,
+                                                              network_data_class)
+                else:
+                    log.debug("Connection %s for kickstart data generating not found", uuid)
             if not network_data:
                 log.debug("Device configuration %s does not generate any kickstart data", cfg)
                 continue
@@ -366,9 +372,6 @@ class NetworkService(KickstartService):
         # Not if any network device was configured via kickstart.
         if self._original_network_data:
             return False
-        # Not if any network device was configured in UI.
-        if self._use_device_configurations:
-            return False
         # Not if there is no configuration to apply the policy to
         if not self._device_configurations or not self._device_configurations.get_all():
             return False
@@ -442,11 +445,11 @@ class NetworkService(KickstartService):
     def consolidate_initramfs_connections_with_task(self):
         """Ensure devices configured in initramfs have no more than one NM connection.
 
-        In case of multiple connections for device having ifcfg configuration from
-        boot options, the connection should correspond to the ifcfg file.
+        In case of multiple connections for device having configuration from
+        boot options, the connection should correspond to the config file.
         NetworkManager can be generating additional in-memory connection in case it
-        fails to match device configuration to the ifcfg (#1433891).  By
-        reactivating the device with ifcfg connection the generated in-memory
+        fails to match device configuration to the config (#1433891).  By
+        reactivating the device with config connection the generated in-memory
         connection will be deleted by NM.
 
         Don't enforce on slave devices for which having multiple connections can be
@@ -562,12 +565,12 @@ class NetworkService(KickstartService):
         return task
 
     def set_real_onboot_values_from_kickstart_with_task(self):
-        """Update ifcfg ONBOOT values according to kickstart configuration.
+        """Update config ONBOOT values according to kickstart configuration.
 
         So it reflects the --onboot option.
 
         This is needed because:
-        1) For ifcfg files created in initramfs we use ONBOOT for --activate
+        1) For config files created in initramfs we use ONBOOT for --activate
         2) For kickstart applied in stage 2 we can't set the autoconnect
            setting of connection because the device would be activated immediately.
 
@@ -582,30 +585,30 @@ class NetworkService(KickstartService):
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
 
-    def dump_missing_ifcfg_files_with_task(self):
-        """Dump missing default ifcfg file for wired devices.
+    def dump_missing_config_files_with_task(self):
+        """Dump missing default config file for wired devices.
 
-        Make sure each supported wired device has ifcfg file.
+        Make sure each supported wired device has config file.
 
         For default auto connections created by NM upon start (which happens in
-        case of missing ifcfg file, eg the file was not created in initramfs)
+        case of missing config file, eg the file was not created in initramfs)
         rename the in-memory connection using device name and dump it into
-        ifcfg file.
+        config file.
 
         If default auto connections are turned off by NM configuration (based
         on policy, eg on RHEL or server), the connection will be created by Anaconda
-        and dumped into ifcfg file.
+        and dumped into config file.
 
-        The connection id (and consequently ifcfg file name) is set to device
+        The connection id (and consequently config file name) is set to device
         name.
 
         :returns: a task dumping the files
         """
         data = self.get_kickstart_handler()
         default_network_data = data.NetworkData(onboot=False, ipv6="auto")
-        task = DumpMissingIfcfgFilesTask(self.nm_client,
-                                         default_network_data,
-                                         self.ifname_option_values)
+        task = DumpMissingConfigFilesTask(self.nm_client,
+                                          default_network_data,
+                                          self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
 
@@ -706,10 +709,10 @@ class NetworkService(KickstartService):
     def log_configuration_state(self, msg_header, root_path=""):
         """Log the current network configuration state.
 
-        Logs ifcfg files and NM connections
+        Logs NM config files and NM connections
         """
         log.debug("Dumping configuration state - %s", msg_header)
-        for line in get_ifcfg_files_content(root_path=root_path).splitlines():
+        for line in get_config_files_content(root_path=root_path).splitlines():
             log.debug(line)
         if self.nm_available:
             for line in get_connections_dump(self.nm_client).splitlines():

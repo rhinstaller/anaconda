@@ -132,6 +132,7 @@ In general we are trying to be as close as possible to `PEP8 <https://www.python
 * Use ``raise`` & ``return`` in the doc string. Do not use ``raises`` or ``returns``.
 * Methods that return a task should have the suffix ‘_with_task’ (for example discover_with_task and DiscoverWithTask).
 * Prefer to use ``pyanaconda.util.join_paths`` over ``os.path.join``. See documentation for more info.
+* Never call ``upper()`` on translated strings. See the bug `1619530 <https://bugzilla.redhat.com/show_bug.cgi?id=1619530>`_
 
 Merging examples
 ----------------

@@ -49,7 +49,6 @@ ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
 # LOCALIZATION SETTINGS
 L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
-L10N_REPOSITORY_RW ?= git@github.com:rhinstaller/anaconda-l10n.git
 # Branch used in anaconda-l10n repository. This should be master all the time.
 GIT_L10N_BRANCH ?= master
 
@@ -100,35 +99,28 @@ po-pull:
 	cp $$TEMP_DIR/$(L10N_DIR)/*.po $(srcdir)/po/ && \
 	rm -rf $$TEMP_DIR
 
-po-push:
+pot:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 	rm $(srcdir)/po/{main,extra}.pot
+
+pot-update-check: pot
+# This check is used by github action for auto update of pot file
 # This algorithm will make these steps:
 # - clone localization repository
 # - copy pot file to this repository
 # - check if pot file is changed (ignore the POT-Creation-Date otherwise it's always changed)
-# - if not changed:
-#   - remove cloned repository
-# - if changed:
-#   - add pot file
-#   - commit pot file
-#   - tell user to verify this file and push to the remote from the temp dir
-	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) || exit 1 ; \
-	git clone --depth 1 -b $(GIT_L10N_BRANCH) -- $(L10N_REPOSITORY_RW) $$TEMP_DIR || exit 2 ; \
-	cp $(srcdir)/po/anaconda.pot $$TEMP_DIR/$(L10N_DIR)/ || exit 3 ; \
+	@TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) || exit 5 ; \
+	git clone --depth 1 -b $(GIT_L10N_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR || exit 6 ; \
+	cp $(srcdir)/po/anaconda.pot $$TEMP_DIR/$(L10N_DIR)/ || exit 7 ; \
 	pushd $$TEMP_DIR/$(L10N_DIR) ; \
 	git difftool --trust-exit-code -y -x "diff -u -I '^\"POT-Creation-Date: .*$$'" HEAD ./anaconda.pot &>/dev/null ; \
-	if [ $$? -eq 0  ] ; then \
-		popd ; \
-		echo "Pot file is up to date" ; \
-		rm -rf $$TEMP_DIR ; \
+	RESULT=$$?; \
+	popd ; \
+	rm -rf $$TEMP_DIR; \
+	if [ $$RESULT -eq 0  ] ; then \
+		echo "Pot file is up to date."; \
 	else \
-		git add ./anaconda.pot && \
-		git commit -m "Update anaconda.pot" && \
-		popd && \
-		echo "Pot file updated for the localization repository $(L10N_REPOSITORY)" && \
-		echo "Please confirm changes and push:" && \
-		echo "$$TEMP_DIR" ; \
+		echo "Pot file needs update! Please update the pot file ./po/anaconda.pot in $(L10N_REPOSITORY)"; \
 	fi ;
 
 # Try to fetch translations, but if that fails just keep going
@@ -181,7 +173,7 @@ bumpver: po-pull
 		opts="$${opts} -s" ; \
 	fi ; \
 	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1
-	$(MAKE) po-push
+	-$(MAKE) pot-update-check
 
 # GUI TESTING
 runglade:

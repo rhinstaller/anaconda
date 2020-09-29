@@ -60,4 +60,4 @@ def get_snapshot_device(request, devicetree):
             origin=origin_dev
         )
     except ValueError as e:
-        raise KickstartParseError(str(e), lineno=request.lineno)
+        raise KickstartParseError(str(e), lineno=request.lineno) from e

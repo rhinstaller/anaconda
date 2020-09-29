@@ -43,6 +43,9 @@ from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.core import glib
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
+from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
+    NM_CONNECTION_TYPE_ETHERNET
+
 
 from pyanaconda import network
 
@@ -478,7 +481,7 @@ class NetworkControlBox(GObject.GObject):
                 s_con = NM.SettingConnection.new()
                 s_con.set_property('uuid', str(uuid4()))
                 s_con.set_property('id', ssid_target)
-                s_con.set_property('type', '802-11-wireless')
+                s_con.set_property('type', NM_CONNECTION_TYPE_WIFI)
                 s_wireless = NM.SettingWireless.new()
                 s_wireless.set_property('ssid', ap.get_ssid())
                 s_wireless.set_property('mode', 'infrastructure')
@@ -566,7 +569,7 @@ class NetworkControlBox(GObject.GObject):
         s_con.set_property('id', iface)
         s_con.set_property('interface-name', iface)
         s_con.set_property('autoconnect', autoconnect)
-        s_con.set_property('type', '802-3-ethernet')
+        s_con.set_property('type', NM_CONNECTION_TYPE_ETHERNET)
         s_wired = NM.SettingWired.new()
         con.add_setting(s_con)
         con.add_setting(s_wired)
@@ -1319,7 +1322,7 @@ class SecretAgent(dbus.service.Object):
     def _get_content(self, setting_name, connection_hash):
         content = {}
         connection_type = connection_hash['connection']['type']
-        if connection_type == "802-11-wireless":
+        if connection_type == NM_CONNECTION_TYPE_WIFI:
             content['title'] = _("Authentication required by wireless network")
             content['message'] = _("Passwords or encryption keys are required to access\n"
                                    "the wireless network '%(network_id)s'.") \
@@ -1457,7 +1460,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def apply(self):
         # Inform network module that device configurations might have been changed
         # and we want to generate kickstart from device configurations
-        # (persistent NM / ifcfg configuration), instead of using original kickstart.
+        # (persistent NM / config files configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
         self._network_module.SetHostname(self.network_control_box.hostname)
 
@@ -1609,7 +1612,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def apply(self):
         # Inform network module that device configurations might have been changed
         # and we want to generate kickstart from device configurations
-        # (persistent NM / ifcfg configuration), instead of using original kickstart.
+        # (persistent NM / config files configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
         self._network_module.SetHostname(self.network_control_box.hostname)
 
@@ -1628,10 +1631,10 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     @property
     def completed(self):
-        # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
                 or self._network_module.GetActivatedInterfaces()
-                or not self.payload.needs_network)
+                or not (self.payload.source_type != conf.payload.default_source
+                        and self.payload.needs_network))
 
     def initialize(self):
         register_secret_agent(self)

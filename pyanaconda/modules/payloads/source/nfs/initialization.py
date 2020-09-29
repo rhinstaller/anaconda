@@ -59,8 +59,8 @@ class SetUpNFSSourceTask(Task):
         path, image = self._split_iso_from_path(path)
         try:
             self._mount_nfs(host, options, path)
-        except PayloadSetupError:
-            raise SourceSetupError("Could not mount NFS url '{}'".format(self._url))
+        except PayloadSetupError as exn:
+            raise SourceSetupError("Could not mount NFS url '{}'".format(self._url)) from exn
 
         iso_source_path = join_paths(self._device_mount, image) if image else self._device_mount
 

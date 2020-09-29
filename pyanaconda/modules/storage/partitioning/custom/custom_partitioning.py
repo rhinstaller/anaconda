@@ -248,11 +248,11 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         if not size and partition_data.size:
             try:
                 size = Size("%d MiB" % partition_data.size)
-            except ValueError:
+            except ValueError as e:
                 raise KickstartParseError(
                     _("The size \"%s\" is invalid.") % partition_data.size,
                     lineno=partition_data.lineno
-                )
+                ) from e
 
         # If this specified an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
@@ -277,23 +277,23 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     try:
                         devicetree.actions.add(ActionResizeFormat(dev, size))
                         devicetree.actions.add(ActionResizeDevice(dev, size))
-                    except ValueError:
+                    except ValueError as e:
                         raise KickstartParseError(
                             _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                             {"size": partition_data.size, "device": dev.name},
                             lineno=partition_data.lineno
-                        )
+                        ) from e
                 else:
                     # grow
                     try:
                         devicetree.actions.add(ActionResizeDevice(dev, size))
                         devicetree.actions.add(ActionResizeFormat(dev, size))
-                    except ValueError:
+                    except ValueError as e:
                         raise KickstartParseError(
                             _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                             {"size": partition_data.size, "device": dev.name},
                             lineno=partition_data.lineno
-                        )
+                        ) from e
 
             dev.format.mountpoint = partition_data.mountpoint
             dev.format.mountopts = partition_data.fsopts
@@ -355,11 +355,11 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         if partition_data.maxSizeMB:
             try:
                 maxsize = Size("%d MiB" % partition_data.maxSizeMB)
-            except ValueError:
+            except ValueError as e:
                 raise KickstartParseError(
                     _("The maximum size \"%s\" is invalid.") % partition_data.maxSizeMB,
                     lineno=partition_data.lineno
-                )
+                ) from e
         else:
             maxsize = None
 
@@ -385,12 +385,12 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 size = device.raw_device.align_target_size(size)
                 try:
                     devicetree.actions.add(ActionResizeDevice(device, size))
-                except ValueError:
+                except ValueError as e:
                     raise KickstartParseError(
                         _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.")
                         % {"size": partition_data.size, "device": device.name},
                         lineno=partition_data.lineno
-                    )
+                    ) from e
 
             devicetree.actions.add(ActionCreateFormat(device, kwargs["fmt"]))
             if ty == "swap":
@@ -401,7 +401,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             try:
                 request = storage.new_tmp_fs(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartParseError(lineno=partition_data.lineno, msg=str(e))
+                raise KickstartParseError(lineno=partition_data.lineno, msg=str(e)) from e
             storage.create_device(request)
         else:
             # If a previous device has claimed this mount point, delete the
@@ -416,7 +416,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             try:
                 request = storage.new_partition(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartParseError(lineno=partition_data.lineno, msg=str(e))
+                raise KickstartParseError(lineno=partition_data.lineno, msg=str(e)) from e
 
             storage.create_device(request)
             if ty == "swap":
@@ -663,7 +663,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             try:
                 request = storage.new_mdarray(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartParseError(str(e), lineno=raid_data.lineno)
+                raise KickstartParseError(str(e), lineno=raid_data.lineno) from e
 
             storage.create_device(request)
             if ty == "swap":
@@ -828,7 +828,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     pe_size=pesize
                 )
             except (StorageError, ValueError) as e:
-                raise KickstartParseError(lineno=volgroup_data.lineno, msg=str(e))
+                raise KickstartParseError(lineno=volgroup_data.lineno, msg=str(e)) from e
 
             storage.create_device(request)
             if volgroup_data.reserved_space:
@@ -910,11 +910,11 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 )
             try:
                 size = Size("%d MiB" % logvol_data.size)
-            except ValueError:
+            except ValueError as e:
                 raise KickstartParseError(
                     "The size \"%s\" is invalid." % logvol_data.size,
                     lineno=logvol_data.lineno
-                )
+                ) from e
 
         if logvol_data.thin_pool:
             logvol_data.mountpoint = ""
@@ -976,23 +976,23 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     try:
                         devicetree.actions.add(ActionResizeFormat(dev, size))
                         devicetree.actions.add(ActionResizeDevice(dev, size))
-                    except ValueError:
+                    except ValueError as e:
                         raise KickstartParseError(
                             _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.")
                             % {"size": logvol_data.size, "device": dev.name},
                             lineno=logvol_data.lineno
-                        )
+                        ) from e
                 else:
                     # grow
                     try:
                         devicetree.actions.add(ActionResizeDevice(dev, size))
                         devicetree.actions.add(ActionResizeFormat(dev, size))
-                    except ValueError:
+                    except ValueError as e:
                         raise KickstartParseError(
                             _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.")
                             % {"size": logvol_data.size, "device": dev.name},
                             lineno=logvol_data.lineno
-                        )
+                        ) from e
 
             dev.format.mountpoint = logvol_data.mountpoint
             dev.format.mountopts = logvol_data.fsopts
@@ -1052,12 +1052,12 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 size = device.raw_device.align_target_size(size)
                 try:
                     devicetree.actions.add(ActionResizeDevice(device, size))
-                except ValueError:
+                except ValueError as e:
                     raise KickstartParseError(
                         _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                         {"size": logvol_data.size, "device": device.name},
                         lineno=logvol_data.lineno
-                    )
+                    ) from e
 
             devicetree.actions.add(ActionCreateFormat(device, fmt))
             if ty == "swap":
@@ -1097,11 +1097,11 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             if logvol_data.maxSizeMB:
                 try:
                     maxsize = Size("%d MiB" % logvol_data.maxSizeMB)
-                except ValueError:
+                except ValueError as e:
                     raise KickstartParseError(
                         _("The maximum size \"%s\" is invalid.") % logvol_data.maxSizeMB,
                         lineno=logvol_data.lineno
-                    )
+                    ) from e
             else:
                 maxsize = None
 
@@ -1128,7 +1128,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     **pool_args
                 )
             except (StorageError, ValueError) as e:
-                raise KickstartParseError(str(e), lineno=logvol_data.lineno)
+                raise KickstartParseError(str(e), lineno=logvol_data.lineno) from e
 
             storage.create_device(request)
             if ty == "swap":
@@ -1303,6 +1303,6 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     create_options=btrfs_data.mkfsopts
                 )
             except BTRFSValueError as e:
-                raise KickstartParseError(lineno=btrfs_data.lineno, msg=str(e))
+                raise KickstartParseError(lineno=btrfs_data.lineno, msg=str(e)) from e
 
             storage.create_device(request)
