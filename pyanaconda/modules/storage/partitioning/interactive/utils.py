@@ -1072,8 +1072,10 @@ def _destroy_device(storage, device):
     :param device: an instance of a device
     """
     # Remove the device.
-    if device.is_disk and device.partitioned and not device.format.supported:
-        storage.recursive_remove(device)
+    if device.is_disk:
+        if device.partitioned and not device.format.supported:
+            storage.recursive_remove(device)
+        storage.initialize_disk(device)
     elif device.direct and not device.isleaf:
         # We shouldn't call this method for with non-leaf devices
         # except for those which are also directly accessible like
@@ -1082,10 +1084,6 @@ def _destroy_device(storage, device):
         storage.recursive_remove(device)
     else:
         storage.destroy_device(device)
-
-    # Initialize the disk.
-    if device.is_disk:
-        storage.initialize_disk(device)
 
     # Remove empty extended partitions.
     if getattr(device, "is_logical", False):
