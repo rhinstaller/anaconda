@@ -368,6 +368,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 29 2020 Martin Kolman <mkolman@redhat.com> - 34.7-1
+- Remove the Packages module (vponcova)
+- Handle the %%packages section in the DNF module (vponcova)
+- Create the DBus property Packages (vponcova)
+- Create the DBus structure for the packages configuration (vponcova)
+- network: commit changes synchronously when dumping autoconnections (rvykydal)
+- Run the user instance of systemd (vponcova)
+- network: do not bind virtual devices to mac (rvykydal)
+
 * Fri Sep 25 2020 Martin Kolman <mkolman@redhat.com> - 34.6-1
 - network: split add_and_activate_connection_sync function (rvykydal)
 - network: add support for bridged bond to stage 2 kickstart (%%pre) (rvykydal)
