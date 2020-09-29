@@ -503,7 +503,7 @@ class DumpMissingConfigFilesTask(Task):
                     )
                 log.debug("%s: dumping connection %s to config file for %s",
                           self.name, con.get_uuid(), iface)
-                con.commit_changes(True, None)
+                commit_changes_with_autoconnection_blocked(con)
             else:
                 log.debug("%s: none of the connections can be dumped as persistent",
                           self.name)
