@@ -25,4 +25,5 @@ Contents:
    multipath
    list-harddrives
    sysconfig-file
+   mount-points
    Testing <testing>
