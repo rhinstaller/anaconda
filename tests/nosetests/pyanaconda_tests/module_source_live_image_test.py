@@ -15,13 +15,21 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import tempfile
 import unittest
+from unittest.mock import patch
 
 from dasbus.typing import get_variant, Str, Bool
+from requests import RequestException
+
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_IMAGE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_IMAGE
+from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.source.live_image.initialization import \
+    SetUpLocalImageSourceTask, SetUpRemoteImageSourceTask, SetupImageResult
 from pyanaconda.modules.payloads.source.live_image.live_image import LiveImageSourceModule
 from pyanaconda.modules.payloads.source.live_image.live_image_interface import \
     LiveImageSourceInterface
@@ -90,13 +98,49 @@ class LiveImageSourceTestCase(unittest.TestCase):
         self.module.configuration.url = "https://my/path"
         self.assertEqual(self.module.network_required, True)
 
+    def is_local_test(self):
+        """Test the is_local property."""
+        self.module.configuration.url = "file://my/path"
+        self.assertEqual(self.module.is_local, True)
+
+        self.module.configuration.url = "http://my/path"
+        self.assertEqual(self.module.is_local, False)
+
     def get_state_test(self):
         """Test the source state."""
         self.assertEqual(SourceState.NOT_APPLICABLE, self.module.get_state())
 
+    def required_space_test(self):
+        """Test the required_space property."""
+        self.assertEqual(self.module.required_space, 1024 * 1024 * 1024)
+
+        self.module._required_space = 12345
+        self.assertEqual(self.module.required_space, 12345)
+
     def set_up_with_tasks_test(self):
         """Test the set-up tasks."""
-        self.assertEqual(self.module.set_up_with_tasks(), [])
+        self.module.configuration.url = "file://my/path"
+        tasks = self.module.set_up_with_tasks()
+        self.assertEqual(len(tasks), 1)
+        self.assertIsInstance(tasks[0], SetUpLocalImageSourceTask)
+
+        self.module.configuration.url = "http://my/path"
+        tasks = self.module.set_up_with_tasks()
+        self.assertEqual(len(tasks), 1)
+        self.assertIsInstance(tasks[0], SetUpRemoteImageSourceTask)
+
+    @patch.object(SetUpLocalImageSourceTask, "run")
+    def handle_setup_task_result_test(self, runner):
+        """Test the handler of the set-up tasks."""
+        self.module.configuration.url = "file://my/path"
+        runner.return_value = SetupImageResult(12345)
+
+        tasks = self.module.set_up_with_tasks()
+        for task in tasks:
+            task.run_with_signals()
+
+        runner.assert_called_once_with()
+        self.assertEqual(self.module.required_space, 12345)
 
     def tear_down_with_tasks_test(self):
         """Test the tear-down tasks."""
@@ -111,3 +155,133 @@ class LiveImageSourceTestCase(unittest.TestCase):
             "url='file://my/path'"
             ")"
         ))
+
+
+class SetUpLocalImageSourceTaskTestCase(unittest.TestCase):
+    """Test a task to set up a local live image."""
+
+    def invalid_image_test(self):
+        """Test an invalid image."""
+        configuration = LiveImageConfigurationData()
+        configuration.url = "file:///my/invalid/path"
+
+        task = SetUpLocalImageSourceTask(configuration)
+        with self.assertRaises(SourceSetupError) as cm:
+            task.run()
+
+        self.assertEqual(str(cm.exception), "File /my/invalid/path does not exist.")
+
+    def empty_image_test(self):
+        """Test an empty image."""
+        with tempfile.NamedTemporaryFile("w") as f:
+            # Run the task.
+            configuration = LiveImageConfigurationData()
+            configuration.url = "file://" + f.name
+
+            task = SetUpLocalImageSourceTask(configuration)
+            result = task.run()
+
+            # Check the result.
+            self.assertIsInstance(result, SetupImageResult)
+            self.assertEqual(result, SetupImageResult(None))
+
+    def fake_image_test(self):
+        """Test a fake image."""
+        with tempfile.NamedTemporaryFile("w") as f:
+            # Create a fake image.
+            f.write("MY FAKE IMAGE")
+            f.flush()
+
+            # Run the task.
+            configuration = LiveImageConfigurationData()
+            configuration.url = "file://" + f.name
+
+            task = SetUpLocalImageSourceTask(configuration)
+            result = task.run()
+
+            # Check the result.
+            self.assertIsInstance(result, SetupImageResult)
+            self.assertGreater(result.required_space, 0)
+
+
+class SetUpRemoteImageSourceTaskTestCase(unittest.TestCase):
+    """Test a task to set up a remote live image."""
+
+    @patch("pyanaconda.modules.payloads.source.live_image.initialization.requests_session")
+    def failed_request_test(self, session_getter):
+        """Test a request that fails to be send."""
+        # Prepare the session.
+        session = session_getter.return_value.__enter__.return_value
+        session.head.side_effect = RequestException("Fake!")
+
+        # Run the task.
+        configuration = LiveImageConfigurationData()
+        configuration.url = "http://my/fake/path"
+
+        task = SetUpRemoteImageSourceTask(configuration)
+        with self.assertRaises(SourceSetupError) as cm:
+            task.run()
+
+        # Check the exception.
+        self.assertEqual(str(cm.exception), "Error while handling a request: Fake!")
+
+    @patch("pyanaconda.modules.payloads.source.live_image.initialization.requests_session")
+    def invalid_response_test(self, session_getter):
+        """Test an invalid response."""
+        # Prepare the session.
+        session = session_getter.return_value.__enter__.return_value
+        response = session.head.return_value
+        response.status_code = 303
+
+        # Run the task.
+        configuration = LiveImageConfigurationData()
+        configuration.url = "http://my/fake/path"
+
+        task = SetUpRemoteImageSourceTask(configuration)
+        with self.assertRaises(SourceSetupError) as cm:
+            task.run()
+
+        # Check the exception.
+        self.assertEqual(str(cm.exception), "The request has failed: 303")
+
+    @patch("pyanaconda.modules.payloads.source.live_image.initialization.requests_session")
+    def missing_size_test(self, session_getter):
+        """Test a request with a missing size."""
+        # Prepare the session.
+        session = session_getter.return_value.__enter__.return_value
+        response = session.head.return_value
+
+        response.status_code = 200
+        response.headers = {}
+
+        # Run the task.
+        configuration = LiveImageConfigurationData()
+        configuration.url = "http://my/fake/path"
+
+        task = SetUpRemoteImageSourceTask(configuration)
+        result = task.run()
+
+        # Check the result.
+        self.assertIsInstance(result, SetupImageResult)
+        self.assertEqual(result, SetupImageResult(None))
+
+    @patch("pyanaconda.modules.payloads.source.live_image.initialization.requests_session")
+    def fake_request_test(self, session_getter):
+        """Test a fake request."""
+        # Prepare the session.
+        session = session_getter.return_value.__enter__.return_value
+        response = session.head.return_value
+
+        response.status_code = 200
+        response.headers = {'content-length': 1000}
+
+        # Run the task.
+        configuration = LiveImageConfigurationData()
+        configuration.url = "http://my/fake/path"
+
+        task = SetUpRemoteImageSourceTask(configuration)
+        result = task.run()
+
+        # Check the result.
+        self.assertIsInstance(result, SetupImageResult)
+        self.assertEqual(result, SetupImageResult(4000))

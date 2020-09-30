@@ -91,15 +91,6 @@ class LiveImageInterface(PayloadBaseInterface):
         """Signal kernel version list change."""
         pass
 
-    def SetupWithTask(self) -> ObjPath:
-        """Setup the payload.
-
-        Check availability of the image and update required space
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.setup_with_task()
-        )
-
     def TeardownWithTask(self) -> ObjPath:
         """Tear down installation source image.
 

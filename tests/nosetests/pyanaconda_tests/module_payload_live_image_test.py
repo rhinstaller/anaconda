@@ -39,8 +39,7 @@ from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageM
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
     LiveImageInterface
 from pyanaconda.modules.payloads.payload.live_image.initialization import \
-    CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
-    TeardownInstallationSourceImageTask
+    SetupInstallationSourceImageTask, TeardownInstallationSourceImageTask
 from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromTarTask
 
 
@@ -206,13 +205,6 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
 
         self.assertListEqual(self.live_image_interface.GetKernelVersionList(), kernel_list)
         kernel_list_callback.assert_called_once_with(kernel_list)
-
-    @patch_dbus_publish_object
-    def check_installation_source_task_test(self, publisher):
-        """Test Live Image is able to create a check installation source task."""
-        task_path = self.live_image_interface.SetupWithTask()
-
-        check_task_creation(self, task_path, publisher, CheckInstallationSourceImageTask)
 
     @patch_dbus_publish_object
     def prepare_system_for_installation_task_test(self, publisher):

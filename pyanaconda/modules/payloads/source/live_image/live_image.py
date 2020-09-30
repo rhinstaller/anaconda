@@ -22,6 +22,8 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.source.live_image.initialization import \
+    SetUpLocalImageSourceTask, SetUpRemoteImageSourceTask, SetupImageResult
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.payloads.source.live_image.live_image_interface import \
     LiveImageSourceInterface
@@ -39,6 +41,8 @@ class LiveImageSourceModule(PayloadSourceBase):
         super().__init__()
         self._configuration = LiveImageConfigurationData()
         self.configuration_changed = Signal()
+
+        self._required_space = None
 
     @property
     def type(self):
@@ -79,9 +83,25 @@ class LiveImageSourceModule(PayloadSourceBase):
         """
         return has_network_protocol(self.configuration.url)
 
+    @property
+    def is_local(self):
+        """Is the image local or remote?"""
+        return self.configuration.url.startswith("file://")
+
+    @property
+    def required_space(self):
+        """The space required for the installation of the source.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        if not self._required_space:
+            return 1024 * 1024 * 1024
+
+        return self._required_space
+
     def get_state(self):
         """Get state of this source."""
-        # TODO: Implement this method
         return SourceState.NOT_APPLICABLE
 
     def process_kickstart(self, data):
@@ -107,8 +127,18 @@ class LiveImageSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        # TODO: Implement this method
-        return []
+        if self.is_local:
+            task = SetUpLocalImageSourceTask(self.configuration)
+        else:
+            task = SetUpRemoteImageSourceTask(self.configuration)
+
+        handler = self._handle_setup_task_result
+        task.succeeded_signal.connect(lambda: handler(task.get_result()))
+        return [task]
+
+    def _handle_setup_task_result(self, result: SetupImageResult):
+        """Apply the result of the set-up task."""
+        self._required_space = result.required_space
 
     def tear_down_with_tasks(self):
         """Tear down the installation source.
@@ -116,7 +146,6 @@ class LiveImageSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source clean-up
         :rtype: [Task]
         """
-        # TODO: Implement this method
         return []
 
     def __repr__(self):

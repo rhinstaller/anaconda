@@ -34,7 +34,7 @@ from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
     LiveImageInterface
 from pyanaconda.modules.payloads.payload.live_image.initialization import \
-    CheckInstallationSourceImageTask, SetupInstallationSourceImageTask, \
+    SetupInstallationSourceImageTask, \
     TeardownInstallationSourceImageTask
 from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromTarTask
 from pyanaconda.modules.payloads.payload.live_image.utils import \
@@ -204,16 +204,6 @@ class LiveImageModule(PayloadBase):
         self.kernel_version_list_changed.emit(self._kernel_version_list)
         log.debug("List of kernel versions is set to '%s'", self._kernel_version_list)
 
-    def setup_with_task(self):
-        """Check availability of the image and update required space."""
-        task = CheckInstallationSourceImageTask(
-            self.url,
-            self.proxy,
-            self.requests_session
-        )
-        task.succeeded_signal.connect(lambda: self.set_required_space(task.get_result()))
-        return task
-
     def pre_install_with_tasks(self):
         """Execute preparation steps.
 
@@ -275,13 +265,3 @@ class LiveImageModule(PayloadBase):
             self.url,
             INSTALL_TREE
         )
-
-    def set_up_sources_with_task(self):
-        """Set up installation sources."""
-        # TODO: Replace SetupInstallationSourceImageTask with SetUpSourcesTask here
-        pass
-
-    def tear_down_sources_with_task(self):
-        """Tear down installation sources."""
-        # TODO: Replace TeardownInstallationSourceImageTask with TearDownSourcesTask here
-        pass
