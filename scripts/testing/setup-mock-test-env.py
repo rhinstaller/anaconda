@@ -26,7 +26,7 @@ import os
 import sys
 import subprocess
 
-from functools import partial, reduce
+from functools import partial
 
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
@@ -250,7 +250,7 @@ def get_required_packages():
 
     proc_res = _check_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
 
-    return proc_res.stdout.decode('utf-8').strip()
+    return proc_res.stdout.decode('utf-8').strip().splitlines()
 
 
 def get_release_packages():
@@ -260,7 +260,7 @@ def get_release_packages():
 
     proc_res = _check_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
 
-    return proc_res.stdout.decode('utf-8').strip()
+    return proc_res.stdout.decode('utf-8').strip().splitlines()
 
 
 def get_required_pip_packages():
@@ -270,15 +270,14 @@ def get_required_pip_packages():
 
     proc_res = _check_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
 
-    return proc_res.stdout.decode('utf-8').strip()
+    return proc_res.stdout.decode('utf-8').strip().splitlines()
 
 
 def install_required_packages(mock_command, release=False):
     packages = get_required_packages()
 
     if release:
-        release_packages = get_release_packages()
-        packages = " ".join([packages, release_packages])
+        packages += get_release_packages()
 
     install_packages_to_mock(mock_command, packages)
 
@@ -361,42 +360,9 @@ def install_packages_to_mock(mock_command, packages):
     cmd = _prepare_command(mock_command)
 
     cmd.append('--install')
-    cmd.extend(_prepare_packages(packages))
+    cmd.extend(packages)
 
     _check_subprocess(cmd, "Can't install packages to mock.")
-
-
-def _prepare_packages(packages_str):
-    """Split packages and package groups to a list.
-
-    Problem is that we can have (package1 or package2) in a spec file and we want to use this
-    as a whole and let DNF to decide what to do.
-
-    :param str packages_str: all packages for installation as one string
-    """
-
-    def _merge_groups(acc, package):
-        groups_num = acc[0]
-        result = acc[1]
-
-        if groups_num > 0:
-            # we are in groups so concatenate package name to the previous package
-            result[-1] = result[-1] + " " + package
-        else:  # not inside a group, just add new package
-            result.append(package)
-
-        # increase number of groups recursion because of '('
-        groups_num += package.count("(")
-
-        # reduce number of groups recursion because of ')'
-        groups_num -= package.count(")")
-
-        return (groups_num, result)
-
-    result = reduce(_merge_groups, packages_str.split(" "), (0, []))
-
-    # do not take number of groups that was just helper value
-    return result[1]
 
 
 def install_pip_packages_to_mock(mock_command, packages):
@@ -404,7 +370,7 @@ def install_pip_packages_to_mock(mock_command, packages):
 
     cmd = _run_cmd_in_chroot(cmd)
     cmd.append(
-        'python3 -m pip install {}'.format(packages)
+        'python3 -m pip install {}'.format(' '.join(packages))
     )
 
     _check_subprocess(cmd, "Can't install packages via pip to mock.")

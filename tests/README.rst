@@ -19,7 +19,9 @@ Run tests locally
 Before you are able to run Anaconda tests you need to install all required dependencies.
 To get list of dependencies you can use::
 
-    [dnf|yum] install -y $(./scripts/testing/dependency_solver.py)
+    ./scripts/testing/dependency_solver.py | xargs -d '\n' sudo dnf install -y
+
+Use `yum` instead of `dnf` on RHEL/CentOS 7.
 
 Prepare the environment and build the sources::
 
