@@ -86,17 +86,7 @@ AC_CHECK_LIB([audit], [audit_open], [:],
 AM_PATH_PYTHON(python_required_version)
 
 # Check for the python extension paths
-PKG_CHECK_MODULES([PYTHON3], [python3], [
-    LIBS_save="$LIBS"
-    LIBS="$LIBS $PYTHON3_LIBS"
-    AC_MSG_CHECKING([Python libraries])
-    AC_TRY_LINK_FUNC([Py_Initialize], 
-                     [AC_MSG_RESULT([yes])], 
-                     [AC_MSG_RESULT([no])
-                      ANACONDA_SOFT_FAILURE([Unable to use python library])])
-    LIBS="$LIBS_save"
-    ],
-    [ANACONDA_SOFT_FAILURE([Unable to find python library])])
+PKG_CHECK_MODULES([PYTHON3], [python3], [], ANACONDA_SOFT_FAILURE([Unable to find python library]))
 
 # Check for libraries we need that provide pkg-config scripts
 ANACONDA_PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
