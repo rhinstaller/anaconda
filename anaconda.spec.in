@@ -368,6 +368,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 01 2020 Martin Kolman <mkolman@redhat.com> - 33.25.4-1
+- fix remove unkown partition in sda failed (69908158+xqrustc2020)
+- Fix show missing inst. prefix warning appropriately (#1875561) (jkonecny)
+
 * Tue Sep 29 2020 Martin Kolman <mkolman@redhat.com> - 33.25.3-1
 - network: commit changes synchronously when dumping autoconnections (rvykydal)
 - network: do not bind virtual devices to mac (rvykydal)
