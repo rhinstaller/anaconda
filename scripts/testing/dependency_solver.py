@@ -182,4 +182,4 @@ if __name__ == "__main__":
     if args.pip:
         res_packages = pip_dependencies()
 
-    print(" ".join(res_packages))
+    print("\n".join(res_packages))
