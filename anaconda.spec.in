@@ -368,6 +368,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 01 2020 Martin Kolman <mkolman@redhat.com> - 34.8-1
+- fix remove unkown partition in sda failed (69908158+xqrustc2020)
+- Fix show missing inst. prefix warning appropriately (#1875561) (jkonecny)
+- Fix unit test dependency installation for boolean expressions (martin)
+- Drop obsolete Py_Initialize link check in configure (martin)
+- Document the mount points of the target system (vponcova)
+- fix remove unkown partition in sda failed (69908158+xqrustc2020)
+- Import RPM certificates at end of installation (vslavik)
+
 * Tue Sep 29 2020 Martin Kolman <mkolman@redhat.com> - 34.7-1
 - Remove the Packages module (vponcova)
 - Handle the %%packages section in the DNF module (vponcova)
