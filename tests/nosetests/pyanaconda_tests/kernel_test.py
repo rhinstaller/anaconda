@@ -27,7 +27,8 @@ class KernelArgumentsTests(unittest.TestCase):
         """KernelArguments value retrieval test."""
 
         ka = KernelArguments.from_string(
-            "blah foo=anything bar=1 baz=0 nowhere nothing=indeed beep=off derp=no nobody=0")
+            "inst.blah foo=anything inst.bar=1 baz=0 nowhere inst.nothing=indeed beep=off "
+            "derp=no nobody=0")
 
         # test using "in" operator on the class
         self.assertTrue("blah" in ka)
@@ -82,6 +83,25 @@ class KernelArgumentsTests(unittest.TestCase):
             if k == "root":
                 root_seen = True
         self.assertTrue(root_seen)
+
+    def items_raw_test(self):
+        """Test KernelArguments access to raw contents with iterator."""
+
+        ka = KernelArguments.from_string(
+            "blah inst.foo=anything inst.nothing=indeed")
+        it = ka.items_raw()
+
+        self.assertIsInstance(it, collections.Iterable)
+
+        res = dict()
+        for k, v in it:
+            res[k] = v
+
+        self.assertIn("inst.foo", res)
+        self.assertIn("blah", res)
+        self.assertIn("inst.nothing", res)
+
+        self.assertEqual(res["inst.nothing"], "indeed")
 
     def shared_instance_test(self):
         """Test the kernel.kernel_arguments instance."""
