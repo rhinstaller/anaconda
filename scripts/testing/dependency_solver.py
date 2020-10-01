@@ -37,6 +37,7 @@ TEST_DEPENDENCIES = [
     "git",
     "bzip2",
     "cppcheck",
+    "rpm-build",
     "rpm-ostree",
     "pykickstart",
     "python3-pip",
