@@ -49,8 +49,8 @@ produce a human readable report.
 Run tests inside Mock
 ---------------------
 
-When using the `ci' target in a mock you need to use a regular user account which
-is a member of the `mock' group. You can update your account by running
+When using the `ci` target in a mock you need to use a regular user account which
+is a member of the `mock` group. You can update your account by running
 the command::
 
     # usermod -a -G mock <username>
