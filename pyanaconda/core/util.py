@@ -47,6 +47,7 @@ from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE
     IPMI_ABORTED, X_TIMEOUT, TAINT_HARDWARE_UNSUPPORTED, TAINT_SUPPORT_REMOVED, \
     WARNING_HARDWARE_UNSUPPORTED, WARNING_SUPPORT_REMOVED
 from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
+from pyanaconda.core.regexes import OS_RELEASE_OS_VERSION
 from pyanaconda.errors import RemovedModuleError, ExitError
 
 from pyanaconda.anaconda_logging import program_log_lock
@@ -1492,3 +1493,22 @@ class LazyObject(object):
             return super().__setattr__(name, value)
 
         return setattr(self._object, name, value)
+
+
+def get_os_version(sysroot=""):
+    """Find version of the OS from the os-release file.
+
+    See os-release(5).
+
+    :param str sysroot: Where to look.
+    :return str: The version
+    """
+    for filename in ("/etc/os-release", "/usr/lib/os-release"):
+        try:
+            with open(sysroot + filename, "r") as f:
+                data = f.read(4096)  # 4 kB should be enough for everyone!
+            return OS_RELEASE_OS_VERSION.findall(data)[0]
+        except (FileNotFoundError, IndexError):
+            pass
+
+    return None

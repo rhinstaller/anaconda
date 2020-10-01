@@ -194,3 +194,6 @@ IPV6_ADDRESS_IN_DRACUT_IP_OPTION = re.compile(r'\[[^\]]+\]')
 
 # Octet of MAC address
 MAC_OCTET = re.compile(r'[a-fA-F0-9][a-fA-F0-9]')
+
+# OS version in os-release file
+OS_RELEASE_OS_VERSION = re.compile(r"VERSION_ID=[\"']?([0-9a-z._-]+)[\"']?")

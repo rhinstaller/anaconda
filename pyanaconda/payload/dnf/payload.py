@@ -1986,6 +1986,17 @@ class DNFPayload(Payload):
             if ks_repo.excludepkgs:
                 f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
 
+    def _import_rpm_keys(self):
+        """Import GPG keys to RPM database."""
+        if conf.payload.default_rpm_gpg_keys:
+            # TODO: replace the interpolation with DNF once possible
+            arch = util.execWithCapture("uname", ["-i"]).strip().replace("'", "")
+            vers = util.get_os_version(conf.target.system_root)
+            for key in conf.payload.default_rpm_gpg_keys:
+                interpolated_key = key.replace("$releasever", vers).replace("$basearch", arch)
+                log.info("Importing GPG key to RPM database: %s", interpolated_key)
+                util.execInSysroot("rpm", ["--import", interpolated_key])
+
     def post_setup(self):
         """Perform post-setup tasks.
 
@@ -2024,6 +2035,9 @@ class DNFPayload(Payload):
         # We don't need the mother base anymore. Close it.
         self._base.close()
         super().post_install()
+
+        # rpm needs importing installed certificates manually, see rhbz#748320 and rhbz#185800
+        self._import_rpm_keys()
 
     @property
     def kernel_version_list(self):
