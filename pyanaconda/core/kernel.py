@@ -24,6 +24,11 @@ from pyanaconda.core.constants import CMDLINE_APPEND, CMDLINE_LIST, CMDLINE_FILE
 __all__ = ['KernelArguments', 'kernel_arguments']
 
 
+# options might have the inst. prefix (used to differentiate
+# boot options for the installer from other boot options)
+BOOT_ARG_PREFIX = "inst."
+
+
 class KernelArguments():
     """The kernel arguments.
 
@@ -32,6 +37,7 @@ class KernelArguments():
 
     def __init__(self):
         self._data = OrderedDict()
+        self._args_with_prefix = set()
 
     @classmethod
     def from_defaults(cls):
@@ -98,20 +104,21 @@ class KernelArguments():
 
         lst = shlex.split(cmdline)
 
-        # options might have the inst. prefix (used to differentiate
-        # boot options for the installer from other boot options)
-        inst_prefix = "inst."
-
         for i in lst:
+            prefix_used = False
             # drop the inst. prefix (if found)
-            if i.startswith(inst_prefix):
-                i = i[len(inst_prefix):]
+            if i.startswith(BOOT_ARG_PREFIX):
+                i = i[len(BOOT_ARG_PREFIX):]
+                prefix_used = True
 
             if "=" in i:
                 (key, val) = i.split("=", 1)
             else:
                 key = i
                 val = None
+
+            if prefix_used:
+                self._args_with_prefix.add(key)
 
             # Some duplicate args create a space separated string
             if key in CMDLINE_APPEND and self._data.get(key, None):
@@ -161,6 +168,19 @@ class KernelArguments():
         Propagates the call verbatim to the underlying dictionary.
         """
         return self._data.items()
+
+    def items_raw(self):
+        """Return an iterator over all arguments in their raw form (with prefixes).
+
+        TODO: DO NOT USE THIS METHOD! This workaround will be removed
+              when lack of 'inst.' prefix is not supported.
+        """
+        for key, val in self._data.items():
+            if key in self._args_with_prefix:
+                yield ("{}{}".format(BOOT_ARG_PREFIX, key), val)
+                continue
+
+            yield (key, val)
 
 
 kernel_arguments = KernelArguments.from_defaults()
