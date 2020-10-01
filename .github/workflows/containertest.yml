@@ -1,0 +1,21 @@
+name: container-test
+on: push
+jobs:
+  spawn-container:
+    container:
+      image: docker.io/fedora:rawhide
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: where am I
+        run: |
+          ls -lr
+
+      - name: default privileges
+        run: |
+          whoami
+
+      - name: sudo privileges
+        run: |
+          sudo whoami
