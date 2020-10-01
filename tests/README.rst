@@ -57,14 +57,17 @@ the command::
 
 To prepare testing mock environment call::
 
-    ./scripts/testing/setup-mock-test-env.py [mock-configuration]
+    ./scripts/testing/setup-mock-test-env.py --init [mock-configuration]
 
 Mock configuration can be path to a file or name of file in `/etc/mock/*.cfg`
 without suffix. For detail configuration look on the script help output.
 
 Then you can run tests by::
 
-    mock -r [mock_configuration] --chroot -- "cd /anaconda && ./autogen.sh && ./configure && make ci"
+    ./scripts/testing/setup-mock-test-env.py -ut [mock-configuration]
+
+See `./scripts/testing/setup-mock-test-env.py --help` for additional options
+like running individual tests.
 
 Or you can just attach to shell inside of the prepared mock environment::
 
