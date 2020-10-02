@@ -87,13 +87,3 @@ class RPMOSTreeModule(PayloadBase):
         """
         # TODO: Implement this method
         pass
-
-    def set_up_sources_with_task(self):
-        """Set up installation sources."""
-        # TODO: Implement this method
-        pass
-
-    def tear_down_sources_with_task(self):
-        """Tear down installation sources."""
-        # TODO: Implement this method
-        pass

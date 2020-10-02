@@ -25,6 +25,7 @@ from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import \
     RPMOSTreeSourceInterface
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
 log = get_module_logger(__name__)
 
@@ -76,12 +77,10 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
 
         :return: True or False
         """
-        # TODO: Implement this method
-        return False
+        return has_network_protocol(self.configuration.url)
 
     def get_state(self):
         """Get state of this source."""
-        # TODO: Implement this method
         return SourceState.NOT_APPLICABLE
 
     def process_kickstart(self, data):
@@ -108,7 +107,6 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        # TODO: Implement this method
         return []
 
     def tear_down_with_tasks(self):
@@ -117,8 +115,12 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source clean-up
         :rtype: [Task]
         """
-        # TODO: Implement this method
         return []
 
     def __repr__(self):
-        return "Source(type='RPM_OSTREE')"
+        """Return a string representation of the source."""
+        return "Source(type='{}', osname='{}', url='{}')".format(
+            self.type.value,
+            self.configuration.osname,
+            self.configuration.url
+        )

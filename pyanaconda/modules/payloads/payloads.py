@@ -105,7 +105,12 @@ class PayloadsService(KickstartService):
         """Return a kickstart string."""
         # Generate only the parts of kickstart that were removed from UI.
         # FIXME: This is a temporary workaround for RPM sources.
-        if self.active_payload and self.active_payload.type != PayloadType.DNF:
+        enabled_types = {
+            PayloadType.DNF,
+            PayloadType.RPM_OSTREE
+        }
+
+        if self.active_payload and self.active_payload.type not in enabled_types:
             log.debug("Generating kickstart... (skip)")
             return ""
 

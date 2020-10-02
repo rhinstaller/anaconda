@@ -25,7 +25,6 @@ from pyanaconda.core.constants import RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL, \
     GROUP_PACKAGE_TYPES_REQUIRED, RPM_LANGUAGES_ALL
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
-from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
@@ -261,13 +260,3 @@ class DNFModule(PayloadBase):
         """
         # TODO: Implement this method
         pass
-
-    def set_up_sources_with_task(self):
-        """Set up installation sources."""
-        # FIXME: Move the implementation to the base class.
-        return SetUpSourcesTask(self._sources)
-
-    def tear_down_sources_with_task(self):
-        """Tear down installation sources."""
-        # FIXME: Move the implementation to the base class.
-        return TearDownSourcesTask(self._sources)

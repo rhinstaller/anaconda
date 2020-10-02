@@ -339,6 +339,7 @@ commandMap = {
     "network": UselessCommand,
     "nfs": UselessCommand,
     "nvdimm": UselessCommand,
+    "ostreesetup": UselessCommand,
     "part": UselessCommand,
     "partition": UselessCommand,
     "raid": UselessCommand,
