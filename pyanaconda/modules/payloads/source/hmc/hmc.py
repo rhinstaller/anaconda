@@ -60,6 +60,15 @@ class HMCSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
         """
         return False
 
+    @property
+    def required_space(self):
+        """The space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        return 0
+
     def get_state(self):
         """Get state of this source."""
         return SourceState.from_bool(self.get_mount_state())

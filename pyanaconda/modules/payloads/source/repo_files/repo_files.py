@@ -61,6 +61,15 @@ class RepoFilesSourceModule(PayloadSourceBase):
         """
         return True
 
+    @property
+    def required_space(self):
+        """The space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        return 0
+
     def get_state(self):
         """Get state of this source."""
         return SourceState.NOT_APPLICABLE

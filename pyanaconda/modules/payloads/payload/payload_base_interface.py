@@ -37,7 +37,6 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
     def connect_signals(self):
         super().connect_signals()
         self.watch_property("Sources", self.implementation.sources_changed)
-        self.watch_property("RequiredSpace", self.implementation.required_space_changed)
 
     @property
     def Type(self) -> Str:
@@ -46,14 +45,6 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
         Possible types are values of the payload.base.constants.PayloadType enum
         """
         return self.implementation.type.value
-
-    @property
-    def RequiredSpace(self) -> UInt64:
-        """Required space by the source image.
-
-        :return: required size in bytes
-        """
-        return self.implementation.required_space
 
     @property
     def SupportedSourceTypes(self) -> List[Str]:
@@ -94,6 +85,14 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
         :return: True or False
         """
         return self.implementation.is_network_required()
+
+    def CalculateRequiredSpace(self) -> UInt64:
+        """Calculate space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        return self.implementation.calculate_required_space()
 
     def PreInstallWithTasks(self) -> List[ObjPath]:
         """Execute preparation steps.

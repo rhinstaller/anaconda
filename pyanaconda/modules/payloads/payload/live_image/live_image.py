@@ -82,11 +82,6 @@ class LiveImageModule(PayloadBase):
         return PayloadType.LIVE_IMAGE
 
     @property
-    def default_required_space(self):
-        """Get 1G as default when the value is not known."""
-        return 1024 * 1024 * 1024
-
-    @property
     def supported_source_types(self):
         """Get list of sources supported by Live Image module."""
         return [

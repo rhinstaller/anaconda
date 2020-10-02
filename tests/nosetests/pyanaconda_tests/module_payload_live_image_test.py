@@ -33,7 +33,7 @@ from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFiles
     UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payloads import PayloadsService
-from pyanaconda.modules.payloads.constants import PayloadType
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
@@ -41,6 +41,7 @@ from pyanaconda.modules.payloads.payload.live_image.live_image_interface import 
 from pyanaconda.modules.payloads.payload.live_image.initialization import \
     SetupInstallationSourceImageTask, TeardownInstallationSourceImageTask
 from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromTarTask
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 
 class LiveImageKSTestCase(unittest.TestCase):
@@ -140,6 +141,15 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
     def type_test(self):
         self.shared_tests.check_type(PayloadType.LIVE_IMAGE)
 
+    def calculate_required_space_test(self):
+        """Test CalculateRequiredTest."""
+        self.assertEqual(self.live_image_interface.CalculateRequiredSpace(), 0)
+
+        source = SourceFactory.create_source(SourceType.LIVE_IMAGE)
+        self.live_image_module.add_source(source)
+
+        self.assertEqual(self.live_image_interface.CalculateRequiredSpace(), 1024 * 1024 * 1024)
+
     # TODO: Add set_source and supported_sources like in Live OS payload when source is available
 
     def default_url_test(self):
@@ -165,13 +175,6 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
 
     def verifyssl_properties_test(self):
         self._check_dbus_property("VerifySSL", True)
-
-    def default_space_required_test(self):
-        """Test Live Image RequiredSpace property.
-
-        # TODO: Add a real test for required space property
-        """
-        self.assertEqual(self.live_image_interface.RequiredSpace, 1024 * 1024 * 1024)
 
     @patch("pyanaconda.modules.payloads.payload.live_image.live_image.get_kernel_version_list")
     def empty_kernel_version_list_test(self, get_kernel_version_list):

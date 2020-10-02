@@ -26,7 +26,6 @@ from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_cre
 from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
-from pyanaconda.modules.common.constants.interfaces import PAYLOAD
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payloads.constants import SourceType, PayloadType, SourceState
@@ -101,31 +100,6 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
         source1.get_state.return_value = SourceState.UNREADY
         self.shared_tests.set_and_check_sources([source1])
-
-    @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_dir_size")
-    @patch_dbus_publish_object
-    def required_space_properties_test(self, publisher, get_dir_size_mock):
-        """Test Live OS RequiredSpace property."""
-        self.assertEqual(self.live_os_interface.RequiredSpace, 0)
-
-        get_dir_size_mock.return_value = 2
-        self._prepare_and_use_source()
-        task = self.live_os_module.set_up_sources_with_task()
-        task.succeeded_signal.emit()
-        self.assertEqual(self.live_os_interface.RequiredSpace, 2048)
-        object_path, _ = publisher.call_args[0]
-        self.callback.assert_called_once_with(
-            PAYLOAD.interface_name,
-            {"RequiredSpace": 2048,
-             "Sources": [object_path]}, [])
-
-        self.callback.reset_mock()
-        task = self.live_os_module.tear_down_sources_with_task()
-        task.stopped_signal.emit()
-        self.assertEqual(self.live_os_interface.RequiredSpace, 0)
-        self.callback.assert_called_once_with(
-            PAYLOAD.interface_name,
-            {"RequiredSpace": 0},  [])
 
     @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")
     def empty_kernel_version_list_test(self, get_kernel_version_list):

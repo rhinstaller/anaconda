@@ -67,6 +67,16 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         return False
 
     @property
+    def required_space(self):
+        """The space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        # FIXME: Implement this method.
+        return 0
+
+    @property
     def image_path(self):
         """Path to the live OS source image.
 
