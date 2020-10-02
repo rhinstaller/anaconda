@@ -70,6 +70,8 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         self._l12_module = LOCALIZATION.get_proxy()
 
+        self._only_existing_locales = True
+
     def apply(self):
         (store, itr) = self._localeSelection.get_selected()
 

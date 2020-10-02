@@ -59,6 +59,8 @@ class LangLocaleHandler(object):
         self._right_arrow = None
         self._left_arrow = None
 
+        self._only_existing_locales = False
+
     @abstractproperty
     def payload(self):
         """Get payload class."""
@@ -163,6 +165,8 @@ class LangLocaleHandler(object):
         locales = localization.get_language_locales(lang)
 
         for locale in locales:
+            if self._only_existing_locales and not localization.locale_has_translation(locale):
+                continue
             self._add_locale(self._localeStore,
                              localization.get_native_name(locale),
                              locale)

@@ -24,6 +24,7 @@ import langtable
 import locale as locale_mod
 import glob
 from collections import namedtuple
+import functools
 
 from pyanaconda.core import constants
 from pyanaconda.core.util import upcase_first_letter, setenv, execWithRedirect
@@ -331,6 +332,21 @@ def get_available_translations(localedir=None):
                 continue
 
             yield lang
+
+
+@functools.lru_cache(2048)
+def locale_has_translation(locale):
+    """Does the locale have a translation available?
+
+    Checks if a given locale will receive a gettext translation. That could be either because the
+    locale has a translation, or because there is another translation to fall back onto. In
+    reality, the fallback is mostly of the type "ja_JP" -> "ja".
+
+    :param str locale: locale to check
+    :return bool: is there a translation
+    """
+    files = gettext.find("anaconda", None, [locale], True)
+    return bool(files)
 
 
 def get_language_locales(lang):
