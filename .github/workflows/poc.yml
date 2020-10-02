@@ -1,0 +1,15 @@
+name: "POC CI Run"
+
+on: [pull_request]
+
+jobs:
+  inspect:
+    name: "Repo/Event Inspection"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Clone Repository"
+      uses: actions/checkout@v2
+      with:
+        ref: ${{github.event.pull_request.head.sha}}
+    - name: "Fetch Base Commit"
+      run: git fetch origin '${{github.event.pull_request.base.sha}}'
