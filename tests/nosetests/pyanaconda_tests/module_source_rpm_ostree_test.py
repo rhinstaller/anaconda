@@ -50,7 +50,7 @@ class OSTreeSourceInterfaceTestCase(unittest.TestCase):
 
     def description_test(self):
         """Test the Description property."""
-        self.assertEqual("RPM OS Tree", self.interface.Description)
+        self.assertEqual("RPM OSTree", self.interface.Description)
 
     def configuration_test(self):
         """Test the configuration property."""

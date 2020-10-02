@@ -47,7 +47,7 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
     @property
     def description(self):
         """Get description of this source."""
-        return _("RPM OS Tree")
+        return _("RPM OSTree")
 
     def for_publication(self):
         """Return a DBus representation."""
