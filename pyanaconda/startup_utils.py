@@ -32,6 +32,7 @@ from pyanaconda.anaconda_loggers import get_stdout_logger, get_storage_logger, \
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
@@ -204,6 +205,34 @@ def setup_logging_from_kickstart(data):
         if port:
             remote_server = "%s:%s" % (host, port)
         anaconda_logging.logger.updateRemote(remote_server)
+
+
+def set_up_proxy_variables(proxy):
+    """Set up proxy environmental variables.
+
+    Set up proxy environmental variables so that %pre and %post
+    scripts can use it as well as curl, libreport, etc.
+
+    :param proxy: a string with the proxy URL
+    """
+    if not proxy:
+        log.debug("Don't set up proxy variables.")
+        return
+
+    try:
+        proxy = ProxyString(proxy)
+    except ProxyStringError as e:
+        log.info("Failed to parse proxy \"%s\": %s", proxy, e)
+    else:
+        # Set environmental variables to be used by pre/post scripts
+        util.setenv("PROXY", proxy.noauth_url)
+        util.setenv("PROXY_USER", proxy.username or "")
+        util.setenv("PROXY_PASSWORD", proxy.password or "")
+
+        # Variables used by curl, libreport, etc.
+        util.setenv("http_proxy", proxy.url)
+        util.setenv("ftp_proxy", proxy.url)
+        util.setenv("HTTPS_PROXY", proxy.url)
 
 
 def prompt_for_ssh(options):
