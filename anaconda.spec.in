@@ -54,6 +54,7 @@ BuildRequires: gobject-introspection-devel
 BuildRequires: glade-devel
 BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
+BuildRequires: make
 BuildRequires: pango-devel
 BuildRequires: python3-kickstart >= %{pykickstartver}
 BuildRequires: python3-devel
