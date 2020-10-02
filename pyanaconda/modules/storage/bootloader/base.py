@@ -35,8 +35,9 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.modules.common.constants.objects import FCOE, ISCSI, BOOTLOADER
 from pyanaconda.modules.common.structures.iscsi import Node
-from pyanaconda.modules.common.constants.services import STORAGE, NETWORK
+from pyanaconda.modules.common.constants.services import STORAGE, NETWORK, SECURITY
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
+from pykickstart.constants import SELINUX_DISABLED
 
 log = get_module_logger(__name__)
 
@@ -729,6 +730,7 @@ class BootLoader(object):
         self._set_storage_boot_args(storage)
         self._preserve_some_boot_args()
         self._set_graphical_boot_args()
+        self._set_security_boot_args()
 
     def _set_extra_boot_args(self):
         """Set the extra boot args."""
@@ -884,6 +886,12 @@ class BootLoader(object):
 
         self.boot_args.update(args)
         self.dracut_args.update(args)
+
+    def _set_security_boot_args(self):
+        """Set LSM-related boot args."""
+        proxy = SECURITY.get_proxy()
+        if proxy.SELinux == SELINUX_DISABLED:
+            self.boot_args.add('selinux=0')
 
     #
     # configuration
