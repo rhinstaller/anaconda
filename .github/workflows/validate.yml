@@ -1,0 +1,35 @@
+name: validate
+on: [push, pull_request]
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/fedora:rawhide
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      # FIXME: the following should be done statically in a custom container image
+      - name: set up dependencies
+        run: |
+          dnf install -y /usr/bin/xargs
+          scripts/testing/dependency_solver.py -brt | xargs -d '\n' dnf install -y
+          scripts/testing/dependency_solver.py --pip | xargs pip install
+
+      - name: build
+        run: |
+          ./autogen.sh
+          ./configure
+          make
+
+      - name: run unit tests
+        run: |
+          make ci
+
+      - name: Upload test and coverage logs
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: |
+            tests/test-suite.log
+            tests/coverage-*.log
