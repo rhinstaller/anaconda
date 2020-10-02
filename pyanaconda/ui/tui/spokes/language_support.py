@@ -21,7 +21,6 @@ from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.flags import flags
 from pyanaconda import localization
 from pyanaconda.core.i18n import N_, _, C_
 
@@ -71,11 +70,6 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def mandatory(self):
         return False
-
-    @property
-    def showable(self):
-        # don't show the language support spoke in single language mode
-        return not flags.singlelang
 
     @property
     def status(self):

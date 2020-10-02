@@ -111,12 +111,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
     @property
     def completed(self):
-        # Skip the welcome screen if we are in single language mode
-        # If language has not been set the default language (en_US)
-        # will be used for the installation and for the installed system.
-        if flags.flags.singlelang:
-            return True
-
         if flags.flags.automatedInstall and self._l12_module.LanguageKickstarted:
             return bool(self._l12_module.Language)
 

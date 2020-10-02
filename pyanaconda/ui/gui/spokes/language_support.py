@@ -25,7 +25,6 @@ from gi.repository import Pango, Gdk
 
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.modules.common.constants.services import LOCALIZATION
-from pyanaconda.flags import flags
 from pyanaconda.core.i18n import CN_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import escape_markup, override_cell_property
@@ -129,8 +128,8 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
 
     @property
     def showable(self):
-        # don't show the language support spoke on live media and in single language mode
-        return self.payload.type not in PAYLOAD_LIVE_TYPES and not flags.singlelang
+        # don't show the language support spoke on live media
+        return self.payload.type not in PAYLOAD_LIVE_TYPES
 
     @property
     def status(self):
