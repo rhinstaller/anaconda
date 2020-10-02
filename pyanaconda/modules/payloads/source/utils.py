@@ -38,7 +38,7 @@ def has_network_protocol(url):
     if not url:
         return False
 
-    network_protocols = ["http:", "https:", "ftp:", "nfs:", "nfsiso:"]
+    network_protocols = ["http:", "https:", "ftp:", "nfs:"]
     return any(url.startswith(p) for p in network_protocols)
 
 

@@ -20,7 +20,7 @@ getargbool 0 inst.stage2.all && repo="urls"
 if [ -n "$repo" ]; then
     splitsep ":" "$repo" repotype rest
     case "$repotype" in
-        http|https|ftp|nfs|nfs4|nfsiso)
+        http|https|ftp|nfs|nfs4)
             root="anaconda-net:$repo"
             set_neednet
         ;;

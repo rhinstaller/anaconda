@@ -33,7 +33,6 @@ case $repo in
     nfs*)
         . /lib/nfs-lib.sh
         info "anaconda mounting NFS repo at $repo"
-        str_starts "$repo" "nfsiso:" && repo=nfs:${repo#nfsiso:}
 
         # Replace hex space with a real one. All uses of repo need to be quoted
         # after this point.
