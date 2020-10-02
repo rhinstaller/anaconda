@@ -35,7 +35,7 @@ Executing the tests can be done with::
 
 To run a single test do::
 
-    make TESTS=install/nosetests.sh check
+    make TESTS=nosetests.sh check
 
 See `tests/Makefile.am` for possible values. Alternatively you can try::
 
@@ -49,22 +49,25 @@ produce a human readable report.
 Run tests inside Mock
 ---------------------
 
-When using the `ci' target in a mock you need to use a regular user account which
-is a member of the `mock' group. You can update your account by running
+When using the `ci` target in a mock you need to use a regular user account which
+is a member of the `mock` group. You can update your account by running
 the command::
 
     # usermod -a -G mock <username>
 
 To prepare testing mock environment call::
 
-    ./scripts/testing/setup-mock-test-env.py [mock-configuration]
+    ./scripts/testing/setup-mock-test-env.py --init [mock-configuration]
 
 Mock configuration can be path to a file or name of file in `/etc/mock/*.cfg`
 without suffix. For detail configuration look on the script help output.
 
 Then you can run tests by::
 
-    mock -r [mock_configuration] --chroot -- "cd /anaconda && ./autogen.sh && ./configure && make ci"
+    ./scripts/testing/setup-mock-test-env.py -ut [mock-configuration]
+
+See `./scripts/testing/setup-mock-test-env.py --help` for additional options
+like running individual tests.
 
 Or you can just attach to shell inside of the prepared mock environment::
 
