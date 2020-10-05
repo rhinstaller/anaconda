@@ -287,12 +287,14 @@ tests-nose-only:
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
 
+# this is the top-level rule called by Jenkins "Anaconda Rawhide test RPM files" job
+# test RPM installability in addition to build and rpm_tests
 test-rpm: mock-rpms run-rpm-tests-only
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --install $(RPM_BUILD_DIR)/*[0-9].rpm
 	$(MAKE) grab-logs
 
 run-rpm-tests-only:
-	$(MAKE) TEST_SUITE_LOG=test-suite.log MOCKCHROOT=$(MOCKCHROOT) \
-			MOCK_EXTRA_ARGS=$(MOCK_EXTRA_ARGS) RPM_PATH=$(RPM_BUILD_DIR) \
+	$(MAKE) TEST_SUITE_LOG=test-suite.log RPM_PATH=$(RPM_BUILD_DIR) \
 			ROOT_ANACONDA_PATH=$(abs_srcdir) TESTS=rpm_tests.sh check
 
 coverage-report:

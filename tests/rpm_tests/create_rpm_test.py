@@ -27,17 +27,6 @@ from tests.rpm_tests import RPMTestCase
 IGNORED_SOURCE_FILES = []
 
 
-class InstallRPMTestCase(RPMTestCase):
-    """Test if Anaconda rpm files can be installed to the system."""
-
-    def test_install(self):
-        self.init_mock()
-
-        mock_command = ["--install"]
-        mock_command.extend(self.rpm_paths)
-        self.run_mock(mock_command)
-
-
 class InstalledFilesTestCase(RPMTestCase):
     """Test if files in anaconda directory are correctly placed in the rpm files."""
 
