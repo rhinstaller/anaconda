@@ -33,3 +33,33 @@ jobs:
           path: |
             tests/test-suite.log
             tests/coverage-*.log
+
+  rpm-tests:
+    runs-on: ubuntu-latest
+    # start from a minimal container and install only our build deps; mock does
+    # not work in an unprivileged container (no CAP_SYS_ADMIN for mount), and
+    # dnf --installroot is too broken (rhbz#1885103, #1885101, #1738233)
+    container:
+      image: docker.io/fedora:rawhide
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: install build dependencies
+        run: |
+          dnf install -y /usr/bin/xargs
+          scripts/testing/dependency_solver.py -b | xargs -d '\n' dnf install -y --setopt=install_weak_deps=False --nodocs rpm-build
+
+      - name: build RPMs
+        run: |
+          ./autogen.sh
+          ./configure
+          make rpms
+
+      - name: run RPM tests
+        run: |
+          make run-rpm-tests-only || { cat tests/rpm_tests.log; exit 1; }
+
+      - name: test installability
+        run: |
+          dnf install -y result/build/01-rpm-build/*.rpm
