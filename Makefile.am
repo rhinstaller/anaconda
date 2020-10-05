@@ -81,6 +81,12 @@ CONTAINER_BUILD_NAME ?= anaconda/ci-tasks
 CONTAINER_BUILD_TAG ?= latest
 CONTAINER_BUILD_ARGS ?=
 
+# Default argument to execute tests in the container
+CONTAINER_TEST_NAME ?= anaconda/ci-tasks
+CONTAINER_TEST_TAG ?= latest
+CONTAINER_RUNNER_TEST_ARGS ?=--rm -v .:/anaconda:Z
+CONTAINER_TEST_ARGS ?=
+
 SKIP_BRANCHING_CHECK ?= "false"
 
 # If translations are present, run tests on the .po files before tarring them
@@ -216,6 +222,9 @@ ci:
 		rm $(srcdir)/tests/error_occured; \
 		exit $$status; \
 	fi
+
+container-ci:
+	podman run $(CONTAINER_RUNNER_TEST_ARGS) $(CONTAINER_TEST_NAME):$(CONTAINER_TEST_TAG) $(CONTAINER_TEST_ARGS)
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
