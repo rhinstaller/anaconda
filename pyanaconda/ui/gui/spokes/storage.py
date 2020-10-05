@@ -727,6 +727,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             return rc
 
         # Allow to format DASDs.
+        # FIXME: Don't allow to initialize all disks with unrecognized formats.
         self._disk_init_module.SetFormatUnrecognizedEnabled(True)
         self._disk_init_module.SetFormatLDLEnabled(True)
 
