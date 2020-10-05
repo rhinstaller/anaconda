@@ -159,12 +159,6 @@ release-and-tag:
 	$(MAKE) dist
 	$(MAKE) tag
 
-rc-release: scratch
-	-rm -rf $(BUILD_RESULT_DIR)
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --clean || exit 1
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(SRPM_BUILD_DIR) || exit 1
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --rebuild $(SRPM_BUILD_DIR)/*src.rpm --resultdir $(RPM_BUILD_DIR) || exit 1
-
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
@@ -181,6 +175,22 @@ bumpver: po-pull
 	fi ; \
 	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1
 	$(MAKE) po-push
+
+# (s)rpm builds
+
+srpm: scratch anaconda.spec
+	rpmbuild --define "_sourcedir $(abs_srcdir)" --define "_srcrpmdir $(SRPM_BUILD_DIR)" -bs anaconda.spec
+
+rpms: srpm
+	rpmbuild --rebuild --define "_rpmdir $(RPM_BUILD_DIR)" $(SRPM_BUILD_DIR)/anaconda-*.src.rpm
+	mv "$(RPM_BUILD_DIR)"/*/*.rpm "$(RPM_BUILD_DIR)" # move rpms from per-architecture subdirectory
+
+mock-rpms: scratch
+	-rm -rf $(BUILD_RESULT_DIR)
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --clean || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(SRPM_BUILD_DIR) || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --rebuild $(SRPM_BUILD_DIR)/*src.rpm --resultdir $(RPM_BUILD_DIR) || exit 1
+
 
 # GUI TESTING
 runglade:
@@ -299,7 +309,7 @@ test-gui:
 	@mv .coverage.* tests/
 	$(MAKE) coverage-report
 
-test-rpm: rc-release run-rpm-tests-only
+test-rpm: mock-rpms run-rpm-tests-only
 	$(MAKE) grab-logs
 
 run-rpm-tests-only:
