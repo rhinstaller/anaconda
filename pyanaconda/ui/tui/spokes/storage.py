@@ -258,6 +258,10 @@ class StorageSpoke(NormalTUISpoke):
                         # Wait for storage.
                         threadMgr.wait(THREAD_STORAGE)
 
+                        # Allow to format DASDs.
+                        self._disk_init_module.SetFormatUnrecognizedEnabled(True)
+                        self._disk_init_module.SetFormatLDLEnabled(True)
+
                         # Get selected disks.
                         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
 
