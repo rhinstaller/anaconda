@@ -75,6 +75,12 @@ SRPM_BUILD_DIR = $(BUILD_RESULT_DIR)/00-srpm-build
 RPM_BUILD_DIR = $(BUILD_RESULT_DIR)/01-rpm-build
 TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
+# Default variables for container build call
+DOCKERFILE_PATH ?= $(srcdir)/dockerfile/ci-tasks
+CONTAINER_BUILD_NAME ?= anaconda/ci-tasks
+CONTAINER_BUILD_TAG ?= latest
+CONTAINER_BUILD_ARGS ?=
+
 SKIP_BRANCHING_CHECK ?= "false"
 
 # If translations are present, run tests on the .po files before tarring them
@@ -151,6 +157,9 @@ release:
 release-and-tag:
 	$(MAKE) dist
 	$(MAKE) tag
+
+container-build:
+	podman build $(CONTAINER_BUILD_ARGS) -t $(CONTAINER_BUILD_NAME):$(CONTAINER_BUILD_TAG) $(DOCKERFILE_PATH)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
