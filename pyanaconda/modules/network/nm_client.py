@@ -126,17 +126,6 @@ def get_team_port_config_from_connection(nm_client, uuid):
     return config
 
 
-def get_team_config_from_connection(nm_client, uuid):
-    connection = nm_client.get_connection_by_uuid(uuid)
-    if not connection:
-        return None
-    team = connection.get_setting_team()
-    if not team:
-        return None
-    config = team.get_config()
-    return config
-
-
 def get_device_name_from_network_data(nm_client, network_data, supported_devices, bootif):
     """Get the device name from kickstart device specification.
 
