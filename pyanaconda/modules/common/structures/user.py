@@ -23,8 +23,8 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["USER_GID_NOT_SET", "USER_UID_NOT_SET", "UserData"]
 
-USER_GID_NOT_SET = -1
-USER_UID_NOT_SET = -1
+USER_GID_NOT_SET = 2**32-1
+USER_UID_NOT_SET = 2**32-1
 
 
 class UserData(DBusData):
@@ -60,7 +60,7 @@ class UserData(DBusData):
         self._name = name
 
     @property
-    def uid(self) -> Int:
+    def uid(self) -> UInt32:
         """The users UID.
 
         If not provided, this defaults to the next available non-system UID.
@@ -75,7 +75,7 @@ class UserData(DBusData):
         return self._uid
 
     @uid.setter
-    def uid(self, uid: Int):
+    def uid(self, uid: UInt32):
         self._uid = uid
 
     @property
@@ -96,7 +96,7 @@ class UserData(DBusData):
         self._groups = groups
 
     @property
-    def gid(self) -> Int:
+    def gid(self) -> UInt32:
         """The GID of the user’s primary group.
 
         If not provided,  defaults to the next available non-system GID.
@@ -111,7 +111,7 @@ class UserData(DBusData):
         return self._gid
 
     @gid.setter
-    def gid(self, gid: Int):
+    def gid(self, gid: UInt32):
         self._gid = gid
 
     @property
