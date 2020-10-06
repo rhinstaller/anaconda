@@ -167,7 +167,7 @@ if __name__ == "__main__":
     spec = ""
     res_packages = set()
 
-    nothing_specified = not any([args.runtime, args.build, args.release, args.test])
+    nothing_specified = not any([args.runtime, args.build, args.release, args.test, args.pip])
 
     if args.build or args.runtime or nothing_specified:
         spec = _read_spec_file()
