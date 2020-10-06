@@ -46,6 +46,29 @@ In case the *ci* target fails there is also a *coverage-report* target
 which can be used to combine the multiple `.coverage` files into one and
 produce a human readable report.
 
+Run tests inside of container
+-----------------------------
+
+Right now only unit tests are supported by the container, not rpm-tests.
+Before being able to run the tests you have to build the container.
+To build the container run::
+
+    make container-build
+
+Then you are free to run the tests without dependency installation by
+running::
+
+    make container-ci
+
+This will run all the tests.
+
+Logs from the run are stored in the `tests` folder.
+
+Note:
+
+Please update your container from time to time to have newest dependencies.
+To do that just run the build again.
+
 Run tests inside Mock
 ---------------------
 
