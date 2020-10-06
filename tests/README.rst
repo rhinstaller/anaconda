@@ -60,9 +60,27 @@ running::
 
     make container-ci
 
-This will run all the tests.
+This will run all the tests. To run just some tests you can pass parameters
+which will replace the current one. For example to run just some nose-tests
+please do this::
 
-Logs from the run are stored in the `tests` folder.
+    make container-ci CONTAINER_TEST_ARGS="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
+
+WARNING:
+
+*Just one command* can be passed like this, if `&&` is used then only first
+one is run in the container but everything else is started on host!
+
+Logs from the run are stored in the ``tests`` folder.
+
+For debugging of the container please run the container as::
+
+    make container-ci CONTAINER_RUNNER_TEST_ARGS="--rm -ti -v .:/anaconda:Z --entrypoint /bin/bash"
+
+This command will open bash inside the container for you with mounted
+current folder at the `/anaconda` path. This could be even convenient way
+how to run tests but avoid constant call of autotools and build during the
+development.
 
 Note:
 
