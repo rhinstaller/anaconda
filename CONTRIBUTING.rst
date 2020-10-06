@@ -9,12 +9,12 @@ an `addon guide <http://rhinstaller.github.io/anaconda-addon-development-guide/i
 How to Contribute to the Anaconda Installer (the short version)
 ----------------------------------------------------------------
 
-a) I want to contribute to the upstream Anaconda Installer (used in Fedora):
+1) I want to contribute to the upstream Anaconda Installer (used in Fedora):
 
 - open a pull request for the ``<next Fedora number>-devel`` branch (f25-devel, etc.)
 - check the *Commit Messages* section below for how to format your commit messages
 
-b) I want to contribute to the RHEL Anaconda installer:
+2) I want to contribute to the RHEL Anaconda installer:
 
 - open a pull request for the ``<RHEL number>-branch``  branch (rhel7-branch, etc.)
 - check the *Commits for RHEL Branches* section below for how to format your commit messages
@@ -141,18 +141,18 @@ Merging the Fedora ``devel`` branch back to the ``master`` branch
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (Fedora 25 is used as an example, don't forget to use appropriate Fedora version.)
 
-Checkout and pull the master branch:
+Checkout and pull the master branch::
 
-``git checkout master``
-``git pull``
+    git checkout master
+    git pull
 
-Merge the Fedora devel branch to the master branch:
+Merge the Fedora devel branch to the master branch::
 
-``git merge --no-ff f25-devel``
+    git merge --no-ff f25-devel
 
-Push the merge to the remote:
+Push the merge to the remote::
 
-``git push origin master``
+    git push origin master
 
 Merging a GitHub pull request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -177,15 +177,15 @@ Merging a topic branch manually
 
 Let's say that there is a topic branch called "fix_foo_with_bar" that should be merged to a given Anaconda non-topic branch.
 
-Checkout the given target branch, pull it and merge your topic branch into it:
+Checkout the given target branch, pull it and merge your topic branch into it::
 
-``git checkout <target branch>``
-``git pull``
-``git merge --no-ff fix_foo_with_bar``
+    git checkout <target branch>
+    git pull
+    git merge --no-ff fix_foo_with_bar
 
-Then push the merge to the remote:
+Then push the merge to the remote::
 
-``git push origin <target branch>``
+    git push origin <target branch>
 
 If the <target branch> was one of:
 
