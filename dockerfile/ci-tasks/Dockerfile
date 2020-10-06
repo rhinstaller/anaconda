@@ -12,6 +12,8 @@ RUN dnf update -y && \
   git \
   bzip2 \
   cppcheck \
+  libicu \
+  lttng-ust \
   rpm-ostree \
   pykickstart \
   python3-pip \
@@ -34,11 +36,19 @@ RUN pip install \
   nose-testconfig \
   rpmfluff
 
+# see https://github.com/martinpitt/anaconda/settings/actions/add-new-runner
+RUN mkdir actions-runner && cd actions-runner && \
+  URL=$(curl -s https://api.github.com/repos/actions/runner/releases/latest | \
+        sed -n '/browser_download_url.*linux-x64/ { s/^.*https:/https:/; s/"$//; p }') && \
+  curl -O -L "$URL" && \
+  tar xzf actions-runner-*.tar.gz && \
+  rm actions-runner-*.tar.gz
+
 RUN mkdir /anaconda
 
 WORKDIR /anaconda
 
-COPY entrypoint.sh /root/entrypoint.sh
+COPY ["entrypoint.sh", "github-action-run-once", "/"]
 
 CMD ["make ci"]
-ENTRYPOINT ["/root/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
