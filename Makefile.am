@@ -84,7 +84,7 @@ CONTAINER_BUILD_ARGS ?=
 # Default argument to execute tests in the container
 CONTAINER_TEST_NAME ?= anaconda/ci-tasks
 CONTAINER_TEST_TAG ?= latest
-CONTAINER_RUNNER_TEST_ARGS ?=--rm -v .:/anaconda:Z
+CONTAINER_RUNNER_TEST_ARGS ?= --rm -v .:/anaconda:Z
 CONTAINER_TEST_ARGS ?=
 
 SKIP_BRANCHING_CHECK ?= "false"
