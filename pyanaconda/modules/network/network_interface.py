@@ -202,17 +202,6 @@ class NetworkInterface(KickstartModuleInterface):
         """Signal change of network devices configurations."""
         pass
 
-    def ConsolidateInitramfsConnectionsWithTask(self) -> ObjPath:
-        """Ensure devices configured in initramfs have no more than one NM connection.
-
-        This should be used only in installer environment.
-
-        :returns: DBus path of the task consolidating the connections
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.consolidate_initramfs_connections_with_task()
-        )
-
     def ApplyKickstartWithTask(self) -> ObjPath:
         """Apply kickstart configuration which has not already been applied.
 
@@ -223,22 +212,6 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return TaskContainer.to_object_path(
             self.implementation.apply_kickstart_with_task()
-        )
-
-    def SetRealOnbootValuesFromKickstartWithTask(self) -> ObjPath:
-        """Update ifcfg ONBOOT values according to kickstart configuration.
-
-        So it reflects the --onboot option.
-
-        This is needed because:
-        1) For ifcfg files created in initramfs we use ONBOOT for --activate
-        2) For kickstart applied in stage 2 we can't set the autoconnect
-           setting of connection because the device would be activated immediately.
-
-        :returns: DBus path of the task setting the values
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.set_real_onboot_values_from_kickstart_with_task()
         )
 
     def DumpMissingConfigFilesWithTask(self) -> ObjPath:

@@ -40,7 +40,6 @@ from pyanaconda.modules.network.config_file import get_config_files_content, \
 from pyanaconda.modules.network.installation import NetworkInstallationTask, \
     ConfigureActivationOnBootTask, HostnameConfigurationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
-    ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
     DumpMissingConfigFilesTask
 from pyanaconda.modules.network.utils import get_default_route_iface
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
@@ -442,25 +441,6 @@ class NetworkService(KickstartService):
         log.debug("Device configurations changed: %s", changes)
         self.configurations_changed.emit(changes)
 
-    def consolidate_initramfs_connections_with_task(self):
-        """Ensure devices configured in initramfs have no more than one NM connection.
-
-        In case of multiple connections for device having configuration from
-        boot options, the connection should correspond to the config file.
-        NetworkManager can be generating additional in-memory connection in case it
-        fails to match device configuration to the config (#1433891).  By
-        reactivating the device with config connection the generated in-memory
-        connection will be deleted by NM.
-
-        Don't enforce on slave devices for which having multiple connections can be
-        valid (slave connection, regular device connection).
-
-        :returns: a task consolidating the connections
-        """
-        task = ConsolidateInitramfsConnectionsTask(self.nm_client)
-        task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return task
-
     def get_supported_devices(self):
         """Get information about existing supported devices on the system.
 
@@ -561,27 +541,6 @@ class NetworkService(KickstartService):
                                   supported_devices,
                                   self.bootif,
                                   self.ifname_option_values)
-        task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
-        return task
-
-    def set_real_onboot_values_from_kickstart_with_task(self):
-        """Update config ONBOOT values according to kickstart configuration.
-
-        So it reflects the --onboot option.
-
-        This is needed because:
-        1) For config files created in initramfs we use ONBOOT for --activate
-        2) For kickstart applied in stage 2 we can't set the autoconnect
-           setting of connection because the device would be activated immediately.
-
-        :returns: a task setting the values
-        """
-        supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
-        task = SetRealOnbootValuesFromKickstartTask(self.nm_client,
-                                                    self._original_network_data,
-                                                    supported_devices,
-                                                    self.bootif,
-                                                    self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
 
