@@ -31,6 +31,7 @@ bad_strings = {'(?i)bootloader': 'boot loader',
                '[Cc]an not':     'cannot',
                '(?i)mountpoint': 'mount point',
                'Ok':             'OK',
+               '(?i)os tree ':   'OSTree',
                # Find instances of "return" that are referring to a keyboard key
                '(?i)<return>':   '[Enter]',
                '(?i)press return': 'press Enter',
