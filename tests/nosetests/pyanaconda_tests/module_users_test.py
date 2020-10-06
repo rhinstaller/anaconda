@@ -33,7 +33,7 @@ from pyanaconda.modules.users.users import UsersService
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask, \
     CreateGroupsTask, CreateUsersTask, SetRootPasswordTask, SetSshKeysTask
-from dasbus.typing import get_variant, List, Str, Int, Bool
+from dasbus.typing import get_variant, List, Str, UInt32, Bool
 from pyanaconda.ui.lib.users import get_user_list, set_user_list
 
 
@@ -82,9 +82,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """Test the Users property."""
         user_1 = {
             "name": get_variant(Str, "user1"),
-            "uid": get_variant(Int, 123),
+            "uid": get_variant(UInt32, 123),
             "groups": get_variant(List[Str], ["foo", "bar"]),
-            "gid": get_variant(Int, 321),
+            "gid": get_variant(UInt32, 321),
             "homedir": get_variant(Str, "user1_home"),
             "password": get_variant(Str, "swordfish"),
             "is-crypted": get_variant(Bool, False),
@@ -94,9 +94,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         }
         user_2 = {
             "name": get_variant(Str, "user2"),
-            "uid": get_variant(Int, 456),
+            "uid": get_variant(UInt32, 456),
             "groups": get_variant(List[Str], ["baz", "bar"]),
-            "gid": get_variant(Int, 654),
+            "gid": get_variant(UInt32, 654),
             "homedir": get_variant(Str, "user2_home"),
             "password": get_variant(Str, "laksdjaskldjhasjhd"),
             "is-crypted": get_variant(Bool, True),
@@ -113,11 +113,11 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """Test the Groups property."""
         group_1 = {
             "name": get_variant(Str, "group1"),
-            "gid": get_variant(Int, 321),
+            "gid": get_variant(UInt32, 321),
         }
         group_2 = {
             "name": get_variant(Str, "group2"),
-            "gid": get_variant(Int, 654),
+            "gid": get_variant(UInt32, 654),
         }
         self._check_dbus_property(
             "Groups",

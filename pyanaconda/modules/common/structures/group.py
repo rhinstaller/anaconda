@@ -22,7 +22,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["GROUP_GID_NOT_SET", "GroupData"]
 
-GROUP_GID_NOT_SET = -1
+GROUP_GID_NOT_SET = 2**32-1
 
 
 class GroupData(DBusData):
@@ -50,7 +50,7 @@ class GroupData(DBusData):
         self._name = name
 
     @property
-    def gid(self) -> Int:
+    def gid(self) -> UInt32:
         """The GID of the group.
 
         If not provided, defaults to the next available non-system GID.
@@ -65,5 +65,5 @@ class GroupData(DBusData):
         return self._gid
 
     @gid.setter
-    def gid(self, gid: Int):
+    def gid(self, gid: UInt32):
         self._gid = gid
