@@ -6,6 +6,26 @@ help with implementing changes in Anaconda, please follow our
 `blog series <https://rhinstaller.wordpress.com/2019/10/11/anaconda-debugging-and-testing-part-1/>`_ or
 an `addon guide <http://rhinstaller.github.io/anaconda-addon-development-guide/index.html>`_ to create Anaconda addon.
 
+How to run make commands
+------------------------
+
+Anaconda has plenty of dependencies and because of that it's hard to set environment to
+with Anaconda properly. To get all the dependencies you are free to use script in the Anaconda
+repository.
+
+Follow these steps to keep your machine clean from all the Anaconda dependencies. It will
+create a container where you can install all the dependencies. If you are not interested in
+dealing with container just skip this part and continue on the next one::
+
+    sudo dnf install toolbox
+    toolbox create
+    toolbox enter
+
+To prepare the environment in the container or on your system just run these commands::
+
+    sudo ./scripts/testing/install_dependencies.sh
+    ./autogen.sh && ./configure
+
 How to Contribute to the Anaconda Installer (the short version)
 ----------------------------------------------------------------
 
