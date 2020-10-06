@@ -48,8 +48,6 @@ class Flags(object):
         self.nosave_input_ks = False
         self.nosave_output_ks = False
         self.nosave_logs = False
-        # single language options
-        self.singlelang = False
         # current runtime environments
         self.environs = [ANACONDA_ENVIRON]
         # Lock it down: no more creating new flags!

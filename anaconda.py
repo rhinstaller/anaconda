@@ -401,7 +401,6 @@ if __name__ == "__main__":
     flags.mpath = opts.mpath
     flags.eject = opts.eject
     flags.kexec = opts.kexec
-    flags.singlelang = opts.singlelang
 
     if opts.liveinst:
         startup_utils.live_startup(anaconda)
