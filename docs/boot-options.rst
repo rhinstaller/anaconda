@@ -814,12 +814,6 @@ method
 
 This is an alias for `inst.repo`_.
 
-repo=nfsiso:...
-^^^^^^^^^^^^^^^
-
-The difference between an installable tree and a dir with an ``.iso`` file is
-autodetected, so this is the same as ``inst.repo=nfs:``...
-
 .. dns:
 
 dns
@@ -997,3 +991,10 @@ inst.singlelang
 ^^^^^^^^^^^^^^^
 
 Anaconda does not support single language mode anymore.
+
+repo=nfsiso:...
+^^^^^^^^^^^^^^^
+
+Anaconda no longer needs explicit specification that a NFS location is an ISO image.
+The difference between an installable tree and a dir with an ``.iso`` file is now
+automatically detected, so this is the same as ``inst.repo=nfs:``...
