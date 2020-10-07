@@ -37,4 +37,8 @@ RUN pip install \
 RUN mkdir /anaconda
 
 WORKDIR /anaconda
-CMD ./autogen.sh && ./configure && make && make ci
+
+COPY entrypoint.sh /root/entrypoint.sh
+
+CMD ["make ci"]
+ENTRYPOINT ["/root/entrypoint.sh"]
