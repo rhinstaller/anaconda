@@ -1464,13 +1464,26 @@ class StorageTasksTestCase(unittest.TestCase):
         storage.assert_not_called()
 
     @patch("pyanaconda.core.util.mkdirChain")
-    @patch("pyanaconda.core.util.execWithRedirect")
-    def mount_filesystems_test(self, execute, mkdir):
+    @patch("pyanaconda.core.util._run_program")
+    @patch("os.makedirs")
+    @patch("blivet.util._run_program")
+    def mount_filesystems_test(self, blivet_run_program, makedirs, core_run_program, mkdirChain):
         """Test MountFilesystemsTask."""
         storage = create_storage()
         storage._bootloader = Mock()
-        execute.return_value = 0
+        blivet_run_program.return_value = (0, "")
+        core_run_program.return_value = (0, "")
         MountFilesystemsTask(storage).run()
+        # created the mount points
+        makedirs.assert_any_call('/mnt/sysimage/dev', 0o755)
+        # sysimage mounts happened
+        blivet_run_program.assert_any_call(
+                ['mount', '-t', 'bind', '-o', 'bind,defaults', '/dev', '/mnt/sysimage/dev'])
+        # remounted the root filesystem
+        core_run_program.assert_any_call(
+                ['mount', '--rbind', '/mnt/sysimage', '/mnt/sysroot'],
+                stdin=None, stdout=None, root='/', env_prune=None,
+                log_output=True, binary_output=False)
 
     @patch_dbus_get_proxy
     @patch("pyanaconda.modules.storage.installation.conf")
