@@ -30,7 +30,7 @@
  #include <atk/atk.h>
 
 /**
- * SECTION: BaseWindow
+ * SECTION: AnacondaBaseWindow
  * @title: AnacondaBaseWindow
  * @short_description: Top-level, non-resizeable window
  *
