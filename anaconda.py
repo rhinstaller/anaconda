@@ -332,7 +332,6 @@ if __name__ == "__main__":
     from pyanaconda import startup_utils
     from pyanaconda import rescue
     from pyanaconda import geoloc
-    from pyanaconda.core.payload import ProxyString, ProxyStringError
 
     # Print the usual "startup note" that contains Anaconda version
     # and short usage & bug reporting instructions.
@@ -394,6 +393,9 @@ if __name__ == "__main__":
 
     # Now that we've got command line/boot options, do some extra processing.
     startup_utils.setup_logging_from_options(opts)
+
+    # Set up proxy environmental variables.
+    startup_utils.set_up_proxy_variables(opts.proxy)
 
     # set flags
     flags.rescue_mode = opts.rescue
@@ -496,24 +498,6 @@ if __name__ == "__main__":
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
-
-    if opts.proxy:
-        # Setup proxy environmental variables so that pre/post scripts use it
-        # as well as libreport
-        try:
-            proxy = ProxyString(opts.proxy)
-        except ProxyStringError as e:
-            log.info("Failed to parse proxy \"%s\": %s", opts.proxy, e)
-        else:
-            # Set environmental variables to be used by pre/post scripts
-            util.setenv("PROXY", proxy.noauth_url)
-            util.setenv("PROXY_USER", proxy.username or "")
-            util.setenv("PROXY_PASSWORD", proxy.password or "")
-
-            # Variables used by curl, libreport, etc.
-            util.setenv("http_proxy", proxy.url)
-            util.setenv("ftp_proxy", proxy.url)
-            util.setenv("HTTPS_PROXY", proxy.url)
 
     # Set up the payload from the cmdline options.
     anaconda.payload.set_from_opts(opts)
