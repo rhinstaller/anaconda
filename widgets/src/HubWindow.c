@@ -22,7 +22,7 @@
 #include "intl.h"
 
 /**
- * SECTION: HubWindow
+ * SECTION: AnacondaHubWindow
  * @title: AnacondaHubWindow
  * @short_description: Window for displaying a Hub
  *

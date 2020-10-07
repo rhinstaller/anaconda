@@ -28,7 +28,7 @@
 #include "widgets-common.h"
 
 /**
- * SECTION: SpokeSelector
+ * SECTION: AnacondaSpokeSelector
  * @title: AnacondaSpokeSelector
  * @short_description: A graphical way to enter a configuration spoke
  *

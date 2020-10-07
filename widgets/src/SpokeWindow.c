@@ -25,7 +25,7 @@
 #include <gdk/gdkkeysyms.h>
 
 /**
- * SECTION: SpokeWindow
+ * SECTION: AnacondaSpokeWindow
  * @title: AnacondaSpokeWindow
  * @short_description: Window for displaying single spokes
  *

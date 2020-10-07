@@ -36,7 +36,7 @@
 #define DEFAULT_LABEL_MAX_CHAR_WIDTH 8
 
 /**
- * SECTION: LayoutIndicator
+ * SECTION: AnacondaLayoutIndicator
  * @title: AnacondaLayoutIndicator
  * @short_description: An indicator of currently activated X layout
  *

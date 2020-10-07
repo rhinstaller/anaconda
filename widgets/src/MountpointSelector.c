@@ -29,7 +29,7 @@
 #include "widgets-common.h"
 
 /**
- * SECTION: MountpointSelector
+ * SECTION: AnacondaMountpointSelector
  * @title: AnacondaMountpointSelector
  * @short_description: A graphical way to select a mount point.
  *

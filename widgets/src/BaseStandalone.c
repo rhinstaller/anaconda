@@ -22,7 +22,7 @@
 #include "intl.h"
 
 /**
- * SECTION: BaseStandalone
+ * SECTION: AnacondaBaseStandalone
  * @title: AnacondaBaseStandalone
  * @short_description: Abstract base class for standalone Anaconda windows.
  *

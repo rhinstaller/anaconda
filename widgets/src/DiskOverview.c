@@ -27,7 +27,7 @@
 #include "widgets-common.h"
 
 /**
- * SECTION: DiskOverview
+ * SECTION: AnacondaDiskOverview
  * @title: AnacondaDiskOverview
  * @short_description: A widget that displays basic information about a disk
  *

@@ -25,7 +25,7 @@
 #include <gdk/gdkkeysyms.h>
 
 /**
- * SECTION: StandaloneWindow
+ * SECTION: AnacondaStandaloneWindow
  * @title: AnacondaStandaloneWindow
  * @short_description: Window for displaying standalone spokes
  *
