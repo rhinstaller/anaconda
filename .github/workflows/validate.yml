@@ -3,28 +3,16 @@ on: [push, pull_request]
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
-    container:
-      image: docker.io/fedora:rawhide
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
 
-      # FIXME: the following should be done statically in a custom container image
-      - name: set up dependencies
-        run: |
-          dnf install -y /usr/bin/xargs
-          scripts/testing/dependency_solver.py -brt | xargs -d '\n' dnf install -y
-          scripts/testing/dependency_solver.py --pip | xargs pip install
+      # FIXME: this should only be done if a PR touches dockerfile/ci-tasks, otherwise take the current one from registry
+      - name: Build ci-tasks container
+        run: docker build -t anaconda/ci-tasks:latest dockerfile/ci-tasks
 
-      - name: build
-        run: |
-          ./autogen.sh
-          ./configure
-          make
-
-      - name: run unit tests
-        run: |
-          make ci
+      - name: Run tests in ci-tasks container
+        run: docker run -v $(pwd):/anaconda:Z anaconda/ci-tasks
 
       - name: Upload test and coverage logs
         uses: actions/upload-artifact@v2
