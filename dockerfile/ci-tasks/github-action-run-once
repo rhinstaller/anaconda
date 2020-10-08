@@ -5,10 +5,12 @@
 #   $GITHUB_TOKEN: must have "public_repo" scope
 #   $GITHUB_REPOSITORY: owner/name
 #   $RUNNER_NAME: string, optional (defaults to container host name)
+#   $RUNNER_LABELS: string with comma separated additional labels, optional (defaults to none;
+#                   the runner already adds the OS, architecture, and "self-hosted" by default)
 #
 # Example invocation:
 # podman run -h local-runner-1 --rm -e GITHUB_TOKEN=$(< ~/.config/github-token) -e GITHUB_REPOSITORY=rhinstaller/anaconda \
-#        --entrypoint /github-action-run-once anaconda/ci-tasks
+#        -e RUNNER_LABELS=rhel-8,blue-cloud --entrypoint /github-action-run-once anaconda/ci-tasks
 #
 # Documentation:
 # https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/about-self-hosted-runners
@@ -29,7 +31,7 @@ if [ -z "$RUNNER_TOKEN" ]; then
 fi
 
 # register runner
-./config.sh --labels 'ci-tasks' ${RUNNER_NAME:+--name} ${RUNNER_NAME:-} --replace --token "$RUNNER_TOKEN" --unattended --url "https://github.com/$GITHUB_REPOSITORY"
+./config.sh --labels "ci-tasks,${RUNNER_LABELS:-}" ${RUNNER_NAME:+--name} ${RUNNER_NAME:-} --replace --token "$RUNNER_TOKEN" --unattended --url "https://github.com/$GITHUB_REPOSITORY"
 
 # run one job
 ./run.sh  --once
