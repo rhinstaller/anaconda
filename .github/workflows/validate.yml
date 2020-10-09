@@ -9,11 +9,11 @@ jobs:
 
       # FIXME: this should only be done if a PR touches dockerfile/ci-tasks, otherwise take the current one from registry
       - name: Build ci-tasks container
-        run: docker build -t anaconda/ci-tasks:latest dockerfile/ci-tasks
+        run: CONTAINER_ENGINE=docker make -f Makefile.am ci-tasks-build
 
       - name: Run tests in ci-tasks container
         id: run-unit-tests
-        run: docker run -v $(pwd):/anaconda:Z anaconda/ci-tasks
+        run: CONTAINER_ENGINE=docker make -f Makefile.am container-ci
         continue-on-error: true
 
       - name: Upload test and coverage logs
