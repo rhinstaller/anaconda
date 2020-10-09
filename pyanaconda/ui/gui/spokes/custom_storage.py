@@ -302,9 +302,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._default_file_system = self._device_tree.GetDefaultFileSystem()
 
         # Initialize the selected disks.
-        selected_disks = self._disk_selection.SelectedDisks
-        partitioned_devices = self._device_tree.GetPartitioned()
-        self._selected_disks = filter_disks_by_names(partitioned_devices, selected_disks)
+        self._selected_disks = self._disk_selection.SelectedDisks
 
         # Update the UI elements.
         self._do_refresh(init_expanded_pages=True)
