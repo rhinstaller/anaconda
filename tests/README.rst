@@ -49,6 +49,10 @@ produce a human readable report.
 Run tests inside of container
 -----------------------------
 
+Feel free to avoid installation of dependencies required for
+`autogen.sh && ./configure` execution by replacing `make` calls below
+with `make -f Makefile.am` in the Anaconda repository root directory.
+
 Right now only unit tests are supported by the container, not rpm-tests.
 Before being able to run the tests you have to build the container.
 To build the container run::

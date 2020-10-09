@@ -45,6 +45,10 @@ install-exec-hook:
 uninstall-hook:
 	-cd $(DESTDIR)$(sbindir) && rm -f anaconda
 
+
+# Set environment if 'make -f Makefile.am' is called to avoid autotools
+srcdir ?= .
+
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
 # LOCALIZATION SETTINGS
