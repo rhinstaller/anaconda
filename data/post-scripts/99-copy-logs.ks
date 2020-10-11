@@ -28,3 +28,12 @@ elif [ -e /run/install/ks.cfg ]; then
 fi
 
 %end
+
+%post
+# Relabel the anaconda logs we've just coppied, since they could be incorrectly labeled, like
+# hawkey.log: https://bugzilla.redhat.com/show_bug.cgi?id=1885772.
+# Execution of this %post script will not be logged in the log files on the installed system.
+
+restorecon -ir /var/log/anaconda/
+
+%end
