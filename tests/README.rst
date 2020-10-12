@@ -57,7 +57,7 @@ Right now only unit tests are supported by the container, not rpm-tests.
 Before being able to run the tests you have to build the container.
 To build the container run::
 
-    make container-build
+    make ci-tasks-build
 
 Then you are free to run the tests without dependency installation by
 running::
@@ -68,7 +68,7 @@ This will run all the tests. To run just some tests you can pass parameters
 which will replace the current one. For example to run just some nose-tests
 please do this::
 
-    make container-ci CONTAINER_TEST_ARGS="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
+    make container-ci CI_TASKS_TEST_ARGS="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
 
 WARNING:
 
@@ -79,7 +79,7 @@ Logs from the run are stored in the ``tests`` folder.
 
 For debugging of the container please run the container as::
 
-    make container-ci CONTAINER_RUNNER_TEST_ARGS="--rm -ti -v .:/anaconda:Z --entrypoint /bin/bash"
+    make container-ci CONTAINER_TEST_ARGS="--rm -ti -v .:/anaconda:Z --entrypoint /bin/bash"
 
 This command will open bash inside the container for you with mounted
 current folder at the `/anaconda` path. This could be even convenient way

@@ -47,7 +47,7 @@ uninstall-hook:
 
 
 # Set environment if 'make -f Makefile.am' is called to avoid autotools
-srcdir ?= .
+srcdir ?= $(CURDIR)
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
@@ -79,17 +79,16 @@ SRPM_BUILD_DIR = $(BUILD_RESULT_DIR)/00-srpm-build
 RPM_BUILD_DIR = $(BUILD_RESULT_DIR)/01-rpm-build
 TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
-# Default variables for container build call
-DOCKERFILE_PATH ?= $(srcdir)/dockerfile/ci-tasks
-CONTAINER_BUILD_NAME ?= anaconda/ci-tasks
-CONTAINER_BUILD_TAG ?= latest
+# build/run tweaks for all containers, such as --cap-add
+CONTAINER_ENGINE ?= podman
 CONTAINER_BUILD_ARGS ?=
-
-# Default argument to execute tests in the container
-CONTAINER_TEST_NAME ?= anaconda/ci-tasks
-CONTAINER_TEST_TAG ?= latest
-CONTAINER_RUNNER_TEST_ARGS ?= --rm -v .:/anaconda:Z
 CONTAINER_TEST_ARGS ?=
+
+# ci-tasks container
+CI_TASKS_DOCKERFILE ?= $(srcdir)/dockerfile/ci-tasks
+CI_TASKS_NAME ?= anaconda/ci-tasks
+CI_TASKS_TAG ?= $(GIT_BRANCH)
+CI_TASKS_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 
 SKIP_BRANCHING_CHECK ?= "false"
 
@@ -168,8 +167,8 @@ release-and-tag:
 	$(MAKE) dist
 	$(MAKE) tag
 
-container-build:
-	podman build $(CONTAINER_BUILD_ARGS) -t $(CONTAINER_BUILD_NAME):$(CONTAINER_BUILD_TAG) $(DOCKERFILE_PATH)
+ci-tasks-build:
+	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(CI_TASKS_NAME):$(CI_TASKS_TAG) $(CI_TASKS_DOCKERFILE)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
@@ -228,7 +227,7 @@ ci:
 	fi
 
 container-ci:
-	podman run $(CONTAINER_RUNNER_TEST_ARGS) $(CONTAINER_TEST_NAME):$(CONTAINER_TEST_TAG) $(CONTAINER_TEST_ARGS)
+	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TASKS_TEST_ARGS) $(CI_TASKS_NAME):$(CI_TASKS_TAG)
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
