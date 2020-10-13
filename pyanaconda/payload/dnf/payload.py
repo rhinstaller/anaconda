@@ -34,7 +34,6 @@ import libdnf.conf
 import libdnf.repo
 import rpm
 import re
-import pyanaconda.localization
 
 from blivet.size import Size
 from dnf.const import GROUP_PACKAGE_TYPES
@@ -42,6 +41,7 @@ from fnmatch import fnmatch
 from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
@@ -63,7 +63,7 @@ from pyanaconda.core.util import decode_bytes, join_paths
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE, SUBSCRIPTION
+from pyanaconda.modules.common.constants.services import STORAGE, SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
@@ -660,24 +660,6 @@ class DNFPayload(Payload):
             log.error('kernel: failed to select a kernel from %s', kernels)
         return selected_kernel_package
 
-    def langpacks(self):
-        # get all available languages in repos
-        available_langpacks = self._base.sack.query().available() \
-            .filter(name__glob="langpacks-*")
-        alangs = [p.name.split('-', 1)[1] for p in available_langpacks]
-
-        langpacks = []
-        # add base langpacks into transaction
-        localization_proxy = LOCALIZATION.get_proxy()
-        for lang in [localization_proxy.Language] + localization_proxy.LanguageSupport:
-            loc = pyanaconda.localization.find_best_locale_match(lang, alangs)
-            if not loc:
-                log.warning("Selected lang %s does not match "
-                            "any available langpack", lang)
-                continue
-            langpacks.append("langpacks-" + loc)
-        return langpacks
-
     def _sync_metadata(self, dnf_repo):
         try:
             dnf_repo.load()
@@ -1227,12 +1209,17 @@ class DNFPayload(Payload):
     def pre_install(self):
         super().pre_install()
 
+        # Collect all package and group requirements.
+        self._collect_requirements()
+
         # Set up FIPS in the target system before package installation.
         if kernel_arguments.get("fips") == "1":
             self._set_up_fips()
 
         # Set rpm-specific options
+        self._set_rpm_macros()
 
+    def _set_rpm_macros(self):
         # nofsync speeds things up at the risk of rpmdb data loss in a crash.
         # But if we crash mid-install you're boned anyway, so who cares?
         self.rpm_macros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
@@ -1255,6 +1242,12 @@ class DNFPayload(Payload):
                     break
         else:
             self.rpm_macros.append(('__file_context_path', '%{nil}'))
+
+    def _collect_requirements(self):
+        # Collect the language requirements.
+        self.requirements.add_requirements(
+            collect_language_requirements(self._base)
+        )
 
         # Add platform specific group
         groupid = util.get_platform_groupid()

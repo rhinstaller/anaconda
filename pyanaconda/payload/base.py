@@ -120,9 +120,6 @@ class Payload(metaclass=ABCMeta):
     def needs_network(self):
         return False
 
-    def langpacks(self):
-        return []
-
     ###
     # METHODS FOR QUERYING STATE
     ###

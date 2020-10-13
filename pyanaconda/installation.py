@@ -294,8 +294,6 @@ def _prepare_installation(payload, ksdata):
         if kernel_arguments.is_enabled("fips"):
             payload.requirements.add_packages(['/usr/bin/fips-mode-setup'], reason="compliance")
 
-        payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
-
         # add package requirements from modules
         # - iterate over all modules we know have valid package requirements
         # - add any requirements found to the payload requirement tracking

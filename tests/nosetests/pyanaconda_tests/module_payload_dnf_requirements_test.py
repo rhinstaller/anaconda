@@ -1,0 +1,81 @@
+#
+# Copyright (C) 2020  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+import unittest
+from unittest.mock import Mock
+
+from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE
+from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements
+from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
+
+
+class DNFRequirementsTestCase(unittest.TestCase):
+
+    def _create_package(self, name):
+        """Create a mocked package object."""
+        package = Mock()
+        package.name = name
+        return package
+
+    def _create_requirement(self, name, reason, req_type=REQUIREMENT_TYPE_PACKAGE):
+        """Create a new requirement."""
+        requirement = Requirement()
+        requirement.type = req_type
+        requirement.name = name
+        requirement.reason = reason
+        return requirement
+
+    def _compare_requirements(self, requirements, expected):
+        """Compare the given lists of requirements."""
+        self.assertEqual(str(requirements), str(expected))
+
+    @patch_dbus_get_proxy_with_cache
+    def collect_language_requirements_test(self, proxy_getter):
+        """Test the function collect_language_requirements."""
+        proxy = LOCALIZATION.get_proxy()
+        proxy.Language = "cs_CZ.UTF-8"
+        proxy.LanguageSupport = ["en_GB.UTF-8", "sr_RS@cyrilic"]
+
+        p1 = self._create_package("langpacks-cs")
+        p2 = self._create_package("langpacks-core-cs")
+        p3 = self._create_package("langpacks-core-font-cs")
+        p4 = self._create_package("langpacks-en")
+        p5 = self._create_package("langpacks-en_GB")
+        p6 = self._create_package("langpacks-core-en")
+        p7 = self._create_package("langpacks-core-en_GB")
+        p8 = self._create_package("langpacks-core-font-en")
+
+        base = Mock()
+        base.sack.query.return_value.available.return_value.filter.return_value = [
+            p1, p2, p3, p4, p5, p6, p7, p8
+        ]
+
+        with self.assertLogs(level="WARNING") as cm:
+            requirements = collect_language_requirements(base)
+
+        r1 = self._create_requirement(
+            "langpacks-cs", "Required to support the locale 'cs_CZ.UTF-8'."
+        )
+        r2 = self._create_requirement(
+            "langpacks-en_GB", "Required to support the locale 'en_GB.UTF-8'."
+        )
+        self._compare_requirements(requirements, [r1, r2])
+
+        msg = "Selected locale 'sr_RS@cyrilic' does not match any available langpacks."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))

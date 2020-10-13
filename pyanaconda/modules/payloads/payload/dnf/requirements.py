@@ -1,0 +1,60 @@
+#
+# The support for package and group requirements
+#
+# Copyright (C) 2020 Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.localization import find_best_locale_match, is_valid_langcode
+from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.structures.requirement import Requirement
+
+log = get_module_logger(__name__)
+
+
+def collect_language_requirements(dnf_base):
+    """Collect requirements for supported languages.
+
+    :param dnf_base: a DNF base
+    :return: a list of requirements
+    """
+    requirements = []
+
+    localization_proxy = LOCALIZATION.get_proxy()
+    locales = [localization_proxy.Language] + localization_proxy.LanguageSupport
+
+    # Find all available langpacks.
+    packages = dnf_base.sack.query().available().filter(name__glob="langpacks-*")
+
+    # Get all valid langcodes.
+    codes = [p.name.split('-', 1)[1] for p in packages]
+    codes = list(filter(is_valid_langcode, codes))
+
+    # Find the best langpacks to install.
+    for locale in locales:
+        best_locale = find_best_locale_match(locale, codes)
+
+        if not best_locale:
+            log.warning("Selected locale '%s' does not match "
+                        "any available langpacks.", locale)
+            continue
+
+        requirements.append(Requirement.for_package(
+            package_name="langpacks-" + best_locale,
+            reason="Required to support the locale '{}'.".format(locale)
+        ))
+
+    return requirements
