@@ -20,6 +20,8 @@
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
+from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
+
 __all__ = ["Requirement"]
 
 
@@ -92,7 +94,7 @@ class Requirement(DBusData):
         :return: a new requirement
         """
         requirement = cls()
-        requirement.type = "package"
+        requirement.type = REQUIREMENT_TYPE_PACKAGE
         requirement.name = package_name
         requirement.reason = reason
         return requirement
@@ -106,7 +108,7 @@ class Requirement(DBusData):
         :return: a new requirement
         """
         requirement = cls()
-        requirement.type = "group"
+        requirement.type = REQUIREMENT_TYPE_GROUP
         requirement.name = group_name
         requirement.reason = reason
         return requirement

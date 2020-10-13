@@ -17,7 +17,8 @@
 #
 
 from collections import OrderedDict, namedtuple
-from pyanaconda.core.constants import PayloadRequirementType
+from pyanaconda.core.constants import PayloadRequirementType, REQUIREMENT_TYPE_PACKAGE, \
+    REQUIREMENT_TYPE_GROUP
 from pyanaconda.payload.errors import PayloadRequirementsMissingApply
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -125,9 +126,9 @@ class PayloadRequirements(object):
         """
         for requirement in requirements:
             # check requirement type and add a payload requirement appropriately
-            if requirement.type == "package":
+            if requirement.type == REQUIREMENT_TYPE_PACKAGE:
                 self.add_packages([requirement.name], reason=requirement.reason)
-            elif requirement.type == "group":
+            elif requirement.type == REQUIREMENT_TYPE_GROUP:
                 self.add_groups([requirement.name], reason=requirement.reason)
             else:
                 log.warning("Unknown type: %s in requirement: %s, skipping.", requirement.type, requirement)
