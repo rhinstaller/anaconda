@@ -43,6 +43,51 @@ In case the *ci* target fails there is also a *coverage-report* target
 which can be used to combine the multiple `.coverage` files into one and
 produce a human readable report.
 
+Run tests inside of container
+-----------------------------
+
+Feel free to avoid installation of dependencies required for
+`autogen.sh && ./configure` execution by replacing `make` calls below
+with `make -f Makefile.am` in the Anaconda repository root directory.
+
+Right now only unit tests are supported by the container, not rpm-tests.
+Before being able to run the tests you have to build the container.
+To build the container run::
+
+    make ci-tasks-build
+
+Then you are free to run the tests without dependency installation by
+running::
+
+    make container-ci
+
+This will run all the tests. To run just some tests you can pass parameters
+which will replace the current one. For example to run just some nose-tests
+please do this::
+
+    make container-ci CI_TASKS_TEST_ARGS="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
+
+WARNING:
+
+*Just one command* can be passed like this, if `&&` is used then only first
+one is run in the container but everything else is started on host!
+
+Logs from the run are stored in the ``tests`` folder.
+
+For debugging of the container please run the container as::
+
+    make container-ci CONTAINER_TEST_ARGS="--rm -ti -v .:/anaconda:Z --entrypoint /bin/bash"
+
+This command will open bash inside the container for you with mounted
+current folder at the `/anaconda` path. This could be even convenient way
+how to run tests but avoid constant call of autotools and build during the
+development.
+
+Note:
+
+Please update your container from time to time to have newest dependencies.
+To do that just run the build again.
+
 Run tests inside Mock
 ---------------------
 

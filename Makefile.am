@@ -45,6 +45,10 @@ install-exec-hook:
 uninstall-hook:
 	-cd $(DESTDIR)$(sbindir) && rm -f anaconda
 
+
+# Set environment if 'make -f Makefile.am' is called to avoid autotools
+srcdir ?= $(CURDIR)
+
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
 # LOCALIZATION SETTINGS
@@ -74,6 +78,17 @@ TEST_RESULT_DIR = $(RESULT_DIR)/tests
 SRPM_BUILD_DIR = $(BUILD_RESULT_DIR)/00-srpm-build
 RPM_BUILD_DIR = $(BUILD_RESULT_DIR)/01-rpm-build
 TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
+
+# build/run tweaks for all containers, such as --cap-add
+CONTAINER_ENGINE ?= podman
+CONTAINER_BUILD_ARGS ?=
+CONTAINER_TEST_ARGS ?=
+
+# ci-tasks container
+CI_TASKS_DOCKERFILE ?= $(srcdir)/dockerfile/ci-tasks
+CI_TASKS_NAME ?= anaconda/ci-tasks
+CI_TASKS_TAG ?= $(GIT_BRANCH)
+CI_TASKS_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 
 SKIP_BRANCHING_CHECK ?= "false"
 
@@ -159,6 +174,9 @@ release-and-tag:
 	$(MAKE) dist
 	$(MAKE) tag
 
+ci-tasks-build:
+	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(CI_TASKS_NAME):$(CI_TASKS_TAG) $(CI_TASKS_DOCKERFILE)
+
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
@@ -214,6 +232,9 @@ ci:
 		rm $(srcdir)/tests/error_occured; \
 		exit $$status; \
 	fi
+
+container-ci:
+	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TASKS_TEST_ARGS) $(CI_TASKS_NAME):$(CI_TASKS_TAG)
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
