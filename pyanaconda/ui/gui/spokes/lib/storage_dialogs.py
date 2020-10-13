@@ -28,7 +28,19 @@ from pyanaconda.ui.gui.utils import escape_markup
 
 log = get_module_logger(__name__)
 
-__all__ = ["NeedSpaceDialog", "NoSpaceDialog"]
+__all__ = ["NeedSpaceDialog", "NoSpaceDialog", "RESPONSE_CANCEL", "RESPONSE_OK",
+           "RESPONSE_MODIFY_SW", "RESPONSE_RECLAIM", "RESPONSE_QUIT", "DASD_FORMAT_NO_CHANGE",
+           "DASD_FORMAT_REFRESH", "DASD_FORMAT_RETURN_TO_HUB"]
+
+# Response ID codes for all the various buttons on all the dialogs.
+RESPONSE_CANCEL = 0
+RESPONSE_OK = 1
+RESPONSE_MODIFY_SW = 2
+RESPONSE_RECLAIM = 3
+RESPONSE_QUIT = 4
+DASD_FORMAT_NO_CHANGE = -1
+DASD_FORMAT_REFRESH = 1
+DASD_FORMAT_RETURN_TO_HUB = 2
 
 
 class InstallOptionsDialogBase(GUIObject):
@@ -49,7 +61,7 @@ class InstallOptionsDialogBase(GUIObject):
 
     def _modify_sw_link_clicked(self, label, uri):
         if self._software_is_ready():
-            self.window.response(RESPONSE_MODIFY_SW)  # pylint: disable=undefined-variable
+            self.window.response(RESPONSE_MODIFY_SW)
 
         return True
 

@@ -51,7 +51,9 @@ from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.ui.lib.storage import find_partitioning, apply_partitioning, \
     select_default_disks, apply_disk_selection, get_disks_summary, create_partitioning, \
     is_local_disk, filter_disks_by_names
-from pyanaconda.ui.gui.spokes.lib.storage_dialogs import NeedSpaceDialog, NoSpaceDialog
+from pyanaconda.ui.gui.spokes.lib.storage_dialogs import NeedSpaceDialog, NoSpaceDialog, \
+    RESPONSE_CANCEL, RESPONSE_OK, RESPONSE_MODIFY_SW, RESPONSE_RECLAIM, RESPONSE_QUIT, \
+    DASD_FORMAT_NO_CHANGE, DASD_FORMAT_REFRESH, DASD_FORMAT_RETURN_TO_HUB
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -62,16 +64,6 @@ from gi.repository import Gdk, AnacondaWidgets, Gtk
 log = get_module_logger(__name__)
 
 __all__ = ["StorageSpoke"]
-
-# Response ID codes for all the various buttons on all the dialogs.
-RESPONSE_CANCEL = 0
-RESPONSE_OK = 1
-RESPONSE_MODIFY_SW = 2
-RESPONSE_RECLAIM = 3
-RESPONSE_QUIT = 4
-DASD_FORMAT_NO_CHANGE = -1
-DASD_FORMAT_REFRESH = 1
-DASD_FORMAT_RETURN_TO_HUB = 2
 
 
 class StorageSpoke(NormalSpoke, StorageCheckHandler):
