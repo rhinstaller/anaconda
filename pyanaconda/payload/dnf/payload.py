@@ -42,7 +42,7 @@ from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
-    collect_platform_requirements
+    collect_platform_requirements, collect_driver_disk_requirements
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
@@ -995,14 +995,6 @@ class DNFPayload(Payload):
                                              enabled=True)
                 self.add_repo(ks_repo)
 
-        # Add packages
-        if not os.path.exists("/run/install/dd_packages"):
-            return
-        with open("/run/install/dd_packages", "r") as f:
-            for line in f:
-                package = line.strip()
-                self.requirements.add_packages([package], reason="driver disk")
-
     @property
     def space_required(self):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
@@ -1248,6 +1240,7 @@ class DNFPayload(Payload):
         self.requirements.add_requirements(
             collect_language_requirements(self._base)
             + collect_platform_requirements(self._base)
+            + collect_driver_disk_requirements()
         )
 
     def _set_up_fips(self):

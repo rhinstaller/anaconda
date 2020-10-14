@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import detect_virtualized_platform
 from pyanaconda.localization import find_best_locale_match, is_valid_langcode
@@ -87,3 +89,25 @@ def collect_platform_requirements(dnf_base):
         group_name=group,
         reason="Required for the {} platform.".format(platform)
     )]
+
+
+def collect_driver_disk_requirements(path="/run/install/dd_packages"):
+    """Collect the requirements from the driver updates disk.
+
+    :param path: a path to the file with a package list
+    :return: a list of requirements
+    """
+    requirements = []
+
+    if not os.path.exists(path):
+        return []
+
+    with open(path, "r") as f:
+        for line in f:
+            package = line.strip()
+            requirements.append(Requirement.for_package(
+                package_name=package,
+                reason="Required by the driver updates disk."
+            ))
+
+    return requirements

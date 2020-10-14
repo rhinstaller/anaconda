@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
@@ -22,7 +23,7 @@ from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
-    collect_platform_requirements
+    collect_platform_requirements, collect_driver_disk_requirements
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
@@ -121,3 +122,28 @@ class DNFRequirementsTestCase(unittest.TestCase):
         )
 
         self._compare_requirements(requirements, [r1])
+
+    def collect_driver_disk_requirements_test(self):
+        """Test the function collect_driver_disk_requirements."""
+        requirements = collect_driver_disk_requirements("/non/existent/file")
+        self.assertEqual(requirements, [])
+
+        r1 = self._create_requirement(
+            name="p1",
+            reason="Required by the driver updates disk."
+        )
+        r2 = self._create_requirement(
+            name="p2",
+            reason="Required by the driver updates disk."
+        )
+        r3 = self._create_requirement(
+            name="p3",
+            reason="Required by the driver updates disk."
+        )
+
+        with tempfile.NamedTemporaryFile(mode="w+t") as f:
+            f.write("p1\np2 \np3  ")
+            f.flush()
+
+            requirements = collect_driver_disk_requirements(f.name)
+            self._compare_requirements(requirements, [r1, r2, r3])
