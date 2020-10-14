@@ -284,6 +284,10 @@ def _prepare_installation(payload, ksdata):
     security_proxy = SECURITY.get_proxy()
     pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
 
+    # Set up FIPS for the payload installation.
+    fips_task = security_proxy.PreconfigureFIPSWithTask(payload.type)
+    pre_install.append_dbus_tasks(SECURITY, [fips_task])
+
     # Install the payload.
     pre_install.append(Task("Find additional packages & run pre_install()", payload.pre_install))
     installation_queue.append(pre_install)

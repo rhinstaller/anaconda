@@ -33,7 +33,7 @@ from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
     RealmDiscoverTask, RealmJoinTask, ConfigureAuthselectTask, \
-    ConfigureAuthconfigTask, ConfigureFingerprintAuthTask
+    ConfigureAuthconfigTask, ConfigureFingerprintAuthTask, PreconfigureFIPSTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -271,6 +271,18 @@ class SecurityService(KickstartService):
         # realm-join task is always up to date.
         self.realm_changed.connect(lambda: realm_task.set_realm_data(self.realm))
         return realm_task
+
+    def preconfigure_fips_with_task(self, payload_type):
+        """Set up FIPS for the payload installation with a task.
+
+        :param payload_type: a string with the payload type
+        :return: an installation task
+        """
+        return PreconfigureFIPSTask(
+            sysroot=conf.target.system_root,
+            payload_type=payload_type,
+            fips_enabled=self.fips_enabled
+        )
 
     def install_with_tasks(self):
         """Return the installation tasks of this module.

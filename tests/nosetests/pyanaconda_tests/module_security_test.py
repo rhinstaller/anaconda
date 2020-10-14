@@ -22,6 +22,7 @@ import tempfile
 import os
 from unittest.mock import patch
 
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_RPM_OSTREE
 from pykickstart.constants import SELINUX_ENFORCING, SELINUX_PERMISSIVE
 
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
@@ -34,7 +35,7 @@ from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
     RealmDiscoverTask, RealmJoinTask, ConfigureFingerprintAuthTask, \
     ConfigureAuthselectTask, ConfigureAuthconfigTask, AUTHSELECT_TOOL_PATH, \
-    AUTHCONFIG_TOOL_PATH, PAM_SO_64_PATH, PAM_SO_PATH
+    AUTHCONFIG_TOOL_PATH, PAM_SO_64_PATH, PAM_SO_PATH, PreconfigureFIPSTask
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface, \
     check_task_creation, check_task_creation_list, PropertiesChangedCallback, check_dbus_property
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -327,6 +328,15 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._realm_data.discovered, True)
         self.assertEqual(obj.implementation._realm_data.name, "domain.example.com")
         self.assertEqual(obj.implementation._realm_data.join_options, ["--one-time-password=password"])
+
+    @patch_dbus_publish_object
+    def preconfigure_fips_with_task_test(self, publisher):
+        """Test the PreconfigureFIPSWithTask method."""
+        task_path = self.security_interface.PreconfigureFIPSWithTask(PAYLOAD_TYPE_DNF)
+        obj = check_task_creation(self, task_path, publisher, PreconfigureFIPSTask)
+        self.assertEqual(obj.implementation._sysroot, "/mnt/sysroot")
+        self.assertEqual(obj.implementation._payload_type, PAYLOAD_TYPE_DNF)
+        self.assertEqual(obj.implementation._fips_enabled, False)
 
     def collect_requirements_default_test(self):
         """Test requrements are empty by default."""
@@ -907,3 +917,72 @@ class SecurityTasksTestCase(unittest.TestCase):
                 root=sysroot
             )
             os.remove(authconfig_path)
+
+    def preconfigure_fips_task_disabled_test(self):
+        """Test the PreconfigureFIPSTask task with disabled FIPS."""
+        task = PreconfigureFIPSTask(
+            sysroot="/mnt/sysroot",
+            payload_type=PAYLOAD_TYPE_DNF,
+            fips_enabled=False,
+        )
+
+        with self.assertLogs(level="DEBUG") as cm:
+            task.run()
+
+        msg = "FIPS is not enabled. Skipping."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    def preconfigure_fips_task_payload_test(self):
+        """Test the PreconfigureFIPSTask task with a wrong payload."""
+        task = PreconfigureFIPSTask(
+            sysroot="/mnt/sysroot",
+            payload_type=PAYLOAD_TYPE_RPM_OSTREE,
+            fips_enabled=True,
+        )
+
+        with self.assertLogs(level="DEBUG") as cm:
+            task.run()
+
+        msg = "Don't set up FIPS for the RPM_OSTREE payload."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    def preconfigure_fips_task_error_test(self):
+        """Test the PreconfigureFIPSTask task with a wrong policy."""
+        task = PreconfigureFIPSTask(
+            sysroot="/mnt/sysroot",
+            payload_type=PAYLOAD_TYPE_DNF,
+            fips_enabled=True,
+        )
+
+        with self.assertRaises(SecurityInstallationError) as cm:
+            task.run()
+
+        msg = "FIPS is not correctly set up in the installation environment."
+        self.assertEqual(str(cm.exception), msg)
+
+    @patch("pyanaconda.modules.security.installation.shutil")
+    @patch("pyanaconda.modules.security.installation.util")
+    def preconfigure_fips_task_test(self, mock_util, mock_shutil):
+        """Test the PreconfigureFIPSTask task."""
+        task = PreconfigureFIPSTask(
+            sysroot="/mnt/sysroot",
+            payload_type=PAYLOAD_TYPE_DNF,
+            fips_enabled=True,
+        )
+
+        # Skip the checks.
+        task._check_fips = lambda *args, **kwargs: True
+        task.run()
+
+        mock_util.mkdirChain.assert_called_once_with(
+            "/mnt/sysroot/etc/crypto-policies/"
+        )
+        mock_shutil.copyfile.assert_called_once_with(
+            "/etc/crypto-policies/config",
+            "/mnt/sysroot/etc/crypto-policies/config"
+        )
+        mock_shutil.copytree.assert_called_once_with(
+            "/etc/crypto-policies/back-ends/",
+            "/mnt/sysroot/etc/crypto-policies/back-ends/",
+            symlinks=True
+        )
