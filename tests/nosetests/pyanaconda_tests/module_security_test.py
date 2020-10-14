@@ -333,6 +333,19 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         reqs = self.security_interface.CollectRequirements()
         self.assertListEqual(reqs, [])
 
+    @patch("pyanaconda.modules.security.security.kernel_arguments")
+    def fips_requirements_test(self, kernel_arguments_mock):
+        """Test the package requirements for fips."""
+        kernel_arguments_mock.is_enabled.return_value = True
+        self.assertEqual(self.security_interface.CollectRequirements(), [
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "/usr/bin/fips-mode-setup"),
+                "reason": get_variant(Str, "Required for FIPS compliance.")
+            }
+        ])
+        kernel_arguments_mock.is_enabled.assert_called_once_with("fips")
+
     def realmd_requirements_test(self):
         """Test that package requirements in realm data propagate correctly."""
         realm = RealmData()

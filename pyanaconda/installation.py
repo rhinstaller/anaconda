@@ -19,7 +19,6 @@
 #
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF
-from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
     LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION
@@ -291,8 +290,6 @@ def _prepare_installation(payload, ksdata):
         # anaconda requires storage packages in order to make sure the target
         # system is bootable and configurable, and some other packages in order
         # to finish setting up the system.
-        if kernel_arguments.is_enabled("fips"):
-            payload.requirements.add_packages(['/usr/bin/fips-mode-setup'], reason="compliance")
 
         # add package requirements from modules
         # - iterate over all modules we know have valid package requirements
