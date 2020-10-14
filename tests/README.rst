@@ -76,7 +76,7 @@ Logs from the run are stored in the ``tests`` folder.
 
 For debugging of the container please run the container as::
 
-    make container-ci CONTAINER_TEST_ARGS="--rm -ti -v .:/anaconda:Z --entrypoint /bin/bash"
+    make container-ci CONTAINER_TEST_ARGS="-it --entrypoint /bin/bash"
 
 This command will open bash inside the container for you with mounted
 current folder at the `/anaconda` path. This could be even convenient way
