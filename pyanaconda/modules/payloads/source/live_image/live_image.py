@@ -1,5 +1,5 @@
 #
-# The RPM OSTree source module.
+# The live image source module.
 #
 # Copyright (C) 2020 Red Hat, Inc.
 #
@@ -20,52 +20,56 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
+from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import \
-    RPMOSTreeSourceInterface
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.live_image.initialization import \
+    SetUpLocalImageSourceTask, SetUpRemoteImageSourceTask, SetupImageResult
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
+from pyanaconda.modules.payloads.source.live_image.live_image_interface import \
+    LiveImageSourceInterface
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 
 log = get_module_logger(__name__)
 
-__all__ = ["RPMOSTreeSourceModule"]
+__all__ = ["LiveImageSourceModule"]
 
 
-class RPMOSTreeSourceModule(PayloadSourceBase):
-    """The RPM OSTree source module."""
+class LiveImageSourceModule(PayloadSourceBase):
+    """The live image source module."""
 
     def __init__(self):
         super().__init__()
-        self._configuration = RPMOSTreeConfigurationData()
+        self._configuration = LiveImageConfigurationData()
         self.configuration_changed = Signal()
+
+        self._required_space = None
 
     @property
     def type(self):
         """Get type of this source."""
-        return SourceType.RPM_OSTREE
+        return SourceType.LIVE_IMAGE
 
     @property
     def description(self):
         """Get description of this source."""
-        return _("RPM OSTree")
+        return _("Live image")
 
     def for_publication(self):
         """Return a DBus representation."""
-        return RPMOSTreeSourceInterface(self)
+        return LiveImageSourceInterface(self)
 
     @property
     def configuration(self):
         """The source configuration.
 
-        :return: an instance of RPMOSTreeConfigurationData
+        :return: an instance of LiveImageConfigurationData
         """
         return self._configuration
 
     def set_configuration(self, configuration):
         """Set the source configuration.
 
-        :param configuration: an instance of RPMOSTreeConfigurationData
+        :param configuration: an instance of LiveImageConfigurationData
         """
         self._configuration = configuration
         self.configuration_changed.emit()
@@ -80,14 +84,21 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
         return has_network_protocol(self.configuration.url)
 
     @property
+    def is_local(self):
+        """Is the image local or remote?"""
+        return self.configuration.url.startswith("file://")
+
+    @property
     def required_space(self):
-        """The space required for the installation.
+        """The space required for the installation of the source.
 
         :return: required size in bytes
         :rtype: int
         """
-        # TODO: Implement this method.
-        return 0
+        if not self._required_space:
+            return 1024 * 1024 * 1024
+
+        return self._required_space
 
     def get_state(self):
         """Get state of this source."""
@@ -95,21 +106,20 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        configuration = RPMOSTreeConfigurationData()
-        configuration.osname = data.ostreesetup.osname
-        configuration.remote = data.ostreesetup.remote
-        configuration.url = data.ostreesetup.url
-        configuration.ref = data.ostreesetup.ref
-        configuration.gpg_verification_enabled = not data.ostreesetup.nogpg
+        configuration = LiveImageConfigurationData()
+        configuration.url = data.liveimg.url or ""
+        configuration.proxy = data.liveimg.proxy or ""
+        configuration.checksum = data.liveimg.checksum or ""
+        configuration.ssl_verification_enabled = not data.liveimg.noverifyssl
         self.set_configuration(configuration)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        data.ostreesetup.osname = self.configuration.osname
-        data.ostreesetup.remote = self.configuration.remote
-        data.ostreesetup.url = self.configuration.url
-        data.ostreesetup.ref = self.configuration.ref
-        data.ostreesetup.nogpg = not self.configuration.gpg_verification_enabled
+        data.liveimg.seen = True
+        data.liveimg.url = self.configuration.url
+        data.liveimg.proxy = self.configuration.proxy
+        data.liveimg.checksum = self.configuration.checksum
+        data.liveimg.noverifyssl = not self.configuration.ssl_verification_enabled
 
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
@@ -117,7 +127,18 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        return []
+        if self.is_local:
+            task = SetUpLocalImageSourceTask(self.configuration)
+        else:
+            task = SetUpRemoteImageSourceTask(self.configuration)
+
+        handler = self._handle_setup_task_result
+        task.succeeded_signal.connect(lambda: handler(task.get_result()))
+        return [task]
+
+    def _handle_setup_task_result(self, result: SetupImageResult):
+        """Apply the result of the set-up task."""
+        self._required_space = result.required_space
 
     def tear_down_with_tasks(self):
         """Tear down the installation source.
@@ -129,8 +150,7 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
 
     def __repr__(self):
         """Return a string representation of the source."""
-        return "Source(type='{}', osname='{}', url='{}')".format(
+        return "Source(type='{}', url='{}')".format(
             self.type.value,
-            self.configuration.osname,
             self.configuration.url
         )

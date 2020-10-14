@@ -70,6 +70,15 @@ class CdromSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
         return False
 
     @property
+    def required_space(self):
+        """The space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        return 0
+
+    @property
     def device_name(self):
         """Get device name of the cdrom found.
 

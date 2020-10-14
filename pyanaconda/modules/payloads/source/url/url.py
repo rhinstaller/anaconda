@@ -85,6 +85,15 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
         """
         return has_network_protocol(self._repo_configuration.url)
 
+    @property
+    def required_space(self):
+        """The space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        return 0
+
     def process_kickstart(self, data):
         """Process the kickstart data."""
         repo_data = RepoConfigurationData()

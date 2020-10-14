@@ -47,21 +47,6 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
     def type_test(self):
         self.shared_tests.check_type(PayloadType.DNF)
 
-    def required_space_test(self):
-        """Test required space."""
-        self.module._required_space = 100
-
-        self.assertEqual(self.interface.RequiredSpace, 100)
-
-    def required_default_space_test(self):
-        """Test default value for required space.
-
-        This is used when space is not known.
-        """
-        self.module._required_space = None
-
-        self.assertEqual(self.interface.RequiredSpace, self.module.default_required_space)
-
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
     def supported_sources_test(self):
         """Test supported sources API."""
@@ -185,6 +170,16 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_sources([source1, source2])
 
         self.assertEqual(self.interface.IsNetworkRequired(), True)
+
+    @patch_dbus_publish_object
+    def calculate_required_space_test(self, publisher):
+        """Test CalculateRequiredTest."""
+        self.assertEqual(self.interface.CalculateRequiredSpace(), 0)
+
+        source1 = self.shared_tests.prepare_source(SourceType.CDROM, state=SourceState.UNREADY)
+        self.shared_tests.set_sources([source1])
+
+        self.assertEqual(self.interface.CalculateRequiredSpace(), 0)
 
     @patch_dbus_publish_object
     def set_up_sources_with_task_test(self, publisher):

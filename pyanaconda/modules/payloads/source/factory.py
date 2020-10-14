@@ -35,6 +35,10 @@ class SourceFactory(object):
         if source_type == SourceType.LIVE_OS_IMAGE:
             from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
             return LiveOSSourceModule()
+        elif source_type == SourceType.LIVE_IMAGE:
+            from pyanaconda.modules.payloads.source.live_image.live_image import \
+                LiveImageSourceModule
+            return LiveImageSourceModule()
         elif source_type == SourceType.CDROM:
             from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
             return CdromSourceModule()
@@ -102,5 +106,17 @@ class SourceFactory(object):
         """
         if ks_data.ostreesetup.seen:
             return SourceType.RPM_OSTREE
+
+        return None
+
+    @staticmethod
+    def get_live_image_type_for_kickstart(ks_data):
+        """Generate source type from live image kickstart data.
+
+        :param ks_data: kickstart data from DNF payload
+        :return: SourceType value
+        """
+        if ks_data.liveimg.seen:
+            return SourceType.LIVE_IMAGE
 
         return None

@@ -325,6 +325,10 @@ class URLSourceTestCase(unittest.TestCase):
         self.module.repo_configuration.url = "ftp://my/path"
         self.assertEqual(self.module.network_required, True)
 
+    def required_space_test(self):
+        """Test the required_space property."""
+        self.assertEqual(self.module.required_space, 0)
+
     def ready_state_test(self):
         """Check ready state of URL source.
 

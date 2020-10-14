@@ -302,6 +302,10 @@ class HardDriveSourceTearDownTestCase(unittest.TestCase):
     def setUp(self):
         self.source_module = HardDriveSourceModule()
 
+    def required_space_test(self):
+        """Test the required_space property."""
+        self.assertEqual(self.source_module.required_space, 0)
+
     def tear_down_task_order_test(self):
         """Hard drive source tear down task order."""
         tasks = self.source_module.tear_down_with_tasks()

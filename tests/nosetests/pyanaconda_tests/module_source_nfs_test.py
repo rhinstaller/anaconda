@@ -91,6 +91,10 @@ class NFSSourceTestCase(unittest.TestCase):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, True)
 
+    def required_space_test(self):
+        """Test the required_space property."""
+        self.assertEqual(self.module.required_space, 0)
+
     @patch("os.path.ismount")
     def get_state_test(self, ismount_mock):
         """Test NFS source state."""

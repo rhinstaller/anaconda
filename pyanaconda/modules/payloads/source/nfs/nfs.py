@@ -80,6 +80,15 @@ class NFSSourceModule(PayloadSourceBase, RPMSourceMixin):
         """
         return True
 
+    @property
+    def required_space(self):
+        """The space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        return 0
+
     def get_state(self):
         """Get state of this source."""
         res = os.path.ismount(self._device_mount) and bool(self._install_tree_path)

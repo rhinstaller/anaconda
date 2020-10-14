@@ -27,7 +27,7 @@ from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask, UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
-from pyanaconda.modules.payloads.base.utils import get_dir_size, get_kernel_version_list
+from pyanaconda.modules.payloads.base.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -100,24 +100,25 @@ class LiveOSModule(PayloadBase):
         if not self._image_source:
             raise SourceSetupError(message)
 
-    @staticmethod
-    def _get_required_space():
-        # TODO: This is not that fast as I thought (a few seconds). Caching or solved in task?
-        size = get_dir_size("/") * 1024
-
-        # we don't know the size -- this should not happen
-        if size == 0:
-            log.debug("Space required is not known. This should not happen!")
-            return None
-        else:
-            return size
+    # @staticmethod
+    # def _get_required_space():
+    #     # TODO: This is not that fast as I thought (a few seconds). Caching or solved in task?
+    #     size = get_dir_size("/") * 1024
+    #
+    #     # we don't know the size -- this should not happen
+    #     if size == 0:
+    #         log.debug("Space required is not known. This should not happen!")
+    #         return None
+    #     else:
+    #         return size
 
     def set_up_sources_with_task(self):
         """Set up installation sources."""
         self._check_source_availability("Set up source failed - source is not set!")
 
         task = SetUpSourcesTask(self._sources)
-        task.succeeded_signal.connect(lambda: self.set_required_space(self._get_required_space()))
+        # task.succeeded_signal.connect(lambda: self.set_required_space(
+        # self._get_required_space()))
 
         return task
 
@@ -126,7 +127,7 @@ class LiveOSModule(PayloadBase):
         self._check_source_availability("Tear down source failed - source is not set!")
 
         task = TearDownSourcesTask(self._sources)
-        task.stopped_signal.connect(lambda: self.set_required_space(0))
+        # task.stopped_signal.connect(lambda: self.set_required_space(0))
 
         return task
 

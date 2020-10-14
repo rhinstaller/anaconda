@@ -40,5 +40,9 @@ class ClosestMirrorSourceInterfaceTestCase(unittest.TestCase):
         """Test the description of CDN."""
         self.assertEqual("Closest mirror", self.interface.Description)
 
+    def required_space_test(self):
+        """Test the required_space property."""
+        self.assertEqual(self.module.required_space, 0)
+
     def repr_test(self):
         self.assertEqual(repr(self.module), "Source(type='CLOSEST_MIRROR')")

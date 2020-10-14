@@ -91,6 +91,10 @@ class OSTreeSourceTestCase(unittest.TestCase):
         self.module.configuration.url = "https://my/path"
         self.assertEqual(self.module.network_required, True)
 
+    def required_space_test(self):
+        """Test the required_space property."""
+        self.assertEqual(self.module.required_space, 0)
+
     def get_state_test(self):
         """Test the source state."""
         self.assertEqual(SourceState.NOT_APPLICABLE, self.module.get_state())

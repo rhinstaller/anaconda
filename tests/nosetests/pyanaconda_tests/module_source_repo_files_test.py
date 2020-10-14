@@ -59,6 +59,10 @@ class RepoFilesSourceTestCase(unittest.TestCase):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, True)
 
+    def required_space_test(self):
+        """Test the required_space property."""
+        self.assertEqual(self.module.required_space, 0)
+
     def repr_test(self):
         self.assertEqual(repr(self.module), "Source(type='REPO_FILES')")
 

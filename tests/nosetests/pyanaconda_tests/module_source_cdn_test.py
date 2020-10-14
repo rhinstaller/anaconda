@@ -38,5 +38,9 @@ class CDNSourceInterfaceTestCase(unittest.TestCase):
         """Test the description of CDN."""
         self.assertEqual("Red Hat CDN", self.interface.Description)
 
+    def required_space_test(self):
+        """Test the required_space property."""
+        self.assertEqual(self.module.required_space, 0)
+
     def repr_test(self):
         self.assertEqual(repr(self.module), "Source(type='CDN')")
