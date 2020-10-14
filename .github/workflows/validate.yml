@@ -22,11 +22,15 @@ jobs:
           name: logs
           path: |
             tests/test-suite.log
+            tests/nosetests.log
+            tests/pylint/runpylint*.log
             tests/coverage-*.log
 
       - name: Set job result
         if: ${{ steps.run-unit-tests.outcome == 'failure' }}
-        run: exit 1
+        run: |
+          cat tests/test-suite.log
+          exit 1
 
   rpm-tests:
     runs-on: ubuntu-latest
