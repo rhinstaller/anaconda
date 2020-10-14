@@ -65,7 +65,7 @@ This will run all the tests. To run just some tests you can pass parameters
 which will replace the current one. For example to run just some nose-tests
 please do this::
 
-    make container-ci CI_TASKS_TEST_ARGS="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
+    make container-ci CI_TASKS_CMD="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
 
 WARNING:
 

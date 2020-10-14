@@ -89,6 +89,7 @@ CI_TASKS_DOCKERFILE ?= $(srcdir)/dockerfile/ci-tasks
 CI_TASKS_NAME ?= anaconda/ci-tasks
 CI_TASKS_TAG ?= $(GIT_BRANCH)
 CI_TASKS_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
+CI_TASKS_CMD ?=
 
 SKIP_BRANCHING_CHECK ?= "false"
 
@@ -234,7 +235,7 @@ ci:
 	fi
 
 container-ci:
-	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TASKS_TEST_ARGS) $(CI_TASKS_NAME):$(CI_TASKS_TAG)
+	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TASKS_TEST_ARGS) $(CI_TASKS_NAME):$(CI_TASKS_TAG) $(CI_TASKS_CMD)
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
