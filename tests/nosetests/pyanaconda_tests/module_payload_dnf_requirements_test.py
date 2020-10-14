@@ -16,12 +16,13 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
-from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE
+from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements
+from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
+    collect_platform_requirements
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
@@ -32,6 +33,12 @@ class DNFRequirementsTestCase(unittest.TestCase):
         package = Mock()
         package.name = name
         return package
+
+    def _create_group(self, name):
+        """Create a mocked group object."""
+        group = Mock()
+        group.id = name
+        return group
 
     def _create_requirement(self, name, reason, req_type=REQUIREMENT_TYPE_PACKAGE):
         """Create a new requirement."""
@@ -79,3 +86,38 @@ class DNFRequirementsTestCase(unittest.TestCase):
 
         msg = "Selected locale 'sr_RS@cyrilic' does not match any available langpacks."
         self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    @patch('pyanaconda.core.util.execWithCapture')
+    def collect_platform_requirements_test(self, execute):
+        """Test the function collect_platform_requirements."""
+        g1 = self._create_group("platform-vmware")
+        g2 = self._create_group("platform-kvm")
+        g3 = self._create_group("network-server")
+        g4 = self._create_group("virtualization")
+
+        base = Mock()
+        base.comps.groups_iter.return_value = [
+            g1, g2, g3, g4
+        ]
+
+        # No platform is detected.
+        execute.return_value = None
+        requirements = collect_platform_requirements(base)
+        self.assertEqual(requirements, [])
+
+        # Unsupported platform is detected.
+        execute.return_value = "qemu"
+        requirements = collect_platform_requirements(base)
+        self.assertEqual(requirements, [])
+
+        # Supported platform is detected.
+        execute.return_value = "vmware"
+        requirements = collect_platform_requirements(base)
+
+        r1 = self._create_requirement(
+            name="platform-vmware",
+            reason="Required for the vmware platform.",
+            req_type=REQUIREMENT_TYPE_GROUP
+        )
+
+        self._compare_requirements(requirements, [r1])

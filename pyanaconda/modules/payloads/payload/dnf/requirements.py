@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.util import detect_virtualized_platform
 from pyanaconda.localization import find_best_locale_match, is_valid_langcode
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -58,3 +59,31 @@ def collect_language_requirements(dnf_base):
         ))
 
     return requirements
+
+
+def collect_platform_requirements(dnf_base):
+    """Collect the requirements for the current platform.
+
+    :param dnf_base: a DNF base
+    :return: a list of requirements
+    """
+    # Detect the current platform.
+    platform = detect_virtualized_platform()
+
+    if not platform:
+        return []
+
+    # Get all available groups.
+    available_groups = [g.id for g in dnf_base.comps.groups_iter()]
+
+    # Add a platform specific group.
+    group = "platform-" + platform.lower()
+
+    if group not in available_groups:
+        log.warning("Platform group %s not available.", group)
+        return []
+
+    return [Requirement.for_group(
+        group_name=group,
+        reason="Required for the {} platform.".format(platform)
+    )]

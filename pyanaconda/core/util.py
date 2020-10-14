@@ -1037,24 +1037,25 @@ def xprogressive_delay():
         counter += 1
 
 
-def get_platform_groupid():
-    """ Return a platform group id string
+def detect_virtualized_platform():
+    """Detect execution in a virtualized environment.
 
-        This runs systemd-detect-virt and if the result is not 'none' it
-        prefixes the lower case result with "platform-" for use as a group id.
+    This runs systemd-detect-virt and, if the result is not 'none',
+    it returns an id of the detected virtualization technology.
 
-        :returns: Empty string or a group id for the detected platform
-        :rtype: str
+    Otherwise, it returns None.
+
+    :return: a virtualization technology identifier or None
     """
     try:
         platform = execWithCapture("systemd-detect-virt", []).strip()
     except (IOError, AttributeError):
-        return ""
+        return None
 
     if platform == "none":
-        return ""
+        return None
 
-    return "platform-" + platform.lower()
+    return platform
 
 
 def persistent_root_image():

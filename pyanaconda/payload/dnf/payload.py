@@ -41,7 +41,8 @@ from fnmatch import fnmatch
 from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements
+from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
+    collect_platform_requirements
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
@@ -1244,17 +1245,10 @@ class DNFPayload(Payload):
             self.rpm_macros.append(('__file_context_path', '%{nil}'))
 
     def _collect_requirements(self):
-        # Collect the language requirements.
         self.requirements.add_requirements(
             collect_language_requirements(self._base)
+            + collect_platform_requirements(self._base)
         )
-
-        # Add platform specific group
-        groupid = util.get_platform_groupid()
-        if groupid and groupid in self.groups:
-            self.requirements.add_groups([groupid], reason="platform")
-        elif groupid:
-            log.warning("Platform group %s not available.", groupid)
 
     def _set_up_fips(self):
         """Set up FIPS in the target system.
