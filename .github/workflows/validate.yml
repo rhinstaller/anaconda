@@ -22,6 +22,8 @@ jobs:
           name: logs
           path: |
             tests/test-suite.log
+            tests/nosetests.log
+            tests/pylint/runpylint*.log
             tests/coverage-*.log
 
       - name: Set job result
