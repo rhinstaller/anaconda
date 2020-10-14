@@ -125,8 +125,8 @@ class CensorshipLinter():
                     avail_mem_kb = int(line.split()[1])
                     break
         num_cpus = multiprocessing.cpu_count()
-        # each process uses ~ 1.5 GiB RAM, leave some breathing space
-        jobs = max(1, avail_mem_kb // 2000000)
+        # each process uses ~ 2 GiB RAM, leave some breathing space
+        jobs = max(1, avail_mem_kb // 3000000)
         # but also clip to nproc
         jobs = min(jobs, num_cpus)
         print("Using", jobs, "parallel jobs based on", avail_mem_kb, "kB available RAM and",
