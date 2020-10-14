@@ -1443,18 +1443,6 @@ class DNFPayload(Payload):
                 return False
         return True
 
-    def language_groups(self):
-        localization_proxy = LOCALIZATION.get_proxy()
-        locales = [localization_proxy.Language] + localization_proxy.LanguageSupport
-        match_fn = pyanaconda.localization.langcode_matches_locale
-        gids = set()
-        gl_tuples = ((g.id, g.lang_only) for g in self._base.comps.groups_iter())
-        for (gid, lang) in gl_tuples:
-            for locale in locales:
-                if match_fn(lang, locale):
-                    gids.add(gid)
-        return list(gids)
-
     def reset(self):
         tear_down_sources(self.proxy)
         self.reset_additional_repos()

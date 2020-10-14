@@ -120,9 +120,6 @@ class Payload(metaclass=ABCMeta):
     def needs_network(self):
         return False
 
-    def language_groups(self):
-        return []
-
     def langpacks(self):
         return []
 
