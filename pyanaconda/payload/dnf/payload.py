@@ -42,7 +42,8 @@ from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
-    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements
+    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
+    apply_requirements
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
@@ -128,9 +129,8 @@ class DNFPayload(Payload):
         # save repomd metadata
         self._repoMD_list = []
 
-        self._req_groups = set()
-        self._req_packages = set()
-        self.requirements.set_apply_callback(self._apply_requirements)
+        # Additional packages required by installer based on used features
+        self._requirements = []
 
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
@@ -384,13 +384,7 @@ class DNFPayload(Payload):
             include_list.append(kernel_package)
 
         # resolve packages and groups required by Anaconda
-        self.requirements.apply()
-
-        # add required groups
-        for group_name in self._req_groups:
-            include_list.append("@{}".format(group_name))
-        # add packages
-        include_list.extend(self._req_packages)
+        apply_requirements(self._requirements, include_list, exclude_list)
 
         # log the resulting set
         log.debug("transaction include list")
@@ -418,29 +412,6 @@ class DNFPayload(Payload):
                 self._payload_setup_error(e)
         except Exception as e:  # pylint: disable=broad-except
             self._payload_setup_error(e)
-
-    def _apply_requirements(self, requirements):
-        self._req_groups = set()
-        self._req_packages = set()
-        for req in self.requirements.packages:
-            ignore_msgs = []
-            if req.id in conf.payload.ignored_packages:
-                ignore_msgs.append("IGNORED by the configuration.")
-            if req.id in self.data.packages.excludedList:
-                ignore_msgs.append("IGNORED because excluded")
-            if not ignore_msgs:
-                # NOTE: req.strong not handled yet
-                self._req_packages.add(req.id)
-            log.debug("selected package: %s, requirement for %s %s",
-                      req.id, req.reasons, ", ".join(ignore_msgs))
-
-        for req in self.requirements.groups:
-            # NOTE: req.strong not handled yet
-            log.debug("selected group: %s, requirement for %s",
-                      req.id, req.reasons)
-            self._req_groups.add(req.id)
-
-        return True
 
     def _bump_tx_id(self):
         if self.tx_id is None:
@@ -1237,7 +1208,7 @@ class DNFPayload(Payload):
             self.rpm_macros.append(('__file_context_path', '%{nil}'))
 
     def _collect_requirements(self):
-        self.requirements.add_requirements(
+        self._requirements.extend(
             collect_remote_requirements()
             + collect_language_requirements(self._base)
             + collect_platform_requirements(self._base)

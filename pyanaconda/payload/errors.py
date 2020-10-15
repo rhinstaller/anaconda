@@ -51,9 +51,5 @@ class PayloadInstallError(PayloadError):
     pass
 
 
-class PayloadRequirementsMissingApply(Exception):
-    pass
-
-
 class FlatpakInstallError(PayloadError):
     pass

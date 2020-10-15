@@ -20,6 +20,8 @@
 import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
 from pyanaconda.core.util import detect_virtualized_platform
 from pyanaconda.localization import find_best_locale_match, is_valid_langcode
 from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
@@ -122,3 +124,36 @@ def collect_driver_disk_requirements(path="/run/install/dd_packages"):
             ))
 
     return requirements
+
+
+def apply_requirements(requirements, include_list, exclude_list):
+    """Apply the provided requirements.
+
+    :param requirements: a list of requirements
+    :param include_list: a list of specs to include in the transaction
+    :param exclude_list: a list of specs to exclude from the transaction
+    """
+    log.debug("Applying requirements: %s", requirements)
+
+    for r in requirements:
+        # Generate a spec for the requirement.
+        if r.type == REQUIREMENT_TYPE_PACKAGE:
+            spec = r.name
+        elif r.type == REQUIREMENT_TYPE_GROUP:
+            spec = "@{}".format(r.name)
+        else:
+            log.warning("Unsupported type '%s' of the requirement.", r.type)
+            continue
+
+        # Check if the requirement can be applied.
+        if spec in conf.payload.ignored_packages:
+            log.debug("Requirement '%s' is ignored by the configuration.", spec)
+            continue
+
+        if spec in exclude_list:
+            log.debug("Requirement '%s' is ignored because it's excluded.", spec)
+            continue
+
+        # Apply the requirement.
+        include_list.append(spec)
+        log.debug("Requirement '%s' is applied. Reason: %s", spec, r.reason)

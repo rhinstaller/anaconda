@@ -23,7 +23,8 @@ from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
-    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements
+    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
+    apply_requirements
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
@@ -161,3 +162,84 @@ class DNFRequirementsTestCase(unittest.TestCase):
 
         requirements = collect_remote_requirements()
         self._compare_requirements(requirements, [r1, r2, r3])
+
+    def apply_requirements_invalid_requirement_test(self):
+        """Test the function apply_requirements with an invalid requirement."""
+        r1 = self._create_requirement("a", "Required by A.", req_type="INVALID")
+
+        include_list = []
+        exclude_list = []
+        requirements = [r1]
+
+        with self.assertLogs(level="WARNING") as cm:
+            apply_requirements(requirements, include_list, exclude_list)
+
+        msg = "Unsupported type 'INVALID' of the requirement."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+        self.assertEqual(include_list, [])
+        self.assertEqual(exclude_list, [])
+
+    @patch('pyanaconda.modules.payloads.payload.dnf.requirements.conf')
+    def apply_requirements_ignored_packages_test(self, conf_mock):
+        """Test the function apply_requirements with ignored packages."""
+        conf_mock.payload.ignored_packages = ["a"]
+        r1 = self._create_requirement("a", "Required by A.")
+
+        include_list = []
+        exclude_list = []
+        requirements = [r1]
+
+        with self.assertLogs(level="DEBUG") as cm:
+            apply_requirements(requirements, include_list, exclude_list)
+
+        msg = "Requirement 'a' is ignored by the configuration."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+        self.assertEqual(include_list, [])
+        self.assertEqual(exclude_list, [])
+
+    @patch('pyanaconda.modules.payloads.payload.dnf.requirements.conf')
+    def apply_requirements_excluded_packages_test(self, conf_mock):
+        """Test the function apply_requirements with excluded packages."""
+        conf_mock.payload.ignored_packages = []
+        r1 = self._create_requirement("a", "Required by A.")
+
+        include_list = []
+        exclude_list = ["a"]
+        requirements = [r1]
+
+        with self.assertLogs(level="DEBUG") as cm:
+            apply_requirements(requirements, include_list, exclude_list)
+
+        msg = "Requirement 'a' is ignored because it's excluded."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+        self.assertEqual(include_list, [])
+        self.assertEqual(exclude_list, ["a"])
+
+    @patch('pyanaconda.modules.payloads.payload.dnf.requirements.conf')
+    def apply_requirements_test(self, conf_mock):
+        """Test the function apply_requirements."""
+        conf_mock.payload.ignored_packages = []
+
+        r1 = self._create_requirement("a", "Required by A.")
+        r2 = self._create_requirement("b", "Required by B.")
+        r3 = self._create_requirement("c", "Required by C.", req_type=REQUIREMENT_TYPE_GROUP)
+        r4 = self._create_requirement("d", "Required by D.", req_type=REQUIREMENT_TYPE_GROUP)
+
+        include_list = ["p1", "p2", "@g1", "@g2"]
+        exclude_list = ["b", "@d"]
+        requirements = [r1, r2, r3, r4]
+
+        with self.assertLogs(level="DEBUG") as cm:
+            apply_requirements(requirements, include_list, exclude_list)
+
+        msg = "Requirement 'a' is applied. Reason: Required by A."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+        msg = "Requirement '@c' is applied. Reason: Required by C."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+        self.assertEqual(include_list, ["p1", "p2", "@g1", "@g2", "a", "@c"])
+        self.assertEqual(exclude_list, ["b", "@d"])
