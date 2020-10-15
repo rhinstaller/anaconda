@@ -42,7 +42,7 @@ from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
-    collect_platform_requirements, collect_driver_disk_requirements
+    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
@@ -1238,7 +1238,8 @@ class DNFPayload(Payload):
 
     def _collect_requirements(self):
         self.requirements.add_requirements(
-            collect_language_requirements(self._base)
+            collect_remote_requirements()
+            + collect_language_requirements(self._base)
             + collect_platform_requirements(self._base)
             + collect_driver_disk_requirements()
         )

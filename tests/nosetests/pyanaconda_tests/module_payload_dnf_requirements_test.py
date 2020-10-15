@@ -20,10 +20,10 @@ import unittest
 from unittest.mock import Mock, patch
 
 from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
-from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
-    collect_platform_requirements, collect_driver_disk_requirements
+    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
@@ -147,3 +147,17 @@ class DNFRequirementsTestCase(unittest.TestCase):
 
             requirements = collect_driver_disk_requirements(f.name)
             self._compare_requirements(requirements, [r1, r2, r3])
+
+    @patch_dbus_get_proxy_with_cache
+    def collect_remote_requirements_test(self, proxy_getter):
+        """Test the function collect_remote_requirements."""
+        r1 = self._create_requirement("a", "Required by A.")
+        r2 = self._create_requirement("b", "Required by B.")
+        r3 = self._create_requirement("c", "Required by C.")
+
+        boss = BOSS.get_proxy()
+        boss.CollectRequirements.return_value = \
+            Requirement.to_structure_list([r1, r2, r3])
+
+        requirements = collect_remote_requirements()
+        self._compare_requirements(requirements, [r1, r2, r3])

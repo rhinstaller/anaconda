@@ -17,6 +17,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.dbus import DBus
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.task import DBusMetaTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -38,6 +39,28 @@ class InstallManager(object):
     def on_module_observers_changed(self, observers):
         """Set module observers which will be used for installation."""
         self._module_observers = list(observers)
+
+    def collect_requirements(self):
+        """Collect requirements of the modules.
+
+        :return: a list of requirements
+        """
+        requirements = []
+
+        for observer in self._module_observers:
+            if not observer.is_service_available:
+                log.warning("Module %s not available!", observer.service_name)
+                continue
+
+            module_name = observer.service_name
+            module_requirements = Requirement.from_structure_list(
+                observer.proxy.CollectRequirements()
+            )
+
+            log.debug("Module %s requires: %s", module_name, module_requirements)
+            requirements.extend(module_requirements)
+
+        return requirements
 
     def configure_runtime_with_task(self):
         """Configure the runtime environment.

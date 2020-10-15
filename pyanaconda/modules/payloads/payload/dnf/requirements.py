@@ -22,10 +22,21 @@ import os
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import detect_virtualized_platform
 from pyanaconda.localization import find_best_locale_match, is_valid_langcode
-from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
 
 log = get_module_logger(__name__)
+
+
+def collect_remote_requirements():
+    """Collect requirements of the DBus modules.
+
+    :return: a list of requirements
+    """
+    boss = BOSS.get_proxy()
+    return Requirement.from_structure_list(
+        boss.CollectRequirements()
+    )
 
 
 def collect_language_requirements(dnf_base):

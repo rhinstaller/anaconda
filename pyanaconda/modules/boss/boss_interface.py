@@ -1,4 +1,4 @@
-# boss_interface.py
+#
 # Anaconda main DBus module & module manager.
 #
 # Copyright (C) 2017 Red Hat, Inc.
@@ -23,6 +23,9 @@ from pyanaconda.modules.common.base.base_template import InterfaceTemplate
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
+from pyanaconda.modules.common.structures.requirement import Requirement
+
+__all__ = ["BossInterface"]
 
 
 @dbus_interface(BOSS.interface_name)
@@ -71,6 +74,15 @@ class BossInterface(InterfaceTemplate):
         Examples: "cs_CZ.UTF-8", "fr_FR"
         """
         self.implementation.set_locale(locale)
+
+    def CollectRequirements(self) -> List[Structure]:
+        """Collect requirements of the modules.
+
+        :return: a list of DBus structures of the type Requirement
+        """
+        return Requirement.to_structure_list(
+            self.implementation.collect_requirements()
+        )
 
     def ConfigureRuntimeWithTask(self) -> ObjPath:
         """Configure the runtime environment.
