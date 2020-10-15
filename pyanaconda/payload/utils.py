@@ -18,7 +18,6 @@
 #
 import os
 import blivet.util
-import blivet.arch
 
 from distutils.version import LooseVersion
 
@@ -161,11 +160,6 @@ def mount(device_path, mount_point, fstype, options):
         return blivet.util.mount(device_path, mount_point, fstype=fstype, options=options)
     except OSError as e:
         raise PayloadSetupError(str(e)) from e
-
-
-def arch_is_arm():
-    """Does the hardware support ARM?"""
-    return blivet.arch.is_arm()
 
 
 def version_cmp(v1, v2):

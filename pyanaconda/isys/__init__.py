@@ -63,15 +63,6 @@ def isIsoImage(path):
     return False
 
 
-def isLpaeAvailable():
-    with open("/proc/cpuinfo", "r") as fobj:
-        for line in fobj:
-            if line.startswith("Features") and "lpae" in line.split():
-                return True
-
-    return False
-
-
 def set_system_time(secs):
     """
     Set system time to time given as a number of seconds since the Epoch.
