@@ -95,8 +95,8 @@ class PasswordQuality(unittest.TestCase):
         request.password = "1234567891"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
-        self.assertEqual(check.result.password_score, 1)
-        self.assertEqual(check.result.status_text, _(constants.SecretStatus.WEAK.value))
+        self.assertEqual(check.result.password_score, 2)
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.FAIR.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
 
@@ -118,8 +118,8 @@ class PasswordQuality(unittest.TestCase):
         request.password = "123456"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
-        self.assertEqual(check.result.password_score, 1)
-        self.assertEqual(check.result.status_text, _(constants.SecretStatus.WEAK.value))
+        self.assertEqual(check.result.password_score, 2)
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.FAIR.value))
 
         # check if setting password length works correctly
         request = input_checking.PasswordCheckRequest()
@@ -161,7 +161,7 @@ class PasswordQuality(unittest.TestCase):
         self.assertGreater(check.result.password_score, 0)
         self.assertNotEqual(check.result.status_text, _(constants.SecretStatus.EMPTY.value))
         self.assertNotEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
-        self.assertEqual(check.result.password_quality, 0)
+        self.assertEqual(check.result.password_quality, 34)
         self.assertIsNotNone(check.result.error_message)
 
         # "jelenovipivonelej" is a palindrome
