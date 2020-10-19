@@ -88,6 +88,18 @@ Note:
 Please update your container from time to time to have newest dependencies.
 To do that just run the build again.
 
+Tests in CI
+-----------
+The above container tests happen automatically on pull requests. As building
+the RHEL 8 container needs to happen inside the Red Hat VPN, these run on
+`self-hosted runners`_.
+
+For debugging or development a self-hosted runner can be started in podman; see
+the comment in github-action-run-once_ for details.
+
+.. _`self-hosted runners`: https://docs.github.com/en/free-pro-team@latest/rest/reference/actions#self-hosted-runners
+.. _github-action-run-once: ../dockerfile/ci-tasks/github-action-run-once
+
 Run tests inside Mock
 ---------------------
 
