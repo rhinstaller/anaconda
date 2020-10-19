@@ -63,30 +63,6 @@ def isIsoImage(path):
     return False
 
 
-isPAE = None
-
-
-def isPaeAvailable():
-    global isPAE
-    if isPAE is not None:
-        return isPAE
-
-    isPAE = False
-    if not blivet.arch.is_x86():
-        return isPAE
-
-    f = open("/proc/cpuinfo", "r")
-    lines = f.readlines()
-    f.close()
-
-    for line in lines:
-        if line.startswith("flags") and line.find("pae") != -1:
-            isPAE = True
-            break
-
-    return isPAE
-
-
 def isLpaeAvailable():
     with open("/proc/cpuinfo", "r") as fobj:
         for line in fobj:

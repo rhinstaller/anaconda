@@ -608,9 +608,6 @@ class DNFPayload(Payload):
 
         kernels = ["kernel"]
 
-        if payload_utils.arch_is_x86() and isys.isPaeAvailable():
-            kernels.insert(0, "kernel-PAE")
-
         # ARM systems use either the standard Multiplatform or LPAE platform
         if payload_utils.arch_is_arm():
             if isys.isLpaeAvailable():

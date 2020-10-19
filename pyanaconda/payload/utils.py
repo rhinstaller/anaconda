@@ -163,11 +163,6 @@ def mount(device_path, mount_point, fstype, options):
         raise PayloadSetupError(str(e)) from e
 
 
-def arch_is_x86():
-    """Does the hardware support X86?"""
-    return blivet.arch.is_x86(32)
-
-
 def arch_is_arm():
     """Does the hardware support ARM?"""
     return blivet.arch.is_arm()
