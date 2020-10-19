@@ -97,3 +97,8 @@ RHSM = DBusServiceIdentifier(
     namespace=RHSM_NAMESPACE,
     message_bus=SystemBus
 )
+
+NETWORK_MANAGER = DBusServiceIdentifier(
+    namespace=("org", "freedesktop", "NetworkManager"),
+    message_bus=SystemBus
+)
