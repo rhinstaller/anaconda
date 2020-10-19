@@ -885,7 +885,7 @@ class NetworkControlBox(GObject.GObject):
             for ap in aps:
                 self._add_ap(ap, active_ssid)
             # TODO: add access point other...
-            if active_ap:
+            if active_ap and self.selected_ssid != active_ssid:
                 combobox = self.builder.get_object("combobox_wireless_network_name")
                 for i in combobox.get_model():
                     if i[0] == active_ssid:
@@ -1070,14 +1070,7 @@ class NetworkControlBox(GObject.GObject):
         ssid_str = NM.utils_ssid_to_utf8(ssid)
 
         # the third column is for sorting
-        itr = store.append([ssid,
-                            ssid_str,
-                            ssid_str,
-                            ap.get_strength(),
-                            mode,
-                            security])
-        if active_ssid == ssid:
-            self.builder.get_object("combobox_wireless_network_name").set_active_iter(itr)
+        store.append([ssid, ssid_str, ssid_str, ap.get_strength(), mode, security])
 
     def _get_strongest_unique_aps(self, access_points):
         strongest_aps = {}
