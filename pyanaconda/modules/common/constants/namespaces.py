@@ -106,3 +106,7 @@ SOURCE_NAMESPACE = (
 RHSM_NAMESPACE = (
     "com", "redhat", "RHSM1"
 )
+
+NETWORK_MANAGER_NAMESPACE = (
+    "org", "freedesktop", "NetworkManager"
+)

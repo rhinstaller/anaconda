@@ -27,7 +27,12 @@ gi.require_version("NM", "1.0")
 from gi.repository import Gtk
 from gi.repository import GObject, Pango, Gio, NM
 
+from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.identifier import DBusObjectIdentifier
+from dasbus.server.interface import dbus_interface
+
 from pyanaconda.core.i18n import _, N_, C_, CN_
+from pyanaconda.core.glib import Variant
 from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
@@ -41,19 +46,17 @@ from pyanaconda.core.util import startProgram
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.core import glib
-from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.constants.services import NETWORK, NETWORK_MANAGER
+from pyanaconda.modules.common.constants.namespaces import NETWORK_MANAGER_NAMESPACE
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
 
 from pyanaconda import network
 
-import dbus
-import dbus.service
+from pyanaconda.core.dbus import SystemBus
+
 # Used for ascii_letters and hexdigits constants
 import string # pylint: disable=deprecated-module
 from uuid import uuid4
-
-from dbus.mainloop.glib import DBusGMainLoop
-DBusGMainLoop(set_as_default=True)
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -62,11 +65,16 @@ NM._80211ApFlags = getattr(NM, "80211ApFlags")
 NM._80211ApSecurityFlags = getattr(NM, "80211ApSecurityFlags")
 NM._80211Mode = getattr(NM, "80211Mode")
 
-NM_SERVICE = "org.freedesktop.NetworkManager"
 NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION = 0x1
-SECRET_AGENT_IFACE = 'org.freedesktop.NetworkManager.SecretAgent'
-AGENT_MANAGER_IFACE = 'org.freedesktop.NetworkManager.AgentManager'
-AGENT_MANAGER_PATH = "/org/freedesktop/NetworkManager/AgentManager"
+
+AGENT_MANAGER = DBusObjectIdentifier(
+    namespace=NETWORK_MANAGER_NAMESPACE,
+    basename="AgentManager"
+)
+SECRET_AGENT = DBusObjectIdentifier(
+    namespace=NETWORK_MANAGER_NAMESPACE,
+    basename="SecretAgent"
+)
 
 IPV4_CONFIG = "IPv4"
 IPV6_CONFIG = "IPv6"
@@ -1509,44 +1517,44 @@ class SecretAgentDialog(GUIObject):
 secret_agent = None
 
 
-class NotAuthorizedException(dbus.DBusException):
-    _dbus_error_name = SECRET_AGENT_IFACE + '.NotAuthorized'
+@dbus_interface(SECRET_AGENT.interface_name)
+class SecretAgent(object):
+    def __init__(self, ui_callback):
+        self._ui_callback = ui_callback
 
+    def set_ui_callback(self, ui_callback):
+        self._ui_callback = ui_callback
 
-class SecretAgent(dbus.service.Object):
-    def __init__(self, spoke):
-        self._bus = dbus.SystemBus()
-        self.spoke = spoke
-        super().__init__(self._bus, "/org/freedesktop/NetworkManager/SecretAgent")
+    def GetSecrets(
+        self,
+        connection_hash: Dict[Str, Structure],
+        connection_path: ObjPath,
+        setting_name: Str,
+        hints: List[Str],
+        flags: UInt32
+    ) -> Dict[Str, Structure]:
+        """Get secrets for wireless configuration interactively via GUI dialog.
 
-    @dbus.service.method(SECRET_AGENT_IFACE,
-                         in_signature='a{sa{sv}}osasb',
-                         out_signature='a{sa{sv}}',
-                         sender_keyword='sender')
-    def GetSecrets(self, connection_hash, connection_path, setting_name, hints, flags, sender=None):
-        if not sender:
-            raise NotAuthorizedException("Internal error: couldn't get sender")
-        uid = self._bus.get_unix_user(sender)
-        if uid != 0:
-            raise NotAuthorizedException("UID %d not authorized" % uid)
-
-        log.debug("secrets requested path '%s' setting '%s' hints '%s' new %d",
+        Implemantation of SecretAgent NetworkManager interface.
+        Supports WEP and WPA key management.
+        For WPA Enterprise returns empty secrets for further configuration in nm-c-e.
+        """
+        log.debug("GetSecrets: secrets requested path '%s' setting '%s' hints '%s' new %d",
                   connection_path, setting_name, str(hints), flags)
         if not (flags & NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION):
             return
 
-        content = self._get_content(setting_name, connection_hash)
-        dialog = SecretAgentDialog(self.spoke.data, content=content)
-        with self.spoke.main_window.enlightbox(dialog.window):
-            rc = dialog.run()
+        unpacked_connection_hash = get_native(connection_hash)
 
-        secrets = dbus.Dictionary()
-        if rc == 1:
+        content = self._get_content(setting_name, unpacked_connection_hash)
+
+        secrets = dict()
+        if self._ui_callback(content):
             for secret in content['secrets']:
                 if secret['key']:
-                    secrets[secret['key']] = secret['value']
+                    secrets[secret['key']] = get_variant(Str, secret['value'])
 
-        settings = dbus.Dictionary({setting_name: secrets})
+        settings = {setting_name: secrets}
 
         return settings
 
@@ -1635,21 +1643,30 @@ class SecretAgent(dbus.service.Object):
         else:
             return True
 
+    def SaveSecrets(self, connection_hash: Dict[Str, Structure], connection_path: ObjPath):
+        """Noop implementation of NetworkManager SecretAgent interface SaveSecrets method"""
+        log.debug("SaveSecrets called for %s", connection_path)
+
 
 def register_secret_agent(spoke):
-
     if not conf.system.can_configure_network:
         return False
 
+    def spoke_ui_callback(dialog_content):
+        dialog = SecretAgentDialog(spoke.data, content=dialog_content)
+        with spoke.main_window.enlightbox(dialog.window):
+            rc = dialog.run()
+        return rc == 1
+
     global secret_agent
     if not secret_agent:
-        # Ignore an error from pylint incorrectly analyzing types in dbus-python
-        secret_agent = SecretAgent(spoke) # pylint: disable=no-value-for-parameter
-        bus = dbus.SystemBus()
-        proxy = bus.get_object(NM_SERVICE, AGENT_MANAGER_PATH)
-        proxy.Register("anaconda", dbus_interface=AGENT_MANAGER_IFACE)
+        secret_agent = SecretAgent(spoke_ui_callback)
+        bus = SystemBus
+        bus.publish_object(SECRET_AGENT.object_path, secret_agent)
+        proxy = NETWORK_MANAGER.get_proxy(AGENT_MANAGER.object_path)
+        proxy.Register("anaconda")
     else:
-        secret_agent.spoke = spoke
+        secret_agent.set_ui_callback(spoke_ui_callback)
 
     return True
 
