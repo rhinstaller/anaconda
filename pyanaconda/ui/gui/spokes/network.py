@@ -519,12 +519,14 @@ class NetworkControlBox(GObject.GObject):
             if not con:
                 log.debug("on_edit_connection: connection for ap %s not found", self.selected_ssid)
                 return
+
             # 871132 auto activate wireless connection after editing if it is not
             # already activated (assume entering secrets)
-            condition = lambda: not device.get_active_access_point() or \
-                self.selected_ssid != device.get_active_access_point().get_ssid().get_data()
+            def restart_device_condition():
+                ap = device.get_active_access_point()
+                return not ap or ap.get_ssid().get_data() != self.selected_ssid
 
-            activate = (con, device, condition)
+            activate = (con, device, restart_device_condition)
         else:
             if not con:
                 log.debug("on_edit_connection: connection for device %s not found", iface)
