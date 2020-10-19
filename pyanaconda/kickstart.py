@@ -537,7 +537,7 @@ def appendPostScripts(ksdata):
     scripts = ""
 
     # Read in all the post script snippets to a single big string.
-    for fn in glob.glob("/usr/share/anaconda/post-scripts/*ks"):
+    for fn in sorted(glob.glob("/usr/share/anaconda/post-scripts/*ks")):
         f = open(fn, "r")
         scripts += f.read()
         f.close()
