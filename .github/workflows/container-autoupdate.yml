@@ -16,6 +16,27 @@ jobs:
       - name: Build anaconda-ci container
         run: CONTAINER_ENGINE=docker make -f Makefile.am anaconda-ci-build
 
+      - name: Run tests in anaconda-ci container
+        id: run-tests
+        run: CONTAINER_ENGINE=docker make -f Makefile.am container-ci
+        continue-on-error: true
+
+      - name: Upload test and coverage logs from local testing
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: |
+            tests/test-suite.log
+            tests/nosetests.log
+            tests/pylint/runpylint*.log
+            tests/coverage-*.log
+
+      - name: Fail if local test did not worked
+        if: ${{ steps.run-tests.outcome == 'failure' }}
+        run: |
+          cat tests/test-suite.log
+          exit 1
+
       - name: Login to container registry
         run: docker login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
 
