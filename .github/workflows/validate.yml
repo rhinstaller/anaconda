@@ -10,11 +10,11 @@ jobs:
           # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
           ref: ${{ github.event.pull_request.head.sha }}
 
-      # FIXME: this should only be done if a PR touches dockerfile/ci-tasks, otherwise take the current one from registry
-      - name: Build ci-tasks container
-        run: CONTAINER_ENGINE=docker make -f Makefile.am ci-tasks-build
+      # FIXME: this should only be done if a PR touches dockerfile/anaconda-ci, otherwise take the current one from registry
+      - name: Build anaconda-ci container
+        run: CONTAINER_ENGINE=docker make -f Makefile.am anaconda-ci-build
 
-      - name: Run tests in ci-tasks container
+      - name: Run tests in anaconda-ci container
         id: run-unit-tests
         run: CONTAINER_ENGINE=docker make -f Makefile.am container-ci
         continue-on-error: true
