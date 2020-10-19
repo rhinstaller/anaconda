@@ -72,6 +72,11 @@ def get_language_id(locale):
     return langtable.parse_locale(locale).language
 
 
+def get_common_languages():
+    """Return common languages to prioritize them"""
+    return langtable.list_common_languages()
+
+
 def is_supported_locale(locale):
     """Function that tells if the given locale is supported by the Anaconda or
     not. We consider locales supported by the langtable as supported by the
