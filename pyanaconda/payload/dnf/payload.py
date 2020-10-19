@@ -1992,10 +1992,20 @@ class DNFPayload(Payload):
             # TODO: replace the interpolation with DNF once possible
             arch = util.execWithCapture("uname", ["-i"]).strip().replace("'", "")
             vers = util.get_os_version(conf.target.system_root)
+
+            if not os.path.exists(conf.target.system_root + "/usr/bin/rpm"):
+                log.error("Can not import GPG keys to RPM database because the 'rpm' executable "
+                          "is missing on the target system. The following keys were not "
+                          "imported:\n%s",
+                          "\n".join(conf.payload.default_rpm_gpg_keys))
+                return
+
             for key in conf.payload.default_rpm_gpg_keys:
                 interpolated_key = key.replace("$releasever", vers).replace("$basearch", arch)
                 log.info("Importing GPG key to RPM database: %s", interpolated_key)
-                util.execInSysroot("rpm", ["--import", interpolated_key])
+                rc = util.execInSysroot("rpm", ["--import", interpolated_key])
+                if rc:
+                    log.error("Failed to import key.")
 
     def post_setup(self):
         """Perform post-setup tasks.
