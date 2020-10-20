@@ -1639,11 +1639,11 @@ def _update_team_kickstart_network_data(nm_client, iface, connection, network_da
         slave_list = sorted((s_iface, s_uuid) for _name, s_iface, s_uuid in slaves if s_iface)
 
     for s_iface, s_uuid in slave_list:
-        team_port_cfg = get_team_port_config_from_connection(nm_client, s_uuid)
+        team_port_cfg = get_team_port_config_from_connection(nm_client, s_uuid) or ""
         network_data.teamslaves.append((s_iface, team_port_cfg))
 
     s_team = connection.get_setting_team()
     if s_team:
-        teamconfig = s_team.get_config().replace("\n", "").replace(" ", "")
-    if teamconfig:
-        network_data.teamconfig = teamconfig
+        teamconfig = s_team.get_config()
+        if teamconfig:
+            network_data.teamconfig = teamconfig.replace("\n", "").replace(" ", "")
