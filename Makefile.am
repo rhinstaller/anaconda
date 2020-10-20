@@ -83,14 +83,15 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 CONTAINER_ENGINE ?= podman
 CONTAINER_BUILD_ARGS ?= --no-cache
 CONTAINER_TEST_ARGS ?=
+CONTAINER_REGISTRY ?= quay.io
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
 RPM_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-rpm
 ISO_CREATOR_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-iso-creator
-CI_NAME ?= rhinstaller/anaconda-ci
-RPM_NAME ?= rhinstaller/anaconda-rpm
-ISO_CREATOR_NAME ?= rhinstaller/anaconda-iso-creator
+CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
+RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
+ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
 CI_TAG ?= $(GIT_BRANCH)
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 CI_CMD ?= make ci
