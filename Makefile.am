@@ -83,10 +83,11 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 CONTAINER_ENGINE ?= podman
 CONTAINER_BUILD_ARGS ?=
 CONTAINER_TEST_ARGS ?=
+CONTAINER_REGISTRY ?= quay.io
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
-CI_NAME ?= rhinstaller/anaconda-ci
+CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
 CI_TAG ?= $(GIT_BRANCH)
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 CI_CMD ?=
