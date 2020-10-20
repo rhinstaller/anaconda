@@ -446,14 +446,18 @@ class NetworkControlBox(GObject.GObject):
             self.refresh_ui()
 
     def on_wireless_ap_changed_cb(self, combobox, *args):
+        log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR on_wireless_ap_changed_cb")
         if self._updating_device:
+            log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR on_wireless_ap_changed_cb updating_device")
             return
         itr = combobox.get_active_iter()
         if not itr:
+            log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR on_wireless_ap_changed_cb not itr")
             return
 
         dev_cfg = self.selected_dev_cfg()
         if not dev_cfg:
+            log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR on_wireless_ap_changed_cb not dev_cfg")
             return
 
         device = self.client.get_device_by_iface(dev_cfg.device_name)
@@ -461,6 +465,7 @@ class NetworkControlBox(GObject.GObject):
         ssid, ssid_target = combobox.get_model().get(itr, 0, 1)
         self.selected_ssid = ssid
 
+        log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR on_wireless_ap_changed_cb vvvvvvvvvvvv ")
         log.info("selected access point: %s", ssid_target)
 
         ap = self._get_strongest_ap_for_ssid(device.get_access_points(), ssid)
@@ -850,6 +855,7 @@ class NetworkControlBox(GObject.GObject):
         return False
 
     def _refresh_ap(self, dev_cfg, state=None):
+        log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR _refresh_ap")
         if dev_cfg.device_type != NM.DeviceType.WIFI:
             return
 
@@ -870,9 +876,11 @@ class NetworkControlBox(GObject.GObject):
         self._set_device_info_value("wireless", "security", ap_str)
 
         if state == NM.DeviceState.UNAVAILABLE:
+            log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR _refresh_ap hide")
             self.builder.get_object("heading_wireless_network_name").hide()
             self.builder.get_object("combobox_wireless_network_name").hide()
         else:
+            log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR _refresh_ap show")
             self.builder.get_object("heading_wireless_network_name").show()
             self.builder.get_object("combobox_wireless_network_name").show()
 
@@ -880,10 +888,12 @@ class NetworkControlBox(GObject.GObject):
             self._updating_device = True
             store.clear()
             aps = self._get_strongest_unique_aps(device.get_access_points())
+            log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR %s", aps)
             for ap in aps:
                 self._add_ap(ap, active_ssid)
             # TODO: add access point other...
             if active_ap and self.selected_ssid != active_ssid:
+                log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR updated active %s %s", self.selected_ssid, active_ssid)
                 combobox = self.builder.get_object("combobox_wireless_network_name")
                 for i in combobox.get_model():
                     if i[0] == active_ssid:
@@ -891,6 +901,7 @@ class NetworkControlBox(GObject.GObject):
                         self.selected_ssid = active_ssid
                         break
             self._updating_device = False
+        log.debug("RRRRRRRRRRRRRRRRRRRRRRRRRRRR _refresh_ap finished")
 
     def _refresh_slaves(self, dev_cfg):
         if dev_cfg.device_type in [NM.DeviceType.BOND,
