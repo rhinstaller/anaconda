@@ -9,9 +9,17 @@ jobs:
   refresh-container:
     name: Refresh anaconda-ci container
     runs-on: ubuntu-latest
+    # we need to have matrix to cover all branches because schedule is run only on default branch
+    # we can add here fedora branches (e.g. f33-devel) to cover their support when needed
+    strategy:
+      matrix:
+        branch:
+          - master
     steps:
       - name: Checkout anaconda repository
         uses: actions/checkout@v2
+        with:
+          ref: ${{ matrix.branch }}
 
       - name: Build anaconda-ci container
         run: CONTAINER_ENGINE=docker make -f Makefile.am anaconda-ci-build
@@ -39,6 +47,13 @@ jobs:
 
       - name: Login to container registry
         run: docker login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
+
+        # we can hardcode the path to the image here because this will be executed only for master image
+      - name: Add latest tag for master branch
+        if: ${{ matrix.branch == 'master' }}
+        run: |
+          docker tag quay.io/rhinstaller/anaconda-ci:master quay.io/rhinstaller/anaconda-ci:latest
+          CONTAINER_ENGINE=docker CI_TAG=latest make -f Makefile.am anaconda-ci-push
 
       - name: Push container to registry
         run: CONTAINER_ENGINE=docker make -f Makefile.am anaconda-ci-push
