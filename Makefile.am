@@ -172,6 +172,11 @@ release-and-tag:
 anaconda-ci-build:
 	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(CI_NAME):$(CI_TAG) $(CI_DOCKERFILE)
 
+# User has to be logged first to be able to push the image.
+# See `podman login` for more info.
+anaconda-ci-push:
+	$(CONTAINER_ENGINE) push $(CI_NAME):$(CI_TAG)
+
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
