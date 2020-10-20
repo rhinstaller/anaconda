@@ -9,9 +9,21 @@ jobs:
         with:
           # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
           ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
 
-      # FIXME: this should only be done if a PR touches dockerfile/anaconda-ci, otherwise take the current one from registry
+      - name: Check if container changed in this PR
+        id: check-dockerfile-changed
+        run: |
+          # the SHA is target branch thanks to pull_request_target trigger
+          # add prints for debugging purposes
+          git log -1 --oneline ${{ github.sha }}
+          git diff --name-only ${{ github.sha }}
+          git diff --name-only ${{ github.sha }} | grep -q dockerfile/anaconda-ci/ || exit 2
+        continue-on-error: true
+
+      # build container if files for dockerfile changed in the PR
       - name: Build anaconda-ci container
+        if: ${{ steps.check-dockerfile-changed.outcome == 'success' }}
         run: CONTAINER_ENGINE=docker make -f Makefile.am anaconda-ci-build
 
       - name: Run tests in anaconda-ci container
