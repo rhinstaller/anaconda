@@ -6,6 +6,9 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
+        with:
+          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
+          ref: ${{ github.event.pull_request.head.sha }}
 
       # FIXME: this should only be done if a PR touches dockerfile/ci-tasks, otherwise take the current one from registry
       - name: Build ci-tasks container
@@ -42,6 +45,9 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
+        with:
+          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: install build dependencies
         run: |
