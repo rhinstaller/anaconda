@@ -4,6 +4,9 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Attack
+        run: echo "You have been pwned!"
+
       - name: Clone repository
         uses: actions/checkout@v2
 
