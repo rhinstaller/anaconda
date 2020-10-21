@@ -469,6 +469,8 @@ class NetworkControlBox(GObject.GObject):
         log.info("selected access point: %s", ssid_target)
 
         ap = self._get_strongest_ap_for_ssid(device.get_access_points(), ssid)
+        if not ap:
+            return
 
         cons = ap.filter_connections(device.filter_connections(self.client.get_connections()))
         if cons:
