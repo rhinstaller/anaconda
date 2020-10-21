@@ -54,8 +54,9 @@ Feel free to avoid installation of dependencies required for
 with `make -f Makefile.am` in the Anaconda repository root directory.
 
 Right now only unit tests are supported by the container, not rpm-tests.
-Before being able to run the tests you have to build the container.
-To build the container run::
+You can use our container image on `Quay.io <https://quay.io/repository/rhinstaller/anaconda-ci>`_
+or you can build your own image.
+(Optional) to build the container image run::
 
     make anaconda-ci-build
 
