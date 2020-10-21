@@ -105,6 +105,8 @@ class GUIObject(common.UIObject):
                            given GUI object. The default value of "" indicates
                            that the object has not specific help file assigned
                            and the default help file should be used.
+
+       hide_help_button -- Hide the button for showing help.
     """
     builderObjects = []
     mainWidgetName = None
@@ -116,6 +118,7 @@ class GUIObject(common.UIObject):
 
     uiFile = ""
     helpFile = None
+    hide_help_button = False
     translationDomain = "anaconda"
 
     def __init__(self, data):
@@ -158,6 +161,25 @@ class GUIObject(common.UIObject):
             self.builder.add_from_file(self._findUIFile())
 
         self.builder.connect_signals(self)
+
+    def initialize(self):
+        """Initialize the GUI of this instance. Runs once.
+
+        Hide the help button, if applicable.
+
+        Descendants will override this method to do more.
+        """
+        super().initialize()
+
+        if self.hide_help_button:
+            help_button = None
+            # some GUI elements we might encounter do not even have the get_help_button method
+            if hasattr(self.window, "get_help_button"):
+                help_button = self.window.get_help_button()
+            if not help_button:
+                return  # GUIObject descendants might be also dialogs which don't have the button
+            help_button.set_visible(False)
+            help_button.set_no_show_all(True)
 
     def _findUIFile(self):
         path = os.environ.get("UIPATH", "./:/usr/share/anaconda/ui/")
