@@ -45,6 +45,7 @@ class ProgressSpoke(StandaloneSpoke):
     mainWidgetName = "progressWindow"
     uiFile = "spokes/installation_progress.glade"
     help_id = "ProgressHub"
+    hide_help_button = True
 
     postForHub = SummaryHub
 
