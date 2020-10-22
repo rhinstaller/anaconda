@@ -693,9 +693,6 @@ class DNFPayload(Payload):
         except PayloadError as ex:
             raise PayloadError("Can't translate group names to group ID - {}".format(ex)) from ex
 
-    def group_selected(self, groupid):
-        return Group(groupid) in self.data.packages.groupList
-
     def select_group(self, groupid, default=True, optional=False):
         if optional:
             include = GROUP_ALL
@@ -719,17 +716,6 @@ class DNFPayload(Payload):
 
         self.data.packages.groupList.append(grp)
 
-    def deselect_group(self, groupid):
-        grp = Group(groupid)
-
-        if grp in self.data.packages.excludedGroupList:
-            return
-
-        if grp in self.data.packages.groupList:
-            self.data.packages.groupList.remove(grp)
-
-        self.data.packages.excludedGroupList.append(grp)
-
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
@@ -744,16 +730,6 @@ class DNFPayload(Payload):
     def addons(self):
         """A list of addon repo names."""
         return [r.name for r in self.data.repo.dataList()]
-
-    @property
-    def disabled_repos(self):
-        """A list of names of the disabled repos."""
-        disabled = []
-        for repo in self.addons:
-            if not self.is_repo_enabled(repo):
-                disabled.append(repo)
-
-        return disabled
 
     @property
     def enabled_repos(self):

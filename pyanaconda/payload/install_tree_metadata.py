@@ -181,18 +181,6 @@ class InstallTreeMetadata(object):
 
         return self._meta_repos
 
-    def get_repo_metadata_by_name(self, name):
-        """Get repository metadata object with given name.
-
-        :param name: Name of the variant to return.
-        :rtype name: VariantRepo object or None.
-        """
-        for variant in self.get_metadata_repos():
-            if name == variant.name:
-                return variant
-
-        return None
-
     def get_base_repo_metadata(self, additional_names=None):
         """Get repo metadata about base repository."""
         repos = constants.DEFAULT_REPOS
