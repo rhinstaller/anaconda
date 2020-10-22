@@ -34,7 +34,6 @@ import libdnf.conf
 import libdnf.repo
 import rpm
 import re
-import pyanaconda.localization
 
 from blivet.size import Size
 from dnf.const import GROUP_PACKAGE_TYPES
@@ -42,6 +41,9 @@ from fnmatch import fnmatch
 from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
+    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
+    apply_requirements
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
@@ -63,7 +65,7 @@ from pyanaconda.core.util import decode_bytes, join_paths
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE, SUBSCRIPTION
+from pyanaconda.modules.common.constants.services import STORAGE, SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
@@ -127,9 +129,8 @@ class DNFPayload(Payload):
         # save repomd metadata
         self._repoMD_list = []
 
-        self._req_groups = set()
-        self._req_packages = set()
-        self.requirements.set_apply_callback(self._apply_requirements)
+        # Additional packages required by installer based on used features
+        self._requirements = []
 
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
@@ -383,13 +384,7 @@ class DNFPayload(Payload):
             include_list.append(kernel_package)
 
         # resolve packages and groups required by Anaconda
-        self.requirements.apply()
-
-        # add required groups
-        for group_name in self._req_groups:
-            include_list.append("@{}".format(group_name))
-        # add packages
-        include_list.extend(self._req_packages)
+        apply_requirements(self._requirements, include_list, exclude_list)
 
         # log the resulting set
         log.debug("transaction include list")
@@ -417,29 +412,6 @@ class DNFPayload(Payload):
                 self._payload_setup_error(e)
         except Exception as e:  # pylint: disable=broad-except
             self._payload_setup_error(e)
-
-    def _apply_requirements(self, requirements):
-        self._req_groups = set()
-        self._req_packages = set()
-        for req in self.requirements.packages:
-            ignore_msgs = []
-            if req.id in conf.payload.ignored_packages:
-                ignore_msgs.append("IGNORED by the configuration.")
-            if req.id in self.data.packages.excludedList:
-                ignore_msgs.append("IGNORED because excluded")
-            if not ignore_msgs:
-                # NOTE: req.strong not handled yet
-                self._req_packages.add(req.id)
-            log.debug("selected package: %s, requirement for %s %s",
-                      req.id, req.reasons, ", ".join(ignore_msgs))
-
-        for req in self.requirements.groups:
-            # NOTE: req.strong not handled yet
-            log.debug("selected group: %s, requirement for %s",
-                      req.id, req.reasons)
-            self._req_groups.add(req.id)
-
-        return True
 
     def _bump_tx_id(self):
         if self.tx_id is None:
@@ -659,24 +631,6 @@ class DNFPayload(Payload):
         else:
             log.error('kernel: failed to select a kernel from %s', kernels)
         return selected_kernel_package
-
-    def langpacks(self):
-        # get all available languages in repos
-        available_langpacks = self._base.sack.query().available() \
-            .filter(name__glob="langpacks-*")
-        alangs = [p.name.split('-', 1)[1] for p in available_langpacks]
-
-        langpacks = []
-        # add base langpacks into transaction
-        localization_proxy = LOCALIZATION.get_proxy()
-        for lang in [localization_proxy.Language] + localization_proxy.LanguageSupport:
-            loc = pyanaconda.localization.find_best_locale_match(lang, alangs)
-            if not loc:
-                log.warning("Selected lang %s does not match "
-                            "any available langpack", lang)
-                continue
-            langpacks.append("langpacks-" + loc)
-        return langpacks
 
     def _sync_metadata(self, dnf_repo):
         try:
@@ -1012,14 +966,6 @@ class DNFPayload(Payload):
                                              enabled=True)
                 self.add_repo(ks_repo)
 
-        # Add packages
-        if not os.path.exists("/run/install/dd_packages"):
-            return
-        with open("/run/install/dd_packages", "r") as f:
-            for line in f:
-                package = line.strip()
-                self.requirements.add_packages([package], reason="driver disk")
-
     @property
     def space_required(self):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
@@ -1227,12 +1173,17 @@ class DNFPayload(Payload):
     def pre_install(self):
         super().pre_install()
 
+        # Collect all package and group requirements.
+        self._collect_requirements()
+
         # Set up FIPS in the target system before package installation.
         if kernel_arguments.get("fips") == "1":
             self._set_up_fips()
 
         # Set rpm-specific options
+        self._set_rpm_macros()
 
+    def _set_rpm_macros(self):
         # nofsync speeds things up at the risk of rpmdb data loss in a crash.
         # But if we crash mid-install you're boned anyway, so who cares?
         self.rpm_macros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
@@ -1256,12 +1207,13 @@ class DNFPayload(Payload):
         else:
             self.rpm_macros.append(('__file_context_path', '%{nil}'))
 
-        # Add platform specific group
-        groupid = util.get_platform_groupid()
-        if groupid and groupid in self.groups:
-            self.requirements.add_groups([groupid], reason="platform")
-        elif groupid:
-            log.warning("Platform group %s not available.", groupid)
+    def _collect_requirements(self):
+        self._requirements.extend(
+            collect_remote_requirements()
+            + collect_language_requirements(self._base)
+            + collect_platform_requirements(self._base)
+            + collect_driver_disk_requirements()
+        )
 
     def _set_up_fips(self):
         """Set up FIPS in the target system.
@@ -1442,18 +1394,6 @@ class DNFPayload(Payload):
                 log.debug("Can't reach repo %s", repo.id)
                 return False
         return True
-
-    def language_groups(self):
-        localization_proxy = LOCALIZATION.get_proxy()
-        locales = [localization_proxy.Language] + localization_proxy.LanguageSupport
-        match_fn = pyanaconda.localization.langcode_matches_locale
-        gids = set()
-        gl_tuples = ((g.id, g.lang_only) for g in self._base.comps.groups_iter())
-        for (gid, lang) in gl_tuples:
-            for locale in locales:
-                if match_fn(lang, locale):
-                    gids.add(gid)
-        return list(gids)
 
     def reset(self):
         tear_down_sources(self.proxy)

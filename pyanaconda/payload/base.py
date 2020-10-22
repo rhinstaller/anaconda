@@ -20,7 +20,6 @@ from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core import util
-from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -41,9 +40,6 @@ class Payload(metaclass=ABCMeta):
         self.verbose_errors = []
 
         self._session = util.requests_session()
-
-        # Additional packages required by installer based on used features
-        self.requirements = PayloadRequirements()
 
         # A DBus proxy of the payload.
         self._payload_proxy = None
@@ -120,12 +116,6 @@ class Payload(metaclass=ABCMeta):
     def needs_network(self):
         return False
 
-    def language_groups(self):
-        return []
-
-    def langpacks(self):
-        return []
-
     ###
     # METHODS FOR QUERYING STATE
     ###
@@ -158,7 +148,3 @@ class Payload(metaclass=ABCMeta):
         #   kickstart should handle this before we get here
         from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFilesTask
         CopyDriverDisksFilesTask(conf.target.system_root).run()
-
-        log.info("Installation requirements: %s", self.requirements)
-        if not self.requirements.applied:
-            log.info("Some of the requirements were not applied.")

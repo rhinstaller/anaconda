@@ -1,4 +1,4 @@
-# boss.py
+#
 # Anaconda main DBus module & module manager.
 #
 # Copyright (C) 2017 Red Hat, Inc.
@@ -28,6 +28,8 @@ from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.containers import TaskContainer
 
 log = get_module_logger(__name__)
+
+__all__ = ["Boss"]
 
 
 class Boss(Service):
@@ -88,6 +90,13 @@ class Boss(Service):
         """
         log.info("Generating kickstart data...")
         return self._kickstart_manager.generate_kickstart()
+
+    def collect_requirements(self):
+        """Collect requirements of the modules.
+
+        :return: a list of requirements
+        """
+        return self._install_manager.collect_requirements()
 
     def configure_runtime_with_task(self):
         """Configure the runtime environment.

@@ -33,12 +33,9 @@ from unittest.mock import patch, Mock, call
 from blivet.size import Size
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.payload.dnf import utils
 from pyanaconda.payload.flatpak import FlatpakPayload
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
-from pyanaconda.payload.requirement import PayloadRequirements
-from pyanaconda.payload.errors import PayloadRequirementsMissingApply
 
 gi.require_version("Flatpak", "1.0")
 from gi.repository.Flatpak import RefKind
@@ -151,139 +148,6 @@ or it should be. Nah it's just a test!
         # test correct behavior when the repo file won't be available
         os.remove(self._md_file)
         self.assertFalse(r.verify_repoMD())
-
-
-class PayloadRequirementsTestCase(unittest.TestCase):
-
-    def requirements_test(self):
-        """Check that requirements work correctly."""
-
-        ### requirements are ordered by adding
-        reqs = PayloadRequirements()
-        reqs.add_packages(["p1"], "reason1")
-        reqs.add_packages(["p3"], "reason2")
-        reqs.add_packages(["p2"], "reason3")
-        reqs.add_packages(["p2", "p3", "p4"], "reason4")
-
-        package_reqs = [(req.id, req.reasons, req.strong) for
-                         req in reqs.packages]
-
-        self.assertEqual(package_reqs,
-                [("p1", ["reason1"], True),
-                 ("p3", ["reason2", "reason4"], True),
-                 ("p2", ["reason3", "reason4"], True),
-                 ("p4", ["reason4"], True)])
-
-
-        ### reasons are not merged, just appended
-        reqs = PayloadRequirements()
-        reqs.add_packages(["p1"], "reason1")
-        reqs.add_packages(["p1"], "reason1")
-
-        package_reqs = [(req.id, req.reasons, req.strong) for
-                         req in reqs.packages]
-        self.assertEqual(package_reqs,
-                [("p1", ["reason1", "reason1"], True)])
-
-
-        ### strength of a package requirement is merged (ORed)
-        reqs = PayloadRequirements()
-        # default is strong
-        reqs.add_packages(["p1"], "reason1")
-        package_reqs = [(req.id, req.reasons, req.strong) for
-                         req in reqs.packages]
-        self.assertEqual(package_reqs,
-                [("p1", ["reason1"], True)])
-        # a strong req will be always strong
-        reqs.add_packages(["p1"], "reason2", strong=False)
-        package_reqs = [(req.id, req.reasons, req.strong) for
-                         req in reqs.packages]
-        self.assertEqual(package_reqs,
-                [("p1", ["reason1", "reason2"], True)])
-
-        # weak can become strong
-        reqs = PayloadRequirements()
-        reqs.add_packages(["p1"], "reason1", strong=False)
-        reqs.add_packages(["p1"], "reason2")
-        package_reqs = [(req.id, req.reasons, req.strong) for
-                         req in reqs.packages]
-        self.assertEqual(package_reqs,
-                [("p1", ["reason1", "reason2"], True)])
-
-        ### no group requirements yet
-        self.assertEqual(reqs.groups, [])
-        # let's add some group requirement
-        reqs.add_groups(["g1"], "reason")
-        group_reqs = [(req.id, req.reasons, req.strong) for
-                         req in reqs.groups]
-        self.assertEqual(group_reqs,
-                [("g1", ["reason"], True)])
-
-        ### applying requirements
-        reqs = PayloadRequirements()
-        self.assertTrue(reqs.empty)
-        # no requirements, so all requirements were applied
-        self.assertTrue(reqs.applied)
-        # no callback was assigned yet
-        # calling apply without callback set raises exception
-        with self.assertRaises(PayloadRequirementsMissingApply):
-            reqs.apply()
-        # apply callback gets one argument: requirements instance
-        def cb(requirements):
-            return requirements is reqs
-        # set the apply callback
-        reqs.set_apply_callback(cb)
-        # BTW, applied is still true
-        self.assertTrue(reqs.applied)
-        reqs.add_packages(["p1"], "reason1", strong=False)
-        self.assertEqual(reqs.empty, False)
-        # a package has been added, applied is False
-        self.assertFalse(reqs.applied)
-        # after calling apply, applied becomes True
-        self.assertTrue(reqs.apply())
-        self.assertTrue(reqs.applied)
-        # applied becomes False after adding a requirement even when it adds the
-        # same object (package "p1"). The reason is that the updated requirement
-        # may became strong so the application may be different.
-        reqs.add_packages(["p1"], "reason2")
-        self.assertFalse(reqs.applied)
-        self.assertTrue(reqs.apply())
-        self.assertTrue(reqs.applied)
-
-    def add_requirements_test(self):
-        """Check that multiple requirements can be added at once."""
-
-        reqs = PayloadRequirements()
-        self.assertTrue(reqs.empty)
-
-        # add a package, group & unknown requirement type
-        req_list = []
-        req_list.append(Requirement.for_package("foo-package", reason="foo package needed"))
-        req_list.append(Requirement.for_group("bar-group", reason="bar group needed"))
-        unknown_req = Requirement()
-        unknown_req.name = "baz-unknown"
-        unknown_req.reson = "unknown reason for installation"
-        unknown_req.type = "baz-unknown-type"
-        req_list.append(unknown_req)
-
-        # add the requrements list and check it is processed correctly
-        reqs.add_requirements(req_list)
-
-        self.assertFalse(reqs.empty)
-
-        # package
-        self.assertEqual(len(reqs.packages), 1)
-        self.assertEqual(reqs.packages[0].id, "foo-package")
-        self.assertEqual(len(reqs.packages[0].reasons), 1)
-        self.assertEqual(reqs.packages[0].reasons[0], "foo package needed")
-        self.assertTrue(reqs.packages[0].strong)
-
-        # group
-        self.assertEqual(len(reqs.groups), 1)
-        self.assertEqual(reqs.groups[0].id, "bar-group")
-        self.assertEqual(len(reqs.groups[0].reasons), 1)
-        self.assertEqual(reqs.groups[0].reasons[0], "bar group needed")
-        self.assertTrue(reqs.groups[0].strong)
 
 
 class FlatpakTest(unittest.TestCase):

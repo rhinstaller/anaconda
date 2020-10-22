@@ -24,6 +24,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.task import DBusMetaTask
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
@@ -36,11 +37,15 @@ class BossInterfaceTestCase(unittest.TestCase):
         self.module = Boss()
         self.interface = BossInterface(self.module)
 
-    def _add_module(self, service_name, available=True):
+    def _add_module(self, service_name, available=True, proxy=None):
         """Add a DBus module."""
+        if proxy is None:
+            proxy = Mock()
+
         observer = Mock(
             service_name=service_name,
-            is_service_available=available
+            is_service_available=available,
+            proxy=proxy,
         )
 
         module_manager = self.module._module_manager
@@ -49,6 +54,19 @@ class BossInterfaceTestCase(unittest.TestCase):
 
         module_manager.set_module_observers(observers)
         return observer
+
+    def _add_module_with_requirement(self, service_name, package_name, available=True):
+        """Add a DBus module with a package requirement."""
+        requirement = Requirement.for_package(
+            package_name=package_name,
+            reason="Required by {}.".format(service_name)
+        )
+
+        module_proxy = Mock()
+        module_proxy.CollectRequirements.return_value = \
+            Requirement.to_structure_list([requirement])
+
+        self._add_module(service_name, available=available, proxy=module_proxy)
 
     def get_modules_test(self):
         """Test GetModules."""
@@ -97,6 +115,27 @@ class BossInterfaceTestCase(unittest.TestCase):
     def set_locale_test(self):
         """Test SetLocale."""
         self.assertEqual(self.interface.SetLocale(DEFAULT_LANG), None)
+
+    def collect_requirements_test(self):
+        """Test CollectRequirements."""
+        self.assertEqual(self.interface.CollectRequirements(), [])
+
+        self._add_module_with_requirement("A", package_name="a")
+        self._add_module_with_requirement("B", package_name="b")
+        self._add_module_with_requirement("C", package_name="c", available=False)
+
+        self.assertEqual(self.interface.CollectRequirements(), [
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "a"),
+                "reason": get_variant(Str, "Required by A.")
+            },
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "b"),
+                "reason": get_variant(Str, "Required by B.")
+            }
+        ])
 
     @patch_dbus_publish_object
     def configure_runtime_with_task_test(self, publisher):

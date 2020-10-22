@@ -19,11 +19,9 @@
 #
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF
-from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
-from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, SECURITY, \
-    LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION
-from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, \
+    SECURITY, LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
@@ -286,34 +284,8 @@ def _prepare_installation(payload, ksdata):
     security_proxy = SECURITY.get_proxy()
     pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
 
-    def run_pre_install():
-        """This means to gather what additional packages (if any) are needed & executing payload.pre_install()."""
-        # anaconda requires storage packages in order to make sure the target
-        # system is bootable and configurable, and some other packages in order
-        # to finish setting up the system.
-        if kernel_arguments.is_enabled("fips"):
-            payload.requirements.add_packages(['/usr/bin/fips-mode-setup'], reason="compliance")
-
-        payload.requirements.add_groups(payload.language_groups(), reason="language groups")
-        payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
-
-        # add package requirements from modules
-        # - iterate over all modules we know have valid package requirements
-        # - add any requirements found to the payload requirement tracking
-        modules_with_package_requirements = [SECURITY, NETWORK, TIMEZONE, STORAGE, SUBSCRIPTION]
-        for module in modules_with_package_requirements:
-            # Skip unavailable modules.
-            if not is_module_available(module):
-                continue
-
-            module_proxy = module.get_proxy()
-            module_requirements = Requirement.from_structure_list(module_proxy.CollectRequirements())
-            log.debug("Adding requirements for module %s : %s", module, module_requirements)
-            payload.requirements.add_requirements(module_requirements)
-
-        payload.pre_install()
-
-    pre_install.append(Task("Find additional packages & run pre_install()", run_pre_install))
+    # Install the payload.
+    pre_install.append(Task("Find additional packages & run pre_install()", payload.pre_install))
     installation_queue.append(pre_install)
 
     payload_install = TaskQueue("Payload installation", N_("Installing."))

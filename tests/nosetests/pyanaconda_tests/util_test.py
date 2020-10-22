@@ -887,6 +887,21 @@ class MiscTests(unittest.TestCase):
             version = util.get_os_version(root)
             self.assertEqual(version, None)
 
+    def detect_virtualized_platform_test(self):
+        """Test the function detect_virtualized_platform."""
+        with patch('pyanaconda.core.util.execWithCapture') as execute:
+            execute.side_effect = IOError
+            self.assertEqual(util.detect_virtualized_platform(), None)
+
+        with patch('pyanaconda.core.util.execWithCapture') as execute:
+            execute.return_value = "none"
+            self.assertEqual(util.detect_virtualized_platform(), None)
+
+        with patch('pyanaconda.core.util.execWithCapture') as execute:
+            execute.return_value = "vmware"
+            self.assertEqual(util.detect_virtualized_platform(), "vmware")
+
+
 class LazyObjectTestCase(unittest.TestCase):
 
     class Object(object):

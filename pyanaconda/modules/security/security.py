@@ -21,6 +21,7 @@ import shlex
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import SECURITY
@@ -104,6 +105,14 @@ class SecurityService(KickstartService):
             data.realm.join_realm = self.realm.name
             data.realm.discover_options = self.realm.discover_options
             data.realm.join_args = self.realm.join_options
+
+    @property
+    def fips_enabled(self):
+        """Is FIPS enabled?
+
+        :return: True or False
+        """
+        return kernel_arguments.is_enabled("fips")
 
     @property
     def selinux(self):
@@ -212,9 +221,18 @@ class SecurityService(KickstartService):
         """
         requirements = []
 
+        # Add FIPS requirements.
+        if self.fips_enabled:
+            requirements.append(Requirement.for_package(
+                "/usr/bin/fips-mode-setup",
+                reason="Required for FIPS compliance."
+            ))
+
         # Add realm requirements.
         for name in self.realm.required_packages:
-            requirements.append(Requirement.for_package(name, reason="Needed to join a realm."))
+            requirements.append(Requirement.for_package(
+                name, reason="Needed to join a realm."
+            ))
 
         # Add authselect / authconfig requirements
         if self.authselect or self.fingerprint_auth_enabled:

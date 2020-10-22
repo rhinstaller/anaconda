@@ -360,12 +360,6 @@ LOGGER_BLIVET = "blivet"
 LOGGER_SIMPLELINE = "simpleline"
 LOGGER_SENSITIVE_INFO = "sensitive_info"
 
-
-class PayloadRequirementType(Enum):
-    package = "package"
-    group = "group"
-
-
 # Timeout for starting X
 X_TIMEOUT = 60
 
@@ -420,6 +414,10 @@ PARTITIONING_METHOD_BLIVET = "BLIVET"
 SECRET_TYPE_NONE = "NONE"
 SECRET_TYPE_HIDDEN = "HIDDEN"
 SECRET_TYPE_TEXT = "TEXT"
+
+# Types of requirements.
+REQUIREMENT_TYPE_PACKAGE = "package"
+REQUIREMENT_TYPE_GROUP = "group"
 
 # Types of the payload.
 PAYLOAD_TYPE_DNF = "DNF"
