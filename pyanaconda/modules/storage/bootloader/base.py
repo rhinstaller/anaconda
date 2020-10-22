@@ -161,7 +161,6 @@ class BootLoader(object):
     packages = []
     config_file = None
     config_file_mode = 0o600
-    can_dual_boot = False
     keep_boot_order = False
     keep_mbr = False
     image_label_attr = "label"
