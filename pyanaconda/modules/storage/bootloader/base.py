@@ -288,11 +288,6 @@ class BootLoader(object):
         all_images.extend(i for i in self.chain_images if i.label)
         return all_images
 
-    def clear_images(self):
-        """Empty out the image list."""
-        self.linux_images = []
-        self.chain_images = []
-
     def add_image(self, image):
         """Add a BootLoaderImage instance to the image list."""
         if isinstance(image, LinuxBootLoaderImage):

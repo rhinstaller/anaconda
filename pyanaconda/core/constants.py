@@ -48,7 +48,6 @@ VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
 
 ANACONDA_CLEANUP = "anaconda-cleanup"
 MOUNT_DIR = "/run/install"
-DRACUT_REPODIR = "/run/install/repo"
 DRACUT_ISODIR = "/run/install/source"
 ISO_DIR = MOUNT_DIR + "/isodir"
 IMAGE_DIR = MOUNT_DIR + "/image"
@@ -299,7 +298,6 @@ X_DISPLAY_NUMBER = 1
 
 # Payload status messages
 PAYLOAD_STATUS_PROBING_STORAGE = N_("Probing storage...")
-PAYLOAD_STATUS_TESTING_AVAILABILITY = N_("Testing availability...")
 PAYLOAD_STATUS_PACKAGE_MD = N_("Downloading package metadata...")
 PAYLOAD_STATUS_GROUP_MD = N_("Downloading group metadata...")
 
@@ -356,7 +354,6 @@ LOGGER_PROGRAM = "program"
 LOGGER_STORAGE = "storage"
 LOGGER_PACKAGING = "packaging"
 LOGGER_DNF = "dnf"
-LOGGER_BLIVET = "blivet"
 LOGGER_SIMPLELINE = "simpleline"
 LOGGER_SENSITIVE_INFO = "sensitive_info"
 

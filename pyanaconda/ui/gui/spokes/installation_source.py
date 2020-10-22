@@ -707,7 +707,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._url_entry = self.builder.get_object("urlEntry")
         self._protocol_combo_box = self.builder.get_object("protocolComboBox")
         self._iso_chooser_button = self.builder.get_object("isoChooserButton")
-        self._orig_iso_chooser_button = self._iso_chooser_button.get_label()
 
         # Attach a validator to the URL entry. Start it as disabled, and it will be
         # enabled/disabled as entry sensitivity is enabled/disabled.

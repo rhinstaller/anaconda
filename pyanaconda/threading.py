@@ -145,11 +145,6 @@ class ThreadManager(object):
         with self._errors_lock:
             self._errors[name] = exc_info
 
-    def get_error(self, name):
-        """Get the error data for a thread using its name
-        """
-        return self._errors.get(name)
-
     @property
     def any_errors(self):
         """Return True of there have been any errors in any threads

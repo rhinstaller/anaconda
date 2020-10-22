@@ -485,11 +485,6 @@ class StorageCheckerReport(object):
         self.warnings = list()
 
     @property
-    def all_errors(self):
-        """Return a list of errors and warnings."""
-        return self.errors + self.warnings
-
-    @property
     def success(self):
         """Success, if no errors and warnings were reported."""
         return not self.failure

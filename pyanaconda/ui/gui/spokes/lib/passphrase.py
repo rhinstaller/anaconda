@@ -183,10 +183,6 @@ class PassphraseDialog(GUIObject):
     def on_confirm_changed(self, entry):
         self._checker.password_confirmation.content = entry.get_text()
 
-    def on_save_clicked(self, button):
-        log.debug("SAVE CLICKED")
-        self.passphrase = self._passphrase_entry.get_text()
-
     def on_entry_activated(self, entry):
         if self._save_button.get_sensitive() and \
            entry.get_text() == self._passphrase_entry.get_text():

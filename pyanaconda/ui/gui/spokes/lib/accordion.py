@@ -225,21 +225,6 @@ class Accordion(Gtk.Box):
                   len(self._active_selectors), len(selectors))
 
     @property
-    def current_page(self):
-        """ The current page is really a function of the current selector.
-            Whatever selector on the LHS is selected, the current page is the
-            page containing that selector.
-        """
-        if not self.current_selector:
-            return None
-
-        for page in self.all_pages:
-            if self.current_selector in page.members:
-                return page
-
-        return None
-
-    @property
     def current_selector(self):
         return self._current_selector
 
@@ -250,12 +235,6 @@ class Accordion(Gtk.Box):
     @property
     def all_selectors(self):
         return [s for p in self.all_pages for s in p.members]
-
-    @property
-    def all_members(self):
-        for page in self.all_pages:
-            for member in page.members:
-                yield (page, member)
 
     @property
     def is_multiselection(self):

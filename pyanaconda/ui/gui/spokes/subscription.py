@@ -635,10 +635,6 @@ class SubscriptionSpoke(NormalSpoke):
         )
         self._subscriptions_listbox = self.builder.get_object("subscriptions_listbox")
 
-        # unregister button
-        self._unregister_revealer = self.builder.get_object("unregister_revealer")
-        self._unregister_button = self.builder.get_object("unregister_button")
-
         # setup spoke state based on data from the Subscription DBus module
         self._update_spoke_state()
 
