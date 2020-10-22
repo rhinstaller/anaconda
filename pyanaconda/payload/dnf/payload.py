@@ -44,13 +44,13 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
+from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
 from pykickstart.parser import Group
 
 from pyanaconda import errors as errors
-from pyanaconda import isys
 from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
@@ -379,7 +379,8 @@ class DNFPayload(Payload):
             include_list.append(pkg_name)
 
         # add kernel package
-        kernel_package = self._get_kernel_package()
+        kernel_package = get_kernel_package(self._base, exclude_list)
+
         if kernel_package:
             include_list.append(kernel_package)
 
@@ -595,42 +596,6 @@ class DNFPayload(Payload):
                 repo.pkgdir = pkgdir
 
         return pkgdir
-
-    def _package_name_installable(self, package_name):
-        """Check if the given package name looks instalable."""
-        subj = dnf.subject.Subject(package_name)
-        return bool(subj.get_best_query(self._base.sack))
-
-    @property
-    def kernel_packages(self):
-        if "kernel" in self.data.packages.excludedList:
-            return []
-
-        kernels = ["kernel"]
-
-        if payload_utils.arch_is_x86() and isys.isPaeAvailable():
-            kernels.insert(0, "kernel-PAE")
-
-        # ARM systems use either the standard Multiplatform or LPAE platform
-        if payload_utils.arch_is_arm():
-            if isys.isLpaeAvailable():
-                kernels.insert(0, "kernel-lpae")
-
-        return kernels
-
-    def _get_kernel_package(self):
-        kernels = self.kernel_packages
-        selected_kernel_package = None
-        for kernel_package in kernels:
-            if self._package_name_installable(kernel_package):
-                log.info('kernel: selected %s', kernel_package)
-                selected_kernel_package = kernel_package
-                break  # one kernel is good enough
-            else:
-                log.info('kernel: no such package %s', kernel_package)
-        else:
-            log.error('kernel: failed to select a kernel from %s', kernels)
-        return selected_kernel_package
 
     def _sync_metadata(self, dnf_repo):
         try:

@@ -21,9 +21,11 @@ import os
 import tempfile
 import signal
 import shutil
-from threading import Lock
-
 import sys
+
+from io import StringIO
+from textwrap import dedent
+from threading import Lock
 from unittest.mock import Mock, patch
 
 from pyanaconda.errors import ExitError
@@ -900,6 +902,44 @@ class MiscTests(unittest.TestCase):
         with patch('pyanaconda.core.util.execWithCapture') as execute:
             execute.return_value = "vmware"
             self.assertEqual(util.detect_virtualized_platform(), "vmware")
+
+    @patch("pyanaconda.core.util.open")
+    @patch("pyanaconda.core.util.blivet.arch.is_arm")
+    def is_lpae_available_test(self, is_arm, mock_open):
+        """Test the is_lpae_available function."""
+        is_arm.return_value = False
+        self.assertEqual(util.is_lpae_available(), False)
+
+        is_arm.return_value = True
+        cpu_info = """
+        processor       : 0
+        model name      : ARMv7 Processor rev 2 (v7l)
+        BogoMIPS        : 50.00
+        Features        : half thumb fastmult vfp edsp thumbee vfpv3 tls idiva idivt vfpd32
+        CPU implementer : 0x56
+        CPU architecture: 7
+        CPU variant     : 0x2
+        CPU part        : 0x584
+        CPU revision    : 2
+        """
+
+        mock_open.return_value = StringIO(dedent(cpu_info))
+        self.assertEqual(util.is_lpae_available(), False)
+
+        cpu_info = """
+        processor       : 0
+        model name      : ARMv7 Processor rev 2 (v7l)
+        BogoMIPS        : 50.00
+        Features        : half thumb fastmult vfp edsp thumbee vfpv3 tls idiva idivt vfpd32 lpae
+        CPU implementer : 0x56
+        CPU architecture: 7
+        CPU variant     : 0x2
+        CPU part        : 0x584
+        CPU revision    : 2
+        """
+
+        mock_open.return_value = StringIO(dedent(cpu_info))
+        self.assertEqual(util.is_lpae_available(), True)
 
 
 class LazyObjectTestCase(unittest.TestCase):

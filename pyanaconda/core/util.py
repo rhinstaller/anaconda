@@ -35,6 +35,7 @@ import imp
 import types
 import inspect
 import functools
+import blivet.arch
 
 import requests
 from requests_file import FileAdapter
@@ -1457,6 +1458,22 @@ def is_smt_enabled():
     except (IOError, ValueError):
         log.warning("Failed to detect SMT.")
         return False
+
+
+def is_lpae_available():
+    """Is LPAE available?
+
+    :return: True of False
+    """
+    if not blivet.arch.is_arm():
+        return False
+
+    with open("/proc/cpuinfo", "r") as f:
+        for line in f:
+            if line.startswith("Features") and "lpae" in line.split():
+                return True
+
+    return False
 
 
 class LazyObject(object):
