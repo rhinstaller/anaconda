@@ -45,6 +45,7 @@ from pyanaconda.modules.payloads.payload.dnf.requirements import collect_languag
     apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
@@ -69,9 +70,8 @@ from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFile
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.dnf.utils import DNF_CACHE_DIR, DNF_PLUGINCONF_DIR, REPO_DIRS, \
-    DNF_LIBREPO_LOG, DNF_PACKAGE_CACHE_DIR_SUFFIX, BONUS_SIZE_ON_FILE, YUM_REPOS_DIR, \
-    go_to_failure_limbo, do_transaction, get_df_map, pick_mount_point
+from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, BONUS_SIZE_ON_FILE, \
+    YUM_REPOS_DIR, go_to_failure_limbo, do_transaction, get_df_map, pick_mount_point
 from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
@@ -111,7 +111,7 @@ class DNFPayload(Payload):
         # environment.
         self._environment_addons = {}
 
-        self._base = None
+        self._dnf_manager = DNFManager()
         self._download_location = None
         self._updates_enabled = True
 
@@ -133,6 +133,14 @@ class DNFPayload(Payload):
 
         # Additional packages required by installer based on used features
         self._requirements = []
+
+    @property
+    def _base(self):
+        """Return a DNF base.
+
+        FIXME: This is a temporary property.
+        """
+        return self._dnf_manager._base
 
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
@@ -211,8 +219,6 @@ class DNFPayload(Payload):
         self.verbose_errors = []
 
     def unsetup(self):
-        super().unsetup()
-        self._base = None
         self._configure()
         self._repoMD_list = []
         self._install_tree_metadata = None
@@ -469,25 +475,8 @@ class DNFPayload(Payload):
         return data.proxy
 
     def _configure(self):
-        self._base = dnf.Base()
+        self._dnf_manager.reset_base()
         config = self._base.conf
-        config.cachedir = DNF_CACHE_DIR
-        config.pluginconfpath = DNF_PLUGINCONF_DIR
-        config.logdir = '/tmp/'
-        # enable depsolver debugging if in debug mode
-        self._base.conf.debug_solver = conf.anaconda.debug
-        # set the platform id based on the /os/release
-        # present in the installation environment
-        platform_id = util.get_os_release_value("PLATFORM_ID")
-        if platform_id is not None:
-            log.info("setting DNF platform id to: %s", platform_id)
-            self._base.conf.module_platform_id = platform_id
-
-        config.releasever = self._get_release_version(None)
-        config.installroot = conf.target.system_root
-        config.prepend_installroot('persistdir')
-
-        self._base.conf.substitutions.update_from_etc(config.installroot)
 
         if self.data.packages.multiLib:
             config.multilib_policy = "all"
@@ -508,14 +497,6 @@ class DNFPayload(Payload):
             config.strict = False
 
         self._configure_proxy()
-
-        # Start with an empty comps so we can go ahead and use the environment
-        # and group properties. Unset reposdir to ensure dnf has nothing it can
-        # check automatically
-        config.reposdir = []
-        self._base.read_comps(arch_filter=True)
-
-        config.reposdir = REPO_DIRS
 
         # Two reasons to turn this off:
         # 1. Minimal installs don't want all the extras this brings in.
@@ -1245,12 +1226,8 @@ class DNFPayload(Payload):
         tear_down_sources(self.proxy)
         self.reset_additional_repos()
         self._install_tree_metadata = None
-
-        shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
-        shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
-
         self.tx_id = None
-        self._base.reset(sack=True, repos=True)
+        self._dnf_manager.clear_cache()
         self._configure_proxy()
         self._repoMD_list = []
 

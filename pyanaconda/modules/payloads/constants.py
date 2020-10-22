@@ -26,6 +26,15 @@ from pyanaconda.core.constants import \
     SOURCE_TYPE_LIVE_IMAGE
 
 
+# Locations of repo files.
+DNF_REPO_DIRS = [
+    '/etc/yum.repos.d',
+    '/etc/anaconda.repos.d',
+    '/tmp/updates/anaconda.repos.d',
+    '/tmp/product/anaconda.repos.d'
+]
+
+
 @unique
 class PayloadType(Enum):
     """Type of the payload."""
