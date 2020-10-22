@@ -342,9 +342,15 @@ def locale_has_translation(locale):
     locale has a translation, or because there is another translation to fall back onto. In
     reality, the fallback is mostly of the type "ja_JP" -> "ja".
 
+    For English, always return true, because that is the "untranslated" state which does not need
+    translation files present to work.
+
     :param str locale: locale to check
     :return bool: is there a translation
     """
+    if get_language_id(locale) == "en":
+        return True
+
     files = gettext.find("anaconda", None, [locale], True)
     return bool(files)
 
