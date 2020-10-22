@@ -649,8 +649,7 @@ class Geocoder(object):
             if reply.status_code == requests.codes.ok:
                 reply_dict = reply.json()
                 territory_code = reply_dict['address']['country_code'].upper()
-                return GeocodingResult(coordinates=coordinates,
-                                       territory_code=territory_code)
+                return GeocodingResult(territory_code=territory_code)
             else:
                 log.error("Geoloc: Nominatim reverse geocoding failed with status code: %s",
                           reply.status_code)
@@ -664,30 +663,16 @@ class Geocoder(object):
 class GeocodingResult(object):
     """A result from geocoding lookup."""
 
-    def __init__(self, coordinates=None, territory_code=None, address=None):
+    def __init__(self, territory_code=None):
         """
-        :param coordinates: geographic coordinates
-        :type coordinates: Coordinates
         :param territory_code: territory code of the result
         :type territory_code: string
-        :param address: a (street) address string
-        :type address: string
         """
-        self._coords = coordinates
         self._territory_code = territory_code
-        self._address = address
-
-    @property
-    def coordinates(self):
-        return self._coords
 
     @property
     def territory_code(self):
         return self._territory_code
-
-    @property
-    def address(self):
-        return self._address
 
 
 class Coordinates(object):
