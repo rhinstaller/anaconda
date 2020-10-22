@@ -24,11 +24,9 @@ from dasbus.typing import get_native
 
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    SUBSCRIPTION_REQUEST_VALID_TYPES
+from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
 from pyanaconda.core.configuration.anaconda import conf
 
-from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
     SubscriptionRequest
@@ -329,13 +327,6 @@ class SubscriptionService(KickstartService):
         return task
 
     # subscription request
-
-    def _validate_subscription_request_type(self, request_type):
-        """Check that subscription request is of known type."""
-        if request_type not in SUBSCRIPTION_REQUEST_VALID_TYPES:
-            raise InvalidValueError(
-                "Invalid subscription request type set '{}'".format(request_type)
-            )
 
     @property
     def subscription_request(self):

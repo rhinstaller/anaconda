@@ -65,7 +65,6 @@ class SubscriptionSpoke(NormalSpoke):
 
     mainWidgetName = "subscription_window"
     uiFile = "spokes/subscription.glade"
-    help_id = "SubscriptionSpoke"
 
     category = SoftwareCategory
 
@@ -305,7 +304,7 @@ class SubscriptionSpoke(NormalSpoke):
 
     # properties - element sensitivity
 
-    def set_registration_controls_sensitive(self, sensitive, include_register_button=True):
+    def set_registration_controls_sensitive(self, sensitive):
         """Set sensitivity of the registration controls.
 
         We set these value individually so that the registration status label

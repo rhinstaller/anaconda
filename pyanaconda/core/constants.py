@@ -504,11 +504,6 @@ RPM_LANGUAGES_ALL = "all"
 SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD = "username_password"
 SUBSCRIPTION_REQUEST_TYPE_ORG_KEY = "org_activation_key"
 
-SUBSCRIPTION_REQUEST_VALID_TYPES = {
-    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD,
-    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
-}
-
 # Default authentication for subscription requests is
 # username password - this is basically to avoid the invalid
 # case of request not having a type set.

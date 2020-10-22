@@ -1088,11 +1088,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         active = self._mirror_active() or self.payload.is_repo_enabled("updates")
         self._updates_radio_button.set_active(active)
 
-    def _update_CDN_usage(self):
-        """Notify Payload module and Subscription spoke about possible CDN usage change."""
-        # notify Subscription spoke about possible change
-        hubQ.send_ready("SubscriptionSpoke", False)
-
     @property
     def showable(self):
         return self.payload.type == PAYLOAD_TYPE_DNF
