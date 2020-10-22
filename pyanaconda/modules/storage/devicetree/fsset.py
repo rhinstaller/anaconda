@@ -215,7 +215,6 @@ class FSSet(object):
         self.devicetree = devicetree
         self.crypt_tab = None
         self.blkid_tab = None
-        self.active = False
         self._dev = None
         self._devpts = None
         self._sysfs = None
@@ -556,8 +555,6 @@ class FSSet(object):
                 chroot=root_path
             )
 
-        self.active = True
-
     def umount_filesystems(self, swapoff=True):
         """Unmount filesystems.
 
@@ -577,8 +574,6 @@ class FSSet(object):
 
             # Unmount the devices
             device.format.teardown()
-
-        self.active = False
 
     def create_swap_file(self, device, size):
         """Create and activate a swap file under storage root."""
