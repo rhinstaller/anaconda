@@ -125,25 +125,26 @@ def _collect_os_images(storage, kernel_versions):
 
     # all the linux images' labels are based on the default image's
     base_label = productName
-    base_short_label = "linux"
 
     # The first one is the default kernel. Update the bootloader's default
     # entry to reflect the details of the default kernel.
     version = kernel_versions.pop(0)
-    default_image = LinuxBootLoaderImage(device=storage.root_device,
-                                         version=version,
-                                         label=base_label,
-                                         short=base_short_label)
+    default_image = LinuxBootLoaderImage(
+        device=storage.root_device,
+        version=version,
+        label=base_label
+    )
     storage.bootloader.add_image(default_image)
     storage.bootloader.default = default_image
 
     # now add an image for each of the other kernels
     for version in kernel_versions:
         label = "%s-%s" % (base_label, version)
-        short = "%s-%s" % (base_short_label, version)
-        image = LinuxBootLoaderImage(device=storage.root_device,
-                                     version=version,
-                                     label=label, short=short)
+        image = LinuxBootLoaderImage(
+            device=storage.root_device,
+            version=version,
+            label=label
+        )
         storage.bootloader.add_image(image)
 
 
