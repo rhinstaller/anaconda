@@ -47,7 +47,7 @@ from pyanaconda.modules.common.structures.partitioning import PartitioningReques
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
 from pyanaconda.product import productName, productVersion
-from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning, filter_disks_by_names
+from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning
 from pyanaconda.core.storage import DEVICE_TYPE_UNSUPPORTED, DEVICE_TEXT_MAP, \
     MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, \
     PROTECTED_FORMAT_TYPES, DEVICE_TYPE_BTRFS, DEVICE_TYPE_MD, Size
@@ -302,9 +302,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._default_file_system = self._device_tree.GetDefaultFileSystem()
 
         # Initialize the selected disks.
-        selected_disks = self._disk_selection.SelectedDisks
-        partitioned_devices = self._device_tree.GetPartitioned()
-        self._selected_disks = filter_disks_by_names(partitioned_devices, selected_disks)
+        self._selected_disks = self._disk_selection.SelectedDisks
 
         # Update the UI elements.
         self._do_refresh(init_expanded_pages=True)
