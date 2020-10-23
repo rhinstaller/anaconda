@@ -17,10 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
-
 from blivet import udev
 from blivet.static_data import nvdimm
 
@@ -28,10 +24,15 @@ from pykickstart.constants import NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
 
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import NVDIMM
 from pyanaconda.modules.storage.nvdimm.nvdimm_interface import NVDIMMInterface
 from pyanaconda.modules.storage.nvdimm.reconfigure import NVDIMMReconfigureTask
+
+import gi
+gi.require_version("BlockDev", "2.0")
+from gi.repository import BlockDev as blockdev
 
 log = get_module_logger(__name__)
 
@@ -43,6 +44,7 @@ class NVDIMMModule(KickstartBaseModule):
 
     def __init__(self):
         super().__init__()
+        self._storage = None
         self._actions = list()
 
     def publish(self):
@@ -52,6 +54,22 @@ class NVDIMMModule(KickstartBaseModule):
     def is_supported(self):
         """Is this module supported?"""
         return True
+
+    @property
+    def storage(self):
+        """The storage model.
+
+        :return: an instance of Blivet
+        :raise: UnavailableStorageError if not available
+        """
+        if self._storage is None:
+            raise UnavailableStorageError()
+
+        return self._storage
+
+    def on_storage_changed(self, storage):
+        """Keep the instance of the current storage."""
+        self._storage = storage
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

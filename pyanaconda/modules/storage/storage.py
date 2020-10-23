@@ -122,6 +122,9 @@ class StorageService(KickstartService):
             self._bootloader_module.on_storage_changed
         )
         self.storage_changed.connect(
+            self._nvdimm_module.on_storage_changed
+        )
+        self.storage_changed.connect(
             self._dasd_module.on_storage_changed
         )
         self._disk_init_module.format_unrecognized_enabled_changed.connect(
