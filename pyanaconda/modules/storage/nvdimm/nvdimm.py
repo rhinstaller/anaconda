@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from blivet import udev
+from blivet.devices import NVDIMMNamespaceDevice
 from blivet.static_data import nvdimm
 
 from pykickstart.constants import NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
@@ -77,6 +78,8 @@ class NVDIMMModule(KickstartBaseModule):
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
+        namespaces = self.get_used_namespaces()
+        self.set_namespaces_to_use(namespaces)
         data.nvdimm.actionList = self._actions
 
     def get_namespaces_to_use(self):
@@ -184,6 +187,16 @@ class NVDIMMModule(KickstartBaseModule):
         action.mode = mode
         action.sectorsize = sector_size
         return action
+
+    def get_used_namespaces(self):
+        """Get a list of namespaces that are used for the installation.
+
+        :return: a list of namespaces
+        """
+        return [
+            d.devname for d in self.storage.disks
+            if isinstance(d, NVDIMMNamespaceDevice)
+        ]
 
     def set_namespaces_to_use(self, namespaces):
         """Set namespaces to use.

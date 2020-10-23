@@ -23,7 +23,10 @@ import tempfile
 import unittest
 from unittest.mock import patch, Mock, PropertyMock
 
+from blivet.devices import NVDIMMNamespaceDevice
+from blivet.formats import get_format
 from blivet.formats.fs import BTRFS
+from blivet.size import Size
 
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
@@ -64,6 +67,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
         """Set up the module."""
+        self.maxDiff = None
         self.storage_module = StorageService()
         self.storage_interface = StorageInterface(self.storage_module)
 
@@ -1253,6 +1257,21 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    def _add_nvdimm_device(self, name, namespace):
+        """Add a fake NVDIMM device."""
+        storage = self.storage_module.storage
+        device = NVDIMMNamespaceDevice(
+            name,
+            fmt=get_format("disklabel"),
+            size=Size("10 GiB"),
+            mode="sector",
+            devname=namespace,
+            sector_size=512,
+            id_path="pci-0000:00:00.0-bla-1",
+            exists=True
+        )
+        storage.devicetree._add_device(device)
+
     @patch("pyanaconda.modules.storage.kickstart.nvdimm")
     def nvdimm_kickstart_test(self, nvdimm):
         """Test the nvdimm command."""
@@ -1262,9 +1281,13 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         ks_out = """
         # NVDIMM devices setup
-        nvdimm use --namespace=namespace0.0
         nvdimm reconfigure --namespace=namespace1.0 --mode=sector --sectorsize=512
+        nvdimm use --namespace=namespace0.0
         """
+
+        self._add_nvdimm_device("dev1", "namespace0.0")
+        self._add_nvdimm_device("dev2", "namespace1.0")
+
         nvdimm.namespaces = ["namespace0.0", "namespace1.0"]
         self._test_kickstart(ks_in, ks_out)
 
@@ -1282,8 +1305,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         ks_out = """
         # NVDIMM devices setup
-        nvdimm use --blockdevs=pmem0
+        nvdimm use --namespace=namespace0.0
         """
+
+        self._add_nvdimm_device("dev1", "namespace0.0")
+
         device_matches.return_value = ["pmem0"]
         self._test_kickstart(ks_in, ks_out)
 

@@ -17,23 +17,28 @@
 #
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
-import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
-
 import unittest
 from textwrap import dedent
 from unittest.mock import patch, Mock
+
+from blivet.devices import NVDIMMNamespaceDevice
+from blivet.formats import get_format
+from blivet.size import Size
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
     clear_version_from_kickstart_string
 
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
+from pyanaconda.modules.storage.devicetree.model import create_storage
 from pyanaconda.modules.storage.nvdimm import NVDIMMModule
 from pyanaconda.modules.storage.nvdimm.nvdimm_interface import NVDIMMInterface
 from pyanaconda.modules.storage.nvdimm.reconfigure import NVDIMMReconfigureTask
 from pyanaconda.modules.storage.storage import StorageService
 from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE
+
+import gi
+gi.require_version("BlockDev", "2.0")
+from gi.repository import BlockDev as blockdev
 
 
 class NVDIMMInterfaceTestCase(unittest.TestCase):
@@ -105,6 +110,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
     """
 
     def setUp(self):
+        self.maxDiff = None
         self.storage_module = StorageService()
         self.nvdimm_module = self.storage_module._nvdimm_module
         self.nvdimm_interface = NVDIMMInterface(self.nvdimm_module)
@@ -120,9 +126,21 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
 
     def _use(self, namespaces):
         """Represents update for NVDIMM disks selected in UI."""
-        self.nvdimm_module.set_namespaces_to_use(
-            namespaces=namespaces
-        )
+        storage = create_storage()
+        self.storage_module._set_storage(storage)
+
+        for number, namespace in enumerate(namespaces):
+            device = NVDIMMNamespaceDevice(
+                "dev{}".format(number),
+                fmt=get_format("disklabel"),
+                size=Size("10 GiB"),
+                mode="sector",
+                devname=namespace,
+                sector_size=512,
+                id_path="pci-0000:00:00.0-bla-1",
+                exists=True
+            )
+            storage.devicetree._add_device(device)
 
     def _reconfigure(self, namespace, sector_size):
         """Represents update for NVDIMM disk reconfigured in UI."""
