@@ -18,7 +18,7 @@
 
 from pyanaconda import localization
 from pyanaconda.core.constants import DEFAULT_LANG
-from pyanaconda.core.util import execWithCaptureBinary
+from pyanaconda.core.util import execWithCapture
 import locale as locale_mod
 import unittest
 from unittest.mock import call, patch, MagicMock
@@ -261,10 +261,9 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
 
     def resolve_date_format_test(self):
         """All locales' date formats should be properly resolved."""
-        locales = (line.strip() for line in execWithCaptureBinary("locale", ["-a"]).splitlines())
+        locales = (line.strip() for line in execWithCapture("locale", ["-a"]).splitlines())
         for locale in locales:
-            decoded_locale = locale.decode("utf-8")
-            locale_mod.setlocale(locale_mod.LC_ALL, decoded_locale)
+            locale_mod.setlocale(locale_mod.LC_ALL, locale)
             order = localization.resolve_date_format(1, 2, 3, fail_safe=False)[0]
             for i in (1, 2, 3):
                 self.assertIn(i, order)
