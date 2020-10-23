@@ -369,6 +369,43 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 23 2020 Martin Kolman <mkolman@redhat.com> - 34.10-1
+- Move the code for the kernel package selection to new functions (vponcova)
+- Remove the support for PAE (vponcova)
+- Move Timezone module tests to a directory (vslavik)
+- Move Subscription module tests to a directory (vslavik)
+- Move Boss module tests to a directory (vslavik)
+- Move common module tests to a directory (vslavik)
+- Add directory for module tests (vslavik)
+- Move UI tests to a directory (vslavik)
+- Move core tests to directory (vslavik)
+- Do not exclude English from available languages (vslavik)
+- Add ELN support (sgallagh)
+- Fix testing target branch instead of PR branch (jkonecny)
+- Remove the old support for the requirements (vponcova)
+- Move the code for the requirements of the DBus modules to the Boss module
+  (vponcova)
+- Move the requirements for FIPS to the Security module (vponcova)
+- Move the code for the driver disk requirements to a new function (vponcova)
+- Move the code for platform requirements to a new function (vponcova)
+- Move the code for language requirements to new functions (vponcova)
+- Remove the support for language groups (vponcova)
+- Use constants for the types of requirements (vponcova)
+- Move constants to prevent circular dependency (vslavik)
+- Hardening of our GH action event trigger (jkonecny)
+- network: handle None values of team configuration correctly (rvykydal)
+- Verify RPM exists before running it (vslavik)
+- Relabel the anaconda logs after copying them to the installed system
+  (jstodola)
+- post-scripts need to be sorted (honza.stodola)
+- Fix ci-tasks container shell instructions (mpitt)
+- Collect pylint and nosetests logs in validate workflow (mpitt)
+- Clean up s390 partitioning check (#1855724) (vslavik)
+- Show test-suite.log in validate workflow on failure (mpitt)
+- More aggressive pylint downscaling (mpitt)
+- Fix pylint downscaling (mpitt)
+- fix “0 storage devices selected”abnormality (69908158+xqrustc2020)
+
 * Wed Oct 14 2020 Martin Kolman <mkolman@redhat.com> - 34.9-1
 - Add link to metacity enums schema (mpitt)
 - Fix local tests run inside of container (jkonecny)
