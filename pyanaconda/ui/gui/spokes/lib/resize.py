@@ -620,7 +620,7 @@ class ResizeDialog(GUIObject):
         # And then the reclaim button, in case they've made enough space.
         self._update_reclaim_button(self._selected_reclaimable_space)
 
-    def resize_slider_format(self, scale, value):
+    def on_resize_slider_format(self, scale, value):
         # This makes the value displayed under the slider prettier than just a
         # single number.
         return str(Size(value))

@@ -500,7 +500,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def completed(self):
         return bool(get_user_list(self._users_module))
 
-    def password_required_toggled(self, togglebutton=None, data=None):
+    def on_password_required_toggled(self, togglebutton=None, data=None):
         """Called by Gtk callback when the "Use password" check
         button is toggled. It will make password entries in/sensitive."""
         password_is_required = togglebutton.get_active()

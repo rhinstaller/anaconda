@@ -293,7 +293,7 @@
                 <property name="adjustment">resizeAdjustment</property>
                 <property name="round_digits">0</property>
                 <property name="digits">0</property>
-                <signal name="format-value" handler="resize_slider_format" swapped="no"/>
+                <signal name="format-value" handler="on_resize_slider_format" swapped="no"/>
                 <signal name="value-changed" handler="on_resize_value_changed" swapped="no"/>
               </object>
               <packing>

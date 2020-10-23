@@ -210,7 +210,7 @@
                     <property name="use_markup">True</property>
                     <property name="wrap">True</property>
                     <property name="track_visited_links">False</property>
-                    <signal name="activate-link" handler="return_to_hub_link_clicked" swapped="no"/>
+                    <signal name="activate-link" handler="on_return_to_hub_link_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
