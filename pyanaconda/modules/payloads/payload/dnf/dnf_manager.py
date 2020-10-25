@@ -22,6 +22,7 @@ import dnf
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
 from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version
@@ -79,6 +80,35 @@ class DNFManager(object):
         """Reset the DNF base."""
         self.__base = None
         log.debug("The DNF base has been reset.")
+
+    def configure_proxy(self, url):
+        """Configure the proxy of the DNF base.
+
+        :param url: a proxy URL or None
+        """
+        base = self._base
+
+        # Reset the proxy configuration.
+        base.conf.proxy = ""
+        base.conf.proxy_username = ""
+        base.conf.proxy_password = ""
+
+        # No URL is provided.
+        if not url:
+            return
+
+        # Parse the given URL.
+        try:
+            proxy = ProxyString(url)
+        except ProxyStringError as e:
+            log.error("Failed to parse the proxy '%s': %s", url, e)
+            return
+
+        # Set the proxy configuration.
+        log.info("Using '%s' as a proxy.", url)
+        base.conf.proxy = proxy.noauth_url
+        base.conf.proxy_username = proxy.username or ""
+        base.conf.proxy_password = proxy.password or ""
 
     def clear_cache(self):
         """Clear the DNF cache."""

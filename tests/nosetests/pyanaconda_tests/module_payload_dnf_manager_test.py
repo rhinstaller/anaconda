@@ -89,3 +89,33 @@ class DNFMangerTestCase(unittest.TestCase):
         get_platform_id.return_value = "platform:f32"
         self.dnf_manager.reset_base()
         self._check_configuration("module_platform_id = platform:f32")
+
+    def configure_proxy_test(self):
+        """Test the proxy configuration."""
+        self.dnf_manager.configure_proxy("http://user:pass@example.com/proxy")
+        self._check_configuration(
+            "proxy = http://example.com:3128",
+            "proxy_username = user",
+            "proxy_password = pass",
+        )
+
+        self.dnf_manager.configure_proxy("@:/invalid")
+        self._check_configuration(
+            "proxy = ",
+            "proxy_username = ",
+            "proxy_password = ",
+        )
+
+        self.dnf_manager.configure_proxy("http://example.com/proxy")
+        self._check_configuration(
+            "proxy = http://example.com:3128",
+            "proxy_username = ",
+            "proxy_password = ",
+        )
+
+        self.dnf_manager.configure_proxy(None)
+        self._check_configuration(
+            "proxy = ",
+            "proxy_username = ",
+            "proxy_password = ",
+        )

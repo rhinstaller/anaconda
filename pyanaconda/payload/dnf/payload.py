@@ -432,31 +432,6 @@ class DNFPayload(Payload):
             self.tx_id += 1
         return self.tx_id
 
-    def _configure_proxy(self):
-        """Configure the proxy on the dnf.Base object."""
-        config = self._base.conf
-        proxy_url = self._get_proxy_url()
-
-        if proxy_url:
-            try:
-                proxy = ProxyString(proxy_url)
-                config.proxy = proxy.noauth_url
-
-                if proxy.username:
-                    config.proxy_username = proxy.username
-
-                if proxy.password:
-                    config.proxy_password = proxy.password
-
-                log.info("Using %s as proxy", proxy_url)
-            except ProxyStringError as e:
-                log.error("Failed to parse proxy for dnf configure %s: %s", proxy_url, e)
-        else:
-            # No proxy configured
-            config.proxy = None
-            config.proxy_username = None
-            config.proxy_password = None
-
     def _get_proxy_url(self):
         """Get a proxy of the current source.
 
@@ -476,6 +451,8 @@ class DNFPayload(Payload):
 
     def _configure(self):
         self._dnf_manager.reset_base()
+        self._dnf_manager.configure_proxy(self._get_proxy_url())
+
         config = self._base.conf
 
         if self.data.packages.multiLib:
@@ -495,8 +472,6 @@ class DNFPayload(Payload):
                 "*********************************************************************"
             )
             config.strict = False
-
-        self._configure_proxy()
 
         # Two reasons to turn this off:
         # 1. Minimal installs don't want all the extras this brings in.
@@ -1228,7 +1203,7 @@ class DNFPayload(Payload):
         self._install_tree_metadata = None
         self.tx_id = None
         self._dnf_manager.clear_cache()
-        self._configure_proxy()
+        self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._repoMD_list = []
 
     def reset_additional_repos(self):
