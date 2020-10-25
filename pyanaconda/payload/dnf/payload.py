@@ -31,7 +31,6 @@ import dnf.module.module_base
 import dnf.repo
 import dnf.subject
 import libdnf.conf
-import libdnf.repo
 import rpm
 
 from blivet.size import Size
@@ -40,6 +39,7 @@ from fnmatch import fnmatch
 from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
@@ -51,7 +51,7 @@ from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, K
 from pykickstart.parser import Group
 
 from pyanaconda import errors as errors
-from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
+from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
@@ -114,6 +114,9 @@ class DNFPayload(Payload):
         self._base = None
         self._download_location = None
         self._updates_enabled = True
+
+        # Configure the DNF logging.
+        configure_dnf_logging()
 
         # FIXME: Don't call this method before set_from_opts.
         # This will create a default source if there is none.
@@ -519,15 +522,6 @@ class DNFPayload(Payload):
         # 2. Installs aren't reproducible due to weak deps. failing silently.
         if self.data.packages.excludeWeakdeps:
             config.install_weak_deps = False
-
-        # Setup librepo logging
-        libdnf.repo.LibrepoLog.removeAllHandlers()
-        libdnf.repo.LibrepoLog.addHandler(DNF_LIBREPO_LOG)
-
-        # Increase dnf log level to custom DDEBUG level
-        # Do this here to prevent import side-effects in anaconda_logging
-        dnf_logger = get_dnf_logger()
-        dnf_logger.setLevel(dnf.logging.DDEBUG)
 
         log.debug("Dnf configuration:\n%s", config.dump())
 

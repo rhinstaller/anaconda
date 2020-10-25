@@ -34,7 +34,6 @@ log = get_packaging_logger()
 DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
-DNF_LIBREPO_LOG = '/tmp/dnf.librepo.log'
 REPO_DIRS = ['/etc/yum.repos.d',
              '/etc/anaconda.repos.d',
              '/tmp/updates/anaconda.repos.d',
