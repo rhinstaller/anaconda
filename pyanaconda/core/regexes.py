@@ -143,7 +143,7 @@ URL_PARSE = re.compile(r'^(?P<protocol>' + URL_SCHEME_PATTERN_WITHOUT_ANCHORS + 
 REPO_NAME_VALID = re.compile(r'^[a-zA-Z0-9_.:-]+$')
 
 # Product Version string, just the starting numbers like 21 or 21.1
-VERSION_DIGITS = r'([\d.]+)'
+VERSION_DIGITS = re.compile(r'([\d.]+)')
 
 #Regexes to validate iSCSI Names according to RFC 3720 and RFC 3721
 #The conditions for iSCSI name used in the following regexes are

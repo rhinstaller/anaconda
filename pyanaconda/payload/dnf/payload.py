@@ -33,7 +33,6 @@ import dnf.subject
 import libdnf.conf
 import libdnf.repo
 import rpm
-import re
 
 from blivet.size import Size
 from dnf.const import GROUP_PACKAGE_TYPES
@@ -44,7 +43,8 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
-from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package
+from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
+    get_product_release_version
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_REQUIRED
@@ -59,7 +59,6 @@ from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import decode_bytes
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
@@ -1642,17 +1641,13 @@ class DNFPayload(Payload):
 
     def _get_release_version(self, url):
         """Return the release version of the tree at the specified URL."""
-        try:
-            version = re.match(VERSION_DIGITS, productVersion).group(1)
-        except AttributeError:
-            version = "rawhide"
-
-        log.debug("getting release version from tree at %s (%s)", url, version)
+        log.debug("getting release version from tree at %s", url)
 
         if self._install_tree_metadata:
             version = self._install_tree_metadata.get_release_version()
             log.debug("using treeinfo release version of %s", version)
         else:
+            version = get_product_release_version()
             log.debug("using default release version of %s", version)
 
         return version
