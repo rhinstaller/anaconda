@@ -191,6 +191,27 @@ class DNFManager(object):
 
         return total_space
 
+    def get_download_size(self):
+        """Calculate the download size.
+
+        :return: a space required for packages
+        :rtype: an instance of Size
+        """
+        if self._base.transaction is None:
+            return Size(0)
+
+        download_size = Size(0)
+
+        # Calculate the download size.
+        for tsi in self._base.transaction:
+            download_size += tsi.pkg.downloadsize
+
+        # Get the total size. Reserve extra space.
+        total_space = download_size + Size("150 MiB")
+        log.debug("Total download size: %s", total_space)
+
+        return total_space
+
     def clear_cache(self):
         """Clear the DNF cache."""
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)

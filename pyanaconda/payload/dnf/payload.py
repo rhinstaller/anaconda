@@ -33,7 +33,6 @@ import dnf.subject
 import libdnf.conf
 import rpm
 
-from blivet.size import Size
 from dnf.const import GROUP_PACKAGE_TYPES
 from fnmatch import fnmatch
 from glob import glob
@@ -454,16 +453,6 @@ class DNFPayload(Payload):
         self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._dnf_manager.dump_configuration()
 
-    @property
-    def _download_space(self):
-        transaction = self._base.transaction
-        if transaction is None:
-            return Size(0)
-
-        size = sum(tsi.pkg.downloadsize for tsi in transaction)
-        # reserve extra
-        return Size(size) + Size("150 MB")
-
     def _payload_setup_error(self, exn):
         log.error('Payload setup error: %r', exn)
         if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
@@ -476,7 +465,7 @@ class DNFPayload(Payload):
             sys.exit(1)
 
     def _pick_download_location(self):
-        download_size = self._download_space
+        download_size = self._dnf_manager.get_download_size()
         install_size = self._dnf_manager.get_installation_size()
         df_map = get_df_map()
         mpoint = pick_mount_point(
@@ -812,7 +801,7 @@ class DNFPayload(Payload):
     def space_required(self):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
         size = self._dnf_manager.get_installation_size()
-        download_size = self._download_space
+        download_size = self._dnf_manager.get_download_size()
         valid_points = get_df_map()
         root_mpoint = conf.target.system_root
 

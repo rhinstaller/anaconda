@@ -185,3 +185,21 @@ class DNFMangerTestCase(unittest.TestCase):
         size = size.round_to_nearest("KiB", ROUND_UP)
 
         self.assertEqual(size, Size("528 KiB"))
+
+    def get_download_size_test(self):
+        """Test the get_download_size method."""
+        # No transaction.
+        size = self.dnf_manager.get_download_size()
+        self.assertEqual(size, Size(0))
+
+        # Fake transaction.
+        tsi_1 = Mock()
+        tsi_1.pkg.downloadsize = 1024 * 1024 * 100
+
+        tsi_2 = Mock()
+        tsi_2.pkg.downloadsize = 1024 * 1024 * 200
+
+        self.dnf_manager._base.transaction = [tsi_1, tsi_2]
+        size = self.dnf_manager.get_download_size()
+
+        self.assertEqual(size, Size("450 MiB"))
