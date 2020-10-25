@@ -50,6 +50,7 @@ class LiveImagePayload(BaseLivePayload):
         super().__init__(*args, **kwargs)
         self._min_size = 0
         self._proxies = {}
+        self._session = util.requests_session()
         self.image_path = conf.target.system_root + "/disk.img"
 
     def set_from_opts(self, opts):
