@@ -18,7 +18,10 @@
 import unittest
 from unittest.mock import patch
 
+from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
+from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pykickstart.constants import KS_BROKEN_IGNORE
 
 
 class DNFMangerTestCase(unittest.TestCase):
@@ -118,4 +121,34 @@ class DNFMangerTestCase(unittest.TestCase):
             "proxy = ",
             "proxy_username = ",
             "proxy_password = ",
+        )
+
+    def configure_base_test(self):
+        """Test the configuration of the DNF base."""
+        data = KickstartSpecificationHandler(
+            PayloadKickstartSpecification
+        )
+
+        self.dnf_manager.configure_base(data)
+        self._check_configuration(
+            "multilib_policy = best",
+            "timeout = 30",
+            "retries = 10",
+            "strict = 1",
+            "install_weak_deps = 1",
+        )
+
+        data.packages.multiLib = True
+        data.packages.timeout = 100
+        data.packages.retries = 5
+        data.packages.handleBroken = KS_BROKEN_IGNORE
+        data.packages.excludeWeakdeps = True
+
+        self.dnf_manager.configure_base(data)
+        self._check_configuration(
+            "multilib_policy = all",
+            "timeout = 100",
+            "retries = 5",
+            "strict = 0",
+            "install_weak_deps = 0",
         )

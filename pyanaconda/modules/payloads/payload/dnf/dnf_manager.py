@@ -26,6 +26,7 @@ from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
 from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version
+from pykickstart.constants import KS_BROKEN_IGNORE
 
 log = get_module_logger(__name__)
 
@@ -80,6 +81,39 @@ class DNFManager(object):
         """Reset the DNF base."""
         self.__base = None
         log.debug("The DNF base has been reset.")
+
+    def configure_base(self, data):
+        """Configure the DNF base.
+
+        FIXME: Don't use kickstart data.
+
+        :param data: a kickstart data
+        """
+        base = self._base
+
+        if data.packages.multiLib:
+            base.conf.multilib_policy = "all"
+
+        if data.packages.timeout is not None:
+            base.conf.timeout = data.packages.timeout
+
+        if data.packages.retries is not None:
+            base.conf.retries = data.packages.retries
+
+        if data.packages.handleBroken == KS_BROKEN_IGNORE:
+            log.warning(
+                "\n***********************************************\n"
+                "User has requested to skip broken packages. Using"
+                "this option may result in an UNUSABLE system!"
+                "\n***********************************************\n"
+            )
+            base.conf.strict = False
+
+        # Two reasons to turn this off:
+        # 1. Minimal installs don't want all the extras this brings in.
+        # 2. Installs aren't reproducible due to weak deps. failing silently.
+        if data.packages.excludeWeakdeps:
+            base.conf.install_weak_deps = False
 
     def configure_proxy(self, url):
         """Configure the proxy of the DNF base.

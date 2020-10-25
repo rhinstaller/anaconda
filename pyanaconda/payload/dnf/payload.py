@@ -47,8 +47,7 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
-    GROUP_REQUIRED
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, GROUP_REQUIRED
 from pykickstart.parser import Group
 
 from pyanaconda import errors as errors
@@ -451,34 +450,10 @@ class DNFPayload(Payload):
 
     def _configure(self):
         self._dnf_manager.reset_base()
+        self._dnf_manager.configure_base(self.data)
         self._dnf_manager.configure_proxy(self._get_proxy_url())
 
         config = self._base.conf
-
-        if self.data.packages.multiLib:
-            config.multilib_policy = "all"
-
-        if self.data.packages.timeout is not None:
-            config.timeout = self.data.packages.timeout
-
-        if self.data.packages.retries is not None:
-            config.retries = self.data.packages.retries
-
-        if self.data.packages.handleBroken == KS_BROKEN_IGNORE:
-            log.warning(
-                "\n*********************************************************************\n"
-                "User has requested to skip broken packages. Using this option may result "
-                "in an UNUSABLE system!\n"
-                "*********************************************************************"
-            )
-            config.strict = False
-
-        # Two reasons to turn this off:
-        # 1. Minimal installs don't want all the extras this brings in.
-        # 2. Installs aren't reproducible due to weak deps. failing silently.
-        if self.data.packages.excludeWeakdeps:
-            config.install_weak_deps = False
-
         log.debug("Dnf configuration:\n%s", config.dump())
 
     @property
