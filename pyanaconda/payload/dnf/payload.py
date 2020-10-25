@@ -69,7 +69,7 @@ from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFile
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, BONUS_SIZE_ON_FILE, \
+from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, \
     YUM_REPOS_DIR, go_to_failure_limbo, do_transaction, get_df_map, pick_mount_point
 from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
@@ -477,7 +477,7 @@ class DNFPayload(Payload):
 
     def _pick_download_location(self):
         download_size = self._download_space
-        install_size = self._space_required()
+        install_size = self._dnf_manager.get_installation_size()
         df_map = get_df_map()
         mpoint = pick_mount_point(
             df_map,
@@ -811,7 +811,7 @@ class DNFPayload(Payload):
     @property
     def space_required(self):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        size = self._space_required()
+        size = self._dnf_manager.get_installation_size()
         download_size = self._download_space
         valid_points = get_df_map()
         root_mpoint = conf.target.system_root
@@ -834,29 +834,6 @@ class DNFPayload(Payload):
                       download_size, m_point)
             log.debug("Installation space required %s", size)
         return size
-
-    def _space_required(self):
-        transaction = self._base.transaction
-        if transaction is None:
-            return Size("3000 MB")
-
-        size = 0
-        files_nm = 0
-        for tsi in transaction:
-            # space taken by all files installed by the packages
-            size += tsi.pkg.installsize
-            # number of files installed on the system
-            files_nm += len(tsi.pkg.files)
-
-        # append bonus size depending on number of files
-        bonus_size = files_nm * BONUS_SIZE_ON_FILE
-        size = Size(size)
-        # add another 10% as safeguard
-        total_space = (size + bonus_size) * 1.1
-        log.debug("Size from DNF: %s", size)
-        log.debug("Bonus size %s by number of files %s", bonus_size, files_nm)
-        log.debug("Total size required %s", total_space)
-        return total_space
 
     def _is_group_visible(self, grpid):
         grp = self._base.comps.group_by_pattern(grpid)

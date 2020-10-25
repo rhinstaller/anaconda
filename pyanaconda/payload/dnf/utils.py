@@ -35,12 +35,6 @@ YUM_REPOS_DIR = "/etc/yum.repos.d/"
 
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
-# Bonus to required free space which depends on block size and rpm database size estimation.
-# Every file could be aligned to fragment size so 4KiB * number_of_files should be a worst
-# case scenario. 2KiB for RPM DB was acquired by testing.
-# 6KiB = 4K(max default fragment size) + 2K(rpm db could be taken for a header file)
-BONUS_SIZE_ON_FILE = Size("6 KiB")
-
 
 def go_to_failure_limbo():
     progressQ.send_quit(1)

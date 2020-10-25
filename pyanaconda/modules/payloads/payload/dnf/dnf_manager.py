@@ -20,6 +20,8 @@
 import shutil
 import dnf
 
+from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.payload import ProxyString, ProxyStringError
@@ -32,6 +34,17 @@ log = get_module_logger(__name__)
 
 DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
+
+# Bonus to required free space which depends on block size and
+# rpm database size estimation. Every file could be aligned to
+# fragment size so 4KiB * number_of_files should be a worst case
+# scenario. 2KiB for RPM DB was acquired by testing.
+#
+#   4KiB = max default fragment size
+#   2KiB = RPM DB could be taken for a header file
+#   6KiB = 4KiB + 2KiB
+#
+DNF_EXTRA_SIZE_PER_FILE = Size("6 KiB")
 
 
 class DNFManager(object):
@@ -147,6 +160,36 @@ class DNFManager(object):
     def dump_configuration(self):
         """Log the state of the DNF configuration."""
         log.debug("DNF configuration:\n%s", self._base.conf.dump())
+
+    def get_installation_size(self):
+        """Calculate the installation size.
+
+        :return: a space required by packages
+        :rtype: an instance of Size
+        """
+        packages_size = Size(0)
+        files_number = 0
+
+        if self._base.transaction is None:
+            return Size("3000 MiB")
+
+        for tsi in self._base.transaction:
+            # Space taken by all files installed by the packages.
+            packages_size += tsi.pkg.installsize
+            # Number of files installed on the system.
+            files_number += len(tsi.pkg.files)
+
+        log.debug("Space required for packages: %s", packages_size)
+
+        # Calculate the files size depending on number of files.
+        files_size = Size(files_number * DNF_EXTRA_SIZE_PER_FILE)
+        log.debug("Space required for installed files: %s", files_size)
+
+        # Get the total size. Add another 10% as safeguard.
+        total_space = Size((packages_size + files_size) * 1.1)
+        log.debug("Total required size: %s", total_space)
+
+        return total_space
 
     def clear_cache(self):
         """Clear the DNF cache."""

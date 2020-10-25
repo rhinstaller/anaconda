@@ -16,8 +16,9 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
+from blivet.size import Size, ROUND_UP
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
@@ -163,3 +164,24 @@ class DNFMangerTestCase(unittest.TestCase):
 
         msg = "installroot = /mnt/sysroot"
         self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    def get_installation_size_test(self):
+        """Test the get_installation_size method."""
+        # No transaction.
+        size = self.dnf_manager.get_installation_size()
+        self.assertEqual(size, Size("3000 MiB"))
+
+        # Fake transaction.
+        tsi_1 = Mock()
+        tsi_1.pkg.installsize = 1024 * 100
+        tsi_1.pkg.files = ["/file"] * 10
+
+        tsi_2 = Mock()
+        tsi_2.pkg.installsize = 1024 * 200
+        tsi_2.pkg.files = ["/file"] * 20
+
+        self.dnf_manager._base.transaction = [tsi_1, tsi_2]
+        size = self.dnf_manager.get_installation_size()
+        size = size.round_to_nearest("KiB", ROUND_UP)
+
+        self.assertEqual(size, Size("528 KiB"))
