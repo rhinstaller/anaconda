@@ -144,6 +144,10 @@ class DNFManager(object):
         base.conf.proxy_username = proxy.username or ""
         base.conf.proxy_password = proxy.password or ""
 
+    def dump_configuration(self):
+        """Log the state of the DNF configuration."""
+        log.debug("DNF configuration:\n%s", self._base.conf.dump())
+
     def clear_cache(self):
         """Clear the DNF cache."""
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)

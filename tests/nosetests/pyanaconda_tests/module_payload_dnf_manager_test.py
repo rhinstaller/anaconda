@@ -152,3 +152,14 @@ class DNFMangerTestCase(unittest.TestCase):
             "strict = 0",
             "install_weak_deps = 0",
         )
+
+    def dump_configuration_test(self):
+        """Test the dump of the DNF configuration."""
+        with self.assertLogs(level="DEBUG") as cm:
+            self.dnf_manager.dump_configuration()
+
+        msg = "DNF configuration:"
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+        msg = "installroot = /mnt/sysroot"
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))

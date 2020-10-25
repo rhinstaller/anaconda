@@ -452,9 +452,7 @@ class DNFPayload(Payload):
         self._dnf_manager.reset_base()
         self._dnf_manager.configure_base(self.data)
         self._dnf_manager.configure_proxy(self._get_proxy_url())
-
-        config = self._base.conf
-        log.debug("Dnf configuration:\n%s", config.dump())
+        self._dnf_manager.dump_configuration()
 
     @property
     def _download_space(self):
