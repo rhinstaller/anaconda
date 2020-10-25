@@ -80,7 +80,6 @@ from pyanaconda.payload.image import find_first_iso_image, mountImage, find_opti
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
-from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
     set_up_sources, tear_down_sources
 
@@ -466,30 +465,6 @@ class DNFPayload(Payload):
 
         return data.proxy
 
-    def get_platform_id(self):
-        """Obtain the platform id (if available).
-
-        At the moment we get the platform id from /etc/os-release
-        but treeinfo or something similar that maps to the current
-        repository looks like a better bet longer term.
-
-        :return: platform id or None if not found
-        :rtype: str or None
-        """
-        platform_id = None
-        if os.path.exists("/etc/os-release"):
-            config = SimpleConfigFile()
-            config.read("/etc/os-release")
-            os_release_platform_id = config.get("PLATFORM_ID")
-            # simpleconfig return "" for keys that are not found
-            if os_release_platform_id:
-                platform_id = os_release_platform_id
-            else:
-                log.error("PLATFORM_ID missing from /etc/os-release")
-        else:
-            log.error("/etc/os-release is missing, platform id can't be obtained")
-        return platform_id
-
     def _configure(self):
         self._base = dnf.Base()
         config = self._base.conf
@@ -500,7 +475,7 @@ class DNFPayload(Payload):
         self._base.conf.debug_solver = conf.anaconda.debug
         # set the platform id based on the /os/release
         # present in the installation environment
-        platform_id = self.get_platform_id()
+        platform_id = util.get_os_release_value("PLATFORM_ID")
         if platform_id is not None:
             log.info("setting DNF platform id to: %s", platform_id)
             self._base.conf.module_platform_id = platform_id
@@ -1804,7 +1779,7 @@ class DNFPayload(Payload):
         if conf.payload.default_rpm_gpg_keys:
             # TODO: replace the interpolation with DNF once possible
             arch = util.execWithCapture("uname", ["-i"]).strip().replace("'", "")
-            vers = util.get_os_version(conf.target.system_root)
+            vers = util.get_os_release_value("VERSION_ID", sysroot=conf.target.system_root)
 
             if not os.path.exists(conf.target.system_root + "/usr/bin/rpm"):
                 log.error("Can not import GPG keys to RPM database because the 'rpm' executable "
