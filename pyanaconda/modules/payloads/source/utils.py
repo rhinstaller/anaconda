@@ -160,6 +160,17 @@ def verify_valid_repository(path):
     if os.path.exists(repomd_path) and os.path.isfile(repomd_path):
         return True
 
+    # FIXME: Remove this temporary solution when payload source migration will be finished.
+    #
+    # Source should not point to an installation tree but only to a repository, however, right now
+    # we are in state that sources are only for base repository and just reflecting data from
+    # user. With the unified feature the above check won't work because repository is a sub-folder
+    # redirected by .treeinfo file. Add this check back to fix this issue.
+    if os.path.exists(join_paths(path, ".treeinfo")):
+        return True
+    if os.path.exists(join_paths(path, "treeinfo")):
+        return True
+
     return False
 
 

@@ -187,13 +187,27 @@ class UtilitiesTestCase(unittest.TestCase):
 
         self.assertEqual(iso_name, "")
 
-    def verify_valid_repository_success_test(self):
+    def verify_valid_repository_repo_success_test(self):
         """Test verify_valid_repository functionality success."""
         with TemporaryDirectory() as tmp:
             repodir_path = Path(tmp, "repodata")
             repodir_path.mkdir()
             repomd_path = Path(repodir_path, "repomd.xml")
             repomd_path.write_text("This is a cool repomd file!")
+
+            self.assertTrue(verify_valid_repository(tmp))
+
+    def verify_valid_repository_installtree_success_test(self):
+        """Test verify_valid_repository functionality for installation tree success."""
+        with TemporaryDirectory() as tmp:
+            treeinfo_path = Path(tmp, ".treeinfo")
+            treeinfo_path.write_text("This is a cool .treeinfo file!")
+
+            self.assertTrue(verify_valid_repository(tmp))
+
+        with TemporaryDirectory() as tmp:
+            treeinfo_path = Path(tmp, "treeinfo")
+            treeinfo_path.write_text("This is a cool treeinfo file!")
 
             self.assertTrue(verify_valid_repository(tmp))
 
