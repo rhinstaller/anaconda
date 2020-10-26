@@ -270,6 +270,9 @@ class AnacondaConfiguration(Configuration):
 
         :param opts: a namespace of options
         """
+        if opts.debug:
+            self.anaconda._set_option("debug", True)
+
         # Set the bootloader type.
         if opts.extlinux:
             self.bootloader._set_option("type", BootloaderType.EXTLINUX.value)

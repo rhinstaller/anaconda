@@ -36,7 +36,6 @@ class Flags(object):
         self.usevnc = False
         self.vncquestion = True
         self.mpath = True
-        self.debug = False
         self.preexisting_x11 = False
         self.automatedInstall = False
         self.eject = True

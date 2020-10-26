@@ -15,14 +15,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 """Text mode shell spoke"""
 
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_ENVIRON
-from pyanaconda.flags import flags
 from pyanaconda.core.util import execConsole
 from blivet import arch
 
@@ -43,7 +42,7 @@ class ShellSpoke(NormalTUISpoke):
     @classmethod
     def should_run(cls, environment, data):
         # run only in the installer on s390(x) machines
-        return flags.debug or (environment == ANACONDA_ENVIRON and arch.is_s390())
+        return conf.anaconda.debug or (environment == ANACONDA_ENVIRON and arch.is_s390())
 
     @property
     def completed(self):

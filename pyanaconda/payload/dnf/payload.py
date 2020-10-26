@@ -494,7 +494,7 @@ class DNFPayload(Payload):
         config.pluginconfpath = DNF_PLUGINCONF_DIR
         config.logdir = '/tmp/'
         # enable depsolver debugging if in debug mode
-        self._base.conf.debug_solver = flags.debug
+        self._base.conf.debug_solver = conf.anaconda.debug
         # set the platform id based on the /os/release
         # present in the installation environment
         platform_id = self.get_platform_id()
