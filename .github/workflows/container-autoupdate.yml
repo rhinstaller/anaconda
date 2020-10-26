@@ -1,4 +1,4 @@
-name: Build, test and push container
+name: Refresh container images
 on:
   schedule:
     - cron: 0 0 * * *
