@@ -18,12 +18,12 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.constants import BASE_REPO_NAME, URL_TYPE_BASEURL, URL_TYPE_METALINK, \
-    URL_TYPE_MIRRORLIST
+    URL_TYPE_MIRRORLIST, URL_TYPES
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, URLType, SourceState
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
@@ -190,10 +190,8 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
                 from e
 
     def _validate_url(self, url_type):
-        try:
-            URLType(url_type)
-        except ValueError as e:
-            raise InvalidValueError("Invalid source type set '{}'".format(url_type)) from e
+        if url_type not in URL_TYPES:
+            raise InvalidValueError("Invalid source type set '{}'".format(url_type))
 
     @property
     def install_repo_enabled(self):

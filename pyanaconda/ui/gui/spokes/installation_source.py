@@ -707,7 +707,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._url_entry = self.builder.get_object("urlEntry")
         self._protocol_combo_box = self.builder.get_object("protocolComboBox")
         self._iso_chooser_button = self.builder.get_object("isoChooserButton")
-        self._orig_iso_chooser_button = self._iso_chooser_button.get_label()
 
         # Attach a validator to the URL entry. Start it as disabled, and it will be
         # enabled/disabled as entry sensitivity is enabled/disabled.
@@ -1088,11 +1087,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._updates_box.set_sensitive(self._mirror_active())
         active = self._mirror_active() or self.payload.is_repo_enabled("updates")
         self._updates_radio_button.set_active(active)
-
-    def _update_CDN_usage(self):
-        """Notify Payload module and Subscription spoke about possible CDN usage change."""
-        # notify Subscription spoke about possible change
-        hubQ.send_ready("SubscriptionSpoke", False)
 
     @property
     def showable(self):

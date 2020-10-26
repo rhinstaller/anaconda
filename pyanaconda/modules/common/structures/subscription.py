@@ -353,8 +353,6 @@ class SubscriptionRequest(DBusData):
 
     @account_password.setter
     def account_password(self, password: SecretData):
-        if password:
-            self.account_password_set = True
         self._redhat_account_password = password
 
     @property

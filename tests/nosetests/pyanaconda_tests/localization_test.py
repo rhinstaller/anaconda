@@ -18,7 +18,7 @@
 
 from pyanaconda import localization
 from pyanaconda.core.constants import DEFAULT_LANG
-from pyanaconda.core.util import execWithCaptureBinary
+from pyanaconda.core.util import execWithCapture
 import locale as locale_mod
 import unittest
 from unittest.mock import call, patch, MagicMock
@@ -239,43 +239,6 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
     def tearDown(self):
         locale_mod.setlocale(locale_mod.LC_ALL, DEFAULT_LANG)
 
-    def langcode_matches_locale_test(self):
-        """Langcode-locale matching should work as expected."""
-        # should match
-        self.assertTrue(localization.langcode_matches_locale("sr", "sr"))
-        self.assertTrue(localization.langcode_matches_locale("sr", "sr_RS"))
-        self.assertTrue(localization.langcode_matches_locale("sr", "sr_RS.UTF-8"))
-        self.assertTrue(localization.langcode_matches_locale("sr", "sr_RS.UTF-8@latin"))
-        self.assertTrue(localization.langcode_matches_locale("sr_RS", "sr_RS"))
-        self.assertTrue(localization.langcode_matches_locale("sr_RS", "sr_RS.UTF-8"))
-        self.assertTrue(localization.langcode_matches_locale("sr_RS", "sr_RS.UTF-8@latin"))
-        self.assertTrue(localization.langcode_matches_locale("sr_RS.UTF-8", "sr_RS.UTF-8"))
-        self.assertTrue(localization.langcode_matches_locale("sr_RS.UTF-8", "sr_RS.UTF-8@latin"))
-        self.assertTrue(localization.langcode_matches_locale("sr_RS.UTF-8@latin", "sr_RS.UTF-8@latin"))
-
-        # missing language, shouldn't match
-        self.assertFalse(localization.langcode_matches_locale("", "sr"))
-        self.assertFalse(localization.langcode_matches_locale("sr", ""))
-        self.assertFalse(localization.langcode_matches_locale("sr", None))
-        self.assertFalse(localization.langcode_matches_locale(None, "sr"))
-
-        # missing items in the locale, shouldn't match
-        self.assertFalse(localization.langcode_matches_locale("sr_RS", "sr"))
-        self.assertFalse(localization.langcode_matches_locale("sr_RS.UTF-8", "sr_RS"))
-        self.assertFalse(localization.langcode_matches_locale("sr.UTF-8", "sr_RS"))
-        self.assertFalse(localization.langcode_matches_locale("sr_RS.UTF-8", "sr.UTF-8"))
-        self.assertFalse(localization.langcode_matches_locale("sr_RS.UTF-8@latin", "sr_RS"))
-        self.assertFalse(localization.langcode_matches_locale("sr_RS@latin", "sr_RS"))
-        self.assertFalse(localization.langcode_matches_locale("sr.UTF-8@latin", "sr_RS.UTF-8"))
-        self.assertFalse(localization.langcode_matches_locale("sr@latin", "sr_RS"))
-
-        # different parts, shouldn't match
-        self.assertFalse(localization.langcode_matches_locale("sr", "en"))
-        self.assertFalse(localization.langcode_matches_locale("de_CH", "fr_CH"))
-        self.assertFalse(localization.langcode_matches_locale("sr_RS", "sr_ME"))
-        self.assertFalse(localization.langcode_matches_locale("sr_RS@latin", "sr_RS@cyrilic"))
-        self.assertFalse(localization.langcode_matches_locale("sr_RS@latin", "sr_ME@latin"))
-
     def find_best_locale_match_test(self):
         """Finding best locale matches should work as expected."""
         # can find best matches
@@ -298,10 +261,9 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
 
     def resolve_date_format_test(self):
         """All locales' date formats should be properly resolved."""
-        locales = (line.strip() for line in execWithCaptureBinary("locale", ["-a"]).splitlines())
+        locales = (line.strip() for line in execWithCapture("locale", ["-a"]).splitlines())
         for locale in locales:
-            decoded_locale = locale.decode("utf-8")
-            locale_mod.setlocale(locale_mod.LC_ALL, decoded_locale)
+            locale_mod.setlocale(locale_mod.LC_ALL, locale)
             order = localization.resolve_date_format(1, 2, 3, fail_safe=False)[0]
             for i in (1, 2, 3):
                 self.assertIn(i, order)

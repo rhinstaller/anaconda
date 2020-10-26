@@ -102,36 +102,6 @@ def locale_supported_in_console(locale):
     return set(locale_scripts).issubset(SCRIPTS_SUPPORTED_BY_CONSOLE)
 
 
-def langcode_matches_locale(langcode, locale):
-    """Function that tells if the given langcode matches the given locale. I.e. if
-    all parts of appearing in the langcode (language, territory, script and
-    encoding) are the same as the matching parts of the locale.
-
-    :param langcode: a langcode (e.g. en, en_US, en_US@latin, etc.)
-    :type langcode: str
-    :param locale: a valid locale (e.g. en_US.UTF-8 or sr_RS.UTF-8@latin, etc.)
-    :type locale: str
-    :return: whether the given langcode matches the given locale or not
-    :rtype: bool
-    """
-    if not is_valid_langcode(langcode) or not is_valid_langcode(locale):
-        # to match, both need to be valid langcodes (need to have at least
-        # language specified)
-        return False
-
-    langcode_parsed = langtable.parse_locale(langcode)
-    locale_parsed = langtable.parse_locale(locale)
-
-    # Check parts one after another. If some part appears in the langcode and
-    # doesn't match the one from the locale (or is missing in the locale),
-    # return False, otherwise they match
-    for lang_val, loc_val in zip(langcode_parsed, locale_parsed):
-        if lang_val and lang_val != loc_val:
-            return False
-
-    return True
-
-
 def find_best_locale_match(locale, langcodes):
     """Find the best match for the locale in a list of langcodes. This is useful
     when e.g. pt_BR is a locale and there are possibilities to choose an item

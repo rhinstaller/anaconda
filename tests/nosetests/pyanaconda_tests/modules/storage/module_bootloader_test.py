@@ -366,7 +366,6 @@ class BootloaderTasksTestCase(unittest.TestCase):
         self.assertEqual(image, bootloader.default)
         self.assertEqual(image.version, version)
         self.assertEqual(image.label, "anaconda")
-        self.assertEqual(image.short_label, "linux")
         self.assertEqual(image.device, storage.root_device)
 
     def install_test(self):

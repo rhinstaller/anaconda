@@ -42,9 +42,6 @@ SRV_LINE_REGEXP = re.compile(r"^\s*(server|pool)\s*([-a-zA-Z.0-9]+)\s?([a-zA-Z0-
 SRV_NOARG_OPTIONS = ["burst", "iburst", "nts", "prefer", "require", "trust", "noselect", "xleave"]
 SRV_ARG_OPTIONS = ["key", "minpoll", "maxpoll"]
 
-#treat pools as four servers with the same name
-SERVERS_PER_POOL = 4
-
 # Description of an NTP server status.
 NTP_SERVER_STATUS_DESCRIPTIONS = {
     NTP_SERVER_OK: N_("status: working"),

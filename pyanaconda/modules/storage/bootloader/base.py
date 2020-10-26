@@ -162,7 +162,6 @@ class BootLoader(object):
     packages = []
     config_file = None
     config_file_mode = 0o600
-    can_dual_boot = False
     keep_boot_order = False
     keep_mbr = False
     image_label_attr = "label"
@@ -288,11 +287,6 @@ class BootLoader(object):
         all_images = self.linux_images
         all_images.extend(i for i in self.chain_images if i.label)
         return all_images
-
-    def clear_images(self):
-        """Empty out the image list."""
-        self.linux_images = []
-        self.chain_images = []
 
     def add_image(self, image):
         """Add a BootLoaderImage instance to the image list."""

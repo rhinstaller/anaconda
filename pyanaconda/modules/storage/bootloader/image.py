@@ -25,32 +25,28 @@ class BootLoaderImage(object):
     Suitable for non-linux OS images.
     """
 
-    def __init__(self, device=None, label=None, short=None):
+    def __init__(self, device=None, label=None):
         """Initialize the image.
 
         :param device: an instance of StorageDevice
         :param label: a label string
-        :param short: a shorter label string
         """
         self.label = label
-        self.short_label = short
         self.device = device
 
 
 class LinuxBootLoaderImage(BootLoaderImage):
     """Linux-OS image."""
 
-    def __init__(self, device=None, label=None, short=None, version=None):
+    def __init__(self, device=None, label=None, version=None):
         """Initialize the image.
 
         :param device: an instance of StorageDevice
         :param label: a label string
-        :param short: a shorter label string
         :param version: a kernel version string
         """
         super().__init__(device=device, label=label)
         self.label = label
-        self.short_label = short
         self.device = device
         self.version = version
         self._kernel = None

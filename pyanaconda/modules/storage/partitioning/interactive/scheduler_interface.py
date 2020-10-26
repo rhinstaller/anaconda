@@ -173,13 +173,6 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         self.implementation.update_container_data(request, container_name)
         return DeviceFactoryRequest.to_structure(request)
 
-    def GetPartitioned(self) -> List[Str]:
-        """Get all partitioned devices in the device tree.
-
-        :return: a list of device names
-        """
-        return self.implementation.get_partitioned()
-
     def CollectNewDevices(self, boot_drive: Str) -> List[Str]:
         """Get all new devices in the device tree.
 

@@ -65,7 +65,6 @@ class SubscriptionSpoke(NormalSpoke):
 
     mainWidgetName = "subscription_window"
     uiFile = "spokes/subscription.glade"
-    help_id = "SubscriptionSpoke"
 
     category = SoftwareCategory
 
@@ -271,41 +270,21 @@ class SubscriptionSpoke(NormalSpoke):
     def custom_rhsm_baseurl_visible(self, visible):
         self._custom_rhsm_baseurl_checkbox.set_active(visible)
 
-    @property
-    def account_visible(self):
-        return self._account_radio_button.get_active()
-
-    @account_visible.setter
-    def account_visible(self, visible):
+    def set_account_visible(self, visible):
         self._account_radio_button.set_active(visible)
 
-    @property
-    def activation_key_visible(self):
-        return self._activation_key_radio_button.get_active()
-
-    @activation_key_visible.setter
-    def activation_key_visible(self, visible):
+    def set_activation_key_visible(self, visible):
         self._activation_key_radio_button.set_active(visible)
 
-    @property
-    def system_purpose_visible(self):
-        return self._system_purpose_checkbox.get_active()
-
-    @system_purpose_visible.setter
-    def system_purpose_visible(self, visible):
+    def set_system_purpose_visible(self, visible):
         self._system_purpose_checkbox.set_active(visible)
 
-    @property
-    def options_visible(self):
-        return self._options_expander.get_expanded()
-
-    @options_visible.setter
-    def options_visible(self, visible):
+    def set_options_visible(self, visible):
         self._options_expander.set_expanded(visible)
 
     # properties - element sensitivity
 
-    def set_registration_controls_sensitive(self, sensitive, include_register_button=True):
+    def set_registration_controls_sensitive(self, sensitive):
         """Set sensitivity of the registration controls.
 
         We set these value individually so that the registration status label
@@ -516,12 +495,12 @@ class SubscriptionSpoke(NormalSpoke):
     def authentication_method(self, method):
         self._authentication_method = method
         if method == AuthenticationMethod.USERNAME_PASSWORD:
-            self.activation_key_visible = False
-            self.account_visible = True
+            self.set_activation_key_visible(False)
+            self.set_account_visible(True)
             self.subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
         elif method == AuthenticationMethod.ORG_KEY:
-            self.activation_key_visible = True
-            self.account_visible = False
+            self.set_activation_key_visible(True)
+            self.set_account_visible(False)
             self.subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
 
     @property
@@ -635,10 +614,6 @@ class SubscriptionSpoke(NormalSpoke):
         )
         self._subscriptions_listbox = self.builder.get_object("subscriptions_listbox")
 
-        # unregister button
-        self._unregister_revealer = self.builder.get_object("unregister_revealer")
-        self._unregister_button = self.builder.get_object("unregister_button")
-
         # setup spoke state based on data from the Subscription DBus module
         self._update_spoke_state()
 
@@ -690,7 +665,7 @@ class SubscriptionSpoke(NormalSpoke):
         self._update_authetication_ui()
 
         # check if system purpose part of the spoke should be visible
-        self.system_purpose_visible = self.system_purpose_data.check_data_available()
+        self.set_system_purpose_visible(self.system_purpose_data.check_data_available())
 
         # NOTE: the fill_combobox() function makes sure to remove old data from the
         #       combo box before filling it
@@ -725,7 +700,7 @@ class SubscriptionSpoke(NormalSpoke):
         # if there is something set in the Options section, expand the expander
         # - this needs to go last, after all the values in option section are set/not set
         if self.options_set:
-            self.options_visible = True
+            self.set_options_visible(True)
 
         # now that we updated the spoke with fresh data from the module, we can run the
         # general purpose update functions that make sure the two parts of the spoke

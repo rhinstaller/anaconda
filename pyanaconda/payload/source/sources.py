@@ -42,11 +42,9 @@ class BasePayloadSource(ABC):
 
     Implements common methods for payload source.
     """
-    def __init__(self, source_type: SourceType, method_type: str):
+    def __init__(self, source_type: SourceType):
         super().__init__()
-
         self._source_type = source_type
-        self._method_type = method_type
 
     @property
     def source_type(self) -> SourceType:
@@ -55,14 +53,6 @@ class BasePayloadSource(ABC):
         :rtype: SourceType enum.
         """
         return self._source_type
-
-    @property
-    def method_type(self) -> str:
-        """Get method type string
-
-        :rtype: str
-        """
-        return self._method_type
 
     @abstractmethod
     def create_proxy(self):
@@ -141,7 +131,7 @@ class CDRomSource(BasePayloadSource):
     """Source object for CDrom sources."""
 
     def __init__(self):
-        super().__init__(SourceType.CDROM, "cdrom")
+        super().__init__(SourceType.CDROM)
 
     def create_proxy(self):
         """Create and set up a DBus source.
@@ -155,7 +145,7 @@ class NFSSource(BasePayloadSource):
     """Source object for NFS sources."""
 
     def __init__(self, server, path, opts):
-        super().__init__(SourceType.NFS, "nfs")
+        super().__init__(SourceType.NFS)
         self._server = server
         self._path = path
         self._opts = opts
@@ -199,7 +189,7 @@ class HDDSource(BasePayloadSource):
     """Source object for hard drive source."""
 
     def __init__(self, partition, path):
-        super().__init__(SourceType.HARDDRIVE, "harddrive")
+        super().__init__(SourceType.HARDDRIVE)
 
         self._partition = partition
         self._path = path
@@ -235,7 +225,7 @@ class URLBasedSource(BasePayloadSource):
     """Base class for URL based sources."""
 
     def __init__(self, source_type, url, mirrorlist=False, metalink=False):
-        super().__init__(source_type, "url")
+        super().__init__(source_type)
 
         if mirrorlist and metalink:
             raise KeyError("Can't have one link both mirrorlist and metalink!")
@@ -324,7 +314,7 @@ class FileSource(BasePayloadSource):
     """Source object for file:// based sources."""
 
     def __init__(self, path):
-        super().__init__(SourceType.FILE, "url")
+        super().__init__(SourceType.FILE)
 
         self._path = path
 
@@ -361,7 +351,7 @@ class HMCSource(BasePayloadSource):
     """
 
     def __init__(self):
-        super().__init__(SourceType.HMC, "hmc")
+        super().__init__(SourceType.HMC)
 
     def create_proxy(self):
         """Create and set up a DBus source.

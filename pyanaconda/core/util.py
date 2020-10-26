@@ -381,23 +381,6 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
                         filter_stderr=filter_stderr)[1]
 
 
-def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False, filter_stderr=False):
-    """ Run an external program and capture standard out and err as binary data.
-        The binary data output is not logged by default but logging can be enabled.
-
-        :param command: The command to run
-        :param argv: The argument list
-        :param stdin: The file object to read stdin from.
-        :param root: The directory to chroot to before running command.
-        :param log_output: Whether to log the binary output of the command
-        :param filter_stderr: Whether stderr should be excluded from the returned output
-        :return: The output of the command
-    """
-    argv = [command] + argv
-    return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
-                        filter_stderr=filter_stderr, binary_output=True)[1]
-
-
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False):
     """ Execute an external command and return the line output of the command
         in real-time.

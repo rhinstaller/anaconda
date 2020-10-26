@@ -19,7 +19,7 @@
 #  Author(s):  Jiri Konecny <jkonecny@redhat.com>
 #
 
-from pyanaconda.core.glib import timeout_add, timeout_add_seconds, idle_add, source_remove
+from pyanaconda.core.glib import timeout_add, timeout_add_seconds, source_remove
 
 
 class Timer(object):
@@ -66,20 +66,6 @@ class Timer(object):
         :param kwargs: Keyword arguments passed to the callback.
         """
         self._id = timeout_add(miliseconds, callback, *args, **kwargs)
-
-    def timeout_now(self, callback, *args, **kwargs):
-        """Schedule method to be run when event loop will be empty (idle).
-
-        .. NOTE::
-            This method is mainly used to run something in the main thread.
-
-        :param callback: Callback which will be called.
-        :type callback: Function.
-
-        :param args: Arguments passed to the callback.
-        :param kwargs: Keyword arguments passed to the callback.
-        """
-        self._id = idle_add(callback, *args, **kwargs)
 
     def cancel(self):
         """Cancel scheduled callback.

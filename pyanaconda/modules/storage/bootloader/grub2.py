@@ -109,7 +109,6 @@ class GRUB2(BootLoader):
     stage2_max_end = None
 
     _device_map_file = "device.map"
-    can_dual_boot = True
 
     stage2_is_valid_stage1 = True
     stage2_bootable = True

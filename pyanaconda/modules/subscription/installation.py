@@ -135,8 +135,6 @@ class TransferSubscriptionTokensTask(Task):
     RHSM_CONSUMER_KEY_PATH = "/etc/pki/consumer/key.pem"
     RHSM_CONSUMER_CERT_PATH = "/etc/pki/consumer/cert.pem"
 
-    TARGET_REPO_FOLDER_PATH = "/etc/yum.repos.d"
-
     def __init__(self, sysroot, transfer_subscription_tokens):
         """Create a new task.
 

@@ -186,13 +186,6 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         utils.update_container_data(self.storage, request, container_name)
 
-    def get_partitioned(self):
-        """Get all partitioned devices in the device tree.
-
-        :return: a list of device names
-        """
-        return [d.name for d in self.storage.partitioned]
-
     def collect_new_devices(self, boot_drive):
         """Get all new devices in the device tree.
 

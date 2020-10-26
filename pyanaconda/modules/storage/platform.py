@@ -187,12 +187,7 @@ class ArmEFI(EFI):
 
 
 class PPC(Platform):
-    _ppc_machine = arch.get_ppc_machine()
     _boot_stage1_device_types = ["partition"]
-
-    @property
-    def ppc_machine(self):
-        return self._ppc_machine
 
 
 class IPSeriesPPC(PPC):

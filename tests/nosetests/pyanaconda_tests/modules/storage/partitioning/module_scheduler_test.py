@@ -92,28 +92,6 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'swap-devices': ['dev3']
         })
 
-    def get_partitioned_test(self):
-        """Test GetPartitioned."""
-        self._add_device(DiskDevice(
-            "dev1",
-            exists=True,
-            size=Size("15 GiB"),
-            fmt=get_format("disklabel")
-        ))
-        self._add_device(DiskDevice(
-            "dev2",
-            exists=True,
-            size=Size("15 GiB"),
-            fmt=get_format("disklabel")
-        ))
-        self._add_device(StorageDevice(
-            "dev3",
-            exists=True,
-            size=Size("15 GiB"),
-            fmt=get_format("disklabel")
-        ))
-        self.assertEqual(self.interface.GetPartitioned(), ["dev1", "dev2"])
-
     def collect_new_devices_test(self):
         """Test CollectNewDevices."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/boot")))

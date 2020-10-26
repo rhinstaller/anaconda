@@ -58,7 +58,6 @@ class InstallerStorage(Blivet):
         self.protected_devices = []
         self._escrow_certificates = {}
         self._bootloader = None
-        self.__luks_devs = {}
         self.fsset = FSSet(self.devicetree)
         self._short_product_name = shortProductName
         self._default_luks_version = DEFAULT_LUKS_VERSION
