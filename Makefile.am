@@ -83,13 +83,14 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 CONTAINER_ENGINE ?= podman
 CONTAINER_BUILD_ARGS ?=
 CONTAINER_TEST_ARGS ?=
+CONTAINER_REGISTRY ?= quay.io
 
-# ci-tasks container
-CI_TASKS_DOCKERFILE ?= $(srcdir)/dockerfile/ci-tasks
-CI_TASKS_NAME ?= anaconda/ci-tasks
-CI_TASKS_TAG ?= $(GIT_BRANCH)
-CI_TASKS_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
-CI_TASKS_CMD ?=
+# anaconda-ci container
+CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
+CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
+CI_TAG ?= $(GIT_BRANCH)
+CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
+CI_CMD ?=
 
 SKIP_BRANCHING_CHECK ?= "false"
 
@@ -168,8 +169,13 @@ release-and-tag:
 	$(MAKE) dist
 	$(MAKE) tag
 
-ci-tasks-build:
-	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(CI_TASKS_NAME):$(CI_TASKS_TAG) $(CI_TASKS_DOCKERFILE)
+anaconda-ci-build:
+	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(CI_NAME):$(CI_TAG) $(CI_DOCKERFILE)
+
+# User has to be logged first to be able to push the image.
+# See `podman login` for more info.
+anaconda-ci-push:
+	$(CONTAINER_ENGINE) push $(CI_NAME):$(CI_TAG)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
@@ -228,7 +234,7 @@ ci:
 	fi
 
 container-ci:
-	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TASKS_TEST_ARGS) $(CI_TASKS_NAME):$(CI_TASKS_TAG) $(CI_TASKS_CMD)
+	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG) $(CI_CMD)
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
