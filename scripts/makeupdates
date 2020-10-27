@@ -216,7 +216,7 @@ def copy_updated_files(tag, updates, cwd, builddir):
 
         if gitfile.endswith('.spec.in') or (gitfile.find('Makefile') != -1) or \
            gitfile.endswith('.c') or gitfile.endswith('.h') or \
-           gitfile.endswith('.sh') or gitfile == 'configure.ac':
+           gitfile.endswith('.sh'):
             continue
 
         if gitfile.endswith('.glade'):
@@ -289,19 +289,7 @@ def copy_updated_files(tag, updates, cwd, builddir):
                 install_to_dir(gitfile, "usr/share/anaconda/dbus/services")
             elif gitfile.endswith(".conf"):
                 install_to_dir(gitfile, "usr/share/anaconda/dbus/confs")
-        elif gitfile.find('/') != -1:
-            fields = gitfile.split('/')
-            subdir = fields[0]
-            if subdir in ['po', 'scripts','command-stubs', 'tests',
-                          'docs', 'fonts', 'utils',
-                          'liveinst', 'dracut', 'data']:
-                continue
-            else:
-                sys.stdout.write("Including %s\n" % (gitfile,))
-                install_to_dir(gitfile, tmpupdates)
-        else:
-            sys.stdout.write("Including %s\n" % (gitfile,))
-            install_to_dir(gitfile, tmpupdates)
+
 
 def _compilableChanged(tag, compilable):
     try:
