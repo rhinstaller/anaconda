@@ -98,6 +98,9 @@ class DNFPayload(Payload):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # A list of verbose error strings
+        self.verbose_errors = []
+
         # Get a DBus payload to use.
         self._payload_proxy = get_payload(self.type)
 
@@ -204,6 +207,9 @@ class DNFPayload(Payload):
     def is_complete(self):
         """Is the payload complete?"""
         return self.source_type not in SOURCE_REPO_FILE_TYPES or self.base_repo
+
+    def setup(self):
+        self.verbose_errors = []
 
     def unsetup(self):
         super().unsetup()
@@ -1893,7 +1899,6 @@ class DNFPayload(Payload):
 
         Save repomd hash to test if the repositories can be reached.
         """
-        super().post_setup()
         self._repoMD_list = []
         proxy_url = self._get_proxy_url()
 

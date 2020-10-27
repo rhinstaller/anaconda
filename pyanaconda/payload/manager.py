@@ -218,7 +218,6 @@ class PayloadManager(object):
         # Gather the group data
         self._set_state(PayloadState.DOWNLOADING_GROUP_METADATA)
         payload.gather_repo_metadata()
-        payload.release()
 
         # Check if that failed
         if not payload.base_repo:

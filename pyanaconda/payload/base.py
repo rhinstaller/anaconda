@@ -19,7 +19,6 @@
 from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core import util
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -35,11 +34,6 @@ class Payload(metaclass=ABCMeta):
         :param data: This param is a kickstart.AnacondaKSHandler class.
         """
         self.data = data
-
-        # A list of verbose error strings from the subclass
-        self.verbose_errors = []
-
-        self._session = util.requests_session()
 
         # A DBus proxy of the payload.
         self._payload_proxy = None
@@ -87,29 +81,10 @@ class Payload(metaclass=ABCMeta):
 
     def setup(self):
         """Do any payload-specific setup."""
-        self.verbose_errors = []
+        pass
 
     def unsetup(self):
         """Invalidate a previously setup payload."""
-        pass
-
-    def post_setup(self):
-        """Run specific payload post-configuration tasks on the end of
-        the restart_thread call.
-
-        This method could be overriden.
-        """
-        pass
-
-    def release(self):
-        """Release any resources in use by this object, but do not do final
-        cleanup.  This is useful for dealing with payload backends that do
-        not get along well with multithreaded programs.
-        """
-        pass
-
-    def reset(self):
-        """Reset the instance, not including ksdata."""
         pass
 
     @property
