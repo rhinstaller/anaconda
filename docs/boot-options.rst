@@ -779,9 +779,10 @@ For example: ``inst.product=Fedora``
 
 inst.variant
 ++++++++++++
-Set the name of a variant.
+Set the name of a variant. It is not allowed to specify a variant name without a product name,
+so use ``inst.product`` to specify the product as well.
 
-For example: ``inst.variant=Workstation``
+For example: ``inst.product=Fedora inst.variant=Workstation``
 
 
 Third-party options
