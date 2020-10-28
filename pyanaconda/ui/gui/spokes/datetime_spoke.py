@@ -32,7 +32,7 @@ from pyanaconda.core import util, constants
 from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TIME_SOURCE_POOL, TIME_SOURCE_SERVER
-from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.timer import Timer
 from pyanaconda.localization import get_xlated_timezone, resolve_date_format
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
@@ -392,11 +392,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     uiFile = "spokes/datetime_spoke.glade"
     helpFile = "DateTimeSpoke.xml"
 
-    category = LocalizationCategory
-
-    icon = "preferences-system-time-symbolic"
-    title = CN_("GUI|Spoke", "_Time & Date")
-
     # Hack to get libtimezonemap loaded for GtkBuilder
     # see https://bugzilla.gnome.org/show_bug.cgi?id=712184
     _hack = TimezoneMap.TimezoneMap()
@@ -418,6 +413,22 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._ntp_servers = []
         self._ntp_servers_states = NTPServerStatusCache()
+
+    @staticmethod
+    def get_category():
+        return LocalizationCategory
+
+    @property
+    def icon(self):
+        return "preferences-system-time-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "_Time & Date")
+
+    @staticmethod
+    def get_sort_order():
+        return 300
 
     def initialize(self):
         NormalSpoke.initialize(self)

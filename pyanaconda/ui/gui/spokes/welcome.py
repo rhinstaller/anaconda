@@ -60,9 +60,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore",
                       "welcomeWindow", "betaWarnDialog"]
 
-    preForHub = SummaryHub
-    priority = 0
-
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
         LangLocaleHandler.__init__(self)
@@ -71,6 +68,14 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         self._l12_module = LOCALIZATION.get_proxy()
 
         self._only_existing_locales = True
+
+    @property
+    def pre_action_for_hub(self):
+        return SummaryHub
+
+    @property
+    def action_priority(self):
+        return 0
 
     def apply(self):
         (store, itr) = self._localeSelection.get_selected()

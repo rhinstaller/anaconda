@@ -25,7 +25,7 @@ from gi.repository import Pango, Gdk
 
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.modules.common.constants.services import LOCALIZATION
-from pyanaconda.core.i18n import CN_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import escape_markup, override_cell_property
 from pyanaconda.ui.categories.localization import LocalizationCategory
@@ -56,17 +56,28 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
     uiFile = "spokes/language_support.glade"
     helpFile = "LangSupportSpoke.xml"
 
-    category = LocalizationCategory
-
-    icon = "accessories-character-map-symbolic"
-    title = CN_("GUI|Spoke", "_Language Support")
-
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         LangLocaleHandler.__init__(self)
         self._selected_locales = set()
 
         self._l12_module = LOCALIZATION.get_proxy()
+
+    @staticmethod
+    def get_category():
+        LocalizationCategory
+
+    @property
+    def icon(self):
+        return "accessories-character-map-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "_Language Support")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     def initialize(self):
         self.initialize_start()

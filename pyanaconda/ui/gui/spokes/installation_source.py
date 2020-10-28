@@ -32,7 +32,7 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_
     URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, N_, CN_
+from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
@@ -401,11 +401,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     uiFile = "spokes/installation_source.glade"
     helpFile = "SourceSpoke.xml"
 
-    category = SoftwareCategory
-
-    icon = "media-optical-symbolic"
-    title = CN_("GUI|Spoke", "_Installation Source")
-
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         GUISpokeInputCheckHandler.__init__(self)
@@ -426,6 +421,22 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         self._network_module = NETWORK.get_proxy()
         self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
+
+    @staticmethod
+    def get_category():
+        return SoftwareCategory
+
+    @property
+    def icon(self):
+        return "media-optical-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "_Installation Source")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     def apply(self):
         source_changed = self._update_payload_source()
@@ -702,6 +713,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._url_entry = self.builder.get_object("urlEntry")
         self._protocol_combo_box = self.builder.get_object("protocolComboBox")
         self._iso_chooser_button = self.builder.get_object("isoChooserButton")
+        self._orig_iso_chooser_button = self._iso_chooser_button.get_label()
 
         # Attach a validator to the URL entry. Start it as disabled, and it will be
         # enabled/disabled as entry sensitivity is enabled/disabled.
@@ -1082,6 +1094,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._updates_box.set_sensitive(self._mirror_active())
         active = self._mirror_active() and self.payload.is_repo_enabled("updates")
         self._updates_radio_button.set_active(active)
+
+    def _update_CDN_usage(self):
+        """Notify Payload module and Subscription spoke about possible CDN usage change."""
+        # notify Subscription spoke about possible change
+        hubQ.send_ready("SubscriptionSpoke", False)
 
     @property
     def showable(self):

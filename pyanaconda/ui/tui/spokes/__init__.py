@@ -54,7 +54,10 @@ class TUISpoke(TUIObject, Widget, Spoke):
         Spoke.__init__(self, storage, payload)
 
         self.input_required = True
-        self.title = N_("Default spoke title")
+
+    @property
+    def title(self):
+        return None
 
     @property
     def status(self):
@@ -85,7 +88,7 @@ class TUISpoke(TUIObject, Widget, Spoke):
         # always set completed = True here; otherwise key value won't be
         # displayed if completed (spoke value from above) is False
         c = CheckboxWidget(key=key, completed=True,
-                           title=_(self.title), text=self.status)
+                           title=self.title, text=self.status)
         c.render(width)
         self.draw(c)
 

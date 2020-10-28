@@ -22,7 +22,7 @@ from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import localization
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import _, C_
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
@@ -43,11 +43,9 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
           :parts: 3
     """
     helpFile = "LangSupportSpoke.txt"
-    category = LocalizationCategory
 
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
-        self.title = N_("Language settings")
         self.initialize_start()
         self._container = None
 
@@ -62,6 +60,18 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         self._selected = self._l12_module.Language
         self.initialize_done()
+
+    @staticmethod
+    def get_category():
+        return LocalizationCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Language settings")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     @property
     def completed(self):

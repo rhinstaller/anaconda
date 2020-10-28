@@ -18,7 +18,7 @@
 #
 
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.users import crypt_password
 from pyanaconda import input_checking
 from pyanaconda.core import constants
@@ -49,11 +49,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     uiFile = "spokes/root_password.glade"
     helpFile = "PasswordSpoke.xml"
 
-    category = UserSettingsCategory
-
-    icon = "dialog-password-symbolic"
-    title = CN_("GUI|Spoke", "_Root Password")
-
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         GUISpokeInputCheckHandler.__init__(self)
@@ -61,6 +56,22 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._services_module = SERVICES.get_proxy()
         self._refresh_running = False
         self._manually_locked = False
+
+    @staticmethod
+    def get_category():
+        return UserSettingsCategory
+
+    @property
+    def icon(self):
+        return "dialog-password-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "_Root Password")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     def initialize(self):
         NormalSpoke.initialize(self)

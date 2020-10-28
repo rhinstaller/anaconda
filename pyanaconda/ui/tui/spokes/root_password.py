@@ -22,7 +22,7 @@ from pyanaconda.ui.tui.tuiobject import PasswordDialog
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.constants import SETUP_ON_BOOT_RECONFIG
 from pyanaconda.modules.common.constants.services import USERS, SERVICES
 
@@ -35,12 +35,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
           :parts: 3
     """
     helpFile = "PasswordSpoke.txt"
-    category = UserSettingsCategory
 
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
         self.initialize_start()
-        self.title = N_("Root password")
         self.input_required = False
 
         self._policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
@@ -50,6 +48,18 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._services_module = SERVICES.get_proxy()
 
         self.initialize_done()
+
+    @staticmethod
+    def get_category():
+        return UserSettingsCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Root password")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     @property
     def completed(self):

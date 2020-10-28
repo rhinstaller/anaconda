@@ -29,7 +29,7 @@ from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.payload.image import find_potential_hdiso_sources, \
     get_hdiso_source_info, get_hdiso_source_description
 
@@ -69,11 +69,22 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
         SourceSwitchHandler.__init__(self)
-        self.title = N_("Installation source")
         self._container = None
         self._ready = False
         self._error = False
         self._hmc = False
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Installation source")
+
+    @staticmethod
+    def get_category():
+        return SoftwareCategory
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
@@ -229,10 +240,13 @@ class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     def __init__(self, data, storage, payload, protocol):
         NormalTUISpoke.__init__(self, data, storage, payload)
         SourceSwitchHandler.__init__(self)
-        self.title = N_("Specify Repo Options")
         self.protocol = protocol
         self._container = None
         self._url = self._get_url()
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Specify Repo Options")
 
     def _get_url(self):
         """Get the URL of the current source."""
@@ -289,18 +303,27 @@ class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
 
 class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Specify server and mount opts here if NFS selected. """
-    category = SoftwareCategory
 
     def __init__(self, data, storage, payload, error):
         NormalTUISpoke.__init__(self, data, storage, payload)
         SourceSwitchHandler.__init__(self)
-        self.title = N_("Specify Repo Options")
         self._container = None
         self._error = error
-
         options, host, path = self._get_nfs()
         self._nfs_opts = options
         self._nfs_server = "{}:{}".format(host, path) if host else ""
+
+    @staticmethod
+    def get_category():
+        return SoftwareCategory
+
+    @staticmethod
+    def get_sort_order():
+        return 100
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Specify Repo Options")
 
     def _get_nfs(self):
         """Get the NFS options, host and path of the current source."""
@@ -375,11 +398,14 @@ class SelectDeviceSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
-        self.title = N_("Select device containing the ISO file")
         self._container = None
         self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
         self._mountable_devices = self._get_mountable_devices()
         self._device = None
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Select device containing the ISO file")
 
     @property
     def indirect(self):
@@ -447,10 +473,13 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
     def __init__(self, data, storage, payload, device):
         NormalTUISpoke.__init__(self, data, storage, payload)
         SourceSwitchHandler.__init__(self)
-        self.title = N_("Select an ISO to use as install source")
         self._container = None
         self._device = device
         self._isos = self._collect_iso_files()
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Select an ISO to use as install source")
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)

@@ -78,7 +78,6 @@ class StorageSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
-        self.title = N_("Installation Destination")
         self._container = None
         self._ready = False
         self._select_all = False
@@ -95,6 +94,18 @@ class StorageSpoke(NormalTUISpoke):
 
         self.errors = []
         self.warnings = []
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Installation Destination")
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     @property
     def completed(self):
@@ -420,11 +431,9 @@ class PartTypeSpoke(NormalTUISpoke):
        .. inheritance-diagram:: PartTypeSpoke
           :parts: 3
     """
-    category = SystemCategory
 
     def __init__(self, data, storage, payload, storage_module, partitioning):
         super().__init__(data, storage, payload)
-        self.title = N_("Partitioning Options")
         self._container = None
 
         # Choose the initialization mode.
@@ -444,6 +453,18 @@ class PartTypeSpoke(NormalTUISpoke):
 
         if self._part_method == PARTITIONING_METHOD_MANUAL:
             self._init_mode = CLEAR_PARTITIONS_NONE
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Partitioning Options")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     @property
     def indirect(self):
@@ -548,7 +569,6 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload, partitioning):
         super().__init__(data, storage, payload)
-        self.title = N_("Partition Scheme Options")
         self._container = None
         self._part_schemes = OrderedDict()
         self._partitioning = partitioning
@@ -568,6 +588,14 @@ class PartitionSchemeSpoke(NormalTUISpoke):
             self._part_schemes[item[0]] = item[1]
             if item[1] == selected_choice:
                 self._selected_scheme_value = item[1]
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Partition Scheme Options")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     @property
     def indirect(self):
@@ -616,11 +644,18 @@ class MountPointAssignSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload, partitioning):
         super().__init__(data, storage, payload)
-        self.title = N_("Assign mount points")
         self._container = None
         self._partitioning = partitioning
         self._device_tree = STORAGE.get_proxy(self._partitioning.GetDeviceTree())
         self._requests = self._gather_requests()
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Assign mount points")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     @property
     def indirect(self):
@@ -743,11 +778,18 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload, device_tree, request):
         super().__init__(data, storage, payload)
-        self.title = N_("Configure device: %s") % request.device_spec
         self._container = None
         self._device_tree = device_tree
         self._request = request
         self._supported_filesystems = set(device_tree.GetSupportedFileSystems())
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Configure device: %s") % request.device_spec
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     @property
     def indirect(self):

@@ -21,7 +21,7 @@ import copy
 import gi
 
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.payload.manager import payloadMgr, PayloadState
@@ -60,11 +60,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
     mainWidgetName = "softwareWindow"
     uiFile = "spokes/software_selection.glade"
     helpFile = "SoftwareSpoke.xml"
-
-    category = SoftwareCategory
-
-    icon = "package-x-generic-symbolic"
-    title = CN_("GUI|Spoke", "_Software Selection")
 
     # Add-on selection states
     # no user interaction with this add-on
@@ -116,6 +111,22 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # list with no radio buttons ticked
         self._fake_radio = Gtk.RadioButton(group=None)
         self._fake_radio.set_active(True)
+
+    @staticmethod
+    def get_category():
+        return SoftwareCategory
+
+    @property
+    def icon(self):
+        return "package-x-generic-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "_Software Selection")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     # Payload event handlers
     def _downloading_package_md(self):

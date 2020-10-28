@@ -286,9 +286,12 @@ class RescueModeSpoke(NormalTUISpoke):
     # always. This is independent of any hub(s), so pass in some fake data
     def __init__(self, rescue):
         super().__init__(data=None, storage=None, payload=None)
-        self.title = N_("Rescue")
         self._container = None
         self._rescue = rescue
+
+    @property
+    def title(self):
+        return _("Rescue")
 
     def refresh(self, args=None):
         super().refresh(args)
@@ -405,8 +408,11 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
 
     def __init__(self, rescue):
         super().__init__(data=None, storage=None, payload=None)
-        self.title = N_("Rescue Shell")
         self._rescue = rescue
+
+    @property
+    def title(self):
+        return _("Rescue Shell")
 
     @property
     def indirect(self):
@@ -488,10 +494,13 @@ class RootSelectionSpoke(NormalTUISpoke):
 
     def __init__(self, roots):
         super().__init__(data=None, storage=None, payload=None)
-        self.title = N_("Root Selection")
         self._roots = roots
         self._selection = roots[0]
         self._container = None
+
+    @property
+    def title(self):
+        return _("Root Selection")
 
     @property
     def selection(self):

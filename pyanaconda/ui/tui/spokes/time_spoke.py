@@ -26,7 +26,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import timezone
 from pyanaconda import ntp
 from pyanaconda.core import constants
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
 
 from collections import namedtuple
@@ -48,16 +48,26 @@ CallbackTimezoneArgs = namedtuple("CallbackTimezoneArgs", ["region", "timezone"]
 
 class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     helpFile = "DateTimeSpoke.txt"
-    category = LocalizationCategory
 
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
-        self.title = N_("Time settings")
         self._timezone_spoke = None
         self._container = None
         self._ntp_servers = []
         self._ntp_servers_states = NTPServerStatusCache()
         self._timezone_module = TIMEZONE.get_proxy()
+
+    @staticmethod
+    def get_category():
+        return LocalizationCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Time settings")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     @property
     def indirect(self):
@@ -198,12 +208,10 @@ class TimeZoneSpoke(NormalTUISpoke):
        .. inheritance-diagram:: TimeZoneSpoke
           :parts: 3
     """
-    category = LocalizationCategory
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
 
-        self.title = N_("Timezone settings")
         self._container = None
         # it's stupid to call get_all_regions_and_timezones twice, but regions
         # needs to be unsorted in order to display in the same order as the GUI
@@ -218,6 +226,18 @@ class TimeZoneSpoke(NormalTUISpoke):
         self._selection = ""
 
         self._timezone_module = TIMEZONE.get_proxy()
+
+    @staticmethod
+    def get_category():
+        return LocalizationCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Timezone settings")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     @property
     def indirect(self):
@@ -295,14 +315,24 @@ class TimeZoneSpoke(NormalTUISpoke):
 
 
 class NTPServersSpoke(NormalTUISpoke):
-    category = LocalizationCategory
 
     def __init__(self, data, storage, payload, servers, states):
         super().__init__(data, storage, payload)
-        self.title = N_("NTP configuration")
         self._container = None
         self._servers = servers
         self._states = states
+
+    @staticmethod
+    def get_category():
+        return LocalizationCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "NTP configuration")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     @property
     def indirect(self):
@@ -360,14 +390,24 @@ class NTPServersSpoke(NormalTUISpoke):
 
 
 class AddNTPServerSpoke(NormalTUISpoke):
-    category = LocalizationCategory
 
     def __init__(self, data, storage, payload, servers, states):
         super().__init__(data, storage, payload)
-        self.title = N_("Add NTP server address")
         self._servers = servers
         self._states = states
         self._value = None
+
+    @staticmethod
+    def get_category():
+        return LocalizationCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Add NTP server address")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     @property
     def indirect(self):
@@ -411,14 +451,24 @@ class AddNTPServerSpoke(NormalTUISpoke):
 
 
 class RemoveNTPServerSpoke(NormalTUISpoke):
-    category = LocalizationCategory
 
     def __init__(self, data, storage, payload, servers, states):
         super().__init__(data, storage, payload)
-        self.title = N_("Select an NTP server to remove")
         self._servers = servers
         self._states = states
         self._container = None
+
+    @staticmethod
+    def get_category():
+        return LocalizationCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Select an NTP server to remove")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     @property
     def indirect(self):

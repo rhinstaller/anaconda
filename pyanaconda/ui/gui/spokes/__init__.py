@@ -16,6 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 
+from abc import ABCMeta, abstractmethod
+
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.lib.help import start_yelp, get_help_path
@@ -47,7 +49,7 @@ class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
 
 # Inherit abstract methods from common.NormalSpoke
 # pylint: disable=abstract-method
-class NormalSpoke(GUIObject, common.NormalSpoke):
+class NormalSpoke(GUIObject, common.NormalSpoke, metaclass=ABCMeta):
     """
        .. inheritance-diagram:: NormalSpoke
           :parts: 3
@@ -61,6 +63,21 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
 
         # warning message
         self._current_warning_message = ""
+
+    @property
+    @abstractmethod
+    def icon(self):
+        """The name of the icon to be displayed.
+
+        The name of the icon to be displayed in the SpokeSelector
+        widget corresponding to this Spoke instance.  If no icon
+        is given, the default from SpokeSelector will be used.
+
+        NOTE: As standalone spokes are not displayed on a hub,
+              they don't need a spoke icon to be defined for them.
+        """
+        return None
+
 
     def _on_help_clicked(self, window):
         # the help button has been clicked, start the yelp viewer with

@@ -22,7 +22,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import DependencyError, NoSuchGroup
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
@@ -46,11 +46,9 @@ class SoftwareSpoke(NormalTUISpoke):
           :parts: 3
     """
     helpFile = "SoftwareSpoke.txt"
-    category = SoftwareCategory
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
-        self.title = N_("Software selection")
         self._container = None
         self.errors = []
         self._tx_id = None
@@ -64,6 +62,18 @@ class SoftwareSpoke(NormalTUISpoke):
         # Register event listeners to update our status on payload events
         payloadMgr.add_listener(PayloadState.STARTED, self._payload_start)
         payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
+
+    @staticmethod
+    def get_category():
+        return SoftwareCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Software selection")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     def initialize(self):
         """Initialize the spoke."""

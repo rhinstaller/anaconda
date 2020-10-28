@@ -22,7 +22,7 @@ import sys
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.core.constants import USEVNC, USETEXT, QUIT_MESSAGE
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.core.util import execWithRedirect, ipmi_abort
 
@@ -46,7 +46,6 @@ class AskVNCSpoke(NormalTUISpoke):
        .. inheritance-diagram:: AskVNCSpoke
           :parts: 3
     """
-    title = N_("VNC")
 
     # This spoke is kinda standalone, not meant to be used with a hub
     # We pass in some fake data just to make our parents happy
@@ -64,6 +63,19 @@ class AskVNCSpoke(NormalTUISpoke):
         self._message = message
         self._usevnc = False
         self.initialize_done()
+
+    @staticmethod
+    def get_category():
+        return None
+
+    @staticmethod
+    def get_sort_order():
+        # standalone spoke -> sort order 0
+        return 0
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "VNC")
 
     @property
     def indirect(self):
@@ -123,13 +135,16 @@ class VNCPassSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload, message=None):
         super().__init__(data, storage, payload)
-        self.title = N_("VNC Password")
         self._password = ""
         if message:
             self._message = message
         else:
             self._message = _("Please provide VNC password (must be six to eight characters long).\n"
                               "You will have to type it twice. Leave blank for no password")
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "VNC Password")
 
     @property
     def indirect(self):

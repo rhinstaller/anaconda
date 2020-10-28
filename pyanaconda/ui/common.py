@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 
-from abc import ABCMeta, abstractproperty
+from abc import ABC, ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, SETUP_ON_BOOT_RECONFIG
@@ -159,7 +159,7 @@ class FirstbootOnlySpokeMixIn(object):
             return False
 
 
-class Spoke(object, metaclass=ABCMeta):
+class Spoke(ABC):
     """A Spoke is a single configuration screen.  There are several different
        places where a Spoke can be displayed, each of which will have its own
        unique class.  A Spoke is typically used when an element in the Hub is
@@ -170,26 +170,8 @@ class Spoke(object, metaclass=ABCMeta):
        to be shown.  Regardless, the UI of a Spoke should be given by an
        interface description file like glade as often as possible, though this
        is not a strict requirement.
-
-       Class attributes:
-
-       category   -- Under which SpokeCategory shall this Spoke be displayed
-                     in the Hub?  This is a reference to a Hub subclass (not an
-                     object, but the class itself).  If no category is given,
-                     this Spoke will not be displayed.  Note that category is
-                     not required for any Spokes appearing before or after a
-                     Hub.
-       icon       -- The name of the icon to be displayed in the SpokeSelector
-                     widget corresponding to this Spoke instance.  If no icon
-                     is given, the default from SpokeSelector will be used.
-       title      -- The title to be displayed in the SpokeSelector widget
-                     corresponding to this Spoke instance.  If no title is
-                     given, the default from SpokeSelector will be used.
     """
 
-    category = None
-    icon = None
-    title = None
 
     def __init__(self, storage, payload):
         """Create a new Spoke instance.
@@ -227,6 +209,50 @@ class Spoke(object, metaclass=ABCMeta):
     @abstractproperty
     def data(self):
         pass
+
+    @staticmethod
+    @abstractmethod
+    def get_category():
+        """Under which SpokeCategory shall this Spoke be displayed in the Hub?
+
+        This is a reference to a Hub subclass (not an
+        object, but the class itself).  If no category is given,
+        this Spoke will not be displayed.  Note that category is
+        not required for any Spokes appearing before or after a
+        Hub.
+
+        NOTE: This needs to be a static method as spoke categories
+              need to be evaluated before class instantiation.
+        """
+        return None
+
+    @property
+    @abstractmethod
+    def title(self):
+        """Localized spoke title to be displayed in the SpokeSelector widget.
+
+        The localized title to be displayed in the SpokeSelector widget
+        corresponding to this Spoke instance.
+        If no title is given, the default from SpokeSelector will be used.
+        """
+        return None
+
+    @staticmethod
+    @abstractmethod
+    def get_sort_order():
+        """A number indicating the order in which this spoke will be displayed.
+
+        A lower number indicates display higher up in the given category on
+        a hub.
+
+        NOTE: This needs to be a static method as spoke sort order
+              needs to be evaluated before class instantiation.
+
+        :return: sort order number
+        :rtype: int
+        """
+
+        return 0
 
     @property
     def storage(self):
@@ -376,8 +402,10 @@ class Spoke(object, metaclass=ABCMeta):
     @property
     def initialization_controller(self):
         # standalone spokes don't have a category
-        if self.category:
-            return lifecycle.get_controller_by_category(category_name=self.category.__name__)
+        if self.get_category():
+            return lifecycle.get_controller_by_category(
+                category_name=self.get_category().__name__
+            )
         else:
             return None
 
@@ -456,7 +484,7 @@ class NormalSpoke(Spoke):
 
 # Inherit abstract methods from NormalSpoke
 # pylint: disable=abstract-method
-class StandaloneSpoke(Spoke):
+class StandaloneSpoke(Spoke, metaclass=ABCMeta):
     """A StandaloneSpoke is a Spoke subclass that is displayed apart from any
        Hub.  It is suitable to be used as a Welcome screen.
 
@@ -464,32 +492,52 @@ class StandaloneSpoke(Spoke):
        interface.  However, it also provides navigation information at the top
        and bottom of the screen that makes it look like the StandaloneSpoke
        fits into some other UI element.
-
-       Class attributes:
-
-       preForHub/postForHub   -- A reference to a Hub subclass this Spoke is
-                                 either a pre or post action for.  Only one of
-                                 these may be set at a time.  Note that all
-                                 post actions will be run for one hub before
-                                 any pre actions for the next.
-       priority               -- This value is used to sort pre and post
-                                 actions.  The lower a value, the earlier it
-                                 will be run.  So a value of 0 for a post action
-                                 ensures it will run immediately after a Hub,
-                                 while a value of 0 for a pre actions means
-                                 it will run as the first thing.
     """
-    preForHub = None
-    postForHub = None
 
-    priority = 0
 
     def __init__(self, storage, payload):
         """Create a StandaloneSpoke instance."""
-        if self.preForHub and self.postForHub:
-            raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
+        if self.pre_action_for_hub and self.post_action_for_hub:
+            raise AttributeError(
+                "StandaloneSpoke instance %{} may not have both pre_action_for_hub"
+                "and post_action_for_hub set".format(self)
+            )
 
         super().__init__(storage, payload)
+
+    @property
+    @abstractmethod
+    def pre_action_for_hub(self):
+        """A reference to a Hub subclass this Spoke is a pre action for.
+
+        Only one of pre_for_hub/post_for_hub may be set at a time.
+        Note that all post actions will be run for one hub before any
+        pre actions for the next.
+        """
+        return None
+
+    @property
+    @abstractmethod
+    def post_action_for_hub(self):
+        """A reference to a Hub subclass this Spoke is a post action for.
+
+        Only one of pre_action_for_hub/post_action_for_hub may be set at a time.
+        Note that all post actions will be run for one hub before any
+        pre actions for the next.
+        """
+        return None
+
+    @property
+    @abstractmethod
+    def action_priority(self):
+        """Used to sort pre and post actions.
+
+        The lower a value, the earlier it will be run.
+        So a value of 0 for a post action ensures it will
+        run immediately after a Hub, while a value of 0
+        for a pre actions means it will run as the first thing.
+        """
+        return 0
 
     # Standalone spokes are not part of a hub, and thus have no status.
     # Provide a concrete implementation of status here so that subclasses
@@ -499,7 +547,7 @@ class StandaloneSpoke(Spoke):
         return None
 
 
-class Hub(object, metaclass=ABCMeta):
+class Hub(ABC):
     """A Hub is an overview UI screen.  A Hub consists of one or more grids of
        configuration options that the user may choose from.  Each grid is
        provided by a SpokeCategory, and each option is provided by a Spoke.
@@ -623,7 +671,10 @@ def collect_spokes(mask_paths, category):
     spokes = []
     for mask, path in mask_paths:
         candidate_spokes = (collect(mask, path,
-                            lambda obj: hasattr(obj, "category") and obj.category is not None and obj.category.__name__ == category))
+                            lambda obj: hasattr(obj, "get_category") and
+                            obj.get_category() is not None
+                            and obj.get_category().__name__ == category)
+                            )
         # filter out any spokes from the candidates that have already been visited by the user before
         # (eq. before Anaconda or Initial Setup started) and should not be visible again
         visible_spokes = []

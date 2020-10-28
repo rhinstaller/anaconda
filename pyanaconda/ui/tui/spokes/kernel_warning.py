@@ -18,7 +18,7 @@
 from simpleline.render.widgets import TextWidget
 
 from pyanaconda.core.constants import WARNING_SMT_ENABLED_TUI
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.util import is_smt_enabled
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
@@ -28,12 +28,27 @@ __all__ = ["KernelWarningSpoke"]
 
 class KernelWarningSpoke(StandaloneTUISpoke):
     """Spoke for kernel-related warnings."""
-    preForHub = SummaryHub
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.title = N_("Warning: Processor has Simultaneous Multithreading (SMT) enabled")
         self.input_required = False
+
+    @staticmethod
+    def get_category():
+        return None
+
+    @staticmethod
+    def get_sort_order():
+        # standalone spoke -> sort order 0
+        return 0
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Warning: Processor has Simultaneous Multithreading (SMT) enabled")
+
+    @property
+    def pre_action_for_hub(self):
+        return SummaryHub
 
     @property
     def completed(self):

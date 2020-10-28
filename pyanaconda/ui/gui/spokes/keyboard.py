@@ -32,7 +32,7 @@ from pyanaconda.ui.gui.utils import override_cell_property
 from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
 from pyanaconda import keyboard
 from pyanaconda import flags
-from pyanaconda.core.i18n import _, N_, CN_
+from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, THREAD_ADD_LAYOUTS_INIT
 from pyanaconda.ui.communication import hubQ
@@ -285,11 +285,6 @@ class KeyboardSpoke(NormalSpoke):
     uiFile = "spokes/keyboard.glade"
     helpFile = "KeyboardSpoke.xml"
 
-    category = LocalizationCategory
-
-    icon = "input-keyboard-symbolic"
-    title = CN_("GUI|Spoke", "_Keyboard")
-
     def __init__(self, *args):
         super().__init__(*args)
         self._remove_last_attempt = False
@@ -305,6 +300,22 @@ class KeyboardSpoke(NormalSpoke):
 
         self._l12_module = LOCALIZATION.get_proxy()
         self._seen = self._l12_module.KeyboardKickstarted
+
+    @staticmethod
+    def get_category():
+        return LocalizationCategory
+
+    @property
+    def icon(self):
+        return "input-keyboard-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "_Keyboard")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     def apply(self):
         # the user has confirmed (seen) the configuration

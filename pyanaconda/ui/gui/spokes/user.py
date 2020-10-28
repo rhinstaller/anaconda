@@ -19,7 +19,7 @@
 
 import os
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.users import crypt_password, guess_username, check_groupname
 from pyanaconda import input_checking
 from pyanaconda.core import constants
@@ -225,11 +225,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     uiFile = "spokes/user.glade"
     helpFile = "UserSpoke.xml"
 
-    category = UserSettingsCategory
-
-    icon = "avatar-default-symbolic"
-    title = CN_("GUI|Spoke", "_User Creation")
-
     @classmethod
     def should_run(cls, environment, data):
         # the user spoke should run always in the anaconda and in firstboot only
@@ -255,6 +250,22 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         self._users_module = USERS.get_proxy()
         self._password_is_required = True
+
+    @staticmethod
+    def get_category():
+        return UserSettingsCategory
+
+    @property
+    def icon(self):
+        return "avatar-default-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "_User Creation")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     def initialize(self):
         NormalSpoke.initialize(self)

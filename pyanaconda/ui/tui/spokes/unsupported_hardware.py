@@ -19,8 +19,8 @@ from simpleline.render.widgets import TextWidget
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
-from pyanaconda.core.i18n import N_
 from pyanaconda.core.util import detect_unsupported_hardware
+from pyanaconda.core.i18n import C_
 
 __all__ = ["UnsupportedHardwareSpoke"]
 
@@ -30,13 +30,31 @@ class UnsupportedHardwareSpoke(StandaloneTUISpoke):
 
     Show this spoke if the unsupported hardware was detected.
     """
-    preForHub = SummaryHub
-    priority = -10
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.title = N_("Unsupported Hardware Detected")
         self._warnings = detect_unsupported_hardware()
+
+    @staticmethod
+    def get_category():
+        return None
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Unsupported Hardware Detected")
+
+    @staticmethod
+    def get_sort_order():
+        # standalone spoke -> sort order 0
+        return 0
+
+    @property
+    def pre_action_for_hub(self):
+        return SummaryHub
+
+    @property
+    def action_priority(self):
+        return -10
 
     @property
     def completed(self):

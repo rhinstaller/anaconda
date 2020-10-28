@@ -35,7 +35,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     SIZE_UNITS_DEFAULT, PARTITIONING_METHOD_INTERACTIVE
-from pyanaconda.core.i18n import _, N_, CP_, C_
+from pyanaconda.core.i18n import _, CP_, C_
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatData, DeviceData
@@ -96,9 +96,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     uiFile = "spokes/custom_storage.glade"
     helpFile = "CustomSpoke.xml"
 
-    category = SystemCategory
-    title = N_("MANUAL PARTITIONING")
-
     # The maximum number of places to show when displaying a size
     MAX_SIZE_PLACES = 2
 
@@ -129,6 +126,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._storage_module = STORAGE.get_proxy()
         self._boot_loader = STORAGE.get_proxy(BOOTLOADER)
         self._disk_selection = STORAGE.get_proxy(DISK_SELECTION)
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
+
+    @property
+    def icon(self):
+        return "drive-harddisk-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "Manual Partitioning")
+
+    @staticmethod
+    def get_sort_order():
+        # not actually displayed on a hub, so sort order 0
+        return 0
 
     def apply(self):
         self.clear_errors()

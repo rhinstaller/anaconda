@@ -19,7 +19,7 @@
 
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.core.util import execConsole
@@ -33,11 +33,21 @@ class ShellSpoke(NormalTUISpoke):
        .. inheritance-diagram:: ShellSpoke
           :parts: 3
     """
-    category = SystemCategory
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
-        self.title = N_("Shell")
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Shell")
+
+    @staticmethod
+    def get_sort_order():
+        return 300
 
     @classmethod
     def should_run(cls, environment, data):

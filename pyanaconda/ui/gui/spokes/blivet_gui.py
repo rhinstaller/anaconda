@@ -41,7 +41,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     PARTITIONING_METHOD_BLIVET
-from pyanaconda.core.i18n import _, CN_, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning
 from pyanaconda.threading import threadMgr
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -96,12 +96,6 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     # name of the .glade file in the same directory as this source
     uiFile = "spokes/blivet_gui.glade"
 
-    # category this spoke belongs to
-    category = SystemCategory
-
-    # title of the spoke (will be displayed on the hub)
-    title = CN_("GUI|Spoke", "_Blivet-GUI Partitioning")
-
     helpFile = "blivet-gui/index.page"
 
     ### methods defined by API ###
@@ -132,6 +126,25 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, data, storage, payload)
+
+    @staticmethod
+    def get_category():
+        """Category this spoke belongs to."""
+        return SystemCategory
+
+    @property
+    def icon(self):
+        return "drive-harddisk-symbolic"
+
+    @property
+    def title(self):
+        """Title of the spoke (will be displayed on the hub)."""
+        return C_("GUI|Spoke", "_Blivet-GUI Partitioning")
+
+    @staticmethod
+    def get_sort_order():
+        # not actually displayed on a hub, so sort order 0
+        return 0
 
     @property
     def label_actions(self):

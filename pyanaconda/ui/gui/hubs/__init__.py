@@ -133,7 +133,7 @@ class Hub(GUIObject, common.Hub):
 
         for category in common.sort_categories(categories):
             selectors = []
-            for spokeClass in sorted(cats_and_spokes[category], key=lambda s: s.title):
+            for spokeClass in sorted(cats_and_spokes[c], key=lambda s: s.get_sort_order()):
                 # Check if this spoke is to be shown in the supported environments
                 if not any(spokeClass.should_run(environ, self.data) for environ in flags.environs):
                     continue
@@ -167,7 +167,7 @@ class Hub(GUIObject, common.Hub):
                     spoke.initialize()
                     continue
 
-                spoke.selector = AnacondaWidgets.SpokeSelector(C_("GUI|Spoke", spoke.title),
+                spoke.selector = AnacondaWidgets.SpokeSelector(spoke.title,
                                                                spoke.icon)
 
                 # Set all selectors to insensitive before initialize runs.  The call to

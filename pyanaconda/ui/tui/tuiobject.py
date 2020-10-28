@@ -16,6 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from abc import ABCMeta, abstractmethod
 
 from pyanaconda.ui import common
 
@@ -88,7 +89,7 @@ class IpmiErrorDialog(ErrorDialog):
         super().input(args, key)
 
 
-class TUIObject(UIScreen, common.UIObject):
+class TUIObject(UIScreen, common.UIObject, metaclass=ABCMeta):
     """Base class for Anaconda specific TUI screens. Implements the
     common pyanaconda.ui.common.UIObject interface"""
 
@@ -97,7 +98,11 @@ class TUIObject(UIScreen, common.UIObject):
     def __init__(self, data):
         UIScreen.__init__(self)
         common.UIObject.__init__(self, data)
-        self.title = u"Default title"
+
+    @property
+    @abstractmethod
+    def title(self):
+        return None
 
     @property
     def showable(self):

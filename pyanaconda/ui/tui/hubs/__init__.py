@@ -16,6 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from abc import ABCMeta, abstractmethod
+
 from pyanaconda import lifecycle
 from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui.lib.help import get_help_path
@@ -27,12 +29,12 @@ from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 
-from pyanaconda.core.i18n import _, N_
+from pyanaconda.core.i18n import _
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class TUIHub(TUIObject, common.Hub):
+class TUIHub(TUIObject, common.Hub, metaclass=ABCMeta):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.
        It uses text based categories to look for relevant Spokes and manages
        all the spokes it finds to have the proper category.
@@ -51,7 +53,6 @@ class TUIHub(TUIObject, common.Hub):
     def __init__(self, data, storage, payload):
         TUIObject.__init__(self, data)
         common.Hub.__init__(self, storage, payload)
-        self.title = N_("Default HUB title")
         self._container = None
 
         self._spokes_map = []  # hold all the spokes in the right ordering
@@ -60,6 +61,11 @@ class TUIHub(TUIObject, common.Hub):
 
         # we want user input
         self.input_required = True
+
+    @property
+    @abstractmethod
+    def title(self):
+        return None
 
     def setup(self, args="anaconda"):
         TUIObject.setup(self, args)
@@ -90,7 +96,7 @@ class TUIHub(TUIObject, common.Hub):
                     hub_spokes.append(spoke)
 
             # sort created spokes and add them to result structures
-            for spoke in sorted(hub_spokes, key=lambda s: s.title):
+            for spoke in sorted(hub_spokes, key=lambda s: s.get_sort_order()):
 
                 self._spoke_count += 1
                 self._spokes_map.append(spoke)

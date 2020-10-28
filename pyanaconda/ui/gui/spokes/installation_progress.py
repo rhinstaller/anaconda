@@ -46,8 +46,6 @@ class ProgressSpoke(StandaloneSpoke):
     uiFile = "spokes/installation_progress.glade"
     helpFile = "ProgressHub.xml"
 
-    postForHub = SummaryHub
-
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
         self._totalSteps = 0
@@ -58,6 +56,10 @@ class ProgressSpoke(StandaloneSpoke):
         self._progressLabel = self.builder.get_object("progressLabel")
         self._progressNotebook = self.builder.get_object("progressNotebook")
         self._spinner = self.builder.get_object("progressSpinner")
+
+    @property
+    def post_action_for_hub(self):
+        return SummaryHub
 
     @property
     def completed(self):

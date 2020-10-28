@@ -22,7 +22,7 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import CN_, CP_
+from pyanaconda.core.i18n import _, CP_, C_
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.ui.lib.storage import apply_disk_selection, try_populate_devicetree, \
     filter_disks_by_names
@@ -505,10 +505,6 @@ class FilterSpoke(NormalSpoke):
     uiFile = "spokes/advanced_storage.glade"
     helpFile = "FilterSpoke.xml"
 
-    category = SystemCategory
-
-    title = CN_("GUI|Spoke", "_Installation Destination")
-
     def __init__(self, *args):
         super().__init__(*args)
         self.applyOnSkip = True
@@ -526,6 +522,23 @@ class FilterSpoke(NormalSpoke):
         self._notebook = self.builder.get_object("advancedNotebook")
         self._store = self.builder.get_object("diskStore")
         self._reconfigure_nvdimm_button = self.builder.get_object("reconfigureNVDIMMButton")
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
+
+    @property
+    def icon(self):
+        return "drive-harddisk-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "_Installation Destination")
+
+    @staticmethod
+    def get_sort_order():
+        # not actually displayed on a hub, so sort order 0
+        return 0
 
     @property
     def indirect(self):

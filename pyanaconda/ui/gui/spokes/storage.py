@@ -26,7 +26,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
     PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_BLIVET
-from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, DEVICE_TREE
@@ -75,12 +75,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     mainWidgetName = "storageWindow"
     uiFile = "spokes/storage.glade"
     helpFile = "StorageSpoke.xml"
-
-    category = SystemCategory
-
-    # other candidates: computer-symbolic, folder-symbolic
-    icon = "drive-harddisk-symbolic"
-    title = CN_("GUI|Spoke", "Installation _Destination")
 
     def __init__(self, *args, **kwargs):
         StorageCheckHandler.__init__(self)
@@ -133,6 +127,23 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Configure the partitioning methods.
         self._configure_partitioning_methods()
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
+
+    @property
+    def icon(self):
+        # other candidates: computer-symbolic, folder-symbolic
+        return "drive-harddisk-symbolic"
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "Installation _Destination")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     def _configure_partitioning_methods(self):
         if "CustomPartitioningSpoke" in conf.ui.hidden_spokes:

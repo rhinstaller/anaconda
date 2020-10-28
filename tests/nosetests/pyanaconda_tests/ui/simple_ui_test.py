@@ -95,7 +95,7 @@ class SimpleUITestCase(unittest.TestCase):
         res = dict()
 
         for spoke in spokes:
-            priority = spoke.priority
+            action_priority = spoke.action_priority
             name = spoke.__name__
 
             if priority in res:
@@ -208,19 +208,19 @@ class SimpleUITestCase(unittest.TestCase):
         hub = create_autospec(Hub)
 
         class SpokeA(StandaloneSpoke):  # pylint: disable=abstract-method
-            preForHub = hub
+            pre_action_for_hub = hub
 
         class SpokeB(StandaloneSpoke):  # pylint: disable=abstract-method
-            preForHub = hub
+            pre_action_for_hub = hub
 
         class SpokeC(StandaloneSpoke):  # pylint: disable=abstract-method
-            preForHub = hub
+            pre_action_for_hub = hub
 
         class SpokeD(StandaloneSpoke):  # pylint: disable=abstract-method
-            postForHub = hub
+            post_action_for_hub = hub
 
         class SpokeE(StandaloneSpoke):  # pylint: disable=abstract-method
-            postForHub = hub
+            post_action_for_hub = hub
 
         list1 = [SpokeC, SpokeB, SpokeE, SpokeD, SpokeA]
 

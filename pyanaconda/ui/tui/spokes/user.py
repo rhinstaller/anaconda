@@ -18,7 +18,7 @@
 #
 from pyanaconda.core.constants import FIRSTBOOT_ENVIRON, PASSWORD_SET
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.core.regexes import GECOS_VALID
 from pyanaconda.modules.common.constants.services import USERS
 
@@ -45,7 +45,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
           :parts: 3
     """
     helpFile = "UserSpoke.txt"
-    category = UserSettingsCategory
 
     @classmethod
     def should_run(cls, environment, data):
@@ -70,7 +69,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         # connect to the Users DBus module
         self._users_module = USERS.get_proxy()
 
-        self.title = N_("User creation")
         self._container = None
 
         # was user creation requested by the Users DBus module
@@ -101,6 +99,18 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._users_module = USERS.get_proxy()
 
         self.initialize_done()
+
+    @staticmethod
+    def get_category():
+        return UserSettingsCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "User creation")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     @property
     def user(self):

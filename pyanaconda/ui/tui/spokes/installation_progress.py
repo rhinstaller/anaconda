@@ -20,7 +20,7 @@
 import sys
 
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_INSTALL, IPMI_FINISHED
 from pyanaconda.core.configuration.anaconda import conf
@@ -42,14 +42,29 @@ class ProgressSpoke(StandaloneTUISpoke):
        .. inheritance-diagram:: ProgressSpoke
           :parts: 3
     """
-    postForHub = SummaryHub
 
     def __init__(self, ksdata, storage, payload):
         self.initialize_start()
         super().__init__(ksdata, storage, payload)
-        self.title = N_("Progress")
         self._stepped = False
         self.initialize_done()
+
+    @staticmethod
+    def get_category():
+        return None
+
+    @staticmethod
+    def get_sort_order():
+        # standalone spoke -> sort order 0
+        return 0
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Progress")
+
+    @property
+    def post_action_for_hub(self):
+        return SummaryHub
 
     @property
     def completed(self):

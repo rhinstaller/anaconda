@@ -154,8 +154,8 @@ class UserInterface(object):
 
         def check_standalone_spokes(obj):
             return issubclass(obj, standalone_class) and \
-                getattr(obj, "preForHub", False) or \
-                getattr(obj, "postForHub", False)
+                getattr(obj, "pre_action_for_hub", False) or \
+                getattr(obj, "post_action_for_hub", False)
 
         for module_pattern, path in module_pattern_w_path:
             standalones.extend(
@@ -176,7 +176,7 @@ class UserInterface(object):
                        to the hub dependencies
         :type spokes: list of Spoke instances
 
-        :param hubs: the list of Hub classes we check to be in pre/postForHub
+        :param hubs: the list of Hub classes we check to be in pre/post_action_for_hub
                      attribute of Spokes to pick up
         :type hubs: common.Hub based types
         """
@@ -200,8 +200,8 @@ class UserInterface(object):
 
     @staticmethod
     def _filter_spokes_by_pre_for_hub_reference(spokes, hub):
-        return filter(lambda obj, h=hub: getattr(obj, "preForHub", None) == h, spokes)
+        return filter(lambda obj, h=hub: getattr(obj, "pre_action_for_hub", None) == h, spokes)
 
     @staticmethod
     def _filter_spokes_by_post_for_hub_reference(spokes, hub):
-        return filter(lambda obj, h=hub: getattr(obj, "postForHub", None) == h, spokes)
+        return filter(lambda obj, h=hub: getattr(obj, "post_action_for_hub", None) == h, spokes)

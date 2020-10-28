@@ -27,7 +27,7 @@ gi.require_version("NM", "1.0")
 from gi.repository import Gtk
 from gi.repository import GObject, Pango, Gio, NM
 
-from pyanaconda.core.i18n import _, N_, CN_
+from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
@@ -1439,11 +1439,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     uiFile = "spokes/network.glade"
     helpFile = "NetworkSpoke.xml"
 
-    title = CN_("GUI|Spoke", "_Network & Host Name")
-    icon = "network-transmit-receive-symbolic"
-
-    category = SystemCategory
-
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.networking_changed = False
@@ -1459,6 +1454,22 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
                                          self.on_device_state_changed)
         self.network_control_box.connect("apply-hostname",
                                          self.on_apply_hostname)
+
+    @property
+    def title(self):
+        return C_("GUI|Spoke", "_Network & Host Name")
+
+    @property
+    def icon(self):
+        return "network-transmit-receive-symbolic"
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     def _hostname_changed(self, hostname):
         gtk_call_once(self._update_hostname)
@@ -1588,9 +1599,6 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     mainWidgetName = "networkStandaloneWindow"
     uiFile = "spokes/network.glade"
 
-    preForHub = SummaryHub
-    priority = 10
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._network_module = NETWORK.get_proxy()
@@ -1612,6 +1620,15 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         self._initially_available = self.completed
         log.debug("network standalone spoke (init): completed: %s", self._initially_available)
         self._now_available = False
+
+    @property
+    def pre_action_for_hub(self):
+        return SummaryHub
+
+    @property
+    def action_priority(self):
+        return 10
+
 
     def _hostname_changed(self, hostname):
         gtk_call_once(self._update_hostname)

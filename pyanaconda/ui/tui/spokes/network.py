@@ -201,7 +201,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
           :parts: 3
     """
     helpFile = "NetworkSpoke.txt"
-    category = SystemCategory
     configurable_device_types = [
         NM.DeviceType.ETHERNET,
         NM.DeviceType.INFINIBAND,
@@ -209,7 +208,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
-        self.title = N_("Network configuration")
         self._network_module = NETWORK.get_proxy()
 
         self.nm_client = network.get_nm_client()
@@ -221,6 +219,18 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self.editable_configurations = []
         self.errors = []
         self._apply = False
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Network configuration")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     @classmethod
     def should_run(cls, environment, data):
@@ -440,11 +450,9 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
 class ConfigureDeviceSpoke(NormalTUISpoke):
     """ Spoke to set various configuration options for net devices. """
-    category = "network"
 
     def __init__(self, data, storage, payload, network_module, iface, connection):
         super().__init__(data, storage, payload)
-        self.title = N_("Device configuration")
 
         self._network_module = network_module
         self._container = None
@@ -459,6 +467,18 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
         log.debug("Configure iface %s: connection %s -> %s", self._iface, self._connection_uuid,
                   self._data)
+
+    @staticmethod
+    def get_category():
+        return "network"
+
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Device configuration")
+
+    @staticmethod
+    def get_sort_order():
+        return 200
 
     def refresh(self, args=None):
         """ Refresh window. """
