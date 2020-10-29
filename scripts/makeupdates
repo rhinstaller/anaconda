@@ -216,7 +216,9 @@ def copy_updated_files(tag, updates, cwd, builddir):
 
         if gitfile.endswith('.spec.in') or (gitfile.find('Makefile') != -1) or \
            gitfile.endswith('.c') or gitfile.endswith('.h') or \
-           gitfile.endswith('.sh') or gitfile == 'configure.ac':
+           gitfile.endswith('.sh') or gitfile == 'configure.ac' or \
+           gitfile.startswith('.github/') or gitfile.startswith('dockerfile') or \
+           gitfile == '.packit.yml' or gitfile == '.pep8speaks.yml':
             continue
 
         if gitfile.endswith('.glade'):
