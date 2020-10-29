@@ -10,7 +10,7 @@
 #
 # Example invocation:
 # podman run -h local-runner-1 --rm -e GITHUB_TOKEN=$(< ~/.config/github-token) -e GITHUB_REPOSITORY=rhinstaller/anaconda \
-#        -e RUNNER_LABELS=rhel-8,blue-cloud --entrypoint /github-action-run-once anaconda/ci-tasks
+#        -e RUNNER_LABELS=rhel-8,blue-cloud --entrypoint /github-action-run-once rhinstaller/anaconda-ci
 #
 # Documentation:
 # https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/about-self-hosted-runners

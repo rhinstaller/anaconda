@@ -54,7 +54,7 @@ Right now only unit tests are supported by the container, not rpm-tests.
 Before being able to run the tests you have to build the container.
 To build the container run::
 
-    make ci-tasks-build
+    make anaconda-ci-build
 
 Then you are free to run the tests without dependency installation by
 running::
@@ -65,7 +65,7 @@ This will run all the tests. To run just some tests you can pass parameters
 which will replace the current one. For example to run just some nose-tests
 please do this::
 
-    make container-ci CI_TASKS_CMD="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
+    make container-ci CI_CMD="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
 
 WARNING:
 
@@ -98,7 +98,7 @@ For debugging or development a self-hosted runner can be started in podman; see
 the comment in github-action-run-once_ for details.
 
 .. _`self-hosted runners`: https://docs.github.com/en/free-pro-team@latest/rest/reference/actions#self-hosted-runners
-.. _github-action-run-once: ../dockerfile/ci-tasks/github-action-run-once
+.. _github-action-run-once: ../dockerfile/anaconda-ci/github-action-run-once
 
 Run tests inside Mock
 ---------------------
