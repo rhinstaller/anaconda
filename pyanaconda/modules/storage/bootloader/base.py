@@ -903,9 +903,15 @@ class BootLoader(object):
 
     def _set_console(self):
         """ Set console options based on boot arguments. """
-        console = kernel_arguments.get("console", "")
+        console = kernel_arguments.get("console")
+
+        if not console:
+            return
+
         console = os.path.basename(console)
         self.console, _x, self.console_options = console.partition(",")
+
+        log.debug("Console is set to %s with options '%s'", self.console, self.console_options)
 
     def write_config_console(self, config):
         """Write console-related configuration lines."""
