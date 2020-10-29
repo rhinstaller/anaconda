@@ -40,6 +40,7 @@ from pyanaconda.modules.storage.nvdimm import NVDIMMModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.factory import PartitioningFactory
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from pyanaconda.modules.storage.platform import platform
 from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
@@ -369,6 +370,12 @@ class StorageService(KickstartService):
         :return: a list of requirements
         """
         requirements = []
+
+        # Add the platform requirements.
+        for name in platform.packages:
+            requirements.append(Requirement.for_package(
+                name, reason="Required for the platform."
+            ))
 
         # Add the storage requirements.
         for name in self.storage.packages:

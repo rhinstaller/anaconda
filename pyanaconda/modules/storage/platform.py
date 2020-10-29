@@ -31,14 +31,12 @@ log = get_module_logger(__name__)
 
 
 class Platform(object):
-
     """Platform
 
        A class containing platform-specific information and methods for use
        during installation.  The intent is to eventually encapsulate all the
        architecture quirks in one place to avoid lots of platform checks
        throughout anaconda."""
-    _packages = []
 
     # requirements for bootloader stage1 devices
     _boot_stage1_device_types = []
@@ -57,6 +55,14 @@ class Platform(object):
     _non_linux_format_types = []
 
     @property
+    def packages(self):
+        """Packages required for this platform.
+
+        :return: a list of package names
+        """
+        return []
+
+    @property
     def boot_stage1_constraint_dict(self):
         d = {"device_types": self._boot_stage1_device_types,
              "format_types": self._boot_stage1_format_types,
@@ -67,11 +73,6 @@ class Platform(object):
              "raid_member_types": self._boot_stage1_raid_member_types,
              "descriptions": dict((k, _(v)) for k, v in self._boot_descriptions.items())}
         return d
-
-    @property
-    def packages(self):
-        _packages = self._packages
-        return _packages
 
     def set_platform_bootloader_reqs(self):
         """Return the required platform-specific bootloader partition
@@ -145,10 +146,14 @@ class MacEFI(EFI):
     _boot_descriptions = {"partition": _boot_efi_description,
                           "mdarray": Platform._boot_raid_description}
     _non_linux_format_types = ["macefi"]
-    _packages = ["mactel-boot"]
     _boot_stage1_missing_error = N_("For a UEFI installation, you must include "
                                     "a Linux HFS+ ESP on a GPT-formatted "
                                     "disk, mounted at /boot/efi.")
+
+    @property
+    def packages(self):
+        """Packages required for this platform."""
+        return ["mactel-boot"]
 
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
@@ -210,7 +215,6 @@ class PS3(PPC):
 
 
 class S390(Platform):
-    _packages = ["s390utils"]
     _boot_stage1_device_types = ["disk", "partition"]
     _boot_dasd_description = N_("DASD")
     _boot_mbr_description = N_("Master Boot Record")
@@ -222,8 +226,10 @@ class S390(Platform):
     _boot_stage1_missing_error = N_("You must include at least one MBR- or "
                                     "DASD-formatted disk as an install target.")
 
-    def __init__(self):
-        Platform.__init__(self)
+    @property
+    def packages(self):
+        """Packages required for this platform."""
+        return ["s390utils"]
 
     def set_platform_boot_partition(self):
         """Return the default platform-specific partitioning information."""
