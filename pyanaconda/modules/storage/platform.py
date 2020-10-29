@@ -19,16 +19,15 @@
 #
 # Authors: Chris Lumens <clumens@redhat.com>
 #
-import logging
-log = logging.getLogger("anaconda.storage")
-
 from blivet import arch
 from blivet.devicelibs import raid
-from blivet.formats import get_device_format_class
 from blivet.size import Size
+
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _, N_
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
+
+log = get_module_logger(__name__)
 
 
 class Platform(object):
@@ -56,27 +55,6 @@ class Platform(object):
     _boot_descriptions = {}
 
     _non_linux_format_types = []
-
-    def __init__(self):
-        """Creates a new Platform object.  This is basically an abstract class.
-           You should instead use one of the platform-specific classes as
-           returned by get_platform below.  Not all subclasses need to provide
-           all the methods in this class."""
-
-        self.update_from_flags()
-
-    def update_from_flags(self):
-        if conf.storage.gpt:
-            disklabel_class = get_device_format_class("disklabel")
-            disklabel_types = disklabel_class.get_platform_label_types()
-            if "gpt" not in disklabel_types:
-                log.warning("GPT is not a supported disklabel on this platform. Using default "
-                            "disklabel %s instead.", disklabel_types[0])
-            else:
-                disklabel_class.set_default_label_type("gpt")
-
-    def __call__(self):
-        return self
 
     @property
     def boot_stage1_constraint_dict(self):
@@ -269,7 +247,7 @@ def get_platform():
     if arch.is_ppc():
         ppc_machine = arch.get_ppc_machine()
 
-        if (ppc_machine == "PMac" and arch.get_ppc_mac_gen() == "NewWorld"):
+        if ppc_machine == "PMac" and arch.get_ppc_mac_gen() == "NewWorld":
             return NewWorldPPC()
         elif ppc_machine in ["iSeries", "pSeries"]:
             return IPSeriesPPC()
