@@ -164,6 +164,8 @@ class EFI(Platform):
 class MacEFI(EFI):
     _boot_stage1_format_types = ["macefi"]
     _boot_efi_description = N_("Apple EFI Boot Partition")
+    _boot_descriptions = {"partition": _boot_efi_description,
+                          "mdarray": Platform._boot_raid_description}
     _non_linux_format_types = ["macefi"]
     _packages = ["mactel-boot"]
     _boot_stage1_missing_error = N_("For a UEFI installation, you must include "
