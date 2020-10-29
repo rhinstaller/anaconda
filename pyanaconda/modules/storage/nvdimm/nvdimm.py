@@ -101,6 +101,12 @@ class NVDIMMModule(KickstartBaseModule):
         devices_to_ignore = set()
 
         for ns_name, ns_info in nvdimm.namespaces.items():
+            # this is happening when namespace is set to DEVDAX mode - block device is not present
+            if ns_info.blockdev is None:
+                log.debug("%s will be skipped - NVDIMM namespace block device information "
+                          "can't be retrieved", ns_name)
+                continue
+
             info = udev.get_device(device_node="/dev/" + ns_info.blockdev)
 
             if info and udev.device_get_format(info) == "iso9660":
@@ -116,8 +122,7 @@ class NVDIMMModule(KickstartBaseModule):
             else:
                 continue
 
-            if ns_info.blockdev:
-                devices_to_ignore.add(ns_info.blockdev)
+            devices_to_ignore.add(ns_info.blockdev)
 
         return devices_to_ignore
 

@@ -145,6 +145,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
                 "namespace0.0": Mock(blockdev="pmem0", mode=blockdev.NVDIMMNamespaceMode.SECTOR),
                 "namespace1.0": Mock(blockdev="pmem1", mode=blockdev.NVDIMMNamespaceMode.SECTOR),
                 "namespace2.0": Mock(blockdev="pmem2", mode=blockdev.NVDIMMNamespaceMode.MEMORY),
+                "namespace3.0": Mock(blockdev=None, mode=blockdev.NVDIMMNamespaceMode.DEVDAX),
             }
 
             ignored_devices = self.nvdimm_module.get_devices_to_ignore()
