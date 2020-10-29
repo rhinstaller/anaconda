@@ -26,7 +26,9 @@ from blivet.iscsi import iscsi
 from blivet.size import Size
 
 from pyanaconda.network import iface_for_host_ip
-from pyanaconda.modules.storage.platform import platform
+from pyanaconda.modules.storage.platform import platform, PLATFORM_DEVICE_TYPES, \
+    PLATFORM_FORMAT_TYPES, PLATFORM_MOUNT_POINTS, PLATFORM_MAX_END, PLATFORM_RAID_LEVELS, \
+    PLATFORM_RAID_METADATA
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core import util
@@ -493,14 +495,14 @@ class BootLoader(object):
         self.errors = []
         self.warnings = []
         valid = True
-        constraint = platform.boot_stage1_constraint_dict
+        constraints = platform.stage1_constraints
 
         if device is None:
             return False
 
         log.debug("Is %s a valid stage1 target device?", device.name)
 
-        if not self._device_type_match(device, constraint["device_types"]):
+        if not self._device_type_match(device, constraints[PLATFORM_DEVICE_TYPES]):
             log.debug("stage1 device cannot be of type %s", device.type)
             return False
 
@@ -537,14 +539,13 @@ class BootLoader(object):
             valid = False
 
         if not self._is_valid_location(device,
-                                       max_end=constraint["max_end"],
+                                       max_end=constraints[PLATFORM_MAX_END],
                                        desc=description):
             valid = False
 
         if not self._is_valid_md(device,
-                                 raid_levels=constraint["raid_levels"],
-                                 metadata=constraint["raid_metadata"],
-                                 member_types=constraint["raid_member_types"],
+                                 raid_levels=constraints[PLATFORM_RAID_LEVELS],
+                                 metadata=constraints[PLATFORM_RAID_METADATA],
                                  desc=description):
             valid = False
 
@@ -559,10 +560,10 @@ class BootLoader(object):
         if early:
             mountpoints = []
         else:
-            mountpoints = constraint["mountpoints"]
+            mountpoints = constraints[PLATFORM_MOUNT_POINTS]
 
         if not self._is_valid_format(device,
-                                     format_types=constraint["format_types"],
+                                     format_types=constraints[PLATFORM_FORMAT_TYPES],
                                      mountpoints=mountpoints,
                                      desc=description):
             valid = False

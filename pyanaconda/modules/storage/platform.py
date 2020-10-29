@@ -29,6 +29,14 @@ from pyanaconda.modules.storage.partitioning.specification import PartSpec
 
 log = get_module_logger(__name__)
 
+# Names of stage1 constrains.
+PLATFORM_DEVICE_TYPES = "device_types"
+PLATFORM_FORMAT_TYPES = "format_types"
+PLATFORM_MOUNT_POINTS = "mountpoints"
+PLATFORM_MAX_END = "max_end"
+PLATFORM_RAID_LEVELS = "raid_levels"
+PLATFORM_RAID_METADATA = "raid_metadata"
+
 # Descriptions of stage1 bootloader devices.
 PARTITION_DESCRIPTION = N_("First sector of boot partition")
 RAID_DESCRIPTION = N_("RAID Device")
@@ -42,21 +50,13 @@ ZFCP_DESCRIPTION = N_("zFCP")
 
 
 class Platform(object):
-    """Platform
+    """A base class for a platform.
 
-       A class containing platform-specific information and methods for use
-       during installation.  The intent is to eventually encapsulate all the
-       architecture quirks in one place to avoid lots of platform checks
-       throughout anaconda."""
-
-    # requirements for bootloader stage1 devices
-    _boot_stage1_device_types = []
-    _boot_stage1_format_types = []
-    _boot_stage1_mountpoints = []
-    _boot_stage1_max_end = None
-    _boot_stage1_raid_levels = []
-    _boot_stage1_raid_metadata = []
-    _boot_stage1_raid_member_types = []
+    A class containing platform-specific information and methods for use
+    during installation.  The intent is to eventually encapsulate all the
+    architecture quirks in one place to avoid lots of platform checks
+    throughout anaconda.
+    """
 
     @property
     def packages(self):
@@ -70,18 +70,6 @@ class Platform(object):
     def non_linux_format_types(self):
         """Format types of devices with non-linux operating systems."""
         return []
-
-    @property
-    def boot_stage1_constraint_dict(self):
-        d = {"device_types": self._boot_stage1_device_types,
-             "format_types": self._boot_stage1_format_types,
-             "mountpoints": self._boot_stage1_mountpoints,
-             "max_end": self._boot_stage1_max_end,
-             "raid_levels": self._boot_stage1_raid_levels,
-             "raid_metadata": self._boot_stage1_raid_metadata,
-             "raid_member_types": self._boot_stage1_raid_member_types
-        }
-        return d
 
     def set_platform_bootloader_reqs(self):
         """Return the required platform-specific bootloader partition
@@ -114,9 +102,23 @@ class Platform(object):
         """
         return {}
 
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device.
+
+        :return: a dictionary of constraints
+        """
+        return {
+            PLATFORM_DEVICE_TYPES: [],
+            PLATFORM_FORMAT_TYPES: [],
+            PLATFORM_MOUNT_POINTS: [],
+            PLATFORM_MAX_END: None,
+            PLATFORM_RAID_LEVELS: [],
+            PLATFORM_RAID_METADATA: [],
+        }
+
 
 class X86(Platform):
-    _boot_stage1_device_types = ["disk"]
 
     @property
     def non_linux_format_types(self):
@@ -147,14 +149,16 @@ class X86(Platform):
             "mdarray": _(RAID_DESCRIPTION)
         }
 
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_DEVICE_TYPES: ["disk"]
+        }
+        return dict(super().stage1_constraints, **constraints)
+
 
 class EFI(Platform):
-
-    _boot_stage1_format_types = ["efi"]
-    _boot_stage1_device_types = ["partition", "mdarray"]
-    _boot_stage1_mountpoints = ["/boot/efi"]
-    _boot_stage1_raid_levels = [raid.RAID1]
-    _boot_stage1_raid_metadata = ["1.0"]
 
     @property
     def non_linux_format_types(self):
@@ -179,6 +183,18 @@ class EFI(Platform):
             "mdarray": _(RAID_DESCRIPTION)
         }
 
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_FORMAT_TYPES: ["efi"],
+            PLATFORM_DEVICE_TYPES: ["partition", "mdarray"],
+            PLATFORM_MOUNT_POINTS: ["/boot/efi"],
+            PLATFORM_RAID_LEVELS: [raid.RAID1],
+            PLATFORM_RAID_METADATA: ["1.0"],
+        }
+        return dict(super().stage1_constraints, **constraints)
+
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi",
@@ -188,7 +204,6 @@ class EFI(Platform):
 
 
 class MacEFI(EFI):
-    _boot_stage1_format_types = ["macefi"]
 
     @property
     def packages(self):
@@ -217,6 +232,14 @@ class MacEFI(EFI):
             "mdarray": _(RAID_DESCRIPTION)
         }
 
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_FORMAT_TYPES: ["macefi"]
+        }
+        return dict(super().stage1_constraints, **constraints)
+
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="macefi",
@@ -242,12 +265,17 @@ class ArmEFI(EFI):
 
 
 class PPC(Platform):
-    _boot_stage1_device_types = ["partition"]
+
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_DEVICE_TYPES: ["partition"]
+        }
+        return dict(super().stage1_constraints, **constraints)
 
 
 class IPSeriesPPC(PPC):
-    _boot_stage1_format_types = ["prepboot"]
-    _boot_stage1_max_end = Size("4 GiB")
 
     @property
     def stage1_suggestion(self):
@@ -263,6 +291,15 @@ class IPSeriesPPC(PPC):
         """The platform-specific descriptions of the stage1 device."""
         return {"partition": _(PREP_BOOT_DESCRIPTION)}
 
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_FORMAT_TYPES: ["prepboot"],
+            PLATFORM_MAX_END: Size("4 GiB")
+        }
+        return dict(super().stage1_constraints, **constraints)
+
     def set_platform_bootloader_reqs(self):
         ret = PPC.set_platform_bootloader_reqs(self)
         ret.append(PartSpec(fstype="prepboot", size=Size("4MiB")))
@@ -270,7 +307,6 @@ class IPSeriesPPC(PPC):
 
 
 class NewWorldPPC(PPC):
-    _boot_stage1_format_types = ["appleboot"]
 
     @property
     def non_linux_format_types(self):
@@ -290,6 +326,14 @@ class NewWorldPPC(PPC):
     def stage1_descriptions(self):
         """The platform-specific descriptions of the stage1 device."""
         return {"partition": _(APPLE_BOOTSTRAP_DESCRIPTION)}
+
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_FORMAT_TYPES: ["appleboot"]
+        }
+        return dict(super().stage1_constraints, **constraints)
 
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
@@ -315,7 +359,6 @@ class PS3(PPC):
 
 
 class S390(Platform):
-    _boot_stage1_device_types = ["disk", "partition"]
 
     @property
     def packages(self):
@@ -340,13 +383,20 @@ class S390(Platform):
             "partition": _(PARTITION_DESCRIPTION)
         }
 
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_DEVICE_TYPES: ["disk", "partition"]
+        }
+        return dict(super().stage1_constraints, **constraints)
+
     def set_platform_boot_partition(self):
         """Return the default platform-specific partitioning information."""
         return [PartSpec(mountpoint="/boot", size=Size("1GiB"), lv=False)]
 
 
 class ARM(Platform):
-    _boot_stage1_device_types = ["disk"]
 
     @property
     def stage1_suggestion(self):
@@ -363,6 +413,14 @@ class ARM(Platform):
             "disk": _(MBR_DESCRIPTION),
             "partition": _(PARTITION_DESCRIPTION)
         }
+
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_DEVICE_TYPES: ["disk"]
+        }
+        return dict(super().stage1_constraints, **constraints)
 
 
 def get_platform():

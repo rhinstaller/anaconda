@@ -72,13 +72,12 @@ class PlatformTestCase(unittest.TestCase):
             "max_end": None,
             "raid_levels": [],
             "raid_metadata": [],
-            "raid_member_types": [],
         }
         all_constraints.update(constraints)
 
         platform = get_platform()
         self.assertEqual(platform.stage1_descriptions, descriptions)
-        self.assertEqual(platform.boot_stage1_constraint_dict, all_constraints)
+        self.assertEqual(platform.stage1_constraints, all_constraints)
         self.assertEqual(platform.stage1_suggestion, error_message)
 
     @patch("pyanaconda.modules.storage.platform.arch")
