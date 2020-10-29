@@ -71,21 +71,6 @@ class Platform(object):
         """Format types of devices with non-linux operating systems."""
         return []
 
-    def set_platform_bootloader_reqs(self):
-        """Return the required platform-specific bootloader partition
-           information.  These are typically partitions that do not get mounted,
-           like biosboot or prepboot, but may also include the /boot/efi
-           partition."""
-        return []
-
-    def set_platform_boot_partition(self):
-        """Return the default /boot partition for this platform."""
-        return [PartSpec(mountpoint="/boot", size=Size("1GiB"))]
-
-    def set_default_partitioning(self):
-        """Return the default platform-specific partitioning information."""
-        return self.set_platform_bootloader_reqs() + self.set_platform_boot_partition()
-
     @property
     def stage1_suggestion(self):
         """The platform-specific suggestion about the stage1 device.
@@ -117,6 +102,42 @@ class Platform(object):
             PLATFORM_RAID_METADATA: [],
         }
 
+    @property
+    def partitions(self):
+        """The default platform-specific partitions.
+
+        :return: a list of specifications
+        """
+        partitions = [
+            self._bootloader_partition,
+            self._boot_partition
+        ]
+        return list(filter(None, partitions))
+
+    @property
+    def _bootloader_partition(self):
+        """The default bootloader partition for this platform.
+
+        Return the required platform-specific bootloader partition
+        information. These are typically partitions that do not get
+        mounted, like biosboot or prepboot, but may also include
+        the /boot/efi partition.
+
+        :return: a specification or None
+        """
+        return None
+
+    @property
+    def _boot_partition(self):
+        """The default /boot partition for this platform.
+
+        :return: a specification or None
+        """
+        return PartSpec(
+            mountpoint="/boot",
+            size=Size("1GiB")
+        )
+
 
 class X86(Platform):
 
@@ -125,12 +146,6 @@ class X86(Platform):
         """Format types of devices with non-linux operating systems."""
         # XXX hpfs, if reported by blkid/udev, will end up with a type of None
         return ["vfat", "ntfs", "hpfs"]
-
-    def set_platform_bootloader_reqs(self):
-        """Return the default platform-specific partitioning information."""
-        ret = Platform.set_platform_bootloader_reqs(self)
-        ret.append(PartSpec(fstype="biosboot", size=Size("1MiB")))
-        return ret
 
     @property
     def stage1_suggestion(self):
@@ -156,6 +171,14 @@ class X86(Platform):
             PLATFORM_DEVICE_TYPES: ["disk"]
         }
         return dict(super().stage1_constraints, **constraints)
+
+    @property
+    def _bootloader_partition(self):
+        """The default bootloader partition for this platform."""
+        return PartSpec(
+            fstype="biosboot",
+            size=Size("1MiB")
+        )
 
 
 class EFI(Platform):
@@ -195,12 +218,16 @@ class EFI(Platform):
         }
         return dict(super().stage1_constraints, **constraints)
 
-    def set_platform_bootloader_reqs(self):
-        ret = Platform.set_platform_bootloader_reqs(self)
-        ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi",
-                            size=Size("200MiB"), max_size=Size("600MiB"),
-                            grow=True))
-        return ret
+    @property
+    def _bootloader_partition(self):
+        """The default bootloader partition for this platform."""
+        return PartSpec(
+            mountpoint="/boot/efi",
+            fstype="efi",
+            size=Size("200MiB"),
+            max_size=Size("600MiB"),
+            grow=True
+        )
 
 
 class MacEFI(EFI):
@@ -240,12 +267,16 @@ class MacEFI(EFI):
         }
         return dict(super().stage1_constraints, **constraints)
 
-    def set_platform_bootloader_reqs(self):
-        ret = Platform.set_platform_bootloader_reqs(self)
-        ret.append(PartSpec(mountpoint="/boot/efi", fstype="macefi",
-                            size=Size("200MiB"), max_size=Size("600MiB"),
-                            grow=True))
-        return ret
+    @property
+    def _bootloader_partition(self):
+        """The default bootloader partition for this platform."""
+        return PartSpec(
+            mountpoint="/boot/efi",
+            fstype="macefi",
+            size=Size("200MiB"),
+            max_size=Size("600MiB"),
+            grow=True,
+        )
 
 
 class Aarch64EFI(EFI):
@@ -300,10 +331,13 @@ class IPSeriesPPC(PPC):
         }
         return dict(super().stage1_constraints, **constraints)
 
-    def set_platform_bootloader_reqs(self):
-        ret = PPC.set_platform_bootloader_reqs(self)
-        ret.append(PartSpec(fstype="prepboot", size=Size("4MiB")))
-        return ret
+    @property
+    def _bootloader_partition(self):
+        """The default bootloader partition for this platform."""
+        return PartSpec(
+            fstype="prepboot",
+            size=Size("4MiB")
+        )
 
 
 class NewWorldPPC(PPC):
@@ -335,10 +369,13 @@ class NewWorldPPC(PPC):
         }
         return dict(super().stage1_constraints, **constraints)
 
-    def set_platform_bootloader_reqs(self):
-        ret = Platform.set_platform_bootloader_reqs(self)
-        ret.append(PartSpec(fstype="appleboot", size=Size("1MiB")))
-        return ret
+    @property
+    def _bootloader_partition(self):
+        """The default bootloader partition for this platform."""
+        return PartSpec(
+            fstype="appleboot",
+            size=Size("1MiB")
+        )
 
 
 class PowerNV(PPC):
@@ -391,9 +428,14 @@ class S390(Platform):
         }
         return dict(super().stage1_constraints, **constraints)
 
-    def set_platform_boot_partition(self):
-        """Return the default platform-specific partitioning information."""
-        return [PartSpec(mountpoint="/boot", size=Size("1GiB"), lv=False)]
+    @property
+    def _boot_partition(self):
+        """The default /boot partition for this platform."""
+        return PartSpec(
+            mountpoint="/boot",
+            size=Size("1GiB"),
+            lv=False
+        )
 
 
 class ARM(Platform):

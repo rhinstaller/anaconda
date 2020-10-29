@@ -236,7 +236,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
     def get_default_partitioning_test(self, platform):
-        platform.set_default_partitioning.return_value = [PartSpec("/boot")]
+        platform.partitions = [PartSpec("/boot")]
         requests = get_default_partitioning()
 
         self.assertEqual(["/boot", "/", "/home"], [spec.mountpoint for spec in requests])
@@ -247,7 +247,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         storage = create_storage()
 
         # Set the platform specs.
-        platform.set_default_partitioning.return_value = [
+        platform.partitions = [
             PartSpec(mountpoint="/boot", size=Size("1GiB"))
         ]
 

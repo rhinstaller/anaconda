@@ -59,9 +59,7 @@ class PlatformTestCase(unittest.TestCase):
     def _check_partitions(self, *partitions):
         """Check the platform-specific partitions."""
         platform = get_platform()
-        self.assertEqual(platform.set_default_partitioning(), list(partitions))
-        self.assertEqual(platform.set_platform_boot_partition(), list(partitions[-1:]))
-        self.assertEqual(platform.set_platform_bootloader_reqs(), list(partitions[:-1]))
+        self.assertEqual(platform.partitions, list(partitions))
 
     def _check_constraints(self, descriptions, constraints, error_message):
         """Check the platform-specific constraints."""
