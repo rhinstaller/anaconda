@@ -17,7 +17,7 @@
 #
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from dasbus.typing import get_variant, Str, Bool
 from requests import RequestException
@@ -171,8 +171,11 @@ class SetUpLocalImageSourceTaskTestCase(unittest.TestCase):
 
         self.assertEqual(str(cm.exception), "File /my/invalid/path does not exist.")
 
-    def empty_image_test(self):
+    @patch("os.stat")
+    def empty_image_test(self, os_stat):
         """Test an empty image."""
+        os_stat.return_value = Mock(st_blocks=0)
+
         with tempfile.NamedTemporaryFile("w") as f:
             # Run the task.
             configuration = LiveImageConfigurationData()
@@ -185,8 +188,11 @@ class SetUpLocalImageSourceTaskTestCase(unittest.TestCase):
             self.assertIsInstance(result, SetupImageResult)
             self.assertEqual(result, SetupImageResult(None))
 
-    def fake_image_test(self):
+    @patch("os.stat")
+    def fake_image_test(self, os_stat):
         """Test a fake image."""
+        os_stat.return_value = Mock(st_blocks=2)
+
         with tempfile.NamedTemporaryFile("w") as f:
             # Create a fake image.
             f.write("MY FAKE IMAGE")
@@ -201,7 +207,7 @@ class SetUpLocalImageSourceTaskTestCase(unittest.TestCase):
 
             # Check the result.
             self.assertIsInstance(result, SetupImageResult)
-            self.assertGreater(result.required_space, 0)
+            self.assertEqual(result, SetupImageResult(3072))
 
 
 class SetUpRemoteImageSourceTaskTestCase(unittest.TestCase):
