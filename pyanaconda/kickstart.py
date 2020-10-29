@@ -253,7 +253,7 @@ class RepoData(COMMANDS.RepoData):
 ### %anaconda Section
 ###
 class AnacondaSectionHandler(BaseHandler):
-    """A handler for only the anaconda ection's commands."""
+    """A handler for only the anaconda section's commands."""
     commandMap = {
         "pwpolicy": F22_PwPolicy
     }
