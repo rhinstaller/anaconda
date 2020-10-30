@@ -306,10 +306,6 @@ class BootLoader(object):
     def disklabel_types(self):
         return DiskLabel.get_platform_label_types()
 
-    @property
-    def device_descriptions(self):
-        return platform.boot_stage1_constraint_dict["descriptions"]
-
     #
     # constraint checking for target devices
     #
@@ -452,15 +448,17 @@ class BootLoader(object):
         """ Return True if device is of one of the types in the list types. """
         return self._device_type_index(device, types) is not None
 
-    def device_description(self, device):
-        device_types = list(self.device_descriptions.keys())
+    def get_stage1_device_description(self, device):
+        device_descriptions = platform.stage1_descriptions
+        device_types = list(device_descriptions.keys())
         idx = self._device_type_index(device, device_types)
+
         if idx is None:
             raise ValueError("No description available for %s" % device.type)
 
         # this looks unnecessarily complicated, but it handles the various
         # device types that we treat as disks
-        return self.device_descriptions[device_types[idx]]
+        return device_descriptions[device_types[idx]]
 
     def set_preferred_stage1_type(self, preferred):
         """ Set a preferred type of stage1 device. """
@@ -517,7 +515,7 @@ class BootLoader(object):
                                          "an iSCSI disk which is not configured in iBFT."))
                     return False
 
-        description = self.device_description(device)
+        description = self.get_stage1_device_description(device)
 
         if self.stage2_is_valid_stage1 and device == self.stage2_device:
             # special case

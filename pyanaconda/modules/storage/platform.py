@@ -29,6 +29,17 @@ from pyanaconda.modules.storage.partitioning.specification import PartSpec
 
 log = get_module_logger(__name__)
 
+# Descriptions of stage1 bootloader devices.
+PARTITION_DESCRIPTION = N_("First sector of boot partition")
+RAID_DESCRIPTION = N_("RAID Device")
+MBR_DESCRIPTION = N_("Master Boot Record")
+EFI_DESCRIPTION = N_("EFI System Partition")
+PREP_BOOT_DESCRIPTION = N_("PReP Boot Partition")
+APPLE_EFI_DESCRIPTION = N_("Apple EFI Boot Partition")
+APPLE_BOOTSTRAP_DESCRIPTION = N_("Apple Bootstrap Partition")
+DASD_DESCRIPTION = N_("DASD")
+ZFCP_DESCRIPTION = N_("zFCP")
+
 
 class Platform(object):
     """Platform
@@ -46,10 +57,6 @@ class Platform(object):
     _boot_stage1_raid_levels = []
     _boot_stage1_raid_metadata = []
     _boot_stage1_raid_member_types = []
-    _boot_stage1_description = N_("boot loader device")
-    _boot_raid_description = N_("RAID Device")
-    _boot_partition_description = N_("First sector of boot partition")
-    _boot_descriptions = {}
 
     @property
     def packages(self):
@@ -72,8 +79,8 @@ class Platform(object):
              "max_end": self._boot_stage1_max_end,
              "raid_levels": self._boot_stage1_raid_levels,
              "raid_metadata": self._boot_stage1_raid_metadata,
-             "raid_member_types": self._boot_stage1_raid_member_types,
-             "descriptions": dict((k, _(v)) for k, v in self._boot_descriptions.items())}
+             "raid_member_types": self._boot_stage1_raid_member_types
+        }
         return d
 
     def set_platform_bootloader_reqs(self):
@@ -99,13 +106,17 @@ class Platform(object):
         """
         return _("You must include at least one disk as an install target.")
 
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device.
+
+        :return: a dictionary of device types and their descriptions
+        """
+        return {}
+
 
 class X86(Platform):
     _boot_stage1_device_types = ["disk"]
-    _boot_mbr_description = N_("Master Boot Record")
-    _boot_descriptions = {"disk": _boot_mbr_description,
-                          "partition": Platform._boot_partition_description,
-                          "mdarray": Platform._boot_raid_description}
 
     @property
     def non_linux_format_types(self):
@@ -127,6 +138,15 @@ class X86(Platform):
             "GPT-formatted disk as an install target."
         )
 
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device."""
+        return {
+            "disk": _(MBR_DESCRIPTION),
+            "partition": _(PARTITION_DESCRIPTION),
+            "mdarray": _(RAID_DESCRIPTION)
+        }
+
 
 class EFI(Platform):
 
@@ -135,9 +155,6 @@ class EFI(Platform):
     _boot_stage1_mountpoints = ["/boot/efi"]
     _boot_stage1_raid_levels = [raid.RAID1]
     _boot_stage1_raid_metadata = ["1.0"]
-    _boot_efi_description = N_("EFI System Partition")
-    _boot_descriptions = {"partition": _boot_efi_description,
-                          "mdarray": Platform._boot_raid_description}
 
     @property
     def non_linux_format_types(self):
@@ -154,6 +171,14 @@ class EFI(Platform):
             "disk, mounted at /boot/efi."
         )
 
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device."""
+        return {
+            "partition": _(EFI_DESCRIPTION),
+            "mdarray": _(RAID_DESCRIPTION)
+        }
+
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi",
@@ -164,9 +189,6 @@ class EFI(Platform):
 
 class MacEFI(EFI):
     _boot_stage1_format_types = ["macefi"]
-    _boot_efi_description = N_("Apple EFI Boot Partition")
-    _boot_descriptions = {"partition": _boot_efi_description,
-                          "mdarray": Platform._boot_raid_description}
 
     @property
     def packages(self):
@@ -186,6 +208,14 @@ class MacEFI(EFI):
             "a Linux HFS+ ESP on a GPT-formatted "
             "disk, mounted at /boot/efi."
         )
+
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device."""
+        return {
+            "partition": _(APPLE_EFI_DESCRIPTION),
+            "mdarray": _(RAID_DESCRIPTION)
+        }
 
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
@@ -218,8 +248,6 @@ class PPC(Platform):
 class IPSeriesPPC(PPC):
     _boot_stage1_format_types = ["prepboot"]
     _boot_stage1_max_end = Size("4 GiB")
-    _boot_prep_description = N_("PReP Boot Partition")
-    _boot_descriptions = {"partition": _boot_prep_description}
 
     @property
     def stage1_suggestion(self):
@@ -230,6 +258,11 @@ class IPSeriesPPC(PPC):
             "or GPT-formatted disk."
         )
 
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device."""
+        return {"partition": _(PREP_BOOT_DESCRIPTION)}
+
     def set_platform_bootloader_reqs(self):
         ret = PPC.set_platform_bootloader_reqs(self)
         ret.append(PartSpec(fstype="prepboot", size=Size("4MiB")))
@@ -238,8 +271,6 @@ class IPSeriesPPC(PPC):
 
 class NewWorldPPC(PPC):
     _boot_stage1_format_types = ["appleboot"]
-    _boot_apple_description = N_("Apple Bootstrap Partition")
-    _boot_descriptions = {"partition": _boot_apple_description}
 
     @property
     def non_linux_format_types(self):
@@ -255,6 +286,11 @@ class NewWorldPPC(PPC):
             "formatted disk."
         )
 
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device."""
+        return {"partition": _(APPLE_BOOTSTRAP_DESCRIPTION)}
+
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
         ret.append(PartSpec(fstype="appleboot", size=Size("1MiB")))
@@ -262,12 +298,16 @@ class NewWorldPPC(PPC):
 
 
 class PowerNV(PPC):
-    _boot_descriptions = {"partition": Platform._boot_partition_description}
 
     @property
     def stage1_suggestion(self):
         """The platform-specific suggestion about the stage1 device."""
         return _("You must include at least one disk as an install target.")
+
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device."""
+        return {"partition": _(PARTITION_DESCRIPTION)}
 
 
 class PS3(PPC):
@@ -276,13 +316,6 @@ class PS3(PPC):
 
 class S390(Platform):
     _boot_stage1_device_types = ["disk", "partition"]
-    _boot_dasd_description = N_("DASD")
-    _boot_mbr_description = N_("Master Boot Record")
-    _boot_zfcp_description = N_("zFCP")
-    _boot_descriptions = {"dasd": _boot_dasd_description,
-                          "zfcp": _boot_zfcp_description,
-                          "disk": _boot_mbr_description,
-                          "partition": Platform._boot_partition_description}
 
     @property
     def packages(self):
@@ -297,6 +330,16 @@ class S390(Platform):
             "DASD-formatted disk as an install target."
         )
 
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device."""
+        return {
+            "dasd": _(DASD_DESCRIPTION),
+            "zfcp": _(ZFCP_DESCRIPTION),
+            "disk": _(MBR_DESCRIPTION),
+            "partition": _(PARTITION_DESCRIPTION)
+        }
+
     def set_platform_boot_partition(self):
         """Return the default platform-specific partitioning information."""
         return [PartSpec(mountpoint="/boot", size=Size("1GiB"), lv=False)]
@@ -304,9 +347,6 @@ class S390(Platform):
 
 class ARM(Platform):
     _boot_stage1_device_types = ["disk"]
-    _boot_mbr_description = N_("Master Boot Record")
-    _boot_descriptions = {"disk": _boot_mbr_description,
-                          "partition": Platform._boot_partition_description}
 
     @property
     def stage1_suggestion(self):
@@ -315,6 +355,14 @@ class ARM(Platform):
             "You must include at least one MBR-formatted "
             "disk as an install target."
         )
+
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device."""
+        return {
+            "disk": _(MBR_DESCRIPTION),
+            "partition": _(PARTITION_DESCRIPTION)
+        }
 
 
 def get_platform():

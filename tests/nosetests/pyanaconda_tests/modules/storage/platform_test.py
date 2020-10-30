@@ -73,12 +73,11 @@ class PlatformTestCase(unittest.TestCase):
             "raid_levels": [],
             "raid_metadata": [],
             "raid_member_types": [],
-            "descriptions": descriptions
         }
         all_constraints.update(constraints)
 
         platform = get_platform()
-        self.assertEqual(platform.boot_stage1_constraint_dict["descriptions"], descriptions)
+        self.assertEqual(platform.stage1_descriptions, descriptions)
         self.assertEqual(platform.boot_stage1_constraint_dict, all_constraints)
         self.assertEqual(platform.stage1_suggestion, error_message)
 
