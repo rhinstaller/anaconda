@@ -173,9 +173,7 @@ def verify_bootloader(storage, constraints, report_error, report_warning):
         if not stage1:
             report_error(_("No valid boot loader target device found. "
                            "See below for details."))
-            pe = platform.stage1_missing_error
-            if pe:
-                report_error(_(pe))
+            report_error(platform.stage1_suggestion)
         else:
             storage.bootloader.is_valid_stage1_device(stage1)
             for msg in storage.bootloader.errors:

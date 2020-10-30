@@ -47,7 +47,6 @@ class Platform(object):
     _boot_stage1_raid_metadata = []
     _boot_stage1_raid_member_types = []
     _boot_stage1_description = N_("boot loader device")
-    _boot_stage1_missing_error = ""
     _boot_raid_description = N_("RAID Device")
     _boot_partition_description = N_("First sector of boot partition")
     _boot_descriptions = {}
@@ -93,10 +92,12 @@ class Platform(object):
         return self.set_platform_bootloader_reqs() + self.set_platform_boot_partition()
 
     @property
-    def stage1_missing_error(self):
-        """A platform-specific error message to be shown if stage1 target
-           selection fails."""
-        return self._boot_stage1_missing_error
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device.
+
+        :return: a string
+        """
+        return _("You must include at least one disk as an install target.")
 
 
 class X86(Platform):
@@ -105,9 +106,6 @@ class X86(Platform):
     _boot_descriptions = {"disk": _boot_mbr_description,
                           "partition": Platform._boot_partition_description,
                           "mdarray": Platform._boot_raid_description}
-
-    _boot_stage1_missing_error = N_("You must include at least one MBR- or "
-                                    "GPT-formatted disk as an install target.")
 
     @property
     def non_linux_format_types(self):
@@ -121,6 +119,14 @@ class X86(Platform):
         ret.append(PartSpec(fstype="biosboot", size=Size("1MiB")))
         return ret
 
+    @property
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device."""
+        return _(
+            "You must include at least one MBR- or "
+            "GPT-formatted disk as an install target."
+        )
+
 
 class EFI(Platform):
 
@@ -133,15 +139,20 @@ class EFI(Platform):
     _boot_descriptions = {"partition": _boot_efi_description,
                           "mdarray": Platform._boot_raid_description}
 
-    _boot_stage1_missing_error = N_("For a UEFI installation, you must include "
-                                    "an EFI System Partition on a GPT-formatted "
-                                    "disk, mounted at /boot/efi.")
-
     @property
     def non_linux_format_types(self):
         """Format types of devices with non-linux operating systems."""
         # XXX hpfs, if reported by blkid/udev, will end up with a type of None
         return ["vfat", "ntfs", "hpfs"]
+
+    @property
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device."""
+        return _(
+            "For a UEFI installation, you must include "
+            "an EFI System Partition on a GPT-formatted "
+            "disk, mounted at /boot/efi."
+        )
 
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
@@ -156,9 +167,6 @@ class MacEFI(EFI):
     _boot_efi_description = N_("Apple EFI Boot Partition")
     _boot_descriptions = {"partition": _boot_efi_description,
                           "mdarray": Platform._boot_raid_description}
-    _boot_stage1_missing_error = N_("For a UEFI installation, you must include "
-                                    "a Linux HFS+ ESP on a GPT-formatted "
-                                    "disk, mounted at /boot/efi.")
 
     @property
     def packages(self):
@@ -169,6 +177,15 @@ class MacEFI(EFI):
     def non_linux_format_types(self):
         """Format types of devices with non-linux operating systems."""
         return ["macefi"]
+
+    @property
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device."""
+        return _(
+            "For a UEFI installation, you must include "
+            "a Linux HFS+ ESP on a GPT-formatted "
+            "disk, mounted at /boot/efi."
+        )
 
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
@@ -203,9 +220,15 @@ class IPSeriesPPC(PPC):
     _boot_stage1_max_end = Size("4 GiB")
     _boot_prep_description = N_("PReP Boot Partition")
     _boot_descriptions = {"partition": _boot_prep_description}
-    _boot_stage1_missing_error = N_("You must include a PReP Boot Partition "
-                                    "within the first 4GiB of an MBR- "
-                                    "or GPT-formatted disk.")
+
+    @property
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device."""
+        return _(
+            "You must include a PReP Boot Partition "
+            "within the first 4GiB of an MBR- "
+            "or GPT-formatted disk."
+        )
 
     def set_platform_bootloader_reqs(self):
         ret = PPC.set_platform_bootloader_reqs(self)
@@ -217,14 +240,20 @@ class NewWorldPPC(PPC):
     _boot_stage1_format_types = ["appleboot"]
     _boot_apple_description = N_("Apple Bootstrap Partition")
     _boot_descriptions = {"partition": _boot_apple_description}
-    _boot_stage1_missing_error = N_("You must include an Apple Bootstrap "
-                                    "Partition on an Apple Partition Map-"
-                                    "formatted disk.")
 
     @property
     def non_linux_format_types(self):
         """Format types of devices with non-linux operating systems."""
         return ["hfs", "hfs+"]
+
+    @property
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device."""
+        return _(
+            "You must include an Apple Bootstrap "
+            "Partition on an Apple Partition Map-"
+            "formatted disk."
+        )
 
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
@@ -234,7 +263,11 @@ class NewWorldPPC(PPC):
 
 class PowerNV(PPC):
     _boot_descriptions = {"partition": Platform._boot_partition_description}
-    _boot_stage1_missing_error = N_("You must include at least one disk as an install target.")
+
+    @property
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device."""
+        return _("You must include at least one disk as an install target.")
 
 
 class PS3(PPC):
@@ -250,13 +283,19 @@ class S390(Platform):
                           "zfcp": _boot_zfcp_description,
                           "disk": _boot_mbr_description,
                           "partition": Platform._boot_partition_description}
-    _boot_stage1_missing_error = N_("You must include at least one MBR- or "
-                                    "DASD-formatted disk as an install target.")
 
     @property
     def packages(self):
         """Packages required for this platform."""
         return ["s390utils"]
+
+    @property
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device."""
+        return _(
+            "You must include at least one MBR- or "
+            "DASD-formatted disk as an install target."
+        )
 
     def set_platform_boot_partition(self):
         """Return the default platform-specific partitioning information."""
@@ -269,8 +308,13 @@ class ARM(Platform):
     _boot_descriptions = {"disk": _boot_mbr_description,
                           "partition": Platform._boot_partition_description}
 
-    _boot_stage1_missing_error = N_("You must include at least one MBR-formatted "
-                                    "disk as an install target.")
+    @property
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device."""
+        return _(
+            "You must include at least one MBR-formatted "
+            "disk as an install target."
+        )
 
 
 def get_platform():

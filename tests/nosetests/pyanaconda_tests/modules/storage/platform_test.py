@@ -80,7 +80,7 @@ class PlatformTestCase(unittest.TestCase):
         platform = get_platform()
         self.assertEqual(platform.boot_stage1_constraint_dict["descriptions"], descriptions)
         self.assertEqual(platform.boot_stage1_constraint_dict, all_constraints)
-        self.assertEqual(platform.stage1_missing_error, error_message)
+        self.assertEqual(platform.stage1_suggestion, error_message)
 
     @patch("pyanaconda.modules.storage.platform.arch")
     def x86_test(self, arch):
@@ -465,7 +465,9 @@ class PlatformTestCase(unittest.TestCase):
                 "device_types": ["partition"],
             },
             descriptions={},
-            error_message=""
+            error_message=str(
+                "You must include at least one disk as an install target."
+            )
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
