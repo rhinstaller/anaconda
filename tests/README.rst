@@ -76,7 +76,9 @@ WARNING:
 *Just one command* can be passed like this, if `&&` is used then only first
 one is run in the container but everything else is started on host!
 
-Logs from the run are stored in the ``tests`` folder.
+Logs from the run are stored in the ``test-logs/`` folder; no other files are
+modified/touched by the container (it works on an internal copy of the host's
+anaconda directory).
 
 For interactively working in the container you can run::
 

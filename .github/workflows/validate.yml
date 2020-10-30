@@ -28,18 +28,14 @@ jobs:
         id: run-unit-tests
         run: |
           # put the log in the output, where it's easy to read and link to
-          CONTAINER_ENGINE=docker make -f Makefile.am container-ci || { cat tests/test-suite.log; exit 1; }
+          CONTAINER_ENGINE=docker make -f Makefile.am container-ci || { cat test-logs/test-suite.log; exit 1; }
 
       - name: Upload test and coverage logs
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: logs
-          path: |
-            tests/test-suite.log
-            tests/nosetests.log
-            tests/pylint/runpylint*.log
-            tests/coverage-*.log
+          path: test-logs/*
 
   rpm-tests:
     runs-on: ubuntu-latest
