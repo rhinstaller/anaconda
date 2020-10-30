@@ -679,7 +679,7 @@ class BootLoader(object):
                                      desc=_(self.stage2_description)):
             valid = False
 
-        non_linux_format_types = platform._non_linux_format_types
+        non_linux_format_types = platform.non_linux_format_types
         if non_linux and \
            not self._is_valid_format(device,
                                      format_types=non_linux_format_types):

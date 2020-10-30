@@ -52,14 +52,17 @@ class Platform(object):
     _boot_partition_description = N_("First sector of boot partition")
     _boot_descriptions = {}
 
-    _non_linux_format_types = []
-
     @property
     def packages(self):
         """Packages required for this platform.
 
         :return: a list of package names
         """
+        return []
+
+    @property
+    def non_linux_format_types(self):
+        """Format types of devices with non-linux operating systems."""
         return []
 
     @property
@@ -103,10 +106,14 @@ class X86(Platform):
                           "partition": Platform._boot_partition_description,
                           "mdarray": Platform._boot_raid_description}
 
-    # XXX hpfs, if reported by blkid/udev, will end up with a type of None
-    _non_linux_format_types = ["vfat", "ntfs", "hpfs"]
     _boot_stage1_missing_error = N_("You must include at least one MBR- or "
                                     "GPT-formatted disk as an install target.")
+
+    @property
+    def non_linux_format_types(self):
+        """Format types of devices with non-linux operating systems."""
+        # XXX hpfs, if reported by blkid/udev, will end up with a type of None
+        return ["vfat", "ntfs", "hpfs"]
 
     def set_platform_bootloader_reqs(self):
         """Return the default platform-specific partitioning information."""
@@ -126,11 +133,15 @@ class EFI(Platform):
     _boot_descriptions = {"partition": _boot_efi_description,
                           "mdarray": Platform._boot_raid_description}
 
-    # XXX hpfs, if reported by blkid/udev, will end up with a type of None
-    _non_linux_format_types = ["vfat", "ntfs", "hpfs"]
     _boot_stage1_missing_error = N_("For a UEFI installation, you must include "
                                     "an EFI System Partition on a GPT-formatted "
                                     "disk, mounted at /boot/efi.")
+
+    @property
+    def non_linux_format_types(self):
+        """Format types of devices with non-linux operating systems."""
+        # XXX hpfs, if reported by blkid/udev, will end up with a type of None
+        return ["vfat", "ntfs", "hpfs"]
 
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
@@ -145,7 +156,6 @@ class MacEFI(EFI):
     _boot_efi_description = N_("Apple EFI Boot Partition")
     _boot_descriptions = {"partition": _boot_efi_description,
                           "mdarray": Platform._boot_raid_description}
-    _non_linux_format_types = ["macefi"]
     _boot_stage1_missing_error = N_("For a UEFI installation, you must include "
                                     "a Linux HFS+ ESP on a GPT-formatted "
                                     "disk, mounted at /boot/efi.")
@@ -154,6 +164,11 @@ class MacEFI(EFI):
     def packages(self):
         """Packages required for this platform."""
         return ["mactel-boot"]
+
+    @property
+    def non_linux_format_types(self):
+        """Format types of devices with non-linux operating systems."""
+        return ["macefi"]
 
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)
@@ -164,11 +179,19 @@ class MacEFI(EFI):
 
 
 class Aarch64EFI(EFI):
-    _non_linux_format_types = ["vfat", "ntfs"]
+
+    @property
+    def non_linux_format_types(self):
+        """Format types of devices with non-linux operating systems."""
+        return ["vfat", "ntfs"]
 
 
 class ArmEFI(EFI):
-    _non_linux_format_types = ["vfat", "ntfs"]
+
+    @property
+    def non_linux_format_types(self):
+        """Format types of devices with non-linux operating systems."""
+        return ["vfat", "ntfs"]
 
 
 class PPC(Platform):
@@ -194,10 +217,14 @@ class NewWorldPPC(PPC):
     _boot_stage1_format_types = ["appleboot"]
     _boot_apple_description = N_("Apple Bootstrap Partition")
     _boot_descriptions = {"partition": _boot_apple_description}
-    _non_linux_format_types = ["hfs", "hfs+"]
     _boot_stage1_missing_error = N_("You must include an Apple Bootstrap "
                                     "Partition on an Apple Partition Map-"
                                     "formatted disk.")
+
+    @property
+    def non_linux_format_types(self):
+        """Format types of devices with non-linux operating systems."""
+        return ["hfs", "hfs+"]
 
     def set_platform_bootloader_reqs(self):
         ret = Platform.set_platform_bootloader_reqs(self)

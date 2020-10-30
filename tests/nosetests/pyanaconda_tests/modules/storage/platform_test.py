@@ -54,7 +54,7 @@ class PlatformTestCase(unittest.TestCase):
         platform = get_platform()
         self.assertEqual(platform.__class__, platform_cls)
         self.assertEqual(platform.packages, packages)
-        self.assertEqual(platform._non_linux_format_types, non_linux_format_types)
+        self.assertEqual(platform.non_linux_format_types, non_linux_format_types)
 
     def _check_partitions(self, *partitions):
         """Check the platform-specific partitions."""
