@@ -74,12 +74,12 @@ one is run in the container but everything else is started on host!
 
 Logs from the run are stored in the ``tests`` folder.
 
-For debugging of the container please run the container as::
+For interactively working in the container you can run::
 
-    make container-ci CONTAINER_TEST_ARGS="-it --entrypoint /bin/bash"
+    make container-shell
 
 This command will open bash inside the container for you with mounted
-current folder at the `/anaconda` path. This could be even convenient way
+current folder at the `/anaconda` path. This is a convenient way
 how to run tests but avoid constant call of autotools and build during the
 development.
 

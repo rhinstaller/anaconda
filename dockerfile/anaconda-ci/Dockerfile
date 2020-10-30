@@ -48,7 +48,4 @@ RUN mkdir /anaconda
 
 WORKDIR /anaconda
 
-COPY ["entrypoint.sh", "github-action-run-once", "/"]
-
-CMD ["make ci"]
-ENTRYPOINT ["/entrypoint.sh"]
+COPY ["github-action-run-once", "/"]
