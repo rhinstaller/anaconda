@@ -1813,7 +1813,8 @@ class DNFPayload(Payload):
         #   - the path to a cert file
         #   - True, to use the system's certificates
         #   - False, to not verify
-        ssl_verify = data.ssl_configuration.ca_cert_path or conf.payload.verify_ssl
+        ssl_verify = (data.ssl_configuration.ca_cert_path
+                      or (conf.payload.verify_ssl and data.ssl_verification_enabled))
         ssl_client_cert = data.ssl_configuration.client_cert_path or None
         ssl_client_key = data.ssl_configuration.client_key_path or None
         ssl_cert = (ssl_client_cert, ssl_client_key) if ssl_client_cert else None
