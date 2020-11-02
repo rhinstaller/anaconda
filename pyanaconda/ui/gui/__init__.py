@@ -106,6 +106,8 @@ class GUIObject(common.UIObject):
                            given GUI object. The default value of None indicates
                            that the object has not specific help file assigned
                            and the default help placeholder should be used.
+
+       hide_help_button -- Hide the button for showing help.
     """
     builderObjects = []
     mainWidgetName = None
@@ -117,6 +119,7 @@ class GUIObject(common.UIObject):
 
     uiFile = ""
     help_id = None
+    hide_help_button = False
     translationDomain = "anaconda"
 
     handles_autostep = False
@@ -169,6 +172,22 @@ class GUIObject(common.UIObject):
 
         # this indicates if the screen is the last spoke to be processed for a hub
         self.lastAutostepSpoke = False
+
+    def initialize(self):
+        """Initialize the GUI of this instance. Runs once.
+
+        Hide the help button, if applicable.
+
+        Descendants will override this method to do more.
+        """
+        super().initialize()
+
+        if self.hide_help_button:
+            help_button = self.window.get_help_button()
+            if not help_button:
+                return  # GUIObject descendants might be also dialogs which don't have the button
+            help_button.set_visible(False)
+            help_button.set_no_show_all(True)
 
     def _findUIFile(self):
         path = os.environ.get("UIPATH", "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/")
