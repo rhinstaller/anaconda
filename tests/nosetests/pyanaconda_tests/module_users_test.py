@@ -27,8 +27,10 @@ from dasbus.structure import compare_data
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object, \
     PropertiesChangedCallback, check_dbus_property, check_task_creation_list, check_task_creation
 
+from pyanaconda.core.constants import ID_MODE_USE_DEFAULT, ID_MODE_USE_VALUE
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.users.users import UsersService
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask, \
@@ -82,8 +84,10 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """Test the Users property."""
         user_1 = {
             "name": get_variant(Str, "user1"),
+            "uid-mode": get_variant(Str, ID_MODE_USE_VALUE),
             "uid": get_variant(UInt32, 123),
             "groups": get_variant(List[Str], ["foo", "bar"]),
+            "gid-mode": get_variant(Str, ID_MODE_USE_VALUE),
             "gid": get_variant(UInt32, 321),
             "homedir": get_variant(Str, "user1_home"),
             "password": get_variant(Str, "swordfish"),
@@ -94,8 +98,10 @@ class UsersInterfaceTestCase(unittest.TestCase):
         }
         user_2 = {
             "name": get_variant(Str, "user2"),
+            "uid-mode": get_variant(Str, ID_MODE_USE_DEFAULT),
             "uid": get_variant(UInt32, 456),
             "groups": get_variant(List[Str], ["baz", "bar"]),
+            "gid-mode": get_variant(Str, ID_MODE_USE_DEFAULT),
             "gid": get_variant(UInt32, 654),
             "homedir": get_variant(Str, "user2_home"),
             "password": get_variant(Str, "laksdjaskldjhasjhd"),
@@ -113,10 +119,12 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """Test the Groups property."""
         group_1 = {
             "name": get_variant(Str, "group1"),
+            "gid-mode": get_variant(Str, ID_MODE_USE_VALUE),
             "gid": get_variant(UInt32, 321),
         }
         group_2 = {
             "name": get_variant(Str, "group2"),
+            "gid-mode": get_variant(Str, ID_MODE_USE_DEFAULT),
             "gid": get_variant(UInt32, 654),
         }
         self._check_dbus_property(
@@ -690,6 +698,87 @@ class UsersDataTestCase(unittest.TestCase):
         self.assertNotIn("wheel", user_data.groups)
         self.assertIn("foo", user_data.groups)
         self.assertIn("bar", user_data.groups)
+
+    def getter_setter_test(self):
+        """Test getters and setters for the User UID and GID values."""
+        user_data = UserData()
+        user_data.name = "user"
+
+        # everything should be unset by default
+        self.assertEqual(user_data.uid, 0)
+        self.assertEqual(user_data.uid_mode, ID_MODE_USE_DEFAULT)
+        self.assertEqual(user_data.get_uid(), None)
+        self.assertEqual(user_data.gid, 0)
+        self.assertEqual(user_data.gid_mode, ID_MODE_USE_DEFAULT)
+        self.assertEqual(user_data.get_gid(), None)
+
+        user_data.set_uid(123)
+        user_data.set_gid(456)
+
+        # now everything is set
+        self.assertEqual(user_data.uid, 123)
+        self.assertEqual(user_data.uid_mode, ID_MODE_USE_VALUE)
+        self.assertEqual(user_data.get_uid(), 123)
+        self.assertEqual(user_data.gid, 456)
+        self.assertEqual(user_data.gid_mode, ID_MODE_USE_VALUE)
+        self.assertEqual(user_data.get_gid(), 456)
+
+        user_data.uid_mode = ID_MODE_USE_DEFAULT
+        user_data.gid_mode = ID_MODE_USE_DEFAULT
+
+        # mode should decide whether numbers are used, regardless of being stored
+        self.assertEqual(user_data.uid_mode, ID_MODE_USE_DEFAULT)
+        self.assertEqual(user_data.uid, 123)
+        self.assertEqual(user_data.get_uid(), None)
+        self.assertEqual(user_data.gid_mode, ID_MODE_USE_DEFAULT)
+        self.assertEqual(user_data.gid, 456)
+        self.assertEqual(user_data.get_gid(), None)
+
+        user_data.set_uid(None)
+        user_data.set_gid(None)
+
+        # setting None resets everything
+        self.assertEqual(user_data.uid, 0)
+        self.assertEqual(user_data.uid_mode, ID_MODE_USE_DEFAULT)
+        self.assertEqual(user_data.get_uid(), None)
+        self.assertEqual(user_data.gid, 0)
+        self.assertEqual(user_data.gid_mode, ID_MODE_USE_DEFAULT)
+        self.assertEqual(user_data.get_gid(), None)
+
+
+class GroupsDataTestCase(unittest.TestCase):
+    """Test the GroupData data holder class."""
+
+    def getter_setter_test(self):
+        """Test getters and setters for the Group GID values."""
+        group_data = GroupData()
+        group_data.name = "group"
+
+        # everything should be unset by default
+        self.assertEqual(group_data.gid, 0)
+        self.assertEqual(group_data.gid_mode, ID_MODE_USE_DEFAULT)
+        self.assertEqual(group_data.get_gid(), None)
+
+        group_data.set_gid(789)
+
+        # now everything is set
+        self.assertEqual(group_data.gid, 789)
+        self.assertEqual(group_data.gid_mode, ID_MODE_USE_VALUE)
+        self.assertEqual(group_data.get_gid(), 789)
+
+        group_data.gid_mode = ID_MODE_USE_DEFAULT
+
+        # mode should decide whether numbers are used, regardless of being stored
+        self.assertEqual(group_data.gid_mode, ID_MODE_USE_DEFAULT)
+        self.assertEqual(group_data.gid, 789)
+        self.assertEqual(group_data.get_gid(), None)
+
+        group_data.set_gid(None)
+
+        # setting None resets everything
+        self.assertEqual(group_data.gid, 0)
+        self.assertEqual(group_data.gid_mode, ID_MODE_USE_DEFAULT)
+        self.assertEqual(group_data.get_gid(), None)
 
 
 class SharedUICodeTestCase(unittest.TestCase):

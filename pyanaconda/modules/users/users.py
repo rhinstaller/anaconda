@@ -23,9 +23,8 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.common.structures.user import UserData, USER_GID_NOT_SET, \
-    USER_UID_NOT_SET
-from pyanaconda.modules.common.structures.group import GroupData, GROUP_GID_NOT_SET
+from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 from pyanaconda.modules.users.users_interface import UsersInterface
@@ -98,8 +97,7 @@ class UsersService(KickstartService):
         for group_ksdata in data.group.groupList:
             group_data = GroupData()
             group_data.name = group_ksdata.name
-            if group_ksdata.gid is not None:
-                group_data.gid = group_ksdata.gid
+            group_data.set_gid(group_ksdata.gid)
             group_data_list.append(group_data)
         self.set_groups(group_data_list)
 
@@ -125,8 +123,7 @@ class UsersService(KickstartService):
         for group_data in self.groups:
             group_ksdata = data.GroupData()
             group_ksdata.name = group_data.name
-            if group_data.gid != GROUP_GID_NOT_SET:
-                group_ksdata.gid = group_data.gid
+            group_ksdata.gid = group_data.get_gid()
             data.group.groupList.append(group_ksdata)
 
         for ssh_key_data in self.ssh_keys:
@@ -209,16 +206,8 @@ class UsersService(KickstartService):
         user_data = UserData()
         user_data.name = user_ksdata.name
         user_data.groups = user_ksdata.groups
-        # To denote that a value has not been set:
-        # - kickstart uses None
-        # - our DBus API uses -1
-        # -> as user data is -1 by default ve only set it if kickstart has something,
-        #    that is not None
-        # We need to make sure we correctly convert between these two.
-        if user_ksdata.uid is not None:
-            user_data.uid = user_ksdata.uid
-        if user_ksdata.gid is not None:
-            user_data.gid = user_ksdata.gid
+        user_data.set_uid(user_ksdata.uid)
+        user_data.set_gid(user_ksdata.gid)
         user_data.homedir = user_ksdata.homedir
         user_data.password = user_ksdata.password
         user_data.is_crypted = user_ksdata.isCrypted
@@ -242,16 +231,8 @@ class UsersService(KickstartService):
         """
         user_ksdata.name = user_data.name
         user_ksdata.groups = user_data.groups
-        # To denote that a value has not been set:
-        # - kickstart uses None
-        # - our DBus API uses -1
-        # -> as ksdata has None as default, we simply only set the value if
-        #    it is != -1 on our side
-        # We need to make sure we correctly convert between these two.
-        if user_data.uid != USER_UID_NOT_SET:
-            user_ksdata.uid = user_data.uid
-        if user_data.gid != USER_GID_NOT_SET:
-            user_ksdata.gid = user_data.gid
+        user_ksdata.uid = user_data.get_uid()
+        user_ksdata.gid = user_data.get_gid()
         user_ksdata.homedir = user_data.homedir
         user_ksdata.password = user_data.password
         user_ksdata.isCrypted = user_data.is_crypted
