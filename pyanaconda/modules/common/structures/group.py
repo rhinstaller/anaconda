@@ -20,9 +20,9 @@ from dasbus.structure import DBusData
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["GROUP_GID_NOT_SET", "GroupData"]
+from pyanaconda.core.constants import ID_MODE_USE_DEFAULT, ID_MODE_USE_VALUE
 
-GROUP_GID_NOT_SET = 2**32-1
+__all__ = ["GroupData"]
 
 
 class GroupData(DBusData):
@@ -30,7 +30,8 @@ class GroupData(DBusData):
 
     def __init__(self):
         self._name = ""
-        self._gid = GROUP_GID_NOT_SET
+        self._gid = 0
+        self._gid_mode = ID_MODE_USE_DEFAULT
 
     @property
     def name(self) -> Str:
@@ -50,12 +51,29 @@ class GroupData(DBusData):
         self._name = name
 
     @property
+    def gid_mode(self) -> Str:
+        """Mode of the GID.
+
+        Contains a string describing the mode of the group's GID: Use the value or default.
+
+        Possible values are:
+        - "ID_MODE_USE_VALUE"
+        - "ID_MODE_USE_DEFAULT"
+
+        :return: the mode
+        :rtype str:
+        """
+        return self._gid_mode
+
+    @gid_mode.setter
+    def gid_mode(self, status: Str):
+        self._gid_mode = status
+
+    @property
     def gid(self) -> UInt32:
         """The GID of the group.
 
-        If not provided, defaults to the next available non-system GID.
-
-        GID equal to -1 means that a valid GID has not been set.
+        If ignored due to gid_mode, defaults to the next available non-system GID.
 
         For examples: 1234
 
@@ -67,3 +85,31 @@ class GroupData(DBusData):
     @gid.setter
     def gid(self, gid: UInt32):
         self._gid = gid
+
+    def get_gid(self):
+        """Return a GID value which can be a number or None.
+
+        Prefer using this method instead of directly reading gid and gid_mode.
+
+        :return: GID or None if not set
+        :rtype: int or None
+        """
+        if self._gid_mode == ID_MODE_USE_DEFAULT:
+            return None
+        else:
+            return self._gid
+
+    def set_gid(self, new_gid):
+        """Set GID value and mode from a value which can be None.
+
+        Prefer using this method instead of directly writing gid and gid_mode.
+
+        :param new_gid: new GID
+        :type new_gid: int or None
+        """
+        if new_gid is not None:
+            self._gid = new_gid
+            self._gid_mode = ID_MODE_USE_VALUE
+        else:
+            self._gid = 0
+            self._gid_mode = ID_MODE_USE_DEFAULT

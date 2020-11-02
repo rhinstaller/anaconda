@@ -522,3 +522,7 @@ RHSM_SERVICE_TIMEOUT = 90.0
 
 # Path to the System Purpose configuration file on a system.
 RHSM_SYSPURPOSE_FILE_PATH = "/etc/rhsm/syspurpose/syspurpose.json"
+
+# GID and UID modes
+ID_MODE_USE_VALUE = "ID_MODE_USE_VALUE"
+ID_MODE_USE_DEFAULT = "ID_MODE_USE_DEFAULT"
