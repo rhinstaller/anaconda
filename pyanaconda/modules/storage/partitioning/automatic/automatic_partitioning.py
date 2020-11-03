@@ -26,7 +26,8 @@ from pyanaconda.modules.common.structures.partitioning import PartitioningReques
 from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
     NonInteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
-    schedule_implicit_partitions, schedule_volumes, schedule_partitions, get_pbkdf_args
+    schedule_implicit_partitions, schedule_volumes, schedule_partitions, get_pbkdf_args, \
+    get_disks_for_implicit_partitions
 from pyanaconda.modules.storage.platform import platform
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.core.storage import suggest_swap_size
@@ -288,7 +289,11 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         disks = get_candidate_disks(storage)
         log.debug("candidate disks: %s", [d.name for d in disks])
 
-        devs = schedule_implicit_partitions(storage, disks, scheme, encrypted, luks_fmt_args)
+        # Schedule implicit partitions.
+        extra_disks = get_disks_for_implicit_partitions(disks, scheme, requests)
+        devs = schedule_implicit_partitions(storage, extra_disks, scheme, encrypted, luks_fmt_args)
+
+        # Schedule requested partitions.
         devs = schedule_partitions(storage, disks, devs, scheme, requests, encrypted, luks_fmt_args)
 
         # run the autopart function to allocate and grow partitions

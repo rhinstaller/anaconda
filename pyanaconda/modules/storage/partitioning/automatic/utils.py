@@ -167,6 +167,45 @@ def get_candidate_disks(storage):
     return free_disks
 
 
+def get_disks_for_implicit_partitions(disks, scheme, requests):
+    """Return a list of disks that can be used for implicit partitions.
+
+    :param disks: a list of candidate disks
+    :param scheme: a type of the partitioning scheme
+    :param requests: a list of partitioning requests
+    :return: a list of disks that can be used for implicit partitions
+    """
+    # There will be no implicit partitions.
+    if scheme == AUTOPART_TYPE_PLAIN:
+        return []
+
+    # Calculate slots for requested partitions.
+    requested_slots = 0
+
+    for request in requests:
+        if request.is_partition(scheme):
+            requested_slots += 1
+
+    # Collect extra disks for implicit partitions.
+    extra_disks = []
+
+    for disk in disks:
+        parted_disk = disk.format.parted_disk
+        supports_extended = parted_disk.supportsFeature(parted.DISK_TYPE_EXTENDED)
+        available_slots = parted_disk.maxPrimaryPartitionCount - parted_disk.primaryPartitionCount
+
+        # Skip disks that will be used for requested partitions.
+        if requested_slots and not supports_extended and available_slots <= requested_slots:
+            requested_slots -= available_slots
+            log.debug("Don't use %s for implicit partitions.", disk.name)
+        else:
+            requested_slots = 0
+            extra_disks.append(disk)
+
+    log.debug("Found disks for implicit partitions: %s", [d.name for d in extra_disks])
+    return extra_disks
+
+
 def schedule_implicit_partitions(storage, disks, scheme, encrypted=False, luks_fmt_args=None):
     """Schedule creation of a lvm/btrfs member partitions for autopart.
 
@@ -209,6 +248,7 @@ def schedule_implicit_partitions(storage, disks, scheme, encrypted=False, luks_f
                                      parents=[disk])
         storage.create_device(part)
         devs.append(part)
+        log.debug("Created the implicit partition %s for %s.", part.name, disk.name)
 
     return devs
 
