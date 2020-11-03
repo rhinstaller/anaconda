@@ -26,11 +26,13 @@ from blivet.size import Size
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
     ResizableDeviceTreeModule
+from pyanaconda.modules.storage.partitioning.automatic.utils import \
+    get_disks_for_implicit_partitions
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation, check_dbus_object_creation
 
-from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
+from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
@@ -281,4 +283,96 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         self.assertEqual(
             [Size("1GiB"), Size("1GiB"), Size("500MiB")],
             [spec.size for spec in requests]
+        )
+
+
+class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
+    """Test the automatic partitioning utils."""
+
+    def get_disks_for_implicit_partitions_test(self):
+        """Test the get_disks_for_implicit_partitions function."""
+        # The /boot partition always requires a slot.
+        requests = [
+            PartSpec(
+                mountpoint="/boot",
+                size=Size("1GiB")
+            ),
+            PartSpec(
+                mountpoint="/",
+                size=Size("2GiB"),
+                max_size=Size("15GiB"),
+                grow=True,
+                btr=True,
+                lv=True,
+                thin=True,
+                encrypted=True
+            ),
+            PartSpec(
+                fstype="swap",
+                grow=False,
+                lv=True,
+                encrypted=True
+            )
+        ]
+
+        # No implicit partitions to schedule.
+        disk_1 = Mock()
+        disk_2 = Mock()
+
+        parted_disk_1 = disk_1.format.parted_disk
+        parted_disk_2 = disk_2.format.parted_disk
+
+        self.assertEqual(
+            get_disks_for_implicit_partitions(
+                scheme=AUTOPART_TYPE_PLAIN,
+                disks=[disk_1, disk_2],
+                requests=requests
+            ),
+            []
+        )
+
+        # Extended partitions are supported by the first disk.
+        parted_disk_1.supportsFeature.return_value = True
+        parted_disk_1.maxPrimaryPartitionCount = 3
+        parted_disk_1.primaryPartitionCount = 3
+
+        parted_disk_2.supportsFeature.return_value = False
+        parted_disk_2.maxPrimaryPartitionCount = 3
+        parted_disk_2.primaryPartitionCount = 2
+
+        self.assertEqual(
+            get_disks_for_implicit_partitions(
+                scheme=AUTOPART_TYPE_LVM_THINP,
+                disks=[disk_1, disk_2],
+                requests=requests
+            ),
+            [disk_1, disk_2]
+        )
+
+        # Extended partitions are not supported by the first disk.
+        parted_disk_1.supportsFeature.return_value = False
+        parted_disk_1.maxPrimaryPartitionCount = 3
+        parted_disk_1.primaryPartitionCount = 2
+
+        self.assertEqual(
+            get_disks_for_implicit_partitions(
+                scheme=AUTOPART_TYPE_LVM_THINP,
+                disks=[disk_1, disk_2],
+                requests=requests
+            ),
+            [disk_2]
+        )
+
+        # Not empty slots for implicit partitions.
+        parted_disk_1.supportsFeature.return_value = False
+        parted_disk_1.maxPrimaryPartitionCount = 3
+        parted_disk_1.primaryPartitionCount = 3
+
+        self.assertEqual(
+            get_disks_for_implicit_partitions(
+                scheme=AUTOPART_TYPE_LVM_THINP,
+                disks=[disk_1, disk_2],
+                requests=requests
+            ),
+            []
         )
