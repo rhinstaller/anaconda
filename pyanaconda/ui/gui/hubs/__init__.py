@@ -57,7 +57,6 @@ class Hub(GUIObject, common.Hub):
           :parts: 3
     """
 
-    handles_autostep = True
     _hubs_collection = []
 
     # Should we automatically go to next hub if processing is done and there are no
@@ -107,9 +106,6 @@ class Hub(GUIObject, common.Hub):
         # The checker itself is left alone so the error message doesn't accidentally get
         # cleaered.
         self._checker_ignore = False
-
-        self._spokesToStepIn = []
-        self._spokeAutostepIndex = 0
 
         self._gridColumns = 3
 
@@ -414,11 +410,10 @@ class Hub(GUIObject, common.Hub):
         if not self._inSpoke:
             return
 
-        # don't apply any actions if the spoke was visited automatically
-        if spoke.automaticEntry:
-            spoke.automaticEntry = False
-            return
+        spoke.visitedSinceApplied = True
 
+        # Don't take visitedSinceApplied into account here.  It will always be
+        # True from the line above.
         if spoke.changed and (not spoke.skipTo or (spoke.skipTo and spoke.applyOnSkip)):
             spoke.apply()
             spoke.execute()
@@ -446,49 +441,3 @@ class Hub(GUIObject, common.Hub):
         # Otherwise, switch back to the hub (that's us!)
         else:
             self.main_window.returnToHub()
-
-    def _doAutostep(self):
-        """Autostep through all spokes managed by this hub"""
-        log.info("autostepping through all spokes on hub %s", self.__class__.__name__)
-
-        # create a list of all spokes in reverse alphabetic order, we will pop() from it when
-        # processing all the spokes so the screenshots will actually be in alphabetic order
-        self._spokesToStepIn = list(reversed(sorted(self._spokes.values(), key=lambda x: x.__class__.__name__)))
-
-        # we can't just loop over all the spokes due to the asynchronous nature of GtkStack, so we start by
-        # autostepping to the first spoke, this will trigger a callback that steps to the next spoke,
-        # until we run out of unvisited spokes
-        self._autostepSpoke()
-
-    def _autostepSpoke(self):
-        """Process a single spoke, if no more spokes are available report autostep as finished for the hub."""
-        # do we have some spokes to work on ?
-        if self._spokesToStepIn:
-            # take one of them
-            spoke = self._spokesToStepIn.pop()
-
-            # increment the number of processed spokes
-            self._spokeAutostepIndex += 1
-
-            log.debug("stepping to spoke %s (%d/%d)", spoke.__class__.__name__, self._spokeAutostepIndex, len(self._spokes))
-
-            # notify the spoke about the upcoming automatic entry and set a callback that will be called
-            # once the spoke has been successfully processed
-            spoke.automaticEntry = True
-            spoke.autostepDoneCallback = lambda x: self._autostepSpoke()
-
-            # if this is the last spoke, tell it to return to hub once processed
-            if self._spokesToStepIn == []:
-                spoke.lastAutostepSpoke = True
-            gtk_call_once(self._on_spoke_clicked, None, None, spoke)
-        else:
-            log.info("autostep for hub %s finished", self.__class__.__name__)
-            gtk_call_once(self._doPostAutostep)
-
-    def _doPostAutostep(self):
-        if self._spokesToStepIn:
-            # there are still spokes that need to be stepped in
-            return
-        # we are done, re-emit the continue clicked signal we "consumed" previously
-        # so that the Anaconda GUI can switch to the next screen (or quit)
-        self.window.emit("continue-clicked")

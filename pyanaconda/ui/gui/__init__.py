@@ -41,7 +41,7 @@ from pyanaconda import threading as anaconda_threading
 
 from pyanaconda.core.glib import Bytes, GError
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import gtk_call_once, unbusyCursor
+from pyanaconda.ui.gui.utils import unbusyCursor
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.utils import watch_children, unwatch_children
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
@@ -122,8 +122,6 @@ class GUIObject(common.UIObject):
     hide_help_button = False
     translationDomain = "anaconda"
 
-    handles_autostep = False
-
     def __init__(self, data):
         """Create a new UIObject instance, including loading its uiFile and
            all UI-related objects.
@@ -165,14 +163,6 @@ class GUIObject(common.UIObject):
 
         self.builder.connect_signals(self)
 
-        self._automaticEntry = False
-        self._autostepRunning = False
-        self._autostepDone = False
-        self._autostepDoneCallback = None
-
-        # this indicates if the screen is the last spoke to be processed for a hub
-        self.lastAutostepSpoke = False
-
     def initialize(self):
         """Initialize the GUI of this instance. Runs once.
 
@@ -202,85 +192,6 @@ class GUIObject(common.UIObject):
                 return testPath
 
         raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
-
-    @property
-    def automaticEntry(self):
-        """Report if the given GUIObject has been displayed under automatic control
-
-        This is needed for example for installations with an incomplete kickstart,
-        as we need to differentiate the automatic screenshot pass from the user
-        entering a spoke to manually configure things. We also need to skip applying
-        changes if the spoke is entered automatically.
-        """
-        return self._automaticEntry
-
-    @automaticEntry.setter
-    def automaticEntry(self, value):
-        self._automaticEntry = value
-
-    @property
-    def autostepRunning(self):
-        """Report if the GUIObject is currently running autostep"""
-        return self._autostepRunning
-
-    @autostepRunning.setter
-    def autostepRunning(self, value):
-        self._autostepRunning = value
-
-    @property
-    def autostepDone(self):
-        """Report if autostep for this GUIObject has been finished"""
-        return self._autostepDone
-
-    @autostepDone.setter
-    def autostepDone(self, value):
-        self._autostepDone = value
-
-    @property
-    def autostepDoneCallback(self):
-        """A callback to be run once autostep has been finished"""
-        return self._autostepDoneCallback
-
-    @autostepDoneCallback.setter
-    def autostepDoneCallback(self, callback):
-        self._autostepDoneCallback = callback
-
-    def autostep(self):
-        """Autostep through this graphical object and through
-        any graphical objects managed by it (such as through spokes for a hub)
-        """
-        # report that autostep is running to prevent another from starting
-        self.autostepRunning = True
-        # take a screenshot of the current graphical object
-        if self.data.autostep.autoscreenshot:
-            # as autostep is triggered just before leaving a screen,
-            # we can safely take a screenshot of the "parent" object at once
-            # without using idle_add
-            self.main_window.take_screenshot(self.__class__.__name__)
-        self._doAutostep()
-        # done
-        self.autostepRunning = False
-        self.autostepDone = True
-        self._doPostAutostep()
-
-        # run the autostep-done callback (if any)
-        # pylint: disable=not-callable
-        if self.autostepDoneCallback:
-            self.autostepDoneCallback(self)
-
-    def _doPostAutostep(self):
-        """To be overridden by the given GUIObject sub-class with custom code
-        that brings the GUI from the autostepping mode back to the normal mode.
-        This usually means to "click" the continue button or its equivalent.
-        """
-        pass
-
-    def _doAutostep(self):
-        """To be overridden by the given GUIObject sub-class with customized
-        autostepping code - if needed
-        (this is for example used to step through spokes in a hub)
-        """
-        pass
 
     @property
     def window(self):
@@ -560,27 +471,6 @@ class MainWindow(Gtk.Window):
         self._stack.set_transition_type(Gtk.StackTransitionType.UNDER_UP)
 
         self._setVisibleChild(spoke)
-
-        # autostep through the spoke if required
-        if spoke.automaticEntry:
-            # we need to use idle_add here to give GTK time to render the spoke
-            gtk_call_once(self._autostep_spoke, spoke)
-
-    def _autostep_spoke(self, spoke):
-        """Step through a spoke and make a screenshot if required.
-        If this is the last spoke to be autostepped on a hub return to
-        the hub so that we can proceed to the next one.
-        """
-        # it might be possible that autostep is specified, but autoscreenshot isn't
-        if spoke.data.autostep.autoscreenshot:
-            spoke.take_screenshot(spoke.__class__.__name__)
-
-        if spoke.autostepDoneCallback:
-            spoke.autostepDoneCallback(spoke)
-
-        # if this is the last spoke then return to hub
-        if spoke.lastAutostepSpoke:
-            self.returnToHub()
 
     def returnToHub(self):
         """Exit a spoke and return to a hub."""
@@ -972,21 +862,6 @@ class GraphicalUserInterface(UserInterface):
     ### SIGNAL HANDLING METHODS
     ###
     def _on_continue_clicked(self, window, user_data=None):
-        # Autostep needs to be triggered just before switching to the next screen
-        # (or before quiting the installation if there are no more screens) to be consistent
-        # in both fully automatic kickstart installation and for installation with an incomplete
-        # kickstart. Therefore we basically "hook" the continue-clicked signal, start autostepping
-        # and ignore any other continue-clicked signals until autostep is done.
-        # Once autostep finishes, it emits the appropriate continue-clicked signal itself,
-        # switching to the next screen (if any).
-        if self.data.autostep.seen and self._currentAction.handles_autostep:
-            if self._currentAction.autostepRunning:
-                log.debug("ignoring the continue-clicked signal - autostep is running")
-                return
-            elif not self._currentAction.autostepDone:
-                self._currentAction.autostep()
-                return
-
         if not window.get_may_continue() or window != self._currentAction.window:
             return
 
@@ -996,9 +871,6 @@ class GraphicalUserInterface(UserInterface):
 
         # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
-            # save the screenshots to the installed system before killing Anaconda
-            # (the kickstart post scripts run to early, so we need to copy the screenshots now)
-            util.save_screenshots()
             Gtk.main_quit()
             return
 
