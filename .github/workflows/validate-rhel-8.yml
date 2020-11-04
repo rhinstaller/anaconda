@@ -7,11 +7,25 @@ on:
 
 jobs:
   pr-info:
-    # restrict running of tests to trusted organization members
-    # see https://developer.github.com/v4/enum/commentauthorassociation/
-    if: startsWith(github.event.comment.body, '/test') && contains('OWNER MEMBER', github.event.comment.author_association)
+    if: startsWith(github.event.comment.body, '/test')
     runs-on: ubuntu-latest
     steps:
+      - name: Query comment author repository permissions
+        uses: octokit/request-action@v2.x
+        id: user_permission
+        with:
+          route: GET /repos/${{ github.repository }}/collaborators/${{ github.event.sender.login }}/permission
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # restrict running of tests to users with admin or write permission for the repository
+      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
+      - name: Fail because user does not have correct permissions
+        if: ${{ ! contains('admin write', fromJson(steps.user_permission.outputs.data).permission) }}
+        run: |
+          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' only 'admin' or 'write' is allowed"
+          exit 1
+
       - name: Get information for pull request
         uses: octokit/request-action@v2.x
         id: pr_api
