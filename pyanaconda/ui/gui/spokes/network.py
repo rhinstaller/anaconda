@@ -82,6 +82,12 @@ SELECT_WIRELESS_COLUMN_STRENGTH = 3
 SELECT_WIRELESS_COLUMN_SECURITY = 5
 SELECT_WIRELESS_COLUMN_ACTIVE = 6
 
+CONFIGURE_WIRELESS_COLUMN_SSID = 0
+CONFIGURE_WIRELESS_COLUMN_SSID_STR = 1
+CONFIGURE_WIRELESS_COLUMN_CON_ID = 2
+CONFIGURE_WIRELESS_COLUMN_CON_UUID = 3
+
+
 def localized_string_of_device_state(device, state):
     s = _("Status unknown (missing)")
 
@@ -353,7 +359,6 @@ class NetworkControlBox(GObject.GObject):
             "clicked",
             self.on_select_wireless_clicked
         )
-        self.selected_ssid = b""
 
         self.builder.get_object("device_wired_off_switch").connect("notify::active",
                                                              self.on_device_off_toggled)
@@ -489,15 +494,6 @@ class NetworkControlBox(GObject.GObject):
             dialog.refresh(device_name)
             dialog.run()
 
-    def _find_first_ssid_connection(self, device, ssid):
-        for con in device.filter_connections(self.client.get_connections()):
-            wireless_setting = con.get_setting_wireless()
-            if not wireless_setting or not wireless_setting.get_ssid():
-                # setting is None or non-broadcast AP, we ignore these
-                return
-            if wireless_setting.get_ssid().get_data() == ssid:
-                return con
-
     def on_edit_connection(self, *args):
         dev_cfg = self.selected_dev_cfg()
         if not dev_cfg:
@@ -508,20 +504,35 @@ class NetworkControlBox(GObject.GObject):
         device_type = dev_cfg.device_type
         iface = dev_cfg.device_name
         activate = None
+        selected_ssid = b""
 
         if device_type == NM.DeviceType.WIFI:
-            if not self.selected_ssid:
+
+            # Run dialog
+            dialog = ConfigureWirelessNetworksDialog(self.spoke.data, self.client)
+            with self.spoke.main_window.enlightbox(dialog.window):
+                dialog.refresh(iface)
+                rc = dialog.run()
+                if rc != 1:
+                    return
+
+                con_uuid = dialog.selected_uuid
+                selected_ssid = dialog.selected_ssid
+
+            if not con_uuid:
                 return
-            con = self._find_first_ssid_connection(device, self.selected_ssid)
+
+            con = self.client.get_connection_by_uuid(con_uuid)
             if not con:
-                log.debug("on_edit_connection: connection for ap %s not found", self.selected_ssid)
+                log.debug("on_edit_connection: connection %s for ap %s not found",
+                          con_uuid, selected_ssid)
                 return
 
             # 871132 auto activate wireless connection after editing if it is not
             # already activated (assume entering secrets)
             def restart_device_condition():
                 ap = device.get_active_access_point()
-                return not ap or ap.get_ssid().get_data() != self.selected_ssid
+                return not ap or ap.get_ssid().get_data() != selected_ssid
 
             activate = (con, device, restart_device_condition)
         else:
@@ -543,7 +554,7 @@ class NetworkControlBox(GObject.GObject):
                 activate = (con, device, settings_changed)
 
         log.info("configuring connection %s device %s ssid %s",
-                 con.get_uuid(), iface, self.selected_ssid)
+                 con.get_uuid(), iface, selected_ssid)
         self._run_nmce(con.get_uuid(), activate)
 
     def _default_connection_added_cb(self, client, result, activate):
@@ -972,9 +983,7 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("remove_toolbutton").set_sensitive(True)
         elif dev_type == NM.DeviceType.WIFI:
             notebook.set_current_page(1)
-            self.builder.get_object("button_wireless_options").set_sensitive(
-                not self.selected_ssid
-            )
+            self.builder.get_object("button_wireless_options").set_sensitive(True)
 
     def _refresh_carrier_info(self):
         for row in self.dev_cfg_store:
@@ -1119,6 +1128,93 @@ def _try_disconnect(obj, callback):
     except TypeError as e:
         if "nothing connected" not in str(e):
             log.debug("%s", e)
+
+
+class ConfigureWirelessNetworksDialog(GUIObject):
+    builderObjects = ["configure_wireless_network_dialog",
+                      "liststore_configure_wireless_network"]
+    mainWidgetName = "configure_wireless_network_dialog"
+    uiFile = "spokes/network.glade"
+
+    def __init__(self, data, nm_client):
+        super().__init__(data)
+        self._nm_client = nm_client
+
+        self.window.set_size_request(500, 300)
+        self._store = self.builder.get_object("liststore_configure_wireless_network")
+        self._store.set_sort_column_id(CONFIGURE_WIRELESS_COLUMN_SSID_STR, Gtk.SortType.ASCENDING)
+        self._treeview = self.builder.get_object("configure_wireless_network_treeview")
+        selection = self._treeview.get_selection()
+        selection.set_mode(Gtk.SelectionMode.BROWSE)
+        self._configure_button = self.builder.get_object("wireless_configure_button")
+        selection.connect("changed", self.on_selection_changed)
+        self.on_selection_changed(selection)
+
+    def on_selection_changed(self, selection):
+        _model, itr = selection.get_selected()
+        self._configure_button.set_sensitive(bool(itr))
+
+    @property
+    def selected_uuid(self):
+        uuid = ""
+        selection = self._treeview.get_selection()
+        model, itr = selection.get_selected()
+        if itr:
+            uuid = model[itr][CONFIGURE_WIRELESS_COLUMN_CON_UUID]
+        return uuid
+
+    @property
+    def selected_ssid(self):
+        ssid = ""
+        selection = self._treeview.get_selection()
+        model, itr = selection.get_selected()
+        if itr:
+            ssid = model[itr][CONFIGURE_WIRELESS_COLUMN_SSID]
+        return ssid
+
+    # pylint: disable=arguments-differ
+    def refresh(self, device_name):
+        device = self._nm_client.get_device_by_iface(device_name)
+        if not device:
+            log.warnig("device for interface %s not found", device)
+            return
+
+        cons = device.filter_connections(self._nm_client.get_connections())
+
+        # Update model
+        self._store.clear()
+        for con in cons:
+            self._add_connection(con)
+
+    def _add_connection(self, connection):
+        wireless_setting = connection.get_setting_wireless()
+        if not wireless_setting:
+            return
+
+        ssid = wireless_setting.get_ssid()
+        if not ssid:
+            # get_ssid can return None if AP does not broadcast.
+            return
+
+        ssid = ssid.get_data()
+        if not ssid:
+            return
+
+        ssid_str = NM.utils_ssid_to_utf8(ssid)
+
+        con_id = connection.get_setting_connection().get_id()
+
+        con_uuid = connection.get_setting_connection().get_uuid()
+
+        # the third column is for sorting
+        self._store.append([ssid, ssid_str, con_id, con_uuid])
+
+    def run(self):
+        self.window.show()
+        rc = self.window.run()
+        self.window.hide()
+
+        return rc
 
 
 class SelectWirelessNetworksDialog(GUIObject):
