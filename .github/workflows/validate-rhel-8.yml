@@ -20,11 +20,13 @@ jobs:
 
       # restrict running of tests to users with admin or write permission for the repository
       # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
-      - name: Fail because user does not have correct permissions
-        if: ${{ ! contains('admin write', fromJson(steps.user_permission.outputs.data).permission) }}
+      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
+      - name: Check if user does have correct permissions
+        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
+        id: check_user_perm
         run: |
-          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' only 'admin' or 'write' is allowed"
-          exit 1
+          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
+          echo "::set-output name=allowed_user::true"
 
       - name: Get information for pull request
         uses: octokit/request-action@v2.x
@@ -35,12 +37,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     outputs:
+      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
 
   unit-tests:
     needs: pr-info
-    if: needs.pr-info.outputs.base_ref == 'rhel-8'
+    if: needs.pr-info.outputs.base_ref == 'rhel-8' && needs.pr-info.outputs.allowed_user == 'true'
     runs-on: [self-hosted, ci-tasks, rhel-8]
     steps:
       # we post statuses manually as this does not run from a pull_request event
