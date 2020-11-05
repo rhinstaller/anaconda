@@ -33,7 +33,7 @@ from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
     RealmDiscoverTask, RealmJoinTask, ConfigureAuthselectTask, \
-    ConfigureAuthconfigTask, ConfigureFingerprintAuthTask, PreconfigureFIPSTask
+    ConfigureAuthconfigTask, ConfigureFingerprintAuthTask, PreconfigureFIPSTask, ConfigureFIPSTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -281,6 +281,16 @@ class SecurityService(KickstartService):
         return PreconfigureFIPSTask(
             sysroot=conf.target.system_root,
             payload_type=payload_type,
+            fips_enabled=self.fips_enabled
+        )
+
+    def configure_fips_with_task(self):
+        """Configure FIPS on the installed system.
+
+        :return: an installation task
+        """
+        return ConfigureFIPSTask(
+            sysroot=conf.target.system_root,
             fips_enabled=self.fips_enabled
         )
 

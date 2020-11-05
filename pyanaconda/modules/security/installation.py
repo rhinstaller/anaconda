@@ -21,6 +21,7 @@ import shutil
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
@@ -127,6 +128,48 @@ class PreconfigureFIPSTask(Task):
 
         # Log the directory content on the target system.
         util.execWithRedirect("/bin/ls", ["-l", dst])
+
+
+class ConfigureFIPSTask(Task):
+    """Installation task that configures FIPS on the installed system."""
+
+    def __init__(self, fips_enabled, sysroot):
+        """Create a new task.
+
+        :param fips_enabled: True if FIPS is enabled, otherwise False
+        :param sysroot: a path to the system root
+        """
+        super().__init__()
+        self._fips_enabled = fips_enabled
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Configure FIPS"
+
+    def run(self):
+        """Configure FIPS on the installed system.
+
+        If the installation is running in fips mode then make sure
+        fips is also correctly enabled in the installed system.
+        """
+        if not self._fips_enabled:
+            log.debug("FIPS is not enabled. Skipping.")
+            return
+
+        if not conf.target.is_hardware:
+            log.debug("Don't set up FIPS on %s.", conf.target.type.value)
+            return
+
+        # We use the --no-bootcfg option as we don't want fips-mode-setup
+        # to modify the bootloader configuration. Anaconda already does
+        # everything needed & it would require grubby to be available on
+        # the system.
+        util.execWithRedirect(
+            "fips-mode-setup",
+            ["--enable", "--no-bootcfg"],
+            root=self._sysroot
+        )
 
 
 class ConfigureSELinuxTask(Task):

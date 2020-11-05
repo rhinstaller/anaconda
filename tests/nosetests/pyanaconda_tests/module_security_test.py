@@ -22,6 +22,7 @@ import tempfile
 import os
 from unittest.mock import patch
 
+from pyanaconda.core.configuration.target import TargetType
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_RPM_OSTREE
 from pykickstart.constants import SELINUX_ENFORCING, SELINUX_PERMISSIVE
 
@@ -35,7 +36,7 @@ from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
     RealmDiscoverTask, RealmJoinTask, ConfigureFingerprintAuthTask, \
     ConfigureAuthselectTask, ConfigureAuthconfigTask, AUTHSELECT_TOOL_PATH, \
-    AUTHCONFIG_TOOL_PATH, PAM_SO_64_PATH, PAM_SO_PATH, PreconfigureFIPSTask
+    AUTHCONFIG_TOOL_PATH, PAM_SO_64_PATH, PAM_SO_PATH, PreconfigureFIPSTask, ConfigureFIPSTask
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface, \
     check_task_creation, check_task_creation_list, PropertiesChangedCallback, check_dbus_property
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -336,6 +337,14 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         obj = check_task_creation(self, task_path, publisher, PreconfigureFIPSTask)
         self.assertEqual(obj.implementation._sysroot, "/mnt/sysroot")
         self.assertEqual(obj.implementation._payload_type, PAYLOAD_TYPE_DNF)
+        self.assertEqual(obj.implementation._fips_enabled, False)
+
+    @patch_dbus_publish_object
+    def configure_fips_with_task_test(self, publisher):
+        """Test the ConfigureFIPSWithTask method."""
+        task_path = self.security_interface.ConfigureFIPSWithTask()
+        obj = check_task_creation(self, task_path, publisher, ConfigureFIPSTask)
+        self.assertEqual(obj.implementation._sysroot, "/mnt/sysroot")
         self.assertEqual(obj.implementation._fips_enabled, False)
 
     def collect_requirements_default_test(self):
@@ -985,4 +994,50 @@ class SecurityTasksTestCase(unittest.TestCase):
             "/etc/crypto-policies/back-ends/",
             "/mnt/sysroot/etc/crypto-policies/back-ends/",
             symlinks=True
+        )
+
+    def configure_fips_task_disabled_test(self):
+        """Test the ConfigureFIPSTask task with disabled FIPS."""
+        task = ConfigureFIPSTask(
+            sysroot="/mnt/sysroot",
+            fips_enabled=False,
+        )
+
+        with self.assertLogs(level="DEBUG") as cm:
+            task.run()
+
+        msg = "FIPS is not enabled. Skipping."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    @patch("pyanaconda.modules.security.installation.conf")
+    def configure_fips_task_image_test(self, mock_conf):
+        """Test the ConfigureFIPSTask task with image."""
+        task = ConfigureFIPSTask(
+            sysroot="/mnt/sysroot",
+            fips_enabled=True,
+        )
+
+        mock_conf.target.is_hardware = False
+        mock_conf.target.type = TargetType.IMAGE
+
+        with self.assertLogs(level="DEBUG") as cm:
+            task.run()
+
+        msg = "Don't set up FIPS on IMAGE."
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    @patch("pyanaconda.modules.security.installation.util")
+    def configure_fips_task_test(self, mock_util):
+        """Test the ConfigureFIPSTask task."""
+        task = ConfigureFIPSTask(
+            sysroot="/mnt/sysroot",
+            fips_enabled=True,
+        )
+
+        task.run()
+
+        mock_util.execWithRedirect.assert_called_once_with(
+            "fips-mode-setup",
+            ["--enable", "--no-bootcfg"],
+            root="/mnt/sysroot"
         )

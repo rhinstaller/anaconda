@@ -167,3 +167,12 @@ class SecurityInterface(KickstartModuleInterface):
         return TaskContainer.to_object_path(
             self.implementation.preconfigure_fips_with_task(payload_type)
         )
+
+    def ConfigureFIPSWithTask(self) -> ObjPath:
+        """Configure FIPS on the installed system.
+
+        :return: a DBus path of a installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.configure_fips_with_task()
+        )

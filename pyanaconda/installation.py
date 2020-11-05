@@ -166,6 +166,9 @@ def _prepare_configuration(payload, ksdata):
     generate_initramfs.append(Task("Generate initramfs", run_generate_initramfs))
     configuration_queue.append(generate_initramfs)
 
+    # Configure FIPS.
+    configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.ConfigureFIPSWithTask()])
+
     # realm join
     # - this can run only after network is configured in the target system chroot
     configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])

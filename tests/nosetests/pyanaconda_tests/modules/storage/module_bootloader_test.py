@@ -472,10 +472,9 @@ class BootloaderTasksTestCase(unittest.TestCase):
                 )
             ])
 
-    @patch('pyanaconda.modules.storage.bootloader.utils.kernel_arguments')
     @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
     @patch('pyanaconda.modules.storage.bootloader.utils.conf')
-    def recreate_initrds_test(self, conf_mock, exec_mock, args_mock):
+    def recreate_initrds_test(self, conf_mock, exec_mock):
         """Test the installation task that recreates initrds."""
         version = "4.17.7-200.fc28.x86_64"
 
@@ -490,7 +489,6 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
         exec_mock.reset_mock()
         conf_mock.target.is_image = False
-        args_mock.get.return_value = None
 
         with tempfile.TemporaryDirectory() as root:
             task = RecreateInitrdsTask(
@@ -515,7 +513,6 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
         exec_mock.reset_mock()
         conf_mock.target.is_image = False
-        args_mock.get.return_value = "1"
 
         with tempfile.TemporaryDirectory() as root:
             os.makedirs(root + "/usr/sbin/", exist_ok=True)
@@ -533,11 +530,6 @@ class BootloaderTasksTestCase(unittest.TestCase):
                     "new-kernel-pkg", [
                         "--mkinitrd", "--dracut", "--depmod",
                         "--update", "4.17.7-200.fc28.x86_64"
-                    ], root=root
-                ),
-                mock.call(
-                    "fips-mode-setup", [
-                        "--enable", "--no-bootcfg"
                     ], root=root
                 )
             ])
