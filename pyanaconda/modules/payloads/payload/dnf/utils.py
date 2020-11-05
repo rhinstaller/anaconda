@@ -17,13 +17,17 @@
 #
 import dnf.subject
 import dnf.const
+import fnmatch
+import rpm
 
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.core.util import is_lpae_available
+from pyanaconda.core.util import is_lpae_available, decode_bytes
 from pyanaconda.product import productName, productVersion
+from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
 log = get_module_logger(__name__)
 
@@ -170,3 +174,31 @@ def get_installation_specs(data, default_environment=None):
         include_list.append(pkg_name)
 
     return include_list, exclude_list
+
+
+def get_kernel_version_list():
+    """Get a list of installed kernel versions.
+
+    :return: a list of kernel versions
+    """
+    files = []
+    efi_dir = conf.bootloader.efi_dir
+
+    # Find all installed RPMs that provide 'kernel'.
+    ts = rpm.TransactionSet(conf.target.system_root)
+    mi = ts.dbMatch('providename', 'kernel')
+
+    for hdr in mi:
+        unicode_fnames = (decode_bytes(f) for f in hdr.filenames)
+
+        # Find all /boot/vmlinuz- files and strip off vmlinuz-.
+        files.extend((
+            f.split("/")[-1][8:] for f in unicode_fnames
+            if fnmatch.fnmatch(f, "/boot/vmlinuz-*") or
+            fnmatch.fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % efi_dir)
+        ))
+
+    # Sort the kernel versions.
+    sort_kernel_version_list(files)
+
+    return files
