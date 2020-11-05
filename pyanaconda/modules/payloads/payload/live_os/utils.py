@@ -15,13 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import functools
 import glob
 import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.payload.utils import version_cmp
+from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
 log = get_module_logger(__name__)
 
@@ -36,8 +35,10 @@ def get_kernel_version_list(root_path):
     files = glob.glob(root_path + "/boot/vmlinuz-*")
     files.extend(glob.glob(root_path + "/boot/efi/EFI/{}/vmlinuz-*".format(efi_dir)))
 
-    kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
-                                  if os.path.isfile(f) and "-rescue-" not in f),
-                                 key=functools.cmp_to_key(version_cmp))
+    kernel_version_list = [
+        f.split("/")[-1][8:] for f in files
+        if os.path.isfile(f) and "-rescue-" not in f
+    ]
 
+    sort_kernel_version_list(kernel_version_list)
     return kernel_version_list
