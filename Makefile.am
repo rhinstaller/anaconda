@@ -89,7 +89,7 @@ CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
 CI_NAME ?= rhinstaller/anaconda-ci
 CI_TAG ?= $(GIT_BRANCH)
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
-CI_CMD ?=
+CI_CMD ?= make ci
 
 SKIP_BRANCHING_CHECK ?= "false"
 
@@ -235,7 +235,10 @@ ci:
 	fi
 
 container-ci:
-	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG) $(CI_CMD)
+	$(CONTAINER_ENGINE) run --entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG) $(CI_CMD)
+
+container-shell:
+	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG)
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place

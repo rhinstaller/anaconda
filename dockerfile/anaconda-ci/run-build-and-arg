@@ -1,0 +1,23 @@
+#!/bin/sh
+set -eux
+
+# Avoid clobbering the host's checkout, so work from a copy
+cp -r /anaconda /tmp/
+cd /tmp/anaconda
+rm -rf test-logs
+
+./autogen.sh
+./configure
+make
+
+# always copy the results back to the host
+copy_logs() {
+    mkdir -p /anaconda/test-logs/
+    # clean up from previous run
+    rm -rf /anaconda/test-logs/*
+    find -name '*.log' -exec cp '{}' /anaconda/test-logs/ \;
+}
+trap copy_logs EXIT INT QUIT PIPE
+
+# run user-supplied command (by default, `make ci`)
+$@
