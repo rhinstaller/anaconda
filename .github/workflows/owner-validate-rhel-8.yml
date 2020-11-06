@@ -1,0 +1,55 @@
+# Run rhel-8 unit tests for organization members only.
+# This avoids running untrusted and unreviewed code on self-hosted runners.
+name: owner-unit-tests-rhel-8
+on: [pull_request_target]
+
+jobs:
+  pr-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query comment author repository permissions
+        uses: octokit/request-action@v2.x
+        id: user_permission
+        with:
+          route: GET /repos/${{ github.repository }}/collaborators/${{ github.event.sender.login }}/permission
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # restrict running of tests to users with admin or write permission for the repository
+      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
+      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
+      - name: Check if user does have correct permissions
+        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
+        id: check_user_perm
+        run: |
+          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
+          echo "::set-output name=allowed_user::true"
+
+    outputs:
+      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
+
+  # Run unit tests only if user have write or admin rights
+  unit-tests:
+    needs: pr-info
+    if: needs.pr-info.outputs.allowed_user == 'true'
+    runs-on: [self-hosted, ci-tasks, rhel-8]
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Run test
+        run: |
+          ./autogen.sh
+          ./configure
+          make
+          # put the log in the output, where it's easy to read and link to
+          make ci || { cat test-logs/test-suite.log; exit 1; }
+
+      - name: Upload test and coverage logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: test-logs/*
