@@ -367,6 +367,52 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 06 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.1-1
+- Allow to format selected DASDs (vponcova)
+  Resolves: rhbz#1874394
+- Don't clobber host checkout on `make container-ci` (mpitt)
+  Related: rhbz#1885635
+- Drop anaconda-ci container entrypoint (mpitt)
+  Related: rhbz#1885635
+- Remove PR test trigger (mpitt)
+  Related: rhbz#1885635
+- Rename ci-tasks container to anaconda-ci (jkonecny)
+  Related: rhbz#1885635
+- network: do not crash on infiniband devices activated in initramfs (rvykydal)
+  Resolves: rhbz#1890009
+- Fix testing target branch instead of PR branch (jkonecny)
+  Related: rhbz#1885635
+- Add a mechanism to hide help button, use on inst. progress (vslavik)
+  Resolves: rhbz#1890092
+- Document how to start a self-hosted GitHub actions runner locally (mpitt)
+  Related: rhbz#1885635
+- Run unit tests on self-hosted GitHub runner (mpitt)
+  Related: rhbz#1885635
+- Fix local tests run inside of container (jkonecny)
+  Related: rhbz#1885635
+- Fix ci-tasks container shell instructions (mpitt)
+  Related: rhbz#1885635
+- More aggressive pylint downscaling (mpitt)
+  Related: rhbz#1885635
+- Fix pylint downscaling (mpitt)
+  Related: rhbz#1885635
+- Add ci-tasks container for running unit tests (mpitt)
+  Related: rhbz#1885635
+- Restrict pylint parallelism to available RAM (mpitt)
+  Related: rhbz#1885635
+- Separate RPM installability test from rpm_tests (martin)
+  Related: rhbz#1885635
+- Define make targets for building source and binary rpms (martin)
+  Related: rhbz#1885635
+- Drop superfluous build in `make run-rpm-tests-only` (martin)
+  Related: rhbz#1885635
+- Mock system operations in MountFilesystemsTask task (martin)
+  Related: rhbz#1885635
+- Add missing "rpm-build" test dependency (martin)
+  Related: rhbz#1885635
+- Add missing "make" BuildRequires (martin)
+  Related: rhbz#1885635
+
 * Tue Sep 22 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.3.26-1
 - Never mount partitions on a disk with the iso9660 filesystem (vponcova)
   Resolves: rhbz#1878784
