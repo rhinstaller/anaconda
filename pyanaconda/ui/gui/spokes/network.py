@@ -663,6 +663,7 @@ class NetworkControlBox(GObject.GObject):
             con.delete()
 
     def on_apply_hostname(self, *args):
+        self.label_current_hostname.set_text(self.hostname)
         self.emit("apply-hostname")
 
     def add_device(self, ty):
