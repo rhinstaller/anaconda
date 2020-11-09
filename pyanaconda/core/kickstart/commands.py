@@ -32,7 +32,6 @@ from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
 from pykickstart.commands.clearpart import F28_ClearPart as ClearPart
 from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
 from pykickstart.commands.device import F24_Device as Device
-from pykickstart.commands.deviceprobe import F29_DeviceProbe as DeviceProbe
 from pykickstart.commands.dmraid import F24_DmRaid as DmRaid
 from pykickstart.commands.driverdisk import F14_DriverDisk as DriverDisk
 from pykickstart.commands.module import F31_Module as Module
@@ -44,7 +43,6 @@ from pykickstart.commands.group import F12_Group as Group
 from pykickstart.commands.harddrive import F33_HardDrive as HardDrive
 from pykickstart.commands.hmc import F28_Hmc as Hmc
 from pykickstart.commands.ignoredisk import F29_IgnoreDisk as IgnoreDisk
-from pykickstart.commands.install import F29_Install as Install
 from pykickstart.commands.iscsi import F17_Iscsi as Iscsi
 from pykickstart.commands.iscsiname import FC6_IscsiName as IscsiName
 from pykickstart.commands.keyboard import F18_Keyboard as Keyboard
