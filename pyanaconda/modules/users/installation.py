@@ -21,7 +21,6 @@ import os
 from pyanaconda.core import users
 
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.structures.user import USER_GID_NOT_SET, USER_UID_NOT_SET
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -84,13 +83,8 @@ class CreateUsersTask(Task):
 
     def _create_users(self):
         for user_data in self._user_data_list:
-            # UserData uses -1 for not-set uid/gid while the function takes None for not-set
-            uid = None
-            if user_data.uid != USER_UID_NOT_SET:
-                uid = user_data.uid
-            gid = None
-            if user_data.gid != USER_GID_NOT_SET:
-                gid = user_data.gid
+            uid = user_data.get_uid()
+            gid = user_data.get_gid()
 
             try:
                 users.create_user(username=user_data.name,
@@ -130,10 +124,7 @@ class CreateGroupsTask(Task):
 
     def _create_groups(self):
         for group_data in self._group_data_list:
-            # GroupData uses -1 for not-set gid while the function takes None for not-set
-            gid = None
-            if group_data.gid >= 0:
-                gid = group_data.gid
+            gid = group_data.get_gid()
             try:
                 users.create_group(group_name=group_data.name, gid=gid, root=self._sysroot)
             except ValueError as e:
