@@ -21,10 +21,9 @@ from dasbus.structure import DBusData
 from dasbus.structure import generate_string_from_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["USER_GID_NOT_SET", "USER_UID_NOT_SET", "UserData"]
+from pyanaconda.core.constants import ID_MODE_USE_DEFAULT, ID_MODE_USE_VALUE
 
-USER_GID_NOT_SET = -1
-USER_UID_NOT_SET = -1
+__all__ = ["UserData"]
 
 
 class UserData(DBusData):
@@ -32,9 +31,11 @@ class UserData(DBusData):
 
     def __init__(self):
         self._name = ""
-        self._uid = USER_UID_NOT_SET
+        self._uid = 0
+        self._uid_mode = ID_MODE_USE_DEFAULT
         self._groups = list()
-        self._gid = USER_UID_NOT_SET
+        self._gid = 0
+        self._gid_mode = ID_MODE_USE_DEFAULT
         self._homedir = ""
         self._password = ""
         self._is_crypted = True
@@ -60,23 +61,68 @@ class UserData(DBusData):
         self._name = name
 
     @property
-    def uid(self) -> Int:
+    def uid_mode(self) -> Str:
+        """Mode of UID.
+
+        Contains a string describing the mode of the user's UID: Use the value or default.
+
+        Possible values are:
+        - "ID_MODE_USE_VALUE"
+        - "ID_MODE_USE_DEFAULT"
+
+        :return: the mode
+        :rtype str:
+        """
+        return self._uid_mode
+
+    @uid_mode.setter
+    def uid_mode(self, status: Str):
+        self._uid_mode = status
+
+    @property
+    def uid(self) -> UInt32:
         """The users UID.
 
-        If not provided, this defaults to the next available non-system UID.
+        If ignored due to uid_mode, this defaults to the next available non-system UID.
 
-        For examples: 1234
+        For example: 1234
 
-        UID equal to -1 means that a valid UID has not been set.
-
-        :return: users UID
+        :return: user's UID
         :rtype: int
         """
         return self._uid
 
     @uid.setter
-    def uid(self, uid: Int):
+    def uid(self, uid: UInt32):
         self._uid = uid
+
+    def get_uid(self):
+        """Return a UID value which can be a number or None.
+
+        Prefer using this method instead of directly reading uid and uid_mode.
+
+        :return: UID or None if not set
+        :rtype: int or None
+        """
+        if self._uid_mode == ID_MODE_USE_DEFAULT:
+            return None
+        else:
+            return self._uid
+
+    def set_uid(self, new_uid):
+        """Set UID value and mode from a value which can be None.
+
+        Prefer using this method instead of directly setting uid and uid_mode.
+
+        :param new_uid: new UID
+        :type new_uid: int or None
+        """
+        if new_uid is not None:
+            self._uid = new_uid
+            self._uid_mode = ID_MODE_USE_VALUE
+        else:
+            self._uid = 0
+            self._uid_mode = ID_MODE_USE_DEFAULT
 
     @property
     def groups(self) -> List[Str]:
@@ -96,14 +142,31 @@ class UserData(DBusData):
         self._groups = groups
 
     @property
-    def gid(self) -> Int:
+    def gid_mode(self) -> Str:
+        """Mode of GID.
+
+        Contains a string describing the mode of the user's GID: Use the value or default.
+
+        Possible values are:
+        - "ID_MODE_USE_VALUE"
+        - "ID_MODE_USE_DEFAULT"
+
+        :return: the mode
+        :rtype str:
+        """
+        return self._gid_mode
+
+    @gid_mode.setter
+    def gid_mode(self, status: Str):
+        self._gid_mode = status
+
+    @property
+    def gid(self) -> UInt32:
         """The GID of the user’s primary group.
 
-        If not provided,  defaults to the next available non-system GID.
+        If ignored due to gid_mode, defaults to the next available non-system GID.
 
-        GID equal to -1 means that a valid GID has not been set.
-
-        For examples: 1234
+        For example: 1234
 
         :return: primary group GID
         :rtype: int
@@ -111,8 +174,36 @@ class UserData(DBusData):
         return self._gid
 
     @gid.setter
-    def gid(self, gid: Int):
+    def gid(self, gid: UInt32):
         self._gid = gid
+
+    def get_gid(self):
+        """Return a GID value which can be a number or None.
+
+        Prefer using this method instead of directly reading gid and gid_mode.
+
+        :return: GID or None if not set
+        :rtype: int or None
+        """
+        if self._gid_mode == ID_MODE_USE_DEFAULT:
+            return None
+        else:
+            return self._gid
+
+    def set_gid(self, new_gid):
+        """Set GID value and mode from a value which can be None.
+
+        Prefer using this method instead of directly writing gid and gid_mode.
+
+        :param new_gid: new GID
+        :type new_gid: int or None
+        """
+        if new_gid is not None:
+            self._gid = new_gid
+            self._gid_mode = ID_MODE_USE_VALUE
+        else:
+            self._gid = 0
+            self._gid_mode = ID_MODE_USE_DEFAULT
 
     @property
     def homedir(self) -> Str:
