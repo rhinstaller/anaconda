@@ -36,3 +36,12 @@ export PYTHONPATH
 
 # Start a Python module in the detached mode.
 python3 -m $1 &
+module_pid="$!"
+
+# Wait for a minute in the detached mode.
+sleep 60 &
+timeout_pid="$!"
+
+# If the Python module fails before the timeout, return its exit status.
+# Otherwise, return 0.
+wait -n "${timeout_pid}" "${module_pid}"
