@@ -2,7 +2,7 @@ name: validate
 on: [push, pull_request_target]
 jobs:
   unit-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
@@ -22,13 +22,13 @@ jobs:
       # build container if files for dockerfile changed in the PR
       - name: Build anaconda-ci container
         if: steps.check-dockerfile-changed.outputs.changed
-        run: CONTAINER_ENGINE=docker make -f Makefile.am anaconda-ci-build
+        run: make -f Makefile.am anaconda-ci-build
 
       - name: Run tests in anaconda-ci container
         id: run-unit-tests
         run: |
           # put the log in the output, where it's easy to read and link to
-          CONTAINER_ENGINE=docker make -f Makefile.am container-ci || { cat test-logs/test-suite.log; exit 1; }
+          make -f Makefile.am container-ci || { cat test-logs/test-suite.log; exit 1; }
 
       - name: Upload test and coverage logs
         if: always()
@@ -38,7 +38,7 @@ jobs:
           path: test-logs/*
 
   rpm-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     # start from a minimal container and install only our build deps; mock does
     # not work in an unprivileged container (no CAP_SYS_ADMIN for mount), and
     # dnf --installroot is too broken (rhbz#1885103, #1885101, #1738233)
