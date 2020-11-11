@@ -1,0 +1,10 @@
+[fedora-eln-baseos]
+name=Fedora ELN - $basearch
+baseurl=https://odcs.fedoraproject.org/composes/production/latest-Fedora-ELN/compose/Everything/$basearch/os/
+enabled=0
+countme=1
+priority=1
+repo_gpgcheck=0
+type=rpm
+gpgcheck=0
+skip_if_unavailable=False

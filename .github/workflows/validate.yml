@@ -3,6 +3,17 @@ on: [push, pull_request_target]
 jobs:
   unit-tests:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        # empty = release that corresponds to current branch name
+        release: ['', 'eln']
+        include:
+          - release: eln
+            build-args: '--build-arg=eln=1'
+    env:
+      CI_TAG: '${{ matrix.release }}'
+      CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
+
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
@@ -21,7 +32,8 @@ jobs:
 
       # build container if files for dockerfile changed in the PR
       - name: Build anaconda-ci container
-        if: steps.check-dockerfile-changed.outputs.changed
+        # FIXME: always build ELN container, until we publish it to quay.io
+        if: steps.check-dockerfile-changed.outputs.changed || matrix.release == 'eln'
         run: make -f Makefile.am anaconda-ci-build
 
       - name: Run tests in anaconda-ci container
@@ -33,7 +45,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: logs
+          name: 'logs${{ matrix.release }}'
           path: test-logs/*
 
   rpm-tests:
