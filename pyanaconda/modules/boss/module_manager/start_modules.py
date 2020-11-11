@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from functools import partial
 from queue import SimpleQueue
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -66,19 +67,11 @@ class StartModulesTask(Task):
         # Collect the modules.
         self._module_observers = self._find_modules() + self._find_addons()
 
-        # All modules are unavailable now.
-        unavailable = set(self._module_observers)
-
         # Asynchronously start the modules.
         self._start_modules(self._module_observers)
 
-        # Process callbacks of the asynchronous calls until all modules
-        # are available. A callback returns an observer of an available
-        # module or None. If a DBus call fails with an error, we raise
-        # an exception in the callback and immediately quit the task.
-        while unavailable:
-            callback = self._callbacks.get()
-            unavailable.discard(callback())
+        # Process the callbacks of the asynchronous calls.
+        self._process_callbacks(self._module_observers)
 
         return self._module_observers
 
@@ -124,7 +117,7 @@ class StartModulesTask(Task):
         dbus = self._message_bus.proxy
 
         for observer in module_observers:
-            log.debug("Starting %s", observer)
+            log.debug("Starting %s.", observer)
 
             dbus.StartServiceByName(
                 observer.service_name,
@@ -133,9 +126,9 @@ class StartModulesTask(Task):
                 callback_args=(observer,)
             )
 
-    def _start_service_by_name_callback(self, *args, **kwargs):
+    def _start_service_by_name_callback(self, call, observer):
         """Callback for the StartServiceByName method."""
-        self._callbacks.put(lambda: self._start_service_by_name_handler(*args, **kwargs))
+        self._callbacks.put((observer, partial(self._start_service_by_name_handler, call)))
 
     def _start_service_by_name_handler(self, call, observer):
         """Handler for the StartServiceByName method."""
@@ -154,13 +147,55 @@ class StartModulesTask(Task):
         # Connect the observer once the service is available.
         observer.service_available.connect(self._service_available_callback)
         observer.connect_once_available()
+        return False
 
-    def _service_available_callback(self, *args, **kwargs):
+    def _service_available_callback(self, observer):
         """Callback for the service_available signal."""
-        self._callbacks.put(lambda: self._service_available_handler(*args, **kwargs))
+        self._callbacks.put((observer, self._service_available_handler))
 
     def _service_available_handler(self, observer):
         """Handler for the service_available signal."""
         log.debug("%s is available.", observer)
         observer.proxy.Ping()
-        return observer
+        return True
+
+    def _process_callbacks(self, module_observers):
+        """Process callbacks of the asynchronous calls.
+
+        Process callbacks of the asynchronous calls until all modules
+        are processed. A callback returns True if the module is processed,
+        otherwise False.
+
+        If a DBus call fails with an error, we raise an exception in the
+        callback and immediately quit the task unless it comes from an
+        add-on. A failure of an add-on module is not fatal, we just remove
+        its observer from the list of available modules and continue.
+
+        :param module_observers: a list of module observers
+        """
+        available = module_observers
+        unprocessed = set(module_observers)
+
+        while unprocessed:
+            # Call the next scheduled callback.
+            observer, callback = self._callbacks.get()
+
+            try:
+                is_available = callback(observer)
+
+                # The module is not processed yet.
+                if not is_available:
+                    continue
+
+            except UnavailableModuleError:
+                # The failure of an Anaconda module is fatal.
+                if not observer.is_addon:
+                    raise
+
+                # The failure of an add-on module is not fatal. Remove
+                # it from the list of available modules and continue.
+                log.warning("Skipping %s.", observer)
+                available.remove(observer)
+
+            # The module is processed.
+            unprocessed.discard(observer)

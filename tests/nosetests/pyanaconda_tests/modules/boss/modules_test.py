@@ -39,13 +39,13 @@ class ModuleManagerTestCase(unittest.TestCase):
         def call():
             return DBUS_START_REPLY_SUCCESS
 
-        def fake_callbacks():
+        def fake_callbacks(fake_observer):
             for observer in task._module_observers:
                 observer._is_service_available = True
                 task._start_service_by_name_callback(call, observer)
                 task._service_available_callback(observer)
 
-        task._callbacks.put(fake_callbacks)
+        task._callbacks.put((None, fake_callbacks))
         observers = task.run()
 
         self.assertEqual([o.service_name for o in observers], service_names)
@@ -108,7 +108,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         task = StartModulesTask(self._message_bus, [], addons_enabled=True)
         self._check_started_modules(task, service_names)
 
-    def start_failed_test(self):
+    def start_module_failed_test(self):
         """Fail to start a module."""
         service_names = [
             "org.fedoraproject.Anaconda.Modules.A",
@@ -121,17 +121,46 @@ class ModuleManagerTestCase(unittest.TestCase):
         def call():
             raise DBusError("Fake error!")
 
-        def fake_callbacks():
+        def fake_callbacks(fake_observer):
             for observer in task._module_observers:
                 task._start_service_by_name_callback(call, observer)
 
-        task._callbacks.put(fake_callbacks)
+        task._callbacks.put((None, fake_callbacks))
 
         with self.assertRaises(UnavailableModuleError) as cm:
             task.run()
 
         expected = "Service org.fedoraproject.Anaconda.Modules.A has failed to start: Fake error!"
         self.assertEqual(str(cm.exception), expected)
+
+    @patch("dasbus.client.observer.Gio")
+    def start_addon_failed_test(self, gio):
+        """Fail to start an add-on."""
+        service_names = [
+            "org.fedoraproject.Anaconda.Addons.A",
+            "org.fedoraproject.Anaconda.Addons.B",
+            "org.fedoraproject.Anaconda.Addons.C"
+        ]
+
+        bus_proxy = self._message_bus.proxy
+        bus_proxy.ListActivatableNames.return_value = [
+            *service_names,
+            "org.fedoraproject.Anaconda.D",
+            "org.fedoraproject.E",
+        ]
+
+        task = StartModulesTask(self._message_bus, [], addons_enabled=True)
+        self._check_started_modules(task, service_names)
+
+        def call():
+            raise DBusError("Fake error!")
+
+        def fake_callbacks(fake_observer):
+            for observer in task._module_observers:
+                task._start_service_by_name_callback(call, observer)
+
+        task._callbacks.put((None, fake_callbacks))
+        self.assertEqual(task.run(), [])
 
     @patch("dasbus.client.observer.Gio")
     def get_service_names_test(self, gio):
