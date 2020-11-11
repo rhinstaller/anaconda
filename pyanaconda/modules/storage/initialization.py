@@ -15,18 +15,23 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import util as blivet_util, udev, arch
+from blivet.devicelibs import crypto
+from blivet.flags import flags as blivet_flags
+from blivet.formats import get_device_format_class
+from blivet.static_data import luks_data
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_logging import program_log_lock
+from pyanaconda.core.configuration.anaconda import conf
+
 import gi
 gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
-from blivet import util as blivet_util, udev, arch
-from blivet.devicelibs import crypto
-from blivet.flags import flags as blivet_flags
-from blivet.static_data import luks_data
+__all__ = ["enable_installer_mode"]
 
-from pyanaconda.anaconda_logging import program_log_lock
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.storage.platform import platform
+log = get_module_logger(__name__)
 
 
 def enable_installer_mode():
@@ -54,14 +59,14 @@ def enable_installer_mode():
     blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
 
     # Platform class setup depends on flags, re-initialize it.
-    platform.update_from_flags()
+    _set_default_label_type()
 
     # Set the minimum required entropy.
     luks_data.min_entropy = crypto.MIN_CREATE_ENTROPY
 
     # Load plugins.
     if arch.is_s390():
-        load_plugin_s390()
+        _load_plugin_s390()
 
     # Set the device name regexes to ignore.
     udev.ignored_device_names = [r'^mtd', r'^mmcblk.+boot', r'^mmcblk.+rpmb', r'^zram', '^ndblk']
@@ -70,7 +75,23 @@ def enable_installer_mode():
     udev.trigger(subsystem="block", action="change")
 
 
-def load_plugin_s390():
+def _set_default_label_type():
+    """Set up the default label type."""
+    if not conf.storage.gpt:
+        return
+
+    disklabel_class = get_device_format_class("disklabel")
+    disklabel_types = disklabel_class.get_platform_label_types()
+
+    if "gpt" not in disklabel_types:
+        log.warning("GPT is not a supported disklabel on this platform. "
+                    "Using default disklabel %s instead.", disklabel_types[0])
+        return
+
+    disklabel_class.set_default_label_type("gpt")
+
+
+def _load_plugin_s390():
     """Load the s390x plugin."""
     # Don't load the plugin in a dir installation.
     if conf.target.is_directory:

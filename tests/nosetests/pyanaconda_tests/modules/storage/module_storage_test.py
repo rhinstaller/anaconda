@@ -44,6 +44,7 @@ from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.interactive.interactive_module import \
     InteractivePartitioningModule
 from pyanaconda.modules.storage.devicetree import create_storage
+from pyanaconda.modules.storage.platform import S390
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
     patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy, reset_boot_loader_factory
 
@@ -278,6 +279,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.storage_module.storage, storage_1)
         self.assertEqual(partitioning_module.storage, storage_4)
 
+    @patch("pyanaconda.modules.storage.storage.platform", S390())
     def collect_requirements_test(self):
         """Test CollectRequirements."""
         storage = Mock()
@@ -286,6 +288,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         self.storage_module._set_storage(storage)
         self.assertEqual(self.storage_interface.CollectRequirements(), [
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "s390utils"),
+                "reason": get_variant(Str, "Required for the platform.")
+            },
             {
                 "type": get_variant(Str, "package"),
                 "name": get_variant(Str, "lvm2"),

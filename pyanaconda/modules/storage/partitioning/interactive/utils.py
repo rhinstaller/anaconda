@@ -35,7 +35,7 @@ from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError, Unk
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
-from pyanaconda.modules.storage.platform import platform
+from pyanaconda.modules.storage.platform import platform, PLATFORM_MOUNT_POINTS
 from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.storage.devicetree.root import Root
 from pyanaconda.modules.storage.devicetree.utils import get_supported_filesystems
@@ -261,7 +261,7 @@ def collect_mount_points():
     paths = ["/", "/boot", "/home", "/var"]
 
     # Add the mount point requirements for bootloader stage1 devices.
-    paths.extend(platform.boot_stage1_constraint_dict["mountpoints"])
+    paths.extend(platform.stage1_constraints[PLATFORM_MOUNT_POINTS])
 
     # Sort the list now so all the real mount points go to the front,
     # then add all the pseudo mount points we have.

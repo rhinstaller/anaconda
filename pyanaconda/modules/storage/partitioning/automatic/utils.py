@@ -222,7 +222,7 @@ def get_default_partitioning():
     :return: a list of partitioning specs
     """
     # Get the platform-specific partitioning.
-    partitioning = list(platform.set_default_partitioning())
+    partitioning = list(platform.partitions)
 
     # Get the product-specific partitioning.
     for attrs in conf.storage.default_partitioning:

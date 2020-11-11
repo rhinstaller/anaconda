@@ -103,28 +103,29 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         if not data.reqpart.reqpart:
             return
 
-        log.debug("Looking for platform-specific bootloader requirements.")
-        reqs = platform.set_platform_bootloader_reqs()
+        log.debug("Looking for platform-specific requirements.")
+        requests = list(platform.partitions)
 
-        if data.reqpart.addBoot:
-            log.debug("Looking for platform-specific boot requirements.")
-            boot_partitions = platform.set_platform_boot_partition()
+        for request in requests[:]:
+            if request.mountpoint != "/boot":
+                continue
+
+            if not data.reqpart.addBoot:
+                log.debug("Removing the requirement for /boot.")
+                requests.remove(request)
+                continue
 
             # Blivet doesn't know this - anaconda sets up the default boot fstype
             # in various places in this file. We need to duplicate that here.
-            for part in boot_partitions:
-                if part.mountpoint == "/boot":
-                    part.fstype = storage.default_boot_fstype
+            request.fstype = storage.default_boot_fstype
 
-            reqs += boot_partitions
-
-        if not reqs:
+        if not requests:
             return
 
         disks = get_candidate_disks(storage)
 
-        log.debug("Applying requirements:\n%s", "".join(map(str, reqs)))
-        schedule_partitions(storage, disks, [], scheme=AUTOPART_TYPE_PLAIN, requests=reqs)
+        log.debug("Applying requirements:\n%s", "".join(map(str, requests)))
+        schedule_partitions(storage, disks, [], scheme=AUTOPART_TYPE_PLAIN, requests=requests)
 
     def _execute_partition(self, storage, data):
         """Execute the partition command.

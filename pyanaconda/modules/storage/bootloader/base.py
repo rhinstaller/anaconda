@@ -26,7 +26,9 @@ from blivet.iscsi import iscsi
 from blivet.size import Size
 
 from pyanaconda.network import iface_for_host_ip
-from pyanaconda.modules.storage.platform import platform
+from pyanaconda.modules.storage.platform import platform, PLATFORM_DEVICE_TYPES, \
+    PLATFORM_FORMAT_TYPES, PLATFORM_MOUNT_POINTS, PLATFORM_MAX_END, PLATFORM_RAID_LEVELS, \
+    PLATFORM_RAID_METADATA
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core import util
@@ -306,10 +308,6 @@ class BootLoader(object):
     def disklabel_types(self):
         return DiskLabel.get_platform_label_types()
 
-    @property
-    def device_descriptions(self):
-        return platform.boot_stage1_constraint_dict["descriptions"]
-
     #
     # constraint checking for target devices
     #
@@ -452,15 +450,17 @@ class BootLoader(object):
         """ Return True if device is of one of the types in the list types. """
         return self._device_type_index(device, types) is not None
 
-    def device_description(self, device):
-        device_types = list(self.device_descriptions.keys())
+    def get_stage1_device_description(self, device):
+        device_descriptions = platform.stage1_descriptions
+        device_types = list(device_descriptions.keys())
         idx = self._device_type_index(device, device_types)
+
         if idx is None:
             raise ValueError("No description available for %s" % device.type)
 
         # this looks unnecessarily complicated, but it handles the various
         # device types that we treat as disks
-        return self.device_descriptions[device_types[idx]]
+        return device_descriptions[device_types[idx]]
 
     def set_preferred_stage1_type(self, preferred):
         """ Set a preferred type of stage1 device. """
@@ -495,14 +495,14 @@ class BootLoader(object):
         self.errors = []
         self.warnings = []
         valid = True
-        constraint = platform.boot_stage1_constraint_dict
+        constraints = platform.stage1_constraints
 
         if device is None:
             return False
 
         log.debug("Is %s a valid stage1 target device?", device.name)
 
-        if not self._device_type_match(device, constraint["device_types"]):
+        if not self._device_type_match(device, constraints[PLATFORM_DEVICE_TYPES]):
             log.debug("stage1 device cannot be of type %s", device.type)
             return False
 
@@ -517,7 +517,7 @@ class BootLoader(object):
                                          "an iSCSI disk which is not configured in iBFT."))
                     return False
 
-        description = self.device_description(device)
+        description = self.get_stage1_device_description(device)
 
         if self.stage2_is_valid_stage1 and device == self.stage2_device:
             # special case
@@ -539,14 +539,13 @@ class BootLoader(object):
             valid = False
 
         if not self._is_valid_location(device,
-                                       max_end=constraint["max_end"],
+                                       max_end=constraints[PLATFORM_MAX_END],
                                        desc=description):
             valid = False
 
         if not self._is_valid_md(device,
-                                 raid_levels=constraint["raid_levels"],
-                                 metadata=constraint["raid_metadata"],
-                                 member_types=constraint["raid_member_types"],
+                                 raid_levels=constraints[PLATFORM_RAID_LEVELS],
+                                 metadata=constraints[PLATFORM_RAID_METADATA],
                                  desc=description):
             valid = False
 
@@ -561,10 +560,10 @@ class BootLoader(object):
         if early:
             mountpoints = []
         else:
-            mountpoints = constraint["mountpoints"]
+            mountpoints = constraints[PLATFORM_MOUNT_POINTS]
 
         if not self._is_valid_format(device,
-                                     format_types=constraint["format_types"],
+                                     format_types=constraints[PLATFORM_FORMAT_TYPES],
                                      mountpoints=mountpoints,
                                      desc=description):
             valid = False
@@ -679,7 +678,7 @@ class BootLoader(object):
                                      desc=_(self.stage2_description)):
             valid = False
 
-        non_linux_format_types = platform._non_linux_format_types
+        non_linux_format_types = platform.non_linux_format_types
         if non_linux and \
            not self._is_valid_format(device,
                                      format_types=non_linux_format_types):

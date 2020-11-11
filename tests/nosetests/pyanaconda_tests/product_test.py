@@ -155,7 +155,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
     def _check_partitioning(self, config, partitioning):
         with patch("pyanaconda.modules.storage.partitioning.automatic.utils.platform") as platform:
-            platform.set_default_partitioning.return_value = []
+            platform.partitions = []
 
             with patch("pyanaconda.modules.storage.partitioning.automatic.utils.conf", new=config):
                 self.assertEqual(get_default_partitioning(), partitioning)
