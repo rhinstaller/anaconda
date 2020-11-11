@@ -86,3 +86,15 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_RPM_OSTREE)
+
+    def priority_kickstart_test(self):
+        ks_in = """
+        ostreesetup --osname="fedora-iot" --url="https://compose/iot/" --ref="fedora/iot"
+        url --url="https://compose/Everything"
+        """
+        ks_out = """
+        # OSTree setup
+        ostreesetup --osname="fedora-iot" --remote="fedora-iot" --url="https://compose/iot/" --ref="fedora/iot"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_RPM_OSTREE)
