@@ -157,3 +157,22 @@ class SecurityInterface(KickstartModuleInterface):
         return TaskContainer.to_object_path(
             self.implementation.join_realm_with_task()
         )
+
+    def PreconfigureFIPSWithTask(self, payload_type: Str) -> ObjPath:
+        """Set up FIPS for the payload installation with a task.
+
+        :param payload_type: a string with the payload type
+        :return: a DBus path of a installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.preconfigure_fips_with_task(payload_type)
+        )
+
+    def ConfigureFIPSWithTask(self) -> ObjPath:
+        """Configure FIPS on the installed system.
+
+        :return: a DBus path of a installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.configure_fips_with_task()
+        )

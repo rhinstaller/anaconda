@@ -17,25 +17,159 @@
 #
 import os
 import copy
-
-from pyanaconda.core import util
-from pyanaconda.modules.common.errors.installation import SecurityInstallationError
-
-from pyanaconda.simpleconfig import SimpleConfigFile
-
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.security.constants import SELinuxMode
+import shutil
 
 from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
+from pyanaconda.core.util import join_paths
+from pyanaconda.modules.common.errors.installation import SecurityInstallationError
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.security.constants import SELinuxMode
+from pyanaconda.simpleconfig import SimpleConfigFile
 
-__all__ = ["ConfigureSELinuxTask", "RealmDiscoverTask", "RealmJoinTask"]
+log = get_module_logger(__name__)
 
 REALM_TOOL_NAME = "realm"
 AUTHSELECT_TOOL_PATH = "/usr/bin/authselect"
 AUTHCONFIG_TOOL_PATH = "/usr/sbin/authconfig"
 PAM_SO_PATH = "/lib/security/pam_fprintd.so"
 PAM_SO_64_PATH = "/lib64/security/pam_fprintd.so"
+
+
+class PreconfigureFIPSTask(Task):
+    """Installation task that sets up FIPS for the payload installation."""
+
+    def __init__(self, fips_enabled, payload_type, sysroot):
+        """Create a new task.
+
+        :param fips_enabled: True if FIPS is enabled, otherwise False
+        :param payload_type: a type of the payload
+        :param sysroot: a path to the system root
+        """
+        super().__init__()
+        self._fips_enabled = fips_enabled
+        self._payload_type = payload_type
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Set up FIPS for the payload installation"
+
+    def run(self):
+        """Set up FIPS for the payload installation.
+
+        Copy the crypto policy from the installation environment
+        to the target system before package installation. The RPM
+        scriptlets need to be executed in the FIPS mode if there
+        is fips=1 on the kernel cmdline.
+        """
+        if not self._fips_enabled:
+            log.debug("FIPS is not enabled. Skipping.")
+            return
+
+        if self._payload_type != PAYLOAD_TYPE_DNF:
+            log.debug("Don't set up FIPS for the %s payload.", self._payload_type)
+            return
+
+        if not self._check_fips():
+            raise SecurityInstallationError(
+                "FIPS is not correctly set up "
+                "in the installation environment."
+            )
+
+        self._set_up_fips()
+
+    def _check_fips(self):
+        """Check FIPS in the installation environment."""
+        # Check the config file.
+        config_path = "/etc/crypto-policies/config"
+
+        if not os.path.exists(config_path):
+            log.error("File '%s' doesn't exist.", config_path)
+            return False
+
+        with open(config_path) as f:
+            if f.read().strip() != "FIPS":
+                log.error("The crypto policy is not set to FIPS.")
+                return False
+
+        # Check one of the back-end symlinks.
+        symlink_path = "/etc/crypto-policies/back-ends/opensshserver.config"
+
+        if "FIPS" not in os.path.realpath(symlink_path):
+            log.error("The back ends are not set to FIPS.")
+            return False
+
+        return True
+
+    def _set_up_fips(self):
+        """Set up FIPS in the target system."""
+        log.debug("Copying the crypto policy.")
+
+        # Create /etc/crypto-policies.
+        src = "/etc/crypto-policies/"
+        dst = join_paths(self._sysroot, src)
+        util.mkdirChain(dst)
+
+        # Copy the config file.
+        src = "/etc/crypto-policies/config"
+        dst = join_paths(self._sysroot, src)
+        shutil.copyfile(src, dst)
+
+        # Log the file content on the target system.
+        util.execWithRedirect("/bin/cat", [dst])
+
+        # Copy the back-ends.
+        src = "/etc/crypto-policies/back-ends/"
+        dst = join_paths(self._sysroot, src)
+        shutil.copytree(src, dst, symlinks=True)
+
+        # Log the directory content on the target system.
+        util.execWithRedirect("/bin/ls", ["-l", dst])
+
+
+class ConfigureFIPSTask(Task):
+    """Installation task that configures FIPS on the installed system."""
+
+    def __init__(self, fips_enabled, sysroot):
+        """Create a new task.
+
+        :param fips_enabled: True if FIPS is enabled, otherwise False
+        :param sysroot: a path to the system root
+        """
+        super().__init__()
+        self._fips_enabled = fips_enabled
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Configure FIPS"
+
+    def run(self):
+        """Configure FIPS on the installed system.
+
+        If the installation is running in fips mode then make sure
+        fips is also correctly enabled in the installed system.
+        """
+        if not self._fips_enabled:
+            log.debug("FIPS is not enabled. Skipping.")
+            return
+
+        if not conf.target.is_hardware:
+            log.debug("Don't set up FIPS on %s.", conf.target.type.value)
+            return
+
+        # We use the --no-bootcfg option as we don't want fips-mode-setup
+        # to modify the bootloader configuration. Anaconda already does
+        # everything needed & it would require grubby to be available on
+        # the system.
+        util.execWithRedirect(
+            "fips-mode-setup",
+            ["--enable", "--no-bootcfg"],
+            root=self._sysroot
+        )
 
 
 class ConfigureSELinuxTask(Task):

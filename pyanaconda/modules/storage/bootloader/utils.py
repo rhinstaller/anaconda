@@ -18,7 +18,6 @@
 import os
 from glob import glob
 
-from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 from pyanaconda.modules.storage.bootloader.efi import EFIBase
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
@@ -308,18 +307,5 @@ def recreate_initrds(sysroot, kernel_versions):
                 execWithRedirect(
                     "new-kernel-pkg",
                     ["--mkinitrd", "--dracut", "--depmod", "--update", kernel],
-                    root=sysroot
-                )
-
-            # if the installation is running in fips mode then make sure
-            # fips is also correctly enabled in the installed system
-            if kernel_arguments.get("fips") == "1":
-                # We use the --no-bootcfg option as we don't want fips-mode-setup
-                # to modify the bootloader configuration. Anaconda already does
-                # everything needed & it would require grubby to be available on
-                # the system.
-                execWithRedirect(
-                    "fips-mode-setup",
-                    ["--enable", "--no-bootcfg"],
                     root=sysroot
                 )
