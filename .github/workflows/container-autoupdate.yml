@@ -8,7 +8,7 @@ on:
 jobs:
   refresh-container:
     name: Refresh anaconda-ci container
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     # we need to have matrix to cover all branches because schedule is run only on default branch
     # we can add here fedora branches (e.g. f33-devel) to cover their support when needed
     strategy:
@@ -22,11 +22,11 @@ jobs:
           ref: ${{ matrix.branch }}
 
       - name: Build anaconda-ci container
-        run: CONTAINER_ENGINE=docker make -f Makefile.am anaconda-ci-build
+        run: make -f Makefile.am anaconda-ci-build
 
       - name: Run tests in anaconda-ci container
         id: run-tests
-        run: CONTAINER_ENGINE=docker make -f Makefile.am container-ci
+        run: make -f Makefile.am container-ci
         continue-on-error: true
 
       - name: Upload test and coverage logs from local testing
@@ -53,7 +53,7 @@ jobs:
         if: ${{ matrix.branch == 'master' }}
         run: |
           docker tag quay.io/rhinstaller/anaconda-ci:master quay.io/rhinstaller/anaconda-ci:latest
-          CONTAINER_ENGINE=docker CI_TAG=latest make -f Makefile.am anaconda-ci-push
+          CI_TAG=latest make -f Makefile.am anaconda-ci-push
 
       - name: Push container to registry
-        run: CONTAINER_ENGINE=docker make -f Makefile.am anaconda-ci-push
+        run: make -f Makefile.am anaconda-ci-push
