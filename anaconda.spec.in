@@ -369,6 +369,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Nov 12 2020 Martin Kolman <mkolman@redhat.com> - 34.13-1
+- Skip add-on modules that failed to start (vponcova)
+- Return the exit status of a Python module that failed to start (vponcova)
+- Fix the priority of the ostreesetup kickstart command (#1896761) (vponcova)
+- Drop obsolete dependency_solver.py script from rpm-tests (mpitt)
+- Run a DBus task to configure FIPS on the installed system (vponcova)
+- Run a DBus task to set up FIPS for the payload installation (vponcova)
+
 * Thu Nov 12 2020 Martin Kolman <mkolman@redhat.com> - 34.12-1
 - Use podman for pushing the nightly container update (mpitt)
 - Robustify container-autoupdate workflow (mpitt)
