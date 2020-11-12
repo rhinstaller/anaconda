@@ -72,6 +72,10 @@ class DNFKSTestCase(unittest.TestCase):
         ks_out = """
         # Use CDROM installation media
         cdrom
+
+        %packages
+
+        %end
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_CDROM)
@@ -83,6 +87,10 @@ class DNFKSTestCase(unittest.TestCase):
         ks_out = """
         # Use installation media via SE/HMC
         hmc
+
+        %packages
+
+        %end
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_HMC)
@@ -94,6 +102,10 @@ class DNFKSTestCase(unittest.TestCase):
         ks_out = """
         # Use hard drive installation media
         harddrive --dir=top-secret --partition=nsa-device
+
+        %packages
+
+        %end
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_HDD)
@@ -112,6 +124,10 @@ class DNFKSTestCase(unittest.TestCase):
         ks_out = """
         # Use NFS installation media
         nfs --server=gotham.city --dir=/secret/underground/base --opts="nomount"
+
+        %packages
+
+        %end
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_NFS)
@@ -123,6 +139,10 @@ class DNFKSTestCase(unittest.TestCase):
         ks_out = """
         # Use network installation
         url --url="http://super/powers" --proxy="https://ClarkKent:suuuperrr@earth:1" --noverifyssl --sslcacert="wardrobe.cert" --sslclientcert="private-wardrobe.cert" --sslclientkey="super-key.key"
+
+        %packages
+
+        %end
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
@@ -134,6 +154,10 @@ class DNFKSTestCase(unittest.TestCase):
         ks_out = """
         # Use network installation
         url --mirrorlist="http://cool/mirror"
+
+        %packages
+
+        %end
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
@@ -145,6 +169,10 @@ class DNFKSTestCase(unittest.TestCase):
         ks_out = """
         # Use network installation
         url --metalink="http://itsjustametanotrealstuff" --proxy="https://ClarkKent:suuuperrr@earth:1" --sslcacert="wardrobe.cert"
+
+        %packages
+
+        %end
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
@@ -161,7 +189,7 @@ class DNFKSTestCase(unittest.TestCase):
         %end
         """
         self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out="", ks_tmp=ks_out
+            ks_in, ks_out
         )
 
     def packages_attributes_ignore_test(self):
@@ -176,7 +204,7 @@ class DNFKSTestCase(unittest.TestCase):
         %end
         """
         self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out="", ks_tmp=ks_out
+            ks_in, ks_out
         )
 
     def packages_attributes_exclude_test(self):
@@ -191,7 +219,7 @@ class DNFKSTestCase(unittest.TestCase):
         %end
         """
         self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out="", ks_tmp=ks_out
+            ks_in, ks_out
         )
 
     def packages_attributes_other_kickstart_test(self):
@@ -207,7 +235,7 @@ class DNFKSTestCase(unittest.TestCase):
         %end
         """
         self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out="", ks_tmp=ks_out
+            ks_in, ks_out
         )
 
     def packages_section_include_kickstart_test(self):
@@ -232,7 +260,7 @@ class DNFKSTestCase(unittest.TestCase):
         %end
         """
         self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out="", ks_tmp=ks_out
+            ks_in, ks_out
         )
 
     def packages_section_complex_include_kickstart_test(self):
@@ -275,7 +303,7 @@ class DNFKSTestCase(unittest.TestCase):
         %end
         """
         self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out="", ks_tmp=ks_out
+            ks_in, ks_out
         )
 
     def packages_section_exclude_kickstart_test(self):
@@ -292,7 +320,7 @@ class DNFKSTestCase(unittest.TestCase):
         %end
         """
         self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out="", ks_tmp=ks_out
+            ks_in, ks_out
         )
 
     def packages_section_complex_exclude_kickstart_test(self):
@@ -321,7 +349,7 @@ class DNFKSTestCase(unittest.TestCase):
         %end
         """
         self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out="", ks_tmp=ks_out
+            ks_in, ks_out
         )
 
 

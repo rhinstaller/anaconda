@@ -117,10 +117,6 @@ class PayloadsService(KickstartService):
         log.debug("Generating kickstart...")
         handler = self.get_kickstart_handler()
         self.setup_kickstart(handler)
-
-        # FIXME: This is a temporary workaround for packages.
-        handler.packages.__str__ = lambda: ""
-
         return str(handler)
 
     def generate_temporary_kickstart(self):
