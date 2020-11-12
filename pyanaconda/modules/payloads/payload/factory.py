@@ -58,6 +58,9 @@ class PayloadFactory(object):
         :param data: a kickstart data
         :return: a payload type
         """
+        if data.ostreesetup.seen:
+            return PayloadType.RPM_OSTREE
+
         if data.liveimg.seen:
             return PayloadType.LIVE_IMAGE
 
@@ -68,8 +71,5 @@ class PayloadFactory(object):
            data.url.seen or \
            data.packages.seen:
             return PayloadType.DNF
-
-        if data.ostreesetup.seen:
-            return PayloadType.RPM_OSTREE
 
         return None
