@@ -369,6 +369,34 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Nov 12 2020 Martin Kolman <mkolman@redhat.com> - 34.12-1
+- Use podman for pushing the nightly container update (mpitt)
+- Robustify container-autoupdate workflow (mpitt)
+- Disable seccomp profile when running containers on Ubuntu host (mpitt)
+- Use podman in GitHub workflows (mpitt)
+- Remove deviceprobe and install commands (vslavik)
+- Change handling of UID and GID values (vslavik)
+- Send UID and GID over D-Bus as UInt32 (vslavik)
+- Correct limits for UIDs and GIDs in GUI (vslavik)
+- Rename Subscription module tests (vslavik)
+- Rename common module tests (vslavik)
+- Rename Boss module tests (vslavik)
+- Remove autostep functionality (vslavik)
+- Don't include unknown files in the updates image (vponcova)
+- Clean up the code for the platform-specific partitioning requirements
+  (vponcova)
+- Use a property for the platform-specific stage1 constraints (vponcova)
+- Use a property for the stage1 device descriptions (vponcova)
+- Use a property to provide a suggestion for the stage1 device (vponcova)
+- Use a property to define non-linux format types (vponcova)
+- Use a property to define platform-specific packages (vponcova)
+- Do not fail user check job in rhel-8 validate workflow (jkonecny)
+- Move the code that sets up the default disklabel type from platform.py
+  (vponcova)
+- Add unit tests for platform.py (vponcova)
+- Revert "Standardize calls to parent via super()" in platform.py (#1858649)
+  (vponcova)
+
 * Thu Nov 05 2020 Martin Kolman <mkolman@redhat.com> - 34.11-1
 - Fix user permission checking for rhel-8 validate task (jkonecny)
 - Adjust rhel-8 log retrieval for changed container volume handling (mpitt)
