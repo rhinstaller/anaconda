@@ -39,11 +39,11 @@ jobs:
 
   rpm-tests:
     runs-on: ubuntu-20.04
-    # start from a minimal container and install only our build deps; mock does
-    # not work in an unprivileged container (no CAP_SYS_ADMIN for mount), and
-    # dnf --installroot is too broken (rhbz#1885103, #1885101, #1738233)
+    # start from a minimal container and install only our build deps; anaconda-ci container has too many other packages
     container:
       image: docker.io/fedora:rawhide
+      # HACK: bash's builtin `test -r` fails due to incompatible seccomp profile
+      options: --security-opt=seccomp=unconfined
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
