@@ -42,13 +42,13 @@ jobs:
             tests/coverage-*.log
 
       - name: Login to container registry
-        run: docker login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
+        run: podman login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
 
         # we can hardcode the path to the image here because this will be executed only for master image
       - name: Add latest tag for master branch
         if: ${{ matrix.branch == 'master' }}
         run: |
-          docker tag quay.io/rhinstaller/anaconda-ci:master quay.io/rhinstaller/anaconda-ci:latest
+          podman tag quay.io/rhinstaller/anaconda-ci:master quay.io/rhinstaller/anaconda-ci:latest
           CI_TAG=latest make -f Makefile.am anaconda-ci-push
 
       - name: Push container to registry
