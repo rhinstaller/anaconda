@@ -79,10 +79,11 @@ SRPM_BUILD_DIR = $(BUILD_RESULT_DIR)/00-srpm-build
 RPM_BUILD_DIR = $(BUILD_RESULT_DIR)/01-rpm-build
 TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
-# build/run tweaks for all containers, such as --cap-add
 CONTAINER_ENGINE ?= podman
+# build/run tweaks for all containers, such as --cap-add
 CONTAINER_BUILD_ARGS ?=
-CONTAINER_TEST_ARGS ?=
+# HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
+CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
 
 # anaconda-ci container
