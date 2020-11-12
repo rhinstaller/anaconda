@@ -28,7 +28,7 @@
 
 set -eu
 
-dnf install $@ rpm-build
+dnf install $@ rpm-build /usr/bin/xargs
 
 TEMP=$(mktemp /tmp/anaconda.spec.XXXXXXX)
 
