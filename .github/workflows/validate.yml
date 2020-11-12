@@ -52,9 +52,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: install build dependencies
-        run: |
-          dnf install -y /usr/bin/xargs
-          scripts/testing/dependency_solver.py -b | xargs -d '\n' dnf install -y --setopt=install_weak_deps=False --nodocs rpm-build
+        run: ./scripts/testing/install_dependencies.sh -y
 
       - name: build RPMs
         run: |
