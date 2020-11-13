@@ -89,7 +89,7 @@ CONTAINER_REGISTRY ?= quay.io
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
 CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
-CI_TAG ?= $(GIT_BRANCH)
+CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 CI_CMD ?= make ci
 

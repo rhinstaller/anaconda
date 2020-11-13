@@ -17,6 +17,7 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import os
 import sys
 import unittest
 
@@ -24,6 +25,10 @@ from unittest.mock import Mock, patch, create_autospec
 from pyanaconda.ui import UserInterface
 from pyanaconda.ui.common import StandaloneSpoke, Hub
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
+
+
+# blivet-gui is supported on Fedora, but not ELN/CentOS/RHEL
+HAVE_BLIVET_GUI = os.path.exists("/usr/bin/blivet-gui")
 
 
 class SimpleUITestCase(unittest.TestCase):
@@ -165,6 +170,16 @@ class SimpleUITestCase(unittest.TestCase):
         ])
 
         # Check the Summary hub.
+        cat_system = [
+                'BlivetGuiSpoke',
+                'CustomPartitioningSpoke',
+                'FilterSpoke',
+                'NetworkSpoke',
+                'StorageSpoke'
+                ]
+        if not HAVE_BLIVET_GUI:
+            cat_system.remove('BlivetGuiSpoke')
+
         self.assertEqual(self._get_category_names(SummaryHub), {
             'CustomizationCategory': [],
             'LocalizationCategory': [
@@ -177,13 +192,7 @@ class SimpleUITestCase(unittest.TestCase):
                 'SourceSpoke',
                 'SubscriptionSpoke'
             ],
-            'SystemCategory': [
-                'BlivetGuiSpoke',
-                'CustomPartitioningSpoke',
-                'FilterSpoke',
-                'NetworkSpoke',
-                'StorageSpoke'
-            ],
+            'SystemCategory': cat_system,
             'UserSettingsCategory': [
                 'PasswordSpoke',
                 'UserSpoke'

@@ -17,6 +17,7 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import os
 import sys
 import pickle
 import unittest
@@ -25,13 +26,15 @@ from unittest.mock import patch
 from pyanaconda.modules.storage.devicetree import create_storage
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
-from blivetgui.communication.proxy_utils import ProxyID
-
 from pyanaconda.modules.storage.partitioning.blivet.blivet_module import BlivetPartitioningModule
 from pyanaconda.modules.storage.partitioning.blivet.blivet_interface import \
     BlivetPartitioningInterface
 from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
     InteractivePartitioningTask
+
+
+# blivet-gui is supported on Fedora, but not ELN/CentOS/RHEL
+HAVE_BLIVET_GUI = os.path.exists("/usr/bin/blivet-gui")
 
 
 class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
@@ -79,18 +82,21 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
             request = pickle.dumps(("call", "get_disks", []))
             blivet_module.send_request(request)
 
+    @unittest.skipUnless(HAVE_BLIVET_GUI, "blivet-gui not installed")
     def storage_handler_test(self):
         """Test the storage_handler property."""
         self.module.on_storage_changed(create_storage())
         self.assertIsNotNone(self.module.storage_handler)
         self.assertEqual(self.module.storage, self.module.storage_handler.storage)
 
+    @unittest.skipUnless(HAVE_BLIVET_GUI, "blivet-gui not installed")
     def request_handler_test(self):
         """Test the request_handler property."""
         self.module.on_storage_changed(create_storage())
         self.assertIsNotNone(self.module.request_handler)
         self.assertEqual(self.module.storage_handler, self.module.request_handler.blivet_utils)
 
+    @unittest.skipUnless(HAVE_BLIVET_GUI, "blivet-gui not installed")
     def send_request_test(self):
         """Test SendRequest."""
         self.module.on_storage_changed(create_storage())
@@ -99,6 +105,7 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         answer = self.interface.SendRequest(request)
         answer = pickle.loads(answer)
 
+        from blivetgui.communication.proxy_utils import ProxyID  # pylint: disable=import-error
         self.assertIsInstance(answer, ProxyID)
         self.assertEqual(answer.id, 0)
 
