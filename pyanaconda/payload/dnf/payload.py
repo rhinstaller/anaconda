@@ -39,7 +39,8 @@ from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
-from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask
+from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
+    SetRPMMacrosTask
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
@@ -101,7 +102,6 @@ class DNFPayload(Payload):
 
         self.tx_id = None
         self._install_tree_metadata = None
-        self._rpm_macros = []
 
         # Used to determine which add-ons to display for each environment.
         # The dictionary keys are environment IDs. The dictionary values are two-tuples
@@ -970,47 +970,11 @@ class DNFPayload(Payload):
                 elif self._is_group_visible(grp):
                     self._environment_addons[environment][1].append(grp)
 
-    @property
-    def rpm_macros(self):
-        """A list of (name, value) pairs to define as macros in the rpm transaction."""
-        return self._rpm_macros
-
-    @rpm_macros.setter
-    def rpm_macros(self, value):
-        self._rpm_macros = value
-
     def pre_install(self):
         super().pre_install()
 
         # Collect all package and group requirements.
         self._collect_requirements()
-
-        # Set rpm-specific options
-        self._set_rpm_macros()
-
-    def _set_rpm_macros(self):
-        # nofsync speeds things up at the risk of rpmdb data loss in a crash.
-        # But if we crash mid-install you're boned anyway, so who cares?
-        self.rpm_macros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
-
-        if self.data.packages.excludeDocs:
-            self.rpm_macros.append(('_excludedocs', '1'))
-
-        if self.data.packages.instLangs is not None:
-            # Use nil if instLangs is empty
-            self.rpm_macros.append(('_install_langs', self.data.packages.instLangs or '%{nil}'))
-
-        if conf.security.selinux:
-            for d in ["/tmp/updates",
-                      "/etc/selinux/targeted/contexts/files",
-                      "/etc/security/selinux/src/policy",
-                      "/etc/security/selinux"]:
-                f = d + "/file_contexts"
-                if os.access(f, os.R_OK):
-                    self.rpm_macros.append(('__file_context_path', f))
-                    break
-        else:
-            self.rpm_macros.append(('__file_context_path', '%{nil}'))
 
     def _collect_requirements(self):
         self._requirements.extend(
@@ -1024,8 +988,8 @@ class DNFPayload(Payload):
         progress_message(N_('Starting package installation process'))
 
         # Add the rpm macros to the global transaction environment
-        for macro in self.rpm_macros:
-            rpm.addMacro(macro[0], macro[1])
+        task = SetRPMMacrosTask(self.data)
+        task.run()
 
         try:
             self.check_software_selection()
