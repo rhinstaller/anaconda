@@ -25,7 +25,6 @@ jobs:
         run: make -f Makefile.am anaconda-ci-build
 
       - name: Run tests in anaconda-ci container
-        id: run-unit-tests
         run: |
           # put the log in the output, where it's easy to read and link to
           make -f Makefile.am container-ci || { cat test-logs/test-suite.log; exit 1; }
