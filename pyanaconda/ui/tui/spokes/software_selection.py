@@ -54,49 +54,42 @@ class SoftwareSpoke(NormalTUISpoke):
         self._container = None
         self.errors = []
         self._tx_id = None
-        self._selected_environment = None
-        self.environment = None
-        self._addons_selection = set()
-        self.addons = set()
 
-        # for detecting later whether any changes have been made
-        self._orig_env = None
-        self._orig_addons = set()
+        # Get the packages configuration.
+        self._selection = self.payload.get_packages_data()
 
         # are we taking values (package list) from a kickstart file?
-        self._kickstarted = flags.automatedInstall and self.data.packages.seen
+        self._kickstarted = flags.automatedInstall and self.payload.proxy.PackagesKickstarted
 
         # Register event listeners to update our status on payload events
         payloadMgr.add_listener(PayloadState.STARTED, self._payload_start)
-        payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
         payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
     def initialize(self):
-        # Start a thread to wait for the payload and run the first, automatic
-        # dependency check
-        self.initialize_start()
+        """Initialize the spoke."""
         super().initialize()
-        threadMgr.add(AnacondaThread(name=THREAD_SOFTWARE_WATCHER,
-                                     target=self._initialize))
+        self.initialize_start()
+
+        threadMgr.add(AnacondaThread(
+            name=THREAD_SOFTWARE_WATCHER,
+            target=self._initialize
+        ))
 
     def _initialize(self):
+        """Initialize the spoke in a separate thread."""
         threadMgr.wait(THREAD_PAYLOAD)
 
         if not self._kickstarted:
-            # If an environment was specified in the configuration, use that.
-            # Otherwise, select the first environment.
-            if self.payload.environments:
-                environments = self.payload.environments
+            # Set the environment.
+            self.set_default_environment()
 
-                if conf.payload.default_environment in environments:
-                    self._selected_environment = conf.payload.default_environment
-                else:
-                    self._selected_environment = environments[0]
+            # Apply the initial selection.
+            self.apply()
 
-        # Apply the initial selection
-        self._apply()
+        # Check the initial software selection.
+        self.execute()
 
-        # Wait for the software selection thread that might be started by _apply().
+        # Wait for the software selection thread that might be started by execute().
         # We are already running in a thread, so it should not needlessly block anything
         # and only like this we can be sure we are really initialized.
         threadMgr.wait(THREAD_CHECK_SOFTWARE)
@@ -104,26 +97,26 @@ class SoftwareSpoke(NormalTUISpoke):
         # report that the software spoke has been initialized
         self.initialize_done()
 
-    def _payload_start(self):
-        # Source is changing, invalidate the software selection and clear the
-        # errors
-        self._selected_environment = None
-        self._addons_selection = set()
-        self.errors = []
+    def set_default_environment(self):
+        # If an environment was specified in the configuration, use that.
+        # Otherwise, select the first environment.
+        if self.payload.environments:
+            environments = self.payload.environments
 
-    def _payload_finished(self):
-        self.environment = self.data.packages.environment
-        self.addons = self._get_selected_addons()
-        self._orig_env = None
-        self._orig_addons = None
-        log.debug("Payload restarted, set new info and clear the old one.")
+            if conf.payload.default_environment in environments:
+                self._selection.environment = conf.payload.default_environment
+            else:
+                self._selection.environment = environments[0]
+
+    def _payload_start(self):
+        self.errors = []
 
     def _payload_error(self):
         self.errors = [payloadMgr.error]
 
     def _translate_env_name_to_id(self, environment):
         """ Return the id of the selected environment or None. """
-        if environment is None:
+        if not environment:
             # None means environment is not set, no need to try translate that to an id
             return None
         try:
@@ -141,10 +134,6 @@ class SoftwareSpoke(NormalTUISpoke):
 
         return addons
 
-    def _get_selected_addons(self):
-        """ Return selected add-ons. """
-        return {group.name for group in self.payload.data.packages.groupList}
-
     @property
     def showable(self):
         return self.payload.type == PAYLOAD_TYPE_DNF
@@ -160,8 +149,7 @@ class SoftwareSpoke(NormalTUISpoke):
             return _("Installation source not set up")
         if not self.txid_valid:
             return _("Source changed - please verify")
-
-        if not self.environment:
+        if not self._selection.environment:
             # KS installs with %packages will have an env selected, unless
             # they did an install without a desktop environment. This should
             # catch that one case.
@@ -169,7 +157,7 @@ class SoftwareSpoke(NormalTUISpoke):
                 return _("Custom software selected")
             return _("Nothing selected")
 
-        return self.payload.environment_description(self.environment)[0]
+        return self.payload.environment_description(self._selection.environment)[0]
 
     @property
     def completed(self):
@@ -182,9 +170,21 @@ class SoftwareSpoke(NormalTUISpoke):
         processing_done = self.ready and not self.errors and self.txid_valid
 
         if flags.automatedInstall or self._kickstarted:
-            return processing_done and self.payload.base_repo and self.data.packages.seen
+            return processing_done and self.payload.base_repo and self.payload.proxy.PackagesKickstarted
         else:
-            return processing_done and self.payload.base_repo and self.environment is not None
+            return processing_done and self.payload.base_repo and self._selection.environment
+
+    def setup(self, args):
+        """Set up the spoke right before it is used."""
+        super().setup(args)
+
+        # Join the initialization thread to block on it
+        threadMgr.wait(THREAD_SOFTWARE_WATCHER)
+
+        # Get the packages configuration.
+        self._selection = self.payload.get_packages_data()
+
+        return True
 
     def refresh(self, args=None):
         """ Refresh screen. """
@@ -214,7 +214,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
         for env in environments:
             name = self.payload.environment_description(env)[0]
-            selected = (env == self._selected_environment)
+            selected = (env == self._selection.environment)
             widget = CheckboxWidget(title="%s" % name, completed=selected)
             self._container.add(widget, callback=self._set_environment_callback, data=env)
 
@@ -223,7 +223,7 @@ class SoftwareSpoke(NormalTUISpoke):
     def _refresh_addons(self, available_addons):
         for addon_id in available_addons:
             name = self.payload.group_description(addon_id)[0]
-            selected = addon_id in self._addons_selection
+            selected = addon_id in self._selection.groups
             widget = CheckboxWidget(title="%s" % name, completed=selected)
             self._container.add(widget, callback=self._set_addons_callback, data=addon_id)
 
@@ -233,14 +233,13 @@ class SoftwareSpoke(NormalTUISpoke):
             return _("No additional software to select.")
 
     def _set_environment_callback(self, data):
-        self._selected_environment = data
+        self._selection.environment = data
 
     def _set_addons_callback(self, data):
-        addon = data
-        if addon not in self._addons_selection:
-            self._addons_selection.add(addon)
+        if data not in self._selection.groups:
+            self._selection.groups.append(data)
         else:
-            self._addons_selection.remove(addon)
+            self._selection.groups.remove(data)
 
     def input(self, args, key):
         """ Handle the input; this chooses the desktop environment. """
@@ -251,13 +250,13 @@ class SoftwareSpoke(NormalTUISpoke):
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
 
                 # No environment was selected, close
-                if self._selected_environment is None:
+                if not self._selection.environment:
                     self.close()
 
                 # The environment was selected, switch screen
                 elif args is None:
                     # Get addons for the selected environment
-                    environment = self._selected_environment
+                    environment = self._selection.environment
                     environment_id = self._translate_env_name_to_id(environment)
                     addons = self._get_available_addons(environment_id)
 
@@ -267,6 +266,7 @@ class SoftwareSpoke(NormalTUISpoke):
                 # The addons were selected, apply and close
                 else:
                     self.apply()
+                    self.execute()
                     self.close()
             else:
                 return super().input(args, key)
@@ -281,60 +281,32 @@ class SoftwareSpoke(NormalTUISpoke):
                 not threadMgr.get(THREAD_SOFTWARE_WATCHER))
 
     def apply(self):
-        """ Apply our selections """
-        # no longer using values from kickstart
+        """Apply the changes."""
         self._kickstarted = False
-        self.data.packages.seen = True
-        # _apply depends on a value of _kickstarted
-        self._apply()
 
-    def _apply(self):
-        """ Private apply. """
-        self.environment = self._selected_environment
-        self.addons = self._addons_selection if self.environment is not None else set()
+        # Clear packages data.
+        self._selection.packages = []
+        self._selection.excluded_packages = []
 
-        log.debug("Apply called old env %s, new env %s and addons %s",
-                  self._orig_env, self.environment, self.addons)
+        # Clear groups data.
+        self._selection.excluded_groups = []
+        self._selection.groups_package_types = {}
 
-        if self.environment is None:
-            return
+        # Select valid groups.
+        # FIXME: Remove invalid groups from selected groups.
 
-        changed = False
+        log.debug("Setting new software selection: %s", self._selection)
+        self.payload.set_packages_data(self._selection)
 
-        # Not a kickstart with packages, setup the selected environment and addons
-        if not self._kickstarted:
+    def execute(self):
+        """Execute the changes."""
+        threadMgr.add(AnacondaThread(
+            name=THREAD_CHECK_SOFTWARE,
+            target=self._check_software_selection
+        ))
 
-            # Changed the environment or addons, clear and setup
-            if not self._orig_env \
-                    or self._orig_env != self.environment \
-                    or set(self._orig_addons) != set(self.addons):
-
-                log.debug("Setting new software selection old env %s, new env %s and addons %s",
-                          self._orig_env, self.environment, self.addons)
-
-                self.payload.data.packages.packageList = []
-                self.data.packages.groupList = []
-                self.payload.select_environment(self.environment)
-
-                environment_id = self._translate_env_name_to_id(self.environment)
-                available_addons = self._get_available_addons(environment_id)
-
-                for addon_id in available_addons:
-                    if addon_id in self.addons:
-                        self.payload.select_group(addon_id)
-
-                changed = True
-
-            self._orig_env = self.environment
-            self._orig_addons = set(self.addons)
-
-        # Check the software selection
-        if changed or self._kickstarted:
-            threadMgr.add(AnacondaThread(name=THREAD_CHECK_SOFTWARE,
-                                         target=self.check_software_selection))
-
-    def check_software_selection(self):
-        """ Depsolving """
+    def _check_software_selection(self):
+        """Check the software selection."""
         try:
             self.payload.check_software_selection()
         except DependencyError as e:
