@@ -19,6 +19,8 @@
 #
 
 from blivet.util import stringize, unicodeize
+from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
+    AUTOPART_TYPE_LVM_THINP
 
 
 class PartSpec(object):
@@ -81,6 +83,52 @@ class PartSpec(object):
               "thin": self.thin})
 
         return s
+
+    def is_partition(self, scheme):
+        """Is the specified device a partition in the given scheme?
+
+        :param scheme: a partitioning scheme
+        :return: True or False
+        """
+        return not self.is_volume(scheme)
+
+    def is_volume(self, scheme):
+        """Is the specified device a volume in the given scheme?
+
+        :param scheme: a partitioning scheme
+        :return: True or False
+        """
+        if scheme == AUTOPART_TYPE_PLAIN:
+            return False
+
+        return self.is_lvm_volume(scheme) or self.is_btrfs_subvolume(scheme)
+
+    def is_lvm_volume(self, scheme):
+        """Is the specified device an LVM volume in the given scheme?
+
+        :param scheme: a partitioning scheme
+        :return: True or False
+        """
+        return scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP) and self.lv
+
+    def is_lvm_thin_volume(self, scheme):
+        """Is the specified device an LVM thin volume in the given scheme?
+
+        :param scheme: a partitioning scheme
+        :return: True or False
+        """
+        if not self.is_lvm_volume(scheme):
+            return False
+
+        return scheme == AUTOPART_TYPE_LVM_THINP and self.thin
+
+    def is_btrfs_subvolume(self, scheme):
+        """Is the specified device a Btrfs subvolume in the given scheme?
+
+        :param scheme: a partitioning scheme
+        :return: True or False
+        """
+        return scheme == AUTOPART_TYPE_BTRFS and self.btr
 
     def __str__(self):
         return stringize(self._to_string())
