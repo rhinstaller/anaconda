@@ -72,7 +72,12 @@ def start_spice_vd_agent():
     For certain features to work spice requires that the guest os
     is running the spice vdagent.
     """
-    status = util.execWithRedirect("spice-vdagent", [])
+    try:
+        status = util.execWithRedirect("spice-vdagent", [])
+    except OSError as e:
+        log.warning("spice-vdagent failed: %s", e)
+        return
+
     if status:
         log.info("spice-vdagent exited with status %d", status)
     else:
