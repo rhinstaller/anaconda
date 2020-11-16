@@ -47,7 +47,7 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, GROUP_REQUIRED
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pykickstart.parser import Group
 
 from pyanaconda import errors as errors
@@ -329,30 +329,9 @@ class DNFPayload(Payload):
         # Apply requirements.
         apply_requirements(self._requirements, include_list, exclude_list)
 
-        # log the resulting set
-        log.debug("transaction include list")
-        log.debug(include_list)
-        log.debug("transaction exclude list")
-        log.debug(exclude_list)
-
-        # feed it to DNF
+        # Apply specs.
         try:
-            # FIXME: Remove self._base.conf.strict workaround when bz1761518 is fixed
-            # install_specs() returns a list of specs that appear to be missing
-            self._base.install_specs(install=include_list, exclude=exclude_list,
-                                     strict=self._base.conf.strict)
-        except dnf.exceptions.MarkingErrors as e:
-            log.debug("install_specs(): some packages, groups or modules "
-                      " are missing or broken:\n%s", e)
-            # if no errors were reported and --ignoremissing was used we can continue
-            transaction_broken = e.error_group_specs or \
-                e.error_pkg_specs or \
-                e.module_depsolv_errors
-            if not transaction_broken and self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                log.info("ignoring missing package/group/module "
-                         "specs due to --ignoremissing flag in kickstart")
-            else:
-                self._payload_setup_error(e)
+            self._dnf_manager.apply_specs(include_list, exclude_list)
         except Exception as e:  # pylint: disable=broad-except
             self._payload_setup_error(e)
 

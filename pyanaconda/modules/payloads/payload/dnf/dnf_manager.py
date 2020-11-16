@@ -19,6 +19,7 @@
 #
 import shutil
 import dnf
+import dnf.exceptions
 
 from blivet.size import Size
 
@@ -28,7 +29,7 @@ from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
 from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version
-from pykickstart.constants import KS_BROKEN_IGNORE
+from pykickstart.constants import KS_BROKEN_IGNORE, KS_MISSING_IGNORE
 
 log = get_module_logger(__name__)
 
@@ -52,6 +53,8 @@ class DNFManager(object):
 
     def __init__(self):
         self.__base = None
+        self._ignore_missing_packages = False
+        self._ignore_broken_packages = False
 
     @property
     def _base(self):
@@ -93,6 +96,8 @@ class DNFManager(object):
     def reset_base(self):
         """Reset the DNF base."""
         self.__base = None
+        self._ignore_missing_packages = False
+        self._ignore_broken_packages = False
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data):
@@ -113,14 +118,17 @@ class DNFManager(object):
         if data.packages.retries is not None:
             base.conf.retries = data.packages.retries
 
+        if data.packages.handleMissing == KS_MISSING_IGNORE:
+            self._ignore_missing_packages = True
+
         if data.packages.handleBroken == KS_BROKEN_IGNORE:
             log.warning(
                 "\n***********************************************\n"
-                "User has requested to skip broken packages. Using"
-                "this option may result in an UNUSABLE system!"
+                "User has requested to skip broken packages. Using "
+                "this option may result in an UNUSABLE system! "
                 "\n***********************************************\n"
             )
-            base.conf.strict = False
+            self._ignore_broken_packages = True
 
         # Two reasons to turn this off:
         # 1. Minimal installs don't want all the extras this brings in.
@@ -226,3 +234,42 @@ class DNFManager(object):
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
         self._base.reset(sack=True, repos=True)
         log.debug("The DNF cache has been cleared.")
+
+    def apply_specs(self, include_list, exclude_list):
+        """Mark packages, groups and modules for installation.
+
+        :param include_list: a list of specs for inclusion
+        :param exclude_list: a list of specs for exclusion
+        """
+        log.debug("Transaction include list:\n%s", include_list)
+        log.debug("Transaction exclude list:\n%s", exclude_list)
+
+        try:
+            self._base.install_specs(
+                install=include_list,
+                exclude=exclude_list,
+                strict=not self._ignore_broken_packages
+            )
+        except dnf.exceptions.MarkingErrors as e:
+            log.debug("Some packages, groups or modules are missing or broken:\n%s", e)
+
+            # The transaction is broken. Raise the exception.
+            if self._is_transaction_broken(e):
+                raise
+
+            # There are some missing specs, but we cannot ignore them.
+            if not self._ignore_missing_packages:
+                raise
+
+            # Ignore the missing specs.
+            log.info("Ignoring missing packages, groups or modules.")
+
+    def _is_transaction_broken(self, exception):
+        """Is the DNF transaction broken?
+
+        :param exception: an MarkingErrors exception
+        :return: True or False
+        """
+        return exception.error_group_specs \
+            or exception.error_pkg_specs \
+            or exception.module_depsolv_errors
