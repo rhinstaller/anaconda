@@ -532,7 +532,7 @@ class DNFPayload(Payload):
 
     @property
     def environments(self):
-        return [env.id for env in self._base.comps.environments]
+        return self._dnf_manager.environments
 
     def select_environment(self, environment_id):
         if environment_id not in self.environments:

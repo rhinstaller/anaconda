@@ -128,6 +128,14 @@ class DNFManager(object):
         if data.packages.excludeWeakdeps:
             base.conf.install_weak_deps = False
 
+    @property
+    def environments(self):
+        """Environments defined in comps.xml file.
+
+        :return: a list of ids
+        """
+        return [env.id for env in self._base.comps.environments]
+
     def configure_proxy(self, url):
         """Configure the proxy of the DNF base.
 

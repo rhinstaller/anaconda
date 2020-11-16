@@ -203,3 +203,22 @@ class DNFMangerTestCase(unittest.TestCase):
         size = self.dnf_manager.get_download_size()
 
         self.assertEqual(size, Size("450 MiB"))
+
+    def environments_test(self):
+        """Test the environments property."""
+        self.assertEqual(self.dnf_manager.environments, [])
+
+        # Fake environments.
+        env_1 = Mock(id="environment-1")
+        env_2 = Mock(id="environment-2")
+        env_3 = Mock(id="environment-3")
+
+        # Fake comps.
+        comps = Mock(environments=[env_1, env_2, env_3])
+
+        self.dnf_manager._base._comps = comps
+        self.assertEqual(self.dnf_manager.environments, [
+            "environment-1",
+            "environment-2",
+            "environment-3",
+        ])
