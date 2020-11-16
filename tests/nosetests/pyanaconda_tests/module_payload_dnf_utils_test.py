@@ -16,10 +16,11 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, PropertyMock
 
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version
+    get_product_release_version, get_default_environment
 
 
 class DNFUtilsPackagesTestCase(unittest.TestCase):
@@ -78,3 +79,16 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
     def get_product_release_version_dot_test(self):
         """Test the get_product_release_version function with a dot."""
         self.assertEqual(get_product_release_version(), "7.4")
+
+    @patch.object(DNFManager, 'environments', new_callable=PropertyMock)
+    def get_default_environment_test(self, mock_environments):
+        """Test the get_default_environment function"""
+        mock_environments.return_value = []
+        self.assertEqual(get_default_environment(DNFManager()), None)
+
+        mock_environments.return_value = [
+            "environment-1",
+            "environment-2",
+            "environment-3",
+        ]
+        self.assertEqual(get_default_environment(DNFManager()), "environment-1")

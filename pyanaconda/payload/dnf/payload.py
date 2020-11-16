@@ -45,7 +45,7 @@ from pyanaconda.modules.payloads.payload.dnf.requirements import collect_languag
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version
+    get_product_release_version, get_default_environment
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, GROUP_REQUIRED
@@ -313,6 +313,8 @@ class DNFPayload(Payload):
     def _apply_selections(self):
         log.debug("applying DNF package/group/module selection")
 
+        default_environment = get_default_environment(self._dnf_manager)
+
         # note about package/group/module spec formatting:
         # - leading @ signifies a group or module
         # - no leading @ means a package
@@ -336,8 +338,8 @@ class DNFPayload(Payload):
 
         # environment
         env = None
-        if self.data.packages.default and self.environments:
-            env = self.environments[0]
+        if self.data.packages.default and default_environment:
+            env = default_environment
             log.info("selecting default environment: %s", env)
         elif self.data.packages.environment:
             env = self.data.packages.environment
