@@ -27,8 +27,7 @@ Use the given proxy settings when performing an installation from a HTTP/HTTPS/F
 The PROXY_URL can be specified like this: [PROTOCOL://][USERNAME[:PASSWORD]@]HOST[:PORT]
 
 debug
-Show debug level messages in the log watching consoles.
-This basically a shortcut for for loglevel=debug.
+Run the installer in the debugging mode.
 
 ks
 Gives the location of the kickstart file to be used for installation. The KICKSTART_URL
@@ -128,12 +127,6 @@ are those which can be used for the keyboard kickstart command.
 lang
 Language to use for the installation. LANG should be a language code which is valid to be used
 with the lang kickstart command.
-
-loglevel
-Set the minimum level required for messages to be logged on a terminal (log files always
-contain messages of all levels). Values for LEVEL are "debug", "info", "warning", "error",
-"critical" and "lock" (the "lock" level has been added in F21 and is used for debugging dnf locking).
-The default value is "info".
 
 syslog
 Once installation is up and running, send log messages to the syslog process on HOST,

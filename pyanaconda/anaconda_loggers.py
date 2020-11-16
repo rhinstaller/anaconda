@@ -59,10 +59,6 @@ def get_program_logger():
     return logging.getLogger(constants.LOGGER_PROGRAM)
 
 
-def get_storage_logger():
-    return logging.getLogger(constants.LOGGER_STORAGE)
-
-
 def get_packaging_logger():
     return logging.getLogger(constants.LOGGER_PACKAGING)
 
