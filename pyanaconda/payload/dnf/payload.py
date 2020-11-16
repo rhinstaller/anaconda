@@ -31,27 +31,26 @@ import dnf.module.module_base
 import dnf.repo
 import dnf.subject
 import libdnf.conf
-import libdnf.repo
 import rpm
-import re
 
-from blivet.size import Size
 from dnf.const import GROUP_PACKAGE_TYPES
 from fnmatch import fnmatch
 from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
-from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package
+from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
+    get_product_release_version
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
-    GROUP_REQUIRED
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, GROUP_REQUIRED
 from pykickstart.parser import Group
 
 from pyanaconda import errors as errors
-from pyanaconda.anaconda_loggers import get_dnf_logger, get_packaging_logger
+from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
@@ -59,7 +58,6 @@ from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import decode_bytes
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
@@ -70,9 +68,8 @@ from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFile
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.dnf.utils import DNF_CACHE_DIR, DNF_PLUGINCONF_DIR, REPO_DIRS, \
-    DNF_LIBREPO_LOG, DNF_PACKAGE_CACHE_DIR_SUFFIX, BONUS_SIZE_ON_FILE, YUM_REPOS_DIR, \
-    go_to_failure_limbo, do_transaction, get_df_map, pick_mount_point
+from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, \
+    YUM_REPOS_DIR, go_to_failure_limbo, do_transaction, get_df_map, pick_mount_point
 from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
@@ -81,7 +78,6 @@ from pyanaconda.payload.image import find_first_iso_image, mountImage, find_opti
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
-from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
     set_up_sources, tear_down_sources
 
@@ -113,9 +109,12 @@ class DNFPayload(Payload):
         # environment.
         self._environment_addons = {}
 
-        self._base = None
+        self._dnf_manager = DNFManager()
         self._download_location = None
         self._updates_enabled = True
+
+        # Configure the DNF logging.
+        configure_dnf_logging()
 
         # FIXME: Don't call this method before set_from_opts.
         # This will create a default source if there is none.
@@ -132,6 +131,14 @@ class DNFPayload(Payload):
 
         # Additional packages required by installer based on used features
         self._requirements = []
+
+    @property
+    def _base(self):
+        """Return a DNF base.
+
+        FIXME: This is a temporary property.
+        """
+        return self._dnf_manager._base
 
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
@@ -210,8 +217,6 @@ class DNFPayload(Payload):
         self.verbose_errors = []
 
     def unsetup(self):
-        super().unsetup()
-        self._base = None
         self._configure()
         self._repoMD_list = []
         self._install_tree_metadata = None
@@ -425,31 +430,6 @@ class DNFPayload(Payload):
             self.tx_id += 1
         return self.tx_id
 
-    def _configure_proxy(self):
-        """Configure the proxy on the dnf.Base object."""
-        config = self._base.conf
-        proxy_url = self._get_proxy_url()
-
-        if proxy_url:
-            try:
-                proxy = ProxyString(proxy_url)
-                config.proxy = proxy.noauth_url
-
-                if proxy.username:
-                    config.proxy_username = proxy.username
-
-                if proxy.password:
-                    config.proxy_password = proxy.password
-
-                log.info("Using %s as proxy", proxy_url)
-            except ProxyStringError as e:
-                log.error("Failed to parse proxy for dnf configure %s: %s", proxy_url, e)
-        else:
-            # No proxy configured
-            config.proxy = None
-            config.proxy_username = None
-            config.proxy_password = None
-
     def _get_proxy_url(self):
         """Get a proxy of the current source.
 
@@ -467,105 +447,11 @@ class DNFPayload(Payload):
 
         return data.proxy
 
-    def get_platform_id(self):
-        """Obtain the platform id (if available).
-
-        At the moment we get the platform id from /etc/os-release
-        but treeinfo or something similar that maps to the current
-        repository looks like a better bet longer term.
-
-        :return: platform id or None if not found
-        :rtype: str or None
-        """
-        platform_id = None
-        if os.path.exists("/etc/os-release"):
-            config = SimpleConfigFile()
-            config.read("/etc/os-release")
-            os_release_platform_id = config.get("PLATFORM_ID")
-            # simpleconfig return "" for keys that are not found
-            if os_release_platform_id:
-                platform_id = os_release_platform_id
-            else:
-                log.error("PLATFORM_ID missing from /etc/os-release")
-        else:
-            log.error("/etc/os-release is missing, platform id can't be obtained")
-        return platform_id
-
     def _configure(self):
-        self._base = dnf.Base()
-        config = self._base.conf
-        config.cachedir = DNF_CACHE_DIR
-        config.pluginconfpath = DNF_PLUGINCONF_DIR
-        config.logdir = '/tmp/'
-        # enable depsolver debugging if in debug mode
-        self._base.conf.debug_solver = conf.anaconda.debug
-        # set the platform id based on the /os/release
-        # present in the installation environment
-        platform_id = self.get_platform_id()
-        if platform_id is not None:
-            log.info("setting DNF platform id to: %s", platform_id)
-            self._base.conf.module_platform_id = platform_id
-
-        config.releasever = self._get_release_version(None)
-        config.installroot = conf.target.system_root
-        config.prepend_installroot('persistdir')
-
-        self._base.conf.substitutions.update_from_etc(config.installroot)
-
-        if self.data.packages.multiLib:
-            config.multilib_policy = "all"
-
-        if self.data.packages.timeout is not None:
-            config.timeout = self.data.packages.timeout
-
-        if self.data.packages.retries is not None:
-            config.retries = self.data.packages.retries
-
-        if self.data.packages.handleBroken == KS_BROKEN_IGNORE:
-            log.warning(
-                "\n*********************************************************************\n"
-                "User has requested to skip broken packages. Using this option may result "
-                "in an UNUSABLE system!\n"
-                "*********************************************************************"
-            )
-            config.strict = False
-
-        self._configure_proxy()
-
-        # Start with an empty comps so we can go ahead and use the environment
-        # and group properties. Unset reposdir to ensure dnf has nothing it can
-        # check automatically
-        config.reposdir = []
-        self._base.read_comps(arch_filter=True)
-
-        config.reposdir = REPO_DIRS
-
-        # Two reasons to turn this off:
-        # 1. Minimal installs don't want all the extras this brings in.
-        # 2. Installs aren't reproducible due to weak deps. failing silently.
-        if self.data.packages.excludeWeakdeps:
-            config.install_weak_deps = False
-
-        # Setup librepo logging
-        libdnf.repo.LibrepoLog.removeAllHandlers()
-        libdnf.repo.LibrepoLog.addHandler(DNF_LIBREPO_LOG)
-
-        # Increase dnf log level to custom DDEBUG level
-        # Do this here to prevent import side-effects in anaconda_logging
-        dnf_logger = get_dnf_logger()
-        dnf_logger.setLevel(dnf.logging.DDEBUG)
-
-        log.debug("Dnf configuration:\n%s", config.dump())
-
-    @property
-    def _download_space(self):
-        transaction = self._base.transaction
-        if transaction is None:
-            return Size(0)
-
-        size = sum(tsi.pkg.downloadsize for tsi in transaction)
-        # reserve extra
-        return Size(size) + Size("150 MB")
+        self._dnf_manager.reset_base()
+        self._dnf_manager.configure_base(self.data)
+        self._dnf_manager.configure_proxy(self._get_proxy_url())
+        self._dnf_manager.dump_configuration()
 
     def _payload_setup_error(self, exn):
         log.error('Payload setup error: %r', exn)
@@ -579,8 +465,8 @@ class DNFPayload(Payload):
             sys.exit(1)
 
     def _pick_download_location(self):
-        download_size = self._download_space
-        install_size = self._space_required()
+        download_size = self._dnf_manager.get_download_size()
+        install_size = self._dnf_manager.get_installation_size()
         df_map = get_df_map()
         mpoint = pick_mount_point(
             df_map,
@@ -914,8 +800,8 @@ class DNFPayload(Payload):
     @property
     def space_required(self):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        size = self._space_required()
-        download_size = self._download_space
+        size = self._dnf_manager.get_installation_size()
+        download_size = self._dnf_manager.get_download_size()
         valid_points = get_df_map()
         root_mpoint = conf.target.system_root
 
@@ -937,29 +823,6 @@ class DNFPayload(Payload):
                       download_size, m_point)
             log.debug("Installation space required %s", size)
         return size
-
-    def _space_required(self):
-        transaction = self._base.transaction
-        if transaction is None:
-            return Size("3000 MB")
-
-        size = 0
-        files_nm = 0
-        for tsi in transaction:
-            # space taken by all files installed by the packages
-            size += tsi.pkg.installsize
-            # number of files installed on the system
-            files_nm += len(tsi.pkg.files)
-
-        # append bonus size depending on number of files
-        bonus_size = files_nm * BONUS_SIZE_ON_FILE
-        size = Size(size)
-        # add another 10% as safeguard
-        total_space = (size + bonus_size) * 1.1
-        log.debug("Size from DNF: %s", size)
-        log.debug("Bonus size %s by number of files %s", bonus_size, files_nm)
-        log.debug("Total size required %s", total_space)
-        return total_space
 
     def _is_group_visible(self, grpid):
         grp = self._base.comps.group_by_pattern(grpid)
@@ -1277,13 +1140,9 @@ class DNFPayload(Payload):
         tear_down_sources(self.proxy)
         self.reset_additional_repos()
         self._install_tree_metadata = None
-
-        shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
-        shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
-
         self.tx_id = None
-        self._base.reset(sack=True, repos=True)
-        self._configure_proxy()
+        self._dnf_manager.clear_cache()
+        self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._repoMD_list = []
 
     def reset_additional_repos(self):
@@ -1642,17 +1501,13 @@ class DNFPayload(Payload):
 
     def _get_release_version(self, url):
         """Return the release version of the tree at the specified URL."""
-        try:
-            version = re.match(VERSION_DIGITS, productVersion).group(1)
-        except AttributeError:
-            version = "rawhide"
-
-        log.debug("getting release version from tree at %s (%s)", url, version)
+        log.debug("getting release version from tree at %s", url)
 
         if self._install_tree_metadata:
             version = self._install_tree_metadata.get_release_version()
             log.debug("using treeinfo release version of %s", version)
         else:
+            version = get_product_release_version()
             log.debug("using default release version of %s", version)
 
         return version
@@ -1809,7 +1664,7 @@ class DNFPayload(Payload):
         if conf.payload.default_rpm_gpg_keys:
             # TODO: replace the interpolation with DNF once possible
             arch = util.execWithCapture("uname", ["-i"]).strip().replace("'", "")
-            vers = util.get_os_version(conf.target.system_root)
+            vers = util.get_os_release_value("VERSION_ID", sysroot=conf.target.system_root)
 
             if not os.path.exists(conf.target.system_root + "/usr/bin/rpm"):
                 log.error("Can not import GPG keys to RPM database because the 'rpm' executable "

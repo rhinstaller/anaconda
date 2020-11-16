@@ -18,8 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.i18n import _
-from pyanaconda.payload.dnf.utils import REPO_DIRS
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceType, SourceState, DNF_REPO_DIRS
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.repo_files.repo_files_interface import \
     RepoFilesSourceInterface
@@ -80,7 +79,7 @@ class RepoFilesSourceModule(PayloadSourceBase):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        task = SetUpRepoFilesSourceTask(REPO_DIRS)
+        task = SetUpRepoFilesSourceTask(DNF_REPO_DIRS)
         return [task]
 
     def tear_down_with_tasks(self):

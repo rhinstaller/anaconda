@@ -46,7 +46,6 @@ from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, \
     IPMI_ABORTED, X_TIMEOUT, TAINT_HARDWARE_UNSUPPORTED, TAINT_SUPPORT_REMOVED, \
     WARNING_HARDWARE_UNSUPPORTED, WARNING_SUPPORT_REMOVED
-from pyanaconda.core.regexes import OS_RELEASE_OS_VERSION
 from pyanaconda.errors import RemovedModuleError, ExitError
 
 from pyanaconda.anaconda_logging import program_log_lock
@@ -1476,20 +1475,36 @@ class LazyObject(object):
         return setattr(self._object, name, value)
 
 
-def get_os_version(sysroot=""):
-    """Find version of the OS from the os-release file.
+def get_os_release_value(name, sysroot=""):
+    """Read os-release files and return a value of the specified parameter.
 
-    See os-release(5).
-
-    :param str sysroot: Where to look.
-    :return str: The version
+    :param name: a name of the parameter (for example, "VERSION_ID")
+    :param sysroot: a path to the system root
+    :return: a string with the value of None if nothing found
     """
-    for filename in ("/etc/os-release", "/usr/lib/os-release"):
+    # Match the variable assignment (for example, "VERSION_ID=").
+    name += "="
+
+    # Search all os-release files in the system root.
+    paths = ("/etc/os-release", "/usr/lib/os-release")
+
+    for path in paths:
         try:
-            with open(sysroot + filename, "r") as f:
-                data = f.read(4096)  # 4 kB should be enough for everyone!
-            return OS_RELEASE_OS_VERSION.findall(data)[0]
-        except (FileNotFoundError, IndexError):
+            with open(join_paths(sysroot, path), "r") as f:
+                for line in f:
+                    # Match the current line.
+                    if not line.startswith(name):
+                        continue
+
+                    # Get the value.
+                    value = line[len(name):]
+
+                    # Strip spaces and then quotes.
+                    value = value.strip().strip("\"'")
+                    return value
+        except FileNotFoundError:
             pass
 
+    # No value found.
+    log.debug("%s not found in os-release files")
     return None

@@ -18,7 +18,9 @@
 import dnf.subject
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import is_lpae_available
+from pyanaconda.product import productName, productVersion
 
 log = get_module_logger(__name__)
 
@@ -53,3 +55,17 @@ def get_kernel_package(dnf_base, exclude_list):
 
     log.error("kernel: failed to select a kernel from %s", kernels)
     return None
+
+
+def get_product_release_version():
+    """Get a release version of the product.
+
+    :return: a string with the release version
+    """
+    try:
+        release_version = VERSION_DIGITS.match(productVersion).group(1)
+    except AttributeError:
+        release_version = "rawhide"
+
+    log.debug("Release version of %s is %s.", productName, release_version)
+    return release_version
