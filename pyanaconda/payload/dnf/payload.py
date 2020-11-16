@@ -33,7 +33,6 @@ import dnf.subject
 import libdnf.conf
 import rpm
 
-from dnf.const import GROUP_PACKAGE_TYPES
 from fnmatch import fnmatch
 from glob import glob
 
@@ -45,7 +44,7 @@ from pyanaconda.modules.payloads.payload.dnf.requirements import collect_languag
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version, get_default_environment
+    get_product_release_version, get_default_environment, get_installation_specs
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, GROUP_REQUIRED
@@ -313,90 +312,21 @@ class DNFPayload(Payload):
     def _apply_selections(self):
         log.debug("applying DNF package/group/module selection")
 
+        # Get the default environment.
         default_environment = get_default_environment(self._dnf_manager)
 
-        # note about package/group/module spec formatting:
-        # - leading @ signifies a group or module
-        # - no leading @ means a package
+        # Get the installation specs.
+        include_list, exclude_list = get_installation_specs(
+            self.data, default_environment
+        )
 
-        include_list = []
-        exclude_list = []
-
-        # handle "normal" groups
-        for group in self.data.packages.excludedGroupList:
-            log.debug("excluding group %s", group.name)
-            exclude_list.append("@{}".format(group.name))
-
-        # core groups
-        if self.data.packages.nocore:
-            log.info("skipping core group due to %%packages "
-                     "--nocore; system may not be complete")
-            exclude_list.append("@core")
-        else:
-            log.info("selected group: core")
-            include_list.append("@core")
-
-        # environment
-        env = None
-        if self.data.packages.default and default_environment:
-            env = default_environment
-            log.info("selecting default environment: %s", env)
-        elif self.data.packages.environment:
-            env = self.data.packages.environment
-            log.info("selected environment: %s", env)
-        if env:
-            include_list.append("@{}".format(env))
-
-        # groups from kickstart data
-        for group in self.data.packages.groupList:
-            default = group.include in (GROUP_ALL,
-                                        GROUP_DEFAULT)
-            optional = group.include == GROUP_ALL
-
-            # Packages in groups can have different types
-            # and we provide an option to users to set
-            # which types are going to be installed
-            # via the --nodefaults and --optional options.
-            #
-            # To not clash with module definitions we
-            # only use type specififcations if --nodefault,
-            # --optional or both are used
-            if not default or optional:
-                type_list = list(GROUP_PACKAGE_TYPES)
-                if not default:
-                    type_list.remove("default")
-                if optional:
-                    type_list.append("optional")
-
-                types = ",".join(type_list)
-                group_spec = "@{group_name}/{types}".format(
-                    group_name=group.name,
-                    types=types
-                )
-            else:
-                # if group is a regular group this is equal to
-                # @group/mandatory,default,conditional (current
-                # content of the DNF GROUP_PACKAGE_TYPES constant)
-                group_spec = "@{}".format(group.name)
-
-            include_list.append(group_spec)
-
-        # handle packages
-        for pkg_name in self.data.packages.excludedList:
-            log.info("excluded package: '%s'", pkg_name)
-            exclude_list.append(pkg_name)
-
-        for pkg_name in self.data.packages.packageList:
-            log.info("selected package: '%s'", pkg_name)
-            include_list.append(pkg_name)
-
-        # add kernel package
+        # Add the kernel package.
         kernel_package = get_kernel_package(self._base, exclude_list)
 
         if kernel_package:
             include_list.append(kernel_package)
 
-        # resolve packages and groups required by Anaconda
+        # Apply requirements.
         apply_requirements(self._requirements, include_list, exclude_list)
 
         # log the resulting set
