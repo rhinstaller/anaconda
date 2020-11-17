@@ -32,6 +32,7 @@ RUN echo dnf update -y && \
 RUN pip-3.6 install \
   "pylint==2.5.3" \
   pocketlint \
+  copr \
   coverage \
   pycodestyle \
   dogtail \
