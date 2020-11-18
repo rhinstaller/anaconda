@@ -17,15 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import functools
-import glob
 import os
 import stat
 
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.util import mkdirChain
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.payload.utils import version_cmp
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -92,15 +88,3 @@ def get_dir_size(directory):
 
         return dsize
     return get_subdir_size(directory) // 1024
-
-
-def get_kernel_version_list(root_path):
-    files = glob.glob(root_path + "/boot/vmlinuz-*")
-    files.extend(
-        glob.glob(root_path + "/boot/efi/EFI/{}/vmlinuz-*".format(conf.bootloader.efi_dir))
-    )
-
-    kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
-                                  if os.path.isfile(f) and "-rescue-" not in f),
-                                 key=functools.cmp_to_key(version_cmp))
-    return kernel_version_list
