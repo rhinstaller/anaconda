@@ -25,7 +25,7 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError, Incompati
 from pyanaconda.modules.payloads.constants import SourceType, PayloadType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask, UpdateBLSConfigurationTask
+    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.base.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
@@ -143,8 +143,7 @@ class LiveOSModule(PayloadBase):
 
         return [InstallFromImageTask(
             self._image_source,
-            conf.target.system_root,
-            self.kernel_version_list
+            conf.target.system_root
         )]
 
     def post_install_with_tasks(self):
@@ -154,10 +153,6 @@ class LiveOSModule(PayloadBase):
         :rtype: List
         """
         return [
-            UpdateBLSConfigurationTask(
-                conf.target.system_root,
-                self.kernel_version_list
-            ),
             CopyDriverDisksFilesTask(conf.target.system_root)
         ]
 

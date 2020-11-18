@@ -31,7 +31,6 @@ from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payloads.constants import SourceType, PayloadType, SourceState
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.base.initialization import UpdateBLSConfigurationTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
 from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
@@ -186,7 +185,6 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
     def post_install_with_tasks_test(self, publisher):
         """Test Live OS post installation configuration task."""
         task_classes = [
-            UpdateBLSConfigurationTask,
             CopyDriverDisksFilesTask
         ]
 
