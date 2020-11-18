@@ -6,22 +6,48 @@ such as unit tests, rpm tests and translation tests.  All the tests will be run
 together if you follow the steps below.  For integration tests there is a
 separate repository kickstart-tests_ containing also tooling for running the tests.
 
-You have two possible ways how to run these tests:
+Run tests inside of container
+-----------------------------
+This is the primary and recommended way to run the tests.
 
-- running the tests directly on your system
-- using mock utility which run a container on your system
+Right now only unit tests are supported by the container, not rpm-tests.
+You can use our container image on `Quay.io <https://quay.io/repository/rhinstaller/anaconda-ci>`_
+or you can build your own image.
+(Optional) to build the container image run::
 
-Read below about their benefits and drawbacks.
+    make -f Makefile.am anaconda-ci-build
 
-Run tests locally
------------------
+Then you are free to run the tests without dependency installation by
+running::
 
-Before you are able to run Anaconda tests you need to install all required dependencies.
-To get list of dependencies you can use::
+    make -f Makefile.am container-ci
 
-    ./scripts/testing/dependency_solver.py | xargs -d '\n' sudo dnf install -y
+This will run all the tests, including Python test coverage reports. To run
+just some tests you can pass parameters which will replace the current one. For
+example to run just some nose-tests please do this::
 
-Use `yum` instead of `dnf` on RHEL/CentOS 7.
+    make -f Makefile.am container-ci CI_CMD="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
+
+WARNING:
+
+*Just one command* can be passed like this, if `&&` is used then only first
+one is run in the container but everything else is started on host!
+
+Logs from the run are stored in the ``test-logs/`` folder; no other files are
+modified/touched by the container (it works on an internal copy of the host's
+anaconda directory).
+
+Interactively work inside of container
+--------------------------------------
+
+For interactively working in the container you can run::
+
+    make -f Makefile.am container-shell
+
+This command will open bash inside the container for you with mounted
+current folder at the `/anaconda` path. This is a convenient way
+how to run tests but avoid constant call of autotools and build during the
+development.
 
 Prepare the environment and build the sources::
 
@@ -46,80 +72,13 @@ In case the *ci* target fails there is also a *coverage-report* target
 which can be used to combine the multiple `.coverage` files into one and
 produce a human readable report.
 
-Run tests inside of container
------------------------------
-
-Feel free to avoid installation of dependencies required for
-`autogen.sh && ./configure` execution by replacing `make` calls below
-with `make -f Makefile.am` in the Anaconda repository root directory.
-
-Right now only unit tests are supported by the container, not rpm-tests.
-You can use our container image on `Quay.io <https://quay.io/repository/rhinstaller/anaconda-ci>`_
-or you can build your own image.
-(Optional) to build the container image run::
-
-    make anaconda-ci-build
-
-Then you are free to run the tests without dependency installation by
-running::
-
-    make container-ci
-
-This will run all the tests. To run just some tests you can pass parameters
-which will replace the current one. For example to run just some nose-tests
-please do this::
-
-    make container-ci CI_CMD="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
-
-WARNING:
-
-*Just one command* can be passed like this, if `&&` is used then only first
-one is run in the container but everything else is started on host!
-
-Logs from the run are stored in the ``test-logs/`` folder; no other files are
-modified/touched by the container (it works on an internal copy of the host's
-anaconda directory).
-
-For interactively working in the container you can run::
-
-    make container-shell
-
-This command will open bash inside the container for you with mounted
-current folder at the `/anaconda` path. This is a convenient way
-how to run tests but avoid constant call of autotools and build during the
-development.
-
-Note:
+Note
+----
 
 Please update your container from time to time to have newest dependencies.
-To do that just run the build again.
+To do that, run `podman pull quay.io/rhinstaller/anaconda-ci:master` or build
+it locally again.
 
-Run tests inside Mock
----------------------
-
-When using the `ci` target in a mock you need to use a regular user account which
-is a member of the `mock` group. You can update your account by running
-the command::
-
-    # usermod -a -G mock <username>
-
-To prepare testing mock environment call::
-
-    ./scripts/testing/setup-mock-test-env.py --init [mock-configuration]
-
-Mock configuration can be path to a file or name of file in `/etc/mock/*.cfg`
-without suffix. For detail configuration look on the script help output.
-
-Then you can run tests by::
-
-    ./scripts/testing/setup-mock-test-env.py -ut [mock-configuration]
-
-See `./scripts/testing/setup-mock-test-env.py --help` for additional options
-like running individual tests.
-
-Or you can just attach to shell inside of the prepared mock environment::
-
-    mock -r [mock_configuration] --shell
 
 Test Suite Architecture
 ------------------------
