@@ -162,7 +162,12 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         # get language codes for the locales
         langs = [localization.get_language_id(locale) for locale in locales]
 
-        # check which of the geolocated languages have translations
+        # get common languages and append them here
+        common_langs = localization.get_common_languages()
+        common_langs_len = len(set(common_langs).difference(set(langs)))
+        langs += common_langs
+
+        # check which of the geolocated or common languages have translations
         # and store the iterators for those languages in a dictionary
         langs_with_translations = {}
         itr = store.get_iter_first()
@@ -181,7 +186,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
             langs_with_translations[DEFAULT_LANG] = lang_itr
             locales = [DEFAULT_LANG]
 
-        # go over all geolocated languages in reverse order
+        # go over all geolocated and common languages in reverse order
         # and move those we have translation for to the top of the
         # list, above the separator
         for lang in reversed(langs):
@@ -195,8 +200,13 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         # And then we add a separator after the selected best language
         # and any additional languages (that have translations) from geoip
-        newItr = store.insert(len(langs_with_translations))
+        langs_with_translations_len = len(langs_with_translations)
+        newItr = store.insert(langs_with_translations_len)
         store.set(newItr, 0, "", 1, "", 2, "", 3, True)
+
+        # add a separator before common languages as well
+        commonLangsItr = store.insert(langs_with_translations_len - common_langs_len)
+        store.set(commonLangsItr, 0, "", 1, "", 2, "", 3, True)
 
         # setup the "best" locale
         locale = localization.setup_locale(locales[0], self._l12_module)
