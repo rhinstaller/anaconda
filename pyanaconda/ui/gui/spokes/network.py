@@ -494,6 +494,20 @@ class NetworkControlBox(GObject.GObject):
             dialog.refresh(device_name)
             dialog.run()
 
+    def _get_the_only_wireless_connection(self, device):
+        con_uuid = con_ssid = ""
+        if device:
+            cons = device.filter_connections(self.client.get_connections())
+            if len(cons) == 1:
+                connection = cons[0]
+                con_uuid = connection.get_setting_connection().get_uuid()
+                wireless_setting = connection.get_setting_wireless()
+                if wireless_setting:
+                    ssid_variant = wireless_setting.get_ssid()
+                    if ssid_variant:
+                        con_ssid = ssid_variant.get_data()
+        return con_uuid, con_ssid
+
     def on_edit_connection(self, *args):
         dev_cfg = self.selected_dev_cfg()
         if not dev_cfg:
@@ -508,16 +522,19 @@ class NetworkControlBox(GObject.GObject):
 
         if device_type == NM.DeviceType.WIFI:
 
-            # Run dialog
-            dialog = ConfigureWirelessNetworksDialog(self.spoke.data, self.client)
-            with self.spoke.main_window.enlightbox(dialog.window):
-                dialog.refresh(iface)
-                rc = dialog.run()
-                if rc != 1:
-                    return
+            con_uuid, selected_ssid = self._get_the_only_wireless_connection(device)
 
-                con_uuid = dialog.selected_uuid
-                selected_ssid = dialog.selected_ssid
+            if not con_uuid:
+                # Run dialog
+                dialog = ConfigureWirelessNetworksDialog(self.spoke.data, self.client)
+                with self.spoke.main_window.enlightbox(dialog.window):
+                    dialog.refresh(iface)
+                    rc = dialog.run()
+                    if rc != 1:
+                        return
+
+                    con_uuid = dialog.selected_uuid
+                    selected_ssid = dialog.selected_ssid
 
             if not con_uuid:
                 return
