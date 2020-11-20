@@ -26,10 +26,12 @@ from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE
     SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL, \
     SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, GROUP_PACKAGE_TYPES_REQUIRED, \
     GROUP_PACKAGE_TYPES_ALL, MULTILIB_POLICY_ALL
+from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
     PackagesConfigurationData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
@@ -356,6 +358,21 @@ class DNFInterfaceTestCase(unittest.TestCase):
             self.interface,
             *args, **kwargs
         )
+
+    def packages_kickstarted_property_test(self):
+        """Test the PackagesKickstarted property."""
+        self.assertEqual(self.interface.PackagesKickstarted, False)
+
+        data = KickstartSpecificationHandler(
+            PayloadKickstartSpecification
+        )
+
+        self.module.process_kickstart(data)
+        self.assertEqual(self.interface.PackagesKickstarted, False)
+
+        data.packages.seen = True
+        self.module.process_kickstart(data)
+        self.assertEqual(self.interface.PackagesKickstarted, True)
 
     def packages_property_test(self):
         """Test the Packages property."""
