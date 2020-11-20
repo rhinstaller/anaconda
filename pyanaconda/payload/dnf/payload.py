@@ -39,6 +39,7 @@ from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
+from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
@@ -1659,27 +1660,6 @@ class DNFPayload(Payload):
             if ks_repo.excludepkgs:
                 f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
 
-    def _import_rpm_keys(self):
-        """Import GPG keys to RPM database."""
-        if conf.payload.default_rpm_gpg_keys:
-            # TODO: replace the interpolation with DNF once possible
-            arch = util.execWithCapture("uname", ["-i"]).strip().replace("'", "")
-            vers = util.get_os_release_value("VERSION_ID", sysroot=conf.target.system_root)
-
-            if not os.path.exists(conf.target.system_root + "/usr/bin/rpm"):
-                log.error("Can not import GPG keys to RPM database because the 'rpm' executable "
-                          "is missing on the target system. The following keys were not "
-                          "imported:\n%s",
-                          "\n".join(conf.payload.default_rpm_gpg_keys))
-                return
-
-            for key in conf.payload.default_rpm_gpg_keys:
-                interpolated_key = key.replace("$releasever", vers).replace("$basearch", arch)
-                log.info("Importing GPG key to RPM database: %s", interpolated_key)
-                rc = util.execInSysroot("rpm", ["--import", interpolated_key])
-                if rc:
-                    log.error("Failed to import key.")
-
     def post_setup(self):
         """Perform post-setup tasks.
 
@@ -1719,7 +1699,11 @@ class DNFPayload(Payload):
         super().post_install()
 
         # rpm needs importing installed certificates manually, see rhbz#748320 and rhbz#185800
-        self._import_rpm_keys()
+        task = ImportRPMKeysTask(
+            sysroot=conf.target.system_root,
+            gpg_keys=conf.payload.default_rpm_gpg_keys
+        )
+        task.run()
 
     @property
     def kernel_version_list(self):
