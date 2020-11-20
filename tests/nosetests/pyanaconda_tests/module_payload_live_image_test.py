@@ -147,7 +147,6 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
     def post_install_with_tasks_test(self, publisher):
         """Test Live Image post installation configuration task."""
         # task_classes = [
-        #     UpdateBLSConfigurationTask,
         #     CopyDriverDisksFilesTask,
         #     TeardownInstallationSourceImageTask
         # ]

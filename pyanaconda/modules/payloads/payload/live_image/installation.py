@@ -18,7 +18,6 @@
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.modules.payloads.base.utils import create_rescue_image
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -27,11 +26,10 @@ log = get_module_logger(__name__)
 class InstallFromTarTask(Task):
     """Task to install the payload from tarball."""
 
-    def __init__(self, tarfile_path, dest_path, kernel_version_list):
+    def __init__(self, tarfile_path, dest_path):
         super().__init__()
         self._tarfile_path = tarfile_path
         self._dest_path = dest_path
-        self._kernel_version_list = kernel_version_list
 
     @property
     def name(self):
@@ -59,5 +57,3 @@ class InstallFromTarTask(Task):
 
         if err:
             raise InstallError(err or msg)
-
-        create_rescue_image(self._dest_path, self._kernel_version_list)

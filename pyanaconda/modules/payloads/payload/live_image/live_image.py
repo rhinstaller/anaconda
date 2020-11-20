@@ -90,14 +90,9 @@ class LiveImageModule(PayloadBase):
     def post_install_with_tasks(self):
         """Execute post installation steps.
 
-        * Update bootloader BLS configuration
         * Copy Driver Disk files to the resulting system
         """
         # return [
-        #     UpdateBLSConfigurationTask(
-        #         conf.target.system_root,
-        #         self.kernel_version_list
-        #     ),
         #     CopyDriverDisksFilesTask(conf.target.system_root)
         # ]
         return []

@@ -19,7 +19,6 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.modules.payloads.base.utils import create_rescue_image
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -28,19 +27,15 @@ log = get_module_logger(__name__)
 class InstallFromImageTask(Task):
     """Task to install the payload from image."""
 
-    def __init__(self, dest_path, kernel_version_list, source=None):
+    def __init__(self, dest_path, source=None):
         """Create a new task.
 
         :param dest_path: installation destination root path
         :type dest_path: str
-        :param kernel_version_list: list of kernel versions for rescue initrd images
-                                    to be created
-        :type kernel_version_list: list(str)
         """
         super().__init__()
         self._source = source
         self._dest_path = dest_path
-        self._kernel_version_list = kernel_version_list
 
     @property
     def name(self):
@@ -76,5 +71,3 @@ class InstallFromImageTask(Task):
 
         if err or rc == 11:
             raise InstallError(err or msg)
-
-        create_rescue_image(self._dest_path, self._kernel_version_list)
