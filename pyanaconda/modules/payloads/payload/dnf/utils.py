@@ -16,6 +16,9 @@
 # Red Hat, Inc.
 #
 import dnf.subject
+import dnf.const
+
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.regexes import VERSION_DIGITS
@@ -23,6 +26,19 @@ from pyanaconda.core.util import is_lpae_available
 from pyanaconda.product import productName, productVersion
 
 log = get_module_logger(__name__)
+
+
+def get_default_environment(dnf_manager):
+    """Get a default environment.
+
+    :return: an id of an environment or None
+    """
+    environments = dnf_manager.environments
+
+    if environments:
+        return environments[0]
+
+    return None
 
 
 def get_kernel_package(dnf_base, exclude_list):
@@ -69,3 +85,88 @@ def get_product_release_version():
 
     log.debug("Release version of %s is %s.", productName, release_version)
     return release_version
+
+
+def get_installation_specs(data, default_environment=None):
+    """Get specifications of packages, groups and modules for installation.
+
+    FIXME: Don't use the kickstart data.
+
+    :param data: a kickstart data
+    :param default_environment: a default environment to install
+    :return: a tuple of specification lists for inclusion and exclusion
+    """
+    # Note about package/group/module spec formatting:
+    # - leading @ signifies a group or module
+    # - no leading @ means a package
+    include_list = []
+    exclude_list = []
+
+    # Handle the environment.
+    if data.packages.default and default_environment:
+        env = default_environment
+        log.info("selecting default environment: %s", env)
+        include_list.append("@{}".format(env))
+    elif data.packages.environment:
+        env = data.packages.environment
+        log.info("selected environment: %s", env)
+        include_list.append("@{}".format(env))
+
+    # Handle the core group.
+    if data.packages.nocore:
+        log.info("skipping core group due to %%packages "
+                 "--nocore; system may not be complete")
+        exclude_list.append("@core")
+    else:
+        log.info("selected group: core")
+        include_list.append("@core")
+
+    # Handle groups.
+    for group in data.packages.excludedGroupList:
+        log.debug("excluding group %s", group.name)
+        exclude_list.append("@{}".format(group.name))
+
+    for group in data.packages.groupList:
+        default = group.include in (GROUP_ALL,
+                                    GROUP_DEFAULT)
+        optional = group.include == GROUP_ALL
+
+        # Packages in groups can have different types
+        # and we provide an option to users to set
+        # which types are going to be installed
+        # via the --nodefaults and --optional options.
+        #
+        # To not clash with module definitions we
+        # only use type specififcations if --nodefault,
+        # --optional or both are used.
+        if not default or optional:
+            type_list = list(dnf.const.GROUP_PACKAGE_TYPES)
+            if not default:
+                type_list.remove("default")
+            if optional:
+                type_list.append("optional")
+
+            types = ",".join(type_list)
+            group_spec = "@{group_name}/{types}".format(
+                group_name=group.name,
+                types=types
+            )
+        else:
+            # If group is a regular group this is equal to
+            # @group/mandatory,default,conditional (current
+            # content of the DNF GROUP_PACKAGE_TYPES constant).
+            group_spec = "@{}".format(group.name)
+
+        log.info("selected group: %s", group.name)
+        include_list.append(group_spec)
+
+    # Handle packages.
+    for pkg_name in data.packages.excludedList:
+        log.info("excluded package: %s", pkg_name)
+        exclude_list.append(pkg_name)
+
+    for pkg_name in data.packages.packageList:
+        log.info("selected package: %s", pkg_name)
+        include_list.append(pkg_name)
+
+    return include_list, exclude_list

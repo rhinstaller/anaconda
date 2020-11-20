@@ -19,10 +19,12 @@ import unittest
 from unittest.mock import patch, Mock
 
 from blivet.size import Size, ROUND_UP
+from dnf.exceptions import MarkingErrors
+
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pykickstart.constants import KS_BROKEN_IGNORE
+from pykickstart.constants import KS_BROKEN_IGNORE, KS_MISSING_IGNORE
 
 
 class DNFMangerTestCase(unittest.TestCase):
@@ -135,14 +137,17 @@ class DNFMangerTestCase(unittest.TestCase):
             "multilib_policy = best",
             "timeout = 30",
             "retries = 10",
-            "strict = 1",
             "install_weak_deps = 1",
         )
+
+        self.assertEqual(self.dnf_manager._ignore_broken_packages, False)
+        self.assertEqual(self.dnf_manager._ignore_missing_packages, False)
 
         data.packages.multiLib = True
         data.packages.timeout = 100
         data.packages.retries = 5
         data.packages.handleBroken = KS_BROKEN_IGNORE
+        data.packages.handleMissing = KS_MISSING_IGNORE
         data.packages.excludeWeakdeps = True
 
         self.dnf_manager.configure_base(data)
@@ -150,9 +155,11 @@ class DNFMangerTestCase(unittest.TestCase):
             "multilib_policy = all",
             "timeout = 100",
             "retries = 5",
-            "strict = 0",
             "install_weak_deps = 0",
         )
+
+        self.assertEqual(self.dnf_manager._ignore_broken_packages, True)
+        self.assertEqual(self.dnf_manager._ignore_missing_packages, True)
 
     def dump_configuration_test(self):
         """Test the dump of the DNF configuration."""
@@ -203,3 +210,96 @@ class DNFMangerTestCase(unittest.TestCase):
         size = self.dnf_manager.get_download_size()
 
         self.assertEqual(size, Size("450 MiB"))
+
+    def environments_test(self):
+        """Test the environments property."""
+        self.assertEqual(self.dnf_manager.environments, [])
+
+        # Fake environments.
+        env_1 = Mock(id="environment-1")
+        env_2 = Mock(id="environment-2")
+        env_3 = Mock(id="environment-3")
+
+        # Fake comps.
+        comps = Mock(environments=[env_1, env_2, env_3])
+
+        self.dnf_manager._base._comps = comps
+        self.assertEqual(self.dnf_manager.environments, [
+            "environment-1",
+            "environment-2",
+            "environment-3",
+        ])
+
+    @patch("dnf.base.Base.install_specs")
+    def apply_specs_test(self, install_specs):
+        """Test the apply_specs method."""
+        self.dnf_manager.apply_specs(
+            include_list=["@g1", "p1"],
+            exclude_list=["@g2", "p2"]
+        )
+
+        install_specs.assert_called_once_with(
+            install=["@g1", "p1"],
+            exclude=["@g2", "p2"],
+            strict=True
+        )
+
+    @patch("dnf.base.Base.install_specs")
+    def apply_specs_error_test(self, install_specs):
+        """Test the apply_specs method with an error."""
+        install_specs.side_effect = MarkingErrors(
+            error_group_specs=["@g1"]
+        )
+
+        with self.assertRaises(MarkingErrors):
+            self.dnf_manager.apply_specs(
+                include_list=["@g1", "p1"],
+                exclude_list=["@g2", "p2"]
+            )
+
+    @patch("dnf.base.Base.install_specs")
+    def apply_specs_ignore_broken_test(self, install_specs):
+        """Test the apply_specs method with ignored broken packages."""
+        self.dnf_manager._ignore_broken_packages = True
+        self.dnf_manager.apply_specs(
+            include_list=["@g1", "p1"],
+            exclude_list=["@g2", "p2"]
+        )
+
+        install_specs.assert_called_once_with(
+            install=["@g1", "p1"],
+            exclude=["@g2", "p2"],
+            strict=False
+        )
+
+    @patch("dnf.base.Base.install_specs")
+    def apply_specs_ignore_missing_test(self, install_specs):
+        """Test the apply_specs method with ignored missing packages."""
+        self.dnf_manager._ignore_missing_packages = True
+
+        # Ignore a missing package.
+        install_specs.side_effect = MarkingErrors(
+            no_match_pkg_specs=["p1"]
+        )
+
+        self.dnf_manager.apply_specs(
+            include_list=["@g1", "p1"],
+            exclude_list=["@g2", "p2"]
+        )
+
+        install_specs.assert_called_once_with(
+            install=["@g1", "p1"],
+            exclude=["@g2", "p2"],
+            strict=True
+        )
+
+        # Don't ignore a broken transaction.
+        install_specs.side_effect = MarkingErrors(
+            error_pkg_specs=["p1"]
+        )
+
+        with self.assertRaises(MarkingErrors):
+            self.dnf_manager.apply_specs(
+                include_list=["@g1", "p1"],
+                exclude_list=["@g2", "p2"]
+            )

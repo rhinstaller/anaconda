@@ -16,12 +16,74 @@
 # Red Hat, Inc.
 #
 import os
+import rpm
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
+
+
+class SetRPMMacrosTask(Task):
+    """Installation task to set RPM macros."""
+
+    def __init__(self, data):
+        """Create a task.
+
+        FIXME: Don't use the kickstart data.
+
+        :param data: a kickstart data
+        """
+        super().__init__()
+        self._data = data
+        self._macros = []
+
+    @property
+    def name(self):
+        """The name of the task."""
+        return "Set RPM macros"
+
+    def run(self):
+        """Run the task."""
+        self._macros = self._collect_macros(self._data)
+        self._install_macros(self._macros)
+
+    def _collect_macros(self, data):
+        """Collect the RPM macros."""
+        macros = list()
+
+        # nofsync speeds things up at the risk of rpmdb data loss in a crash.
+        # But if we crash mid-install you're boned anyway, so who cares?
+        macros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
+
+        if data.packages.excludeDocs:
+            macros.append(('_excludedocs', '1'))
+
+        if data.packages.instLangs is not None:
+            # Use nil if instLangs is empty
+            macros.append(('_install_langs', data.packages.instLangs or '%{nil}'))
+
+        if conf.security.selinux:
+            for d in ["/tmp/updates",
+                      "/etc/selinux/targeted/contexts/files",
+                      "/etc/security/selinux/src/policy",
+                      "/etc/security/selinux"]:
+                f = d + "/file_contexts"
+                if os.access(f, os.R_OK):
+                    macros.append(('__file_context_path', f))
+                    break
+        else:
+            macros.append(('__file_context_path', '%{nil}'))
+
+        return macros
+
+    def _install_macros(self, macros):
+        """Add RPM macros to the global transaction environment."""
+        for name, value in macros:
+            log.debug("Set '%s' to '%s'.", name, value)
+            rpm.addMacro(name, value)
 
 
 class ImportRPMKeysTask(Task):

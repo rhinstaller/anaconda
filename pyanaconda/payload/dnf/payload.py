@@ -33,21 +33,21 @@ import dnf.subject
 import libdnf.conf
 import rpm
 
-from dnf.const import GROUP_PACKAGE_TYPES
 from fnmatch import fnmatch
 from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
-from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask
+from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
+    SetRPMMacrosTask
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version
+    get_product_release_version, get_default_environment, get_installation_specs
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, GROUP_REQUIRED
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pykickstart.parser import Group
 
 from pyanaconda import errors as errors
@@ -101,7 +101,6 @@ class DNFPayload(Payload):
 
         self.tx_id = None
         self._install_tree_metadata = None
-        self._rpm_macros = []
 
         # Used to determine which add-ons to display for each environment.
         # The dictionary keys are environment IDs. The dictionary values are two-tuples
@@ -313,114 +312,26 @@ class DNFPayload(Payload):
     def _apply_selections(self):
         log.debug("applying DNF package/group/module selection")
 
-        # note about package/group/module spec formatting:
-        # - leading @ signifies a group or module
-        # - no leading @ means a package
+        # Get the default environment.
+        default_environment = get_default_environment(self._dnf_manager)
 
-        include_list = []
-        exclude_list = []
+        # Get the installation specs.
+        include_list, exclude_list = get_installation_specs(
+            self.data, default_environment
+        )
 
-        # handle "normal" groups
-        for group in self.data.packages.excludedGroupList:
-            log.debug("excluding group %s", group.name)
-            exclude_list.append("@{}".format(group.name))
-
-        # core groups
-        if self.data.packages.nocore:
-            log.info("skipping core group due to %%packages "
-                     "--nocore; system may not be complete")
-            exclude_list.append("@core")
-        else:
-            log.info("selected group: core")
-            include_list.append("@core")
-
-        # environment
-        env = None
-        if self.data.packages.default and self.environments:
-            env = self.environments[0]
-            log.info("selecting default environment: %s", env)
-        elif self.data.packages.environment:
-            env = self.data.packages.environment
-            log.info("selected environment: %s", env)
-        if env:
-            include_list.append("@{}".format(env))
-
-        # groups from kickstart data
-        for group in self.data.packages.groupList:
-            default = group.include in (GROUP_ALL,
-                                        GROUP_DEFAULT)
-            optional = group.include == GROUP_ALL
-
-            # Packages in groups can have different types
-            # and we provide an option to users to set
-            # which types are going to be installed
-            # via the --nodefaults and --optional options.
-            #
-            # To not clash with module definitions we
-            # only use type specififcations if --nodefault,
-            # --optional or both are used
-            if not default or optional:
-                type_list = list(GROUP_PACKAGE_TYPES)
-                if not default:
-                    type_list.remove("default")
-                if optional:
-                    type_list.append("optional")
-
-                types = ",".join(type_list)
-                group_spec = "@{group_name}/{types}".format(
-                    group_name=group.name,
-                    types=types
-                )
-            else:
-                # if group is a regular group this is equal to
-                # @group/mandatory,default,conditional (current
-                # content of the DNF GROUP_PACKAGE_TYPES constant)
-                group_spec = "@{}".format(group.name)
-
-            include_list.append(group_spec)
-
-        # handle packages
-        for pkg_name in self.data.packages.excludedList:
-            log.info("excluded package: '%s'", pkg_name)
-            exclude_list.append(pkg_name)
-
-        for pkg_name in self.data.packages.packageList:
-            log.info("selected package: '%s'", pkg_name)
-            include_list.append(pkg_name)
-
-        # add kernel package
+        # Add the kernel package.
         kernel_package = get_kernel_package(self._base, exclude_list)
 
         if kernel_package:
             include_list.append(kernel_package)
 
-        # resolve packages and groups required by Anaconda
+        # Apply requirements.
         apply_requirements(self._requirements, include_list, exclude_list)
 
-        # log the resulting set
-        log.debug("transaction include list")
-        log.debug(include_list)
-        log.debug("transaction exclude list")
-        log.debug(exclude_list)
-
-        # feed it to DNF
+        # Apply specs.
         try:
-            # FIXME: Remove self._base.conf.strict workaround when bz1761518 is fixed
-            # install_specs() returns a list of specs that appear to be missing
-            self._base.install_specs(install=include_list, exclude=exclude_list,
-                                     strict=self._base.conf.strict)
-        except dnf.exceptions.MarkingErrors as e:
-            log.debug("install_specs(): some packages, groups or modules "
-                      " are missing or broken:\n%s", e)
-            # if no errors were reported and --ignoremissing was used we can continue
-            transaction_broken = e.error_group_specs or \
-                e.error_pkg_specs or \
-                e.module_depsolv_errors
-            if not transaction_broken and self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                log.info("ignoring missing package/group/module "
-                         "specs due to --ignoremissing flag in kickstart")
-            else:
-                self._payload_setup_error(e)
+            self._dnf_manager.apply_specs(include_list, exclude_list)
         except Exception as e:  # pylint: disable=broad-except
             self._payload_setup_error(e)
 
@@ -532,7 +443,7 @@ class DNFPayload(Payload):
 
     @property
     def environments(self):
-        return [env.id for env in self._base.comps.environments]
+        return self._dnf_manager.environments
 
     def select_environment(self, environment_id):
         if environment_id not in self.environments:
@@ -970,47 +881,11 @@ class DNFPayload(Payload):
                 elif self._is_group_visible(grp):
                     self._environment_addons[environment][1].append(grp)
 
-    @property
-    def rpm_macros(self):
-        """A list of (name, value) pairs to define as macros in the rpm transaction."""
-        return self._rpm_macros
-
-    @rpm_macros.setter
-    def rpm_macros(self, value):
-        self._rpm_macros = value
-
     def pre_install(self):
         super().pre_install()
 
         # Collect all package and group requirements.
         self._collect_requirements()
-
-        # Set rpm-specific options
-        self._set_rpm_macros()
-
-    def _set_rpm_macros(self):
-        # nofsync speeds things up at the risk of rpmdb data loss in a crash.
-        # But if we crash mid-install you're boned anyway, so who cares?
-        self.rpm_macros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
-
-        if self.data.packages.excludeDocs:
-            self.rpm_macros.append(('_excludedocs', '1'))
-
-        if self.data.packages.instLangs is not None:
-            # Use nil if instLangs is empty
-            self.rpm_macros.append(('_install_langs', self.data.packages.instLangs or '%{nil}'))
-
-        if conf.security.selinux:
-            for d in ["/tmp/updates",
-                      "/etc/selinux/targeted/contexts/files",
-                      "/etc/security/selinux/src/policy",
-                      "/etc/security/selinux"]:
-                f = d + "/file_contexts"
-                if os.access(f, os.R_OK):
-                    self.rpm_macros.append(('__file_context_path', f))
-                    break
-        else:
-            self.rpm_macros.append(('__file_context_path', '%{nil}'))
 
     def _collect_requirements(self):
         self._requirements.extend(
@@ -1024,8 +899,8 @@ class DNFPayload(Payload):
         progress_message(N_('Starting package installation process'))
 
         # Add the rpm macros to the global transaction environment
-        for macro in self.rpm_macros:
-            rpm.addMacro(macro[0], macro[1])
+        task = SetRPMMacrosTask(self.data)
+        task.run()
 
         try:
             self.check_software_selection()

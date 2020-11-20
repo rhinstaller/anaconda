@@ -18,10 +18,115 @@
 import os
 import tempfile
 import unittest
+
 from unittest.mock import patch, call
 
+from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.core.util import join_paths
-from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask
+from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
+from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
+    SetRPMMacrosTask
+
+
+class SetRPMMacrosTaskTestCase(unittest.TestCase):
+    """Test the installation task for setting the RPM macros."""
+
+    def _get_data(self):
+        """Get the kickstart data for the Payloads module."""
+        return KickstartSpecificationHandler(
+            PayloadKickstartSpecification
+        )
+
+    def _run_task(self, data):
+        """Run the installation task."""
+        task = SetRPMMacrosTask(data)
+        task.run()
+        return task
+
+    def _check_macros(self, task, mock_rpm, expected_macros):
+        """Check that the expected macros are set up."""
+        self.assertEqual(task._macros, expected_macros)
+
+        calls = [call(*macro) for macro in expected_macros]
+        mock_rpm.addMacro.assert_has_calls(calls)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
+    def set_rpm_macros_default_test(self, mock_rpm):
+        data = self._get_data()
+
+        macros = [
+            ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}')
+        ]
+
+        task = self._run_task(data)
+        self._check_macros(task, mock_rpm, macros)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
+    def set_rpm_macros_exclude_docs_test(self, mock_rpm):
+        data = self._get_data()
+        data.packages.excludeDocs = True
+
+        macros = [
+            ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
+            ('_excludedocs', '1'),
+        ]
+
+        task = self._run_task(data)
+        self._check_macros(task, mock_rpm, macros)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
+    def set_rpm_macros_install_langs_test(self, mock_rpm):
+        data = self._get_data()
+        data.packages.instLangs = "en,es"
+
+        macros = [
+            ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
+            ('_install_langs', 'en,es'),
+        ]
+
+        task = self._run_task(data)
+        self._check_macros(task, mock_rpm, macros)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
+    def set_rpm_macros_no_install_langs_test(self, mock_rpm):
+        data = self._get_data()
+        data.packages.instLangs = ""
+
+        macros = [
+            ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
+            ('_install_langs', '%{nil}'),
+        ]
+
+        task = self._run_task(data)
+        self._check_macros(task, mock_rpm, macros)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
+    def set_rpm_macros_selinux_test(self, mock_rpm, mock_os):
+        mock_os.access.return_value = True
+        data = self._get_data()
+
+        macros = [
+            ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
+            ('__file_context_path', '/tmp/updates/file_contexts'),
+        ]
+
+        task = self._run_task(data)
+        self._check_macros(task, mock_rpm, macros)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.conf")
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
+    def set_rpm_macros_selinux_disabled_test(self, mock_rpm, mock_conf):
+        mock_conf.security.selinux = 0
+        data = self._get_data()
+
+        macros = [
+            ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
+            ('__file_context_path', '%{nil}'),
+        ]
+
+        task = self._run_task(data)
+        self._check_macros(task, mock_rpm, macros)
 
 
 class ImportRPMKeysTaskTestCase(unittest.TestCase):
