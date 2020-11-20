@@ -20,12 +20,11 @@ import dnf.const
 import fnmatch
 import rpm
 
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import is_lpae_available, decode_bytes
+from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
@@ -91,12 +90,10 @@ def get_product_release_version():
     return release_version
 
 
-def get_installation_specs(data, default_environment=None):
+def get_installation_specs(data: PackagesConfigurationData, default_environment=None):
     """Get specifications of packages, groups and modules for installation.
 
-    FIXME: Don't use the kickstart data.
-
-    :param data: a kickstart data
+    :param data: a packages configuration data
     :param default_environment: a default environment to install
     :return: a tuple of specification lists for inclusion and exclusion
     """
@@ -107,17 +104,17 @@ def get_installation_specs(data, default_environment=None):
     exclude_list = []
 
     # Handle the environment.
-    if data.packages.default and default_environment:
+    if data.default_environment_enabled and default_environment:
         env = default_environment
         log.info("selecting default environment: %s", env)
         include_list.append("@{}".format(env))
-    elif data.packages.environment:
-        env = data.packages.environment
+    elif data.environment:
+        env = data.environment
         log.info("selected environment: %s", env)
         include_list.append("@{}".format(env))
 
     # Handle the core group.
-    if data.packages.nocore:
+    if not data.core_group_enabled:
         log.info("skipping core group due to %%packages "
                  "--nocore; system may not be complete")
         exclude_list.append("@core")
@@ -126,50 +123,35 @@ def get_installation_specs(data, default_environment=None):
         include_list.append("@core")
 
     # Handle groups.
-    for group in data.packages.excludedGroupList:
-        log.debug("excluding group %s", group.name)
-        exclude_list.append("@{}".format(group.name))
+    for group_name in data.excluded_groups:
+        log.debug("excluding group %s", group_name)
+        exclude_list.append("@{}".format(group_name))
 
-    for group in data.packages.groupList:
-        default = group.include in (GROUP_ALL,
-                                    GROUP_DEFAULT)
-        optional = group.include == GROUP_ALL
-
+    for group_name in data.groups:
         # Packages in groups can have different types
         # and we provide an option to users to set
-        # which types are going to be installed
-        # via the --nodefaults and --optional options.
-        #
-        # To not clash with module definitions we
-        # only use type specififcations if --nodefault,
-        # --optional or both are used.
-        if not default or optional:
-            type_list = list(dnf.const.GROUP_PACKAGE_TYPES)
-            if not default:
-                type_list.remove("default")
-            if optional:
-                type_list.append("optional")
-
-            types = ",".join(type_list)
+        # which types are going to be installed.
+        if group_name in data.groups_package_types:
+            type_list = data.groups_package_types[group_name]
             group_spec = "@{group_name}/{types}".format(
-                group_name=group.name,
-                types=types
+                group_name=group_name,
+                types=",".join(type_list)
             )
         else:
             # If group is a regular group this is equal to
             # @group/mandatory,default,conditional (current
             # content of the DNF GROUP_PACKAGE_TYPES constant).
-            group_spec = "@{}".format(group.name)
+            group_spec = "@{}".format(group_name)
 
-        log.info("selected group: %s", group.name)
+        log.info("selected group: %s", group_name)
         include_list.append(group_spec)
 
     # Handle packages.
-    for pkg_name in data.packages.excludedList:
+    for pkg_name in data.excluded_packages:
         log.info("excluded package: %s", pkg_name)
         exclude_list.append(pkg_name)
 
-    for pkg_name in data.packages.packageList:
+    for pkg_name in data.packages:
         log.info("selected package: %s", pkg_name)
         include_list.append(pkg_name)
 
