@@ -249,6 +249,11 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         welcomeLabel.set_text(_("WELCOME TO %(name)s %(version)s.") %
                 {"name" : productName.upper(), "version" : productVersion})         # pylint: disable=no-member
 
+        # Product title may be long and make the window of Anaconda so wide
+        # that it will not fit into not big resolutions of VMs and some screens;
+        # avoid this by wrapping long lines.
+        welcomeLabel.set_line_wrap(True)
+
         # Retranslate the language (filtering) entry's placeholder text
         languageEntry = self.builder.get_object("languageEntry")
         if languageEntry not in self._origStrings:
