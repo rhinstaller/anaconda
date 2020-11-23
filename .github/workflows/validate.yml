@@ -22,6 +22,9 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
+      - name: Rebase to current master
+        run: git rebase origin/master
+
       - name: Check if container changed in this PR
         id: check-dockerfile-changed
         run: |
