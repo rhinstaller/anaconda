@@ -65,7 +65,11 @@ jobs:
           fetch-depth: 0
 
       - name: Rebase to current rhel-8
-        run: git rebase origin/rhel-8
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/rhel-8
+          git rebase origin/rhel-8
 
       - name: Run test
         run: |
