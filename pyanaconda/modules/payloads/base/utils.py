@@ -18,14 +18,13 @@
 # Red Hat, Inc.
 #
 import functools
-import glob
 import os
 import stat
 
+from distutils.version import LooseVersion
+
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.util import mkdirChain
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.payload.utils import version_cmp
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -94,13 +93,13 @@ def get_dir_size(directory):
     return get_subdir_size(directory) // 1024
 
 
-def get_kernel_version_list(root_path):
-    files = glob.glob(root_path + "/boot/vmlinuz-*")
-    files.extend(
-        glob.glob(root_path + "/boot/efi/EFI/{}/vmlinuz-*".format(conf.bootloader.efi_dir))
-    )
+def sort_kernel_version_list(kernel_version_list):
+    """Sort the given kernel version list."""
+    kernel_version_list.sort(key=functools.cmp_to_key(_compare_versions))
 
-    kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
-                                  if os.path.isfile(f) and "-rescue-" not in f),
-                                 key=functools.cmp_to_key(version_cmp))
-    return kernel_version_list
+
+def _compare_versions(v1, v2):
+    """Compare two version number strings."""
+    first_version = LooseVersion(v1)
+    second_version = LooseVersion(v2)
+    return (first_version > second_version) - (first_version < second_version)

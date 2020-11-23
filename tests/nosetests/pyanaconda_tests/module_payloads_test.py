@@ -17,12 +17,8 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
-import os
-
 from unittest import TestCase
 from unittest.mock import patch, create_autospec, DEFAULT
-from textwrap import dedent
-from tempfile import TemporaryDirectory
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
@@ -32,8 +28,6 @@ from pyanaconda.modules.common.containers import PayloadContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
-from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_blacklist, \
-    get_dir_size
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.constants import PayloadType
@@ -322,61 +316,3 @@ class PayloadSharedTasksTest(TestCase):
         tear_down_task1.run.assert_called_once()
         tear_down_task2.run.assert_called_once()
         tear_down_task3.run.assert_called_once()
-
-
-class PayloadSharedUtilsTest(TestCase):
-
-    def create_root_test(self):
-        """Test payload create root directory function."""
-        with TemporaryDirectory() as temp:
-            create_root_dir(temp)
-
-            root_dir = os.path.join(temp, "/root")
-
-            self.assertTrue(os.path.isdir(root_dir))
-
-    @patch('pyanaconda.modules.payloads.base.utils.kernel_arguments',
-           {"modprobe.blacklist": "mod1 mod2 nonono_mod"})
-    def write_module_blacklist_test(self):
-        """Test write kernel module blacklist to the install root."""
-        with TemporaryDirectory() as temp:
-            write_module_blacklist(temp)
-
-            blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
-
-            self.assertTrue(os.path.isfile(blacklist_file))
-
-            with open(blacklist_file, "rt") as f:
-                expected_content = """
-                # Module blacklists written by anaconda
-                blacklist mod1
-                blacklist mod2
-                blacklist nonono_mod
-                """
-                self.assertEqual(dedent(expected_content).lstrip(), f.read())
-
-    @patch('pyanaconda.modules.payloads.base.utils.kernel_arguments', {})
-    def write_empty_module_blacklist_test(self):
-        """Test write kernel module blacklist to the install root -- empty list."""
-        with TemporaryDirectory() as temp:
-            write_module_blacklist(temp)
-
-            blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
-
-            self.assertFalse(os.path.isfile(blacklist_file))
-
-    def get_dir_size_test(self):
-        """Test the get_dir_size function."""
-
-        # dev null should have a size == 0
-        self.assertEqual(get_dir_size('/dev/null'), 0)
-
-        # incorrect path should also return 0
-        self.assertEqual(get_dir_size('/dev/null/foo'), 0)
-
-        # check if an int is always returned
-        self.assertIsInstance(get_dir_size('/dev/null'), int)
-        self.assertIsInstance(get_dir_size('/dev/null/foo'), int)
-
-        # TODO: mock some dirs and check if their size is
-        # computed correctly

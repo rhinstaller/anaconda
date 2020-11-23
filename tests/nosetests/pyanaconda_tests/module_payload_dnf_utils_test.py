@@ -24,7 +24,8 @@ from pyanaconda.core.kickstart.specification import KickstartSpecificationHandle
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version, get_default_environment, get_installation_specs
+    get_product_release_version, get_default_environment, get_installation_specs, \
+    get_kernel_version_list
 
 
 class DNFUtilsPackagesTestCase(unittest.TestCase):
@@ -172,3 +173,31 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
                 "@g6"
             ]
         ))
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.rpm")
+    def get_kernel_version_list_test(self, mock_rpm):
+        """Test the get_kernel_version_list function."""
+        hdr_1 = Mock(filenames=[
+            "/boot/vmlinuz-0-rescue-dbe69c1b88f94a67b689e3f44b0550c8"
+            "/boot/vmlinuz-5.8.15-201.fc32.x86_64",
+            "/boot/efi/EFI/default/vmlinuz-6.8.15-201.fc32.x86_64",
+        ])
+
+        hdr_2 = Mock(filenames=[
+            "/boot/vmlinuz-5.8.16-200.fc32.x86_64",
+            "/boot/efi/EFI/default/vmlinuz-7.8.16-200.fc32.x86_64",
+            "/boot/vmlinuz-5.8.18-200.fc32.x86_64"
+            "/boot/efi/EFI/default/vmlinuz-8.8.18-200.fc32.x86_64"
+        ])
+
+        ts = Mock()
+        ts.dbMatch.return_value = [hdr_1, hdr_2]
+
+        mock_rpm.TransactionSet.return_value = ts
+        self.assertEqual(get_kernel_version_list(), [
+            '5.8.15-201.fc32.x86_64',
+            '5.8.16-200.fc32.x86_64',
+            '6.8.15-201.fc32.x86_64',
+            '7.8.16-200.fc32.x86_64',
+            '8.8.18-200.fc32.x86_64'
+        ])

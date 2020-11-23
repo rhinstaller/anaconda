@@ -27,7 +27,7 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
-from pyanaconda.modules.payloads.base.utils import get_kernel_version_list
+from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
 
 class LiveUtilsTestCase(unittest.TestCase):

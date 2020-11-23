@@ -17,7 +17,6 @@
 # Red Hat, Inc.
 #
 import configparser
-import functools
 import multiprocessing
 import os
 import shutil
@@ -31,9 +30,7 @@ import dnf.module.module_base
 import dnf.repo
 import dnf.subject
 import libdnf.conf
-import rpm
 
-from fnmatch import fnmatch
 from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -44,7 +41,8 @@ from pyanaconda.modules.payloads.payload.dnf.requirements import collect_languag
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version, get_default_environment, get_installation_specs
+    get_product_release_version, get_default_environment, get_installation_specs, \
+    get_kernel_version_list
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
@@ -59,7 +57,6 @@ from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.core.util import decode_bytes
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
@@ -1582,16 +1579,4 @@ class DNFPayload(Payload):
 
     @property
     def kernel_version_list(self):
-        # Find all installed rpms that provide 'kernel'
-        files = []
-        ts = rpm.TransactionSet(conf.target.system_root)
-        mi = ts.dbMatch('providename', 'kernel')
-
-        for hdr in mi:
-            unicode_fnames = (decode_bytes(f) for f in hdr.filenames)
-            # Find all /boot/vmlinuz- files and strip off vmlinuz-
-            files.extend((f.split("/")[-1][8:] for f in unicode_fnames
-                         if fnmatch(f, "/boot/vmlinuz-*") or
-                         fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir)))
-
-        return sorted(files, key=functools.cmp_to_key(payload_utils.version_cmp))
+        return get_kernel_version_list()

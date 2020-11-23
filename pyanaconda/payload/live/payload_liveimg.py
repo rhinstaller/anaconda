@@ -15,7 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import functools
 import glob
 import hashlib
 import os
@@ -32,6 +31,7 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, TAR_SUFFIX, \
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.payload.live.download_progress import DownloadProgress
@@ -368,12 +368,6 @@ class LiveImagePayload(BaseLivePayload):
         if not os.path.exists(self.image_path):
             raise PayloadInstallError("kernel_version_list: missing tar payload")
 
-        import tarfile
-        with tarfile.open(self.image_path) as archive:
-            names = archive.getnames()
+        self._kernel_version_list = get_kernel_version_list_from_tar(self.image_path)
 
-            # Strip out vmlinuz- from the names
-            self._kernel_version_list = sorted((n.split("/")[-1][8:] for n in names
-                                               if "boot/vmlinuz-" in n),
-                                               key=functools.cmp_to_key(payload_utils.version_cmp))
         return self._kernel_version_list

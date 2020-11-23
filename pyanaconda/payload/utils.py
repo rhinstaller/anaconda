@@ -19,8 +19,6 @@
 import os
 import blivet.util
 
-from distutils.version import LooseVersion
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -160,10 +158,3 @@ def mount(device_path, mount_point, fstype, options):
         return blivet.util.mount(device_path, mount_point, fstype=fstype, options=options)
     except OSError as e:
         raise PayloadSetupError(str(e)) from e
-
-
-def version_cmp(v1, v2):
-    """Compare two version number strings."""
-    first_version = LooseVersion(v1)
-    second_version = LooseVersion(v2)
-    return (first_version > second_version) - (first_version < second_version)

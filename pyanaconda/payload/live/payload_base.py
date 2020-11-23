@@ -15,8 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import functools
-import glob
 import os
 from threading import Lock
 from time import sleep
@@ -27,6 +25,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
 from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadInstallError
@@ -127,13 +126,7 @@ class BaseLivePayload(Payload):
         super().post_install()
 
     def _update_kernel_version_list(self):
-        files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
-        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" %
-                               conf.bootloader.efi_dir))
-
-        self._kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
-                                           if os.path.isfile(f) and "-rescue-" not in f),
-                                           key=functools.cmp_to_key(payload_utils.version_cmp))
+        self._kernel_version_list = get_kernel_version_list(INSTALL_TREE)
 
     @property
     def kernel_version_list(self):
