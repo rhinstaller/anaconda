@@ -367,6 +367,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 23 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.2-1
+- Install Red Hat IT root certificate into anaconda-ci container (mpitt)
+  Related: rhbz#1885635
+- Install python-copr into anaconda-ci container (mpitt)
+  Related: rhbz#1885635
+- Change handling of UID and GID values (vslavik)
+  Related: rhbz#1786680
+- Send UID and GID over D-Bus as UInt32 (vslavik)
+  Related: rhbz#1786680
+- Correct limits for UIDs and GIDs in GUI (vslavik)
+  Resolves: rhbz#1786680
+- Add rhel unit-tests workflow for pull_request_trigger back (jkonecny)
+  Related: rhbz#1885635
+- Select disks for implicit partitions (vponcova)
+  Resolves: rhbz#1642391
+- Extend the PartSpec class (vponcova)
+  Related: rhbz#1642391
+
 * Fri Nov 06 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.1-1
 - Allow to format selected DASDs (vponcova)
   Resolves: rhbz#1874394
