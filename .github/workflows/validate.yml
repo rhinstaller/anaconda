@@ -23,7 +23,11 @@ jobs:
           fetch-depth: 0
 
       - name: Rebase to current master
-        run: git rebase origin/master
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/master
+          git rebase origin/master
 
       - name: Check if container changed in this PR
         id: check-dockerfile-changed
