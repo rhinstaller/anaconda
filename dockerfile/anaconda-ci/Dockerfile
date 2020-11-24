@@ -30,6 +30,7 @@ RUN set -e; \
   libicu \
   lttng-ust \
   rpm-ostree \
+  patch \
   pykickstart \
   python3-pip \
   python3-lxml \
@@ -49,6 +50,10 @@ RUN pip install \
   dogtail \
   nose-testconfig \
   rpmfluff
+
+# HACK: Apply fix from https://github.com/PyCQA/astroid/pull/847 to avoid
+# excessive memory usage, until astroid > 2.4.2 gets released
+RUN curl https://github.com/PyCQA/astroid/commit/d62349a424c549b4634c90e471c9f876b99edfeb.patch | patch /usr/local/lib/python3*/site-packages/astroid/manager.py
 
 # see https://github.com/martinpitt/anaconda/settings/actions/add-new-runner
 RUN mkdir actions-runner && cd actions-runner && \
