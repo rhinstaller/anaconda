@@ -15,6 +15,7 @@ jobs:
       matrix:
         branch:
           - master
+    timeout-minutes: 60
     steps:
       - name: Checkout anaconda repository
         uses: actions/checkout@v2
