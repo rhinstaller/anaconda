@@ -14,3 +14,10 @@ jobs:
     metadata:
       targets:
         - fedora-rawhide
+
+  # enable also smoke tests on Fedora ELN but right now it's not supported by Cruncher
+  - job: copr_build
+    trigger: pull_request
+    metadata:
+      targets:
+        - fedora-eln
