@@ -116,23 +116,6 @@ class CensorshipLinter():
     def _prepare_args(self):
         args = []
 
-        # pylint uses a lot of memory and doesn't handle ENOMEM well, so set --jobs based on memory
-        # do this early so that command_line_args can override -j
-        avail_mem_kb = 0
-        with open("/proc/meminfo") as f:
-            for line in f:
-                if line.startswith("MemAvailable:"):
-                    avail_mem_kb = int(line.split()[1])
-                    break
-        num_cpus = multiprocessing.cpu_count()
-        # each process uses ~ 2 GiB RAM, leave some breathing space
-        jobs = max(1, avail_mem_kb // 3000000)
-        # but also clip to nproc
-        jobs = min(jobs, num_cpus)
-        print("Using", jobs, "parallel jobs based on", avail_mem_kb, "kB available RAM and",
-              num_cpus, "CPUs")
-        args.append("-j%i" % jobs)
-
         if self._config.command_line_args:
             args = self._config.command_line_args
 
