@@ -1114,7 +1114,7 @@ class DNFPayload(Payload):
                 base_repo_url = self._get_base_repo_location(install_tree_url)
                 log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
 
-                self._load_treeinfo_repositories(base_repo_url, disabled_treeinfo_repo_names)
+                self._load_treeinfo_repositories(base_repo_url, disabled_treeinfo_repo_names, data)
             except configparser.MissingSectionHeaderError as e:
                 log.error("couldn't set releasever from base repo (%s): %s", source_type, e)
 
@@ -1340,7 +1340,8 @@ class DNFPayload(Payload):
         #   - the path to a cert file
         #   - True, to use the system's certificates
         #   - False, to not verify
-        ssl_verify = data.ssl_configuration.ca_cert_path or conf.payload.verify_ssl
+        ssl_verify = (data.ssl_configuration.ca_cert_path
+                      or (conf.payload.verify_ssl and data.ssl_verification_enabled))
         ssl_client_cert = data.ssl_configuration.client_cert_path or None
         ssl_client_key = data.ssl_configuration.client_key_path or None
         ssl_cert = (ssl_client_cert, ssl_client_key) if ssl_client_cert else None
@@ -1419,13 +1420,14 @@ class DNFPayload(Payload):
         log.debug("No base repository found in treeinfo file. Using installation tree root.")
         return install_tree_url
 
-    def _load_treeinfo_repositories(self, base_repo_url, repo_names_to_disable):
+    def _load_treeinfo_repositories(self, base_repo_url, repo_names_to_disable, data):
         """Load new repositories from treeinfo file.
 
         :param base_repo_url: base repository url. This is not saved anywhere when the function
                               is called. It will be add to the existing urls if not None.
         :param repo_names_to_disable: list of repository names which should be disabled after load
         :type repo_names_to_disable: [str]
+        :param data: repo configuration data
         """
         if self._install_tree_metadata:
             existing_urls = []
@@ -1449,8 +1451,17 @@ class DNFPayload(Payload):
                     else:
                         repo_enabled = repo_treeinfo.type in enabled_repositories_from_treeinfo
 
-                    repo = RepoData(name=repo_md.name, baseurl=repo_md.path,
-                                    install=False, enabled=repo_enabled)
+                    repo = RepoData(
+                        name=repo_md.name,
+                        baseurl=repo_md.path,
+                        noverifyssl=not data.ssl_verification_enabled,
+                        proxy=data.proxy,
+                        sslcacert=data.ssl_configuration.ca_cert_path,
+                        sslclientcert=data.ssl_configuration.client_cert_path,
+                        sslclientkey=data.ssl_configuration.client_key_path,
+                        install=False,
+                        enabled=repo_enabled
+                    )
                     repo.treeinfo_origin = True
                     log.debug("Adding new treeinfo repository: %s enabled: %s",
                               repo_md.name, repo_enabled)
