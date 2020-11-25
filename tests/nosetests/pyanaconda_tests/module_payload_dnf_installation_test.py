@@ -21,21 +21,15 @@ import unittest
 
 from unittest.mock import patch, call
 
-from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
+from pyanaconda.core.constants import RPM_LANGUAGES_NONE
 from pyanaconda.core.util import join_paths
-from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
+from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask
 
 
 class SetRPMMacrosTaskTestCase(unittest.TestCase):
     """Test the installation task for setting the RPM macros."""
-
-    def _get_data(self):
-        """Get the kickstart data for the Payloads module."""
-        return KickstartSpecificationHandler(
-            PayloadKickstartSpecification
-        )
 
     def _run_task(self, data):
         """Run the installation task."""
@@ -52,7 +46,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
     def set_rpm_macros_default_test(self, mock_rpm):
-        data = self._get_data()
+        data = PackagesConfigurationData()
 
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}')
@@ -63,8 +57,8 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
     def set_rpm_macros_exclude_docs_test(self, mock_rpm):
-        data = self._get_data()
-        data.packages.excludeDocs = True
+        data = PackagesConfigurationData()
+        data.docs_excluded = True
 
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
@@ -76,8 +70,8 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
     def set_rpm_macros_install_langs_test(self, mock_rpm):
-        data = self._get_data()
-        data.packages.instLangs = "en,es"
+        data = PackagesConfigurationData()
+        data.languages = "en,es"
 
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
@@ -89,8 +83,8 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
     def set_rpm_macros_no_install_langs_test(self, mock_rpm):
-        data = self._get_data()
-        data.packages.instLangs = ""
+        data = PackagesConfigurationData()
+        data.languages = RPM_LANGUAGES_NONE
 
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
@@ -104,7 +98,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
     def set_rpm_macros_selinux_test(self, mock_rpm, mock_os):
         mock_os.access.return_value = True
-        data = self._get_data()
+        data = PackagesConfigurationData()
 
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
@@ -118,7 +112,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
     def set_rpm_macros_selinux_disabled_test(self, mock_rpm, mock_conf):
         mock_conf.security.selinux = 0
-        data = self._get_data()
+        data = PackagesConfigurationData()
 
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
