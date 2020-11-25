@@ -17,12 +17,18 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.core.i18n import N_
+from pyanaconda.core.i18n import _
 from pyanaconda.ui.categories import SpokeCategory
 
 __all__ = ["SoftwareCategory"]
 
 
 class SoftwareCategory(SpokeCategory):
-    sortOrder = 200
-    title = N_("SOFTWARE")
+
+    @staticmethod
+    def get_title():
+        return _("SOFTWARE")
+
+    @staticmethod
+    def get_sort_order():
+        return 200

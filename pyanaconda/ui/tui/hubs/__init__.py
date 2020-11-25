@@ -67,7 +67,9 @@ class TUIHub(TUIObject, common.Hub):
         cats_and_spokes = self._collectCategoriesAndSpokes()
         categories = cats_and_spokes.keys()
 
-        for c in sorted(categories, key=lambda i: i.title):
+        # display categories by sort order or class name if their
+        # sort order is the same
+        for c in common.sort_categories(categories):
 
             hub_spokes = []
             for spoke_class in cats_and_spokes[c]:

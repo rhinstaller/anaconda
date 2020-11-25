@@ -665,7 +665,7 @@ def collectCategoriesAndSpokes(paths, klass):
     ret = {}
     # Collect all the categories this hub displays, then collect all the
     # spokes belonging to all those categories.
-    categories = sorted(collect_categories(paths["categories"]), key=lambda c: c.sortOrder)
+    categories = sorted(collect_categories(paths["categories"]), key=lambda c: c.get_sort_order())
 
     for c in categories:
         ret[c] = collect_spokes(paths["spokes"], c.__name__)
@@ -683,3 +683,22 @@ def collectCategoriesAndSpokes(paths, klass):
     lifecycle.add_controller(klass.__name__, category_names)
 
     return ret
+
+
+def sort_categories(categories):
+    """Sort categories based on sort order & calls name.
+
+    While sort order is the primarily sorting key, we can't always
+    assure all categories have unique sort order values.
+    So make the class name part of the sorting key, to at least
+    make the resulting category sort order deterministic.
+
+    To do this we concatenate we create a tuple as the sorting key,
+    with the sort order integer being followed by the by the class
+    name. This way the categories will be sorted by the sort order
+    first and then by class name if sort order happens to be the same.
+
+    :param categories: list of categories
+    :type categories: SpokeCategory sub classes
+    """
+    return sorted(categories, key=lambda i: (i.get_sort_order(), i.__class__))

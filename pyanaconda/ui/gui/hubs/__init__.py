@@ -130,11 +130,9 @@ class Hub(GUIObject, common.Hub):
 
         row_in_column = [-1] * self._gridColumns
 
-        for c in sorted(categories, key=lambda c: c.sortOrder):
-            obj = c()
-
+        for category in common.sort_categories(categories):
             selectors = []
-            for spokeClass in sorted(cats_and_spokes[c], key=lambda s: s.title):
+            for spokeClass in sorted(cats_and_spokes[category], key=lambda s: s.title):
                 # Check if this spoke is to be shown in the supported environments
                 if not any(spokeClass.should_run(environ, self.data) for environ in flags.environs):
                     continue
@@ -196,7 +194,14 @@ class Hub(GUIObject, common.Hub):
             if not selectors:
                 continue
 
-            label = Gtk.Label(label="<span size=\"larger\" weight=\"bold\">%s</span>" % escape_markup(_(obj.title)),
+            # category handling
+
+            # excape unwanted markup
+            cat_title = escape_markup(category.get_title())
+            # generate pango markup
+            cat_label = '<span size="larger" weight="bold">{}</span>'.format(cat_title)
+            # setup the category label
+            label = Gtk.Label(label=cat_label,
                               use_markup=True, halign=Gtk.Align.START, valign=Gtk.Align.END,
                               margin_bottom=6, wrap=True, xalign=0.0)
 

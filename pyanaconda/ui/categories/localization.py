@@ -17,12 +17,18 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.core.i18n import N_
+from pyanaconda.core.i18n import _
 from pyanaconda.ui.categories import SpokeCategory
 
 __all__ = ["LocalizationCategory"]
 
 
 class LocalizationCategory(SpokeCategory):
-    sortOrder = 100
-    title = N_("LOCALIZATION")
+
+    @staticmethod
+    def get_title():
+        return _("LOCALIZATION")
+
+    @staticmethod
+    def get_sort_order():
+        return 100

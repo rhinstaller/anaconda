@@ -1,6 +1,5 @@
-# Localization category classes
 #
-# Copyright (C) 2011, 2013  Red Hat, Inc.
+# Copyright (C) 2020  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -16,19 +15,57 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+# Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
+#
 
+import unittest
 from pyanaconda.core.i18n import _
+from pyanaconda.ui.common import sort_categories
 from pyanaconda.ui.categories import SpokeCategory
 
-__all__ = ["CustomizationCategory"]
 
-
-class CustomizationCategory(SpokeCategory):
+class AaaCategory(SpokeCategory):
 
     @staticmethod
     def get_title():
-        return _("CUSTOMIZATION")
+        return _("FOO")
 
     @staticmethod
     def get_sort_order():
         return 100
+
+
+class BbbCategory(SpokeCategory):
+
+    @staticmethod
+    def get_title():
+        return _("BAR")
+
+    @staticmethod
+    def get_sort_order():
+        return 100
+
+
+class CccCategory(SpokeCategory):
+
+    @staticmethod
+    def get_title():
+        return _("BAZ")
+
+    @staticmethod
+    def get_sort_order():
+        return 50
+
+
+class CommonCodeTestCase(unittest.TestCase):
+    """Test common UI code."""
+
+    def category_sorting_test(self):
+        """Test category sorting works as expected."""
+
+        category_list = [AaaCategory, BbbCategory, CccCategory]
+        # We expect the C category to be dorted first due to sort order and
+        # then A & B as they have the same sort order but A comes before B
+        # on the alphabet.
+        expected_category_list = [CccCategory, AaaCategory, BbbCategory]
+        self.assertEqual(sort_categories(category_list), expected_category_list)

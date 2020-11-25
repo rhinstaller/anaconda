@@ -17,12 +17,12 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.core.i18n import N_
+from abc import ABC, abstractmethod
 
 __all__ = ["SpokeCategory"]
 
 
-class SpokeCategory(object):
+class SpokeCategory(ABC):
     """A SpokeCategory is an object used to group multiple related Spokes
        together on a hub.  It consists of a title displayed above, and then
        a two-column grid of SpokeSelectors.  Each SpokeSelector is associated
@@ -31,11 +31,26 @@ class SpokeCategory(object):
 
        Class attributes:
 
-       sortOrder     -- A number indicating the order in which this Category
-                        will be displayed.  A lower number indicates display
-                        higher up in the Hub.
-       title         -- The title of this SpokeCategory, to be displayed above
-                        the grid.
     """
-    sortOrder = 1000
-    title = N_("DEFAULT TITLE")
+
+    @staticmethod
+    @abstractmethod
+    def get_title():
+        """The translated title of this category, to be displayed above the grid.
+
+        :return: translated category title
+        :rtype: str
+        """
+        return ""
+
+    @staticmethod
+    @abstractmethod
+    def get_sort_order():
+        """A number indicating the order in which this Category will be displayed.
+
+        A lower number indicates display higher up in the Hub.
+
+        :return: sort order number
+        :rtype: int
+        """
+        return 0
