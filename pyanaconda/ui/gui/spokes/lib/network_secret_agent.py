@@ -59,6 +59,10 @@ class SecretAgentDialog(GUIObject):
 
     def __init__(self, *args, **kwargs):
         self._content = kwargs.pop('content', {})
+        if 'message' not in self._content:
+            self._content['message'] = ""
+        if 'secrets' not in self._content:
+            self._content['secrets'] = []
         super().__init__(*args, **kwargs)
         self.builder.get_object("label_message").set_text(self._content['message'])
         self._connect_button = self.builder.get_object("connect_button")
