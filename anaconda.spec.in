@@ -367,6 +367,29 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 25 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.3-1
+- Fix incomplete configuration of repositories loaded from treeinfo
+  (honza.stodola)
+  Resolves: rhbz#1745064
+- Fix checking ssl certificate for metadata (honza.stodola)
+  Resolves: rhbz#1745064
+- Apply pylint excessive memory usage fix (mpitt)
+  Related: rhbz#1885635
+- Use bootlist command to update the PowerPC-64 Boot Order (javierm)
+  Resolves: rhbz#1854307
+- Discard current boot list when updating the boot-device NRVAM variable
+  (javierm)
+  Resolves: rhbz#1854307
+- Improve the error dialog for storage reset (vponcova)
+  Resolves: rhbz#1877050
+- Fix issue when ns_info cannot be retrieved for NVDimm namespace (jkonecny)
+  Resolves: rhbz#1891827
+- Relabel the anaconda logs after copying them to the installed system
+  (jstodola)
+  Resolves: rhbz#1870493
+- post-scripts need to be sorted (honza.stodola)
+  Related: rhbz#1870493
+
 * Mon Nov 23 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.2-1
 - Install Red Hat IT root certificate into anaconda-ci container (mpitt)
   Related: rhbz#1885635
