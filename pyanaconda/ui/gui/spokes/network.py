@@ -119,9 +119,9 @@ def localized_string_of_device_state(device, state):
 __all__ = ["NetworkSpoke", "NetworkStandaloneSpoke"]
 
 
-class CellRendererSignal(Gtk.CellRendererPixbuf):
+class CellRendererSignalStrength(Gtk.CellRendererPixbuf):
 
-    __gtype_name__ = "CellRendererSignal"
+    __gtype_name__ = "CellRendererSignalStrength"
     __gproperties__ = {
         "signal": (GObject.TYPE_UINT,
                    "Signal", "Signal",
@@ -1265,7 +1265,7 @@ class SelectWirelessNetworksDialog(GUIObject):
         col = Gtk.TreeViewColumn("Security", rnd, security=SELECT_WIRELESS_COLUMN_SECURITY)
         treeview.append_column(col)
 
-        rnd = CellRendererSignal()
+        rnd = CellRendererSignalStrength()
         col = Gtk.TreeViewColumn("Strength", rnd, signal=SELECT_WIRELESS_COLUMN_STRENGTH)
         treeview.append_column(col)
 
