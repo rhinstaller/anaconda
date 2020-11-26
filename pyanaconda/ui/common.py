@@ -665,7 +665,7 @@ def collectCategoriesAndSpokes(paths, klass):
     ret = {}
     # Collect all the categories this hub displays, then collect all the
     # spokes belonging to all those categories.
-    categories = sorted(collect_categories(paths["categories"]), key=lambda c: c.get_sort_order())
+    categories = collect_categories(paths["categories"])
 
     for c in categories:
         ret[c] = collect_spokes(paths["spokes"], c.__name__)
@@ -701,4 +701,4 @@ def sort_categories(categories):
     :param categories: list of categories
     :type categories: SpokeCategory sub classes
     """
-    return sorted(categories, key=lambda i: (i.get_sort_order(), i.__class__))
+    return sorted(categories, key=lambda i: (i.get_sort_order(), i.__name__))

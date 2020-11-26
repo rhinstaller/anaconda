@@ -63,7 +63,7 @@ class CommonCodeTestCase(unittest.TestCase):
     def category_sorting_test(self):
         """Test category sorting works as expected."""
 
-        category_list = [AaaCategory, BbbCategory, CccCategory]
+        category_list = [BbbCategory, CccCategory, AaaCategory]
         # We expect the C category to be dorted first due to sort order and
         # then A & B as they have the same sort order but A comes before B
         # on the alphabet.
