@@ -475,7 +475,7 @@ class FedoraGeoIPProvider(GeolocationBackend):
     def _refresh(self):
         try:
             reply = self._session.get(self.API_URL,
-                                      timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                      timeout=constants.GEOLOC_CONNECTION_TIMEOUT,
                                       verify=True)
             if reply.status_code == requests.codes.ok:
                 json_reply = reply.json()
@@ -513,7 +513,7 @@ class HostipGeoIPProvider(GeolocationBackend):
     def _refresh(self):
         try:
             reply = self._session.get(self.API_URL,
-                                      timeout=constants.NETWORK_CONNECTION_TIMEOUT,
+                                      timeout=constants.GEOLOC_CONNECTION_TIMEOUT,
                                       verify=True)
             if reply.status_code == requests.codes.ok:
                 reply_dict = reply.json()

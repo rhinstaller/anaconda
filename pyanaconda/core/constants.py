@@ -141,9 +141,13 @@ GEOLOC_GEOCODER_NOMINATIM = "geocoder_nominatim"
 # default providers
 GEOLOC_DEFAULT_PROVIDER = GEOLOC_PROVIDER_FEDORA_GEOIP
 GEOLOC_DEFAULT_GEOCODER = GEOLOC_GEOCODER_NOMINATIM
-# timeout (in seconds)
+# how long should the GUI wait for the geolocation thread to finish (in seconds)
+# - GUI starts this count once it finishes its initialization
+# - the geoloc thread is started early and in most cases will be already done
+#   when GUI finishes its initialization, so no delays will be introduced
 GEOLOC_TIMEOUT = 3
-
+# timeout for the network connection used for geolocation (in seconds)
+GEOLOC_CONNECTION_TIMEOUT = 5
 
 ANACONDA_ENVIRON = "anaconda"
 FIRSTBOOT_ENVIRON = "firstboot"
