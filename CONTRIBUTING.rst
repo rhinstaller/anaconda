@@ -41,6 +41,24 @@ How to Contribute to the Anaconda Installer (the short version)
 
 If you want to contribute a change to both the upstream and RHEL Anaconda then follow both a) and b) separately.
 
+Finding Bugs to Fix
+-------------------
+
+The development team can mark bugs with specific keywords to show that they belong to a specific
+category. You can quickly list these by searching the Red Hat bugzilla for bugs in the
+``anaconda`` component with specific keywords in Whiteboard:
+
+- For good first issues and simple fixes, the keyword is `EasyFix <https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&classification=Fedora&component=anaconda&f1=status_whiteboard&list_id=11496717&o1=substring&product=Fedora&query_format=advanced&v1=EasyFix>`_.
+
+- For Btrfs-related issues, use keyword `Btrfs <https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&classification=Fedora&component=anaconda&f1=status_whiteboard&list_id=11496717&o1=substring&product=Fedora&query_format=advanced&v1=Btrfs>`_.
+
+- For issues that are good candidates for `pure community features <pure-community-features>`_, search for `CommunityFeature <https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&classification=Fedora&component=anaconda&f1=status_whiteboard&list_id=11496717&o1=substring&product=Fedora&query_format=advanced&v1=CommunityFeature>`_.
+
+(A single issue could potentially have more than one of these keywords.)
+
+Patches for bugs without keywords are welcome, too!
+
+
 Anaconda Installer Branching Policy (the long version)
 -------------------------------------------------------
 
@@ -218,6 +236,8 @@ Then you are done.
 
 If the pull request has been opened for the ``f25-devel`` branch, then you also need to merge the ``f25-devel``
 branch back to ``master`` once you merge your pull request (see "Merging the Fedora devel branch back to the master branch" above).
+
+.. _pure-community-features:
 
 Pure community features
 -----------------------
