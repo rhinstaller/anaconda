@@ -63,10 +63,6 @@ DEFAULT_REPOS = [productName.split('-')[0].lower(),
                  "BaseOS",  # Used by RHEL
                  "baseos"]  # Used by CentOS Stream
 
-# Get list of repo names which should be used as updates repos
-DEFAULT_UPDATE_REPOS = ["updates",
-                        "updates-modular"]
-
 DBUS_ANACONDA_SESSION_ADDRESS = "DBUS_ANACONDA_SESSION_BUS_ADDRESS"
 
 ANACONDA_BUS_CONF_FILE = "/usr/share/anaconda/dbus/anaconda-bus.conf"

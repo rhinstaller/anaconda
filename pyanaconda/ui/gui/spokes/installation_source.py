@@ -776,7 +776,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._network_button.connect("toggled", self._update_url_entry_check)
 
         # Show or hide the updates option based on the configuration
-        if conf.payload.enable_updates:
+        if conf.payload.updates_repositories:
             really_show(self._updates_box)
         else:
             really_hide(self._updates_box)

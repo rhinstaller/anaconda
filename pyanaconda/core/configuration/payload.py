@@ -41,16 +41,17 @@ class PayloadSection(Section):
         return self._get_option("ignored_packages", str).split()
 
     @property
-    def enable_updates(self):
-        """Enable installation of latest updates.
+    def updates_repositories(self):
+        """List of names of repositories that provide latest updates.
 
-        This flag controls whether or not Anaconda should provide an option to
-        install the latest updates during installation source selection.
+        This option also controls whether or not Anaconda should provide
+        an option to install the latest updates during installation source
+        selection.
 
-        The installation of latest updates is selected by default, if the closest
-        mirror is selected, and the "updates" repo is enabled.
+        The installation of latest updates is selected by default, if
+        the closest mirror is selected, and the "updates" repo is enabled.
         """
-        return self._get_option("enable_updates", bool)
+        return self._get_option("updates_repositories", str).split()
 
     @property
     def enabled_repositories_from_treeinfo(self):
