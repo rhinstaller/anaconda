@@ -131,7 +131,7 @@ def _prepare_configuration(payload, ksdata):
     user_config = TaskQueue("User creation", N_("Creating users"))
     users_proxy = USERS.get_proxy()
     users_dbus_tasks = users_proxy.InstallWithTasks()
-    os_config.append_dbus_tasks(USERS, users_dbus_tasks)
+    user_config.append_dbus_tasks(USERS, users_dbus_tasks)
     configuration_queue.append(user_config)
 
     # Anaconda addon configuration
