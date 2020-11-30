@@ -30,7 +30,7 @@ from pyanaconda.queuefactory import QueueFactory
 # details.
 hubQ = QueueFactory("hub")
 
-hubQ.addMessage("ready", 2)             # spoke_name, justUpdate
+hubQ.addMessage("ready", 1)             # spoke_name
 hubQ.addMessage("not_ready", 1)         # spoke_name
 hubQ.addMessage("message", 2)           # spoke_name, string
 hubQ.addMessage("input", 1)             # string

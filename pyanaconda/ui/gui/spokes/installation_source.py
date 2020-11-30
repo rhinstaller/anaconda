@@ -821,9 +821,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_GROUP_MD))
 
     def _payload_finished(self):
-        hubQ.send_ready("SoftwareSelectionSpoke", False)
+        hubQ.send_ready("SoftwareSelectionSpoke")
         self._ready = True
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
     def _payload_error(self):
         self._error = True
@@ -836,7 +836,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self._error_msg += _(CLICK_FOR_DETAILS)
 
         self._ready = True
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
     def _initialize_closest_mirror(self):
         # If there's no fallback mirror to use, we should just disable that option
@@ -898,7 +898,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # the spoke may not be set sensitive by _handleCompleteness in the hub.
         while not self.ready:
             time.sleep(1)
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
         # report that the source spoke has been initialized
         self.initialize_done()

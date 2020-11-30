@@ -235,7 +235,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         StorageCheckHandler.warnings = list(report.warning_messages)
 
         self._ready = True
-        hubQ.send_ready(self.__class__.__name__, True)
+        hubQ.send_ready(self.__class__.__name__)
 
     def _show_execute_message(self, msg):
         hubQ.send_message(self.__class__.__name__, msg)
@@ -485,7 +485,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self.execute()
         else:
             self._ready = True
-            hubQ.send_ready(self.__class__.__name__, False)
+            hubQ.send_ready(self.__class__.__name__)
 
         # Report that the storage spoke has been initialized.
         self.initialize_done()

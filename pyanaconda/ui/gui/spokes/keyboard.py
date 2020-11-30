@@ -401,7 +401,7 @@ class KeyboardSpoke(NormalSpoke):
     def _wait_ready(self):
         self._add_dialog.wait_initialize()
         self._ready = True
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
         # report that the keyboard spoke initialization has been completed
         self.initialize_done()
