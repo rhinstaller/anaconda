@@ -865,6 +865,14 @@ class MiscTests(unittest.TestCase):
             util.mkdirChain(root + "/usr/lib")
             util.mkdirChain(root + "/etc")
 
+            # no file
+            with self.assertLogs(level="DEBUG") as cm:
+                version = util.get_os_release_value("VERSION_ID", root)
+
+            msg = "VERSION_ID not found in os-release files"
+            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            self.assertEqual(version, None)
+
             # backup file only
             with open(root + "/usr/lib/os-release", "w") as f:
                 f.write("# blah\nVERSION_ID=foo256bar  \n VERSION_ID = wrong\n\n")

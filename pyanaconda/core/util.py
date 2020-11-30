@@ -1506,5 +1506,5 @@ def get_os_release_value(name, sysroot=""):
             pass
 
     # No value found.
-    log.debug("%s not found in os-release files")
+    log.debug("%s not found in os-release files", name[:-1])
     return None
