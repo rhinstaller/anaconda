@@ -27,11 +27,12 @@ gi.require_version("NM", "1.0")
 from gi.repository import Gtk
 from gi.repository import GObject, Pango, Gio, NM
 
-from pyanaconda.core.i18n import _, N_, C_, CN_
+from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
+from pyanaconda.ui.gui.spokes.lib.network_secret_agent import register_secret_agent
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, really_hide, really_show
@@ -49,14 +50,7 @@ from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
 
 from pyanaconda import network
 
-import dbus
-import dbus.service
-# Used for ascii_letters and hexdigits constants
-import string # pylint: disable=deprecated-module
 from uuid import uuid4
-
-from dbus.mainloop.glib import DBusGMainLoop
-DBusGMainLoop(set_as_default=True)
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -64,12 +58,6 @@ log = get_module_logger(__name__)
 NM._80211ApFlags = getattr(NM, "80211ApFlags")
 NM._80211ApSecurityFlags = getattr(NM, "80211ApSecurityFlags")
 NM._80211Mode = getattr(NM, "80211Mode")
-
-NM_SERVICE = "org.freedesktop.NetworkManager"
-NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION = 0x1
-SECRET_AGENT_IFACE = 'org.freedesktop.NetworkManager.SecretAgent'
-AGENT_MANAGER_IFACE = 'org.freedesktop.NetworkManager.AgentManager'
-AGENT_MANAGER_PATH = "/org/freedesktop/NetworkManager/AgentManager"
 
 IPV4_CONFIG = "IPv4"
 IPV6_CONFIG = "IPv6"
@@ -131,9 +119,9 @@ def localized_string_of_device_state(device, state):
 __all__ = ["NetworkSpoke", "NetworkStandaloneSpoke"]
 
 
-class CellRendererSignal(Gtk.CellRendererPixbuf):
+class CellRendererSignalStrength(Gtk.CellRendererPixbuf):
 
-    __gtype_name__ = "CellRendererSignal"
+    __gtype_name__ = "CellRendererSignalStrength"
     __gproperties__ = {
         "signal": (GObject.TYPE_UINT,
                    "Signal", "Signal",
@@ -1277,7 +1265,7 @@ class SelectWirelessNetworksDialog(GUIObject):
         col = Gtk.TreeViewColumn("Security", rnd, security=SELECT_WIRELESS_COLUMN_SECURITY)
         treeview.append_column(col)
 
-        rnd = CellRendererSignal()
+        rnd = CellRendererSignalStrength()
         col = Gtk.TreeViewColumn("Strength", rnd, signal=SELECT_WIRELESS_COLUMN_STRENGTH)
         treeview.append_column(col)
 
@@ -1438,221 +1426,6 @@ class SelectWirelessNetworksDialog(GUIObject):
                     strongest_ap = ap
 
         return strongest_ap
-
-
-class SecretAgentDialog(GUIObject):
-    builderObjects = ["secret_agent_dialog"]
-    mainWidgetName = "secret_agent_dialog"
-    uiFile = "spokes/network.glade"
-
-    def __init__(self, *args, **kwargs):
-        self._content = kwargs.pop('content', {})
-        super().__init__(*args, **kwargs)
-        self.builder.get_object("label_message").set_text(self._content['message'])
-        self._connect_button = self.builder.get_object("connect_button")
-
-    def initialize(self):
-        self._entries = {}
-        grid = Gtk.Grid()
-        grid.set_row_spacing(6)
-        grid.set_column_spacing(6)
-
-        for row, secret in enumerate(self._content['secrets']):
-            label = Gtk.Label(label=secret['label'], halign=Gtk.Align.START)
-            entry = Gtk.Entry(hexpand=True)
-            entry.set_text(secret['value'])
-            if secret['key']:
-                self._entries[secret['key']] = entry
-            else:
-                entry.set_sensitive(False)
-            if secret['password']:
-                entry.set_visibility(False)
-            self._validate(entry, secret)
-            entry.connect("changed", self._validate, secret)
-            entry.connect("activate", self._password_entered_cb)
-            label.set_use_underline(True)
-            label.set_mnemonic_widget(entry)
-            grid.attach(label, 0, row, 1, 1)
-            grid.attach(entry, 1, row, 1, 1)
-
-        self.builder.get_object("password_box").add(grid)
-
-    def run(self):
-        self.initialize()
-        self.window.show_all()
-        rc = self.window.run()
-        for secret in self._content['secrets']:
-            if secret['key']:
-                secret['value'] = self._entries[secret['key']].get_text()
-        self.window.destroy()
-        return rc
-
-    @property
-    def valid(self):
-        return all(secret.get('valid', False) for secret in self._content['secrets'])
-
-    def _validate(self, entry, secret):
-        secret['value'] = entry.get_text()
-        if secret['validate']:
-            secret['valid'] = secret['validate'](secret)
-        else:
-            secret['valid'] = len(secret['value']) > 0
-        self._update_connect_button()
-
-    def _password_entered_cb(self, entry):
-        if self._connect_button.get_sensitive() and self.valid:
-            self.window.response(1)
-
-    def _update_connect_button(self):
-        self._connect_button.set_sensitive(self.valid)
-
-
-secret_agent = None
-
-
-class NotAuthorizedException(dbus.DBusException):
-    _dbus_error_name = SECRET_AGENT_IFACE + '.NotAuthorized'
-
-
-class SecretAgent(dbus.service.Object):
-    def __init__(self, spoke):
-        self._bus = dbus.SystemBus()
-        self.spoke = spoke
-        super().__init__(self._bus, "/org/freedesktop/NetworkManager/SecretAgent")
-
-    @dbus.service.method(SECRET_AGENT_IFACE,
-                         in_signature='a{sa{sv}}osasb',
-                         out_signature='a{sa{sv}}',
-                         sender_keyword='sender')
-    def GetSecrets(self, connection_hash, connection_path, setting_name, hints, flags, sender=None):
-        if not sender:
-            raise NotAuthorizedException("Internal error: couldn't get sender")
-        uid = self._bus.get_unix_user(sender)
-        if uid != 0:
-            raise NotAuthorizedException("UID %d not authorized" % uid)
-
-        log.debug("secrets requested path '%s' setting '%s' hints '%s' new %d",
-                  connection_path, setting_name, str(hints), flags)
-        if not (flags & NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION):
-            return
-
-        content = self._get_content(setting_name, connection_hash)
-        dialog = SecretAgentDialog(self.spoke.data, content=content)
-        with self.spoke.main_window.enlightbox(dialog.window):
-            rc = dialog.run()
-
-        secrets = dbus.Dictionary()
-        if rc == 1:
-            for secret in content['secrets']:
-                if secret['key']:
-                    secrets[secret['key']] = secret['value']
-
-        settings = dbus.Dictionary({setting_name: secrets})
-
-        return settings
-
-    def _get_content(self, setting_name, connection_hash):
-        content = {}
-        connection_type = connection_hash['connection']['type']
-        if connection_type == NM_CONNECTION_TYPE_WIFI:
-            content['title'] = _("Authentication required by wireless network")
-            content['message'] = _("Passwords or encryption keys are required to access\n"
-                                   "the wireless network '%(network_id)s'.") \
-                                   % {'network_id':str(connection_hash['connection']['id'])}
-            content['secrets'] = self._get_wireless_secrets(setting_name, connection_hash)
-        else:
-            log.info("Connection type %s not supported by secret agent", connection_type)
-
-        return content
-
-    def _get_wireless_secrets(self, setting_name, connection_hash):
-        key_mgmt = connection_hash['802-11-wireless-security']['key-mgmt']
-        original_secrets = connection_hash[setting_name]
-        secrets = []
-        if key_mgmt in ['wpa-none', 'wpa-psk']:
-            secrets.append({'label'     : C_('GUI|Network|Secrets Dialog', '_Password:'),
-                            'key'      : 'psk',
-                            'value'    : original_secrets.get('psk', ''),
-                            'validate' : self._validate_wpapsk,
-                            'password' : True})
-        # static WEP
-        elif key_mgmt == 'none':
-            key_idx = str(original_secrets.get('wep_tx_keyidx', '0'))
-            secrets.append({'label'     : C_('GUI|Network|Secrets Dialog', '_Key:'),
-                            'key'      : 'wep-key%s' % key_idx,
-                            'value'    : original_secrets.get('wep-key%s' % key_idx, ''),
-                            'wep_key_type': original_secrets.get('wep-key-type', ''),
-                            'validate' : self._validate_staticwep,
-                            'password' : True})
-        # WPA-Enterprise
-        elif key_mgmt == 'wpa-eap':
-            eap = original_secrets['eap'][0]
-            if eap in ('md5', 'leap', 'ttls', 'peap'):
-                secrets.append({'label'    : _('User name: '),
-                                'key'      : None,
-                                'value'    : original_secrets.get('identity', ''),
-                                'validate' : None,
-                                'password' : False})
-                secrets.append({'label'    : _('Password: '),
-                                'key'      : 'password',
-                                'value'    : original_secrets.get('password', ''),
-                                'validate' : None,
-                                'password' : True})
-            elif eap == 'tls':
-                secrets.append({'label'    : _('Identity: '),
-                                'key'      : None,
-                                'value'    : original_secrets.get('identity', ''),
-                                'validate' : None,
-                                'password' : False})
-                secrets.append({'label'    : _('Private key password: '),
-                                'key'      : 'private-key-password',
-                                'value'    : original_secrets.get('private-key-password', ''),
-                                'validate' : None,
-                                'password' : True})
-        else:
-            log.info("Unsupported wireless key management: %s", key_mgmt)
-
-        return secrets
-
-    def _validate_wpapsk(self, secret):
-        value = secret['value']
-        if len(value) == 64:
-            # must be composed of hexadecimal digits only
-            return all(c in string.hexdigits for c in value)
-        else:
-            return 8 <= len(value) <= 63
-
-    def _validate_staticwep(self, secret):
-        value = secret['value']
-        if secret['wep_key_type'] == NM.WepKeyType.KEY:
-            if len(value) in (10, 26):
-                return all(c in string.hexdigits for c in value)
-            elif len(value) in (5, 13):
-                return all(c in string.ascii_letters for c in value)
-            else:
-                return False
-        elif secret['wep_key_type'] == NM.WepKeyType.PASSPHRASE:
-            return 0 <= len(value) <= 64
-        else:
-            return True
-
-
-def register_secret_agent(spoke):
-
-    if not conf.system.can_configure_network:
-        return False
-
-    global secret_agent
-    if not secret_agent:
-        # Ignore an error from pylint incorrectly analyzing types in dbus-python
-        secret_agent = SecretAgent(spoke) # pylint: disable=no-value-for-parameter
-        bus = dbus.SystemBus()
-        proxy = bus.get_object(NM_SERVICE, AGENT_MANAGER_PATH)
-        proxy.Register("anaconda", dbus_interface=AGENT_MANAGER_IFACE)
-    else:
-        secret_agent.spoke = spoke
-
-    return True
 
 
 class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
