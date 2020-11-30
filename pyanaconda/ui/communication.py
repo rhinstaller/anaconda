@@ -33,6 +33,4 @@ hubQ = QueueFactory("hub")
 hubQ.addMessage("ready", 1)             # spoke_name
 hubQ.addMessage("not_ready", 1)         # spoke_name
 hubQ.addMessage("message", 2)           # spoke_name, string
-hubQ.addMessage("input", 1)             # string
 hubQ.addMessage("exception", 1)         # exception
-hubQ.addMessage("show_message", 3)      # show_message_function, args, result_queue
