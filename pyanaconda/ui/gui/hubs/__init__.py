@@ -85,10 +85,11 @@ class Hub(GUIObject, common.Hub):
         GUIObject.__init__(self, data)
         common.Hub.__init__(self, storage, payload)
 
-        # enable the autoContinue feature if we are in kickstart
+        # enable the auto continue feature if we are in kickstart
         # mode, but if the user interacts with the hub, it will be
         # disabled again
-        self._autoContinue = flags.automatedInstall
+        self._auto_continue = flags.automatedInstall
+        self._click_continue = False
 
         self._hubs_collection.append(self)
         self.timeout = None
@@ -262,7 +263,7 @@ class Hub(GUIObject, common.Hub):
                 # If this is a kickstart, consider the user to be warned and
                 # let them continue anyway, manually
                 if flags.automatedInstall:
-                    self._autoContinue = False
+                    self._auto_continue = False
                     self._checker_ignore = True
         else:
             warning = _("Please complete items marked with this icon before continuing to the next step.")
@@ -301,7 +302,6 @@ class Hub(GUIObject, common.Hub):
             log.debug("no spokes available on %s, continuing automatically", self)
             gtk_call_once(self.window.emit, "continue-clicked")
 
-        click_continue = False
         # Grab all messages that may have appeared since last time this method ran.
         while True:
             try:
@@ -357,9 +357,9 @@ class Hub(GUIObject, common.Hub):
 
                     if self.continuePossible:
                         if self._inSpoke:
-                            self._autoContinue = False
-                        elif self._autoContinue:
-                            click_continue = True
+                            self._auto_continue = False
+                        elif self._auto_continue:
+                            self._click_continue = True
 
             elif code == hubQ.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
@@ -368,9 +368,9 @@ class Hub(GUIObject, common.Hub):
             q.task_done()
 
         # queue is now empty, should continue be clicked?
-        if self._autoContinue and click_continue and self.window.get_may_continue():
+        if self._auto_continue and self._click_continue and self.window.get_may_continue():
             # enqueue the emit to the Gtk message queue
-            log.debug("_autoContinue clicking continue button")
+            log.debug("automatically clicking continue button")
             gtk_call_once(self.window.emit, "continue-clicked")
 
         return True
@@ -410,14 +410,18 @@ class Hub(GUIObject, common.Hub):
         if selector:
             selector.grab_focus()
 
+        # The automated kickstart installation already continues. Nothing to do.
+        if self._click_continue:
+            return
+
         # On automated kickstart installs, our desired behavior is to display
         # the hub while background processes work, then skip to the progress
         # hub immediately after everything's done.
         # However if the user proves his intent to change the kickstarted
         # values by entering any of the spokes, we need to disable the
-        # autoContinue feature and wait for the user to explicitly state
+        # auto continue feature and wait for the user to explicitly state
         # that he is done configuring by pressing the continue button.
-        self._autoContinue = False
+        self._auto_continue = False
 
         # Enter the spoke
         self._inSpoke = True
