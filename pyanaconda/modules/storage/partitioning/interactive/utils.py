@@ -995,8 +995,7 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
         request.reformat \
         and not request.container_encrypted \
         and request.device_type not in {
-            devicefactory.DEVICE_TYPE_BTRFS,
-            devicefactory.DEVICE_TYPE_LVM_THINP
+            devicefactory.DEVICE_TYPE_BTRFS
         } \
         and not any(
             a.format.type == "luks" and a.format.exists
