@@ -768,10 +768,10 @@ class DNFPayload(Payload):
 
         # Enable or disable updates.
         if self._updates_enabled:
-            for repo in constants.DEFAULT_UPDATE_REPOS:
+            for repo in conf.payload.updates_repositories:
                 self.enable_repo(repo)
         else:
-            for repo in constants.DEFAULT_UPDATE_REPOS:
+            for repo in conf.payload.updates_repositories:
                 self.disable_repo(repo)
 
         # Disable updates-testing.

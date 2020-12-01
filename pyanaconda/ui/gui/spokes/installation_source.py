@@ -775,7 +775,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._network_button.connect("toggled", self._update_url_entry_check)
 
         # Show or hide the updates option based on the configuration
-        if conf.payload.enable_updates:
+        if conf.payload.updates_repositories:
             really_show(self._updates_box)
         else:
             really_hide(self._updates_box)
@@ -1085,7 +1085,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             uncheck it.
         """
         self._updates_box.set_sensitive(self._mirror_active())
-        active = self._mirror_active() or self.payload.is_repo_enabled("updates")
+        active = self._mirror_active() and self.payload.is_repo_enabled("updates")
         self._updates_radio_button.set_active(active)
 
     @property
@@ -1646,10 +1646,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def on_updatesRadioButton_toggled(self, button):
         """Toggle the enable state of the updates repo."""
-        if self._updates_radio_button.get_active():
-            self.payload.set_updates_enabled(False)
-        else:
-            self.payload.set_updates_enabled(True)
+        active = self._updates_radio_button.get_active()
+        self.payload.set_updates_enabled(active)
 
         # Refresh the metadata using the new set of repos
         self._updates_change = True
