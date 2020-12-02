@@ -19,7 +19,10 @@
 """
 A GeoIP and WiFi location module - location detection based on IP address
 
+=================================
 How to use the geolocation module
+=================================
+
    First call init_geolocation() with appropriate parameters - this creates
    the Geolocation singleton and specifies what geolocation provider will be
    used.
@@ -44,12 +47,12 @@ How to use the geolocation module
 Geolocation backends
 ====================
 
-This module currently supports three geolocation backends:
+Two geolocation backends are currently supported:
    * Fedora GeoIP API
    * Hostip GeoIP
-   * Google WiFi
 
 Fedora GeoIP backend
+
    This is the default backend. It queries the Fedora GeoIP API for location
    data based on current public IP address. The reply is JSON formatted and
    contains the following fields:
@@ -58,6 +61,7 @@ Fedora GeoIP backend
    Anaconda currently uses just time_zone and country_code.
 
 Hostip backend
+
    A GeoIP look-up backend that can be used to determine current country code
    from current public IP address. The public IP address is determined
    automatically when calling the API.
@@ -65,34 +69,13 @@ Hostip backend
    address. To get this detail location info, use the result property to get
    an instance of the LocationResult class, used to wrap the lookup result.
 
-Google WiFi backend
-   This backend is probably the most accurate one, at least as long as the
-   computer has a working WiFi hardware and there are some WiFi APs nearby.
-   It sends data about nearby APs (ssid, MAC address & signal strength)
-   acquired from Network Manager to a Google API to get approximate
-   geographic coordinates. If there are enough AP nearby (such as in a
-   normal city) it can be very accurate, even up to currently determining
-   which building is the computer currently in.
-   But this only returns current geographic coordinates, to get country code
-   the Nominatim reverse-geocoding API is called to convert the coordinates
-   to an address, which includes a country code.
-
-While having many advantages, this backend also has some severe disadvantages:
-   * needs working WiFi hardware
-   * tells your public IP address & possibly quite precise geographic coordinates
-     to two external entities (Google and Nominatim)
-
-This could have severe privacy issues and should be carefully considered before
-enabling it to be used by default. Also the Google WiFi geolocation API seems to
-lack official documentation.
-
-As a result its long-term stability might not be guaranteed.
-
-
-
+==========================
 Possible issues with GeoIP
+==========================
+
    "I'm in Switzerland connected to corporate VPN and anaconda tells me
    I'm in the Netherlands."
+
    The public IP address is not directly mapped to the physical location
    of a computer. So while your world visible IP address is registered to
    an IP block assigned to an ISP in Netherlands, it is just the external
@@ -102,21 +85,25 @@ Possible issues with GeoIP
 
 
 Backends that could possibly be used in the future
-   * GPS geolocation
 
-      * (+) doesn't leak your coordinates to a third party
-        (not entirely true for assisted GPS)
-      * (-) unassisted cold GPS startup can take tens of minutes to acquire a GPS fix
-      * (+) assisted GPS startup (as used in most smartphones) can acquire a fix
-        in a couple seconds
+GPS geolocation
 
-   * cell tower geolocation
+    + doesn't leak your coordinates to a third party
+      (not entirely true for assisted GPS)
+    - unassisted cold GPS startup can take tens of minutes to acquire a GPS fix
+    + assisted GPS startup (as used in most smartphones) can acquire a fix
+      in a couple seconds
+
+cell tower geolocation
+
+   + cell tower id could be queried against a cell tower database to find approximate region
+   + fully passive (with local cell tower database)
+   - needs a phone modem
+   - must store up to date cell tower database
 
 """
 from pyanaconda.core.util import requests_session
 import requests
-import urllib.parse
-import dbus
 import threading
 import time
 from pyanaconda import network
@@ -285,8 +272,7 @@ class Geolocation(object):
 class LocationInfo(object):
     """Determines current location.
 
-    Determines current location based on IP address or
-    nearby WiFi access points (depending on what backend is used)
+    Determines current location based on IP address.
     """
 
     def __init__(self, provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
@@ -296,7 +282,6 @@ class LocationInfo(object):
         available_providers = {
             constants.GEOLOC_PROVIDER_FEDORA_GEOIP: FedoraGeoIPProvider,
             constants.GEOLOC_PROVIDER_HOSTIP: HostipGeoIPProvider,
-            constants.GEOLOC_PROVIDER_GOOGLE_WIFI: GoogleWiFiLocationProvider
         }
         provider = available_providers.get(provider_id, FedoraGeoIPProvider)
         self._provider = provider()
@@ -531,270 +516,6 @@ class HostipGeoIPProvider(GeolocationBackend):
             log.debug("Geoloc: RequestException during Hostip lookup:\n%s", e)
         except ValueError as e:
             log.debug("Geoloc: Unable to decode Hostip JSON:\n%s", e)
-
-
-class GoogleWiFiLocationProvider(GeolocationBackend):
-    """The Google WiFi location service provider."""
-
-    API_URL = "https://maps.googleapis.com/" \
-              "maps/api/browserlocation/json?browser=firefox&sensor=true"
-
-    @property
-    def name(self):
-        return "Google WiFi"
-
-    def _refresh(self):
-        log.info("Scanning for WiFi access points.")
-        scanner = WifiScanner(scan_now=True)
-        access_points = scanner.get_results()
-        if access_points:
-            try:
-                reply = self._session.get(self._get_url(access_points),
-                                          timeout=constants.NETWORK_CONNECTION_TIMEOUT,
-                                          verify=True)
-                result_dict = reply.json()
-                status = result_dict.get('status', 'NOT OK')
-                if status == 'OK':
-                    lat = result_dict['location']['lat']
-                    lon = result_dict['location']['lng']
-                    log.info("Found current location.")
-                    coords = Coordinates(lat=lat, lon=lon)
-                    geocoder = Geocoder()
-                    geocoding_result = geocoder.reverse_geocode_coords(coords)
-                    # for compatibility, return GeoIP result instead
-                    # of GeocodingResult
-                    t_code = geocoding_result.territory_code
-                    self._set_result(LocationResult(territory_code=t_code))
-                else:
-                    log.info("Geoloc: Service couldn't find current location.")
-            except requests.exceptions.RequestException as e:
-                log.debug("Geoloc: RequestException during Google Wifi lookup:\n%s", e)
-            except ValueError as e:
-                log.debug("Geoloc: Unable to decode Google Wifi JSON:\n%s", e)
-        else:
-            log.info("Geoloc: No WiFi access points found - can't detect location.")
-
-    def _get_url(self, access_points):
-        """Generate Google API URL for the given access points
-
-        :param access_points: a list of WiFiAccessPoint objects
-        :return Google WiFi location API URL
-        :rtype: string
-        """
-        url = self.API_URL
-        for ap in access_points:
-            url += self._describe_access_point(ap)
-        return url
-
-    def _describe_access_point(self, access_point):
-        """Describe an access point in a format compatible with the API call
-
-        :param access_point: a WiFiAccessPoint instance
-        :return: API compatible AP description
-        :rtype: string
-        """
-        quoted_ssid = urllib.parse.quote_plus(access_point.ssid)
-        return "&wifi=mac:%s|ssid:%s|ss:%d" % (access_point.bssid,
-                                               quoted_ssid, access_point.rssi)
-
-
-class Geocoder(object):
-    """Provides online geocoding services.
-
-    (only reverse geocoding at the moment)
-    """
-
-    # MapQuest Nominatim instance without (?) rate limiting
-    NOMINATIM_API_URL = "http://open.mapquestapi.com/" \
-                        "nominatim/v1/reverse.php?format=json"
-    # Alternative OSM hosted Nominatim instance (with rate limiting):
-    # http://nominatim.openstreetmap.org/reverse?format=json
-
-    def __init__(self, geocoder=constants.GEOLOC_DEFAULT_GEOCODER):
-        """:param geocoder: a constant selecting what geocoder to use"""
-        self._geocoder = geocoder
-
-    def reverse_geocode_coords(self, coordinates):
-        """Turn geographic coordinates to address
-
-        :param coordinates: Coordinates (geographic coordinates)
-        :type coordinates: Coordinates
-        :return: GeocodingResult if the lookup succeeds or None if it fails
-        """
-        if self._geocoder == constants.GEOLOC_GEOCODER_NOMINATIM:
-            return self._reverse_geocode_nominatim(coordinates)
-        else:
-            log.error("Wrong Geocoder specified!")
-            return None  # unknown geocoder specified
-
-    def _reverse_geocode_nominatim(self, coordinates):
-        """Reverse geocoding using the Nominatim API.
-
-        Reverse geocoding tries to convert geographic coordinates
-        to an accurate address.
-
-        :param coordinates: input coordinates
-        :type coordinates: Coordinates
-        :return: an address or None if no address was found
-        :rtype: GeocodingResult or None
-        """
-        url = "%s&addressdetails=1&lat=%f&lon=%f" % (
-            self.NOMINATIM_API_URL,
-            coordinates.latitude,
-            coordinates.longitude)
-        try:
-            reply = requests_session().get(url,
-                                           timeout=constants.NETWORK_CONNECTION_TIMEOUT,
-                                           verify=True)
-            if reply.status_code == requests.codes.ok:
-                reply_dict = reply.json()
-                territory_code = reply_dict['address']['country_code'].upper()
-                return GeocodingResult(territory_code=territory_code)
-            else:
-                log.error("Geoloc: Nominatim reverse geocoding failed with status code: %s",
-                          reply.status_code)
-                return None
-        except requests.exceptions.RequestException as e:
-            log.debug("Geoloc: RequestException during Nominatim reverse geocoding:\n%s", e)
-        except ValueError as e:
-            log.debug("Geoloc: Unable to decode Nominatim reverse geocoding JSON:\n%s", e)
-
-
-class GeocodingResult(object):
-    """A result from geocoding lookup."""
-
-    def __init__(self, territory_code=None):
-        """
-        :param territory_code: territory code of the result
-        :type territory_code: string
-        """
-        self._territory_code = territory_code
-
-    @property
-    def territory_code(self):
-        return self._territory_code
-
-
-class Coordinates(object):
-    """A set of geographic coordinates."""
-
-    def __init__(self, lat=None, lon=None):
-        """
-        :param lat: WGS84 latitude
-        :type lat: float
-        :param lon: WGS84 longitude
-        :type lon: float
-        """
-        self._lat = lat
-        self._lon = lon
-
-    @property
-    def latitude(self):
-        return self._lat
-
-    @property
-    def longitude(self):
-        return self._lon
-
-    def __str__(self):
-        return "lat,lon: %f,%f" % (self.latitude, self.longitude)
-
-
-class WifiScanner(object):
-    """Use the Network Manager DBus API to provide information about nearby WiFi access points."""
-
-    NETWORK_MANAGER_DEVICE_TYPE_WIFI = 2
-
-    def __init__(self, scan_now=True):
-        """
-        :param scan_now: if an initial scan should be done
-        :type scan_now: bool
-        """
-        self._scan_results = []
-        if scan_now:
-            self.scan()
-
-    def scan(self):
-        """Scan for WiFi access points"""
-        devices = ""
-        access_points = []
-        # connect to network manager
-        try:
-            bus = dbus.SystemBus()
-            network_manager = bus.get_object('org.freedesktop.NetworkManager',
-                                             '/org/freedesktop/NetworkManager')
-            devices = network_manager.GetDevices()
-        except dbus.DBusException as e:
-            log.debug("Exception caught during WiFi AP scan: %s", e)
-
-        # iterate over all devices
-        for device_path in devices:
-            device = bus.get_object('org.freedesktop.NetworkManager',
-                                    device_path)
-            # get type of the device
-            device_type = device.Get("org.freedesktop.NetworkManager.Device",
-                                     'DeviceType')
-            # iterate over all APs
-            if device_type == self.NETWORK_MANAGER_DEVICE_TYPE_WIFI:
-
-                dbus_iface_id = 'org.freedesktop.DBus.Properties'
-                ap_id = "org.freedesktop.NetworkManager.AccessPoint"
-
-                for ap_path in device.GetAccessPoints():
-                    # drill down to the DBus object for the AP
-                    net = bus.get_object('org.freedesktop.NetworkManager', ap_path)
-                    network_properties = dbus.Interface(
-                        net, dbus_interface=dbus_iface_id)
-
-                    # get the MAC, name & signal strength
-                    bssid = str(network_properties.Get(ap_id, "HwAddress"))
-                    essid = str(network_properties.Get(
-                        ap_id, "Ssid", byte_arrays=True))
-                    rssi = int(network_properties.Get(ap_id, "Strength"))
-
-                    # create a new AP object and add it to the
-                    # list of discovered APs
-                    ap = WiFiAccessPoint(bssid=bssid, ssid=essid, rssi=rssi)
-                    access_points.append(ap)
-        self._scan_results = access_points
-
-    def get_results(self):
-        """
-        :return: a list of WiFiAccessPoint objects or
-                 an empty list if no APs were found or the scan failed
-        """
-        return self._scan_results
-
-
-class WiFiAccessPoint(object):
-    """Encapsulates information about a WiFi access point."""
-
-    def __init__(self, bssid, ssid=None, rssi=None):
-        """
-        :param bssid: MAC address of the access point
-        :param ssid: name of the access point
-        :param rssi: signal strength
-        """
-        self._bssid = bssid
-        self._ssid = ssid
-        self._rssi = rssi
-
-    @property
-    def bssid(self):
-        return self._bssid
-
-    @property
-    def ssid(self):
-        return self._ssid
-
-    @property
-    def rssi(self):
-        return self._rssi
-
-    def __str__(self):
-        return "bssid (MAC): %s ssid: %s rssi " \
-               "(signal strength): %d" % (self.bssid, self.ssid, self.rssi)
-
 
 geoloc = None
 
