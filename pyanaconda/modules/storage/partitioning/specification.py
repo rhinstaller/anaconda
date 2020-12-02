@@ -135,3 +135,6 @@ class PartSpec(object):
 
     def __unicode__(self):
         return unicodeize(self._to_string())
+
+    def __eq__(self, other):
+        return isinstance(other, PartSpec) and vars(self) == vars(other)

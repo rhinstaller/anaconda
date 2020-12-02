@@ -19,17 +19,12 @@
 #
 from enum import Enum
 
+from blivet.size import Size
+
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
     AUTOPART_TYPE_LVM_THINP
 
 from pyanaconda.core.configuration.base import Section
-
-
-class PartitioningType(Enum):
-    """Type of the default partitioning."""
-    SERVER = "SERVER"
-    WORKSTATION = "WORKSTATION"
-    VIRTUALIZATION = "VIRTUALIZATION"
 
 
 class PartitioningScheme(Enum):
@@ -98,20 +93,6 @@ class StorageSection(Section):
         return self._get_option("file_system_type", str)
 
     @property
-    def default_partitioning(self):
-        """Default partitioning.
-
-        Valid values:
-
-          SERVER          Choose partitioning for servers.
-          WORKSTATION     Choose partitioning for workstations.
-          VIRTUALIZATION  Choose partitioning for virtualizations.
-
-        :return: an instance of PartitioningType
-        """
-        return self._get_option("default_partitioning", PartitioningType)
-
-    @property
     def default_scheme(self):
         """Default partitioning scheme.
 
@@ -142,3 +123,79 @@ class StorageSection(Section):
             raise ValueError("Invalid value: {}".format(value))
 
         return value
+
+    @property
+    def default_partitioning(self):
+        """Default partitioning.
+
+        Returns a list of dictionaries with mount point attributes.
+        The name of the mount point is represented by the attribute
+        'name' in the dictionary representation.
+
+        Valid attributes:
+
+            name       The name of the mount point.
+            size       The size of the mount point.
+            min        The size will grow from min size to max size.
+            max        The max size is unlimited by default.
+            free       The required available space.
+
+        :return: a list of dictionaries with mount point attributes
+        """
+        return self._get_option("default_partitioning", self._convert_partitioning)
+
+    def _convert_partitioning(self, value):
+        """Convert a partitioning string into a list of dictionaries."""
+        return list(map(self._convert_partitioning_line, value.strip().split("\n")))
+
+    @classmethod
+    def _convert_partitioning_line(cls, line):
+        """Convert a partitioning line into a dictionary."""
+        # Parse the line.
+        name, raw_attrs = cls._split_string(line)
+
+        # Split the attributes and skip empty strings (split
+        # always returns at least one item, an empty string).
+        raw_attrs = raw_attrs.strip("()").split(",")
+        raw_attrs = map(cls._split_string, filter(None, raw_attrs))
+
+        # Generate the dictionary.
+        attrs = {"name": name}
+
+        for name, value in raw_attrs:
+            if value and name in ("size", "min", "max", "free"):
+                # Handle a size attribute.
+                attrs[name] = Size(value)
+            else:
+                # Handle an invalid attribute.
+                raise ValueError("Invalid attribute: " + name)
+
+        # Validate the dictionary.
+        cls._validate_mount_point_attributes(attrs)
+
+        return attrs
+
+    @staticmethod
+    def _validate_mount_point_attributes(attrs):
+        """Validate the dictionary with mount point attributes."""
+        if not attrs.get("name"):
+            raise ValueError("The mount point is not specified.")
+
+        if attrs.get("name") != "swap" and not attrs.get("name").startswith("/"):
+            raise ValueError("The mount point is not valid.")
+
+        if attrs.get("size") and attrs.get("min"):
+            raise ValueError("Only one of the attributes 'size' and 'min' can be set.")
+
+        if attrs.get("max") and not attrs.get("min"):
+            raise ValueError("The attribute 'max' cannot be set without 'min'.")
+
+    @staticmethod
+    def _split_string(value):
+        """Split the given value into two strings."""
+        items = value.strip().split(maxsplit=1)
+
+        while len(items) < 2:
+            items.append("")
+
+        return items

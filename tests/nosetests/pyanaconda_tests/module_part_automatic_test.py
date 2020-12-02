@@ -23,7 +23,6 @@ from unittest.mock import Mock, patch
 from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.size import Size
 
-from pyanaconda.core.configuration.storage import PartitioningType
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
     ResizableDeviceTreeModule
@@ -44,7 +43,8 @@ from pyanaconda.modules.storage.partitioning.automatic.automatic_module import \
 from pyanaconda.modules.storage.partitioning.automatic.automatic_interface import \
     AutoPartitioningInterface
 from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
-    AutomaticPartitioningTask, get_default_partitioning
+    AutomaticPartitioningTask
+from pyanaconda.modules.storage.partitioning.automatic.utils import get_default_partitioning
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.devicetree import create_storage
 
@@ -245,18 +245,15 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         self.assertEqual(pbkdf_args.iterations, 1000)
         self.assertEqual(pbkdf_args.time_ms, 100)
 
-    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.platform')
+    @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
     def get_default_partitioning_test(self, platform):
         platform.set_default_partitioning.return_value = [PartSpec("/boot")]
+        requests = get_default_partitioning()
 
-        requests = get_default_partitioning(PartitioningType.WORKSTATION)
         self.assertEqual(["/boot", "/", "/home", None], [spec.mountpoint for spec in requests])
 
-        requests = get_default_partitioning(PartitioningType.SERVER)
-        self.assertEqual(["/boot", "/", None], [spec.mountpoint for spec in requests])
-
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.suggest_swap_size')
-    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.platform')
+    @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
     def get_partitioning_test(self, platform, suggest_swap_size):
         storage = create_storage()
 
