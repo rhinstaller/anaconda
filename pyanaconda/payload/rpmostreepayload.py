@@ -148,10 +148,10 @@ class RPMOSTreePayload(Payload):
         from gi.repository import OSTree, RpmOstree
         log.info("executing ostreesetup=%r", data)
 
-        # Initialize the filesystem - this will create the repo as well
-        safe_exec_with_redirect("ostree",
-                                      ["admin", "--sysroot=" + conf.target.physical_root,
-                                       "init-fs", conf.target.physical_root])
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            InitOSTreeFsAndRepoTask
+        task = InitOSTreeFsAndRepoTask(conf.target.physical_root)
+        task.run()
 
         # Here, we use the physical root as sysroot, because we haven't
         # yet made a deployment.

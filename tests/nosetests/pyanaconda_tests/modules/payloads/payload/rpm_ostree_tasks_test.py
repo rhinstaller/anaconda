@@ -21,7 +21,7 @@ from unittest.mock import patch, call
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
 
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-    PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask
+    PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask
 
 
 def _make_config_data():
@@ -295,3 +295,15 @@ class CopyBootloaderDataTaskTestCase(unittest.TestCase):
             "cp", ["-r", "-p", "/sysroot/boot/directory", "/physroot/boot"]
         )
         unlink_mock.assert_not_called()
+
+
+class InitOSTreeFsAndRepoTaskTestCase(unittest.TestCase):
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    def run_test(self, exec_mock):
+        """Test OSTree fs and repo init task"""
+        task = InitOSTreeFsAndRepoTask("/physroot")
+        task.run()
+        exec_mock.assert_called_once_with(
+            "ostree",
+            ["admin", "--sysroot=/physroot", "init-fs", "/physroot"]
+        )

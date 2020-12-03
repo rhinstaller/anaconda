@@ -232,3 +232,31 @@ class CopyBootloaderDataTask(Task):
             efi_grubenv_link = physboot + '/grub2/grubenv'
             if not is_efi and os.path.islink(efi_grubenv_link):
                 os.unlink(efi_grubenv_link)
+
+
+class InitOSTreeFsAndRepoTask(Task):
+    """Task to initialize OSTree filesystem and repository."""
+
+    def __init__(self, physroot):
+        """Create a new task.
+
+        :param str sysroot: path to the physical root
+        """
+        super().__init__()
+        self._physroot = physroot
+
+    @property
+    def name(self):
+        return "Initialize OSTree file system and repository"
+
+    def run(self):
+        """Initialize the filesystem.
+
+        This will create the repository as well.
+        """
+        safe_exec_with_redirect(
+            "ostree",
+            ["admin",
+             "--sysroot=" + self._physroot,
+             "init-fs", self._physroot]
+        )
