@@ -735,6 +735,7 @@ class NMClientTestCase(unittest.TestCase):
         ENS11_UUID = "1ea657e7-98a5-4b1a-bb1e-e1763f0140a9"
         BOND0_UUID = "1ea657e7-98a5-4b1a-bb1e-e1763f0140ab"
         BRIDGE0_UUID = "20d375f0-53c7-44a0-ad30-304649bf2c15"
+        BRIDGE1_UUID = "faf37604-519a-4f70-878a-b85c66609606"
         TEAM0_UUID = "20d375f0-53c7-44a0-ad30-304649bf2c16"
         VLAN223_UUID = "5f825617-33cb-4230-8a74-9149d51916fc"
 
@@ -745,6 +746,7 @@ class NMClientTestCase(unittest.TestCase):
             ENS11_UUID: "ens11",
             BOND0_UUID: "bond0",
             BRIDGE0_UUID: "bridge0",
+            BRIDGE1_UUID: "bridge1",
             TEAM0_UUID: "team0",
             VLAN223_UUID: "vlan223"
         }
@@ -771,6 +773,7 @@ class NMClientTestCase(unittest.TestCase):
             "team0": set([("team0_slave_1", "ens7", ENS7_UUID),
                           ("team0_slave_2", "ens8", ENS8_UUID)]),
             "bridge0": set([("bridge0_slave_1", "ens8", ENS8_UUID)]),
+            "bridge1": set([("bond0", "bond0", BOND0_UUID)]),
         }
         get_slaves_from_connections_mock.side_effect = \
             lambda _client, _types, ids: slaves_of_iface[ids[0]]
@@ -955,6 +958,21 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_vlan.return_value.get_parent.return_value": ENS7_UUID,
           }],
           "network  --bootproto=dhcp --device=ens7 --ipv6=auto --vlanid=233"),
+         # Missing ipv4 and ipv6 config - complex virtual devices setups.
+         # The resulting command may not be valid (supported by kickstart)
+         # but generating should not crash.
+         ([{
+            "get_connection_type.return_value": NM_CONNECTION_TYPE_BOND,
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": "bridge1",
+            "get_uuid.return_value": BOND0_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value": None,
+            "get_setting_ip6_config.return_value": None,
+            "get_setting_bond.return_value.get_num_options.return_value": 2,
+            "get_setting_bond.return_value.get_option.side_effect": lambda i: bond_options_1[i],
+          }],
+          "network  --bootproto=dhcp --device=bond0 --bondslaves=ens7,ens8 --bondopts=mode=active-backup,primary=ens8"),
         ]
 
         for cons_specs, expected_ks in cons_to_test:
