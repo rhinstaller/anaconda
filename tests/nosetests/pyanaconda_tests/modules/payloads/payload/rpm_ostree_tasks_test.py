@@ -15,6 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import tempfile
+import os
+
 import unittest
 from unittest.mock import patch, call, MagicMock
 
@@ -23,7 +26,7 @@ from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurati
 
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
     PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask, \
-    ChangeOSTreeRemoteTask
+    ChangeOSTreeRemoteTask, ConfigureBootloader
 
 
 def _make_config_data():
@@ -363,3 +366,104 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
             for verify_ssl in (True, False):
                 for gpg_verify in (True, False):
                     self._execute_run_once(use_sysroot, gpg_verify, verify_ssl)
+
+
+class ConfigureBootloaderTaskTestCase(unittest.TestCase):
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
+    def btrfs_run_test(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock):
+        """Test OSTree bootloader config task, no BTRFS"""
+        proxy_mock = storage_mock.get_proxy()
+        proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
+        proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
+        proxy_mock.GetRootDevice.return_value = "device-name"
+        devdata_mock.from_structure.return_value.type = "btrfs subvolume"
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(sysroot + "/boot/grub2")
+            os.mknod(sysroot + "/boot/grub2/grub.cfg")
+
+            task = ConfigureBootloader(sysroot, is_dirinstall=False)
+            task.run()
+
+            rename_mock.assert_called_once_with(
+                sysroot + "/boot/grub2/grub.cfg",
+                sysroot + "/boot/loader/grub.cfg"
+            )
+            symlink_mock.assert_called_once_with(
+                "../loader/grub.cfg",
+                sysroot + "/boot/grub2/grub.cfg"
+            )
+            exec_mock.assert_called_once_with(
+                "ostree",
+                ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC",
+                 "rootflags=subvol=device-name"],
+                root=sysroot
+            )
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
+    def nonbtrfs_run_test(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock):
+        """Test OSTree bootloader config task, no BTRFS"""
+        proxy_mock = storage_mock.get_proxy()
+        proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
+        proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
+        proxy_mock.GetRootDevice.return_value = "device-name"
+        devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(sysroot + "/boot/grub2")
+            os.mknod(sysroot + "/boot/grub2/grub.cfg")
+
+            task = ConfigureBootloader(sysroot, is_dirinstall=False)
+            task.run()
+
+            rename_mock.assert_called_once_with(
+                sysroot + "/boot/grub2/grub.cfg",
+                sysroot + "/boot/loader/grub.cfg"
+            )
+            symlink_mock.assert_called_once_with(
+                "../loader/grub.cfg",
+                sysroot + "/boot/grub2/grub.cfg"
+            )
+            exec_mock.assert_called_once_with(
+                "ostree",
+                ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC"],
+                root=sysroot
+            )
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
+    def dir_run_test(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock):
+        """Test OSTree bootloader config task, dirinstall"""
+        proxy_mock = storage_mock.get_proxy()
+        proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
+        proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
+        proxy_mock.GetRootDevice.return_value = "device-name"
+        devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            os.makedirs(sysroot + "/boot/grub2")
+            os.mknod(sysroot + "/boot/grub2/grub.cfg")
+
+            task = ConfigureBootloader(sysroot, is_dirinstall=True)
+            task.run()
+
+            rename_mock.assert_called_once_with(
+                sysroot + "/boot/grub2/grub.cfg",
+                sysroot + "/boot/loader/grub.cfg"
+            )
+            symlink_mock.assert_called_once_with(
+                "../loader/grub.cfg",
+                sysroot + "/boot/grub2/grub.cfg"
+            )
+            exec_mock.assert_not_called()

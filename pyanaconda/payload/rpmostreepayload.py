@@ -24,10 +24,7 @@ from subprocess import CalledProcessError
 from pyanaconda.core import util
 from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
-from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
-from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import safe_exec_with_redirect
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
@@ -292,40 +289,14 @@ class RPMOSTreePayload(Payload):
         )
         task.run()
 
-        boot = conf.target.system_root + '/boot'
-
-        # If we're using GRUB2, move its config file, also with a
-        # compatibility symlink.
-        boot_grub2_cfg = boot + '/grub2/grub.cfg'
-        if os.path.isfile(boot_grub2_cfg):
-            boot_loader = boot + '/loader'
-            target_grub_cfg = boot_loader + '/grub.cfg'
-            log.info("Moving %s -> %s", boot_grub2_cfg, target_grub_cfg)
-            os.rename(boot_grub2_cfg, target_grub_cfg)
-            os.symlink('../loader/grub.cfg', boot_grub2_cfg)
-
-        # Skip kernel args setup for dirinstall, there is no bootloader or rootDevice setup.
-        if not conf.target.is_directory:
-            # OSTree owns the bootloader configuration, so here we give it
-            # the argument list we computed from storage, architecture and
-            # such.
-            bootloader = STORAGE.get_proxy(BOOTLOADER)
-            device_tree = STORAGE.get_proxy(DEVICE_TREE)
-
-            root_name = device_tree.GetRootDevice()
-            root_data = DeviceData.from_structure(
-                device_tree.GetDeviceData(root_name)
-            )
-
-            set_kargs_args = ["admin", "instutil", "set-kargs"]
-            set_kargs_args.extend(bootloader.GetArguments())
-            set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_name))
-
-            if root_data.type == "btrfs subvolume":
-                set_kargs_args.append("rootflags=subvol=" + root_name)
-
-            safe_exec_with_redirect("ostree", set_kargs_args, root=conf.target.system_root)
-
+        # Handle bootloader configuration
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            ConfigureBootloader
+        task = ConfigureBootloader(
+            sysroot=conf.target.system_root,
+            is_dirinstall=conf.target.is_directory
+        )
+        task.run()
 
 class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
 

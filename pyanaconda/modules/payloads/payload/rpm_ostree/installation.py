@@ -26,6 +26,7 @@ from pyanaconda.core.util import execWithRedirect, mkdirChain
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.storage import DeviceData
 
 import gi
 gi.require_version("OSTree", "1.0")
@@ -311,3 +312,58 @@ class ChangeOSTreeRemoteTask(Task):
                            self._data.url,
                            Variant('a{sv}', remote_options),
                            cancellable)
+
+
+class ConfigureBootloader(Task):
+    """Task to configure bootloader after OSTree setup."""
+
+    def __init__(self, sysroot, is_dirinstall):
+        super().__init__()
+        self._sysroot = sysroot
+        self._is_dirinstall = is_dirinstall
+
+    @property
+    def name(self):
+        return "Configure OSTree bootloader"
+
+    def run(self):
+        self._move_grub_config()
+        self._set_kargs()
+
+    def _move_grub_config(self):
+        """If using GRUB2, move its config file, also with a compatibility symlink."""
+        boot_grub2_cfg = self._sysroot + '/boot/grub2/grub.cfg'
+        target_grub_cfg = self._sysroot + '/boot/loader/grub.cfg'
+
+        if os.path.isfile(boot_grub2_cfg):
+            log.info("Moving %s -> %s", boot_grub2_cfg, target_grub_cfg)
+            os.rename(boot_grub2_cfg, target_grub_cfg)
+            os.symlink('../loader/grub.cfg', boot_grub2_cfg)
+
+    def _set_kargs(self):
+        """Set kernel arguments via OSTree-specific utils.
+
+        OSTree owns the bootloader configuration, so here we give it an argument list computed
+        from storage, architecture and such.
+        """
+
+        # Skip kernel args setup for dirinstall, there is no bootloader or rootDevice setup.
+        if self._is_dirinstall:
+            return
+
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+
+        root_name = device_tree.GetRootDevice()
+        root_data = DeviceData.from_structure(
+            device_tree.GetDeviceData(root_name)
+        )
+
+        set_kargs_args = ["admin", "instutil", "set-kargs"]
+        set_kargs_args.extend(bootloader.GetArguments())
+        set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_name))
+
+        if root_data.type == "btrfs subvolume":
+            set_kargs_args.append("rootflags=subvol=" + root_name)
+
+        safe_exec_with_redirect("ostree", set_kargs_args, root=self._sysroot)
