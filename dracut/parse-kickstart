@@ -163,9 +163,7 @@ class DracutURL(Url, DracutArgsMixin):
 
 class DracutUpdates(Updates, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
-        if self.url == "floppy":
-            return "live.updates=/dev/fd0"
-        elif self.url:
+        if self.url:
             return "live.updates=%s" % self.url
 
 class DracutMediaCheck(MediaCheck, DracutArgsMixin):
