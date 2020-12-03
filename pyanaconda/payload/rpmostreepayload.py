@@ -207,13 +207,11 @@ class RPMOSTreePayload(Payload):
         repo.remote_delete(data.remote, None)
 
         safe_exec_with_redirect("ostree",
-                                      ["admin", "--sysroot=" + conf.target.physical_root,
-                                       "os-init", data.osname])
+                                ["admin", "--sysroot=" + conf.target.physical_root,
+                                 "os-init", data.osname])
 
-        admin_deploy_args = ["admin", "--sysroot=" + conf.target.physical_root,
-                             "deploy", "--os=" + data.osname]
-
-        admin_deploy_args.append(data.remote + ':' + ref)
+        admin_deploy_args = ["admin", "--sysroot=" + conf.target.physical_root, "deploy",
+                             "--os=" + data.osname, data.remote + ':' + ref]
 
         log.info("ostree admin deploy starting")
         progressQ.send_message(_("Deployment starting: %s") % (ref, ))
@@ -297,6 +295,7 @@ class RPMOSTreePayload(Payload):
             is_dirinstall=conf.target.is_directory
         )
         task.run()
+
 
 class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
 
