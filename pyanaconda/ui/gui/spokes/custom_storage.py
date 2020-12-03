@@ -132,7 +132,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def apply(self):
         self.clear_errors()
-        hubQ.send_ready("StorageSpoke", True)
+        hubQ.send_ready("StorageSpoke")
 
     @property
     def indirect(self):

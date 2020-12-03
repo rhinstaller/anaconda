@@ -535,7 +535,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                              _("Restoring hardware time..."))
             threadMgr.wait(constants.THREAD_TIME_INIT)
 
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
         # report that we are done
         self.initialize_done()

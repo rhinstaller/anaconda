@@ -100,7 +100,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         # Validate the group input box
         self.add_check(self._tGroups, self._validateGroups)
         # Send ready signal to main event loop
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
     @property
     def user(self):
@@ -159,7 +159,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self.user.groups = [''.join(g.split()) for g in self._tGroups.get_text().split(",") if g]
 
         # Send ready signal to main event loop
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
     def run(self):
         self.window.show()

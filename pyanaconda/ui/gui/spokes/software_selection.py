@@ -235,8 +235,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self._error_msgs = None
             self._tx_id = self.payload.tx_id
         finally:
-            hubQ.send_ready(self.__class__.__name__, False)
-            hubQ.send_ready("SourceSpoke", False)
+            hubQ.send_ready(self.__class__.__name__)
+            hubQ.send_ready("SourceSpoke")
 
     @property
     def completed(self):
@@ -372,7 +372,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             if not self._first_refresh():
                 return
 
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
         # If packages were provided by an input kickstart file (or some other means),
         # we should do dependency solving here.

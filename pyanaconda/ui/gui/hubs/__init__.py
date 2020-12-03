@@ -183,13 +183,6 @@ class Hub(GUIObject, common.Hub):
                 self._updateCompleteness(spoke, update_continue=False)
                 spoke.selector.connect("button-press-event", self._on_spoke_clicked, spoke)
                 spoke.selector.connect("key-release-event", self._on_spoke_clicked, spoke)
-
-                # If this is a kickstart install, attempt to execute any provided ksdata now.
-                if flags.automatedInstall and spoke.ready and spoke.changed and \
-                   spoke.visitedSinceApplied:
-                    spoke.execute()
-                    spoke.visitedSinceApplied = False
-
                 selectors.append(spoke.selector)
 
             if not selectors:
@@ -346,15 +339,6 @@ class Hub(GUIObject, common.Hub):
                     else:
                         log.debug("kickstart installation, spoke %s is ready", spoke_title)
 
-                    # Spokes that were not initially ready got the execute call in
-                    # _createBox skipped.  Now that it's become ready, do it.  Note
-                    # that we also provide a way to skip this processing (see comments
-                    # communication.py) to prevent getting caught in a loop.
-                    if not args[1] and spoke.changed and spoke.visitedSinceApplied:
-                        log.debug("execute spoke from event loop %s", spoke.title.replace("_", ""))
-                        spoke.execute()
-                        spoke.visitedSinceApplied = False
-
                     if self.continuePossible:
                         if self._inSpoke:
                             self._auto_continue = False
@@ -435,14 +419,9 @@ class Hub(GUIObject, common.Hub):
         if not self._inSpoke:
             return
 
-        spoke.visitedSinceApplied = True
-
-        # Don't take visitedSinceApplied into account here.  It will always be
-        # True from the line above.
         if spoke.changed and (not spoke.skipTo or (spoke.skipTo and spoke.applyOnSkip)):
             spoke.apply()
             spoke.execute()
-            spoke.visitedSinceApplied = False
 
         spoke.exited.emit(spoke)
 

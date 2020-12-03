@@ -134,7 +134,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._password_bar.add_offset_value("high", 4)
 
         # Send ready signal to main event loop
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
         # report that we are done
         self.initialize_done()
@@ -203,7 +203,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self.remove_placeholder_texts()
 
         # Send ready signal to main event loop
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
     @property
     def completed(self):

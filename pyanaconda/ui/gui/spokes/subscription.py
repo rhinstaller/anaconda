@@ -636,7 +636,7 @@ class SubscriptionSpoke(NormalSpoke):
         self._update_subscription_state()
 
         # Send ready signal to main event loop
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
         # report that we are done
         self.initialize_done()
@@ -924,12 +924,12 @@ class SubscriptionSpoke(NormalSpoke):
             # enable controls
             self.set_registration_controls_sensitive(True)
             # notify hub
-            hubQ.send_ready(self.__class__.__name__, False)
+            hubQ.send_ready(self.__class__.__name__)
         else:
             # processing still ongoing, set the phase
             self.registration_phase = phase
             # notify hub
-            hubQ.send_ready(self.__class__.__name__, False)
+            hubQ.send_ready(self.__class__.__name__)
         # update spoke state
         self._update_registration_state()
 
@@ -947,7 +947,7 @@ class SubscriptionSpoke(NormalSpoke):
         # re-enable controls, so user can try again
         self.set_registration_controls_sensitive(True)
         # notify hub
-        hubQ.send_ready(self.__class__.__name__, False)
+        hubQ.send_ready(self.__class__.__name__)
 
     def _get_status_message(self):
         """Get status message describing current spoke state.
