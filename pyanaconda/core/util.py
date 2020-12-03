@@ -1475,7 +1475,7 @@ class LazyObject(object):
         return setattr(self._object, name, value)
 
 
-def get_os_release_value(name, sysroot=""):
+def get_os_release_value(name, sysroot="/"):
     """Read os-release files and return a value of the specified parameter.
 
     :param name: a name of the parameter (for example, "VERSION_ID")
@@ -1506,5 +1506,5 @@ def get_os_release_value(name, sysroot=""):
             pass
 
     # No value found.
-    log.debug("%s not found in os-release files")
+    log.debug("%s not found in os-release files", name[:-1])
     return None

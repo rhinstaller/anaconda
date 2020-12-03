@@ -245,7 +245,7 @@ def iface_for_host_ip(host_ip):
     return route_info[route_info.index("dev") + 1]
 
 
-def copy_resolv_conf_to_root(root=""):
+def copy_resolv_conf_to_root(root="/"):
     """Copy resolv.conf to a system root."""
     src = "/etc/resolv.conf"
     dst = os.path.join(root, src.lstrip('/'))
