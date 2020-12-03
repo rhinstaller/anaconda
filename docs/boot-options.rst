@@ -668,19 +668,19 @@ Forces/disables (on/off) usage of zRAM swap for the installation process.
 Boot loader options
 -------------------
 
-.. extlinux:
+.. inst.extlinux:
 
-extlinux
-^^^^^^^^
+inst.extlinux
+^^^^^^^^^^^^^
 
 Use extlinux as the bootloader. Note that there's no attempt to validate that
 this will work for your platform or anything; it assumes that if you ask for it,
 you want to try.
 
-.. leavebootorder:
+.. inst.leavebootorder:
 
-leavebootorder
-^^^^^^^^^^^^^^
+inst.leavebootorder
+^^^^^^^^^^^^^^^^^^^
 
 Boot the drives in their existing order, to override the default of booting into
 the newly installed drive on Power Systems servers and EFI systems. This is
