@@ -19,12 +19,19 @@ import os
 
 from pyanaconda.payload.errors import PayloadInstallError
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.glib import Variant
 from pyanaconda.core.util import execWithRedirect, mkdirChain
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 
-from pyanaconda.anaconda_loggers import get_module_logger
+import gi
+gi.require_version("OSTree", "1.0")
+gi.require_version("Gio", "2.0")
+from gi.repository import OSTree, Gio
+
 log = get_module_logger(__name__)
 
 
@@ -260,3 +267,47 @@ class InitOSTreeFsAndRepoTask(Task):
              "--sysroot=" + self._physroot,
              "init-fs", self._physroot]
         )
+
+
+class ChangeOSTreeRemoteTask(Task):
+    """Task to change OSTree remote."""
+
+    def __init__(self, data, use_root, root):
+        super().__init__()
+        self._data = data
+        self._use_root = use_root
+        self._root = root
+
+    @property
+    def name(self):
+        return "Change OSTree remote"
+
+    def run(self):
+        cancellable = None
+
+        sysroot_file = Gio.File.new_for_path(self._root)
+        sysroot = OSTree.Sysroot.new(sysroot_file)
+        sysroot.load(cancellable)
+        repo = sysroot.get_repo(None)[1]
+        # We don't support resuming from interrupted installs
+        repo.set_disable_fsync(True)
+
+        remote_options = {}
+
+        if not self._data.gpg_verification_enabled:
+            remote_options['gpg-verify'] = Variant('b', False)
+
+        if not conf.payload.verify_ssl:
+            remote_options['tls-permissive'] = Variant('b', True)
+
+        if self._use_root:
+            root = sysroot_file
+        else:
+            root = None
+
+        repo.remote_change(root,
+                           OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
+                           self._data.remote,
+                           self._data.url,
+                           Variant('a{sv}', remote_options),
+                           cancellable)

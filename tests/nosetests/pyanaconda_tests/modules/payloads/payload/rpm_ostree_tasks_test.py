@@ -16,12 +16,14 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch, call
+from unittest.mock import patch, call, MagicMock
 
+from pyanaconda.core.glib import Variant
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
 
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-    PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask
+    PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask, \
+    ChangeOSTreeRemoteTask
 
 
 def _make_config_data():
@@ -307,3 +309,57 @@ class InitOSTreeFsAndRepoTaskTestCase(unittest.TestCase):
             "ostree",
             ["admin", "--sysroot=/physroot", "init-fs", "/physroot"]
         )
+
+
+class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.conf")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    def _execute_run_once(self, use_sysroot, gpg_verify, verify_ssl,
+                          gio_file_mock, conf_mock, sysroot_mock):
+        new_mock = sysroot_mock.new()
+        repo_mock = MagicMock()
+        new_mock.get_repo.return_value = [None, repo_mock]
+        conf_mock.payload.verify_ssl = verify_ssl
+        path_mock = gio_file_mock.new_for_path()
+
+        data = RPMOSTreeConfigurationData()
+        data.url = "url"
+        data.osname = "osname"
+        data.gpg_verification_enabled = gpg_verify
+        data.ref = "ref"
+        data.remote = "remote"
+
+        task = ChangeOSTreeRemoteTask(data, use_sysroot, "/physroot")
+        task.run()
+
+        repo_mock.remote_change.assert_called_once()
+        the_call = repo_mock.remote_change.mock_calls[0]
+        name, args, kwargs = the_call
+        print(the_call, name, args, kwargs)
+        self.assertEqual(len(args), 6)
+
+        if use_sysroot:
+            self.assertEqual(args[0], path_mock)
+        else:
+            self.assertEqual(args[0], None)
+        self.assertEqual(args[2], "remote")
+        self.assertEqual(args[3], "url")
+
+        expected = {}
+        if not gpg_verify:
+            expected["gpg-verify"] = False
+        if not verify_ssl:
+            expected["tls-permissive"] = True
+        var = args[4]
+        self.assertEqual(type(var), Variant)
+        self.assertDictEqual(var.unpack(), expected)
+
+    def run_test(self):
+        """Test OSTree remote change task"""
+        # pylint: disable=no-value-for-parameter
+        # check all combinations of all inputs
+        for use_sysroot in (True, False):
+            for verify_ssl in (True, False):
+                for gpg_verify in (True, False):
+                    self._execute_run_once(use_sysroot, gpg_verify, verify_ssl)

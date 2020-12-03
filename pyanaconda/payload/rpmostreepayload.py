@@ -155,25 +155,14 @@ class RPMOSTreePayload(Payload):
 
         # Here, we use the physical root as sysroot, because we haven't
         # yet made a deployment.
-        sysroot_file = Gio.File.new_for_path(conf.target.physical_root)
-        sysroot = OSTree.Sysroot.new(sysroot_file)
-        sysroot.load(cancellable)
-        repo = sysroot.get_repo(None)[1]
-        # We don't support resuming from interrupted installs
-        repo.set_disable_fsync(True)
-
-        self._remoteOptions = {}
-
-        if not data.gpg_verification_enabled:
-            self._remoteOptions['gpg-verify'] = Variant('b', False)
-
-        if not conf.payload.verify_ssl:
-            self._remoteOptions['tls-permissive'] = Variant('b', True)
-
-        repo.remote_change(None, OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-                           data.remote, data.url,
-                           Variant('a{sv}', self._remoteOptions),
-                           cancellable)
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            ChangeOSTreeRemoteTask
+        task = ChangeOSTreeRemoteTask(
+            data,
+            use_root=False,
+            root=conf.target.physical_root
+        )
+        task.run()
 
         # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
         ref = RpmOstree.varsubst_basearch(data.ref)
@@ -194,6 +183,13 @@ class RPMOSTreePayload(Payload):
                 if os.path.isdir(path + '/objects'):
                     pull_opts['localcache-repos'] = Variant('as', [path])
                     break
+
+        sysroot_file = Gio.File.new_for_path(conf.target.physical_root)
+        sysroot = OSTree.Sysroot.new(sysroot_file)
+        sysroot.load(cancellable)
+        repo = sysroot.get_repo(None)[1]
+        # We don't support resuming from interrupted installs
+        repo.set_disable_fsync(True)
 
         try:
             repo.pull_with_options(data.remote,
@@ -277,29 +273,24 @@ class RPMOSTreePayload(Payload):
         super().post_install()
         data = self._get_source_configuration()
 
-        gi.require_version("OSTree", "1.0")
-        from gi.repository import OSTree
-        cancellable = None
-
-        # Following up on the "remote delete" above, we removed the
-        # remote from /ostree/repo/config.  But we want it in /etc, so
-        # re-add it to /etc/ostree/remotes.d, using the sysroot path.
+        # Following up on the "remote delete" earlier, we removed the remote from
+        # /ostree/repo/config.  But we want it in /etc, so re-add it to /etc/ostree/remotes.d,
+        # using the sysroot path.
         #
-        # However, we ignore the case where the remote already exists,
-        # which occurs when the content itself provides the remote
-        # config file.
+        # However, we ignore the case where the remote already exists, which occurs when the
+        # content itself provides the remote config file.
+        #
+        # Note here we use the deployment as sysroot, because it's that version of /etc that we
+        # want.
 
-        # Note here we use the deployment as sysroot, because it's
-        # that version of /etc that we want.
-        sysroot_file = Gio.File.new_for_path(conf.target.system_root)
-        sysroot = OSTree.Sysroot.new(sysroot_file)
-        sysroot.load(cancellable)
-        repo = sysroot.get_repo(None)[1]
-        repo.remote_change(sysroot_file,
-                           OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-                           data.remote, data.url,
-                           Variant('a{sv}', self._remoteOptions),
-                           cancellable)
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            ChangeOSTreeRemoteTask
+        task = ChangeOSTreeRemoteTask(
+            data,
+            use_root=True,
+            root=conf.target.system_root
+        )
+        task.run()
 
         boot = conf.target.system_root + '/boot'
 
