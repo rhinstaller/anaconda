@@ -127,44 +127,6 @@ class RPMOSTreePayload(Payload):
         else:
             progressQ.send_message(_("Writing objects"))
 
-    def _copy_bootloader_data(self):
-        # Copy bootloader data files from the deployment
-        # checkout to the target root.  See
-        # https://bugzilla.gnome.org/show_bug.cgi?id=726757 This
-        # happens once, at installation time.
-        # extlinux ships its modules directly in the RPM in /boot.
-        # For GRUB2, Anaconda installs device.map there.  We may need
-        # to add other bootloaders here though (if they can't easily
-        # be fixed to *copy* data into /boot at install time, instead
-        # of shipping it in the RPM).
-        bootloader = STORAGE.get_proxy(BOOTLOADER)
-        is_efi = bootloader.IsEFI()
-        physboot = conf.target.physical_root + '/boot'
-        ostree_boot_source = conf.target.system_root + '/usr/lib/ostree-boot'
-        if not os.path.isdir(ostree_boot_source):
-            ostree_boot_source = conf.target.system_root + '/boot'
-        for fname in os.listdir(ostree_boot_source):
-            srcpath = os.path.join(ostree_boot_source, fname)
-
-            # We're only copying directories
-            if not os.path.isdir(srcpath):
-                continue
-
-            # Special handling for EFI; first, we only want to copy
-            # the data if the system is actually EFI (simulating grub2-efi
-            # being installed).  Second, as it's a mount point that's
-            # expected to already exist (so if we used copytree, we'd
-            # traceback).  If it doesn't, we're not on a UEFI system,
-            # so we don't want to copy the data.
-            if not fname == 'efi' or is_efi and os.path.isdir(os.path.join(physboot, fname)):
-                log.info("Copying bootloader data: %s", fname)
-                safe_exec_with_redirect('cp', ['-r', '-p', srcpath, physboot])
-
-            # Unfortunate hack, see https://github.com/rhinstaller/anaconda/issues/1188
-            efi_grubenv_link = physboot + '/grub2/grubenv'
-            if not is_efi and os.path.islink(efi_grubenv_link):
-                os.unlink(efi_grubenv_link)
-
     def install(self):
         # This is top installation method
         # TODO: Broke this to pieces when ostree payload is migrated to the DBus solution
@@ -275,7 +237,13 @@ class RPMOSTreePayload(Payload):
         util.set_system_root(deployment_path.get_path())
 
         try:
-            self._copy_bootloader_data()
+            from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+                CopyBootloaderDataTask
+            task = CopyBootloaderDataTask(
+                sysroot=conf.target.system_root,
+                physroot=conf.target.physical_root
+            )
+            task.run()
         except (OSError, RuntimeError) as e:
             raise PayloadInstallError("Failed to copy bootloader data: %s" % e) from e
 

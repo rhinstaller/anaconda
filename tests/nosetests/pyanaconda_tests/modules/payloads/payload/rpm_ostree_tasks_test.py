@@ -21,7 +21,7 @@ from unittest.mock import patch, call
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
 
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-    PrepareOSTreeMountTargetsTask
+    PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask
 
 
 def _make_config_data():
@@ -194,3 +194,104 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         ])
         self.assertEqual(len(exec_mock.mock_calls), 20)
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
+
+
+class CopyBootloaderDataTaskTestCase(unittest.TestCase):
+    # variables to consider: efi, boot source + files & dirs therein
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.islink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.unlink")
+    def run_noefi_noefidir_nolink_test(
+            self, unlink_mock, islink_mock, exec_mock, listdir_mock, isdir_mock, storage_mock):
+        """Test OSTree bootloader copy task run() with no EFI, no efi dir, and no links"""
+        bootloader_mock = storage_mock.get_proxy()
+        bootloader_mock.IsEFI.return_value = False
+
+        isdir_mock.side_effect = [True, False, True]  # boot source, 2x listdir
+        listdir_mock.return_value = ["some_file", "directory"]
+        islink_mock.return_value = False
+
+        task = CopyBootloaderDataTask("/sysroot", "/physroot")
+        task.run()
+
+        exec_mock.assert_called_once_with(
+            "cp", ["-r", "-p", "/sysroot/usr/lib/ostree-boot/directory", "/physroot/boot"]
+        )
+        unlink_mock.assert_not_called()
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.islink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.unlink")
+    def run_noefi_efidir_link_test(
+            self, unlink_mock, islink_mock, exec_mock, listdir_mock, isdir_mock, storage_mock):
+        """Test OSTree bootloader copy task run() with no EFI but efi dir and link"""
+        bootloader_mock = storage_mock.get_proxy()
+        bootloader_mock.IsEFI.return_value = False
+
+        isdir_mock.side_effect = [True, False, True, True, True]  # boot source, 3x listdir, efi
+        listdir_mock.return_value = ["some_file", "directory", "efi"]
+        islink_mock.return_value = True
+
+        task = CopyBootloaderDataTask("/sysroot", "/physroot")
+        task.run()
+
+        exec_mock.assert_called_once_with(
+            "cp", ["-r", "-p", "/sysroot/usr/lib/ostree-boot/directory", "/physroot/boot"]
+        )
+        unlink_mock.assert_called_with("/physroot/boot/grub2/grubenv")
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.islink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.unlink")
+    def run_efi_nolink_test(
+            self, unlink_mock, islink_mock, exec_mock, listdir_mock, isdir_mock, storage_mock):
+        """Test OSTree bootloader copy task run() with EFI, efi dir, and no links"""
+        bootloader_mock = storage_mock.get_proxy()
+        bootloader_mock.IsEFI.return_value = True
+
+        isdir_mock.side_effect = [True, False, True, True, True]  # boot source, 3x listdir, efi
+        listdir_mock.return_value = ["some_file", "directory", "efi"]
+        islink_mock.return_value = False
+
+        task = CopyBootloaderDataTask("/sysroot", "/physroot")
+        task.run()
+
+        exec_mock.assert_has_calls([
+            call("cp", ["-r", "-p", "/sysroot/usr/lib/ostree-boot/directory", "/physroot/boot"]),
+            call("cp", ["-r", "-p", "/sysroot/usr/lib/ostree-boot/efi", "/physroot/boot"])
+        ])
+        unlink_mock.assert_not_called()
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.islink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.unlink")
+    def run_noefi_notadir_test(
+            self, unlink_mock, islink_mock, exec_mock, listdir_mock, isdir_mock, storage_mock):
+        """Test OSTree bootloader copy task run() with non-directory source of data"""
+        bootloader_mock = storage_mock.get_proxy()
+        bootloader_mock.IsEFI.return_value = False
+
+        isdir_mock.side_effect = [False, False, True]  # boot source, 2x listdir
+        listdir_mock.return_value = ["some_file", "directory"]
+        islink_mock.return_value = False
+
+        task = CopyBootloaderDataTask("/sysroot", "/physroot")
+        task.run()
+
+        exec_mock.assert_called_once_with(
+            "cp", ["-r", "-p", "/sysroot/boot/directory", "/physroot/boot"]
+        )
+        unlink_mock.assert_not_called()
