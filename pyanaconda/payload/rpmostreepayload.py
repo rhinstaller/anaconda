@@ -281,106 +281,17 @@ class RPMOSTreePayload(Payload):
 
         mainctx.pop_thread_default()
 
-    def _setup_internal_bindmount(self, src, dest=None,
-                                  src_physical=True,
-                                  bind_ro=False,
-                                  recurse=True):
-        """Internal API for setting up bind mounts between the physical root and
-           sysroot, also ensures we track them in self._internal_mounts so we can
-           cleanly unmount them.
-
-           :param src: Source path, will be prefixed with physical or sysroot
-           :param dest: Destination, will be prefixed with sysroot (defaults to same as src)
-           :param src_physical: Prefix src with physical root
-           :param bind_ro: Make mount read-only
-           :param recurse: Use --rbind to recurse, otherwise plain --bind
-        """
-        # Default to the same basename
-        if dest is None:
-            dest = src
-        # Almost all of our mounts go from physical to sysroot
-        if src_physical:
-            src = conf.target.physical_root + src
-        else:
-            src = conf.target.system_root + src
-        # Canonicalize dest to the full path
-        dest = conf.target.system_root + dest
-        if bind_ro:
-            safe_exec_with_redirect("mount",
-                                          ["--bind", src, src])
-            safe_exec_with_redirect("mount",
-                                          ["--bind", "-o", "remount,ro", src, src])
-        else:
-            # Recurse for non-ro binds so we pick up sub-mounts
-            # like /sys/firmware/efi/efivars.
-            if recurse:
-                bindopt = '--rbind'
-            else:
-                bindopt = '--bind'
-            safe_exec_with_redirect("mount",
-                                          [bindopt, src, dest])
-        self._internal_mounts.append(src if bind_ro else dest)
-
     def _prepare_mount_targets(self, data):
         """ Prepare the ostree root """
-        mount_points = payload_utils.get_mount_points()
-
-        # Currently, blivet sets up mounts in the physical root.
-        # We used to unmount them and remount them in the sysroot, but
-        # since 664ef7b43f9102aa9332d0db5b7d13f8ece436f0 we now just set up
-        # bind mounts.
-
-        # Make /usr readonly like ostree does at runtime normally
-        self._setup_internal_bindmount('/usr', bind_ro=True, src_physical=False)
-
-        # Explicitly do API mounts; some of these may be tracked by blivet, but
-        # we'll skip them below.
-        api_mounts = ["/dev", "/proc", "/run", "/sys"]
-        for path in api_mounts:
-            self._setup_internal_bindmount(path)
-
-        # Handle /var; if the admin didn't specify a mount for /var, we need
-        # to do the default ostree one.
-        # https://github.com/ostreedev/ostree/issues/855
-        var_root = '/ostree/deploy/' + data.osname + '/var'
-        if mount_points.get("/var") is None:
-            self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
-        else:
-            # Otherwise, bind it
-            self._setup_internal_bindmount('/var', recurse=False)
-
-        # Now that we have /var, start filling in any directories that may be
-        # required later there. We explicitly make /var/lib, since
-        # systemd-tmpfiles doesn't have a --prefix-only=/var/lib. We rely on
-        # 80-setfilecons.ks to set the label correctly.
-        util.mkdirChain(conf.target.system_root + '/var/lib')
-        # Next, run tmpfiles to make subdirectories of /var. We need this for
-        # both mounts like /home (really /var/home) and %post scripts might
-        # want to write to e.g. `/srv`, `/root`, `/usr/local`, etc. The
-        # /var/lib/rpm symlink is also critical for having e.g. `rpm -qa` work
-        # in %post. We don't iterate *all* tmpfiles because we don't have the
-        # matching NSS configuration inside Anaconda, and we can't "chroot" to
-        # get it because that would require mounting the API filesystems in the
-        # target.
-        for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
-                          'usrlocal', 'mnt', 'media', 'spool', 'spool/mail'):
-            safe_exec_with_redirect("systemd-tmpfiles",
-                                          ["--create", "--boot", "--root=" + conf.target.system_root,
-                                           "--prefix=/var/" + varsubdir])
-
-        # Handle mounts like /boot (except avoid /boot/efi; we just need the
-        # toplevel), and any admin-specified points like /home (really
-        # /var/home). Note we already handled /var above. Avoid recursion since
-        # sub-mounts will be in the list too.  We sort by length as a crude
-        # hack to try to simulate the tree relationship; it looks like this
-        # is handled in blivet in a different way.
-        for mount in sorted(mount_points, key=len):
-            if mount in ('/', '/var') or mount in api_mounts:
-                continue
-            self._setup_internal_bindmount(mount, recurse=False)
-
-        # And finally, do a nonrecursive bind for the sysroot
-        self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            PrepareOSTreeMountTargetsTask
+        task = PrepareOSTreeMountTargetsTask(
+            sysroot=conf.target.system_root,
+            physroot=conf.target.physical_root,
+            source_config=data
+        )
+        bindmounts = task.run()
+        self._internal_mounts.extend(bindmounts)
 
     def unsetup(self):
         """Invalidate a previously setup payload."""
