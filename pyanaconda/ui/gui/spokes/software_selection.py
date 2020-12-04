@@ -25,7 +25,7 @@ from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.payload.manager import payloadMgr, PayloadState
-from pyanaconda.payload.errors import NoSuchGroup, DependencyError
+from pyanaconda.payload.errors import NoSuchGroup, DependencyError, PayloadError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core import util, constants
 
@@ -361,14 +361,17 @@ class SoftwareSelectionSpoke(NormalSpoke):
         super().refresh()
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
-        self._clear_listbox(self._environment_list_box)
+        # Get the packages configuration.
+        self._selection = self.payload.get_packages_data()
 
         # Set up the environment.
         if not self._selection.environment \
                 or not self.is_environment_valid(self._selection.environment):
             self.set_default_environment()
 
-        # create rows for all valid environments
+        # Create rows for all valid environments.
+        self._clear_listbox(self._environment_list_box)
+
         for environment_id in self.payload.environments:
             (name, desc) = self.payload.environment_description(environment_id)
 
@@ -386,6 +389,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self._add_row(self._environment_list_box,
                           name, desc, radio,
                           self.on_radio_button_toggled)
+
+        # Set up states of selected groups.
+        self._addon_states = {}
+
+        for group in self._selection.groups:
+            try:
+                group_id = self.payload.group_id(group)
+                self._mark_addon_selection(group_id, True)
+            except PayloadError as e:
+                log.warning(e)
 
         self.refresh_addons()
         self._environment_list_box.show_all()
