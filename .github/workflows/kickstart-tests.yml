@@ -1,0 +1,131 @@
+# Run kickstart tests in a PR triggered by a "/kickstart-test <launch args>" comment from an organization member.
+name: kickstart-tests
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  pr-info:
+    if: startsWith(github.event.comment.body, '/kickstart-test')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query comment author repository permissions
+        uses: octokit/request-action@v2.x
+        id: user_permission
+        with:
+          route: GET /repos/${{ github.repository }}/collaborators/${{ github.event.sender.login }}/permission
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # restrict running of tests to users with admin or write permission for the repository
+      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
+      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
+      - name: Check if user does have correct permissions
+        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
+        id: check_user_perm
+        run: |
+          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
+          echo "::set-output name=allowed_user::true"
+
+      - name: Get information for pull request
+        uses: octokit/request-action@v2.x
+        id: pr_api
+        with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse launch arguments
+        id: parse_launch_args
+        run: |
+          # extract first line and cut out the "/kickstart-tests" first word
+          LAUNCH_ARGS=$(echo '${{ github.event.comment.body }}' | sed -n '1 s/^[^ ]* *//p')
+          echo "::set-output name=launch_args::${LAUNCH_ARGS}"
+
+    outputs:
+      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
+      base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
+      sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
+      launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
+
+  run:
+    needs: pr-info
+    # only do this for master for now; once we have RHEL 8/9 boot.iso builds working, also support these
+    if: needs.pr-info.outputs.base_ref == 'master' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
+    runs-on: [self-hosted, kstest]
+    timeout-minutes: 300
+    steps:
+      # self-hosted runners don't do this automatically; also useful to keep stuff around for debugging
+      # need to run sudo as the launch script and the container create root/other user owned files
+      - name: Clean up previous run
+        run: |
+          sudo podman ps -q --all --filter='ancestor=kstest-runner' | xargs -tr sudo podman rm -f
+          sudo podman volume rm --all || true
+          sudo rm -rf * .git
+
+      # we post statuses manually as this does not run from a pull_request event
+      # https://developer.github.com/v3/repos/statuses/#create-a-status
+      - name: Create in-progress status
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: 'kickstart ${{ needs.pr-info.outputs.launch_args }}'
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ needs.pr-info.outputs.sha }}
+          fetch-depth: 0
+
+      - name: Rebase to current master
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/master
+          git rebase origin/master
+
+      # FIXME: build a complete boot.iso with lorax/osbuild
+      - name: Build updates.img
+        run: |
+          scripts/makeupdates
+          gzip -cd updates.img | cpio -tv
+
+      - name: Check out kickstart-tests
+        uses: actions/checkout@v2
+        with:
+          repository: rhinstaller/kickstart-tests
+          path: kickstart-tests
+
+      - name: Ensure http proxy is running
+        run: |
+          [ -n "$(sudo podman ps -q -f 'name=^squid$')" ] || sudo kickstart-tests/containers/squid.sh start
+
+      - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
+        working-directory: kickstart-tests
+        run: |
+          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes 'rhel-only,knownfailure' --updates ../updates.img ${{ needs.pr-info.outputs.launch_args }}
+
+      - name: Collect logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'logs-${{ matrix.scenario }}'
+          # skip the /anaconda subdirectories, too large
+          path: |
+            kickstart-tests/data/logs/kstest.log
+            kickstart-tests/data/logs/kstest-*/*.log
+
+      - name: Set result status
+        if: always()
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: 'kickstart ${{ needs.pr-info.outputs.launch_args }}'
+          state: ${{ job.status }}
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
