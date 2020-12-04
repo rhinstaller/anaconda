@@ -71,7 +71,6 @@ class DNFManager(object):
         base.conf.cachedir = DNF_CACHE_DIR
         base.conf.pluginconfpath = DNF_PLUGINCONF_DIR
         base.conf.logdir = '/tmp/'
-        base.conf.debug_solver = conf.anaconda.debug
         base.conf.releasever = get_product_release_version()
         base.conf.installroot = conf.target.system_root
         base.conf.prepend_installroot('persistdir')
