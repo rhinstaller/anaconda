@@ -88,23 +88,20 @@ represents a different class of tests. They are
 
 - *cppcheck/* - static C/C++ code analysis using the *cppcheck* tool;
 - *dd_tests/* - Python unit tests for driver disk utilities (utils/dd);
-- *dracut_tests/* - Python unit tests for the dracut hooks used to configure the
+- *nosetests/dracut_tests/* - Python unit tests for the dracut hooks used to configure the
   installation environment and load Anaconda;
 - *gettext/* - sanity tests of files used for translation; Written in Python and
   Bash;
 - *glade/* - sanity tests for .glade files. Written in Python;
-- *install/* - basic RPM sanity test. Checks if anaconda.rpm can be installed in
-  a temporary directory without failing dependencies or other RPM issues;
+- *rpm_tests/* - basic RPM sanity test. Checks if anaconda.rpm can be installed in
+  a temporary directory without failing dependencies or other RPM issues and checks if
+  all files are correctly present in the RPM;
 - *lib/* - helper modules used during testing;
-- *pyanaconda_tests/* - unit tests for the :mod:`pyanaconda` module;
+- *nosetests/pyanaconda_tests/* - unit tests for the :mod:`pyanaconda` module;
 - *pylint/* - checks the validity of Python source code using the *pocketlint*
   tool;
-- *regex_tests/* - Python unit tests for regular expressions defined in
+- *nosetests/regex_tests/* - Python unit tests for regular expressions defined in
   :mod:`pyanaconda.regexes`;
-- *storage/* - test cases used to verify partitioning scenarios for success or
-  expected failures. The scenarios are described using kickstart snippets.
-  Written in Python with a custom test case framework based on
-  `blivet <https://github.com/storaged-project/blivet>`_;
 
 
 
