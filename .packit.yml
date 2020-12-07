@@ -21,3 +21,16 @@ jobs:
     metadata:
       targets:
         - fedora-eln
+
+  - job: copr_build
+    trigger: commit
+    metadata:
+      targets:
+        - fedora-rawhide
+        - fedora-eln
+      branch: master
+      owner: "@rhinstaller"
+      project: Anaconda
+      preserve_project: True
+      additional_repos:
+        - "copr://@storage/blivet-daily"
