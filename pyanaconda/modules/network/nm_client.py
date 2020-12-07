@@ -1478,11 +1478,13 @@ def _update_nameserver_kickstart_network_data(connection, network_data):
     # --nameserver is used both for ipv4 and ipv6
     dns_list = []
     s_ip4_config = connection.get_setting_ip4_config()
+    if s_ip4_config:
+        for i in range(s_ip4_config.get_num_dns()):
+            dns_list.append(s_ip4_config.get_dns(i))
     s_ip6_config = connection.get_setting_ip6_config()
-    for i in range(s_ip4_config.get_num_dns()):
-        dns_list.append(s_ip4_config.get_dns(i))
-    for i in range(s_ip6_config.get_num_dns()):
-        dns_list.append(s_ip6_config.get_dns(i))
+    if s_ip6_config:
+        for i in range(s_ip6_config.get_num_dns()):
+            dns_list.append(s_ip6_config.get_dns(i))
     dns_str = ','.join(dns_list)
     if dns_str:
         network_data.nameserver = dns_str
@@ -1497,6 +1499,8 @@ def _update_ip4_config_kickstart_network_data(connection, network_data):
     :type network_data: pykickstart NetworkData
     """
     s_ip4_config = connection.get_setting_ip4_config()
+    if not s_ip4_config:
+        return
     ip4_method = s_ip4_config.get_method()
     if ip4_method == NM.SETTING_IP4_CONFIG_METHOD_DISABLED:
         network_data.noipv4 = True
@@ -1529,6 +1533,8 @@ def _update_ip6_config_kickstart_network_data(connection, network_data):
     :type network_data: pykickstart NetworkData
     """
     s_ip6_config = connection.get_setting_ip6_config()
+    if not s_ip6_config:
+        return
     ip6_method = s_ip6_config.get_method()
     if ip6_method == NM.SETTING_IP6_CONFIG_METHOD_DISABLED:
         network_data.noipv6 = True
