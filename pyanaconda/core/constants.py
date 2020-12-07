@@ -135,12 +135,8 @@ THREAD_SUBSCRIPTION_SPOKE_INIT = "AnaSubscriptionSpokeInitThread"
 # - values are used by the geoloc CLI/boot option
 GEOLOC_PROVIDER_FEDORA_GEOIP = "provider_fedora_geoip"
 GEOLOC_PROVIDER_HOSTIP = "provider_hostip"
-GEOLOC_PROVIDER_GOOGLE_WIFI = "provider_google_wifi"
-# geocoding provider
-GEOLOC_GEOCODER_NOMINATIM = "geocoder_nominatim"
-# default providers
+# default provider
 GEOLOC_DEFAULT_PROVIDER = GEOLOC_PROVIDER_FEDORA_GEOIP
-GEOLOC_DEFAULT_GEOCODER = GEOLOC_GEOCODER_NOMINATIM
 # how long should the GUI wait for the geolocation thread to finish (in seconds)
 # - GUI starts this count once it finishes its initialization
 # - the geoloc thread is started early and in most cases will be already done
