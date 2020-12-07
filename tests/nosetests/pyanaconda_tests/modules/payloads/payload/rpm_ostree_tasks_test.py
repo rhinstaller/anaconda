@@ -26,7 +26,7 @@ from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurati
 
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
     PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask, \
-    ChangeOSTreeRemoteTask, ConfigureBootloader
+    ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask
 
 
 def _make_config_data():
@@ -467,3 +467,19 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                 sysroot + "/boot/grub2/grub.cfg"
             )
             exec_mock.assert_not_called()
+
+
+class DeployOSTreeTaskTestCase(unittest.TestCase):
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    def run_test(self, exec_mock):
+        """Test OSTree deploy task"""
+        data = _make_config_data()
+
+        task = DeployOSTreeTask(data, "/sysroot")
+        task.run()
+
+        exec_mock.assert_has_calls([
+            call("ostree", ["admin", "--sysroot=/sysroot", "os-init", "osname"]),
+            call("ostree", ["admin", "--sysroot=/sysroot", "deploy", "--os=osname", "remote:ref"])
+        ])
+        # no need to mock RpmOstree.varsubst_basearch(), since "ref" won't change

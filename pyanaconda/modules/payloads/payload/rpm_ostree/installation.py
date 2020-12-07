@@ -22,6 +22,7 @@ from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import Variant
+from pyanaconda.core.i18n import _
 from pyanaconda.core.util import execWithRedirect, mkdirChain
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, BOOTLOADER
@@ -31,7 +32,8 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 import gi
 gi.require_version("OSTree", "1.0")
 gi.require_version("Gio", "2.0")
-from gi.repository import OSTree, Gio
+gi.require_version("RpmOstree", "1.0")
+from gi.repository import RpmOstree, OSTree, Gio
 
 log = get_module_logger(__name__)
 
@@ -367,3 +369,44 @@ class ConfigureBootloader(Task):
             set_kargs_args.append("rootflags=subvol=" + root_name)
 
         safe_exec_with_redirect("ostree", set_kargs_args, root=self._sysroot)
+
+
+class DeployOSTreeTask(Task):
+    """Task to deploy OSTree."""
+
+    def __init__(self, data, sysroot):
+        super().__init__()
+        self._data = data
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Deploy OSTree"
+
+    def run(self):
+        # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
+        ref = RpmOstree.varsubst_basearch(self._data.ref)
+
+        self.report_progress(_("Deployment starting: {}").format(ref))
+
+        safe_exec_with_redirect(
+            "ostree",
+            ["admin",
+             "--sysroot=" + self._sysroot,
+             "os-init",
+             self._data.osname]
+        )
+
+        log.info("ostree admin deploy starting")
+
+        safe_exec_with_redirect(
+            "ostree",
+            ["admin",
+             "--sysroot=" + self._sysroot,
+             "deploy",
+             "--os=" + self._data.osname,
+             self._data.remote + ':' + ref]
+        )
+
+        log.info("ostree admin deploy complete")
+        self.report_progress(_("Deployment complete: {}").format(ref))

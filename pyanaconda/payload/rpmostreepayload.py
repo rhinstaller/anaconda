@@ -25,7 +25,6 @@ from pyanaconda.core import util
 from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
-from pyanaconda.modules.payloads.payload.rpm_ostree.installation import safe_exec_with_redirect
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload import utils as payload_utils
@@ -124,6 +123,10 @@ class RPMOSTreePayload(Payload):
         else:
             progressQ.send_message(_("Writing objects"))
 
+    def _progress_cb(self, step, message):
+        """Callback for task progress reporting."""
+        progressQ.send_message(message)
+
     def install(self):
         # This is top installation method
         # TODO: Broke this to pieces when ostree payload is migrated to the DBus solution
@@ -206,18 +209,10 @@ class RPMOSTreePayload(Payload):
         # complex.
         repo.remote_delete(data.remote, None)
 
-        safe_exec_with_redirect("ostree",
-                                ["admin", "--sysroot=" + conf.target.physical_root,
-                                 "os-init", data.osname])
-
-        admin_deploy_args = ["admin", "--sysroot=" + conf.target.physical_root, "deploy",
-                             "--os=" + data.osname, data.remote + ':' + ref]
-
-        log.info("ostree admin deploy starting")
-        progressQ.send_message(_("Deployment starting: %s") % (ref, ))
-        safe_exec_with_redirect("ostree", admin_deploy_args)
-        log.info("ostree admin deploy complete")
-        progressQ.send_message(_("Deployment complete: %s") % (ref, ))
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import DeployOSTreeTask
+        task = DeployOSTreeTask(data, conf.target.physical_root)
+        task.progress_changed_signal.connect(self._progress_cb)
+        task.run()
 
         # Reload now that we've deployed, find the path to the new deployment
         sysroot.load(None)
