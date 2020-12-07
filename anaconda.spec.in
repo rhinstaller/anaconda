@@ -369,6 +369,40 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Dec 07 2020 Martin Kolman <mkolman@redhat.com> - 34.15-1
+- Drop old WiFi & geocoding based geolocation support (mkolman)
+- Add bot PR comment to run kickstart tests (mpitt)
+- Migrate Anaconda daily COPR builds to Packit (jkonecny)
+- Fix missing inst. prefixes for bootloader options in documentation (jkonecny)
+- network: make generating of kickstart more robust (#1897832) (rvykydal)
+- Fixup category sorting (mkolman)
+- Place the user tasks into the right task queue (rvykydal)
+- Lower geolocation connection timeout to 5 seconds (#1774873) (mkolman)
+- Remove unused hubQ messages (vponcova)
+- Remove the justUpdate argument (vponcova)
+- Don't run the execute method in the kickstart installation in GUI by default
+  (vponcova)
+- Don't use an empty string as a system root (vponcova)
+- Fix logs from the get_os_release_value function (vponcova)
+- Don't enter spokes after we leave the Summary hub (vponcova)
+- network: rename Gtk cell renderer to prevent name collision (rvykydal)
+- network: add unit tests for SecretsAgent (rvykydal)
+- network: make SecretAgentDialog a bit more robust (rvykydal)
+- network: move wireless secret agent bits into a separate file (rvykydal)
+- Fix the logic for enabling latest updates (vponcova)
+- Add better explanation what the `make admin user` means (#1803251) (jkonecny)
+- Define the updates repositories in the Anaconda configuration files
+  (#1642513) (vponcova)
+- Migrate User spoke glade file to 3.38 version (jkonecny)
+- network: migrate SecretAgent from python-dbus to dasbus (rvykydal)
+- Translate spoke category title directly at runtime (mkolman)
+- Add description and links for bug keyword searches (vslavik)
+- Apply pylint excessive memory usage fix (mpitt)
+- Set shorter workflow timeouts (mpitt)
+- Fix issue when ns_info cannot be retrieved for NVDimm namespace (jkonecny)
+- Allow encryption of thin logical volumes (vponcova)
+- Fix error in initrd: shift count out of range (honza.stodola)
+
 * Tue Nov 24 2020 Martin Kolman <mkolman@redhat.com> - 34.14-1
 - Set workflow temp mail and user to GH actions rebase (jkonecny)
 - Rebase test pull request also for rhel-8 contributors (jkonecny)
