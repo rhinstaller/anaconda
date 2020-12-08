@@ -11,7 +11,7 @@ Run tests inside of container
 This is the primary and recommended way to run the tests.
 
 Right now only unit tests are supported by the container, not rpm-tests.
-You can use our container image on `Quay.io <https://quay.io/repository/rhinstaller/anaconda-ci>`_
+You can use our container image on `quay.io`_
 or you can build your own image.
 (Optional) to build the container image run::
 
@@ -80,40 +80,42 @@ To do that, run `podman pull quay.io/rhinstaller/anaconda-ci:master` or build
 it locally again.
 
 
-Explanation of the GitHub configuration
----------------------------------------
+GitHub workflows
+----------------
+
+All test and maintenance actions are run by `GitHub workflows`_.  These YAML
+files completely describe what steps are required to run some action, what are
+its triggers and so on.
 
 Pull request for master:
 ________________________
 
-Everything is stored in the `.github/workflows/validate.yml`_ workflow.
-These files completely describe what steps are required to run the tests, what
-are the triggers and so on. We use GitHub runners here so we don't have to care
-too much about what is executed there. GitHub runners are designed to be isolated
-and secure. On master we are building the container only if the container files
-have changed, otherwise we are pulling the container from our repository. For more
+Unit and rpm tests are run by the `validate.yml workflow`_.  We use GitHub's
+runners for this so we don't have to care about what is executed there.
+
+The workflow rebuilds the ``anaconda-ci`` container if the container files
+have changed, otherwise it is pulling the container from `quay.io`_. For more
 information see below.
 
 Pull request for RHEL:
 ______________________
 
-Again configuration is stored in `.github/workflows/validate-rhel-8.yml`_ the
-workflow. However, here we also have (fully automatically deployed) runners in
-our Upshift instance. GitHub configuration is using our self-hosted runners.
-These runners are ``anaconda-ci:rhel8`` containers with all the dependencies
-in place so the yml configuration will just execute tests. 
-You can start runners locally by running the container and
-providing GitHub token. That is pretty valuable in case of workflow testing.
-See `github-action-run-once`_ for more details.
+Unit and rpm tests are run by the `validate-rhel-8.yml workflow`_ on (fully
+automatically deployed) self-hosted runners in our Upshift instance.
+
+These runners are ``anaconda-ci:rhel8`` containers with all the dependencies in
+place so the yml configuration will just execute tests.  You can start runners
+locally by running the container and providing GitHub token. That is pretty
+valuable in case of workflow testing.  See `github-action-run-once`_ for more
+details.
 
 To protect our self-hosted runners, tests only run automatically for
 `rhinstaller organization members <https://github.com/orgs/rhinstaller/people>`_.
 For external contributors, an organization member needs to approve the test run
 by sending a comment starting with ``/tests``.
 
-
-What role do the containers have
---------------------------------
+Container maintenance
+---------------------
 
 All active branches run tests in containers. Containers have all the
 dependencies installed and the environment prepared to run tests or connect our
@@ -122,8 +124,8 @@ GitHub runners (used by RHEL only).
 Automatic container build
 _________________________
 
-Containers are updated daily by `.github/workflows/container-autoupdate.yml`_
-GitHub action from Anaconda ``master`` repository. Before pushing a new
+Containers are updated daily by the `container-autoupdate.yml workflow`_
+from Anaconda ``master`` repository. Before pushing a new
 container, tests are executed on this container to avoid regressions.
 
 Manual container build
@@ -158,7 +160,7 @@ dependent jobs. First will check user privileges, second will run the tests in
 case the first one succeeded.
 
 **PR created by external contributors** -- these have to be started by workflow
-file `.github/workflows/validate-rhel-8.yml`_ from the ``master`` branch
+file `validate-rhel-8.yml workflow`_ from the ``master`` branch
 checking all the comments. If comment starts with ``/test`` phrase it will check
 the owner of the comment. When everything succeed it will set progress on the pull
 request originating the comment and start the tests. This progress is updated
@@ -168,16 +170,15 @@ of the workflow is in the ``master`` branch which could be pretty confusing.
 Changing workflow file by attacker
 __________________________________
 
-Because test description is part of the repository attackers may change
+Because test description is part of the repository, attackers may change
 workflow files by creating PR to do their malicious attack. Because of that we
 are using ``pull_request_target`` instead of ``pull_request`` trigger. The main
 difference is that ``pull_request_target`` will run your PR tests on the target
 branch not on your PR branch. So workflow configuration has to be merged first
 to apply workflow changes. This has to be set on all workflow files in all
-branches otherwise we are vulnerable because attackers could change existing
-workflow files to use our runners even for branches where they are not normally
-used. Unfortunately, self-hosted runners can’t be bound to the branch, they are
-bound to the repo.
+branches, otherwise attackers could change existing workflow files to use our
+runners even for branches where they are not normally used. Unfortunately,
+self-hosted runners can’t be bound to the branch, they are bound to the repo.
 
 How can I change the workflow
 _____________________________
@@ -226,8 +227,10 @@ represents a different class of tests. They are
     user!
 
 .. _kickstart-tests: https://github.com/rhinstaller/kickstart-tests
-.. _.github/workflows/validate.yml: ../.github/workflows/validate.yml
-.. _.github/workflows/validate-rhel-8.yml: ../.github/workflows/validate-rhel-8.yml
-.. _.github/workflows/container-autoupdate.yml: ../.github/workflows/container-autoupdate.yml
+.. _quay.io: https://quay.io/repository/rhinstaller/anaconda-ci
+.. _GitHub workflows: https://docs.github.com/en/free-pro-team@latest/actions
+.. _validate.yml workflow: ../.github/workflows/validate.yml
+.. _validate-rhel-8.yml workflow: ../.github/workflows/validate-rhel-8.yml
+.. _container-autoupdate.yml workflow: ../.github/workflows/container-autoupdate.yml
 .. _actions tab: https://github.com/rhinstaller/anaconda/actions?query=workflow%3A%22Refresh+container+images%22
 .. _github-action-run-once: https://github.com/rhinstaller/anaconda/blob/rhel-8/dockerfile/anaconda-ci/github-action-run-once
