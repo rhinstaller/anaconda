@@ -27,11 +27,12 @@ gi.require_version("NM", "1.0")
 from gi.repository import Gtk
 from gi.repository import GObject, Pango, Gio, NM
 
-from pyanaconda.core.i18n import _, N_, C_, CN_
+from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
+from pyanaconda.ui.gui.spokes.lib.network_secret_agent import register_secret_agent
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, really_hide, really_show
@@ -46,14 +47,7 @@ from pyanaconda.modules.common.structures.network import NetworkDeviceConfigurat
 
 from pyanaconda import network
 
-import dbus
-import dbus.service
-# Used for ascii_letters and hexdigits constants
-import string # pylint: disable=deprecated-module
 from uuid import uuid4
-
-from dbus.mainloop.glib import DBusGMainLoop
-DBusGMainLoop(set_as_default=True)
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -62,12 +56,6 @@ NM._80211ApFlags = getattr(NM, "80211ApFlags")
 NM._80211ApSecurityFlags = getattr(NM, "80211ApSecurityFlags")
 NM._80211Mode = getattr(NM, "80211Mode")
 
-NM_SERVICE = "org.freedesktop.NetworkManager"
-NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION = 0x1
-SECRET_AGENT_IFACE = 'org.freedesktop.NetworkManager.SecretAgent'
-AGENT_MANAGER_IFACE = 'org.freedesktop.NetworkManager.AgentManager'
-AGENT_MANAGER_PATH = "/org/freedesktop/NetworkManager/AgentManager"
-
 IPV4_CONFIG = "IPv4"
 IPV6_CONFIG = "IPv6"
 
@@ -75,6 +63,17 @@ DEVICES_COLUMN_ICON_NAME = 0
 DEVICES_COLUMN_SORT = 1
 DEVICES_COLUMN_TITLE = 2
 DEVICES_COLUMN_OBJECT = 3
+
+SELECT_WIRELESS_COLUMN_SSID = 0
+SELECT_WIRELESS_COLUMN_SSID_STR = 1
+SELECT_WIRELESS_COLUMN_STRENGTH = 3
+SELECT_WIRELESS_COLUMN_SECURITY = 5
+SELECT_WIRELESS_COLUMN_ACTIVE = 6
+
+CONFIGURE_WIRELESS_COLUMN_SSID = 0
+CONFIGURE_WIRELESS_COLUMN_SSID_STR = 1
+CONFIGURE_WIRELESS_COLUMN_CON_ID = 2
+CONFIGURE_WIRELESS_COLUMN_CON_UUID = 3
 
 
 def localized_string_of_device_state(device, state):
@@ -117,9 +116,9 @@ def localized_string_of_device_state(device, state):
 __all__ = ["NetworkSpoke", "NetworkStandaloneSpoke"]
 
 
-class CellRendererSignal(Gtk.CellRendererPixbuf):
+class CellRendererSignalStrength(Gtk.CellRendererPixbuf):
 
-    __gtype_name__ = "CellRendererSignal"
+    __gtype_name__ = "CellRendererSignalStrength"
     __gproperties__ = {
         "signal": (GObject.TYPE_UINT,
                    "Signal", "Signal",
@@ -206,6 +205,41 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
         self.set_property("icon-name", self.icon_name)
 
 
+class CellRendererSelected(Gtk.CellRendererPixbuf):
+
+    __gtype_name__ = "CellRendererSelected"
+    __gproperties__ = {"selected": (GObject.TYPE_BOOLEAN,
+                                    "Selected", "Selected",
+                                    False,
+                                    GObject.ParamFlags.READWRITE),
+                       }
+
+    def __init__(self):
+        super().__init__()
+        self.selected = False
+        self.icon_name = ""
+
+    def do_get_property(self, prop):
+        if prop.name == 'selected':
+            return self.selected
+        else:
+            raise AttributeError('unknown property %s' % prop.name)
+
+    def do_set_property(self, prop, value):
+        if prop.name == 'selected':
+            self.selected = value
+            self._set_icon_name(value)
+        else:
+            raise AttributeError('unknown property %s' % prop.name)
+
+    def _set_icon_name(self, selected):
+        self.icon_name = ""
+        if selected:
+            self.icon_name = "object-select-symbolic"
+
+        self.set_property("icon-name", self.icon_name)
+
+
 class NetworkControlBox(GObject.GObject):
 
     __gsignals__ = {
@@ -281,7 +315,7 @@ class NetworkControlBox(GObject.GObject):
                         ]
 
         do_not_show_in_refresh = ["heading_wireless_network_name",
-                                  "combobox_wireless_network_name"]
+                                  "label_wireless_network_name"]
         do_not_show_in_refresh += ["%s_%s_%s" % (widget, ty, value)
                                    for widget in ["heading", "label"]
                                    for ty in ["wired", "wireless"]
@@ -309,13 +343,10 @@ class NetworkControlBox(GObject.GObject):
         selection.set_mode(Gtk.SelectionMode.BROWSE)
         selection.connect("changed", self.on_device_selection_changed)
 
-        # wireless APs list
-        combobox = self.builder.get_object("combobox_wireless_network_name")
-        self._add_ap_icons(combobox)
-        model = combobox.get_model()
-        model.set_sort_column_id(2, Gtk.SortType.ASCENDING)
-        combobox.connect("changed", self.on_wireless_ap_changed_cb)
-        self.selected_ap = None
+        self.builder.get_object("select_wireless_network_button").connect(
+            "clicked",
+            self.on_select_wireless_clicked
+        )
 
         self.builder.get_object("device_wired_off_switch").connect("notify::active",
                                                              self.on_device_off_toggled)
@@ -333,18 +364,6 @@ class NetworkControlBox(GObject.GObject):
     @property
     def vbox(self):
         return self.builder.get_object("networkControlBox_vbox")
-
-    def _add_ap_icons(self, combobox):
-        cell = CellRendererSecurity()
-        cell.set_padding(4, 0)
-        combobox.pack_start(cell, False)
-        combobox.add_attribute(cell, "security", 5)
-
-        cell = CellRendererSignal()
-        cell.set_padding(4, 0)
-        #cell.set_property("xalign", 1.0)
-        combobox.pack_start(cell, False)
-        combobox.add_attribute(cell, "signal", 3)
 
     def _add_device_columns(self, treeview):
         rnd = Gtk.CellRendererPixbuf()
@@ -449,56 +468,33 @@ class NetworkControlBox(GObject.GObject):
         if dev_cfg and dev_cfg.device_name == device.get_iface():
             self.refresh_ui()
 
-    def on_wireless_ap_changed_cb(self, combobox, *args):
-        if self._updating_device:
-            return
-        itr = combobox.get_active_iter()
-        if not itr:
-            return
-
+    def on_select_wireless_clicked(self, *args):
+        # Get list of aps
         dev_cfg = self.selected_dev_cfg()
         if not dev_cfg:
             return
 
-        device = self.client.get_device_by_iface(dev_cfg.device_name)
+        device_name = dev_cfg.device_name
 
-        ap, ssid_target = combobox.get_model().get(itr, 0, 1)
-        self.selected_ap = ap
+        # Run dialog
+        dialog = SelectWirelessNetworksDialog(self.spoke.data, self.client)
+        with self.spoke.main_window.enlightbox(dialog.window):
+            dialog.refresh(device_name)
+            dialog.run()
 
-        log.info("selected access point: %s", ssid_target)
-
-        cons = ap.filter_connections(device.filter_connections(self.client.get_connections()))
-        if cons:
-            con = cons[0]
-            self.client.activate_connection_async(con, device, ap.get_path(), None)
-        else:
-            if self._ap_is_enterprise(ap):
-                # Create a connection for the ap and [Configure] it later with nm-c-e
-                con = NM.SimpleConnection.new()
-                s_con = NM.SettingConnection.new()
-                s_con.set_property('uuid', str(uuid4()))
-                s_con.set_property('id', ssid_target)
-                s_con.set_property('type', '802-11-wireless')
-                s_wireless = NM.SettingWireless.new()
-                s_wireless.set_property('ssid', ap.get_ssid())
-                s_wireless.set_property('mode', 'infrastructure')
-                log.debug("adding connection for WPA-Enterprise AP %s", ssid_target)
-                con.add_setting(s_con)
-                con.add_setting(s_wireless)
-                persistent = True
-                self.client.add_connection_async(con, persistent, None)
-                self.builder.get_object("button_wireless_options").set_sensitive(True)
-            else:
-                self.client.add_and_activate_connection_async(None, device, ap.get_path(), None)
-
-    def _find_first_ap_setting(self, device, ap):
-        for con in device.filter_connections(self.client.get_connections()):
-            wireless_setting = con.get_setting_wireless()
-            if not wireless_setting or not wireless_setting.get_ssid():
-                # setting is None or non-broadcast AP, we ignore these
-                return
-            if wireless_setting.get_ssid().get_data() == ap.get_ssid().get_data():
-                return con
+    def _get_the_only_wireless_connection(self, device):
+        con_uuid = con_ssid = ""
+        if device:
+            cons = device.filter_connections(self.client.get_connections())
+            if len(cons) == 1:
+                connection = cons[0]
+                con_uuid = connection.get_setting_connection().get_uuid()
+                wireless_setting = connection.get_setting_wireless()
+                if wireless_setting:
+                    ssid_variant = wireless_setting.get_ssid()
+                    if ssid_variant:
+                        con_ssid = ssid_variant.get_data()
+        return con_uuid, con_ssid
 
     def on_edit_connection(self, *args):
         dev_cfg = self.selected_dev_cfg()
@@ -510,20 +506,40 @@ class NetworkControlBox(GObject.GObject):
         device_type = dev_cfg.device_type
         iface = dev_cfg.device_name
         activate = None
-        ssid = ""
+        selected_ssid = b""
 
         if device_type == NM.DeviceType.WIFI:
-            if not self.selected_ap:
+
+            con_uuid, selected_ssid = self._get_the_only_wireless_connection(device)
+
+            if not con_uuid:
+                # Run dialog
+                dialog = ConfigureWirelessNetworksDialog(self.spoke.data, self.client)
+                with self.spoke.main_window.enlightbox(dialog.window):
+                    dialog.refresh(iface)
+                    rc = dialog.run()
+                    if rc != 1:
+                        return
+
+                    con_uuid = dialog.selected_uuid
+                    selected_ssid = dialog.selected_ssid
+
+            if not con_uuid:
                 return
-            con = self._find_first_ap_setting(device, self.selected_ap)
+
+            con = self.client.get_connection_by_uuid(con_uuid)
             if not con:
-                log.debug("on_edit_connection: connection for ap %s not found", self.selected_ap)
+                log.debug("on_edit_connection: connection %s for ap %s not found",
+                          con_uuid, selected_ssid)
                 return
-            ssid = self.selected_ap.get_ssid().get_data()
+
             # 871132 auto activate wireless connection after editing if it is not
             # already activated (assume entering secrets)
-            condition = lambda: self.selected_ap != device.get_active_access_point()
-            activate = (con, device, condition)
+            def restart_device_condition():
+                ap = device.get_active_access_point()
+                return not ap or ap.get_ssid().get_data() != selected_ssid
+
+            activate = (con, device, restart_device_condition)
         else:
             if not con:
                 log.debug("on_edit_connection: connection for device %s not found", iface)
@@ -543,7 +559,7 @@ class NetworkControlBox(GObject.GObject):
                 activate = (con, device, settings_changed)
 
         log.info("configuring connection %s device %s ssid %s",
-                 con.get_uuid(), iface, ssid)
+                 con.get_uuid(), iface, selected_ssid)
         self._run_nmce(con.get_uuid(), activate)
 
     def _default_connection_added_cb(self, client, result, activate):
@@ -856,12 +872,14 @@ class NetworkControlBox(GObject.GObject):
         device = self.client.get_device_by_iface(dev_cfg.device_name)
         if state is None:
             state = device.get_state()
+        active_ssid = b""
         if state == NM.DeviceState.UNAVAILABLE:
             ap_str = None
         else:
             active_ap = device.get_active_access_point()
             if active_ap:
                 ap_str = self._ap_security_string(active_ap)
+                active_ssid = active_ap.get_ssid().get_data()
             else:
                 ap_str = ""
 
@@ -869,26 +887,13 @@ class NetworkControlBox(GObject.GObject):
 
         if state == NM.DeviceState.UNAVAILABLE:
             self.builder.get_object("heading_wireless_network_name").hide()
-            self.builder.get_object("combobox_wireless_network_name").hide()
+            self.builder.get_object("label_wireless_network_name").hide()
         else:
             self.builder.get_object("heading_wireless_network_name").show()
-            self.builder.get_object("combobox_wireless_network_name").show()
-
-            store = self.builder.get_object("liststore_wireless_network")
-            self._updating_device = True
-            store.clear()
-            aps = self._get_strongest_unique_aps(device.get_access_points())
-            for ap in aps:
-                self._add_ap(ap, active_ap == ap)
-            # TODO: add access point other...
-            if active_ap:
-                combobox = self.builder.get_object("combobox_wireless_network_name")
-                for i in combobox.get_model():
-                    if i[0] == active_ap:
-                        combobox.set_active_iter(i.iter)
-                        self.selected_ap = active_ap
-                        break
-            self._updating_device = False
+            self.builder.get_object("label_wireless_network_name").show()
+        selected_network_label = self.builder.get_object("label_wireless_network_name")
+        ssid_str = NM.utils_ssid_to_utf8(active_ssid)
+        selected_network_label.set_label(ssid_str)
 
     def _refresh_slaves(self, dev_cfg):
         if dev_cfg.device_type in [NM.DeviceType.BOND,
@@ -983,7 +988,7 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("remove_toolbutton").set_sensitive(True)
         elif dev_type == NM.DeviceType.WIFI:
             notebook.set_current_page(1)
-            self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ap is not None)
+            self.builder.get_object("button_wireless_options").set_sensitive(True)
 
     def _refresh_carrier_info(self):
         for row in self.dev_cfg_store:
@@ -1043,75 +1048,6 @@ class NetworkControlBox(GObject.GObject):
             really_show(value_label)
             value_label.set_label(value_str)
 
-    def _add_ap(self, ap, active=False):
-        ssid = ap.get_ssid()
-        if not ssid:
-            # get_ssid can return None if AP does not broadcast.
-            return
-        ssid = ssid.get_data()
-        if not ssid:
-            return
-
-        mode = ap.get_mode()
-        if not mode:
-            return
-
-        security = self._ap_security(ap)
-
-        store = self.builder.get_object("liststore_wireless_network")
-
-        # Decode the SSID (a byte sequence) into something resembling a string
-        ssid_str = NM.utils_ssid_to_utf8(ssid)
-
-        # the third column is for sorting
-        itr = store.append([ap,
-                            ssid_str,
-                            ssid_str,
-                            ap.get_strength(),
-                            mode,
-                            security])
-        if active:
-            self.builder.get_object("combobox_wireless_network_name").set_active_iter(itr)
-
-    def _get_strongest_unique_aps(self, access_points):
-        strongest_aps = {}
-        for ap in access_points:
-            if not ap.get_ssid():
-                # non-broadcasting AP. We don't do anything with these
-                continue
-            ssid = ap.get_ssid().get_data()
-            if ssid in strongest_aps:
-                if ap.get_strength() > strongest_aps[ssid].get_strength():
-                    strongest_aps[ssid] = ap
-            else:
-                strongest_aps[ssid] = ap
-
-        return strongest_aps.values()
-
-    def _ap_security(self, ap):
-        ty = NM_AP_SEC_UNKNOWN
-
-        flags = ap.get_flags()
-        wpa_flags = ap.get_wpa_flags()
-        rsn_flags = ap.get_rsn_flags()
-
-        if (not (flags & NM._80211ApFlags.PRIVACY) and
-            wpa_flags == NM._80211ApSecurityFlags.NONE and
-            rsn_flags == NM._80211ApSecurityFlags.NONE):
-            ty = NM_AP_SEC_NONE
-        elif (flags & NM._80211ApFlags.PRIVACY and
-              wpa_flags == NM._80211ApSecurityFlags.NONE and
-              rsn_flags == NM._80211ApSecurityFlags.NONE):
-            ty = NM_AP_SEC_WEP
-        elif (not (flags & NM._80211ApFlags.PRIVACY) and
-              wpa_flags != NM._80211ApSecurityFlags.NONE and
-              rsn_flags != NM._80211ApSecurityFlags.NONE):
-            ty = NM_AP_SEC_WPA
-        else:
-            ty = NM_AP_SEC_WPA2
-
-        return ty
-
     def _ap_security_string(self, ap):
 
         flags = ap.get_flags()
@@ -1141,12 +1077,6 @@ class NetworkControlBox(GObject.GObject):
             sec_str = _("None")
 
         return sec_str
-
-    def _ap_is_enterprise(self, ap):
-        wpa_flags = ap.get_wpa_flags()
-        rsn_flags = ap.get_rsn_flags()
-        return ((wpa_flags & NM._80211ApSecurityFlags.KEY_MGMT_802_1X) or
-                (rsn_flags & NM._80211ApSecurityFlags.KEY_MGMT_802_1X))
 
     @property
     def hostname(self):
@@ -1205,219 +1135,296 @@ def _try_disconnect(obj, callback):
             log.debug("%s", e)
 
 
-class SecretAgentDialog(GUIObject):
-    builderObjects = ["secret_agent_dialog"]
-    mainWidgetName = "secret_agent_dialog"
+class ConfigureWirelessNetworksDialog(GUIObject):
+    builderObjects = ["configure_wireless_network_dialog",
+                      "liststore_configure_wireless_network"]
+    mainWidgetName = "configure_wireless_network_dialog"
     uiFile = "spokes/network.glade"
 
-    def __init__(self, *args, **kwargs):
-        self._content = kwargs.pop('content', {})
-        super().__init__(*args, **kwargs)
-        self.builder.get_object("label_message").set_text(self._content['message'])
-        self._connect_button = self.builder.get_object("connect_button")
+    def __init__(self, data, nm_client):
+        super().__init__(data)
+        self._nm_client = nm_client
 
-    def initialize(self):
-        self._entries = {}
-        grid = Gtk.Grid()
-        grid.set_row_spacing(6)
-        grid.set_column_spacing(6)
+        self.window.set_size_request(500, 300)
+        self._store = self.builder.get_object("liststore_configure_wireless_network")
+        self._store.set_sort_column_id(CONFIGURE_WIRELESS_COLUMN_SSID_STR, Gtk.SortType.ASCENDING)
+        self._treeview = self.builder.get_object("configure_wireless_network_treeview")
+        selection = self._treeview.get_selection()
+        selection.set_mode(Gtk.SelectionMode.BROWSE)
+        self._configure_button = self.builder.get_object("wireless_configure_button")
+        selection.connect("changed", self.on_selection_changed)
+        self.on_selection_changed(selection)
 
-        for row, secret in enumerate(self._content['secrets']):
-            label = Gtk.Label(label=secret['label'], halign=Gtk.Align.START)
-            entry = Gtk.Entry(hexpand=True)
-            entry.set_text(secret['value'])
-            if secret['key']:
-                self._entries[secret['key']] = entry
-            else:
-                entry.set_sensitive(False)
-            if secret['password']:
-                entry.set_visibility(False)
-            self._validate(entry, secret)
-            entry.connect("changed", self._validate, secret)
-            entry.connect("activate", self._password_entered_cb)
-            label.set_use_underline(True)
-            label.set_mnemonic_widget(entry)
-            grid.attach(label, 0, row, 1, 1)
-            grid.attach(entry, 1, row, 1, 1)
-
-        self.builder.get_object("password_box").add(grid)
-
-    def run(self):
-        self.initialize()
-        self.window.show_all()
-        rc = self.window.run()
-        for secret in self._content['secrets']:
-            if secret['key']:
-                secret['value'] = self._entries[secret['key']].get_text()
-        self.window.destroy()
-        return rc
+    def on_selection_changed(self, selection):
+        _model, itr = selection.get_selected()
+        self._configure_button.set_sensitive(bool(itr))
 
     @property
-    def valid(self):
-        return all(secret.get('valid', False) for secret in self._content['secrets'])
+    def selected_uuid(self):
+        uuid = ""
+        selection = self._treeview.get_selection()
+        model, itr = selection.get_selected()
+        if itr:
+            uuid = model[itr][CONFIGURE_WIRELESS_COLUMN_CON_UUID]
+        return uuid
 
-    def _validate(self, entry, secret):
-        secret['value'] = entry.get_text()
-        if secret['validate']:
-            secret['valid'] = secret['validate'](secret)
-        else:
-            secret['valid'] = len(secret['value']) > 0
-        self._update_connect_button()
+    @property
+    def selected_ssid(self):
+        ssid = ""
+        selection = self._treeview.get_selection()
+        model, itr = selection.get_selected()
+        if itr:
+            ssid = model[itr][CONFIGURE_WIRELESS_COLUMN_SSID]
+        return ssid
 
-    def _password_entered_cb(self, entry):
-        if self._connect_button.get_sensitive() and self.valid:
-            self.window.response(1)
-
-    def _update_connect_button(self):
-        self._connect_button.set_sensitive(self.valid)
-
-
-secret_agent = None
-
-
-class NotAuthorizedException(dbus.DBusException):
-    _dbus_error_name = SECRET_AGENT_IFACE + '.NotAuthorized'
-
-
-class SecretAgent(dbus.service.Object):
-    def __init__(self, spoke):
-        self._bus = dbus.SystemBus()
-        self.spoke = spoke
-        super().__init__(self._bus, "/org/freedesktop/NetworkManager/SecretAgent")
-
-    @dbus.service.method(SECRET_AGENT_IFACE,
-                         in_signature='a{sa{sv}}osasb',
-                         out_signature='a{sa{sv}}',
-                         sender_keyword='sender')
-    def GetSecrets(self, connection_hash, connection_path, setting_name, hints, flags, sender=None):
-        if not sender:
-            raise NotAuthorizedException("Internal error: couldn't get sender")
-        uid = self._bus.get_unix_user(sender)
-        if uid != 0:
-            raise NotAuthorizedException("UID %d not authorized" % uid)
-
-        log.debug("secrets requested path '%s' setting '%s' hints '%s' new %d",
-                  connection_path, setting_name, str(hints), flags)
-        if not (flags & NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION):
+    # pylint: disable=arguments-differ
+    def refresh(self, device_name):
+        device = self._nm_client.get_device_by_iface(device_name)
+        if not device:
+            log.warnig("device for interface %s not found", device)
             return
 
-        content = self._get_content(setting_name, connection_hash)
-        dialog = SecretAgentDialog(self.spoke.data, content=content)
-        with self.spoke.main_window.enlightbox(dialog.window):
-            rc = dialog.run()
+        cons = device.filter_connections(self._nm_client.get_connections())
 
-        secrets = dbus.Dictionary()
-        if rc == 1:
-            for secret in content['secrets']:
-                if secret['key']:
-                    secrets[secret['key']] = secret['value']
+        # Update model
+        self._store.clear()
+        for con in cons:
+            self._add_connection(con)
 
-        settings = dbus.Dictionary({setting_name: secrets})
+    def _add_connection(self, connection):
+        wireless_setting = connection.get_setting_wireless()
+        if not wireless_setting:
+            return
 
-        return settings
+        ssid = wireless_setting.get_ssid()
+        if not ssid:
+            # get_ssid can return None if AP does not broadcast.
+            return
 
-    def _get_content(self, setting_name, connection_hash):
-        content = {}
-        connection_type = connection_hash['connection']['type']
-        if connection_type == "802-11-wireless":
-            content['title'] = _("Authentication required by wireless network")
-            content['message'] = _("Passwords or encryption keys are required to access\n"
-                                   "the wireless network '%(network_id)s'.") \
-                                   % {'network_id':str(connection_hash['connection']['id'])}
-            content['secrets'] = self._get_wireless_secrets(setting_name, connection_hash)
-        else:
-            log.info("Connection type %s not supported by secret agent", connection_type)
+        ssid = ssid.get_data()
+        if not ssid:
+            return
 
-        return content
+        ssid_str = NM.utils_ssid_to_utf8(ssid)
 
-    def _get_wireless_secrets(self, setting_name, connection_hash):
-        key_mgmt = connection_hash['802-11-wireless-security']['key-mgmt']
-        original_secrets = connection_hash[setting_name]
-        secrets = []
-        if key_mgmt in ['wpa-none', 'wpa-psk']:
-            secrets.append({'label'     : C_('GUI|Network|Secrets Dialog', '_Password:'),
-                            'key'      : 'psk',
-                            'value'    : original_secrets.get('psk', ''),
-                            'validate' : self._validate_wpapsk,
-                            'password' : True})
-        # static WEP
-        elif key_mgmt == 'none':
-            key_idx = str(original_secrets.get('wep_tx_keyidx', '0'))
-            secrets.append({'label'     : C_('GUI|Network|Secrets Dialog', '_Key:'),
-                            'key'      : 'wep-key%s' % key_idx,
-                            'value'    : original_secrets.get('wep-key%s' % key_idx, ''),
-                            'wep_key_type': original_secrets.get('wep-key-type', ''),
-                            'validate' : self._validate_staticwep,
-                            'password' : True})
-        # WPA-Enterprise
-        elif key_mgmt == 'wpa-eap':
-            eap = original_secrets['eap'][0]
-            if eap in ('md5', 'leap', 'ttls', 'peap'):
-                secrets.append({'label'    : _('User name: '),
-                                'key'      : None,
-                                'value'    : original_secrets.get('identity', ''),
-                                'validate' : None,
-                                'password' : False})
-                secrets.append({'label'    : _('Password: '),
-                                'key'      : 'password',
-                                'value'    : original_secrets.get('password', ''),
-                                'validate' : None,
-                                'password' : True})
-            elif eap == 'tls':
-                secrets.append({'label'    : _('Identity: '),
-                                'key'      : None,
-                                'value'    : original_secrets.get('identity', ''),
-                                'validate' : None,
-                                'password' : False})
-                secrets.append({'label'    : _('Private key password: '),
-                                'key'      : 'private-key-password',
-                                'value'    : original_secrets.get('private-key-password', ''),
-                                'validate' : None,
-                                'password' : True})
-        else:
-            log.info("Unsupported wireless key management: %s", key_mgmt)
+        con_id = connection.get_setting_connection().get_id()
 
-        return secrets
+        con_uuid = connection.get_setting_connection().get_uuid()
 
-    def _validate_wpapsk(self, secret):
-        value = secret['value']
-        if len(value) == 64:
-            # must be composed of hexadecimal digits only
-            return all(c in string.hexdigits for c in value)
-        else:
-            return 8 <= len(value) <= 63
+        # the third column is for sorting
+        self._store.append([ssid, ssid_str, con_id, con_uuid])
 
-    def _validate_staticwep(self, secret):
-        value = secret['value']
-        if secret['wep_key_type'] == NM.WepKeyType.KEY:
-            if len(value) in (10, 26):
-                return all(c in string.hexdigits for c in value)
-            elif len(value) in (5, 13):
-                return all(c in string.ascii_letters for c in value)
+    def run(self):
+        self.window.show()
+        rc = self.window.run()
+        self.window.hide()
+
+        return rc
+
+
+class SelectWirelessNetworksDialog(GUIObject):
+    builderObjects = ["select_wireless_network_dialog", "liststore_wireless_network"]
+    mainWidgetName = "select_wireless_network_dialog"
+    uiFile = "spokes/network.glade"
+
+    def __init__(self, data, nm_client):
+        super().__init__(data)
+        self._nm_client = nm_client
+        self._device_name = None
+
+        self.window.set_size_request(500, 300)
+        self._store = self.builder.get_object("liststore_wireless_network")
+        self._store.set_sort_column_id(SELECT_WIRELESS_COLUMN_STRENGTH, Gtk.SortType.DESCENDING)
+        self._treeview = self.builder.get_object("select_wireless_network_treeview")
+        selection = self._treeview.get_selection()
+        selection.set_mode(Gtk.SelectionMode.BROWSE)
+        self._connect_button = self.builder.get_object("wireless_connect_button")
+        selection.connect("changed", self.on_selection_changed)
+        self.on_selection_changed(selection)
+        self._add_treeview_columns(self._treeview)
+
+    def on_selection_changed(self, selection):
+        _model, itr = selection.get_selected()
+        self._connect_button.set_sensitive(bool(itr))
+
+    def _add_treeview_columns(self, treeview):
+        col = Gtk.TreeViewColumn("Ssid")
+        ssid = Gtk.CellRendererText()
+        active = CellRendererSelected()
+        active.set_alignment(1, 0.5)
+        col.pack_start(ssid, False)
+        col.pack_start(active, True)
+        col.add_attribute(ssid, "text", SELECT_WIRELESS_COLUMN_SSID_STR)
+        col.add_attribute(active, "selected", SELECT_WIRELESS_COLUMN_ACTIVE)
+        col.set_expand(True)
+        treeview.append_column(col)
+
+        rnd = CellRendererSecurity()
+        rnd.set_padding(4, 0)
+        col = Gtk.TreeViewColumn("Security", rnd, security=SELECT_WIRELESS_COLUMN_SECURITY)
+        treeview.append_column(col)
+
+        rnd = CellRendererSignalStrength()
+        col = Gtk.TreeViewColumn("Strength", rnd, signal=SELECT_WIRELESS_COLUMN_STRENGTH)
+        treeview.append_column(col)
+
+    @property
+    def selected_ssid(self):
+        ssid = b""
+        selection = self._treeview.get_selection()
+        model, itr = selection.get_selected()
+        if itr:
+            ssid = model[itr][SELECT_WIRELESS_COLUMN_SSID]
+        return ssid
+
+    def _get_strongest_unique_aps(self, access_points):
+        strongest_aps = {}
+        for ap in access_points:
+            if not ap.get_ssid():
+                # non-broadcasting AP. We don't do anything with these
+                continue
+            ssid = ap.get_ssid().get_data()
+            if ssid in strongest_aps:
+                if ap.get_strength() > strongest_aps[ssid].get_strength():
+                    strongest_aps[ssid] = ap
             else:
-                return False
-        elif secret['wep_key_type'] == NM.WepKeyType.PASSPHRASE:
-            return 0 <= len(value) <= 64
+                strongest_aps[ssid] = ap
+
+        return strongest_aps.values()
+
+    # pylint: disable=arguments-differ
+    def refresh(self, device_name):
+        device = self._nm_client.get_device_by_iface(device_name)
+        if not device:
+            log.warnig("device for interface %s not found", device)
+            return
+
+        self._device_name = device_name
+
+        aps = self._get_strongest_unique_aps(device.get_access_points())
+
+        active_ap = device.get_active_access_point()
+        if active_ap:
+            active_ssid = active_ap.get_ssid().get_data()
         else:
-            return True
+            active_ssid = b""
 
+        # Update model
+        self._store.clear()
+        for ap in aps:
+            self._add_ap(ap, active_ssid)
 
-def register_secret_agent(spoke):
+    def _add_ap(self, ap, active_ssid):
+        ssid = ap.get_ssid()
+        if not ssid:
+            # get_ssid can return None if AP does not broadcast.
+            return
 
-    if not conf.system.can_configure_network:
-        return False
+        ssid = ssid.get_data()
+        if not ssid:
+            return
 
-    global secret_agent
-    if not secret_agent:
-        # Ignore an error from pylint incorrectly analyzing types in dbus-python
-        secret_agent = SecretAgent(spoke) # pylint: disable=no-value-for-parameter
-        bus = dbus.SystemBus()
-        proxy = bus.get_object(NM_SERVICE, AGENT_MANAGER_PATH)
-        proxy.Register("anaconda", dbus_interface=AGENT_MANAGER_IFACE)
-    else:
-        secret_agent.spoke = spoke
+        mode = ap.get_mode()
+        if not mode:
+            return
 
-    return True
+        security = self._ap_security(ap)
+
+        ssid_str = NM.utils_ssid_to_utf8(ssid)
+
+        active = ssid == active_ssid
+
+        # the third column is for sorting
+        self._store.append([ssid, ssid_str, ssid_str, ap.get_strength(), mode, security, active])
+
+    def _ap_security(self, ap):
+        ty = NM_AP_SEC_UNKNOWN
+
+        flags = ap.get_flags()
+        wpa_flags = ap.get_wpa_flags()
+        rsn_flags = ap.get_rsn_flags()
+
+        if not flags & NM._80211ApFlags.PRIVACY \
+                and wpa_flags == NM._80211ApSecurityFlags.NONE \
+                and rsn_flags == NM._80211ApSecurityFlags.NONE:
+            ty = NM_AP_SEC_NONE
+        elif flags & NM._80211ApFlags.PRIVACY \
+                and wpa_flags == NM._80211ApSecurityFlags.NONE \
+                and rsn_flags == NM._80211ApSecurityFlags.NONE:
+            ty = NM_AP_SEC_WEP
+        elif not flags & NM._80211ApFlags.PRIVACY \
+                and wpa_flags != NM._80211ApSecurityFlags.NONE \
+                and rsn_flags != NM._80211ApSecurityFlags.NONE:
+            ty = NM_AP_SEC_WPA
+        else:
+            ty = NM_AP_SEC_WPA2
+
+        return ty
+
+    def run(self):
+        self.window.show()
+        rc = self.window.run()
+        self.window.hide()
+
+        if rc == 1:
+            ssid = self.selected_ssid
+            if ssid:
+                log.info("selected access point to be activated: %s", ssid)
+                device = self._nm_client.get_device_by_iface(self._device_name)
+                if device:
+                    self._activate_wireless_network(device, ssid)
+                else:
+                    log.warnig("device for interface %s not found", device)
+
+        return rc
+
+    def _activate_wireless_network(self, device, ssid):
+        ap = self._get_strongest_ap_for_ssid(device.get_access_points(), ssid)
+        if not ap:
+            return
+
+        cons = ap.filter_connections(device.filter_connections(self._nm_client.get_connections()))
+        if cons:
+            con = cons[0]
+            self._nm_client.activate_connection_async(con, device, ap.get_path(), None)
+        else:
+            if self._ap_is_enterprise(ap):
+                # Create a connection for the ap and [Configure] it later with nm-c-e
+                ssid_str = NM.utils_ssid_to_utf8(ssid)
+                con = NM.SimpleConnection.new()
+                s_con = NM.SettingConnection.new()
+                s_con.set_property('uuid', str(uuid4()))
+                s_con.set_property('id', ssid_str)
+                s_con.set_property('type', '802-11-wireless')
+                s_wireless = NM.SettingWireless.new()
+                s_wireless.set_property('ssid', ap.get_ssid())
+                s_wireless.set_property('mode', 'infrastructure')
+                con.add_setting(s_con)
+                con.add_setting(s_wireless)
+                persistent = True
+                log.debug("adding connection for WPA-Enterprise AP %s", ssid_str)
+                self._nm_client.add_connection_async(con, persistent, None)
+            else:
+                self._nm_client.add_and_activate_connection_async(
+                    None, device, ap.get_path(), None)
+
+    def _ap_is_enterprise(self, ap):
+        wpa_flags = ap.get_wpa_flags()
+        rsn_flags = ap.get_rsn_flags()
+        return ((wpa_flags & NM._80211ApSecurityFlags.KEY_MGMT_802_1X) or
+                (rsn_flags & NM._80211ApSecurityFlags.KEY_MGMT_802_1X))
+
+    def _get_strongest_ap_for_ssid(self, access_points, ssid):
+        strongest_ap = None
+        for ap in access_points:
+            if not ap.get_ssid():
+                # non-broadcasting AP. We don't do anything with these
+                continue
+            if ap.get_ssid().get_data() == ssid:
+                if not strongest_ap or strongest_ap.get_strength() < ap.get_strength():
+                    strongest_ap = ap
+
+        return strongest_ap
 
 
 class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
@@ -1425,7 +1432,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
        .. inheritance-diagram:: NetworkSpoke
           :parts: 3
     """
-    builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
+    builderObjects = ["networkWindow", "liststore_devices", "add_device_dialog",
+                      "liststore_add_device"]
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
     help_id = "NetworkSpoke"
@@ -1574,7 +1582,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
        .. inheritance-diagram:: NetworkStandaloneSpoke
           :parts: 3
     """
-    builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
+    builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox",
+                      "liststore_devices", "add_device_dialog", "liststore_add_device"]
     mainWidgetName = "networkStandaloneWindow"
     uiFile = "spokes/network.glade"
 

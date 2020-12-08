@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.19.0 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -35,6 +35,9 @@
     <property name="title" translatable="yes">Add device</property>
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="can_focus">False</property>
@@ -132,6 +135,121 @@
       <action-widget response="1">button_add_device_create</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkListStore" id="liststore_configure_wireless_network">
+    <columns>
+      <!-- column-name ssid -->
+      <column type="PyObject"/>
+      <!-- column-name ssid_str -->
+      <column type="gchararray"/>
+      <!-- column-name con_id -->
+      <column type="gchararray"/>
+      <!-- column-name con_uuid -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkDialog" id="configure_wireless_network_dialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">6</property>
+    <property name="title" translatable="yes">Wi-Fi Networks</property>
+    <property name="modal">True</property>
+    <property name="type_hint">dialog</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="button2">
+                <property name="label" translatable="yes" context="GUI|Network|Wireless|Configure">_Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="wireless_configure_button">
+                <property name="label" translatable="yes" context="GUI|Network|Wireless|Configure">C_onfigure</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="configure_wireless_network_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Select a network to configure</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTreeView" id="configure_wireless_network_treeview">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="vexpand">True</property>
+            <property name="model">liststore_configure_wireless_network</property>
+            <property name="headers_visible">False</property>
+            <property name="enable_search">False</property>
+            <property name="search_column">1</property>
+            <property name="show_expanders">False</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="ssid">
+                <property name="title">ssid</property>
+                <child>
+                  <object class="GtkCellRendererText" id="con_id"/>
+                  <attributes>
+                    <attribute name="text">2</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">button2</action-widget>
+      <action-widget response="1">wireless_configure_button</action-widget>
+    </action-widgets>
+  </object>
   <object class="GtkListStore" id="liststore_devices">
     <columns>
       <!-- column-name icon -->
@@ -147,7 +265,7 @@
   <object class="GtkListStore" id="liststore_wireless_network">
     <columns>
       <!-- column-name id -->
-      <column type="GObject"/>
+      <column type="PyObject"/>
       <!-- column-name title -->
       <column type="gchararray"/>
       <!-- column-name sortable -->
@@ -158,7 +276,174 @@
       <column type="guint"/>
       <!-- column-name security -->
       <column type="guint"/>
+      <!-- column-name active -->
+      <column type="gboolean"/>
     </columns>
+  </object>
+  <object class="GtkDialog" id="select_wireless_network_dialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">6</property>
+    <property name="title" translatable="yes">Wi-Fi Networks</property>
+    <property name="modal">True</property>
+    <property name="type_hint">dialog</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="button3">
+                <property name="label" translatable="yes" context="GUI|Network|Wireless|Select Network Dialog">_Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="wireless_connect_button">
+                <property name="label" translatable="yes" context="GUI|Network|Wireless|Select Network Dialog">C_onnect</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="select_wireless_network_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Select a network</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTreeView" id="select_wireless_network_treeview">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="vexpand">True</property>
+            <property name="model">liststore_wireless_network</property>
+            <property name="headers_visible">False</property>
+            <property name="enable_search">False</property>
+            <property name="show_expanders">False</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">button3</action-widget>
+      <action-widget response="1">wireless_connect_button</action-widget>
+    </action-widgets>
+  </object>
+  <object class="AnacondaStandaloneWindow" id="networkStandaloneWindow">
+    <property name="can_focus">False</property>
+    <property name="window_name" translatable="yes">NETWORK CONFIGURATION</property>
+    <child internal-child="main_box">
+      <object class="GtkBox" id="AnacondaStandaloneWindow-main_box5">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child internal-child="nav_box">
+          <object class="GtkEventBox" id="AnacondaStandaloneWindow-nav_box5">
+            <property name="can_focus">False</property>
+            <child internal-child="nav_area">
+              <object class="GtkGrid" id="AnacondaStandaloneWindow-nav_area5">
+                <property name="can_focus">False</property>
+                <property name="margin_left">6</property>
+                <property name="margin_right">6</property>
+                <property name="margin_top">6</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child internal-child="alignment">
+          <object class="GtkAlignment" id="AnacondaStandaloneWindow-alignment5">
+            <property name="can_focus">False</property>
+            <property name="yalign">0</property>
+            <property name="xscale">0</property>
+            <property name="yscale">0.5</property>
+            <child internal-child="action_area">
+              <object class="GtkBox" id="AnacondaStandaloneWindow-action_area5">
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel" id="networkNeedLabel1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">We'll need network access to fetch information about your location and to make software
+updates available for you.</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell 12"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
   </object>
   <object class="AnacondaSpokeWindow" id="networkWindow">
     <property name="can_focus">False</property>
@@ -962,9 +1247,7 @@
                                           <object class="GtkLabel" id="heading_wireless_network_name">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes" context="GUI|Network|Wireless">_Network Name</property>
-                                            <property name="use_underline">True</property>
-                                            <property name="mnemonic_widget">combobox_wireless_network_name</property>
+                                            <property name="label" translatable="yes">Network Name</property>
                                             <property name="xalign">1</property>
                                           </object>
                                           <packing>
@@ -1010,17 +1293,11 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkComboBox" id="combobox_wireless_network_name">
+                                          <object class="GtkLabel" id="label_wireless_network_name">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="model">liststore_wireless_network</property>
-                                            <property name="has_entry">True</property>
-                                            <property name="entry_text_column">1</property>
-                                            <child internal-child="entry">
-                                              <object class="GtkEntry" id="combobox-entry4">
-                                                <property name="can_focus">False</property>
-                                              </object>
-                                            </child>
+                                            <property name="halign">start</property>
+                                            <property name="label" translatable="yes">My ssid</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1067,9 +1344,11 @@
                                       <object class="GtkGrid" id="alignment2">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
+                                        <property name="halign">end</property>
                                         <property name="margin_top">12</property>
                                         <property name="hexpand">True</property>
                                         <property name="vexpand">True</property>
+                                        <property name="column_spacing">6</property>
                                         <child>
                                           <object class="GtkButton" id="start_hotspot_button">
                                             <property name="label" translatable="yes" context="GUI|Network|Wireless">_Use as Hotspot...</property>
@@ -1107,6 +1386,23 @@
                                         <child>
                                           <object class="GtkButton" id="button_wireless_options">
                                             <property name="label" translatable="yes" context="GUI|Network|Wireless">_Configure...</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">True</property>
+                                            <property name="halign">end</property>
+                                            <property name="valign">end</property>
+                                            <property name="hexpand">True</property>
+                                            <property name="vexpand">True</property>
+                                            <property name="use_underline">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="left_attach">3</property>
+                                            <property name="top_attach">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton" id="select_wireless_network_button">
+                                            <property name="label" translatable="yes" context="GUI|Network|Wireless">_Select network</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
@@ -2287,216 +2583,5 @@
         <property name="AtkObject::accessible-name" translatable="yes">NETWORK &amp; HOST NAME</property>
       </object>
     </child>
-  </object>
-  <object class="AnacondaStandaloneWindow" id="networkStandaloneWindow">
-    <property name="can_focus">False</property>
-    <property name="window_name" translatable="yes">NETWORK CONFIGURATION</property>
-    <child internal-child="main_box">
-      <object class="GtkBox" id="AnacondaStandaloneWindow-main_box5">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child internal-child="nav_box">
-          <object class="GtkEventBox" id="AnacondaStandaloneWindow-nav_box5">
-            <property name="can_focus">False</property>
-            <child internal-child="nav_area">
-              <object class="GtkGrid" id="AnacondaStandaloneWindow-nav_area5">
-                <property name="can_focus">False</property>
-                <property name="margin_left">6</property>
-                <property name="margin_right">6</property>
-                <property name="margin_top">6</property>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child internal-child="alignment">
-          <object class="GtkAlignment" id="AnacondaStandaloneWindow-alignment5">
-            <property name="can_focus">False</property>
-            <property name="yalign">0</property>
-            <property name="xscale">0</property>
-            <property name="yscale">0.5</property>
-            <child internal-child="action_area">
-              <object class="GtkBox" id="AnacondaStandaloneWindow-action_area5">
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkLabel" id="networkNeedLabel1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">We'll need network access to fetch information about your location and to make software
-updates available for you.</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 12"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkDialog" id="secret_agent_dialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">6</property>
-    <property name="title" translatable="yes">Authentication</property>
-    <property name="type_hint">dialog</property>
-    <property name="decorated">False</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog_box">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">5</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area2">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="button1">
-                <property name="label" translatable="yes" context="GUI|Network|Authentication Dialog">_Cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-                <property name="image_position">right</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="connect_button">
-                <property name="label" translatable="yes" context="GUI|Network|Authentication Dialog">C_onnect</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="box2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">6</property>
-            <property name="margin_right">6</property>
-            <property name="margin_top">6</property>
-            <property name="margin_bottom">6</property>
-            <child>
-              <object class="GtkImage" id="image_password_dialog">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="valign">start</property>
-                <property name="hexpand">True</property>
-                <property name="xpad">15</property>
-                <property name="icon_name">dialog-password-symbolic</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="password_box">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkLabel" id="label_title">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="margin_bottom">6</property>
-                    <property name="hexpand">True</property>
-                    <property name="label" translatable="yes">Authentication required by wireless network</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="padding">2</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label_message">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="label" translatable="yes">Passwords or encryption keys are required to access
-the wireless network</property>
-                    <property name="xalign">0</property>
-                    <property name="yalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="padding">3</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="0">button1</action-widget>
-      <action-widget response="1">connect_button</action-widget>
-    </action-widgets>
   </object>
 </interface>
