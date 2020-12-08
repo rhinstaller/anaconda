@@ -70,7 +70,6 @@ class DNFMangerTestCase(unittest.TestCase):
             "cachedir = /tmp/dnf.cache",
             "pluginconfpath = /tmp/dnf.pluginconf",
             "logdir = /tmp/",
-            "debug_solver = 0",
         )
         self._check_configuration(
             "installroot = /mnt/sysroot",
