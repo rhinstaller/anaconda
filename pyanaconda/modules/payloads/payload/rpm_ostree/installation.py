@@ -21,7 +21,7 @@ from pyanaconda.payload.errors import PayloadInstallError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.glib import Variant
+from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import execWithRedirect, mkdirChain
 from pyanaconda.modules.common.task import Task
@@ -410,3 +410,103 @@ class DeployOSTreeTask(Task):
 
         log.info("ostree admin deploy complete")
         self.report_progress(_("Deployment complete: {}").format(ref))
+
+
+class PullRemoteAndDeleteTask(Task):
+    """Task to pull an OSTree remote and delete it."""
+
+    def __init__(self, data):
+        super().__init__()
+        self._data = data
+
+    @property
+    def name(self):
+        return "Pull OSTree Remote"
+
+    def run(self):
+        """Pull a remote and delete it.
+
+        All pulls in our code follow the pattern pull + delete.
+
+        :raise: PayloadInstallError if the pull fails
+        """
+        # pull requires this for some reason
+        mainctx = create_new_context()
+        mainctx.push_thread_default()
+
+        cancellable = None
+
+        # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
+        ref = RpmOstree.varsubst_basearch(self._data.ref)
+
+        self.report_progress(
+            _("Starting pull of {branch_name} from {source}").format(
+                branch_name=ref, source=self._data.remote
+            )
+        )
+
+        progress = OSTree.AsyncProgress.new()
+        progress.connect('changed', self._pull_progress_cb)
+
+        pull_opts = {'refs': Variant('as', [ref])}
+        # If we're doing a kickstart, we can at least use the content as a reference:
+        # See <https://github.com/rhinstaller/anaconda/issues/1117>
+        # The first path here is used by <https://pagure.io/fedora-lorax-templates>
+        # and the second by <https://github.com/projectatomic/rpm-ostree-toolbox/>
+        # FIXME extend tests to cover this part of code
+        if OSTree.check_version(2017, 8):
+            for path in ['/ostree/repo', '/install/ostree/repo']:
+                if os.path.isdir(path + '/objects'):
+                    pull_opts['localcache-repos'] = Variant('as', [path])
+                    break
+
+        sysroot_file = Gio.File.new_for_path(conf.target.physical_root)
+        sysroot = OSTree.Sysroot.new(sysroot_file)
+        sysroot.load(cancellable)
+        repo = sysroot.get_repo(None)[1]
+        # We don't support resuming from interrupted installs
+        repo.set_disable_fsync(True)
+
+        try:
+            repo.pull_with_options(self._data.remote,
+                                   Variant('a{sv}', pull_opts),
+                                   progress, cancellable)
+        except GError as e:
+            raise PayloadInstallError("Failed to pull from repository: %s" % e) from e
+
+        log.info("ostree pull: %s", progress.get_status() or "")
+        self.report_progress(_("Preparing deployment of {}").format(ref))
+
+        # Now that we have the data pulled, delete the remote for now. This will allow a remote
+        # configuration defined in the tree (if any) to override what's in the kickstart.
+        # Otherwise, we'll re-add it in post.  Ideally, ostree would support a pull without adding
+        # a remote, but that would get quite complex.
+        repo.remote_delete(self._data.remote, None)
+
+        mainctx.pop_thread_default()
+
+    def _pull_progress_cb(self, async_progress):
+        status = async_progress.get_status()
+        outstanding_fetches = async_progress.get_uint('outstanding-fetches')
+
+        if status:
+            self.report_progress(status)
+        elif outstanding_fetches > 0:
+            bytes_transferred = async_progress.get_uint64('bytes-transferred')
+            fetched = async_progress.get_uint('fetched')
+            requested = async_progress.get_uint('requested')
+            formatted_bytes = format_size_full(bytes_transferred, 0)
+
+            if requested == 0:
+                percent = 0.0
+            else:
+                percent = (fetched * 1.0 / requested) * 100
+
+            self.report_progress(
+                _("Receiving objects: {percent}% ({fetched}/{requested}) {bytes}").format(
+                    percent=int(percent), fetched=fetched, requested=requested,
+                    bytes=formatted_bytes
+                )
+            )
+        else:
+            self.report_progress(_("Writing objects"))

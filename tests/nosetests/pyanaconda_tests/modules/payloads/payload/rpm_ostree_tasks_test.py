@@ -21,12 +21,13 @@ import os
 import unittest
 from unittest.mock import patch, call, MagicMock
 
-from pyanaconda.core.glib import Variant
+from pyanaconda.core.glib import Variant, GError
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
+from pyanaconda.payload.errors import PayloadInstallError
 
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
     PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask, \
-    ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask
+    ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask, PullRemoteAndDeleteTask
 
 
 def _make_config_data():
@@ -483,3 +484,115 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
             call("ostree", ["admin", "--sysroot=/sysroot", "deploy", "--os=osname", "remote:ref"])
         ])
         # no need to mock RpmOstree.varsubst_basearch(), since "ref" won't change
+
+
+class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
+    # pylint: disable=unused-variable
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.create_new_context")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.AsyncProgress.new")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot.new")
+    def run_success_test(self, sysroot_new_mock, async_new_mock, context_mock):
+        """Test OSTree remote pull task"""
+        data = _make_config_data()
+
+        sysroot_mock = sysroot_new_mock()
+        repo_mock = MagicMock()
+        sysroot_mock.get_repo.return_value = [None, repo_mock]
+
+        with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
+            task = PullRemoteAndDeleteTask(data)
+            task.run()
+
+        context_mock.assert_called_once()
+        async_new_mock.assert_called_once()
+        self.assertEqual(len(sysroot_new_mock.mock_calls), 4)
+        # 1 above, 1 direct in run(), 2 on the result: load(), get_repo()
+
+        repo_mock.pull_with_options.assert_called_once()
+        name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
+        opts = args[1]
+        self.assertEqual(type(opts), Variant)
+        self.assertDictEqual(
+            opts.unpack(),
+            {"refs": ["ref"]}
+        )
+        repo_mock.remote_delete.assert_called_once_with("remote", None)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.create_new_context")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.AsyncProgress.new")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot.new")
+    def run_failure_test(self, sysroot_new_mock, async_new_mock, context_mock):
+        """Test OSTree remote pull task failure"""
+        data = _make_config_data()
+
+        sysroot_mock = sysroot_new_mock()
+        repo_mock = MagicMock()
+        sysroot_mock.get_repo.return_value = [None, repo_mock]
+        repo_mock.pull_with_options.side_effect = [GError("blah")]
+
+        with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
+            with self.assertRaises(PayloadInstallError) as ex:
+                task = PullRemoteAndDeleteTask(data)
+                task.run()
+
+        context_mock.assert_called_once()
+        async_new_mock.assert_called_once()
+        self.assertEqual(len(sysroot_new_mock.mock_calls), 4)
+        # 1 above, 1 direct in run(), 2 on the result: load(), get_repo()
+
+        repo_mock.pull_with_options.assert_called_once()
+        name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
+        opts = args[1]
+        self.assertEqual(type(opts), Variant)
+        self.assertDictEqual(
+            opts.unpack(),
+            {"refs": ["ref"]}
+        )
+        repo_mock.remote_delete.assert_not_called()
+
+    def pull_progress_report_test(self):
+        """Test OSTree remote pull task progress reporting"""
+        data = _make_config_data()
+
+        with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
+            task = PullRemoteAndDeleteTask(data)
+            async_mock = MagicMock()
+            # Mocks below must use side_effect so as not to mix it with return_value.
+
+            # status is present, outstanding fetches do not matter
+            async_mock.get_status.return_value = "Doing something vague"
+            async_mock.get_uint.side_effect = [0]
+            task._pull_progress_cb(async_mock)
+            progress_mock.assert_called_once_with("Doing something vague")
+            progress_mock.reset_mock()
+            async_mock.get_uint.reset_mock()
+
+            # no status, no outstanding fetches
+            async_mock.get_status.return_value = ""
+            async_mock.get_uint.side_effect = [0]
+            task._pull_progress_cb(async_mock)
+            progress_mock.assert_called_once_with("Writing objects")
+            progress_mock.reset_mock()
+            async_mock.get_uint.reset_mock()
+
+            # no status, some outstanding fetches
+            async_mock.get_status.return_value = ""
+            async_mock.get_uint.side_effect = [3, 10, 13]
+            # 3 fetches outstanding, 10 done, requested 13
+            async_mock.get_uint64.return_value = 42e3  # bytes transferred
+            task._pull_progress_cb(async_mock)
+            progress_mock.assert_called_once_with(
+                "Receiving objects: 76% (10/13) 42.0\xa0kB"
+            )
+            progress_mock.reset_mock()
+            async_mock.get_uint.reset_mock()
+
+            # no status, some outstanding fetches, but also nothing requested
+            async_mock.get_status.return_value = ""
+            async_mock.get_uint.side_effect = [3, 10, 0]
+            # 3 fetches outstanding, 10 done, requested 13
+            async_mock.get_uint64.return_value = 42e3  # bytes transferred
+            task._pull_progress_cb(async_mock)
+            progress_mock.assert_called_once_with(
+                "Receiving objects: 0% (10/0) 42.0\xa0kB"
+            )

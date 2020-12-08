@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 
-import os
 from subprocess import CalledProcessError
 
 from pyanaconda.core import util
@@ -31,7 +30,6 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
 from pyanaconda.payload.flatpak import FlatpakPayload
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
 
 from blivet.size import Size
@@ -99,30 +97,6 @@ class RPMOSTreePayload(Payload):
         super().setup()
         set_up_sources(self.proxy)
 
-    def _pull_progress_cb(self, asyncProgress):
-        status = asyncProgress.get_status()
-        outstanding_fetches = asyncProgress.get_uint('outstanding-fetches')
-        if status:
-            progressQ.send_message(status)
-        elif outstanding_fetches > 0:
-            bytes_transferred = asyncProgress.get_uint64('bytes-transferred')
-            fetched = asyncProgress.get_uint('fetched')
-            requested = asyncProgress.get_uint('requested')
-            formatted_bytes = format_size_full(bytes_transferred, 0)
-
-            if requested == 0:
-                percent = 0.0
-            else:
-                percent = (fetched * 1.0 / requested) * 100
-
-            progressQ.send_message(_("Receiving objects: %(percent)d%% "
-                                     "(%(fetched)d/%(requested)d) %(bytes)s") %
-                                   {"percent": percent, "fetched": fetched,
-                                    "requested": requested, "bytes": formatted_bytes}
-                                   )
-        else:
-            progressQ.send_message(_("Writing objects"))
-
     def _progress_cb(self, step, message):
         """Callback for task progress reporting."""
         progressQ.send_message(message)
@@ -139,13 +113,6 @@ class RPMOSTreePayload(Payload):
         self._prepare_mount_targets(data)
 
     def _install(self, data):
-        mainctx = create_new_context()
-        mainctx.push_thread_default()
-
-        cancellable = None
-        gi.require_version("OSTree", "1.0")
-        gi.require_version("RpmOstree", "1.0")
-        from gi.repository import OSTree, RpmOstree
         log.info("executing ostreesetup=%r", data)
 
         from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
@@ -164,50 +131,11 @@ class RPMOSTreePayload(Payload):
         )
         task.run()
 
-        # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
-        ref = RpmOstree.varsubst_basearch(data.ref)
-
-        progressQ.send_message(_("Starting pull of %(branchName)s from %(source)s") %
-                               {"branchName": ref, "source": data.remote})
-
-        progress = OSTree.AsyncProgress.new()
-        progress.connect('changed', self._pull_progress_cb)
-
-        pull_opts = {'refs': Variant('as', [ref])}
-        # If we're doing a kickstart, we can at least use the content as a reference:
-        # See <https://github.com/rhinstaller/anaconda/issues/1117>
-        # The first path here is used by <https://pagure.io/fedora-lorax-templates>
-        # and the second by <https://github.com/projectatomic/rpm-ostree-toolbox/>
-        if OSTree.check_version(2017, 8):
-            for path in ['/ostree/repo', '/install/ostree/repo']:
-                if os.path.isdir(path + '/objects'):
-                    pull_opts['localcache-repos'] = Variant('as', [path])
-                    break
-
-        sysroot_file = Gio.File.new_for_path(conf.target.physical_root)
-        sysroot = OSTree.Sysroot.new(sysroot_file)
-        sysroot.load(cancellable)
-        repo = sysroot.get_repo(None)[1]
-        # We don't support resuming from interrupted installs
-        repo.set_disable_fsync(True)
-
-        try:
-            repo.pull_with_options(data.remote,
-                                   Variant('a{sv}', pull_opts),
-                                   progress, cancellable)
-        except GError as e:
-            raise PayloadInstallError("Failed to pull from repository: %s" % e) from e
-
-        log.info("ostree pull: %s", progress.get_status() or "")
-        progressQ.send_message(_("Preparing deployment of %s") % (ref, ))
-
-        # Now that we have the data pulled, delete the remote for now.
-        # This will allow a remote configuration defined in the tree
-        # (if any) to override what's in the kickstart.  Otherwise,
-        # we'll re-add it in post.  Ideally, ostree would support a
-        # pull without adding a remote, but that would get quite
-        # complex.
-        repo.remote_delete(data.remote, None)
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            PullRemoteAndDeleteTask
+        task = PullRemoteAndDeleteTask(data)
+        task.progress_changed_signal.connect(self._progress_cb)
+        task.run()
 
         from pyanaconda.modules.payloads.payload.rpm_ostree.installation import DeployOSTreeTask
         task = DeployOSTreeTask(data, conf.target.physical_root)
@@ -215,6 +143,10 @@ class RPMOSTreePayload(Payload):
         task.run()
 
         # Reload now that we've deployed, find the path to the new deployment
+        gi.require_version("OSTree", "1.0")
+        from gi.repository import OSTree
+        sysroot_file = Gio.File.new_for_path(conf.target.physical_root)
+        sysroot = OSTree.Sysroot.new(sysroot_file)
         sysroot.load(None)
         deployments = sysroot.get_deployments()
         assert len(deployments) > 0
@@ -232,8 +164,6 @@ class RPMOSTreePayload(Payload):
             task.run()
         except (OSError, RuntimeError) as e:
             raise PayloadInstallError("Failed to copy bootloader data: %s" % e) from e
-
-        mainctx.pop_thread_default()
 
     def _prepare_mount_targets(self, data):
         """ Prepare the ostree root """
