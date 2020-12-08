@@ -367,6 +367,42 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 08 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.4-1
+- network: rename Gtk cell renderer to prevent name collision (rvykydal)
+  Related: rhbz#1847681
+- network: add unit tests for SecretsAgent (rvykydal)
+  Related: rhbz#1847681
+- network: make SecretAgentDialog a bit more robust (rvykydal)
+  Related: rhbz#1847681
+- network: move wireless secret agent bits into a separate file (rvykydal)
+  Related: rhbz#1847681
+- network: migrate SecretAgent from python-dbus to dasbus (rvykydal)
+  Related: rhbz#1847681
+- network: do not use dialog for just single wireless connection to configure
+  (rvykydal)
+  Related: rhbz#1847681
+- network: fix configuration of wireless networks (rvykydal)
+  Related: rhbz#1847681
+- network: use dialog instead of combobox to select wireless network (rvykydal)
+  Related: rhbz#1847681
+- network: deal with obsolete ssid when configuring wireless (rvykydal)
+  Related: rhbz#1847681
+- network: use function instead of assigned lambda in wireless activation
+  (rvykydal)
+  Related: rhbz#1847681
+- network: do not update wireless AP combo active item when not necessary
+  (rvykydal)
+  Related: rhbz#1847681
+- network: do not use obsolete access points in wireless configuration
+  (rvykydal)
+  Resolves: rhbz#1847681
+- Update the function get_default_partitioning (vponcova)
+  Related: rhbz#1887370
+- Update the property default_partitioning (vponcova)
+  Related: rhbz#1887370
+- Change the default_partitioning option (vponcova)
+  Resolves: rhbz#1887370
+
 * Wed Nov 25 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.3-1
 - Fix incomplete configuration of repositories loaded from treeinfo
   (honza.stodola)
