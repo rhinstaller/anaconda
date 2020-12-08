@@ -114,6 +114,22 @@ To protect our self-hosted runners, tests only run automatically for
 For external contributors, an organization member needs to approve the test run
 by sending a comment starting with ``/tests``.
 
+Running kickstart-tests:
+________________________
+
+The `kickstart-tests.yml workflow`_ allows rhinstaller organization members to
+run kickstart-tests_ against an anaconda PR (only ``master`` for now). Send a
+comment that starts with ``/kickstart-tests <launch options>`` to the pull
+request to trigger this. See the `kickstart launch script`_ documentation and
+its ``--help`` for details what is supported; the two basic modes are running
+a set of individual tests::
+
+   /kickstart-tests keyboard [test2 test3 ...]
+
+or running all tests of one or more given types::
+
+   /kickstart-tests --testtype network,autopart
+
 Container maintenance
 ---------------------
 
@@ -231,6 +247,8 @@ represents a different class of tests. They are
 .. _GitHub workflows: https://docs.github.com/en/free-pro-team@latest/actions
 .. _validate.yml workflow: ../.github/workflows/validate.yml
 .. _validate-rhel-8.yml workflow: ../.github/workflows/validate-rhel-8.yml
+.. _kickstart-tests.yml workflow: ../.github/workflows/kickstart-tests.yml
+.. _kickstart launch script: https://github.com/rhinstaller/kickstart-tests/blob/master/containers/runner/README.md
 .. _container-autoupdate.yml workflow: ../.github/workflows/container-autoupdate.yml
 .. _actions tab: https://github.com/rhinstaller/anaconda/actions?query=workflow%3A%22Refresh+container+images%22
 .. _github-action-run-once: https://github.com/rhinstaller/anaconda/blob/rhel-8/dockerfile/anaconda-ci/github-action-run-once
