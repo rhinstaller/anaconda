@@ -30,7 +30,6 @@ import re
 import gettext
 import signal
 import sys
-import imp
 import types
 import inspect
 import functools
@@ -1195,6 +1194,7 @@ def collect(module_pattern, path, pred):
        :param pred: function which marks classes as good to import
        :type pred: function with one argument returning True or False
     """
+    import imp
 
     retval = []
     try:
