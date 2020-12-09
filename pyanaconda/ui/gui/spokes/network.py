@@ -488,7 +488,7 @@ class NetworkControlBox(GObject.GObject):
     def _get_the_only_wireless_connection(self, device):
         con_uuid = con_ssid = ""
         if device:
-            cons = device.filter_connections(self.client.get_connections())
+            cons = _safe_device_filter_connections(device, self.client.get_connections())
             if len(cons) == 1:
                 connection = cons[0]
                 con_uuid = connection.get_setting_connection().get_uuid()
@@ -1185,7 +1185,7 @@ class ConfigureWirelessNetworksDialog(GUIObject):
             log.warnig("device for interface %s not found", device)
             return
 
-        cons = device.filter_connections(self._nm_client.get_connections())
+        cons = _safe_device_filter_connections(device, self._nm_client.get_connections())
 
         # Update model
         self._store.clear()
@@ -1384,7 +1384,8 @@ class SelectWirelessNetworksDialog(GUIObject):
         if not ap:
             return
 
-        cons = ap.filter_connections(device.filter_connections(self._nm_client.get_connections()))
+        cons = _safe_device_filter_connections(device, self._nm_client.get_connections())
+        cons = _safe_ap_filter_connections(ap, cons)
         if cons:
             con = cons[0]
             self._nm_client.activate_connection_async(con, device, ap.get_path(), None)
@@ -1686,3 +1687,13 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def _update_hostname(self):
         self.network_control_box.set_current_hostname()
+
+
+def _safe_device_filter_connections(device, connections):
+    # Do not use device.filter_connections, rhbz#1873561
+    return [c for c in connections if device.connection_valid(c)]
+
+
+def _safe_ap_filter_connections(ap, connections):
+    # Do not use ap.filter_connections, rhbz#1873561
+    return [c for c in connections if ap.connection_valid(c)]
