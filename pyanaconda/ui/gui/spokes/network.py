@@ -485,10 +485,16 @@ class NetworkControlBox(GObject.GObject):
             dialog.refresh(device_name)
             dialog.run()
 
+    def _device_filter_connections(self, device, connections):
+        return [c for c in connections if device.connection_valid(c)]
+
+    def _ap_filter_connections(self, ap, connections):
+        return [c for c in connections if ap.connection_valid(c)]
+
     def _get_the_only_wireless_connection(self, device):
         con_uuid = con_ssid = ""
         if device:
-            cons = device.filter_connections(self.client.get_connections())
+            cons = self._device_filter_connections(device, self.client.get_connections())
             if len(cons) == 1:
                 connection = cons[0]
                 con_uuid = connection.get_setting_connection().get_uuid()
@@ -1185,7 +1191,7 @@ class ConfigureWirelessNetworksDialog(GUIObject):
             log.warnig("device for interface %s not found", device)
             return
 
-        cons = device.filter_connections(self._nm_client.get_connections())
+        cons = self._device_filter_connections(device, self._nm_client.get_connections())
 
         # Update model
         self._store.clear()
@@ -1384,7 +1390,8 @@ class SelectWirelessNetworksDialog(GUIObject):
         if not ap:
             return
 
-        cons = ap.filter_connections(device.filter_connections(self._nm_client.get_connections()))
+        cons = self._device_filter_connections(device, self._nm_client.get_connections())
+        cons = self._ap_filter_connections(ap, cons)
         if cons:
             con = cons[0]
             self._nm_client.activate_connection_async(con, device, ap.get_path(), None)
