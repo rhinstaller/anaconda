@@ -62,7 +62,7 @@ class HostnameConfigurationTask(Task):
     def run(self):
         _write_config_file(
             self._sysroot, self.HOSTNAME_CONF_FILE_PATH,
-            "{}\n".format(self._hostname or ""),
+            "{}\n".format(self._hostname),
             "Cannot write hostname configuration file",
             self._overwrite
         )

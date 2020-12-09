@@ -417,8 +417,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test with no kickstart."""
         ks_in = None
         ks_out = """
-        # Network information
-        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -426,8 +424,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test with empty string."""
         ks_in = ""
         ks_out = """
-        # Network information
-        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -453,8 +449,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # Firewall configuration
         firewall --enabled --port=imap:tcp,1234:udp,47:tcp --trust=eth0,eth1 --service=ptp,syslog,ssh --remove-service=tftp,ssh
-        # Network information
-        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -464,8 +458,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # Firewall configuration
         firewall --disabled
-        # Network information
-        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -476,8 +468,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # Firewall configuration
         firewall --disabled
-        # Network information
-        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -487,8 +477,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # Firewall configuration
         firewall --use-system-defaults
-        # Network information
-        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -499,8 +487,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # Firewall configuration
         firewall --use-system-defaults
-        # Network information
-        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -514,8 +500,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # Firewall configuration
         firewall --enabled --service=ftp,http,smtp,ssh
-        # Network information
-        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -530,8 +514,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # Firewall configuration
         firewall --enabled --service=ftp,http,smtp,ssh
-        # Network information
-        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
         self.assertEqual(self.network_interface.CollectRequirements(), [
