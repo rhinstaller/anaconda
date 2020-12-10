@@ -29,6 +29,7 @@ from pyanaconda.core.configuration.base import create_parser, read_config, write
     get_option, set_option, ConfigurationError, ConfigurationDataError, ConfigurationFileError, \
     Configuration
 from pyanaconda.core.configuration.storage import StorageSection
+from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.modules.common.constants import services
 from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR
 
@@ -372,3 +373,59 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def default_installation_source_test(self):
         conf = AnacondaConfiguration.from_defaults()
         self.assertEqual(conf.payload.default_source, SOURCE_TYPE_CLOSEST_MIRROR)
+
+    def default_password_policies_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+        self.assertEqual(conf.ui.password_policies, [
+            {
+                'name': 'root',
+                "quality": 1,
+                "length": 6,
+            }, {
+                'name': 'user',
+                "quality": 1,
+                "length": 6,
+                "empty": True,
+            }, {
+                'name': 'luks',
+                "quality": 1,
+                "length": 6,
+            },
+        ])
+
+    def convert_password_policy_test(self):
+        convert_line = UserInterfaceSection._convert_policy_line
+
+        self.assertEqual(convert_line("root (quality 100, length 10, empty, strict)"), {
+            "name": "root",
+            "quality": 100,
+            "length": 10,
+            "empty": True,
+            "strict": True,
+        })
+
+        self.assertEqual(convert_line("luks (quality 100, length 10)"), {
+            "name": "luks",
+            "quality": 100,
+            "length": 10,
+        })
+
+        with self.assertRaises(ValueError):
+            convert_line("")
+
+        with self.assertRaises(ValueError):
+            convert_line("(empty)")
+
+        with self.assertRaises(ValueError):
+            convert_line("user (quality)")
+
+        with self.assertRaises(ValueError):
+            convert_line("user (invalid 100)")
+
+        # Missing length.
+        with self.assertRaises(ValueError):
+            convert_line("user (quality 100)")
+
+        # Missing quality.
+        with self.assertRaises(ValueError):
+            convert_line("user (length 10)")
