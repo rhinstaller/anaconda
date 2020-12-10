@@ -32,10 +32,6 @@ class NetworkTests(unittest.TestCase):
         self.assertTrue(network.is_valid_hostname("h"*63)[0])
         self.assertFalse(network.is_valid_hostname("h"*64)[0])
 
-        # length < 256
-        self.assertTrue(network.is_valid_hostname("section." * 31+"section")[0])
-        self.assertFalse(network.is_valid_hostname("section." * 31+"sectionx")[0])
-
         self.assertFalse(network.is_valid_hostname(
             "section.must.be..nonempty.")[0])
         self.assertFalse(network.is_valid_hostname(
