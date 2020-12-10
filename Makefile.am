@@ -91,6 +91,9 @@ CI_TAG ?= $(GIT_BRANCH)
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 CI_CMD ?= make ci
 
+# --build-rpm will be processed by run-build-and-arg script to build rpm before command execution
+RPM_TEST_CMD ?= --build-rpms make run-rpm-tests-only
+
 SKIP_BRANCHING_CHECK ?= "false"
 
 # If translations are present, run tests on the .po files before tarring them
@@ -236,6 +239,9 @@ ci:
 
 container-ci:
 	$(CONTAINER_ENGINE) run --entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG) $(CI_CMD)
+
+container-rpm-tests:
+	$(CONTAINER_ENGINE) run --entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG) $(RPM_TEST_CMD)
 
 container-shell:
 	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG)

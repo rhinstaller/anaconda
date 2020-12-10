@@ -19,5 +19,11 @@ copy_logs() {
 }
 trap copy_logs EXIT INT QUIT PIPE
 
+if [ $1 == "--build-rpms" ]; then
+    make rpms
+    dnf install -y result/build/01-rpm-build/*.rpm
+    shift 1
+fi
+
 # run user-supplied command (by default, `make ci`)
 $@
