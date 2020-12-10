@@ -109,8 +109,8 @@ def is_valid_hostname(hostname, local=False):
     if not hostname:
         return (False, _("Host name cannot be None or an empty string."))
 
-    if len(hostname) > 255:
-        return (False, _("Host name must be 255 or fewer characters in length."))
+    if len(hostname) > 64:
+        return (False, _("Host name must be 64 or fewer characters in length."))
 
     if local and hostname[-1] == ".":
         return (False, _("Local host name must not end with period '.'."))
