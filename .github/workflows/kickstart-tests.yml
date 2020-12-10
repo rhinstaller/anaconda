@@ -88,12 +88,6 @@ jobs:
           git log --oneline -1 origin/master
           git rebase origin/master
 
-      # FIXME: build a complete boot.iso with lorax/osbuild
-      - name: Build updates.img
-        run: |
-          scripts/makeupdates
-          gzip -cd updates.img | cpio -tv
-
       - name: Check out kickstart-tests
         uses: actions/checkout@v2
         with:
@@ -101,13 +95,51 @@ jobs:
           path: kickstart-tests
 
       - name: Ensure http proxy is running
+        run: sudo kickstart-tests/containers/squid.sh start
+
+      # This is really fast, but does not catch file removals or dracut changes
+      # maybe this becomes opt-in via a magic comment for efficiency reasons?
+      # if you use this, add `--updates ../updates.img` to the launch command line below
+      #- name: Build updates.img
+      #  run: |
+      #    scripts/makeupdates
+      #    gzip -cd updates.img | cpio -tv
+
+      - name: Build boot.iso from Rawhide and this branch
         run: |
-          [ -n "$(sudo podman ps -q -f 'name=^squid$')" ] || sudo kickstart-tests/containers/squid.sh start
+          mkdir -p kickstart-tests/data/images
+          # HACK: lorax and podman overlayfs really hate each other: https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+          sudo podman run -i --rm --privileged --storage-driver=vfs --root /tmp/podman-vfs -v `pwd`:/source:ro -v `pwd`/kickstart-tests/data/images:/images:z fedora:rawhide <<EOF
+          set -eux
+          # /source from host is read-only, build in a copy
+          cp -a /source/ /tmp/
+          cd /tmp/source
+
+          # install build dependencies and lorax
+          ./scripts/testing/install_dependencies.sh -y
+          dnf install -y createrepo_c lorax
+
+          # build RPMs and repo for it; bump version so that it's higher than rawhide's
+          sed -ri '/AC_INIT/ s/\[[0-9.]+\]/[999999999]/' configure.ac
+          ./autogen.sh
+          ./configure
+          make rpms
+          createrepo_c result/build/01-rpm-build/
+
+          # build boot.iso with our rpms
+          . /etc/os-release
+          lorax -p Fedora -v \$VERSION_ID -r \$VERSION_ID -s http://pubmirror2.math.uh.edu/fedora-buffet/fedora/linux/development/rawhide/Everything/x86_64/os/ -s file://\$PWD/result/build/01-rpm-build/ lorax
+          cp lorax/images/boot.iso /images/
+          EOF
+
+      - name: Clean up after podman/lorax hack
+        if: always()
+        run: sudo rm -rf /tmp/podman-vfs
 
       - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
         working-directory: kickstart-tests
         run: |
-          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes 'rhel-only,knownfailure' --updates ../updates.img ${{ needs.pr-info.outputs.launch_args }}
+          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes 'rhel-only,knownfailure' ${{ needs.pr-info.outputs.launch_args }}
 
       - name: Collect logs
         if: always()
