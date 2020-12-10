@@ -53,3 +53,38 @@ jobs:
         with:
           name: logs
           path: test-logs/*
+
+  # Run rpm tests only if user have write or admin rights
+  rpm-tests:
+    needs: pr-info
+    if: needs.pr-info.outputs.allowed_user == 'true'
+    runs-on: [self-hosted, kstest]
+    timeout-minutes: 30
+    env:
+      TARGET_BRANCH_NAME: origin/rhel-8
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Rebase to current master
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
+          git rebase ${{ env.TARGET_BRANCH_NAME }}
+
+      - name: Build RPM test container
+        run: make -f Makefile.am anaconda-rpm-build
+
+      - name: Run RPM tests in container
+        run: make -f Makefile.am container-rpm-test
+
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'logs-rpm-test'
+          path: test-logs/*
