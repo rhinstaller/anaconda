@@ -88,7 +88,9 @@ CONTAINER_REGISTRY ?= quay.io
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
+RPM_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-rpm
 CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
+RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
 CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 CI_CMD ?= make ci
@@ -178,6 +180,9 @@ anaconda-ci-build:
 anaconda-ci-push:
 	$(CONTAINER_ENGINE) push $(CI_NAME):$(CI_TAG)
 
+anaconda-rpm-build:
+	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(RPM_NAME):$(CI_TAG) $(RPM_DOCKERFILE)
+
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
@@ -232,6 +237,13 @@ container-ci:
 
 container-shell:
 	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG)
+
+container-rpm-test:
+	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
+	    /run-build-and-arg make rpms; \
+	    cd /tmp/anaconda; \
+	    make run-rpm-tests-only; \
+	    dnf install -y result/build/01-rpm-build/*.rpm'
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
