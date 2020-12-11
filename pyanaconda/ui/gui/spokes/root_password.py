@@ -16,15 +16,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda.flags import flags
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.users import crypt_password
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.common.constants.services import USERS
-
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
@@ -226,8 +225,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     def sensitive(self):
         # A password set in kickstart can be changed in the GUI
         # if the changesok password policy is set for the root password.
-        kickstarted_password_can_be_changed = self._users_module.CanChangeRootPassword \
-            or self.checker.policy.changesok
+        kickstarted_password_can_be_changed = conf.ui.can_change_root or \
+            self._users_module.CanChangeRootPassword
+
         return not (self.completed and flags.automatedInstall
                     and not kickstarted_password_can_be_changed)
 

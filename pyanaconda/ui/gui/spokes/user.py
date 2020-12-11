@@ -16,16 +16,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 import os
+
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.users import crypt_password, guess_username, check_groupname
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.util import is_module_available
-
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
@@ -35,7 +35,6 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputC
 from pyanaconda.ui.gui.utils import blockedHandler, set_password_visibility
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.users import get_user_list, set_user_list
-
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -499,7 +498,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # Spoke cannot be entered if a user was set in the kickstart and the user
         # policy doesn't allow changes.
         return not (self.completed and flags.automatedInstall
-                    and self._user_requested and not self.checker.policy.changesok)
+                    and self._user_requested and not conf.ui.can_change_users)
 
     @property
     def completed(self):

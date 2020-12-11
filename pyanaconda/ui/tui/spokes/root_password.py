@@ -25,6 +25,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.modules.common.constants.services import USERS
+from pyanaconda.core.configuration.anaconda import conf
 
 from simpleline.render.widgets import TextWidget
 
@@ -63,7 +64,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def showable(self):
-        return not (self.completed and flags.automatedInstall and not self._policy.changesok)
+        return not (self.completed and flags.automatedInstall and not conf.ui.can_change_root)
 
     @property
     def mandatory(self):

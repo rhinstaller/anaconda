@@ -16,13 +16,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import FIRSTBOOT_ENVIRON, PASSWORD_SET
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.regexes import GECOS_VALID
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.util import is_module_available
-
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -218,7 +218,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def showable(self):
         return not (self.completed and flags.automatedInstall
-                    and self._user_requested and not self._policy.changesok)
+                    and self._user_requested and not conf.ui.can_change_users)
 
     @property
     def mandatory(self):

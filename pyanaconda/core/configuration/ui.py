@@ -69,3 +69,27 @@ class UserInterfaceSection(Section):
         :return: True or False
         """
         return self._get_option("decorated_window", bool)
+
+    @property
+    def can_change_root(self):
+        """Should the UI allow to change the configured root account?
+
+        If the root account is already set up by a kickstart file or
+        via the DBus API, should we allow to change it via the user
+        interface?
+
+        :return: True or False
+        """
+        return self._get_option("can_change_root", bool)
+
+    @property
+    def can_change_users(self):
+        """Should the UI allow to change the configured user accounts?
+
+        If the user accounts are already set up by a kickstart file or
+        via the DBus API, should we allow to change them via the user
+        interface?
+
+        :return: True or False
+        """
+        return self._get_option("can_change_users", bool)
