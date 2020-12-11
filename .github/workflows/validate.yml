@@ -9,7 +9,7 @@ jobs:
         release: ['', 'eln']
         include:
           - release: eln
-            build-args: '--build-arg=eln=1'
+            build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
     env:
       CI_TAG: '${{ matrix.release }}'
       CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'

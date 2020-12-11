@@ -1,23 +1,14 @@
-FROM fedora:rawhide
-ARG eln=
+ARG image=docker.io/fedora:rawhide
+FROM ${image}
 LABEL maintainer=anaconda-list@redhat.com
 
-# HACK: there is no official fedora-eln container image yet, so cross-grade from rawhide
+# On ELN, BaseOS+AppStream don't have all our build dependencies; this provides the "Everything" compose
 COPY ["eln.repo", "/etc/yum.repos.d"]
 
 # Prepare environment and install build dependencies
 RUN set -e; \
-  if [ -n "$eln" ]; then \
-      sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/eln.repo; \
-      dnf install -y --allowerasing fedora-release-eln; \
-  fi; \
-  dnf distro-sync -y; \
-  if [ -n "$eln" ]; then \
-      rm -f /etc/yum.repos.d/fedora*; \
-      if noneln=$(rpm -qa | grep -Ev '\.eln|^gpg-pubkey'); then \
-          echo "ERROR: Non-ELN packages: $noneln" >&2; exit 1; \
-      fi; \
-  fi; \
+  if grep -q VARIANT.*eln /etc/os-release; then sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/eln.repo; fi; \
+  dnf update -y; \
   dnf install -y \
   'dnf-command(copr)' \
   curl \
@@ -37,7 +28,7 @@ RUN set -e; \
   policycoreutils \
   python3-gobject-base \
   python3-pip; \
-  if [ -z "$eln" ]; then dnf copr enable -y @rhinstaller/Anaconda; dnf copr enable -y @storage/blivet-daily; fi; \
+  if ! grep -q VARIANT.*eln /etc/os-release; then dnf copr enable -y @rhinstaller/Anaconda; dnf copr enable -y @storage/blivet-daily; fi; \
   curl -L https://raw.githubusercontent.com/rhinstaller/anaconda/master/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   rpmspec -q --requires /tmp/anaconda.spec | grep -v anaconda | xargs -d '\n' dnf install -y; \
