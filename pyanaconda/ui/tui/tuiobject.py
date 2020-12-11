@@ -202,14 +202,14 @@ class Dialog(object):
 class PasswordDialog(Dialog):
     """Ask for user password and process it."""
 
-    def __init__(self, title, policy,
+    def __init__(self, title, policy_name,
                  report_func=reporting_callback,
                  process_func=crypt_password,
                  secret_type=constants.SecretType.PASSWORD,
                  message=None):
         super().__init__(title, report_func=report_func)
         self._no_separator = False
-        self._policy = policy
+        self._policy = input_checking.get_policy(policy_name)
         self._secret_type = secret_type
         self._process_password = process_func
         self._dialog_message = message
@@ -264,8 +264,8 @@ class PasswordDialog(Dialog):
             self._report(password_check.result.error_message)
             return None
 
-        if password_check.result.password_quality < self._policy.minquality:
-            if self._policy.strict:
+        if password_check.result.password_quality < self._policy.min_quality:
+            if self._policy.is_strict:
                 done_msg = ""
             else:
                 done_msg = _("\nWould you like to use it anyway?")
@@ -277,7 +277,7 @@ class PasswordDialog(Dialog):
                 weak_prefix = _(constants.SECRET_WEAK[self._secret_type])
                 error = "{} {}".format(weak_prefix, done_msg)
 
-            if not self._policy.strict:
+            if not self._policy.is_strict:
                 question_window = YesNoDialog(error)
                 ScreenHandler.push_screen_modal(question_window)
                 if not question_window.answer:

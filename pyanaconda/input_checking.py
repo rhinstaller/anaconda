@@ -26,18 +26,19 @@ from pyanaconda.core import constants, regexes
 from pyanaconda.core import users
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.structures.policy import PasswordPolicy
+
 log = get_module_logger(__name__)
 
 
-def get_policy(kickstart_data, policy_name):
-    """Get a policy corresponding to the name or default policy.
+def get_policy(policy_name) -> PasswordPolicy:
+    """Get the password policy data.
 
-    If no policy is found for the name the default policy is returned.
+    :param policy_name: a name of the policy
+    :return: a password policy data
     """
-    policy = kickstart_data.anaconda.pwpolicy.get_policy(policy_name)
-    if not policy:
-        policy = kickstart_data.anaconda.PwPolicyData()
-    return policy
+    # FIXME: Get the policy from the UI DBus module.
+    return PasswordPolicy.from_defaults(policy_name)
 
 
 class PwqualitySettingsCache(object):
@@ -129,7 +130,9 @@ class PasswordCheckRequest(object):
         :rtype: pwquality settings object or None
         """
         if not self._pwquality_settings:
-            self._pwquality_settings = pwquality_settings_cache.get_settings_by_minlen(self.policy.minlen)
+            self._pwquality_settings = pwquality_settings_cache.get_settings_by_minlen(
+                self.policy.min_length
+            )
         return self._pwquality_settings
 
     @property
@@ -379,14 +382,14 @@ class PasswordValidityCheck(InputCheck):
             # PWQError values are built as a tuple of (int, str)
             error_message = e.args[1]
 
-        if check_request.policy.emptyok:
+        if check_request.policy.allow_empty and not check_request.password:
             # if we are OK with empty passwords, then empty passwords are also fine length wise
-            length_ok = len(check_request.password) >= check_request.policy.minlen or not check_request.password
+            length_ok = True
         else:
-            length_ok = len(check_request.password) >= check_request.policy.minlen
+            length_ok = len(check_request.password) >= check_request.policy.min_length
 
         if not check_request.password:
-            if check_request.policy.emptyok:
+            if check_request.policy.allow_empty:
                 pw_score = 1
             else:
                 pw_score = 0
@@ -583,7 +586,7 @@ class PasswordChecker(object):
     """
 
     def __init__(self, initial_password_content, initial_password_confirmation_content,
-                 policy):
+                 policy_name):
         self._password = InputField(initial_password_content)
         self._password_confirmation = InputField(initial_password_confirmation_content)
         self._checks = []
@@ -591,7 +594,7 @@ class PasswordChecker(object):
         self._error_message = ""
         self._failed_checks = []
         self._successful_checks = []
-        self._policy = policy
+        self._policy_name = policy_name
         self._username = None
         self._fullname = ""
         self._secret_type = constants.SecretType.PASSWORD
@@ -648,7 +651,7 @@ class PasswordChecker(object):
 
     @property
     def policy(self):
-        return self._policy
+        return get_policy(self._policy_name)
 
     @property
     def username(self):

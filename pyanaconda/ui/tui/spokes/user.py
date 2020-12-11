@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import FIRSTBOOT_ENVIRON, PASSWORD_SET
+from pyanaconda.core.constants import FIRSTBOOT_ENVIRON, PASSWORD_SET, PASSWORD_POLICY_USER
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.regexes import GECOS_VALID
@@ -99,8 +99,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._use_password = self.user.is_crypted or self.user.password
         self._groups = ""
         self._is_admin = False
-        self._policy = self.data.anaconda.pwpolicy.get_policy("user", fallback_to_default=True)
-
         self.errors = []
 
         self._users_module = USERS.get_proxy()
@@ -142,7 +140,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self._container.add(w, self._set_use_password)
 
             if self._use_password:
-                password_dialog = PasswordDialog(title=_("Password"), policy=self._policy)
+                password_dialog = PasswordDialog(
+                    title=_("Password"),
+                    policy_name=PASSWORD_POLICY_USER
+                )
                 if self.user.password:
                     entry = EntryWidget(password_dialog.title, _(PASSWORD_SET))
                 else:

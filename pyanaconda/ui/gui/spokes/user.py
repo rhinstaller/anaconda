@@ -18,6 +18,7 @@
 #
 import os
 
+from pyanaconda.core.constants import PASSWORD_POLICY_USER
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.configuration.anaconda import conf
@@ -299,9 +300,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         # Setup the password checker for password checking
         self._checker = input_checking.PasswordChecker(
-                initial_password_content = self.password,
-                initial_password_confirmation_content = self.password_confirmation,
-                policy = input_checking.get_policy(self.data, "user")
+                initial_password_content=self.password,
+                initial_password_confirmation_content=self.password_confirmation,
+                policy_name=PASSWORD_POLICY_USER
         )
         # configure the checker for password checking
         self.checker.username = self.username
@@ -363,11 +364,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self.password_required = True
             self.password_entry.set_placeholder_text(password_set_message)
             self.password_confirmation_entry.set_placeholder_text(password_set_message)
-        elif not self.checker.policy.emptyok:
+        elif not self.checker.policy.allow_empty:
             # Policy is that a non-empty password is required
             self.password_required = True
 
-        if not self.checker.policy.emptyok:
+        if not self.checker.policy.allow_empty:
             # User isn't allowed to change whether password is required or not
             self.password_required_checkbox.set_sensitive(False)
 
@@ -602,9 +603,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
                              not self._username_check.result.success,
                              not self._fullname_check.result.success,
                              not self._empty_check.result.success]
-        # with emptyok == False the empty password check become unwaivable
-        #if not self.checker.policy.emptyok:
-        #    unwaivable_checks.append(not self._empty_check.result.success)
+
+        # with allow_empty == False the empty password check become unwaivable
+        # if not self.checker.policy.allow_empty:
+        #   unwaivable_checks.append(not self._empty_check.result.success)
         unwaivable_check_failed = any(unwaivable_checks)
 
         # set appropriate status bar message
@@ -622,7 +624,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             # Also clear warnings if username is set but empty password is fine.
             self.clear_info()
         else:
-            if self.checker.policy.strict or unwaivable_check_failed:
+            if self.checker.policy.is_strict or unwaivable_check_failed:
                 # just forward the error message
                 self.show_warning_message(error_message)
             else:
@@ -661,7 +663,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self.can_go_back = True
             self.needs_waiver = False
         else:
-            if self.checker.policy.strict:
+            if self.checker.policy.is_strict:
                 if not self._validity_check.result.success:
                     # failing validity check in strict
                     # mode prevents us from going back
