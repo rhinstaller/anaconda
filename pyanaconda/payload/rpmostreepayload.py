@@ -20,7 +20,6 @@
 
 from subprocess import CalledProcessError
 
-from pyanaconda.core import util
 from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
@@ -33,10 +32,6 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
 
 from blivet.size import Size
-
-import gi
-gi.require_version("Gio", "2.0")
-from gi.repository import Gio
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -143,16 +138,9 @@ class RPMOSTreePayload(Payload):
         task.run()
 
         # Reload now that we've deployed, find the path to the new deployment
-        gi.require_version("OSTree", "1.0")
-        from gi.repository import OSTree
-        sysroot_file = Gio.File.new_for_path(conf.target.physical_root)
-        sysroot = OSTree.Sysroot.new(sysroot_file)
-        sysroot.load(None)
-        deployments = sysroot.get_deployments()
-        assert len(deployments) > 0
-        deployment = deployments[0]
-        deployment_path = sysroot.get_deployment_directory(deployment)
-        util.set_system_root(deployment_path.get_path())
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import SetSystemRootTask
+        task = SetSystemRootTask(conf.target.physical_root)
+        task.run()
 
         try:
             from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \

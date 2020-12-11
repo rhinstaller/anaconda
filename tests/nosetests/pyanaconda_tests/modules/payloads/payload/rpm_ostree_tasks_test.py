@@ -27,7 +27,8 @@ from pyanaconda.payload.errors import PayloadInstallError
 
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
     PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask, \
-    ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask, PullRemoteAndDeleteTask
+    ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask, PullRemoteAndDeleteTask, \
+    SetSystemRootTask
 
 
 def _make_config_data():
@@ -596,3 +597,20 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
             progress_mock.assert_called_once_with(
                 "Receiving objects: 0% (10/0) 42.0\xa0kB"
             )
+
+
+class SetSystemRootTaskTestCase(unittest.TestCase):
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot.new")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.set_system_root")
+    def run_test(self, set_mock, new_sysroot_mock):
+        """Test OSTree sysroot set task"""
+        sysroot_mock = new_sysroot_mock()
+        sysroot_mock.get_deployments.return_value = [None]
+
+        task = SetSystemRootTask("/physroot")
+        task.run()
+
+        self.assertEqual(len(new_sysroot_mock.mock_calls), 2+4)
+        # 2 above: new, get_deployments;
+        # 4 in run(): new(), load(), get_deployments(), get_deployment_directory()
+        set_mock.assert_called_once()

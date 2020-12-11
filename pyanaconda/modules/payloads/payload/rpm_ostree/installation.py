@@ -23,7 +23,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import execWithRedirect, mkdirChain
+from pyanaconda.core.util import execWithRedirect, mkdirChain, set_system_root
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -510,3 +510,26 @@ class PullRemoteAndDeleteTask(Task):
             )
         else:
             self.report_progress(_("Writing objects"))
+
+
+class SetSystemRootTask(Task):
+
+    def __init__(self, physroot):
+        super().__init__()
+        self._physroot = physroot
+
+    @property
+    def name(self):
+        return "Set OSTree system root"
+
+    def run(self):
+        sysroot_file = Gio.File.new_for_path(self._physroot)
+        sysroot = OSTree.Sysroot.new(sysroot_file)
+        sysroot.load(None)
+
+        deployments = sysroot.get_deployments()
+        assert len(deployments) > 0
+
+        deployment = deployments[0]
+        deployment_path = sysroot.get_deployment_directory(deployment)
+        set_system_root(deployment_path.get_path())
