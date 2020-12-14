@@ -21,6 +21,7 @@ from pyanaconda.flags import flags
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError, \
     StorageInstallationError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
+from pyanaconda.payload.errors import PayloadInstallError, DependencyError
 
 
 class ScriptError(Exception):
@@ -88,6 +89,27 @@ class ErrorHandler(object):
     """
     def __init__(self, ui=None):
         self.ui = ui
+        self.map = self._get_default_mapping()
+
+    def _get_default_mapping(self):
+        return {
+            # Anaconda errors
+            ScriptError.__name__: self._script_error_handler,
+
+            # Storage errors
+            UnusableStorageError.__name__: self._storage_reset_handler,
+            StorageInstallationError.__name__: self._storage_install_handler,
+            BootloaderInstallationError.__name__: self._bootloader_error_handler,
+
+            # Payload errors
+            DependencyError.__name__: self._dependency_error_handler,
+            PayloadInstallError.__name__: self._payload_install_handler,
+
+            # DNF errors
+            "NoStreamSpecifiedException": self._no_module_stream_specified,
+            "InstallMoreStreamsException": self._multiple_module_streams_specified,
+            "MarkingErrors": self._install_specs_handler,
+        }
 
     def _storage_install_handler(self, exn):
         message = _("An error occurred while activating your storage configuration.")
@@ -152,7 +174,7 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _scriptErrorHandler(self, exn):
+    def _script_error_handler(self, exn):
         message = _("There was an error running the kickstart script at line "
                     "%(lineno)s.  This is a fatal error and installation will be "
                     "aborted.  The details of this error are:\n\n%(details)s") % \
@@ -160,7 +182,7 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _payloadInstallHandler(self, exn):
+    def _payload_install_handler(self, exn):
         message = _("The following error occurred while installing.  This is "
                     "a fatal error and installation will be aborted.")
         message += "\n\n" + str(exn)
@@ -168,7 +190,7 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _dependencyErrorHandler(self, exn):
+    def _dependency_error_handler(self, exn):
         message = _("The following software marked for installation has errors.\n"
                     "This is likely caused by an error with your installation source.")
         details = str(exn)
@@ -176,7 +198,7 @@ class ErrorHandler(object):
         self.ui.showDetailedError(message, details)
         return ERROR_RAISE
 
-    def _bootLoaderErrorHandler(self, exn):
+    def _bootloader_error_handler(self, exn):
         message = _("The following error occurred while installing the boot loader. "
                     "The system will not be bootable. "
                     "Would you like to ignore this and continue with "
@@ -206,20 +228,8 @@ class ErrorHandler(object):
         if not flags.ksprompt:
             raise NonInteractiveError("Non interactive installation failed: %s" % exn)
 
-        _map = {
-            StorageInstallationError.__name__: self._storage_install_handler,
-            UnusableStorageError.__name__: self._storage_reset_handler,
-            "NoStreamSpecifiedException": self._no_module_stream_specified,
-            "InstallMoreStreamsException": self._multiple_module_streams_specified,
-            "MarkingErrors": self._install_specs_handler,
-            "ScriptError": self._scriptErrorHandler,
-            "PayloadInstallError": self._payloadInstallHandler,
-            "DependencyError": self._dependencyErrorHandler,
-            BootloaderInstallationError.__name__: self._bootLoaderErrorHandler,
-        }
-
-        if exn.__class__.__name__ in _map:
-            rc = _map[exn.__class__.__name__](exn)
+        if exn.__class__.__name__ in self.map:
+            rc = self.map[exn.__class__.__name__](exn)
 
         return rc
 
