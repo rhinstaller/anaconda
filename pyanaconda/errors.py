@@ -106,8 +106,6 @@ class ErrorHandler(object):
             PayloadInstallError.__name__: self._payload_install_handler,
 
             # DNF errors
-            "NoStreamSpecifiedException": self._no_module_stream_specified,
-            "InstallMoreStreamsException": self._multiple_module_streams_specified,
             "MarkingErrors": self._install_specs_handler,
         }
 
@@ -157,22 +155,6 @@ class ErrorHandler(object):
                 return ERROR_CONTINUE
             else:
                 return ERROR_RAISE
-
-    def _no_module_stream_specified(self, exn):
-        message = _("Stream was not specified for a module without a default stream. This is "
-                    "a fatal error and installation will be aborted. The details "
-                    "of this error are:\n\n%(exception)s") % \
-                            {"exception": exn}
-        self.ui.showError(message)
-        return ERROR_RAISE
-
-    def _multiple_module_streams_specified(self, exn):
-        message = _("Multiple streams have been specified for a single module. This is "
-                    "a fatal error and installation will be aborted. The details "
-                    "of this error are:\n\n%(exception)s") % \
-                            {"exception": exn}
-        self.ui.showError(message)
-        return ERROR_RAISE
 
     def _script_error_handler(self, exn):
         message = _("There was an error running the kickstart script at line "
