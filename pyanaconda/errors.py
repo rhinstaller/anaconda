@@ -23,12 +23,6 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 
 
-class InvalidImageSizeError(Exception):
-    def __init__(self, message, filename):
-        Exception.__init__(self, message)
-        self.filename = filename
-
-
 class ScriptError(Exception):
     def __init__(self, lineno, details):
         Exception.__init__(self)
@@ -116,20 +110,6 @@ class ErrorHandler(object):
                    C_("GUI|Storage Detailed Error Dialog", "_Retry"))
         if self.ui.showDetailedError(message, details, buttons=buttons):
             return ERROR_RETRY
-        else:
-            return ERROR_RAISE
-
-    def _invalidImageSizeHandler(self, exn):
-        message = _("The ISO image %s has a size which is not "
-                    "a multiple of 2048 bytes.  This may mean "
-                    "it was corrupted on transfer to this computer."
-                    "\n\n"
-                    "It is recommended that you exit and abort your "
-                    "installation, but you can choose to continue if "
-                    "you think this is in error. Would you like to "
-                    "continue using this image?") % exn.filename
-        if self.ui.showYesNoQuestion(message):
-            return ERROR_CONTINUE
         else:
             return ERROR_RAISE
 
@@ -252,7 +232,6 @@ class ErrorHandler(object):
         _map = {
             StorageInstallationError.__name__: self._storage_install_handler,
             UnusableStorageError.__name__: self._storage_reset_handler,
-            "InvalidImageSizeError": self._invalidImageSizeHandler,
             "NoSuchGroup": self._noSuchGroupHandler,
             "NoStreamSpecifiedException": self._no_module_stream_specified,
             "InstallMoreStreamsException": self._multiple_module_streams_specified,
