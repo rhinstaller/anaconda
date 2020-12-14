@@ -22,18 +22,11 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
     StorageInstallationError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 
-__all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY", "errorHandler", "InvalidImageSizeError",
-           "MissingImageError", "ScriptError", "NonInteractiveError", "CmdlineError", "ExitError"]
-
 
 class InvalidImageSizeError(Exception):
     def __init__(self, message, filename):
         Exception.__init__(self, message)
         self.filename = filename
-
-
-class MissingImageError(Exception):
-    pass
 
 
 class ScriptError(Exception):
@@ -137,16 +130,6 @@ class ErrorHandler(object):
                     "continue using this image?") % exn.filename
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
-        else:
-            return ERROR_RAISE
-
-    def _missingImageHandler(self, exn):
-        message = _("The installer has tried to mount the "
-                    "installation image, but cannot find it on "
-                    "the hard drive.\n\n"
-                    "Should I try again to locate the image?")
-        if self.ui.showYesNoQuestion(message):
-            return ERROR_RETRY
         else:
             return ERROR_RAISE
 
@@ -270,7 +253,6 @@ class ErrorHandler(object):
             StorageInstallationError.__name__: self._storage_install_handler,
             UnusableStorageError.__name__: self._storage_reset_handler,
             "InvalidImageSizeError": self._invalidImageSizeHandler,
-            "MissingImageError": self._missingImageHandler,
             "NoSuchGroup": self._noSuchGroupHandler,
             "NoStreamSpecifiedException": self._no_module_stream_specified,
             "InstallMoreStreamsException": self._multiple_module_streams_specified,

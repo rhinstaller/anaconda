@@ -71,7 +71,7 @@ from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadInstallError, PayloadSetupError
-from pyanaconda.payload.image import find_first_iso_image, mountImage, find_optical_install_media
+from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
@@ -1205,7 +1205,7 @@ class DNFPayload(Payload):
         if not os.path.ismount(iso_mount_dir):
             # mount the ISO on a loop
             image = os.path.normpath("%s/%s" % (path, image))
-            mountImage(image, iso_mount_dir)
+            payload_utils.mount(image, iso_mount_dir, fstype='iso9660', options="ro")
 
         if not iso_path.endswith(".iso"):
             result_path = os.path.normpath("%s/%s" % (iso_path,

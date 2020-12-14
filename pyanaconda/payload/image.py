@@ -28,7 +28,7 @@ import blivet.arch
 from blivet.size import Size
 
 from pyanaconda import isys
-from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
+from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
@@ -156,34 +156,6 @@ def _search_for_install_root_repository(repos):
             return repo
 
     return None
-
-
-def mountImage(isodir, tree):
-    # FIXME: This is duplicated in SetUpHardDriveSourceTask.run
-    while True:
-        if os.path.isfile(isodir):
-            image = isodir
-        else:
-            image = find_first_iso_image(isodir)
-            if image is None:
-                exn = MissingImageError()
-                if errorHandler.cb(exn) == ERROR_RAISE:
-                    raise exn
-                else:
-                    continue
-
-            image = os.path.normpath("%s/%s" % (isodir, image))
-
-        try:
-            blivet.util.mount(image, tree, fstype='iso9660', options="ro")
-        except OSError as oserr:
-            exn = MissingImageError()
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn from oserr
-            else:
-                continue
-        else:
-            break
 
 
 def find_optical_install_media():
