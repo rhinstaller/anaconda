@@ -17,13 +17,11 @@
 #
 import os
 import operator
-import time
 
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.payload.dnf.transaction_progress import TransactionProgress
-from pyanaconda.progress import progressQ
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.product import productName, productVersion
@@ -32,14 +30,7 @@ log = get_packaging_logger()
 
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
-
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
-
-
-def go_to_failure_limbo():
-    progressQ.send_quit(1)
-    while True:
-        time.sleep(10000)
 
 
 def get_df_map():

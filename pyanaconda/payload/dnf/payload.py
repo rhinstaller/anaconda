@@ -66,7 +66,7 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, \
-    YUM_REPOS_DIR, go_to_failure_limbo, do_transaction, get_df_map, pick_mount_point
+    YUM_REPOS_DIR, do_transaction, get_df_map, pick_mount_point
 from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
@@ -860,13 +860,8 @@ class DNFPayload(Payload):
         task = SetRPMMacrosTask(data)
         task.run()
 
-        try:
-            self.check_software_selection()
-            self._download_location = self._pick_download_location()
-        except PayloadError as e:
-            if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
-                log.error("Installation failed: %r", e)
-                go_to_failure_limbo()
+        self.check_software_selection()
+        self._download_location = self._pick_download_location()
 
         if os.path.exists(self._download_location):
             log.info("Removing existing package download "
@@ -880,10 +875,7 @@ class DNFPayload(Payload):
             self._base.download_packages(pkgs_to_download, progress)
         except dnf.exceptions.DownloadError as e:
             msg = 'Failed to download the following packages: %s' % str(e)
-            exc = PayloadInstallError(msg)
-            if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
-                log.error("Installation failed: %r", exc)
-                go_to_failure_limbo()
+            raise PayloadInstallError(msg) from None
 
         log.info('Downloading packages finished.')
 
@@ -919,10 +911,8 @@ class DNFPayload(Payload):
                 msg = ("Payload error - DNF installation has ended up abruptly: %s" % msg)
                 raise PayloadError(msg)
             elif token == 'error':
-                exc = PayloadInstallError("DNF error: %s" % msg)
-                if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
-                    log.error("Installation failed: %r", exc)
-                    go_to_failure_limbo()
+                raise PayloadInstallError("DNF error: %s" % msg)
+
             (token, msg) = queue_instance.get()
 
         process.join()
