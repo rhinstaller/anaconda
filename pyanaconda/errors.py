@@ -55,12 +55,6 @@ class RemovedModuleError(ImportError):
     pass
 
 
-class PasswordCryptError(Exception):
-    def __init__(self, algo):
-        Exception.__init__(self)
-        self.algo = algo
-
-
 class ExitError(RuntimeError):
     pass
 
@@ -254,12 +248,6 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def _passwordCryptErrorHandler(self, exn):
-        message = _("Unable to encrypt password: unsupported algorithm %s") % exn.algo
-
-        self.ui.showError(message)
-        return ERROR_RAISE
-
     def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -291,7 +279,6 @@ class ErrorHandler(object):
             "PayloadInstallError": self._payloadInstallHandler,
             "DependencyError": self._dependencyErrorHandler,
             BootloaderInstallationError.__name__: self._bootLoaderErrorHandler,
-            "PasswordCryptError": self._passwordCryptErrorHandler,
         }
 
         if exn.__class__.__name__ in _map:
