@@ -32,11 +32,9 @@ class PayloadSetupError(PayloadError):
 
 # software selection
 class NoSuchGroup(PayloadError):
-    def __init__(self, group, adding=True, required=False):
+    def __init__(self, group):
         super().__init__(group)
         self.group = group
-        self.adding = adding
-        self.required = required
 
     def __str__(self):
         return "The group '{}' does not exist".format(self.group)
