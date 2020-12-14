@@ -240,10 +240,8 @@ container-shell:
 
 container-rpm-test:
 	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
-	    /run-build-and-arg make rpms; \
-	    cd /tmp/anaconda; \
-	    make run-rpm-tests-only; \
-	    dnf install -y result/build/01-rpm-build/*.rpm'
+	    /run-build-and-arg make run-rpm-tests-only; \
+	    dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
@@ -324,7 +322,7 @@ tests-nose-only:
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
 
-run-rpm-tests-only:
+run-rpm-tests-only: rpms
 	$(MAKE) TEST_SUITE_LOG=test-suite.log RPM_PATH=$(RPM_BUILD_DIR) \
 			ROOT_ANACONDA_PATH=$(abs_srcdir) TESTS=rpm_tests.sh check
 
