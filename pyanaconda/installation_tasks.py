@@ -453,7 +453,13 @@ class Task(BaseTask):
         related machinery.
         """
         if self._task:
-            self._task(*self._task_args, **self._task_kwargs)
+            try:
+                # Run the task.
+                self._task(*self._task_args, **self._task_kwargs)
+            except Exception as e:  # pylint: disable=broad-except
+                # Handle an error.
+                if errorHandler.cb(e) == ERROR_RAISE:
+                    raise
         else:
             log.error("Task %s callable not set.", self.name)
 
