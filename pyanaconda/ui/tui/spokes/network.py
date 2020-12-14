@@ -425,7 +425,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._network_module.NetworkDeviceConfigurationChanged()
 
         (valid, error) = network.is_valid_hostname(self.hostname, local=True)
-        if valid:
+        if not self.hostname or valid:
             self._network_module.SetHostname(self.hostname)
         else:
             self.errors.append(_("Host name is not valid: %s") % error)

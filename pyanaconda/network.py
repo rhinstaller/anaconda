@@ -47,8 +47,6 @@ from gi.repository import NM
 
 log = get_module_logger(__name__)
 
-DEFAULT_HOSTNAME = "localhost.localdomain"
-
 network_connected = None
 network_connected_condition = threading.Condition()
 
@@ -56,7 +54,7 @@ _nm_client = None
 
 __all__ = ["get_supported_devices", "status_message", "wait_for_connectivity",
            "wait_for_connecting_NM_thread", "wait_for_network_devices", "wait_for_connected_NM",
-           "initialize_network", "copy_resolv_conf_to_root", "get_hostname", "prefix_to_netmask",
+           "initialize_network", "copy_resolv_conf_to_root", "prefix_to_netmask",
            "netmask_to_prefix", "get_first_ip_address", "is_valid_hostname", "check_ip_address",
            "get_nm_client", "write_configuration"]
 
@@ -174,33 +172,6 @@ def prefix_to_netmask(prefix):
     return netmask
 
 
-def get_hostname():
-    """Try to determine what the hostname should be for this system."""
-    hostname = None
-
-    # First address (we prefer ipv4) of last device (as it used to be) wins
-    for device in get_activated_devices(get_nm_client()):
-        addrs = (get_device_ip_addresses(device, version=4) +
-                 get_device_ip_addresses(device, version=6))
-        for ipaddr in addrs:
-            try:
-                hinfo = socket.gethostbyaddr(ipaddr)
-            except socket.herror as e:
-                log.debug("Exception caught trying to get host name of %s: %s", ipaddr, e)
-            else:
-                if len(hinfo) == 3:
-                    hostname = hinfo[0]
-                    break
-
-    if not hostname or hostname in ('(none)', 'localhost', 'localhost.localdomain'):
-        hostname = socket.gethostname()
-
-    if not hostname or hostname in ('(none)', 'localhost', 'localhost.localdomain'):
-        hostname = DEFAULT_HOSTNAME
-
-    return hostname
-
-
 def hostname_from_cmdline(kernel_args):
     """Get hostname defined by boot options.
 
@@ -288,7 +259,7 @@ def initialize_network():
     run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
     run_network_initialization_task(network_proxy.DumpMissingConfigFilesWithTask())
 
-    if network_proxy.Hostname == DEFAULT_HOSTNAME:
+    if not network_proxy.Hostname:
         bootopts_hostname = hostname_from_cmdline(kernel_arguments)
         if bootopts_hostname:
             log.debug("Updating host name from boot options: %s", bootopts_hostname)
@@ -326,7 +297,7 @@ def write_configuration(overwrite=False):
 
     if conf.system.can_change_hostname:
         hostname = network_proxy.Hostname
-        if hostname != DEFAULT_HOSTNAME:
+        if hostname:
             network_proxy.SetCurrentHostname(hostname)
 
 

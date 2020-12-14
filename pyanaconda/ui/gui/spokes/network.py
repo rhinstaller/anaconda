@@ -1541,7 +1541,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def on_apply_hostname(self, *args):
         hostname = self.network_control_box.hostname
         (valid, error) = network.is_valid_hostname(hostname, local=True)
-        if not valid:
+        if hostname and not valid:
             self.clear_info()
             msg = _("Host name is not valid: %s") % error
             self.set_warning(msg)
@@ -1560,7 +1560,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def on_back_clicked(self, button):
         hostname = self.network_control_box.hostname
         (valid, error) = network.is_valid_hostname(hostname, local=True)
-        if not valid:
+        if hostname and not valid:
             self.clear_info()
             msg = _("Host name is not valid: %s") % error
             self.set_warning(msg)
@@ -1656,7 +1656,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def _on_continue_clicked(self, window, user_data=None):
         hostname = self.network_control_box.hostname
         (valid, error) = network.is_valid_hostname(hostname, local=True)
-        if not valid:
+        if hostname and not valid:
             self.clear_info()
             msg = _("Host name is not valid: %s") % error
             self.set_warning(msg)
@@ -1674,7 +1674,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def on_apply_hostname(self, *args):
         hostname = self.network_control_box.hostname
         (valid, error) = network.is_valid_hostname(hostname, local=True)
-        if not valid:
+        if hostname and not valid:
             self.clear_info()
             msg = _("Host name is not valid: %s") % error
             self.set_warning(msg)
