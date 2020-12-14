@@ -307,7 +307,7 @@ class DNFPayload(Payload):
                 "ModuleBase.disable(): some packages, groups "
                 "or modules are missing or broken:\n%s", e
             )
-            self._payload_setup_error(e)
+            self._handle_marking_error(e)
 
         # forward the module specs to enable to DNF
         log.debug("enabling modules: %s", module_specs_to_enable)
@@ -317,7 +317,7 @@ class DNFPayload(Payload):
         except dnf.exceptions.MarkingErrors as e:
             log.debug("ModuleBase.enable(): some packages, groups "
                       "or modules are missing or broken:\n%s", e)
-            self._payload_setup_error(e)
+            self._handle_marking_error(e)
 
     def _apply_selections(self):
         log.debug("applying DNF package/group/module selection")
@@ -345,8 +345,8 @@ class DNFPayload(Payload):
         # Apply specs.
         try:
             self._dnf_manager.apply_specs(include_list, exclude_list)
-        except Exception as e:  # pylint: disable=broad-except
-            self._payload_setup_error(e)
+        except dnf.exceptions.MarkingErrors as e:
+            self._handle_marking_error(e)
 
     def _bump_tx_id(self):
         if self.tx_id is None:
@@ -378,8 +378,9 @@ class DNFPayload(Payload):
         self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._dnf_manager.dump_configuration()
 
-    def _payload_setup_error(self, exn):
-        log.error('Payload setup error: %r', exn)
+    def _handle_marking_error(self, exn):
+        # FIXME: Move this code outside the payload class.
+        log.error('DNF marking error: %r', exn)
         if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
