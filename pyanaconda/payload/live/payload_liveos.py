@@ -22,7 +22,6 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.core.i18n import _
-from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
@@ -70,9 +69,7 @@ class LiveOSPayload(BaseLivePayload):
 
         osimg_path = payload_utils.get_device_path(osimg)
         if not stat.S_ISBLK(os.stat(osimg_path)[stat.ST_MODE]):
-            exn = PayloadSetupError("{} is not a valid block device".format(osimg_spec))
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+            raise PayloadSetupError("{} is not a valid block device".format(osimg_spec))
 
         rc = payload_utils.mount(osimg_path, INSTALL_TREE, fstype="auto", options="ro")
         if rc != 0:
