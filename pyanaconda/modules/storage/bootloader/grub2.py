@@ -105,6 +105,7 @@ class GRUB2(BootLoader):
     _config_dir = "grub2"
     _passwd_file = "user.cfg"
     defaults_file = "/etc/default/grub"
+    grub_d_file = "/etc/grub.d/10_linux"
     terminal_type = "console"
     stage2_max_end = None
 
@@ -322,7 +323,16 @@ class GRUB2(BootLoader):
         # See if we have a password and if so update the boot args before we
         # write out the defaults file.
         if self.password or self.encrypted_password:
-            self.boot_args.add("rd.shell=0")
+            rd_shell_not_exist = 1
+            grub_d_file = "%s%s" % (util.getSysroot(), self.grub_d_file)
+            with open(grub_d_file, "r") as fo:
+                for line in fo.readlines():
+                    match = re.search("rd.shell=0", line)
+                    if match:
+                        rd_shell_not_exist = 0
+                        break
+            if rd_shell_not_exist == 1:
+                self.boot_args.add("rd.shell=0")
         self.write_defaults()
 
         # if we fail to setup password auth we should complete the
