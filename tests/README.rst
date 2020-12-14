@@ -6,8 +6,8 @@ such as unit tests, rpm tests and translation tests.  All the tests will be run
 together if you follow the steps below.  For integration tests there is a
 separate repository kickstart-tests_ containing also tooling for running the tests.
 
-Run tests inside of container
------------------------------
+Run unit tests inside of container
+----------------------------------
 This is the primary and recommended way to run the tests.
 
 Right now only unit tests are supported by the container, not rpm-tests.
@@ -79,6 +79,17 @@ Please update your container from time to time to have newest dependencies.
 To do that, run `podman pull quay.io/rhinstaller/anaconda-ci:master` or build
 it locally again.
 
+Run rpm tests inside of container
+---------------------------------
+
+First, build the container image for running the test, as it does not yet get
+published to any registry::
+
+    make -f Makefile.am anaconda-rpm-build
+
+Then run the test in that container::
+
+    make -f Makefile.am container-rpm-test
 
 GitHub workflows
 ----------------

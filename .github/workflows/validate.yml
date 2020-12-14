@@ -58,11 +58,6 @@ jobs:
 
   rpm-tests:
     runs-on: ubuntu-20.04
-    # start from a minimal container and install only our build deps; anaconda-ci container has too many other packages
-    container:
-      image: docker.io/fedora:rawhide
-      # HACK: bash's builtin `test -r` fails due to incompatible seccomp profile
-      options: --security-opt=seccomp=unconfined
     timeout-minutes: 30
     steps:
       - name: Clone repository
@@ -70,20 +65,24 @@ jobs:
         with:
           # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
           ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
 
-      - name: install build dependencies
-        run: ./scripts/testing/install_dependencies.sh -y
-
-      - name: build RPMs
+      - name: Rebase to current master
         run: |
-          ./autogen.sh
-          ./configure
-          make rpms
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/master
+          git rebase origin/master
 
-      - name: run RPM tests
-        run: |
-          make run-rpm-tests-only || { cat tests/rpm_tests.log; exit 1; }
+      - name: Build RPM test container
+        run: make -f Makefile.am anaconda-rpm-build
 
-      - name: test installability
-        run: |
-          dnf install -y result/build/01-rpm-build/*.rpm
+      - name: Run RPM tests in container
+        run: make -f Makefile.am container-rpm-test
+
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'logs-rpm-test'
+          path: test-logs/*
