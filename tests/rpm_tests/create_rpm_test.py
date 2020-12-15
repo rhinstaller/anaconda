@@ -22,9 +22,14 @@ import os
 
 from tests.rpm_tests import RPMTestCase
 
+# blivet-gui is supported on Fedora, but not ELN/CentOS/RHEL
+HAVE_BLIVET_GUI = os.path.exists("/usr/bin/blivet-gui")
 
 # list of source files which should be ignored in tests
 IGNORED_SOURCE_FILES = []
+
+if not HAVE_BLIVET_GUI:
+    IGNORED_SOURCE_FILES.append("pyanaconda/ui/gui/spokes/blivet_gui.py")
 
 
 class InstalledFilesTestCase(RPMTestCase):
