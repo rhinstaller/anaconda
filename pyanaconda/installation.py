@@ -97,21 +97,23 @@ def _prepare_configuration(payload, ksdata):
     security_dbus_tasks = security_proxy.InstallWithTasks()
     os_config.append_dbus_tasks(SECURITY, security_dbus_tasks)
 
-    # add installation tasks for the Timezone DBus module
-    # run these tasks before tasks of the Services module
-    timezone_proxy = TIMEZONE.get_proxy()
-    timezone_dbus_tasks = timezone_proxy.InstallWithTasks()
-    os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
+    if is_module_available(TIMEZONE):
+        # add installation tasks for the Timezone DBus module
+        # run these tasks before tasks of the Services module
+        timezone_proxy = TIMEZONE.get_proxy()
+        timezone_dbus_tasks = timezone_proxy.InstallWithTasks()
+        os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
 
     # add installation tasks for the Services DBus module
     services_proxy = SERVICES.get_proxy()
     services_dbus_tasks = services_proxy.InstallWithTasks()
     os_config.append_dbus_tasks(SERVICES, services_dbus_tasks)
 
-    # add installation tasks for the Localization DBus module
-    localization_proxy = LOCALIZATION.get_proxy()
-    localization_dbus_tasks = localization_proxy.InstallWithTasks()
-    os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
+    if is_module_available(LOCALIZATION):
+        # add installation tasks for the Localization DBus module
+        localization_proxy = LOCALIZATION.get_proxy()
+        localization_dbus_tasks = localization_proxy.InstallWithTasks()
+        os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
 
     # add the Firewall configuration task
     firewall_proxy = NETWORK.get_proxy(FIREWALL)
@@ -128,12 +130,13 @@ def _prepare_configuration(payload, ksdata):
                                    network.write_configuration, (overwrite, )))
         configuration_queue.append(network_config)
 
-    # add installation tasks for the Users DBus module
-    user_config = TaskQueue("User creation", N_("Creating users"))
-    users_proxy = USERS.get_proxy()
-    users_dbus_tasks = users_proxy.InstallWithTasks()
-    os_config.append_dbus_tasks(USERS, users_dbus_tasks)
-    configuration_queue.append(user_config)
+    if is_module_available(USERS):
+        # add installation tasks for the Users DBus module
+        user_config = TaskQueue("User creation", N_("Creating users"))
+        users_proxy = USERS.get_proxy()
+        users_dbus_tasks = users_proxy.InstallWithTasks()
+        os_config.append_dbus_tasks(USERS, users_dbus_tasks)
+        configuration_queue.append(user_config)
 
     # Anaconda addon configuration
     addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
