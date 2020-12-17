@@ -44,6 +44,7 @@ from pyanaconda import network
 from pyanaconda import ntp
 from pyanaconda import flags
 from pyanaconda.modules.common.constants.services import TIMEZONE, NETWORK
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
@@ -563,6 +564,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         # report that we are done
         self.initialize_done()
+
+    @property
+    def showable(self):
+        return is_module_available(TIMEZONE)
 
     @property
     def status(self):

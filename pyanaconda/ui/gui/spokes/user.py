@@ -24,6 +24,7 @@ from pyanaconda.core.users import crypt_password, guess_username, check_groupnam
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.constants.services import USERS
+from pyanaconda.modules.common.util import is_module_available
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
@@ -436,6 +437,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         # rerun checks so that we have a correct status message, if any
         self.checker.run_checks()
+
+    @property
+    def showable(self):
+        return is_module_available(USERS)
 
     @property
     def status(self):

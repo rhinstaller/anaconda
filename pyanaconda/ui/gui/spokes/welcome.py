@@ -41,6 +41,7 @@ from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
+from pyanaconda.modules.common.util import is_module_available
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -112,9 +113,10 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     @property
     def completed(self):
         # Skip the welcome screen if we are in single language mode
+        # or module is not available.
         # If language has not been set the default language (en_US)
         # will be used for the installation and for the installed system.
-        if flags.flags.singlelang:
+        if flags.flags.singlelang or not is_module_available(LOCALIZATION):
             return True
 
         if flags.flags.automatedInstall and self._l12_module.LanguageKickstarted:

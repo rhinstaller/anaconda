@@ -37,6 +37,7 @@ from pyanaconda.core.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, TH
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.util import strip_accents, have_word_match
 from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import threadMgr, AnacondaThread
 
 import locale as locale_mod
@@ -316,6 +317,10 @@ class KeyboardSpoke(NormalSpoke):
             return False
 
         return True
+
+    @property
+    def showable(self):
+        return is_module_available(LOCALIZATION)
 
     @property
     def status(self):
