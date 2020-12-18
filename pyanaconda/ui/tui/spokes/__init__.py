@@ -20,7 +20,7 @@
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
 from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui.lib.help import get_help_path
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import _
 
 from simpleline.render.adv_widgets import HelpScreen
 from simpleline.render.screen import InputState

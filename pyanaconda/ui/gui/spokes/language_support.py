@@ -25,7 +25,7 @@ from gi.repository import Pango, Gdk
 
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.modules.common.constants.services import LOCALIZATION
-from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.i18n import C_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import escape_markup, override_cell_property
 from pyanaconda.ui.categories.localization import LocalizationCategory
@@ -65,7 +65,7 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
 
     @staticmethod
     def get_category():
-        LocalizationCategory
+        return LocalizationCategory
 
     @property
     def icon(self):

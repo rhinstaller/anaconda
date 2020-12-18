@@ -497,39 +497,43 @@ class StandaloneSpoke(Spoke, metaclass=ABCMeta):
 
     def __init__(self, storage, payload):
         """Create a StandaloneSpoke instance."""
-        if self.pre_action_for_hub and self.post_action_for_hub:
+        if self.get_pre_action_for_hub() and self.get_post_action_for_hub():
             raise AttributeError(
-                "StandaloneSpoke instance %{} may not have both pre_action_for_hub"
-                "and post_action_for_hub set".format(self)
+                "StandaloneSpoke instance %{} may not have both get_pre_action_for_hub"
+                "and get_post_action_for_hub returning an action".format(self)
             )
 
         super().__init__(storage, payload)
 
-    @property
+    @staticmethod
     @abstractmethod
-    def pre_action_for_hub(self):
+    def get_pre_action_for_hub():
         """A reference to a Hub subclass this Spoke is a pre action for.
 
-        Only one of pre_for_hub/post_for_hub may be set at a time.
+        Only one of get_pre_action_for_hub()/get_post_action_for_hub()
+        may return an action at a time.
+
         Note that all post actions will be run for one hub before any
         pre actions for the next.
         """
         return None
 
-    @property
+    @staticmethod
     @abstractmethod
-    def post_action_for_hub(self):
+    def get_post_action_for_hub():
         """A reference to a Hub subclass this Spoke is a post action for.
 
-        Only one of pre_action_for_hub/post_action_for_hub may be set at a time.
+        Only one of get_pre_action_for_hub()/get_post_action_for_hub()
+        may return an action at a time.
+
         Note that all post actions will be run for one hub before any
         pre actions for the next.
         """
         return None
 
-    @property
+    @staticmethod
     @abstractmethod
-    def action_priority(self):
+    def get_action_priority():
         """Used to sort pre and post actions.
 
         The lower a value, the earlier it will be run.

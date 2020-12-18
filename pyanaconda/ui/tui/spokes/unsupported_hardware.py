@@ -48,12 +48,16 @@ class UnsupportedHardwareSpoke(StandaloneTUISpoke):
         # standalone spoke -> sort order 0
         return 0
 
-    @property
-    def pre_action_for_hub(self):
+    @staticmethod
+    def get_pre_action_for_hub():
         return SummaryHub
 
-    @property
-    def action_priority(self):
+    @staticmethod
+    def get_post_action_for_hub():
+        return None
+
+    @staticmethod
+    def get_action_priority():
         return -10
 
     @property

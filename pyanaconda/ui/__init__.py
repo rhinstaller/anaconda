@@ -153,9 +153,19 @@ class UserInterface(object):
         standalones = []
 
         def check_standalone_spokes(obj):
-            return issubclass(obj, standalone_class) and \
-                getattr(obj, "pre_action_for_hub", False) or \
-                getattr(obj, "post_action_for_hub", False)
+            # check if the class is a standalone spoke subclass
+            is_standalone_subclass = issubclass(obj, standalone_class)
+
+            # check the object we are inspecting actually has the expected
+            # methods before calling them
+            has_pre_action_set = False
+            if hasattr(obj, "get_pre_action_for_hub"):
+                has_pre_action_set = bool(obj.get_pre_action_for_hub())
+            has_post_action_set = False
+            if hasattr(obj, "get_post_action_for_hub"):
+                has_post_action_set = bool(obj.get_post_action_for_hub())
+
+            return is_standalone_subclass and (has_pre_action_set or has_post_action_set)
 
         for module_pattern, path in module_pattern_w_path:
             standalones.extend(
@@ -176,32 +186,58 @@ class UserInterface(object):
                        to the hub dependencies
         :type spokes: list of Spoke instances
 
-        :param hubs: the list of Hub classes we check to be in pre/post_action_for_hub
-                     attribute of Spokes to pick up
+        :param hubs: the list of Hub classes we check to be returned by get_pre_action_for_hub()
+                     or get_post_action_for_hub() of Spokes to pick up
         :type hubs: common.Hub based types
         """
         ordered_spokes = sorted(spokes, key=lambda x: x.__name__)
         action_classes = []
 
         for hub in hubs:
+            print("AAAAa")
+            print(ordered_spokes)
+
+
+            print("AAA filter")
+            print(list(filter(lambda obj, h=hub: getattr(obj, "get_pre_action_for_hub", None) == h, spokes)))
+            print("AAA SPOKES")
+            print(spokes)
+            for spoke in spokes:
+                print(spoke)
+                print(dir(spoke))
+                print("SPOKE ACTION ?")
+                print(getattr(spoke, "get_pre_action_for_hub", None))
+                print(bool(getattr(spoke, "get_pre_action_for_hub", None)))
+            print("AAA HUB")
+            for hub_1 in hubs:
+                print(hub_1)
+                print(dir(hub_1))
+            print(hub_1)
+
+            print("AAA EXTEND")
+            print(list(UserInterface._filter_spokes_by_pre_for_hub_reference(ordered_spokes, hub)))
+            print(list(UserInterface._filter_spokes_by_post_for_hub_reference(ordered_spokes, hub))),
+            print("AAA EXTEND DONE")
             action_classes.extend(
                 sorted(
                     UserInterface._filter_spokes_by_pre_for_hub_reference(ordered_spokes, hub),
-                    key=lambda obj: obj.priority)
+                    key=lambda obj: obj.get_action_priority())
             )
             action_classes.append(hub)
             action_classes.extend(
                 sorted(
                     UserInterface._filter_spokes_by_post_for_hub_reference(ordered_spokes, hub),
-                    key=lambda obj: obj.priority)
+                    key=lambda obj: obj.get_action_priority())
             )
 
+        print("AAA FINAL RESULT")
+        print(action_classes)
         return action_classes
 
     @staticmethod
     def _filter_spokes_by_pre_for_hub_reference(spokes, hub):
-        return filter(lambda obj, h=hub: getattr(obj, "pre_action_for_hub", None) == h, spokes)
+        return filter(lambda obj, h=hub: obj.get_pre_action_for_hub() == h, spokes)
 
     @staticmethod
     def _filter_spokes_by_post_for_hub_reference(spokes, hub):
-        return filter(lambda obj, h=hub: getattr(obj, "post_action_for_hub", None) == h, spokes)
+        return filter(lambda obj, h=hub: obj.get_post_action_for_hub() == h, spokes)

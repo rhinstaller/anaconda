@@ -62,8 +62,12 @@ class ProgressSpoke(StandaloneTUISpoke):
     def title(self):
         return C_("TUI|Spoke", "Progress")
 
-    @property
-    def post_action_for_hub(self):
+    @staticmethod
+    def get_pre_action_for_hub():
+        return None
+
+    @staticmethod
+    def get_post_action_for_hub():
         return SummaryHub
 
     @property

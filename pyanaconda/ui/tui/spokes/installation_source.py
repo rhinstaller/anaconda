@@ -62,7 +62,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
           :parts: 3
     """
     helpFile = "SourceSpoke.txt"
-    category = SoftwareCategory
 
     SET_NETWORK_INSTALL_MODE = "network_install"
 
@@ -231,7 +230,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
 class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Specify the repo URL here if closest mirror not selected. """
-    category = SoftwareCategory
 
     HTTP = 1
     HTTPS = 2
@@ -247,6 +245,14 @@ class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     @property
     def title(self):
         return C_("TUI|Spoke", "Specify Repo Options")
+
+    @staticmethod
+    def get_category():
+        return SoftwareCategory
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     def _get_url(self):
         """Get the URL of the current source."""
@@ -313,6 +319,10 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
         self._nfs_opts = options
         self._nfs_server = "{}:{}".format(host, path) if host else ""
 
+    @property
+    def title(self):
+        return C_("TUI|Spoke", "Specify Repo Options")
+
     @staticmethod
     def get_category():
         return SoftwareCategory
@@ -320,10 +330,6 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     @staticmethod
     def get_sort_order():
         return 100
-
-    @property
-    def title(self):
-        return C_("TUI|Spoke", "Specify Repo Options")
 
     def _get_nfs(self):
         """Get the NFS options, host and path of the current source."""
@@ -394,7 +400,6 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
 
 class SelectDeviceSpoke(NormalTUISpoke):
     """ Select device containing the install source ISO file. """
-    category = SoftwareCategory
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
@@ -406,6 +411,14 @@ class SelectDeviceSpoke(NormalTUISpoke):
     @property
     def title(self):
         return C_("TUI|Spoke", "Select device containing the ISO file")
+
+    @staticmethod
+    def get_category():
+        return SoftwareCategory
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     @property
     def indirect(self):
@@ -468,7 +481,6 @@ class SelectDeviceSpoke(NormalTUISpoke):
 
 class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Select an ISO to use as install source. """
-    category = SoftwareCategory
 
     def __init__(self, data, storage, payload, device):
         NormalTUISpoke.__init__(self, data, storage, payload)
@@ -480,6 +492,14 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
     @property
     def title(self):
         return C_("TUI|Spoke", "Select an ISO to use as install source")
+
+    @staticmethod
+    def get_category():
+        return SoftwareCategory
+
+    @staticmethod
+    def get_sort_order():
+        return 100
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)

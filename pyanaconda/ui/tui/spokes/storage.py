@@ -74,7 +74,6 @@ class StorageSpoke(NormalTUISpoke):
           :parts: 3
     """
     helpFile = "StorageSpoke.txt"
-    category = SystemCategory
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
@@ -454,13 +453,13 @@ class PartTypeSpoke(NormalTUISpoke):
         if self._part_method == PARTITIONING_METHOD_MANUAL:
             self._init_mode = CLEAR_PARTITIONS_NONE
 
-    @staticmethod
-    def get_category():
-        return SystemCategory
-
     @property
     def title(self):
         return C_("TUI|Spoke", "Partitioning Options")
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
 
     @staticmethod
     def get_sort_order():
@@ -565,7 +564,6 @@ class PartTypeSpoke(NormalTUISpoke):
 
 class PartitionSchemeSpoke(NormalTUISpoke):
     """ Spoke to select what partitioning scheme to use on disk(s). """
-    category = SystemCategory
 
     def __init__(self, data, storage, payload, partitioning):
         super().__init__(data, storage, payload)
@@ -592,6 +590,10 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     @property
     def title(self):
         return C_("TUI|Spoke", "Partition Scheme Options")
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
 
     @staticmethod
     def get_sort_order():
@@ -640,7 +642,6 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 
 class MountPointAssignSpoke(NormalTUISpoke):
     """ Assign mount points to block devices. """
-    category = SystemCategory
 
     def __init__(self, data, storage, payload, partitioning):
         super().__init__(data, storage, payload)
@@ -652,6 +653,10 @@ class MountPointAssignSpoke(NormalTUISpoke):
     @property
     def title(self):
         return C_("TUI|Spoke", "Assign mount points")
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
 
     @staticmethod
     def get_sort_order():
@@ -774,7 +779,6 @@ class MountPointAssignSpoke(NormalTUISpoke):
 
 class ConfigureDeviceSpoke(NormalTUISpoke):
     """ Assign mount point to a block device and (optionally) reformat it. """
-    category = SystemCategory
 
     def __init__(self, data, storage, payload, device_tree, request):
         super().__init__(data, storage, payload)
@@ -785,7 +789,11 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     @property
     def title(self):
-        return C_("TUI|Spoke", "Configure device: %s") % request.device_spec
+        return C_("TUI|Spoke", "Configure device: %s") % self._request.device_spec
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
 
     @staticmethod
     def get_sort_order():

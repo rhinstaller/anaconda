@@ -57,8 +57,12 @@ class ProgressSpoke(StandaloneSpoke):
         self._progressNotebook = self.builder.get_object("progressNotebook")
         self._spinner = self.builder.get_object("progressSpinner")
 
-    @property
-    def post_action_for_hub(self):
+    @staticmethod
+    def get_pre_action_for_hub():
+        return None
+
+    @staticmethod
+    def get_post_action_for_hub():
         return SummaryHub
 
     @property

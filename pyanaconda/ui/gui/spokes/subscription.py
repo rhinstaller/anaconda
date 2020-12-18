@@ -22,7 +22,7 @@ from enum import IntEnum
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr, AnacondaThread
 
-from pyanaconda.core.i18n import _
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
     THREAD_SUBSCRIPTION, THREAD_PAYLOAD, SOURCE_TYPES_OVERRIDEN_BY_CDN, \

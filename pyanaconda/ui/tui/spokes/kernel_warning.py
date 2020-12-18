@@ -46,9 +46,13 @@ class KernelWarningSpoke(StandaloneTUISpoke):
     def title(self):
         return C_("TUI|Spoke", "Warning: Processor has Simultaneous Multithreading (SMT) enabled")
 
-    @property
-    def pre_action_for_hub(self):
+    @staticmethod
+    def get_pre_action_for_hub():
         return SummaryHub
+
+    @staticmethod
+    def get_post_action_for_hub():
+        return None
 
     @property
     def completed(self):

@@ -65,10 +65,6 @@ class AskVNCSpoke(NormalTUISpoke):
         self.initialize_done()
 
     @staticmethod
-    def get_category():
-        return None
-
-    @staticmethod
     def get_sort_order():
         # standalone spoke -> sort order 0
         return 0
@@ -77,9 +73,18 @@ class AskVNCSpoke(NormalTUISpoke):
     def title(self):
         return C_("TUI|Spoke", "VNC")
 
+    @staticmethod
+    def get_category():
+        return None
+
     @property
     def indirect(self):
         return True
+
+    @property
+    def icon(self):
+        # no icon needed since spoke is indirect
+        return None
 
     def refresh(self, args=None):
         super().refresh(args)
@@ -145,6 +150,15 @@ class VNCPassSpoke(NormalTUISpoke):
     @property
     def title(self):
         return C_("TUI|Spoke", "VNC Password")
+
+    @staticmethod
+    def get_category():
+        return None
+
+    @staticmethod
+    def get_sort_order():
+        # not actually displayed on a hub, so sort order 0
+        return 0
 
     @property
     def indirect(self):

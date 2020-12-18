@@ -26,7 +26,7 @@ from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatDat
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, N_
+from pyanaconda.core.i18n import _
 from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -293,6 +293,15 @@ class RescueModeSpoke(NormalTUISpoke):
     def title(self):
         return _("Rescue")
 
+    @staticmethod
+    def get_category():
+        return None
+
+    @staticmethod
+    def get_sort_order():
+        # not actually displayed on a hub, so sort order 0
+        return 0
+
     def refresh(self, args=None):
         super().refresh(args)
 
@@ -414,6 +423,15 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
     def title(self):
         return _("Rescue Shell")
 
+    @staticmethod
+    def get_category():
+        return None
+
+    @staticmethod
+    def get_sort_order():
+        # not actually displayed on a hub, so sort order 0
+        return 0
+
     @property
     def indirect(self):
         return True
@@ -501,6 +519,15 @@ class RootSelectionSpoke(NormalTUISpoke):
     @property
     def title(self):
         return _("Root Selection")
+
+    @staticmethod
+    def get_category():
+        return None
+
+    @staticmethod
+    def get_sort_order():
+        # not actually displayed on a hub, so sort order 0
+        return 0
 
     @property
     def selection(self):

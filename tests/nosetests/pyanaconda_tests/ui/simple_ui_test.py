@@ -95,13 +95,13 @@ class SimpleUITestCase(unittest.TestCase):
         res = dict()
 
         for spoke in spokes:
-            action_priority = spoke.action_priority
+            action_priority = spoke.get_action_priority()
             name = spoke.__name__
 
-            if priority in res:
-                msg = "Spokes {} and {} have the same priority!".format(res[priority], name)
-                self.assertNotIn(priority, res, msg)
-            res[priority] = name
+            if action_priority in res:
+                msg = "Spokes {} and {} have the same priority!".format(res[action_priority], name)
+                self.assertNotIn(action_priority, res, msg)
+            res[action_priority] = name
 
     @patch_dbus_get_proxy
     def tui_test(self, proxy_getter):
@@ -114,6 +114,10 @@ class SimpleUITestCase(unittest.TestCase):
         self.assertEqual(self.hubs, [SummaryHub])
 
         # Check the actions classes.
+        l = self._get_action_class_names()
+        print("BBB GET ACTION CLASS NAMES !!")
+        print(len(l))
+        print(l)
         self.assertEqual(self._get_action_class_names(), [
             "UnsupportedHardwareSpoke",
             "KernelWarningSpoke",
@@ -208,19 +212,29 @@ class SimpleUITestCase(unittest.TestCase):
         hub = create_autospec(Hub)
 
         class SpokeA(StandaloneSpoke):  # pylint: disable=abstract-method
-            pre_action_for_hub = hub
+            @staticmethod
+            def get_pre_action_for_hub():
+                return hub
 
         class SpokeB(StandaloneSpoke):  # pylint: disable=abstract-method
-            pre_action_for_hub = hub
+            @staticmethod
+            def get_pre_action_for_hub():
+                return hub
 
         class SpokeC(StandaloneSpoke):  # pylint: disable=abstract-method
-            pre_action_for_hub = hub
+            @staticmethod
+            def get_pre_action_for_hub():
+                return hub
 
         class SpokeD(StandaloneSpoke):  # pylint: disable=abstract-method
-            post_action_for_hub = hub
+            @staticmethod
+            def get_post_action_for_hub():
+                return hub
 
         class SpokeE(StandaloneSpoke):  # pylint: disable=abstract-method
-            post_action_for_hub = hub
+            @staticmethod
+            def get_post_action_for_hub():
+                return hub
 
         list1 = [SpokeC, SpokeB, SpokeE, SpokeD, SpokeA]
 

@@ -22,7 +22,7 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, CP_, C_
+from pyanaconda.core.i18n import CP_, C_
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.ui.lib.storage import apply_disk_selection, try_populate_devicetree, \
     filter_disks_by_names

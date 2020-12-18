@@ -1622,13 +1622,28 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         self._now_available = False
 
     @property
-    def pre_action_for_hub(self):
-        return SummaryHub
+    def title(self):
+        return C_("GUI|Spoke", "_Network & Host Name")
 
     @property
-    def action_priority(self):
-        return 10
+    def icon(self):
+        return "network-transmit-receive-symbolic"
 
+    @staticmethod
+    def get_category():
+        return SystemCategory
+
+    @staticmethod
+    def get_pre_action_for_hub():
+        return SummaryHub
+
+    @staticmethod
+    def get_post_action_for_hub():
+        return None
+
+    @staticmethod
+    def get_action_priority():
+        return 10
 
     def _hostname_changed(self, hostname):
         gtk_call_once(self._update_hostname)

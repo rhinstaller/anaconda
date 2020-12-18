@@ -34,9 +34,6 @@ class ShellSpoke(NormalTUISpoke):
           :parts: 3
     """
 
-    def __init__(self, data, storage, payload):
-        super().__init__(data, storage, payload)
-
     @staticmethod
     def get_category():
         return SystemCategory

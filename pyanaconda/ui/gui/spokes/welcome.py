@@ -69,12 +69,16 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         self._only_existing_locales = True
 
-    @property
-    def pre_action_for_hub(self):
+    @staticmethod
+    def get_pre_action_for_hub():
         return SummaryHub
 
-    @property
-    def action_priority(self):
+    @staticmethod
+    def get_post_action_for_hub():
+        return None
+
+    @staticmethod
+    def get_action_priority():
         return 0
 
     def apply(self):

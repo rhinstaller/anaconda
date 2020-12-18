@@ -468,13 +468,13 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         log.debug("Configure iface %s: connection %s -> %s", self._iface, self._connection_uuid,
                   self._data)
 
-    @staticmethod
-    def get_category():
-        return "network"
-
     @property
     def title(self):
         return C_("TUI|Spoke", "Device configuration")
+
+    @staticmethod
+    def get_category():
+        return SystemCategory
 
     @staticmethod
     def get_sort_order():

@@ -18,7 +18,7 @@
 #
 
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.i18n import _
 from pyanaconda.product import distributionText
 from pyanaconda import lifecycle
 from pyanaconda.core.timer import Timer
@@ -133,7 +133,7 @@ class Hub(GUIObject, common.Hub):
 
         for category in common.sort_categories(categories):
             selectors = []
-            for spokeClass in sorted(cats_and_spokes[c], key=lambda s: s.get_sort_order()):
+            for spokeClass in sorted(cats_and_spokes[category], key=lambda s: s.get_sort_order()):
                 # Check if this spoke is to be shown in the supported environments
                 if not any(spokeClass.should_run(environ, self.data) for environ in flags.environs):
                     continue
