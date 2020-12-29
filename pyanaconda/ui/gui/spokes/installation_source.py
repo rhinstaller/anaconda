@@ -259,7 +259,6 @@ class MediaCheckDialog(GUIObject):
         self._pid = None
 
     def _check_iso_ends_cb(self, pid, status):
-        done_button = self.builder.get_object("doneButton")
         verify_label = self.builder.get_object("verifyLabel")
 
         if os.WIFSIGNALED(status):
@@ -270,7 +269,6 @@ class MediaCheckDialog(GUIObject):
             verify_label.set_text(_("This media is not good to install from."))
 
         self.progressBar.set_fraction(1.0)
-        done_button.set_sensitive(True)
         glib.spawn_close_pid(pid)
         self._pid = None
 
@@ -314,9 +312,6 @@ class MediaCheckDialog(GUIObject):
         if self._pid:
             os.kill(self._pid, signal.SIGKILL)
 
-        self.window.destroy()
-
-    def on_done_clicked(self, *args):
         self.window.destroy()
 
 
