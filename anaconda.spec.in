@@ -369,6 +369,36 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 04 2021 Martin Kolman <mkolman@redhat.com> - 34.16-1
+- Enable rpm-tests on Fedora ELN (mpitt)
+- Fix create_rpm_test on Fedora ELN/RHEL (mpitt)
+- Fix container-rpm-test log output (mpitt)
+- Define container for running rpm-tests (mpitt)
+- Move to official fedora ELN container image (mpitt)
+- Remove 'firstboot --enable' from interactive defaults (vponcova)
+- Build real boot.iso for /kickstart-tests runs (mpitt)
+- Fix artifact name in kickstart-tests.yml workflow (mpitt)
+- Import imp on demand (vponcova)
+- Adapt UI and tests to localhost.localdomain setting removal (rvykydal)
+- Stop trying to set the default hostname (zbyszek)
+- Document how to run kickstart tests in anaconda PRs (mpitt)
+- Update the GitHub workflow documentation (mpitt)
+- Add description of our GH workflow to tests/README file (jkonecny)
+- Remove the support for updates on a floppy disk (vponcova)
+- Fix list of Anaconda tests (jkonecny)
+- Disable the debug solver debugging (vponcova)
+- Select groups from a kickstart file in GUI (vponcova)
+- Remove kickstart packages from GUI (vponcova)
+- Remove kickstart packages from TUI (vponcova)
+- Remove kickstart packages from the DNF payload class (vponcova)
+- Remove kickstart packages from the installation tasks (vponcova)
+- Remove kickstart packages from the DNF utilities (vponcova)
+- Remove kickstart packages from the DNF manager (vponcova)
+- Handle the %%packages section in the DBus module (vponcova)
+- Add the PackagesSeen property (vponcova)
+- Add CentOS Stream config (riehecky)
+- Deprecate the level option of the logging kickstart command (vponcova)
+
 * Mon Dec 07 2020 Martin Kolman <mkolman@redhat.com> - 34.15-1
 - Drop old WiFi & geocoding based geolocation support (mkolman)
 - Add bot PR comment to run kickstart tests (mpitt)
