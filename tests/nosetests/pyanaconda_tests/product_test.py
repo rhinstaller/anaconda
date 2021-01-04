@@ -222,7 +222,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
             WORKSTATION_PARTITIONING
         )
         self._check_default_product(
-            "Fedora", "ELN",
+            "Fedora-ELN", "",
             ["rhel.conf", "fedora-eln.conf"],
             WORKSTATION_PARTITIONING
         )
