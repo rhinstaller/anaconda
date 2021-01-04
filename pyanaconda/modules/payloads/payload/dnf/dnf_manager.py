@@ -25,11 +25,12 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
+from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
 from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version
-from pykickstart.constants import KS_BROKEN_IGNORE, KS_MISSING_IGNORE
 
 log = get_module_logger(__name__)
 
@@ -99,41 +100,35 @@ class DNFManager(object):
         self._ignore_broken_packages = False
         log.debug("The DNF base has been reset.")
 
-    def configure_base(self, data):
+    def configure_base(self, data: PackagesConfigurationData):
         """Configure the DNF base.
 
-        FIXME: Don't use kickstart data.
-
-        :param data: a kickstart data
+        :param data: a packages configuration data
         """
         base = self._base
+        base.conf.multilib_policy = data.multilib_policy
 
-        if data.packages.multiLib:
-            base.conf.multilib_policy = "all"
+        if data.timeout != DNF_DEFAULT_TIMEOUT:
+            base.conf.timeout = data.timeout
 
-        if data.packages.timeout is not None:
-            base.conf.timeout = data.packages.timeout
+        if data.retries != DNF_DEFAULT_RETRIES:
+            base.conf.retries = data.retries
 
-        if data.packages.retries is not None:
-            base.conf.retries = data.packages.retries
+        self._ignore_missing_packages = data.missing_ignored
+        self._ignore_broken_packages = data.broken_ignored
 
-        if data.packages.handleMissing == KS_MISSING_IGNORE:
-            self._ignore_missing_packages = True
-
-        if data.packages.handleBroken == KS_BROKEN_IGNORE:
+        if self._ignore_broken_packages:
             log.warning(
                 "\n***********************************************\n"
                 "User has requested to skip broken packages. Using "
                 "this option may result in an UNUSABLE system! "
                 "\n***********************************************\n"
             )
-            self._ignore_broken_packages = True
 
         # Two reasons to turn this off:
         # 1. Minimal installs don't want all the extras this brings in.
         # 2. Installs aren't reproducible due to weak deps. failing silently.
-        if data.packages.excludeWeakdeps:
-            base.conf.install_weak_deps = False
+        base.conf.install_weak_deps = not data.weakdeps_excluded
 
     @property
     def environments(self):

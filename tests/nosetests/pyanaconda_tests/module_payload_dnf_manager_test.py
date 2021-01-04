@@ -21,10 +21,9 @@ from unittest.mock import patch, Mock
 from blivet.size import Size, ROUND_UP
 from dnf.exceptions import MarkingErrors
 
-from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
-from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
+from pyanaconda.core.constants import MULTILIB_POLICY_ALL
+from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pykickstart.constants import KS_BROKEN_IGNORE, KS_MISSING_IGNORE
 
 
 class DNFMangerTestCase(unittest.TestCase):
@@ -127,9 +126,7 @@ class DNFMangerTestCase(unittest.TestCase):
 
     def configure_base_test(self):
         """Test the configuration of the DNF base."""
-        data = KickstartSpecificationHandler(
-            PayloadKickstartSpecification
-        )
+        data = PackagesConfigurationData()
 
         self.dnf_manager.configure_base(data)
         self._check_configuration(
@@ -142,12 +139,12 @@ class DNFMangerTestCase(unittest.TestCase):
         self.assertEqual(self.dnf_manager._ignore_broken_packages, False)
         self.assertEqual(self.dnf_manager._ignore_missing_packages, False)
 
-        data.packages.multiLib = True
-        data.packages.timeout = 100
-        data.packages.retries = 5
-        data.packages.handleBroken = KS_BROKEN_IGNORE
-        data.packages.handleMissing = KS_MISSING_IGNORE
-        data.packages.excludeWeakdeps = True
+        data.multilib_policy = MULTILIB_POLICY_ALL
+        data.timeout = 100
+        data.retries = 5
+        data.broken_ignored = True
+        data.missing_ignored = True
+        data.weakdeps_excluded = True
 
         self.dnf_manager.configure_base(data)
         self._check_configuration(

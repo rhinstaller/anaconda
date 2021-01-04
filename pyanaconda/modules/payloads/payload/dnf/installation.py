@@ -21,6 +21,8 @@ import rpm
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL
+from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
@@ -29,12 +31,10 @@ log = get_module_logger(__name__)
 class SetRPMMacrosTask(Task):
     """Installation task to set RPM macros."""
 
-    def __init__(self, data):
+    def __init__(self, data: PackagesConfigurationData):
         """Create a task.
 
-        FIXME: Don't use the kickstart data.
-
-        :param data: a kickstart data
+        :param data: a packages configuration data
         """
         super().__init__()
         self._data = data
@@ -50,7 +50,7 @@ class SetRPMMacrosTask(Task):
         self._macros = self._collect_macros(self._data)
         self._install_macros(self._macros)
 
-    def _collect_macros(self, data):
+    def _collect_macros(self, data: PackagesConfigurationData):
         """Collect the RPM macros."""
         macros = list()
 
@@ -58,12 +58,13 @@ class SetRPMMacrosTask(Task):
         # But if we crash mid-install you're boned anyway, so who cares?
         macros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
 
-        if data.packages.excludeDocs:
+        if data.docs_excluded:
             macros.append(('_excludedocs', '1'))
 
-        if data.packages.instLangs is not None:
-            # Use nil if instLangs is empty
-            macros.append(('_install_langs', data.packages.instLangs or '%{nil}'))
+        if data.languages == RPM_LANGUAGES_NONE:
+            macros.append(('_install_langs', '%{nil}'))
+        elif data.languages != RPM_LANGUAGES_ALL:
+            macros.append(('_install_langs', data.languages))
 
         if conf.security.selinux:
             for d in ["/tmp/updates",

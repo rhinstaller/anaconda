@@ -40,7 +40,7 @@ class CommandVersionTestCase(unittest.TestCase):
             print(name, children[name], parents[name])
 
             # Skip commands that were moved on DBus.
-            if isinstance(children[name](), kickstart.RemovedCommand):
+            if isinstance(children[name](), kickstart.UselessCommand):
                 continue
 
             self.assertIsInstance(children[name](), parents[name])

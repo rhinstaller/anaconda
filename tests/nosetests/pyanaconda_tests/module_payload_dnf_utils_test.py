@@ -18,10 +18,8 @@
 import unittest
 from unittest.mock import patch, Mock, PropertyMock
 
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
-
-from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
-from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
+from pyanaconda.core.constants import GROUP_PACKAGE_TYPES_REQUIRED, GROUP_PACKAGE_TYPES_ALL
+from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs, \
@@ -98,27 +96,21 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         ]
         self.assertEqual(get_default_environment(DNFManager()), "environment-1")
 
-    def _get_data(self):
-        """Get the kickstart data for the Payloads module."""
-        return KickstartSpecificationHandler(
-            PayloadKickstartSpecification
-        )
-
     def get_installation_specs_default_test(self):
         """Test the get_installation_specs function with defaults."""
-        data = self._get_data()
+        data = PackagesConfigurationData()
         self.assertEqual(get_installation_specs(data), (["@core"], []))
 
     def get_installation_specs_nocore_test(self):
         """Test the get_installation_specs function without core."""
-        data = self._get_data()
-        data.packages.nocore = True
+        data = PackagesConfigurationData()
+        data.core_group_enabled = False
         self.assertEqual(get_installation_specs(data), ([], ["@core"]))
 
     def get_installation_specs_environment_test(self):
         """Test the get_installation_specs function with environment."""
-        data = self._get_data()
-        data.packages.environment = "environment-1"
+        data = PackagesConfigurationData()
+        data.environment = "environment-1"
 
         self.assertEqual(get_installation_specs(data), (
             ["@environment-1", "@core"], []
@@ -129,16 +121,16 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             ["@environment-1", "@core"], []
         ))
 
-        data.packages.default = True
+        data.default_environment_enabled = True
         self.assertEqual(get_installation_specs(data, default_environment=env), (
             ["@environment-2", "@core"], []
         ))
 
     def get_installation_specs_packages_test(self):
         """Test the get_installation_specs function with packages."""
-        data = self._get_data()
-        data.packages.packageList = ["p1", "p2", "p3"]
-        data.packages.excludedList = ["p4", "p5", "p6"]
+        data = PackagesConfigurationData()
+        data.packages = ["p1", "p2", "p3"]
+        data.excluded_packages = ["p4", "p5", "p6"]
 
         self.assertEqual(get_installation_specs(data), (
             ["@core", "p1", "p2", "p3"], ["p4", "p5", "p6"]
@@ -146,20 +138,16 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
     def get_installation_specs_groups_test(self):
         """Test the get_installation_specs function with groups."""
-        data = self._get_data()
-        create_group = data.packages.create_group
+        data = PackagesConfigurationData()
 
-        data.packages.groupList = [
-            create_group("g1", include=GROUP_REQUIRED),
-            create_group("g2", include=GROUP_DEFAULT),
-            create_group("g3", include=GROUP_ALL),
-        ]
-
-        data.packages.excludedGroupList = [
-            create_group("g4", include=GROUP_REQUIRED),
-            create_group("g5", include=GROUP_DEFAULT),
-            create_group("g6", include=GROUP_ALL),
-        ]
+        data.groups = ["g1", "g2", "g3"]
+        data.excluded_groups = ["g4", "g5", "g6"]
+        data.groups_package_types = {
+            "g1": GROUP_PACKAGE_TYPES_REQUIRED,
+            "g3": GROUP_PACKAGE_TYPES_ALL,
+            "g4": GROUP_PACKAGE_TYPES_REQUIRED,
+            "g6": GROUP_PACKAGE_TYPES_ALL,
+        }
 
         self.assertEqual(get_installation_specs(data), (
             [

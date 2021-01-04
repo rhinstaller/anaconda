@@ -21,8 +21,6 @@
 import glob
 import os
 import os.path
-from abc import ABCMeta
-
 import shlex
 import sys
 import tempfile
@@ -47,10 +45,11 @@ from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
 from pykickstart.errors import KickstartError, KickstartParseWarning
+from pykickstart.ko import KickstartObject
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
-from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
-                                 OnErrorScriptSection, TracebackScriptSection, Section
+from pykickstart.sections import NullSection, PostScriptSection, PreScriptSection, \
+    PreInstallScriptSection, OnErrorScriptSection, TracebackScriptSection, Section
 from pykickstart.version import returnClassForVersion
 
 log = get_module_logger(__name__)
@@ -149,25 +148,23 @@ class AnacondaInternalScript(AnacondaKSScript):
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
 ###
 
+class UselessSection(Section):
+    """Kickstart section that was moved on DBus and doesn't do anything."""
 
-class RemovedCommand(KickstartCommand, metaclass=ABCMeta):
-    """Kickstart command that was moved on DBus.
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.sectionOpen = kwargs.get("sectionOpen")
 
-    This class should simplify the transition to DBus.
 
-    Kickstart command that was moved on DBus should inherit this
-    class. Methods parse, setup and execute should be modified to
-    access the DBus modules or moved on DBus.
+class UselessCommand(KickstartCommand):
+    """Kickstart command that was moved on DBus and doesn't do anything.
+
+    Use this class to override the pykickstart command in our command map,
+    when we don't want the command to do anything.
     """
 
     def __str__(self):
-        """Generate this part of a kickstart file from the module.
-
-        This method shouldn't be overridden, because we use DBus modules
-        to generate these parts of a kickstart file.
-
-        Make sure that each DBus module is used only once.
-        """
+        """Generate this part of a kickstart file from the DBus module."""
         return ""
 
     def parse(self, args):
@@ -179,16 +176,12 @@ class RemovedCommand(KickstartCommand, metaclass=ABCMeta):
         log.warning("Command %s will be parsed in DBus module.", self.currentCmd)
 
 
-class UselessCommand(RemovedCommand):
-    """Kickstart command that was moved on DBus and doesn't do anything.
+class UselessObject(KickstartObject):
+    """Kickstart object that was moved on DBus and doesn't do anything."""
 
-    Use this class to override the pykickstart command in our command map,
-    when we don't want the command to do anything. It is not allowed to
-    subclass this class.
-    """
-
-    def __init_subclass__(cls, **kwargs):
-        raise TypeError("It is not allowed to subclass the UselessCommand class.")
+    def __str__(self):
+        """Generate this part of a kickstart file from the DBus module."""
+        return ""
 
 
 class RepoData(COMMANDS.RepoData):
@@ -408,6 +401,9 @@ class AnacondaKSHandler(superclass):
         # The %anaconda section uses its own handler for a limited set of commands
         self.anaconda = AnacondaSectionHandler()
 
+        # The %packages section is handled by the DBus module.
+        self.packages = UselessObject()
+
     def __str__(self):
         proxy = BOSS.get_proxy()
         modules = proxy.GenerateKickstart().strip()
@@ -453,7 +449,7 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(PostScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(OnErrorScriptSection(self.handler, dataObj=self.scriptClass))
-        self.registerSection(PackageSection(self.handler))
+        self.registerSection(UselessSection(self.handler, sectionOpen="%packages"))
         self.registerSection(AddonSection(self.handler))
         self.registerSection(AnacondaSection(self.handler.anaconda))
 

@@ -42,6 +42,8 @@ class DNFModule(PayloadBase):
         self._packages = PackagesConfigurationData()
         self.packages_changed = Signal()
 
+        self._packages_kickstarted = False
+
     def for_publication(self):
         """Get the interface used to publish this source."""
         return DNFInterface(self)
@@ -84,6 +86,21 @@ class DNFModule(PayloadBase):
         self._packages = packages
         self.packages_changed.emit()
         log.debug("Packages are set to '%s'.", packages)
+
+    @property
+    def packages_kickstarted(self):
+        """Are the packages set from a kickstart?
+
+        FIXME: This is a temporary property.
+
+        :return: True or False
+        """
+        return self._packages_kickstarted
+
+    def set_packages_kickstarted(self, value):
+        """Are the packages set from a kickstart?"""
+        self._packages_kickstarted = value
+        log.debug("Are the packages set from a kickstart? %s", value)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -149,6 +166,7 @@ class DNFModule(PayloadBase):
             packages.retries = data.packages.retries
 
         self.set_packages(packages)
+        self.set_packages_kickstarted(data.packages.seen)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""

@@ -33,7 +33,8 @@ import libdnf.conf
 
 from glob import glob
 
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
+    PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask
@@ -45,8 +46,6 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_kernel_version_list
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
-from pykickstart.parser import Group
 
 from pyanaconda import errors as errors
 from pyanaconda.anaconda_loggers import get_packaging_logger
@@ -54,7 +53,7 @@ from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN
+    URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.flags import flags
@@ -175,7 +174,9 @@ class DNFPayload(Payload):
 
         # Set up packages.
         if opts.multiLib:
-            self.data.packages.multiLib = opts.multiLib
+            packages = self.get_packages_data()
+            packages.multilib_policy = MULTILIB_POLICY_ALL
+            self.set_packages_data(packages)
 
         # Reset all the other things now that we have new configuration.
         self._configure()
@@ -201,6 +202,18 @@ class DNFPayload(Payload):
         """The DBus type of the source."""
         source_proxy = self.get_source_proxy()
         return source_proxy.Type
+
+    def get_packages_data(self) -> PackagesConfigurationData:
+        """Get the DBus data with the packages configuration."""
+        return PackagesConfigurationData.from_structure(
+            self.proxy.Packages
+        )
+
+    def set_packages_data(self, data: PackagesConfigurationData):
+        """Set the DBus data with the packages configuration."""
+        return self.proxy.SetPackages(
+            PackagesConfigurationData.to_structure(data)
+        )
 
     def is_ready(self):
         """Is the payload ready?"""
@@ -309,12 +322,15 @@ class DNFPayload(Payload):
     def _apply_selections(self):
         log.debug("applying DNF package/group/module selection")
 
+        # Get the packages configuration data.
+        data = self.get_packages_data()
+
         # Get the default environment.
         default_environment = get_default_environment(self._dnf_manager)
 
         # Get the installation specs.
         include_list, exclude_list = get_installation_specs(
-            self.data, default_environment
+            data, default_environment
         )
 
         # Add the kernel package.
@@ -358,7 +374,7 @@ class DNFPayload(Payload):
 
     def _configure(self):
         self._dnf_manager.reset_base()
-        self._dnf_manager.configure_base(self.data)
+        self._dnf_manager.configure_base(self.get_packages_data())
         self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._dnf_manager.dump_configuration()
 
@@ -442,12 +458,6 @@ class DNFPayload(Payload):
     def environments(self):
         return self._dnf_manager.environments
 
-    def select_environment(self, environment_id):
-        if environment_id not in self.environments:
-            raise NoSuchGroup(environment_id)
-
-        self.data.packages.environment = environment_id
-
     @property
     def environment_addons(self):
         return self._environment_addons
@@ -460,60 +470,6 @@ class DNFPayload(Payload):
     def groups(self):
         groups = self._base.comps.groups_iter()
         return [g.id for g in groups]
-
-    def selected_groups(self):
-        """Return list of selected group names from kickstart.
-
-        NOTE:
-        This group names can be mix of group IDs and other valid identifiers.
-        If you want group IDs use `selected_groups_IDs` instead.
-
-        :return: list of group names in a format specified by a kickstart file.
-        """
-        return [grp.name for grp in self.data.packages.groupList]
-
-    def selected_groups_IDs(self):
-        """Return list of IDs for selected groups.
-
-        :return: List of selected group IDs.
-        :raise PayloadError: If translation is not supported by payload.
-        """
-        # pylint: disable=try-except-raise
-        try:
-            ret = []
-            for grp in self.selected_groups():
-                ret.append(self.group_id(grp))
-            return ret
-        # Translation feature is not implemented for this payload.
-        except NotImplementedError as ex:
-            raise PayloadError(("Can't translate group names to group ID - "
-                                "Group translation is not implemented for %s payload." % self)) \
-                from ex
-        except PayloadError as ex:
-            raise PayloadError("Can't translate group names to group ID - {}".format(ex)) from ex
-
-    def select_group(self, groupid, default=True, optional=False):
-        if optional:
-            include = GROUP_ALL
-        elif default:
-            include = GROUP_DEFAULT
-        else:
-            include = GROUP_REQUIRED
-
-        grp = Group(groupid, include=include)
-
-        if grp in self.data.packages.groupList:
-            # I'm not sure this would ever happen, but ensure that re-selecting
-            # a group with a different types set works as expected.
-            if grp.include != include:
-                grp.include = include
-
-            return
-
-        if grp in self.data.packages.excludedGroupList:
-            self.data.packages.excludedGroupList.remove(grp)
-
-        self.data.packages.groupList.append(grp)
 
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
@@ -802,8 +758,10 @@ class DNFPayload(Payload):
 
     def environment_description(self, environment_id):
         env = self._base.comps.environment_by_pattern(environment_id)
+
         if env is None:
             raise NoSuchGroup(environment_id)
+
         return (env.ui_name, env.ui_description)
 
     def environment_id(self, environment):
@@ -895,8 +853,11 @@ class DNFPayload(Payload):
     def install(self):
         progress_message(N_('Starting package installation process'))
 
+        # Get the packages configuration data.
+        data = self.get_packages_data()
+
         # Add the rpm macros to the global transaction environment
-        task = SetRPMMacrosTask(self.data)
+        task = SetRPMMacrosTask(data)
         task.run()
 
         try:

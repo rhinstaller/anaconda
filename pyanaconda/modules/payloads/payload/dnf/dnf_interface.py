@@ -58,6 +58,16 @@ class DNFInterface(PayloadBaseInterface):
             PackagesConfigurationData.from_structure(data)
         )
 
+    @property
+    def PackagesKickstarted(self) -> Bool:
+        """Are the packages set from a kickstart?
+
+        FIXME: This is a temporary property.
+
+        :return: True or False
+        """
+        return self.implementation.packages_kickstarted
+
     def GetRepoConfigurations(self) -> List[Structure]:
         """Get RepoConfigurationData structures for all attached sources.
 
