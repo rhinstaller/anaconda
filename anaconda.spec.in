@@ -367,6 +367,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 05 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.5-1
+- network: fix double-free using libnm function filter_connections() (rvykydal)
+  Resolves: rhbz#1873561
+
 * Tue Dec 08 2020 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.4-1
 - network: rename Gtk cell renderer to prevent name collision (rvykydal)
   Related: rhbz#1847681
