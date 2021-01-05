@@ -77,7 +77,8 @@ class AnacondaLintConfig(CensorshipConfig):
 
                 # Test any file that either ends in .py or contains #!/usr/bin/env python
                 # in the first line.
-                if f.endswith(".py") or (lines and str(lines[0]).startswith("#!/usr/bin/env python")):
+                if f.endswith(".py") or 
+                (lines and str(lines[0]).startswith("#!/usr/bin/env python")):
                     retval.append(root + "/" + f)
 
         return retval
