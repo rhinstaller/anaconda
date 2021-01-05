@@ -348,6 +348,7 @@ LOGGER_STDOUT = "anaconda.stdout"
 LOGGER_PROGRAM = "program"
 LOGGER_PACKAGING = "packaging"
 LOGGER_DNF = "dnf"
+LOGGER_LIBREPO = "librepo"  # second DNF logger for librepo
 LOGGER_SIMPLELINE = "simpleline"
 LOGGER_SENSITIVE_INFO = "sensitive_info"
 
