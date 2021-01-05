@@ -105,6 +105,13 @@ VIRTUALIZATION_PARTITIONING = [
         encrypted=True,
     ),
     PartSpec(
+        mountpoint="/var/crash",
+        size=Size("10GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True,
+    ),    PartSpec(
         mountpoint="/var/log",
         size=Size("8GiB"),
         btr=True,
