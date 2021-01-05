@@ -1,0 +1,11 @@
+[rhinstaller]
+name=Copr repo for rhinstaller daily builds for RHEL 8
+baseurl=http://coprbe.devel.redhat.com/results/rhinstaller-group/Anaconda/rhel-8.dev-$basearch/
+enabled=1
+
+[cobra2-rhel-fallback]
+name=Cobra02 custom repository used to solve temporary missing new versions
+baseurl=http://cobra02.anaconda.englab.brq.redhat.com/trees/tests_fallback_repos/rhel8/
+enabled=1
+priority=50
+skip_if_unavailable=True

@@ -1,0 +1,7 @@
+[RHEL-8-BuildRoot]
+name=buildroot
+baseurl=http://download.devel.redhat.com/brewroot/repos/rhel-8.3.0-build/latest/$basearch
+enabled=1
+gpgcheck=0
+install_weak_deps=0
+module_hotfixes=1
