@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ Run the Anaconda pylint tests on the files changed in this commit
 
     Set NOPYLINT env variable to skip this. eg. NOPYLINT= git commit
@@ -17,7 +17,7 @@ def is_python(filename):
 
     try:
         with open(filename) as testfile:
-            if testfile.readline().startswith("#!/usr/bin/python"):
+            if testfile.readline().startswith("#!/usr/bin/env python"):
                 return True
     except IOError:
         pass

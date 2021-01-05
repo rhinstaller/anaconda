@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import atexit
 import shutil
@@ -75,9 +75,9 @@ class AnacondaLintConfig(CensorshipConfig):
                     # going to be valid python anyway.
                     continue
 
-                # Test any file that either ends in .py or contains #!/usr/bin/python
+                # Test any file that either ends in .py or contains #!/usr/bin/env python
                 # in the first line.
-                if f.endswith(".py") or (lines and str(lines[0]).startswith("#!/usr/bin/python")):
+                if f.endswith(".py") or (lines and str(lines[0]).startswith("#!/usr/bin/env python")):
                     retval.append(root + "/" + f)
 
         return retval

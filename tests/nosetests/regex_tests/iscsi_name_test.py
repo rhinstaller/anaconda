@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # vim:set fileencoding=utf-8
 #
 # This program is free software; you can redistribute it and/or modify

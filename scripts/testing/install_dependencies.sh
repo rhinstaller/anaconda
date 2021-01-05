@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Anaconda has plenty of dependencies and because of that it's hard to set
 # environment to with Anaconda properly.
