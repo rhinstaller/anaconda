@@ -346,6 +346,7 @@ LOGGER_PROGRAM = "program"
 LOGGER_STORAGE = "storage"
 LOGGER_PACKAGING = "packaging"
 LOGGER_DNF = "dnf"
+LOGGER_LIBREPO = "librepo" # second DNF logger for librepo
 LOGGER_BLIVET = "blivet"
 LOGGER_SIMPLELINE = "simpleline"
 LOGGER_SENSITIVE_INFO = "sensitive_info"

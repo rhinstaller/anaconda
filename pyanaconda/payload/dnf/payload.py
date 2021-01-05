@@ -696,6 +696,9 @@ class DNFPayload(Payload):
             config.install_weak_deps = False
 
         # Setup librepo logging
+        # This is still required even when the librepo has a separate logger because
+        # DNF needs to have callbacks that the librepo log is written to be able to
+        # process that log.
         libdnf.repo.LibrepoLog.removeAllHandlers()
         libdnf.repo.LibrepoLog.addHandler(DNF_LIBREPO_LOG)
 
