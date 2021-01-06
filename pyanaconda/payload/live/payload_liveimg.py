@@ -32,7 +32,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.errors import PayloadInstallError
+from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.live.download_progress import DownloadProgress
 from pyanaconda.payload.live.payload_base import BaseLivePayload
 from pyanaconda.progress import progressQ
@@ -131,7 +131,7 @@ class LiveImagePayload(BaseLivePayload):
             error = self._setup_url_image()
 
         if error:
-            raise PayloadInstallError(str(error))
+            raise PayloadSetupError(str(error))
 
         log.debug("liveimg size is %s", self._min_size)
 

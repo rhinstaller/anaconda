@@ -24,7 +24,7 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, INSTALL_TREE, SOURCE
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
+from pyanaconda.payload.errors import PayloadSetupError
 from pyanaconda.payload.live.payload_base import BaseLivePayload
 from pyanaconda.progress import progressQ
 
@@ -65,7 +65,7 @@ class LiveOSPayload(BaseLivePayload):
 
         osimg = payload_utils.resolve_device(osimg_spec)
         if not osimg:
-            raise PayloadInstallError("Unable to find osimg for {}".format(osimg_spec))
+            raise PayloadSetupError("Unable to find osimg for {}".format(osimg_spec))
 
         osimg_path = payload_utils.get_device_path(osimg)
         if not stat.S_ISBLK(os.stat(osimg_path)[stat.ST_MODE]):
@@ -73,7 +73,7 @@ class LiveOSPayload(BaseLivePayload):
 
         rc = payload_utils.mount(osimg_path, INSTALL_TREE, fstype="auto", options="ro")
         if rc != 0:
-            raise PayloadInstallError("Failed to mount the install tree")
+            raise PayloadSetupError("Failed to mount the install tree")
 
         # Grab the kernel version list now so it's available after umount
         self._update_kernel_version_list()

@@ -20,8 +20,9 @@ from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError, \
     StorageInstallationError
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
-from pyanaconda.payload.errors import PayloadInstallError, DependencyError
+from pyanaconda.payload.errors import PayloadInstallError, DependencyError, PayloadSetupError
 
 
 class ScriptError(Exception):
@@ -103,7 +104,11 @@ class ErrorHandler(object):
 
             # Payload errors
             DependencyError.__name__: self._dependency_error_handler,
+            PayloadSetupError.__name__: self._payload_setup_handler,
             PayloadInstallError.__name__: self._payload_install_handler,
+
+            # Payload DBus errors
+            SourceSetupError.__name__: self._payload_setup_handler,
 
             # DNF errors
             "MarkingErrors": self._install_specs_handler,
@@ -164,9 +169,17 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
+    def _payload_setup_handler(self, exn):
+        message = _("The following error occurred while setting up the payload. "
+                    "This is a fatal error and installation will be aborted.")
+        message += "\n\n" + str(exn)
+
+        self.ui.showError(message)
+        return ERROR_RAISE
+
     def _payload_install_handler(self, exn):
-        message = _("The following error occurred while installing.  This is "
-                    "a fatal error and installation will be aborted.")
+        message = _("The following error occurred while installing the payload. "
+                    "This is a fatal error and installation will be aborted.")
         message += "\n\n" + str(exn)
 
         self.ui.showError(message)
