@@ -24,6 +24,7 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.payload.utils import get_device_path
 from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.ui.context import context
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
@@ -66,6 +67,11 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     SET_NETWORK_INSTALL_MODE = "network_install"
 
+    @classmethod
+    def should_run(cls, environment, data):
+        """Don't run for any non-package payload."""
+        return context.payload.type == PAYLOAD_TYPE_DNF
+
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
         SourceSwitchHandler.__init__(self)
@@ -98,10 +104,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def _payload_error(self):
         self._error = True
-
-    @property
-    def showable(self):
-        return self.payload.type == PAYLOAD_TYPE_DNF
 
     @property
     def status(self):

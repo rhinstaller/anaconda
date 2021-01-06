@@ -40,6 +40,7 @@ from pyanaconda.payload.image import find_optical_install_media, find_potential_
 from pyanaconda.core.payload import ProxyString, ProxyStringError, parse_nfs_url, create_nfs_url
 from pyanaconda.core.util import cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.context import context
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
 from pyanaconda.ui.lib.subscription import switch_source
 from pyanaconda.ui.gui import GUIObject
@@ -405,6 +406,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     icon = "media-optical-symbolic"
     title = CN_("GUI|Spoke", "_Installation Source")
+
+    @classmethod
+    def should_run(cls, environment, data):
+        """Don't run for any non-package payload."""
+        return context.payload.type == PAYLOAD_TYPE_DNF
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
@@ -1082,10 +1088,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._updates_box.set_sensitive(self._mirror_active())
         active = self._mirror_active() and self.payload.is_repo_enabled("updates")
         self._updates_radio_button.set_active(active)
-
-    @property
-    def showable(self):
-        return self.payload.type == PAYLOAD_TYPE_DNF
 
     def _mirror_active(self):
         return self._protocol_combo_box.get_active_id() == PROTOCOL_MIRROR and \
