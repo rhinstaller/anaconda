@@ -89,7 +89,7 @@ Requires: python3-blockdev >= %{libblockdevver}
 Requires: python3-meh >= %{mehver}
 Requires: libreport-anaconda >= %{libreportanacondaver}
 Requires: libselinux-python3
-Requires: rpm-python3 >= %{rpmver}
+Requires: python3-rpm >= %{rpmver}
 Requires: python3-pyparted >= %{pypartedver}
 Requires: python3-requests
 Requires: python3-requests-file
