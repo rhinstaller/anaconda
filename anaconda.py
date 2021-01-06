@@ -338,8 +338,8 @@ if __name__ == "__main__":
     # The note should in most cases end on TTY1.
     startup_utils.print_startup_note(options=opts)
 
-    from pyanaconda.anaconda import Anaconda
-    anaconda = Anaconda()
+    from pyanaconda.ui.context import context
+    anaconda = context.anaconda
     util.setup_translations()
 
     # reset python's default SIGINT handler
