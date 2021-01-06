@@ -63,6 +63,11 @@ To run a single test do::
 
     make TESTS=nosetests.sh check
 
+
+To run a subset of nose tests do::
+
+    make TESTS=nosetests.sh NOSE_TESTS_ARGS="nosetests/pyanaconda_tests/keyboard_test.py nosetests/pyanaconda_tests/timezone_test.py" check
+
 See `tests/Makefile.am` for possible values. Alternatively you can try::
 
     make ci
