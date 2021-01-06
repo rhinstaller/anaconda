@@ -82,6 +82,11 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     icon = "drive-harddisk-symbolic"
     title = CN_("GUI|Spoke", "Installation _Destination")
 
+    @classmethod
+    def should_run(cls, environment, data):
+        """Don't run the storage spoke on dir installations."""
+        return not conf.target.is_directory
+
     def __init__(self, *args, **kwargs):
         StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, *args, **kwargs)
@@ -253,10 +258,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             and not threadMgr.get(constants.THREAD_STORAGE) \
             and not threadMgr.get(constants.THREAD_DASDFMT) \
             and not threadMgr.get(constants.THREAD_EXECUTE_STORAGE)
-
-    @property
-    def showable(self):
-        return not conf.target.is_directory
 
     @property
     def status(self):
