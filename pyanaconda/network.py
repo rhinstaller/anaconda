@@ -43,6 +43,7 @@ from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE, STOR
 from pyanaconda.modules.common.constants.objects import FCOE
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
+from pyanaconda.modules.common.util import is_module_available
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -318,13 +319,17 @@ def write_configuration(overwrite=False):
     task_proxy = NETWORK.get_proxy(task_path)
     sync_run_task(task_proxy)
 
-    task_path = network_proxy.InstallNetworkWithTask(overwrite)
-    task_proxy = NETWORK.get_proxy(task_path)
-    sync_run_task(task_proxy)
+    if is_module_available(NETWORK) \
+            or network_proxy.Kickstarted:
+        task_path = network_proxy.InstallNetworkWithTask(overwrite)
+        task_proxy = NETWORK.get_proxy(task_path)
+        sync_run_task(task_proxy)
 
-    task_path = network_proxy.ConfigureHostnameWithTask(overwrite)
-    task_proxy = NETWORK.get_proxy(task_path)
-    sync_run_task(task_proxy)
+    if is_module_available(NETWORK) \
+            or network_proxy.Hostname and network_proxy.Hostname != DEFAULT_HOSTNAME:
+        task_path = network_proxy.ConfigureHostnameWithTask(overwrite)
+        task_proxy = NETWORK.get_proxy(task_path)
+        sync_run_task(task_proxy)
 
     if conf.system.can_change_hostname:
         hostname = network_proxy.Hostname
