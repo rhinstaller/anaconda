@@ -49,7 +49,7 @@ CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
 CONTAINER_DIALOG_TITLE = N_("CONFIGURE %(container_type)s")
 CONTAINER_DIALOG_TEXT = N_("Please create a name for this %(container_type)s "
                            "and select at least one disk below.")
-DESIRED_CAPACITY_ERROR = N_(
+DESIRED_CAPACITY_HINT = N_(
     "Specify the Desired Capacity in whole or decimal numbers, with an appropriate unit.\n\n"
     "Spaces separating digit groups are not allowed. Units consist of a decimal or binary "
     "prefix, and optionally the letter B. Letter case does not matter for units. The default "
@@ -59,6 +59,8 @@ DESIRED_CAPACITY_ERROR = N_(
     "'512m' = 512 megabytes\n"
     "'123456789' = 123 terabytes and a bit less than a half\n"
 )
+
+DESIRED_CAPACITY_ERROR = DESIRED_CAPACITY_HINT
 
 ContainerType = namedtuple("ContainerType", ["name", "label"])
 
@@ -231,7 +233,12 @@ class AddDialog(GUIObject):
         self._size = Size(0)
         self._mount_point = ""
         self._error = ""
+
         self._warning_label = self.builder.get_object("mountPointWarningLabel")
+
+        self._size_entry = self.builder.get_object("addSizeEntry")
+        self._size_entry.set_tooltip_text(DESIRED_CAPACITY_HINT)
+
         self._populate_mount_points()
 
     @property
