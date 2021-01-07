@@ -76,6 +76,11 @@ class StorageSpoke(NormalTUISpoke):
     helpFile = "StorageSpoke.txt"
     category = SystemCategory
 
+    @classmethod
+    def should_run(cls, environment, data):
+        """Don't run the storage spoke on dir installations."""
+        return not conf.target.is_directory
+
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
         self.title = N_("Installation Destination")
@@ -111,10 +116,6 @@ class StorageSpoke(NormalTUISpoke):
     @property
     def mandatory(self):
         return True
-
-    @property
-    def showable(self):
-        return not conf.target.is_directory
 
     @property
     def status(self):

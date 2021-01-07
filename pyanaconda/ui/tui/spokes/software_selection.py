@@ -18,6 +18,7 @@
 #
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.ui.context import context
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.manager import payloadMgr, PayloadState
@@ -47,6 +48,11 @@ class SoftwareSpoke(NormalTUISpoke):
     """
     helpFile = "SoftwareSpoke.txt"
     category = SoftwareCategory
+
+    @classmethod
+    def should_run(cls, environment, data):
+        """Don't run for any non-package payload."""
+        return context.payload.type == PAYLOAD_TYPE_DNF
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
@@ -133,10 +139,6 @@ class SoftwareSpoke(NormalTUISpoke):
                 addons.extend(addons_list)
 
         return addons
-
-    @property
-    def showable(self):
-        return self.payload.type == PAYLOAD_TYPE_DNF
 
     @property
     def status(self):

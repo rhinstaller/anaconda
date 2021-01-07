@@ -30,6 +30,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core import util, constants
 
 from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup
@@ -73,6 +74,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
     _ADDON_SELECTED = 1
     # user de-selected
     _ADDON_DESELECTED = 2
+
+    @classmethod
+    def should_run(cls, environment, data):
+        """Don't run for any non-package payload."""
+        return context.payload.type == PAYLOAD_TYPE_DNF
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -247,10 +253,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
                     not threadMgr.get(constants.THREAD_PAYLOAD) and
                     not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
                     self.payload.base_repo is not None)
-
-    @property
-    def showable(self):
-        return self.payload.type == PAYLOAD_TYPE_DNF
 
     @property
     def status(self):

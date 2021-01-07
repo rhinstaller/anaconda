@@ -26,6 +26,7 @@ from gi.repository import Pango, Gdk
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.core.i18n import CN_
+from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import escape_markup, override_cell_property
 from pyanaconda.ui.categories.localization import LocalizationCategory
@@ -60,6 +61,11 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
 
     icon = "accessories-character-map-symbolic"
     title = CN_("GUI|Spoke", "_Language Support")
+
+    @classmethod
+    def should_run(cls, environment, data):
+        """Don't show the language support spoke on live media."""
+        return context.payload.type not in PAYLOAD_LIVE_TYPES
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
@@ -125,11 +131,6 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
     @property
     def _installed_langsupports(self):
         return [self._l12_module.Language] + sorted(self._l12_module.LanguageSupport)
-
-    @property
-    def showable(self):
-        # don't show the language support spoke on live media
-        return self.payload.type not in PAYLOAD_LIVE_TYPES
 
     @property
     def status(self):
