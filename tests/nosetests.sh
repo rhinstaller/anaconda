@@ -7,7 +7,7 @@ if [ -z "$top_srcdir" ]; then
 fi
 
 # If no tests were selected by user or makefile, select all of them
-if [ $# -eq 0 ] && [ -z $NOSE_TESTS_ARGS ]; then
+if [ $# -eq 0 ] && [ -z "$NOSE_TESTS_ARGS" ]; then
     set -- "${top_srcdir}"/tests/nosetests/*_tests
 fi
 
