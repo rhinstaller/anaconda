@@ -108,8 +108,13 @@ jobs:
       - name: Build boot.iso from Rawhide and this branch
         run: |
           mkdir -p kickstart-tests/data/images
-          # HACK: lorax and podman overlayfs really hate each other: https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged --storage-driver=vfs --root /tmp/podman-vfs -v `pwd`:/source:ro -v `pwd`/kickstart-tests/data/images:/images:z fedora:rawhide <<EOF
+          # We have to pre-create loop devices because they are not namespaced in kernel so
+          # podman can't access newly created ones. That caused failures of tests when runners
+          # were rebooted.
+          sudo mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
+          sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
+          # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+          sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`:/source:ro -v `pwd`/kickstart-tests/data/images:/images:z fedora:rawhide <<EOF
           set -eux
           # /source from host is read-only, build in a copy
           cp -a /source/ /tmp/
@@ -132,9 +137,11 @@ jobs:
           cp lorax/images/boot.iso /images/
           EOF
 
-      - name: Clean up after podman/lorax hack
+      - name: Clean up after lorax
         if: always()
-        run: sudo rm -rf /tmp/podman-vfs
+        run: |
+          sudo losetup -d /dev/loop0 2> /dev/null || true
+          sudo losetup -d /dev/loop1 2> /dev/null || true
 
       - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
         working-directory: kickstart-tests
