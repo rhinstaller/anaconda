@@ -57,6 +57,18 @@ jobs:
     env:
        LORAX_BUILD_CONTAINER: fedora:rawhide
     steps:
+      # we post statuses manually as this does not run from a pull_request event
+      # https://developer.github.com/v3/repos/statuses/#create-a-status
+      - name: Create in-progress status
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: 'kickstart ${{ needs.pr-info.outputs.launch_args }}'
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       # self-hosted runners don't do this automatically; also useful to keep stuff around for debugging
       # need to run sudo as the launch script and the container create root/other user owned files
       - name: Clean up previous run
@@ -69,18 +81,6 @@ jobs:
         run: |
           sudo podman pull ${{ env.LORAX_BUILD_CONTAINER }}
           sudo podman pull quay.io/rhinstaller/kstest-runner:latest
-
-      # we post statuses manually as this does not run from a pull_request event
-      # https://developer.github.com/v3/repos/statuses/#create-a-status
-      - name: Create in-progress status
-        uses: octokit/request-action@v2.x
-        with:
-          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: 'kickstart ${{ needs.pr-info.outputs.launch_args }}'
-          state: pending
-          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clone repository
         uses: actions/checkout@v2
