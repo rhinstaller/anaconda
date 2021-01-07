@@ -407,6 +407,10 @@ class StorageSpoke(NormalTUISpoke):
         # Update the selected disks.
         select_default_disks()
 
+        # Apply the partitioning in the automated installation.
+        if flags.automatedInstall:
+            self.execute()
+
         # Storage is ready.
         self._ready = True
 
