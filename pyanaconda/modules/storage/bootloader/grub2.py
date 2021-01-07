@@ -323,15 +323,14 @@ class GRUB2(BootLoader):
         # See if we have a password and if so update the boot args before we
         # write out the defaults file.
         if self.password or self.encrypted_password:
-            rd_shell_not_exist = 1
-            grub_d_file = "%s%s" % (util.getSysroot(), self.grub_d_file)
-            with open(grub_d_file, "r") as fo:
-                for line in fo.readlines():
-                    match = re.search("rd.shell=0", line)
-                    if match:
-                        rd_shell_not_exist = 0
-                        break
-            if rd_shell_not_exist == 1:
+            # Add rd.shell=0 but only if not present yet, see rhbz#1907258
+            grub_d_file = "%s%s" % (conf.target.system_root, self.grub_d_file)
+            try:
+                with open(grub_d_file, "r") as fo:
+                    if "rd.shell=0" not in " ".join(fo.readlines()):
+                        self.boot_args.add("rd.shell=0")
+            except OSError:
+                # Could not open file because it did not exist
                 self.boot_args.add("rd.shell=0")
         self.write_defaults()
 
