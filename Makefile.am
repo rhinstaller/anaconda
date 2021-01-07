@@ -86,7 +86,9 @@ CONTAINER_TEST_ARGS ?=
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
+RPM_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-rpm
 CI_NAME ?= rhinstaller/anaconda-ci
+RPM_NAME ?= rhinstaller/anaconda-rpm
 CI_TAG ?= $(GIT_BRANCH)
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 CI_CMD ?= make ci
@@ -178,6 +180,9 @@ release-and-tag:
 anaconda-ci-build:
 	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(CI_NAME):$(CI_TAG) $(CI_DOCKERFILE)
 
+anaconda-rpm-build:
+	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(RPM_NAME):$(CI_TAG) $(RPM_DOCKERFILE)
+
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
@@ -239,6 +244,11 @@ container-ci:
 
 container-shell:
 	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG)
+
+container-rpm-test:
+	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
+		/run-build-and-arg make run-rpm-tests-only; \
+		dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
@@ -340,7 +350,7 @@ test-rpm: mock-rpms run-rpm-tests-only
 	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --install $(RPM_BUILD_DIR)/*[0-9].rpm
 	$(MAKE) grab-logs
 
-run-rpm-tests-only:
+run-rpm-tests-only: rpms
 	$(MAKE) TEST_SUITE_LOG=test-suite.log RPM_PATH=$(RPM_BUILD_DIR) \
 			ROOT_ANACONDA_PATH=$(abs_srcdir) TESTS=rpm_tests.sh check
 
