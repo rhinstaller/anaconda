@@ -40,6 +40,7 @@ ANACONDA_SYSLOG_FORMAT = "anaconda: %(log_prefix)s: %(message)s"
 MAIN_LOG_FILE = "/tmp/anaconda.log"
 PROGRAM_LOG_FILE = "/tmp/program.log"
 PACKAGING_LOG_FILE = "/tmp/packaging.log"
+LIBREPO_LOG_FILE = "/tmp/dnf.librepo.log"
 SENSITIVE_INFO_LOG_FILE = "/tmp/sensitive-info.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 ANACONDA_SYSLOG_IDENTIFIER = "anaconda"
@@ -203,6 +204,13 @@ class AnacondaLog(object):
         self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger,
                             minLevel=logging.NOTSET)
         self.forwardToJournal(dnf_logger)
+
+        # Create the librepo logger.
+        librepo_logger = logging.getLogger(constants.LOGGER_LIBREPO)
+        librepo_logger.setLevel(logging.DEBUG)
+        self.addFileHandler(LIBREPO_LOG_FILE, librepo_logger,
+                            minLevel=logging.NOTSET)
+        self.forwardToJournal(librepo_logger)
 
         # Create the simpleline logger and link it to anaconda
         simpleline_logger = logging.getLogger(constants.LOGGER_SIMPLELINE)
