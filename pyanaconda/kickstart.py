@@ -533,21 +533,19 @@ def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
             # Parse the kickstart file in anaconda.
             ksparser.readKickstart(f)
 
-            # Process pykickstart warnings in the strict mode:
-            if strict_mode and kswarnings:
-                raise KickstartError("Please modify your kickstart file to fix the warnings "
-                                     "or remove the `ksstrict` option.")
+            # Print kickstart warnings and error out if in strict mode
+            if kswarnings:
+                print(_("\nSome warnings occurred during reading the kickstart file:"))
+                for w in kswarnings:
+                    print(str(w).strip())
+                if strict_mode:
+                    raise KickstartError("Please modify your kickstart file to fix the warnings "
+                                         "or remove the `ksstrict` option.")
 
     except KickstartError as e:
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
         parsing_log.error(e)
-
-        # Print kickstart warnings in the strict mode.
-        if strict_mode and kswarnings:
-            print(_("\nSome warnings occurred during reading the kickstart file:"))
-            for w in kswarnings:
-                print(str(w).strip())
 
         # Print an error and terminate.
         print(_("\nAn error occurred during reading the kickstart file:"
