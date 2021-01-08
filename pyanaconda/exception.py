@@ -188,7 +188,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                     # non-interactive, we can't show a message window asking the user
                     # to acknowledge the error; instead, print the error out and sleep
                     # for a few seconds before exiting the installer
-                    print(cmdline_error_msg)
+                    print(cmdline_error_msg, flush=True)
                     self._run_kickstart_scripts(dump_info)
                     time.sleep(180)
                     sys.exit(1)
