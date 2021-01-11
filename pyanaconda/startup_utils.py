@@ -40,7 +40,8 @@ from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
     SETUP_ON_BOOT_ENABLED
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
-from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES
+from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
+    SECURITY
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import AnacondaThread, threadMgr
 
@@ -509,3 +510,19 @@ def initialize_first_boot_action():
         if not flags.automatedInstall:
             # Enable by default for interactive installations.
             services_proxy.SetSetupOnBoot(SETUP_ON_BOOT_ENABLED)
+
+
+def initialize_security():
+    """Initialize the security configuration."""
+    if not is_module_available(SECURITY):
+        return
+
+    security_proxy = SECURITY.get_proxy()
+
+    # Override the selinux state from kickstart if set on the command line
+    if conf.security.selinux != constants.SELINUX_DEFAULT:
+        security_proxy.SetSELinux(conf.security.selinux)
+
+    # Enable fingerprint option by default (#481273).
+    if not flags.automatedInstall:
+        security_proxy.SetFingerprintAuthEnabled(True)
