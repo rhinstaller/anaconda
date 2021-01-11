@@ -20,14 +20,14 @@
 from abc import ABCMeta, abstractproperty
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, SETUP_ON_BOOT_RECONFIG
-from pyanaconda.modules.common.constants.services import SERVICES
+from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda.core.util import collect
 from pyanaconda.core.signal import Signal
 from pyanaconda.ui.categories import SpokeCategory
+from pyanaconda.ui.lib.services import is_reconfiguration_mode
 from pyanaconda import lifecycle
-
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 
@@ -130,8 +130,7 @@ class FirstbootSpokeMixIn(object):
             # generally run spokes in firstboot only if doing reconfig, spokes
             # that should run even if not doing reconfig should override this
             # method
-            services_proxy = SERVICES.get_proxy()
-            return services_proxy.SetupOnBoot == SETUP_ON_BOOT_RECONFIG
+            return is_reconfiguration_mode()
 
         return False
 
