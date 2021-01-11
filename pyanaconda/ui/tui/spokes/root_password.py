@@ -18,13 +18,13 @@
 #
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
+from pyanaconda.ui.lib.services import is_reconfiguration_mode
 from pyanaconda.ui.tui.tuiobject import PasswordDialog
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.constants import SETUP_ON_BOOT_RECONFIG
-from pyanaconda.modules.common.constants.services import USERS, SERVICES
+from pyanaconda.modules.common.constants.services import USERS
 
 from simpleline.render.widgets import TextWidget
 
@@ -55,8 +55,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._password = None
 
         self._users_module = USERS.get_proxy()
-        self._services_module = SERVICES.get_proxy()
-
         self.initialize_done()
 
     @property
@@ -78,11 +76,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def status(self):
         if self._users_module.IsRootAccountLocked:
-            # check if we are running in Initial Setup reconfig mode
-            reconfig_mode = self._services_module.SetupOnBoot == SETUP_ON_BOOT_RECONFIG
             # reconfig mode currently allows re-enabling a locked root account if
             # user sets a new root password
-            if reconfig_mode:
+            if is_reconfiguration_mode():
                 return _("Disabled. Set password to enable root account.")
             else:
                 return _("Root account is disabled.")

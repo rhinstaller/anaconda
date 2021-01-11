@@ -36,9 +36,11 @@ from pyanaconda import anaconda_logging
 from pyanaconda import network
 from pyanaconda import safe_dbus
 from pyanaconda import kickstart
+from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
+    SETUP_ON_BOOT_ENABLED
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
-from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
+from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import AnacondaThread, threadMgr
 
@@ -470,3 +472,40 @@ def reinitialize_locale(opts, text_mode):
 
     log.warning("reinitializing locale due to failed attempt to start the GUI")
     localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=text_mode)
+
+
+def initialize_default_systemd_target(text_mode):
+    """Initialize the default systemd target.
+
+    If we're in text mode, the resulting system should be too
+    unless the kickstart specified otherwise.
+
+    NOTE:
+
+        Installation controlled via VNC is considered to be
+        a text mode installation, as the installation run itself
+        is effectively headless.
+
+    :param text_mode: does the installer run in the text mode?
+    """
+    if not is_module_available(SERVICES):
+        return
+
+    services_proxy = SERVICES.get_proxy()
+
+    if not services_proxy.DefaultTarget and (text_mode or flags.usevnc):
+        log.debug("no default systemd target set & in text/vnc mode - setting multi-user.target.")
+        services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
+
+
+def initialize_first_boot_action():
+    """Initialize the setup on boot action."""
+    if not is_module_available(SERVICES):
+        return
+
+    services_proxy = SERVICES.get_proxy()
+
+    if services_proxy.SetupOnBoot == SETUP_ON_BOOT_DEFAULT:
+        if not flags.automatedInstall:
+            # Enable by default for interactive installations.
+            services_proxy.SetSetupOnBoot(SETUP_ON_BOOT_ENABLED)
