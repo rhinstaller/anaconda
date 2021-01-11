@@ -369,6 +369,42 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 11 2021 Martin Kolman <mkolman@redhat.com> - 34.17-1
+- Always report IPMI events from the exit dialog windows (vponcova)
+- Always report IPMI events from the exception handler (vponcova)
+- Always log IPMI events (vponcova)
+- Add a new handler for PayloadSetupError and SourceSetupError (vponcova)
+- Remove the error handlers for removed or unused DNF errors (vponcova)
+- Refactorize the code for handling marking errors (vponcova)
+- Don't run the error handler in the installation code (vponcova)
+- Don't run the error handler if there is no callback (vponcova)
+- Reorganize the mapping of error handlers (vponcova)
+- Remove the error handler for no such group (vponcova)
+- Remove the error handler for invalid image size (vponcova)
+- Flush stdout during the TUI installation (vponcova)
+- Set the PR status ASAP for kickstart tests (jkonecny)
+- Always update container images before running workflow (jkonecny)
+- Solve problem with missing loop device for kstest run (jkonecny)
+- Remove the error handler for the missing image (vponcova)
+- Remove the error handler for the unsupported algorithm (vponcova)
+- Handle errors in the installation tasks (vponcova)
+- Initialize librepo logger (#1908286) (pkratoch)
+- Add rpm-tests support for external contributors (jkonecny)
+- Don't run the execute method in the kickstart installation in TUI by default
+  (vponcova)
+- Don't run spokes that don't support live payloads (vponcova)
+- Don't run spokes that don't support dir installations (vponcova)
+- Don't run spokes that don't support non-package payloads (vponcova)
+- Create a user interface context (vponcova)
+- Add how to run a subset of nosetests to tests README (jkonecny)
+- Fix warning when running a subset of nosetests (jkonecny)
+- network: fix double-free using libnm function filter_connections() (rvykydal)
+- Provide a hint for the desired capacity (vponcova)
+- Fix python3 rpm package name in spec file (jkonecny)
+- Allow to interrupt media verification (#1349152) (honza.stodola)
+- Use correct identity for ELN (sgallagh)
+- virtualization: add missing /var/crash (sbonazzo)
+
 * Mon Jan 04 2021 Martin Kolman <mkolman@redhat.com> - 34.16-1
 - Enable rpm-tests on Fedora ELN (mpitt)
 - Fix create_rpm_test on Fedora ELN/RHEL (mpitt)
