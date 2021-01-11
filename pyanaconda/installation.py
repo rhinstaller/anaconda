@@ -99,9 +99,10 @@ def _prepare_configuration(payload, ksdata):
 
     # add installation tasks for the Timezone DBus module
     # run these tasks before tasks of the Services module
-    timezone_proxy = TIMEZONE.get_proxy()
-    timezone_dbus_tasks = timezone_proxy.InstallWithTasks()
-    os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
+    if is_module_available(TIMEZONE):
+        timezone_proxy = TIMEZONE.get_proxy()
+        timezone_dbus_tasks = timezone_proxy.InstallWithTasks()
+        os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
 
     # add installation tasks for the Services DBus module
     services_proxy = SERVICES.get_proxy()

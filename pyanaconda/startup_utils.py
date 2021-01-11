@@ -38,6 +38,9 @@ from pyanaconda import safe_dbus
 from pyanaconda import kickstart
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
+from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.threading import AnacondaThread, threadMgr
 
 import blivet
 
@@ -353,3 +356,46 @@ def parse_kickstart(ks, addon_paths, strict_mode=False):
         kickstart.parseKickstart(ksdata, ks, strict_mode=strict_mode, pass_to_boss=True)
 
     return ksdata
+
+
+def initialize_system_clock():
+    """Initialize the system clock."""
+    if not conf.system.can_initialize_system_clock:
+        log.debug("Skip the clock initialization.")
+        return
+
+    if not is_module_available(TIMEZONE):
+        return
+
+    from pyanaconda.timezone import time_initialize
+    timezone_proxy = TIMEZONE.get_proxy()
+
+    threadMgr.add(AnacondaThread(
+        name=constants.THREAD_TIME_INIT,
+        target=time_initialize,
+        args=(timezone_proxy,)
+    ))
+
+
+def start_chronyd():
+    """Start the NTP daemon chronyd.
+
+    Set up NTP servers and start NTP daemon if not requested otherwise.
+    """
+    if not conf.system.can_set_time_synchronization:
+        log.debug("Skip the time synchronization.")
+        return
+
+    if not is_module_available(TIMEZONE):
+        return
+
+    from pyanaconda import ntp
+    timezone_proxy = TIMEZONE.get_proxy()
+    kickstart_ntpservers = timezone_proxy.NTPServers
+
+    if kickstart_ntpservers:
+        pools, servers = ntp.internal_to_pools_and_servers(kickstart_ntpservers)
+        ntp.save_servers_to_config(pools, servers)
+
+    if timezone_proxy.NTPEnabled:
+        util.start_service("chronyd")
