@@ -367,6 +367,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 11 2021 Martin Kolman <mkolman@redhat.com> - 33.16.4.6-1
+- Initialize librepo logger (pkratoch)
+  Resolves: rhbz#1908286
+- Add RPM tests support for owners on rhel-8 (jkonecny)
+  Related: rhbz#1885635
+- Use latests RHEL-8 buildroot in containers (jkonecny)
+  Related: rhbz#1885635
+- Implement rpm-tests execution in the container (jkonecny)
+  Related: rhbz#1885635
+
 * Tue Jan 05 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.5-1
 - network: fix double-free using libnm function filter_connections() (rvykydal)
   Resolves: rhbz#1873561
