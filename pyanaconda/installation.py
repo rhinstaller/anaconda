@@ -110,9 +110,10 @@ def _prepare_configuration(payload, ksdata):
     os_config.append_dbus_tasks(SERVICES, services_dbus_tasks)
 
     # add installation tasks for the Localization DBus module
-    localization_proxy = LOCALIZATION.get_proxy()
-    localization_dbus_tasks = localization_proxy.InstallWithTasks()
-    os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
+    if is_module_available(LOCALIZATION):
+        localization_proxy = LOCALIZATION.get_proxy()
+        localization_dbus_tasks = localization_proxy.InstallWithTasks()
+        os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
 
     # add the Firewall configuration task
     firewall_proxy = NETWORK.get_proxy(FIREWALL)

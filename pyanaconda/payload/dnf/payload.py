@@ -790,6 +790,9 @@ class DNFPayload(Payload):
         return selected_kernel_package
 
     def langpacks(self):
+        if not is_module_available(LOCALIZATION):
+            return []
+
         # get all available languages in repos
         available_langpacks = self._base.sack.query().available() \
             .filter(name__glob="langpacks-*")
@@ -1471,6 +1474,9 @@ class DNFPayload(Payload):
         return True
 
     def language_groups(self):
+        if not is_module_available(LOCALIZATION):
+            return []
+
         localization_proxy = LOCALIZATION.get_proxy()
         locales = [localization_proxy.Language] + localization_proxy.LanguageSupport
         match_fn = pyanaconda.localization.langcode_matches_locale

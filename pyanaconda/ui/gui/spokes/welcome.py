@@ -64,6 +64,14 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     preForHub = SummaryHub
     priority = 0
 
+    @classmethod
+    def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not is_module_available(LOCALIZATION):
+            return False
+
+        return StandaloneSpoke.should_run(environment, data)
+
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
         LangLocaleHandler.__init__(self)
