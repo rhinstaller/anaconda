@@ -24,6 +24,7 @@ from pyanaconda.core.users import crypt_password, guess_username, check_groupnam
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.constants.services import USERS
+from pyanaconda.modules.common.util import is_module_available
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
@@ -232,9 +233,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
     @classmethod
     def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not is_module_available(USERS):
+            return False
+
         # the user spoke should run always in the anaconda and in firstboot only
         # when doing reconfig or if no user has been created in the installation
-
         users_module = USERS.get_proxy()
         user_list = get_user_list(users_module)
 

@@ -21,6 +21,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.regexes import GECOS_VALID
 from pyanaconda.modules.common.constants.services import USERS
+from pyanaconda.modules.common.util import is_module_available
 
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -49,6 +50,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @classmethod
     def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not is_module_available(USERS):
+            return False
+
         if FirstbootSpokeMixIn.should_run(environment, data):
             return True
 
