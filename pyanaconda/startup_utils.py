@@ -35,7 +35,7 @@ from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
-from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import AnacondaThread, threadMgr
 
@@ -449,3 +449,78 @@ def start_chronyd():
 
     if enabled:
         util.start_service("chronyd")
+
+
+def activate_keyboard(opts):
+    """Activate keyboard.
+
+    Set up keyboard layout from the command line option and
+    let it override from kickstart if/when X is initialized.
+
+    :param opts: the command line/boot options
+    """
+    if not is_module_available(LOCALIZATION):
+        return
+
+    from pyanaconda import keyboard
+    localization_proxy = LOCALIZATION.get_proxy()
+
+    if opts.keymap and not localization_proxy.KeyboardKickstarted:
+        localization_proxy.SetKeyboard(opts.keymap)
+        localization_proxy.SetKeyboardKickstarted(True)
+
+    if localization_proxy.KeyboardKickstarted:
+        if conf.system.can_activate_keyboard:
+            keyboard.activate_keyboard(localization_proxy)
+        else:
+            # at least make sure we have all the values
+            keyboard.populate_missing_items(localization_proxy)
+
+
+def initialize_locale(opts, text_mode):
+    """Initialize locale.
+
+    :param opts: the command line/boot options
+    :param text_mode: is the locale being set up for the text mode?
+    """
+    from pyanaconda import localization
+
+    locale_option = None
+    localization_proxy = None
+
+    if is_module_available(LOCALIZATION):
+        localization_proxy = LOCALIZATION.get_proxy()
+
+        # If the language was set on the command line, copy that to kickstart
+        if opts.lang:
+            localization_proxy.SetLanguage(opts.lang)
+            localization_proxy.SetLanguageKickstarted(True)
+
+        # Setup the locale environment
+        if localization_proxy.LanguageKickstarted:
+            locale_option = localization_proxy.Language
+
+    localization.setup_locale_environment(locale_option, text_mode=text_mode)
+
+    # Now that LANG is set, do something with it
+    localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=text_mode)
+
+
+def reinitialize_locale(opts, text_mode):
+    """Reinitialize locale.
+
+    We need to reinitialize the locale if GUI startup failed.
+    The text mode might not be able to display the characters
+    from our current locale.
+
+    :param opts: the command line/boot options
+    :param text_mode: is the locale being set up for the text mode?
+    """
+    from pyanaconda import localization
+    localization_proxy = None
+
+    if is_module_available(LOCALIZATION):
+        localization_proxy = LOCALIZATION.get_proxy()
+
+    log.warning("reinitializing locale due to failed attempt to start the GUI")
+    localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=text_mode)

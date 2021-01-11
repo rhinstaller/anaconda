@@ -26,6 +26,7 @@ from pyanaconda.core.util import detect_virtualized_platform
 from pyanaconda.localization import find_best_locale_match, is_valid_langcode
 from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.util import is_module_available
 
 log = get_module_logger(__name__)
 
@@ -48,6 +49,9 @@ def collect_language_requirements(dnf_base):
     :return: a list of requirements
     """
     requirements = []
+
+    if not is_module_available(LOCALIZATION):
+        return requirements
 
     localization_proxy = LOCALIZATION.get_proxy()
     locales = [localization_proxy.Language] + localization_proxy.LanguageSupport

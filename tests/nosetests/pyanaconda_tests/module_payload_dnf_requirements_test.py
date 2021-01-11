@@ -57,6 +57,9 @@ class DNFRequirementsTestCase(unittest.TestCase):
     @patch_dbus_get_proxy_with_cache
     def collect_language_requirements_test(self, proxy_getter):
         """Test the function collect_language_requirements."""
+        boss = BOSS.get_proxy()
+        boss.GetModules.return_value = [LOCALIZATION.service_name]
+
         proxy = LOCALIZATION.get_proxy()
         proxy.Language = "cs_CZ.UTF-8"
         proxy.LanguageSupport = ["en_GB.UTF-8", "sr_RS@cyrilic"]
