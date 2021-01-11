@@ -24,7 +24,6 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
-from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
@@ -109,9 +108,7 @@ class BaseLivePayload(Payload):
             log.info(msg)
 
         if err or rc == 11:
-            exn = PayloadInstallError(err or msg)
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+            raise PayloadInstallError(err or msg)
 
         # Wait for progress thread to finish
         with self.pct_lock:

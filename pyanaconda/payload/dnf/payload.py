@@ -66,12 +66,12 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, \
-    YUM_REPOS_DIR, go_to_failure_limbo, do_transaction, get_df_map, pick_mount_point
+    YUM_REPOS_DIR, do_transaction, get_df_map, pick_mount_point
 from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadInstallError, PayloadSetupError
-from pyanaconda.payload.image import find_first_iso_image, mountImage, find_optical_install_media
+from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
@@ -307,7 +307,7 @@ class DNFPayload(Payload):
                 "ModuleBase.disable(): some packages, groups "
                 "or modules are missing or broken:\n%s", e
             )
-            self._payload_setup_error(e)
+            self._handle_marking_error(e)
 
         # forward the module specs to enable to DNF
         log.debug("enabling modules: %s", module_specs_to_enable)
@@ -317,7 +317,7 @@ class DNFPayload(Payload):
         except dnf.exceptions.MarkingErrors as e:
             log.debug("ModuleBase.enable(): some packages, groups "
                       "or modules are missing or broken:\n%s", e)
-            self._payload_setup_error(e)
+            self._handle_marking_error(e)
 
     def _apply_selections(self):
         log.debug("applying DNF package/group/module selection")
@@ -345,8 +345,8 @@ class DNFPayload(Payload):
         # Apply specs.
         try:
             self._dnf_manager.apply_specs(include_list, exclude_list)
-        except Exception as e:  # pylint: disable=broad-except
-            self._payload_setup_error(e)
+        except dnf.exceptions.MarkingErrors as e:
+            self._handle_marking_error(e)
 
     def _bump_tx_id(self):
         if self.tx_id is None:
@@ -378,8 +378,9 @@ class DNFPayload(Payload):
         self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._dnf_manager.dump_configuration()
 
-    def _payload_setup_error(self, exn):
-        log.error('Payload setup error: %r', exn)
+    def _handle_marking_error(self, exn):
+        # FIXME: Move this code outside the payload class.
+        log.error('DNF marking error: %r', exn)
         if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
@@ -860,13 +861,8 @@ class DNFPayload(Payload):
         task = SetRPMMacrosTask(data)
         task.run()
 
-        try:
-            self.check_software_selection()
-            self._download_location = self._pick_download_location()
-        except PayloadError as e:
-            if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
-                log.error("Installation failed: %r", e)
-                go_to_failure_limbo()
+        self.check_software_selection()
+        self._download_location = self._pick_download_location()
 
         if os.path.exists(self._download_location):
             log.info("Removing existing package download "
@@ -880,10 +876,7 @@ class DNFPayload(Payload):
             self._base.download_packages(pkgs_to_download, progress)
         except dnf.exceptions.DownloadError as e:
             msg = 'Failed to download the following packages: %s' % str(e)
-            exc = PayloadInstallError(msg)
-            if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
-                log.error("Installation failed: %r", exc)
-                go_to_failure_limbo()
+            raise PayloadInstallError(msg) from None
 
         log.info('Downloading packages finished.')
 
@@ -919,10 +912,8 @@ class DNFPayload(Payload):
                 msg = ("Payload error - DNF installation has ended up abruptly: %s" % msg)
                 raise PayloadError(msg)
             elif token == 'error':
-                exc = PayloadInstallError("DNF error: %s" % msg)
-                if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
-                    log.error("Installation failed: %r", exc)
-                    go_to_failure_limbo()
+                raise PayloadInstallError("DNF error: %s" % msg)
+
             (token, msg) = queue_instance.get()
 
         process.join()
@@ -1205,7 +1196,7 @@ class DNFPayload(Payload):
         if not os.path.ismount(iso_mount_dir):
             # mount the ISO on a loop
             image = os.path.normpath("%s/%s" % (path, image))
-            mountImage(image, iso_mount_dir)
+            payload_utils.mount(image, iso_mount_dir, fstype='iso9660', options="ro")
 
         if not iso_path.endswith(".iso"):
             result_path = os.path.normpath("%s/%s" % (iso_path,

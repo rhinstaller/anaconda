@@ -19,10 +19,8 @@
 #
 
 import os
-import sys
 from subprocess import CalledProcessError
 
-import pyanaconda.errors as errors
 from pyanaconda.core import util
 from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
@@ -108,9 +106,7 @@ class RPMOSTreePayload(Payload):
         """Like util.execWithRedirect, but treat errors as fatal"""
         rc = util.execWithRedirect(cmd, argv, **kwargs)
         if rc != 0:
-            exn = PayloadInstallError("%s %s exited with code %d" % (cmd, argv, rc))
-            if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
-                raise exn
+            raise PayloadInstallError("%s %s exited with code %d" % (cmd, argv, rc))
 
     def _pull_progress_cb(self, asyncProgress):
         status = asyncProgress.get_status()
@@ -247,12 +243,7 @@ class RPMOSTreePayload(Payload):
                                    Variant('a{sv}', pull_opts),
                                    progress, cancellable)
         except GError as e:
-            exn = PayloadInstallError("Failed to pull from repository: %s" % e)
-            log.error(str(exn))
-            if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
-                progressQ.send_quit(1)
-                util.ipmi_abort(scripts=self.data.scripts)
-                sys.exit(1)
+            raise PayloadInstallError("Failed to pull from repository: %s" % e) from e
 
         log.info("ostree pull: %s", progress.get_status() or "")
         progressQ.send_message(_("Preparing deployment of %s") % (ref, ))
@@ -291,12 +282,7 @@ class RPMOSTreePayload(Payload):
         try:
             self._copy_bootloader_data()
         except (OSError, RuntimeError) as e:
-            exn = PayloadInstallError("Failed to copy bootloader data: %s" % e)
-            log.error(str(exn))
-            if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
-                progressQ.send_quit(1)
-                util.ipmi_abort(scripts=self.data.scripts)
-                sys.exit(1)
+            raise PayloadInstallError("Failed to copy bootloader data: %s" % e) from e
 
         mainctx.pop_thread_default()
 
@@ -512,12 +498,7 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
         try:
             self._flatpak_payload.install_all()
         except FlatpakInstallError as e:
-            exn = PayloadInstallError("Failed to install flatpaks: %s" % e)
-            log.error(str(exn))
-            if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
-                progressQ.send_quit(1)
-                util.ipmi_abort(scripts=self.data.scripts)
-                sys.exit(1)
+            raise PayloadInstallError("Failed to install flatpaks: %s" % e) from e
 
         progressQ.send_message(_("Post-installation flatpak tasks"))
 

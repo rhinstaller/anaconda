@@ -112,13 +112,16 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occurred"), hw_error_msg)
             self._run_kickstart_scripts(dump_info)
-            sys.exit(0)
+            util.ipmi_report(IPMI_FAILED)
+            sys.exit(1)
         elif isinstance(value, UnusableStorageError):
             self._run_kickstart_scripts(dump_info)
-            sys.exit(0)
+            util.ipmi_report(IPMI_FAILED)
+            sys.exit(1)
         elif isinstance(value, NonInteractiveError):
             self._run_kickstart_scripts(dump_info)
-            sys.exit(0)
+            util.ipmi_report(IPMI_FAILED)
+            sys.exit(1)
         else:
             # This will call postWriteHook.
             super().handleException(dump_info)
@@ -190,6 +193,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                     # for a few seconds before exiting the installer
                     print(cmdline_error_msg, flush=True)
                     self._run_kickstart_scripts(dump_info)
+                    util.ipmi_report(IPMI_FAILED)
                     time.sleep(180)
                     sys.exit(1)
                 else:

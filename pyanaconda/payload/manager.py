@@ -26,7 +26,7 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAY
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.errors import PayloadError
-
+from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -186,7 +186,15 @@ class PayloadManager(object):
         # Wait for subscription
         threadMgr.wait(THREAD_SUBSCRIPTION)
 
-        payload.setup()
+        # Non-package payloads do everything in the setup method.
+        # There is no UI support that could handle the error state,
+        # so we need to handle or raise the error directly.
+        try:
+            payload.setup()
+        except (DBusError, PayloadError) as e:
+            # Handle an error.
+            if errorHandler.cb(e) == ERROR_RAISE:
+                raise
 
         # If this is a non-package Payload, we're done
         if payload.type != PAYLOAD_TYPE_DNF:

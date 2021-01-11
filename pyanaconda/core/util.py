@@ -1056,6 +1056,8 @@ _supports_ipmi = None
 
 
 def ipmi_report(event):
+    log.info("Reporting the IPMI event: %s", event)
+
     global _supports_ipmi
     if _supports_ipmi is None:
         _supports_ipmi = os.path.exists("/dev/ipmi0") and os.path.exists("/usr/bin/ipmitool")

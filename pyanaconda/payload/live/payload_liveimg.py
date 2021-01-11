@@ -30,10 +30,9 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, TAR_SUFFIX, \
     NETWORK_CONNECTION_TIMEOUT, INSTALL_TREE, IMAGE_DIR, THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.errors import PayloadInstallError
+from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.live.download_progress import DownloadProgress
 from pyanaconda.payload.live.payload_base import BaseLivePayload
 from pyanaconda.progress import progressQ
@@ -132,9 +131,7 @@ class LiveImagePayload(BaseLivePayload):
             error = self._setup_url_image()
 
         if error:
-            exn = PayloadInstallError(str(error))
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+            raise PayloadSetupError(str(error))
 
         log.debug("liveimg size is %s", self._min_size)
 
@@ -202,9 +199,7 @@ class LiveImagePayload(BaseLivePayload):
             error = self._pre_install_url_image()
 
         if error:
-            exn = PayloadInstallError(str(error))
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+            raise PayloadInstallError(str(error))
 
         # Used to make install progress % look correct
         self._adj_size = os.stat(self.image_path)[stat.ST_SIZE]
@@ -223,9 +218,7 @@ class LiveImagePayload(BaseLivePayload):
 
             if util.lowerASCII(self.data.liveimg.checksum) != filesum:
                 log.error("%s does not match checksum.", self.data.liveimg.checksum)
-                exn = PayloadInstallError("Checksum of image does not match")
-                if errorHandler.cb(exn) == ERROR_RAISE:
-                    raise exn
+                raise PayloadInstallError("Checksum of image does not match")
 
         # If this looks like a tarfile, skip trying to mount it
         if self.is_tarfile:
@@ -238,9 +231,7 @@ class LiveImagePayload(BaseLivePayload):
                                    ["--make-rprivate", "/"])
         if rc != 0:
             log.error("mount error (%s) making mount of '/' rprivate", rc)
-            exn = PayloadInstallError("mount error %s" % rc)
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+            raise PayloadInstallError("mount error %s" % rc)
 
         # Mount the image and check to see if it is a LiveOS/*.img
         # style squashfs image. If so, move it to IMAGE_DIR and mount the real
@@ -248,9 +239,7 @@ class LiveImagePayload(BaseLivePayload):
         rc = payload_utils.mount(self.image_path, INSTALL_TREE, fstype="auto", options="ro")
         if rc != 0:
             log.error("mount error (%s) with %s", rc, self.image_path)
-            exn = PayloadInstallError("mount error %s" % rc)
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+            raise PayloadInstallError("mount error %s" % rc)
 
         # Nothing more to mount
         if not os.path.exists(INSTALL_TREE + "/LiveOS"):
@@ -266,17 +255,13 @@ class LiveImagePayload(BaseLivePayload):
                                        ["--move", INSTALL_TREE, IMAGE_DIR])
             if rc != 0:
                 log.error("error %s moving mount", rc)
-                exn = PayloadInstallError("mount error %s" % rc)
-                if errorHandler.cb(exn) == ERROR_RAISE:
-                    raise exn
+                raise PayloadInstallError("mount error %s" % rc)
 
             img_file = IMAGE_DIR+"/LiveOS/" + os.path.basename(sorted(img_files)[0])
             rc = payload_utils.mount(img_file, INSTALL_TREE, fstype="auto", options="ro")
             if rc != 0:
                 log.error("mount error (%s) with %s", rc, img_file)
-                exn = PayloadInstallError("mount error %s with %s" % (rc, img_file))
-                if errorHandler.cb(exn) == ERROR_RAISE:
-                    raise exn
+                raise PayloadInstallError("mount error %s with %s" % (rc, img_file))
 
             self._update_kernel_version_list()
 
@@ -320,9 +305,7 @@ class LiveImagePayload(BaseLivePayload):
             log.info(msg)
 
         if err:
-            exn = PayloadInstallError(err or msg)
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+            raise PayloadInstallError(err or msg)
 
         # Wait for progress thread to finish
         with self.pct_lock:

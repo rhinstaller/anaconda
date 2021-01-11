@@ -25,7 +25,6 @@ from contextlib import contextmanager
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import strip_accents
-from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt
 from pyanaconda.core.i18n import _
@@ -45,10 +44,12 @@ def crypt_password(password):
     :rtype: str
     """
     cryptpw = crypt.crypt(password, crypt.METHOD_SHA512)
+
     if cryptpw is None:
-        exn = PasswordCryptError(algo=crypt.METHOD_SHA512)
-        if errorHandler.cb(exn) == ERROR_RAISE:
-            raise exn
+        raise RuntimeError(_(
+            "Unable to encrypt password: unsupported "
+            "algorithm {}").format(crypt.METHOD_SHA512)
+        )
 
     return cryptpw
 
