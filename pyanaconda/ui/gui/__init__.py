@@ -651,6 +651,11 @@ class GraphicalUserInterface(UserInterface):
         from pyanaconda.ui.gui.spokes import StandaloneSpoke
         return isinstance(obj, StandaloneSpoke)
 
+    def _is_standalone_class(self, cls):
+        """Is the class passed as cls standalone?"""
+        from pyanaconda.ui.gui.spokes import StandaloneSpoke
+        return issubclass(cls, StandaloneSpoke)
+
     def setup(self, data):
         self._actions = self.getActionClasses(self._list_hubs())
         self.data = data
@@ -668,6 +673,11 @@ class GraphicalUserInterface(UserInterface):
         return self._orderActionClasses(standalones, hubs)
 
     def _instantiateAction(self, actionClass):
+        # Check if this action is to be shown in the supported environments.
+        if self._is_standalone_class(actionClass):
+            if not any(actionClass.should_run(environ, self.data) for environ in flags.environs):
+                return None
+
         # Instantiate an action on-demand, passing the arguments defining our
         # spoke API and setting up continue/quit signal handlers.
         obj = actionClass(self.data, self.storage, self.payload)
