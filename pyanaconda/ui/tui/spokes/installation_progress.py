@@ -87,8 +87,7 @@ class ProgressSpoke(StandaloneTUISpoke):
             elif code == progressQ.PROGRESS_CODE_STEP:
                 # Instead of updating a progress bar, we just print a pip
                 # but print it without a new line.
-                sys.stdout.write('.')
-                sys.stdout.flush()
+                print('.', flush=True)
                 # Use _stepped as an indication to if we need a newline before
                 # the next message
                 self._stepped = True
@@ -98,7 +97,8 @@ class ProgressSpoke(StandaloneTUISpoke):
                     # Get a new line in case we've done a step before
                     self._stepped = False
                     print('')
-                print(args[0])
+                # Print the progress message.
+                print(args[0], flush=True)
             elif code == progressQ.PROGRESS_CODE_COMPLETE:
                 # There shouldn't be any more progress updates, so return
                 q.task_done()
