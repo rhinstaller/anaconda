@@ -41,8 +41,9 @@ from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
-
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 __all__ = ["WelcomeLanguageSpoke"]
@@ -80,15 +81,25 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
             return
 
         locale = store[itr][1]
+
+        self._apply_selected_locale(locale)
+        self._apply_geolocation_results()
+
+    def _apply_selected_locale(self, locale):
+        """Apply the selected locale."""
         locale = localization.setup_locale(locale, self._l12_module, text_mode=False)
         self._set_lang(locale)
 
+    def _apply_geolocation_results(self):
+        """Apply the geolocation results if any."""
         # Skip timezone and keyboard default setting for kickstart installs.
         # The user may have provided these values via kickstart and if not, we
         # need to prompt for them. But do continue if geolocation-with-kickstart
         # is enabled.
-
         if flags.flags.automatedInstall and not geoloc.geoloc.enabled:
+            return
+
+        if not is_module_available(TIMEZONE):
             return
 
         timezone_proxy = TIMEZONE.get_proxy()

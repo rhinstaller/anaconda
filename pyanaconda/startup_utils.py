@@ -36,6 +36,8 @@ from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.threading import AnacondaThread, threadMgr
 
 stdout_log = get_stdout_logger()
 log = get_module_logger(__name__)
@@ -404,6 +406,25 @@ def parse_kickstart(ks, addon_paths, strict_mode=False):
     return ksdata
 
 
+def initialize_system_clock():
+    """Initialize the system clock."""
+    if not conf.system.can_initialize_system_clock:
+        log.debug("Skip the clock initialization.")
+        return
+
+    if not is_module_available(TIMEZONE):
+        return
+
+    from pyanaconda.timezone import time_initialize
+    timezone_proxy = TIMEZONE.get_proxy()
+
+    threadMgr.add(AnacondaThread(
+        name=constants.THREAD_TIME_INIT,
+        target=time_initialize,
+        args=(timezone_proxy,)
+    ))
+
+
 def start_chronyd():
     """Start the NTP daemon chronyd.
 
@@ -411,6 +432,10 @@ def start_chronyd():
     """
     if not conf.system.can_set_time_synchronization:
         log.debug("Skip the time synchronization.")
+        return
+
+    if not is_module_available(TIMEZONE):
+        log.debug("Skip the time synchronization due to disabled module.")
         return
 
     timezone_proxy = TIMEZONE.get_proxy()

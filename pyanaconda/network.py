@@ -40,6 +40,7 @@ from pyanaconda.modules.common.constants.objects import FCOE
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.util import is_module_available
 
 import gi
 gi.require_version("NM", "1.0")
@@ -304,6 +305,9 @@ def write_configuration(overwrite=False):
 def _set_ntp_servers_from_dhcp():
     """Set NTP servers of timezone module from dhcp if not set by kickstart."""
     # FIXME - do it only if they will be applied (the guard at the end of the function)
+    if not is_module_available(TIMEZONE):
+        return
+
     timezone_proxy = TIMEZONE.get_proxy()
     ntp_servers = get_ntp_servers_from_dhcp(get_nm_client())
     log.info("got %d NTP servers from DHCP", len(ntp_servers))

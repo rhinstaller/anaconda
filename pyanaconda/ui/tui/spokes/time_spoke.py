@@ -19,6 +19,7 @@
 from pyanaconda.core.constants import TIME_SOURCE_SERVER
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ntp import NTPServerStatusCache
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -49,6 +50,14 @@ CallbackTimezoneArgs = namedtuple("CallbackTimezoneArgs", ["region", "timezone"]
 class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     helpFile = "DateTimeSpoke.txt"
     category = LocalizationCategory
+
+    @classmethod
+    def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not is_module_available(TIMEZONE):
+            return False
+
+        return FirstbootSpokeMixIn.should_run(environment, data)
 
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)

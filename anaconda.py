@@ -626,7 +626,6 @@ if __name__ == "__main__":
     disk_select_proxy.SetProtectedDevices(protected_devices)
 
     from pyanaconda.payload.manager import payloadMgr
-    from pyanaconda.timezone import time_initialize
 
     if not conf.target.is_directory:
         from pyanaconda.ui.lib.storage import reset_storage
@@ -634,13 +633,8 @@ if __name__ == "__main__":
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
                                      target=reset_storage))
 
-    from pyanaconda.modules.common.constants.services import TIMEZONE
-    timezone_proxy = TIMEZONE.get_proxy()
-
-    if conf.system.can_initialize_system_clock:
-        threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT,
-                                     target=time_initialize,
-                                     args=(timezone_proxy, )))
+    # Initialize the system clock.
+    startup_utils.initialize_system_clock()
 
     if flags.rescue_mode:
         rescue.start_rescue_mode_ui(anaconda)

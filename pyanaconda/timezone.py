@@ -31,6 +31,7 @@ from pyanaconda.core.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import TIMEZONE, STORAGE
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import threadMgr
 from blivet import arch
 
@@ -87,6 +88,9 @@ def save_hw_clock(timezone_proxy=None):
 
     """
     if arch.is_s390():
+        return
+
+    if not is_module_available(TIMEZONE):
         return
 
     if not timezone_proxy:
