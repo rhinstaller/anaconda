@@ -37,10 +37,10 @@ jobs:
         with:
           name: logs
           path: |
-            tests/test-suite.log
-            tests/nosetests.log
-            tests/pylint/runpylint*.log
-            tests/coverage-*.log
+            test-logs/test-suite.log
+            test-logs/nosetests.log
+            test-logs/pylint/runpylint*.log
+            test-logs/coverage-*.log
 
       - name: Login to container registry
         run: podman login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
