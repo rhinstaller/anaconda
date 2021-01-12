@@ -353,6 +353,9 @@ class Hub(GUIObject, common.Hub):
 
         # queue is now empty, should continue be clicked?
         if self._auto_continue and self._click_continue and self.window.get_may_continue():
+            # don't update spokes anymore
+            self.timeout.cancel()
+
             # enqueue the emit to the Gtk message queue
             log.debug("automatically clicking continue button")
             gtk_call_once(self.window.emit, "continue-clicked")
