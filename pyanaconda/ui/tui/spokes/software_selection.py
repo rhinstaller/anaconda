@@ -52,6 +52,9 @@ class SoftwareSpoke(NormalTUISpoke):
     @classmethod
     def should_run(cls, environment, data):
         """Don't run for any non-package payload."""
+        if not NormalTUISpoke.should_run(environment, data):
+            return False
+
         return context.payload.type == PAYLOAD_TYPE_DNF
 
     def __init__(self, data, storage, payload):
