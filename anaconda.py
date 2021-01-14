@@ -323,7 +323,6 @@ if __name__ == "__main__":
 
     from pyanaconda import vnc
     from pyanaconda import kickstart
-    from pyanaconda import keyboard
     # we are past the --version and --help shortcut so we can import display &
     # startup_utils, which import Blivet, without slowing down anything critical
     from pyanaconda import display
@@ -478,20 +477,7 @@ if __name__ == "__main__":
 
     # setup keyboard layout from the command line option and let
     # it override from kickstart if/when X is initialized
-
-    from pyanaconda.modules.common.constants.services import LOCALIZATION
-    localization_proxy = LOCALIZATION.get_proxy()
-
-    if opts.keymap and not localization_proxy.KeyboardKickstarted:
-        localization_proxy.SetKeyboard(opts.keymap)
-        localization_proxy.SetKeyboardKickstarted(True)
-
-    if localization_proxy.KeyboardKickstarted:
-        if conf.system.can_activate_keyboard:
-            keyboard.activate_keyboard(localization_proxy)
-        else:
-            # at least make sure we have all the values
-            keyboard.populate_missing_items(localization_proxy)
+    startup_utils.activate_keyboard(opts)
 
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.
@@ -527,26 +513,8 @@ if __name__ == "__main__":
     if not flags.automatedInstall:
         security_proxy.SetFingerprintAuthEnabled(True)
 
-    from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
-
-    from pyanaconda.modules.common.constants.services import LOCALIZATION
-    localization_proxy = LOCALIZATION.get_proxy()
-
-    # If the language was set on the command line, copy that to kickstart
-    if opts.lang:
-        localization_proxy.SetLanguage(opts.lang)
-        localization_proxy.SetLanguageKickstarted(True)
-
-    # Setup the locale environment
-    if localization_proxy.LanguageKickstarted:
-        locale_option = localization_proxy.Language
-    else:
-        locale_option = None
-    localization.setup_locale_environment(locale_option, text_mode=anaconda.tui_mode)
-
-    # Now that LANG is set, do something with it
-    localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=anaconda.tui_mode)
+    startup_utils.initialize_locale(opts, text_mode=anaconda.tui_mode)
 
     # Initialize the network now, in case the display needs it
     from pyanaconda.network import initialize_network, wait_for_connecting_NM_thread, wait_for_connected_NM
@@ -567,8 +535,7 @@ if __name__ == "__main__":
         # we need to reinitialize the locale if GUI startup failed,
         # as we might now be in text mode, which might not be able to display
         # the characters from our current locale
-        log.warning("reinitializing locale due to failed attempt to start the GUI")
-        localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=anaconda.tui_mode)
+        startup_utils.reinitialize_locale(opts, text_mode=anaconda.tui_mode)
 
     # we now know in which mode we are going to run so store the information
     from pykickstart import constants as pykickstart_constants
