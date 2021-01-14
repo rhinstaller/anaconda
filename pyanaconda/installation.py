@@ -118,14 +118,15 @@ def _prepare_configuration(payload, ksdata):
         os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
 
     # add the Firewall configuration task
-    firewall_proxy = NETWORK.get_proxy(FIREWALL)
-    firewall_dbus_task = firewall_proxy.InstallWithTask()
-    os_config.append_dbus_tasks(NETWORK, [firewall_dbus_task])
+    if conf.target.can_configure_network:
+        firewall_proxy = NETWORK.get_proxy(FIREWALL)
+        firewall_dbus_task = firewall_proxy.InstallWithTask()
+        os_config.append_dbus_tasks(NETWORK, [firewall_dbus_task])
 
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)
-    if conf.system.provides_network_config:
+    if conf.target.can_configure_network and conf.system.provides_network_config:
         overwrite = payload.type in PAYLOAD_LIVE_TYPES
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",

@@ -61,3 +61,11 @@ class TargetSection(Section):
     def is_directory(self):
         """Are we installing to a directory?"""
         return self.type is TargetType.DIRECTORY
+
+    @property
+    def can_configure_network(self):
+        """Should we install the network configuration?
+
+        :return: True or False
+        """
+        return self._get_option("can_configure_network", bool)
