@@ -367,6 +367,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 14 2021 Martin Kolman <mkolman@redhat.com> - 33.16.4.7-1
+- Allow to disable the Security module (vponcova)
+  Resolves: rhbz#1913689
+- Allow to disable the Services module (vponcova)
+  Resolves: rhbz#1913689
+- Support should_run for standalone GUI spokes (vponcova)
+  Resolves: rhbz#1913689
+- Allow to disable the Localization module (vponcova)
+  Resolves: rhbz#1913689
+- Allow to disable the Timezone module (vponcova)
+  Resolves: rhbz#1913689
+- Allow to disable the network installation (vponcova)
+  Resolves: rhbz#1913689
+- Allow to disable the Users module (vponcova)
+  Resolves: rhbz#1913689
+- Always show pykickstart parse warnings (vslavik)
+  Resolves: rhbz#1897663
+
 * Mon Jan 11 2021 Martin Kolman <mkolman@redhat.com> - 33.16.4.6-1
 - Initialize librepo logger (pkratoch)
   Resolves: rhbz#1908286
