@@ -93,9 +93,10 @@ def _prepare_configuration(payload, ksdata):
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
 
     # add installation tasks for the Security DBus module
-    security_proxy = SECURITY.get_proxy()
-    security_dbus_tasks = security_proxy.InstallWithTasks()
-    os_config.append_dbus_tasks(SECURITY, security_dbus_tasks)
+    if is_module_available(SECURITY):
+        security_proxy = SECURITY.get_proxy()
+        security_dbus_tasks = security_proxy.InstallWithTasks()
+        os_config.append_dbus_tasks(SECURITY, security_dbus_tasks)
 
     # add installation tasks for the Timezone DBus module
     # run these tasks before tasks of the Services module
@@ -178,7 +179,9 @@ def _prepare_configuration(payload, ksdata):
 
     # realm join
     # - this can run only after network is configured in the target system chroot
-    configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
+    if is_module_available(SECURITY):
+        security_proxy = SECURITY.get_proxy()
+        configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
 
     post_scripts = TaskQueue("Post installation scripts", N_("Running post-installation scripts"))
     post_scripts.append(Task("Run post installation scripts", runPostScripts, (ksdata.scripts,)))
@@ -291,8 +294,9 @@ def _prepare_installation(payload, ksdata):
         pre_install.append(WriteResolvConfTask("Copy resolv.conf to sysroot"))
 
     # realm discovery
-    security_proxy = SECURITY.get_proxy()
-    pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
+    if is_module_available(SECURITY):
+        security_proxy = SECURITY.get_proxy()
+        pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
 
     def run_pre_install():
         """This means to gather what additional packages (if any) are needed & executing payload.pre_install()."""
