@@ -41,8 +41,9 @@ from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
-
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 __all__ = ["WelcomeLanguageSpoke"]
@@ -87,6 +88,9 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         # is enabled.
 
         if flags.flags.automatedInstall and not geoloc.geoloc.enabled:
+            return
+
+        if not is_module_available(TIMEZONE):
             return
 
         timezone_proxy = TIMEZONE.get_proxy()
