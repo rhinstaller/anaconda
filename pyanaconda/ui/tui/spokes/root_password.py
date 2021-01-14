@@ -16,7 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.tui.tuiobject import PasswordDialog
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -36,6 +36,14 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     """
     help_id = "RootPasswordSpoke"
     category = UserSettingsCategory
+
+    @classmethod
+    def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not is_module_available(USERS):
+            return False
+
+        return FirstbootSpokeMixIn.should_run(environment, data)
 
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)

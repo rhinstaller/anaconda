@@ -23,6 +23,7 @@ from pyanaconda.core.users import crypt_password
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.constants.services import USERS, SERVICES
+from pyanaconda.modules.common.util import is_module_available
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
@@ -53,6 +54,14 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     icon = "dialog-password-symbolic"
     title = CN_("GUI|Spoke", "_Root Password")
+
+    @classmethod
+    def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not is_module_available(USERS):
+            return False
+
+        return FirstbootSpokeMixIn.should_run(environment, data)
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
