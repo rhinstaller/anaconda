@@ -65,6 +65,9 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
     @classmethod
     def should_run(cls, environment, data):
         """Don't show the language support spoke on live media."""
+        if not NormalSpoke.should_run(environment, data):
+            return False
+
         return context.payload.type not in PAYLOAD_LIVE_TYPES
 
     def __init__(self, *args, **kwargs):
