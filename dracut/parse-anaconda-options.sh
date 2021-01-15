@@ -45,7 +45,8 @@ set_http_header "X-Anaconda-System-Release" "$product"
 warn_renamed_arg() {
     local arg=""
     arg="$(getarg $1)" && warn "'$1=$arg'" && \
-        warn "$1 has been deprecated and will be removed. Please use $2 instead."
+        warn "$1 has been deprecated. All usage of Anaconda boot arguments without 'inst.' prefix \
+have been deprecated and will be removed in a future major release. Please use $2 instead."
 }
 
 # check for deprecated arg, warn user, and write new arg to /etc/cmdline

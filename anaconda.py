@@ -303,9 +303,12 @@ if __name__ == "__main__":
 
     # warn users that they should use inst. prefix all the time
     for arg in depr:
-        stdout_log.warning("Boot argument '%s' is deprecated and will be removed in the future. "
+        stdout_log.warning("Deprecated boot argument '%s' must be used with the 'inst.' prefix. "
                            "Please use 'inst.%s' instead.",
                            arg, arg)
+    if depr:
+        stdout_log.warning("Anaconda boot arguments without 'inst.' prefix have been deprecated "
+                           "and will be removed in a future major release.")
 
     from pyanaconda import isys
 
