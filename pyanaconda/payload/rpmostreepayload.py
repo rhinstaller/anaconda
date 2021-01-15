@@ -1,7 +1,7 @@
 # ostreepayload.py
 # Deploy OSTree trees to target
 #
-# Copyright (C) 2012,2014  Red Hat, Inc.
+# Copyright (C) 2012,2014,2021  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -18,30 +18,20 @@
 # Red Hat, Inc.
 #
 
-import os
 from subprocess import CalledProcessError
 
-from pyanaconda.core import util
 from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
-from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
-from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
 from pyanaconda.payload.flatpak import FlatpakPayload
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
 
 from blivet.size import Size
-
-import gi
-gi.require_version("Gio", "2.0")
-from gi.repository import Gio
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -102,73 +92,9 @@ class RPMOSTreePayload(Payload):
         super().setup()
         set_up_sources(self.proxy)
 
-    def _safe_exec_with_redirect(self, cmd, argv, **kwargs):
-        """Like util.execWithRedirect, but treat errors as fatal"""
-        rc = util.execWithRedirect(cmd, argv, **kwargs)
-        if rc != 0:
-            raise PayloadInstallError("%s %s exited with code %d" % (cmd, argv, rc))
-
-    def _pull_progress_cb(self, asyncProgress):
-        status = asyncProgress.get_status()
-        outstanding_fetches = asyncProgress.get_uint('outstanding-fetches')
-        if status:
-            progressQ.send_message(status)
-        elif outstanding_fetches > 0:
-            bytes_transferred = asyncProgress.get_uint64('bytes-transferred')
-            fetched = asyncProgress.get_uint('fetched')
-            requested = asyncProgress.get_uint('requested')
-            formatted_bytes = format_size_full(bytes_transferred, 0)
-
-            if requested == 0:
-                percent = 0.0
-            else:
-                percent = (fetched * 1.0 / requested) * 100
-
-            progressQ.send_message(_("Receiving objects: %(percent)d%% "
-                                     "(%(fetched)d/%(requested)d) %(bytes)s") %
-                                   {"percent": percent, "fetched": fetched,
-                                    "requested": requested, "bytes": formatted_bytes}
-                                   )
-        else:
-            progressQ.send_message(_("Writing objects"))
-
-    def _copy_bootloader_data(self):
-        # Copy bootloader data files from the deployment
-        # checkout to the target root.  See
-        # https://bugzilla.gnome.org/show_bug.cgi?id=726757 This
-        # happens once, at installation time.
-        # extlinux ships its modules directly in the RPM in /boot.
-        # For GRUB2, Anaconda installs device.map there.  We may need
-        # to add other bootloaders here though (if they can't easily
-        # be fixed to *copy* data into /boot at install time, instead
-        # of shipping it in the RPM).
-        bootloader = STORAGE.get_proxy(BOOTLOADER)
-        is_efi = bootloader.IsEFI()
-        physboot = conf.target.physical_root + '/boot'
-        ostree_boot_source = conf.target.system_root + '/usr/lib/ostree-boot'
-        if not os.path.isdir(ostree_boot_source):
-            ostree_boot_source = conf.target.system_root + '/boot'
-        for fname in os.listdir(ostree_boot_source):
-            srcpath = os.path.join(ostree_boot_source, fname)
-
-            # We're only copying directories
-            if not os.path.isdir(srcpath):
-                continue
-
-            # Special handling for EFI; first, we only want to copy
-            # the data if the system is actually EFI (simulating grub2-efi
-            # being installed).  Second, as it's a mount point that's
-            # expected to already exist (so if we used copytree, we'd
-            # traceback).  If it doesn't, we're not on a UEFI system,
-            # so we don't want to copy the data.
-            if not fname == 'efi' or is_efi and os.path.isdir(os.path.join(physboot, fname)):
-                log.info("Copying bootloader data: %s", fname)
-                self._safe_exec_with_redirect('cp', ['-r', '-p', srcpath, physboot])
-
-            # Unfortunate hack, see https://github.com/rhinstaller/anaconda/issues/1188
-            efi_grubenv_link = physboot + '/grub2/grubenv'
-            if not is_efi and os.path.islink(efi_grubenv_link):
-                os.unlink(efi_grubenv_link)
+    def _progress_cb(self, step, message):
+        """Callback for task progress reporting."""
+        progressQ.send_message(message)
 
     def install(self):
         # This is top installation method
@@ -182,210 +108,62 @@ class RPMOSTreePayload(Payload):
         self._prepare_mount_targets(data)
 
     def _install(self, data):
-        mainctx = create_new_context()
-        mainctx.push_thread_default()
-
-        cancellable = None
-        gi.require_version("OSTree", "1.0")
-        gi.require_version("RpmOstree", "1.0")
-        from gi.repository import OSTree, RpmOstree
         log.info("executing ostreesetup=%r", data)
 
-        # Initialize the filesystem - this will create the repo as well
-        self._safe_exec_with_redirect("ostree",
-                                      ["admin", "--sysroot=" + conf.target.physical_root,
-                                       "init-fs", conf.target.physical_root])
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            InitOSTreeFsAndRepoTask
+        task = InitOSTreeFsAndRepoTask(conf.target.physical_root)
+        task.run()
 
         # Here, we use the physical root as sysroot, because we haven't
         # yet made a deployment.
-        sysroot_file = Gio.File.new_for_path(conf.target.physical_root)
-        sysroot = OSTree.Sysroot.new(sysroot_file)
-        sysroot.load(cancellable)
-        repo = sysroot.get_repo(None)[1]
-        # We don't support resuming from interrupted installs
-        repo.set_disable_fsync(True)
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            ChangeOSTreeRemoteTask
+        task = ChangeOSTreeRemoteTask(
+            data,
+            use_root=False,
+            root=conf.target.physical_root
+        )
+        task.run()
 
-        self._remoteOptions = {}
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            PullRemoteAndDeleteTask
+        task = PullRemoteAndDeleteTask(data)
+        task.progress_changed_signal.connect(self._progress_cb)
+        task.run()
 
-        if not data.gpg_verification_enabled:
-            self._remoteOptions['gpg-verify'] = Variant('b', False)
-
-        if not conf.payload.verify_ssl:
-            self._remoteOptions['tls-permissive'] = Variant('b', True)
-
-        repo.remote_change(None, OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-                           data.remote, data.url,
-                           Variant('a{sv}', self._remoteOptions),
-                           cancellable)
-
-        # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
-        ref = RpmOstree.varsubst_basearch(data.ref)
-
-        progressQ.send_message(_("Starting pull of %(branchName)s from %(source)s") %
-                               {"branchName": ref, "source": data.remote})
-
-        progress = OSTree.AsyncProgress.new()
-        progress.connect('changed', self._pull_progress_cb)
-
-        pull_opts = {'refs': Variant('as', [ref])}
-        # If we're doing a kickstart, we can at least use the content as a reference:
-        # See <https://github.com/rhinstaller/anaconda/issues/1117>
-        # The first path here is used by <https://pagure.io/fedora-lorax-templates>
-        # and the second by <https://github.com/projectatomic/rpm-ostree-toolbox/>
-        if OSTree.check_version(2017, 8):
-            for path in ['/ostree/repo', '/install/ostree/repo']:
-                if os.path.isdir(path + '/objects'):
-                    pull_opts['localcache-repos'] = Variant('as', [path])
-                    break
-
-        try:
-            repo.pull_with_options(data.remote,
-                                   Variant('a{sv}', pull_opts),
-                                   progress, cancellable)
-        except GError as e:
-            raise PayloadInstallError("Failed to pull from repository: %s" % e) from e
-
-        log.info("ostree pull: %s", progress.get_status() or "")
-        progressQ.send_message(_("Preparing deployment of %s") % (ref, ))
-
-        # Now that we have the data pulled, delete the remote for now.
-        # This will allow a remote configuration defined in the tree
-        # (if any) to override what's in the kickstart.  Otherwise,
-        # we'll re-add it in post.  Ideally, ostree would support a
-        # pull without adding a remote, but that would get quite
-        # complex.
-        repo.remote_delete(data.remote, None)
-
-        self._safe_exec_with_redirect("ostree",
-                                      ["admin", "--sysroot=" + conf.target.physical_root,
-                                       "os-init", data.osname])
-
-        admin_deploy_args = ["admin", "--sysroot=" + conf.target.physical_root,
-                             "deploy", "--os=" + data.osname]
-
-        admin_deploy_args.append(data.remote + ':' + ref)
-
-        log.info("ostree admin deploy starting")
-        progressQ.send_message(_("Deployment starting: %s") % (ref, ))
-        self._safe_exec_with_redirect("ostree", admin_deploy_args)
-        log.info("ostree admin deploy complete")
-        progressQ.send_message(_("Deployment complete: %s") % (ref, ))
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import DeployOSTreeTask
+        task = DeployOSTreeTask(data, conf.target.physical_root)
+        task.progress_changed_signal.connect(self._progress_cb)
+        task.run()
 
         # Reload now that we've deployed, find the path to the new deployment
-        sysroot.load(None)
-        deployments = sysroot.get_deployments()
-        assert len(deployments) > 0
-        deployment = deployments[0]
-        deployment_path = sysroot.get_deployment_directory(deployment)
-        util.set_system_root(deployment_path.get_path())
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import SetSystemRootTask
+        task = SetSystemRootTask(conf.target.physical_root)
+        task.run()
 
         try:
-            self._copy_bootloader_data()
+            from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+                CopyBootloaderDataTask
+            task = CopyBootloaderDataTask(
+                sysroot=conf.target.system_root,
+                physroot=conf.target.physical_root
+            )
+            task.run()
         except (OSError, RuntimeError) as e:
             raise PayloadInstallError("Failed to copy bootloader data: %s" % e) from e
 
-        mainctx.pop_thread_default()
-
-    def _setup_internal_bindmount(self, src, dest=None,
-                                  src_physical=True,
-                                  bind_ro=False,
-                                  recurse=True):
-        """Internal API for setting up bind mounts between the physical root and
-           sysroot, also ensures we track them in self._internal_mounts so we can
-           cleanly unmount them.
-
-           :param src: Source path, will be prefixed with physical or sysroot
-           :param dest: Destination, will be prefixed with sysroot (defaults to same as src)
-           :param src_physical: Prefix src with physical root
-           :param bind_ro: Make mount read-only
-           :param recurse: Use --rbind to recurse, otherwise plain --bind
-        """
-        # Default to the same basename
-        if dest is None:
-            dest = src
-        # Almost all of our mounts go from physical to sysroot
-        if src_physical:
-            src = conf.target.physical_root + src
-        else:
-            src = conf.target.system_root + src
-        # Canonicalize dest to the full path
-        dest = conf.target.system_root + dest
-        if bind_ro:
-            self._safe_exec_with_redirect("mount",
-                                          ["--bind", src, src])
-            self._safe_exec_with_redirect("mount",
-                                          ["--bind", "-o", "remount,ro", src, src])
-        else:
-            # Recurse for non-ro binds so we pick up sub-mounts
-            # like /sys/firmware/efi/efivars.
-            if recurse:
-                bindopt = '--rbind'
-            else:
-                bindopt = '--bind'
-            self._safe_exec_with_redirect("mount",
-                                          [bindopt, src, dest])
-        self._internal_mounts.append(src if bind_ro else dest)
-
     def _prepare_mount_targets(self, data):
         """ Prepare the ostree root """
-        mount_points = payload_utils.get_mount_points()
-
-        # Currently, blivet sets up mounts in the physical root.
-        # We used to unmount them and remount them in the sysroot, but
-        # since 664ef7b43f9102aa9332d0db5b7d13f8ece436f0 we now just set up
-        # bind mounts.
-
-        # Make /usr readonly like ostree does at runtime normally
-        self._setup_internal_bindmount('/usr', bind_ro=True, src_physical=False)
-
-        # Explicitly do API mounts; some of these may be tracked by blivet, but
-        # we'll skip them below.
-        api_mounts = ["/dev", "/proc", "/run", "/sys"]
-        for path in api_mounts:
-            self._setup_internal_bindmount(path)
-
-        # Handle /var; if the admin didn't specify a mount for /var, we need
-        # to do the default ostree one.
-        # https://github.com/ostreedev/ostree/issues/855
-        var_root = '/ostree/deploy/' + data.osname + '/var'
-        if mount_points.get("/var") is None:
-            self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
-        else:
-            # Otherwise, bind it
-            self._setup_internal_bindmount('/var', recurse=False)
-
-        # Now that we have /var, start filling in any directories that may be
-        # required later there. We explicitly make /var/lib, since
-        # systemd-tmpfiles doesn't have a --prefix-only=/var/lib. We rely on
-        # 80-setfilecons.ks to set the label correctly.
-        util.mkdirChain(conf.target.system_root + '/var/lib')
-        # Next, run tmpfiles to make subdirectories of /var. We need this for
-        # both mounts like /home (really /var/home) and %post scripts might
-        # want to write to e.g. `/srv`, `/root`, `/usr/local`, etc. The
-        # /var/lib/rpm symlink is also critical for having e.g. `rpm -qa` work
-        # in %post. We don't iterate *all* tmpfiles because we don't have the
-        # matching NSS configuration inside Anaconda, and we can't "chroot" to
-        # get it because that would require mounting the API filesystems in the
-        # target.
-        for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
-                          'usrlocal', 'mnt', 'media', 'spool', 'spool/mail'):
-            self._safe_exec_with_redirect("systemd-tmpfiles",
-                                          ["--create", "--boot", "--root=" + conf.target.system_root,
-                                           "--prefix=/var/" + varsubdir])
-
-        # Handle mounts like /boot (except avoid /boot/efi; we just need the
-        # toplevel), and any admin-specified points like /home (really
-        # /var/home). Note we already handled /var above. Avoid recursion since
-        # sub-mounts will be in the list too.  We sort by length as a crude
-        # hack to try to simulate the tree relationship; it looks like this
-        # is handled in blivet in a different way.
-        for mount in sorted(mount_points, key=len):
-            if mount in ('/', '/var') or mount in api_mounts:
-                continue
-            self._setup_internal_bindmount(mount, recurse=False)
-
-        # And finally, do a nonrecursive bind for the sysroot
-        self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            PrepareOSTreeMountTargetsTask
+        task = PrepareOSTreeMountTargetsTask(
+            sysroot=conf.target.system_root,
+            physroot=conf.target.physical_root,
+            source_config=data
+        )
+        bindmounts = task.run()
+        self._internal_mounts.extend(bindmounts)
 
     def unsetup(self):
         """Invalidate a previously setup payload."""
@@ -403,63 +181,33 @@ class RPMOSTreePayload(Payload):
         super().post_install()
         data = self._get_source_configuration()
 
-        gi.require_version("OSTree", "1.0")
-        from gi.repository import OSTree
-        cancellable = None
-
-        # Following up on the "remote delete" above, we removed the
-        # remote from /ostree/repo/config.  But we want it in /etc, so
-        # re-add it to /etc/ostree/remotes.d, using the sysroot path.
+        # Following up on the "remote delete" earlier, we removed the remote from
+        # /ostree/repo/config.  But we want it in /etc, so re-add it to /etc/ostree/remotes.d,
+        # using the sysroot path.
         #
-        # However, we ignore the case where the remote already exists,
-        # which occurs when the content itself provides the remote
-        # config file.
+        # However, we ignore the case where the remote already exists, which occurs when the
+        # content itself provides the remote config file.
+        #
+        # Note here we use the deployment as sysroot, because it's that version of /etc that we
+        # want.
 
-        # Note here we use the deployment as sysroot, because it's
-        # that version of /etc that we want.
-        sysroot_file = Gio.File.new_for_path(conf.target.system_root)
-        sysroot = OSTree.Sysroot.new(sysroot_file)
-        sysroot.load(cancellable)
-        repo = sysroot.get_repo(None)[1]
-        repo.remote_change(sysroot_file,
-                           OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-                           data.remote, data.url,
-                           Variant('a{sv}', self._remoteOptions),
-                           cancellable)
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            ChangeOSTreeRemoteTask
+        task = ChangeOSTreeRemoteTask(
+            data,
+            use_root=True,
+            root=conf.target.system_root
+        )
+        task.run()
 
-        boot = conf.target.system_root + '/boot'
-
-        # If we're using GRUB2, move its config file, also with a
-        # compatibility symlink.
-        boot_grub2_cfg = boot + '/grub2/grub.cfg'
-        if os.path.isfile(boot_grub2_cfg):
-            boot_loader = boot + '/loader'
-            target_grub_cfg = boot_loader + '/grub.cfg'
-            log.info("Moving %s -> %s", boot_grub2_cfg, target_grub_cfg)
-            os.rename(boot_grub2_cfg, target_grub_cfg)
-            os.symlink('../loader/grub.cfg', boot_grub2_cfg)
-
-        # Skip kernel args setup for dirinstall, there is no bootloader or rootDevice setup.
-        if not conf.target.is_directory:
-            # OSTree owns the bootloader configuration, so here we give it
-            # the argument list we computed from storage, architecture and
-            # such.
-            bootloader = STORAGE.get_proxy(BOOTLOADER)
-            device_tree = STORAGE.get_proxy(DEVICE_TREE)
-
-            root_name = device_tree.GetRootDevice()
-            root_data = DeviceData.from_structure(
-                device_tree.GetDeviceData(root_name)
-            )
-
-            set_kargs_args = ["admin", "instutil", "set-kargs"]
-            set_kargs_args.extend(bootloader.GetArguments())
-            set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_name))
-
-            if root_data.type == "btrfs subvolume":
-                set_kargs_args.append("rootflags=subvol=" + root_name)
-
-            self._safe_exec_with_redirect("ostree", set_kargs_args, root=conf.target.system_root)
+        # Handle bootloader configuration
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            ConfigureBootloader
+        task = ConfigureBootloader(
+            sysroot=conf.target.system_root,
+            is_dirinstall=conf.target.is_directory
+        )
+        task.run()
 
 
 class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
