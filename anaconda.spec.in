@@ -369,6 +369,25 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 18 2021 Martin Kolman <mkolman@redhat.com> - 34.18-1
+- Skip payload-related spokes in the initial setup (#1915541) (vponcova)
+- Always show pykickstart parse warnings (vslavik)
+- Grab GitHub notifications for periodic workflows (jkonecny)
+- Split OSTree sysroot-setting to a task (vslavik)
+- Split OSTree pull to a task (vslavik)
+- Split OSTree deployment to a task (vslavik)
+- Stop the timer that calls a callback for clicking on the continue button
+  (vponcova)
+- Formatting fixes (vslavik)
+- Split OSTree bootloader configuration to a task (vslavik)
+- Split OSTree remote changes to a task (vslavik)
+- Split OSTree fs and repo initialization to a task (vslavik)
+- Split OSTree bootloader data copying to a task (vslavik)
+- Split OStree mount target preparation to a task (vslavik)
+- Move the RPM OSTree test to a directory (vslavik)
+- Move the safe_exec_with_redirect function (vslavik)
+- Save logs correctly after container update GH action run (jkonecny)
+
 * Mon Jan 11 2021 Martin Kolman <mkolman@redhat.com> - 34.17-1
 - Always report IPMI events from the exit dialog windows (vponcova)
 - Always report IPMI events from the exception handler (vponcova)
