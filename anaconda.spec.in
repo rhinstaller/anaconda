@@ -56,9 +56,7 @@ BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: make
 BuildRequires: pango-devel
-BuildRequires: python3-kickstart >= %{pykickstartver}
 BuildRequires: python3-devel
-BuildRequires: python3-nose
 BuildRequires: systemd
 # rpm and libarchive are needed for driver disk handling
 BuildRequires: rpm-devel >= %{rpmver}
