@@ -25,14 +25,11 @@
 from pykickstart.commands.authconfig import F28_Authconfig as Authconfig
 from pykickstart.commands.authselect import F28_Authselect as Authselect
 from pykickstart.commands.autopart import F29_AutoPart as AutoPart
-from pykickstart.commands.autostep import FC3_AutoStep as AutoStep
-from pykickstart.commands.bootloader import F29_Bootloader as Bootloader
+from pykickstart.commands.bootloader import F34_Bootloader as Bootloader
 from pykickstart.commands.btrfs import F23_BTRFS as BTRFS
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
 from pykickstart.commands.clearpart import F28_ClearPart as ClearPart
 from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
-from pykickstart.commands.device import F24_Device as Device
-from pykickstart.commands.dmraid import F24_DmRaid as DmRaid
 from pykickstart.commands.driverdisk import F14_DriverDisk as DriverDisk
 from pykickstart.commands.module import F31_Module as Module
 from pykickstart.commands.eula import F20_Eula as Eula
@@ -42,7 +39,7 @@ from pykickstart.commands.firstboot import FC3_Firstboot as Firstboot
 from pykickstart.commands.group import F12_Group as Group
 from pykickstart.commands.harddrive import F33_HardDrive as HardDrive
 from pykickstart.commands.hmc import F28_Hmc as Hmc
-from pykickstart.commands.ignoredisk import F29_IgnoreDisk as IgnoreDisk
+from pykickstart.commands.ignoredisk import F34_IgnoreDisk as IgnoreDisk
 from pykickstart.commands.iscsi import F17_Iscsi as Iscsi
 from pykickstart.commands.iscsiname import FC6_IscsiName as IscsiName
 from pykickstart.commands.keyboard import F18_Keyboard as Keyboard
@@ -52,12 +49,11 @@ from pykickstart.commands.logging import F34_Logging as Logging
 from pykickstart.commands.logvol import F29_LogVol as LogVol
 from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
 from pykickstart.commands.mount import F27_Mount as Mount
-from pykickstart.commands.multipath import F24_MultiPath as MultiPath
 from pykickstart.commands.network import F27_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.nvdimm import F28_Nvdimm as Nvdimm
 from pykickstart.commands.ostreesetup import F21_OSTreeSetup as OSTreeSetup
-from pykickstart.commands.partition import F29_Partition as Partition
+from pykickstart.commands.partition import F34_Partition as Partition
 from pykickstart.commands.raid import F29_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
@@ -75,7 +71,7 @@ from pykickstart.commands.sshkey import F22_SshKey as SshKey
 from pykickstart.commands.syspurpose import RHEL8_Syspurpose as Syspurpose
 from pykickstart.commands.timezone import F33_Timezone as Timezone
 from pykickstart.commands.timesource import F33_Timesource as Timesource
-from pykickstart.commands.updates import F7_Updates as Updates
+from pykickstart.commands.updates import F34_Updates as Updates
 from pykickstart.commands.url import F30_Url as Url
 from pykickstart.commands.user import F24_User as User
 from pykickstart.commands.vnc import F9_Vnc as Vnc
@@ -88,15 +84,12 @@ from pykickstart.commands.zipl import F32_Zipl as Zipl
 # Supported kickstart data.
 from pykickstart.commands.btrfs import F23_BTRFSData as BTRFSData
 from pykickstart.commands.driverdisk import F14_DriverDiskData as DriverDiskData
-from pykickstart.commands.device import F8_DeviceData as DeviceData
-from pykickstart.commands.dmraid import FC6_DmRaidData as DmRaidData
 from pykickstart.commands.module import F31_ModuleData as ModuleData
 from pykickstart.commands.fcoe import F28_FcoeData as FcoeData
 from pykickstart.commands.group import F12_GroupData as GroupData
 from pykickstart.commands.iscsi import F17_IscsiData as IscsiData
 from pykickstart.commands.logvol import F29_LogVolData as LogVolData
 from pykickstart.commands.mount import F27_MountData as MountData
-from pykickstart.commands.multipath import FC6_MultiPathData as MultiPathData
 from pykickstart.commands.network import F27_NetworkData as NetworkData
 from pykickstart.commands.nvdimm import F28_NvdimmData as NvdimmData
 from pykickstart.commands.partition import F29_PartData as PartData
