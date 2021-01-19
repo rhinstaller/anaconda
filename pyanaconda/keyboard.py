@@ -183,6 +183,12 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
     if conf.system.can_configure_keyboard:
         xkl_wrapper.replace_layouts(new_layouts)
 
+    # the console layout configured should be "native" by default,
+    # setting that explicitly for non-ascii layouts where we prepend "us"
+    # refer: https://bugzilla.redhat.com/show_bug.cgi?id=1912609
+    if len(new_layouts) >= 2 and not langtable.supports_ascii(new_layouts[1]):
+        localization_proxy.SetVirtualConsoleKeymap(new_layouts[1])
+
     if len(new_layouts) >= 2 and not localization_proxy.LayoutSwitchOptions:
         # initialize layout switching if needed
         localization_proxy.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
