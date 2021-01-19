@@ -24,8 +24,9 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.core.i18n import _
 from pyanaconda.core import constants, regexes
 from pyanaconda.core import users
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.constants.objects import USER_INTERFACE
+from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 
 log = get_module_logger(__name__)
@@ -37,7 +38,12 @@ def get_policy(policy_name) -> PasswordPolicy:
     :param policy_name: a name of the policy
     :return: a password policy data
     """
-    # FIXME: Get the policy from the UI DBus module.
+    proxy = BOSS.get_proxy(USER_INTERFACE)
+    policies = PasswordPolicy.from_structure_dict(proxy.PasswordPolicies)
+
+    if policy_name in policies:
+        return policies[policy_name]
+
     return PasswordPolicy.from_defaults(policy_name)
 
 
