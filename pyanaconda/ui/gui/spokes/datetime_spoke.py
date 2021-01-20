@@ -37,6 +37,7 @@ from pyanaconda.core.timer import Timer
 from pyanaconda.localization import get_xlated_timezone, resolve_date_format
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.modules.common.constants.services import TIMEZONE, NETWORK
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ntp import NTPServerStatusCache
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -401,6 +402,14 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     # see https://bugzilla.gnome.org/show_bug.cgi?id=712184
     _hack = TimezoneMap.TimezoneMap()
     del(_hack)
+
+    @classmethod
+    def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not is_module_available(TIMEZONE):
+            return False
+
+        return FirstbootSpokeMixIn.should_run(environment, data)
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
