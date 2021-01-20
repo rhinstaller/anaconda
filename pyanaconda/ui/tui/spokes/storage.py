@@ -79,6 +79,9 @@ class StorageSpoke(NormalTUISpoke):
     @classmethod
     def should_run(cls, environment, data):
         """Don't run the storage spoke on dir installations."""
+        if not NormalTUISpoke.should_run(environment, data):
+            return False
+
         return not conf.target.is_directory
 
     def __init__(self, data, storage, payload):
