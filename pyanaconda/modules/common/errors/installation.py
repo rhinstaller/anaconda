@@ -27,6 +27,12 @@ class InstallationError(AnacondaError):
     pass
 
 
+@dbus_error("NonCriticalInstallationError", namespace=ANACONDA_NAMESPACE)
+class NonCriticalInstallationError(AnacondaError):
+    """Exception for the non-critical installation errors."""
+    pass
+
+
 @dbus_error("LanguageInstallationError", namespace=ANACONDA_NAMESPACE)
 class LanguageInstallationError(InstallationError):
     """Exception for the language installation errors."""

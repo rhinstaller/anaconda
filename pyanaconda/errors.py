@@ -19,7 +19,7 @@
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError, \
-    StorageInstallationError
+    StorageInstallationError, NonCriticalInstallationError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.payload.errors import PayloadInstallError, DependencyError, PayloadSetupError
@@ -110,6 +110,9 @@ class ErrorHandler(object):
             # Payload DBus errors
             SourceSetupError.__name__: self._payload_setup_handler,
 
+            # General installation errors.
+            NonCriticalInstallationError.__name__: self._non_critical_error_handler,
+
             # DNF errors
             "MarkingErrors": self._install_specs_handler,
         }
@@ -199,6 +202,16 @@ class ErrorHandler(object):
                     "Would you like to ignore this and continue with "
                     "installation?")
         message += "\n\n" + str(exn)
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
+    def _non_critical_error_handler(self, exn):
+        message = _("The following error occurred during the installation:"
+                    "\n\n{details}\n\nWould you like to ignore this and "
+                    "continue with installation?").format(details=str(exn))
 
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
