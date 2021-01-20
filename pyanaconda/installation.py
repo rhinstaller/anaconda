@@ -129,11 +129,12 @@ def _prepare_configuration(payload, ksdata):
         configuration_queue.append(network_config)
 
     # add installation tasks for the Users DBus module
-    user_config = TaskQueue("User creation", N_("Creating users"))
-    users_proxy = USERS.get_proxy()
-    users_dbus_tasks = users_proxy.InstallWithTasks()
-    user_config.append_dbus_tasks(USERS, users_dbus_tasks)
-    configuration_queue.append(user_config)
+    if is_module_available(USERS):
+        user_config = TaskQueue("User creation", N_("Creating users"))
+        users_proxy = USERS.get_proxy()
+        users_dbus_tasks = users_proxy.InstallWithTasks()
+        user_config.append_dbus_tasks(USERS, users_dbus_tasks)
+        configuration_queue.append(user_config)
 
     # Anaconda addon configuration
     addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
