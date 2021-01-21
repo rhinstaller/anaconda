@@ -40,6 +40,7 @@ RUN pip install \
   pycodestyle \
   dogtail \
   nose-testconfig \
+  nose \
   rpmfluff
 
 # HACK: Apply fix from https://github.com/PyCQA/astroid/pull/847 to avoid
