@@ -56,6 +56,7 @@ jobs:
     timeout-minutes: 300
     env:
        LORAX_BUILD_CONTAINER: fedora:rawhide
+       STATUS_NAME: kickstart-test
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -63,7 +64,7 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: 'kickstart ${{ needs.pr-info.outputs.launch_args }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
           state: pending
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -170,7 +171,7 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: 'kickstart ${{ needs.pr-info.outputs.launch_args }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
           state: ${{ job.status }}
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
