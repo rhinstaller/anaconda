@@ -388,6 +388,9 @@ class NetworkControlBox(GObject.GObject):
         self.client.connect("notify::%s" % NM.CLIENT_STATE,
                             self.on_nm_state_changed)
 
+        self.client.connect("connection-added", self.on_connection_added_or_removed)
+        self.client.connect("connection-removed", self.on_connection_added_or_removed)
+
         self._load_device_configurations()
         self._network_module.DeviceConfigurationChanged.connect(
             self.on_device_configurations_changed
@@ -471,6 +474,14 @@ class NetworkControlBox(GObject.GObject):
         if dev_cfg and dev_cfg.device_name == device.get_iface():
             self.refresh_ui()
 
+    def on_connection_added_or_removed(self, client, connection):
+        dev_cfg = self.selected_dev_cfg()
+        if not dev_cfg or not dev_cfg.device_name:
+            return
+        if connection.get_connection_type() == NM_CONNECTION_TYPE_WIFI \
+                and connection.get_interface_name() == dev_cfg.device_name:
+            self._refresh_configure_wireless_button(dev_cfg.device_name)
+
     def on_select_wireless_clicked(self, *args):
         # Get list of aps
         dev_cfg = self.selected_dev_cfg()
@@ -485,19 +496,20 @@ class NetworkControlBox(GObject.GObject):
             dialog.refresh(device_name)
             dialog.run()
 
-    def _get_the_only_wireless_connection(self, device):
-        con_uuid = con_ssid = ""
+    def _get_wireless_connections_of_device(self, device):
+        cons_ssids = []
         if device:
-            cons = _safe_device_filter_connections(device, self.client.get_connections())
-            if len(cons) == 1:
-                connection = cons[0]
+            for connection in _safe_device_filter_connections(device,
+                                                              self.client.get_connections()):
                 con_uuid = connection.get_setting_connection().get_uuid()
+                con_ssid = b""
                 wireless_setting = connection.get_setting_wireless()
                 if wireless_setting:
                     ssid_variant = wireless_setting.get_ssid()
                     if ssid_variant:
                         con_ssid = ssid_variant.get_data()
-        return con_uuid, con_ssid
+                cons_ssids.append((con_uuid, con_ssid))
+        return cons_ssids
 
     def on_edit_connection(self, *args):
         dev_cfg = self.selected_dev_cfg()
@@ -513,7 +525,10 @@ class NetworkControlBox(GObject.GObject):
 
         if device_type == NM.DeviceType.WIFI:
 
-            con_uuid, selected_ssid = self._get_the_only_wireless_connection(device)
+            con_uuid = ""
+            cons_ssids = self._get_wireless_connections_of_device(device)
+            if len(cons_ssids) == 1:
+                con_uuid, selected_ssid = cons_ssids[0]
 
             if not con_uuid:
                 # Run dialog
@@ -815,7 +830,7 @@ class NetworkControlBox(GObject.GObject):
             notebook.set_current_page(5)
             return
 
-        self._refresh_device_type_page(dev_cfg.device_type)
+        self._refresh_device_type_page(dev_cfg)
         self._refresh_header_ui(dev_cfg, state)
         self._refresh_slaves(dev_cfg)
         self._refresh_parent_vlanid(dev_cfg)
@@ -958,7 +973,8 @@ class NetworkControlBox(GObject.GObject):
         hwaddr = device and device.get_hw_address()
         self._set_device_info_value(dt, "mac", hwaddr)
 
-    def _refresh_device_type_page(self, dev_type):
+    def _refresh_device_type_page(self, dev_cfg):
+        dev_type = dev_cfg.device_type
         notebook = self.builder.get_object("notebook_types")
         if dev_type == NM.DeviceType.ETHERNET:
             notebook.set_current_page(0)
@@ -991,7 +1007,12 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("remove_toolbutton").set_sensitive(True)
         elif dev_type == NM.DeviceType.WIFI:
             notebook.set_current_page(1)
-            self.builder.get_object("button_wireless_options").set_sensitive(True)
+            self._refresh_configure_wireless_button(dev_cfg.device_name)
+
+    def _refresh_configure_wireless_button(self, device_name):
+        device = self.client.get_device_by_iface(device_name)
+        connection_exists = bool(self._get_wireless_connections_of_device(device))
+        self.builder.get_object("button_wireless_options").set_sensitive(connection_exists)
 
     def _refresh_carrier_info(self):
         for row in self.dev_cfg_store:
