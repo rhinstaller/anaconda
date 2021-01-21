@@ -25,6 +25,7 @@ from gi.repository import Pango, Gdk
 
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.core.i18n import CN_
 from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -64,10 +65,14 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
 
     @classmethod
     def should_run(cls, environment, data):
-        """Don't show the language support spoke on live media."""
+        """Should the spoke run?"""
+        if not is_module_available(LOCALIZATION):
+            return False
+
         if not NormalSpoke.should_run(environment, data):
             return False
 
+        # Don't show the language support spoke on live media.
         return context.payload.type not in PAYLOAD_LIVE_TYPES
 
     def __init__(self, *args, **kwargs):

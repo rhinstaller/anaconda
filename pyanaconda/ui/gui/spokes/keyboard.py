@@ -38,6 +38,7 @@ from pyanaconda.core.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, TH
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.util import strip_accents, have_word_match
 from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import threadMgr, AnacondaThread
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -289,6 +290,14 @@ class KeyboardSpoke(NormalSpoke):
 
     icon = "input-keyboard-symbolic"
     title = CN_("GUI|Spoke", "_Keyboard")
+
+    @classmethod
+    def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not is_module_available(LOCALIZATION):
+            return False
+
+        return NormalSpoke.should_run(environment, data)
 
     def __init__(self, *args):
         super().__init__(*args)
