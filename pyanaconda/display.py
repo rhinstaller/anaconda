@@ -155,7 +155,6 @@ def check_vnc_can_be_started(anaconda):
 def start_x11(xtimeout):
     """Start the X server for the Anaconda GUI."""
 
-    # Start Xorg and wait for it become ready
     util.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
                  ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
                  "-nolisten", "tcp", "-dpi", "96",
@@ -339,6 +338,8 @@ def setup_display(anaconda, options):
             stdout_log.warning("X startup failed, falling back to text mode")
             anaconda.display_mode = constants.DisplayModes.TUI
             anaconda.gui_startup_failed = True
+            if conf.system.can_switch_tty:
+                util.vtActivate(1)
             time.sleep(2)
 
         if not anaconda.gui_startup_failed:

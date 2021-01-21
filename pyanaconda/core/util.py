@@ -213,6 +213,12 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         for a minute. The process will also be added to the list of watched
         processes.
 
+        The problem here is that SIGUSR1 is also what we normally use to test the crash (exception)
+        handler. This code must guarantee that the X server will not live longer than the "scope"
+        within which we use the "GUI is ready" handler. If X somehow keeps existing outside that
+        "scope" and sends us SIGUSR1, it is understood to be "test crash handler" and becomes a
+        real crash.
+
         :param argv: The command line to run, as a list
         :param output_redirect: file or file descriptor to redirect stdout and stderr to
         :param timeout: Number of seconds to timing out.
@@ -231,7 +237,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         if x11_started[0]:
             return
         log.error("Timeout trying to start %s", argv[0])
-        raise ExitError("Timeout trying to start %s" % argv[0])
+        raise TimeoutError("Timeout trying to start %s" % argv[0])
 
     # preexec_fn to add the SIGUSR1 handler in the child
     def sigusr1_preexec():
@@ -249,15 +255,27 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
                                  preexec_fn=sigusr1_preexec)
         WatchProcesses.watch_process(childproc, argv[0])
 
-        # Wait for SIGUSR1
+        # Wait for SIGUSR1 or SIGALRM
         while not x11_started[0]:
             signal.pause()
 
-    finally:
-        # Put everything back where it was
-        signal.alarm(0)
+    except TimeoutError as e:
+        log.error("Xorg failed to start: %s", e)
         signal.signal(signal.SIGUSR1, old_sigusr1_handler)
+
+    finally:
+        # Turn off alarm
+        signal.alarm(0)
         signal.signal(signal.SIGALRM, old_sigalrm_handler)
+
+        # If X did not make it, stop caring and get rid of it
+        if not x11_started[0] and childproc:
+            WatchProcesses.unwatch_process(childproc)
+            childproc.terminate()
+            childproc.wait()
+
+        # Put back the exception-handler-testing handler
+        signal.signal(signal.SIGUSR1, old_sigusr1_handler)
 
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
