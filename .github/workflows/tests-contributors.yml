@@ -1,6 +1,7 @@
 # Run rhel-8 unit tests in a PR triggered by a "/test [...]" comment from an organization member.
-# This avoids running untrusted and unreviewed code on self-hosted runners.
-name: unit-tests-rhel-8
+# This avoids running untrusted and unreviewed code on self-hosted runners and with R/W permission and ability to read secrets.
+# See https://securitylab.github.com/research/github-actions-preventing-pwn-requests
+name: Run validation tests for external contributors
 on:
   issue_comment:
     types: [created]
@@ -10,7 +11,7 @@ jobs:
     if: startsWith(github.event.comment.body, '/test')
     runs-on: ubuntu-latest
     steps:
-      - name: Query comment author repository permissions
+      - name: Query author repository permissions
         uses: octokit/request-action@v2.x
         id: user_permission
         with:
@@ -48,6 +49,7 @@ jobs:
     timeout-minutes: 30
     env:
       TARGET_BRANCH_NAME: origin/rhel-8
+      STATUS_NAME: unit-tests
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -55,7 +57,7 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: unit-tests
+          context: ${{ env.STATUS_NAME }}
           state: pending
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -94,7 +96,7 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: unit-tests
+          context: ${{ env.STATUS_NAME }}
           state: ${{ job.status }}
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -107,12 +109,13 @@ jobs:
     timeout-minutes: 30
     env:
       TARGET_BRANCH_NAME: origin/rhel-8
+      STATUS_NAME: rpm-tests
     steps:
       - name: Create in-progress status
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: rpm-tests
+          context: ${{ env.STATUS_NAME }}
           state: pending
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -149,7 +152,7 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: rpm-tests
+          context: ${{ env.STATUS_NAME }}
           state: ${{ job.status }}
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
