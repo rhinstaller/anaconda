@@ -42,7 +42,160 @@ jobs:
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
 
-  unit-tests:
+  unit-tests-master:
+    needs: pr-info
+    if: needs.pr-info.outputs.base_ref == 'master' && needs.pr-info.outputs.allowed_user == 'true'
+    runs-on: ubuntu-20.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # empty = release that corresponds to current branch name
+        release: ['', 'eln']
+        include:
+          - release: eln
+            name-postfix: ' (eln)'
+            build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
+    env:
+      CI_TAG: '${{ matrix.release }}'
+      CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
+      STATUS_NAME: 'unit-tests${{ matrix.name-postfix }}'
+      TARGET_BRANCH_NAME: origin/master
+
+    steps:
+      # we post statuses manually as this does not run from a pull_request event
+      # https://developer.github.com/v3/repos/statuses/#create-a-status
+      - name: Create in-progress status
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: ${{ env.STATUS_NAME }}
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
+          ref: ${{ needs.pr-info.outputs.sha }}
+          fetch-depth: 0
+
+      - name: Rebase to current master
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
+          git rebase ${{ env.TARGET_BRANCH_NAME }}
+
+      - name: Check if container changed in this PR
+        id: check-dockerfile-changed
+        run: |
+          changes=$(git diff ${{ env.TARGET_BRANCH_NAME }}..HEAD -- dockerfile/anaconda-ci/)
+          # print for debugging
+          echo "$changes"
+          [ -z "$changes" ] || echo "::set-output name=changed::true"
+
+      # build container if files for dockerfile changed in the PR
+      - name: Build anaconda-ci container
+        # FIXME: always build ELN container, until we publish it to quay.io
+        if: steps.check-dockerfile-changed.outputs.changed || matrix.release == 'eln'
+        run: make -f Makefile.am anaconda-ci-build
+
+      - name: Run tests in anaconda-ci container
+        run: |
+          # put the log in the output, where it's easy to read and link to
+          make -f Makefile.am container-ci || { cat test-logs/test-suite.log; exit 1; }
+
+      - name: Upload test and coverage logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'logs${{ matrix.name-postfix }}'
+          path: test-logs/*
+
+      - name: Set result status
+        if: always()
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: ${{ env.STATUS_NAME }}
+          state: ${{ job.status }}
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  rpm-tests-master:
+    needs: pr-info
+    if: needs.pr-info.outputs.base_ref == 'master' && needs.pr-info.outputs.allowed_user == 'true'
+    runs-on: ubuntu-20.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # empty = release that corresponds to current branch name
+        release: ['', 'eln']
+        include:
+          - release: eln
+            name-postfix: ' (eln)'
+            build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
+    env:
+      CI_TAG: '${{ matrix.release }}'
+      CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
+      STATUS_NAME: 'rpm-tests${{ matrix.name-postfix }}'
+      TARGET_BRANCH_NAME: origin/master
+
+    steps:
+      - name: Create in-progress status
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: ${{ env.STATUS_NAME }}
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
+          ref: ${{ needs.pr-info.outputs.sha }}
+          fetch-depth: 0
+
+      - name: Rebase to current master
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
+          git rebase ${{ env.TARGET_BRANCH_NAME }}
+
+      - name: Build RPM test container
+        run: make -f Makefile.am anaconda-rpm-build
+
+      - name: Run RPM tests in container
+        run: make -f Makefile.am container-rpm-test
+
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'logs-rpm-test${{ matrix.name-postfix }}'
+          path: test-logs/*
+
+      - name: Set result status
+        if: always()
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: ${{ env.STATUS_NAME }}
+          state: ${{ job.status }}
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  unit-tests-rhel-8:
     needs: pr-info
     if: needs.pr-info.outputs.base_ref == 'rhel-8' && needs.pr-info.outputs.allowed_user == 'true'
     runs-on: [self-hosted, ci-tasks, rhel-8]
@@ -102,7 +255,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  rpm-tests:
+  rpm-tests-rhel-8:
     needs: pr-info
     if: needs.pr-info.outputs.base_ref == 'rhel-8' && needs.pr-info.outputs.allowed_user == 'true'
     runs-on: [self-hosted, kstest]
