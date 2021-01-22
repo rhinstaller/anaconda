@@ -1,8 +1,36 @@
-name: validate
+name: Run validation tests for owners
 on: [push, pull_request_target]
+
 jobs:
+  pr-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query author repository permissions
+        uses: octokit/request-action@v2.x
+        id: user_permission
+        with:
+          route: GET /repos/${{ github.repository }}/collaborators/${{ github.event.sender.login }}/permission
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # restrict running of tests to users with admin or write permission for the repository
+      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
+      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
+      - name: Check if user does have correct permissions
+        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
+        id: check_user_perm
+        run: |
+          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
+          echo "::set-output name=allowed_user::true"
+
+    outputs:
+      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
+
   unit-tests:
+    needs: pr-info
+    if: needs.pr-info.outputs.allowed_user == 'true'
     runs-on: ubuntu-20.04
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -10,11 +38,12 @@ jobs:
         release: ['', 'eln']
         include:
           - release: eln
+            name-postfix: ' (eln)'
             build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
     env:
       CI_TAG: '${{ matrix.release }}'
       CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
-    timeout-minutes: 30
+      TARGET_BRANCH_NAME: origin/master
 
     steps:
       - name: Clone repository
@@ -28,8 +57,8 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git log --oneline -1 origin/master
-          git rebase origin/master
+          git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
+          git rebase ${{ env.TARGET_BRANCH_NAME }}
 
       - name: Check if container changed in this PR
         id: check-dockerfile-changed
@@ -54,22 +83,27 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: 'logs${{ matrix.release }}'
+          name: 'logs${{ matrix.name-postfix }}'
           path: test-logs/*
 
   rpm-tests:
+    needs: pr-info
+    if: needs.pr-info.outputs.allowed_user == 'true'
     runs-on: ubuntu-20.04
+    timeout-minutes: 30
     strategy:
+      fail-fast: false
       matrix:
         # empty = release that corresponds to current branch name
         release: ['', 'eln']
         include:
           - release: eln
+            name-postfix: ' (eln)'
             build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
     env:
       CI_TAG: '${{ matrix.release }}'
       CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
-    timeout-minutes: 30
+      TARGET_BRANCH_NAME: origin/master
 
     steps:
       - name: Clone repository
@@ -83,8 +117,8 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git log --oneline -1 origin/master
-          git rebase origin/master
+          git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
+          git rebase ${{ env.TARGET_BRANCH_NAME }}
 
       - name: Build RPM test container
         run: make -f Makefile.am anaconda-rpm-build
@@ -96,5 +130,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: 'logs-rpm-test'
+          name: 'logs-rpm-test${{ matrix.name-postfix }}'
           path: test-logs/*
