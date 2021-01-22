@@ -73,6 +73,7 @@ class FSSetTestCase(unittest.TestCase):
             '/run',
             '/sys',
             '/sys/fs/selinux',
+            '/tmp',
         ])
 
         self.assertEqual(format_types, [
@@ -83,7 +84,8 @@ class FSSetTestCase(unittest.TestCase):
             'usbfs',
             'bind',
             'sysfs',
-            'selinuxfs'
+            'selinuxfs',
+            'tmpfs',
         ])
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", EFI())
@@ -103,6 +105,7 @@ class FSSetTestCase(unittest.TestCase):
             '/sys',
             '/sys/firmware/efi/efivars',
             '/sys/fs/selinux',
+            '/tmp',
         ])
 
         self.assertEqual(format_types, [
@@ -114,7 +117,41 @@ class FSSetTestCase(unittest.TestCase):
             'bind',
             'sysfs',
             'efivarfs',
-            'selinuxfs'
+            'selinuxfs',
+            'tmpfs',
+        ])
+
+    @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
+    def collect_filesystems_tmp_test(self):
+        """Test the collect_filesystems method with /tmp."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/tmp")))
+
+        devices = self.fsset.collect_filesystems()
+        mount_points = self._get_mount_points(devices)
+        format_types = self._get_format_types(devices)
+
+        self.assertEqual(mount_points, [
+            '/dev',
+            '/dev/pts',
+            '/dev/shm',
+            '/proc',
+            '/proc/bus/usb',
+            '/run',
+            '/sys',
+            '/sys/fs/selinux',
+            '/tmp',
+        ])
+
+        self.assertEqual(format_types, [
+            'bind',
+            'devpts',
+            'tmpfs',
+            'proc',
+            'usbfs',
+            'bind',
+            'sysfs',
+            'selinuxfs',
+            'ext4',
         ])
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
@@ -143,7 +180,8 @@ class FSSetTestCase(unittest.TestCase):
             '/proc/bus/usb',
             '/run',
             '/sys',
-            '/sys/fs/selinux'
+            '/sys/fs/selinux',
+            '/tmp',
         ])
 
         self.assertEqual(format_types, [
@@ -159,5 +197,6 @@ class FSSetTestCase(unittest.TestCase):
             'usbfs',
             'bind',
             'sysfs',
-            'selinuxfs'
+            'selinuxfs',
+            'tmpfs',
         ])

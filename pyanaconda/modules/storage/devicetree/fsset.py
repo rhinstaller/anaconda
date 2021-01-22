@@ -80,9 +80,10 @@ def get_containing_device(path, devicetree):
     return devicetree.get_device_by_name(device_name)
 
 
-def get_system_filesystems():
+def get_system_filesystems(devicetree):
     """Get system filesystems.
 
+    :param devicetree: a model of the storage
     :return: a list of new devices
     """
     devices = [
@@ -156,6 +157,16 @@ def get_system_filesystems():
                 "efivarfs",
                 device="efivarfs",
                 mountpoint="/sys/firmware/efi/efivars"
+            )
+        )
+        devices.append(device)
+
+    if "/tmp" not in devicetree.mountpoints:
+        device = NoDevice(
+            fmt=get_format(
+                "tmpfs",
+                device="tmpfs",
+                mountpoint="/tmp"
             )
         )
         devices.append(device)
@@ -305,7 +316,9 @@ class FSSet(object):
     @property
     def system_filesystems(self):
         if not self._system_filesystems:
-            self._system_filesystems = get_system_filesystems()
+            self._system_filesystems = get_system_filesystems(
+                self.devicetree
+            )
 
         return self._system_filesystems
 
