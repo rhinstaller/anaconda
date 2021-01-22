@@ -80,6 +80,89 @@ def get_containing_device(path, devicetree):
     return devicetree.get_device_by_name(device_name)
 
 
+def get_system_filesystems():
+    """Get system filesystems.
+
+    :return: a list of new devices
+    """
+    devices = [
+        DirectoryDevice(
+            "/dev",
+            exists=True,
+            fmt=get_format(
+                "bind",
+                device="/dev",
+                mountpoint="/dev",
+                exists=True
+            ),
+        ),
+        NoDevice(
+            fmt=get_format(
+                "tmpfs",
+                device="tmpfs",
+                mountpoint="/dev/shm"
+            )
+        ),
+        NoDevice(
+            fmt=get_format(
+                "devpts",
+                device="devpts",
+                mountpoint="/dev/pts"
+            )
+        ),
+        NoDevice(
+            fmt=get_format(
+                "sysfs",
+                device="sysfs",
+                mountpoint="/sys"
+            )
+        ),
+        NoDevice(
+            fmt=get_format(
+                "proc",
+                device="proc",
+                mountpoint="/proc"
+            )
+        ),
+        NoDevice(
+            fmt=get_format(
+                "selinuxfs",
+                device="selinuxfs",
+                mountpoint="/sys/fs/selinux"
+            )
+        ),
+        NoDevice(
+            fmt=get_format(
+                "usbfs",
+                device="usbfs",
+                mountpoint="/proc/bus/usb"
+            )
+        ),
+        DirectoryDevice(
+            "/run",
+            exists=True,
+            fmt=get_format(
+                "bind",
+                device="/run",
+                mountpoint="/run",
+                exists=True
+            )
+        )
+    ]
+
+    if isinstance(platform, EFI):
+        device = NoDevice(
+            fmt=get_format(
+                "efivarfs",
+                device="efivarfs",
+                mountpoint="/sys/firmware/efi/efivars"
+            )
+        )
+        devices.append(device)
+
+    return devices
+
+
 class BlkidTab(object):
     """ Dictionary-like interface to blkid.tab with device path keys """
 
@@ -215,77 +298,16 @@ class FSSet(object):
         self.devicetree = devicetree
         self.crypt_tab = None
         self.blkid_tab = None
-        self._dev = None
-        self._devpts = None
-        self._sysfs = None
-        self._proc = None
-        self._devshm = None
-        self._usb = None
-        self._selinux = None
-        self._run = None
-        self._efivars = None
         self._fstab_swaps = set()
+        self._system_filesystems = []
         self.preserve_lines = []     # lines we just ignore and preserve
 
     @property
-    def sysfs(self):
-        if not self._sysfs:
-            self._sysfs = NoDevice(fmt=get_format("sysfs", device="sysfs", mountpoint="/sys"))
-        return self._sysfs
+    def system_filesystems(self):
+        if not self._system_filesystems:
+            self._system_filesystems = get_system_filesystems()
 
-    @property
-    def dev(self):
-        if not self._dev:
-            self._dev = DirectoryDevice("/dev",
-                                        fmt=get_format("bind", device="/dev", mountpoint="/dev", exists=True),
-                                        exists=True)
-
-        return self._dev
-
-    @property
-    def devpts(self):
-        if not self._devpts:
-            self._devpts = NoDevice(fmt=get_format("devpts", device="devpts", mountpoint="/dev/pts"))
-        return self._devpts
-
-    @property
-    def proc(self):
-        if not self._proc:
-            self._proc = NoDevice(fmt=get_format("proc", device="proc", mountpoint="/proc"))
-        return self._proc
-
-    @property
-    def devshm(self):
-        if not self._devshm:
-            self._devshm = NoDevice(fmt=get_format("tmpfs", device="tmpfs", mountpoint="/dev/shm"))
-        return self._devshm
-
-    @property
-    def usb(self):
-        if not self._usb:
-            self._usb = NoDevice(fmt=get_format("usbfs", device="usbfs", mountpoint="/proc/bus/usb"))
-        return self._usb
-
-    @property
-    def selinux(self):
-        if not self._selinux:
-            self._selinux = NoDevice(fmt=get_format("selinuxfs", device="selinuxfs", mountpoint="/sys/fs/selinux"))
-        return self._selinux
-
-    @property
-    def efivars(self):
-        if not self._efivars:
-            self._efivars = NoDevice(fmt=get_format("efivarfs", device="efivarfs", mountpoint="/sys/firmware/efi/efivars"))
-        return self._efivars
-
-    @property
-    def run(self):
-        if not self._run:
-            self._run = DirectoryDevice("/run",
-                                        fmt=get_format("bind", device="/run", mountpoint="/run", exists=True),
-                                        exists=True)
-
-        return self._run
+        return self._system_filesystems
 
     @property
     def devices(self):
@@ -508,18 +530,10 @@ class FSSet(object):
 
         :return: a list of devices
         """
-        devices = list(self.mountpoints.values())
-        devices.extend(self.swap_devices)
-
-        system_devices = [
-            self.dev, self.devshm, self.devpts, self.sysfs,
-            self.proc, self.selinux, self.usb, self.run
-        ]
-
-        devices.extend(system_devices)
-
-        if isinstance(platform, EFI):
-            devices.append(self.efivars)
+        devices = \
+            list(self.mountpoints.values()) + \
+            self.swap_devices + \
+            self.system_filesystems
 
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", ""))
         return devices
@@ -545,7 +559,7 @@ class FSSet(object):
             if "noauto" in options.split(","):
                 continue
 
-            if device.format.type == "bind" and device not in [self.dev, self.run]:
+            if device.format.type == "bind" and device.name not in ["/dev", "/run"]:
                 # set up the DirectoryDevice's parents now that they are
                 # accessible
                 #

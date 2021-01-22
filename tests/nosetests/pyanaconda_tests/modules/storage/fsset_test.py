@@ -47,6 +47,16 @@ class FSSetTestCase(unittest.TestCase):
         """Get format types of the given devices."""
         return [d.format.type for d in devices]
 
+    def system_filesystems_test(self):
+        """Test the system_filesystems property."""
+        devices = self.fsset.system_filesystems
+
+        # There are some devices in the list.
+        self.assertTrue(devices)
+
+        # The devices are always the same.
+        self.assertEqual(devices, self.fsset.system_filesystems)
+
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
     def collect_filesystems_test(self):
         """Test the collect_filesystems method."""
