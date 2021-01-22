@@ -35,7 +35,7 @@ class ZIPL(BootLoader):
 
     name = "ZIPL"
     config_file = "/etc/zipl.conf"
-    packages = ["s390utils-base"]
+    packages = ["s390utils-core"]
 
     # stage2 device requirements
     stage2_device_types = ["partition"]

@@ -116,8 +116,7 @@ class PlatformTestCase(unittest.TestCase):
         arch.is_s390.return_value = True
 
         self._check_platform(
-            platform_cls=S390,
-            packages=["s390utils"]
+            platform_cls=S390
         )
 
         self._check_partitions(
