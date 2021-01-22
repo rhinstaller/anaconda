@@ -503,6 +503,27 @@ class FSSet(object):
                 else:
                     break
 
+    def collect_filesystems(self):
+        """Collect the system's filesystems.
+
+        :return: a list of devices
+        """
+        devices = list(self.mountpoints.values())
+        devices.extend(self.swap_devices)
+
+        system_devices = [
+            self.dev, self.devshm, self.devpts, self.sysfs,
+            self.proc, self.selinux, self.usb, self.run
+        ]
+
+        devices.extend(system_devices)
+
+        if isinstance(platform, EFI):
+            devices.append(self.efivars)
+
+        devices.sort(key=lambda d: getattr(d.format, "mountpoint", ""))
+        return devices
+
     def mount_filesystems(self, root_path="", read_only=None, skip_root=False):
         """Mount the system's filesystems.
 
@@ -511,12 +532,7 @@ class FSSet(object):
         :type read_only: str or None
         :param bool skip_root: whether to skip mounting the root filesystem
         """
-        devices = list(self.mountpoints.values()) + self.swap_devices
-        devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
-                        self.proc, self.selinux, self.usb, self.run])
-        if isinstance(platform, EFI):
-            devices.append(self.efivars)
-        devices.sort(key=lambda d: getattr(d.format, "mountpoint", ""))
+        devices = self.collect_filesystems()
 
         for device in devices:
             if not device.format.mountable or not device.format.mountpoint:
@@ -560,13 +576,9 @@ class FSSet(object):
 
         Exclude swap if swapoff is False.
         """
-        devices = list(self.mountpoints.values()) + self.swap_devices
-        devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
-                        self.proc, self.usb, self.selinux, self.run])
-        if isinstance(platform, EFI):
-            devices.append(self.efivars)
-        devices.sort(key=lambda d: getattr(d.format, "mountpoint", ""))
+        devices = self.collect_filesystems()
         devices.reverse()
+
         for device in devices:
             if (not device.format.mountable) or \
                (device.format.type == "swap" and not swapoff):
