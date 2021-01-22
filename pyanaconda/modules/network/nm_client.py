@@ -226,8 +226,10 @@ def _update_bond_connection_from_ksdata(connection, network_data):
     if opts:
         for option in opts.split(';' if ';' in opts else ','):
             key, _sep, value = option.partition("=")
-            if not s_bond.add_option(key, value):
-                log.warning("adding bond option %s failed (invalid?)", key)
+            if s_bond.validate_option(key, value):
+                s_bond.add_option(key, value)
+            else:
+                log.warning("ignoring invalid bond option '%s=%s'", key, value)
     connection.add_setting(s_bond)
 
 
