@@ -37,9 +37,13 @@ jobs:
 
       - name: Parse launch arguments
         id: parse_launch_args
+        # Do not use comment body directly in the shell command to avoid possible code injection.
+        env:
+          BODY: ${{ github.event.comment.body }}
         run: |
           # extract first line and cut out the "/kickstart-tests" first word
-          LAUNCH_ARGS=$(echo '${{ github.event.comment.body }}' | sed -n '1 s/^[^ ]* *//p')
+          LAUNCH_ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p')
+          echo "launch arguments are: $LAUNCH_ARGS"
           echo "::set-output name=launch_args::${LAUNCH_ARGS}"
 
     outputs:
