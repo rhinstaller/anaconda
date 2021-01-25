@@ -410,8 +410,8 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             ["ens3", "ens5", "ens7", "bond0", "devA", "devB"]
         )
 
-    def _test_kickstart(self, ks_in, ks_out):
-        check_kickstart_interface(self, self.network_interface, ks_in, ks_out)
+    def _test_kickstart(self, ks_in, ks_out, **kwargs):
+        check_kickstart_interface(self, self.network_interface, ks_in, ks_out, **kwargs)
 
     def no_kickstart_test(self):
         """Test with no kickstart."""
@@ -543,6 +543,12 @@ class NetworkInterfaceTestCase(unittest.TestCase):
                 "reason": get_variant(Str, "Necessary for network team device configuration.")
             }
         ])
+
+    def kickstart_invalid_hostname_test(self):
+        """Test that invalid hostname in kickstart is not accepted"""
+        ks_in = "network --hostname sorry_underscores_banned"
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
 
 class FirewallInterfaceTestCase(unittest.TestCase):
