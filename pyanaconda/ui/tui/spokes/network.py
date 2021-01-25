@@ -224,6 +224,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @classmethod
     def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not FirstbootSpokeMixIn.should_run(environment, data):
+            return False
+
         return conf.system.can_configure_network
 
     def initialize(self):
