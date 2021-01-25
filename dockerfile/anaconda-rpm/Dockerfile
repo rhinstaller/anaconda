@@ -1,4 +1,4 @@
-ARG image=docker.io/fedora:rawhide
+ARG image=registry.fedoraproject.org/fedora:rawhide
 FROM ${image}
 LABEL maintainer=anaconda-list@redhat.com
 
