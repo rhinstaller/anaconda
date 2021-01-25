@@ -22,8 +22,8 @@ from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.users import crypt_password
 from pyanaconda import input_checking
 from pyanaconda.core import constants
-from pyanaconda.modules.common.constants.services import USERS, SERVICES
 from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.modules.common.constants.services import USERS
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
@@ -31,6 +31,7 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.lib.services import is_reconfiguration_mode
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -67,7 +68,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         NormalSpoke.__init__(self, *args)
         GUISpokeInputCheckHandler.__init__(self)
         self._users_module = USERS.get_proxy()
-        self._services_module = SERVICES.get_proxy()
         self._refresh_running = False
         self._manually_locked = False
 
@@ -171,11 +171,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     @property
     def status(self):
         if self._users_module.IsRootAccountLocked:
-            # check if we are running in Initial Setup reconfig mode
-            reconfig_mode = self._services_module.SetupOnBoot == constants.SETUP_ON_BOOT_RECONFIG
             # reconfig mode currently allows re-enabling a locked root account if
             # user sets a new root password
-            if reconfig_mode and not self._lock.get_active():
+            if is_reconfiguration_mode() and not self._lock.get_active():
                 return _("Disabled, set password to enable.")
             else:
                 return _("Root account is disabled.")

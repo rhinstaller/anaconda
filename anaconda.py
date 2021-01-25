@@ -529,19 +529,8 @@ if __name__ == "__main__":
     ksdata.displaymode.displayMode = display_mode_coversion_table[anaconda.display_mode]
     ksdata.displaymode.nonInteractive = not anaconda.interactive_mode
 
-    # If we're in text mode, the resulting system should be too
-    # ...unless the kickstart specified otherwise
-    # NOTE: Installation controlled via VNC is considered to be
-    #       a text mode installation, as the installation run itself
-    #       is effectively headless.
-    from pyanaconda.modules.common.constants.services import SERVICES
-    from pyanaconda.core.constants import TEXT_ONLY_TARGET
-
-    services_proxy = SERVICES.get_proxy()
-
-    if not services_proxy.DefaultTarget and (anaconda.tui_mode or flags.usevnc):
-        log.debug("no default systemd target set & in text/vnc mode - setting multi-user.target.")
-        services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
+    # Initialize the default systemd target.
+    startup_utils.initialize_default_systemd_target(text_mode=anaconda.tui_mode)
 
     # Set flag to prompt for missing ks data
     if not anaconda.interactive_mode:
@@ -657,14 +646,7 @@ if __name__ == "__main__":
 
     # Finish the initialization of the setup on boot action.
     # This should be done sooner and somewhere else once it is possible.
-    from pyanaconda.core.constants import SETUP_ON_BOOT_DEFAULT, SETUP_ON_BOOT_ENABLED
-    from pyanaconda.modules.common.constants.services import SERVICES
-    services_proxy = SERVICES.get_proxy()
-
-    if services_proxy.SetupOnBoot == SETUP_ON_BOOT_DEFAULT:
-        if  not flags.automatedInstall:
-            # Enable by default for interactive installations.
-            services_proxy.SetSetupOnBoot(SETUP_ON_BOOT_ENABLED)
+    startup_utils.initialize_first_boot_action()
 
     # Create pre-install snapshots
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL
