@@ -60,10 +60,10 @@ jobs:
           git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
           git rebase ${{ env.TARGET_BRANCH_NAME }}
 
-      - name: Check if container changed in this PR
+      - name: Check if rebuild of the container image is required
         id: check-dockerfile-changed
         run: |
-          changes=$(git diff origin/master..HEAD -- dockerfile/anaconda-ci/)
+          changes=$(git diff origin/master..HEAD -- dockerfile/anaconda-ci/ anaconda.spec.in scripts/testing/install_dependencies.sh)
           # print for debugging
           echo "$changes"
           [ -z "$changes" ] || echo "::set-output name=changed::true"
