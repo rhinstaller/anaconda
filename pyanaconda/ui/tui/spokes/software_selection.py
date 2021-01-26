@@ -88,6 +88,18 @@ class SoftwareSpoke(NormalTUISpoke):
         """Initialize the spoke in a separate thread."""
         threadMgr.wait(THREAD_PAYLOAD)
 
+        # Initialize and check the software selection.
+        self._initialize_selection()
+
+        # Report that the software spoke has been initialized.
+        self.initialize_done()
+
+    def _initialize_selection(self):
+        """Initialize and check the software selection."""
+        if self.errors or not self.payload.base_repo:
+            log.debug("Skip the initialization of the software selection.")
+            return
+
         if not self._kickstarted:
             # Set the environment.
             self.set_default_environment()
@@ -102,9 +114,6 @@ class SoftwareSpoke(NormalTUISpoke):
         # We are already running in a thread, so it should not needlessly block anything
         # and only like this we can be sure we are really initialized.
         threadMgr.wait(THREAD_CHECK_SOFTWARE)
-
-        # report that the software spoke has been initialized
-        self.initialize_done()
 
     def set_default_environment(self):
         # If an environment was specified in the configuration, use that.
