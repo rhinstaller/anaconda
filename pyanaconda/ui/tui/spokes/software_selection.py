@@ -280,10 +280,17 @@ class SoftwareSpoke(NormalTUISpoke):
 
     @property
     def ready(self):
-        """ If we're ready to move on. """
-        return (not threadMgr.get(THREAD_PAYLOAD) and
-                not threadMgr.get(THREAD_CHECK_SOFTWARE) and
-                not threadMgr.get(THREAD_SOFTWARE_WATCHER))
+        """Is the spoke ready?
+
+        By default, the software selection spoke is not ready. We have to
+        wait until the installation source spoke is completed. This could be
+        because the user filled something out, or because we're done fetching
+        repo metadata from the mirror list, or we detected a DVD/CD.
+        """
+        return not threadMgr.get(THREAD_SOFTWARE_WATCHER) \
+            and not threadMgr.get(THREAD_PAYLOAD) \
+            and not threadMgr.get(THREAD_CHECK_SOFTWARE) \
+            and self.payload.base_repo is not None
 
     def apply(self):
         """Apply the changes."""

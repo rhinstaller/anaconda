@@ -22,7 +22,8 @@ import gi
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD, \
+    THREAD_CHECK_SOFTWARE
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import NoSuchGroup, DependencyError, PayloadError
@@ -248,14 +249,17 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def ready(self):
-        # By default, the software selection spoke is not ready.  We have to
-        # wait until the installation source spoke is completed.  This could be
-        # because the user filled something out, or because we're done fetching
-        # repo metadata from the mirror list, or we detected a DVD/CD.
-        return bool(not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
-                    not threadMgr.get(constants.THREAD_PAYLOAD) and
-                    not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
-                    self.payload.base_repo is not None)
+        """Is the spoke ready?
+
+        By default, the software selection spoke is not ready. We have to
+        wait until the installation source spoke is completed. This could be
+        because the user filled something out, or because we're done fetching
+        repo metadata from the mirror list, or we detected a DVD/CD.
+        """
+        return not threadMgr.get(THREAD_SOFTWARE_WATCHER) \
+            and not threadMgr.get(THREAD_PAYLOAD) \
+            and not threadMgr.get(THREAD_CHECK_SOFTWARE) \
+            and self.payload.base_repo is not None
 
     @property
     def status(self):
