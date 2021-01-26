@@ -92,9 +92,10 @@ def _prepare_configuration(payload, ksdata):
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
 
     # add installation tasks for the Security DBus module
-    security_proxy = SECURITY.get_proxy()
-    security_dbus_tasks = security_proxy.InstallWithTasks()
-    os_config.append_dbus_tasks(SECURITY, security_dbus_tasks)
+    if is_module_available(SECURITY):
+        security_proxy = SECURITY.get_proxy()
+        security_dbus_tasks = security_proxy.InstallWithTasks()
+        os_config.append_dbus_tasks(SECURITY, security_dbus_tasks)
 
     # add installation tasks for the Timezone DBus module
     # run these tasks before tasks of the Services module
@@ -171,12 +172,14 @@ def _prepare_configuration(payload, ksdata):
     generate_initramfs.append(Task("Generate initramfs", run_generate_initramfs))
     configuration_queue.append(generate_initramfs)
 
-    # Configure FIPS.
-    configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.ConfigureFIPSWithTask()])
+    if is_module_available(SECURITY):
+        security_proxy = SECURITY.get_proxy()
 
-    # realm join
-    # - this can run only after network is configured in the target system chroot
-    configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
+        # Configure FIPS.
+        configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.ConfigureFIPSWithTask()])
+
+        # Join a realm. This can run only after network is configured in the target system chroot.
+        configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
 
     post_scripts = TaskQueue("Post installation scripts", N_("Running post-installation scripts"))
     post_scripts.append(Task("Run post installation scripts", runPostScripts, (ksdata.scripts,)))
@@ -288,13 +291,15 @@ def _prepare_installation(payload, ksdata):
         # only when the task is actually started, not at task creation time
         pre_install.append(WriteResolvConfTask("Copy resolv.conf to sysroot"))
 
-    # realm discovery
-    security_proxy = SECURITY.get_proxy()
-    pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
+    if is_module_available(SECURITY):
+        security_proxy = SECURITY.get_proxy()
 
-    # Set up FIPS for the payload installation.
-    fips_task = security_proxy.PreconfigureFIPSWithTask(payload.type)
-    pre_install.append_dbus_tasks(SECURITY, [fips_task])
+        # Discover a realm.
+        pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
+
+        # Set up FIPS for the payload installation.
+        fips_task = security_proxy.PreconfigureFIPSWithTask(payload.type)
+        pre_install.append_dbus_tasks(SECURITY, [fips_task])
 
     # Install the payload.
     pre_install.append(Task("Find additional packages & run pre_install()", payload.pre_install))

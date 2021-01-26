@@ -487,14 +487,8 @@ if __name__ == "__main__":
     # Set up the payload from the cmdline options.
     anaconda.payload.set_from_opts(opts)
 
-    from pyanaconda.modules.common.constants.services import SECURITY
-    security_proxy = SECURITY.get_proxy()
-    # Override the selinux state from kickstart if set on the command line
-    if conf.security.selinux != constants.SELINUX_DEFAULT:
-        security_proxy.SetSELinux(conf.security.selinux)
-    # Enable fingerprint option by default (#481273).
-    if not flags.automatedInstall:
-        security_proxy.SetFingerprintAuthEnabled(True)
+    # Initialize the security configuration.
+    startup_utils.initialize_security()
 
     # Set the language before loading an interface, when it may be too late.
     startup_utils.initialize_locale(opts, text_mode=anaconda.tui_mode)
