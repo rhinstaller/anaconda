@@ -182,11 +182,13 @@ Requires: hfsplus-tools
 %endif
 # kexec support
 Requires: kexec-tools
+# needed for proper driver disk support - if RPMs must be installed, a repo is needed
 Requires: createrepo_c
 # run's on TTY1 in install env
 Requires: tmux
 # install time crash handling
 Requires: gdb
+# support for installation from image and live & live image installations
 Requires: rsync
 Recommends: zram-generator-defaults
 
@@ -194,6 +196,41 @@ Recommends: zram-generator-defaults
 The anaconda-install-env-deps metapackage lists all installation environment dependencies.
 This makes it possible for packages (such as Initial Setup) to depend on the main Anaconda package without
 pulling in all the install time dependencies as well.
+
+%package install-img-deps
+Summary: Installation image specific dependencies
+# This package must have no weak dependencies.
+Requires: udisks2-iscsi
+Requires: libblockdev-plugins-all >= %{libblockdevver}
+# active directory/freeipa join support
+Requires: realmd
+Requires: isomd5sum >= %{isomd5sumver}
+%ifarch %{ix86} x86_64
+Requires: fcoe-utils >= %{fcoeutilsver}
+%endif
+# likely HFS+ resize support
+%ifarch %{ix86} x86_64
+%if ! 0%{?rhel}
+Requires: hfsplus-tools
+%endif
+%endif
+# kexec support
+Requires: kexec-tools
+# needed for proper driver disk support - if RPMs must be installed, a repo is needed
+Requires: createrepo_c
+# run's on TTY1 in install env
+Requires: tmux
+# install time crash handling
+Requires: gdb
+# support for installation from image and live & live image installations
+Requires: rsync
+# only WeakRequires elsewhere and not guaranteed to be present
+Requires: device-mapper-multipath
+Requires: zram-generator-defaults
+
+%description install-img-deps
+The anaconda-install-img-deps metapackage lists all boot.iso installation image dependencies.
+Add this package to an image build (eg. with lorax) to ensure all Anaconda capabilities are supported in the resulting image.
 
 %package gui
 Summary: Graphical user interface for the Anaconda installer
@@ -290,6 +327,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %files install-env-deps
 
 # Allow the lang file to be empty
+%define _empty_manifest_terminate_build 0
+
+%files install-img-deps
+
+# Allow the lang file to be empty here too
 %define _empty_manifest_terminate_build 0
 
 %files core -f %{name}.lang
