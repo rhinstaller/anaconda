@@ -29,9 +29,7 @@ from pyanaconda.core.constants import \
 # Locations of repo files.
 DNF_REPO_DIRS = [
     '/etc/yum.repos.d',
-    '/etc/anaconda.repos.d',
-    '/tmp/updates/anaconda.repos.d',
-    '/tmp/product/anaconda.repos.d'
+    '/etc/anaconda.repos.d'
 ]
 
 

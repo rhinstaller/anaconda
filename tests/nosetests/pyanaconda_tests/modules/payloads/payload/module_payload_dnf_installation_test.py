@@ -102,7 +102,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
-            ('__file_context_path', '/tmp/updates/file_contexts'),
+            ('__file_context_path', '/etc/selinux/targeted/contexts/files/file_contexts'),
         ]
 
         task = self._run_task(data)

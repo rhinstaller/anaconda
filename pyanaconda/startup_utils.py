@@ -371,8 +371,7 @@ def find_kickstart(options):
         flags.eject = False
         ks_files = ["/run/install/ks.cfg"]
     else:
-        ks_files = ["/tmp/updates/interactive-defaults.ks",
-                    "/usr/share/anaconda/interactive-defaults.ks"]
+        ks_files = ["/usr/share/anaconda/interactive-defaults.ks"]
 
     for ks in ks_files:
         if not os.path.exists(ks):

@@ -25,12 +25,6 @@ done
 # Add Anaconda addons to the PYTHONPATH.
 PYTHONPATH="$PYTHONPATH:/usr/share/anaconda/addons"
 
-# Add updates & product image directories to PYTHONPATH if
-# it looks like we are in the installation environment.
-if [ -d "/run/install" ]; then
-  PYTHONPATH="/run/install/updates:/run/install/product:/tmp/updates:/tmp/product:$PYTHONPATH"
-fi
-
 # Export the modified PYTHONPATH.
 export PYTHONPATH
 

@@ -19,8 +19,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-rm -rf /tmp/updates || echo "Error removing /tmp/updates. Updates won't be re-downloaded." >&2
-
 if [[ -f /var/run/iscsid.pid ]]; then
     # iscsid must die else it will cause us troubles on the next run
     # log out of all nodes

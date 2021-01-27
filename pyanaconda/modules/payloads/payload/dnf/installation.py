@@ -67,8 +67,7 @@ class SetRPMMacrosTask(Task):
             macros.append(('_install_langs', data.languages))
 
         if conf.security.selinux:
-            for d in ["/tmp/updates",
-                      "/etc/selinux/targeted/contexts/files",
+            for d in ["/etc/selinux/targeted/contexts/files",
                       "/etc/security/selinux/src/policy",
                       "/etc/security/selinux"]:
                 f = d + "/file_contexts"

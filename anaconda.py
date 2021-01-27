@@ -103,72 +103,12 @@ def exitHandler(rebootData):
 
 def setup_python_updates():
     """Setup updates to Anaconda Python files."""
-    from distutils.sysconfig import get_python_lib
     import gi.overrides
 
     if "ANACONDA_WIDGETS_OVERRIDES" in os.environ:
         for p in os.environ["ANACONDA_WIDGETS_OVERRIDES"].split(":"):
             gi.overrides.__path__.insert(0, os.path.abspath(p))
 
-    # Temporary hack for F18 alpha to symlink updates and product directories
-    # into tmpfs.  To be removed after beta in order to directly use content
-    # from /run/install/ -- JLK
-    for dirname in ("updates", "product"):
-        if os.path.exists("/run/install/%s" % dirname):
-            if os.path.islink("/tmp/%s" % dirname):
-                # Assume updates have already been setup
-                return
-            os.symlink("/run/install/%s" % dirname,
-                       "/tmp/%s" % dirname)
-
-    if not os.path.exists("/tmp/updates"):
-        return
-
-    for pkg in os.listdir("/tmp/updates"):
-        d = "/tmp/updates/%s" % pkg
-
-        if not os.path.isdir(d):
-            continue
-
-        # See if the package exists in /usr/lib{64,}/python/?.?/site-packages.
-        # If it does, we can set it up as an update.  If not, the pkg is
-        # likely a completely new directory and should not be looked at.
-        dest = "%s/%s" % (get_python_lib(), pkg)
-        if not os.access(dest, os.R_OK):
-            dest = "%s/%s" % (get_python_lib(1), pkg)
-            if not os.access(dest, os.R_OK):
-                continue
-        # Symlink over everything that's in the python libdir but not in
-        # the updates directory.
-        symlink_updates(dest, d)
-
-    gi.overrides.__path__.insert(0, "/run/install/updates")
-
-    import glob
-    import shutil
-    for rule in glob.glob("/tmp/updates/*.rules"):
-        target = "/etc/udev/rules.d/" + rule.split('/')[-1]
-        shutil.copyfile(rule, target)
-
-def symlink_updates(dest_dir, update_dir):
-    """Setup symlinks for the updates from the updates image.
-
-    :param str dest_dir: symlink target
-    :param str update_dir: symlink source (updates image content)
-    """
-    contents = os.listdir(update_dir)
-
-    for f in os.listdir(dest_dir):
-        dest_path = os.path.join(dest_dir, f)
-        update_path = os.path.join(update_dir, f)
-        if f in contents:
-            # recurse into directories, there might be files missing in updates
-            if os.path.isdir(dest_path) and os.path.isdir(update_path):
-                symlink_updates(dest_path, update_path)
-        else:
-            if f.endswith(".pyc") or f.endswith(".pyo"):
-                continue
-            os.symlink(dest_path, update_path)
 
 def parse_arguments(argv=None, boot_cmdline=None):
     """Parse command line/boot options and arguments.
@@ -188,9 +128,6 @@ def parse_arguments(argv=None, boot_cmdline=None):
 
 def setup_python_path():
     """Add items Anaconda needs to sys.path."""
-    # First add our updates path
-    sys.path.insert(0, '/tmp/updates/')
-
     from pyanaconda.core.constants import ADDON_PATHS
     # append ADDON_PATHS dirs at the end
     sys.path.extend(ADDON_PATHS)
@@ -300,8 +237,9 @@ if __name__ == "__main__":
         sys.exit(0)
 
     log.info("%s %s", sys.argv[0], util.get_anaconda_version_string(build_time_version=True))
-    if os.path.exists("/tmp/updates"):
-        log.info("Using updates in /tmp/updates/ from %s", opts.updateSrc)
+
+    if opts.updates_url:
+        log.info("Using updates from: %s", opts.updates_url)
 
     # warn users that they should use inst. prefix all the time
     for arg in removed_no_inst_args:
