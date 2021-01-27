@@ -90,6 +90,12 @@ class PassphraseDialog(GUIObject):
         self._checker.add_check(self._ascii_check)
         self._checker.add_check(self._empty_check)
 
+        # set the visibility of the password entries
+        # - without this the password visibility toggle icon will
+        #   not be shown
+        set_password_visibility(self._passphrase_entry, False)
+        set_password_visibility(self._confirm_entry, False)
+
     def refresh(self):
         super().refresh()
 
