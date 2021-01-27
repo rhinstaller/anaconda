@@ -398,11 +398,6 @@ class PS3(PPC):
 class S390(Platform):
 
     @property
-    def packages(self):
-        """Packages required for this platform."""
-        return ["s390utils"]
-
-    @property
     def stage1_suggestion(self):
         """The platform-specific suggestion about the stage1 device."""
         return _(

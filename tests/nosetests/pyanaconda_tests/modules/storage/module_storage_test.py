@@ -290,11 +290,6 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.storage_interface.CollectRequirements(), [
             {
                 "type": get_variant(Str, "package"),
-                "name": get_variant(Str, "s390utils"),
-                "reason": get_variant(Str, "Required for the platform.")
-            },
-            {
-                "type": get_variant(Str, "package"),
                 "name": get_variant(Str, "lvm2"),
                 "reason": get_variant(Str, "Required to manage storage devices.")
             },
