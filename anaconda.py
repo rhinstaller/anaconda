@@ -101,14 +101,6 @@ def exitHandler(rebootData):
         else:  # reboot action is KS_REBOOT or None
             util.execWithRedirect("systemctl", ["--no-wall", "reboot"])
 
-def setup_python_updates():
-    """Setup updates to Anaconda Python files."""
-    import gi.overrides
-
-    if "ANACONDA_WIDGETS_OVERRIDES" in os.environ:
-        for p in os.environ["ANACONDA_WIDGETS_OVERRIDES"].split(":"):
-            gi.overrides.__path__.insert(0, os.path.abspath(p))
-
 
 def parse_arguments(argv=None, boot_cmdline=None):
     """Parse command line/boot options and arguments.
@@ -126,11 +118,6 @@ def parse_arguments(argv=None, boot_cmdline=None):
     namespace = ap.parse_args(argv, boot_cmdline=boot_cmdline)
     return (namespace, ap.removed_no_inst_bootargs)
 
-def setup_python_path():
-    """Add items Anaconda needs to sys.path."""
-    from pyanaconda.core.constants import ADDON_PATHS
-    # append ADDON_PATHS dirs at the end
-    sys.path.extend(ADDON_PATHS)
 
 def setup_environment():
     """Setup contents of os.environ according to Anaconda needs.
@@ -186,9 +173,9 @@ if __name__ == "__main__":
     except ImportError:
         pass
 
-    # this handles setting up updates for pypackages to minimize the set needed
-    setup_python_updates()
-    setup_python_path()
+    # Append Python paths to Anaconda addons at the end.
+    from pyanaconda.core.constants import ADDON_PATHS
+    sys.path.extend(ADDON_PATHS)
 
     # init threading before Gtk can do anything and before we start using threads
     from pyanaconda.threading import AnacondaThread, threadMgr
