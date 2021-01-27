@@ -17,7 +17,6 @@
 #
 import os
 import shutil
-import stat
 import time
 
 import gi
@@ -575,36 +574,6 @@ class FSSet(object):
             # Unmount the devices
             device.format.teardown()
 
-    def create_swap_file(self, device, size):
-        """Create and activate a swap file under storage root."""
-        filename = "/SWAP"
-        count = 0
-        basedir = os.path.normpath("%s/%s" % (conf.target.physical_root,
-                                              device.format.mountpoint))
-        while os.path.exists("%s/%s" % (basedir, filename)) or \
-                self.devicetree.get_device_by_name(filename):
-            count += 1
-            filename = "/SWAP-%d" % count
-
-        dev = FileDevice(filename,
-                         size=size,
-                         parents=[device],
-                         fmt=get_format("swap", device=filename))
-        dev.create()
-        dev.setup()
-        dev.format.create()
-        dev.format.setup()
-        # nasty, nasty
-        self.devicetree._add_device(dev)
-
-    def mk_dev_root(self):
-        root = self.root_device
-        sysroot = conf.target.system_root
-        dev = "%s/%s" % (sysroot, root.path)
-        if not os.path.exists("%s/dev/root" % (sysroot,)) and os.path.exists(dev):
-            rdev = os.stat(dev).st_rdev
-            os.mknod("%s/dev/root" % (sysroot,), stat.S_IFBLK | 0o600, rdev)
-
     @property
     def swap_devices(self):
         swaps = []
@@ -785,17 +754,6 @@ class FSSet(object):
         :type device: StorageDevice instance holding a swap format
         """
         self._fstab_swaps.add(device)
-
-    def remove_fstab_swap(self, device):
-        """Remove swap device from the list of swaps that should appear in the fstab.
-
-        :param device: swap device that should be removed from the list
-        :type device: StorageDevice instance holding a swap format
-        """
-        try:
-            self._fstab_swaps.remove(device)
-        except KeyError:
-            pass
 
     def set_fstab_swaps(self, devices):
         """Set swap devices that should appear in the fstab.

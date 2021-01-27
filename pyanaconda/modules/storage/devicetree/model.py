@@ -445,12 +445,6 @@ class InstallerStorage(Blivet):
     def parse_fstab(self, chroot=None):
         self.fsset.parse_fstab(chroot=chroot)
 
-    def mk_dev_root(self):
-        self.fsset.mk_dev_root()
-
-    def create_swap_file(self, device, size):
-        self.fsset.create_swap_file(device, size)
-
     def make_mtab(self, chroot=None):
         path = "/etc/mtab"
         target = "/proc/self/mounts"
@@ -479,17 +473,6 @@ class InstallerStorage(Blivet):
         """
 
         self.fsset.add_fstab_swap(device)
-
-    def remove_fstab_swap(self, device):
-        """
-        Remove swap device from the list of swaps that should appear in the fstab.
-
-        :param device: swap device that should be removed from the list
-        :type device: blivet.devices.StorageDevice instance holding a swap format
-
-        """
-
-        self.fsset.remove_fstab_swap(device)
 
     def set_fstab_swaps(self, devices):
         """
