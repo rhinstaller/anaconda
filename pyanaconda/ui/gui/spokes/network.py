@@ -1466,6 +1466,14 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     category = SystemCategory
 
+    @classmethod
+    def should_run(cls, environment, data):
+        """Should the spoke run?"""
+        if not FirstbootSpokeMixIn.should_run(environment, data):
+            return False
+
+        return conf.system.can_configure_network
+
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.networking_changed = False
