@@ -81,7 +81,7 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
 # build/run tweaks for all containers, such as --cap-add
 CONTAINER_ENGINE ?= podman
-CONTAINER_BUILD_ARGS ?=
+CONTAINER_BUILD_ARGS ?= --no-cache
 CONTAINER_TEST_ARGS ?=
 
 # anaconda-ci container
