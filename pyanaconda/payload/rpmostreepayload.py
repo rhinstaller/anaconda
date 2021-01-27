@@ -27,7 +27,7 @@ from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
-from pyanaconda.payload.flatpak import FlatpakPayload
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
 
@@ -219,7 +219,7 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
         """
         super().__init__(*args, **kwargs)
 
-        flatpak_payload = FlatpakPayload(conf.target.system_root)
+        flatpak_payload = FlatpakManager(conf.target.system_root)
         # Initialize temporal repo to enable reading of the remote
         flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
         self._flatpak_required_size = Size(flatpak_payload.get_required_size())
@@ -242,7 +242,7 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
         progressQ.send_message(_("Starting Flatpak installation"))
 
         # Initialize new repo on the installed system
-        flatpak_payload = FlatpakPayload(conf.target.system_root)
+        flatpak_payload = FlatpakManager(conf.target.system_root)
         flatpak_payload.initialize_with_system_path()
 
         try:
@@ -254,6 +254,6 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
 
         flatpak_payload.add_remote("fedora", "oci+https://registry.fedoraproject.org")
         flatpak_payload.replace_installed_refs_remote("fedora")
-        flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
+        flatpak_payload.remove_remote(FlatpakManager.LOCAL_REMOTE_NAME)
 
         progressQ.send_message(_("Flatpak installation has finished"))

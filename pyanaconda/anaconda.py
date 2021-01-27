@@ -29,7 +29,7 @@ from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-from pyanaconda.payload.flatpak import FlatpakPayload
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -83,7 +83,7 @@ class Anaconda(object):
             payload_type = self._get_dbus_payload_type()
 
             if payload_type == PAYLOAD_TYPE_RPM_OSTREE:
-                if FlatpakPayload.is_available():
+                if FlatpakManager.is_source_available():
                     from pyanaconda.payload.rpmostreepayload import RPMOSTreePayloadWithFlatpaks
                     klass = RPMOSTreePayloadWithFlatpaks
                 else:
