@@ -417,6 +417,7 @@ class ISCSIDialog(GUIObject):
             task_proxy.Finish()
         except StorageDiscoveryError as e:
             # Login has failed, show the error.
+            self._loginErrorLabel.set_line_wrap(True)
             self._loginErrorLabel.set_text(str(e))
 
             self._set_login_sensitive(True)
