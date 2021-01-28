@@ -97,7 +97,7 @@ class AnacondaArgumentParser(ArgumentParser):
         """
         help_width = get_help_width()
         self._boot_arg = dict()
-        self.deprecated_bootargs = []
+        self.removed_no_inst_bootargs = []
         self.bootarg_prefix = kwargs.pop("bootarg_prefix", "")
         self.require_prefix = kwargs.pop("require_prefix", True)
         ArgumentParser.__init__(self, description=DESCRIPTION,
@@ -146,17 +146,23 @@ class AnacondaArgumentParser(ArgumentParser):
         """
         if arg == "version" or arg == "help":
             return None
+
+        prefixed_option = False
+
         if self.bootarg_prefix and arg.startswith(self.bootarg_prefix):
             prefixed_option = True
             arg = arg[len(self.bootarg_prefix):]
-        else:
-            prefixed_option = False
+
         option = self._boot_arg.get(arg)
 
+        if option and self.bootarg_prefix and not prefixed_option:
+            self.removed_no_inst_bootargs.append(arg)
+
+        # From Fedora 34 this prefix is required. However, leave the code here for some time to
+        # tell users that we are ignoring the old variants.
         if self.require_prefix and not prefixed_option:
             return None
-        if option and self.bootarg_prefix and not prefixed_option:
-            self.deprecated_bootargs.append(arg)
+
         return option
 
     def parse_boot_cmdline(self, boot_cmdline):
@@ -190,7 +196,7 @@ class AnacondaArgumentParser(ArgumentParser):
         else:
             bootargs = boot_cmdline
 
-        self.deprecated_bootargs = []
+        self.removed_no_inst_bootargs = []
         # go over all options corresponding to current boot cmdline
         # and do any modifications necessary
         # NOTE: program cmdline overrides boot cmdline
@@ -385,7 +391,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # If require_prefix is False, it also accepts the option without the
     # bootarg_prefix ('repo').
     # See anaconda_optparse.py and KernelArguments (in flags.py) for details.
-    ap = AnacondaArgumentParser(bootarg_prefix="inst.", require_prefix=False)
+    ap = AnacondaArgumentParser(bootarg_prefix="inst.", require_prefix=True)
     help_parser = HelpTextParser(os.path.join(datadir, "anaconda_options.txt"))
 
     # NOTE: store_false options will *not* get negated when the user does

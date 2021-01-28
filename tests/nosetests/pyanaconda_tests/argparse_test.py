@@ -28,7 +28,7 @@ class ArgparseTest(unittest.TestCase):
     def _parseCmdline(self, argv, version="", boot_cmdline=None):
         ap = argument_parsing.getArgumentParser(version, boot_cmdline)
         opts = ap.parse_args(argv, boot_cmdline=boot_cmdline)
-        return (opts, ap.deprecated_bootargs)
+        return (opts, ap.removed_no_inst_bootargs)
 
     def display_mode_test(self):
         opts, _deprecated = self._parseCmdline(['--cmdline'])
