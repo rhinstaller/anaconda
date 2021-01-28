@@ -219,13 +219,16 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
         """
         super().__init__(*args, **kwargs)
 
-        self._flatpak_payload = FlatpakPayload(conf.target.system_root)
+        flatpak_payload = FlatpakPayload(conf.target.system_root)
         # Initialize temporal repo to enable reading of the remote
-        self._flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
+        flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
+        self._flatpak_required_size = Size(flatpak_payload.get_required_size())
+        # Clean up temporal repo again
+        flatpak_payload.cleanup()
 
     @property
     def space_required(self):
-        return super().space_required + Size(self._flatpak_payload.get_required_size())
+        return super().space_required + self._flatpak_required_size
 
     def install(self):
         # install ostree payload first
@@ -237,21 +240,20 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
     def _flatpak_install(self):
         # Install flatpak from the local source on SilverBlue
         progressQ.send_message(_("Starting Flatpak installation"))
-        # Cleanup temporal repo created in the __init__
-        self._flatpak_payload.cleanup()
 
         # Initialize new repo on the installed system
-        self._flatpak_payload.initialize_with_system_path()
+        flatpak_payload = FlatpakPayload(conf.target.system_root)
+        flatpak_payload.initialize_with_system_path()
 
         try:
-            self._flatpak_payload.install_all()
+            flatpak_payload.install_all()
         except FlatpakInstallError as e:
             raise PayloadInstallError("Failed to install flatpaks: %s" % e) from e
 
         progressQ.send_message(_("Post-installation flatpak tasks"))
 
-        self._flatpak_payload.add_remote("fedora", "oci+https://registry.fedoraproject.org")
-        self._flatpak_payload.replace_installed_refs_remote("fedora")
-        self._flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
+        flatpak_payload.add_remote("fedora", "oci+https://registry.fedoraproject.org")
+        flatpak_payload.replace_installed_refs_remote("fedora")
+        flatpak_payload.remove_remote(FlatpakPayload.LOCAL_REMOTE_NAME)
 
         progressQ.send_message(_("Flatpak installation has finished"))
