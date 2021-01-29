@@ -194,7 +194,7 @@ class AnacondaArgumentParser(ArgumentParser):
         # go over all options corresponding to current boot cmdline
         # and do any modifications necessary
         # NOTE: program cmdline overrides boot cmdline
-        for arg, val in bootargs.items():
+        for arg, val in bootargs.items_raw():
             option = self._get_bootarg_option(arg)
             if option is None:
                 # this boot option is unknown to Anaconda, skip it

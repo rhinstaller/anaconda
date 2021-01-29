@@ -44,10 +44,10 @@ set_http_header "X-Anaconda-System-Release" "$product"
 # convenience function to warn the user about old argument names.
 warn_renamed_arg() {
     local arg=""
-    arg="$(getarg $1)" && warn "'$1=$arg'" && warn "$1 has been renamed to $2"
+    arg="$(getarg $1)" && warn "'$1=$arg'" && \
+        warn "$1 has been deprecated. All usage of Anaconda boot arguments without 'inst.' prefix \
+have been deprecated and will be removed in a future major release. Please use $2 instead."
 }
-
-warn_renamed_arg() { :; } # XXX REMOVE WHEN WE'RE READY FOR THE NEW NAMES.
 
 # check for deprecated arg, warn user, and write new arg to /etc/cmdline
 check_depr_arg() {
@@ -93,9 +93,15 @@ check_removed_arg asknetwork "Use an appropriate 'ip=' argument instead."
 warn_renamed_arg "lang" "inst.lang"
 warn_renamed_arg "keymap" "inst.keymap"
 
+# debug
+warn_renamed_arg "debug" "inst.debug"
+
 # repo
 check_depr_arg "method=" "repo=%s"
 warn_renamed_arg "repo" "inst.repo"
+
+# stage2
+warn_renamed_arg "stage2" "inst.stage2"
 
 # kickstart
 warn_renamed_arg "ks" "inst.ks"
@@ -126,6 +132,7 @@ if updates=$(getarg updates inst.updates); then
 fi
 
 # for vnc bring network up in initramfs so that cmdline configuration is used
+warn_renamed_arg "vnc" "inst.vnc"
 getargbool 0 vnc inst.vnc && warn "anaconda requiring network for vnc" && set_neednet
 
 # Driver Update Disk

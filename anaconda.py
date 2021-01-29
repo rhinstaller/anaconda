@@ -301,11 +301,14 @@ if __name__ == "__main__":
     if os.path.exists("/tmp/updates"):
         log.info("Using updates in /tmp/updates/ from %s", opts.updateSrc)
 
-    # TODO: uncomment this when we're sure that we're doing the right thing
-    # with kernel_arguments *everywhere* it appears...
-    #for arg in depr:
-    #    stdout_log.warn("Boot argument '%s' is deprecated. "
-    #                   "In the future, use 'inst.%s'.", arg, arg)
+    # warn users that they should use inst. prefix all the time
+    for arg in depr:
+        stdout_log.warning("Deprecated boot argument '%s' must be used with the 'inst.' prefix. "
+                           "Please use 'inst.%s' instead.",
+                           arg, arg)
+    if depr:
+        stdout_log.warning("Anaconda boot arguments without 'inst.' prefix have been deprecated "
+                           "and will be removed in a future major release.")
 
     from pyanaconda import isys
 

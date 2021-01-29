@@ -30,8 +30,7 @@ Anaconda bootup is handled by dracut, so most of the kernel arguments handled
 by dracut are also valid. See |dracutkernel|_ for details on those options.
 
 Throughout this guide, installer-specific options are prefixed with
-``inst`` (e.g. ``inst.ks``). Options specified without the ``inst`` prefix are
-recognized, but the prefix may be required in a future release.
+``inst`` (e.g. ``inst.ks``).
 
 .. _repo:
 
@@ -669,19 +668,19 @@ Forces/disables (on/off) usage of zRAM swap for the installation process.
 Boot loader options
 -------------------
 
-.. extlinux:
+.. inst.extlinux:
 
-extlinux
-^^^^^^^^
+inst.extlinux
+^^^^^^^^^^^^^
 
 Use extlinux as the bootloader. Note that there's no attempt to validate that
 this will work for your platform or anything; it assumes that if you ask for it,
 you want to try.
 
-.. leavebootorder:
+.. inst.leavebootorder:
 
-leavebootorder
-^^^^^^^^^^^^^^
+inst.leavebootorder
+^^^^^^^^^^^^^^^^^^^
 
 Boot the drives in their existing order, to override the default of booting into
 the newly installed drive on Power Systems servers and EFI systems. This is
