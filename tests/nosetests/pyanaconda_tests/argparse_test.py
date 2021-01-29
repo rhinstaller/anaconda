@@ -30,30 +30,64 @@ class ArgparseTest(unittest.TestCase):
         opts = ap.parse_args(argv, boot_cmdline=boot_cmdline)
         return (opts, ap.removed_no_inst_bootargs)
 
+    def without_inst_prefix_test(self):
+        boot_cmdline = KernelArguments.from_string("stage2=http://cool.server.com/test")
+        opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
+        self.assertEqual(opts.stage2, None)
+        self.assertEqual(removed, ["stage2"])
+
+        boot_cmdline = KernelArguments.from_string("stage2=http://cool.server.com/test "
+                                                   "vnc")
+        opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
+        self.assertEqual(opts.stage2, None)
+        self.assertFalse(opts.vnc)
+        self.assertListEqual(removed, ["stage2", "vnc"])
+
+    def with_inst_prefix_test(self):
+        boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test")
+        opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
+        self.assertEqual(opts.stage2, "http://cool.server.com/test")
+        self.assertEqual(removed, [])
+
+        boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test "
+                                                   "inst.vnc")
+        opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
+        self.assertEqual(opts.stage2, "http://cool.server.com/test")
+        self.assertTrue(opts.vnc)
+        self.assertEqual(removed, [])
+
+    def inst_prefix_mixed_test(self):
+        boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test "
+                                                   "vnc")
+        opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
+        self.assertEqual(opts.stage2, "http://cool.server.com/test")
+        self.assertFalse(opts.vnc)
+        self.assertListEqual(removed, ["vnc"])
+
     def display_mode_test(self):
-        opts, _deprecated = self._parseCmdline(['--cmdline'])
+        opts, _removed = self._parseCmdline(['--cmdline'])
         self.assertEqual(opts.display_mode, DisplayModes.TUI)
         self.assertTrue(opts.noninteractive)
 
-        opts, _deprecated = self._parseCmdline(['--graphical'])
+        opts, _removed = self._parseCmdline(['--graphical'])
         self.assertEqual(opts.display_mode, DisplayModes.GUI)
         self.assertFalse(opts.noninteractive)
 
-        opts, _deprecated = self._parseCmdline(['--text'])
+        opts, _removed = self._parseCmdline(['--text'])
         self.assertEqual(opts.display_mode, DisplayModes.TUI)
         self.assertFalse(opts.noninteractive)
 
-        opts, _deprecated = self._parseCmdline(['--noninteractive'])
+        opts, _removed = self._parseCmdline(['--noninteractive'])
         self.assertTrue(opts.noninteractive)
 
         # Test the default
-        opts, _deprecated = self._parseCmdline([])
+        opts, _removed = self._parseCmdline([])
         self.assertEqual(opts.display_mode, DisplayModes.GUI)
         self.assertFalse(opts.noninteractive)
 
         # console=whatever in the boot args defaults to --text
         boot_cmdline = KernelArguments.from_string("console=/dev/ttyS0")
-        opts, _deprecated = self._parseCmdline([], boot_cmdline=boot_cmdline)
+        opts, _removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
         self.assertEqual(opts.display_mode, DisplayModes.TUI)
 
     def selinux_test(self):
@@ -61,44 +95,44 @@ class ArgparseTest(unittest.TestCase):
         from pyanaconda.core.constants import SELINUX_DEFAULT
 
         # with no arguments, use SELINUX_DEFAULT
-        opts, _deprecated = self._parseCmdline([])
+        opts, _removed = self._parseCmdline([])
         self.assertEqual(opts.selinux, SELINUX_DEFAULT)
 
         # --selinux or --selinux=1 means SELINUX_ENFORCING
-        opts, _deprecated = self._parseCmdline(['--selinux'])
+        opts, _removed = self._parseCmdline(['--selinux'])
         self.assertEqual(opts.selinux, SELINUX_ENFORCING)
 
         # --selinux=0 means SELINUX_DISABLED
-        opts, _deprecated = self._parseCmdline(['--selinux=0'])
+        opts, _removed = self._parseCmdline(['--selinux=0'])
         self.assertEqual(opts.selinux, SELINUX_DISABLED)
 
         # --noselinux means SELINUX_DISABLED
-        opts, _deprecated = self._parseCmdline(['--noselinux'])
+        opts, _removed = self._parseCmdline(['--noselinux'])
         self.assertEqual(opts.selinux, SELINUX_DISABLED)
 
     def dirinstall_test(self):
         # when not specified, dirinstall should evaluate to False
-        opts, _deprecated = self._parseCmdline([])
+        opts, _removed = self._parseCmdline([])
         self.assertFalse(opts.dirinstall)
 
         # with no argument, dirinstall should default to /mnt/sysimage
-        opts, _deprecated = self._parseCmdline(['--dirinstall'])
+        opts, _removed = self._parseCmdline(['--dirinstall'])
         self.assertEqual(opts.dirinstall, "/mnt/sysimage")
 
         # with an argument, dirinstall should use that
-        opts, _deprecated = self._parseCmdline(['--dirinstall=/what/ever'])
+        opts, _removed = self._parseCmdline(['--dirinstall=/what/ever'])
         self.assertEqual(opts.dirinstall, "/what/ever")
 
     def storage_test(self):
         conf = AnacondaConfiguration.from_defaults()
 
-        opts, _deprecated = self._parseCmdline([])
+        opts, _removed = self._parseCmdline([])
         conf.set_from_opts(opts)
 
         self.assertEqual(conf.storage.dmraid, True)
         self.assertEqual(conf.storage.ibft, True)
 
-        opts, _deprecated = self._parseCmdline(['--nodmraid', '--ibft'])
+        opts, _removed = self._parseCmdline(['--nodmraid', '--ibft'])
         conf.set_from_opts(opts)
 
         self.assertEqual(conf.storage.dmraid, False)
@@ -107,7 +141,7 @@ class ArgparseTest(unittest.TestCase):
     def target_test(self):
         conf = AnacondaConfiguration.from_defaults()
 
-        opts, _deprecated = self._parseCmdline([])
+        opts, _removed = self._parseCmdline([])
         conf.set_from_opts(opts)
 
         self.assertEqual(conf.target.is_hardware, True)
@@ -115,7 +149,7 @@ class ArgparseTest(unittest.TestCase):
         self.assertEqual(conf.target.is_directory, False)
         self.assertEqual(conf.target.physical_root, "/mnt/sysimage")
 
-        opts, _deprecated = self._parseCmdline(['--image=/what/ever.img'])
+        opts, _removed = self._parseCmdline(['--image=/what/ever.img'])
         conf.set_from_opts(opts)
 
         self.assertEqual(conf.target.is_hardware, False)
@@ -123,7 +157,7 @@ class ArgparseTest(unittest.TestCase):
         self.assertEqual(conf.target.is_directory, False)
         self.assertEqual(conf.target.physical_root, "/mnt/sysimage")
 
-        opts, _deprecated = self._parseCmdline(['--dirinstall=/what/ever'])
+        opts, _removed = self._parseCmdline(['--dirinstall=/what/ever'])
         conf.set_from_opts(opts)
 
         self.assertEqual(conf.target.is_hardware, False)
@@ -134,28 +168,28 @@ class ArgparseTest(unittest.TestCase):
     def system_test(self):
         conf = AnacondaConfiguration.from_defaults()
 
-        opts, _deprecated = self._parseCmdline([])
+        opts, _removed = self._parseCmdline([])
         conf.set_from_opts(opts)
 
         self.assertEqual(conf.system._is_boot_iso, True)
         self.assertEqual(conf.system._is_live_os, False)
         self.assertEqual(conf.system._is_unknown, False)
 
-        opts, _deprecated = self._parseCmdline(['--liveinst'])
+        opts, _removed = self._parseCmdline(['--liveinst'])
         conf.set_from_opts(opts)
 
         self.assertEqual(conf.system._is_boot_iso, False)
         self.assertEqual(conf.system._is_live_os, True)
         self.assertEqual(conf.system._is_unknown, False)
 
-        opts, _deprecated = self._parseCmdline(['--dirinstall=/what/ever'])
+        opts, _removed = self._parseCmdline(['--dirinstall=/what/ever'])
         conf.set_from_opts(opts)
 
         self.assertEqual(conf.system._is_boot_iso, False)
         self.assertEqual(conf.system._is_live_os, False)
         self.assertEqual(conf.system._is_unknown, True)
 
-        opts, _deprecated = self._parseCmdline(['--image=/what/ever.img'])
+        opts, _removed = self._parseCmdline(['--image=/what/ever.img'])
         conf.set_from_opts(opts)
 
         self.assertEqual(conf.system._is_boot_iso, False)
