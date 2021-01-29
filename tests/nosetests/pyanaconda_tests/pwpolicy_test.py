@@ -21,6 +21,8 @@ import unittest
 from textwrap import dedent
 from unittest.mock import Mock, patch
 
+from pykickstart.errors import KickstartDeprecationWarning
+
 from pyanaconda import kickstart
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
 from pyanaconda.core.constants import PASSWORD_POLICY_ROOT, PASSWORD_POLICY_USER, \
@@ -45,7 +47,8 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         self.ksparser = kickstart.AnacondaKSParser(self.handler)
 
     def pwpolicy_test(self):
-        self.ksparser.readKickstartFromString(self.ks)
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.ksparser.readKickstartFromString(self.ks)
 
         self.assertIsInstance(self.handler, kickstart.AnacondaKSHandler)
         self.assertIsInstance(self.handler.anaconda, kickstart.AnacondaSectionHandler)

@@ -20,7 +20,7 @@
 import warnings
 
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
 from pykickstart.version import F22
 
@@ -221,3 +221,25 @@ class F22_PwPolicy(KickstartCommand):
             return self.handler.PwPolicyData()
         else:
             return None
+
+
+class F34_PwPolicyData(F22_PwPolicyData):
+    """ Kickstart Data object to hold information about pwpolicy. """
+    pass
+
+
+class F34_PwPolicy(F22_PwPolicy):
+    """ Kickstart command implementing password policy. """
+
+    def parse(self, args):
+        data = super().parse(args)
+
+        warnings.warn(_(
+            "The pwpolicy command has been deprecated. It "
+            "may be removed from future releases, which will "
+            "result in a fatal error when it is encountered. "
+            "Please modify your kickstart file to remove this "
+            "command."
+        ), KickstartDeprecationWarning)
+
+        return data

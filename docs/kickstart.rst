@@ -10,6 +10,7 @@ commands `documented here <https://pykickstart.readthedocs.io/>`_
 by adding a new kickstart section named ``%anaconda`` where commands to control the behavior
 of Anaconda will be defined.
 
+*Deprecated since Fedora 34.*
 
 pwpolicy
 --------
@@ -61,6 +62,11 @@ the kickstart, like this::
     %end
 
 .. note:: The commit message for pwpolicy included some incorrect examples.
+
+*Deprecated since Fedora 34.*
+
+.. note:: You can use the configuration option ``password_policies``.
+
 
 installclass
 ------------
