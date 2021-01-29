@@ -26,7 +26,6 @@ from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
 
@@ -218,12 +217,11 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
         """
         super().__init__(*args, **kwargs)
 
-        flatpak_payload = FlatpakManager(conf.target.system_root)
-        # Initialize temporal repo to enable reading of the remote
-        flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
-        self._flatpak_required_size = Size(flatpak_payload.get_required_size())
-        # Clean up temporal repo again
-        flatpak_payload.cleanup()
+        # find Flatpak installation size and cache it
+        from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization import \
+            GetFlatpaksSizeTask
+        task = GetFlatpaksSizeTask(conf.target.system_root)
+        self._flatpak_required_size = task.run()
 
     @property
     def space_required(self):

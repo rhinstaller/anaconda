@@ -19,9 +19,13 @@ import unittest
 from unittest.mock import patch
 from tempfile import TemporaryDirectory
 
+from blivet.size import Size
+
 from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import \
     InstallFlatpaksTask
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization import \
+    GetFlatpaksSizeTask
 
 
 class InstallFlatpakTaskTest(unittest.TestCase):
@@ -48,3 +52,21 @@ class InstallFlatpakTaskTest(unittest.TestCase):
             with self.assertRaises(PayloadInstallError):
                 task = InstallFlatpaksTask(temp)
                 task.run()
+
+
+class GetFlatpaksSizeTaskTest(unittest.TestCase):
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization.FlatpakManager")
+    def run_success_test(self, fm_mock):
+        """Test GetFlatpaksSizeTask"""
+        fm_instance = fm_mock.return_value
+        fm_instance.get_required_size.return_value = 123456789
+
+        with TemporaryDirectory() as temp:
+            task = GetFlatpaksSizeTask(temp)
+            result = task.run()
+            self.assertIsInstance(result, Size)
+            self.assertEqual(result, Size(123456789))
+
+        fm_instance.initialize_with_path.assert_called_once_with("/var/tmp/anaconda-flatpak-temp")
+        fm_instance.get_required_size.assert_called_once()
+        fm_instance.cleanup.assert_called_once()
