@@ -22,7 +22,7 @@ from unittest.mock import patch, create_autospec, DEFAULT
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadKickstartSharedTest
+from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import PayloadKickstartSharedTest
 
 from pyanaconda.modules.common.containers import PayloadContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError

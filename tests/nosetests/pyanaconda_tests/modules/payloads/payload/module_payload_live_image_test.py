@@ -20,8 +20,8 @@
 import unittest
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadKickstartSharedTest, \
-    PayloadSharedTest
+from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
+    PayloadKickstartSharedTest, PayloadSharedTest
 
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType

@@ -31,7 +31,8 @@ from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
+from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
+    PayloadSharedTest
 
 
 class PayloadBaseInterfaceTestCase(unittest.TestCase):

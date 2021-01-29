@@ -24,8 +24,8 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import 
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
-    PayloadKickstartSharedTest
+from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
+    PayloadSharedTest, PayloadKickstartSharedTest
 
 
 class RPMOSTreeInterfaceTestCase(unittest.TestCase):
