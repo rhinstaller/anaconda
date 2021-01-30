@@ -217,10 +217,18 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
     """
     # Use a list so the value can be modified from the handler function
     x11_started = [False]
+    x11_timeout = [False]
+    old_sigusr1_handler = None
 
     def sigusr1_handler(num, frame):
-        log.debug("X server has signalled a successful start.")
-        x11_started[0] = True
+        if x11_timeout[0] is False:
+            x11_started[0] = True
+            log.debug("X server has signalled a successful start.")
+            # We were left installed to wait for first SIGUSER1 that might come from the
+            # still-starting X11. Ignore that, and restore the previous handler.
+        else:
+            log.debug("get a signal_user1 signal, not sure if it was sent by Xorg")
+        signal.signal(signal.SIGUSR1, old_sigusr1_handler)
 
     # Fail after, let's say a minute, in case something weird happens
     # and we don't receive SIGUSR1
@@ -228,8 +236,10 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         # Check that it didn't make it under the wire
         if x11_started[0]:
             return
+        else:
+            x11_timeout[0] = True
         log.error("Timeout trying to start %s", argv[0])
-        raise ExitError("Timeout trying to start %s" % argv[0])
+        raise TimeoutError("Timeout trying to start %s" % argv[0])
 
     # preexec_fn to add the SIGUSR1 handler in the child
     def sigusr1_preexec():
@@ -251,10 +261,13 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         while not x11_started[0]:
             signal.pause()
 
+    except ExitError as e:
+        log.error("Xorg start failed %s", e.args)
+        signal.signal(signal.SIGUSR1, old_sigusr1_handler)
+
     finally:
         # Put everything back where it was
         signal.alarm(0)
-        signal.signal(signal.SIGUSR1, old_sigusr1_handler)
         signal.signal(signal.SIGALRM, old_sigalrm_handler)
 
 

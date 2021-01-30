@@ -340,6 +340,8 @@ def setup_display(anaconda, options):
             anaconda.display_mode = constants.DisplayModes.TUI
             anaconda.gui_startup_failed = True
             time.sleep(2)
+            if conf.system.can_switch_tty:
+                util.vtActivate(1)
 
         if not anaconda.gui_startup_failed:
             do_extra_x11_actions(options.runres, gui_mode=anaconda.gui_mode)
