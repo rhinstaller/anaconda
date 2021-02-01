@@ -17,13 +17,62 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+import warnings
+
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 from pykickstart.version import F22
 
-import warnings
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import PASSWORD_POLICY_ROOT, PASSWORD_POLICY_USER
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.constants.objects import USER_INTERFACE
+from pyanaconda.modules.common.constants.services import BOSS
+from pyanaconda.modules.common.structures.policy import PasswordPolicy
+
+log = get_module_logger(__name__)
+
+
+def apply_password_policy_from_kickstart(data):
+    """Apply the password policy specified in the kickstart file.
+
+    FIXME: This is a temporary workaround. Remove the pwpolicy
+           kickstart command in the next major release.
+
+    :param data: a kickstart data handler
+    """
+    if not data.anaconda.pwpolicy.seen:
+        log.debug("Using the password policy from the configuration.")
+        return
+
+    # Set up the UI DBus module.
+    ui_module = BOSS.get_proxy(USER_INTERFACE)
+    policies = {}
+
+    for pwdata in data.anaconda.pwpolicy.policyList:
+        policy = PasswordPolicy()
+
+        policy_name = pwdata.name
+        policy.min_quality = pwdata.minquality
+        policy.min_length = pwdata.minlen
+        policy.is_strict = pwdata.strict
+        policy.allow_empty = pwdata.emptyok
+
+        policies[policy_name] = policy
+
+    ui_module.SetPasswordPolicies(PasswordPolicy.to_structure_dict(policies))
+
+    # Set up the Anaconda configuration. This change will affect only the main
+    # process with UI, because the DBus modules are already running.
+    pwdata = data.anaconda.pwpolicy.get_policy(PASSWORD_POLICY_ROOT, fallback_to_default=True)
+    conf.ui._set_option("can_change_root", pwdata.changesok)
+
+    pwdata = data.anaconda.pwpolicy.get_policy(PASSWORD_POLICY_USER, fallback_to_default=True)
+    conf.ui._set_option("can_change_users", pwdata.changesok)
+
+    log.debug("Using the password policy from the kickstart file.")
 
 
 class F22_PwPolicyData(BaseData):
