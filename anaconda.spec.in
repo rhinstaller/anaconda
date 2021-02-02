@@ -367,6 +367,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 02 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.9-1
+- Change warning messages of missing prefix for RH products (jkonecny)
+  Resolves: rhbz#1897657
+- Do not use cache for container build (jkonecny)
+  Related: rhbz#1885635
+- Fix missing inst. prefixes for bootloader options in documentation (jkonecny)
+  Related: rhbz#1897657
+- Fix show missing inst. prefix warning appropriately (jkonencny)
+  Related: rhbz#1897657
+- Remove docs where we tell users that inst. prefix is not required (jkonecny)
+  Related: rhbz#1897657
+- Print warning for boot options without inst. prefix (jkonecny)
+  Related: rhbz#1897657
+- Add missing dracut commands as missing inst. prefix warning (jkonecny)
+  Related: rhbz#1897657
+- Enable warning when inst. prefix is not used (jkonecny)
+  Related: rhbz#1897657
+
 * Mon Jan 18 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.8-1
 - network: handle wireless configure button sensitiveness (rvykydal)
   Resolves: rhbz#1917437
