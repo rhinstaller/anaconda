@@ -38,8 +38,8 @@ from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest, \
-    PayloadKickstartSharedTest
+from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
+    PayloadSharedTest, PayloadKickstartSharedTest
 
 
 class DNFKSTestCase(unittest.TestCase):

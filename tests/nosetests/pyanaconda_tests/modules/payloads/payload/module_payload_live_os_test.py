@@ -23,7 +23,8 @@ from unittest.mock import Mock, patch
 
 from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
     patch_dbus_publish_object, PropertiesChangedCallback
-from tests.nosetests.pyanaconda_tests.module_payload_shared import PayloadSharedTest
+from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
+    PayloadSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
