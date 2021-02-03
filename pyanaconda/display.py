@@ -50,6 +50,17 @@ log = get_module_logger(__name__)
 stdout_log = get_stdout_logger()
 
 
+X_FAILURE_MESSAGE = \
+    "X startup failed, falling back to text mode. There are multiple ways to help this issue:\n" \
+    "* Do not load the stage2 image over a slow network link.\n" \
+    "* Wait for the X server startup longer with the inst.xtimeout=<SECONDS> boot option. " \
+    "The default is 60 seconds.\n" \
+    "* Load the stage2 image into memory with the rd.live.ram boot option to decrease access " \
+    "time.\n" \
+    "* Enforce text mode when installing from remote media with the inst.text boot option.\n" \
+    "* Use the customer portal download URL in ilo/drac devices for greater speed."
+
+
 # Spice
 
 def start_spice_vd_agent():
@@ -316,7 +327,7 @@ def setup_display(anaconda, options):
             do_startup_x11_actions()
         except (OSError, RuntimeError) as e:
             log.warning("X startup failed: %s", e)
-            stdout_log.warning("X startup failed, falling back to text mode")
+            stdout_log.warning(X_FAILURE_MESSAGE)
             anaconda.display_mode = constants.DisplayModes.TUI
             anaconda.gui_startup_failed = True
             time.sleep(2)
