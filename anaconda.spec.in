@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Feb 03 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.10-1
+- Mark the rhsm and syspurpose kickstart commands as useless (vponcova)
+  Resolves: rhbz#1921787
+- Fix getting kernel version list for liveimg (rvykydal)
+  Resolves: rhbz#1919463
+
 * Tue Feb 02 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.9-1
 - Change warning messages of missing prefix for RH products (jkonecny)
   Resolves: rhbz#1897657
