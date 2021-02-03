@@ -22,7 +22,8 @@ import gi
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD, \
+    THREAD_CHECK_SOFTWARE
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import NoSuchGroup, DependencyError, PayloadError
@@ -248,14 +249,17 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def ready(self):
-        # By default, the software selection spoke is not ready.  We have to
-        # wait until the installation source spoke is completed.  This could be
-        # because the user filled something out, or because we're done fetching
-        # repo metadata from the mirror list, or we detected a DVD/CD.
-        return bool(not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
-                    not threadMgr.get(constants.THREAD_PAYLOAD) and
-                    not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
-                    self.payload.base_repo is not None)
+        """Is the spoke ready?
+
+        By default, the software selection spoke is not ready. We have to
+        wait until the installation source spoke is completed. This could be
+        because the user filled something out, or because we're done fetching
+        repo metadata from the mirror list, or we detected a DVD/CD.
+        """
+        return not threadMgr.get(THREAD_SOFTWARE_WATCHER) \
+            and not threadMgr.get(THREAD_PAYLOAD) \
+            and not threadMgr.get(THREAD_CHECK_SOFTWARE) \
+            and self.payload.base_repo is not None
 
     @property
     def status(self):
@@ -317,6 +321,21 @@ class SoftwareSelectionSpoke(NormalSpoke):
         """Initialize the spoke in a separate thread."""
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
+        # Initialize and check the software selection.
+        self._initialize_selection()
+
+        # Update the status.
+        hubQ.send_ready(self.__class__.__name__)
+
+        # Report that the software spoke has been initialized.
+        self.initialize_done()
+
+    def _initialize_selection(self):
+        """Initialize and check the software selection."""
+        if self._error or not self.payload.base_repo:
+            log.debug("Skip the initialization of the software selection.")
+            return
+
         if not self._kickstarted:
             # Set the environment.
             self.set_default_environment()
@@ -331,9 +350,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # We are already running in a thread, so it should not needlessly block anything
         # and only like this we can be sure we are really initialized.
         threadMgr.wait(constants.THREAD_CHECK_SOFTWARE)
-
-        # report that the software spoke has been initialized
-        self.initialize_done()
 
     def set_default_environment(self):
         # If an environment was specified in the configuration, use that.

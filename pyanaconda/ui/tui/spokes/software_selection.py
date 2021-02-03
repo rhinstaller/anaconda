@@ -88,6 +88,18 @@ class SoftwareSpoke(NormalTUISpoke):
         """Initialize the spoke in a separate thread."""
         threadMgr.wait(THREAD_PAYLOAD)
 
+        # Initialize and check the software selection.
+        self._initialize_selection()
+
+        # Report that the software spoke has been initialized.
+        self.initialize_done()
+
+    def _initialize_selection(self):
+        """Initialize and check the software selection."""
+        if self.errors or not self.payload.base_repo:
+            log.debug("Skip the initialization of the software selection.")
+            return
+
         if not self._kickstarted:
             # Set the environment.
             self.set_default_environment()
@@ -102,9 +114,6 @@ class SoftwareSpoke(NormalTUISpoke):
         # We are already running in a thread, so it should not needlessly block anything
         # and only like this we can be sure we are really initialized.
         threadMgr.wait(THREAD_CHECK_SOFTWARE)
-
-        # report that the software spoke has been initialized
-        self.initialize_done()
 
     def set_default_environment(self):
         # If an environment was specified in the configuration, use that.
@@ -280,10 +289,17 @@ class SoftwareSpoke(NormalTUISpoke):
 
     @property
     def ready(self):
-        """ If we're ready to move on. """
-        return (not threadMgr.get(THREAD_PAYLOAD) and
-                not threadMgr.get(THREAD_CHECK_SOFTWARE) and
-                not threadMgr.get(THREAD_SOFTWARE_WATCHER))
+        """Is the spoke ready?
+
+        By default, the software selection spoke is not ready. We have to
+        wait until the installation source spoke is completed. This could be
+        because the user filled something out, or because we're done fetching
+        repo metadata from the mirror list, or we detected a DVD/CD.
+        """
+        return not threadMgr.get(THREAD_SOFTWARE_WATCHER) \
+            and not threadMgr.get(THREAD_PAYLOAD) \
+            and not threadMgr.get(THREAD_CHECK_SOFTWARE) \
+            and self.payload.base_repo is not None
 
     def apply(self):
         """Apply the changes."""
