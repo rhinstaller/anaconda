@@ -668,7 +668,7 @@ class DNFPayload(Payload):
         config.installroot = conf.target.system_root
         config.prepend_installroot('persistdir')
 
-        self._base.conf.substitutions.update_from_etc(config.installroot)
+        self._base.conf.substitutions.update_from_etc("/")
 
         if self.data.packages.multiLib:
             config.multilib_policy = "all"
