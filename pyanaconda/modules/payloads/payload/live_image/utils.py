@@ -32,7 +32,7 @@ def get_kernel_version_list_from_tar(tarfile_path):
     # Strip out vmlinuz- from the names
     kernel_version_list = [
         n.split("/")[-1][8:] for n in names
-        if "boot/vmlinuz-" in n
+        if "boot/vmlinuz-" in n and "-rescue-" not in n
     ]
 
     sort_kernel_version_list(kernel_version_list)
