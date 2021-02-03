@@ -367,6 +367,34 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Feb 03 2021 Martin Kolman <mkolman@redhat.com> - 34.22-1
+- Don't initialize the software selection if the payload is not set up
+  (#1916114) (vponcova)
+- Unify the ready methods of the software selection spokes (vponcova)
+- Deprecate the interactive-defaults.ks file (vponcova)
+- Deprecate the %%anaconda section and the pwpolicy command (vponcova)
+- Apply the pwpolicy kickstart command (vponcova)
+- Upate repo url for kickstart tests run on PR (rvykydal)
+- Adjust RHV-H product config to match real implementation (sbonazzo)
+- Add DBus support for the password policies (vponcova)
+- Don't use the pwpolicy kickstart command (vponcova)
+- Create a DBus structure for the password policy (vponcova)
+- Add the password_policies configuration option (vponcova)
+- Move Users module tests to a directory (vslavik)
+- Move Security module tests to a directory (vslavik)
+- Move partitioning specification test to directory (vslavik)
+- Move Payloads module and source tests to a directory (vslavik)
+- Move Network module tests to a directory (vslavik)
+- Add the configuration options can_change_root and can_change_users (vponcova)
+- Remove some unused methods from the FSSet class (vponcova)
+- Mount the /tmp of the installed system as a tmpfs (#1306452) (vponcova)
+- Create the get_system_filesystems function (vponcova)
+- Create the collect_filesystems method (vponcova)
+- Do not use cache for container build (jkonecny)
+- Update list of projects to test after move from Zanata to Weblate (vtrefny)
+- Ignore fallback ITS rule warning from gettext (vtrefny)
+- Switch the license to LGPL (dshea)
+
 * Thu Jan 28 2021 Martin Kolman <mkolman@redhat.com> - 34.21-1
 - Allow to disable the Security module (vponcova)
 - Add important files for container build to rebuild check (jkonecny)
