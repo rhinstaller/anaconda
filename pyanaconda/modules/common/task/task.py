@@ -83,31 +83,45 @@ class Task(AbstractTask):
         threadMgr.add(
             AnacondaThread(
                 name=self._thread_name,
-                target=self._task_run_callback,
+                target=self._thread_run_callback,
                 target_started=self._task_started_callback,
                 target_stopped=self._task_stopped_callback,
-                target_failed=self._task_failed_with_info_callback,
+                target_failed=self._thread_failed_callback,
                 fatal=False
             )
         )
 
-    def _task_run_callback(self):
-        """Report the first step and run the task."""
-        self.report_progress(self.name, step_number=1)
-        self._set_result(self.run())
+    def _thread_run_callback(self):
+        """Run a task and report the success."""
+        self._task_run_callback()
         self._task_succeeded_callback()
 
+    def _task_run_callback(self):
+        """Report the first step and run the task.
+.
+        Don't run the task if the task was canceled.
+        """
+        if self.check_cancel():
+            log.info("'%s' is canceled.", self.name)
+            return
+
+        self.report_progress(self.name, step_number=1)
+        self._set_result(self.run())
+
     def _task_succeeded_callback(self):
-        """Don't report the success if the task was canceled."""
+        """Callback for a successful task.
+
+        Don't report the success if the task was canceled.
+        """
         if not self.check_cancel():
             super()._task_succeeded_callback()
 
-    def _task_failed_with_info_callback(self, *exc_info):
+    def _thread_failed_callback(self, *exc_info):
         """Log the error and report the failure."""
         # pylint: disable=no-value-for-parameter
         formatted_info = "".join(traceback.format_exception(*exc_info))
         log.error("Thread %s has failed: %s", self._thread_name, formatted_info)
-        super()._task_failed_callback()
+        self._task_failed_callback()
 
     def run_with_signals(self):
         """Run the task in the current thread with enabled signals.

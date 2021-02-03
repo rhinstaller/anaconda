@@ -298,19 +298,21 @@ class TaskInterfaceTestCase(unittest.TestCase):
             return "Canceled Task"
 
         def run(self):
+            # Timeout in seconds.
+            timeout = TaskInterfaceTestCase.TIMEOUT
 
-            for _time in range(0, 3):
-                # Cancel the task.
+            # Wait for the cancellation.
+            for _i in range(0, timeout * 10):
                 if self.check_cancel():
                     return
 
-                sleep(1)
+                sleep(0.1)
 
             # Or raise the timeout error.
             raise TimeoutError()
 
     def canceled_run_test(self):
-        """Run a canceled task."""
+        """Cancel a running task."""
         self._set_up_task(self.CanceledTask())
         self._run_and_cancel_task()
         self._finish_canceled_task()
@@ -324,9 +326,26 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
     @run_in_glib(TIMEOUT)
     def _run_and_cancel_task(self):
-        """Cancel a task."""
+        """Run and cancel a task."""
         self.task_interface.Start()
+        sleep(1)
         self.task_interface.Cancel()
+
+        while self.task_interface.IsRunning:
+            sleep(1)
+
+    def run_canceled_test(self):
+        """Run a canceled task."""
+        self._set_up_task(self.FailingTask())
+        self._cancel_and_run_task()
+        self._finish_canceled_task()
+        self._check_no_result()
+
+    @run_in_glib(TIMEOUT)
+    def _cancel_and_run_task(self):
+        """Cancel and run a task."""
+        self.task_interface.Cancel()
+        self.task_interface.Start()
 
         while self.task_interface.IsRunning:
             sleep(1)
@@ -544,3 +563,43 @@ class TaskInterfaceTestCase(unittest.TestCase):
         # The result is publishable, but there is no result.
         with self.assertRaises(NoResultError):
             self.task_interface.GetResult()
+
+    def run_simple_task_with_signals_test(self):
+        """Run a simple task directly with signals."""
+        self._set_up_task(self.SimpleTask())
+
+        result = self.task.run_with_signals()
+
+        self._check_task_signals()
+        self._check_progress_changed(1, "Simple Task")
+        self.assertEqual(result, None)
+
+    def run_task_with_signals_test(self):
+        """Run a task that returns a result directly with signals."""
+        self._set_up_task(self.ReturningTask())
+
+        result = self.task.run_with_signals()
+
+        self._check_task_signals()
+        self._check_progress_changed(1, "Returning Task")
+        self.assertEqual(result, 1)
+
+    def run_failed_task_with_signals_test(self):
+        """Run a failing task directly with signals."""
+        self._set_up_task(self.FailingTask())
+
+        with self.assertRaises(TaskFailedException):
+            self.task.run_with_signals()
+
+        self._check_task_signals(failed=True, succeeded=False)
+        self._check_progress_changed(1, "Failing Task")
+
+    def run_canceled_task_with_signals_test(self):
+        """Run a canceled task directly with signals."""
+        self._set_up_task(self.FailingTask())
+
+        self.task.cancel()
+        result = self.task.run_with_signals()
+
+        self._check_task_signals(failed=False, succeeded=False)
+        self.assertEqual(result, None)
