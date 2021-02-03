@@ -251,8 +251,8 @@ class ProductConfigurationTestCase(unittest.TestCase):
             WORKSTATION_PARTITIONING
         )
         self._check_default_product(
-            "Red Hat Virtualization", "",
-            ["rhel.conf", "rhev.conf"],
+            "RHVH", "",
+            ["rhel.conf", "rhvh.conf"],
             VIRTUALIZATION_PARTITIONING
         )
         self._check_default_product(
@@ -314,9 +314,9 @@ class ProductConfigurationTestCase(unittest.TestCase):
                 # The values of the options should be the same.
                 self.assertEqual(parser.get(section, key), other_parser.get(section, key))
 
-    def ovirt_and_rhev_test(self):
-        """Test the similarity of oVirt Node Next with Red Hat Virtualization."""
-        self._compare_product_files("rhev.conf", "ovirt.conf")
+    def ovirt_and_rhvh_test(self):
+        """Test the similarity of oVirt Node Next with Red Hat Virtualization Host."""
+        self._compare_product_files("rhvh.conf", "ovirt.conf")
 
     def valid_product_test(self):
         content = dedent("""
