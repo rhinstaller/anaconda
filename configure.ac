@@ -157,6 +157,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/boss/install_manager/Makefile
                  pyanaconda/modules/boss/kickstart_manager/Makefile
                  pyanaconda/modules/boss/module_manager/Makefile
+                 pyanaconda/modules/boss/user_interface/Makefile
                  pyanaconda/modules/security/Makefile
                  pyanaconda/modules/timezone/Makefile
                  pyanaconda/modules/network/Makefile

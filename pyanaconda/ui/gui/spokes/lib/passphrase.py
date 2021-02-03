@@ -26,6 +26,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 from pyanaconda import input_checking
 from pyanaconda.core import constants
+from pyanaconda.core.constants import PASSWORD_POLICY_LUKS
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -58,9 +59,12 @@ class PassphraseDialog(GUIObject):
         self._strength_bar.add_offset_value("high", 4)
 
         # Setup the password checker for passphrase checking
-        self._checker = input_checking.PasswordChecker(initial_password_content = self._passphrase_entry.get_text(),
-                                                       initial_password_confirmation_content = self._confirm_entry.get_text(),
-                                                       policy = input_checking.get_policy(self.data, "luks"))
+        self._checker = input_checking.PasswordChecker(
+            initial_password_content=self._passphrase_entry.get_text(),
+            initial_password_confirmation_content=self._confirm_entry.get_text(),
+            policy_name=PASSWORD_POLICY_LUKS
+        )
+
         # configure the checker for passphrase checking
         self._checker.secret_type = constants.SecretType.PASSPHRASE
         # connect UI updates to check results
@@ -164,7 +168,7 @@ class PassphraseDialog(GUIObject):
             self._passphrase_good_enough = True
         elif len(self._checker.failed_checks) == 1 and self._validity_check in self._checker._failed_checks:
             # only the password validity check failed
-            if self._checker.policy.strict:
+            if self._checker.policy.is_strict:
                 # this is not fine for the strict password policy
                 self._passphrase_good_enough = False
             else:

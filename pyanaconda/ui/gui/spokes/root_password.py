@@ -16,15 +16,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+from pyanaconda.core.constants import PASSWORD_POLICY_ROOT
 from pyanaconda.flags import flags
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.users import crypt_password
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.common.constants.services import USERS
-
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
@@ -90,9 +90,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
         # Setup the password checker for password checking
         self._checker = input_checking.PasswordChecker(
-                initial_password_content = self.password,
-                initial_password_confirmation_content = self.password_confirmation,
-                policy = input_checking.get_policy(self.data, "root")
+                initial_password_content=self.password,
+                initial_password_confirmation_content=self.password_confirmation,
+                policy_name=PASSWORD_POLICY_ROOT
         )
         # configure the checker for password checking
         self.checker.secret_type = constants.SecretType.PASSWORD
@@ -226,8 +226,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     def sensitive(self):
         # A password set in kickstart can be changed in the GUI
         # if the changesok password policy is set for the root password.
-        kickstarted_password_can_be_changed = self._users_module.CanChangeRootPassword \
-            or self.checker.policy.changesok
+        kickstarted_password_can_be_changed = conf.ui.can_change_root or \
+            self._users_module.CanChangeRootPassword
+
         return not (self.completed and flags.automatedInstall
                     and not kickstarted_password_can_be_changed)
 
@@ -253,7 +254,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
             # empty string is not set as the root password.
             self.clear_info()
         else:
-            if self.checker.policy.strict or unwaivable_check_failed:
+            if self.checker.policy.is_strict or unwaivable_check_failed:
                 # just forward the error message
                 self.show_warning_message(error_message)
             else:
@@ -289,7 +290,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         elif unwaivable_check_failed:
             self.can_go_back = False
         else:
-            if self.checker.policy.strict:
+            if self.checker.policy.is_strict:
                 if not self._validity_check.result.success:
                     # failing validity check in strict
                     # mode prevents us from going back

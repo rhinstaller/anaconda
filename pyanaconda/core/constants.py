@@ -250,6 +250,11 @@ PASSWORD_SHOW = N_("Show password.")
 PASSWORD_HIDE_ICON = "anaconda-password-show-off"
 PASSWORD_SHOW_ICON = "anaconda-password-show-on"
 
+# The default types of password policies.
+PASSWORD_POLICY_ROOT = "root"
+PASSWORD_POLICY_USER = "user"
+PASSWORD_POLICY_LUKS = "luks"
+
 # the number of seconds we consider a noticeable freeze of the UI
 NOTICEABLE_FREEZE = 0.1
 

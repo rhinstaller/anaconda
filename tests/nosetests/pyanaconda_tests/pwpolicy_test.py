@@ -18,7 +18,19 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
+from textwrap import dedent
+from unittest.mock import Mock, patch
+
+from pykickstart.errors import KickstartDeprecationWarning
+
 from pyanaconda import kickstart
+from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
+from pyanaconda.core.constants import PASSWORD_POLICY_ROOT, PASSWORD_POLICY_USER, \
+    PASSWORD_POLICY_LUKS
+from pyanaconda.modules.common.structures.policy import PasswordPolicy
+from pyanaconda.pwpolicy import apply_password_policy_from_kickstart
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
 
 
 class PwPolicyTestCase(unittest.TestCase):
@@ -35,7 +47,8 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         self.ksparser = kickstart.AnacondaKSParser(self.handler)
 
     def pwpolicy_test(self):
-        self.ksparser.readKickstartFromString(self.ks)
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.ksparser.readKickstartFromString(self.ks)
 
         self.assertIsInstance(self.handler, kickstart.AnacondaKSHandler)
         self.assertIsInstance(self.handler.anaconda, kickstart.AnacondaSectionHandler)
@@ -43,3 +56,105 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         eq_template = "pwpolicy %s --minlen=8 --minquality=50 --strict --nochanges --emptyok\n"
         for name in ["root", "user", "luks"]:
             self.assertEqual(str(self.handler.anaconda.pwpolicy.get_policy(name)), eq_template % name)    # pylint: disable=no-member
+
+    @patch_dbus_get_proxy
+    def apply_none_to_module_test(self, proxy_getter):
+        ui_module = Mock()
+        proxy_getter.return_value = ui_module
+
+        apply_password_policy_from_kickstart(self.handler)
+        ui_module.SetPasswordPolicies.assert_not_called()
+
+    @patch_dbus_get_proxy
+    def apply_policies_to_module_test(self, proxy_getter):
+        ui_module = Mock()
+        proxy_getter.return_value = ui_module
+
+        ks_in = """
+        %anaconda
+        pwpolicy root --minlen=1 --minquality=10 --notempty --strict
+        pwpolicy user --minlen=2 --minquality=20 --emptyok --notstrict
+        pwpolicy luks --minlen=3 --minquality=30 --emptyok --strict
+        %end
+        """
+
+        self.ksparser.readKickstartFromString(dedent(ks_in))
+        apply_password_policy_from_kickstart(self.handler)
+
+        root_policy = PasswordPolicy()
+        root_policy.min_length = 1
+        root_policy.min_quality = 10
+        root_policy.is_strict = True
+        root_policy.allow_empty = False
+
+        user_policy = PasswordPolicy()
+        user_policy.min_length = 2
+        user_policy.min_quality = 20
+        user_policy.is_strict = False
+        user_policy.allow_empty = True
+
+        luks_policy = PasswordPolicy()
+        luks_policy.min_length = 3
+        luks_policy.min_quality = 30
+        luks_policy.is_strict = True
+        luks_policy.allow_empty = True
+
+        policies = {
+            PASSWORD_POLICY_ROOT: root_policy,
+            PASSWORD_POLICY_USER: user_policy,
+            PASSWORD_POLICY_LUKS: luks_policy
+        }
+
+        ui_module.SetPasswordPolicies.assert_called_once_with(
+            PasswordPolicy.to_structure_dict(policies)
+        )
+
+    @patch_dbus_get_proxy
+    def apply_none_to_configuration_test(self, proxy_getter):
+        anaconda_conf = AnacondaConfiguration.from_defaults()
+
+        with patch("pyanaconda.pwpolicy.conf", anaconda_conf):
+            apply_password_policy_from_kickstart(self.handler)
+
+        self.assertEqual(anaconda_conf.ui.can_change_root, False)
+        self.assertEqual(anaconda_conf.ui.can_change_users, False)
+
+    @patch_dbus_get_proxy
+    def apply_changesok_to_configuration_test(self, proxy_getter):
+        anaconda_conf = AnacondaConfiguration.from_defaults()
+
+        ks_in = """
+        %anaconda
+        pwpolicy root --changesok
+        pwpolicy user --changesok
+        pwpolicy luks --changesok
+        %end
+        """
+
+        self.ksparser.readKickstartFromString(dedent(ks_in))
+
+        with patch("pyanaconda.pwpolicy.conf", anaconda_conf):
+            apply_password_policy_from_kickstart(self.handler)
+
+        self.assertEqual(anaconda_conf.ui.can_change_root, True)
+        self.assertEqual(anaconda_conf.ui.can_change_users, True)
+
+    @patch_dbus_get_proxy
+    def apply_nochanges_to_configuration_test(self, proxy_getter):
+        anaconda_conf = AnacondaConfiguration.from_defaults()
+
+        ks_in = """
+        %anaconda
+        pwpolicy root --nochanges
+        pwpolicy user --nochanges
+        pwpolicy luks --nochanges
+        %end
+        """
+
+        self.ksparser.readKickstartFromString(dedent(ks_in))
+
+        with patch("pyanaconda.pwpolicy.conf", anaconda_conf):
+            apply_password_policy_from_kickstart(self.handler)
+
+        self.assertEqual(anaconda_conf.ui.can_change_root, False)
+        self.assertEqual(anaconda_conf.ui.can_change_users, False)

@@ -17,15 +17,18 @@
 #
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
-
-from pyanaconda import input_checking
-from pyanaconda.pwpolicy import F22_PwPolicyData
-from pyanaconda.core import constants
-from pyanaconda.core.i18n import _
 import unittest
 
+from pyanaconda import input_checking
+from pyanaconda.core import constants
+from pyanaconda.core.constants import PASSWORD_POLICY_USER
+from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.structures.policy import PasswordPolicy
+
+
 def get_policy():
-    return F22_PwPolicyData()
+    return PasswordPolicy.from_defaults(PASSWORD_POLICY_USER)
+
 
 class PasswordQuality(unittest.TestCase):
     def password_empty_test(self):
@@ -42,7 +45,7 @@ class PasswordQuality(unittest.TestCase):
         # empty password should override password-too-short messages
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
-        request.policy.minlen = 10
+        request.policy.min_length = 10
         request.password = ""
         check = input_checking.PasswordValidityCheck()
         check.run(request)
@@ -55,7 +58,7 @@ class PasswordQuality(unittest.TestCase):
         """Check if the empty_ok flag works correctly."""
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
-        request.policy.emptyok = True
+        request.policy.allow_empty = True
         request.password = ""
         check = input_checking.PasswordValidityCheck()
         check.run(request)
@@ -66,8 +69,8 @@ class PasswordQuality(unittest.TestCase):
         # empty_ok with password length
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
-        request.policy.emptyok = True
-        request.policy.minlen = 10
+        request.policy.allow_empty = True
+        request.policy.min_length = 10
         request.password = ""
         check = input_checking.PasswordValidityCheck()
         check.run(request)
@@ -78,8 +81,8 @@ class PasswordQuality(unittest.TestCase):
         # non-empty passwords that are too short should still get a score of 0 & the "too short" message
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
-        request.policy.emptyok = True
-        request.policy.minlen = 10
+        request.policy.allow_empty = True
+        request.policy.min_length = 10
         request.password = "123"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
@@ -90,8 +93,8 @@ class PasswordQuality(unittest.TestCase):
         # also check a long-enough password, just in case
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
-        request.policy.emptyok = True
-        request.policy.minlen = 10
+        request.policy.allow_empty = True
+        request.policy.min_length = 10
         request.password = "1234567891"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
@@ -124,7 +127,7 @@ class PasswordQuality(unittest.TestCase):
         # check if setting password length works correctly
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
-        request.policy.minlen = 10
+        request.policy.min_length = 10
         request.password = "12345"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
@@ -132,7 +135,7 @@ class PasswordQuality(unittest.TestCase):
         self.assertEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
-        request.policy.minlen = 10
+        request.policy.min_length = 10
         request.password = "1234567891"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
@@ -216,7 +219,7 @@ class PasswordQuality(unittest.TestCase):
         # a long enough strong password with minlen set
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
-        request.policy.minlen = 10
+        request.policy.min_length = 10
         request.password = "!?----4naconda----?!"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
@@ -229,7 +232,7 @@ class PasswordQuality(unittest.TestCase):
         # minimum password length overrides strong passwords for score and status
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
-        request.policy.minlen = 30
+        request.policy.min_length = 30
         request.password = "?----4naconda----?"
         check = input_checking.PasswordValidityCheck()
         check.run(request)

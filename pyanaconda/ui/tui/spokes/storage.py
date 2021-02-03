@@ -19,7 +19,6 @@
 
 from collections import OrderedDict
 
-from pyanaconda.input_checking import get_policy
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -44,7 +43,8 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
     BOOTLOADER_LOCATION_MBR, SecretType, WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_MANUAL
+    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_MANUAL, \
+    PASSWORD_POLICY_LUKS
 from pyanaconda.core.i18n import _, N_, C_
 
 from simpleline.render.containers import ListColumnContainer
@@ -346,7 +346,7 @@ class StorageSpoke(NormalTUISpoke):
             message=_("Please provide a default LUKS passphrase for all devices "
                       "you want to encrypt. You will have to type it twice."),
             secret_type=SecretType.PASSPHRASE,
-            policy=get_policy(self.data, "luks"),
+            policy_name=PASSWORD_POLICY_LUKS,
             process_func=lambda x: x
         )
 

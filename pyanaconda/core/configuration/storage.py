@@ -25,6 +25,7 @@ from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTO
     AUTOPART_TYPE_LVM_THINP
 
 from pyanaconda.core.configuration.base import Section
+from pyanaconda.core.configuration.utils import split_name_and_attributes
 
 
 class PartitioningScheme(Enum):
@@ -152,17 +153,12 @@ class StorageSection(Section):
     def _convert_partitioning_line(cls, line):
         """Convert a partitioning line into a dictionary."""
         # Parse the line.
-        name, raw_attrs = cls._split_string(line)
-
-        # Split the attributes and skip empty strings (split
-        # always returns at least one item, an empty string).
-        raw_attrs = raw_attrs.strip("()").split(",")
-        raw_attrs = map(cls._split_string, filter(None, raw_attrs))
+        name, raw_attrs = split_name_and_attributes(line)
 
         # Generate the dictionary.
         attrs = {"name": name}
 
-        for name, value in raw_attrs:
+        for name, value in raw_attrs.items():
             if value and name in ("size", "min", "max", "free"):
                 # Handle a size attribute.
                 attrs[name] = Size(value)
@@ -189,13 +185,3 @@ class StorageSection(Section):
 
         if attrs.get("max") and not attrs.get("min"):
             raise ValueError("The attribute 'max' cannot be set without 'min'.")
-
-    @staticmethod
-    def _split_string(value):
-        """Split the given value into two strings."""
-        items = value.strip().split(maxsplit=1)
-
-        while len(items) < 2:
-            items.append("")
-
-        return items

@@ -25,6 +25,8 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.modules.common.constants.services import USERS
+from pyanaconda.core.constants import PASSWORD_POLICY_ROOT
+from pyanaconda.core.configuration.anaconda import conf
 
 from simpleline.render.widgets import TextWidget
 
@@ -51,7 +53,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self.title = N_("Root password")
         self.input_required = False
 
-        self._policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
         self._password = None
 
         self._users_module = USERS.get_proxy()
@@ -63,7 +64,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def showable(self):
-        return not (self.completed and flags.automatedInstall and not self._policy.changesok)
+        return not (self.completed and flags.automatedInstall and not conf.ui.can_change_root)
 
     @property
     def mandatory(self):
@@ -94,9 +95,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def show_all(self):
         super().show_all()
 
-        password_dialog = PasswordDialog(_("Password"), policy=self._policy)
+        password_dialog = PasswordDialog(
+            title=_("Password"),
+            policy_name=PASSWORD_POLICY_ROOT
+        )
         password_dialog.no_separator = True
-
         self._password = password_dialog.run()
 
         if self._password is None:

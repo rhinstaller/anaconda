@@ -40,11 +40,11 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
-from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
+from pyanaconda.pwpolicy import F34_PwPolicy, F34_PwPolicyData
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
-from pykickstart.errors import KickstartError, KickstartParseWarning
+from pykickstart.errors import KickstartError, KickstartParseWarning, KickstartDeprecationWarning
 from pykickstart.ko import KickstartObject
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
@@ -248,11 +248,11 @@ class RepoData(COMMANDS.RepoData):
 class AnacondaSectionHandler(BaseHandler):
     """A handler for only the anaconda section's commands."""
     commandMap = {
-        "pwpolicy": F22_PwPolicy
+        "pwpolicy": F34_PwPolicy
     }
 
     dataMap = {
-        "PwPolicyData": F22_PwPolicyData
+        "PwPolicyData": F34_PwPolicyData
     }
 
     def __init__(self):
@@ -294,6 +294,14 @@ class AnacondaSection(Section):
     def handleHeader(self, lineno, args):
         """Process the arguments to the %anaconda header."""
         Section.handleHeader(self, lineno, args)
+
+        warnings.warn(_(
+            "The %%anaconda section has been deprecated. It "
+            "may be removed from future releases, which will "
+            "result in a fatal error when it is encountered. "
+            "Please modify your kickstart file to remove this "
+            "section."
+        ), KickstartDeprecationWarning)
 
     def finalize(self):
         """Let %anaconda know no additional data will come."""
