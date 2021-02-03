@@ -376,6 +376,6 @@ class LiveImagePayload(BaseLivePayload):
 
             # Strip out vmlinuz- from the names
             self._kernel_version_list = sorted((n.split("/")[-1][8:] for n in names
-                                               if "boot/vmlinuz-" in n),
+                                               if "boot/vmlinuz-" in n and "-rescue-" not in n),
                                                key=functools.cmp_to_key(payload_utils.version_cmp))
         return self._kernel_version_list
