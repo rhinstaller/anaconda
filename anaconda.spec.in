@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 04 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.11-1
+- Take dnf substitutions from installer environment configuration (rvykydal)
+  Resolves: rhbz#1920735
+- Fix exclude arguments of tar payload extracting. (rvykydal)
+  Resolves: rhbz#1924118
+
 * Wed Feb 03 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.10-1
 - Mark the rhsm and syspurpose kickstart commands as useless (vponcova)
   Resolves: rhbz#1921787
