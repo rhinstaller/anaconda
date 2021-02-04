@@ -22,6 +22,7 @@
 import os
 import subprocess
 import time
+import textwrap
 import pkgutil
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -50,15 +51,14 @@ log = get_module_logger(__name__)
 stdout_log = get_stdout_logger()
 
 
-X_FAILURE_MESSAGE = \
-    "X startup failed, falling back to text mode. There are multiple ways to help this issue:\n" \
-    "* Do not load the stage2 image over a slow network link.\n" \
-    "* Wait for the X server startup longer with the inst.xtimeout=<SECONDS> boot option. " \
+X_TIMEOUT_ADVICE = \
+    "Do not load the stage2 image over a slow network link.\n" \
+    "Wait longer for the X server startup with the inst.xtimeout=<SECONDS> boot option." \
     "The default is 60 seconds.\n" \
-    "* Load the stage2 image into memory with the rd.live.ram boot option to decrease access " \
+    "Load the stage2 image into memory with the rd.live.ram boot option to decrease access " \
     "time.\n" \
-    "* Enforce text mode when installing from remote media with the inst.text boot option.\n" \
-    "* Use the customer portal download URL in ilo/drac devices for greater speed."
+    "Enforce text mode when installing from remote media with the inst.text boot option.\n" \
+    "Use the customer portal download URL in ilo/drac devices for greater speed."
 
 
 # Spice
@@ -327,7 +327,13 @@ def setup_display(anaconda, options):
             do_startup_x11_actions()
         except (OSError, RuntimeError) as e:
             log.warning("X startup failed: %s", e)
-            stdout_log.warning(X_FAILURE_MESSAGE)
+            stdout_log.warning("X startup failed, falling back to text mode. There are multiple "
+                               "ways to help this issue:")
+            wrapper = textwrap.TextWrapper(initial_indent=" * ", subsequent_indent="   ",
+                                           width=os.get_terminal_size().columns - 3 - 9)
+                                           # 3 for the indent, 9 for timestamp and space
+            for line in X_TIMEOUT_ADVICE.split("\n"):
+                stdout_log.warning(wrapper.fill(line))
             anaconda.display_mode = constants.DisplayModes.TUI
             anaconda.gui_startup_failed = True
             time.sleep(2)
