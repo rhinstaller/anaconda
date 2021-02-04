@@ -40,10 +40,10 @@ class InstallFromTarTask(Task):
         cmd = "tar"
         # preserve: ACL's, xattrs, and SELinux context
         args = ["--numeric-owner", "--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
-                "--exclude", "dev/*", "--exclude", "proc/*", "--exclude", "tmp/*",
-                "--exclude", "sys/*", "--exclude", "run/*", "--exclude", "boot/*rescue*",
-                "--exclude", "boot/loader", "--exclude", "boot/efi/loader",
-                "--exclude", "etc/machine-id", "-xaf", self._tarfile_path, "-C", self._dest_path]
+                "--exclude", "./dev/*", "--exclude", "./proc/*", "--exclude", "./tmp/*",
+                "--exclude", "./sys/*", "--exclude", "./run/*", "--exclude", "./boot/*rescue*",
+                "--exclude", "./boot/loader", "--exclude", "./boot/efi/loader",
+                "--exclude", "./etc/machine-id", "-xaf", self._tarfile_path, "-C", self._dest_path]
         try:
             rc = execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:

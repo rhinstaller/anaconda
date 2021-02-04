@@ -289,10 +289,10 @@ class LiveImagePayload(BaseLivePayload):
         cmd = "tar"
         # preserve: ACL's, xattrs, and SELinux context
         args = ["--numeric-owner", "--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
-                "--exclude", "dev/*", "--exclude", "proc/*", "--exclude", "tmp/*",
-                "--exclude", "sys/*", "--exclude", "run/*", "--exclude", "boot/*rescue*",
-                "--exclude", "boot/loader", "--exclude", "boot/efi/loader",
-                "--exclude", "etc/machine-id", "-xaf", self.image_path, "-C", conf.target.system_root]
+                "--exclude", "./dev/*", "--exclude", "./proc/*", "--exclude", "./tmp/*",
+                "--exclude", "./sys/*", "--exclude", "./run/*", "--exclude", "./boot/*rescue*",
+                "--exclude", "./boot/loader", "--exclude", "./boot/efi/loader",
+                "--exclude", "./etc/machine-id", "-xaf", self.image_path, "-C", conf.target.system_root]
         try:
             rc = util.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
