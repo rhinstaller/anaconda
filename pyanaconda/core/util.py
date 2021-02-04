@@ -251,7 +251,6 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         if x11_status.timed_out:
             log.debug("SIGUSR1 received after X server timeout. Switching back to tty1. "
                       "SIGUSR1 now again initiates test of exception reporting.")
-            vtActivate(1)
             signal.signal(signal.SIGUSR1, old_sigusr1_handler)
 
     # preexec_fn to add the SIGUSR1 handler in the child we are starting
