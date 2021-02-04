@@ -18,7 +18,6 @@
 #
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.common.task import DBusMetaTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -62,27 +61,23 @@ class InstallManager(object):
 
         return requirements
 
-    def configure_runtime_with_task(self):
-        """Configure the runtime environment.
+    def collect_configure_runtime_tasks(self):
+        """Collect tasks for configuration of the runtime environment.
 
         FIXME: This is a temporary method for addons.
 
-        :return: an instance of the main configuration task
+        :return: a list of task proxies
         """
-        configuration_tasks = self._collect_tasks(lambda proxy: proxy.ConfigureWithTasks())
-        system_task = DBusMetaTask("Configure the runtime system", configuration_tasks)
-        return system_task
+        return self._collect_tasks(lambda proxy: proxy.ConfigureWithTasks())
 
-    def install_system_with_task(self):
-        """Install the system.
+    def collect_install_system_tasks(self):
+        """Collect tasks for installation of the system.
 
         FIXME: This method temporarily uses only addons.
 
-        :return: an instance of the main installation task
+        :return: a list of task proxies
         """
-        installation_tasks = self._collect_tasks(lambda proxy: proxy.InstallWithTasks())
-        system_task = DBusMetaTask("Install the system", installation_tasks)
-        return system_task
+        return self._collect_tasks(lambda proxy: proxy.InstallWithTasks())
 
     def _collect_tasks(self, collector):
         """Collect installation tasks from modules.

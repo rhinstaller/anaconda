@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.dbus import DBus
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
@@ -33,7 +34,7 @@ from pyanaconda.core.i18n import N_
 from pyanaconda.threading import threadMgr
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
-from pyanaconda.installation_tasks import Task, TaskQueue
+from pyanaconda.installation_tasks import Task, TaskQueue, DBusTask
 from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -152,7 +153,9 @@ def _prepare_configuration(payload, ksdata):
     ))
 
     boss_proxy = BOSS.get_proxy()
-    addon_config.append_dbus_tasks(BOSS, [boss_proxy.InstallSystemWithTask()])
+    for service_name, object_path in boss_proxy.CollectInstallSystemTasks():
+        task_proxy = DBus.get_proxy(service_name, object_path)
+        addon_config.append(DBusTask(task_proxy))
 
     configuration_queue.append(addon_config)
 
@@ -257,7 +260,9 @@ def _prepare_installation(payload, ksdata):
     ))
 
     boss_proxy = BOSS.get_proxy()
-    setup_environment.append_dbus_tasks(BOSS, [boss_proxy.ConfigureRuntimeWithTask()])
+    for service_name, object_path in boss_proxy.CollectConfigureRuntimeTasks():
+        task_proxy = DBus.get_proxy(service_name, object_path)
+        setup_environment.append(DBusTask(task_proxy))
 
     installation_queue.append(setup_environment)
 

@@ -104,23 +104,23 @@ class Boss(Service):
         """
         return self._install_manager.collect_requirements()
 
-    def configure_runtime_with_task(self):
-        """Configure the runtime environment.
+    def collect_configure_runtime_tasks(self):
+        """Collect tasks for configuration of the runtime environment.
 
         FIXME: This method temporarily uses only addons.
 
-        :return: a task
+        :return: a list of task proxies
         """
-        return self._install_manager.configure_runtime_with_task()
+        return self._install_manager.collect_configure_runtime_tasks()
 
-    def install_system_with_task(self):
-        """Install the system.
+    def collect_install_system_tasks(self):
+        """Collect tasks for installation of the system.
 
         FIXME: This method temporarily uses only addons.
 
-        :return: a task
+        :return: a list of task proxies
         """
-        return self._install_manager.install_system_with_task()
+        return self._install_manager.collect_install_system_tasks()
 
     def set_locale(self, locale):
         """Set locale of boss and all modules.

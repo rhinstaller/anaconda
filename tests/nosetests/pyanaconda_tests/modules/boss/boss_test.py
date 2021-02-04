@@ -17,16 +17,18 @@
 #
 import tempfile
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
+
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import DEFAULT_LANG
-from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.common.task import DBusMetaTask
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
+    patch_dbus_get_proxy
 
 
 class BossInterfaceTestCase(unittest.TestCase):
@@ -67,6 +69,28 @@ class BossInterfaceTestCase(unittest.TestCase):
             Requirement.to_structure_list([requirement])
 
         self._add_module(service_name, available=available, proxy=module_proxy)
+
+    def _add_module_with_tasks(self, service_name, available=True):
+        """Add a DBus module with a package requirement."""
+        module_proxy = Mock()
+        module_proxy.ConfigureWithTasks.return_value = ["/task/1", "/task/2"]
+        module_proxy.InstallWithTasks.return_value = ["/task/3", "/task/4"]
+        self._add_module(service_name, available=available, proxy=module_proxy)
+
+    def _get_mocked_proxy(self, service_name, object_path):
+        """Callback for a proxy getter."""
+        object_handler = Mock()
+        object_handler.service_name = service_name
+        object_handler.object_path = object_path
+
+        object_proxy = Mock()
+        object_proxy.object_handler = object_handler
+
+        return object_proxy
+
+    def _get_mocked_handler(self, object_proxy):
+        """Callback for a handler getter."""
+        return object_proxy.object_handler
 
     def get_modules_test(self):
         """Test GetModules."""
@@ -137,21 +161,45 @@ class BossInterfaceTestCase(unittest.TestCase):
             }
         ])
 
-    @patch_dbus_publish_object
-    def configure_runtime_with_task_test(self, publisher):
-        """Test ConfigureRuntimeWithTask."""
-        task_path = self.interface.ConfigureRuntimeWithTask()
-        task_proxy = check_task_creation(self, task_path, publisher, DBusMetaTask)
-        self.assertEqual(task_proxy.implementation._name, "Configure the runtime system")
-        self.assertEqual(task_proxy.implementation._subtasks, [])
+    @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
+    @patch_dbus_get_proxy
+    def collect_configure_runtime_tasks_test(self, proxy_getter, handler_getter):
+        """Test CollectConfigureRuntimeTasks."""
+        self.assertEqual(self.interface.CollectConfigureRuntimeTasks(), [])
 
-    @patch_dbus_publish_object
-    def install_system_with_task_test(self, publisher):
-        """Test InstallSystemWithTask."""
-        task_path = self.interface.InstallSystemWithTask()
-        task_proxy = check_task_creation(self, task_path, publisher, DBusMetaTask)
-        self.assertEqual(task_proxy.implementation._name, "Install the system")
-        self.assertEqual(task_proxy.implementation._subtasks, [])
+        self._add_module_with_tasks("A")
+        self._add_module_with_tasks("B")
+        self._add_module_with_tasks("C", available=False)
+
+        proxy_getter.side_effect = self._get_mocked_proxy
+        handler_getter.side_effect = self._get_mocked_handler
+
+        self.assertEqual(self.interface.CollectConfigureRuntimeTasks(), [
+            ("A", "/task/1"),
+            ("A", "/task/2"),
+            ("B", "/task/1"),
+            ("B", "/task/2"),
+        ])
+
+    @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
+    @patch_dbus_get_proxy
+    def collect_install_system_tasks_test(self, proxy_getter, handler_getter):
+        """Test CollectInstallSystemTasks."""
+        self.assertEqual(self.interface.CollectInstallSystemTasks(), [])
+
+        self._add_module_with_tasks("A")
+        self._add_module_with_tasks("B")
+        self._add_module_with_tasks("C", available=False)
+
+        proxy_getter.side_effect = self._get_mocked_proxy
+        handler_getter.side_effect = self._get_mocked_handler
+
+        self.assertEqual(self.interface.CollectInstallSystemTasks(), [
+            ("A", "/task/3"),
+            ("A", "/task/4"),
+            ("B", "/task/3"),
+            ("B", "/task/4"),
+        ])
 
     def quit_test(self):
         """Test Quit."""

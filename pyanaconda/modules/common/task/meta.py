@@ -24,7 +24,10 @@ __all__ = ['DBusMetaTask']
 
 
 class DBusMetaTask(AbstractTask):
-    """A task that runs DBus tasks."""
+    """A task that runs DBus tasks.
+
+    FIXME: This class is not used anymore. Do we need it?
+    """
 
     def __init__(self, name, tasks):
         """Create a new meta task.
