@@ -75,6 +75,8 @@ class DNFManager(object):
         base.conf.releasever = get_product_release_version()
         base.conf.installroot = conf.target.system_root
         base.conf.prepend_installroot('persistdir')
+        # Load variables substitutions configuration (rhbz#1920735)
+        base.conf.substitutions.update_from_etc("/")
 
         # Set the platform id based on the /os/release present
         # in the installation environment.
