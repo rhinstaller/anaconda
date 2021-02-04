@@ -448,12 +448,8 @@ if __name__ == "__main__":
     # Run %pre scripts.
     startup_utils.run_pre_scripts(kspath)
 
-    # Collect all addon paths
-    from pyanaconda.addons import collect_addon_paths
-    addon_paths = collect_addon_paths(constants.ADDON_PATHS)
-
     # Parse the kickstart file.
-    ksdata = startup_utils.parse_kickstart(kspath, addon_paths, strict_mode=opts.ksstrict)
+    ksdata = startup_utils.parse_kickstart(kspath, strict_mode=opts.ksstrict)
 
     # Set up the password policy.
     from pyanaconda.pwpolicy import apply_password_policy_from_kickstart

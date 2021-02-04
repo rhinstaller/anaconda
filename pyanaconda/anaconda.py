@@ -23,13 +23,13 @@ from glob import glob
 from tempfile import mkstemp
 import threading
 
-from pyanaconda import addons
-from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE
+from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE, ADDON_PATHS
 from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
+from pyanaconda.ui.lib.addons import collect_addon_ui_paths
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -286,16 +286,14 @@ class Anaconda(object):
                                                 fullscreen=False)
 
             # needs to be refreshed now we know if gui or tui will take place
-            addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
-                                                     ui_subdir="gui")
+            addon_paths = collect_addon_ui_paths(ADDON_PATHS, "gui")
         elif self.tui_mode:
             # TUI and noninteractive TUI are the same in this regard
             from pyanaconda.ui.tui import TextUserInterface
             self._intf = TextUserInterface(None, self.payload)
 
             # needs to be refreshed now we know if gui or tui will take place
-            addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
-                                                     ui_subdir="tui")
+            addon_paths = collect_addon_ui_paths(ADDON_PATHS, "tui")
         elif not self.display_mode:
             raise RuntimeError("Display mode not set.")
         else:
