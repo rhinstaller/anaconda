@@ -409,6 +409,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 05 2021 Martin Kolman <mkolman@redhat.com> - 34.23-1
+- Add a metapackage for image (boot.iso) dependencies (vslavik)
+- Take dnf substitutions from installer environment configuration (rvykydal)
+- Fix getting kernel version list for liveimg (rvykydal)
+
 * Wed Feb 03 2021 Martin Kolman <mkolman@redhat.com> - 34.22-1
 - Don't initialize the software selection if the payload is not set up
   (#1916114) (vponcova)
