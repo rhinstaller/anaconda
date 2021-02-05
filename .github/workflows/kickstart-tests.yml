@@ -145,7 +145,7 @@ jobs:
 
           # build boot.iso with our rpms
           . /etc/os-release
-          lorax -p Fedora -v \$VERSION_ID -r \$VERSION_ID -s http://pubmirror1.math.uh.edu/fedora-buffet/fedora/linux/development/rawhide/Everything/x86_64/os/ -s file://\$PWD/result/build/01-rpm-build/ lorax
+          lorax -p Fedora -v \$VERSION_ID -r \$VERSION_ID -s http://download.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ -s file://\$PWD/result/build/01-rpm-build/ lorax
           cp lorax/images/boot.iso /images/
           EOF
 
