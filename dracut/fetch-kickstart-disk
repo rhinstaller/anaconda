@@ -6,7 +6,7 @@ command -v getarg >/dev/null || . /lib/dracut-lib.sh
 
 dev="$1"
 path="${2:-/ks.cfg}"
-kickstart="$(getarg ks= inst.ks=)"
+kickstart="$(getarg inst.ks=)"
 
 [ -e /tmp/ks.cfg.done ] && exit 1
 [ -b "$dev" ] || exit 1

@@ -3,7 +3,6 @@
 [Unit]
 Description=Shell on %I
 After=systemd-user-sessions.service plymouth-quit-wait.service
-ConditionKernelCommandLine=!noshell
 ConditionKernelCommandLine=!inst.noshell
 
 [Service]
