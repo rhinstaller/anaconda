@@ -35,7 +35,11 @@ class EFIBase(object):
     """A base class for EFI-based boot loaders."""
 
     @property
-    def _config_dir(self):
+    def efi_config_dir(self):
+        return "/boot/" + self._efi_config_dir
+
+    @property
+    def _efi_config_dir(self):
         return "efi/EFI/{}".format(conf.bootloader.efi_dir)
 
     def efibootmgr(self, *args, **kwargs):
@@ -58,7 +62,7 @@ class EFIBase(object):
 
     @property
     def efi_dir_as_efifs_dir(self):
-        ret = self._config_dir.replace('efi/', '')
+        ret = self._efi_config_dir.replace('efi/', '')
         return "\\" + ret.replace('/', '\\')
 
     def _add_single_efi_boot_target(self, partition):
@@ -157,6 +161,29 @@ class EFIGRUB(EFIBase, GRUB2):
         if self._is_32bit_firmware:
             return self._packages32 + self._packages_common
         return self._packages64 + self._packages_common
+
+    @property
+    def efi_config_file(self):
+        """ Full path to EFI configuration file. """
+        return "%s/%s" % (self.efi_config_dir, self._config_file)
+
+    def write_config(self):
+        config_path = "%s%s" % (conf.target.system_root, self.efi_config_file)
+
+        with open(config_path, "w") as fd:
+            grub_dir = self.config_dir
+            fs_uuid = self.stage2_device.format.uuid
+            mountpoint = self.stage2_device.format.mountpoint
+
+            if mountpoint != "/" and grub_dir.startswith(mountpoint):
+                grub_dir = grub_dir[len(mountpoint):]
+
+            fd.write("search --no-floppy --fs-uuid --set=dev %s\n" % fs_uuid)
+            fd.write("set prefix=($dev)%s\n" % grub_dir)
+            fd.write("export $prefix\n")
+            fd.write("configfile $prefix/grub.cfg\n")
+
+        super().write_config()
 
 
 class Aarch64EFIGRUB(EFIGRUB):
