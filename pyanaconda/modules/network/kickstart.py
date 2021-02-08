@@ -17,7 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.errors import KickstartParseError
 from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
+from pyanaconda.network import is_valid_hostname
 
 DEFAULT_DEVICE_SPECIFICATION = "link"
 
@@ -30,6 +32,13 @@ class Network(COMMANDS.Network):
 
         if hostname_only_command:
             retval.bootProto = ""
+
+        if retval.hostname:
+            (result, reason) = is_valid_hostname(retval.hostname)
+            if not result:
+                message = "Hostname '{}' given in network kickstart command is invalid: {}"\
+                    .format(retval.hostname, reason)
+                raise KickstartParseError(message, lineno=self.lineno)
 
         return retval
 
