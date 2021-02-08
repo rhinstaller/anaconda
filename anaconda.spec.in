@@ -12,6 +12,17 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # make dist
 Source0: %{name}-%{version}.tar.bz2
 
+# TODO: Remove this as soon as rhbz#1907566 will be solved!
+# These patches will disable requirement of inst. prefix for RHEL-9.
+# We need these to avoid beaker breakage see rhbz#1907566 for more info.
+# Patches are generated from last three commits on:
+# https://github.com/jkonecny12/anaconda/tree/master-add-patches-to-allow-no-inst-prefix
+%if 0%{?rhel} == 9
+Patch0: 0001-Revert-Remove-support-for-boot-arguments-without-ins.patch
+Patch1: 0002-Revert-Do-not-support-no-inst.-Anaconda-boot-args-in.patch
+Patch2: 0003-Do-not-require-inst.-prefixes-for-Anaconda-boot-argu.patch
+%endif
+
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 
