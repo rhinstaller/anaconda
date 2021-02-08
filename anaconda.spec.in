@@ -420,6 +420,31 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 08 2021 Martin Kolman <mkolman@redhat.com> - 34.24-1
+- Modify spec file to add patches required on rhel-9 rebuild (#1907566)
+  (jkonecny)
+- Unify GRUB configuration file location across all platforms (javierm)
+- Do not use redirector for rawhide repository for iso building on PR
+  (rvykydal)
+- Move finding flatpak size to a task (vslavik)
+- Move flatpak installation code to a task (vslavik)
+- Move and rename FlatpakPayload (vslavik)
+- Abort with a message on invalid host name in kickstart (vslavik)
+- Use redirector for rawhide repository for iso building on PR (rvykydal)
+- Add tests for the inst. prefix requirement (#1912502) (jkonecny)
+- Do not support no inst. Anaconda boot args in systemd services (#1912502)
+  (jkonecny)
+- Remove check to avoid process of help and version boot args (#1912502)
+  (jkonecny)
+- Remove Anaconda boot arguments without inst. prefix from stage2 (#1912502)
+  (jkonecny)
+- Add support for non-critical installation errors (vponcova)
+- Don't run a canceled task (vponcova)
+- Fix exclude arguments of tar payload extracting. (rvykydal)
+- Remove support for boot arguments without 'inst.' prefix from Dracut
+  (#1912502) (jkonecny)
+- Cache flatpak size instead of persistent instance (vslavik)
+
 * Fri Feb 05 2021 Martin Kolman <mkolman@redhat.com> - 34.23-1
 - Add a metapackage for image (boot.iso) dependencies (vslavik)
 - Take dnf substitutions from installer environment configuration (rvykydal)
