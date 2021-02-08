@@ -38,10 +38,10 @@ from gi.repository.Gio import File
 
 log = get_module_logger(__name__)
 
-__all__ = ["FlatpakPayload"]
+__all__ = ["FlatpakManager"]
 
 
-class FlatpakPayload(object):
+class FlatpakManager(object):
     """Main class to handle flatpak installation and management."""
 
     LOCAL_REMOTE_NAME = "Anaconda"
@@ -128,7 +128,7 @@ class FlatpakPayload(object):
         self._transaction = None
 
     @classmethod
-    def is_available(cls):
+    def is_source_available(cls):
         """Test if flatpak installation source is available.
 
         :return: bool
@@ -300,7 +300,7 @@ class RemoteRefsList(BaseRefsList):
         flatpak support.
         """
         self._refs = self._installation.list_remote_refs_sync(
-            FlatpakPayload.LOCAL_REMOTE_NAME,
+            FlatpakManager.LOCAL_REMOTE_NAME,
             None)
 
     def get_sum_installation_size(self):
