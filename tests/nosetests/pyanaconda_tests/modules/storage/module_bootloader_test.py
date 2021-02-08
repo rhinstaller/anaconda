@@ -467,7 +467,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
                 ),
                 mock.call(
                     "grub2-mkconfig", [
-                        "-o", "/etc/grub2-efi.cfg"
+                        "-o", "/etc/grub2.cfg"
                     ], root=root
                 )
             ])

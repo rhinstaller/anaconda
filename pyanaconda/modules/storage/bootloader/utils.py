@@ -19,7 +19,6 @@ import os
 from glob import glob
 
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
-from pyanaconda.modules.storage.bootloader.efi import EFIBase
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import decode_bytes, execWithRedirect
@@ -246,14 +245,9 @@ def create_bls_entries(sysroot, storage, kernel_versions):
     # Update the bootloader configuration to make sure that the BLS
     # entries will have the correct kernel cmdline and not the value
     # taken from /proc/cmdline, that is used to boot the live image.
-    if isinstance(storage.bootloader, EFIBase):
-        grub_cfg_path = "/etc/grub2-efi.cfg"
-    else:
-        grub_cfg_path = "/etc/grub2.cfg"
-
     rc = execWithRedirect(
         "grub2-mkconfig",
-        ["-o", grub_cfg_path],
+        ["-o", "/etc/grub2.cfg"],
         root=sysroot
     )
 
