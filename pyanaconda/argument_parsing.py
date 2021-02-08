@@ -388,7 +388,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # If require_prefix is False, it also accepts the option without the
     # bootarg_prefix ('repo').
     # See anaconda_optparse.py and KernelArguments (in flags.py) for details.
-    ap = AnacondaArgumentParser(bootarg_prefix="inst.", require_prefix=True)
+    ap = AnacondaArgumentParser(bootarg_prefix="inst.", require_prefix=False)
     help_parser = HelpTextParser(os.path.join(datadir, "anaconda_options.txt"))
 
     # NOTE: store_false options will *not* get negated when the user does
