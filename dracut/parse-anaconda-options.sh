@@ -58,12 +58,6 @@ check_removed_arg() {
     fi
 }
 
-check_removed_no_inst_arg() {
-    local removed_arg="$1" new_arg="$2"
-    check_removed_arg "$removed_arg" "All usage of Anaconda boot arguments without 'inst.' prefix \
-was removed. Please use $new_arg instead."
-}
-
 check_depr_args "blacklist=" "inst.blacklist=%s"
 check_depr_arg "nofirewire" "inst.blacklist=firewire_ohci"
 
@@ -83,32 +77,35 @@ check_removed_arg askmethod "Use an appropriate 'inst.repo=' argument instead."
 check_removed_arg asknetwork "Use an appropriate 'ip=' argument instead."
 
 # lang & keymap
-check_removed_no_inst_arg "lang" "inst.lang"
-check_removed_no_inst_arg "keymap" "inst.keymap"
+warn_renamed_arg "lang" "inst.lang"
+warn_renamed_arg "keymap" "inst.keymap"
+
+# debug
+warn_renamed_arg "debug" "inst.debug"
 
 # repo
 check_depr_arg "method=" "repo=%s"
-check_removed_no_inst_arg "repo" "inst.repo"
+warn_renamed_arg "repo" "inst.repo"
 
 # stage2
-check_removed_no_inst_arg "stage2" "inst.stage2"
+warn_renamed_arg "stage2" "inst.stage2"
 
 # kickstart
-check_removed_no_inst_arg "ks" "inst.ks"
-check_removed_no_inst_arg "ksdevice" "inst.ks.device"
-check_removed_no_inst_arg "kssendmac" "inst.ks.sendmac"
-check_removed_no_inst_arg "kssendsn" "inst.ks.sendsn"
+warn_renamed_arg "ks" "inst.ks"
+warn_renamed_arg "ksdevice" "inst.ks.device"
+warn_renamed_arg "kssendmac" "inst.ks.sendmac"
+warn_renamed_arg "kssendsn" "inst.ks.sendsn"
 
 # Ignore self-signed SSL certs
-check_removed_no_inst_arg "noverifyssl" "inst.noverifyssl"
-if getargbool 0 inst.noverifyssl; then
+warn_renamed_arg "noverifyssl" "inst.noverifyssl"
+if getargbool 0 noverifyssl inst.noverifyssl; then
     # Tell dracut to use curl --insecure
     echo "rd.noverifyssl" >> /etc/cmdline.d/75-anaconda-options.conf
 fi
 
 # updates
-check_removed_no_inst_arg "updates" "inst.updates"
-if updates=$(getarg inst.updates); then
+warn_renamed_arg "updates=" "inst.updates"
+if updates=$(getarg updates inst.updates); then
     if [ -n "$updates" ]; then
         export anac_updates=$updates
         case $updates in
@@ -122,11 +119,11 @@ if updates=$(getarg inst.updates); then
 fi
 
 # for vnc bring network up in initramfs so that cmdline configuration is used
-check_removed_no_inst_arg "vnc" "inst.vnc"
-getargbool 0 inst.vnc && warn "anaconda requiring network for vnc" && set_neednet
+warn_renamed_arg "vnc" "inst.vnc"
+getargbool 0 vnc inst.vnc && warn "anaconda requiring network for vnc" && set_neednet
 
 # Driver Update Disk
-check_removed_no_inst_arg "dd" "inst.dd"
+warn_renamed_arg "dd" "inst.dd"
 
 # re-read the commandline args
 unset CMDLINE

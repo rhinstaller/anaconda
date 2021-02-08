@@ -5,7 +5,7 @@
 command -v set_http_header >/dev/null || . /lib/url-lib.sh
 
 # inst.ks.sendmac: send MAC addresses in HTTP headers
-if getargbool 0 inst.ks.sendmac; then
+if getargbool 0 kssendmac inst.ks.sendmac; then
     ifnum=0
     for ifname in /sys/class/net/*; do
         [ -e "$ifname/address" ] || continue
@@ -21,7 +21,7 @@ if getargbool 0 inst.ks.sendmac; then
 fi
 
 # inst.ks.sendsn: send system serial number in HTTP headers
-if getargbool 0 inst.ks.sendsn; then
+if getargbool 0 kssendsn inst.ks.sendsn; then
     system_serial=$(cat /sys/class/dmi/id/product_serial 2>/dev/null)
     if [ -z "$system_serial" ]; then
         warn "inst.ks.sendsn: can't find system serial number"
