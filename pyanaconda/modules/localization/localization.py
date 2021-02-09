@@ -17,12 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import langtable
+
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
@@ -185,6 +188,22 @@ class LocalizationService(KickstartService):
         if not self._localed_wrapper:
             self._localed_wrapper = LocaledWrapper()
         return self._localed_wrapper
+
+    def collect_requirements(self):
+        """Return installation requirements for this module.
+
+        :return: a list of requirements
+        """
+        requirements = []
+
+        # Install support for non-ascii keyboard layouts (#1919483).
+        if self.vc_keymap and not langtable.supports_ascii(self.vc_keymap):
+            requirements.append(Requirement.for_package(
+                package_name="kbd-legacy",
+                reason="Required to support the '{}' keymap.".format(self.vc_keymap)
+            ))
+
+        return requirements
 
     def install_with_tasks(self):
         """Return the installation tasks of this module.

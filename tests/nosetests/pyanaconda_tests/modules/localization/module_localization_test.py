@@ -31,6 +31,7 @@ from pyanaconda.core.constants import DEFAULT_KEYBOARD, DEFAULT_VC_FONT
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.errors.installation import KeyboardInstallationError
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
     KeyboardInstallationTask, write_vc_configuration, VC_CONF_FILE_PATH, write_x_configuration, \
     X_CONF_DIR, X_CONF_FILE_NAME
@@ -147,6 +148,26 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         mocked_load_keymap.return_value = True
         self.localization_interface.SetKeyboard("us")
         self.assertEqual(self.localization_interface.VirtualConsoleKeymap, "us")
+
+    def collect_requirements_test(self):
+        """Test the CollectRequirements method."""
+        # No default requirements.
+        self.assertEqual(self.localization_interface.CollectRequirements(), [])
+
+        # No additional support for ascii keyboard layouts.
+        self.localization_interface.SetVirtualConsoleKeymap("en")
+        self.assertEqual(self.localization_interface.CollectRequirements(), [])
+
+        # Additional support for non-ascii keyboard layouts.
+        self.localization_interface.SetVirtualConsoleKeymap("ru")
+
+        requirements = Requirement.from_structure_list(
+            self.localization_interface.CollectRequirements()
+        )
+
+        self.assertEqual(len(requirements), 1)
+        self.assertEqual(requirements[0].type, "package")
+        self.assertEqual(requirements[0].name, "kbd-legacy")
 
     @patch_dbus_publish_object
     def install_with_task_test(self, publisher):
@@ -323,6 +344,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         keyboard --xlayouts='cz (qwerty)','en'
         """
         self._test_kickstart(ks_in, ks_out)
+
 
 class LocalizationModuleTestCase(unittest.TestCase):
     """Test Localization module."""
