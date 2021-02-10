@@ -21,6 +21,7 @@ import unittest
 import warnings
 from textwrap import dedent
 
+from pykickstart.base import RemovedCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.commands.skipx import FC3_SkipX
 from pykickstart.commands.user import F24_User, F19_UserData
@@ -33,12 +34,14 @@ from pyanaconda import kickstart
 from pyanaconda.core.kickstart.addon import AddonData, AddonRegistry
 from pyanaconda.core.kickstart.specification import KickstartSpecification,\
     KickstartSpecificationHandler, KickstartSpecificationParser
+from pyanaconda.kickstart import AnacondaKickstartSpecification
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
+from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 
@@ -386,18 +389,31 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
     """Test the kickstart module specifications."""
 
     SPECIFICATIONS = [
+        AnacondaKickstartSpecification,
         LocalizationKickstartSpecification,
         NetworkKickstartSpecification,
         PayloadKickstartSpecification,
         SecurityKickstartSpecification,
         ServicesKickstartSpecification,
         StorageKickstartSpecification,
+        SubscriptionKickstartSpecification,
         TimezoneKickstartSpecification,
         UsersKickstartSpecification,
     ]
 
     # Names of the kickstart commands and data that should be temporarily ignored.
     IGNORED_NAMES = {
+    }
+
+    # Names of shared kickstart commands and data that should be temporarily ignored.
+    IGNORED_SHARED_NAMES = {
+        "liveimg"
+    }
+
+    # Names of possibly missing kickstart commands and data that should be ignored.
+    IGNORED_MISSING_NAMES = {
+        "rhsm",
+        "syspurpose",
     }
 
     def setUp(self):
@@ -409,7 +425,11 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         """Check if children inherit from parents."""
         for name in children:
             if name in self.IGNORED_NAMES:
-                warnings.warn("Skipping the kickstart name {}.".format(name))
+                warnings.warn("Skipping the ignored name: {}".format(name))
+                continue
+
+            if name not in parents and name in self.IGNORED_MISSING_NAMES:
+                warnings.warn("Skipping the missing name: {}".format(name))
                 continue
 
             print("Checking command {}...".format(name))
@@ -426,6 +446,33 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
             self.assert_compare_versions(specification.commands_data,
                                          self.pykickstart_commands_data)
 
+    def all_commands_test(self):
+        """Check if we process all kickstart commands."""
+        # Collect the specified commands.
+        specified = set()
+
+        for specification in self.SPECIFICATIONS:
+            specified.update(specification.commands.keys())
+
+        # Collect the expected commands.
+        expected = set()
+
+        for name, obj in self.pykickstart_commands.items():
+            if issubclass(obj, RemovedCommand):
+                continue
+
+            expected.add(name)
+
+        # Ignore specified names if missing.
+        for name in self.IGNORED_MISSING_NAMES:
+            if name in expected ^ specified:
+                warnings.warn("Skipping the missing name: {}".format(name))
+                expected.discard(name)
+                specified.discard(name)
+
+        # Check the differences.
+        self.assertEqual(specified, expected)
+
     def disjoint_commands_test(self):
         """Check if the commands are specified at most once."""
         specified = set()
@@ -433,11 +480,15 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         for specification in self.SPECIFICATIONS:
             print("Checking specification {}...".format(specification.__name__))
 
-            for obj in specification.commands:
-                if obj in specified:
-                    self.fail("Command {} is specified more then once!".format(obj))
+            for name in specification.commands.keys():
+                if name in self.IGNORED_SHARED_NAMES:
+                    warnings.warn("Skipping the shared name {}.".format(name))
+                    continue
 
-                specified.add(obj)
+                if name in specified:
+                    self.fail("Command {} is specified more then once!".format(name))
+
+                specified.add(name)
 
     def disjoint_commands_data_test(self):
         """Check if the commands data are specified at most once."""
@@ -446,11 +497,11 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         for specification in self.SPECIFICATIONS:
             print("Checking specification {}...".format(specification.__name__))
 
-            for obj in specification.commands_data:
-                if obj in specified:
-                    self.fail("Data object {} is specified more then once!".format(obj))
+            for name in specification.commands_data.keys():
+                if name in specified:
+                    self.fail("Data object {} is specified more then once!".format(name))
 
-                specified.add(obj)
+                specified.add(name)
 
     def disjoint_sections_test(self):
         """Check if the sections are specified at most once."""
@@ -459,11 +510,11 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         for specification in self.SPECIFICATIONS:
             print("Checking specification {}...".format(specification.__name__))
 
-            for obj in specification.sections:
-                if obj in specified:
-                    self.fail("Section {} is specified more then once!".format(obj))
+            for name in specification.sections.keys():
+                if name in specified:
+                    self.fail("Section {} is specified more then once!".format(name))
 
-                specified.add(obj)
+                specified.add(name)
 
     def handler_test(self):
         """Check the specification handler."""
@@ -488,3 +539,23 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
             # Read an empty string.
             parser.readKickstartFromString("")
+
+    def useless_command_map_test(self):
+        """Check kickstart commands marked as useless."""
+        # Get a set of command names that are handled by the main process.
+        anaconda_names = AnacondaKickstartSpecification.commands.keys()
+
+        # Get a set of command names that are handled by modules.
+        module_names = set()
+
+        for specification in self.SPECIFICATIONS:
+            if specification is not AnacondaKickstartSpecification:
+                module_names.update(specification.commands.keys())
+
+        # Useless commands has to be handled by modules.
+        # Otherwise, they has to be handled by the main process.
+        for name, command in kickstart.commandMap.items():
+            if issubclass(command, kickstart.UselessCommand):
+                self.assertIn(name, module_names)
+            else:
+                self.assertIn(name, anaconda_names)

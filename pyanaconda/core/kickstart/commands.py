@@ -25,6 +25,7 @@
 from pykickstart.commands.authconfig import F28_Authconfig as Authconfig
 from pykickstart.commands.authselect import F28_Authselect as Authselect
 from pykickstart.commands.autopart import F29_AutoPart as AutoPart
+from pykickstart.commands.autostep import F34_AutoStep as AutoStep
 from pykickstart.commands.bootloader import F34_Bootloader as Bootloader
 from pykickstart.commands.btrfs import F23_BTRFS as BTRFS
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
@@ -48,6 +49,7 @@ from pykickstart.commands.liveimg import F19_Liveimg as Liveimg
 from pykickstart.commands.logging import F34_Logging as Logging
 from pykickstart.commands.logvol import F29_LogVol as LogVol
 from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
+from pykickstart.commands.method import F34_Method as Method
 from pykickstart.commands.mount import F27_Mount as Mount
 from pykickstart.commands.network import F27_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
