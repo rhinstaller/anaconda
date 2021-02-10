@@ -32,7 +32,6 @@ from pyanaconda.core.configuration.base import Section, Configuration, Configura
 from pyanaconda.core.configuration.product import ProductLoader
 from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
-from pyanaconda.product import productName, productVariant
 
 
 __all__ = ["conf", "AnacondaConfiguration"]
@@ -179,7 +178,9 @@ class AnacondaConfiguration(Configuration):
         self.read(path)
         self.validate()
 
-    def set_from_product(self, requested_product="", requested_variant=""):
+    def set_from_product(self, requested_product="", requested_variant="",
+                         buildstamp_product="", buildstamp_variant="",
+                         default_product=""):
         """Set the configuration from the product configuration files.
 
         We will use configuration files of a product requested by the user
@@ -190,6 +191,9 @@ class AnacondaConfiguration(Configuration):
 
         :param str requested_product: a name of the requested product
         :param str requested_variant: a name of the requested variant
+        :param str buildstamp_product: a name of the product from .buildstamp
+        :param str buildstamp_variant: a name of the variant from .buildstamp
+        :param str default_product: a name of the default product
         """
         loader = ProductLoader()
         loader.load_products(os.path.join(ANACONDA_CONFIG_DIR, "product.d"))
@@ -208,18 +212,18 @@ class AnacondaConfiguration(Configuration):
             variant_name = requested_variant
 
         # Or use the product name and the variant name from .buildstamp.
-        elif loader.check_product(productName, productVariant):
-            product_name = productName
-            variant_name = productVariant
+        elif loader.check_product(buildstamp_product, buildstamp_variant):
+            product_name = buildstamp_product
+            variant_name = buildstamp_variant
 
         # Or the product name from .buildstamp.
-        elif loader.check_product(productName):
-            product_name = productName
+        elif loader.check_product(buildstamp_product):
+            product_name = buildstamp_product
             variant_name = ""
 
         # Or use the default product name.
-        elif loader.check_product("Fedora"):
-            product_name = "Fedora"
+        elif loader.check_product(default_product):
+            product_name = default_product
             variant_name = ""
 
         # Or fail.

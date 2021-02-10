@@ -274,7 +274,15 @@ if __name__ == "__main__":
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
     # Load the remaining configuration after a logging is set up.
-    conf.set_from_product(opts.product_name, opts.variant_name)
+    from pyanaconda import product
+    conf.set_from_product(
+        requested_product=opts.product_name,
+        requested_variant=opts.variant_name,
+        buildstamp_product=product.productName,
+        buildstamp_variant=product.productVariant,
+        default_product=util.get_os_release_value("NAME")
+    )
+
     conf.set_from_files()
     conf.set_from_opts(opts)
 
