@@ -159,7 +159,8 @@ jobs:
       - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
         working-directory: kickstart-tests
         run: |
-          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes 'rhel-only,knownfailure' ${{ needs.pr-info.outputs.launch_args }}
+          # FIXME: using special defaults because of https://github.com/rhinstaller/kickstart-tests/issues/482
+          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes 'rhel-only,knownfailure' ${{ needs.pr-info.outputs.launch_args }} --defaults scripts/defaults-built-iso.sh
 
       - name: Collect logs
         if: always()
