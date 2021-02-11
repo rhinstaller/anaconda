@@ -146,7 +146,8 @@ jobs:
           # build boot.iso with our rpms
           . /etc/os-release
           # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
-          lorax -p Fedora -v \$VERSION_ID -r \$VERSION_ID -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ -s file://\$PWD/result/build/01-rpm-build/ lorax
+          # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
+          lorax -p Fedora -v \$VERSION_ID -r \$VERSION_ID --volid Fedora-S-dvd-x86_64-rawh -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ -s file://\$PWD/result/build/01-rpm-build/ lorax
           cp lorax/images/boot.iso /images/
           EOF
 
