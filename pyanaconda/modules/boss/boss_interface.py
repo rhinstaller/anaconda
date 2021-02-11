@@ -17,22 +17,35 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from dasbus.client.proxy import get_object_handler
 from dasbus.server.interface import dbus_interface
+from dasbus.typing import *  # pylint: disable=wildcard-import
+
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.base.base_template import InterfaceTemplate
-from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.typing import BusName
 
 __all__ = ["BossInterface"]
+
+
+def get_proxy_identification(proxy):
+    """Get a service name and an object path of the given DBus proxy.
+
+    :param proxy: a proxy of a remote DBus object
+    :return: a service name and an object path of the DBus object
+    """
+    handler = get_object_handler(proxy)
+    return handler.service_name, handler.object_path
 
 
 @dbus_interface(BOSS.interface_name)
 class BossInterface(InterfaceTemplate):
     """DBus interface for the Boss."""
 
-    def GetModules(self) -> List[Str]:
+    def GetModules(self) -> List[BusName]:
         """Get service names of running modules.
 
         Get a list of all running DBus modules (including addons)
@@ -84,27 +97,25 @@ class BossInterface(InterfaceTemplate):
             self.implementation.collect_requirements()
         )
 
-    def ConfigureRuntimeWithTask(self) -> ObjPath:
-        """Configure the runtime environment.
+    def CollectConfigureRuntimeTasks(self) -> List[Tuple[BusName, ObjPath]]:
+        """Collect tasks for configuration of the runtime environment.
 
         FIXME: This method temporarily uses only addons.
 
-        :return: a DBus path a task
+        :return: a list of service names and object paths of tasks
         """
-        return TaskContainer.to_object_path(
-            self.implementation.configure_runtime_with_task()
-        )
+        proxies = self.implementation.collect_configure_runtime_tasks()
+        return list(map(get_proxy_identification, proxies))
 
-    def InstallSystemWithTask(self) -> ObjPath:
-        """Install the system.
+    def CollectInstallSystemTasks(self) -> List[Tuple[BusName, ObjPath]]:
+        """Collect tasks for installation of the system.
 
         FIXME: This method temporarily uses only addons.
 
-        :return: a DBus path of a task
+        :return: a list of service names and object paths of tasks
         """
-        return TaskContainer.to_object_path(
-            self.implementation.install_system_with_task()
-        )
+        proxies = self.implementation.collect_install_system_tasks()
+        return list(map(get_proxy_identification, proxies))
 
     def Quit(self):
         """Stop all modules and then stop the boss."""
