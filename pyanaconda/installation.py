@@ -143,14 +143,6 @@ def _prepare_configuration(payload, ksdata):
     # Anaconda addon configuration
     addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
 
-    # there is no longer a User class & addons should no longer need it
-    # FIXME: drop user class parameter from the API & all known addons
-    addon_config.append(Task(
-        "Configure Anaconda addons",
-        ksdata.addons.execute,
-        (None, ksdata, None, payload)
-    ))
-
     boss_proxy = BOSS.get_proxy()
     addon_config.append_dbus_tasks(BOSS, [boss_proxy.InstallSystemWithTask()])
 
@@ -250,11 +242,6 @@ def _prepare_installation(payload, ksdata):
 
     # setup the installation environment
     setup_environment = TaskQueue("Installation environment setup", N_("Setting up the installation environment"))
-    setup_environment.append(Task(
-        "Setup addons",
-        ksdata.addons.setup,
-        (None, ksdata, payload)
-    ))
 
     boss_proxy = BOSS.get_proxy()
     setup_environment.append_dbus_tasks(BOSS, [boss_proxy.ConfigureRuntimeWithTask()])

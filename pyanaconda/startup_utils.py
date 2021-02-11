@@ -391,15 +391,14 @@ def run_pre_scripts(ks):
         kickstart.preScriptPass(ks)
 
 
-def parse_kickstart(ks, addon_paths, strict_mode=False):
+def parse_kickstart(ks, strict_mode=False):
     """Parse the given kickstart file.
 
     :param ks: a path to a kickstart file or None
-    :param addon_paths: a dictionary of addon paths
     :param strict_mode: process warnings as errors if True
     :returns: kickstart parsed to a data model
     """
-    ksdata = kickstart.AnacondaKSHandler(addon_paths["ks"])
+    ksdata = kickstart.AnacondaKSHandler()
 
     if ks is not None:
         log.info("Parsing kickstart: %s", ks)

@@ -33,7 +33,6 @@ from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
-from pyanaconda.addons import AddonSection, AddonData, AddonRegistry
 from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
@@ -370,12 +369,8 @@ superclass = returnClassForVersion(VERSION)
 
 
 class AnacondaKSHandler(superclass):
-    AddonClassType = AddonData
 
-    def __init__(self, addon_paths=None, commandUpdates=None, dataUpdates=None):
-        if addon_paths is None:
-            addon_paths = []
-
+    def __init__(self, commandUpdates=None, dataUpdates=None):
         if commandUpdates is None:
             commandUpdates = commandMap
 
@@ -384,27 +379,6 @@ class AnacondaKSHandler(superclass):
 
         super().__init__(commandUpdates=commandUpdates, dataUpdates=dataUpdates)
         self.onPart = {}
-
-        # collect all kickstart addons for anaconda to addons dictionary
-        # which maps addon_id to it's own data structure based on BaseData
-        # with execute method
-        addons = {}
-
-        # collect all AddonData subclasses from
-        # for p in addon_paths: <p>/<plugin id>/ks/*.(py|so)
-        # and register them under <plugin id> name
-        for module_name, path in addon_paths:
-            addon_id = os.path.basename(os.path.dirname(os.path.abspath(path)))
-            if not os.path.isdir(path):
-                continue
-
-            classes = util.collect(module_name, path,
-                                   lambda cls: issubclass(cls, self.AddonClassType))
-            if classes:
-                addons[addon_id] = classes[0](name=addon_id)
-
-        # Prepare the final structures for 3rd party addons
-        self.addons = AddonRegistry(addons)
 
         # The %anaconda section uses its own handler for a limited set of commands
         self.anaconda = AnacondaSectionHandler()
@@ -415,7 +389,7 @@ class AnacondaKSHandler(superclass):
     def __str__(self):
         proxy = BOSS.get_proxy()
         modules = proxy.GenerateKickstart().strip()
-        return super().__str__() + "\n" + modules + "\n\n" + str(self.addons) + str(self.anaconda)
+        return super().__str__() + "\n" + modules + "\n\n" + str(self.anaconda)
 
 
 class AnacondaPreParser(KickstartParser):
@@ -458,7 +432,7 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(OnErrorScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(UselessSection(self.handler, sectionOpen="%packages"))
-        self.registerSection(AddonSection(self.handler))
+        self.registerSection(UselessSection(self.handler, sectionOpen="%addon"))
         self.registerSection(AnacondaSection(self.handler.anaconda))
 
 
