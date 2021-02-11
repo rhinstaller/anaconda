@@ -257,3 +257,49 @@ Below is a list of pure community features, their community maintainers, and mai
 * Description:
 
 ``Enable boot of the installed system from a BTRFS subvolume.``
+
+Code maintainers
+----------------
+
+This section will provide you information about a contact person who is responsible for part of the
+Anaconda code-base and or related projects. Anaconda team also use this list to avoid situation
+when does not have main maintainer or backup.
+
+Backup of the code should be familiar and develop parts similar way as maintainer does.
+Responsibility of a backup is to check all PRs created to this part of the Anaconda.
+
++------------------------------------+---------------------------+---------------------------+
+| Code parts                         | maintainer (GH username)  | backup (GH username)      |
++====================================+===========================+===========================+
+| Language related                   | vslavik  (VladimirSlavik) |                           |
++------------------------------------+---------------------------+---------------------------+
+| Network                            | rvykydal (rvykydal)       |                           |
++------------------------------------+---------------------------+---------------------------+
+| Payload                            | jkonecny (jkonecny12)     |                           |
++------------------------------------+---------------------------+---------------------------+
+| Storage                            | vponcova (pocovka)        |                           |
++------------------------------------+---------------------------+---------------------------+
+| Subscription                       | mkolman  (M4rtinK)        |                           |
++------------------------------------+---------------------------+---------------------------+
+| advanced storage                   | rvykydal (rvykydal)       |                           |
++------------------------------------+---------------------------+---------------------------+
+| configuration files                | vponcova (poncovka)       |                           |
++------------------------------------+---------------------------+---------------------------+
+| dbus                               | vponcova (poncovka)       |                           |
++------------------------------------+---------------------------+---------------------------+
+
+==================================== =========================== ===========================
+Side projects                        maintainer (GH username)    backup (GH username)
+------------------------------------ --------------------------- ---------------------------
+ dasbus                              vponcova (poncovka)
+ initial-setup                       mkolman  (M4rtinK)
+ simpleline                          jkonecny (jkonecny12)       vponcova (poncovka)
+ blivet                              vponcova (poncovka)
+==================================== =========================== ===========================
+
+==================================== =========================== ===========================
+Other
+------------------------------------ --------------------------- ---------------------------
+infrastructure & automation          jkonecny (jkonecny12)       vslavik  (VladimirSlavik)
+packaging & releases                 mkolman  (M4rtinK)
+==================================== =========================== ===========================
