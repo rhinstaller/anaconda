@@ -21,6 +21,7 @@ import os
 import tempfile
 import unittest
 from textwrap import dedent
+from unittest.mock import patch
 
 from blivet.size import Size
 
@@ -30,8 +31,12 @@ from pyanaconda.core.configuration.base import create_parser, read_config, write
     Configuration
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.ui import UserInterfaceSection
+from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.common.constants import services
 from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR
+
+# Path to the configuration directory of the repo.
+CONFIG_DIR = os.environ.get("ANACONDA_DATA")
 
 
 class ConfigurationTestCase(unittest.TestCase):
@@ -297,6 +302,110 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                 [os.path.relpath(path, d) for path in conf.get_sources()],
                 ["a.conf", "conf.d/b.conf", "conf.d/c.conf"]
             )
+
+    def _check_configuration_sources(self, conf, file_names):
+        """Check the loaded configuration sources."""
+        file_paths = [os.path.join(CONFIG_DIR, path) for path in file_names]
+        self.assertEqual(file_paths, conf.get_sources())
+
+    @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
+    def set_from_no_product_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+
+        with self.assertRaises(ConfigurationError) as cm:
+            conf.set_from_product()
+
+        expected = "Unable to find any suitable configuration files " \
+                   "for this product."
+
+        self.assertEqual(str(cm.exception), expected)
+
+    @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
+    def set_from_requested_product_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+
+        # Test an unknown requested product.
+        with self.assertRaises(ConfigurationError) as cm:
+            conf.set_from_product(
+                requested_product="Unknown product",
+                requested_variant="Unknown variant",
+            )
+
+        expected = "Unable to find any suitable configuration files " \
+                   "for the product name 'Unknown product' and the " \
+                   "variant name 'Unknown variant'."
+
+        self.assertEqual(str(cm.exception), expected)
+
+        # Test a known requested product.
+        conf.set_from_product(
+            requested_product="Fedora",
+            requested_variant="Workstation",
+        )
+
+        self._check_configuration_sources(conf, [
+            "anaconda.conf",
+            "product.d/fedora.conf",
+            "product.d/fedora-workstation.conf"
+        ])
+
+    @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
+    def set_from_buildstamp_product_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+
+        # Test an unknown .buildstamp product.
+        with self.assertRaises(ConfigurationError) as cm:
+            conf.set_from_product(
+                buildstamp_product="Unknown product",
+                buildstamp_variant="Unknown variant",
+            )
+
+        expected = "Unable to find any suitable configuration files " \
+                   "for this product."
+
+        self.assertEqual(str(cm.exception), expected)
+
+        # Test a known .buildstamp product.
+        conf.set_from_product(
+            buildstamp_product="Fedora",
+            buildstamp_variant="Workstation",
+        )
+
+        self._check_configuration_sources(conf, [
+            "anaconda.conf",
+            "product.d/fedora.conf",
+            "product.d/fedora-workstation.conf"
+        ])
+
+    @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
+    def set_from_default_product_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+
+        # Test an unknown default product.
+        with self.assertRaises(ConfigurationError) as cm:
+            conf.set_from_product(
+                default_product="Unknown product",
+            )
+
+        expected = "Unable to find any suitable configuration files " \
+                   "for this product."
+
+        self.assertEqual(str(cm.exception), expected)
+
+        # Test a known default product.
+        conf.set_from_product(
+            default_product="Fedora"
+        )
+
+        self._check_configuration_sources(conf, [
+            "anaconda.conf",
+            "product.d/fedora.conf"
+        ])
+
+    @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
+    def set_from_detected_product_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+        conf.set_from_product(get_os_release_value("NAME"))
 
     def kickstart_modules_test(self):
         conf = AnacondaConfiguration.from_defaults()
