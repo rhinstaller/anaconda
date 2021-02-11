@@ -420,6 +420,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 11 2021 Martin Kolman <mkolman@redhat.com> - 34.24.1-1
+- Adjust configuration options for Fedora 34 (mkolman)
+- Add dependabot support for GitHub actions (jkonecny)
+- Set volume id for iso built for kickstart test (rvykydal)
+- Guess the default product name from the os-release files (vponcova)
+- Apply overrides for the anaconda widgets only in the test environment
+  (vponcova)
+- Create real updates images (vponcova)
+- Remove deprecated support for add-ons (vponcova)
+- Don't run installation tasks of add-ons in a meta task (vponcova)
+- network: wrap IP addresses showed in GUI for wireless devices (#1925781)
+  (rvykydal)
+- Install support for non-ascii keyboard layouts (#1919483) (vponcova)
+
 * Mon Feb 08 2021 Martin Kolman <mkolman@redhat.com> - 34.24-1
 - Modify spec file to add patches required on rhel-9 rebuild (#1907566)
   (jkonecny)
