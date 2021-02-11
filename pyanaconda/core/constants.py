@@ -41,8 +41,6 @@ shortProductName = productName.lower()          # pylint: disable=no-member
 if productName.count(" "):                      # pylint: disable=no-member
     shortProductName = ''.join(s[0] for s in shortProductName.split())
 
-TRANSLATIONS_UPDATE_DIR = "/tmp/updates/po"
-
 # The default virtio port.
 VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
 

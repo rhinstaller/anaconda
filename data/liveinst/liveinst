@@ -139,18 +139,6 @@ anaconda-cleanup $ANACONDA $*
 
 # Set up the updates, if provided.
 if [ ! -z "$UPDATES" ]; then
-    if [ -e /tmp/updates.img -o -e /tmp/updates ]; then
-        title="Updates already exist"
-        text="updates= was provided, but an updates image already exists.  Please remove /tmp/updates.img and /tmp/updates and try again."
-        if which zenity &> /dev/null; then
-            zenity --error --title="$title" --text="$text"
-        else
-            echo "$title" >&2
-            echo "$text" >&2
-        fi
-        exit 1
-    fi
-
     curl -o /tmp/updates.img $UPDATES
 
     # We officially support two updates.img formats:  a filesystem image, and
@@ -165,9 +153,6 @@ if [ ! -z "$UPDATES" ]; then
         rmdir /tmp/updates.disk
     fi
 
-    export PYTHONPATH=/tmp/updates:$PYTHONPATH
-    export LD_LIBRARY_PATH=/tmp/updates:$LD_LIBRARY_PATH
-    export PATH=/tmp/updates:$PATH
 fi
 
 if [ -z $LC_ALL ]; then
@@ -185,7 +170,6 @@ else
     $ANACONDA $*
 fi
 
-if [ -e /tmp/updates ]; then rm -r /tmp/updates; fi
 if [ -e /tmp/updates.img ]; then rm /tmp/updates.img; fi
 
 # try to teardown the filesystems if this was an image install

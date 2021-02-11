@@ -36,8 +36,5 @@ if [[ "$EUID" -ne 0 ]]; then
     exit 1
 fi
 
-# Clear /tmp/updates, so Anaconda can set it up again.
-rm -rf /tmp/updates
-
 # Download and extract the updates image.
 (cd / ; curl -f "${URL}" | gzip -dc  | cpio -idu )

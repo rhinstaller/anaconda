@@ -77,9 +77,7 @@ class DNFMangerTestCase(unittest.TestCase):
         self._check_configuration(
             "reposdir = "
             "/etc/yum.repos.d, "
-            "/etc/anaconda.repos.d, "
-            "/tmp/updates/anaconda.repos.d, "
-            "/tmp/product/anaconda.repos.d",
+            "/etc/anaconda.repos.d"
         )
         self._check_substitutions({
             "arch": "x86_64",

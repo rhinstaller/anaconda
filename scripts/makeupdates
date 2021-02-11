@@ -32,6 +32,9 @@ import tempfile
 RPM_FOLDER_NAME = os.path.expanduser("~/.anaconda_updates_rpm_cache")
 RPM_RELEASE_DIR_TEMPLATE = "for_%s"
 
+# The Python site-packages path for pyanaconda.
+SITE_PACKAGES_PATH = "./usr/lib64/python3.9/site-packages/"
+
 # Anaconda scripts that should be installed into the libexec folder
 LIBEXEC_SCRIPTS = ["log-capture", "start-module", "apply-updates"]
 
@@ -174,15 +177,6 @@ def copy_updated_files(tag, updates, cwd, builddir):
         finally:
             shutil.rmtree(tmpdir)
 
-
-
-    # Updates get overlaid onto the runtime filesystem. Anaconda expects them
-    # to be in /run/install/updates, so put them in
-    # $updatedir/run/install/updates.
-    tmpupdates = updates.rstrip('/')
-    if not tmpupdates.endswith("/run/install/updates"):
-        tmpupdates = os.path.join(tmpupdates, "run/install/updates")
-
     try:
         lines = do_git_diff(tag)
     except RuntimeError as e:
@@ -201,10 +195,12 @@ def copy_updated_files(tag, updates, cwd, builddir):
         # R is followed by a number that doesn't matter to us.
         if status == "D" or status[0] == "R":
             if gitfile.startswith('pyanaconda/') and gitfile.endswith(".py"):
-                # deleted python module, write out a stub raising RemovedModuleError
-                file_path = os.path.join(tmpupdates, gitfile)
+                sys.stdout.write("Replacing %s\n" % gitfile)
+                file_path = os.path.join(updates, SITE_PACKAGES_PATH, gitfile)
+
                 if not os.path.exists(os.path.dirname(file_path)):
                     os.makedirs(os.path.dirname(file_path))
+
                 with open(file_path, "w") as fobj:
                     fobj.write('from pyanaconda.errors import RemovedModuleError\n')
                     fobj.write('raise RemovedModuleError("This module no longer exists!")\n')
@@ -225,13 +221,9 @@ def copy_updated_files(tag, updates, cwd, builddir):
             dir_parts = os.path.dirname(gitfile).split(os.path.sep)
             g_idx = dir_parts.index("gui")
             uidir = os.path.sep.join(dir_parts[g_idx+1:])
-            path_comps = [tmpupdates, "ui"]
-            if uidir:
-                path_comps.append(uidir)
-            install_to_dir(gitfile, os.path.join(*path_comps))
+            install_to_dir(gitfile, os.path.join("usr/share/anaconda/ui/", uidir))
         elif gitfile.startswith('pyanaconda/'):
-            # pyanaconda stuff goes into /tmp/updates/[path]
-            dirname = os.path.join(tmpupdates, os.path.dirname(gitfile))
+            dirname = os.path.join(SITE_PACKAGES_PATH, os.path.dirname(gitfile))
             install_to_dir(gitfile, dirname)
         elif gitfile == 'anaconda.py':
             # Install it as /usr/sbin/anaconda
@@ -343,20 +335,15 @@ def copy_updated_isys(updates, srcdir, builddir):
 
     os.system('make -C %s -j %d' % (builddir, multiprocessing.cpu_count()))
 
-    # Updates get overlaid onto the runtime filesystem. Anaconda expects them
-    # to be in /run/install/updates, so put them in
-    # $updatedir/run/install/updates.
-    tmpupdates = updates.rstrip('/')
-    if not tmpupdates.endswith("/run/install/updates/pyanaconda"):
-        tmpupdates = os.path.join(tmpupdates, "run/install/updates/pyanaconda")
+    outdir = os.path.join(updates, SITE_PACKAGES_PATH, "pyanaconda")
+    if not os.path.isdir(outdir):
+        os.makedirs(outdir)
 
-    if not os.path.isdir(tmpupdates):
-        os.makedirs(tmpupdates)
-
-    isysmodule = os.path.realpath(os.path.join(builddir,'pyanaconda/isys/.libs/_isys.so'))
+    isysmodule = os.path.realpath(os.path.join(builddir, 'pyanaconda/isys/.libs/_isys.so'))
 
     if os.path.isfile(isysmodule):
-        shutil.copy2(isysmodule, tmpupdates)
+        sys.stdout.write("Including %s\n" % isysmodule)
+        shutil.copy2(isysmodule, outdir)
 
 def copy_updated_auditd(updates, srcdir, builddir):
     os.chdir(srcdir)
@@ -519,7 +506,8 @@ def main():
             builddir = os.path.join(cwd, args.builddir)
     else:
         builddir = cwd
-    print("BUILDDIR %s" % builddir)
+
+    print("Using site-packages path: %s\n" % SITE_PACKAGES_PATH)
 
     if not os.path.isdir(updates):
         os.makedirs(updates)

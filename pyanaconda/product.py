@@ -35,7 +35,7 @@ config.set("Main", "UUID", "")
 config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
 
 # Now read in the .buildstamp file, wherever it may be.
-config.read(["/.buildstamp", "/tmp/product/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
+config.read(["/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
 
 # Set up some variables we import throughout, applying a couple transforms as necessary.
 bugUrl = config.get("Main", "BugURL")

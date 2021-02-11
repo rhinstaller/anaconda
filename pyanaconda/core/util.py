@@ -42,7 +42,7 @@ from requests_ftp import FTPAdapter
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
-from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, \
+from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
     IPMI_ABORTED, X_TIMEOUT, TAINT_HARDWARE_UNSUPPORTED, TAINT_SUPPORT_REMOVED, \
     WARNING_HARDWARE_UNSUPPORTED, WARNING_SUPPORT_REMOVED
 from pyanaconda.errors import RemovedModuleError, ExitError
@@ -533,24 +533,7 @@ def resetRpmDb():
             log.debug("error %s removing file: %s", e, rpmfile)
 
 
-def add_po_path(directory):
-    """ Looks to see what translations are under a given path and tells
-    the gettext module to use that path as the base dir """
-    for d in os.listdir(directory):
-        if not os.path.isdir("%s/%s" % (directory, d)):
-            continue
-        if not os.path.exists("%s/%s/LC_MESSAGES" % (directory, d)):
-            continue
-        for basename in os.listdir("%s/%s/LC_MESSAGES" % (directory, d)):
-            if not basename.endswith(".mo"):
-                continue
-            log.info("setting %s as translation source for %s", directory, basename[:-3])
-            gettext.bindtextdomain(basename[:-3], directory)
-
-
 def setup_translations():
-    if os.path.isdir(TRANSLATIONS_UPDATE_DIR):
-        add_po_path(TRANSLATIONS_UPDATE_DIR)
     gettext.textdomain("anaconda")
 
 

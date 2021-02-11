@@ -160,7 +160,7 @@ class GUIObject(common.UIObject):
         self.builder.connect_signals(self)
 
     def _findUIFile(self):
-        path = os.environ.get("UIPATH", "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/")
+        path = os.environ.get("UIPATH", "./:/usr/share/anaconda/ui/")
         dirs = path.split(":")
 
         # append the directory where this UIObject is defined
@@ -563,10 +563,9 @@ class GraphicalUserInterface(UserInterface):
 
     basemask = "pyanaconda.ui"
     basepath = os.path.dirname(os.path.dirname(__file__))
-    updatepath = "/tmp/updates/pyanaconda/ui"
     sitepackages = [os.path.join(dir, "pyanaconda", "ui")
                     for dir in site.getsitepackages()]
-    pathlist = set([updatepath, basepath] + sitepackages)
+    pathlist = set([basepath] + sitepackages)
 
     _categories = []
     _spokes = []

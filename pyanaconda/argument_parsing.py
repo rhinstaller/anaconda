@@ -566,7 +566,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # Miscellaneous
     ap.add_argument("--nomount", dest="rescue_nomount", action="store_true", default=False,
                     help=help_parser.help_text("nomount"))
-    ap.add_argument("--updates", dest="updateSrc", action="store", type=str,
+    ap.add_argument("--updates", dest="updates_url", action="store", type=str,
                     metavar="UPDATES_URL", help=help_parser.help_text("updates"))
     ap.add_argument("--image", action="append", dest="images", default=[],
                     metavar="IMAGE_SPEC", help=help_parser.help_text("image"))

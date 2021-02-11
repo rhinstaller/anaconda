@@ -23,22 +23,15 @@ import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
-import locale
-
 from contextlib import ContextDecorator
 from textwrap import dedent
 from unittest.mock import Mock, patch
 
-from pyanaconda.core.constants import DEFAULT_LANG
 from dasbus.server.template import BasicInterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import TaskInterface
 from dasbus.typing import get_native
-
-
-# Set the default locale.
-locale.setlocale(locale.LC_ALL, DEFAULT_LANG)
 
 
 class run_in_glib(object):
