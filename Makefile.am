@@ -165,7 +165,13 @@ release-and-tag:
 	$(MAKE) tag
 
 anaconda-ci-build:
-	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(CI_NAME):$(CI_TAG) $(CI_DOCKERFILE)
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=image=$(BASE_CONTAINER) \
+	--build-arg=copr_repo=$(COPR_REPO) \
+	-t $(CI_NAME):$(CI_TAG) \
+	$(CI_DOCKERFILE)
 
 # User has to be logged first to be able to push the image.
 # See `podman login` for more info.
@@ -173,7 +179,12 @@ anaconda-ci-push:
 	$(CONTAINER_ENGINE) push $(CI_NAME):$(CI_TAG)
 
 anaconda-rpm-build:
-	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(RPM_NAME):$(CI_TAG) $(RPM_DOCKERFILE)
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=image=$(BASE_CONTAINER) \
+	-t $(RPM_NAME):$(CI_TAG) \
+	$(RPM_DOCKERFILE)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
