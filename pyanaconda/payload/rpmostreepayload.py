@@ -19,13 +19,15 @@
 #
 from blivet.size import Size
 
-from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
+from dasbus.client.proxy import get_object_path
+
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE, \
+    SOURCE_TYPE_FLATPAK
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources
+from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, create_source
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -37,6 +39,18 @@ class RPMOSTreePayload(Payload):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._payload_proxy = get_payload(self.type)
+
+    def set_from_opts(self, opts):
+        """Add the flatpak source if available."""
+        flatpak_source = create_source(SOURCE_TYPE_FLATPAK)
+
+        if not flatpak_source.IsAvailable():
+            log.debug("The flatpak source is not available.")
+            return
+
+        sources = self.proxy.Sources
+        sources.append(get_object_path(flatpak_source))
+        self.proxy.SetSources(sources)
 
     @property
     def type(self):
@@ -104,41 +118,3 @@ class RPMOSTreePayload(Payload):
                 task_proxy.ProgressChanged.connect(progress_cb)
 
             sync_run_task(task_proxy)
-
-
-class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
-
-    def __init__(self, *args, **kwargs):
-        """Variant of rpmostree payload with flatpak support.
-
-        This variant will be used if flatpaks are available for system.
-        """
-        super().__init__(*args, **kwargs)
-
-        # find Flatpak installation size and cache it
-        from pyanaconda.modules.payloads.source.flatpak.initialization import \
-            GetFlatpaksSizeTask
-        task = GetFlatpaksSizeTask(conf.target.system_root)
-        self._flatpak_required_size = Size(task.run())
-
-    @property
-    def space_required(self):
-        return super().space_required + self._flatpak_required_size
-
-    def install(self):
-        # install ostree payload first
-        super().install()
-
-        # then flatpaks
-        self._flatpak_install()
-
-    def _progress_cb(self, step, message):
-        """Callback for task progress reporting."""
-        progressQ.send_message(message)
-
-    def _flatpak_install(self):
-        from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import \
-            InstallFlatpaksTask
-        task = InstallFlatpaksTask(conf.target.system_root)
-        task.progress_changed_signal.connect(self._progress_cb)
-        task.run()

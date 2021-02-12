@@ -21,6 +21,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import InstallFlatpaksTask
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import InitOSTreeFsAndRepoTask, \
     ChangeOSTreeRemoteTask, PullRemoteAndDeleteTask, DeployOSTreeTask, SetSystemRootTask, \
     CopyBootloaderDataTask, PrepareOSTreeMountTargetsTask, ConfigureBootloader, \
@@ -58,7 +59,8 @@ class RPMOSTreeModule(PayloadBase):
     def supported_source_types(self):
         """Get list of sources supported by the RPM OSTree module."""
         return [
-            SourceType.RPM_OSTREE
+            SourceType.RPM_OSTREE,
+            SourceType.FLATPAK,
         ]
 
     def process_kickstart(self, data):
@@ -117,6 +119,14 @@ class RPMOSTreeModule(PayloadBase):
                 source_config=ostree_source.configuration
             )
         ]
+
+        flatpak_source = self._get_source(SourceType.FLATPAK)
+
+        if flatpak_source:
+            task = InstallFlatpaksTask(
+                sysroot=conf.target.system_root
+            )
+            tasks.append(task)
 
         self._collect_mount_points_on_success(tasks)
         return tasks

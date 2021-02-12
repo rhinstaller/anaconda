@@ -17,9 +17,10 @@
 #
 import unittest
 
-from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE
+from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE, SOURCE_TYPE_FLATPAK
 from pyanaconda.modules.payloads.base.initialization import TearDownSourcesTask
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import InstallFlatpaksTask
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import InitOSTreeFsAndRepoTask, \
     ChangeOSTreeRemoteTask, PullRemoteAndDeleteTask, DeployOSTreeTask, SetSystemRootTask, \
     PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, TearDownOSTreeMountTargetsTask, \
@@ -54,7 +55,8 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
     def supported_sources_test(self):
         """Test the SupportedSourceTypes property."""
         self.assertEqual(self.interface.SupportedSourceTypes, [
-            SOURCE_TYPE_RPM_OSTREE
+            SOURCE_TYPE_RPM_OSTREE,
+            SOURCE_TYPE_FLATPAK,
         ])
 
 
@@ -140,6 +142,21 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
             SetSystemRootTask,
             CopyBootloaderDataTask,
             PrepareOSTreeMountTargetsTask,
+        ])
+
+        flatpak_source = SourceFactory.create_source(SourceType.FLATPAK)
+        self.module.set_sources([rpm_source, flatpak_source])
+
+        tasks = self.module.install_with_tasks()
+        self._assert_is_instance_list(tasks, [
+            InitOSTreeFsAndRepoTask,
+            ChangeOSTreeRemoteTask,
+            PullRemoteAndDeleteTask,
+            DeployOSTreeTask,
+            SetSystemRootTask,
+            CopyBootloaderDataTask,
+            PrepareOSTreeMountTargetsTask,
+            InstallFlatpaksTask,
         ])
 
     def collect_mount_points_test(self):
