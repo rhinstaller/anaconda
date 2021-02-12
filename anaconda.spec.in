@@ -108,7 +108,6 @@ Requires: subscription-manager >= %{subscriptionmanagerver}
 # which is apparently great for containers but unhelpful for the rest of us
 Requires: cracklib-dicts
 
-Requires: python3-pytz
 Requires: teamd
 %ifarch s390 s390x
 Requires: openssh
