@@ -26,7 +26,7 @@ from pyanaconda.modules.common.base.base_template import InterfaceTemplate
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.common.typing import BusName
+from pyanaconda.modules.common.custom_typing import BusName
 
 __all__ = ["BossInterface"]
 
