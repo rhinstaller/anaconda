@@ -141,3 +141,15 @@ class PayloadsService(KickstartService):
         :type source_type: value of the payload.base.constants.SourceType enum
         """
         return SourceFactory.create_source(source_type)
+
+    def teardown_with_tasks(self):
+        """Returns teardown tasks for this module.
+
+        :return: a list of tasks
+        """
+        tasks = []
+
+        if self.active_payload:
+            tasks.extend(self.active_payload.tear_down_with_tasks())
+
+        return tasks

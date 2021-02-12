@@ -164,3 +164,17 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
     def tear_down_sources_with_task(self):
         """Tear down installation sources."""
         return TearDownSourcesTask(self.sources)
+
+    def tear_down_with_tasks(self):
+        """Returns teardown tasks for this payload.
+
+        Clean up everything after this payload.
+
+        :return: a list of tasks
+        """
+        tasks = []
+
+        if self.sources:
+            tasks.append(self.tear_down_sources_with_task())
+
+        return tasks

@@ -20,17 +20,19 @@
 from unittest import TestCase
 from unittest.mock import patch, create_autospec, DEFAULT
 
-from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
-from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import PayloadKickstartSharedTest
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, \
+    check_dbus_object_creation, check_task_creation_list
+from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
+    PayloadKickstartSharedTest
 
+from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.containers import PayloadContainer
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
     SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.constants import PayloadType
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
@@ -164,6 +166,21 @@ class PayloadsInterfaceTestCase(TestCase):
         """Test creation of the not existing source."""
         with self.assertRaises(ValueError):
             self.payload_interface.CreateSource("NotASource")
+
+    @patch_dbus_publish_object
+    def tear_down_with_tasks_test(self, publisher):
+        """Test the TeardownWithTasks method."""
+        self.assertEqual(self.payload_interface.TeardownWithTasks(), [])
+
+        payload = self.payload_module.create_payload(PayloadType.DNF)
+        self.payload_module.activate_payload(payload)
+
+        source = self.payload_module.create_source(SourceType.CDROM)
+        payload.set_sources([source])
+
+        publisher.reset_mock()
+        task_paths = self.payload_interface.TeardownWithTasks()
+        check_task_creation_list(self, task_paths, publisher, [TearDownSourcesTask])
 
 
 class PayloadSharedTasksTest(TestCase):
