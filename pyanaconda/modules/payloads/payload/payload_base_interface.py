@@ -94,6 +94,17 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
         """
         return self.implementation.calculate_required_space()
 
+    def GetKernelVersionList(self) -> List[Str]:
+        """Get the kernel versions list.
+
+        The kernel version list doesn't have to be available
+        before the payload installation.
+
+        :return: a list of kernel versions
+        :raises UnavailableValueError: if the list is not available
+        """
+        return self.implementation.get_kernel_version_list()
+
     def PreInstallWithTasks(self) -> List[ObjPath]:
         """Execute preparation steps.
 

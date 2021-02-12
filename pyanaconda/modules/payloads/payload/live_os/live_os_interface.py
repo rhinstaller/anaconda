@@ -17,8 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.server.interface import dbus_interface, dbus_signal
-from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.server.interface import dbus_interface
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_LIVE_OS
 from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
@@ -27,20 +26,3 @@ from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBa
 @dbus_interface(PAYLOAD_LIVE_OS.interface_name)
 class LiveOSInterface(PayloadBaseInterface):
     """DBus interface for Live OS payload module."""
-
-    def connect_signals(self):
-        super().connect_signals()
-        self.implementation.kernel_version_list_changed.connect(self.KernelVersionListChanged)
-
-    def UpdateKernelVersionList(self):
-        """Update the list of kernel versions."""
-        self.implementation.update_kernel_version_list()
-
-    def GetKernelVersionList(self) -> List[Str]:
-        """Get the kernel versions list."""
-        return self.implementation.kernel_version_list
-
-    @dbus_signal
-    def KernelVersionListChanged(self, kernel_version_list: List[Str]):
-        """Signal kernel version list change."""
-        pass

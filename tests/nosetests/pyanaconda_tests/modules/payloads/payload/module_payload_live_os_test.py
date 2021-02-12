@@ -19,14 +19,12 @@
 #
 import unittest
 
-from unittest.mock import Mock, patch
-
 from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
     patch_dbus_publish_object, PropertiesChangedCallback
 from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
     PayloadSharedTest
 
-from pyanaconda.core.constants import INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
+from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.payloads.constants import SourceType, PayloadType, SourceState
@@ -101,38 +99,14 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         source1.get_state.return_value = SourceState.UNREADY
         self.shared_tests.set_and_check_sources([source1])
 
-    @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")
-    def empty_kernel_version_list_test(self, get_kernel_version_list):
-        """Test Live OS empty get kernel version list."""
-        self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
-
-        get_kernel_version_list.return_value = []
-        kernel_list_callback = Mock()
-
-        # pylint: disable=no-member
-        self.live_os_interface.KernelVersionListChanged.connect(kernel_list_callback)
-        self.live_os_interface.UpdateKernelVersionList()
-
-        get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
-
-        self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
-        kernel_list_callback.assert_called_once_with([])
-
-    @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")
-    def kernel_version_list_test(self, get_kernel_version_list):
+    def get_kernel_version_list_test(self):
         """Test Live OS get kernel version list."""
+        self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
+
         kernel_list = ["kernel-abc", "magic-kernel.fc3000.x86_64", "sad-kernel"]
-        get_kernel_version_list.return_value = kernel_list
-        kernel_list_callback = Mock()
-
-        # pylint: disable=no-member
-        self.live_os_interface.KernelVersionListChanged.connect(kernel_list_callback)
-        self.live_os_interface.UpdateKernelVersionList()
-
-        get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
+        self.live_os_module.set_kernel_version_list(kernel_list)
 
         self.assertListEqual(self.live_os_interface.GetKernelVersionList(), kernel_list)
-        kernel_list_callback.assert_called_once_with(kernel_list)
 
     @patch_dbus_publish_object
     def set_up_installation_sources_task_test(self, publisher):

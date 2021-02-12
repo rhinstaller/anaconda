@@ -23,6 +23,7 @@
 import unittest
 from unittest.mock import patch
 
+from pyanaconda.modules.common.errors.general import UnavailableValueError
 from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
@@ -201,3 +202,11 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         task_path = self.interface.TearDownSourcesWithTask()
         obj = check_task_creation(self, task_path, publisher, TearDownSourcesTask)
         self.assertEqual(obj.implementation._sources, [source])
+
+    def get_kernel_version_list_test(self):
+        """Test GetKernelVersionList."""
+        with self.assertRaises(UnavailableValueError):
+            self.interface.GetKernelVersionList()
+
+        self.module.set_kernel_version_list(["k1", "k2", "k3"])
+        self.assertEqual(self.interface.GetKernelVersionList(), ["k1", "k2", "k3"])
