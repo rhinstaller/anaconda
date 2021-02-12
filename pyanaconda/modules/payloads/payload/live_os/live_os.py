@@ -87,10 +87,7 @@ class LiveOSModule(PayloadBase):
 
         :return: a source object
         """
-        if self.sources:
-            return list(self.sources)[0]
-
-        return None
+        return self._get_source(SourceType.LIVE_OS_IMAGE)
 
     def _check_source_availability(self, message):
         """Test if source is available for this payload."""
