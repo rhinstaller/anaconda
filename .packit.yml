@@ -13,7 +13,7 @@ jobs:
     trigger: pull_request
     metadata:
       targets:
-        - fedora-development
+        - fedora-rawhide
 
   - job: copr_build
     trigger: pull_request
