@@ -33,6 +33,7 @@ from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
+from pyanaconda.core.kickstart.specification import KickstartSpecification
 from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
@@ -41,7 +42,7 @@ from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.pwpolicy import F34_PwPolicy, F34_PwPolicyData
 
-from pykickstart.base import BaseHandler, KickstartCommand
+from pykickstart.base import BaseHandler, KickstartCommand, RemovedCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
 from pykickstart.errors import KickstartError, KickstartParseWarning, KickstartDeprecationWarning
 from pykickstart.ko import KickstartObject
@@ -313,59 +314,76 @@ class AnacondaSection(Section):
 
 # This is just the latest entry from pykickstart.handlers.control with all the
 # classes we're overriding in place of the defaults.
-commandMap = {
-    "auth": UselessCommand,
-    "authconfig": UselessCommand,
-    "authselect": UselessCommand,
-    "autopart": UselessCommand,
-    "btrfs": UselessCommand,
-    "bootloader": UselessCommand,
-    "cdrom": UselessCommand,
-    "clearpart": UselessCommand,
-    "fcoe": UselessCommand,
-    "firewall": UselessCommand,
-    "firstboot": UselessCommand,
-    "group" : UselessCommand,
-    "harddrive": UselessCommand,
-    "hmc": UselessCommand,
-    "ignoredisk": UselessCommand,
-    "iscsi": UselessCommand,
-    "iscsiname": UselessCommand,
-    "keyboard": UselessCommand,
-    "lang": UselessCommand,
-    "logvol": UselessCommand,
-    "method": UselessCommand,
-    "mount": UselessCommand,
-    "network": UselessCommand,
-    "nfs": UselessCommand,
-    "nvdimm": UselessCommand,
-    "ostreesetup": UselessCommand,
-    "part": UselessCommand,
-    "partition": UselessCommand,
-    "raid": UselessCommand,
-    "realm": UselessCommand,
-    "reqpart": UselessCommand,
-    "rootpw": UselessCommand,
-    "selinux": UselessCommand,
-    "services": UselessCommand,
-    "sshkey" : UselessCommand,
-    "skipx": UselessCommand,
-    "snapshot": UselessCommand,
-    "timesource": UselessCommand,
-    "timezone": UselessCommand,
-    "url": UselessCommand,
-    "user": UselessCommand,
-    "volgroup": UselessCommand,
-    "xconfig": UselessCommand,
-    "zerombr": UselessCommand,
-    "zfcp": UselessCommand,
-}
+class AnacondaKickstartSpecification(KickstartSpecification):
+    """The kickstart specification of the main process."""
 
-dataMap = {
-    "RepoData": RepoData,
-}
+    commands = {
+        "autostep": COMMANDS.AutoStep,
+        "cmdline": COMMANDS.DisplayMode,
+        "driverdisk": COMMANDS.DriverDisk,
+        "module": COMMANDS.Module,
+        "eula": COMMANDS.Eula,
+        "graphical": COMMANDS.DisplayMode,
+        "halt": COMMANDS.Reboot,
+        "liveimg": COMMANDS.Liveimg,
+        "logging": COMMANDS.Logging,
+        "mediacheck": COMMANDS.MediaCheck,
+        "method": COMMANDS.Method,
+        "poweroff": COMMANDS.Reboot,
+        "reboot": COMMANDS.Reboot,
+        "repo": COMMANDS.Repo,
+        "rescue": COMMANDS.Rescue,
+        "shutdown": COMMANDS.Reboot,
+        "sshpw": COMMANDS.SshPw,
+        "text": COMMANDS.DisplayMode,
+        "updates": COMMANDS.Updates,
+        "vnc": COMMANDS.Vnc,
+    }
 
+    commands_data = {
+        "DriverDiskData": COMMANDS.DriverDiskData,
+        "ModuleData": COMMANDS.ModuleData,
+        "RepoData": RepoData,
+        "SshPwData": COMMANDS.SshPwData,
+    }
+
+    @classmethod
+    def generate_command_map(cls, handler):
+        """Generate a command map.
+
+        :param handler: a kickstart handler
+        :return: a map of command overrides
+        """
+        command_map = dict(cls.commands)
+
+        for name, command in handler.commandMap.items():
+            # Ignore removed commands.
+            if issubclass(command, RemovedCommand):
+                continue
+
+            # Mark unspecified commands as useless.
+            if name not in command_map:
+                command_map[name] = UselessCommand
+
+        return command_map
+
+    @classmethod
+    def generate_data_map(cls, handler):
+        """Generate a data map.
+
+        :param handler: a kickstart handler
+        :return: a map of data overrides
+        """
+        return dict(cls.commands_data)
+
+
+# Get the kickstart handler for the specified version.
 superclass = returnClassForVersion(VERSION)
+
+# Generate the command and data overrides.
+specification = AnacondaKickstartSpecification
+commandMap = specification.generate_command_map(superclass)
+dataMap = specification.generate_data_map(superclass)
 
 
 class AnacondaKSHandler(superclass):
