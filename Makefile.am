@@ -63,9 +63,6 @@ ARCH_NAME ?= $(shell uname -m)
 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 
-MOCKCHROOT ?= fedora-$(DIST_NAME)-$(ARCH_NAME)
-MOCK_EXTRA_ARGS ?=
-
 PYTHON ?= python3
 COVERAGE ?= $(PYTHON) -m coverage
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
