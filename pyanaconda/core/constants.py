@@ -151,7 +151,7 @@ TAINT_SUPPORT_REMOVED = 27
 TAINT_HARDWARE_UNSUPPORTED = 28
 
 WARNING_SUPPORT_REMOVED = N_(
-    "Support for this hardware has been removed in this major OS release. Please check the"
+    "Support for this hardware has been removed in this major OS release. Please check the "
     "removed functionality section of the release notes."
 )
 
