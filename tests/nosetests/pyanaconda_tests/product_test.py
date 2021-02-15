@@ -70,6 +70,33 @@ WORKSTATION_PARTITIONING = [
     ),
 ]
 
+ENTERPRISE_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("1GiB"),
+        max_size=Size("70GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True,
+    ),
+    PartSpec(
+        mountpoint="/home",
+        size=Size("500MiB"), grow=True,
+        required_space=Size("50GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        fstype="swap",
+        lv=True,
+        encrypted=True
+    ),
+]
+
 VIRTUALIZATION_PARTITIONING = [
     PartSpec(
         mountpoint="/",
@@ -111,7 +138,8 @@ VIRTUALIZATION_PARTITIONING = [
         lv=True,
         thin=True,
         encrypted=True,
-    ),    PartSpec(
+    ),
+    PartSpec(
         mountpoint="/var/log",
         size=Size("8GiB"),
         btr=True,
@@ -231,24 +259,24 @@ class ProductConfigurationTestCase(unittest.TestCase):
         self._check_default_product(
             "Fedora-ELN", "",
             ["rhel.conf", "fedora-eln.conf"],
-            WORKSTATION_PARTITIONING
+            ENTERPRISE_PARTITIONING
         )
 
     def rhel_products_test(self):
         self._check_default_product(
             "Red Hat Enterprise Linux", "",
             ["rhel.conf"],
-            WORKSTATION_PARTITIONING
+            ENTERPRISE_PARTITIONING
         )
         self._check_default_product(
             "CentOS Stream", "",
             ["rhel.conf", "centos-stream.conf"],
-            WORKSTATION_PARTITIONING
+            ENTERPRISE_PARTITIONING
         )
         self._check_default_product(
             "CentOS Linux", "",
             ["rhel.conf", "centos-stream.conf", "centos.conf"],
-            WORKSTATION_PARTITIONING
+            ENTERPRISE_PARTITIONING
         )
         self._check_default_product(
             "RHVH", "",
@@ -263,7 +291,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
         self._check_default_product(
             "Scientific Linux", "",
             ["rhel.conf", "scientific-linux.conf"],
-            WORKSTATION_PARTITIONING
+            ENTERPRISE_PARTITIONING
         )
 
     def product_module_list_difference_fedora_rhel_test(self):
