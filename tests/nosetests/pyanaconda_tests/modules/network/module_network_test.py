@@ -24,6 +24,8 @@ import shutil
 from textwrap import dedent
 from unittest.mock import patch, Mock
 
+from dasbus.signal import Signal
+
 from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_kickstart_interface, check_task_creation, PropertiesChangedCallback
 
@@ -111,9 +113,60 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             "dot.dot",
         )
 
-    def get_current_hostname_test(self):
-        """Test getting current hostname does not fail."""
-        self.network_interface.GetCurrentHostname()
+    @patch("pyanaconda.modules.network.network.conf")
+    @patch('pyanaconda.core.dbus.SystemBus.get_proxy')
+    def get_current_hostname_test(self, proxy_getter, conf_mock):
+        """Test the GetCurrentHostname method."""
+        hostname_mock = Mock()
+        hostname_mock.Hostname = "dot.dot"
+        proxy_getter.return_value = hostname_mock
+
+        conf_mock.system.provides_system_bus = False
+        self.network_module._connect_to_hostname_service()
+        self.assertEqual(self.network_interface.GetCurrentHostname(), "")
+
+        conf_mock.system.provides_system_bus = True
+        self.network_module._connect_to_hostname_service()
+        self.assertEqual(self.network_interface.GetCurrentHostname(), "dot.dot")
+
+    @patch("pyanaconda.modules.network.network.conf")
+    @patch('pyanaconda.core.dbus.SystemBus.get_proxy')
+    def set_current_hostname_test(self, proxy_getter, conf_mock):
+        """Test the SetCurrentHostname method."""
+        hostname_mock = Mock()
+        proxy_getter.return_value = hostname_mock
+
+        conf_mock.system.provides_system_bus = False
+        self.network_module._connect_to_hostname_service()
+        self.network_interface.SetCurrentHostname("dot.dot")
+        hostname_mock.SetHostname.assert_not_called()
+
+        conf_mock.system.provides_system_bus = True
+        self.network_module._connect_to_hostname_service()
+        self.network_interface.SetCurrentHostname("dot.dot")
+        hostname_mock.SetHostname.assert_called_once_with("dot.dot", False)
+
+    @patch("pyanaconda.modules.network.network.conf")
+    @patch('pyanaconda.core.dbus.SystemBus.get_proxy')
+    def current_hostname_changed_test(self, proxy_getter, conf_mock):
+        """Test the CurrentHostnameChanged signal."""
+        hostname_mock = Mock()
+        hostname_mock.PropertiesChanged = Signal()
+        proxy_getter.return_value = hostname_mock
+
+        hostname_changed = Mock()
+        # pylint: disable=no-member
+        self.network_interface.CurrentHostnameChanged.connect(hostname_changed)
+
+        conf_mock.system.provides_system_bus = True
+        self.network_module._connect_to_hostname_service()
+
+        hostname_mock.PropertiesChanged.emit("org.freedesktop.hostname1", {}, [])
+        hostname_changed.assert_not_called()
+
+        changed_properties = {"Hostname": get_variant(Str, "dot.dot")}
+        hostname_mock.PropertiesChanged.emit("org.freedesktop.hostname1", changed_properties, [])
+        hostname_changed.assert_called_once_with("dot.dot")
 
     def connected_test(self):
         """Test getting connectivity status does not fail."""
