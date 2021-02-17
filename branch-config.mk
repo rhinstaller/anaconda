@@ -21,7 +21,7 @@
 
 # Name of the expected current git branch.
 # This could be master, fXX-devel, fXX-release, rhelX-branch, rhel-X ...
-GIT_BRANCH ?= f34-devel
+GIT_BRANCH ?= f34-release
 
 # Directory for this anaconda branch in anaconda-l10n repository. This could be master, fXX, rhel-8 etc.
 L10N_DIR ?= f34
