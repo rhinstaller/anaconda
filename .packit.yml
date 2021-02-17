@@ -12,12 +12,15 @@ jobs:
     trigger: pull_request
     metadata:
       targets:
-        - fedora-development
+        - fedora-34
+        - fedora-rawhide
 
   - job: copr_build
     trigger: pull_request
     metadata:
       targets:
+        - fedora-34
+        - fedora-rawhide
         - fedora-eln
 
   - job: copr_build
