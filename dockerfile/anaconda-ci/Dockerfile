@@ -1,5 +1,9 @@
 ARG image=registry.fedoraproject.org/fedora:rawhide
 FROM ${image}
+# FROM starts a new build stage with new ARGs. Put any ARGs after FROM unless required by the FROM itself.
+# see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+ARG git_branch=master
+ARG copr_repo=@rhinstaller/Anaconda
 LABEL maintainer=anaconda-list@redhat.com
 
 # On ELN, BaseOS+AppStream don't have all our build dependencies; this provides the "Everything" compose
@@ -28,8 +32,8 @@ RUN set -e; \
   policycoreutils \
   python3-gobject-base \
   python3-pip; \
-  if ! grep -q VARIANT.*eln /etc/os-release; then dnf copr enable -y @rhinstaller/Anaconda; dnf copr enable -y @storage/blivet-daily; fi; \
-  curl -L https://raw.githubusercontent.com/rhinstaller/anaconda/master/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
+  if ! grep -q VARIANT.*eln /etc/os-release; then dnf copr enable -y ${copr_repo}; dnf copr enable -y @storage/blivet-daily; fi; \
+  curl -L https://raw.githubusercontent.com/rhinstaller/anaconda/${git_branch}/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   rpmspec -q --requires /tmp/anaconda.spec | grep -v anaconda | xargs -d '\n' dnf install -y; \
   dnf clean all
@@ -42,10 +46,6 @@ RUN pip install \
   nose-testconfig \
   nose \
   rpmfluff
-
-# HACK: Apply fix from https://github.com/PyCQA/astroid/pull/847 to avoid
-# excessive memory usage, until astroid > 2.4.2 gets released
-RUN curl https://github.com/PyCQA/astroid/commit/d62349a424c549b4634c90e471c9f876b99edfeb.patch | patch /usr/local/lib/python3*/site-packages/astroid/manager.py
 
 # see https://github.com/martinpitt/anaconda/settings/actions/add-new-runner
 RUN mkdir actions-runner && cd actions-runner && \
