@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.network import NetworkOnBoot
 from pyanaconda.core.kernel import kernel_arguments
@@ -66,12 +67,6 @@ class NetworkService(KickstartService):
         self.current_hostname_changed = Signal()
         self._hostname_service_proxy = None
 
-        if conf.system.provides_system_bus:
-            self._hostname_service_proxy = HOSTNAME.get_proxy()
-            self._hostname_service_proxy.PropertiesChanged.connect(
-                self._hostname_service_properties_changed
-            )
-
         self.connected_changed = Signal()
         self.nm_client = None
         # TODO fallback solution - use Gio/GNetworkMonitor ?
@@ -103,6 +98,11 @@ class NetworkService(KickstartService):
 
         DBus.publish_object(NETWORK.object_path, NetworkInterface(self))
         DBus.register_service(NETWORK.service_name)
+
+    def run(self):
+        """Run the loop."""
+        run_in_loop(self._connect_to_hostname_service)
+        super().run()
 
     @property
     def kickstart_specification(self):
@@ -203,6 +203,20 @@ class NetworkService(KickstartService):
         self._hostname = hostname
         self.hostname_changed.emit()
         log.debug("Hostname is set to %s", hostname)
+
+    def _connect_to_hostname_service(self):
+        """Connect to the hostname service."""
+        log.debug("Connecting to the hostnamed service.")
+
+        if not conf.system.provides_system_bus:
+            log.debug("Not using hostnamed service: system does not "
+                      "provide system bus according to configuration.")
+            return
+
+        self._hostname_service_proxy = HOSTNAME.get_proxy()
+        self._hostname_service_proxy.PropertiesChanged.connect(
+            self._hostname_service_properties_changed
+        )
 
     def _hostname_service_properties_changed(self, interface, changed, invalid):
         if interface == HOSTNAME.interface_name and "Hostname" in changed:
