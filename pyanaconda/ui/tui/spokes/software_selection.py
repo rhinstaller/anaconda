@@ -56,7 +56,7 @@ class SoftwareSpoke(NormalTUISpoke):
         if not NormalTUISpoke.should_run(environment, data):
             return False
 
-        return context.payload.type == PAYLOAD_TYPE_DNF
+        return context.payload_type == PAYLOAD_TYPE_DNF
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
