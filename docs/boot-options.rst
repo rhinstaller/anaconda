@@ -881,10 +881,10 @@ Instead, use `inst.repo`_ or specify appropriate `Network Options`_.
 blacklist, nofirewire
 ^^^^^^^^^^^^^^^^^^^^^
 
-``modprobe`` handles blacklisting kernel modules on its own; try
+``modprobe`` handles adding kernel modules to a denylist on its own; try
 ``modprobe.blacklist=<mod1>,<mod2>...``
 
-You can blacklist the firewire module with ``modprobe.blacklist=firewire_ohci``.
+You can add the firewire module to a denylist with ``modprobe.blacklist=firewire_ohci``.
 
 serial
 ^^^^^^
