@@ -252,6 +252,8 @@ Push new localization directory. This will be automatically discovered and added
 How to branch Anaconda
 ----------------------
 
+FIXME: This does not reflect latest changes required by containers for CI and tests.
+
 First make sure that localization branch for the next Fedora is already created.
 
 Create the ``-devel`` branch:
@@ -282,12 +284,7 @@ Edit branch specific settings. This have to be done on f<version>-release branch
 
    vim ./branch-config.mk
 
-And change content to:
-
-::
-
-   GIT_BRANCH ?= f<version>-release
-   L10N_DIR ?= f<version>
+And change content according to comments in the file.
 
 
 Then correct pykickstart version for the new Fedora release by changing all occurrences of

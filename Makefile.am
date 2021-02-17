@@ -56,15 +56,7 @@ L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
 # Branch used in anaconda-l10n repository. This should be master all the time.
 GIT_L10N_BRANCH ?= master
 
-DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
-				-e 's/^f//' \
-				-e 's/master/rawhide/')
-ARCH_NAME ?= $(shell uname -m)
-
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-
-MOCKCHROOT ?= fedora-$(DIST_NAME)-$(ARCH_NAME)
-MOCK_EXTRA_ARGS ?=
 
 PYTHON ?= python3
 COVERAGE ?= $(PYTHON) -m coverage
@@ -173,7 +165,13 @@ release-and-tag:
 	$(MAKE) tag
 
 anaconda-ci-build:
-	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(CI_NAME):$(CI_TAG) $(CI_DOCKERFILE)
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=image=$(BASE_CONTAINER) \
+	--build-arg=copr_repo=$(COPR_REPO) \
+	-t $(CI_NAME):$(CI_TAG) \
+	$(CI_DOCKERFILE)
 
 # User has to be logged first to be able to push the image.
 # See `podman login` for more info.
@@ -181,7 +179,12 @@ anaconda-ci-push:
 	$(CONTAINER_ENGINE) push $(CI_NAME):$(CI_TAG)
 
 anaconda-rpm-build:
-	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(RPM_NAME):$(CI_TAG) $(RPM_DOCKERFILE)
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=image=$(BASE_CONTAINER) \
+	-t $(RPM_NAME):$(CI_TAG) \
+	$(RPM_DOCKERFILE)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
