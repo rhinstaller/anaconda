@@ -23,12 +23,16 @@ from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import localization
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget
+
+# TRANSLATORS: 'b' to go back to language list
+PROMPT_BACK_DESCRIPTION = N_("to return to language list")
+PROMPT_BACK_KEY = 'b'
 
 
 class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
@@ -125,8 +129,8 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         if self._container.process_user_input(key):
             return InputState.PROCESSED
         else:
-            # TRANSLATORS: 'b' to go back
-            if key.lower() == C_("TUI|Spoke Navigation|Language Support", "b"):
+
+            if key.lower() == PROMPT_BACK_KEY:
                 ScreenHandler.replace_screen(self)
                 return InputState.PROCESSED
             else:
@@ -136,8 +140,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """ Customize default prompt. """
         prompt = NormalTUISpoke.prompt(self, args)
         prompt.set_message(_("Please select language support to install"))
-        # TRANSLATORS: 'b' to go back
-        prompt.add_option(C_("TUI|Spoke Navigation|Language Support", "b"), _("to return to language list"))
+        prompt.add_option(PROMPT_BACK_KEY, _(PROMPT_BACK_DESCRIPTION))
         return prompt
 
     def apply(self):

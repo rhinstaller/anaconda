@@ -21,7 +21,7 @@ from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceCheck
 from pyanaconda.ui.tui.hubs import TUIHub
 from pyanaconda.flags import flags
 from pyanaconda.errors import CmdlineError
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.configuration.anaconda import conf
 
 from simpleline import App
@@ -33,6 +33,10 @@ import time
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+# TRANSLATORS: 'b' to begin installation
+PROMPT_BEGIN_DESCRIPTION = N_("to begin installation")
+PROMPT_BEGIN_KEY = 'b'
 
 
 class SummaryHub(TUIHub):
@@ -102,9 +106,7 @@ class SummaryHub(TUIHub):
 
                 # TRANSLATORS: 'b' to begin installation
                 print(_("Enter '%s' to ignore the warning and attempt to install anyway.") %
-                        # TRANSLATORS: 'b' to begin installation
-                        C_("TUI|Spoke Navigation", "b")
-                        )
+                      PROMPT_BEGIN_KEY)
             else:
                 # Space is ok and spokes are complete, continue.
                 self.close()
@@ -124,13 +126,12 @@ class SummaryHub(TUIHub):
         if incomplete_spokes:
             flags.automatedInstall = False
 
-        # override the default prompt since we want to offer the 'b' to begin
-        # installation option here
+        # override the default prompt
         prompt = super().prompt(args)
         # this screen cannot be closed
         prompt.remove_option(Prompt.CONTINUE)
-        # TRANSLATORS: 'b' to begin installation
-        prompt.add_option(C_("TUI|Spoke Navigation", "b"), _("to begin installation"))
+        # offer the 'b' to begin installation option
+        prompt.add_option(PROMPT_BEGIN_KEY, _(PROMPT_BEGIN_DESCRIPTION))
         return prompt
 
     def input(self, args, key):
@@ -141,8 +142,7 @@ class SummaryHub(TUIHub):
         else:
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
-            # TRANSLATORS: 'b' to begin installation
-            if key == C_('TUI|Spoke Navigation', 'b'):
+            if key == PROMPT_BEGIN_KEY:
                 for spoke in self._spokes.values():
                     if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))
@@ -154,8 +154,7 @@ class SummaryHub(TUIHub):
                     return InputState.DISCARDED
 
                 return InputState.PROCESSED_AND_CLOSE
-            # TRANSLATORS: 'c' to continue
-            elif key == C_('TUI|Spoke Navigation', 'c'):
+            elif key == Prompt.CONTINUE:
                 # Kind of a hack, but we want to ignore if anyone presses 'c'
                 # which is the global TUI key to close the current screen
                 return InputState.DISCARDED

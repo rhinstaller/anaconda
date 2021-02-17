@@ -30,7 +30,7 @@ from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _
 from pyanaconda.payload.image import find_potential_hdiso_sources, \
     get_hdiso_source_info, get_hdiso_source_description
 
@@ -43,6 +43,7 @@ from pyanaconda.core.constants import PAYLOAD_STATUS_PROBING_STORAGE
 from pyanaconda.ui.helpers import SourceSwitchHandler
 
 from simpleline.render.containers import ListColumnContainer
+from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget, EntryWidget
@@ -479,8 +480,7 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
     def input(self, args, key):
         if self._container is not None and self._container.process_user_input(key):
             return InputState.PROCESSED
-        # TRANSLATORS: 'c' to continue
-        elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
+        elif key.lower() == Prompt.CONTINUE:
             self.apply()
             return InputState.PROCESSED_AND_CLOSE
         else:

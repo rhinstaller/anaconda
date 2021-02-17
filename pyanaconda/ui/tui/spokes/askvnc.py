@@ -16,19 +16,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 import sys
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.core.constants import USEVNC, USETEXT, QUIT_MESSAGE
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.core.util import execWithRedirect, ipmi_abort
 
 from simpleline import App
 from simpleline.event_loop.signals import ExceptionSignal
 from simpleline.render.containers import ListColumnContainer
+from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.adv_widgets import YesNoDialog
@@ -98,8 +98,7 @@ class AskVNCSpoke(NormalTUISpoke):
             self.apply()
             return InputState.PROCESSED_AND_CLOSE
         else:
-            # TRANSLATORS: 'q' to quit
-            if key.lower() == C_('TUI|Spoke Navigation', 'q'):
+            if key.lower() == Prompt.QUIT:
                 d = YesNoDialog(_(QUIT_MESSAGE))
                 ScreenHandler.push_screen_modal(d)
                 if d.answer:
