@@ -14,8 +14,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch:
-          - master
+        container-tag: ['master', 'eln', 'f34-devel', 'f34-release']
+        include:
+          - container-tag: master
+            branch: master
+          - container-tag: eln
+            branch: master
+            build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
+          - container-tag: f34-devel
+            branch: f34-devel
+          - container-tag: f34-release
+            branch: f34-release
+    env:
+      CI_TAG: '${{ matrix.container-tag }}'
+      CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
     timeout-minutes: 60
     steps:
       - name: Checkout anaconda repository
