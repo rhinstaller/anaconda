@@ -56,11 +56,6 @@ L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
 # Branch used in anaconda-l10n repository. This should be master all the time.
 GIT_L10N_BRANCH ?= master
 
-DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
-				-e 's/^f//' \
-				-e 's/master/rawhide/')
-ARCH_NAME ?= $(shell uname -m)
-
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 
 PYTHON ?= python3
