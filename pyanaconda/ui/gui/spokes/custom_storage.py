@@ -113,6 +113,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._accordion = None
 
         self._partitioning_scheme = conf.storage.default_scheme
+        self._partitioning_encrypted = False
+
         self._default_file_system = ""
         self._selected_disks = []
         self._passphrase = ""
@@ -317,7 +319,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         model = self._fsCombo.get_model()
         return model[itr][1]
 
-    def _change_autopart_type(self, autopart_type_combo):
+    def _on_autopart_type_changed(self, autopart_type_combo):
         """
         This is called when the autopart type combo on the left hand side of
         custom partitioning is changed.  We already know how to handle the case
@@ -332,6 +334,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         model = autopart_type_combo.get_model()
         self._partitioning_scheme = model[itr][1]
+
+    def _on_autopart_encrypted_toggled(self, checkbox):
+        """The callback for the autopart encryption checkbox."""
+        self._partitioning_encrypted = checkbox.get_active()
 
     def _set_page_label_text(self):
         if self._accordion.is_multiselection:
@@ -409,8 +415,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         page = CreateNewPage(
             self._os_name,
             self.on_create_clicked,
-            self._change_autopart_type,
+            self._on_autopart_type_changed,
+            self._on_autopart_encrypted_toggled,
             default_scheme=self._partitioning_scheme,
+            default_encryption=self._partitioning_encrypted,
             partitions_to_reuse=reuse_existing
         )
 
@@ -1437,7 +1445,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         else:
             self._removeButton.set_sensitive(True)
 
-    def _do_autopart(self, scheme):
+    def _do_autopart(self, scheme, encrypted):
         """Helper function for on_create_clicked.
            Assumes a non-final context in which at least some errors
            discovered by storage checker are not considered fatal because they
@@ -1450,6 +1458,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # Create the partitioning request.
         request = PartitioningRequest()
         request.partitioning_scheme = scheme
+        request.encrypted = encrypted
 
         try:
             # Schedule the partitioning.
@@ -1467,7 +1476,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def on_create_clicked(self, button, autopart_type_combo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
         # custom partitioning, so you have to make your own room.
-        self._do_autopart(self._partitioning_scheme)
+        self._do_autopart(
+            scheme=self._partitioning_scheme,
+            encrypted=self._partitioning_encrypted
+        )
 
         # Refresh the spoke to make the new partitions appear.
         self._do_refresh()
