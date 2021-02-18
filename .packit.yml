@@ -2,10 +2,9 @@ specfile_path: anaconda.spec
 upstream_package_name: anaconda
 upstream_tag_template: anaconda-{version}-1
 actions:
-  post-upstream-clone:
+  create-archive:
     - ./autogen.sh
     - ./configure
-  create-archive:
     - "make release"
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 jobs:
@@ -13,12 +12,15 @@ jobs:
     trigger: pull_request
     metadata:
       targets:
+        - fedora-34
         - fedora-rawhide
 
   - job: copr_build
     trigger: pull_request
     metadata:
       targets:
+        - fedora-34
+        - fedora-rawhide
         - fedora-eln
 
   - job: copr_build
