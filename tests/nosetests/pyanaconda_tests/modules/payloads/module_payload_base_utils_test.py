@@ -22,7 +22,7 @@ from textwrap import dedent
 from unittest.case import TestCase
 from unittest.mock import patch
 
-from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_blacklist, \
+from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_denylist, \
     get_dir_size, sort_kernel_version_list
 
 
@@ -39,18 +39,18 @@ class PayloadBaseUtilsTest(TestCase):
 
     @patch('pyanaconda.modules.payloads.base.utils.kernel_arguments',
            {"modprobe.blacklist": "mod1 mod2 nonono_mod"})
-    def write_module_blacklist_test(self):
-        """Test write kernel module blacklist to the install root."""
+    def write_module_denylist_test(self):
+        """Test write kernel module denylist to the install root."""
         with TemporaryDirectory() as temp:
-            write_module_blacklist(temp)
+            write_module_denylist(temp)
 
-            blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
+            denylist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
 
-            self.assertTrue(os.path.isfile(blacklist_file))
+            self.assertTrue(os.path.isfile(denylist_file))
 
-            with open(blacklist_file, "rt") as f:
+            with open(denylist_file, "rt") as f:
                 expected_content = """
-                # Module blacklists written by anaconda
+                # Module denylist written by anaconda
                 blacklist mod1
                 blacklist mod2
                 blacklist nonono_mod
@@ -58,14 +58,14 @@ class PayloadBaseUtilsTest(TestCase):
                 self.assertEqual(dedent(expected_content).lstrip(), f.read())
 
     @patch('pyanaconda.modules.payloads.base.utils.kernel_arguments', {})
-    def write_empty_module_blacklist_test(self):
-        """Test write kernel module blacklist to the install root -- empty list."""
+    def write_empty_module_denylist_test(self):
+        """Test write kernel module denylist to the install root -- empty list."""
         with TemporaryDirectory() as temp:
-            write_module_blacklist(temp)
+            write_module_denylist(temp)
 
-            blacklist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
+            denylist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
 
-            self.assertFalse(os.path.isfile(blacklist_file))
+            self.assertFalse(os.path.isfile(denylist_file))
 
     def get_dir_size_test(self):
         """Test the get_dir_size function."""

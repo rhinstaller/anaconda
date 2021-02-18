@@ -22,7 +22,7 @@ from glob import glob
 
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_blacklist
+from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_denylist
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -33,7 +33,7 @@ class PrepareSystemForInstallationTask(Task):
 
     Steps to prepare the installation root:
     * Create a root directory
-    * Create a module blacklist from the boot cmdline
+    * Create a module denylist from the boot cmdline
     """
 
     def __init__(self, sysroot):
@@ -50,9 +50,9 @@ class PrepareSystemForInstallationTask(Task):
         return "Prepare System for Installation"
 
     def run(self):
-        """Create a root and write module blacklist."""
+        """Create a root and write module denylist."""
         create_root_dir(self._sysroot)
-        write_module_blacklist(self._sysroot)
+        write_module_denylist(self._sysroot)
 
 
 # TODO: Can we remove this really old code which probably even doesn't work now?
