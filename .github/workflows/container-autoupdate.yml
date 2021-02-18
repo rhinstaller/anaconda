@@ -20,14 +20,13 @@ jobs:
             branch: master
           - container-tag: eln
             branch: master
-            build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
+            base-container: 'quay.io/fedoraci/fedora:eln-x86_64'
           - container-tag: f34-devel
             branch: f34-devel
           - container-tag: f34-release
             branch: f34-release
     env:
       CI_TAG: '${{ matrix.container-tag }}'
-      CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
     timeout-minutes: 60
     steps:
       - name: Checkout anaconda repository
@@ -36,7 +35,9 @@ jobs:
           ref: ${{ matrix.branch }}
 
       - name: Build anaconda-ci container
-        run: make -f Makefile.am anaconda-ci-build
+        run: |
+          BASE_CONTAINER=${{ matrix.base-container }}
+          make -f Makefile.am anaconda-ci-build ${BASE_CONTAINER:+BASE_CONTAINER=}${BASE_CONTAINER:-}
 
       - name: Run tests in anaconda-ci container
         id: run-tests
