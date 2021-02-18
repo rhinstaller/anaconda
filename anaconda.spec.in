@@ -423,6 +423,22 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 18 2021 Martin Kolman <mkolman@redhat.com> - 34.24.4-1
+- [Storage] add btrfs_compression option (#1928857) (michel)
+- Correct branch config after merge (vslavik)
+- Enable Makefiles and Dockerfiles for branched Fedora (vslavik)
+- packit: make tests ⊂ builds for the chroot set (ttomecek)
+- packit: run all actions in a single action (ttomecek)
+- configure.ac: make the Copyright up to date (ttomecek)
+- ovirt: rebase on CentOS Stream (sbonazzo)
+- Use a custom stylesheet to define RHEL-specific stylesheet data (vponcova)
+- Remove unused variables from Makefile (vslavik)
+- Drop astroid hotfix patch (jkonecny)
+- Don't block the start of the Network module by the hostname service
+  (vponcova)
+- Remove unused variables related to mock (vslavik)
+- Save lorax-packages.log to installed system (rvykydal)
+
 * Mon Feb 15 2021 Martin Kolman <mkolman@redhat.com> - 34.24.3-1
 - Do not hard-require zram-generator-default on RHEL just yet (mkolman)
 - Improve Packit configuration to use fedora-development (jkonecny)
