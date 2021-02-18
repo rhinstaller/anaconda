@@ -57,6 +57,7 @@ def enable_installer_mode():
     blivet_flags.ibft = conf.storage.ibft
     blivet_flags.multipath_friendly_names = conf.storage.multipath_friendly_names
     blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
+    blivet_flags.btrfs_compression = conf.storage.btrfs_compression
 
     # Platform class setup depends on flags, re-initialize it.
     _set_default_label_type()
