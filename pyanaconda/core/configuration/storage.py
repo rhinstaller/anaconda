@@ -84,6 +84,17 @@ class StorageSection(Section):
         return self._get_option("allow_imperfect_devices", bool)
 
     @property
+    def btrfs_compression(self):
+        """BTRFS compression setting.
+
+        Specifies the compression algorithm and level used when
+        mounting Btrfs partitions. Defaults to None.
+
+        For example: "zstd:1"
+        """
+        return self._get_option("btrfs_compression", str) or None
+
+    @property
     def file_system_type(self):
         """Default file system type.
 
