@@ -183,6 +183,7 @@ anaconda-rpm-build:
 	$(CONTAINER_BUILD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
+	--build-arg=copr_repo=$(COPR_REPO) \
 	-t $(RPM_NAME):$(CI_TAG) \
 	$(RPM_DOCKERFILE)
 
