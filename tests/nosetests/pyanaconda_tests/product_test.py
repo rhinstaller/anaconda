@@ -285,7 +285,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
         )
         self._check_default_product(
             "oVirt Node Next", "",
-            ["rhel.conf", "centos-stream.conf", "centos.conf", "ovirt.conf"],
+            ["rhel.conf", "centos-stream.conf", "ovirt.conf"],
             VIRTUALIZATION_PARTITIONING
         )
         self._check_default_product(
