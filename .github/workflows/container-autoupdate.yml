@@ -48,7 +48,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: logs
+          name: ${{ matrix.container-tag }}-${{ matrix.container-type }}-logs
           path: |
             test-logs/test-suite.log
             test-logs/nosetests.log
