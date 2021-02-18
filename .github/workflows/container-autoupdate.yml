@@ -60,7 +60,7 @@ jobs:
 
         # we can hardcode the path to the image here because this will be executed only for master image
       - name: Add latest tag for master branch
-        if: ${{ matrix.branch == 'master' }}
+        if: ${{ matrix.container-tag == 'master' }}
         run: |
           podman tag quay.io/rhinstaller/anaconda-ci:master quay.io/rhinstaller/anaconda-ci:latest
           CI_TAG=latest make -f Makefile.am anaconda-ci-push
