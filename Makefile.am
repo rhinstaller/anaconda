@@ -246,7 +246,7 @@ container-shell:
 	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG)
 
 container-rpm-test:
-	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
+	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
 	    /run-build-and-arg make run-rpm-tests-only; \
 	    dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
 
