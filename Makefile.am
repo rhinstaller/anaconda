@@ -173,11 +173,6 @@ anaconda-ci-build:
 	-t $(CI_NAME):$(CI_TAG) \
 	$(CI_DOCKERFILE)
 
-# User has to be logged first to be able to push the image.
-# See `podman login` for more info.
-anaconda-ci-push:
-	$(CONTAINER_ENGINE) push $(CI_NAME):$(CI_TAG)
-
 anaconda-rpm-build:
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
@@ -186,6 +181,14 @@ anaconda-rpm-build:
 	--build-arg=copr_repo=$(COPR_REPO) \
 	-t $(RPM_NAME):$(CI_TAG) \
 	$(RPM_DOCKERFILE)
+
+# User has to be logged first to be able to push the image.
+# See `podman login` for more info.
+anaconda-ci-push:
+	$(CONTAINER_ENGINE) push $(CI_NAME):$(CI_TAG)
+
+anaconda-rpm-push:
+	$(CONTAINER_ENGINE) push $(RPM_NAME):$(CI_TAG)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
