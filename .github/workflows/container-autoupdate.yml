@@ -8,7 +8,8 @@ on:
 jobs:
   refresh-containers:
     name: Refresh anaconda containers
-    runs-on: ubuntu-20.04
+    # FIXME: Switch to newer 20.04 when crun 0.18 will be available see issue https://github.com/containers/podman/issues/9442 is resolved
+    runs-on: ubuntu-18.04
     # we need to have matrix to cover all branches because schedule is run only on default branch
     # we can add here fedora branches (e.g. f33-devel) to cover their support when needed
     strategy:
@@ -28,8 +29,6 @@ jobs:
             branch: f34-release
     env:
       CI_TAG: '${{ matrix.container-tag }}'
-      # FIXME: Remove this when issue https://github.com/containers/podman/issues/9442 is resolved
-      CONTAINER_ENGINE: docker
     timeout-minutes: 60
     steps:
       - name: Checkout anaconda repository
