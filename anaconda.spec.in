@@ -423,6 +423,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 22 2021 Martin Kolman <mkolman@redhat.com> - 34.24.5-1
+- Add the "Encrypt my data" checkbox to the custom partitioning spoke
+  (vponcova)
+- Don't translate prompt keys (#1892830) (vponcova)
+- Fix RHEL zram conditional in spec file (mkolman)
+- Remove interactive parameter from container-rpm-test (jkonecny)
+- Add container push for rpm containers (jkonecny)
+- Enable our and blivet COPR repositories for rpm tests (jkonecny)
+- vconsole font selection to cover more langs (suanand)
+
 * Thu Feb 18 2021 Martin Kolman <mkolman@redhat.com> - 34.24.4-1
 - [Storage] add btrfs_compression option (#1928857) (michel)
 - Correct branch config after merge (vslavik)
