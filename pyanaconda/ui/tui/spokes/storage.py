@@ -16,7 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from collections import OrderedDict
 
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
@@ -45,9 +44,10 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     BOOTLOADER_LOCATION_MBR, SecretType, WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED, \
     PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_MANUAL, \
     PASSWORD_POLICY_LUKS
-from pyanaconda.core.i18n import _, N_, C_
+from pyanaconda.core.i18n import _, N_
 
 from simpleline.render.containers import ListColumnContainer
+from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget, CheckboxWidget, EntryWidget
@@ -57,6 +57,10 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["StorageSpoke"]
+
+# TRANSLATORS: 's' to rescan devices
+PROMPT_SCAN_DESCRIPTION = N_("to rescan devices")
+PROMPT_SCAN_KEY = 's'
 
 CLEARALL = N_("Use All Space")
 CLEARLINUX = N_("Replace Existing Linux system(s)")
@@ -254,8 +258,7 @@ class StorageSpoke(NormalTUISpoke):
         if self._container.process_user_input(key):
             return InputState.PROCESSED_AND_REDRAW
         else:
-            # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            if key.lower() == Prompt.CONTINUE:
                 if self._selected_disks:
                     # Is DASD formatting supported?
                     if DasdFormatting.is_supported():
@@ -530,8 +533,7 @@ class PartTypeSpoke(NormalTUISpoke):
     def input(self, args, key):
         """Grab the choice and update things"""
         if not self._container.process_user_input(key):
-            # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            if key.lower() == Prompt.CONTINUE:
                 self.apply()
                 self._ensure_init_storage()
                 if self._part_method == PARTITIONING_METHOD_MANUAL:
@@ -602,8 +604,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     def input(self, args, key):
         """ Grab the choice and update things. """
         if not self._container.process_user_input(key):
-            # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            if key.lower() == Prompt.CONTINUE:
                 self.apply()
                 return InputState.PROCESSED_AND_CLOSE
             else:
@@ -654,10 +655,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
 
     def prompt(self, args=None):
         prompt = super().prompt(args)
-
-        # TRANSLATORS: 's' to rescan devices
-        prompt.add_option(C_('TUI|Spoke Navigation|Partitioning', 's'), _("rescan devices"))
-
+        prompt.add_option(PROMPT_SCAN_KEY, _(PROMPT_SCAN_DESCRIPTION))
         return prompt
 
     def input(self, args, key):
@@ -665,13 +663,11 @@ class MountPointAssignSpoke(NormalTUISpoke):
         if self._container.process_user_input(key):
             return InputState.PROCESSED
 
-        # TRANSLATORS: 's' to rescan devices
-        if key.lower() == C_('TUI|Spoke Navigation|Partitioning', 's'):
+        if key.lower() == PROMPT_SCAN_KEY:
             self._rescan_devices()
             return InputState.PROCESSED_AND_REDRAW
 
-        # TRANSLATORS: 'c' to continue
-        elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
+        elif key.lower() == Prompt.CONTINUE:
             self.apply()
 
         return super().input(args, key)

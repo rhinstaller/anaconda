@@ -132,13 +132,11 @@ class TUIHub(TUIObject, common.Hub):
         else:
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
-            # TRANSLATORS: 'c' to continue
             if key == Prompt.CONTINUE:
                 for spoke in self._spokes.values():
                     if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))
                         return InputState.DISCARDED
-            # TRANSLATORS: 'h' to help
             elif key == Prompt.HELP:
                 if self.has_help:
                     help_path = get_help_path(self.helpFile, True)
