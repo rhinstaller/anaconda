@@ -456,7 +456,8 @@ class CreateNewPage(BasePage):
         is created, it will be removed and replaced with a Page for it.
     """
     def __init__(self, title, create_clicked_cb, autopart_type_changed_cb,
-                 default_scheme, partitions_to_reuse=True):
+                 encrypted_changed_cb, default_scheme, default_encryption,
+                 partitions_to_reuse=True):
         super().__init__(title)
 
         # Create a box where we store the "Here's how you create a new blah" info.
@@ -530,4 +531,27 @@ class CreateNewPage(BasePage):
         combo.set_hexpand(False)
         combo.set_active_iter(default or store.get_iter_first())
         self._createBox.attach(combo, 0, 5, 2, 1)
+
+        label = Gtk.Label(
+            label=C_(
+                "GUI|Custom Partitioning|Autopart Page",
+                "_Automatically created mount points can be encrypted by default:"
+            ),
+            xalign=0,
+            yalign=0.5,
+            wrap=True,
+            use_underline=True
+        )
+        self._createBox.attach(label, 0, 6, 2, 1)
+
+        checkbox = Gtk.CheckButton(label="Encrypt my data.")
+        checkbox.connect("toggled", encrypted_changed_cb)
+        checkbox.set_active(default_encryption)
+        checkbox.set_margin_start(18)
+        checkbox.set_margin_end(18)
+        checkbox.set_hexpand(False)
+
+        label.set_mnemonic_widget(checkbox)
+        self._createBox.attach(checkbox, 0, 7, 2, 1)
+
         self.add(self._createBox)

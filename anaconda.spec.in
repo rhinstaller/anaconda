@@ -238,7 +238,7 @@ Requires: rsync
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
 # FIXME: do not require on RHEL until the package is ready
-%if ! 0%{?rhel} == 9
+%if 0%{?rhel} != 9
 Requires: zram-generator-defaults
 %endif
 

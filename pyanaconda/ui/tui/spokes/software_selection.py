@@ -23,13 +23,14 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import DependencyError, NoSuchGroup
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
     THREAD_SOFTWARE_WATCHER, PAYLOAD_TYPE_DNF
 
 from simpleline.render.containers import ListColumnContainer
+from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget, CheckboxWidget
@@ -260,8 +261,7 @@ class SoftwareSpoke(NormalTUISpoke):
         if self._container is not None and self._container.process_user_input(key):
             self.redraw()
         else:
-            # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            if key.lower() == Prompt.CONTINUE:
 
                 # No environment was selected, close
                 if not self._selection.environment:

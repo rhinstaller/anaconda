@@ -98,7 +98,6 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
 
     def input(self, args, key):
         """Handle the input."""
-        # TRANSLATORS: 'h' to help
         if key.lower() == Prompt.HELP:
             if self.has_help:
                 help_path = get_help_path(self.helpFile, True)

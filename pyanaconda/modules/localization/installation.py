@@ -24,6 +24,7 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.core.constants import DEFAULT_VC_FONT
 from pyanaconda.modules.localization.localed import get_missing_keyboard_configuration
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.localization import get_locale_console_fonts
 
 log = get_module_logger(__name__)
 
@@ -194,12 +195,19 @@ def write_vc_configuration(vc_keymap, root):
     try:
         fpath = os.path.normpath(root + VC_CONF_FILE_PATH)
 
+        # "eurlatgr" may not be the best choice for all the languages,
+        # for example, Russian, Urdu, Serbian, Sindhi and a few more.
+        # refer: https://bugzilla.redhat.com/show_bug.cgi?id=1919486
+        # assuming that LANG is set by now.
+        vc_fonts = get_locale_console_fonts(os.environ["LANG"])
+        vc_font = vc_fonts[0] if vc_fonts else DEFAULT_VC_FONT
+
         with open(fpath, "w") as fobj:
             fobj.write('KEYMAP="%s"\n' % vc_keymap)
 
             # systemd now defaults to a font that cannot display non-ascii
             # characters, so we have to tell it to use a better one
-            fobj.write('FONT="%s"\n' % DEFAULT_VC_FONT)
+            fobj.write('FONT="%s"\n' % vc_font)
 
     except IOError as ioerr:
         msg = "Cannot write vconsole configuration file: {}".format(ioerr.strerror)

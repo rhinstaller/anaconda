@@ -27,7 +27,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import timezone
 from pyanaconda import ntp
 from pyanaconda.core import constants
-from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
 
 from collections import namedtuple
@@ -43,6 +43,9 @@ log = get_module_logger(__name__)
 
 __all__ = ["TimeSpoke"]
 
+# TRANSLATORS: 'b' to go back to region list
+PROMPT_BACK_DESCRIPTION = N_("to go back to region list")
+PROMPT_BACK_KEY = 'b'
 
 CallbackTimezoneArgs = namedtuple("CallbackTimezoneArgs", ["region", "timezone"])
 
@@ -283,8 +286,7 @@ class TimeZoneSpoke(NormalTUISpoke):
                 else:
                     ScreenHandler.replace_screen(self, self._regions[index])
                 return InputState.PROCESSED
-            # TRANSLATORS: 'b' to go back
-            elif key.lower() == C_('TUI|Spoke Navigation|Time Settings', 'b'):
+            elif key.lower() == PROMPT_BACK_KEY:
                 ScreenHandler.replace_screen(self)
                 return InputState.PROCESSED
             else:
@@ -294,8 +296,7 @@ class TimeZoneSpoke(NormalTUISpoke):
         """ Customize default prompt. """
         prompt = NormalTUISpoke.prompt(self, args)
         prompt.set_message(_("Please select the timezone. Use numbers or type names directly"))
-        # TRANSLATORS: 'b' to go back
-        prompt.add_option(C_('TUI|Spoke Navigation|Time Settings', 'b'), _("back to region list"))
+        prompt.add_option(PROMPT_BACK_KEY, _(PROMPT_BACK_DESCRIPTION))
         return prompt
 
     def apply(self):
