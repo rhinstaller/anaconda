@@ -16,7 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 import gi
 gi.require_version("NM", "1.0")
 from gi.repository import NM
@@ -32,14 +31,13 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, report_if_failed
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.core.i18n import N_, _, C_
-
+from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.regexes import IPV4_PATTERN_WITH_ANCHORS, IPV4_NETMASK_WITH_ANCHORS, IPV4_OR_DHCP_PATTERN_WITH_ANCHORS
 from pyanaconda.core.constants import ANACONDA_ENVIRON
-
 from pyanaconda.anaconda_loggers import get_module_logger
 
 from simpleline.render.containers import ListColumnContainer
+from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget, CheckboxWidget, EntryWidget
@@ -571,8 +569,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         if self._container.process_user_input(key):
             return InputState.PROCESSED_AND_REDRAW
         else:
-            # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            if key.lower() == Prompt.CONTINUE:
                 if self._data.ip != "dhcp" and not self._data.netmask:
                     self.errors.append(_("Configuration not saved: netmask missing in static configuration"))
                 else:
