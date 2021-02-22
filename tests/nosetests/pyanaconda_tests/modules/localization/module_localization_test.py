@@ -691,6 +691,22 @@ class LocalizationTasksTestCase(unittest.TestCase):
                     'KEYMAP="{}"\nFONT="{}"\n'.format(vc_keymap, DEFAULT_VC_FONT)
                 )
 
+    @patch.dict(os.environ, {"LANG": "ru_RU.UTF-8"})
+    def write_vc_configuration_env_test(self):
+        """Test write_vc_configuration function for latarcyr console font."""
+        with tempfile.TemporaryDirectory() as root:
+            vc_keymap = "ru"
+            vc_font = "latarcyrheb-sun16"
+            os.mkdir(os.path.join(root, "etc"))
+            write_vc_configuration(vc_keymap, root)
+            fpath = os.path.normpath(root + VC_CONF_FILE_PATH)
+            # Check the result.
+            with open(fpath) as f:
+                self.assertEqual(
+                    f.read(),
+                    'KEYMAP="{}"\nFONT="{}"\n'.format(vc_keymap, vc_font)
+                )
+
     def write_x_configuration_test(self):
         """Test write_x_configuration_test."""
         localed_wrapper = Mock()
