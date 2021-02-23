@@ -47,12 +47,25 @@ Which is my target git branch?
 Depending on where you want to make your contribution please choose your correct branch based on the table below.
 
 +--------------------------+--------------+
-| Fedora Rawhide           | master       |
+| Fedora Rawhide only      | master       |
 +--------------------------+--------------+
-| Fedora XX                | fXX-devel    |
+| Fedora XX and Rawhide    | fXX-devel    |
++--------------------------+--------------+
+| Fedora XX only           | fXX-release  |
 +--------------------------+--------------+
 | RHEL-X / CentOS Stream X | rhel-x       |
 +--------------------------+--------------+
+
+Notice that the ``master`` branch should only be a target of a pull request if the change does not apply to any
+of the branched Fedora versions. If the change applies to both Fedora Rawhide and Fedora XX, then a ``fXX-devel``
+branch has to be targeted. All changes to ``fXX-devel`` branches are merged back into ``master``, so there's no
+need to open a separate pull-request for ``master`` in that case.
+
+If a change only applies to a Fedora XX release and the changes don't have to be merged back into ``master``,
+then the target branch should be a ``fXX-release`` relese branch.
+
+The ``rhel-x`` branches on the other hand are not merged back into ``master``, and so a separate pull request
+has to be opened targeting either a ``fXX-devel`` branch or ``master``.
 
 Finding Bugs to Fix
 -------------------
