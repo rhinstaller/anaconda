@@ -38,7 +38,7 @@ class PartitioningScheme(Enum):
     def from_name(cls, value):
         """Convert the given value into a partitioning scheme."""
         try:
-            member = cls.__members__[value]
+            member = cls.__members__[value]  # pylint: disable=unsubscriptable-object
             return member.value
         except KeyError:
             pass
