@@ -36,7 +36,7 @@ class DeviceType(Enum):
     def from_name(cls, value):
         """Convert the given value into a device type."""
         try:
-            member = cls.__members__[value]
+            member = cls.__members__[value]  # pylint: disable=unsubscriptable-object
             return member.value
         except KeyError:
             pass
