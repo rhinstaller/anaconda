@@ -237,6 +237,23 @@ Too little memory for LUKS setup
 
 :Example: `rhbz#1902464 <https://bugzilla.redhat.com/show_bug.cgi?id=1902464>`_
 
+Using ignoredisk on previous LVM installation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: When starting installation with automatic partitioning and using ``ignoredisk``
+     kickstart command, it raises an exception with a message: "Selected disks vda, vdb contain volume
+     group 'vg0' that also uses further unselected disks. You must select or de-select all these
+     disks as a set."
+:Solution: Anaconda won't touch disks in ``ignoredisk`` kickstart command, however, other disks
+     have part of a Volume Group which is also on disk ignored by the  ``ignoredisk`` command.
+     To resolve this issue the ignored disks have to be erased manually or by ``%pre``
+     section similar to::
+
+      vgchange -an
+      wipefs -a /dev/vda1 /dev/vda
+
+:Example: `rhbz#1688478 <https://bugzilla.redhat.com/show_bug.cgi?id=1688478>`_
+
 Bootloader issues
 -----------------
 
