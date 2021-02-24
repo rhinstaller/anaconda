@@ -16,9 +16,11 @@
 # Red Hat, Inc.
 #
 import os
+import blivet.util
+
+from subprocess import CalledProcessError
 
 from pyanaconda.payload.errors import PayloadInstallError
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
@@ -192,6 +194,26 @@ class PrepareOSTreeMountTargetsTask(Task):
         self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
 
         return self._internal_mounts
+
+
+class TearDownOSTreeMountTargetsTask(Task):
+    """Task to tear down OSTree mount targets."""
+
+    def __init__(self, mount_points):
+        super().__init__()
+        self._internal_mounts = mount_points
+
+    @property
+    def name(self):
+        return "Tear down OSTree mount targets"
+
+    def run(self):
+        """Run the installation task."""
+        for mount_point in reversed(self._internal_mounts):
+            try:
+                blivet.util.umount(mount_point)
+            except (OSError, CalledProcessError) as e:
+                log.debug("Unmounting %s has failed: %s", mount_point, str(e))
 
 
 class CopyBootloaderDataTask(Task):
