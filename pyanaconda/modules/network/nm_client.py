@@ -33,6 +33,7 @@ from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, get_s390_settings, netmask2prefix, \
     prefix2netmask
 from pyanaconda.modules.network.config_file import is_config_file_for_system
+from pyanaconda.core.dbus import SystemBus
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -49,6 +50,22 @@ NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS = {
     NM.SETTING_BRIDGE_GROUP_FORWARD_MASK: 0,
     NM.SETTING_BRIDGE_MULTICAST_SNOOPING: True
 }
+
+
+def get_new_nm_client():
+    """Get new instance of NMClient.
+
+    :returns: an instance of NetworkManager NMClient or None if system bus
+              is not available or NM is not running
+    :rtype: NM.NMClient
+    """
+    if SystemBus.check_connection():
+        nm_client = NM.Client.new(None)
+        if nm_client.get_nm_running():
+            return nm_client
+        else:
+            log.debug("NetworkManager is not running")
+            return None
 
 
 def get_iface_from_connection(nm_client, uuid):

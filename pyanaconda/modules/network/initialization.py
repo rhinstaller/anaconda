@@ -23,7 +23,7 @@ from pyanaconda.modules.network.network_interface import NetworkInitializationTa
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     update_connection_from_ksdata, add_connection_from_ksdata, bound_hwaddr_of_device, \
     update_connection_values, commit_changes_with_autoconnection_blocked, \
-    get_config_file_connection_of_device, clone_connection_sync
+    get_config_file_connection_of_device, clone_connection_sync, get_new_nm_client
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -38,11 +38,9 @@ from gi.repository import NM
 class ApplyKickstartTask(Task):
     """Task for application of kickstart network configuration."""
 
-    def __init__(self, nm_client, network_data, supported_devices, bootif, ifname_option_values):
+    def __init__(self, network_data, supported_devices, bootif, ifname_option_values):
         """Create a new task.
 
-        :param nm_client: NetworkManager client used as configuration backend
-        :type nm_client: NM.Client
         :param network_data: kickstart network data to be applied
         :type: list(NetworkData)
         :param supported_devices: list of names of supported network devices
@@ -53,7 +51,7 @@ class ApplyKickstartTask(Task):
         :type ifname_option_values: list(str)
         """
         super().__init__()
-        self._nm_client = nm_client
+        self._nm_client = None
         self._network_data = network_data
         self._supported_devices = supported_devices
         self._bootif = bootif
@@ -80,6 +78,7 @@ class ApplyKickstartTask(Task):
             log.debug("%s: No kickstart data.", self.name)
             return applied_devices
 
+        self._nm_client = get_new_nm_client()
         if not self._nm_client:
             log.debug("%s: No NetworkManager available.", self.name)
             return applied_devices
@@ -143,18 +142,16 @@ class ApplyKickstartTask(Task):
 class DumpMissingConfigFilesTask(Task):
     """Task for dumping of missing config files."""
 
-    def __init__(self, nm_client, default_network_data, ifname_option_values):
+    def __init__(self, default_network_data, ifname_option_values):
         """Create a new task.
 
-        :param nm_client: NetworkManager client used as configuration backend
-        :type nm_client: NM.Client
         :param default_network_data: kickstart network data of default device configuration
         :type default_network_data: NetworkData
         :param ifname_option_values: list of ifname boot option values
         :type ifname_option_values: list(str)
         """
         super().__init__()
-        self._nm_client = nm_client
+        self._nm_client = None
         self._default_network_data = default_network_data
         self._ifname_option_values = ifname_option_values
 
@@ -216,6 +213,7 @@ class DumpMissingConfigFilesTask(Task):
         """
         new_configs = []
 
+        self._nm_client = get_new_nm_client()
         if not self._nm_client:
             log.debug("%s: No NetworkManager available.", self.name)
             return new_configs
