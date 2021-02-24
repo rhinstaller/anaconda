@@ -64,7 +64,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         ]
 
         task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
-        (observer, ) = self._check_started_modules(task, service_names)
+        (observer, ) = self._check_started_modules(task, service_names)  # pylint: disable=unbalanced-tuple-unpacking
 
         bus_proxy = self._message_bus.proxy
         bus_proxy.StartServiceByName.assert_called_once_with(

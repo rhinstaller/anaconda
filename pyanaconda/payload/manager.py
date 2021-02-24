@@ -82,7 +82,7 @@ class PayloadManager(object):
         self._error = None
 
         # Initialize a list for each event state
-        for _name, value in PayloadState.__members__.items():
+        for _name, value in PayloadState.__members__.items():  # pylint: disable=no-member
             self._event_listeners[PayloadState(value)] = []
 
     @property
