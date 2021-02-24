@@ -868,7 +868,7 @@ class DNFPayload(Payload):
             log.info("Removing existing package download "
                      "location: %s", self._download_location)
             shutil.rmtree(self._download_location)
-        pkgs_to_download = self._base.transaction.install_set
+        pkgs_to_download = self._base.transaction.install_set  # pylint: disable=no-member
         log.info('Downloading packages to %s.', self._download_location)
         progressQ.send_message(_('Downloading packages'))
         progress = DownloadProgress()
