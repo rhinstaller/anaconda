@@ -207,6 +207,16 @@ class CopyBootloaderDataTask(Task):
         return "Copy OSTree bootloader data"
 
     def run(self):
+        """Run the installation task.
+
+        :raise PayloadInstallError: if the installation fails
+        """
+        try:
+            self._run()
+        except (OSError, RuntimeError) as e:
+            raise PayloadInstallError("Failed to copy bootloader data: {}".format(e)) from e
+
+    def _run(self):
         """Copy bootloader data files from the deployment checkout to the target root.
 
         See https://bugzilla.gnome.org/show_bug.cgi?id=726757 This happens once, at installation

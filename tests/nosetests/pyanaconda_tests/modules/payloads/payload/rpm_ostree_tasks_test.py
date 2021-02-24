@@ -209,6 +209,24 @@ class CopyBootloaderDataTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
+    def run_failed_test(self, listdir_mock, isdir_mock, storage_mock):
+        """Test OSTree bootloader copy task run() with an exception."""
+        bootloader_mock = storage_mock.get_proxy()
+        bootloader_mock.IsEFI.return_value = False
+
+        isdir_mock.return_value = False
+        listdir_mock.side_effect = OSError("Fake!")
+
+        task = CopyBootloaderDataTask("/sysroot", "/physroot")
+
+        with self.assertRaises(PayloadInstallError) as cm:
+            task.run()
+
+        self.assertEqual(str(cm.exception), "Failed to copy bootloader data: Fake!")
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.islink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.unlink")
