@@ -154,7 +154,7 @@ class FilterPage(object):
            displayed.  This function is called every time the filter spoke
            is revisited, and thus must first do any cleanup that is necessary.
 
-           The setup function is passed a reference to the master store, a list
+           The setup function is passed a reference to the primary store, a list
            of names of disks the user has selected (either from a previous visit
            or via kickstart), and a list of all disk objects that belong on this
            page as determined from the is_member method.
