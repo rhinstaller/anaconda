@@ -337,7 +337,7 @@ class NMClientTestCase(unittest.TestCase):
         }
         ip4_config = self._get_mock_objects_from_attrs([ip4_config_attrs])[0]
         cons_attrs = [
-            # team master
+            # team controller
             {
                 "get_uuid.return_value": CON_UUID,
                 "get_setting_ip4_config.return_value": ip4_config,

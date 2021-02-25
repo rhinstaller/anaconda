@@ -437,15 +437,16 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
         # vlan over bond
         if network_data.vlanid:
             # create bond connection, vlan connection will be created later
-            bond_master = network_data.device
+            bond_controller = network_data.device
             bond_con = _create_vlan_bond_connection_from_ksdata(network_data)
-            connections.append((bond_con, bond_master))
+            connections.append((bond_con, bond_controller))
         else:
-            bond_master = device_name
+            bond_controller = device_name
             _update_bond_connection_from_ksdata(con, network_data)
 
         for i, slave in enumerate(network_data.bondslaves.split(","), 1):
-            slave_con = create_slave_connection('bond', i, slave, bond_master, network_data.onboot)
+            slave_con = create_slave_connection('bond', i, slave, bond_controller,
+                                                network_data.onboot)
             bind_connection(nm_client, slave_con, network_data.bindto, slave)
             slave_connections.append((slave_con, slave))
 
@@ -587,7 +588,7 @@ def add_connection_sync(nm_client, connection):
     return ret
 
 
-def create_slave_connection(slave_type, slave_idx, slave, master, autoconnect, settings=None):
+def create_slave_connection(slave_type, slave_idx, slave, controller, autoconnect, settings=None):
     """Create a slave NM connection for virtual connection (bond, team, bridge).
 
     :param slave_type: type of slave ("bond", "team", "bridge")
@@ -596,8 +597,8 @@ def create_slave_connection(slave_type, slave_idx, slave, master, autoconnect, s
     :type slave_idx: int
     :param slave: slave's device name
     :type slave: str
-    :param master: slave's master device name
-    :type master: str
+    :param controller: slave's controller device name
+    :type controller: str
     :param autoconnect: connection autoconnect value
     :type autoconnect: bool
     :param settings: list of other settings to be added to the connection
@@ -607,14 +608,14 @@ def create_slave_connection(slave_type, slave_idx, slave, master, autoconnect, s
     :rtype: NM.SimpleConnection
     """
     settings = settings or []
-    slave_name = "%s_slave_%d" % (master, slave_idx)
+    slave_name = "%s_slave_%d" % (controller, slave_idx)
 
     con = NM.SimpleConnection.new()
     s_con = NM.SettingConnection.new()
     s_con.props.uuid = NM.utils_uuid_generate()
     s_con.props.id = slave_name
     s_con.props.slave_type = slave_type
-    s_con.props.master = master
+    s_con.props.master = controller
     s_con.props.type = NM_CONNECTION_TYPE_ETHERNET
     s_con.props.autoconnect = autoconnect
     con.add_setting(s_con)
@@ -1315,16 +1316,16 @@ def _get_dracut_znet_argument_from_connection(connection):
     return argument
 
 
-def get_slaves_from_connections(nm_client, slave_types, master_specs):
-    """Get slaves of master of given type specified by uuid or interface.
+def get_slaves_from_connections(nm_client, slave_types, controller_specs):
+    """Get slaves of controller of given type specified by uuid or interface.
 
     :param nm_client: instance of NetworkManager client
     :type nm_client: NM.Client
     :param slave_types: type of the slave - NM setting "slave-type" value (eg. "team")
     :type slave_types: list(str)
-    :param master_specs: a list containing sepcification of master:
-                         interface name or connection uuid or both
-    :type master_specs: list(str)
+    :param controller_specs: a list containing sepcification of a controller:
+                             interface name or connection uuid or both
+    :type controller_specs: list(str)
     :returns: slaves specified by name, interface and connection uuid
     :rtype: set((str,str,str))
     """
@@ -1332,7 +1333,7 @@ def get_slaves_from_connections(nm_client, slave_types, master_specs):
     for con in nm_client.get_connections():
         if not con.get_setting_connection().get_slave_type() in slave_types:
             continue
-        if con.get_setting_connection().get_master() in master_specs:
+        if con.get_setting_connection().get_master() in controller_specs:
             iface = get_iface_from_connection(nm_client, con.get_uuid())
             name = con.get_id()
             slaves.add((name, iface, con.get_uuid()))
