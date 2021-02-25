@@ -423,6 +423,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 25 2021 Martin Kolman <mkolman@redhat.com> - 35.6-1
+- The network spoke should be visible in live spins (#1932961) (vponcova)
+- Ignore Pylint errors on DNF API (vslavik)
+- Ignore Pylint errors for PropertiesChanged.connect (vslavik)
+- Silence false Pylint warning (vslavik)
+- Ignore false Pylint errors for Enum subclasses (vslavik)
+- Determine GRUB directory relative path to use in config file (javierm)
+
 * Mon Feb 22 2021 Martin Kolman <mkolman@redhat.com> - 35.5-1
 - Add the "Encrypt my data" checkbox to the custom partitioning spoke
   (vponcova)
