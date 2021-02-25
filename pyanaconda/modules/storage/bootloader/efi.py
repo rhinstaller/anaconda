@@ -173,10 +173,11 @@ class EFIGRUB(EFIBase, GRUB2):
         with open(config_path, "w") as fd:
             grub_dir = self.config_dir
             fs_uuid = self.stage2_device.format.uuid
-            mountpoint = self.stage2_device.format.mountpoint
 
-            if mountpoint != "/" and grub_dir.startswith(mountpoint):
-                grub_dir = grub_dir[len(mountpoint):]
+            grub_dir = util.execWithCapture("grub2-mkrelpath", [grub_dir],
+                                            root=conf.target.system_root)
+            if not grub_dir:
+                raise BootLoaderError("Could not get GRUB directory path")
 
             fd.write("search --no-floppy --fs-uuid --set=dev %s\n" % fs_uuid)
             fd.write("set prefix=($dev)%s\n" % grub_dir)
