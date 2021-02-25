@@ -1472,7 +1472,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not FirstbootSpokeMixIn.should_run(environment, data):
             return False
 
-        return conf.system.can_configure_network
+        # Always allow to configure the hostname for the target system.
+        return True
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
