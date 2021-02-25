@@ -246,19 +246,19 @@ def _add_existing_virtual_device_to_bridge(nm_client, device_name, bridge_spec):
     supported_virtual_types = (
         NM_CONNECTION_TYPE_BOND,
     )
-    slave_connection = None
+    port_connection = None
     cons = nm_client.get_connections()
     for con in cons:
         if con.get_interface_name() == device_name \
                 and con.get_connection_type() in supported_virtual_types:
-            slave_connection = con
+            port_connection = con
             break
 
-    if not slave_connection:
+    if not port_connection:
         return None
 
     update_connection_values(
-        slave_connection,
+        port_connection,
         [
             (NM.SETTING_CONNECTION_SETTING_NAME,
              NM.SETTING_CONNECTION_SLAVE_TYPE,
@@ -268,8 +268,8 @@ def _add_existing_virtual_device_to_bridge(nm_client, device_name, bridge_spec):
              bridge_spec),
         ]
     )
-    commit_changes_with_autoconnection_blocked(slave_connection)
-    return slave_connection.get_uuid()
+    commit_changes_with_autoconnection_blocked(port_connection)
+    return port_connection.get_uuid()
 
 
 def _update_team_connection_from_ksdata(connection, network_data):
@@ -423,7 +423,7 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
     :rtype: list((NM.RemoteConnection, str))
     """
     ifname_option_values = ifname_option_values or []
-    slave_connections = []
+    port_connections = []
     connections = []
     device_to_activate = device_name
 
@@ -444,23 +444,23 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
             bond_controller = device_name
             _update_bond_connection_from_ksdata(con, network_data)
 
-        for i, slave in enumerate(network_data.bondslaves.split(","), 1):
-            slave_con = create_slave_connection('bond', i, slave, bond_controller,
-                                                network_data.onboot)
-            bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            slave_connections.append((slave_con, slave))
+        for i, port in enumerate(network_data.bondslaves.split(","), 1):
+            port_con = create_port_connection('bond', i, port, bond_controller,
+                                              network_data.onboot)
+            bind_connection(nm_client, port_con, network_data.bindto, port)
+            port_connections.append((port_con, port))
 
     # type "team"
     if network_data.teamslaves:
         _update_team_connection_from_ksdata(con, network_data)
 
-        for i, (slave, cfg) in enumerate(network_data.teamslaves, 1):
+        for i, (port, cfg) in enumerate(network_data.teamslaves, 1):
             s_team_port = NM.SettingTeamPort.new()
             s_team_port.props.config = cfg
-            slave_con = create_slave_connection('team', i, slave, device_name,
-                                                network_data.onboot, settings=[s_team_port])
-            bind_connection(nm_client, slave_con, network_data.bindto, slave)
-            slave_connections.append((slave_con, slave))
+            port_con = create_port_connection('team', i, port, device_name,
+                                              network_data.onboot, settings=[s_team_port])
+            bind_connection(nm_client, port_con, network_data.bindto, port)
+            port_connections.append((port_con, port))
 
     # type "vlan"
     if network_data.vlanid:
@@ -472,12 +472,12 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
         # bridge connection is autoactivated
         _update_bridge_connection_from_ksdata(con, network_data)
 
-        for i, slave in enumerate(network_data.bridgeslaves.split(","), 1):
-            if not _add_existing_virtual_device_to_bridge(nm_client, slave, device_name):
-                slave_con = create_slave_connection('bridge', i, slave, device_name,
-                                                    network_data.onboot)
-                bind_connection(nm_client, slave_con, network_data.bindto, slave)
-                slave_connections.append((slave_con, slave))
+        for i, port in enumerate(network_data.bridgeslaves.split(","), 1):
+            if not _add_existing_virtual_device_to_bridge(nm_client, port, device_name):
+                port_con = create_port_connection('bridge', i, port, device_name,
+                                                  network_data.onboot)
+                bind_connection(nm_client, port_con, network_data.bindto, port)
+                port_connections.append((port_con, port))
 
     # type "infiniband"
     if is_infiniband_device(nm_client, device_name):
@@ -499,7 +499,7 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
             _update_wired_connection_with_s390_settings(con, s390cfg)
 
     connections.append((con, device_to_activate))
-    connections.extend(slave_connections)
+    connections.extend(port_connections)
 
     return connections
 
@@ -588,16 +588,16 @@ def add_connection_sync(nm_client, connection):
     return ret
 
 
-def create_slave_connection(slave_type, slave_idx, slave, controller, autoconnect, settings=None):
-    """Create a slave NM connection for virtual connection (bond, team, bridge).
+def create_port_connection(port_type, port_idx, port, controller, autoconnect, settings=None):
+    """Create a port NM connection for virtual connection (bond, team, bridge).
 
-    :param slave_type: type of slave ("bond", "team", "bridge")
-    :type slave_type: str
-    :param slave_idx: index of the slave for naming
-    :type slave_idx: int
-    :param slave: slave's device name
-    :type slave: str
-    :param controller: slave's controller device name
+    :param port_type: type of port ("bond", "team", "bridge")
+    :type port_type: str
+    :param port_idx: index of the port for naming
+    :type port_idx: int
+    :param port: port's device name
+    :type port: str
+    :param controller: port's controller device name
     :type controller: str
     :param autoconnect: connection autoconnect value
     :type autoconnect: bool
@@ -608,13 +608,13 @@ def create_slave_connection(slave_type, slave_idx, slave, controller, autoconnec
     :rtype: NM.SimpleConnection
     """
     settings = settings or []
-    slave_name = "%s_slave_%d" % (controller, slave_idx)
+    port_name = "%s_slave_%d" % (controller, port_idx)
 
     con = NM.SimpleConnection.new()
     s_con = NM.SettingConnection.new()
     s_con.props.uuid = NM.utils_uuid_generate()
-    s_con.props.id = slave_name
-    s_con.props.slave_type = slave_type
+    s_con.props.id = port_name
+    s_con.props.slave_type = port_type
     s_con.props.master = controller
     s_con.props.type = NM_CONNECTION_TYPE_ETHERNET
     s_con.props.autoconnect = autoconnect
@@ -1234,13 +1234,13 @@ def _get_dracut_team_argument_from_connection(nm_client, connection, iface):
     """
     argument = ""
     if connection.get_connection_type() == NM_CONNECTION_TYPE_TEAM:
-        slaves = get_slaves_from_connections(
+        ports = get_ports_from_connections(
             nm_client,
             ["team"],
             [iface, connection.get_uuid()]
         )
-        slave_ifaces = sorted(s_iface for _name, s_iface, _uuid in slaves if s_iface)
-        argument = "team={}:{}".format(iface, ",".join(slave_ifaces))
+        port_ifaces = sorted(s_iface for _name, s_iface, _uuid in ports if s_iface)
+        argument = "team={}:{}".format(iface, ",".join(port_ifaces))
     return argument
 
 
@@ -1316,28 +1316,28 @@ def _get_dracut_znet_argument_from_connection(connection):
     return argument
 
 
-def get_slaves_from_connections(nm_client, slave_types, controller_specs):
-    """Get slaves of controller of given type specified by uuid or interface.
+def get_ports_from_connections(nm_client, port_types, controller_specs):
+    """Get ports of controller of given type specified by uuid or interface.
 
     :param nm_client: instance of NetworkManager client
     :type nm_client: NM.Client
-    :param slave_types: type of the slave - NM setting "slave-type" value (eg. "team")
-    :type slave_types: list(str)
+    :param port_types: type of the port - NM setting "slave-type" value (eg. "team")
+    :type port_types: list(str)
     :param controller_specs: a list containing sepcification of a controller:
                              interface name or connection uuid or both
     :type controller_specs: list(str)
-    :returns: slaves specified by name, interface and connection uuid
+    :returns: ports specified by name, interface and connection uuid
     :rtype: set((str,str,str))
     """
-    slaves = set()
+    ports = set()
     for con in nm_client.get_connections():
-        if not con.get_setting_connection().get_slave_type() in slave_types:
+        if not con.get_setting_connection().get_slave_type() in port_types:
             continue
         if con.get_setting_connection().get_master() in controller_specs:
             iface = get_iface_from_connection(nm_client, con.get_uuid())
             name = con.get_id()
-            slaves.add((name, iface, con.get_uuid()))
-    return slaves
+            ports.add((name, iface, con.get_uuid()))
+    return ports
 
 
 def get_config_file_connection_of_device(nm_client, device_name, device_hwaddr=None):
@@ -1365,7 +1365,7 @@ def get_config_file_connection_of_device(nm_client, device_name, device_hwaddr=N
 
         if con_type == NM_CONNECTION_TYPE_ETHERNET:
 
-            # Ignore slaves
+            # Ignore ports
             if con.get_setting_connection().get_master():
                 continue
 
@@ -1425,7 +1425,7 @@ def get_kickstart_network_data(connection, nm_client, network_data_class):
     :returns: network_data object corresponding to the connection
     :rtype: network_data_class object instance
     """
-    # no network command for non-virtual device slaves
+    # no network command for non-virtual device ports
     if connection.get_connection_type() not in (NM_CONNECTION_TYPE_BOND, NM_CONNECTION_TYPE_TEAM):
         if connection.get_setting_connection().get_master():
             return None
@@ -1586,14 +1586,14 @@ def _update_bond_kickstart_network_data(nm_client, iface, connection, network_da
     :param network_data: kickstart configuration to be modified
     :type network_data: pykickstart NetworkData
     """
-    slaves = get_slaves_from_connections(
+    ports = get_ports_from_connections(
         nm_client,
         ['bond'],
         [iface, connection.get_uuid()]
     )
-    if slaves:
-        slave_ifaces = sorted(s_iface for _name, s_iface, _uuid in slaves if s_iface)
-        network_data.bondslaves = ",".join(slave_ifaces)
+    if ports:
+        port_ifaces = sorted(s_iface for _name, s_iface, _uuid in ports if s_iface)
+        network_data.bondslaves = ",".join(port_ifaces)
     s_bond = connection.get_setting_bond()
     if s_bond:
         option_list = []
@@ -1613,14 +1613,14 @@ def _update_bridge_kickstart_network_data(nm_client, iface, connection, network_
     :param network_data: kickstart configuration to be modified
     :type network_data: pykickstart NetworkData
     """
-    slaves = get_slaves_from_connections(
+    ports = get_ports_from_connections(
         nm_client,
         ['bridge'],
         [iface, connection.get_uuid()]
     )
-    if slaves:
-        slave_ifaces = sorted(s_iface for _name, s_iface, _uuid in slaves if s_iface)
-        network_data.bridgeslaves = ",".join(slave_ifaces)
+    if ports:
+        port_ifaces = sorted(s_iface for _name, s_iface, _uuid in ports if s_iface)
+        network_data.bridgeslaves = ",".join(port_ifaces)
     s_bridge = connection.get_setting_bridge()
     if s_bridge:
         bridge_options = []
@@ -1640,15 +1640,15 @@ def _update_team_kickstart_network_data(nm_client, iface, connection, network_da
     :param network_data: kickstart configuration to be modified
     :type network_data: pykickstart NetworkData
     """
-    slaves = get_slaves_from_connections(
+    ports = get_ports_from_connections(
         nm_client,
         ['team'],
         [iface, connection.get_uuid()]
     )
-    if slaves:
-        slave_list = sorted((s_iface, s_uuid) for _name, s_iface, s_uuid in slaves if s_iface)
+    if ports:
+        port_list = sorted((s_iface, s_uuid) for _name, s_iface, s_uuid in ports if s_iface)
 
-    for s_iface, s_uuid in slave_list:
+    for s_iface, s_uuid in port_list:
         team_port_cfg = get_team_port_config_from_connection(nm_client, s_uuid) or ""
         network_data.teamslaves.append((s_iface, team_port_cfg))
 

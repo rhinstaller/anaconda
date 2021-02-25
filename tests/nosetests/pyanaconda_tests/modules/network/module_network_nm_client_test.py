@@ -21,7 +21,7 @@ import unittest
 from unittest.mock import Mock, patch
 from textwrap import dedent
 
-from pyanaconda.modules.network.nm_client import get_slaves_from_connections, \
+from pyanaconda.modules.network.nm_client import get_ports_from_connections, \
     get_dracut_arguments_from_connection, get_config_file_connection_of_device, \
     get_kickstart_network_data, NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS
 from pyanaconda.core.kickstart.commands import NetworkData
@@ -52,7 +52,7 @@ class NMClientTestCase(unittest.TestCase):
         return objects
 
     @patch("pyanaconda.modules.network.nm_client.get_iface_from_connection")
-    def get_slaves_from_connections_test(self, get_iface_from_connection):
+    def get_ports_from_connections_test(self, get_iface_from_connection):
         nm_client = Mock()
 
         ENS3_UUID = "50f1ddc3-cfa5-441d-8afe-729213f5ca92"
@@ -99,35 +99,35 @@ class NMClientTestCase(unittest.TestCase):
         get_iface_from_connection.side_effect = lambda nm_client, uuid: uuid_to_iface[uuid]
 
         self.assertSetEqual(
-            get_slaves_from_connections(nm_client, "team", []),
+            get_ports_from_connections(nm_client, "team", []),
             set()
         )
         self.assertSetEqual(
-            get_slaves_from_connections(nm_client, "bridge", ["bridge0"]),
+            get_ports_from_connections(nm_client, "bridge", ["bridge0"]),
             set()
         )
         self.assertSetEqual(
-            get_slaves_from_connections(nm_client, "team", ["team2"]),
+            get_ports_from_connections(nm_client, "team", ["team2"]),
             set()
         )
         # Matching of any specification is enough
         self.assertSetEqual(
-            get_slaves_from_connections(nm_client, "team", ["team_nonexisting", TEAM1_UUID]),
+            get_ports_from_connections(nm_client, "team", ["team_nonexisting", TEAM1_UUID]),
             set([("ens11", "ens11", ENS11_UUID)])
         )
         self.assertSetEqual(
-            get_slaves_from_connections(nm_client, "team", ["team0"]),
+            get_ports_from_connections(nm_client, "team", ["team0"]),
             set([("team_0_slave_1", "ens7", ENS7_UUID), ("team_0_slave_2", "ens8", ENS8_UUID)])
         )
         self.assertSetEqual(
-            get_slaves_from_connections(nm_client, "team", [TEAM1_UUID]),
+            get_ports_from_connections(nm_client, "team", [TEAM1_UUID]),
             set([("ens11", "ens11", ENS11_UUID)])
         )
 
     @patch("pyanaconda.modules.network.nm_client.get_connections_available_for_iface")
-    @patch("pyanaconda.modules.network.nm_client.get_slaves_from_connections")
+    @patch("pyanaconda.modules.network.nm_client.get_ports_from_connections")
     @patch("pyanaconda.modules.network.nm_client.is_s390")
-    def get_dracut_arguments_from_connection_test(self, is_s390, get_slaves_from_connections_mock,
+    def get_dracut_arguments_from_connection_test(self, is_s390, get_ports_from_connections_mock,
                                                   get_connections_available_for_iface):
         nm_client = Mock()
 
@@ -346,7 +346,7 @@ class NMClientTestCase(unittest.TestCase):
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        get_slaves_from_connections_mock.return_value = set([
+        get_ports_from_connections_mock.return_value = set([
             ("ens7", "ens7", "6a6b4586-1e4c-451f-87fa-09b059ceba3d"),
             ("ens8", "ens8", "ac4a0747-d1ea-4119-903b-18f3adad9116"),
         ])
@@ -654,12 +654,12 @@ class NMClientTestCase(unittest.TestCase):
             get_config_file_connection_of_device(nm_client, "ens3"),
             ENS3_UUID
         )
-        # slave conections are ignored
+        # port conections are ignored
         self.assertEqual(
             get_config_file_connection_of_device(nm_client, "ens7"),
             ENS7_UUID
         )
-        # slave conections are ignored
+        # port conections are ignored
         self.assertEqual(
             get_config_file_connection_of_device(nm_client, "ens9"),
             ""
@@ -721,10 +721,10 @@ class NMClientTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.network.nm_client.get_team_port_config_from_connection")
-    @patch("pyanaconda.modules.network.nm_client.get_slaves_from_connections")
+    @patch("pyanaconda.modules.network.nm_client.get_ports_from_connections")
     @patch("pyanaconda.modules.network.nm_client.get_iface_from_connection")
     def get_kicstart_network_data_test(self, get_iface_from_connection,
-                                       get_slaves_from_connections_mock,
+                                       get_ports_from_connections_mock,
                                        get_team_port_config_from_connection):
         """Test get_kickstart_network_data."""
         nm_client = Mock()
@@ -767,7 +767,7 @@ class NMClientTestCase(unittest.TestCase):
                           (True, "primary", "ens8"),
                           (False, "", "")]
 
-        slaves_of_iface = {
+        ports_of_iface = {
             "bond0": set([("bond0_slave_2", "ens8", ENS8_UUID),
                           ("bond0_slave_1", "ens7", ENS7_UUID)]),
             "team0": set([("team0_slave_1", "ens7", ENS7_UUID),
@@ -775,8 +775,8 @@ class NMClientTestCase(unittest.TestCase):
             "bridge0": set([("bridge0_slave_1", "ens8", ENS8_UUID)]),
             "bridge1": set([("bond0", "bond0", BOND0_UUID)]),
         }
-        get_slaves_from_connections_mock.side_effect = \
-            lambda _client, _types, ids: slaves_of_iface[ids[0]]
+        get_ports_from_connections_mock.side_effect = \
+            lambda _client, _types, ids: ports_of_iface[ids[0]]
 
         uuid_to_port_config = {
             ENS7_UUID: '{"prio":100,"sticky":true}',

@@ -325,7 +325,7 @@ class NetworkControlBox(GObject.GObject):
                                    for value in ["ipv4", "ipv6", "dns", "route"]]
         do_not_show_in_refresh += ["%s_wired_%s" % (widget, value)
                                    for widget in ["heading", "label"]
-                                   for value in ["slaves", "vlanid", "parent"]]
+                                   for value in ["ports", "vlanid", "parent"]]
 
         for ident in not_supported + do_not_show_in_refresh:
             self.builder.get_object(ident).set_no_show_all(True)
@@ -832,7 +832,7 @@ class NetworkControlBox(GObject.GObject):
 
         self._refresh_device_type_page(dev_cfg)
         self._refresh_header_ui(dev_cfg, state)
-        self._refresh_slaves(dev_cfg)
+        self._refresh_ports(dev_cfg)
         self._refresh_parent_vlanid(dev_cfg)
         self._refresh_speed_hwaddr(dev_cfg, state)
         self._refresh_ap(dev_cfg, state)
@@ -913,15 +913,15 @@ class NetworkControlBox(GObject.GObject):
         ssid_str = NM.utils_ssid_to_utf8(active_ssid)
         selected_network_label.set_label(ssid_str)
 
-    def _refresh_slaves(self, dev_cfg):
+    def _refresh_ports(self, dev_cfg):
         if dev_cfg.device_type in [NM.DeviceType.BOND,
                                    NM.DeviceType.TEAM,
                                    NM.DeviceType.BRIDGE]:
-            slaves = ""
+            ports = ""
             device = self.client.get_device_by_iface(dev_cfg.device_name)
             if device:
-                slaves = ",".join(s.get_iface() for s in device.get_slaves())
-            self._set_device_info_value("wired", "slaves", slaves)
+                ports = ",".join(s.get_iface() for s in device.get_ports())
+            self._set_device_info_value("wired", "ports", ports)
 
     def _refresh_parent_vlanid(self, dev_cfg):
         if dev_cfg.device_type == NM.DeviceType.VLAN:
@@ -978,8 +978,8 @@ class NetworkControlBox(GObject.GObject):
         notebook = self.builder.get_object("notebook_types")
         if dev_type == NM.DeviceType.ETHERNET:
             notebook.set_current_page(0)
-            self.builder.get_object("heading_wired_slaves").hide()
-            self.builder.get_object("label_wired_slaves").hide()
+            self.builder.get_object("heading_wired_ports").hide()
+            self.builder.get_object("label_wired_ports").hide()
             self.builder.get_object("heading_wired_vlanid").hide()
             self.builder.get_object("label_wired_vlanid").hide()
             self.builder.get_object("heading_wired_parent").hide()
@@ -989,8 +989,8 @@ class NetworkControlBox(GObject.GObject):
                           NM.DeviceType.TEAM,
                           NM.DeviceType.BRIDGE]:
             notebook.set_current_page(0)
-            self.builder.get_object("heading_wired_slaves").show()
-            self.builder.get_object("label_wired_slaves").show()
+            self.builder.get_object("heading_wired_ports").show()
+            self.builder.get_object("label_wired_ports").show()
             self.builder.get_object("heading_wired_vlanid").hide()
             self.builder.get_object("label_wired_vlanid").hide()
             self.builder.get_object("heading_wired_parent").hide()
@@ -998,8 +998,8 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("remove_toolbutton").set_sensitive(True)
         elif dev_type == NM.DeviceType.VLAN:
             notebook.set_current_page(0)
-            self.builder.get_object("heading_wired_slaves").hide()
-            self.builder.get_object("label_wired_slaves").hide()
+            self.builder.get_object("heading_wired_ports").hide()
+            self.builder.get_object("label_wired_ports").hide()
             self.builder.get_object("heading_wired_vlanid").show()
             self.builder.get_object("label_wired_vlanid").show()
             self.builder.get_object("heading_wired_parent").show()

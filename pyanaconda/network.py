@@ -462,28 +462,28 @@ def status_message(nm_client):
                        if not is_libvirt_device(d.get_ip_iface() or d.get_iface())]
         if active_devs:
 
-            slaves = {}
+            ports = {}
             ssids = {}
-            nonslaves = []
+            nonports = []
 
-            # first find slaves and wireless aps
+            # first find ports and wireless aps
             for device in active_devs:
-                device_slaves = []
+                device_ports = []
                 if hasattr(device, 'get_slaves'):
-                    device_slaves = [slave_dev.get_iface() for slave_dev in device.get_slaves()]
+                    device_ports = [port_dev.get_iface() for port_dev in device.get_slaves()]
                 iface = device.get_iface()
-                slaves[iface] = device_slaves
+                ports[iface] = device_ports
                 if device.get_device_type() == NM.DeviceType.WIFI:
                     ssid = ""
                     ap = device.get_active_access_point()
                     if ap:
                         ssid = ap.get_ssid().get_data().decode()
                     ssids[iface] = ssid
-            all_slaves = set(itertools.chain.from_iterable(slaves.values()))
-            nonslaves = [dev for dev in active_devs if dev.get_iface() not in all_slaves]
+            all_ports = set(itertools.chain.from_iterable(ports.values()))
+            nonports = [dev for dev in active_devs if dev.get_iface() not in all_ports]
 
-            if len(nonslaves) == 1:
-                device = nonslaves[0]
+            if len(nonports) == 1:
+                device = nonports[0]
                 iface = device.get_ip_iface() or device.get_iface()
                 device_type = device.get_device_type()
                 if device_type_is_supported_wired(device_type):
@@ -493,25 +493,25 @@ def status_message(nm_client):
                     msg = _("Wireless connected to %(access_point)s") \
                           % {"access_point": ssids[iface]}
                 elif device_type == NM.DeviceType.BOND:
-                    msg = _("Bond %(interface_name)s (%(list_of_slaves)s) connected") \
+                    msg = _("Bond %(interface_name)s (%(list_of_ports)s) connected") \
                           % {"interface_name": iface,
-                             "list_of_slaves": ",".join(slaves[iface])}
+                             "list_of_ports": ",".join(ports[iface])}
                 elif device_type == NM.DeviceType.TEAM:
-                    msg = _("Team %(interface_name)s (%(list_of_slaves)s) connected") \
+                    msg = _("Team %(interface_name)s (%(list_of_ports)s) connected") \
                           % {"interface_name": iface,
-                             "list_of_slaves": ",".join(slaves[iface])}
+                             "list_of_ports": ",".join(ports[iface])}
                 elif device_type == NM.DeviceType.BRIDGE:
-                    msg = _("Bridge %(interface_name)s (%(list_of_slaves)s) connected") \
+                    msg = _("Bridge %(interface_name)s (%(list_of_ports)s) connected") \
                           % {"interface_name": iface,
-                             "list_of_slaves": ",".join(slaves[iface])}
+                             "list_of_ports": ",".join(ports[iface])}
                 elif device_type == NM.DeviceType.VLAN:
                     parent = device.get_parent()
                     vlanid = device.get_vlan_id()
                     msg = _("VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
                         % {"interface_name": iface, "parent_device": parent, "vlanid": vlanid}
-            elif len(nonslaves) > 1:
+            elif len(nonports) > 1:
                 devlist = []
-                for device in nonslaves:
+                for device in nonports:
                     iface = device.get_ip_iface() or device.get_iface()
                     device_type = device.get_device_type()
                     if device_type_is_supported_wired(device_type):
@@ -519,11 +519,11 @@ def status_message(nm_client):
                     elif device_type == NM.DeviceType.WIFI:
                         devlist.append("%s" % ssids[iface])
                     elif device_type == NM.DeviceType.BOND:
-                        devlist.append("%s (%s)" % (iface, ",".join(slaves[iface])))
+                        devlist.append("%s (%s)" % (iface, ",".join(ports[iface])))
                     elif device_type == NM.DeviceType.TEAM:
-                        devlist.append("%s (%s)" % (iface, ",".join(slaves[iface])))
+                        devlist.append("%s (%s)" % (iface, ",".join(ports[iface])))
                     elif device_type == NM.DeviceType.BRIDGE:
-                        devlist.append("%s (%s)" % (iface, ",".join(slaves[iface])))
+                        devlist.append("%s (%s)" % (iface, ",".join(ports[iface])))
                     elif device_type == NM.DeviceType.VLAN:
                         devlist.append("%s" % iface)
                 msg = _("Connected: %(list_of_interface_names)s") % {"list_of_interface_names": ", ".join(devlist)}
