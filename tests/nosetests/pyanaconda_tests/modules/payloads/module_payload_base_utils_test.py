@@ -44,7 +44,7 @@ class PayloadBaseUtilsTest(TestCase):
         with TemporaryDirectory() as temp:
             write_module_denylist(temp)
 
-            denylist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
+            denylist_file = os.path.join(temp, "etc/modprobe.d/anaconda-denylist.conf")
 
             self.assertTrue(os.path.isfile(denylist_file))
 
@@ -63,7 +63,7 @@ class PayloadBaseUtilsTest(TestCase):
         with TemporaryDirectory() as temp:
             write_module_denylist(temp)
 
-            denylist_file = os.path.join(temp, "etc/modprobe.d/anaconda-blacklist.conf")
+            denylist_file = os.path.join(temp, "etc/modprobe.d/anaconda-denylist.conf")
 
             self.assertFalse(os.path.isfile(denylist_file))
 
