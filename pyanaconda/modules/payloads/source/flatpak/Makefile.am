@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020  Red Hat, Inc.
+# Copyright (C) 2021  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -14,10 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = live_os hmc cdrom repo_files nfs url harddrive cdn closest_mirror rpm_ostree live_image flatpak
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-payload_moduledir = $(pkgpyexecdir)/modules/payloads/source
-payload_module_PYTHON = $(srcdir)/*.py
+flatpak_moduledir = $(pkgpyexecdir)/modules/payloads/source/flatpak
+flatpak_module_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

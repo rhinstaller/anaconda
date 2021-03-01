@@ -20,6 +20,8 @@ from blivet.size import Size
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
 
+__all__ = ["GetFlatpaksSizeTask"]
+
 
 class GetFlatpaksSizeTask(Task):
     """Task to find size of flatpaks from the local source on Silverblue."""
@@ -34,21 +36,24 @@ class GetFlatpaksSizeTask(Task):
 
     @property
     def name(self):
-        return "Find size of Flatpaks"
+        return "Find size of flatpaks"
 
     def run(self):
         """Find the size of flatpaks to install.
 
-        :return: the required size
-        :rtype: Size
+        :return: the required size in bytes
+        :rtype: int
         """
         flatpak_payload = FlatpakManager(self._sysroot)
 
-        # Initialize temporal repo to enable reading of the remote
-        flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
+        try:
+            # Initialize temporal repo to enable reading of the remote
+            flatpak_payload.initialize_with_path("/var/tmp/anaconda-flatpak-temp")
 
-        required_size = Size(flatpak_payload.get_required_size())
-        # Clean up temporal repo again
-        flatpak_payload.cleanup()
+            # Return the size in bytes.
+            required_size = Size(flatpak_payload.get_required_size())
+            return required_size.get_bytes()
 
-        return required_size
+        finally:
+            # Clean up temporal repo again
+            flatpak_payload.cleanup()
