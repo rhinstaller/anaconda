@@ -23,33 +23,8 @@ import stat
 
 from distutils.version import LooseVersion
 
-from pyanaconda.core.kernel import kernel_arguments
-from pyanaconda.core.util import mkdirChain
-
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
-
-def create_root_dir(sysroot):
-    """Create root directory on the installed system."""
-    mkdirChain(os.path.join(sysroot, "root"))
-
-
-def write_module_denylist(sysroot):
-    """Create module denylist based on the user preference.
-
-    Copy modules from modprobe.blacklist=<module> on cmdline to
-    /etc/modprobe.d/anaconda-denylist.conf so that modules will
-    continue to be added to a denylist when the system boots.
-    """
-    if "modprobe.blacklist" not in kernel_arguments:
-        return
-
-    mkdirChain(os.path.join(sysroot, "etc/modprobe.d"))
-    with open(os.path.join(sysroot, "etc/modprobe.d/anaconda-denylist.conf"), "w") as f:
-        f.write("# Module denylist written by anaconda\n")
-        for module in kernel_arguments.get("modprobe.blacklist").split():
-            f.write("blacklist %s\n" % module)
 
 
 def get_dir_size(directory):

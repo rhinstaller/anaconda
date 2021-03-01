@@ -23,8 +23,7 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.payloads.constants import SourceType, PayloadType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
-from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
@@ -134,9 +133,6 @@ class LiveOSModule(PayloadBase):
         self._check_source_availability("Installation task failed - source is not available!")
 
         return [
-            PrepareSystemForInstallationTask(
-                conf.target.system_root
-            ),
             InstallFromImageTask(
                 self._image_source,
                 conf.target.system_root
@@ -149,8 +145,4 @@ class LiveOSModule(PayloadBase):
         :returns: list of paths.
         :rtype: List
         """
-        return [
-            CopyDriverDisksFilesTask(
-                conf.target.system_root
-            )
-        ]
+        return []

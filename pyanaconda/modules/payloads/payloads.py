@@ -17,19 +17,24 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.payloads.constants import PayloadType
-from pyanaconda.modules.payloads.source.factory import SourceFactory
-from pyanaconda.modules.payloads.payload.factory import PayloadFactory
+from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask, \
+    CopyDriverDisksFilesTask
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
+from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+__all__ = ["PayloadsService"]
 
 
 class PayloadsService(KickstartService):
@@ -183,11 +188,16 @@ class PayloadsService(KickstartService):
 
         :return: list of tasks
         """
-        tasks = []
+        if not self.active_payload:
+            return []
 
-        if self.active_payload:
-            tasks += self.active_payload.install_with_tasks()
+        tasks = [
+            PrepareSystemForInstallationTask(
+                sysroot=conf.target.system_root
+            )
+        ]
 
+        tasks += self.active_payload.install_with_tasks()
         return tasks
 
     def post_install_with_tasks(self):
@@ -195,11 +205,16 @@ class PayloadsService(KickstartService):
 
         :return: a list of tasks
         """
-        tasks = []
+        if not self.active_payload:
+            return []
 
-        if self.active_payload:
-            tasks += self.active_payload.post_install_with_tasks()
+        tasks = [
+            CopyDriverDisksFilesTask(
+                sysroot=conf.target.system_root
+            )
+        ]
 
+        tasks += self.active_payload.post_install_with_tasks()
         return tasks
 
     def teardown_with_tasks(self):

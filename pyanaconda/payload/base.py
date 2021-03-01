@@ -122,7 +122,7 @@ class Payload(metaclass=ABCMeta):
     def pre_install(self):
         """Perform pre-installation tasks."""
         # FIXME: Merge the pre-installation tasks with the installation tasks.
-        from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask
+        from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask
         PrepareSystemForInstallationTask(conf.target.system_root).run()
 
     def install(self):
@@ -134,5 +134,5 @@ class Payload(metaclass=ABCMeta):
 
         # write out static config (storage, modprobe, keyboard, ??)
         #   kickstart should handle this before we get here
-        from pyanaconda.modules.payloads.base.initialization import CopyDriverDisksFilesTask
+        from pyanaconda.modules.payloads.installation import CopyDriverDisksFilesTask
         CopyDriverDisksFilesTask(conf.target.system_root).run()

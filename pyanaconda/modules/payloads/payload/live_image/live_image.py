@@ -113,7 +113,4 @@ class LiveImageModule(PayloadBase):
 
         * Copy Driver Disk files to the resulting system
         """
-        # return [
-        #     CopyDriverDisksFilesTask(conf.target.system_root)
-        # ]
         return []

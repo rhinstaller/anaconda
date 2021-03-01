@@ -27,8 +27,7 @@ from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_sh
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.payloads.constants import SourceType, PayloadType, SourceState
-from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
 from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
@@ -136,9 +135,8 @@ class LiveOSModuleTestCase(unittest.TestCase):
         self.module.set_sources([source])
 
         tasks = self.module.install_with_tasks()
-        self.assertEqual(len(tasks), 2)
-        self.assertIsInstance(tasks[0], PrepareSystemForInstallationTask)
-        self.assertIsInstance(tasks[1], InstallFromImageTask)
+        self.assertEqual(len(tasks), 1)
+        self.assertIsInstance(tasks[0], InstallFromImageTask)
 
     def install_with_task_no_source_test(self):
         """Test Live OS install with tasks with no source fail."""
@@ -148,5 +146,4 @@ class LiveOSModuleTestCase(unittest.TestCase):
     def post_install_with_tasks_test(self):
         """Test Live OS post installation configuration task."""
         tasks = self.module.post_install_with_tasks()
-        self.assertEqual(len(tasks), 1)
-        self.assertIsInstance(tasks[0], CopyDriverDisksFilesTask)
+        self.assertEqual(len(tasks), 0)
