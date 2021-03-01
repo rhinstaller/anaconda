@@ -318,6 +318,20 @@ class ChangeOSTreeRemoteTask(Task):
         return "Change OSTree remote"
 
     def run(self):
+        """Run the task.
+
+        At the beginning of the installation, we use the physical root
+        as sysroot, because we haven't yet made a deployment.
+
+        At the end of the installation, we use the system root as sysroot.
+        Following up on the "remote delete" earlier, we removed the remote
+        from /ostree/repo/config. But we want it in /etc, so re-add it to
+        /etc/ostree/remotes.d, using the sysroot path. However, we ignore
+        the case where the remote already exists, which occurs when the
+        content itself provides the remote config file. Note here we use
+        the deployment as sysroot, because it's that version of /etc that
+        we want.
+        """
         cancellable = None
 
         sysroot_file = Gio.File.new_for_path(self._root)
@@ -545,8 +559,13 @@ class PullRemoteAndDeleteTask(Task):
 
 
 class SetSystemRootTask(Task):
+    """The installation task for setting up the system root."""
 
     def __init__(self, physroot):
+        """Create a new task.
+
+        :param str physroot: path to the physical root
+        """
         super().__init__()
         self._physroot = physroot
 
@@ -555,6 +574,7 @@ class SetSystemRootTask(Task):
         return "Set OSTree system root"
 
     def run(self):
+        """Reload and find the path to the new deployment."""
         sysroot_file = Gio.File.new_for_path(self._physroot)
         sysroot = OSTree.Sysroot.new(sysroot_file)
         sysroot.load(None)

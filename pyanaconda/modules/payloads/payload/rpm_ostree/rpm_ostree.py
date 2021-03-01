@@ -18,8 +18,13 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
+from pyanaconda.modules.payloads.payload.rpm_ostree.installation import InitOSTreeFsAndRepoTask, \
+    ChangeOSTreeRemoteTask, PullRemoteAndDeleteTask, DeployOSTreeTask, SetSystemRootTask, \
+    CopyBootloaderDataTask, PrepareOSTreeMountTargetsTask, ConfigureBootloader, \
+    TearDownOSTreeMountTargetsTask
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 
@@ -28,6 +33,14 @@ log = get_module_logger(__name__)
 
 class RPMOSTreeModule(PayloadBase):
     """The RPM OSTree payload module."""
+
+    def __init__(self):
+        super().__init__()
+        self._internal_mounts = []
+
+        # Don't provide the kernel version list. This
+        # payload handles the bootloader configuration.
+        self.set_kernel_version_list([])
 
     def for_publication(self):
         """Get the interface used to publish this source."""
@@ -69,13 +82,102 @@ class RPMOSTreeModule(PayloadBase):
 
         :return: list of tasks
         """
-        # TODO: Implement this method
-        return []
+        ostree_source = self._get_source(SourceType.RPM_OSTREE)
+
+        if not ostree_source:
+            log.debug("No OSTree RPM source is available.")
+            return []
+
+        tasks = [
+            InitOSTreeFsAndRepoTask(
+                physroot=conf.target.physical_root
+            ),
+            ChangeOSTreeRemoteTask(
+                data=ostree_source.configuration,
+                use_root=False,
+                root=conf.target.physical_root
+            ),
+            PullRemoteAndDeleteTask(
+                data=ostree_source.configuration
+            ),
+            DeployOSTreeTask(
+                data=ostree_source.configuration,
+                sysroot=conf.target.physical_root
+            ),
+            SetSystemRootTask(
+                physroot=conf.target.physical_root
+            ),
+            CopyBootloaderDataTask(
+                sysroot=conf.target.system_root,
+                physroot=conf.target.physical_root
+            ),
+            PrepareOSTreeMountTargetsTask(
+                sysroot=conf.target.system_root,
+                physroot=conf.target.physical_root,
+                source_config=ostree_source.configuration
+            )
+        ]
+
+        self._collect_mount_points_on_success(tasks)
+        return tasks
+
+    def _collect_mount_points_on_success(self, tasks):
+        """Collect mount points from successful tasks.
+
+        Ignore tasks that doesn't return a list of mount points.
+
+        :param tasks: a list of tasks
+        """
+        for task in tasks:
+            if isinstance(task, PrepareOSTreeMountTargetsTask):
+                task.succeeded_signal.connect(
+                    lambda t=task: self._add_internal_mounts(t.get_result())
+                )
+
+    def _add_internal_mounts(self, mount_points):
+        """Add mount points that will have to be unmounted.
+
+        :param mount_points: a list of mount points
+        """
+        self._internal_mounts.extend(mount_points)
+        log.debug("Internal mounts are set to: %s", self._internal_mounts)
 
     def post_install_with_tasks(self):
         """Execute post installation steps.
 
         :return: list of tasks
         """
-        # TODO: Implement this method
-        return []
+        ostree_source = self._get_source(SourceType.RPM_OSTREE)
+
+        if not ostree_source:
+            log.debug("No OSTree RPM source is available.")
+            return []
+
+        return [
+            ChangeOSTreeRemoteTask(
+                data=ostree_source.configuration,
+                use_root=True,
+                root=conf.target.system_root
+            ),
+            ConfigureBootloader(
+                sysroot=conf.target.system_root,
+                is_dirinstall=conf.target.is_directory
+            )
+        ]
+
+    def tear_down_with_tasks(self):
+        """Returns teardown tasks for this payload.
+
+        Clean up everything after this payload.
+
+        :return: a list of tasks
+        """
+        tasks = super().tear_down_with_tasks()
+
+        tasks.append(
+            TearDownOSTreeMountTargetsTask(
+                mount_points=self._internal_mounts
+            )
+        )
+
+        return tasks

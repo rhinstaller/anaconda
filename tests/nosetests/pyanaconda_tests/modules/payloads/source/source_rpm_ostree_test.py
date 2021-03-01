@@ -93,7 +93,7 @@ class OSTreeSourceTestCase(unittest.TestCase):
 
     def required_space_test(self):
         """Test the required_space property."""
-        self.assertEqual(self.module.required_space, 0)
+        self.assertEqual(self.module.required_space, 500000000)
 
     def get_state_test(self):
         """Test the source state."""
